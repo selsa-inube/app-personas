@@ -51,7 +51,7 @@ const stroke = {
   },
   light: {
     regular: palette.neutral.N10,
-    hover: palette.neutral.n0,
+    hover: palette.neutral.N0,
     disabled: palette.neutral.N60,
   },
   link: {
