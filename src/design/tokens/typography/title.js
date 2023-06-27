@@ -1,0 +1,25 @@
+const title = {
+  large: {
+    font: "Roboto, sans-serif",
+    lineHeight: "28px",
+    size: "22px",
+    tracking: "0",
+    weight: "400",
+  },
+  medium: {
+    font: "Roboto, sans-serif",
+    lineHeight: "24px",
+    size: "16px",
+    tracking: "0.15",
+    weight: "500",
+  },
+  small: {
+    font: "Roboto, sans-serif",
+    lineHeight: "20px",
+    size: "14px",
+    tracking: "0.1",
+    weight: "500",
+  },
+};
+
+export { title };
