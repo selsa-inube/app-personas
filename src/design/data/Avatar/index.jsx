@@ -1,6 +1,7 @@
-import { Stack } from "../../layout/Stack";
-import { StyledAvatar } from "./styles";
 import { MdPersonOutline } from "react-icons/md";
+import { Stack } from "../../layout/Stack";
+
+import { StyledAvatar } from "./styles";
 
 function Avatar() {
   return (
