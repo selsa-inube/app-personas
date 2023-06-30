@@ -25,9 +25,11 @@ function Text(props) {
   );
 }
 
+const as = ["p", "label", "h1", "h2", "h3", "h4", "h5", "h6", "span"];
+
 Text.propTypes = {
-  children: PropTypes.string,
-  as: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  as: PropTypes.oneOf(as),
   margin: PropTypes.string,
   padding: PropTypes.string,
   color: PropTypes.string,
