@@ -20,8 +20,8 @@ const StyledText = styled.p`
     inube.typography[type][size].weight};
 
   letter-spacing: ${({ type, size, theme }) =>
-    theme.typography?.[type]?.[size]?.traking ||
-    inube.typography[type][size].traking};
+    theme.typography?.[type]?.[size]?.tracking ||
+    inube.typography[type][size].tracking};
 
   line-height: ${({ type, size, theme }) =>
     theme.typography?.[type]?.[size]?.lineHeight ||
