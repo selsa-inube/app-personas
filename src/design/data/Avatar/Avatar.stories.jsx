@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { fondecom } from "../../../mocks/theme";
 
 const story = {
-  title: "design/navigation/Avatar",
+  title: "design/data/Avatar",
   components: [Avatar],
 };
 
