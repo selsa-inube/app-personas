@@ -9,6 +9,8 @@ const StyledAvatar = styled.figure`
   border-radius: 50%;
   width: 32px;
   height: 32px;
+  margin: 0;
+  cursor: pointer;
 
   &:hover {
     background-color: ${({ theme }) =>
