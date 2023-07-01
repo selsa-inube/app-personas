@@ -5,8 +5,10 @@ const StyledStack = styled.div`
   flex-direction: ${({ direction }) =>
     direction === "row" ? direction : "column"};
   justify-content: ${({ justifyContent }) => justifyContent};
-  align-items: center;
+  align-items: ${({ alignItems }) => alignItems};
+  align-content: ${({ alignContent }) => alignContent};
   gap: ${({ gap }) => gap};
+  flex-wrap: ${({ wrap }) => wrap};
   height: ${({ height }) => height};
   padding: ${({ padding }) => padding};
   margin: ${({ margin }) => margin};
