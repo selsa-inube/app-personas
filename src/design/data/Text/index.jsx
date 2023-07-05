@@ -10,6 +10,7 @@ function Text(props) {
     color = "dark",
     type = "body",
     size = "large",
+    textAlign = "start",
   } = props;
   return (
     <StyledText
@@ -19,6 +20,7 @@ function Text(props) {
       color={color}
       type={type}
       size={size}
+      textAlign={textAlign}
     >
       {children}
     </StyledText>
@@ -26,6 +28,7 @@ function Text(props) {
 }
 
 const as = ["p", "label", "h1", "h2", "h3", "h4", "h5", "h6", "span"];
+const textAlign = ["start", "end", "center", "justify"];
 
 Text.propTypes = {
   children: PropTypes.node.isRequired,
@@ -35,6 +38,7 @@ Text.propTypes = {
   color: PropTypes.string,
   type: PropTypes.string,
   size: PropTypes.string,
+  textAlign: PropTypes.oneOf(textAlign),
 };
 
 export { Text };

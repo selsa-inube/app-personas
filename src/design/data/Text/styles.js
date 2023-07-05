@@ -4,6 +4,8 @@ import { inube } from "../../tokens";
 const StyledText = styled.p`
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
+  text-align: ${({ textAlign }) => textAlign};
+
   color: ${({ color, theme }) =>
     theme.color?.text?.[color]?.regular || inube.color.text[color].regular};
 
