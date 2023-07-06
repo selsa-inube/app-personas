@@ -22,7 +22,7 @@ function NavLink(props) {
       onMouseOver={() => toggleHover(true)}
       onMouseLeave={() => toggleHover(false)}
     >
-      <StyledLink path={path} isSelected={isSelected}>
+      <StyledLink to={path} isSelected={isSelected}>
         <Stack width="100%" alignItems="center" justifyContent="space-between">
           <Stack alignItems="center" gap="24px">
             <StyledIcon isSelected={isSelected} isHovered={isHovered}>
