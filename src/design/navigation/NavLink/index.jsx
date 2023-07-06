@@ -9,7 +9,7 @@ import { StyledNavLink, StyledLink, StyledIcon } from "./styles";
 import { useState } from "react";
 
 function NavLink(props) {
-  const { icon, children, path, isSelected = false } = props;
+  const { icon, children, path, selected = false } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   function toggleHover(state) {
@@ -18,19 +18,19 @@ function NavLink(props) {
 
   return (
     <StyledNavLink
-      isSelected={isSelected}
+      selected={selected}
       onMouseOver={() => toggleHover(true)}
       onMouseLeave={() => toggleHover(false)}
     >
-      <StyledLink to={path} isSelected={isSelected}>
+      <StyledLink to={path} selected={selected}>
         <Stack width="100%" alignItems="center" justifyContent="space-between">
           <Stack alignItems="center" gap="24px">
-            <StyledIcon isSelected={isSelected} isHovered={isHovered}>
+            <StyledIcon selected={selected} isHovered={isHovered}>
               {icon}
             </StyledIcon>
             <Text size="medium">{children}</Text>
           </Stack>
-          {isSelected && <MdChevronRight size="24px" />}
+          {selected && <MdChevronRight size="24px" />}
         </Stack>
       </StyledLink>
     </StyledNavLink>
@@ -41,7 +41,7 @@ NavLink.propTypes = {
   icon: PropTypes.element.isRequired,
   children: PropTypes.string.isRequired,
   path: PropTypes.string,
-  isSelected: PropTypes.bool,
+  selected: PropTypes.bool,
 };
 
 export { NavLink };

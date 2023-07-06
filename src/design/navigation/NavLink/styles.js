@@ -4,8 +4,8 @@ import { inube } from "../../tokens";
 
 const StyledNavLink = styled.div`
   height: 40px;
-  background-color: ${({ theme, isSelected }) => {
-    if (isSelected) {
+  background-color: ${({ theme, selected }) => {
+    if (selected) {
       return (
         theme.color?.surface?.navLink?.selected ||
         inube.color.surface.navLink.selected
@@ -17,7 +17,7 @@ const StyledNavLink = styled.div`
     );
   }};
 
-  border-left-width: ${({ isSelected }) => (isSelected ? "4px" : "0px")};
+  border-left-width: ${({ selected }) => (selected ? "4px" : "0px")};
   border-left-style: solid;
   border-left-color: ${({ theme }) =>
     theme.color?.stroke?.dark?.regular || inube.color.stroke.dark.regular};
@@ -34,7 +34,7 @@ const StyledLink = styled(Link)`
   width: 100%;
   height: inherit;
   display: flex;
-  padding: ${({ isSelected }) => (isSelected ? "0 16px 0 12px" : "0 16px")};
+  padding: ${({ selected }) => (selected ? "0 16px 0 12px" : "0 16px")};
   text-decoration: none;
   cursor: pointer;
   color: ${({ theme }) =>
@@ -46,8 +46,8 @@ const StyledIcon = styled.div`
     display: block;
     height: 24px;
     width: 24px;
-    color: ${({ theme, isSelected, isHovered }) => {
-      if (isSelected || isHovered) {
+    color: ${({ theme, selected, isHovered }) => {
+      if (selected || isHovered) {
         return (
           theme.color?.text?.primary?.regular ||
           inube.color.text.primary.regular
