@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { StyledText } from "./styles";
+import { as, color, type, size, textAlign } from "./props";
 
 function Text(props) {
   const {
@@ -27,17 +28,14 @@ function Text(props) {
   );
 }
 
-const as = ["p", "label", "h1", "h2", "h3", "h4", "h5", "h6", "span"];
-const textAlign = ["start", "end", "center", "justify"];
-
 Text.propTypes = {
   children: PropTypes.node.isRequired,
   as: PropTypes.oneOf(as),
   margin: PropTypes.string,
   padding: PropTypes.string,
-  color: PropTypes.string,
-  type: PropTypes.string,
-  size: PropTypes.string,
+  color: PropTypes.oneOf(color),
+  type: PropTypes.oneOf(type),
+  size: PropTypes.oneOf(size),
   textAlign: PropTypes.oneOf(textAlign),
 };
 
