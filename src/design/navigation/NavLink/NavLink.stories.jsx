@@ -4,22 +4,28 @@ import { MdHouse } from "react-icons/md";
 
 import { fondecom } from "../../../mocks/theme";
 import { ThemeProvider } from "styled-components";
+import { props } from "./props";
 
 const story = {
   title: "design/navigation/NavLink",
   components: [NavLink],
+  tags: ["autodocs"],
+  argTypes: {
+    ...props,
+  },
 };
 
 export const Default = (args) => (
   <BrowserRouter>
-    <NavLink {...args}>Home</NavLink>
+    <NavLink {...args} />
   </BrowserRouter>
 );
 
 Default.args = {
   icon: <MdHouse />,
+  children: "Home",
   isSelected: false,
-  to: "/",
+  path: "/",
 };
 
 const theme = {
@@ -29,15 +35,16 @@ const theme = {
 export const Themed = (args) => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
-      <NavLink {...args}>Home</NavLink>
+      <NavLink {...args}>{args.children}</NavLink>
     </BrowserRouter>
   </ThemeProvider>
 );
 
 Themed.args = {
   icon: <MdHouse />,
+  children: "Home",
   isSelected: false,
-  to: "/",
+  path: "/",
 };
 
 export default story;
