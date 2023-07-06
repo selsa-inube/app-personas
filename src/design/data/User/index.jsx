@@ -5,17 +5,19 @@ import { Avatar } from "../Avatar";
 import { Text } from "../Text";
 import { StyledUser } from "./styles";
 
-function User({ username, businessUnit }) {
+function User(props) {
+  const { username, client } = props;
+
   return (
     <StyledUser>
       <Stack gap="16px">
-        <Stack direction="column">
-          <Text type="label" size="medium">
+        <Stack direction="column" justifyContent="center">
+          <Text type="label" size="medium" textAlign="center">
             {username}
           </Text>
-          {businessUnit && (
-            <Text type="body" size="small" color="gray">
-              {businessUnit}
+          {client && (
+            <Text type="body" size="small" color="gray" textAlign="center">
+              {client}
             </Text>
           )}
         </Stack>
@@ -27,7 +29,7 @@ function User({ username, businessUnit }) {
 
 User.propTypes = {
   username: PropTypes.string.isRequired,
-  businessUnit: PropTypes.string,
+  client: PropTypes.string,
 };
 
 export { User };

@@ -1,24 +1,35 @@
 import { ThemeProvider } from "styled-components";
 import { User } from ".";
 import { fondecom } from "../../../mocks/theme";
+import { props } from "./props";
 
 const story = {
   title: "design/data/User",
   components: [User],
+  tags: ["autodocs"],
+  argTypes: {
+    ...props,
+  },
 };
 
-export const Default = () => (
-  <User username="Leonardo Garzón" businessUnit="Fondecom" />
-);
+export const Default = (args) => <User {...args} />;
+Default.args = {
+  username: "Leonardo Garzón",
+  client: "Fondecom",
+};
 
 const theme = {
   ...fondecom,
 };
 
-export const Themed = () => (
+export const Themed = (args) => (
   <ThemeProvider theme={theme}>
-    <User username="Leonardo Garzón" />
+    <User {...args} />
   </ThemeProvider>
 );
+
+Themed.args = {
+  username: "Leonardo Garzón",
+};
 
 export default story;
