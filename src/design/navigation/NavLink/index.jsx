@@ -18,7 +18,7 @@ function NavLink(props) {
             <StyledIcon isSelected={true}>{icon}</StyledIcon>
             <Text size="medium">{children}</Text>
           </Stack>
-          <MdChevronRight size="24px" />
+          {isSelected && <MdChevronRight size="24px" />}
         </Stack>
       </StyledLink>
     </StyledNavLink>
