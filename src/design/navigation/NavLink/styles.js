@@ -34,7 +34,7 @@ const StyledLink = styled(Link)`
   width: 100%;
   height: inherit;
   display: flex;
-  padding: 0 16px;
+  padding: ${({ isSelected }) => (isSelected ? "0 16px 0 12px" : "0 16px")};
   text-decoration: none;
   cursor: pointer;
   color: ${({ theme }) =>
@@ -46,8 +46,8 @@ const StyledIcon = styled.div`
     display: block;
     height: 24px;
     width: 24px;
-    color: ${({ theme, isSelected }) => {
-      if (isSelected) {
+    color: ${({ theme, isSelected, isHovered }) => {
+      if (isSelected || isHovered) {
         return (
           theme.color?.text?.primary?.regular ||
           inube.color.text.primary.regular

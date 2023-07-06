@@ -6,16 +6,28 @@ import { Stack } from "../../layout/Stack";
 import { MdChevronRight } from "react-icons/md";
 
 import { StyledNavLink, StyledLink, StyledIcon } from "./styles";
+import { useState } from "react";
 
 function NavLink(props) {
-  const { icon, children, path, isSelected } = props;
+  const { icon, children, path, isSelected = false } = props;
+  const [isHovered, setIsHovered] = useState(false);
+
+  function toggleHover(state) {
+    setIsHovered(state);
+  }
 
   return (
-    <StyledNavLink isSelected={isSelected}>
-      <StyledLink path={path}>
+    <StyledNavLink
+      isSelected={isSelected}
+      onMouseOver={() => toggleHover(true)}
+      onMouseLeave={() => toggleHover(false)}
+    >
+      <StyledLink path={path} isSelected={isSelected}>
         <Stack width="100%" alignItems="center" justifyContent="space-between">
           <Stack alignItems="center" gap="24px">
-            <StyledIcon isSelected={true}>{icon}</StyledIcon>
+            <StyledIcon isSelected={isSelected} isHovered={isHovered}>
+              {icon}
+            </StyledIcon>
             <Text size="medium">{children}</Text>
           </Stack>
           {isSelected && <MdChevronRight size="24px" />}
