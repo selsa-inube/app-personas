@@ -1,11 +1,15 @@
 import PropTypes from "prop-types";
+import { useLocation, Outlet } from "react-router-dom";
+
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
 
-import { StyledPage, StyledContent } from "./styles";
+import { StyledPage, StyledContent, StyledMain } from "./styles";
 
 function Page(props) {
-  const { header, nav, currentLocation } = props;
+  const currentLocation = useLocation().pathname;
+
+  const { header, nav } = props;
 
   return (
     <StyledPage>
@@ -20,7 +24,9 @@ function Page(props) {
           sections={nav.sections}
           currentLocation={currentLocation}
         />
-        <main></main>
+        <StyledMain>
+          <Outlet />
+        </StyledMain>
       </StyledContent>
     </StyledPage>
   );
@@ -36,7 +42,6 @@ Page.propTypes = {
     title: PropTypes.string,
     sections: PropTypes.array,
   }),
-  currentLocation: PropTypes.string.isRequired,
 };
 
 export { Page };

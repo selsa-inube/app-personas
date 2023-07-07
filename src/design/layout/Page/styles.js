@@ -12,4 +12,8 @@ const StyledContent = styled.div`
   grid-template-columns: auto 1fr;
 `;
 
-export { StyledPage, StyledContent };
+const StyledMain = styled.main`
+  padding: 32px 64px 64px;
+`;
+
+export { StyledPage, StyledContent, StyledMain };
