@@ -4,12 +4,14 @@ import { User } from "../../data/User";
 
 import { StyledHeader, StyledLogo, StyledUser } from "./styles";
 
-function Header({ logoURL, username, businessUnit }) {
+function Header(props) {
+  const { logoURL, username, client } = props;
+
   return (
     <StyledHeader>
       <StyledLogo src={logoURL} />
       <StyledUser>
-        <User username={username} businessUnit={businessUnit} />
+        <User username={username} client={client} />
       </StyledUser>
     </StyledHeader>
   );
@@ -18,7 +20,7 @@ function Header({ logoURL, username, businessUnit }) {
 Header.propTypes = {
   logoURL: PropTypes.string,
   username: PropTypes.string.isRequired,
-  businessUnit: PropTypes.string,
+  client: PropTypes.string,
 };
 
 export { Header };
