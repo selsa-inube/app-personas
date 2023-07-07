@@ -1,4 +1,11 @@
 import PropTypes from "prop-types";
+import {
+  direction,
+  justifyContent,
+  alignItems,
+  alignContent,
+  wrap,
+} from "./props";
 
 import { StyledStack } from "./styles";
 
@@ -11,6 +18,7 @@ function Stack(props) {
     alignContent = "normal",
     gap = "0px",
     height = "auto",
+    width = "auto",
     padding = "0px",
     margin = "0px",
     wrap = "nowrap",
@@ -23,6 +31,7 @@ function Stack(props) {
       alignContent={alignContent}
       gap={gap}
       height={height}
+      width={width}
       padding={padding}
       margin={margin}
       wrap={wrap}
@@ -31,31 +40,6 @@ function Stack(props) {
     </StyledStack>
   );
 }
-
-const direction = ["row", "column", "row-reverse", "column-reverse"];
-const justifyContent = [
-  "flex-start",
-  "flex-end",
-  "center",
-  "space-between",
-  "space-around",
-  "space-evenly",
-  "start",
-  "end",
-  "left",
-  "right",
-];
-const alignItems = ["flex-start", "flex-end", "center", "stretch", "baseline"];
-const alignContent = [
-  "normal",
-  "flex-start",
-  "flex-end",
-  "center",
-  "stretch",
-  "space-between",
-  "space-around",
-];
-const wrap = ["nowrap", "wrap", "wrap-reverse"];
 
 export { Stack };
 
@@ -67,6 +51,7 @@ Stack.propTypes = {
   alignContent: PropTypes.oneOf(alignContent),
   gap: PropTypes.string,
   height: PropTypes.string,
+  width: PropTypes.string,
   padding: PropTypes.string,
   margin: PropTypes.string,
   wrap: PropTypes.oneOf(wrap),

@@ -1,21 +1,38 @@
 import { Stack } from "..";
+import { props } from "../props";
 import { Square } from "./Square";
 
 const story = {
   title: "design/layout/Stack",
   components: [Stack],
+  tags: ["autodocs"],
+  argTypes: {
+    ...props,
+  },
 };
 
 function Squares() {
-  return new Array(10).fill(null);
+  const squares = [];
+  for (let i = 0; i < 10; i++) {
+    squares.push(<Square key={i} number={i} />);
+  }
+
+  return squares;
 }
 
-export const Row = () => (
-  <Stack gap="8px">
-    {Squares().map((square, index) => (
-      <Square key={index} />
-    ))}
-  </Stack>
-);
+export const Row = (args) => <Stack {...args}>{args.children}</Stack>;
+Row.args = {
+  children: Squares(),
+  gap: "8px",
+  direction: "row",
+  justifyContent: "flex-start",
+  alignItems: "stretch",
+  alignContent: "normal",
+  wrap: "nowrap",
+  height: "auto",
+  width: "auto",
+  padding: "0px",
+  margin: "0px",
+};
 
 export default story;
