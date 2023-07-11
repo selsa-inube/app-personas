@@ -10,7 +10,7 @@ const props = {
   path: {
     description: "Controls the URL that the link points to",
   },
-  isSelected: {
+  selected: {
     description: "Controls if the link is currently selected",
   },
 };

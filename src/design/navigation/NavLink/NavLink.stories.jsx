@@ -24,7 +24,7 @@ export const Default = (args) => (
 Default.args = {
   icon: <MdHouse />,
   children: "Home",
-  isSelected: false,
+  selected: false,
   path: "/",
 };
 
@@ -43,7 +43,7 @@ export const Themed = (args) => (
 Themed.args = {
   icon: <MdHouse />,
   children: "Home",
-  isSelected: false,
+  selected: false,
   path: "/",
 };
 
