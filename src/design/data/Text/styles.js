@@ -6,8 +6,18 @@ const StyledText = styled.p`
   padding: ${({ padding }) => padding};
   text-align: ${({ textAlign }) => textAlign};
 
-  color: ${({ color, theme }) =>
-    theme.color?.text?.[color]?.regular || inube.color.text[color].regular};
+  color: ${({ appearance, theme, parentHover }) => {
+    if (!parentHover) {
+      return (
+        theme.color?.text?.[appearance]?.regular ||
+        inube.color.text[appearance].regular
+      );
+    }
+    return (
+      theme.color?.text?.[appearance]?.hover ||
+      inube.color.text[appearance].hover
+    );
+  }};
 
   font-family: ${({ type, size, theme }) =>
     theme.typography?.[type]?.[size]?.font ||
@@ -28,6 +38,19 @@ const StyledText = styled.p`
   line-height: ${({ type, size, theme }) =>
     theme.typography?.[type]?.[size]?.lineHeight ||
     inube.typography[type][size].lineHeight};
+
+  &:hover {
+    cursor: ${({ cursorHover }) => (cursorHover ? "pointer" : "normal")};
+
+    color: ${({ theme, appearance, cursorHover }) => {
+      if (cursorHover) {
+        return (
+          theme.color?.text?.[appearance]?.hover ||
+          inube.color.text[appearance].hover
+        );
+      }
+    }};
+  }
 `;
 
 export { StyledText };

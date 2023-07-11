@@ -18,10 +18,12 @@ Default.args = {
   as: "p",
   margin: "0px",
   padding: "0px",
-  color: "dark",
+  appearance: "dark",
   type: "body",
   size: "large",
   textAlign: "start",
+  cursorHover: false,
+  parentHover: false,
 };
 
 const theme = {

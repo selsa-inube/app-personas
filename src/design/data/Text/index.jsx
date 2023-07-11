@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { StyledText } from "./styles";
-import { as, color, type, size, textAlign } from "./props";
+import { as, appearance, type, size, textAlign } from "./props";
 
 function Text(props) {
   const {
@@ -8,20 +8,24 @@ function Text(props) {
     as = "p",
     margin = "0px",
     padding = "0px",
-    color = "dark",
+    appearance = "dark",
     type = "body",
     size = "large",
     textAlign = "start",
+    cursorHover = false,
+    parentHover = false,
   } = props;
   return (
     <StyledText
       as={as}
       margin={margin}
       padding={padding}
-      color={color}
+      appearance={appearance}
       type={type}
       size={size}
       textAlign={textAlign}
+      cursorHover={cursorHover}
+      parentHover={parentHover}
     >
       {children}
     </StyledText>
@@ -33,10 +37,12 @@ Text.propTypes = {
   as: PropTypes.oneOf(as),
   margin: PropTypes.string,
   padding: PropTypes.string,
-  color: PropTypes.oneOf(color),
+  appearance: PropTypes.oneOf(appearance),
   type: PropTypes.oneOf(type),
   size: PropTypes.oneOf(size),
   textAlign: PropTypes.oneOf(textAlign),
+  cursorHover: PropTypes.bool,
+  parentHover: PropTypes.bool,
 };
 
 export { Text };
