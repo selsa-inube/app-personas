@@ -1,15 +1,15 @@
 import { MdPersonOutline } from "react-icons/md";
-import { Stack } from "../../layout/Stack";
-
-import { StyledAvatar } from "./styles";
+import { Icon } from "../Icon";
 
 function Avatar() {
   return (
-    <StyledAvatar>
-      <Stack justifyContent="center" alignItems="center" height="32px">
-        <MdPersonOutline size="24px" />
-      </Stack>
-    </StyledAvatar>
+    <Icon
+      icon={<MdPersonOutline />}
+      variant="filled"
+      shape="circle"
+      spacing="compact"
+      allowHover={true}
+    />
   );
 }
 
