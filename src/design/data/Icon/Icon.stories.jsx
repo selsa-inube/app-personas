@@ -22,7 +22,8 @@ Default.args = {
   spacing: "wide",
   shape: "rectangle",
   variant: "none",
-  allowHover: false,
+  cursorHover: false,
+  parentHover: false,
 };
 
 const theme = {

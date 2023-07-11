@@ -13,7 +13,8 @@ function Icon(props) {
     disabled = false,
     shape = "rectangle",
     size = "24px",
-    allowHover = false,
+    cursorHover = false,
+    parentHover = false,
   } = props;
 
   return (
@@ -24,7 +25,8 @@ function Icon(props) {
       disabled={disabled}
       shape={shape}
       size={size}
-      allowHover={allowHover}
+      cursorHover={cursorHover}
+      parentHover={parentHover}
     >
       {icon}
     </StyledIcon>
@@ -39,7 +41,8 @@ Icon.propTypes = {
   disabled: PropTypes.bool,
   shape: PropTypes.oneOf(shape),
   size: PropTypes.string,
-  allowHover: PropTypes.bool,
+  cursorHover: PropTypes.bool,
+  parentHover: PropTypes.bool,
 };
 
 export { Icon };

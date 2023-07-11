@@ -41,8 +41,12 @@ const props = {
     description:
       "Indicates whether the background of the icon is a circle or a rectangle with its borders rounded.",
   },
-  allowHover: {
-    description: "Indicates whether the icon should have a hover state",
+  cursorHover: {
+    description: "Indicates whether the icon should react to a cursor hovering",
+  },
+  parentHover: {
+    description:
+      "Indicates if the icon should be display in hover state because its parent is hovered. This prop overrides whatever is defined in the cursorHover prop",
   },
 };
 

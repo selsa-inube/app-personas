@@ -23,15 +23,22 @@ const StyledIcon = styled.figure`
     }
   }};
 
-  color: ${({ theme, variant, appearance }) => {
+  color: ${({ theme, variant, appearance, parentHover }) => {
     if (variant === "filled") {
       return (
         theme.color?.text?.light?.regular || inube.color.text.light.regular
       );
-    } else {
+    }
+
+    if (!parentHover) {
       return (
         theme.color?.text?.[appearance]?.regular ||
         inube.color.text[appearance].regular
+      );
+    } else {
+      return (
+        theme.color?.text?.[appearance]?.hover ||
+        inube.color.text[appearance].hover
       );
     }
   }};
@@ -52,9 +59,9 @@ const StyledIcon = styled.figure`
   }
 
   &:hover {
-    cursor: ${({ allowHover }) => allowHover && "pointer"};
-    border-color: ${({ theme, allowHover, appearance }) => {
-      if (allowHover) {
+    cursor: ${({ cursorHover }) => cursorHover && "pointer"};
+    border-color: ${({ theme, cursorHover, appearance }) => {
+      if (cursorHover) {
         return (
           theme.color?.text?.[appearance]?.hover ||
           inube.color.text[appearance].hover
@@ -73,8 +80,8 @@ const StyledIcon = styled.figure`
   }
 
   &:hover svg {
-    color: ${({ theme, allowHover, variant, appearance }) => {
-      if (allowHover) {
+    color: ${({ theme, cursorHover, variant, appearance }) => {
+      if (cursorHover) {
         if (variant === "filled") {
           return (
             theme.color?.text?.light?.hover || inube.color.text.light.hover
