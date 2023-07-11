@@ -44,7 +44,9 @@ function Home() {
   return (
     <>
       <Stack gap="4px" direction="column">
-        <Text type="title">Bienvenido, Leonardo</Text>
+        <Text type="title" as="h1">
+          Bienvenido, Leonardo
+        </Text>
         <Text type="body" size="medium" color="gray">
           Aquí tienes un resumen de tus productos
         </Text>
