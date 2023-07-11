@@ -41,26 +41,4 @@ const StyledLink = styled(Link)`
     theme.color?.text?.dark?.regular || inube.color.text.dark.regular};
 `;
 
-const StyledIcon = styled.div`
-  & svg {
-    display: block;
-    height: 24px;
-    width: 24px;
-    color: ${({ theme, selected, isHovered }) => {
-      if (selected || isHovered) {
-        return (
-          theme.color?.text?.primary?.regular ||
-          inube.color.text.primary.regular
-        );
-      }
-      return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
-    }};
-  }
-
-  &:hover svg {
-    color: ${({ theme }) =>
-      theme.color?.text?.primary?.hover || inube.color.text.primary.hover};
-  }
-`;
-
-export { StyledNavLink, StyledLink, StyledIcon };
+export { StyledNavLink, StyledLink };
