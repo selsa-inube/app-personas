@@ -16,11 +16,6 @@ const StyledContainer = styled.div`
   border-color: ${({ theme }) =>
     theme.color?.stroke?.divider?.regular ||
     inube.color.stroke.divider.regular};
-
-  & svg {
-    height: 24px;
-    width: 24px;
-  }
 `;
 
 const StyledLink = styled(Link)`

@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 
 import { Text } from "../../../design/data/Text";
 import { Stack } from "../../../design/layout/Stack";
+import { Icon } from "../../../design/data/Icon";
 
 import { StyledQuickAccess, StyledContainer, StyledLink } from "./styles";
 
@@ -16,7 +17,7 @@ function QuickAccess(props) {
           {links.map((link) => (
             <StyledLink key={link.label} to={link.path}>
               <Stack alignItems="center" gap="24px" padding="8px 16px">
-                {link.icon}
+                <Icon icon={link.icon} spacing="none" appearance="dark" />
                 <Text size="medium">{link.label}</Text>
               </Stack>
             </StyledLink>
