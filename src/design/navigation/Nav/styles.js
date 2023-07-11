@@ -17,6 +17,11 @@ const StyledNav = styled.nav`
 
 const StyledContent = styled.section``;
 
+const StyledList = styled.ul`
+  list-style: none;
+  padding: ${inube.spacing.s0};
+`;
+
 const StyledFooter = styled.footer``;
 
-export { StyledNav, StyledContent, StyledFooter };
+export { StyledNav, StyledList, StyledContent, StyledFooter };

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 
-import { StyledNav, StyledContent, StyledFooter } from "./styles";
+import { StyledNav, StyledList, StyledContent, StyledFooter } from "./styles";
 
 function Nav(props) {
   const { title = "Menu", sections, currentLocation } = props;
@@ -21,7 +21,7 @@ function Nav(props) {
           {title.toUpperCase()}
         </Text>
         {sections.map((section) => (
-          <div key={section.title}>
+          <StyledList key={section.title}>
             {sections.length > 1 && (
               <Text padding="16px" type="title" size="small" color="gray">
                 {section.title.toUpperCase()}
@@ -37,7 +37,7 @@ function Nav(props) {
                 {link.label}
               </NavLink>
             ))}
-          </div>
+          </StyledList>
         ))}
       </StyledContent>
       <StyledFooter>
