@@ -1,0 +1,49 @@
+const spacing = ["wide", "compact", "none"];
+const variant = ["filled", "outlined", "none"];
+const appearance = [
+  "primary",
+  "success",
+  "warning",
+  "error",
+  "help",
+  "dark",
+  "gray",
+  "light",
+];
+const shape = ["circle", "rectangle"];
+
+const props = {
+  icon: {
+    description: "Is a React Element that contains the icon to be rendered.",
+  },
+  appearance: {
+    control: "select",
+    options: appearance,
+    description:
+      "Controls the appearance of the icon. This is connected to the color design tokens.",
+  },
+  size: {
+    description: "Controls the size of the icon using pixels",
+  },
+  spacing: {
+    control: "select",
+    options: spacing,
+    description: "Controls the padding of the icon.",
+  },
+  variant: {
+    control: "select",
+    options: variant,
+    description: "Controls the background of the icon.",
+  },
+  shape: {
+    control: "select",
+    options: shape,
+    description:
+      "Indicates whether the background of the icon is a circle or a rectangle with its borders rounded.",
+  },
+  allowHover: {
+    description: "Indicates whether the icon should have a hover state",
+  },
+};
+
+export { props, spacing, variant, appearance, shape };
