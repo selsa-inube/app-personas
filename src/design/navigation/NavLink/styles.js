@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inube } from "../../tokens";
 
-const StyledNavLink = styled.div`
+const StyledNavLink = styled.li`
+  list-style: none;
   height: 40px;
   background-color: ${({ theme, selected }) => {
     if (selected) {
