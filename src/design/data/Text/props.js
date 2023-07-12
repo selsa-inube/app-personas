@@ -46,6 +46,9 @@ const props = {
     description:
       "Indicates if the text should be display in hover state because its parent is hovered. This prop overrides whatever is defined in the cursorHover prop",
   },
+  disabled: {
+    description: "Controls if the text should appear disabled",
+  },
 };
 
 export { props, as, appearance, type, size, textAlign };

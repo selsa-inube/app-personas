@@ -24,6 +24,7 @@ Default.args = {
   textAlign: "start",
   cursorHover: false,
   parentHover: false,
+  disabled: false,
 };
 
 const theme = {

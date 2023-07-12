@@ -6,7 +6,14 @@ const StyledText = styled.p`
   padding: ${({ padding }) => padding};
   text-align: ${({ textAlign }) => textAlign};
 
-  color: ${({ appearance, theme, parentHover }) => {
+  color: ${({ appearance, theme, parentHover, disabled }) => {
+    if (disabled) {
+      return (
+        theme.color?.text?.[appearance]?.disabled ||
+        inube.color.text[appearance].disabled
+      );
+    }
+
     if (!parentHover) {
       return (
         theme.color?.text?.[appearance]?.regular ||
@@ -40,14 +47,23 @@ const StyledText = styled.p`
     inube.typography[type][size].lineHeight};
 
   &:hover {
-    cursor: ${({ cursorHover }) => (cursorHover ? "pointer" : "normal")};
+    cursor: ${({ cursorHover, disabled }) => {
+      if (!disabled) {
+        if (cursorHover) {
+          return "pointer";
+        }
+        return "normal";
+      }
+    }};
 
-    color: ${({ theme, appearance, cursorHover }) => {
-      if (cursorHover) {
-        return (
-          theme.color?.text?.[appearance]?.hover ||
-          inube.color.text[appearance].hover
-        );
+    color: ${({ theme, appearance, cursorHover, disabled }) => {
+      if (!disabled) {
+        if (cursorHover) {
+          return (
+            theme.color?.text?.[appearance]?.hover ||
+            inube.color.text[appearance].hover
+          );
+        }
       }
     }};
   }

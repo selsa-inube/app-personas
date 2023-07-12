@@ -14,6 +14,7 @@ function Text(props) {
     textAlign = "start",
     cursorHover = false,
     parentHover = false,
+    disabled = false,
   } = props;
   return (
     <StyledText
@@ -26,6 +27,7 @@ function Text(props) {
       textAlign={textAlign}
       cursorHover={cursorHover}
       parentHover={parentHover}
+      disabled={disabled}
     >
       {children}
     </StyledText>
@@ -43,6 +45,7 @@ Text.propTypes = {
   textAlign: PropTypes.oneOf(textAlign),
   cursorHover: PropTypes.bool,
   parentHover: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export { Text };
