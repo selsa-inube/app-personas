@@ -24,6 +24,7 @@ Default.args = {
   variant: "none",
   cursorHover: false,
   parentHover: false,
+  disabled: false,
 };
 
 const theme = {

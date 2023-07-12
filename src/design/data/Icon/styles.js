@@ -10,12 +10,49 @@ const StyledIcon = styled.figure`
   border-radius: ${({ shape }) => (shape === "circle" ? "50%" : "8px")};
   border-width: ${({ variant }) => (variant === "outlined" ? "1px" : "0px")};
   border-style: solid;
-  border-color: ${({ theme, appearance }) =>
-    theme.color?.stroke?.[appearance]?.regular ||
-    inube.color.stroke[appearance].regular};
+  border-color: ${({ theme, appearance, parentHover, disabled }) => {
+    if (disabled) {
+      return (
+        theme.color?.stroke?.[appearance]?.disabled ||
+        inube.color.stroke[appearance].disabled
+      );
+    }
 
-  background-color: ${({ theme, variant, appearance }) => {
+    if (parentHover) {
+      return (
+        theme.color?.stroke?.[appearance]?.hover ||
+        inube.color.stroke[appearance].hover
+      );
+    }
+
+    return (
+      theme.color?.stroke?.[appearance]?.regular ||
+      inube.color.stroke[appearance].regular
+    );
+  }};
+
+  background-color: ${({
+    theme,
+    variant,
+    appearance,
+    parentHover,
+    disabled,
+  }) => {
     if (variant === "filled") {
+      if (disabled) {
+        return (
+          theme.color?.surface?.[appearance]?.disabled ||
+          inube.color.surface[appearance].disabled
+        );
+      }
+
+      if (parentHover) {
+        return (
+          theme.color?.surface?.[appearance]?.hover ||
+          inube.color.surface[appearance].hover
+        );
+      }
+
       return (
         theme.color?.surface?.[appearance]?.regular ||
         inube.color.surface[appearance].regular
@@ -23,24 +60,30 @@ const StyledIcon = styled.figure`
     }
   }};
 
-  color: ${({ theme, variant, appearance, parentHover }) => {
+  color: ${({ theme, variant, appearance, parentHover, disabled }) => {
+    if (disabled) {
+      return (
+        theme.color?.text?.light?.disabled || inube.color.text.light.disabled
+      );
+    }
+
     if (variant === "filled") {
       return (
         theme.color?.text?.light?.regular || inube.color.text.light.regular
       );
     }
 
-    if (!parentHover) {
-      return (
-        theme.color?.text?.[appearance]?.regular ||
-        inube.color.text[appearance].regular
-      );
-    } else {
+    if (parentHover) {
       return (
         theme.color?.text?.[appearance]?.hover ||
         inube.color.text[appearance].hover
       );
     }
+
+    return (
+      theme.color?.text?.[appearance]?.regular ||
+      inube.color.text[appearance].regular
+    );
   }};
 
   & svg {
@@ -59,38 +102,59 @@ const StyledIcon = styled.figure`
   }
 
   &:hover {
-    cursor: ${({ cursorHover }) => cursorHover && "pointer"};
-    border-color: ${({ theme, cursorHover, appearance }) => {
-      if (cursorHover) {
-        return (
-          theme.color?.text?.[appearance]?.hover ||
-          inube.color.text[appearance].hover
-        );
+    cursor: ${({ cursorHover, disabled }) => {
+      if (!disabled) {
+        if (cursorHover) {
+          return "pointer";
+        }
       }
     }};
 
-    background-color: ${({ theme, variant, appearance }) => {
-      if (variant === "filled") {
-        return (
-          theme.color?.surface?.[appearance]?.hover ||
-          inube.color.surface[appearance].hover
-        );
+    border-color: ${({ theme, cursorHover, appearance, disabled }) => {
+      if (!disabled) {
+        if (cursorHover) {
+          return (
+            theme.color?.text?.[appearance]?.hover ||
+            inube.color.text[appearance].hover
+          );
+        }
+      }
+    }};
+
+    background-color: ${({
+      theme,
+      variant,
+      appearance,
+      cursorHover,
+      disabled,
+    }) => {
+      if (!disabled) {
+        if (variant === "filled") {
+          if (cursorHover) {
+            return (
+              theme.color?.surface?.[appearance]?.hover ||
+              inube.color.surface[appearance].hover
+            );
+          }
+        }
       }
     }};
   }
 
   &:hover svg {
-    color: ${({ theme, cursorHover, variant, appearance }) => {
-      if (cursorHover) {
-        if (variant === "filled") {
-          return (
-            theme.color?.text?.light?.hover || inube.color.text.light.hover
-          );
-        } else {
-          return (
-            theme.color?.text?.[appearance]?.hover ||
-            inube.color.text[appearance].hover
-          );
+    color: ${({ theme, cursorHover, variant, appearance, disabled }) => {
+      if (!disabled) {
+        if (cursorHover) {
+          if (variant === "filled") {
+            return (
+              theme.color?.text?.light?.hover || inube.color.text.light.hover
+            );
+          } else {
+            return (
+              theme.color?.text?.[appearance]?.hover ||
+              inube.color.text[appearance].hover
+            );
+          }
         }
       }
     }};

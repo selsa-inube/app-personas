@@ -48,6 +48,9 @@ const props = {
     description:
       "Indicates if the icon should be display in hover state because its parent is hovered. This prop overrides whatever is defined in the cursorHover prop",
   },
+  disabled: {
+    description: "Controls if the icon is disabled",
+  },
 };
 
 export { props, spacing, variant, appearance, shape };
