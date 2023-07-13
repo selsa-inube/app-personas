@@ -7,7 +7,7 @@ const StyledButton = styled.button`
 
   height: ${({ spacing }) =>
     spacing === "wide" ? inube.spacing.s450 : inube.spacing.s350};
-  width: ${({ fullwidth }) => (fullwidth ? "100%" : "auto")};
+  width: ${({ fullwidth }) => (fullwidth ? "100%" : "max-content")};
   min-width: 100px;
   max-width: ${({ fullwidth }) => !fullwidth && "300px"};
 
