@@ -49,6 +49,10 @@ const props = {
   disabled: {
     description: "Controls if the text should appear disabled",
   },
+  ellipsis: {
+    description:
+      "Controls if the text should avoid overflowing or multiple line breaks and instead truncate the string with an ellipsis. This requires that the parent container has a width or max-width definition.",
+  },
 };
 
 export { props, as, appearance, type, size, textAlign };

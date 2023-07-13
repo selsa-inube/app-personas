@@ -46,6 +46,10 @@ const StyledText = styled.p`
     theme.typography?.[type]?.[size]?.lineHeight ||
     inube.typography[type][size].lineHeight};
 
+  overflow: ${({ ellipsis }) => ellipsis && "hidden"};
+  white-space: ${({ ellipsis }) => ellipsis && "nowrap"};
+  text-overflow: ${({ ellipsis }) => ellipsis && "ellipsis"};
+
   &:hover {
     cursor: ${({ cursorHover, disabled }) => {
       if (!disabled) {

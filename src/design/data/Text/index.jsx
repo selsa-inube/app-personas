@@ -15,6 +15,7 @@ function Text(props) {
     cursorHover = false,
     parentHover = false,
     disabled = false,
+    ellipsis = false,
   } = props;
   return (
     <StyledText
@@ -28,6 +29,7 @@ function Text(props) {
       cursorHover={cursorHover}
       parentHover={parentHover}
       disabled={disabled}
+      ellipsis={ellipsis}
     >
       {children}
     </StyledText>
@@ -46,6 +48,7 @@ Text.propTypes = {
   cursorHover: PropTypes.bool,
   parentHover: PropTypes.bool,
   disabled: PropTypes.bool,
+  ellipsis: PropTypes.bool,
 };
 
 export { Text };
