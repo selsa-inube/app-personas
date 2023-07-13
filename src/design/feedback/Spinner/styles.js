@@ -12,6 +12,7 @@ const spin = keyframes`
 `;
 
 const StyledSpinner = styled.div`
+  box-sizing: border-box;
   width: ${({ size }) => {
     if (size === "large") {
       return "40px";
@@ -53,7 +54,7 @@ const StyledSpinner = styled.div`
     theme.color?.stroke?.[appearance]?.regular ||
     inube.color.stroke[appearance].regular};
 
-  animation: ${spin} 2s linear infinite;
+  animation: ${spin} 1500ms linear infinite;
 `;
 
 export { StyledSpinner };
