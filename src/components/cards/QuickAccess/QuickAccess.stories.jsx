@@ -1,6 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
 import { QuickAccess } from ".";
 
+import { fondecom } from "../../../mocks/theme";
+
 import {
   MdAttachMoney,
   MdCurrencyExchange,
@@ -9,6 +11,7 @@ import {
   MdOutlineSupportAgent,
 } from "react-icons/md";
 import { props } from "./props";
+import { ThemeProvider } from "styled-components";
 
 const story = {
   title: "components/cards/QuickAccess",
@@ -52,6 +55,21 @@ Default.args = {
       path: "/support",
     },
   ],
+};
+
+const theme = {
+  ...fondecom,
+};
+
+export const Themed = (args) => (
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <QuickAccess {...args} />
+    </ThemeProvider>
+  </BrowserRouter>
+);
+Themed.args = {
+  ...Default.args,
 };
 
 export default story;
