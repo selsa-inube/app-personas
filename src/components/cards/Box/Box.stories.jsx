@@ -5,23 +5,21 @@ import { MdAdd, MdOutlineSavings } from "react-icons/md";
 
 import { fondecom } from "../../../mocks/theme";
 import { Text } from "../../../design/data/Text";
+import { props } from "./props";
 
 const story = {
   title: "components/cards/Box",
   components: [Box],
   tags: ["autodocs"],
+  argTypes: {
+    ...props,
+  },
 };
 
 export const Default = (args) => <Box {...args} />;
 Default.args = {
-  icon: <MdOutlineSavings />,
   title: "Ahorros",
-  subtitle: "Resumen de tus productos de ahorro",
-  children: (
-    <Text type="body" size="medium" appearance="gray">
-      Place your content here
-    </Text>
-  ),
+  subtitle: "Consulta tus cuentas",
   button: {
     label: "Solicitar ahorro",
     icon: <MdAdd />,
@@ -30,6 +28,12 @@ Default.args = {
     allow: true,
     start: true,
   },
+  children: (
+    <Text type="body" size="medium" appearance="gray">
+      Place your content here
+    </Text>
+  ),
+  icon: <MdOutlineSavings />,
 };
 
 const theme = {

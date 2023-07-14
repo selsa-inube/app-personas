@@ -33,7 +33,9 @@ function Box(props) {
           <Stack alignItems="center" gap={inube.spacing.s100}>
             <Icon icon={icon} variant="filled" />
             <Stack direction="column">
-              <Text>{title}</Text>
+              <Text type="title" size="medium">
+                {title}
+              </Text>
               <Text appearance="gray" size="small">
                 {subtitle}
               </Text>
