@@ -38,7 +38,7 @@ const surface = {
     disabled: palette.neutral.N20,
   },
   nav: {
-    regular: palette.neutral.N20,
+    regular: palette.neutral.N10,
   },
   navLink: {
     regular: palette.neutral.N0A,
@@ -55,14 +55,14 @@ const surface = {
     disabled: palette.neutral.N20,
   },
   gray: {
-    regular: palette.neutral.N200,
-    hover: palette.neutral.N90,
+    regular: palette.neutral.N30,
+    hover: palette.neutral.N20,
     clear: palette.neutral.N10,
     disabled: palette.neutral.N20,
   },
   light: {
-    regular: palette.neutral.N60,
-    hover: palette.neutral.N40,
+    regular: palette.neutral.N10,
+    hover: palette.neutral.N0,
     clear: palette.neutral.N0,
     disabled: palette.neutral.N20,
   },
