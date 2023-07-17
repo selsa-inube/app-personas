@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import { inube } from "../../tokens";
 
+const filledAppearancesWithGrayIcon = ["gray", "light"];
+
 const StyledIcon = styled.figure`
   display: inline-block;
   padding: 0;
@@ -68,9 +70,12 @@ const StyledIcon = styled.figure`
     }
 
     if (variant === "filled") {
-      return (
-        theme.color?.text?.light?.regular || inube.color.text.light.regular
-      );
+      if (!filledAppearancesWithGrayIcon.includes(appearance)) {
+        return (
+          theme.color?.text?.light?.regular || inube.color.text.light.regular
+        );
+      }
+      return theme.color?.text?.gray?.regular || inube.color.text.gray.regular;
     }
 
     if (parentHover) {
@@ -146,8 +151,13 @@ const StyledIcon = styled.figure`
       if (!disabled) {
         if (cursorHover) {
           if (variant === "filled") {
+            if (!filledAppearancesWithGrayIcon.includes(appearance)) {
+              return (
+                theme.color?.text?.light?.hover || inube.color.text.light.hover
+              );
+            }
             return (
-              theme.color?.text?.light?.hover || inube.color.text.light.hover
+              theme.color?.text?.gray?.hover || inube.color.text.gray.hover
             );
           } else {
             return (
