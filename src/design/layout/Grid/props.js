@@ -64,6 +64,12 @@ const props = {
     options: autoFlow,
     description: "Controls the grid-auto-flow CSS property",
   },
+  margin: {
+    description: "Controls the margin of the grid",
+  },
+  padding: {
+    description: "Controls the padding of the grid",
+  },
 };
 
 export {

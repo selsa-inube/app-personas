@@ -33,6 +33,8 @@ Default.args = {
   autoFlow: "row",
   rectangleHeight: "80px",
   rectangleWidth: "80px",
+  margin: "0px",
+  padding: "0px",
 };
 
 export default story;

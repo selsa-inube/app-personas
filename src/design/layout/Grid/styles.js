@@ -12,6 +12,8 @@ const StyledGrid = styled.div`
   grid-auto-columns: ${({ autoColumns }) => autoColumns && autoColumns};
   grid-auto-rows: ${({ autoRows }) => autoRows && autoRows};
   grid-auto-flow: ${({ autoFlow }) => autoFlow};
+  margin: ${({ margin }) => margin};
+  padding: ${({ padding }) => padding};
 `;
 
 export { StyledGrid };

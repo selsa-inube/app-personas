@@ -23,6 +23,8 @@ function Grid(props) {
     autoColumns = "auto",
     autoRows,
     autoFlow = "row",
+    margin = "0px",
+    padding = "0px",
   } = props;
 
   return (
@@ -37,6 +39,8 @@ function Grid(props) {
       autoColumns={autoColumns}
       autoRows={autoRows}
       autoFlow={autoFlow}
+      margin={margin}
+      padding={padding}
     >
       {children}
     </StyledGrid>
@@ -55,6 +59,8 @@ Grid.propTypes = {
   autoColumns: PropTypes.string,
   autoRows: PropTypes.string,
   autoFlow: PropTypes.oneOf(autoFlow),
+  margin: PropTypes.string,
+  padding: PropTypes.string,
 };
 
 export { Grid };
