@@ -3,7 +3,7 @@ import { inube } from "../../tokens";
 
 const StyledTag = styled.div`
   display: inline-block;
-  padding: ${inube.spacing.s025} ${inube.spacing.s050};
+  padding: 0 ${inube.spacing.s050};
   background-color: ${({ theme, appearance }) =>
     theme.color?.surface?.[appearance]?.regular ||
     inube.color.surface[appearance].regular};
