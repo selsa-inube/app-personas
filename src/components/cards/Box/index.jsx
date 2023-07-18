@@ -71,7 +71,6 @@ function Box(props) {
           </Stack>
         )}
       </Stack>
-      <Stack></Stack>
     </StyledBox>
   );
 }
