@@ -4,21 +4,29 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 
+import { useMediaQuery } from "../../hooks/useMediaQuery";
+
 import { Text } from "../../design/data/Text";
 import { Stack } from "../../design/layout/Stack";
+import { Grid } from "../../design/layout/Grid";
 import { inube } from "../../design/tokens";
+
 import { Box } from "../../components/cards/Box";
 import { Product } from "../../components/cards/Product";
 import { QuickAccess } from "../../components/cards/QuickAccess";
 
-import { StyledGrid } from "./styles";
-
 import { quickLinks } from "../../config/quickLinks";
-import { savings, credits, cards } from "./config";
+import { savings, credits, cards } from "./config/boxes";
+import {
+  creditAttributeBreakpoints,
+  extractCreditAttributes,
+} from "./config/products";
 
 import { savingsProducts, creditProducts, cardProducts } from "./mocks";
 
 function Home() {
+  const mquery = useMediaQuery("(min-width: 1400px)");
+
   return (
     <>
       <Stack gap="4px" direction="column">
@@ -29,7 +37,11 @@ function Home() {
           Aquí tienes un resumen de tus productos
         </Text>
       </Stack>
-      <StyledGrid>
+      <Grid
+        gap={inube.spacing.s600}
+        margin={`${inube.spacing.s600} 0 0`}
+        templateColumns={mquery ? "1fr 250px" : "1fr"}
+      >
         <Stack direction="column" gap={inube.spacing.s300}>
           <Text type="label">Tus productos</Text>
           <Box {...savings}>
@@ -58,13 +70,14 @@ function Home() {
               {creditProducts.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
-                creditProducts.map(({ title, id, attributes, tags }) => (
+                creditProducts.map((credit) => (
                   <Product
-                    key={id}
-                    title={title}
-                    description={id}
-                    attributes={attributes}
-                    tags={tags}
+                    key={credit.id}
+                    title={credit.title}
+                    description={credit.id}
+                    attributes={extractCreditAttributes(credit)}
+                    breakpoints={creditAttributeBreakpoints}
+                    tags={credit.tags}
                     icon={<MdOutlineAttachMoney />}
                   />
                 ))
@@ -90,8 +103,8 @@ function Home() {
             </Stack>
           </Box>
         </Stack>
-        <QuickAccess links={quickLinks} />
-      </StyledGrid>
+        {mquery && <QuickAccess links={quickLinks} />}
+      </Grid>
     </>
   );
 }
