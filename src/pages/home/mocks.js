@@ -4,6 +4,7 @@ const savingsProducts = [
     id: "09-786238-77",
     attributes: [
       {
+        id: "net_value",
         label: "Saldo total",
         value: "$1.225.000",
       },
@@ -14,6 +15,7 @@ const savingsProducts = [
     id: "82-786238-55",
     attributes: [
       {
+        id: "net_value",
         label: "Saldo total",
         value: "$19.100.000",
       },
@@ -23,36 +25,42 @@ const savingsProducts = [
 
 const creditProducts = [
   {
-    title: "Crédito educativo",
+    title: "Educativo",
     id: "C2786238-55",
     attributes: [
       {
-        label: "Valor próximo pago",
+        id: "next_payment_value",
+        label: "Próximo pago",
         value: "$500.000",
       },
       {
-        label: "Fecha próximo pago",
+        id: "next_payment_date",
+        label: "Próxima fecha",
         value: "02/ABR/2023",
       },
       {
+        id: "net_value",
         label: "Saldo total",
         value: "$1.225.000",
       },
     ],
   },
   {
-    title: "Crédito libre inversión",
+    title: "Libre inversión",
     id: "C9786288-14",
     attributes: [
       {
-        label: "Valor próximo pago",
+        id: "next_payment_value",
+        label: "Próximo pago",
         value: "$1.100.000",
       },
       {
-        label: "Fecha próximo pago",
+        id: "next_payment_date",
+        label: "Próxima fecha",
         value: "02/MAY/2023",
       },
       {
+        id: "net_value",
         label: "Saldo total",
         value: "$18.100.000",
       },
