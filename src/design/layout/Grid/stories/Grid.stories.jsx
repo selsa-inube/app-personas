@@ -35,6 +35,8 @@ Default.args = {
   rectangleWidth: "80px",
   margin: "0px",
   padding: "0px",
+  height: "auto",
+  width: "auto",
 };
 
 export default story;

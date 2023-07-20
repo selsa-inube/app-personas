@@ -70,6 +70,12 @@ const props = {
   padding: {
     description: "Controls the padding of the grid",
   },
+  height: {
+    description: "Controls the height of the grid",
+  },
+  width: {
+    description: "Controls the width of the grid",
+  },
 };
 
 export {
