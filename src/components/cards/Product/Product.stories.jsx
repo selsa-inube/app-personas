@@ -21,18 +21,26 @@ Default.args = {
   description: "09-786238-77",
   attributes: [
     {
-      label: "Valor próximo pago",
+      id: "next_payment_value",
+      label: "Próximo pago",
       value: "$500.000",
     },
     {
-      label: "Fecha próximo pago",
+      id: "next_payment_date",
+      label: "Próxima fecha",
       value: "02/ABR/2023",
     },
     {
+      id: "net_value",
       label: "Saldo total",
       value: "$1.225.000",
     },
   ],
+  breakpoints: {
+    "(min-width: 1000px)": 3,
+    "(min-width: 800px)": 2,
+    "(max-width: 810px)": 1,
+  },
   tags: [
     {
       label: "En mora",

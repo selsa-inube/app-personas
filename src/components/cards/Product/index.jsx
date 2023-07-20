@@ -9,7 +9,9 @@ import { Grid } from "../../../design/layout/Grid";
 import { appearance } from "../../../design/data/Tag/props";
 import { inube } from "../../../design/tokens";
 
-import { StyledProduct, StyledGrid } from "./styles";
+import { StyledProduct } from "./styles";
+import { useMediaQueries } from "../../../hooks/useMediaQueries";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 function Product(props) {
   const {
@@ -17,13 +19,26 @@ function Product(props) {
     description,
     icon,
     attributes = [],
+    breakpoints = {},
     tags = [],
     empty = false,
   } = props;
 
+  const mobile = useMediaQuery("(max-width: 450px)");
+
+  const attributeQueries = Object.keys(breakpoints);
+  const attributeMediaQueries = useMediaQueries(attributeQueries);
+  const index = attributeQueries.findIndex(
+    (query) => attributeMediaQueries[query] === true
+  );
+  const visibleAttributes = attributes.slice(
+    0,
+    breakpoints[attributeQueries[index]]
+  );
+
   return (
     <StyledProduct empty={empty}>
-      <StyledGrid>
+      <Grid templateColumns="auto 1fr" gap={inube.spacing.s100}>
         <Stack gap={inube.spacing.s100} alignItems="center">
           <Icon
             icon={icon}
@@ -33,16 +48,19 @@ function Product(props) {
           />
           <Stack direction="column" gap={inube.spacing.s025}>
             <Text
-              type="title"
-              size="small"
+              type={mobile ? "label" : "title"}
+              size={mobile ? "medium" : "small"}
               appearance={empty ? "gray" : "dark"}
             >
               {!empty ? title : "No tienes productos"}
             </Text>
             {!empty && (
-              <Stack gap={inube.spacing.s100} alignItems="center">
+              <Stack
+                gap={!mobile ? inube.spacing.s100 : "0px"}
+                alignItems="center"
+              >
                 <Text size="small" appearance="gray">
-                  {description}
+                  {!mobile && description}
                 </Text>
                 <Stack gap={inube.spacing.s050}>
                   {tags.length > 0 &&
@@ -55,19 +73,23 @@ function Product(props) {
         {!empty && (
           <Grid
             autoFlow="column"
-            templateColumns={`repeat(${attributes.length}, minmax(100px, max-content))`}
+            templateColumns={`repeat(${visibleAttributes.length}, minmax(100px, max-content))`}
             gap={inube.spacing.s300}
             justifyContent="end"
             alignItems="center"
             alignContent="center"
           >
-            {attributes.map((attribute) => (
+            {visibleAttributes.map((attribute) => (
               <Stack
                 key={attribute.label}
                 direction="column"
                 gap={inube.spacing.s025}
               >
-                <Text type="label" size="medium" textAlign="center">
+                <Text
+                  type="label"
+                  size={mobile ? "small" : "medium"}
+                  textAlign="center"
+                >
                   {attribute.label}
                 </Text>
                 <Text size="small" textAlign="center" appearance="gray">
@@ -77,21 +99,23 @@ function Product(props) {
             ))}
           </Grid>
         )}
-      </StyledGrid>
+      </Grid>
     </StyledProduct>
   );
 }
 
 Product.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   description: PropTypes.string,
   icon: PropTypes.node.isRequired,
   attributes: PropTypes.arrayOf(
     PropTypes.exact({
+      id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,
     })
   ),
+  breakpoints: PropTypes.object,
   tags: PropTypes.arrayOf(
     PropTypes.exact({
       label: PropTypes.string.isRequired,

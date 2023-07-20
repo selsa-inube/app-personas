@@ -19,9 +19,4 @@ const StyledProduct = styled.article`
   }
 `;
 
-const StyledGrid = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
-`;
-
-export { StyledProduct, StyledGrid };
+export { StyledProduct };
