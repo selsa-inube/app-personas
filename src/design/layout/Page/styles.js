@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { inube } from "../../tokens";
 
 const StyledPage = styled.div`
   display: grid;
@@ -7,15 +8,17 @@ const StyledPage = styled.div`
   overflow: hidden;
 `;
 
-const StyledContent = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
-  height: calc(100vh - 53px);
-`;
-
 const StyledMain = styled.main`
-  padding: 32px 64px 64px;
+  padding: ${inube.spacing.s400} ${inube.spacing.s800} ${inube.spacing.s800};
   overflow-y: scroll;
+
+  @media screen and (max-width: 560px) {
+    padding: ${inube.spacing.s200} ${inube.spacing.s400} ${inube.spacing.s400};
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: ${inube.spacing.s200} ${inube.spacing.s200} ${inube.spacing.s400};
+  }
 `;
 
-export { StyledPage, StyledContent, StyledMain };
+export { StyledPage, StyledMain };

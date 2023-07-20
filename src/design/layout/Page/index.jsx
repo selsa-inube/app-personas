@@ -1,13 +1,17 @@
 import PropTypes from "prop-types";
 import { useLocation, Outlet } from "react-router-dom";
 
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
+
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
+import { Grid } from "../Grid";
 
-import { StyledPage, StyledContent, StyledMain } from "./styles";
+import { StyledPage, StyledMain } from "./styles";
 
 function Page(props) {
   const currentLocation = useLocation().pathname;
+  const navBreakpoint = useMediaQuery("(min-width: 900px)");
 
   const { header, nav } = props;
 
@@ -18,16 +22,21 @@ function Page(props) {
         username={header.username}
         client={header.client}
       />
-      <StyledContent>
-        <Nav
-          title={nav.title}
-          sections={nav.sections}
-          currentLocation={currentLocation}
-        />
+      <Grid
+        templateColumns={navBreakpoint ? "auto 1fr" : "1fr"}
+        height="calc(100vh - 53px)"
+      >
+        {navBreakpoint && (
+          <Nav
+            title={nav.title}
+            sections={nav.sections}
+            currentLocation={currentLocation}
+          />
+        )}
         <StyledMain>
           <Outlet />
         </StyledMain>
-      </StyledContent>
+      </Grid>
     </StyledPage>
   );
 }
