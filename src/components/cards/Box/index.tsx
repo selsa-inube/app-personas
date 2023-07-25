@@ -1,17 +1,32 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { MdOutlineChevronRight } from "react-icons/md";
 
-import { Stack } from "../../../design/layout/Stack";
 import { Icon } from "../../../design/data/Icon";
 import { Text } from "../../../design/data/Text";
 import { Button } from "../../../design/input/Button";
+import { Stack } from "../../../design/layout/Stack";
 
 import { inube } from "../../../design/tokens";
 
 import { StyledBox, StyledCollapseIcon, StyledDivider } from "./styles";
 
-function Box(props) {
+interface BoxProps {
+  icon: React.JSX.Element;
+  title: string;
+  subtitle: string;
+  children: React.JSX.Element;
+  button: {
+    label: string;
+    icon: React.JSX.Element;
+    path: string;
+  };
+  collapsing: {
+    allow: boolean;
+    start: boolean;
+  };
+}
+
+function Box(props: BoxProps) {
   const {
     icon,
     title,
@@ -75,20 +90,5 @@ function Box(props) {
   );
 }
 
-Box.propTypes = {
-  icon: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  button: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    icon: PropTypes.node,
-    path: PropTypes.string.isRequired,
-  }),
-  collapsing: PropTypes.shape({
-    allow: PropTypes.bool,
-    start: PropTypes.bool,
-  }),
-};
-
 export { Box };
+export type { BoxProps };

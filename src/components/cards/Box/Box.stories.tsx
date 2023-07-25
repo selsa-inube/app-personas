@@ -1,10 +1,10 @@
 import { ThemeProvider } from "styled-components";
-import { Box } from ".";
+import { Box, BoxProps } from ".";
 
 import { MdAdd, MdOutlineSavings } from "react-icons/md";
 
-import { fondecom } from "../../../mocks/theme";
 import { Text } from "../../../design/data/Text";
+import { fondecom } from "../../../mocks/theme";
 import { props } from "./props";
 
 const story = {
@@ -16,7 +16,7 @@ const story = {
   },
 };
 
-export const Default = (args) => <Box {...args} />;
+export const Default = (args: BoxProps) => <Box {...args} />;
 Default.args = {
   title: "Ahorros",
   subtitle: "Consulta tus cuentas",
@@ -40,7 +40,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: BoxProps) => (
   <ThemeProvider theme={theme}>
     <Box {...args} />
   </ThemeProvider>
