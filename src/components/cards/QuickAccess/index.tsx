@@ -6,7 +6,17 @@ import { Icon } from "../../../design/data/Icon";
 
 import { StyledQuickAccess, StyledContainer, StyledLink } from "./styles";
 
-function QuickAccess(props) {
+interface QuickAccessProps {
+  links: ILinks[];
+}
+
+interface ILinks {
+  icon: JSX.Element;
+  label: string;
+  path: string;
+}
+
+function QuickAccess(props: QuickAccessProps) {
   const { links } = props;
 
   return (
@@ -28,14 +38,5 @@ function QuickAccess(props) {
   );
 }
 
-QuickAccess.propTypes = {
-  links: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.object.isRequired,
-      label: PropTypes.string.isRequired,
-      path: PropTypes.string.isRequired,
-    })
-  ),
-};
-
 export { QuickAccess };
+export type {QuickAccessProps, ILinks}
