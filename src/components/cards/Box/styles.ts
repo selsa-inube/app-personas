@@ -12,7 +12,11 @@ const StyledBox = styled.section`
     inube.color.stroke.divider.regular};
 `;
 
-const StyledCollapseIcon = styled.div`
+interface IStyledCollapseIcon {
+  collapse: boolean;
+}
+
+const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
   display: flex;
   transition: all 500ms ease;
   transform: ${({ collapse }) =>
