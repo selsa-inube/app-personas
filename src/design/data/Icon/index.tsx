@@ -1,10 +1,19 @@
-import PropTypes from "prop-types";
-
-import { appearance, spacing, variant, shape } from "./props";
-
 import { StyledIcon } from "./styles";
+import { AppearanceType, SpacingType, VariantType, ShapeType } from "./types";
 
-function Icon(props) {
+interface IconProps {
+  icon: React.JSX.Element;
+  appearance: AppearanceType;
+  spacing: SpacingType;
+  variant: VariantType;
+  shape: ShapeType;
+  size: string;
+  cursorHover: boolean;
+  parentHover: boolean;
+  disabled: boolean;
+}
+
+function Icon(props: IconProps) {
   const {
     icon,
     appearance = "primary",
@@ -33,16 +42,5 @@ function Icon(props) {
   );
 }
 
-Icon.propTypes = {
-  icon: PropTypes.node.isRequired,
-  appearance: PropTypes.oneOf(appearance),
-  spacing: PropTypes.oneOf(spacing),
-  variant: PropTypes.oneOf(variant),
-  shape: PropTypes.oneOf(shape),
-  size: PropTypes.string,
-  cursorHover: PropTypes.bool,
-  parentHover: PropTypes.bool,
-  disabled: PropTypes.bool,
-};
-
 export { Icon };
+export type { IconProps };
