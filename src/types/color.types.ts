@@ -1,15 +1,8 @@
-const appearance = [
-  "primary",
-  "success",
-  "warning",
-  "error",
-  "help",
-  "dark",
-  "gray",
-  "light",
-] as const;
+import { inube } from "../design/tokens";
 
-type AppearanceType = (typeof appearance)[number];
+const textAppearance = Object.keys(inube.color.text);
 
-export { appearance };
-export type { AppearanceType };
+type TextAppearanceType = keyof typeof inube.color.text;
+
+export { textAppearance };
+export type { TextAppearanceType };
