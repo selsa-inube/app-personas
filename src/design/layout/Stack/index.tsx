@@ -1,15 +1,26 @@
-import PropTypes from "prop-types";
-import {
-  direction,
-  justifyContent,
-  alignItems,
-  alignContent,
-  wrap,
-} from "./props";
-
 import { StyledStack } from "./styles";
+import {
+  AlignContentType,
+  DirectionType,
+  JustifyContentType,
+  WrapType,
+} from "./types";
 
-function Stack(props) {
+interface StackProps {
+  children: React.ReactNode;
+  direction?: DirectionType;
+  justifyContent?: JustifyContentType;
+  alignItems?: AlignContentType;
+  alignContent?: AlignContentType;
+  gap?: string;
+  height?: string;
+  width?: string;
+  padding?: string;
+  margin?: string;
+  wrap?: WrapType;
+}
+
+function Stack(props: StackProps) {
   const {
     children,
     direction = "row",
@@ -42,17 +53,4 @@ function Stack(props) {
 }
 
 export { Stack };
-
-Stack.propTypes = {
-  children: PropTypes.node,
-  direction: PropTypes.oneOf(direction),
-  justifyContent: PropTypes.oneOf(justifyContent),
-  alignItems: PropTypes.oneOf(alignItems),
-  alignContent: PropTypes.oneOf(alignContent),
-  gap: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  padding: PropTypes.string,
-  margin: PropTypes.string,
-  wrap: PropTypes.oneOf(wrap),
-};
+export type { StackProps };  
