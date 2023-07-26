@@ -1,6 +1,6 @@
 import { StyledText } from "./styles";
 import { TextAppearanceType } from "../../../types/color.types";
-import { AsType, TextAlignType } from "../../../types/design.types";
+import { AsTagsType, TextAlignType } from "../../../types/design.types";
 import { SpacingTokensType } from "../../../types/spacing.types";
 import {
   TypographyType,
@@ -9,17 +9,17 @@ import {
 
 interface TextProps {
   children: React.ReactNode;
-  as: AsType;
-  margin: SpacingTokensType;
-  padding: SpacingTokensType;
-  appearance: TextAppearanceType;
-  type: TypographyType;
-  size: TypographySizeType;
-  textAlign: TextAlignType;
-  cursorHover: boolean;
-  parentHover: boolean;
-  disabled: boolean;
-  ellipsis: boolean;
+  as?: AsTagsType;
+  margin?: SpacingTokensType;
+  padding?: SpacingTokensType;
+  appearance?: TextAppearanceType;
+  type?: TypographyType;
+  size?: TypographySizeType;
+  textAlign?: TextAlignType;
+  cursorHover?: boolean;
+  parentHover?: boolean;
+  disabled?: boolean;
+  ellipsis?: boolean;
 }
 
 function Text(props: TextProps) {
