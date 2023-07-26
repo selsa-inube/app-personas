@@ -1,11 +1,10 @@
 import { BrowserRouter } from "react-router-dom";
-import { NavLink } from ".";
+import { NavLink, NavLinkProps } from ".";
 import { MdHouse } from "react-icons/md";
 
 import { fondecom } from "../../../mocks/theme";
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
-import { NavLinkProps } from ".";
 
 const story = {
   title: "design/navigation/NavLink",
