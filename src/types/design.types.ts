@@ -11,7 +11,7 @@ const appearance = [
   "light",
 ] as const;
 const shape = ["circle", "rectangle"] as const;
-const size = ["large", "medium", "small"];
+const size = ["large", "medium", "small"] as const;
 
 type SpacingType = (typeof spacing)[number];
 type VariantType = (typeof variant)[number];
