@@ -7,7 +7,7 @@ interface IconProps {
   icon: React.JSX.Element;
   appearance?: AppearanceType;
   spacing?: SpacingType;
-  variant: VariantType;
+  variant?: VariantType;
   shape?: ShapeType;
   size?: string;
   cursorHover?: boolean;
