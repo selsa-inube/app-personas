@@ -12,19 +12,19 @@ import { useMediaQuery } from "../../../hooks/useMediaQuery";
 import { ITag, IAttribute } from "./types";
 
 interface ProductProps {
-  title: string;
-  description: string;
-  icon: JSX.Element;
+  title?: string;
+  description?: string;
+  icon: React.JSX.Element;
   attributes: IAttribute[];
-  breakpoints: { [key: string]: number };
+  breakpoints?: Record<string, number>;
   tags: ITag[];
-  empty: boolean;
+  empty?: boolean;
 }
 
 function Product(props: ProductProps) {
   const {
-    title,
-    description,
+    title = "",
+    description = "",
     icon,
     attributes = [],
     breakpoints = {},
