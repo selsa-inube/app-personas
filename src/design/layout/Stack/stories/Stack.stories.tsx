@@ -1,4 +1,4 @@
-import { Stack } from "..";
+import { Stack, StackProps } from "..";
 import { props } from "../props";
 import { Square } from "./Square";
 
@@ -20,7 +20,9 @@ function Squares() {
   return squares;
 }
 
-export const Row = (args) => <Stack {...args}>{args.children}</Stack>;
+export const Row = (args: StackProps) => (
+  <Stack {...args}>{args.children}</Stack>
+);
 Row.args = {
   children: Squares(),
   gap: "8px",

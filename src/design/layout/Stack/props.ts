@@ -1,27 +1,10 @@
-const direction = ["row", "column", "row-reverse", "column-reverse"];
-const justifyContent = [
-  "flex-start",
-  "flex-end",
-  "center",
-  "space-between",
-  "space-around",
-  "space-evenly",
-  "start",
-  "end",
-  "left",
-  "right",
-];
-const alignItems = ["flex-start", "flex-end", "center", "stretch", "baseline"];
-const alignContent = [
-  "normal",
-  "flex-start",
-  "flex-end",
-  "center",
-  "stretch",
-  "space-between",
-  "space-around",
-];
-const wrap = ["nowrap", "wrap", "wrap-reverse"];
+import {
+  direction,
+  justifyContent,
+  alignItems,
+  alignContent,
+  wrap,
+} from "./types";
 
 const props = {
   children: {
@@ -76,4 +59,4 @@ const props = {
   },
 };
 
-export { props, direction, justifyContent, alignItems, alignContent, wrap };
+export { alignContent, alignItems, direction, justifyContent, props, wrap };
