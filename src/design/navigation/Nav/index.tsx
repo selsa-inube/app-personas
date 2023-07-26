@@ -4,8 +4,15 @@ import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 
 import { StyledNav, StyledList, StyledContent, StyledFooter } from "./styles";
+import { Isections } from "src/design/layout/Page/types";
 
-function Nav(props) {
+interface NavProps{
+  title: string;
+  sections: Isections[];
+  currentLocation: string;
+}
+
+function Nav(props: NavProps) {
   const { title = "Menu", sections, currentLocation } = props;
   const year = new Date().getFullYear();
 
@@ -14,7 +21,7 @@ function Nav(props) {
       <StyledContent>
         <Text
           padding="32px 16px 16px 16px"
-          color="gray"
+          appearance="gray"
           type="title"
           size="small"
         >
@@ -23,7 +30,7 @@ function Nav(props) {
         {sections.map((section) => (
           <StyledList key={section.title}>
             {sections.length > 1 && (
-              <Text padding="16px" type="title" size="small" color="gray">
+              <Text padding="s200" type="title" size="small" appearance="gray">
                 {section.title.toUpperCase()}
               </Text>
             )}
@@ -41,7 +48,7 @@ function Nav(props) {
         ))}
       </StyledContent>
       <StyledFooter>
-        <Text type="label" size="medium" textAlign="center" padding="24px">
+        <Text type="label" size="medium" textAlign="center" padding="s300">
           © {year} Inube
         </Text>
       </StyledFooter>
@@ -56,3 +63,4 @@ Nav.propTypes = {
 };
 
 export { Nav };
+export type { NavProps };
