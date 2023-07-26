@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import { Text } from "../../../design/data/Text";
 import { Stack } from "../../../design/layout/Stack";
 import { Icon } from "../../../design/data/Icon";
@@ -39,4 +37,4 @@ function QuickAccess(props: QuickAccessProps) {
 }
 
 export { QuickAccess };
-export type {QuickAccessProps, ILinks}
+export type {QuickAccessProps}
