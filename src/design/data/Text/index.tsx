@@ -1,21 +1,20 @@
 import { StyledText } from "./styles";
+import { TextAppearanceType } from "../../../types/color.types";
+import { AsType, TextAlignType } from "../../../types/design.types";
+import { SpacingTokensType } from "../../../types/spacing.types";
 import {
-  AsType,
-  TextAlignType,
-  AppearanceType,
-  TypeType,
-  SizeType,
-  SpacingType,
-} from "./types";
+  TypographyType,
+  TypographySizeType,
+} from "../../../types/typography.types";
 
 interface TextProps {
   children: React.ReactNode;
   as: AsType;
-  margin: SpacingType;
-  padding: SpacingType;
-  appearance: AppearanceType;
-  type: TypeType;
-  size: SizeType;
+  margin: SpacingTokensType;
+  padding: SpacingTokensType;
+  appearance: TextAppearanceType;
+  type: TypographyType;
+  size: TypographySizeType;
   textAlign: TextAlignType;
   cursorHover: boolean;
   parentHover: boolean;

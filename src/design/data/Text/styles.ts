@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
+import { TextAppearanceType } from "../../../types/color.types";
+import { TextAlignType } from "../../../types/design.types";
+import { SpacingTokensType } from "../../../types/spacing.types";
 import {
-  TextAlignType,
-  AppearanceType,
-  TypeType,
-  SizeType,
-  SpacingType,
-} from "./types";
+  TypographyType,
+  TypographySizeType,
+} from "../../../types/typography.types";
 
 interface IStyledText {
-  margin: SpacingType;
-  padding: SpacingType;
-  appearance: AppearanceType;
-  type: TypeType;
-  size: SizeType;
+  margin: SpacingTokensType;
+  padding: SpacingTokensType;
+  appearance: TextAppearanceType;
+  type: TypographyType;
+  size: TypographySizeType;
   textAlign: TextAlignType;
   cursorHover: boolean;
   parentHover: boolean;
