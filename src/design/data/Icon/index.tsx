@@ -1,7 +1,7 @@
 import { StyledIcon } from "./styles";
 import { VariantType, ShapeType } from "../../../types/design.types";
-import {SpacingType} from "../../../types/spacing.types";
-import {AppearanceType} from "../../../types/color.types";
+import {SpacingType} from "../../../types/design.types";
+import {AppearanceType} from "../../../types/design.types";
 
 interface IconProps {
   icon: React.JSX.Element;

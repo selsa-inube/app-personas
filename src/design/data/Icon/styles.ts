@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
 import { ShapeType,  VariantType } from "../../../types/design.types";
-import {SpacingType} from "../../../types/spacing.types";
-import {AppearanceType} from "../../../types/color.types";
+import {SpacingType} from "../../../types/design.types";
+import {AppearanceType} from "../../../types/design.types";
 
 const filledAppearancesWithGrayIcon = ["gray", "light"];
 interface IStyledIcon {

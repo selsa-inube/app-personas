@@ -1,3 +1,5 @@
+import { inube } from "../design/tokens";
 
-export { spacing };
-export type { SpacingType };
+type SpacingTokensType = keyof typeof inube.spacing;
+
+export type { SpacingTokensType };

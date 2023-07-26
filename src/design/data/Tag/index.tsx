@@ -1,15 +1,13 @@
 import { Text } from "../Text";
 
-import { appearance } from "./props";
-
 import { StyledTag } from "./styles";
-import { AppearanceType } from "../../../types/color.types";
+import { AppearanceType } from "../../../types/design.types";
 
 const darkTextAppearances = ["warning", "gray", "light"];
 
 interface TagProps{
   label:string;
-  appearance:AppearanceType;
+  appearance?:AppearanceType;
 }
 
 function Tag(props: TagProps) {
