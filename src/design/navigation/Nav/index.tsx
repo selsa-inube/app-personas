@@ -21,7 +21,7 @@ function Nav(props: NavProps) {
       <StyledContent>
         <Text
           padding="32px 16px 16px 16px"
-          color="gray"
+          appearance="gray"
           type="title"
           size="small"
         >
@@ -30,7 +30,7 @@ function Nav(props: NavProps) {
         {sections.map((section) => (
           <StyledList key={section.title}>
             {sections.length > 1 && (
-              <Text padding="16px" type="title" size="small" color="gray">
+              <Text padding="s200" type="title" size="small" appearance="gray">
                 {section.title.toUpperCase()}
               </Text>
             )}
@@ -48,7 +48,7 @@ function Nav(props: NavProps) {
         ))}
       </StyledContent>
       <StyledFooter>
-        <Text type="label" size="medium" textAlign="center" padding="24px">
+        <Text type="label" size="medium" textAlign="center" padding="s300">
           © {year} Inube
         </Text>
       </StyledFooter>
@@ -63,3 +63,4 @@ Nav.propTypes = {
 };
 
 export { Nav };
+export type { NavProps };

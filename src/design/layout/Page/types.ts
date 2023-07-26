@@ -7,7 +7,7 @@ interface IHeader{
 }
 interface INav{ 
     title: string,
-    sections?: Isections;
+    sections: Isections[];
   }
 
 interface Isections{

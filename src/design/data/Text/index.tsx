@@ -10,8 +10,8 @@ import {
 interface TextProps {
   children: React.ReactNode;
   as?: AsTagsType;
-  margin?: SpacingTokensType;
-  padding?: SpacingTokensType;
+  margin?: SpacingTokensType | string;
+  padding?: SpacingTokensType | string;
   appearance?: TextAppearanceType;
   type?: TypographyType;
   size?: TypographySizeType;

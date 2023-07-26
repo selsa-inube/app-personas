@@ -9,8 +9,8 @@ import {
 } from "../../../types/typography.types";
 
 interface IStyledText {
-  margin: SpacingTokensType;
-  padding: SpacingTokensType;
+  margin?: SpacingTokensType | string;
+  padding: SpacingTokensType | string;
   appearance: TextAppearanceType;
   type: TypographyType;
   size: TypographySizeType;
