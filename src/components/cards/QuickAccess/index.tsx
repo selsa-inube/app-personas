@@ -1,12 +1,20 @@
-import PropTypes from "prop-types";
-
 import { Text } from "../../../design/data/Text";
 import { Stack } from "../../../design/layout/Stack";
 import { Icon } from "../../../design/data/Icon";
 
 import { StyledQuickAccess, StyledContainer, StyledLink } from "./styles";
 
-function QuickAccess(props) {
+interface QuickAccessProps {
+  links: ILinks[];
+}
+
+interface ILinks {
+  icon: React.JSX.Element;
+  label: string;
+  path: string;
+}
+
+function QuickAccess(props: QuickAccessProps) {
   const { links } = props;
 
   return (
@@ -17,7 +25,7 @@ function QuickAccess(props) {
           {links.map((link) => (
             <StyledLink key={link.label} to={link.path}>
               <Stack alignItems="center" gap="24px" padding="8px 16px">
-                <Icon icon={link.icon} spacing="none" appearance="dark" />
+                <Icon icon={link.icon} spacing="none" appearance="dark"/>
                 <Text size="medium">{link.label}</Text>
               </Stack>
             </StyledLink>
@@ -28,14 +36,5 @@ function QuickAccess(props) {
   );
 }
 
-QuickAccess.propTypes = {
-  links: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.object.isRequired,
-      label: PropTypes.string.isRequired,
-      path: PropTypes.string.isRequired,
-    })
-  ),
-};
-
 export { QuickAccess };
+export type {QuickAccessProps}
