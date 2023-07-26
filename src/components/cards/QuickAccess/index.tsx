@@ -25,7 +25,7 @@ function QuickAccess(props: QuickAccessProps) {
           {links.map((link) => (
             <StyledLink key={link.label} to={link.path}>
               <Stack alignItems="center" gap="24px" padding="8px 16px">
-                <Icon icon={link.icon} spacing="none" appearance="dark" variant="none"/>
+                <Icon icon={link.icon} spacing="none" appearance="dark"/>
                 <Text size="medium">{link.label}</Text>
               </Stack>
             </StyledLink>
