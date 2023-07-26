@@ -66,6 +66,7 @@ function Box(props: BoxProps) {
                 appearance="dark"
                 spacing="compact"
                 cursorHover={true}
+                variant="none"
               />
             </StyledCollapseIcon>
           )}
