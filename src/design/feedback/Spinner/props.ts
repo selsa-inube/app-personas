@@ -1,13 +1,4 @@
-const appearance = [
-  "primary",
-  "success",
-  "warning",
-  "error",
-  "help",
-  "dark",
-  "light",
-];
-const size = ["large", "medium", "small"];
+import { appearance, size } from "src/types/design.types";
 
 const props = {
   appearance: {
@@ -26,4 +17,4 @@ const props = {
   },
 };
 
-export { props, appearance, size };
+export { appearance, props, size };

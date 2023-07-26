@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { inube } from "../../../design/tokens";
 
-const StyledProduct = styled.article`
+interface IStyledProduct {
+  empty: boolean;
+}
+
+const StyledProduct = styled.article<IStyledProduct>`
   padding: ${inube.spacing.s100};
   border-radius: 8px;
   background-color: ${({ theme }) =>

@@ -1,4 +1,5 @@
-import { appearance, shape, spacing, variant } from "./types";
+import { shape } from "prop-types";
+import { appearance, spacing, variant } from "src/types/design.types";
 
 const props = {
   icon: {
