@@ -8,7 +8,7 @@ function Avatar() {
       variant="filled"
       shape="circle"
       spacing="compact"
-      allowHover={true}
+      parentHover={true}
     />
   );
 }
