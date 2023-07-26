@@ -1,16 +1,4 @@
-const spacing = ["wide", "compact", "none"];
-const variant = ["filled", "outlined", "none"];
-const appearance = [
-  "primary",
-  "success",
-  "warning",
-  "error",
-  "help",
-  "dark",
-  "gray",
-  "light",
-];
-const shape = ["circle", "rectangle"];
+import { appearance, shape, spacing, variant } from "./types";
 
 const props = {
   icon: {
@@ -53,4 +41,4 @@ const props = {
   },
 };
 
-export { props, spacing, variant, appearance, shape };
+export { appearance, props, shape, spacing, variant };

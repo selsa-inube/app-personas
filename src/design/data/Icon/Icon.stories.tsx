@@ -1,9 +1,9 @@
-import { Icon } from ".";
 import { MdHouse } from "react-icons/md";
+import { Icon, IconProps } from ".";
 
-import { props } from "./props";
 import { ThemeProvider } from "styled-components";
 import { fondecom } from "../../../mocks/theme";
+import { props } from "./props";
 
 const story = {
   title: "design/data/Icon",
@@ -14,7 +14,7 @@ const story = {
   },
 };
 
-export const Default = (args) => <Icon {...args} />;
+export const Default = (args: IconProps) => <Icon {...args} />;
 Default.args = {
   icon: <MdHouse />,
   appearance: "primary",
@@ -31,7 +31,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: IconProps) => (
   <ThemeProvider theme={theme}>
     <Icon {...args} />
   </ThemeProvider>
