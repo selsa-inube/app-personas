@@ -1,7 +1,7 @@
 import { MdPersonOutline } from "react-icons/md";
 import { Icon } from "../Icon";
 
-function Avatar(): JSX.Element {
+function Avatar() {
   return (
     <Icon
       icon={<MdPersonOutline />}
