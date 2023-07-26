@@ -1,10 +1,14 @@
-import PropTypes from "prop-types";
-
 import { User } from "../../data/User";
 
 import { StyledHeader, StyledLogo, StyledUser } from "./styles";
 
-function Header(props) {
+interface HeaderProps {
+  logoURL: string;
+  username: string;
+  client?: string;
+}
+
+function Header(props: HeaderProps) {
   const { logoURL, username, client } = props;
 
   return (
@@ -17,10 +21,5 @@ function Header(props) {
   );
 }
 
-Header.propTypes = {
-  logoURL: PropTypes.string,
-  username: PropTypes.string.isRequired,
-  client: PropTypes.string,
-};
-
 export { Header };
+export type { HeaderProps };
