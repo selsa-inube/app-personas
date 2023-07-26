@@ -1,15 +1,13 @@
 import { inube } from "../../tokens";
 
-const as = ["p", "label", "h1", "h2", "h3", "h4", "h5", "h6", "span"];
-const textAlign = ["start", "end", "center", "justify"];
-const appearance = Object.keys(inube.color.text);
-const type = Object.keys(inube.typography);
-const size = Object.keys(inube.typography.body);
+import { asTags, textAlign } from "src/types/design.types";
+import { textAppearance } from "../../../types/color.types";
+import { size, type } from "../../../types/typography.types";
 
 const props = {
   as: {
     control: "select",
-    options: as,
+    options: asTags,
     description:
       "Controls the HTML element to use in the DOM when the component is rendered",
   },
@@ -21,7 +19,7 @@ const props = {
   },
   appearance: {
     control: "select",
-    options: appearance,
+    options: textAppearance,
     description: "Controls the element part of the color.text token",
   },
   type: {
@@ -55,4 +53,4 @@ const props = {
   },
 };
 
-export { props, as, appearance, type, size, textAlign };
+export { props };
