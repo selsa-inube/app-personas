@@ -5,7 +5,7 @@ interface IconProps {
   icon: React.JSX.Element;
   appearance?: AppearanceType;
   spacing?: SpacingType;
-  variant: VariantType;
+  variant?: VariantType;
   shape?: ShapeType;
   size?: string;
   cursorHover?: boolean;
@@ -18,7 +18,7 @@ function Icon(props: IconProps) {
     icon,
     appearance = "primary",
     spacing = "wide",
-    variant,
+    variant='none',
     shape = "rectangle",
     size = "24px",
     cursorHover = false,

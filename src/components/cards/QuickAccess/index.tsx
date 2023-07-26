@@ -9,7 +9,7 @@ interface QuickAccessProps {
 }
 
 interface ILinks {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   label: string;
   path: string;
 }

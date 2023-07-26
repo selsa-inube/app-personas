@@ -66,7 +66,6 @@ function Box(props: BoxProps) {
                 appearance="dark"
                 spacing="compact"
                 cursorHover={true}
-                variant="none"
               />
             </StyledCollapseIcon>
           )}
@@ -77,7 +76,6 @@ function Box(props: BoxProps) {
           <Stack justifyContent="flex-end">
             <Button
               iconBefore={button.icon}
-              variant="none"
               spacing="compact"
               appearance="dark"
               fullwidth={false}
