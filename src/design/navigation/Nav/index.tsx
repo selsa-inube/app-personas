@@ -4,8 +4,15 @@ import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 
 import { StyledNav, StyledList, StyledContent, StyledFooter } from "./styles";
+import { Isections } from "src/design/layout/Page/types";
 
-function Nav(props) {
+interface NavProps{
+  title: string;
+  sections: Isections[];
+  currentLocation: string;
+}
+
+function Nav(props: NavProps) {
   const { title = "Menu", sections, currentLocation } = props;
   const year = new Date().getFullYear();
 
