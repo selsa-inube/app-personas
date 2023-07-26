@@ -3,14 +3,14 @@ import { AppearanceType, SpacingType, VariantType, ShapeType } from "./types";
 
 interface IconProps {
   icon: React.JSX.Element;
-  appearance: AppearanceType;
-  spacing: SpacingType;
+  appearance?: AppearanceType;
+  spacing?: SpacingType;
   variant: VariantType;
-  shape: ShapeType;
-  size: string;
-  cursorHover: boolean;
-  parentHover: boolean;
-  disabled: boolean;
+  shape?: ShapeType;
+  size?: string;
+  cursorHover?: boolean;
+  parentHover?: boolean;
+  disabled?: boolean;
 }
 
 function Icon(props: IconProps) {
