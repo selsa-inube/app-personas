@@ -1,16 +1,18 @@
 import { StyledIcon } from "./styles";
-import { AppearanceType, SpacingType, VariantType, ShapeType } from "./types";
+import { VariantType, ShapeType } from "../../../types/design.types";
+import {SpacingType} from "../../../types/spacing.types";
+import {AppearanceType} from "../../../types/color.types";
 
 interface IconProps {
   icon: React.JSX.Element;
-  appearance: AppearanceType;
-  spacing: SpacingType;
+  appearance?: AppearanceType;
+  spacing?: SpacingType;
   variant: VariantType;
-  shape: ShapeType;
-  size: string;
-  cursorHover: boolean;
-  parentHover: boolean;
-  disabled: boolean;
+  shape?: ShapeType;
+  size?: string;
+  cursorHover?: boolean;
+  parentHover?: boolean;
+  disabled?: boolean;
 }
 
 function Icon(props: IconProps) {

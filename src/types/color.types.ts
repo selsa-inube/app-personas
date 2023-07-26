@@ -15,4 +15,5 @@ type TextAppearanceType = keyof typeof inube.color.text;
 
 type AppearanceType = (typeof appearance)[number];
 
+export { appearance };
 export type { TextAppearanceType, AppearanceType };
