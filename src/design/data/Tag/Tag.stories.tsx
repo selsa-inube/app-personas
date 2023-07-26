@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 
-import { Tag } from ".";
+import { Tag, TagProps } from ".";
 
 import { props } from "./props";
 import { fondecom } from "../../../mocks/theme";
@@ -14,7 +14,7 @@ const story = {
   },
 };
 
-export const Default = (args) => <Tag {...args} />;
+export const Default = (args: TagProps) => <Tag {...args} />;
 Default.args = {
   label: "Pending",
   appearance: "gray",
@@ -24,7 +24,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: TagProps) => (
   <ThemeProvider theme={theme}>
     <Tag {...args} />
   </ThemeProvider>

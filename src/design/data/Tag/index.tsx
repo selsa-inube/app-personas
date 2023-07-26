@@ -1,14 +1,18 @@
-import PropTypes from "prop-types";
-
 import { Text } from "../Text";
 
 import { appearance } from "./props";
 
 import { StyledTag } from "./styles";
+import { AppearanceType } from "../../../types/color.types";
 
 const darkTextAppearances = ["warning", "gray", "light"];
 
-function Tag(props) {
+interface TagProps{
+  label:string;
+  appearance:AppearanceType;
+}
+
+function Tag(props: TagProps) {
   const { label, appearance = "gray" } = props;
 
   return (
@@ -24,9 +28,6 @@ function Tag(props) {
   );
 }
 
-Tag.propTypes = {
-  label: PropTypes.string.isRequired,
-  appearance: PropTypes.oneOf(appearance),
-};
 
 export { Tag };
+export type {TagProps};
