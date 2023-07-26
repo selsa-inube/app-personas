@@ -15,10 +15,10 @@ interface ProductProps {
   title: string;
   description: string;
   icon: JSX.Element;
-  attributes?: IAttribute[];
-  breakpoints?: { [key: string]: number };
-  tags?: ITag[];
-  empty?: boolean;
+  attributes: IAttribute[];
+  breakpoints: { [key: string]: number };
+  tags: ITag[];
+  empty: boolean;
 }
 
 function Product(props: ProductProps) {
