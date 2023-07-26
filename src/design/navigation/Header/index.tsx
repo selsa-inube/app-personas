@@ -3,7 +3,7 @@ import { User } from "../../data/User";
 import { StyledHeader, StyledLogo, StyledUser } from "./styles";
 
 interface HeaderProps {
-  logoURL: string;
+  logoURL?: string;
   username: string;
   client?: string;
 }
