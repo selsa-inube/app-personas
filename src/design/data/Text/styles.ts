@@ -1,7 +1,27 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
+import {
+  TextAlignType,
+  AppearanceType,
+  TypeType,
+  SizeType,
+  SpacingType,
+} from "./types";
 
-const StyledText = styled.p`
+interface IStyledText {
+  margin: SpacingType;
+  padding: SpacingType;
+  appearance: AppearanceType;
+  type: TypeType;
+  size: SizeType;
+  textAlign: TextAlignType;
+  cursorHover: boolean;
+  parentHover: boolean;
+  disabled: boolean;
+  ellipsis: boolean;
+}
+
+const StyledText = styled.p<IStyledText>`
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
   text-align: ${({ textAlign }) => textAlign};

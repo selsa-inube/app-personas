@@ -1,10 +1,4 @@
-import { inube } from "../../tokens";
-
-const as = ["p", "label", "h1", "h2", "h3", "h4", "h5", "h6", "span"];
-const textAlign = ["start", "end", "center", "justify"];
-const appearance = Object.keys(inube.color.text);
-const type = Object.keys(inube.typography);
-const size = Object.keys(inube.typography.body);
+import { as, textAlign, appearance, type, size } from "./types";
 
 const props = {
   as: {
@@ -55,4 +49,4 @@ const props = {
   },
 };
 
-export { props, as, appearance, type, size, textAlign };
+export { props };

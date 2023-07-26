@@ -1,13 +1,34 @@
-import PropTypes from "prop-types";
 import { StyledText } from "./styles";
-import { as, appearance, type, size, textAlign } from "./props";
+import {
+  AsType,
+  TextAlignType,
+  AppearanceType,
+  TypeType,
+  SizeType,
+  SpacingType,
+} from "./types";
 
-function Text(props) {
+interface TextProps {
+  children: React.ReactNode;
+  as: AsType;
+  margin: SpacingType;
+  padding: SpacingType;
+  appearance: AppearanceType;
+  type: TypeType;
+  size: SizeType;
+  textAlign: TextAlignType;
+  cursorHover: boolean;
+  parentHover: boolean;
+  disabled: boolean;
+  ellipsis: boolean;
+}
+
+function Text(props: TextProps) {
   const {
     children,
     as = "p",
-    margin = "0px",
-    padding = "0px",
+    margin = "s0",
+    padding = "s0",
     appearance = "dark",
     type = "body",
     size = "large",
@@ -36,19 +57,5 @@ function Text(props) {
   );
 }
 
-Text.propTypes = {
-  children: PropTypes.node.isRequired,
-  as: PropTypes.oneOf(as),
-  margin: PropTypes.string,
-  padding: PropTypes.string,
-  appearance: PropTypes.oneOf(appearance),
-  type: PropTypes.oneOf(type),
-  size: PropTypes.oneOf(size),
-  textAlign: PropTypes.oneOf(textAlign),
-  cursorHover: PropTypes.bool,
-  parentHover: PropTypes.bool,
-  disabled: PropTypes.bool,
-  ellipsis: PropTypes.bool,
-};
-
+export type { TextProps };
 export { Text };
