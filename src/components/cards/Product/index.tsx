@@ -1,19 +1,27 @@
-import PropTypes from "prop-types";
-
 import { Icon } from "../../../design/data/Icon";
 import { Text } from "../../../design/data/Text";
 import { Tag } from "../../../design/data/Tag";
 import { Stack } from "../../../design/layout/Stack";
 import { Grid } from "../../../design/layout/Grid";
 
-import { appearance } from "../../../design/data/Tag/props";
 import { inube } from "../../../design/tokens";
 
 import { StyledProduct } from "./styles";
 import { useMediaQueries } from "../../../hooks/useMediaQueries";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
+import { ITag, IAttribute } from "./types";
 
-function Product(props) {
+interface ProductProps {
+  title: string;
+  description: string;
+  icon: JSX.Element;
+  attributes?: IAttribute[];
+  breakpoints?: { [key: string]: number };
+  tags?: ITag[];
+  empty?: boolean;
+}
+
+function Product(props: ProductProps) {
   const {
     title,
     description,
@@ -27,7 +35,9 @@ function Product(props) {
   const mobile = useMediaQuery("(max-width: 450px)");
 
   const attributeQueries = Object.keys(breakpoints);
-  const attributeMediaQueries = useMediaQueries(attributeQueries);
+  const attributeMediaQueries = useMediaQueries(attributeQueries) as {
+    [key: string]: boolean;
+  };
   const index = attributeQueries.findIndex(
     (query) => attributeMediaQueries[query] === true
   );
@@ -104,25 +114,5 @@ function Product(props) {
   );
 }
 
-Product.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  icon: PropTypes.node.isRequired,
-  attributes: PropTypes.arrayOf(
-    PropTypes.exact({
-      id: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    })
-  ),
-  breakpoints: PropTypes.object,
-  tags: PropTypes.arrayOf(
-    PropTypes.exact({
-      label: PropTypes.string.isRequired,
-      appearance: PropTypes.oneOf(appearance),
-    })
-  ),
-  empty: PropTypes.bool,
-};
-
+export type { ProductProps };
 export { Product };
