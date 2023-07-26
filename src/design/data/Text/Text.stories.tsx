@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { Text } from ".";
+import { Text, TextProps } from ".";
 
 import { fondecom } from "../../../mocks/theme";
 import { props } from "./props";
@@ -13,7 +13,9 @@ const story = {
   },
 };
 
-export const Default = (args) => <Text {...args}>This is a paragraph</Text>;
+export const Default = (args: TextProps) => (
+  <Text {...args}>This is a paragraph</Text>
+);
 Default.args = {
   as: "p",
   margin: "0px",
@@ -31,7 +33,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => {
+export const Themed = (args: TextProps) => {
   return (
     <ThemeProvider theme={theme}>
       <Text {...args}>This is a paragraph</Text>
