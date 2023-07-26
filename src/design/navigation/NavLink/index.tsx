@@ -10,12 +10,12 @@ import { useState } from "react";
 interface NavLinkProps {
   icon: React.JSX.Element;
   children: React.JSX.Element;
-  path: string;
+  path?: string;
   selected?: boolean;
 }
 
 function NavLink(props: NavLinkProps) {
-  const { icon, children, path, selected = false } = props;
+  const { icon, children, path = "", selected = false } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   function toggleHover(state: boolean) {

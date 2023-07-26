@@ -6,7 +6,9 @@ interface IStyledNavLink {
   selected?: boolean;
 }
 
-interface IStyledLink extends IStyledNavLink {}
+interface IStyledLink {
+  selected?: boolean;
+}
 
 const StyledNavLink = styled.li<IStyledNavLink>`
   list-style: none;
