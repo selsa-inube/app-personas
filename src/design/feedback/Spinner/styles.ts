@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
+import { AppearanceType, SizeType } from "src/types/design.types";
 import { inube } from "../../tokens";
 
 const spin = keyframes`
@@ -11,7 +12,13 @@ const spin = keyframes`
   }
 `;
 
-const StyledSpinner = styled.div`
+interface IStyledSpinner {
+  appearance?: AppearanceType;
+  size?: SizeType;
+  track?: boolean;
+}
+
+const StyledSpinner = styled.div<IStyledSpinner>`
   box-sizing: border-box;
   width: ${({ size }) => {
     if (size === "large") {
@@ -51,8 +58,8 @@ const StyledSpinner = styled.div`
     return "transparent";
   }};
   border-left-color: ${({ theme, appearance }) =>
-    theme.color?.stroke?.[appearance]?.regular ||
-    inube.color.stroke[appearance].regular};
+    (appearance && theme.color?.stroke?.[appearance]?.regular) ||
+    (appearance && inube.color.stroke[appearance].regular)};
 
   animation: ${spin} 1500ms linear infinite;
 `;
