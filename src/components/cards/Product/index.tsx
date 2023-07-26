@@ -1,6 +1,6 @@
 import { Icon } from "../../../design/data/Icon";
 import { Text } from "../../../design/data/Text";
-import { Tag } from "../../../design/data/Tag";
+import { Tag, TagProps } from "../../../design/data/Tag";
 import { Stack } from "../../../design/layout/Stack";
 import { Grid } from "../../../design/layout/Grid";
 
@@ -9,7 +9,7 @@ import { inube } from "../../../design/tokens";
 import { StyledProduct } from "./styles";
 import { useMediaQueries } from "../../../hooks/useMediaQueries";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
-import { ITag, IAttribute } from "./types";
+import { IAttribute } from "./types";
 
 interface ProductProps {
   title?: string;
@@ -17,7 +17,7 @@ interface ProductProps {
   icon: React.JSX.Element;
   attributes: IAttribute[];
   breakpoints?: Record<string, number>;
-  tags: ITag[];
+  tags: TagProps[];
   empty?: boolean;
 }
 

@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
+import { AppearanceType } from "../../../types/design.types";
 
-const StyledTag = styled.div`
+interface IStyledTag{
+  theme: string;
+  appearance: AppearanceType;
+}
+
+const StyledTag = styled.div<IStyledTag>`
   display: inline-block;
   padding: 0 ${inube.spacing.s050};
   background-color: ${({ theme, appearance }) =>
