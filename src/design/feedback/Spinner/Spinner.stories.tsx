@@ -3,7 +3,7 @@ import { props } from "./props";
 
 import { fondecom } from "../../../mocks/theme";
 
-import { Spinner } from ".";
+import { Spinner, SpinnerProps } from ".";
 
 const story = {
   title: "design/feedback/Spinner",
@@ -14,7 +14,7 @@ const story = {
   },
 };
 
-export const Default = (args) => <Spinner {...args} />;
+export const Default = (args: SpinnerProps) => <Spinner {...args} />;
 Default.args = {
   appearance: "primary",
   size: "small",
@@ -25,7 +25,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: SpinnerProps) => (
   <ThemeProvider theme={theme}>
     <Spinner {...args} />
   </ThemeProvider>

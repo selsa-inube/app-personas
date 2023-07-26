@@ -1,7 +1,10 @@
+import {
+  AppearanceType,
+  SpacingType,
+  VariantType,
+  ShapeType,
+} from "src/types/design.types";
 import { StyledIcon } from "./styles";
-import { VariantType, ShapeType } from "../../../types/design.types";
-import {SpacingType} from "../../../types/design.types";
-import {AppearanceType} from "../../../types/design.types";
 
 interface IconProps {
   icon: React.JSX.Element;
@@ -20,7 +23,7 @@ function Icon(props: IconProps) {
     icon,
     appearance = "primary",
     spacing = "wide",
-    variant='none',
+    variant = "none",
     shape = "rectangle",
     size = "24px",
     cursorHover = false,

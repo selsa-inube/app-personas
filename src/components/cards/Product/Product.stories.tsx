@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { Product } from ".";
+import { Product, ProductProps } from ".";
 import { props } from "./props";
 
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
@@ -15,7 +15,7 @@ const story = {
   },
 };
 
-export const Default = (args) => <Product {...args} />;
+export const Default = (args: ProductProps) => <Product {...args} />;
 Default.args = {
   title: "Crédito educativo",
   description: "09-786238-77",
@@ -55,7 +55,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: ProductProps) => (
   <ThemeProvider theme={theme}>
     <Product {...args} />
   </ThemeProvider>
