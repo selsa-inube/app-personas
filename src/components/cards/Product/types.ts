@@ -4,9 +4,4 @@ interface IAttribute {
   value: string;
 }
 
-interface ITag {
-  label: string;
-  appearance: string;
-}
-
-export type { ITag, IAttribute };
+export type { IAttribute };
