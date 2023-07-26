@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import { Text } from "../../data/Text";
 import { Stack } from "../../layout/Stack";
 import { Icon } from "../../data/Icon";
@@ -9,11 +7,18 @@ import { MdChevronRight } from "react-icons/md";
 import { StyledNavLink, StyledLink } from "./styles";
 import { useState } from "react";
 
-function NavLink(props) {
+interface NavLinkProps {
+  icon: React.JSX.Element;
+  children: React.JSX.Element;
+  path: string;
+  selected?: boolean;
+}
+
+function NavLink(props: NavLinkProps) {
   const { icon, children, path, selected = false } = props;
   const [isHovered, setIsHovered] = useState(false);
 
-  function toggleHover(state) {
+  function toggleHover(state: boolean) {
     setIsHovered(state);
   }
 
@@ -36,7 +41,7 @@ function NavLink(props) {
             <Icon
               icon={icon}
               appearance={getIconAppearance()}
-              allowHover={true}
+              parentHover={true}
             />
             <Text size="medium">{children}</Text>
           </Stack>
@@ -47,11 +52,5 @@ function NavLink(props) {
   );
 }
 
-NavLink.propTypes = {
-  icon: PropTypes.element.isRequired,
-  children: PropTypes.string.isRequired,
-  path: PropTypes.string,
-  selected: PropTypes.bool,
-};
-
+export type { NavLinkProps };
 export { NavLink };

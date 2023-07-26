@@ -5,6 +5,7 @@ import { MdHouse } from "react-icons/md";
 import { fondecom } from "../../../mocks/theme";
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
+import { NavLinkProps } from ".";
 
 const story = {
   title: "design/navigation/NavLink",
@@ -15,7 +16,7 @@ const story = {
   },
 };
 
-export const Default = (args) => (
+export const Default = (args: NavLinkProps) => (
   <BrowserRouter>
     <NavLink {...args} />
   </BrowserRouter>
@@ -32,7 +33,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: NavLinkProps) => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <NavLink {...args}>{args.children}</NavLink>

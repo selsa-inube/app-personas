@@ -2,7 +2,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inube } from "../../tokens";
 
-const StyledNavLink = styled.li`
+interface IStyledNavLink {
+  selected?: boolean;
+}
+
+interface IStyledLink extends IStyledNavLink {}
+
+const StyledNavLink = styled.li<IStyledNavLink>`
   list-style: none;
   height: 40px;
   background-color: ${({ theme, selected }) => {
@@ -30,7 +36,7 @@ const StyledNavLink = styled.li`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<IStyledLink>`
   box-sizing: border-box;
   width: 100%;
   height: inherit;
