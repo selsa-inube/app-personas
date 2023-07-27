@@ -3,10 +3,10 @@ import { ILinks } from "@components/cards/QuickAccess/types";
 interface IHeader{
     logoURL: string;
     username: string;
-    client: string; 
+    client?: string; 
 }
 interface INav{ 
-    title: string,
+    title?: string,
     sections: ISections[];
   }
 
