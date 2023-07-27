@@ -1,4 +1,4 @@
-import { inube } from "../design/tokens";
+import { inube } from "@design/tokens";
 
 const textAppearance = Object.keys(inube.color.text);
 
