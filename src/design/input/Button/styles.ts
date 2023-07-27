@@ -6,7 +6,7 @@ import {
   VariantType,
 } from "src/types/design.types";
 
-interface StyledButtonProps {
+interface IStyledButton{
   spacing: SpacingType;
   fullwidth: boolean;
   variant: VariantType;
@@ -15,16 +15,16 @@ interface StyledButtonProps {
   load: boolean;
 }
 
-interface StyledSpinnerContainerProps {
+interface IStyledSpinnerContainer {
   variant: VariantType;
 }
 
-interface StyledButtonContentProps {
+interface IStyledButtonContent {
   load: boolean;
   disabled: boolean;
 }
 
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button<IStyledButton>`
   position: relative;
   box-sizing: border-box;
 
@@ -103,7 +103,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   }
 `;
 
-const StyledSpinnerContainer = styled.div<StyledSpinnerContainerProps>`
+const StyledSpinnerContainer = styled.div<IStyledSpinnerContainer>`
   position: absolute;
   height: inherit;
   top: ${({ variant }) => (variant === "outlined" ? "-1px" : "0")};
@@ -111,7 +111,7 @@ const StyledSpinnerContainer = styled.div<StyledSpinnerContainerProps>`
   right: 0;
 `;
 
-const StyledButtonContent = styled.div<StyledButtonContentProps>`
+const StyledButtonContent = styled.div<IStyledButtonContent>`
   opacity: ${({ load, disabled }) => {
     if (load && !disabled) {
       return 0;
