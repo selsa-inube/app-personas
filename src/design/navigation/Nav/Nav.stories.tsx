@@ -7,8 +7,9 @@ import {
   MdOutlineAddCard,
   MdOutlineAirplaneTicket,
 } from "react-icons/md";
+import { StoryFn } from "@storybook/react";
 
-import { Nav } from "./";
+import { Nav, NavProps } from ".";
 import { props } from "./props";
 import { fondecom } from "../../../mocks/theme";
 
@@ -25,7 +26,7 @@ const story = {
     layout: "fullscreen",
   },
   decorators: [
-    (Story) => (
+    (Story: StoryFn) => (
       <div style={{ height: "100vh" }}>
         <Story />
       </div>
@@ -33,7 +34,7 @@ const story = {
   ],
 };
 
-export const Default = (args) => (
+export const Default = (args: NavProps) => (
   <BrowserRouter>
     <Nav {...args} />
   </BrowserRouter>
@@ -65,7 +66,7 @@ Default.args = {
   currentLocation: "/",
 };
 
-export const MultipleSections = (args) => (
+export const MultipleSections = (args: NavProps) => (
   <BrowserRouter>
     <Nav {...args} />
   </BrowserRouter>
@@ -102,7 +103,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: NavProps) => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Nav {...args} />
