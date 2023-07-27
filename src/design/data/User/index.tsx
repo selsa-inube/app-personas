@@ -1,11 +1,14 @@
-import PropTypes from "prop-types";
-
 import { Stack } from "../../layout/Stack";
 import { Avatar } from "../Avatar";
 import { Text } from "../Text";
 import { StyledUser } from "./styles";
 
-function User(props) {
+interface UserProps {
+  username: string;
+  client?: string;
+}
+
+function User(props: UserProps) {
   const { username, client } = props;
 
   return (
@@ -16,7 +19,7 @@ function User(props) {
             {username}
           </Text>
           {client && (
-            <Text type="body" size="small" color="gray" textAlign="center">
+            <Text type="body" size="small" appearance="gray" textAlign="center">
               {client}
             </Text>
           )}
@@ -27,9 +30,5 @@ function User(props) {
   );
 }
 
-User.propTypes = {
-  username: PropTypes.string.isRequired,
-  client: PropTypes.string,
-};
-
 export { User };
+export type { UserProps };

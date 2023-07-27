@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 
-import { Icon } from "../../../design/data/Icon";
-import { Text } from "../../../design/data/Text";
-import { Button } from "../../../design/input/Button";
-import { Stack } from "../../../design/layout/Stack";
+import { Icon } from "@design/data/Icon";
+import { Text } from "@design/data/Text";
+import { Button } from "@design/input/Button";
+import { Stack } from "@design/layout/Stack";
 
-import { inube } from "../../../design/tokens";
+import { inube } from "@design/tokens";
 
 import { StyledBox, StyledCollapseIcon, StyledDivider } from "./styles";
 
@@ -14,7 +14,7 @@ interface BoxProps {
   icon: React.JSX.Element;
   title: string;
   subtitle: string;
-  children: React.JSX.Element;
+  children: React.ReactNode;
   button: {
     label: string;
     icon: React.JSX.Element;
