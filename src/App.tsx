@@ -9,9 +9,9 @@ import { useFonts } from "./hooks/useFonts";
 import { GlobalStyles } from "./design/styles";
 import { ThemeProvider } from "styled-components";
 
-import { theme } from "./config/theme";
-import { header } from "./config/header";
-import { nav } from "./config/nav";
+import { theme } from "@config/theme";
+import { header } from "@config/header";
+import { nav } from "@config/nav";
 
 import { Page } from "./design/layout/Page";
 
