@@ -16,11 +16,11 @@ import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { quickLinks } from "../../config/quickLinks";
-import { cards, credits, savings } from "./config/boxes";
+import { cards, credits, savings } from "@pages/home/config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
-} from "./config/products";
+} from "@pages/home/config/products";
 
 import { cardProducts, creditProducts, savingsProducts } from "./mocks";
 

@@ -15,7 +15,7 @@ import { theme } from "./config/theme";
 
 import { Page } from "@design/layout/Page";
 
-import { Home } from "./pages/home";
+import { Home } from "@pages/home";
 
 function App() {
   useFonts(theme.typography.fonts);
