@@ -41,7 +41,7 @@ const surface = {
     regular: palette.neutral.N10,
   },
   navLink: {
-    regular: palette.neutral.N0A,
+    regular: palette.neutral.N0,
     selected: palette.neutral.N30,
     hover: palette.neutral.N30,
   },
