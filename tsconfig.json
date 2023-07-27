@@ -19,7 +19,8 @@
     "baseUrl": ".",
     "paths": {
       "@design/*": ["./src/design/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@config/*": ["./src/config/*"]
     },
     "types": ["vite/client"]
   },
