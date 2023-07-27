@@ -17,6 +17,10 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "paths": {
+      "@design/*": ["./src/design/*"],
+      "@components/*": ["./src/components/*"]
+    },
     "types": ["vite/client"]
   },
 
