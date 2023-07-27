@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { User } from ".";
+import { User, UserProps } from ".";
 import { fondecom } from "../../../mocks/theme";
 import { props } from "./props";
 
@@ -12,7 +12,7 @@ const story = {
   },
 };
 
-export const Default = (args) => <User {...args} />;
+export const Default = (args: UserProps) => <User {...args} />;
 Default.args = {
   username: "Leonardo Garzón",
   client: "Fondecom",
@@ -22,7 +22,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: UserProps) => (
   <ThemeProvider theme={theme}>
     <User {...args} />
   </ThemeProvider>
