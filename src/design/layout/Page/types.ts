@@ -1,4 +1,4 @@
-import { ILinks } from "src/components/cards/QuickAccess/types";
+import { ILinks } from "@components/cards/QuickAccess/types";
 
 interface IHeader{
     logoURL?: string;

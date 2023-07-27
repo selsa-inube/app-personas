@@ -4,7 +4,7 @@ import { Text } from "../Text";
 import { StyledUser } from "./styles";
 
 interface UserProps {
-  username?: string;
+  username: string;
   client?: string;
 }
 

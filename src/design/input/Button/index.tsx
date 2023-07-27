@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 
 import { Text } from "../../data/Text";
 import { Spinner } from "../../feedback/Spinner";
@@ -8,7 +7,11 @@ import { Icon } from "../../data/Icon";
 
 import { inube } from "../../tokens";
 
-import { appearance, spacing, variant } from "./props";
+import {
+  AppearanceType,
+  SpacingType,
+  VariantType,
+} from "src/types/design.types";
 
 import {
   StyledButton,
@@ -16,7 +19,19 @@ import {
   StyledButtonContent,
 } from "./styles";
 
-function Button(props) {
+interface ButtonProps {
+  children: React.ReactNode;
+  iconBefore?: React.JSX.Element;
+  iconAfter?: React.JSX.Element;
+  appearance?: AppearanceType;
+  spacing?: SpacingType;
+  variant?: VariantType;
+  fullwidth?: boolean;
+  load?: boolean;
+  disabled?: boolean;
+}
+
+function Button(props: ButtonProps) {
   const {
     children,
     iconBefore,
@@ -29,7 +44,7 @@ function Button(props) {
     disabled = false,
   } = props;
 
-  const darkWhenFilled = ["warning", "gray", "light"];
+  const darkWhenFilled: AppearanceType[] = ["warning", "gray", "light"];
 
   function getAppearance() {
     if (variant === "filled") {
@@ -42,7 +57,7 @@ function Button(props) {
   }
 
   const [hover, setHover] = useState(false);
-  function toggleHover(newState) {
+  function toggleHover(newState: boolean): void {
     if (variant !== "filled") {
       setHover(newState);
     }
@@ -108,16 +123,5 @@ function Button(props) {
   );
 }
 
-Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  iconBefore: PropTypes.element,
-  iconAfter: PropTypes.element,
-  appearance: PropTypes.oneOf(appearance),
-  spacing: PropTypes.oneOf(spacing),
-  variant: PropTypes.oneOf(variant),
-  fullwidth: PropTypes.bool,
-  load: PropTypes.bool,
-  disabled: PropTypes.bool,
-};
-
 export { Button };
+export type { ButtonProps };

@@ -1,4 +1,4 @@
-import { Button } from ".";
+import { Button, ButtonProps } from ".";
 
 import { MdAdd, MdChevronRight } from "react-icons/md";
 import { props } from "./props";
@@ -15,7 +15,7 @@ const story = {
   },
 };
 
-export const Default = (args) => <Button {...args} />;
+export const Default = (args: ButtonProps) => <Button {...args} />;
 Default.args = {
   children: "Button",
   iconBefore: <MdAdd />,
@@ -32,7 +32,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: ButtonProps) => (
   <ThemeProvider theme={theme}>
     <Button {...args} />
   </ThemeProvider>

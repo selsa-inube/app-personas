@@ -1,7 +1,30 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
+import {
+  AppearanceType,
+  SpacingType,
+  VariantType,
+} from "src/types/design.types";
 
-const StyledButton = styled.button`
+interface IStyledButton{
+  spacing: SpacingType;
+  fullwidth: boolean;
+  variant: VariantType;
+  appearance: AppearanceType;
+  disabled: boolean;
+  load: boolean;
+}
+
+interface IStyledSpinnerContainer {
+  variant: VariantType;
+}
+
+interface IStyledButtonContent {
+  load: boolean;
+  disabled: boolean;
+}
+
+const StyledButton = styled.button<IStyledButton>`
   position: relative;
   box-sizing: border-box;
 
@@ -80,7 +103,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const StyledSpinnerContainer = styled.div`
+const StyledSpinnerContainer = styled.div<IStyledSpinnerContainer>`
   position: absolute;
   height: inherit;
   top: ${({ variant }) => (variant === "outlined" ? "-1px" : "0")};
@@ -88,12 +111,12 @@ const StyledSpinnerContainer = styled.div`
   right: 0;
 `;
 
-const StyledButtonContent = styled.div`
+const StyledButtonContent = styled.div<IStyledButtonContent>`
   opacity: ${({ load, disabled }) => {
     if (load && !disabled) {
       return 0;
     }
-  }};
+  }}
 `;
 
 export { StyledButton, StyledSpinnerContainer, StyledButtonContent };
