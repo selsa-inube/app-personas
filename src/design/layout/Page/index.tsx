@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useLocation, Outlet } from "react-router-dom";
 
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -8,8 +7,14 @@ import { Nav } from "../../navigation/Nav";
 import { Grid } from "../Grid";
 
 import { StyledPage, StyledMain } from "./styles";
+import { IHeader, INav } from "./types";
 
-function Page(props) {
+interface PageProps{
+  header: IHeader;
+  nav: INav;
+}
+
+function Page(props: PageProps) {
   const currentLocation = useLocation().pathname;
   const navBreakpoint = useMediaQuery("(min-width: 900px)");
 
@@ -41,16 +46,5 @@ function Page(props) {
   );
 }
 
-Page.propTypes = {
-  header: PropTypes.shape({
-    logoURL: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    client: PropTypes.string,
-  }),
-  nav: PropTypes.shape({
-    title: PropTypes.string,
-    sections: PropTypes.array,
-  }),
-};
-
 export { Page };
+export type { PageProps };
