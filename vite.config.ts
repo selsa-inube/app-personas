@@ -1,4 +1,5 @@
 import react from "@vitejs/plugin-react";
+import path from "path";
 import { defineConfig } from "vite";
 import vitesconfigPaths from "vite-tsconfig-paths";
 
@@ -7,5 +8,10 @@ export default defineConfig({
   plugins: [react(), vitesconfigPaths()],
   server: {
     open: true,
+  },
+  resolve: {
+    alias: {
+      "@components": path.resolve(__dirname, "./src/components"),
+    },
   },
 });
