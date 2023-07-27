@@ -1,5 +1,3 @@
-import { inube } from "../../tokens";
-
 import { asTags, textAlign } from "src/types/design.types";
 import { textAppearance } from "../../../types/color.types";
 import { size, type } from "../../../types/typography.types";

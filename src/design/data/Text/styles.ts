@@ -2,15 +2,14 @@ import styled from "styled-components";
 import { inube } from "../../tokens";
 import { TextAppearanceType } from "../../../types/color.types";
 import { TextAlignType } from "../../../types/design.types";
-import { SpacingTokensType } from "../../../types/spacing.types";
 import {
   TypographyType,
   TypographySizeType,
 } from "../../../types/typography.types";
 
 interface IStyledText {
-  margin: SpacingTokensType | string;
-  padding: SpacingTokensType | string;
+  margin: string;
+  padding: string;
   appearance: TextAppearanceType;
   type: TypographyType;
   size: TypographySizeType;

@@ -1,12 +1,11 @@
-import PropTypes from "prop-types";
-
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
+import { inube } from "@design/tokens";
 
 import { StyledNav, StyledList, StyledContent, StyledFooter } from "./styles";
 import { ISections } from "@design/layout/Page/types";
 
-interface NavProps{
+interface NavProps {
   title: string;
   sections: ISections[];
   currentLocation: string;
@@ -30,7 +29,12 @@ function Nav(props: NavProps) {
         {sections.map((section) => (
           <StyledList key={section.title}>
             {sections.length > 1 && (
-              <Text padding="s200" type="title" size="small" appearance="gray">
+              <Text
+                padding={inube.spacing.s200}
+                type="title"
+                size="small"
+                appearance="gray"
+              >
                 {section.title.toUpperCase()}
               </Text>
             )}
@@ -48,19 +52,18 @@ function Nav(props: NavProps) {
         ))}
       </StyledContent>
       <StyledFooter>
-        <Text type="label" size="medium" textAlign="center" padding="s300">
+        <Text
+          type="label"
+          size="medium"
+          textAlign="center"
+          padding={inube.spacing.s300}
+        >
           © {year} Inube
         </Text>
       </StyledFooter>
     </StyledNav>
   );
 }
-
-Nav.propTypes = {
-  title: PropTypes.string,
-  sections: PropTypes.array.isRequired,
-  currentLocation: PropTypes.string.isRequired,
-};
 
 export { Nav };
 export type { NavProps };

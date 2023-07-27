@@ -2,6 +2,7 @@ import { Stack } from "../../layout/Stack";
 import { Avatar } from "../Avatar";
 import { Text } from "../Text";
 import { StyledUser } from "./styles";
+import { useState } from "react";
 
 interface UserProps {
   username: string;
@@ -10,9 +11,17 @@ interface UserProps {
 
 function User(props: UserProps) {
   const { username, client } = props;
+  const [isHovered, setIsHovered] = useState(false);
+
+  function toggleHover(state: boolean) {
+    setIsHovered(state);
+  }
 
   return (
-    <StyledUser>
+    <StyledUser
+      onMouseOver={() => toggleHover(true)}
+      onMouseLeave={() => toggleHover(false)}
+    >
       <Stack gap="16px">
         <Stack direction="column" justifyContent="center">
           <Text type="label" size="medium" textAlign="center">
@@ -24,7 +33,7 @@ function User(props: UserProps) {
             </Text>
           )}
         </Stack>
-        <Avatar />
+        <Avatar isHovered={isHovered} />
       </Stack>
     </StyledUser>
   );
