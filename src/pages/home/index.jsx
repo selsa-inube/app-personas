@@ -6,10 +6,10 @@ import {
 
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 
-import { Text } from "../../design/data/Text";
-import { Stack } from "../../design/layout/Stack";
-import { Grid } from "../../design/layout/Grid";
-import { inube } from "../../design/tokens";
+import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
+import { Grid } from "@design/layout/Grid";
+import { inube } from "@design/tokens";
 
 import { Box } from "../../components/cards/Box";
 import { Product } from "../../components/cards/Product";

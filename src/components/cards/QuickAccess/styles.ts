@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { inube } from "../../../design/tokens";
+import { inube } from "@design/tokens";
 
 const StyledQuickAccess = styled.aside`
   width: 100%;
