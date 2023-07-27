@@ -1,4 +1,4 @@
-import { inube } from "../design/tokens";
+import { inube } from "@design/tokens";
 
 const type = Object.keys(inube.typography);
 const size = Object.keys(inube.typography.body);
