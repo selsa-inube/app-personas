@@ -1,16 +1,16 @@
 import { BrowserRouter } from "react-router-dom";
 import { Page } from ".";
 
+import { fondecom } from "@mocks/theme";
 import {
-  MdHouse,
   MdAccountBalanceWallet,
-  MdFactCheck,
   MdAttachMoney,
+  MdFactCheck,
+  MdHouse,
   MdOutlineAddCard,
   MdOutlineAirplaneTicket,
 } from "react-icons/md";
 import { ThemeProvider } from "styled-components";
-import { fondecom } from "../../../mocks/theme";
 import { props } from "./props";
 
 const story = {

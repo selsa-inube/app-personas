@@ -1,6 +1,6 @@
+import { fondecom } from "@mocks/theme";
 import { ThemeProvider } from "styled-components";
 import { User } from ".";
-import { fondecom } from "../../../mocks/theme";
 import { props } from "./props";
 
 const story = {

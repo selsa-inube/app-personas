@@ -1,8 +1,8 @@
+import { MdHouse } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
 import { NavLink, NavLinkProps } from ".";
-import { MdHouse } from "react-icons/md";
 
-import { fondecom } from "../../../mocks/theme";
+import { fondecom } from "@mocks/theme";
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
 

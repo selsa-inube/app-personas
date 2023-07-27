@@ -4,7 +4,7 @@ import { props } from "./props";
 
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
-import { fondecom } from "../../../mocks/theme";
+import { fondecom } from "@mocks/theme";
 
 const story = {
   title: "components/cards/Product",

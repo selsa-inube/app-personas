@@ -17,6 +17,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "paths": {
+      "@mocks/*": ["./src/mocks/*"]
+    },
     "types": ["vite/client"]
   },
 

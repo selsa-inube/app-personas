@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { QuickAccess, QuickAccessProps } from ".";
 
-import { fondecom } from "../../../mocks/theme";
+import { fondecom } from "@mocks/theme";
 
 import {
   MdAttachMoney,
@@ -10,8 +10,8 @@ import {
   MdOutlineAddHome,
   MdOutlineSupportAgent,
 } from "react-icons/md";
-import { props } from "./props";
 import { ThemeProvider } from "styled-components";
+import { props } from "./props";
 
 const story = {
   title: "components/cards/QuickAccess",
@@ -22,7 +22,7 @@ const story = {
   },
 };
 
-export const Default = (args: QuickAccessProps ) => (
+export const Default = (args: QuickAccessProps) => (
   <BrowserRouter>
     <QuickAccess {...args} />
   </BrowserRouter>

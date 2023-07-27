@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { Text, TextProps } from ".";
 
-import { fondecom } from "../../../mocks/theme";
+import { fondecom } from "@mocks/theme";
 import { props } from "./props";
 
 const story = {

@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
 
-import { fondecom } from "../../../mocks/theme";
+import { fondecom } from "@mocks/theme";
 
 import { Spinner, SpinnerProps } from ".";
 
