@@ -12,7 +12,7 @@ const story = {
   },
 };
 
-interface GridPropseExtends extends GridProps {
+interface GridPropsExtends extends GridProps {
   rectangleHeight: string;
   rectangleWidth: string;
 }
@@ -21,7 +21,7 @@ function Rectangles(height: string, width: string) {
   return new Array(10).fill(<Rectangle height={height} width={width} />);
 }
 
-export const Default = (args: GridPropseExtends) => (
+export const Default = (args: GridPropsExtends) => (
   <Grid {...args}>{Rectangles(args.rectangleHeight, args.rectangleWidth)}</Grid>
 );
 Default.args = {
