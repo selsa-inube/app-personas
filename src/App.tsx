@@ -5,7 +5,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
-import { useFonts } from "./hooks/useFonts";
+import { useFonts } from "@hooks/useFonts";
 import { GlobalStyles } from "./design/styles";
 import { ThemeProvider } from "styled-components";
 

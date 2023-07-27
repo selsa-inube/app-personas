@@ -17,6 +17,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "paths": {
+      "@hooks/*": ["./src/hooks/*"]
+    },
     "types": ["vite/client"]
   },
 
