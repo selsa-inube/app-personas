@@ -1,15 +1,4 @@
-const appearance = [
-  "primary",
-  "success",
-  "warning",
-  "error",
-  "help",
-  "dark",
-  "gray",
-  "light",
-];
-const variant = ["filled", "outlined", "none"];
-const spacing = ["wide", "compact"];
+import { appearance, spacing, variant } from "src/types/design.types";
 
 const props = {
   children: {
@@ -51,4 +40,4 @@ const props = {
   },
 };
 
-export { props, appearance, variant, spacing };
+export { props };
