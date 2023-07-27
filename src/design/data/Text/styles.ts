@@ -9,7 +9,7 @@ import {
 } from "../../../types/typography.types";
 
 interface IStyledText {
-  margin?: SpacingTokensType | string;
+  margin: SpacingTokensType | string;
   padding: SpacingTokensType | string;
   appearance: TextAppearanceType;
   type: TypographyType;
