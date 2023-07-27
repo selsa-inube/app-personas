@@ -4,7 +4,7 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";

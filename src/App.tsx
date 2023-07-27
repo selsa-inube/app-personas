@@ -7,7 +7,7 @@ import {
 
 import { GlobalStyles } from "@design/styles";
 import { ThemeProvider } from "styled-components";
-import { useFonts } from "./hooks/useFonts";
+import { useFonts } from "@hooks/useFonts";
 
 import { theme } from "@config/theme";
 import { header } from "@config/header";

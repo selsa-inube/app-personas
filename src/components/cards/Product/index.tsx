@@ -7,8 +7,8 @@ import { Grid } from "@design/layout/Grid";
 import { inube } from "@design/tokens";
 
 import { StyledProduct } from "./styles";
-import { useMediaQueries } from "../../../hooks/useMediaQueries";
-import { useMediaQuery } from "../../../hooks/useMediaQuery";
+import { useMediaQueries } from "@hooks/useMediaQueries";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "./types";
 
 interface ProductProps {

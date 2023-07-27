@@ -1,6 +1,6 @@
 import { useLocation, Outlet } from "react-router-dom";
 
-import { useMediaQuery } from "../../../hooks/useMediaQuery";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
