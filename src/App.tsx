@@ -5,17 +5,17 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
-import { useFonts } from "./hooks/useFonts";
-import { GlobalStyles } from "./design/styles";
+import { GlobalStyles } from "@design/styles";
 import { ThemeProvider } from "styled-components";
+import { useFonts } from "@hooks/useFonts";
 
-import { theme } from "./config/theme";
-import { header } from "./config/header";
-import { nav } from "./config/nav";
+import { theme } from "@config/theme";
+import { header } from "@config/header";
+import { nav } from "@config/nav";
 
-import { Page } from "./design/layout/Page";
+import { Page } from "@design/layout/Page";
 
-import { Home } from "./pages/home";
+import { Home } from "@pages/home";
 
 function App() {
   useFonts(theme.typography.fonts);

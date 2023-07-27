@@ -1,14 +1,14 @@
-import { Icon } from "../../../design/data/Icon";
-import { Text } from "../../../design/data/Text";
-import { Tag, TagProps } from "../../../design/data/Tag";
-import { Stack } from "../../../design/layout/Stack";
-import { Grid } from "../../../design/layout/Grid";
+import { Icon } from "@design/data/Icon";
+import { Text } from "@design/data/Text";
+import { Tag, TagProps } from "@design/data/Tag";
+import { Stack } from "@design/layout/Stack";
+import { Grid } from "@design/layout/Grid";
 
-import { inube } from "../../../design/tokens";
+import { inube } from "@design/tokens";
 
 import { StyledProduct } from "./styles";
-import { useMediaQueries } from "../../../hooks/useMediaQueries";
-import { useMediaQuery } from "../../../hooks/useMediaQuery";
+import { useMediaQueries } from "@hooks/useMediaQueries";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "./types";
 
 interface ProductProps {

@@ -1,11 +1,11 @@
+import { Icon } from "../../data/Icon";
 import { Text } from "../../data/Text";
 import { Stack } from "../../layout/Stack";
-import { Icon } from "../../data/Icon";
 
 import { MdChevronRight } from "react-icons/md";
 
-import { StyledNavLink, StyledLink } from "./styles";
 import { useState } from "react";
+import { StyledLink, StyledNavLink } from "./styles";
 
 interface NavLinkProps {
   icon: React.JSX.Element;
@@ -52,5 +52,5 @@ function NavLink(props: NavLinkProps) {
   );
 }
 
-export type { NavLinkProps };
 export { NavLink };
+export type { NavLinkProps };

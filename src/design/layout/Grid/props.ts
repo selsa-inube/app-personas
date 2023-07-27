@@ -1,24 +1,10 @@
-const justifyItems = ["start", "end", "center", "stretch"];
-const alignItems = ["stretch", "start", "end", "center", "baseline"];
-const justifyContent = [
-  "start",
-  "end",
-  "center",
-  "stretch",
-  "space-around",
-  "space-between",
-  "space-evenly",
-];
-const alignContent = [
-  "start",
-  "end",
-  "center",
-  "stretch",
-  "space-around",
-  "space-between",
-  "space-evenly",
-];
-const autoFlow = ["row", "column", "row dense", "column dense"];
+import {
+  justifyContent,
+  justifyItems,
+  alignContent,
+  alignItems,
+  autoFlow,
+} from "src/types/design.types";
 
 const props = {
   children: {
@@ -78,11 +64,4 @@ const props = {
   },
 };
 
-export {
-  props,
-  justifyItems,
-  alignItems,
-  justifyContent,
-  alignContent,
-  autoFlow,
-};
+export { props };

@@ -1,4 +1,4 @@
-import { useFonts } from "../src/hooks/useFonts";
+import { useFonts } from "@hooks/useFonts";
 import { fondecom } from "@mocks/theme";
 
 /** @type { import('@storybook/react').Preview } */

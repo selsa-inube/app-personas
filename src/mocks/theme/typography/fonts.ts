@@ -3,7 +3,7 @@ const fonts = [
     family: "Open Sans",
     url: "https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-muw.woff2",
     options: {
-      weight: 400,
+      weight: "400",
       style: "normal",
     },
   },
@@ -11,7 +11,7 @@ const fonts = [
     family: "Open Sans",
     url: "https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-muw.woff2",
     options: {
-      weight: 500,
+      weight: "500",
       style: "normal",
     },
   },

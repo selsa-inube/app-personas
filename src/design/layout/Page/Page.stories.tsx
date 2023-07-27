@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { Page } from ".";
+import { Page, PageProps } from ".";
 
 import { fondecom } from "@mocks/theme";
 import {
@@ -25,7 +25,7 @@ const story = {
   },
 };
 
-export const Default = (args) => (
+export const Default = (args: PageProps) => (
   <BrowserRouter>
     <Page {...args} />
   </BrowserRouter>
@@ -87,7 +87,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: PageProps) => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Page {...args} />

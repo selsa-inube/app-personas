@@ -4,25 +4,25 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 
-import { Text } from "../../design/data/Text";
-import { Stack } from "../../design/layout/Stack";
-import { Grid } from "../../design/layout/Grid";
-import { inube } from "../../design/tokens";
+import { Text } from "@design/data/Text";
+import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 
-import { Box } from "../../components/cards/Box";
-import { Product } from "../../components/cards/Product";
-import { QuickAccess } from "../../components/cards/QuickAccess";
+import { Box } from "@components/cards/Box";
+import { Product } from "@components/cards/Product";
+import { QuickAccess } from "@components/cards/QuickAccess";
 
-import { quickLinks } from "../../config/quickLinks";
-import { savings, credits, cards } from "./config/boxes";
+import { quickLinks } from "@config/quickLinks";
+import { savings, credits, cards } from "@pages/home/config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
-} from "./config/products";
+} from "@pages/home/config/products";
 
-import { savingsProducts, creditProducts, cardProducts } from "./mocks";
+import { cardProducts, creditProducts, savingsProducts } from "./mocks";
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
