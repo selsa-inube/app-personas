@@ -9,7 +9,7 @@ import { useState } from "react";
 
 interface NavLinkProps {
   icon: React.JSX.Element;
-  children: React.JSX.Element;
+  children: React.ReactNode;
   path?: string;
   selected?: boolean;
 }
