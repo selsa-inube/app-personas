@@ -38,10 +38,10 @@ const surface = {
     disabled: palette.neutral.N20,
   },
   nav: {
-    regular: palette.neutral.N10,
+    regular: palette.neutral.N20,
   },
   navLink: {
-    regular: palette.neutral.N0A,
+    regular: palette.neutral.N0,
     selected: palette.neutral.N30,
     hover: palette.neutral.N30,
   },

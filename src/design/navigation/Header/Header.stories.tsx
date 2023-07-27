@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-import { Header } from ".";
+import { Header, HeaderProps } from ".";
 import { fondecom } from "../../../mocks/theme";
 import { props } from "./props";
 
@@ -12,7 +12,7 @@ const story = {
   },
 };
 
-export const Default = (args) => <Header {...args} />;
+export const Default = (args: HeaderProps) => <Header {...args} />;
 Default.args = {
   logoURL: "http://www.sistemasenlinea.com.co/images/selsalogo-small-grey.png",
   username: "Leonardo Garzón",
@@ -23,7 +23,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args) => (
+export const Themed = (args: HeaderProps) => (
   <ThemeProvider theme={theme}>
     <Header {...args} />
   </ThemeProvider>
