@@ -1,6 +1,6 @@
-import { Text } from "../../../design/data/Text";
-import { Stack } from "../../../design/layout/Stack";
-import { Icon } from "../../../design/data/Icon";
+import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
+import { Icon } from "@design/data/Icon";
 
 import { StyledQuickAccess, StyledContainer, StyledLink } from "./styles";
 import { ILinks } from "./types";

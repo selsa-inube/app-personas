@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { inube } from "../../../design/tokens";
+import { inube } from "@design/tokens";
 
 interface IStyledProduct {
   empty: boolean;
