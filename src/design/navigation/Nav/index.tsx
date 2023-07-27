@@ -4,11 +4,11 @@ import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 
 import { StyledNav, StyledList, StyledContent, StyledFooter } from "./styles";
-import { Isections } from "src/design/layout/Page/types";
+import { ISections } from "src/design/layout/Page/types";
 
 interface NavProps{
   title: string;
-  sections: Isections[];
+  sections: ISections[];
   currentLocation: string;
 }
 

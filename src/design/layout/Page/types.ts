@@ -7,12 +7,12 @@ interface IHeader{
 }
 interface INav{ 
     title: string,
-    sections: Isections[];
+    sections: ISections[];
   }
 
-interface Isections{
+interface ISections{
     title: string;
     links: ILinks[];
 }
 
-  export type {IHeader, INav, Isections};
+  export type {IHeader, INav, ISections};
