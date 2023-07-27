@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
-import { inube } from "../../../../tokens/";
+import { inube } from "../../../../tokens";
 
-const StyledRectangle = styled.div`
+interface IStyledRectangle {
+  width?: string;
+  height?: string;
+}
+
+const StyledRectangle = styled.div<IStyledRectangle>`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   background-color: ${inube.color.surface.primary.regular};
