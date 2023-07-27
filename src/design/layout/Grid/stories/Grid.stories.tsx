@@ -1,4 +1,4 @@
-import { Grid } from "..";
+import { Grid, GridProps } from "..";
 import { props } from "../props";
 
 import { Rectangle } from "./Rectangle";
@@ -12,11 +12,16 @@ const story = {
   },
 };
 
-function Rectangles(height, width) {
+interface GridPropseExtends extends GridProps {
+  rectangleHeight: string;
+  rectangleWidth: string;
+}
+
+function Rectangles(height: string, width: string) {
   return new Array(10).fill(<Rectangle height={height} width={width} />);
 }
 
-export const Default = (args) => (
+export const Default = (args: GridPropseExtends) => (
   <Grid {...args}>{Rectangles(args.rectangleHeight, args.rectangleWidth)}</Grid>
 );
 Default.args = {
