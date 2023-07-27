@@ -4,7 +4,7 @@ import { StyledHeader, StyledLogo, StyledUser } from "./styles";
 
 interface HeaderProps {
   logoURL?: string;
-  username: string;
+  username?: string;
   client?: string;
 }
 
