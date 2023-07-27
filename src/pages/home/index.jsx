@@ -16,7 +16,7 @@ import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { quickLinks } from "@config/quickLinks";
-import { savings, credits, cards } from "./config/boxes";
+import { savings, credits, cards } from "@pages/home/config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
