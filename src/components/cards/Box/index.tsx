@@ -14,7 +14,7 @@ interface BoxProps {
   icon: React.JSX.Element;
   title: string;
   subtitle: string;
-  children: React.JSX.Element;
+  children: React.ReactNode;
   button: {
     label: string;
     icon: React.JSX.Element;
