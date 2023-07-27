@@ -1,16 +1,32 @@
-import PropTypes from "prop-types";
-
 import { StyledGrid } from "./styles";
 
 import {
-  alignContent,
-  alignItems,
-  autoFlow,
-  justifyContent,
-  justifyItems,
-} from "./props";
+  JustifyItemsType,
+  AlignItemsType,
+  JustifyContentType,
+  AlignContentType,
+  AutoFlowType,
+} from "src/types/design.types";
 
-function Grid(props) {
+interface GridProps {
+  children: React.ReactNode;
+  templateColumns?: string;
+  templateRows?: string;
+  gap?: string;
+  justifyItems?: JustifyItemsType;
+  alignItems?: AlignItemsType;
+  justifyContent?: JustifyContentType;
+  alignContent?: AlignContentType;
+  autoColumns?: string;
+  autoRows?: string;
+  autoFlow?: AutoFlowType;
+  margin?: string;
+  padding?: string;
+  height?: string;
+  width?: string;
+}
+
+function Grid(props: GridProps) {
   const {
     children,
     templateColumns,
@@ -51,22 +67,5 @@ function Grid(props) {
   );
 }
 
-Grid.propTypes = {
-  children: PropTypes.node.isRequired,
-  templateColumns: PropTypes.string,
-  templateRows: PropTypes.string,
-  gap: PropTypes.string,
-  justifyItems: PropTypes.oneOf(justifyItems),
-  alignItems: PropTypes.oneOf(alignItems),
-  justifyContent: PropTypes.oneOf(justifyContent),
-  alignContent: PropTypes.oneOf(alignContent),
-  autoColumns: PropTypes.string,
-  autoRows: PropTypes.string,
-  autoFlow: PropTypes.oneOf(autoFlow),
-  margin: PropTypes.string,
-  padding: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-};
-
+export type { GridProps };
 export { Grid };

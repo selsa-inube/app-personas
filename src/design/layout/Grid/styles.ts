@@ -1,6 +1,31 @@
 import styled from "styled-components";
 
-const StyledGrid = styled.div`
+import {
+  JustifyItemsType,
+  AlignItemsType,
+  JustifyContentType,
+  AlignContentType,
+  AutoFlowType,
+} from "src/types/design.types";
+
+interface IStyledGrid {
+  templateColumns?: string;
+  templateRows?: string;
+  gap?: string;
+  justifyItems?: JustifyItemsType;
+  alignItems?: AlignItemsType;
+  justifyContent?: JustifyContentType;
+  alignContent?: AlignContentType;
+  autoColumns?: string;
+  autoRows?: string;
+  autoFlow?: AutoFlowType;
+  margin?: string;
+  padding?: string;
+  height?: string;
+  width?: string;
+}
+
+const StyledGrid = styled.div<IStyledGrid>`
   display: grid;
   grid-template-columns: ${({ templateColumns }) => templateColumns};
   grid-template-rows: ${({ templateRows }) => templateRows};

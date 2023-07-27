@@ -20,7 +20,9 @@
     "paths": {
       "@design/*": ["./src/design/*"],
       "@components/*": ["./src/components/*"],
-      "@config/*": ["./src/config/*"]
+      "@config/*": ["./src/config/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@hooks/*": ["./src/hooks/*"]
     },
     "types": ["vite/client"]
   },

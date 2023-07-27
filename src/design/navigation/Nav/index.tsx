@@ -6,7 +6,7 @@ import { StyledNav, StyledList, StyledContent, StyledFooter } from "./styles";
 import { ISections } from "@design/layout/Page/types";
 
 interface NavProps {
-  title: string;
+  title?: string;
   sections: ISections[];
   currentLocation: string;
 }

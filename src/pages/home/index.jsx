@@ -4,7 +4,7 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 
-import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
@@ -16,11 +16,11 @@ import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { quickLinks } from "@config/quickLinks";
-import { savings, credits, cards } from "./config/boxes";
+import { savings, credits, cards } from "@pages/home/config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
-} from "./config/products";
+} from "@pages/home/config/products";
 
 import { cardProducts, creditProducts, savingsProducts } from "./mocks";
 
