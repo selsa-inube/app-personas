@@ -9,8 +9,8 @@ import {
 } from "../../../types/typography.types";
 
 interface IStyledText {
-  margin: SpacingTokensType | string;
-  padding: SpacingTokensType | string;
+  margin: SpacingTokensType;
+  padding: SpacingTokensType;
   appearance: TextAppearanceType;
   type: TypographyType;
   size: TypographySizeType;
@@ -23,9 +23,13 @@ interface IStyledText {
 
 const StyledText = styled.p<IStyledText>`
   margin: ${({ margin, theme }) =>
-    theme.spacing?.[margin] || inube.spacing[margin] || margin};
+    theme.spacing?.[margin] ||
+    inube.spacing[margin as keyof typeof inube.spacing] ||
+    margin};
   padding: ${({ padding, theme }) =>
-    theme.spacing?.[padding] || inube.spacing[padding] || padding};
+    theme.spacing?.[padding] ||
+    inube.spacing[padding as keyof typeof inube.spacing] ||
+    padding};
   text-align: ${({ textAlign }) => textAlign};
 
   color: ${({ appearance, theme, parentHover, disabled }) => {

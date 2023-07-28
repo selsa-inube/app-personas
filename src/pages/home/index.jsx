@@ -9,7 +9,6 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
-import { inube } from "@design/tokens";
 
 import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
@@ -38,14 +37,14 @@ function Home() {
         </Text>
       </Stack>
       <Grid
-        gap={inube.spacing.s600}
-        margin={`${inube.spacing.s600} 0 0`}
+        gap="s600"
+        margin="48px 0 0"
         templateColumns={mquery ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap={inube.spacing.s300}>
+        <Stack direction="column" gap="s300">
           <Text type="label">Tus productos</Text>
           <Box {...savings}>
-            <Stack direction="column" gap={inube.spacing.s075}>
+            <Stack direction="column" gap="s075">
               {savingsProducts.length === 0 ? (
                 <Product
                   empty={true}
@@ -66,7 +65,7 @@ function Home() {
             </Stack>
           </Box>
           <Box {...credits}>
-            <Stack direction="column" gap={inube.spacing.s075}>
+            <Stack direction="column" gap="s075">
               {creditProducts.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
@@ -85,7 +84,7 @@ function Home() {
             </Stack>
           </Box>
           <Box {...cards}>
-            <Stack direction="column" gap={inube.spacing.s075}>
+            <Stack direction="column" gap="s075">
               {cardProducts.length === 0 ? (
                 <Product icon={<MdOutlineCreditCard />} empty={true} />
               ) : (

@@ -4,8 +4,6 @@ import { Tag, TagProps } from "@design/data/Tag";
 import { Stack } from "@design/layout/Stack";
 import { Grid } from "@design/layout/Grid";
 
-import { inube } from "@design/tokens";
-
 import { StyledProduct } from "./styles";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -48,15 +46,15 @@ function Product(props: ProductProps) {
 
   return (
     <StyledProduct empty={empty}>
-      <Grid templateColumns="auto 1fr" gap={inube.spacing.s100}>
-        <Stack gap={inube.spacing.s100} alignItems="center">
+      <Grid templateColumns="auto 1fr" gap="s100">
+        <Stack gap="s100" alignItems="center">
           <Icon
             icon={icon}
             variant="filled"
             spacing="compact"
             appearance={empty ? "gray" : "primary"}
           />
-          <Stack direction="column" gap={inube.spacing.s025}>
+          <Stack direction="column" gap="s025">
             <Text
               type={mobile ? "label" : "title"}
               size={mobile ? "medium" : "small"}
@@ -65,14 +63,11 @@ function Product(props: ProductProps) {
               {!empty ? title : "No tienes productos"}
             </Text>
             {!empty && (
-              <Stack
-                gap={!mobile ? inube.spacing.s100 : "0px"}
-                alignItems="center"
-              >
+              <Stack gap={!mobile ? "s100" : "0px"} alignItems="center">
                 <Text size="small" appearance="gray">
                   {!mobile && description}
                 </Text>
-                <Stack gap={inube.spacing.s050}>
+                <Stack gap="s050">
                   {tags.length > 0 &&
                     tags.map((tag) => <Tag {...tag} key={tag.label} />)}
                 </Stack>
@@ -84,17 +79,13 @@ function Product(props: ProductProps) {
           <Grid
             autoFlow="column"
             templateColumns={`repeat(${visibleAttributes.length}, minmax(100px, max-content))`}
-            gap={inube.spacing.s300}
+            gap="s300"
             justifyContent="end"
             alignItems="center"
             alignContent="center"
           >
             {visibleAttributes.map((attribute) => (
-              <Stack
-                key={attribute.label}
-                direction="column"
-                gap={inube.spacing.s025}
-              >
+              <Stack key={attribute.label} direction="column" gap="s025">
                 <Text
                   type="label"
                   size={mobile ? "small" : "medium"}

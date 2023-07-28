@@ -1,5 +1,7 @@
 import { StyledGrid } from "./styles";
 
+import { SpacingTokensType } from "src/types/spacing.types";
+
 import {
   JustifyItemsType,
   AlignItemsType,
@@ -12,7 +14,7 @@ interface GridProps {
   children: React.ReactNode;
   templateColumns?: string;
   templateRows?: string;
-  gap?: string;
+  gap?: SpacingTokensType;
   justifyItems?: JustifyItemsType;
   alignItems?: AlignItemsType;
   justifyContent?: JustifyContentType;
@@ -20,8 +22,8 @@ interface GridProps {
   autoColumns?: string;
   autoRows?: string;
   autoFlow?: AutoFlowType;
-  margin?: string;
-  padding?: string;
+  margin?: SpacingTokensType;
+  padding?: SpacingTokensType;
   height?: string;
   width?: string;
 }
@@ -31,7 +33,7 @@ function Grid(props: GridProps) {
     children,
     templateColumns,
     templateRows,
-    gap = "0px",
+    gap = "s0",
     justifyItems = "stretch",
     alignItems = "stretch",
     justifyContent = "start",
@@ -39,8 +41,8 @@ function Grid(props: GridProps) {
     autoColumns = "auto",
     autoRows,
     autoFlow = "row",
-    margin = "0px",
-    padding = "0px",
+    margin = "s0",
+    padding = "s0",
     height = "auto",
     width = "auto",
   } = props;
