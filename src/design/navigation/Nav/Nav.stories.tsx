@@ -1,17 +1,17 @@
-import { BrowserRouter } from "react-router-dom";
+import { StoryFn } from "@storybook/react";
 import {
-  MdHouse,
   MdAccountBalanceWallet,
-  MdFactCheck,
   MdAttachMoney,
+  MdFactCheck,
+  MdHouse,
   MdOutlineAddCard,
   MdOutlineAirplaneTicket,
 } from "react-icons/md";
-import { StoryFn } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
 
+import { fondecom } from "@mocks/theme";
 import { Nav, NavProps } from ".";
 import { props } from "./props";
-import { fondecom } from "../../../mocks/theme";
 
 import { ThemeProvider } from "styled-components";
 

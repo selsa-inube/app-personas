@@ -2,8 +2,8 @@ import { ThemeProvider } from "styled-components";
 
 import { Tag, TagProps } from ".";
 
+import { fondecom } from "@mocks/theme";
 import { props } from "./props";
-import { fondecom } from "../../../mocks/theme";
 
 const story = {
   title: "design/data/Tag",

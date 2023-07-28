@@ -22,7 +22,8 @@
       "@components/*": ["./src/components/*"],
       "@config/*": ["./src/config/*"],
       "@pages/*": ["./src/pages/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "@hooks/*": ["./src/hooks/*"],
+      "@mocks/*": ["./src/mocks/*"]
     },
     "types": ["vite/client"]
   },

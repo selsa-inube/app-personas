@@ -3,8 +3,8 @@ import { Button, ButtonProps } from ".";
 import { MdAdd, MdChevronRight } from "react-icons/md";
 import { props } from "./props";
 
+import { fondecom } from "@mocks/theme";
 import { ThemeProvider } from "styled-components";
-import { fondecom } from "../../../mocks/theme";
 
 const story = {
   title: "design/input/Button",
