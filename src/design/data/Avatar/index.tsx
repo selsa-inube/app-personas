@@ -2,18 +2,18 @@ import { MdPersonOutline } from "react-icons/md";
 import { Icon } from "../Icon";
 
 interface AvatarProps {
-  isHovered: boolean;
+  parentHover?: boolean;
 }
 
 function Avatar(props: AvatarProps) {
-  const { isHovered } = props;
+  const { parentHover } = props;
   return (
     <Icon
       icon={<MdPersonOutline />}
       variant="filled"
       shape="circle"
       spacing="compact"
-      parentHover={isHovered}
+      parentHover={parentHover}
     />
   );
 }

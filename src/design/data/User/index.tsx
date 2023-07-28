@@ -33,7 +33,7 @@ function User(props: UserProps) {
             </Text>
           )}
         </Stack>
-        <Avatar isHovered={isHovered} />
+        <Avatar parentHover={isHovered} />
       </Stack>
     </StyledUser>
   );

@@ -1,6 +1,5 @@
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
-import { inube } from "@design/tokens";
 
 import { StyledNav, StyledList, StyledContent, StyledFooter } from "./styles";
 import { ISections } from "@design/layout/Page/types";
@@ -29,12 +28,7 @@ function Nav(props: NavProps) {
         {sections.map((section) => (
           <StyledList key={section.title}>
             {sections.length > 1 && (
-              <Text
-                padding={inube.spacing.s200}
-                type="title"
-                size="small"
-                appearance="gray"
-              >
+              <Text padding="s200" type="title" size="small" appearance="gray">
                 {section.title.toUpperCase()}
               </Text>
             )}
@@ -52,12 +46,7 @@ function Nav(props: NavProps) {
         ))}
       </StyledContent>
       <StyledFooter>
-        <Text
-          type="label"
-          size="medium"
-          textAlign="center"
-          padding={inube.spacing.s300}
-        >
+        <Text type="label" size="medium" textAlign="center" padding="s300">
           © {year} Inube
         </Text>
       </StyledFooter>

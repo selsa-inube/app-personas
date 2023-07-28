@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
+import { SpacingTokensType } from "src/types/spacing.types";
 import { TextAppearanceType } from "../../../types/color.types";
 import { TextAlignType } from "../../../types/design.types";
 import {
@@ -8,8 +9,8 @@ import {
 } from "../../../types/typography.types";
 
 interface IStyledText {
-  margin: string;
-  padding: string;
+  margin: SpacingTokensType | string;
+  padding: SpacingTokensType | string;
   appearance: TextAppearanceType;
   type: TypographyType;
   size: TypographySizeType;
@@ -21,8 +22,10 @@ interface IStyledText {
 }
 
 const StyledText = styled.p<IStyledText>`
-  margin: ${({ margin }) => margin};
-  padding: ${({ padding }) => padding};
+  margin: ${({ margin, theme }) =>
+    theme.spacing?.[margin] || inube.spacing[margin] || margin};
+  padding: ${({ padding, theme }) =>
+    theme.spacing?.[padding] || inube.spacing[padding] || padding};
   text-align: ${({ textAlign }) => textAlign};
 
   color: ${({ appearance, theme, parentHover, disabled }) => {
