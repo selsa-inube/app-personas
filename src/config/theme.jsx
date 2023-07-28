@@ -1,4 +1,4 @@
-import { fondecom } from "../mocks/theme";
+import { fondecom } from "@mocks/theme";
 
 const theme = {
   ...fondecom,

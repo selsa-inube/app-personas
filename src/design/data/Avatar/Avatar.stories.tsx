@@ -1,7 +1,7 @@
-import { Avatar } from ".";
 import { ThemeProvider } from "styled-components";
+import { Avatar } from ".";
 
-import { fondecom } from "../../../mocks/theme";
+import { fondecom } from "@mocks/theme";
 
 const story = {
   title: "design/data/Avatar",

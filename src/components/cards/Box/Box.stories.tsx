@@ -4,7 +4,7 @@ import { Box, BoxProps } from ".";
 import { MdAdd, MdOutlineSavings } from "react-icons/md";
 
 import { Text } from "@design/data/Text";
-import { fondecom } from "../../../mocks/theme";
+import { fondecom } from "@mocks/theme";
 import { props } from "./props";
 
 const story = {
