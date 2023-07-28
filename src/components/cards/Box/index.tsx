@@ -6,8 +6,6 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 
-import { inube } from "@design/tokens";
-
 import { StyledBox, StyledCollapseIcon, StyledDivider } from "./styles";
 
 interface BoxProps {
@@ -43,11 +41,11 @@ function Box(props: BoxProps) {
 
   return (
     <StyledBox>
-      <Stack direction="column" gap={inube.spacing.s200}>
+      <Stack direction="column" gap="s200">
         <Stack justifyContent="space-between" alignItems="center">
-          <Stack alignItems="center" gap={inube.spacing.s100}>
+          <Stack alignItems="center" gap="s100">
             <Icon icon={icon} variant="filled" />
-            <Stack direction="column" gap={inube.spacing.s025}>
+            <Stack direction="column" gap="s025">
               <Text type="title" size="medium">
                 {title}
               </Text>

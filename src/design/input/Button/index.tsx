@@ -5,8 +5,6 @@ import { Spinner } from "../../feedback/Spinner";
 import { Stack } from "../../layout/Stack";
 import { Icon } from "../../data/Icon";
 
-import { inube } from "../../tokens";
-
 import {
   AppearanceType,
   SpacingType,
@@ -82,11 +80,7 @@ function Button(props: ButtonProps) {
         </StyledSpinnerContainer>
       )}
       <StyledButtonContent load={load} disabled={disabled}>
-        <Stack
-          alignItems="center"
-          justifyContent="center"
-          gap={inube.spacing.s075}
-        >
+        <Stack alignItems="center" justifyContent="center" gap="s075">
           {iconBefore && (
             <Icon
               icon={iconBefore}

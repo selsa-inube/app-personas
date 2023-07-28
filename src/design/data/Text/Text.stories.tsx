@@ -18,8 +18,8 @@ export const Default = (args: TextProps) => (
 );
 Default.args = {
   as: "p",
-  margin: "0px",
-  padding: "0px",
+  margin: "s0",
+  padding: "s0",
   appearance: "dark",
   type: "body",
   size: "large",

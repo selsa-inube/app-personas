@@ -41,7 +41,7 @@ function NavLink(props: NavLinkProps) {
             <Icon
               icon={icon}
               appearance={getIconAppearance()}
-              parentHover={true}
+              parentHover={!selected && isHovered}
             />
             <Text size="medium">{children}</Text>
           </Stack>

@@ -1,12 +1,10 @@
-import PropTypes from "prop-types";
-
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 
 import { StyledNav, StyledList, StyledContent, StyledFooter } from "./styles";
 import { ISections } from "@design/layout/Page/types";
 
-interface NavProps{
+interface NavProps {
   title?: string;
   sections: ISections[];
   currentLocation: string;
@@ -55,12 +53,6 @@ function Nav(props: NavProps) {
     </StyledNav>
   );
 }
-
-Nav.propTypes = {
-  title: PropTypes.string,
-  sections: PropTypes.array.isRequired,
-  currentLocation: PropTypes.string.isRequired,
-};
 
 export { Nav };
 export type { NavProps };

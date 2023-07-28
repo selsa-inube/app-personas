@@ -1,7 +1,7 @@
 import { StyledText } from "./styles";
 import { TextAppearanceType } from "../../../types/color.types";
+import { SpacingTokensType } from "src/types/spacing.types";
 import { AsTagsType, TextAlignType } from "../../../types/design.types";
-import { SpacingTokensType } from "../../../types/spacing.types";
 import {
   TypographyType,
   TypographySizeType,
@@ -10,8 +10,8 @@ import {
 interface TextProps {
   children: React.ReactNode;
   as?: AsTagsType;
-  margin?: SpacingTokensType | string;
-  padding?: SpacingTokensType | string;
+  margin?: SpacingTokensType;
+  padding?: SpacingTokensType;
   appearance?: TextAppearanceType;
   type?: TypographyType;
   size?: TypographySizeType;

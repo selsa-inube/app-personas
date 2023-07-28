@@ -1,4 +1,5 @@
 import { StyledStack } from "./styles";
+import { SpacingTokensType } from "src/types/spacing.types";
 import {
   AlignContentType,
   DirectionType,
@@ -12,11 +13,11 @@ interface StackProps {
   justifyContent?: JustifyContentType;
   alignItems?: AlignContentType;
   alignContent?: AlignContentType;
-  gap?: string;
+  gap?: SpacingTokensType;
   height?: string;
   width?: string;
-  padding?: string;
-  margin?: string;
+  padding?: SpacingTokensType;
+  margin?: SpacingTokensType;
   wrap?: WrapType;
 }
 
@@ -27,11 +28,11 @@ function Stack(props: StackProps) {
     justifyContent = "flex-start",
     alignItems = "stretch",
     alignContent = "normal",
-    gap = "0px",
+    gap = "s0",
     height = "auto",
     width = "auto",
-    padding = "0px",
-    margin = "0px",
+    padding = "s0",
+    margin = "s0",
     wrap = "nowrap",
   } = props;
   return (
@@ -53,4 +54,4 @@ function Stack(props: StackProps) {
 }
 
 export { Stack };
-export type { StackProps };  
+export type { StackProps };
