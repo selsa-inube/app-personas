@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
+import { Link } from "react-router-dom";
 
 const StyledHeader = styled.header`
   margin: 0;
@@ -15,6 +16,9 @@ const StyledHeader = styled.header`
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
+`;
+
+const StyledLogoContainer = styled(Link)`
 `;
 
 const StyledLogo = styled.img`
@@ -33,4 +37,4 @@ const StyledUser = styled.div`
   align-items: center;
 `;
 
-export { StyledHeader, StyledLogo, StyledUser };
+export { StyledHeader, StyledLogoContainer, StyledLogo, StyledUser };

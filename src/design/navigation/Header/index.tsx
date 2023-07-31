@@ -1,6 +1,11 @@
 import { User } from "../../data/User";
 
-import { StyledHeader, StyledLogo, StyledUser } from "./styles";
+import {
+  StyledHeader,
+  StyledLogoContainer,
+  StyledLogo,
+  StyledUser,
+} from "./styles";
 
 interface HeaderProps {
   logoURL?: string;
@@ -13,7 +18,9 @@ function Header(props: HeaderProps) {
 
   return (
     <StyledHeader>
-      <StyledLogo src={logoURL} />
+      <StyledLogoContainer to="/">
+        <StyledLogo src={logoURL} />
+      </StyledLogoContainer>
       <StyledUser>
         <User username={username} client={client} />
       </StyledUser>

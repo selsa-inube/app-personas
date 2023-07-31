@@ -2,6 +2,8 @@ import { fondecom } from "@mocks/theme";
 import { ThemeProvider } from "styled-components";
 import { Header, HeaderProps } from ".";
 import { props } from "./props";
+import { StoryFn } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
 
 const story = {
   title: "design/navigation/Header",
@@ -10,6 +12,13 @@ const story = {
   argTypes: {
     ...props,
   },
+  decorators: [
+    (Story: StoryFn) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
 };
 
 export const Default = (args: HeaderProps) => <Header {...args} />;
