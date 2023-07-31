@@ -16,6 +16,7 @@ import { nav } from "@config/nav";
 import { Page } from "@design/layout/Page";
 
 import { Home } from "@pages/home";
+import { MyCredits } from "@pages/myCredits";
 
 function App() {
   useFonts(theme.typography.fonts);
@@ -24,6 +25,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<Page header={header} nav={nav} />}>
         <Route path="/" element={<Home />} />
+        <Route path="my-credits" element={<MyCredits />} />
       </Route>
     )
   );

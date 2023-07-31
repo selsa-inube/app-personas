@@ -27,7 +27,7 @@ const nav = {
         },
         {
           label: "Mis créditos",
-          path: "/products",
+          path: "/my-credits",
           icon: <MdOutlineAccountBalance />,
         },
         {
