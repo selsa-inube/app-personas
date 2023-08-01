@@ -31,11 +31,11 @@ const StyledNavLink = styled.li<IStyledNavLink>`
   border-left-color: ${({ theme }) =>
     theme.color?.stroke?.dark?.regular || inube.color.stroke.dark.regular};
 
-  &:hover {
-    background-color: ${({ theme }) =>
-      theme.color?.surface?.navLink?.hover ||
-      inube.color.surface.navLink.hover};
-  }
+    &:hover {
+      background-color: ${({ theme }) =>
+        theme.color?.surface?.navLink?.hover ||
+        inube.color.surface.navLink.hover};
+    }
 `;
 
 const StyledLink = styled(Link)<IStyledLink>`
