@@ -50,6 +50,7 @@ function Home() {
               ) : (
                 savingsProducts.map(({ title, id, attributes, tags }) => (
                   <Product
+                    id={id}
                     key={id}
                     title={title}
                     description={id}
@@ -68,6 +69,7 @@ function Home() {
               ) : (
                 creditProducts.map((credit) => (
                   <Product
+                    id={credit.id}
                     key={credit.id}
                     title={credit.title}
                     description={credit.id}
@@ -87,6 +89,7 @@ function Home() {
               ) : (
                 cardProducts.map(({ title, id, attributes, tags }) => (
                   <Product
+                    id={id}
                     key={id}
                     title={title}
                     description={id}

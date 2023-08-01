@@ -5,6 +5,8 @@ import { props } from "./props";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 import { fondecom } from "@mocks/theme";
+import { StoryFn } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
 
 const story = {
   title: "components/cards/Product",
@@ -13,10 +15,18 @@ const story = {
   argTypes: {
     ...props,
   },
+  decorators: [
+    (Story: StoryFn) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
 };
 
 export const Default = (args: ProductProps) => <Product {...args} />;
 Default.args = {
+  id: "09-786238-77",
   title: "Crédito educativo",
   description: "09-786238-77",
   attributes: [
@@ -47,7 +57,6 @@ Default.args = {
       appearance: "error",
     },
   ],
-  empty: false,
   icon: <MdOutlineAccountBalanceWallet />,
 };
 

@@ -1,15 +1,16 @@
 import { Icon } from "@design/data/Icon";
-import { Text } from "@design/data/Text";
 import { Tag, TagProps } from "@design/data/Tag";
-import { Stack } from "@design/layout/Stack";
+import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
 
-import { StyledProduct } from "./styles";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { StyledProduct } from "./styles";
 import { IAttribute } from "./types";
 
 interface ProductProps {
+  id?: string;
   title?: string;
   description?: string;
   icon: React.JSX.Element;
@@ -21,13 +22,14 @@ interface ProductProps {
 
 function Product(props: ProductProps) {
   const {
+    id = "",
     title = "",
     description = "",
     icon,
     attributes = [],
     breakpoints = {},
     tags = [],
-    empty = false,
+    empty,
   } = props;
 
   const mobile = useMediaQuery("(max-width: 450px)");
@@ -45,7 +47,7 @@ function Product(props: ProductProps) {
   );
 
   return (
-    <StyledProduct empty={empty}>
+    <StyledProduct empty={empty} to={`/product/${id}`}>
       <Grid templateColumns="auto 1fr" gap="s100">
         <Stack gap="s100" alignItems="center">
           <Icon
@@ -105,5 +107,5 @@ function Product(props: ProductProps) {
   );
 }
 
-export type { ProductProps };
 export { Product };
+export type { ProductProps };
