@@ -30,19 +30,11 @@ function NavLink(props: NavLinkProps) {
   }
 
   return (
-    <StyledNavLink
-      selected={selected}
-      onMouseOver={() => toggleHover(true)}
-      onMouseLeave={() => toggleHover(false)}
-    >
+    <StyledNavLink selected={selected}>
       <StyledLink to={path} selected={selected}>
         <Stack width="100%" alignItems="center" justifyContent="space-between">
           <Stack alignItems="center" gap="24px">
-            <Icon
-              icon={icon}
-              appearance={getIconAppearance()}
-              parentHover={!selected && isHovered}
-            />
+            <Icon icon={icon} appearance={getIconAppearance()} />
             <Text size="medium">{children}</Text>
           </Stack>
           {selected && <MdChevronRight size="24px" />}
