@@ -1,11 +1,13 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 interface IStyledProduct {
-  empty: boolean;
+  empty?: boolean;
 }
 
-const StyledProduct = styled.article<IStyledProduct>`
+const StyledProduct = styled(Link)<IStyledProduct>`
+  text-decoration: none;
   padding: ${inube.spacing.s100};
   border-radius: 8px;
   background-color: ${({ theme }) =>

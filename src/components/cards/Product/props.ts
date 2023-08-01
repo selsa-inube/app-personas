@@ -1,4 +1,7 @@
 const props = {
+  id: {
+    description: "Id of the product",
+  },
   title: {
     description: "Controls the name of the product",
   },

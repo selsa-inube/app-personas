@@ -15,7 +15,7 @@ import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { quickLinks } from "@config/quickLinks";
-import { savings, credits, cards } from "@pages/home/config/boxes";
+import { cards, credits, savings } from "@pages/home/config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
@@ -53,6 +53,7 @@ function Home() {
               ) : (
                 savingsProducts.map(({ title, id, attributes, tags }) => (
                   <Product
+                    id={id}
                     key={id}
                     title={title}
                     description={id}
@@ -71,6 +72,7 @@ function Home() {
               ) : (
                 creditProducts.map((credit) => (
                   <Product
+                    id={credit.id}
                     key={credit.id}
                     title={credit.title}
                     description={credit.id}
@@ -90,6 +92,7 @@ function Home() {
               ) : (
                 cardProducts.map(({ title, id, attributes, tags }) => (
                   <Product
+                    id={id}
                     key={id}
                     title={title}
                     description={id}
