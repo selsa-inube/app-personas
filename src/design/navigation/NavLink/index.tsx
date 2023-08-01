@@ -16,14 +16,9 @@ interface NavLinkProps {
 
 function NavLink(props: NavLinkProps) {
   const { icon, children, path = "", selected = false } = props;
-  const [isHovered, setIsHovered] = useState(false);
-
-  function toggleHover(state: boolean) {
-    setIsHovered(state);
-  }
 
   function getIconAppearance() {
-    if (selected || isHovered) {
+    if (selected) {
       return "primary";
     }
     return "dark";
