@@ -19,6 +19,7 @@ const StyledHeader = styled.header`
 `;
 
 const StyledLogoContainer = styled(Link)`
+  display: flex;
 `;
 
 const StyledLogo = styled.img`
