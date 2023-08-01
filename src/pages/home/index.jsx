@@ -15,12 +15,13 @@ import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { quickLinks } from "@config/quickLinks";
-import { savings, credits, cards } from "@pages/home/config/boxes";
+import { cards, credits, savings } from "@pages/home/config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
 } from "@pages/home/config/products";
 
+import { Title } from "@design/data/Title";
 import { cardProducts, creditProducts, savingsProducts } from "./mocks";
 
 function Home() {
@@ -28,17 +29,13 @@ function Home() {
 
   return (
     <>
-      <Stack gap="4px" direction="column">
-        <Text type="title" as="h1">
-          Bienvenido, Leonardo
-        </Text>
-        <Text type="body" size="medium" appearance="gray">
-          Aquí tienes un resumen de tus productos
-        </Text>
-      </Stack>
+      <Title
+        title="Bienvenido, Leonardo"
+        subtitle="Aquí tienes un resumen de tus productos "
+      />
       <Grid
         gap="s600"
-        margin="48px 0 0"
+        margin={mquery ? "48px 0 0" : "24px 0 0"}
         templateColumns={mquery ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s300">
