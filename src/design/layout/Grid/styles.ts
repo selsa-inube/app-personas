@@ -1,14 +1,14 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
-import { SpacingTokensType } from "src/types/spacing.types";
+import { SpacingTokensType } from "@ptypes/spacing.types";
+import styled from "styled-components";
 
 import {
-  JustifyItemsType,
-  AlignItemsType,
-  JustifyContentType,
   AlignContentType,
+  AlignItemsType,
   AutoFlowType,
-} from "src/types/design.types";
+  JustifyContentType,
+  JustifyItemsType,
+} from "@ptypes/design.types";
 
 interface IStyledGrid {
   templateColumns?: string;

@@ -1,4 +1,4 @@
-import { AppearanceType, SizeType } from "src/types/design.types";
+import { AppearanceType, SizeType } from "@ptypes/design.types";
 import { StyledSpinner } from "./styles";
 
 interface SpinnerProps {

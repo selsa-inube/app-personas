@@ -1,11 +1,8 @@
+import { TextAppearanceType } from "@ptypes/color.types";
+import { AsTagsType, TextAlignType } from "@ptypes/design.types";
+import { SpacingTokensType } from "@ptypes/spacing.types";
+import { TypographySizeType, TypographyType } from "@ptypes/typography.types";
 import { StyledText } from "./styles";
-import { TextAppearanceType } from "../../../types/color.types";
-import { SpacingTokensType } from "src/types/spacing.types";
-import { AsTagsType, TextAlignType } from "../../../types/design.types";
-import {
-  TypographyType,
-  TypographySizeType,
-} from "../../../types/typography.types";
 
 interface TextProps {
   children: React.ReactNode;
@@ -56,5 +53,5 @@ function Text(props: TextProps) {
   );
 }
 
-export type { TextProps };
 export { Text };
+export type { TextProps };

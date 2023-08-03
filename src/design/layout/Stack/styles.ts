@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
-import { SpacingTokensType } from "src/types/spacing.types";
+import { SpacingTokensType } from "@ptypes/spacing.types";
+import styled from "styled-components";
 import {
   AlignContentType,
   DirectionType,

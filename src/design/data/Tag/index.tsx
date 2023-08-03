@@ -1,7 +1,7 @@
 import { Text } from "../Text";
 
 import { StyledTag } from "./styles";
-import { AppearanceType } from "../../../types/design.types";
+import { AppearanceType } from "@ptypes/design.types";
 
 const darkTextAppearances = ["warning", "gray", "light"];
 
