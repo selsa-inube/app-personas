@@ -6,17 +6,16 @@ import {
 } from "react-router-dom";
 
 import { GlobalStyles } from "@design/styles";
-import { ThemeProvider } from "styled-components";
 import { useFonts } from "@hooks/useFonts";
+import { ThemeProvider } from "styled-components";
 
-import { theme } from "@config/theme";
 import { header } from "@config/header";
 import { nav } from "@config/nav";
+import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
-
-import { Home } from "@pages/home";
-import { MyCredits } from "@pages/myCredits";
+import { Home } from "@pages/manage/home";
+import { MyCredits } from "@pages/manage/myCredits";
 
 function App() {
   useFonts(theme.typography.fonts);

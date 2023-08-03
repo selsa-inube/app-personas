@@ -1,11 +1,12 @@
 import { Icon } from "@design/data/Icon";
-import { Tag, TagProps } from "@design/data/Tag";
+import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { ITagProduct } from "src/types/pages/product.types";
 import { StyledProduct } from "./styles";
 import { IAttribute } from "./types";
 
@@ -13,10 +14,10 @@ interface ProductProps {
   id?: string;
   title?: string;
   description?: string;
-  icon: React.JSX.Element;
-  attributes: IAttribute[];
+  icon?: React.JSX.Element;
+  attributes?: IAttribute[];
   breakpoints?: Record<string, number>;
-  tags: TagProps[];
+  tags?: ITagProduct[];
   empty?: boolean;
 }
 
@@ -50,12 +51,15 @@ function Product(props: ProductProps) {
     <StyledProduct empty={empty} to={`/product/${id}`}>
       <Grid templateColumns="auto 1fr" gap="s100">
         <Stack gap="s100" alignItems="center">
-          <Icon
-            icon={icon}
-            variant="filled"
-            spacing="compact"
-            appearance={empty ? "gray" : "primary"}
-          />
+          {icon && (
+            <Icon
+              icon={icon}
+              variant="filled"
+              spacing="compact"
+              appearance={empty ? "gray" : "primary"}
+            />
+          )}
+
           <Stack direction="column" gap="s025">
             <Text
               type={mobile ? "label" : "title"}

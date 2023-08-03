@@ -1,13 +1,13 @@
 import { Text } from "../Text";
 
-import { StyledTag } from "./styles";
 import { AppearanceType } from "../../../types/design.types";
+import { StyledTag } from "./styles";
 
 const darkTextAppearances = ["warning", "gray", "light"];
 
-interface TagProps{
-  label:string;
-  appearance?:AppearanceType;
+interface TagProps {
+  label: string;
+  appearance?: AppearanceType;
 }
 
 function Tag(props: TagProps) {
@@ -26,6 +26,5 @@ function Tag(props: TagProps) {
   );
 }
 
-
 export { Tag };
-export type {TagProps};
+export type { TagProps };
