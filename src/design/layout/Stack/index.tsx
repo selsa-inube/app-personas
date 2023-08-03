@@ -1,5 +1,5 @@
+import { SpacingTokensType } from "@ptypes/spacing.types";
 import { StyledStack } from "./styles";
-import { SpacingTokensType } from "src/types/spacing.types";
 import {
   AlignContentType,
   DirectionType,

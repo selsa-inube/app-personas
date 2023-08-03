@@ -1,14 +1,14 @@
 import { StyledGrid } from "./styles";
 
-import { SpacingTokensType } from "src/types/spacing.types";
+import { SpacingTokensType } from "@ptypes/spacing.types";
 
 import {
-  JustifyItemsType,
-  AlignItemsType,
-  JustifyContentType,
   AlignContentType,
+  AlignItemsType,
   AutoFlowType,
-} from "src/types/design.types";
+  JustifyContentType,
+  JustifyItemsType,
+} from "@ptypes/design.types";
 
 interface GridProps {
   children: React.ReactNode;
@@ -69,5 +69,5 @@ function Grid(props: GridProps) {
   );
 }
 
-export type { GridProps };
 export { Grid };
+export type { GridProps };

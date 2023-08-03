@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
-import { SpacingTokensType } from "src/types/spacing.types";
-import { TextAppearanceType } from "../../../types/color.types";
-import { TextAlignType } from "../../../types/design.types";
+import { SpacingTokensType } from "@ptypes/spacing.types";
+import { TextAppearanceType } from "@ptypes/color.types";
+import { TextAlignType } from "@ptypes/design.types";
 import {
   TypographyType,
   TypographySizeType,
-} from "../../../types/typography.types";
+} from "@ptypes/typography.types";
 
 interface IStyledText {
   margin: SpacingTokensType;
