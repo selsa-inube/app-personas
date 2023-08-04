@@ -13,12 +13,12 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 
 import { Title } from "@design/data/Title";
-import { myCreditsMock } from "@mocks/pages/products/myCredits.mocks";
 import { myCredits } from "./config/boxes";
 import {
   extractMyCreditAttributes,
   myCreditAttributeBreakpoints,
 } from "./config/products";
+import { creditsMock } from "@mocks/products/credits/credits.mocks";
 
 function MyCredits() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -42,10 +42,10 @@ function MyCredits() {
           </Text>
           <Box {...myCredits}>
             <Stack direction="column" gap="s075">
-              {myCreditsMock.length === 0 ? (
+              {creditsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
-                myCreditsMock.map((credit) => (
+                creditsMock.map((credit) => (
                   <Product
                     id={credit.id}
                     key={credit.id}

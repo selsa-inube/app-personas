@@ -1,6 +1,6 @@
 import { IProduct } from "src/types/pages/product.types";
 
-const myCreditsMock: IProduct[] = [
+const creditsMock: IProduct[] = [
   {
     id: "C2786238-55",
     title: "Educativo",
@@ -52,4 +52,4 @@ const myCreditsMock: IProduct[] = [
   },
 ];
 
-export { myCreditsMock };
+export { creditsMock };
