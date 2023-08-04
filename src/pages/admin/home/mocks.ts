@@ -1,4 +1,6 @@
-const savingsProducts = [
+import { IProduct } from "@ptypes/pages/product.types";
+
+const savingsProducts: IProduct[] = [
   {
     title: "Cuenta de ahorros",
     id: "09-786238-77",
@@ -9,6 +11,7 @@ const savingsProducts = [
         value: "$1.225.000",
       },
     ],
+    tags: [],
   },
   {
     title: "Cuenta de ahorros",
@@ -20,10 +23,11 @@ const savingsProducts = [
         value: "$19.100.000",
       },
     ],
+    tags: [],
   },
 ];
 
-const creditProducts = [
+const creditProducts: IProduct[] = [
   {
     title: "Educativo",
     id: "C2786238-55",
@@ -44,6 +48,7 @@ const creditProducts = [
         value: "$1.225.000",
       },
     ],
+    tags: [],
   },
   {
     title: "Libre inversión",
@@ -74,6 +79,6 @@ const creditProducts = [
   },
 ];
 
-const cardProducts = [];
+const cardProducts: IProduct[] = [];
 
-export { savingsProducts, creditProducts, cardProducts };
+export { cardProducts, creditProducts, savingsProducts };

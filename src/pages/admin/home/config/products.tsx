@@ -1,10 +1,12 @@
+import { IProduct } from "@ptypes/pages/product.types";
+
 const creditAttributes = [
   "next_payment_value",
   "next_payment_date",
   "net_value",
 ];
 
-function extractCreditAttributes(credit) {
+function extractCreditAttributes(credit: IProduct) {
   return credit.attributes.filter((attribute) =>
     creditAttributes.includes(attribute.id)
   );
@@ -19,4 +21,4 @@ const creditAttributeBreakpoints = {
   "(max-width: 660px)": 1,
 };
 
-export { extractCreditAttributes, creditAttributeBreakpoints };
+export { creditAttributeBreakpoints, extractCreditAttributes };
