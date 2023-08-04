@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { Title, TitleProps } from ".";
 
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { MdArrowBack } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
@@ -47,7 +47,7 @@ WithIconDisabled.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: TitleProps) => {

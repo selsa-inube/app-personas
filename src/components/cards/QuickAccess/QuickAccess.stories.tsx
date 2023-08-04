@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { QuickAccess, QuickAccessProps } from ".";
 
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 
 import {
   MdAttachMoney,
@@ -58,7 +58,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: QuickAccessProps) => (

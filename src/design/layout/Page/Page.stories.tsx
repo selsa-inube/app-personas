@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { Page, PageProps } from ".";
 
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 import {
   MdAccountBalanceWallet,
   MdAttachMoney,
@@ -84,7 +84,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: PageProps) => (

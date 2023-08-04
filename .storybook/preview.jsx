@@ -1,5 +1,5 @@
 import { useFonts } from "@hooks/useFonts";
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {
@@ -15,7 +15,7 @@ const preview = {
   decorators: [
     (Story) => {
       const theme = {
-        ...fondecom,
+        ...themes['fondecom'],
       };
 
       useFonts(theme.typography.fonts);
