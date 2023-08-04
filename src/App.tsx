@@ -14,8 +14,8 @@ import { nav } from "@config/nav";
 import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
-import { Home } from "@pages/manage/home";
-import { MyCredits } from "@pages/manage/myCredits";
+import { Home } from "@pages/admin/home";
+import { MyCredits } from "@pages/admin/myCredits";
 
 function App() {
   useFonts(theme.typography.fonts);
