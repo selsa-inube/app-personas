@@ -13,10 +13,10 @@ interface ProductProps {
   id?: string;
   title?: string;
   description?: string;
-  icon: React.JSX.Element;
-  attributes: IAttribute[];
+  icon?: React.JSX.Element;
+  attributes?: IAttribute[];
   breakpoints?: Record<string, number>;
-  tags: TagProps[];
+  tags?: TagProps[];
   empty?: boolean;
 }
 
@@ -50,12 +50,14 @@ function Product(props: ProductProps) {
     <StyledProduct empty={empty} to={`/product/${id}`}>
       <Grid templateColumns="auto 1fr" gap="s100">
         <Stack gap="s100" alignItems="center">
-          <Icon
-            icon={icon}
-            variant="filled"
-            spacing="compact"
-            appearance={empty ? "gray" : "primary"}
-          />
+          {icon && (
+            <Icon
+              icon={icon}
+              variant="filled"
+              spacing="compact"
+              appearance={empty ? "gray" : "primary"}
+            />
+          )}
           <Stack direction="column" gap="s025">
             <Text
               type={mobile ? "label" : "title"}
