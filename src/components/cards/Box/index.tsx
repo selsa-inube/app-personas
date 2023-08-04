@@ -6,7 +6,7 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 
-import { StyledBox, StyledCollapseIcon, StyledDivider } from "./styles";
+import { StyledBox, StyledCollapseIcon, StyledDivider, StyledLink } from "./styles";
 
 interface BoxProps {
   icon: React.JSX.Element;
@@ -18,6 +18,7 @@ interface BoxProps {
     icon: React.JSX.Element;
     path: string;
   };
+  navigateTo?: string;
   collapsing: {
     allow: boolean;
     start: boolean;
@@ -31,6 +32,7 @@ function Box(props: BoxProps) {
     subtitle,
     children,
     button,
+    navigateTo = "", 
     collapsing = {
       allow: true,
       start: false,
@@ -42,7 +44,7 @@ function Box(props: BoxProps) {
   return (
     <StyledBox>
       <Stack direction="column" gap="s200">
-        <Stack justifyContent="space-between" alignItems="center">
+        <StyledLink to={navigateTo}>
           <Stack alignItems="center" gap="s100">
             <Icon icon={icon} variant="filled" />
             <Stack direction="column" gap="s025">
@@ -67,7 +69,7 @@ function Box(props: BoxProps) {
               />
             </StyledCollapseIcon>
           )}
-        </Stack>
+        </StyledLink>
         <StyledDivider />
         {(!collapsing.allow || collapse) && children}
         {button && (
