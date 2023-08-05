@@ -1,19 +1,22 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { IBreadcrumbLinkProps } from "./index";
 import { inube } from "@design/tokens";
+
+interface IStyledBreadcrumbLink {
+  isActive: boolean;
+  cursorHover: boolean;
+}
 
 const StyledContainerLink = styled.li`
   display: inline-block;
 `;
 
-const StyledBreadcrumbLink = styled(Link)`
+const StyledBreadcrumbLink = styled(Link)<IStyledBreadcrumbLink>`
   text-decoration: none;
-  color: ${({ theme }) =>
-    (props: { [x: string]: IBreadcrumbLinkProps }) =>
-      props["data-is-active"]
-        ? theme.color?.text?.dark?.regular || inube.color.text.dark.regular
-        : theme.color?.text?.gray?.regular || inube.color.text.gray.regular};
+  color: ${({ theme, isActive }) =>
+    isActive
+      ? theme.color?.text?.dark?.regular || inube.color.text.dark.regular
+      : theme.color?.text?.gray?.regular || inube.color.text.gray.regular};
   &:hover {
     text-decoration: ${({ cursorHover }) => {
       if (cursorHover) {

@@ -5,7 +5,7 @@ import { StyledContainerLink, StyledBreadcrumbLink } from "./styles";
 export interface IBreadcrumbLinkProps {
   isActive?: boolean;
   label: string;
-  path: string;
+  path?: string;
   id: string;
   typo?: SizeType;
   cursorHover?: boolean;
@@ -19,7 +19,7 @@ const BreadcrumbLink = (props: IBreadcrumbLinkProps) => {
   const {
     isActive = defaultIsActive,
     label,
-    path,
+    path = "",
     id,
     cursorHover = false,
     typo = defaultTypo,
@@ -35,7 +35,7 @@ const BreadcrumbLink = (props: IBreadcrumbLinkProps) => {
       <Text type="label" size={transformedTypos}>
         <StyledBreadcrumbLink
           to={path}
-          data-is-active={transformedIsActive}
+          isActive={transformedIsActive}
           cursorHover={cursorHover}
         >
           {label}
