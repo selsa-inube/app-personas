@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { inube } from "@design/tokens";
+import { Link } from "react-router-dom";
 
 const StyledBox = styled.section`
   padding: ${inube.spacing.s200};
-
   border-width: 1px;
   border-style: solid;
   border-radius: 8px;
@@ -23,6 +23,13 @@ const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
     collapse ? "rotate(90deg)" : "rotate(-90deg)"};
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  align-items:center;
+  gap: ${inube.spacing.s100}
+`;
+
 const StyledDivider = styled.hr`
   margin: 0;
   border-style: dashed;
@@ -32,4 +39,4 @@ const StyledDivider = styled.hr`
     inube.color.stroke.divider.regular};
 `;
 
-export { StyledBox, StyledCollapseIcon, StyledDivider };
+export { StyledBox, StyledCollapseIcon,  StyledLink, StyledDivider };
