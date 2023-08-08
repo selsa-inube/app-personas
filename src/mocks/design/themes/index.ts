@@ -1,11 +1,13 @@
+import { cooservunal } from "@mocks/design/themes/cooservunal";
 import { fondecom } from "@mocks/design/themes/fondecom";
 import { presente } from "@mocks/design/themes/presente";
-import { corbanca } from "./corbanca";
+import { corbanca } from "@mocks/design/themes/corbanca";
 
 const themes = {
-  corbanca,
   fondecom,
   presente,
+  cooservunal,
+  corbanca,
 };
 
 export { themes };
