@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
-import { props } from "../props";
 import { Breadcrumbs, IBreadcrumbsProps } from "..";
+import { props } from "../props";
 import { ThemeProvider } from "styled-components";
 import { theme } from "@config/theme";
 
@@ -42,6 +42,18 @@ Mobile.args = {
       path: "/home/users/invitation/edition",
       label: "Edición",
       id: "/home/users/invitation/edition",
+      isActive: false,
+    },
+    {
+      path: "/home/users/invitation/branches",
+      label: "Ramas",
+      id: "/home/users/invitation/branches",
+      isActive: false,
+    },
+    {
+      path: "/home/users/invitation/Branches/city",
+      label: "Ciudad",
+      id: "/home/users/invitation/Branches/city",
       isActive: true,
     },
   ],
