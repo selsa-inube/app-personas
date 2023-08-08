@@ -25,7 +25,9 @@ const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  align-items="center";
+  display: flex;
+  align-items:center;
+  gap: ${inube.spacing.s100}
 `;
 
 const StyledDivider = styled.hr`

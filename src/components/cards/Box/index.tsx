@@ -40,19 +40,18 @@ function Box(props: BoxProps) {
   } = props;
 
   const [collapse, setCollapse] = useState(collapsing.start);
-  const hoverLink = navigateTo !== "" ? true : false;
 
   return (
     <StyledBox>
       <Stack direction="column" gap="s200">
         <Stack justifyContent="space-between" alignItems="center">
           <StyledLink to={navigateTo}>
-            <Icon icon={icon} variant="filled" cursorHover={hoverLink}/>
+            <Icon icon={icon} variant="filled" cursorHover={true}/>
             <Stack direction="column" gap="s025">
-              <Text type="title" size="medium" cursorHover={hoverLink}>
+              <Text type="title" size="medium" cursorHover={true}>
                 {title}
               </Text>
-              <Text appearance="gray" size="small" cursorHover={hoverLink}>
+              <Text appearance="gray" size="small" cursorHover={true}>
                 {subtitle}
               </Text>
             </Stack>
