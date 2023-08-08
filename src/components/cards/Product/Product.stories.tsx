@@ -4,7 +4,7 @@ import { props } from "./props";
 
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 
@@ -61,7 +61,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: ProductProps) => (

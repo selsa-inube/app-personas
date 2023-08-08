@@ -2,7 +2,7 @@ import { ThemeProvider } from "styled-components";
 
 import { Tag, TagProps } from ".";
 
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 import { props } from "./props";
 
 const story = {
@@ -21,7 +21,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: TagProps) => (
