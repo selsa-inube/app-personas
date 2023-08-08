@@ -3,7 +3,7 @@ import { Button, ButtonProps } from ".";
 import { MdAdd, MdChevronRight } from "react-icons/md";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 
 const story = {
@@ -29,7 +29,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: ButtonProps) => (

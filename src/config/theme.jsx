@@ -1,7 +1,7 @@
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export { theme };
