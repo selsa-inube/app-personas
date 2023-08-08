@@ -1,10 +1,9 @@
 import { palette } from "./palette";
 
-const stroke = {
+const text = {
   primary: {
-    regular: palette.blue.B400,
-    hover: palette.blue.B300,
-    focus: palette.blue.B300,
+    regular: palette.yellow.Y400,
+    hover: palette.yellow.Y300,
     disabled: palette.neutral.N70,
   },
   error: {
@@ -22,22 +21,15 @@ const stroke = {
     hover: palette.green.G300,
     disabled: palette.neutral.N70,
   },
-  information: {
-    regular: palette.blue.B400,
-    hover: palette.blue.B300,
-    disabled: palette.neutral.N70,
-  },
   help: {
     regular: palette.purple.P400,
     hover: palette.purple.P300,
     disabled: palette.neutral.N70,
   },
-  divider: {
-    regular: palette.neutral.N40,
-  },
-  spinner: {
-    regular: palette.neutral.N30,
-    transparent: palette.neutralAlpha.N0A,
+  information: {
+    regular: palette.blue.B400,
+    hover: palette.blue.B300,
+    disabled: palette.neutral.N70,
   },
   dark: {
     regular: palette.neutral.N900,
@@ -45,14 +37,14 @@ const stroke = {
     disabled: palette.neutral.N70,
   },
   gray: {
-    regular: palette.neutral.N200,
-    hover: palette.neutral.N90,
+    regular: palette.neutral.N300,
+    hover: palette.neutral.N100,
     disabled: palette.neutral.N70,
   },
   light: {
     regular: palette.neutral.N10,
     hover: palette.neutral.N0,
-    disabled: palette.neutral.N60,
+    disabled: palette.neutral.N70,
   },
   link: {
     regular: palette.blue.B400,
@@ -61,4 +53,4 @@ const stroke = {
   },
 };
 
-export { stroke };
+export { text };

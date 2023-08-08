@@ -1,9 +1,9 @@
 import { color } from "./color/color";
 import { typography } from "./typography/typography";
 
-const fondecom = {
+const presente = {
   color,
   typography,
 };
 
-export { fondecom };
+export { presente };

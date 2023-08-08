@@ -4,8 +4,9 @@ import { Box, BoxProps } from ".";
 import { MdAdd, MdOutlineSavings } from "react-icons/md";
 
 import { Text } from "@design/data/Text";
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 import { props } from "./props";
+
 
 const story = {
   title: "components/cards/Box",
@@ -37,7 +38,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: BoxProps) => (
