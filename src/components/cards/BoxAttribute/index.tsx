@@ -1,21 +1,31 @@
+import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { SpacingType } from "@ptypes/design.types";
+import { StyledBoxAttribute } from "./styles";
 
 interface BoxAttributeProps {
   label: string;
-  icon?: React.JSX.Element;
   value: string;
-  iconSpacing?: SpacingType;
 }
 
 function BoxAttribute(props: BoxAttributeProps) {
-    const { label, icon, value, iconSpacing } = props;
+  const { label, value } = props;
 
-    const smallScreen = useMediaQuery
+  const smallScreen = useMediaQuery("(min-width: 450px)");
 
-    return (
-        <></>
-    )
+  return (
+    <StyledBoxAttribute>
+      <Stack justifyContent="space-between">
+        <Text type="label" size={smallScreen ? "small" : "medium"}>
+          {label}
+        </Text>
+
+        <Text type="body" size={smallScreen ? "small" : "medium"}>
+          {value}
+        </Text>
+      </Stack>
+    </StyledBoxAttribute>
+  );
 }
 
 export { BoxAttribute };
