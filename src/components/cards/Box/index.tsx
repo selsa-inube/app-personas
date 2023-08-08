@@ -40,22 +40,23 @@ function Box(props: BoxProps) {
   } = props;
 
   const [collapse, setCollapse] = useState(collapsing.start);
+  const hoverLink = navigateTo !== "" ? true : false;
 
   return (
     <StyledBox>
       <Stack direction="column" gap="s200">
-        <StyledLink to={navigateTo}>
-          <Stack alignItems="center" gap="s100">
-            <Icon icon={icon} variant="filled" />
+        <Stack justifyContent="space-between" alignItems="center">
+          <StyledLink to={navigateTo}>
+            <Icon icon={icon} variant="filled" cursorHover={hoverLink}/>
             <Stack direction="column" gap="s025">
-              <Text type="title" size="medium">
+              <Text type="title" size="medium" cursorHover={hoverLink}>
                 {title}
               </Text>
-              <Text appearance="gray" size="small">
+              <Text appearance="gray" size="small" cursorHover={hoverLink}>
                 {subtitle}
               </Text>
             </Stack>
-          </Stack>
+          </StyledLink>
           {collapsing.allow && (
             <StyledCollapseIcon
               collapse={collapse}
@@ -69,7 +70,7 @@ function Box(props: BoxProps) {
               />
             </StyledCollapseIcon>
           )}
-        </StyledLink>
+        </Stack>
         <StyledDivider />
         {(!collapsing.allow || collapse) && children}
         {button && (

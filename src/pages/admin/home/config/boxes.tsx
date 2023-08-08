@@ -21,6 +21,7 @@ const credits = {
   title: "Créditos",
   subtitle: "Consulta tus préstamos",
   icon: <MdOutlineAccountBalance />,
+  navigateTo: "/my-credits",
   collapsing: { start: false, allow: false },
   button: {
     label: "Solicitar crédito",

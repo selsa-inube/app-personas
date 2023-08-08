@@ -25,6 +25,7 @@ const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  align-items="center";
 `;
 
 const StyledDivider = styled.hr`
