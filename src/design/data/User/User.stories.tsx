@@ -1,4 +1,4 @@
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 import { User, UserProps } from ".";
 import { props } from "./props";
@@ -19,7 +19,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: UserProps) => (

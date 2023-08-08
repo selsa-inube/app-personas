@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 
 import { Spinner, SpinnerProps } from ".";
 
@@ -22,7 +22,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: SpinnerProps) => (
