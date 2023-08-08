@@ -1,15 +1,15 @@
 const fonts = [
   {
-    family: "Open Sans",
-    url: "https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-muw.woff2",
+    family: "Roboto",
+    url: "https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxK.woff2",
     options: {
       weight: "400",
       style: "normal",
     },
   },
   {
-    family: "Open Sans",
-    url: "https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-muw.woff2",
+    family: "Roboto",
+    url: "https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fBBc4.woff2",
     options: {
       weight: "500",
       style: "normal",
