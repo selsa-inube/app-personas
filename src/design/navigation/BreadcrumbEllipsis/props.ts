@@ -2,14 +2,6 @@ export const sizes = ["large", "small"] as const;
 export type Typos = (typeof sizes)[number];
 
 const props = {
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "Breadcrumbs are a navigation system used to show a user's location in a site or app.",
-      },
-    },
-  },
   handleClick: {
     options: ["logState"],
     control: { type: "func" },

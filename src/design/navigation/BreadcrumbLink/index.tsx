@@ -35,8 +35,8 @@ const BreadcrumbLink = (props: IBreadcrumbLinkProps) => {
       <Text type="label" size={transformedTypos}>
         <StyledBreadcrumbLink
           to={path}
-          isActive={transformedIsActive}
-          cursorHover={cursorHover}
+          $isActive={transformedIsActive}
+          $cursorHover={cursorHover}
         >
           {label}
         </StyledBreadcrumbLink>

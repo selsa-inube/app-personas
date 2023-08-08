@@ -1,14 +1,6 @@
 import { size } from "@ptypes/design.types";
 
 const props = {
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "Breadcrumbs are a navigation system used to show a user's location in a site or app.",
-      },
-    },
-  },
   id: {
     control: { type: "text" },
     description: "shall be the id for the text",
