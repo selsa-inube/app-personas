@@ -15,8 +15,9 @@ import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
 
-import { Credit } from "@pages/admin/credit";
+import { Home } from "@pages/admin/home";
 import { MyCredits } from "@pages/admin/myCredits";
+import { Credit } from "@pages/admin/myCredits/credit";
 
 function App() {
   useFonts(theme.typography.fonts);
@@ -26,7 +27,7 @@ function App() {
       <Route path="/" element={<Page header={header} nav={nav} />}>
         <Route path="/" element={<Home />} />
         <Route path="my-credits" element={<MyCredits />} />
-        <Route path="credit/:credit_id" element={<Credit />} />
+        <Route path="my-credits/:credit_id" element={<Credit />} />
       </Route>
     )
   );

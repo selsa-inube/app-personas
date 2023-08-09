@@ -13,8 +13,10 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 
 import { Title } from "@design/data/Title";
+import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { myCredits } from "./config/boxes";
+import { crumbsMyCredits } from "./config/navigation";
 import {
   extractMyCreditAttributes,
   myCreditAttributeBreakpoints,
@@ -25,12 +27,16 @@ function MyCredits() {
 
   return (
     <>
-      <Title
-        title="Mis créditos"
-        subtitle="Consulta y solicita tus productos"
-        icon={<MdArrowBack />}
-        navigatePage="/"
-      />
+      <Stack direction="column" gap="s300">
+        <Breadcrumbs crumbs={crumbsMyCredits} />
+        <Title
+          title="Mis créditos"
+          subtitle="Consulta y solicita tus productos"
+          icon={<MdArrowBack />}
+          navigatePage="/"
+        />
+      </Stack>
+
       <Grid
         gap="s600"
         margin={mquery ? "48px 0 0" : "24px 0 0"}
