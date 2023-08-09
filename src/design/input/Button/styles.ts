@@ -1,12 +1,8 @@
+import { AppearanceType, SpacingType, VariantType } from "@ptypes/design.types";
 import styled from "styled-components";
 import { inube } from "../../tokens";
-import {
-  AppearanceType,
-  SpacingType,
-  VariantType,
-} from "src/types/design.types";
 
-interface IStyledButton{
+interface IStyledButton {
   spacing: SpacingType;
   fullwidth: boolean;
   variant: VariantType;
@@ -116,7 +112,7 @@ const StyledButtonContent = styled.div<IStyledButtonContent>`
     if (load && !disabled) {
       return 0;
     }
-  }}
+  }};
 `;
 
-export { StyledButton, StyledSpinnerContainer, StyledButtonContent };
+export { StyledButton, StyledButtonContent, StyledSpinnerContainer };

@@ -1,9 +1,9 @@
 import {
   AppearanceType,
+  ShapeType,
   SpacingType,
   VariantType,
-  ShapeType,
-} from "src/types/design.types";
+} from "@ptypes/design.types";
 import { StyledIcon } from "./styles";
 
 interface IconProps {

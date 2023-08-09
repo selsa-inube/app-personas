@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
-import { AppearanceType } from "../../../types/design.types";
+import { AppearanceType } from "@ptypes/design.types";
 
 interface IStyledTag{
   theme: string;

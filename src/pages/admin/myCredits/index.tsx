@@ -13,12 +13,12 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 
 import { Title } from "@design/data/Title";
+import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { myCredits } from "./config/boxes";
 import {
   extractMyCreditAttributes,
   myCreditAttributeBreakpoints,
 } from "./config/products";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
 
 function MyCredits() {
   const mquery = useMediaQuery("(min-width: 1400px)");

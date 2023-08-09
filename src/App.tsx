@@ -14,7 +14,8 @@ import { nav } from "@config/nav";
 import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
-import { Home } from "@pages/admin/home";
+
+import { Credit } from "@pages/admin/credit";
 import { MyCredits } from "@pages/admin/myCredits";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Route path="/" element={<Page header={header} nav={nav} />}>
         <Route path="/" element={<Home />} />
         <Route path="my-credits" element={<MyCredits />} />
+        <Route path="credit/:credit_id" element={<Credit />} />
       </Route>
     )
   );

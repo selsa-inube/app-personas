@@ -1,4 +1,4 @@
-import { appearance, size } from "src/types/design.types";
+import { appearance, size } from "@ptypes/design.types";
 
 const props = {
   appearance: {

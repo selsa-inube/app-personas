@@ -9,7 +9,7 @@ import {
 } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
 
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 import { Nav, NavProps } from ".";
 import { props } from "./props";
 
@@ -100,7 +100,7 @@ MultipleSections.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes['fondecom'],
 };
 
 export const Themed = (args: NavProps) => (

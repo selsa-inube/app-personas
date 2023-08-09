@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-import { AppearanceType, SizeType } from "src/types/design.types";
+import { AppearanceType, SizeType } from "@ptypes/design.types";
 import { inube } from "../../tokens";
 
 const spin = keyframes`

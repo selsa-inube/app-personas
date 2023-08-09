@@ -1,10 +1,10 @@
 import {
-  justifyContent,
-  justifyItems,
   alignContent,
   alignItems,
   autoFlow,
-} from "src/types/design.types";
+  justifyContent,
+  justifyItems,
+} from "@ptypes/design.types";
 
 const props = {
   children: {

@@ -9,7 +9,7 @@ const savings = {
   title: "Ahorros",
   subtitle: "Consulta tus cuentas",
   icon: <MdOutlineSavings />,
-  collapsing: { allow: false },
+  collapsing: { start: false, allow: false },
   button: {
     label: "Solicitar ahorro",
     icon: <MdAdd />,
@@ -21,7 +21,8 @@ const credits = {
   title: "Créditos",
   subtitle: "Consulta tus préstamos",
   icon: <MdOutlineAccountBalance />,
-  collapsing: { allow: false },
+  navigateTo: "/my-credits",
+  collapsing: { start: false, allow: false },
   button: {
     label: "Solicitar crédito",
     icon: <MdAdd />,
@@ -33,7 +34,7 @@ const cards = {
   title: "Tarjetas",
   subtitle: "Consulta tus compras",
   icon: <MdOutlineCreditScore />,
-  collapsing: { allow: false },
+  collapsing: { start: false, allow: false },
   button: {
     label: "Solicitar tarjeta",
     icon: <MdAdd />,
@@ -41,4 +42,4 @@ const cards = {
   },
 };
 
-export { savings, credits, cards };
+export { cards, credits, savings };

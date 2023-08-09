@@ -1,20 +1,16 @@
 import { useState } from "react";
 
+import { Icon } from "../../data/Icon";
 import { Text } from "../../data/Text";
 import { Spinner } from "../../feedback/Spinner";
 import { Stack } from "../../layout/Stack";
-import { Icon } from "../../data/Icon";
 
-import {
-  AppearanceType,
-  SpacingType,
-  VariantType,
-} from "src/types/design.types";
+import { AppearanceType, SpacingType, VariantType } from "@ptypes/design.types";
 
 import {
   StyledButton,
-  StyledSpinnerContainer,
   StyledButtonContent,
+  StyledSpinnerContainer,
 } from "./styles";
 
 interface ButtonProps {

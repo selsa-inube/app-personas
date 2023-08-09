@@ -18,10 +18,12 @@ import { quickLinks } from "@config/quickLinks";
 
 import { Title } from "@design/data/Title";
 import { cards, credits, savings } from "./config/boxes";
+
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
-} from "./config/products";
+} from "@pages/admin/home/config/products";
+
 import { cardProducts, creditProducts, savingsProducts } from "./mocks";
 
 function Home() {

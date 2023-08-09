@@ -5,7 +5,7 @@ import {
   SpacingType,
   VariantType,
   ShapeType,
-} from "src/types/design.types";
+} from "@ptypes/design.types";
 
 const filledAppearancesWithGrayIcon = ["gray", "light"];
 interface IStyledIcon {

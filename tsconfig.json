@@ -23,7 +23,8 @@
       "@config/*": ["./src/config/*"],
       "@pages/*": ["./src/pages/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@mocks/*": ["./src/mocks/*"]
+      "@mocks/*": ["./src/mocks/*"],
+      "@ptypes/*": ["./src/types/*"]
     },
     "types": ["vite/client"]
   },

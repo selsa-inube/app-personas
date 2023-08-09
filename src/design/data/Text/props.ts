@@ -1,6 +1,6 @@
-import { asTags, textAlign } from "src/types/design.types";
-import { textAppearance } from "../../../types/color.types";
-import { size, type } from "../../../types/typography.types";
+import { asTags, textAlign } from "@ptypes/design.types";
+import { textAppearance } from "@ptypes/color.types";
+import { size, type } from "@ptypes/typography.types";
 
 const props = {
   as: {

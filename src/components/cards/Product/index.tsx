@@ -59,7 +59,6 @@ function Product(props: ProductProps) {
               appearance={empty ? "gray" : "primary"}
             />
           )}
-
           <Stack direction="column" gap="s025">
             <Text
               type={mobile ? "label" : "title"}
@@ -113,3 +112,4 @@ function Product(props: ProductProps) {
 
 export { Product };
 export type { ProductProps };
+
