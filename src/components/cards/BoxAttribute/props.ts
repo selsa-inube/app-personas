@@ -1,10 +1,9 @@
 const props = {
   label: {
-    description: "Id of the product",
+    description: "Is the label of the attribute.",
   },
   value: {
-    description:
-      "Is an array of objects where each object represents some characteristic of the product. Each object has a label and value property.",
+    description: "Is the value of the attribute. It can be a string o a number",
   },
 };
 

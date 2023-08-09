@@ -21,6 +21,10 @@ const props = {
     description:
       "Controls the icon component that will be displayed on top of the box.",
   },
+  navigateTo: {
+    description:
+      "Controls the path where to redirect the user when the Box is clicked.",
+  },
 };
 
 export { props };
