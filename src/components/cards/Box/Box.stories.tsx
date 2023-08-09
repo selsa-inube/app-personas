@@ -6,6 +6,8 @@ import { MdAdd, MdOutlineSavings } from "react-icons/md";
 import { Text } from "@design/data/Text";
 import { themes } from "@mocks/design/themes";
 import { props } from "./props";
+import { StoryFn } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
 
 
 const story = {
@@ -15,6 +17,13 @@ const story = {
   argTypes: {
     ...props,
   },
+  decorators: [
+    (Story: StoryFn) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
 };
 
 export const Default = (args: BoxProps) => <Box {...args} />;
