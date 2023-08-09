@@ -1,15 +1,16 @@
 import { BrowserRouter } from "react-router-dom";
 import { props } from "../props";
-import { Breadcrumbs, IBreadcrumbsProps } from "..";
+import { Breadcrumbs, BreadcrumbsProps } from "..";
 import { ThemeProvider } from "styled-components";
 import { theme } from "@config/theme";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/navigation/Breadcrumbs",
   components: [Breadcrumbs],
   argTypes: props,
   decorators: [
-    (Story: React.ElementType) => (
+    (Story: StoryFn) => (
       <BrowserRouter>
         <Story />
       </BrowserRouter>
@@ -17,7 +18,7 @@ const story = {
   ],
 };
 
-export const Desktop = (args: IBreadcrumbsProps) => <Breadcrumbs {...args} />;
+export const Desktop = (args: BreadcrumbsProps) => <Breadcrumbs {...args} />;
 Desktop.args = {
   crumbs: [
     {
@@ -47,7 +48,7 @@ Desktop.args = {
   ],
 };
 
-export const ThemedDesktop = (args: IBreadcrumbsProps) => (
+export const ThemedDesktop = (args: BreadcrumbsProps) => (
   <ThemeProvider theme={theme}>
     <Breadcrumbs {...args} />
   </ThemeProvider>

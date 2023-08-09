@@ -1,5 +1,4 @@
-export const sizes = ["large", "small"] as const;
-export type Typos = (typeof sizes)[number];
+import { sizeVariant } from "@ptypes/design.types";
 
 const props = {
   handleClick: {
@@ -8,7 +7,7 @@ const props = {
     description: "shall be determine the behavior of the click event",
   },
   size: {
-    options: sizes,
+    options: sizeVariant,
     control: { type: "select" },
     description: "indicates the font size used in the component",
     table: {

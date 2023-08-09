@@ -8,27 +8,20 @@ import {
   StyledBreadcrumbEllipsis,
   StyledRelativeContainer,
 } from "./styles";
-import { Typos } from "./props";
+import { SizeVariantType } from "@ptypes/design.types";
+import { IRoute } from "./types";
 
-export interface IRoute {
-  label: string;
-  path: string;
-  id: string;
-}
-
-export interface IBreadcrumbEllipsisProps {
-  size?: Typos;
+interface BreadcrumbEllipsisProps {
+  size?: SizeVariantType;
   routes: IRoute[];
   cursorHover?: boolean;
 }
 
-const defaultTypo = "large";
-
-const BreadcrumbEllipsis = (props: IBreadcrumbEllipsisProps) => {
-  const { size = defaultTypo, routes, cursorHover = false } = props;
+function BreadcrumbEllipsis(props: BreadcrumbEllipsisProps) {
+  const { size = "large", routes, cursorHover = false } = props;
   const [showMenu, setShowMenu] = useState(false);
 
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const closeEllipsisMenu = (event: globalThis.MouseEvent) => {
     if (
@@ -63,6 +56,7 @@ const BreadcrumbEllipsis = (props: IBreadcrumbEllipsisProps) => {
       {showMenu && <BreadcrumbMenu routes={routes} />}
     </StyledRelativeContainer>
   );
-};
+}
 
+export type { BreadcrumbEllipsisProps };
 export { BreadcrumbEllipsis };

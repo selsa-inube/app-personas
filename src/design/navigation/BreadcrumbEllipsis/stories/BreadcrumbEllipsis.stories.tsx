@@ -1,8 +1,9 @@
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { theme } from "@config/theme";
-import { BreadcrumbEllipsis, IBreadcrumbEllipsisProps } from "../index";
+import { BreadcrumbEllipsis, BreadcrumbEllipsisProps } from "../index";
 import { props } from "../props";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/navigation/BreadcrumbEllipsis",
@@ -12,7 +13,7 @@ const story = {
     ...props,
   },
   decorators: [
-    (Story: React.ElementType) => (
+    (Story: StoryFn) => (
       <BrowserRouter>
         <Story />
       </BrowserRouter>
@@ -20,7 +21,7 @@ const story = {
   ],
 };
 
-export const Default = (args: IBreadcrumbEllipsisProps) => (
+export const Default = (args: BreadcrumbEllipsisProps) => (
   <BreadcrumbEllipsis {...args} />
 );
 Default.args = {
@@ -41,7 +42,7 @@ Default.args = {
   cursorHover: true,
 };
 
-export const Themed = (args: IBreadcrumbEllipsisProps) => (
+export const Themed = (args: BreadcrumbEllipsisProps) => (
   <ThemeProvider theme={theme}>
     <BreadcrumbEllipsis {...args} />
   </ThemeProvider>

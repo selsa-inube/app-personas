@@ -1,6 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
-import { BreadcrumbLink, IBreadcrumbLinkProps } from "..";
+import { BreadcrumbLink, BreadcrumbLinkProps } from "..";
 import { BreadcrumbLinkController } from "./BreadcrumbLinkController";
+import { StoryFn } from "@storybook/react";
 
 import { ThemeProvider } from "styled-components";
 
@@ -16,7 +17,7 @@ const story = {
     ...props,
   },
   decorators: [
-    (Story: React.ElementType) => (
+    (Story: StoryFn) => (
       <BrowserRouter>
         <Story />
       </BrowserRouter>
@@ -24,7 +25,7 @@ const story = {
   ],
 };
 
-export const Default = (args: IBreadcrumbLinkProps) => (
+export const Default = (args: BreadcrumbLinkProps) => (
   <BreadcrumbLinkController {...args} />
 );
 Default.args = {
@@ -36,7 +37,7 @@ Default.args = {
   cursorHover: true,
 };
 
-export const Themed = (args: IBreadcrumbLinkProps) => (
+export const Themed = (args: BreadcrumbLinkProps) => (
   <ThemeProvider theme={theme}>
     <BreadcrumbLinkController {...args} />
   </ThemeProvider>

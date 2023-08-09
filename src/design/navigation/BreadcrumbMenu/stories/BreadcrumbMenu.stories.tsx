@@ -1,8 +1,9 @@
 import { BrowserRouter } from "react-router-dom";
-import { BreadcrumbMenu, IBreadcrumbMenuProps } from "..";
+import { BreadcrumbMenu, BreadcrumbMenuProps } from "..";
 import { props } from "../props";
 import { ThemeProvider } from "styled-components";
 import { theme } from "@config/theme";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/navigation/BreadcrumbMenu",
@@ -12,7 +13,7 @@ const story = {
     ...props,
   },
   decorators: [
-    (Story: React.ElementType) => (
+    (Story: StoryFn) => (
       <BrowserRouter>
         <Story />
       </BrowserRouter>
@@ -20,7 +21,7 @@ const story = {
   ],
 };
 
-export const Default = (args: IBreadcrumbMenuProps) => (
+export const Default = (args: BreadcrumbMenuProps) => (
   <div style={{ height: "100px", transform: "translateZ(0)" }}>
     <BreadcrumbMenu {...args} />
   </div>
@@ -41,7 +42,7 @@ Default.args = {
   ],
 };
 
-export const Themed = (args: IBreadcrumbMenuProps) => (
+export const Themed = (args: BreadcrumbMenuProps) => (
   <ThemeProvider theme={theme}>
     <BreadcrumbMenu {...args} />
   </ThemeProvider>

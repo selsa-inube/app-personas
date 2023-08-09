@@ -4,18 +4,16 @@ import { Text } from "@design/data/Text";
 import { StyledContainerLink, StyledBreadcrumbMenuLink } from "./styles";
 import { size, SizeType } from "@ptypes/design.types";
 
-export interface IBreadcrumbMenuLinkProps {
+interface BreadcrumbMenuLinkProps {
   label: string;
   path: string;
   id: string;
   typo?: SizeType;
 }
 
-const defaultTypo: SizeType = "large";
-
-const BreadcrumbMenuLink = (props: IBreadcrumbMenuLinkProps) => {
-  const { label, path, id, typo = defaultTypo } = props;
-  const transformedTypos = size.includes(typo) ? typo : defaultTypo;
+function BreadcrumbMenuLink(props: BreadcrumbMenuLinkProps) {
+  const { label, path, id, typo = "large" } = props;
+  const transformedTypos = size.includes(typo) ? typo : "large";
   return (
     <StyledBreadcrumbMenuLink to={path}>
       <StyledContainerLink id={id}>
@@ -27,6 +25,7 @@ const BreadcrumbMenuLink = (props: IBreadcrumbMenuLinkProps) => {
       </StyledContainerLink>
     </StyledBreadcrumbMenuLink>
   );
-};
+}
 
+export type { BreadcrumbMenuLinkProps };
 export { BreadcrumbMenuLink };

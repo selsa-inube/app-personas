@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { BreadcrumbLink, IBreadcrumbLinkProps } from "..";
+import { BreadcrumbLink, BreadcrumbLinkProps } from "..";
 
-const BreadcrumbLinkController = (props: IBreadcrumbLinkProps) => {
+const BreadcrumbLinkController = (props: BreadcrumbLinkProps) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleClickTab = () => {

@@ -4,16 +4,10 @@ import { BreadcrumbLink } from "../BreadcrumbLink";
 import { BreadcrumbEllipsis } from "../BreadcrumbEllipsis";
 
 import { StyledBreadcrumbs } from "./styles";
-import { Sizes } from "./props";
+import { SizeVariantType } from "@ptypes/design.types";
+import { IBreadcrumbItem } from "./types";
 
-export interface IBreadcrumbItem {
-  path: string;
-  label: string;
-  id: string;
-  isActive: boolean;
-}
-
-export interface IBreadcrumbsProps {
+interface BreadcrumbsProps {
   crumbs: IBreadcrumbItem[];
 }
 
@@ -21,13 +15,13 @@ function capitalizeString(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const Breadcrumbs = (props: IBreadcrumbsProps) => {
+function Breadcrumbs(props: BreadcrumbsProps) {
   const { crumbs } = props;
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const maxCrumbs = isDesktop ? 5 : 3;
 
-  const transformedSize: Sizes = isDesktop ? "large" : "small";
+  const transformedSize: SizeVariantType = isDesktop ? "large" : "small";
 
   if (crumbs.length > maxCrumbs) {
     const transformedLastElement = crumbs[crumbs.length - 1];
@@ -73,6 +67,7 @@ const Breadcrumbs = (props: IBreadcrumbsProps) => {
       ))}
     </StyledBreadcrumbs>
   );
-};
+}
 
+export type { BreadcrumbsProps, IBreadcrumbItem };
 export { Breadcrumbs };

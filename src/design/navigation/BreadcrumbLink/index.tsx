@@ -2,7 +2,7 @@ import { Text } from "@design/data/Text";
 import { size, SizeType } from "@ptypes/design.types";
 import { StyledContainerLink, StyledBreadcrumbLink } from "./styles";
 
-export interface IBreadcrumbLinkProps {
+interface BreadcrumbLinkProps {
   isActive?: boolean;
   label: string;
   path?: string;
@@ -12,23 +12,20 @@ export interface IBreadcrumbLinkProps {
   handleClick?: () => void;
 }
 
-const defaultTypo: SizeType = "large";
-const defaultIsActive: boolean = false;
-
-const BreadcrumbLink = (props: IBreadcrumbLinkProps) => {
+function BreadcrumbLink(props: BreadcrumbLinkProps) {
   const {
-    isActive = defaultIsActive,
+    isActive = false,
     label,
     path = "",
     id,
     cursorHover = false,
-    typo = defaultTypo,
+    typo = "large",
     handleClick,
   } = props;
 
-  const transformedTypos: SizeType = size.includes(typo) ? typo : defaultTypo;
+  const transformedTypos: SizeType = size.includes(typo) ? typo : "large";
   const transformedIsActive: boolean =
-    typeof isActive === "boolean" ? isActive : defaultIsActive;
+    typeof isActive === "boolean" ? isActive : false;
 
   return (
     <StyledContainerLink id={id} onClick={handleClick}>
@@ -43,6 +40,7 @@ const BreadcrumbLink = (props: IBreadcrumbLinkProps) => {
       </Text>
     </StyledContainerLink>
   );
-};
+}
 
+export type { BreadcrumbLinkProps };
 export { BreadcrumbLink };

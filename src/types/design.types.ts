@@ -17,6 +17,8 @@ const shape = ["circle", "rectangle"] as const;
 
 const size = ["large", "medium", "small"] as const;
 
+const sizeVariant = ["large", "small"] as const;
+
 const asTags = [
   "p",
   "label",
@@ -71,6 +73,7 @@ type VariantType = (typeof variant)[number];
 type AppearanceType = (typeof appearance)[number];
 type ShapeType = (typeof shape)[number];
 type SizeType = (typeof size)[number];
+type SizeVariantType = (typeof sizeVariant)[number];
 type JustifyItemsType = (typeof justifyItems)[number];
 type AlignItemsType = (typeof alignItems)[number];
 type JustifyContentType = (typeof justifyContent)[number];
@@ -82,6 +85,7 @@ export {
   asTags,
   shape,
   size,
+  sizeVariant,
   spacing,
   textAlign,
   variant,
@@ -96,6 +100,7 @@ export type {
   AsTagsType,
   ShapeType,
   SizeType,
+  SizeVariantType,
   SpacingType,
   TextAlignType,
   VariantType,
