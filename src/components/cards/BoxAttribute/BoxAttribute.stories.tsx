@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/theme";
+import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { BoxAttribute, BoxAttributeProps } from ".";
@@ -28,12 +28,8 @@ Default.args = {
   value: "Value",
 };
 
-const theme = {
-  ...fondecom,
-};
-
 export const Themed = (args: BoxAttributeProps) => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={themes["fondecom"]}>
     <BoxAttribute {...args} />
   </ThemeProvider>
 );
