@@ -5,7 +5,8 @@ const StyledBoxAttribute = styled.div`
   border-radius: 8px;
   padding: ${inube.spacing.s075};
   width: 365px;
-  align-items: center;
+  background-color: ${({ theme }) =>
+    theme.color?.surface?.gray.clear || inube.color.surface.gray.clear};
 `;
 
 export { StyledBoxAttribute };

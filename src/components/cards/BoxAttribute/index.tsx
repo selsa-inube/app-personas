@@ -15,12 +15,20 @@ function BoxAttribute(props: BoxAttributeProps) {
 
   return (
     <StyledBoxAttribute>
-      <Stack justifyContent="space-between">
-        <Text type="label" size={smallScreen ? "small" : "medium"}>
+      <Stack justifyContent="space-between" alignItems="center">
+        <Text
+          type="label"
+          size={smallScreen ? "small" : "medium"}
+          appearance="dark"
+        >
           {label}
         </Text>
 
-        <Text type="body" size={smallScreen ? "small" : "medium"}>
+        <Text
+          type="body"
+          size={smallScreen ? "small" : "medium"}
+          appearance="gray"
+        >
           {value}
         </Text>
       </Stack>

@@ -18,12 +18,15 @@ interface GridPropsExtends extends GridProps {
 }
 
 function Rectangles(height: string, width: string) {
-  return new Array(10).fill(<Rectangle height={height} width={width} />);
+  return new Array(10)
+    .fill(null)
+    .map((_, index) => <Rectangle key={index} height={height} width={width} />);
 }
 
 export const Default = (args: GridPropsExtends) => (
   <Grid {...args}>{Rectangles(args.rectangleHeight, args.rectangleWidth)}</Grid>
 );
+
 Default.args = {
   children: "",
   templateColumns: "repeat(4, 1fr)",
