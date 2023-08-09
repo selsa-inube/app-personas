@@ -9,7 +9,7 @@ import {
   StyledRelativeContainer,
 } from "./styles";
 import { SizeVariantType } from "@ptypes/design.types";
-import { IRoute } from "./types";
+import { IRoute } from "@ptypes/navigation.types";
 
 interface BreadcrumbEllipsisProps {
   size?: SizeVariantType;
