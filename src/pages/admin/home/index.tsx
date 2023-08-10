@@ -15,13 +15,15 @@ import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { quickLinks } from "@config/quickLinks";
-import { cards, credits, savings } from "@pages/admin/home/config/boxes";
+
+import { Title } from "@design/data/Title";
+import { cards, credits, savings } from "./config/boxes";
+
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
 } from "@pages/admin/home/config/products";
 
-import { Title } from "@design/data/Title";
 import { cardProducts, creditProducts, savingsProducts } from "./mocks";
 
 function Home() {
@@ -39,7 +41,9 @@ function Home() {
         templateColumns={mquery ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s300">
-          <Text type="label">Tus productos</Text>
+          <Text type="title" size="medium">
+            Tus productos
+          </Text>
           <Box {...savings}>
             <Stack direction="column" gap="s075">
               {savingsProducts.length === 0 ? (

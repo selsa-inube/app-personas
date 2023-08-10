@@ -8,14 +8,13 @@ const darkTextAppearances = ["warning", "gray", "light"];
 interface TagProps {
   label: string;
   appearance?: AppearanceType;
-  icon?: React.JSX.Element;
 }
 
 function Tag(props: TagProps) {
   const { label, appearance = "gray" } = props;
 
   return (
-    <StyledTag appearance={appearance} >
+    <StyledTag appearance={appearance}>
       <Text
         type="label"
         size="small"
