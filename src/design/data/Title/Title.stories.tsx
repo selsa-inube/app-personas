@@ -37,11 +37,9 @@ const theme = {
 
 export const Themed = (args: TitleProps) => {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <Title {...args} />
-      </ThemeProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <Title {...args} />
+    </ThemeProvider>
   );
 };
 
