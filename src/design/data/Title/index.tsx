@@ -1,36 +1,37 @@
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
+import { Icon } from "../Icon";
 import { Text } from "../Text";
-import { StyledIcon } from "./styles";
 
 interface TitleProps {
   title: string;
   subtitle?: string;
   icon?: JSX.Element;
   navigatePage?: string;
-  parentDisabled?: boolean;
 }
 
 function Title(props: TitleProps) {
-  const { title, subtitle, icon, navigatePage, parentDisabled } = props;
+  const { title, subtitle, icon, navigatePage } = props;
   const navigate = useNavigate();
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
 
   const handleBackPage = () => {
-    if (parentDisabled) return;
     if (navigatePage) return navigate(navigatePage);
     return navigate(-1);
   };
 
   return (
-    <Stack gap="4px" direction="column">
-      <Stack gap="8px" alignItems="center">
+    <Stack gap="s050" direction="column">
+      <Stack gap="s150" alignItems="center">
         {icon && (
-          <StyledIcon onClick={handleBackPage} parentDisabled={parentDisabled}>
-            {icon}
-          </StyledIcon>
+          <Icon
+            appearance="dark"
+            onClick={handleBackPage}
+            icon={icon}
+            cursorHover={true}
+          />
         )}
 
         <Text as="h1" type="title" size={smallScreen ? "medium" : "large"}>

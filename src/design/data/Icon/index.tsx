@@ -16,6 +16,7 @@ interface IconProps {
   cursorHover?: boolean;
   parentHover?: boolean;
   disabled?: boolean;
+  onClick?: () => void;
 }
 
 function Icon(props: IconProps) {
@@ -29,6 +30,7 @@ function Icon(props: IconProps) {
     cursorHover = false,
     parentHover = false,
     disabled = false,
+    onClick,
   } = props;
 
   return (
@@ -41,6 +43,7 @@ function Icon(props: IconProps) {
       cursorHover={cursorHover}
       parentHover={parentHover}
       disabled={disabled}
+      onClick={onClick}
     >
       {icon}
     </StyledIcon>

@@ -14,49 +14,32 @@ const story = {
   argTypes: {
     ...props,
   },
+  decorators: [
+    (Story: StoryFn) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
 };
 
-const Template: StoryFn<TitleProps> = (args) => (
-  <BrowserRouter>
-    <Title {...args} />
-  </BrowserRouter>
-);
-
-export const Default = Template.bind({});
+export const Default = (args: TitleProps) => <Title {...args} />;
 Default.args = {
   title: "Bienvenido, Leonardo",
   subtitle: "Aquí tienes un resumen de tus productos",
-};
-
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  title: "Bienvenido, Leonardo",
-  subtitle: "Aquí tienes un resumen de tus productos",
   icon: <MdArrowBack />,
   navigatePage: "/",
-  parentDisabled: false,
-};
-
-export const WithIconDisabled = Template.bind({});
-WithIconDisabled.args = {
-  title: "Bienvenido, Leonardo",
-  subtitle: "Aquí tienes un resumen de tus productos",
-  icon: <MdArrowBack />,
-  navigatePage: "/",
-  parentDisabled: true,
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
 export const Themed = (args: TitleProps) => {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <Title {...args} />
-      </ThemeProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <Title {...args} />
+    </ThemeProvider>
   );
 };
 
