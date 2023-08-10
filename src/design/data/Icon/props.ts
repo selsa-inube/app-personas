@@ -1,5 +1,5 @@
-import { shape } from "prop-types";
 import { appearance, spacing, variant } from "@ptypes/design.types";
+import { shape } from "prop-types";
 
 const props = {
   icon: {
@@ -39,6 +39,9 @@ const props = {
   },
   disabled: {
     description: "Controls if the icon is disabled",
+  },
+  onClick: {
+    description: "Function to be called when the icon is clicked",
   },
 };
 

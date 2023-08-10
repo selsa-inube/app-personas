@@ -15,11 +15,6 @@ const props = {
   navigatePage: {
     description: "Controls the redirection that the page icon will make.",
   },
-
-  parentDisabled: {
-    description:
-      "It is in charge of disabling the icon in case the parent component requires it.",
-  },
 };
 
 export { props };
