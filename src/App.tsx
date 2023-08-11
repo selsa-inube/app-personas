@@ -15,8 +15,8 @@ import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
 
-import { MyCredits } from "@pages/admin/MyCredits";
-import { Credit } from "@pages/admin/MyCredits/Credit";
+import { Credit } from "@pages/admin/credits/Credit";
+import { MyCredits } from "@pages/admin/credits/MyCredits";
 import { Home } from "@pages/admin/home";
 
 function App() {
