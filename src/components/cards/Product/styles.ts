@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface IStyledProduct {
-  empty?: boolean;
+  $empty?: boolean;
 }
 
 const StyledProduct = styled(Link)<IStyledProduct>`
@@ -14,10 +14,10 @@ const StyledProduct = styled(Link)<IStyledProduct>`
     theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
 
   display: block;
+  cursor: ${({ $empty }) => (!$empty ? "pointer" : "auto")};
   &:hover {
-    cursor: ${({ empty }) => (!empty ? "pointer" : "normal")};
-    background-color: ${({ theme, empty }) => {
-      if (!empty) {
+    background-color: ${({ theme, $empty }) => {
+      if (!$empty) {
         return (
           theme.color?.surface?.gray?.hover || inube.color.surface.gray.hover
         );
