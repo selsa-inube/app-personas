@@ -19,6 +19,7 @@ interface ProductProps {
   breakpoints?: Record<string, number>;
   tags?: ITagProduct[];
   empty?: boolean;
+  navigateTo?: string;
 }
 
 function Product(props: ProductProps) {
@@ -31,6 +32,7 @@ function Product(props: ProductProps) {
     breakpoints = {},
     tags = [],
     empty,
+    navigateTo = "",
   } = props;
 
   const mobile = useMediaQuery("(max-width: 450px)");
@@ -48,7 +50,7 @@ function Product(props: ProductProps) {
   );
 
   return (
-    <StyledProduct empty={empty} to={`/product/${id}`}>
+    <StyledProduct empty={empty} to={navigateTo}>
       <Grid templateColumns="auto 1fr" gap="s100">
         <Stack gap="s100" alignItems="center">
           {icon && (
@@ -112,4 +114,3 @@ function Product(props: ProductProps) {
 
 export { Product };
 export type { ProductProps };
-

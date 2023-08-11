@@ -13,6 +13,7 @@ const StyledProduct = styled(Link)<IStyledProduct>`
   background-color: ${({ theme }) =>
     theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
 
+  display: block;
   &:hover {
     cursor: ${({ empty }) => (!empty ? "pointer" : "normal")};
     background-color: ${({ theme, empty }) => {

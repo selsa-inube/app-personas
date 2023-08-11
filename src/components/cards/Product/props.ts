@@ -28,6 +28,10 @@ const props = {
     description:
       "Controls if there is a product to display or if the user should see that there are no products to be shown.",
   },
+  navigateTo: {
+    description:
+      "Is a path to be used by the router to navigate to the product page.",
+  },
 };
 
 export { props };
