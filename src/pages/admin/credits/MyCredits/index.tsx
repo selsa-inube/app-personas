@@ -14,6 +14,7 @@ import { quickLinks } from "@config/quickLinks";
 
 import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
+import { inube } from "@design/tokens";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { myCredits } from "./config/boxes";
 import { crumbsMyCredits } from "./config/navigation";
@@ -39,7 +40,9 @@ function MyCredits() {
 
       <Grid
         gap="s600"
-        margin={mquery ? "48px 0 0" : "24px 0 0"}
+        margin={
+          mquery ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
+        }
         templateColumns={mquery ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s300">

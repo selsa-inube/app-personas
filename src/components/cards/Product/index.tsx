@@ -50,7 +50,7 @@ function Product(props: ProductProps) {
   );
 
   return (
-    <StyledProduct empty={empty} to={navigateTo}>
+    <StyledProduct $empty={empty} to={navigateTo}>
       <Grid templateColumns="auto 1fr" gap="s100">
         <Stack gap="s100" alignItems="center">
           {icon && (
