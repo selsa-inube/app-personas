@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
-import { AppearanceType, SizeType } from "@ptypes/design.types";
 import { inube } from "../../tokens";
+import { SpinnerAppearanceType, SpinnerSizeType } from "./types";
 
 const spin = keyframes`
   from {
@@ -13,8 +13,8 @@ const spin = keyframes`
 `;
 
 interface IStyledSpinner {
-  appearance?: AppearanceType;
-  size?: SizeType;
+  appearance?: SpinnerAppearanceType;
+  size?: SpinnerSizeType;
   track?: boolean;
 }
 

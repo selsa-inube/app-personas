@@ -1,26 +1,25 @@
 import { inube } from "@design/tokens";
 import { SpacingTokensType } from "@ptypes/spacing.types";
 import styled from "styled-components";
-
 import {
-  AlignContentType,
-  AlignItemsType,
-  AutoFlowType,
-  JustifyContentType,
-  JustifyItemsType,
-} from "@ptypes/design.types";
+  GridJustifyItemsType,
+  GridAlignItemsType,
+  GridJustifyContentType,
+  GridAlignContentType,
+  GridAutoFlowType,
+} from "./types";
 
 interface IStyledGrid {
   templateColumns?: string;
   templateRows?: string;
   gap: SpacingTokensType;
-  justifyItems?: JustifyItemsType;
-  alignItems?: AlignItemsType;
-  justifyContent?: JustifyContentType;
-  alignContent?: AlignContentType;
+  justifyItems?: GridJustifyItemsType;
+  alignItems?: GridAlignItemsType;
+  justifyContent?: GridJustifyContentType;
+  alignContent?: GridAlignContentType;
   autoColumns?: string;
   autoRows?: string;
-  autoFlow?: AutoFlowType;
+  autoFlow?: GridAutoFlowType;
   margin: SpacingTokensType;
   padding: SpacingTokensType;
   height?: string;

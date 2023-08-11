@@ -1,18 +1,22 @@
-import { AppearanceType, SpacingType, VariantType } from "@ptypes/design.types";
 import styled from "styled-components";
 import { inube } from "../../tokens";
+import {
+  ButtonAppearanceType,
+  ButtonSpacingType,
+  ButtonVariantType,
+} from "./types";
 
 interface IStyledButton {
-  spacing: SpacingType;
+  spacing: ButtonSpacingType;
   fullwidth: boolean;
-  variant: VariantType;
-  appearance: AppearanceType;
+  variant: ButtonVariantType;
+  appearance: ButtonAppearanceType;
   disabled: boolean;
   load: boolean;
 }
 
 interface IStyledSpinnerContainer {
-  variant: VariantType;
+  variant: ButtonVariantType;
 }
 
 interface IStyledButtonContent {

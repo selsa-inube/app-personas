@@ -1,18 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { BreadcrumbMenu } from "../BreadcrumbMenu";
 import { Text } from "@design/data/Text";
+import { BreadcrumbMenu } from "../BreadcrumbMenu";
 
+import { IRoute } from "@ptypes/navigation.types";
 import {
-  StyledContainerEllipsis,
   StyledBreadcrumbEllipsis,
+  StyledContainerEllipsis,
   StyledRelativeContainer,
 } from "./styles";
-import { SizeVariantType } from "@ptypes/design.types";
-import { IRoute } from "@ptypes/navigation.types";
+import { BreadcrumbEllipsisSizeType } from "./types";
 
 interface BreadcrumbEllipsisProps {
-  size?: SizeVariantType;
+  size?: BreadcrumbEllipsisSizeType;
   routes: IRoute[];
   cursorHover?: boolean;
 }
@@ -58,5 +58,5 @@ function BreadcrumbEllipsis(props: BreadcrumbEllipsisProps) {
   );
 }
 
-export type { BreadcrumbEllipsisProps };
 export { BreadcrumbEllipsis };
+export type { BreadcrumbEllipsisProps };

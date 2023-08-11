@@ -1,12 +1,9 @@
+import { TextAppearanceType } from "@ptypes/color.types";
+import { SpacingTokensType } from "@ptypes/spacing.types";
+import { TypographySizeType, TypographyType } from "@ptypes/typography.types";
 import styled from "styled-components";
 import { inube } from "../../tokens";
-import { SpacingTokensType } from "@ptypes/spacing.types";
-import { TextAppearanceType } from "@ptypes/color.types";
-import { TextAlignType } from "@ptypes/design.types";
-import {
-  TypographyType,
-  TypographySizeType,
-} from "@ptypes/typography.types";
+import { TextAlignType } from "./types";
 
 interface IStyledText {
   margin: SpacingTokensType;
