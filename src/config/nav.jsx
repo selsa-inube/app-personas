@@ -5,7 +5,7 @@ import {
   MdOutlineCreditCard,
   MdOutlineAccountBalance,
   MdOutlineSavings,
-  MdOutlineAssignmentTurnedIn,
+  MdOutlineHouse,
   MdOutlineSportsCricket,
   MdOutlineAttachMoney,
 } from "react-icons/md";
@@ -18,7 +18,7 @@ const nav = {
         {
           label: "Resumen",
           path: "/",
-          icon: <MdOutlineAssignmentTurnedIn />,
+          icon: <MdOutlineHouse />,
         },
         {
           label: "Mis cuentas",
