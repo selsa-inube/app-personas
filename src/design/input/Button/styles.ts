@@ -14,11 +14,11 @@ interface IStyledButton {
 
 interface IStyledLink {
   spacing: SpacingType;
-  fullwidth: boolean;
+  $fullwidth: boolean;
   variant: VariantType;
   appearance: AppearanceType;
   disabled: boolean;
-  load: boolean;
+  $load: boolean;
 }
 
 interface IStyledSpinnerContainer {
@@ -38,9 +38,9 @@ const StyledLink = styled(Link)<IStyledLink>`
   text-decoration: none;
   height: ${({ spacing }) =>
     spacing === "wide" ? inube.spacing.s450 : inube.spacing.s350};
-  width: ${({ fullwidth }) => (fullwidth ? "100%" : "max-content")};
+  width: ${({ $fullwidth }) => ($fullwidth ? "100%" : "max-content")};
   min-width: 100px;
-  max-width: ${({ fullwidth }) => !fullwidth && "300px"};
+  max-width: ${({ $fullwidth }) => !$fullwidth && "300px"};
 
   padding: 0
     ${({ spacing }) =>
@@ -92,8 +92,8 @@ const StyledLink = styled(Link)<IStyledLink>`
       }
     }};
 
-    background-color: ${({ theme, appearance, variant, disabled, load }) => {
-      if (!disabled && !load) {
+    background-color: ${({ theme, appearance, variant, disabled, $load }) => {
+      if (!disabled && !$load) {
         if (variant === "filled") {
           return (
             theme.color?.surface?.[appearance]?.hover ||
@@ -103,8 +103,8 @@ const StyledLink = styled(Link)<IStyledLink>`
       }
     }};
 
-    cursor: ${({ disabled, load }) => {
-      if (load || disabled) {
+    cursor: ${({ disabled, $load }) => {
+      if ($load || disabled) {
         return "not-allowed";
       }
     }};

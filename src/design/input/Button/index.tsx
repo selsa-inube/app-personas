@@ -126,8 +126,8 @@ function Button(props: ButtonProps) {
         appearance={appearance}
         spacing={spacing}
         variant={variant}
-        fullwidth={fullwidth}
-        load={load}
+        $fullwidth={fullwidth}
+        $load={load}
         disabled={disabled}
         onMouseEnter={() => toggleHover(true)}
         onMouseLeave={() => toggleHover(false)}
