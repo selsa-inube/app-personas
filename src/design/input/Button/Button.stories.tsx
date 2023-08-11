@@ -35,25 +35,18 @@ Default.args = {
   fullwidth: false,
   disabled: false,
   load: false,
+  path: "/some-path",
 };
 
 const theme = {
   ...themes["fondecom"],
 };
 
-export const WithLink = (args: ButtonProps) => (
-  <Button {...args} type="link" path="/some-path" />
-);
-
 export const Themed = (args: ButtonProps) => (
   <ThemeProvider theme={theme}>
     <Button {...args} />
   </ThemeProvider>
 );
-
-WithLink.args = {
-  ...Default.args,
-};
 
 Themed.args = {
   ...Default.args,

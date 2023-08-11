@@ -1,19 +1,15 @@
 import { useState } from "react";
-
 import { Icon } from "../../data/Icon";
 import { Text } from "../../data/Text";
 import { Spinner } from "../../feedback/Spinner";
 import { Stack } from "../../layout/Stack";
-
 import { AppearanceType, SpacingType, VariantType } from "@ptypes/design.types";
-
 import {
   StyledButton,
   StyledButtonContent,
   StyledSpinnerContainer,
   StyledLink,
 } from "./styles";
-
 import { ButtonTypesType } from "./types";
 
 interface ButtonProps {
@@ -29,6 +25,64 @@ interface ButtonProps {
   path?: string;
   type?: ButtonTypesType;
   handleClick?: () => void;
+}
+
+function renderButtonContent(
+  load: boolean,
+  disabled: boolean,
+  iconBefore: React.JSX.Element | undefined,
+  iconAfter: React.JSX.Element | undefined,
+  variant: VariantType,
+  getAppearance: () => AppearanceType,
+  hover: boolean,
+  children: React.ReactNode
+) {
+  if (load && !disabled) {
+    return (
+      <StyledSpinnerContainer variant={variant}>
+        <Stack justifyContent="center" alignItems="center" height="inherit">
+          <Spinner appearance={getAppearance()} track={false} />
+        </Stack>
+      </StyledSpinnerContainer>
+    );
+  }
+
+  return (
+    <StyledButtonContent load={load} disabled={disabled}>
+      <Stack alignItems="center" justifyContent="center" gap="s075">
+        {iconBefore && (
+          <Icon
+            icon={iconBefore}
+            spacing="none"
+            size="18px"
+            appearance={getAppearance()}
+            disabled={disabled}
+            parentHover={hover}
+          />
+        )}
+        <Text
+          type="label"
+          size="large"
+          appearance={getAppearance()}
+          disabled={disabled}
+          parentHover={hover}
+          ellipsis={true}
+        >
+          {children}
+        </Text>
+        {iconAfter && (
+          <Icon
+            icon={iconAfter}
+            spacing="none"
+            size="18px"
+            appearance={getAppearance()}
+            disabled={disabled}
+            parentHover={hover}
+          />
+        )}
+      </Stack>
+    </StyledButtonContent>
+  );
 }
 
 function Button(props: ButtonProps) {
@@ -66,55 +120,6 @@ function Button(props: ButtonProps) {
     }
   }
 
-  function renderButtonContent() {
-    if (load && !disabled) {
-      return (
-        <StyledSpinnerContainer variant={variant}>
-          <Stack justifyContent="center" alignItems="center" height="inherit">
-            <Spinner appearance={getAppearance()} track={false} />
-          </Stack>
-        </StyledSpinnerContainer>
-      );
-    }
-
-    return (
-      <StyledButtonContent load={load} disabled={disabled}>
-        <Stack alignItems="center" justifyContent="center" gap="s075">
-          {iconBefore && (
-            <Icon
-              icon={iconBefore}
-              spacing="none"
-              size="18px"
-              appearance={getAppearance()}
-              disabled={disabled}
-              parentHover={hover}
-            />
-          )}
-          <Text
-            type="label"
-            size="large"
-            appearance={getAppearance()}
-            disabled={disabled}
-            parentHover={hover}
-            ellipsis={true}
-          >
-            {children}
-          </Text>
-          {iconAfter && (
-            <Icon
-              icon={iconAfter}
-              spacing="none"
-              size="18px"
-              appearance={getAppearance()}
-              disabled={disabled}
-              parentHover={hover}
-            />
-          )}
-        </Stack>
-      </StyledButtonContent>
-    );
-  }
-
   if (type === "link") {
     if (path === "" || !path) {
       console.warn('A "path" must be assigned if the type is "link".');
@@ -132,7 +137,16 @@ function Button(props: ButtonProps) {
         onMouseEnter={() => toggleHover(true)}
         onMouseLeave={() => toggleHover(false)}
       >
-        {renderButtonContent()}
+        {renderButtonContent(
+          load,
+          disabled,
+          iconBefore,
+          iconAfter,
+          variant,
+          getAppearance,
+          hover,
+          children
+        )}
       </StyledLink>
     );
   }
@@ -143,14 +157,23 @@ function Button(props: ButtonProps) {
       appearance={appearance}
       spacing={spacing}
       variant={variant}
-      fullwidth={fullwidth}
-      load={load}
+      $fullwidth={fullwidth}
+      $load={load}
       disabled={disabled}
       onClick={handleClick}
       onMouseEnter={() => toggleHover(true)}
       onMouseLeave={() => toggleHover(false)}
     >
-      {renderButtonContent()}
+      {renderButtonContent(
+        load,
+        disabled,
+        iconBefore,
+        iconAfter,
+        variant,
+        getAppearance,
+        hover,
+        children
+      )}
     </StyledButton>
   );
 }
