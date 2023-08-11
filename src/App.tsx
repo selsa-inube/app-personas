@@ -15,9 +15,9 @@ import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
 
+import { MyCredits } from "@pages/admin/MyCredits";
+import { Credit } from "@pages/admin/MyCredits/Credit";
 import { Home } from "@pages/admin/home";
-import { MyCredits } from "@pages/admin/myCredits";
-import { Credit } from "@pages/admin/myCredits/credit";
 
 function App() {
   useFonts(theme.typography.fonts);
