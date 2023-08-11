@@ -1,13 +1,13 @@
 import { Text } from "../Text";
 
-import { AppearanceType } from "@ptypes/design.types";
 import { StyledTag } from "./styles";
+import { TagAppearanceType } from "./types";
 
 const darkTextAppearances = ["warning", "gray", "light"];
 
 interface TagProps {
   label: string;
-  appearance?: AppearanceType;
+  appearance?: TagAppearanceType;
 }
 
 function Tag(props: TagProps) {

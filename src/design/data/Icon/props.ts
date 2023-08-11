@@ -1,5 +1,5 @@
-import { appearance, spacing, variant } from "@ptypes/design.types";
 import { shape } from "prop-types";
+import { iconAppearance, iconSpacing, iconVariant } from "./types";
 
 const props = {
   icon: {
@@ -7,7 +7,7 @@ const props = {
   },
   appearance: {
     control: "select",
-    options: appearance,
+    options: iconAppearance,
     description:
       "Controls the appearance of the icon. This is connected to the color design tokens.",
   },
@@ -16,12 +16,12 @@ const props = {
   },
   spacing: {
     control: "select",
-    options: spacing,
+    options: iconSpacing,
     description: "Controls the padding of the icon.",
   },
   variant: {
     control: "select",
-    options: variant,
+    options: iconVariant,
     description: "Controls the background of the icon.",
   },
   shape: {
@@ -45,4 +45,4 @@ const props = {
   },
 };
 
-export { appearance, props, shape, spacing, variant };
+export { props };

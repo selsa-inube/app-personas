@@ -5,4 +5,9 @@ interface IBreadcrumbItem {
   isActive: boolean;
 }
 
-export type { IBreadcrumbItem };
+const breadcrumbSize = ["large", "small"] as const;
+
+type BreadcrumbSizeType = (typeof breadcrumbSize)[number];
+
+export { breadcrumbSize };
+export type { BreadcrumbSizeType, IBreadcrumbItem };

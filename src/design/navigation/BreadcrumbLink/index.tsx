@@ -1,13 +1,13 @@
 import { Text } from "@design/data/Text";
-import { size, SizeType } from "@ptypes/design.types";
-import { StyledContainerLink, StyledBreadcrumbLink } from "./styles";
+import { StyledBreadcrumbLink, StyledContainerLink } from "./styles";
+import { BreadcrumbLinkSizeType, breadcrumbLinksize } from "./types";
 
 interface BreadcrumbLinkProps {
   isActive?: boolean;
   label: string;
   path?: string;
   id: string;
-  typo?: SizeType;
+  typo?: BreadcrumbLinkSizeType;
   cursorHover?: boolean;
   handleClick?: () => void;
 }
@@ -23,7 +23,11 @@ function BreadcrumbLink(props: BreadcrumbLinkProps) {
     handleClick,
   } = props;
 
-  const transformedTypos: SizeType = size.includes(typo) ? typo : "large";
+  const transformedTypos: BreadcrumbLinkSizeType = breadcrumbLinksize.includes(
+    typo
+  )
+    ? typo
+    : "large";
   const transformedIsActive: boolean =
     typeof isActive === "boolean" ? isActive : false;
 
@@ -42,5 +46,5 @@ function BreadcrumbLink(props: BreadcrumbLinkProps) {
   );
 }
 
-export type { BreadcrumbLinkProps };
 export { BreadcrumbLink };
+export type { BreadcrumbLinkProps };

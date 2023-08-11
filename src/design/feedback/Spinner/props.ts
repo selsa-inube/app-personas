@@ -1,14 +1,14 @@
-import { appearance, size } from "@ptypes/design.types";
+import { spinnerAppearance, spinnerSize } from "./types";
 
 const props = {
   appearance: {
     control: "select",
-    options: appearance,
+    options: spinnerAppearance,
     description: "Controls de color of the Spinner",
   },
   size: {
     control: "select",
-    options: size,
+    options: spinnerSize,
     description: "Controls the size of the Spinner",
   },
   track: {
@@ -17,4 +17,4 @@ const props = {
   },
 };
 
-export { appearance, props, size };
+export { props };

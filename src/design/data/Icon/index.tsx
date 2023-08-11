@@ -1,17 +1,17 @@
-import {
-  AppearanceType,
-  ShapeType,
-  SpacingType,
-  VariantType,
-} from "@ptypes/design.types";
 import { StyledIcon } from "./styles";
+import {
+  IconAppearanceType,
+  IconShapeType,
+  IconSpacingType,
+  IconVariantType,
+} from "./types";
 
 interface IconProps {
   icon: React.JSX.Element;
-  appearance?: AppearanceType;
-  spacing?: SpacingType;
-  variant?: VariantType;
-  shape?: ShapeType;
+  appearance?: IconAppearanceType;
+  spacing?: IconSpacingType;
+  variant?: IconVariantType;
+  shape?: IconShapeType;
   size?: string;
   cursorHover?: boolean;
   parentHover?: boolean;

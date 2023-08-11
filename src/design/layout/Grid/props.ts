@@ -1,10 +1,10 @@
 import {
-  alignContent,
-  alignItems,
-  autoFlow,
-  justifyContent,
-  justifyItems,
-} from "@ptypes/design.types";
+  gridJustifyItems,
+  gridAlignItems,
+  gridJustifyContent,
+  gridAlignContent,
+  gridAutoFlow,
+} from "./types";
 
 const props = {
   children: {
@@ -21,22 +21,22 @@ const props = {
   },
   justifyItems: {
     control: "select",
-    options: justifyItems,
+    options: gridJustifyItems,
     description: "Controls the justify-items CSS property",
   },
   alignItems: {
     control: "select",
-    options: alignItems,
+    options: gridAlignItems,
     description: "Controls the align-items CSS property",
   },
   justifyContent: {
     control: "select",
-    options: justifyContent,
+    options: gridJustifyContent,
     description: "Controls the justify-content CSS property",
   },
   alignContent: {
     control: "select",
-    options: alignContent,
+    options: gridAlignContent,
     description: "Controls the align-content CSS property",
   },
   autoColumns: {
@@ -47,7 +47,7 @@ const props = {
   },
   autoFlow: {
     control: "select",
-    options: autoFlow,
+    options: gridAutoFlow,
     description: "Controls the grid-auto-flow CSS property",
   },
   margin: {

@@ -1,11 +1,10 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
-import { BreadcrumbLink } from "../BreadcrumbLink";
 import { BreadcrumbEllipsis } from "../BreadcrumbEllipsis";
+import { BreadcrumbLink } from "../BreadcrumbLink";
 
 import { StyledBreadcrumbs } from "./styles";
-import { SizeVariantType } from "@ptypes/design.types";
-import { IBreadcrumbItem } from "./types";
+import { BreadcrumbSizeType, IBreadcrumbItem } from "./types";
 
 interface BreadcrumbsProps {
   crumbs: IBreadcrumbItem[];
@@ -21,7 +20,7 @@ function Breadcrumbs(props: BreadcrumbsProps) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const maxCrumbs = isDesktop ? 5 : 3;
 
-  const transformedSize: SizeVariantType = isDesktop ? "large" : "small";
+  const transformedSize: BreadcrumbSizeType = isDesktop ? "large" : "small";
 
   if (crumbs.length > maxCrumbs) {
     const transformedLastElement = crumbs[crumbs.length - 1];
@@ -69,5 +68,5 @@ function Breadcrumbs(props: BreadcrumbsProps) {
   );
 }
 
-export type { BreadcrumbsProps, IBreadcrumbItem };
 export { Breadcrumbs };
+export type { BreadcrumbsProps, IBreadcrumbItem };

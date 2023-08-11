@@ -1,19 +1,21 @@
-import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
 
-import { StyledContainerLink, StyledBreadcrumbMenuLink } from "./styles";
-import { size, SizeType } from "@ptypes/design.types";
+import { StyledBreadcrumbMenuLink, StyledContainerLink } from "./styles";
+import { BreadcrumbMenuLinkSizeType, breadcrumbMenuLinksize } from "./types";
 
 interface BreadcrumbMenuLinkProps {
   label: string;
   path: string;
   id: string;
-  typo?: SizeType;
+  typo?: BreadcrumbMenuLinkSizeType;
 }
 
 function BreadcrumbMenuLink(props: BreadcrumbMenuLinkProps) {
   const { label, path, id, typo = "large" } = props;
-  const transformedTypos = size.includes(typo) ? typo : "large";
+  const transformedTypos = breadcrumbMenuLinksize.includes(typo)
+    ? typo
+    : "large";
   return (
     <StyledBreadcrumbMenuLink to={path}>
       <StyledContainerLink id={id}>
@@ -27,5 +29,5 @@ function BreadcrumbMenuLink(props: BreadcrumbMenuLinkProps) {
   );
 }
 
-export type { BreadcrumbMenuLinkProps };
 export { BreadcrumbMenuLink };
+export type { BreadcrumbMenuLinkProps };

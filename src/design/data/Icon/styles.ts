@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
 import {
-  AppearanceType,
-  SpacingType,
-  VariantType,
-  ShapeType,
-} from "@ptypes/design.types";
+  IconAppearanceType,
+  IconShapeType,
+  IconSpacingType,
+  IconVariantType,
+} from "./types";
 
 const filledAppearancesWithGrayIcon = ["gray", "light"];
 interface IStyledIcon {
-  appearance: AppearanceType;
-  spacing: SpacingType;
-  variant: VariantType;
-  shape: ShapeType;
+  appearance: IconAppearanceType;
+  spacing: IconSpacingType;
+  variant: IconVariantType;
+  shape: IconShapeType;
   size: string;
   cursorHover: boolean;
   parentHover: boolean;
