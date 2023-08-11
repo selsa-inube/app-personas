@@ -1,9 +1,3 @@
-import {
-  MdOutlineAccountBalanceWallet,
-  MdOutlineAttachMoney,
-  MdOutlineCreditCard,
-} from "react-icons/md";
-
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
 import { Text } from "@design/data/Text";
@@ -11,19 +5,22 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 
 import { Box } from "@components/cards/Box";
-import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { quickLinks } from "@config/quickLinks";
 
+import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
+import {
+  MdOutlineAccountBalanceWallet,
+  MdOutlineAttachMoney,
+  MdOutlineCreditCard,
+} from "react-icons/md";
 import { cards, credits, savings } from "./config/boxes";
-
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
-} from "@pages/admin/home/config/products";
-
+} from "./config/products";
 import { cardProducts, creditProducts, savingsProducts } from "./mocks";
 
 function Home() {

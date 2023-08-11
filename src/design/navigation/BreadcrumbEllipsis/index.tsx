@@ -3,13 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { Text } from "@design/data/Text";
 import { BreadcrumbMenu } from "../BreadcrumbMenu";
 
-import { IRoute } from "@ptypes/navigation.types";
 import {
   StyledBreadcrumbEllipsis,
   StyledContainerEllipsis,
   StyledRelativeContainer,
 } from "./styles";
-import { BreadcrumbEllipsisSizeType } from "./types";
+import { BreadcrumbEllipsisSizeType, IRoute } from "./types";
 
 interface BreadcrumbEllipsisProps {
   size?: BreadcrumbEllipsisSizeType;
