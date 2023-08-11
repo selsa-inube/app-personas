@@ -81,6 +81,7 @@ function Home() {
                     breakpoints={creditAttributeBreakpoints}
                     tags={credit.tags}
                     icon={<MdOutlineAttachMoney />}
+                    navigateTo={`/my-credits/${credit.id}`}
                   />
                 ))
               )}
