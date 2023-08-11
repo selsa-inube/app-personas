@@ -5,6 +5,8 @@ import { props } from "./props";
 
 import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
+import { StoryFn } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
 
 const story = {
   title: "design/input/Button",
@@ -13,6 +15,13 @@ const story = {
   argTypes: {
     ...props,
   },
+  decorators: [
+    (Story: StoryFn) => (
+      <BrowserRouter>
+        <Story />
+      </BrowserRouter>
+    ),
+  ],
 };
 
 export const Default = (args: ButtonProps) => <Button {...args} />;
@@ -29,14 +38,23 @@ Default.args = {
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
+
+export const WithLink = (args: ButtonProps) => (
+  <Button {...args} type="link" path="/some-path" />
+);
 
 export const Themed = (args: ButtonProps) => (
   <ThemeProvider theme={theme}>
     <Button {...args} />
   </ThemeProvider>
 );
+
+WithLink.args = {
+  ...Default.args,
+};
+
 Themed.args = {
   ...Default.args,
 };

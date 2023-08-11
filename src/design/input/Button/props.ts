@@ -1,4 +1,5 @@
 import { appearance, spacing, variant } from "@ptypes/design.types";
+import { buttonTypes } from "./types";
 
 const props = {
   children: {
@@ -37,6 +38,19 @@ const props = {
   load: {
     description:
       "Controls if the user should display that a process is currently loading",
+  },
+  path: {
+    description:
+      "Path to be redirected to if the button type is 'link'. Required if the type is 'link'.",
+  },
+  type: {
+    control: "select",
+    options: buttonTypes,
+    description:
+      "Button type. 'button' for a standard button and 'link' for a link that redirects to 'path'.",
+  },
+  handleClick: {
+    description: "Function to be executed when the button is clicked.",
   },
 };
 
