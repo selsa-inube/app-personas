@@ -1,19 +1,23 @@
-import { AppearanceType, SpacingType, VariantType } from "@ptypes/design.types";
 import styled, { css } from "styled-components";
 import { inube } from "../../tokens";
 import { Link } from "react-router-dom";
+import {
+  ButtonAppearanceType,
+  ButtonSpacingType,
+  ButtonVariantType,
+} from "./types";
 
 interface IStyledButtonGeneral {
-  spacing: SpacingType;
+  spacing: ButtonSpacingType;
   $fullwidth: boolean;
-  variant: VariantType;
-  appearance: AppearanceType;
+  variant: ButtonVariantType;
+  appearance: ButtonAppearanceType;
   disabled: boolean;
   $load: boolean;
 }
 
 interface IStyledSpinnerContainer {
-  variant: VariantType;
+  variant: ButtonVariantType;
 }
 
 interface IStyledButtonContent {

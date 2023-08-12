@@ -1,13 +1,4 @@
-const appearance = [
-  "primary",
-  "success",
-  "error",
-  "warning",
-  "help",
-  "dark",
-  "gray",
-  "light",
-];
+import { tagAppearance } from "./types";
 
 const props = {
   label: {
@@ -15,9 +6,9 @@ const props = {
   },
   appearance: {
     control: "select",
-    options: appearance,
+    options: tagAppearance,
     description: "Controls the background color of the tag",
   },
 };
 
-export { props, appearance };
+export { props };

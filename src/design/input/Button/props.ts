@@ -1,5 +1,9 @@
-import { appearance, spacing, variant } from "@ptypes/design.types";
-import { buttonTypes } from "./types";
+import {
+  buttonAppearance,
+  buttonSpacing,
+  buttonVariant,
+  buttonTypes,
+} from "./types";
 
 const props = {
   children: {
@@ -15,17 +19,17 @@ const props = {
   },
   appearance: {
     control: "select",
-    options: appearance,
+    options: buttonAppearance,
     description: "Indicates the colors and background colors of the button.",
   },
   variant: {
     control: "select",
-    options: variant,
+    options: buttonVariant,
     description: "Controls the surface of the button.",
   },
   spacing: {
     control: "select",
-    options: spacing,
+    options: buttonSpacing,
     description: "Controls the padding of the button.",
   },
   fullwidth: {

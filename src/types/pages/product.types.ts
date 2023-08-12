@@ -1,4 +1,15 @@
-import { AppearanceType } from "../design.types";
+const productAppearance = [
+  "primary",
+  "success",
+  "warning",
+  "error",
+  "help",
+  "dark",
+  "gray",
+  "light",
+] as const;
+
+type ProductAppearanceType = (typeof productAppearance)[number];
 
 interface IAtributeProduct {
   id: string;
@@ -8,7 +19,7 @@ interface IAtributeProduct {
 
 interface ITagProduct {
   label: string;
-  appearance: AppearanceType;
+  appearance: ProductAppearanceType;
 }
 
 interface IProduct {

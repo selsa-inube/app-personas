@@ -1,11 +1,11 @@
-import { asTags, textAlign } from "@ptypes/design.types";
 import { textAppearance } from "@ptypes/color.types";
 import { size, type } from "@ptypes/typography.types";
+import { textAlign, textAsTags } from "./types";
 
 const props = {
   as: {
     control: "select",
-    options: asTags,
+    options: textAsTags,
     description:
       "Controls the HTML element to use in the DOM when the component is rendered",
   },

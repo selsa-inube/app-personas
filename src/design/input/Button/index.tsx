@@ -3,22 +3,26 @@ import { Icon } from "../../data/Icon";
 import { Text } from "../../data/Text";
 import { Spinner } from "../../feedback/Spinner";
 import { Stack } from "../../layout/Stack";
-import { AppearanceType, SpacingType, VariantType } from "@ptypes/design.types";
 import {
   StyledButton,
   StyledButtonContent,
   StyledSpinnerContainer,
   StyledLink,
 } from "./styles";
-import { ButtonTypesType } from "./types";
+import {
+  ButtonAppearanceType,
+  ButtonSpacingType,
+  ButtonVariantType,
+  ButtonTypesType,
+} from "./types";
 
 interface ButtonProps {
   children: React.ReactNode;
   iconBefore?: React.JSX.Element;
   iconAfter?: React.JSX.Element;
-  appearance?: AppearanceType;
-  spacing?: SpacingType;
-  variant?: VariantType;
+  appearance?: ButtonAppearanceType;
+  spacing?: ButtonSpacingType;
+  variant?: ButtonVariantType;
   fullwidth?: boolean;
   load?: boolean;
   disabled?: boolean;
@@ -31,8 +35,8 @@ function renderButtonContent(
   children: React.ReactNode,
   load: boolean,
   disabled: boolean,
-  variant: VariantType,
-  getAppearance: () => AppearanceType,
+  variant: ButtonVariantType,
+  getAppearance: () => ButtonAppearanceType,
   hover: boolean,
   iconAfter?: React.JSX.Element,
   iconBefore?: React.JSX.Element
@@ -101,7 +105,7 @@ function Button(props: ButtonProps) {
     handleClick,
   } = props;
 
-  const darkWhenFilled: AppearanceType[] = ["warning", "gray", "light"];
+  const darkWhenFilled: ButtonAppearanceType[] = ["warning", "gray", "light"];
 
   function getAppearance() {
     if (variant === "filled") {
