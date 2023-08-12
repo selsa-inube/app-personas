@@ -28,14 +28,14 @@ interface ButtonProps {
 }
 
 function renderButtonContent(
+  children: React.ReactNode,
   load: boolean,
   disabled: boolean,
-  iconBefore: React.JSX.Element | undefined,
-  iconAfter: React.JSX.Element | undefined,
   variant: VariantType,
   getAppearance: () => AppearanceType,
   hover: boolean,
-  children: React.ReactNode
+  iconAfter?: React.JSX.Element,
+  iconBefore?: React.JSX.Element
 ) {
   if (load && !disabled) {
     return (
@@ -138,14 +138,14 @@ function Button(props: ButtonProps) {
         onMouseLeave={() => toggleHover(false)}
       >
         {renderButtonContent(
+          children,
           load,
           disabled,
-          iconBefore,
-          iconAfter,
           variant,
           getAppearance,
           hover,
-          children
+          iconAfter,
+          iconBefore
         )}
       </StyledLink>
     );
@@ -165,14 +165,14 @@ function Button(props: ButtonProps) {
       onMouseLeave={() => toggleHover(false)}
     >
       {renderButtonContent(
+        children,
         load,
         disabled,
-        iconBefore,
-        iconAfter,
         variant,
         getAppearance,
         hover,
-        children
+        iconAfter,
+        iconBefore
       )}
     </StyledButton>
   );

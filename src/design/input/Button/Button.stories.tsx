@@ -27,6 +27,7 @@ const story = {
 export const Default = (args: ButtonProps) => <Button {...args} />;
 Default.args = {
   children: "Button",
+  type: "button",
   iconBefore: <MdAdd />,
   iconAfter: <MdChevronRight />,
   appearance: "primary",
