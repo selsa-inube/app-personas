@@ -1,18 +1,19 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { inube } from "../../tokens";
+import { Link } from "react-router-dom";
 import {
   ButtonAppearanceType,
   ButtonSpacingType,
   ButtonVariantType,
 } from "./types";
 
-interface IStyledButton {
+interface IStyledButtonGeneral {
   spacing: ButtonSpacingType;
-  fullwidth: boolean;
+  $fullwidth: boolean;
   variant: ButtonVariantType;
   appearance: ButtonAppearanceType;
   disabled: boolean;
-  load: boolean;
+  $load: boolean;
 }
 
 interface IStyledSpinnerContainer {
@@ -24,15 +25,15 @@ interface IStyledButtonContent {
   disabled: boolean;
 }
 
-const StyledButton = styled.button<IStyledButton>`
+const StyledButtonGeneral = css<IStyledButtonGeneral>`
   position: relative;
   box-sizing: border-box;
 
   height: ${({ spacing }) =>
     spacing === "wide" ? inube.spacing.s450 : inube.spacing.s350};
-  width: ${({ fullwidth }) => (fullwidth ? "100%" : "max-content")};
+  width: ${({ $fullwidth }) => ($fullwidth ? "100%" : "max-content")};
   min-width: 100px;
-  max-width: ${({ fullwidth }) => !fullwidth && "300px"};
+  max-width: ${({ $fullwidth }) => !$fullwidth && "300px"};
 
   padding: 0
     ${({ spacing }) =>
@@ -84,8 +85,8 @@ const StyledButton = styled.button<IStyledButton>`
       }
     }};
 
-    background-color: ${({ theme, appearance, variant, disabled, load }) => {
-      if (!disabled && !load) {
+    background-color: ${({ theme, appearance, variant, disabled, $load }) => {
+      if (!disabled && !$load) {
         if (variant === "filled") {
           return (
             theme.color?.surface?.[appearance]?.hover ||
@@ -95,12 +96,24 @@ const StyledButton = styled.button<IStyledButton>`
       }
     }};
 
-    cursor: ${({ disabled, load }) => {
-      if (load || disabled) {
+    cursor: ${({ disabled, $load }) => {
+      if ($load || disabled) {
         return "not-allowed";
       }
     }};
   }
+`;
+
+const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  ${StyledButtonGeneral}
+`;
+
+const StyledButton = styled.button`
+  ${StyledButtonGeneral}
 `;
 
 const StyledSpinnerContainer = styled.div<IStyledSpinnerContainer>`
@@ -119,4 +132,9 @@ const StyledButtonContent = styled.div<IStyledButtonContent>`
   }};
 `;
 
-export { StyledButton, StyledButtonContent, StyledSpinnerContainer };
+export {
+  StyledButton,
+  StyledButtonContent,
+  StyledSpinnerContainer,
+  StyledLink,
+};
