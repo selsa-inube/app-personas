@@ -1,25 +1,18 @@
-const inputTypes = [
-  "text",
-  "email",
-  "number",
-  "password",
-  "search",
-  "tel",
-] as const;
-type InputTypesType = (typeof inputTypes)[number];
+const inputTypes = ["text", "email", "number", "password", "search", "tel"];
+type InputType = (typeof inputTypes)[number];
 
-const inputSize = ["wide", "compact"] as const;
-type InputSizeType = (typeof inputSize)[number];
+const inputSizeTypes = ["wide", "compact"];
+type InputSize = (typeof inputSizeTypes)[number];
 
-const inputState = ["valid", "invalid", "pending"] as const;
-type InputStateType = (typeof inputState)[number];
+const inputStates = ["valid", "invalid", "pending"];
+type InputState = (typeof inputStates)[number];
 
-interface IInputMessage {
-  state?: InputStateType;
+interface IMessage {
+  state?: InputState;
   isDisabled?: boolean;
   errorMessage?: string;
   validMessage?: string;
 }
 
-export { inputSize, inputState, inputTypes };
-export type { IInputMessage, InputSizeType, InputStateType, InputTypesType };
+export { inputStates, inputTypes, inputSizeTypes };
+export type { InputType, InputSize, InputState, IMessage };

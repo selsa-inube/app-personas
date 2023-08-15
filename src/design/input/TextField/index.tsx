@@ -1,11 +1,10 @@
 import { useState } from "react";
-
 import { TextFieldUI } from "./interface";
 import {
-  InputSizeType,
-  InputStateType,
-  InputTypesType,
-  inputState,
+  InputType,
+  InputSize,
+  InputState,
+  inputStates,
   inputTypes,
 } from "./types";
 
@@ -15,41 +14,43 @@ interface TextFieldProps {
   id: string;
   placeholder: string;
   isDisabled?: boolean;
-  type?: InputTypesType;
   value?: string | number;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  iconBefore?: React.ReactNode;
-  iconAfter?: React.ReactNode;
+  iconBefore?: React.JSX.Element;
+  iconAfter?: React.JSX.Element;
   maxLength?: number;
   minLength?: number;
   max?: number;
   min?: number;
   isRequired: boolean;
-  state?: InputStateType;
   errorMessage?: string;
   validMessage?: string;
-  size?: InputSizeType;
   isFullWidth?: boolean;
-  handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   readOnly?: boolean;
   isFocused?: boolean;
+  type?: InputType;
+  state?: InputState;
+  inputSize?: InputSize;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const defaultIsDisabled = false;
-const defaultType: InputTypesType = "text";
 const defaultIsRequired = false;
-const defaultState: InputStateType = "pending";
 const defaultIsFullWidth = false;
+const defaultType: InputType = "text";
+const defaultState: InputState = "pending";
 
-const TextField = (props: TextFieldProps) => {
+function TextField(props: TextFieldProps) {
   const {
     label,
     name,
     id,
     placeholder,
     isDisabled = false,
-    type = "text",
+    type = defaultType,
+    state = defaultState,
+    inputSize,
     value,
     handleChange,
     iconBefore,
@@ -59,10 +60,8 @@ const TextField = (props: TextFieldProps) => {
     max,
     min,
     isRequired = false,
-    state = "pending",
     errorMessage,
     validMessage,
-    size = "wide",
     isFullWidth = false,
     handleFocus,
     handleBlur,
@@ -90,7 +89,7 @@ const TextField = (props: TextFieldProps) => {
   const transformedIsDisabled =
     typeof isDisabled === "boolean" ? isDisabled : defaultIsDisabled;
 
-  const transformedState = inputState.includes(state) ? state : defaultState;
+  const transformedState = inputStates.includes(state) ? state : defaultState;
 
   const transformedTypes = inputTypes.includes(type) ? type : defaultType;
 
@@ -119,7 +118,7 @@ const TextField = (props: TextFieldProps) => {
       max={max}
       min={min}
       isRequired={transformedIsRequired}
-      size={size}
+      inputSize={inputSize}
       state={transformedState}
       errorMessage={errorMessage}
       validMessage={validMessage}
@@ -130,7 +129,7 @@ const TextField = (props: TextFieldProps) => {
       readOnly={transformedReadOnly}
     />
   );
-};
+}
 
 export { TextField };
 export type { TextFieldProps };

@@ -1,56 +1,46 @@
-import { inputSize, inputState, inputTypes } from "./types";
+import { inputSizeTypes, inputStates, inputTypes } from "./types";
 
 const props = {
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "A text field is an input that allows a user to write or edit text",
-      },
-    },
-  },
   label: {
-    description: "prompts the user what value to enter",
+    description: "Controls the text to display in the label",
   },
   name: {
-    description: "name of the input element",
+    description: "Controls the name of the textfield",
   },
   id: {
-    description:
-      "uniquely identifies the **TextField Component**, it will also allow the **label element** to be connected to the **input element** through the htmlFor of the label",
+    description: "Corresponds to the identifier of the textfield",
   },
   placeholder: {
-    description: "text to display in the text field whenever it is empty",
+    description:
+      "Corresponds to the text to display in the textfield whenever it is empty",
   },
   isDisabled: {
-    description:
-      "sets the field as to appear disabled, users will not be able to interact with the text field",
-    table: {
-      defaultValue: { summary: false },
-    },
+    description: "Controls if the label should appear disabled",
   },
   type: {
+    control: "select",
     options: inputTypes,
-    control: { type: "select" },
-    description: "class name to apply to the input element",
-    table: {
-      defaultValue: { summary: "text" },
-    },
+    description: "Corresponds to the type of data obtained by the textfield",
+  },
+  state: {
+    control: "select",
+    options: inputStates,
+    description: "Controls the state of the textfield",
+  },
+  inputSize: {
+    control: "select",
+    options: inputSizeTypes,
+    description: "Controls the size of the input",
   },
   value: {
-    description: "component initial value",
-  },
-  handleChange: {
-    description:
-      "allows you to control what to do when the user changes the value of the component",
+    description: "Corresponds to the value being added within the textfield",
   },
   iconBefore: {
     description:
-      "allows to enter an icon to the left of the area where the user enters values",
+      "Controls whether an icon is needed at the beginning of the textfield",
   },
   iconAfter: {
-    description:
-      "allows to enter an icon to the right of the area where the user enters values",
+    description: "Control and need an icon of the final textfield",
   },
   maxLength: {
     description:
@@ -70,17 +60,6 @@ const props = {
   },
   isRequired: {
     description: "defines if the field is required or not",
-    table: {
-      defaultValue: { summary: false },
-    },
-  },
-  state: {
-    options: inputState,
-    control: { type: "select" },
-    description: "state of the component",
-    table: {
-      defaultValue: { summary: "pending" },
-    },
   },
   errorMessage: {
     description: "show when the field is validated and there is an error",
@@ -88,22 +67,23 @@ const props = {
   validMessage: {
     description: "show when the field is validated without errors",
   },
-  size: {
-    options: inputSize,
-    control: { type: "select" },
-    description: "defines the size of the component",
-  },
   isFullWidth: {
     description: "option to fit field width to its parent width",
-    table: {
-      defaultValue: { summary: false },
-    },
   },
   readOnly: {
-    descriptions: "option to make the field read only",
-    table: {
-      defaultValue: { summary: false },
-    },
+    description: "option to make the field read only",
+  },
+  children: {
+    description: "Controls the text to display in the label",
+  },
+  isFocused: {
+    description: "Controls if the label should appear focused",
+  },
+  isInvalid: {
+    description: "Controls if the label should appear invalid",
+  },
+  htmlFor: {
+    description: "Controls the identification of the label",
   },
 };
 

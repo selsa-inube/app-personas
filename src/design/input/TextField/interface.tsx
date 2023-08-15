@@ -1,71 +1,53 @@
+import { TextFieldProps } from ".";
+import { Label } from "../Label";
+import { Text } from "@design/data/Text";
+import { IMessage } from "./types";
 import { MdOutlineError, MdCheckCircle } from "react-icons/md";
 
 import {
   StyledContainer,
   StyledContainerLabel,
   StyledInputContainer,
-  StyledInput,
   StyledIcon,
+  StyledInput,
   StyledErrorMessageContainer,
   StyledValidMessageContainer,
 } from "./styles";
-import { IInputMessage, InputSizeType } from "./types";
-import { Text } from "@design/data/Text";
-import { TextFieldProps } from ".";
 
-const getTypo = (size: InputSizeType) => {
-  if (size === "compact") {
-    return "labelMedium";
-  }
-  return "labelLarge";
-};
-
-const Invalid = (props: IInputMessage) => {
+function Invalid(props: IMessage) {
   const { isDisabled, state, errorMessage } = props;
   const transformedErrorMessage = errorMessage && `(${errorMessage})`;
 
   return (
     <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
       <MdOutlineError />
-      <Text
-        type="body"
-        size="small"
-        margin="8px 0px 0px 4px"
-        appearance="error"
-        disabled={isDisabled}
-      >
+      <Text type="body" size="small" appearance="error" disabled={isDisabled}>
         {transformedErrorMessage}
       </Text>
     </StyledErrorMessageContainer>
   );
-};
+}
 
-const Success = (props: IInputMessage) => {
+function Success(props: IMessage) {
   const { isDisabled, state, validMessage } = props;
 
   return (
     <StyledValidMessageContainer isDisabled={isDisabled} state={state}>
       <MdCheckCircle />
-      <Text
-        type="body"
-        size="small"
-        margin="8px 0px 0px 4px"
-        appearance="success"
-        disabled={isDisabled}
-      >
+      <Text type="body" size="small" appearance="success" disabled={isDisabled}>
         {validMessage}
       </Text>
     </StyledValidMessageContainer>
   );
-};
+}
 
-const TextFieldUI = (props: TextFieldProps) => {
+function TextFieldUI(props: TextFieldProps) {
   const {
-    label,
+    label = "",
     name,
     id,
     placeholder,
-    isDisabled,
+    isDisabled = false,
     type,
     value,
     handleChange,
@@ -76,12 +58,12 @@ const TextFieldUI = (props: TextFieldProps) => {
     max,
     min,
     isRequired,
-    state,
+    state = "pending",
     errorMessage,
     validMessage,
-    size,
-    isFullWidth,
-    isFocused,
+    inputSize = "compact",
+    isFullWidth = false,
+    isFocused = false,
     handleFocus,
     handleBlur,
     readOnly,
@@ -94,7 +76,6 @@ const TextFieldUI = (props: TextFieldProps) => {
       <StyledContainerLabel
         alignItems="center"
         wrap="wrap"
-        size={size}
         isDisabled={isDisabled}
       >
         {label && (
@@ -103,7 +84,6 @@ const TextFieldUI = (props: TextFieldProps) => {
             isDisabled={isDisabled}
             isFocused={isFocused}
             isInvalid={transformedIsInvalid}
-            typo={getTypo(size!)}
           >
             {label}
           </Label>
@@ -135,23 +115,18 @@ const TextFieldUI = (props: TextFieldProps) => {
           id={id}
           placeholder={placeholder}
           isDisabled={isDisabled}
+          isFullWidth={isFullWidth}
           type={type}
           value={value}
-          iconBefore={iconBefore}
-          iconAfter={iconAfter}
           maxLength={maxLength}
           minLength={minLength}
           max={max}
           min={min}
-          isRequired={isRequired}
-          size={size}
-          state={state}
-          isFullWidth={isFullWidth}
-          isFocused={isFocused}
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
           readOnly={readOnly}
+          inputSize={inputSize}
         />
 
         {iconAfter && (
@@ -177,6 +152,6 @@ const TextFieldUI = (props: TextFieldProps) => {
       )}
     </StyledContainer>
   );
-};
+}
 
 export { TextFieldUI };

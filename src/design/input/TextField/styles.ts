@@ -1,136 +1,165 @@
 import styled from "styled-components";
-import { TextFieldProps } from ".";
+import { inube } from "@design/tokens";
+import { InputSize } from "./types";
 
-const sizeOptions = {
-  compact: {
-    height: "40px",
-  },
-  wide: {
-    height: "48px",
-  },
-};
+interface IStyledContainer {
+  isDisabled: boolean;
+  isFullWidth: boolean;
+}
 
-const getGrid = (props: TextFieldProps) => {
-  const { iconBefore, iconAfter } = props;
-  if (iconBefore && iconAfter) {
-    return "auto 1fr auto";
-  }
-
-  if (iconBefore && !iconAfter) {
-    return "auto 1fr";
-  }
-
-  if (!iconBefore && iconAfter) {
-    return "1fr auto";
-  }
-
-  return "1fr";
-};
-
-const getColors = (props: ITextFieldProps) => {
-  const { isDisabled, state, isFocused } = props;
-  if (isDisabled) {
-    return colors.ref.palette.neutral.n70;
-  }
-
-  if (state === "invalid") {
-    return colors.sys.actions.remove.filled;
-  }
-
-  if (isFocused) {
-    return colors.ref.palette.blue.b300;
-  }
-  return colors.ref.palette.neutral.n40;
-};
-
-const getIsDisabled = (props: ITextFieldProps) => {
-  const { isDisabled, state } = props;
-  if (isDisabled) {
-    return colors.ref.palette.neutral.n70;
-  }
-
-  if (state === "valid") {
-    return colors.sys.actions.confirm.filled;
-  }
-
-  if (state === "invalid") {
-    return colors.sys.actions.remove.filled;
-  }
-};
-
-const getPadding = (props: ITextFieldProps) => {
-  const { iconBefore, iconAfter } = props;
-  const padding = {
-    paddingLeft: "16px",
-    paddingRight: "16px",
-  };
-
-  if (iconBefore) {
-    padding.paddingLeft = "2px";
-  }
-
-  if (iconAfter) {
-    padding.paddingRight = "2px";
-  }
-
-  return padding;
-};
-
-const StyledContainer = styled.div`
-  cursor: ${({ isDisabled }: ITextFieldProps) => isDisabled && "not-allowed"};
-  width: ${({ isFullWidth }: ITextFieldProps) =>
-    isFullWidth ? "100%" : "fit-content"};
+const StyledContainer = styled.div<IStyledContainer>`
+  cursor: ${({ isDisabled }) => isDisabled && "not-allowed"};
+  width: ${({ isFullWidth }) => (isFullWidth ? "100%" : "fit-content")};
 `;
 
-const StyledContainerLabel = styled.div`
+interface IStyledContainerLabel {
+  alignItems: string;
+  isDisabled: boolean;
+  wrap: string;
+}
+
+const StyledContainerLabel = styled.div<IStyledContainerLabel>`
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
-  padding-left: 16px;
-  pointer-events: ${({ isDisabled }: ITextFieldProps) => isDisabled && "none"};
+  margin-bottom: ${inube.spacing.s050};
+  padding-left: ${inube.spacing.s200};
+  pointer-events: ${({ isDisabled }) => isDisabled && "none"};
 
   & label {
-    margin-right: 5px;
+    margin-right: ${inube.spacing.s050};
   }
 `;
 
-const StyledInputContainer = styled.div`
+interface IStyledInputContainer {
+  isDisabled: boolean;
+  isFocused: boolean;
+  state: string;
+  iconBefore: React.ReactNode;
+  iconAfter: React.ReactNode;
+}
+
+const StyledInputContainer = styled.div<IStyledInputContainer>`
   display: grid;
   align-items: center;
   box-sizing: border-box;
-  border-radius: 8px;
   user-select: none;
-  background: ${colors.ref.palette.neutral.n10};
-  grid-template-columns: ${(props: ITextFieldProps) => getGrid(props)};
-  border: 1px solid ${(props: ITextFieldProps) => getColors(props)};
-  ${({ isDisabled }: ITextFieldProps) =>
-    isDisabled && "pointer-events: none; opacity: 0.5;"}
+  border-radius: ${inube.spacing.s100};
+  padding: ${inube.spacing.s100} ${inube.spacing.s200};
+  gap: ${inube.spacing.s100};
+
+  background: ${({ theme }) =>
+    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+
+  grid-template-columns: ${({ iconBefore, iconAfter }) => {
+    if (iconBefore && iconAfter) {
+      return "auto 1fr auto";
+    }
+
+    if (iconBefore && !iconAfter) {
+      return "auto 1fr";
+    }
+
+    if (!iconBefore && iconAfter) {
+      return "1fr auto";
+    }
+    return "1fr";
+  }};
+
+  border: 1px solid
+    ${({ theme, isDisabled, state, isFocused }) => {
+      if (isDisabled) {
+        return (
+          (theme.color?.text?.dark?.disabled ||
+            inube.color.text.dark.disabled) +
+          "; pointer-events: none; opacity: 0.5;"
+        );
+      }
+      if (isFocused) {
+        return (
+          theme.color?.text?.primary?.hover || inube.color.text.primary.hover
+        );
+      }
+      if (state === "invalid") {
+        return (
+          theme.color?.text?.error?.regular || inube.color.text.error.regular
+        );
+      }
+      return (
+        theme.color?.palette?.neutral?.N40 || inube.color.palette.neutral.N40
+      );
+    }};
 `;
 
-const StyledInput = styled.input`
+interface IStyledIcon {
+  iconBefore?: React.ReactNode;
+  iconAfter?: React.ReactNode;
+  isDisabled: boolean;
+}
+
+const StyledIcon = styled.div<IStyledIcon>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: ${inube.spacing.s300};
+  width: ${inube.spacing.s300};
+  color: ${({ theme, isDisabled }) =>
+    isDisabled &&
+    (theme.color?.text?.dark?.hover || inube.color.text.dark.hover)};
+`;
+
+interface IStyledInput {
+  label: string;
+  isDisabled: boolean;
+  isFullWidth: boolean;
+  inputSize: InputSize;
+}
+
+const StyledInput = styled.input<IStyledInput>`
   outline: none;
-  border-radius: 8px;
-  font-family: ${typography.sys.typescale.bodyLarge.font};
-  font-size: ${typography.sys.typescale.bodyLarge.size};
-  font-weight: ${typography.sys.typescale.bodyLarge.weight};
-  line-height: ${typography.sys.typescale.bodyLarge.lineHeight};
-  letter-spacing: ${typography.sys.typescale.bodyLarge.tracking};
-  color: ${({ isDisabled }: ITextFieldProps) =>
-    isDisabled ? colors.ref.palette.neutral.n70 : colors.sys.text.dark};
-  background: ${colors.ref.palette.neutral.n10};
-  ${(props: ITextFieldProps) => getPadding(props)}
-  width: ${({ isFullWidth }: ITextFieldProps) =>
-    isFullWidth ? "calc(100% - 32px)" : "252px"};
-  ${({ size }: ITextFieldProps) => size && sizeOptions[size]};
+  border-radius: ${inube.spacing.s100};
+
+  font-family: ${({ theme }) =>
+    theme.typography?.body?.large?.font || inube.typography.body.large.font};
+  font-size: ${({ theme }) =>
+    theme.typography?.body?.large?.size || inube.typography.body.large.size};
+  font-weight: ${({ theme }) =>
+    theme.typography?.body?.large?.weight ||
+    inube.typography.body.large.weight};
+  letter-spacing: ${({ theme }) =>
+    theme.typography?.body?.large?.tracking ||
+    inube.typography.body.large.tracking};
+  line-height: ${({ theme }) =>
+    theme.typography?.body?.large?.lineHeight ||
+    inube.typography.body.large.lineHeight};
+
+  color: ${({ theme, isDisabled }) => {
+    if (isDisabled) {
+      return (
+        theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
+      );
+    }
+    return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
+  }};
+  background: ${({ theme }) =>
+    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+  border: none;
+
+  width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
+  height: ${({ inputSize }) =>
+    inputSize === "compact"
+      ? `${inube.spacing.s400}`
+      : `${inube.spacing.s500}`};
+
   border: none;
 
   ::placeholder {
-    color: ${colors.sys.text.secondary};
+    color: ${({ theme }) =>
+      theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled};
   }
 
   &:focus {
     outline: none;
-    border-width: 2px;
+    border-width: ${inube.spacing.s025};
   }
 
   &::-webkit-search-cancel-button {
@@ -143,46 +172,81 @@ const StyledInput = styled.input`
 
   &:-webkit-autofill {
     -webkit-background-clip: text;
+    background-clip: text;
   }
 `;
 
-const StyledIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: ${({ iconBefore }: ITextFieldProps) => iconBefore && "10px"};
-  padding-right: ${({ iconAfter }: ITextFieldProps) => iconAfter && "10px"};
-  height: 24px;
-  width: 24px;
-  color: ${({ isDisabled }: ITextFieldProps) =>
-    isDisabled && colors.ref.palette.neutral.n70};
-`;
+interface IStyledMessageContainer {
+  isDisabled?: boolean;
+  state?: string;
+}
 
-const StyledErrorMessageContainer = styled.div`
+const StyledErrorMessageContainer = styled.div<IStyledMessageContainer>`
   display: flex;
   align-items: center;
-  margin-left: 12px;
+  margin-left: ${inube.spacing.s150};
   pointer-events: none;
-  color: ${(props: ITextFieldProps) => getIsDisabled(props)};
+  color: ${({ theme, isDisabled, state }) => {
+    if (isDisabled) {
+      return (
+        theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
+      );
+    }
+    if (state === "valid") {
+      return (
+        theme.color?.text?.primary?.regular || inube.color.text.primary?.regular
+      );
+    }
+    if (state === "invalid") {
+      return (
+        theme.color?.text?.error?.regular || inube.color.text.error.regular
+      );
+    }
+    return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
+  }};
 
   & svg {
     width: 14px;
     height: 14px;
-    margin-top: 8px;
-    padding-left: 5px;
+    margin-top: ${inube.spacing.s050};
+    padding-left: ${inube.spacing.s050};
   }
 `;
 
-const StyledValidMessageContainer = styled(StyledErrorMessageContainer)`
-  color: ${(props: ITextFieldProps) => getIsDisabled(props)}; ;
+const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
+  color: ${({ theme, isDisabled, state }) => {
+    if (isDisabled) {
+      return (
+        theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
+      );
+    }
+    if (state === "valid") {
+      return (
+        theme.color?.text?.success?.regular || inube.color.text.success?.regular
+      );
+    }
+    if (state === "invalid") {
+      return (
+        theme.color?.text?.error?.regular || inube.color.text.error.regular
+      );
+    }
+    return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
+  }};
+
+  & svg {
+    width: 14px;
+    height: 14px;
+    margin-top: ${inube.spacing.s050};
+    padding-left: ${inube.spacing.s200};
+  }
 `;
 
 export {
   StyledContainer,
   StyledContainerLabel,
   StyledInputContainer,
-  StyledInput,
   StyledIcon,
+  StyledInput,
   StyledErrorMessageContainer,
   StyledValidMessageContainer,
 };
