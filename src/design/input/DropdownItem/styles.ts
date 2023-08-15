@@ -1,29 +1,27 @@
 import styled from "styled-components";
 import { inube } from "@design/tokens";
 
-interface IDropdownItem {
+interface IStyledDropdownItem {
   isDisabled: boolean;
   isFocused: boolean;
   isSelected: boolean;
 }
 
-const StyledDropdownItem = styled.li<IDropdownItem>`
+const StyledDropdownItem = styled.li<IStyledDropdownItem>`
   display: flex;
   align-items: center;
   align-self: stretch;
   min-height: ${inube.spacing.s500};
-  padding: ${inube.spacing.s050} ${inube.spacing.s200};
+  padding: ${inube.spacing.s050} ${inube.spacing.s200} ${inube.spacing.s050}
+    11px;
   cursor: ${({ isDisabled }) => (!isDisabled ? "pointer" : "not-allowed")};
-
-  color: ${({ theme }) =>
-    theme.color?.surface?.gray?.hover || inube.color.surface.gray.hover};
 
   border-left: 5px solid
     ${({ theme, isFocused }) =>
       isFocused
         ? theme.color?.stroke?.primary?.regular ||
           inube.color.stroke.primary.regular
-        : "none"};
+        : "transparent"};
 
   p {
     color: ${({ theme, isDisabled, isFocused }) => {
@@ -49,6 +47,9 @@ const StyledDropdownItem = styled.li<IDropdownItem>`
           ? "none"
           : theme.color?.stroke?.primary?.regular ||
             inube.color.stroke.primary.regular};
+
+    background-color: ${({ theme }) =>
+      theme.color?.surface?.gray?.hover || inube.color.surface.gray.hover};
 
     p {
       color: ${({ theme, isDisabled }) =>

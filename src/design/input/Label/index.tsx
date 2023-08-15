@@ -11,36 +11,22 @@ export interface LabelProps {
   onClick?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const defaultIsDisabled = false;
-const defaultIsFocused = false;
-const defaultIsInvalid = false;
-const defaultSize: TypographySizeType = "large";
-
 const Label = (props: LabelProps) => {
   const {
-    isDisabled = defaultIsDisabled,
-    isFocused = defaultIsFocused,
-    isInvalid = defaultIsInvalid,
+    isDisabled = false,
+    isFocused = false,
+    isInvalid = false,
+    size = "large",
     htmlFor,
-    size = defaultSize,
     children,
   } = props;
 
-  const transformedIsDisabled =
-    typeof isDisabled === "boolean" ? isDisabled : defaultIsDisabled;
-
-  const transformedIsFocused =
-    typeof isFocused === "boolean" ? isFocused : defaultIsFocused;
-
-  const transformedIsInvalid =
-    typeof isInvalid === "boolean" ? isInvalid : defaultIsInvalid;
-
   return (
     <StyledLabel
-      isDisabled={transformedIsDisabled}
-      isFocused={transformedIsFocused}
+      isDisabled={isDisabled}
+      isFocused={isFocused}
       htmlFor={htmlFor}
-      isInvalid={transformedIsInvalid}
+      isInvalid={isInvalid}
       size={size}
     >
       {children}

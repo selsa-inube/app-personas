@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { StyledDropdownItem } from "./styles";
-import { TypographySizeType, TypographyType } from "@ptypes/typography.types";
 import { Text } from "@design/data/Text";
 
 interface DropdownItemProps {
@@ -13,18 +12,12 @@ interface DropdownItemProps {
   handleSelect?: (label: string) => void;
 }
 
-const defaultIsDisabled = false;
-const defaultIsFocused = false;
-const defaultIsSelected = false;
-const defaultTypo: TypographyType = "body";
-const defaultSize: TypographySizeType = "medium";
-
 function DropdownItem(props: DropdownItemProps) {
   const {
     id,
-    isDisabled = defaultIsDisabled,
-    isSelected = defaultIsSelected,
-    isFocused = defaultIsFocused,
+    isDisabled = false,
+    isSelected = false,
+    isFocused = false,
     children,
     handleClick,
     handleSelect,
@@ -58,7 +51,7 @@ function DropdownItem(props: DropdownItemProps) {
       onBlur={interceptorOnBlur}
       tabIndex={0}
     >
-      <Text size={defaultSize} type={defaultTypo}>
+      <Text size="medium" type="body">
         {children}
       </Text>
     </StyledDropdownItem>

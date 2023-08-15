@@ -35,12 +35,6 @@ interface TextFieldProps {
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const defaultIsDisabled = false;
-const defaultIsRequired = false;
-const defaultIsFullWidth = false;
-const defaultType: InputType = "text";
-const defaultState: InputState = "pending";
-
 function TextField(props: TextFieldProps) {
   const {
     label,
@@ -48,8 +42,8 @@ function TextField(props: TextFieldProps) {
     id,
     placeholder,
     isDisabled = false,
-    type = defaultType,
-    state = defaultState,
+    type = "text",
+    state = "pending",
     inputSize,
     value,
     handleChange,
@@ -87,17 +81,17 @@ function TextField(props: TextFieldProps) {
   };
 
   const transformedIsDisabled =
-    typeof isDisabled === "boolean" ? isDisabled : defaultIsDisabled;
+    typeof isDisabled === "boolean" ? isDisabled : false;
 
-  const transformedState = inputStates.includes(state) ? state : defaultState;
+  const transformedState = inputStates.includes(state) ? state : "pending";
 
-  const transformedTypes = inputTypes.includes(type) ? type : defaultType;
+  const transformedTypes = inputTypes.includes(type) ? type : "text";
 
   const transformedIsRequired =
-    typeof isRequired === "boolean" ? isRequired : defaultIsRequired;
+    typeof isRequired === "boolean" ? isRequired : false;
 
   const transformedIsFullWidth =
-    typeof isFullWidth === "boolean" ? isFullWidth : defaultIsFullWidth;
+    typeof isFullWidth === "boolean" ? isFullWidth : false;
 
   const transformedReadOnly = typeof readOnly === "boolean" ? readOnly : false;
 

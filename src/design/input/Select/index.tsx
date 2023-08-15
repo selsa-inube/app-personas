@@ -23,11 +23,6 @@ interface SelectProps {
   handleClick?: (event: React.MouseEvent) => void;
 }
 
-const defaultIsDisabled = false;
-const defaultIsRequired = false;
-const defaultState = "pending";
-const defaultIsFullWidth = false;
-
 function Select(props: SelectProps) {
   const {
     label,
@@ -89,15 +84,15 @@ function Select(props: SelectProps) {
   }, [selectRef]);
 
   const transformedIsDisabled =
-    typeof isDisabled === "boolean" ? isDisabled : defaultIsDisabled;
+    typeof isDisabled === "boolean" ? isDisabled : false;
 
-  const transformedState = inputStates.includes(state) ? state : defaultState;
+  const transformedState = inputStates.includes(state) ? state : "pending";
 
   const transformedIsRequired =
-    typeof isRequired === "boolean" ? isRequired : defaultIsRequired;
+    typeof isRequired === "boolean" ? isRequired : false;
 
   const transformedIsFullWidth =
-    typeof isFullWidth === "boolean" ? isFullWidth : defaultIsFullWidth;
+    typeof isFullWidth === "boolean" ? isFullWidth : false;
 
   return (
     <SelectUI

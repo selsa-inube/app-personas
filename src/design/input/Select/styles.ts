@@ -46,6 +46,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   border-radius: ${inube.spacing.s100};
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
+  margin-bottom: ${inube.spacing.s100};
 
   background: ${({ theme }) =>
     theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
