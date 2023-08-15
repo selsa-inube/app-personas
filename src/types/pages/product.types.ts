@@ -25,22 +25,22 @@ interface IMovement {
   date: string;
   reference: string;
   description: string;
-  capital_payment: number;
+  capitalPayment: number;
   interest: number;
-  life_insurance: number;
-  patrimonial_insurance: number;
+  lifeInsurance: number;
+  patrimonialInsurance: number;
   capitalization: number;
   others: number;
   commission: number;
 }
 
 interface IAmortization {
-  payment_number: number;
+  paymentNumber: number;
   date: string;
-  capital_payment: number;
+  capitalPayment: number;
   interest: number;
-  life_insurance: number;
-  patrimonial_insurance: number;
+  lifeInsurance: number;
+  patrimonialInsurance: number;
   capitalization: number;
   others: number;
 }
