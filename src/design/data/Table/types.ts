@@ -1,13 +1,31 @@
+const actionAppearance = [
+  "primary",
+  "success",
+  "warning",
+  "error",
+  "help",
+  "dark",
+  "gray",
+  "light",
+] as const;
+
+type ActionAppearanceType = (typeof actionAppearance)[number];
+
 interface ITitle {
   id: string;
   titleName: string;
   priority: number;
 }
 
+interface IEntry {
+  id: string;
+  [key: string]: string | number;
+}
+
 interface IAction {
   id: string;
   actionName: string;
-  content: (entry: any) => JSX.Element;
+  content: (entry: IEntry) => React.ReactNode;
 }
 
 interface IBreakpoint {
@@ -15,4 +33,4 @@ interface IBreakpoint {
   totalColumns: number;
 }
 
-export type { IAction, IBreakpoint, ITitle };
+export type { IAction, IBreakpoint, IEntry, ITitle };

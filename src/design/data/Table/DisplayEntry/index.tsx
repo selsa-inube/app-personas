@@ -1,14 +1,9 @@
+import { InteractiveModal } from "@design/feedback/InteractiveModal";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
-import { IAction, ITitle } from "../types";
-import { InteractiveModal } from "@design/feedback/InteractiveModal";
+import { IAction, IEntry, ITitle } from "../types";
 
-export interface IEntry {
-  id: string;
-  [key: string]: any;
-}
-
-export interface IDisplayEntryProps {
+interface DisplayEntryProps {
   portalId: string;
   entry: IEntry;
   actions: IAction[];
@@ -26,7 +21,7 @@ const DisplayEntry = ({
   titleLabels,
   infoTitle,
   actionsTitle,
-}: IDisplayEntryProps) => {
+}: DisplayEntryProps) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleToggleModal = () => {
@@ -53,3 +48,4 @@ const DisplayEntry = ({
 };
 
 export { DisplayEntry };
+export type { DisplayEntryProps };

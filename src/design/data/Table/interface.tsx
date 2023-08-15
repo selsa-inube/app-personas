@@ -3,11 +3,9 @@ import { DisplayEntry } from "./DisplayEntry";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IEntry } from "./DisplayEntry";
 
 import { Text } from "../Text";
 import {
-  StyledContainerAction,
   StyledTable,
   StyledTbody,
   StyledTd,
@@ -16,7 +14,7 @@ import {
   StyledThead,
   StyledTr,
 } from "./styles";
-import { IAction, IBreakpoint, ITitle } from "./types";
+import { IAction, IBreakpoint, IEntry, ITitle } from "./types";
 
 function findCurrentMediaQuery(currentMediaQuery: Record<string, boolean>) {
   const lastIndexMedia = Object.values(currentMediaQuery).lastIndexOf(true);
@@ -71,9 +69,9 @@ function ShowAction(
   return !mediaQuery ? (
     <>
       {actionContent.map((action) => (
-        <StyledContainerAction key={`${entry.id}-${action.id}`}>
+        <StyledTd key={`${entry.id}-${action.id}`}>
           {action.content(entry)}
-        </StyledContainerAction>
+        </StyledTd>
       ))}
     </>
   ) : (

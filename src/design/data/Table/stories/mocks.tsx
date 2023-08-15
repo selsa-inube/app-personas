@@ -1,4 +1,6 @@
 import { MdDelete, MdModeEdit, MdToggleOff } from "react-icons/md";
+import { IAction } from "../types";
+import { StyledMockActionContainer } from "./styles.mocks";
 
 const titlesMock = [
   {
@@ -23,25 +25,33 @@ const titlesMock = [
   },
 ];
 
-const actionsMock = [
+const actionsMock: IAction[] = [
   {
     id: "Activate",
     actionName: "Activate",
-    content: <MdToggleOff />,
-    type: "secondary",
+    content: () => (
+      <StyledMockActionContainer>
+        <MdToggleOff />
+      </StyledMockActionContainer>
+    ),
   },
   {
     id: "Edit",
     actionName: "Edit",
-    content: <MdModeEdit />,
-    type: "primary",
+    content: () => (
+      <StyledMockActionContainer>
+        <MdModeEdit />
+      </StyledMockActionContainer>
+    ),
   },
   {
-    id: "Deleten ",
+    id: "Delete",
     actionName: "Delete",
-    content: <MdDelete />,
-
-    type: "remove",
+    content: () => (
+      <StyledMockActionContainer>
+        <MdDelete />
+      </StyledMockActionContainer>
+    ),
   },
 ];
 

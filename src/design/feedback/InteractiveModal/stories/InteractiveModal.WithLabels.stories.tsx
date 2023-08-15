@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { InteractiveModal, InteractiveModalProps } from "..";
 
+import { IEntry } from "@design/data/Table/types";
 import { Button } from "@design/input/Button";
 import { StoryFn } from "@storybook/react";
 import { props } from "../props";
@@ -12,8 +13,8 @@ const story = {
   argTypes: props,
 };
 
-const data = {
-  id: 10,
+const data: IEntry = {
+  id: "10",
   userID: "45645",
   username: "David Leonardo Garzón",
   mail: "lgarzon@gmail.com",

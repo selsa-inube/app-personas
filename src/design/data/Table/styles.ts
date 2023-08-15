@@ -46,18 +46,7 @@ const StyledTd = styled.td`
   text-align: center;
 `;
 
-const StyledContainerAction = styled.div`
-  padding: 0px 16px;
-  text-align: center;
-  > svg {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-  }
-`;
-
 export {
-  StyledContainerAction,
   StyledTable,
   StyledTbody,
   StyledTd,

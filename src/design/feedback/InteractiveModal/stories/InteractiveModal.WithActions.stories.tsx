@@ -8,6 +8,7 @@ import {
 
 import { InteractiveModal, InteractiveModalProps } from "../index";
 
+import { IAction, IEntry } from "@design/data/Table/types";
 import { Button } from "@design/input/Button";
 import { StoryFn } from "@storybook/react";
 import { props } from "../props";
@@ -18,8 +19,8 @@ const story = {
   argTypes: props,
 };
 
-const data = {
-  id: 10,
+const data: IEntry = {
+  id: "10",
   userID: "45645",
   username: "David Leonardo Garzón",
   mail: "lgarzon@gmail.com",
@@ -40,24 +41,21 @@ const Template: StoryFn<InteractiveModalProps> = (args) => {
   );
 };
 
-const actionsArray = [
+const actionsArray: IAction[] = [
   {
-    id: 1,
+    id: "1",
     actionName: "Complete",
-    content: <MdOutlineAssignmentTurnedIn />,
-    type: "secondary",
+    content: () => <MdOutlineAssignmentTurnedIn />,
   },
   {
-    id: 2,
+    id: "2",
     actionName: "Resend",
-    content: <MdOutlineShortcut />,
-    type: "primary",
+    content: () => <MdOutlineShortcut />,
   },
   {
-    id: 3,
+    id: "3",
     actionName: "Delete",
-    content: <MdOutlineDelete />,
-    type: "remove",
+    content: () => <MdOutlineDelete />,
   },
 ];
 

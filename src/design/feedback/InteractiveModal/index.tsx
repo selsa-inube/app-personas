@@ -1,3 +1,4 @@
+import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
 import { Blanket } from "@design/layout/Blanket";
@@ -6,14 +7,15 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
+import { ILabel } from "./types";
 
 interface InteractiveModalProps {
   portalId: string;
   title: string;
   closeModal: () => void;
-  infoData: object;
-  actions?: Array<any>;
-  labels?: Array<any>;
+  infoData: IEntry;
+  actions?: IAction[];
+  labels?: ILabel[];
   infoTitle?: string;
   actionsTitle?: string;
 }

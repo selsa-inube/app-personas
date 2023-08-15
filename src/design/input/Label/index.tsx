@@ -1,7 +1,7 @@
 import { TypographySizeType } from "@ptypes/typography.types";
 import { StyledLabel } from "./styles";
 
-export interface LabelProps {
+interface LabelProps {
   isDisabled?: boolean;
   isFocused?: boolean;
   htmlFor?: string;
@@ -49,3 +49,4 @@ const Label = (props: LabelProps) => {
 };
 
 export { Label };
+export type { LabelProps };

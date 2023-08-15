@@ -1,10 +1,9 @@
 import { useMemo, useState } from "react";
 
 import { Stack } from "@design/layout/Stack";
-import { IEntry } from "./DisplayEntry";
 import { Pagination } from "./Pagination";
 import { TableUI } from "./interface";
-import { IAction, IBreakpoint, ITitle } from "./types";
+import { IAction, IBreakpoint, IEntry, ITitle } from "./types";
 
 interface TableProps {
   id: string;

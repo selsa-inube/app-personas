@@ -5,11 +5,11 @@ import {
   MdNavigateNext,
 } from "react-icons/md";
 
+import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { StyledButton } from "./styles";
-import { Text } from "@design/data/Text";
 
-export interface IPaginationProps {
+interface PaginationProps {
   firstEntryInPage: number;
   lastEntryInPage: number;
   totalRecords: number;
@@ -19,7 +19,7 @@ export interface IPaginationProps {
   handleEndPage: () => void;
 }
 
-const Pagination = (props: IPaginationProps) => {
+const Pagination = (props: PaginationProps) => {
   const {
     firstEntryInPage,
     lastEntryInPage,
@@ -67,3 +67,4 @@ const Pagination = (props: IPaginationProps) => {
 };
 
 export { Pagination };
+export type { PaginationProps };
