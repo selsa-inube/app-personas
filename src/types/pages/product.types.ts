@@ -18,22 +18,31 @@ interface ITagProduct {
 interface IAttribute {
   id: string;
   label: string;
-  value: string;
+  value: number | string;
 }
 
 interface IMovement {
   date: string;
   reference: string;
   description: string;
-  value: string;
+  capital_payment: number;
+  interest: number;
+  life_insurance: number;
+  patrimonial_insurance: number;
+  capitalization: number;
+  others: number;
+  commission: number;
 }
 
 interface IAmortization {
   payment_number: number;
   date: string;
-  total_payment: string;
-  life_insurance: string;
-  // contextualizar
+  capital_payment: number;
+  interest: number;
+  life_insurance: number;
+  patrimonial_insurance: number;
+  capitalization: number;
+  others: number;
 }
 
 interface IProduct {
@@ -45,4 +54,4 @@ interface IProduct {
   tags?: ITagProduct[];
 }
 
-export type { IProduct, ITagProduct };
+export type { IProduct, ITagProduct, IAttribute };
