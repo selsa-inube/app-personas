@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { inube } from "../../tokens";
-import { AppearanceType } from "@ptypes/design.types";
+import { TagAppearanceType } from "./types";
 
-interface IStyledTag{
+interface IStyledTag {
   theme: string;
-  appearance: AppearanceType;
+  appearance: TagAppearanceType;
 }
 
 const StyledTag = styled.div<IStyledTag>`

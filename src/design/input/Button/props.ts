@@ -1,4 +1,9 @@
-import { appearance, spacing, variant } from "@ptypes/design.types";
+import {
+  buttonAppearance,
+  buttonSpacing,
+  buttonVariant,
+  buttonTypes,
+} from "./types";
 
 const props = {
   children: {
@@ -14,17 +19,17 @@ const props = {
   },
   appearance: {
     control: "select",
-    options: appearance,
+    options: buttonAppearance,
     description: "Indicates the colors and background colors of the button.",
   },
   variant: {
     control: "select",
-    options: variant,
+    options: buttonVariant,
     description: "Controls the surface of the button.",
   },
   spacing: {
     control: "select",
-    options: spacing,
+    options: buttonSpacing,
     description: "Controls the padding of the button.",
   },
   fullwidth: {
@@ -37,6 +42,19 @@ const props = {
   load: {
     description:
       "Controls if the user should display that a process is currently loading",
+  },
+  path: {
+    description:
+      "Path to be redirected to if the button type is 'link'. Required if the type is 'link'.",
+  },
+  type: {
+    control: "select",
+    options: buttonTypes,
+    description:
+      "Button type. 'button' for a standard button and 'link' for a link that redirects to 'path'.",
+  },
+  handleClick: {
+    description: "Function to be executed when the button is clicked.",
   },
 };
 

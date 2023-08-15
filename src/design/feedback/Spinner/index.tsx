@@ -1,9 +1,9 @@
-import { AppearanceType, SizeType } from "@ptypes/design.types";
 import { StyledSpinner } from "./styles";
+import { SpinnerAppearanceType, SpinnerSizeType } from "./types";
 
 interface SpinnerProps {
-  appearance?: AppearanceType;
-  size?: SizeType;
+  appearance?: SpinnerAppearanceType;
+  size?: SpinnerSizeType;
   track?: boolean;
 }
 
