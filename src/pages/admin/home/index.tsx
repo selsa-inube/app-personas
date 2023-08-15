@@ -21,7 +21,8 @@ import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
 } from "./config/products";
-import { cardProducts, creditProducts, savingsProducts } from "./mocks";
+import { cardProducts, savingsProducts } from "./mocks";
+import { creditsMock } from "@mocks/products/credits/credits.mocks";
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -65,10 +66,10 @@ function Home() {
           </Box>
           <Box {...credits}>
             <Stack direction="column" gap="s075">
-              {creditProducts.length === 0 ? (
+              {creditsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
-                creditProducts.map((credit) => (
+                creditsMock.map((credit) => (
                   <Product
                     id={credit.id}
                     key={credit.id}
