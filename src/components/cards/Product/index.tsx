@@ -6,9 +6,8 @@ import { Stack } from "@design/layout/Stack";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { ITagProduct } from "src/types/pages/product.types";
+import { ITagProduct, IAttribute } from "src/types/pages/product.types";
 import { StyledProduct } from "./styles";
-import { IAttribute } from "./types";
 
 interface ProductProps {
   id?: string;

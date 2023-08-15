@@ -10,23 +10,48 @@ const productAppearance = [
 ] as const;
 
 type ProductAppearanceType = (typeof productAppearance)[number];
-
-interface IAtributeProduct {
-  id: string;
-  label: string;
-  value: string;
-}
-
 interface ITagProduct {
   label: string;
   appearance: ProductAppearanceType;
 }
 
+interface IAttribute {
+  id: string;
+  label: string;
+  value: number | string;
+}
+
+interface IMovement {
+  date: string;
+  reference: string;
+  description: string;
+  capitalPayment: number;
+  interest: number;
+  lifeInsurance: number;
+  patrimonialInsurance: number;
+  capitalization: number;
+  others: number;
+  commission: number;
+}
+
+interface IAmortization {
+  paymentNumber: number;
+  date: string;
+  capitalPayment: number;
+  interest: number;
+  lifeInsurance: number;
+  patrimonialInsurance: number;
+  capitalization: number;
+  others: number;
+}
+
 interface IProduct {
   id: string;
   title: string;
-  attributes: IAtributeProduct[];
-  tags: ITagProduct[];
+  attributes: IAttribute[];
+  movements?: IMovement[];
+  amortization?: IAmortization[];
+  tags?: ITagProduct[];
 }
 
-export type { IAtributeProduct, IProduct, ITagProduct };
+export type { IProduct, ITagProduct, IAttribute };
