@@ -47,7 +47,7 @@ function Select(props: SelectProps) {
 
   const [isFocused, setIsFocused] = useState(false);
   const [open, setOpen] = useState(false);
-  const selectRef = useRef<{ contains: (e: EventTarget) => EventTarget }>(null);
+  const selectRef = useRef<HTMLDivElement | null>(null);
 
   const interceptFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!readOnly) {
@@ -70,7 +70,8 @@ function Select(props: SelectProps) {
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (selectRef.current && !selectRef.current.contains(event.target!)) {
+    const target = event.target as Node | null;
+    if (selectRef.current && target && !selectRef.current.contains(target)) {
       setOpen(false);
     }
   };
@@ -108,6 +109,7 @@ function Select(props: SelectProps) {
       state={transformedState}
       errorMessage={errorMessage}
       validMessage={validMessage}
+      readOnly={readOnly}
       isFullWidth={transformedIsFullWidth}
       isFocused={isFocused}
       handleFocus={interceptFocus}

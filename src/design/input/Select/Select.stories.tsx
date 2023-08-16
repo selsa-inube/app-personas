@@ -18,7 +18,6 @@ Default.args = {
   isDisabled: false,
   isFullWidth: false,
   isRequired: false,
-  isFocused: false,
   type: "text",
   inputSize: "compact",
   state: "pending",

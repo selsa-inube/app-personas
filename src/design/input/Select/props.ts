@@ -23,9 +23,6 @@ const props = {
   isRequired: {
     description: "defines if the field is required or not",
   },
-  isFocused: {
-    description: "Controls if the label should appear focused",
-  },
   type: {
     control: "select",
     options: inputTypes,

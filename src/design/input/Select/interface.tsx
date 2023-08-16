@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef, forwardRef } from "react";
 import { MdOutlineError, MdCheckCircle, MdExpandMore } from "react-icons/md";
 
 import { Label } from "../Label";
@@ -44,7 +44,7 @@ function Success(props: IMessage) {
   );
 }
 
-function SelectUI(props: ISelectInterface) {
+function SelectUI(props: ISelectInterface, ref: React.Ref<HTMLDivElement>) {
   const {
     label,
     name,
@@ -54,6 +54,7 @@ function SelectUI(props: ISelectInterface) {
     isFullWidth = false,
     isFocused = false,
     isRequired,
+    readOnly = false,
     state = "pending",
     inputSize = "compact",
     errorMessage,
@@ -69,6 +70,15 @@ function SelectUI(props: ISelectInterface) {
   } = props;
 
   const [selectedOption, setSelectedOption] = useState(value);
+
+  const handleChangeP = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setSelectedOption(newValue);
+    
+    if (typeof props.handleChange === "function") {
+      props.handleChange(event);
+    }
+  };
 
   const handleOptionClick = (id: string) => {
     const option = options.find((option) => option.id === id);
@@ -86,17 +96,14 @@ function SelectUI(props: ISelectInterface) {
 
   const transformedIsInvalid = state === "invalid" ? true : false;
 
-  const myRef = useRef<HTMLDivElement | null>(null);
-
   return (
     <StyledContainer
       isFullWidth={isFullWidth}
       isDisabled={isDisabled}
-      ref={myRef}
+      ref={ref}
     >
       <StyledContainerLabel
         alignItems="center"
-        wrap="wrap"
         isDisabled={isDisabled}
       >
         {label && (
@@ -124,17 +131,18 @@ function SelectUI(props: ISelectInterface) {
       >
         <StyledInput
           autoComplete="off"
-          readOnly={false}
-          defaultValue={selectedOption || value}
+          readOnly={readOnly}
+          value={selectedOption || value}
           name={name}
           id={id}
           placeholder={placeholder}
           isDisabled={isDisabled}
           required={isRequired}
+          state={state}
           inputSize={inputSize}
           isFullWidth={isFullWidth}
           isFocused={isFocused}
-          onChange={handleChange}
+          onChange={handleChangeP}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onClick={(e: React.MouseEvent) => interceptorOnClick(e)}
@@ -171,4 +179,6 @@ function SelectUI(props: ISelectInterface) {
   );
 }
 
-export { SelectUI };
+const ForwardedSelectUI = forwardRef<HTMLDivElement, ISelectInterface>(SelectUI);
+
+export { ForwardedSelectUI as SelectUI };

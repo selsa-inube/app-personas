@@ -12,11 +12,10 @@ const StyledDropdownItem = styled.li<IStyledDropdownItem>`
   align-items: center;
   align-self: stretch;
   min-height: ${inube.spacing.s500};
-  padding: ${inube.spacing.s050} ${inube.spacing.s200} ${inube.spacing.s050}
-    11px;
+  padding: ${inube.spacing.s050} ${inube.spacing.s200} ${inube.spacing.s050} ${inube.spacing.s150};
   cursor: ${({ isDisabled }) => (!isDisabled ? "pointer" : "not-allowed")};
 
-  border-left: 5px solid
+  border-left: ${inube.spacing.s050} solid
     ${({ theme, isFocused }) =>
       isFocused
         ? theme.color?.stroke?.primary?.regular ||

@@ -7,6 +7,7 @@ const StyledDropdownMenu = styled.div`
   align-items: flex-start;
   align-self: stretch;
   padding: ${inube.spacing.s050} ${inube.spacing.s0};
+  margin-top: ${inube.spacing.s100};
   border-radius: ${inube.spacing.s050};
 
   background: ${({ theme }) =>

@@ -76,9 +76,6 @@ const props = {
   children: {
     description: "Controls the text to display in the label",
   },
-  isFocused: {
-    description: "Controls if the label should appear focused",
-  },
   isInvalid: {
     description: "Controls if the label should appear invalid",
   },

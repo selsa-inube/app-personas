@@ -1,4 +1,3 @@
-import { RefObject } from "react";
 import styled from "styled-components";
 import { inube } from "../../tokens";
 import { InputSize } from "./types";
@@ -6,7 +5,6 @@ import { InputSize } from "./types";
 interface IStyledContainer {
   isDisabled: boolean;
   isFullWidth: boolean;
-  ref?: RefObject<HTMLDivElement | null>;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
@@ -17,7 +15,6 @@ const StyledContainer = styled.div<IStyledContainer>`
 interface IStyledContainerLabel {
   alignItems: string;
   isDisabled: boolean;
-  wrap: string;
 }
 
 const StyledContainerLabel = styled.div<IStyledContainerLabel>`
@@ -46,7 +43,6 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   border-radius: ${inube.spacing.s100};
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
-  margin-bottom: ${inube.spacing.s100};
 
   background: ${({ theme }) =>
     theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
@@ -80,7 +76,8 @@ interface IStyledInput {
   isDisabled: boolean;
   isFullWidth: boolean;
   inputSize: InputSize;
-  isFocused: boolean;
+  isFocused?: boolean;
+  state: string;
 }
 
 const StyledInput = styled.input<IStyledInput>`
