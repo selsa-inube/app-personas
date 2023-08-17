@@ -21,7 +21,7 @@ interface TextFieldProps {
   minLength?: number;
   max?: number;
   min?: number;
-  isRequired: boolean;
+  isRequired?: boolean;
   errorMessage?: string;
   validMessage?: string;
   isFullWidth?: boolean;
@@ -30,7 +30,7 @@ interface TextFieldProps {
   type?: InputType;
   state?: InputState;
   inputSize?: InputSize;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

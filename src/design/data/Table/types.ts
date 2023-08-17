@@ -1,16 +1,3 @@
-const actionAppearance = [
-  "primary",
-  "success",
-  "warning",
-  "error",
-  "help",
-  "dark",
-  "gray",
-  "light",
-] as const;
-
-type ActionAppearanceType = (typeof actionAppearance)[number];
-
 interface ITitle {
   id: string;
   titleName: string;
