@@ -2,16 +2,19 @@ import { Table, TableProps } from "../index";
 
 import { actionsMock, breakPointsMock, titlesMock } from "./mocks";
 
+import { themes } from "@mocks/design/themes";
+import { ThemeProvider } from "styled-components";
 import { parameters, props } from "../props";
 
 const story = {
   title: "design/data/Table",
+  tags: ["autodocs"],
   component: [Table],
   parameters,
   argTypes: props,
 };
 
-const Default = (args: TableProps) => <Table {...args} />;
+export const Default = (args: TableProps) => <Table {...args} />;
 Default.args = {
   id: "tableId",
   titles: titlesMock,
@@ -54,5 +57,17 @@ Default.args = {
   actionsTitle: "Actions",
 };
 
+const theme = {
+  ...themes["fondecom"],
+};
+
+export const Themed = (args: TableProps) => (
+  <ThemeProvider theme={theme}>
+    <Table {...args} />
+  </ThemeProvider>
+);
+Themed.args = {
+  ...Default.args,
+};
+
 export default story;
-export { Default };

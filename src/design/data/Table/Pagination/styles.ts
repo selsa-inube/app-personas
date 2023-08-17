@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledButton = styled.button`
   cursor: pointer;
   background-color: ${({ theme }) =>
-    theme.color?.surface?.neutral.N0 || inube.color.surface.light.clear};
+    theme.color?.surface?.light.clear || inube.color.surface.light.clear};
   border: none;
   border-radius: 5px;
   padding: 4px;

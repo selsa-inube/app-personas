@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Blanket, BlanketProps } from "..";
 
-
-import { StyledBackdropBlanket } from "./styles";
 import { Button } from "@design/input/Button";
+import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
+import { ThemeProvider } from "styled-components";
+import { StyledBackdropBlanket } from "./styles";
 
 const story = {
   title: "design/layout/Blanket",
   components: Blanket,
+  tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
@@ -24,7 +27,7 @@ const story = {
   },
 };
 
-const Default = (args: BlanketProps) => {
+const Template: StoryFn<BlanketProps> = (args) => {
   const [showBlanket, setShowBlanket] = useState(false);
 
   const handleShowBlanket = () => {
@@ -43,5 +46,14 @@ const Default = (args: BlanketProps) => {
   );
 };
 
+export const Default = Template.bind({});
+
+const theme = {
+  ...themes["fondecom"],
+};
+
+export const Themed = Template.bind(
+  <ThemeProvider theme={theme}></ThemeProvider>
+);
+
 export default story;
-export { Default };

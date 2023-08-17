@@ -1,16 +1,19 @@
 import { actionsMock, breakPointsMock, titlesMock } from "./mocks";
 
+import { themes } from "@mocks/design/themes";
+import { ThemeProvider } from "styled-components";
 import { Table, TableProps } from "..";
 import { props } from "../props";
 
 const story = {
-  title: "design/data/Table",
+  title: "design/data/Table/Paginations",
   component: Table,
+  tags: ["autodocs"],
   argTypes: props,
 };
 
-const Paginations = (args: TableProps) => <Table {...args} />;
-Paginations.args = {
+export const Default = (args: TableProps) => <Table {...args} />;
+Default.args = {
   id: "tableId",
   titles: titlesMock,
   actions: actionsMock,
@@ -234,5 +237,18 @@ Paginations.args = {
   actionsTitle: "Actions",
 };
 
+const theme = {
+  ...themes["fondecom"],
+};
+
+export const Themed = (args: TableProps) => (
+  <ThemeProvider theme={theme}>
+    <Table {...args} />
+  </ThemeProvider>
+);
+
+Themed.args = {
+  ...Default.args,
+};
+
 export default story;
-export { Paginations };
