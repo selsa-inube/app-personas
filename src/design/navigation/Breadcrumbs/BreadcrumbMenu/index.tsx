@@ -1,9 +1,9 @@
 import { Stack } from "@design/layout/Stack";
 import { BreadcrumbMenuLink } from "../BreadcrumbMenuLink";
 import { StyledBreadcrumbMenu } from "./styles";
-import { IRoute } from "../types";
+import { IBreadcrumbRoute } from "../types";
 interface BreadcrumbMenuProps {
-  routes: IRoute[];
+  routes: IBreadcrumbRoute[];
 }
 
 function BreadcrumbMenu(props: BreadcrumbMenuProps) {
