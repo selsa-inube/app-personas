@@ -1,5 +1,5 @@
-const breadcrumbSize = ["large", "small"] as const;
-type BreadcrumbSizeType = (typeof breadcrumbSize)[number];
+const breadcrumbEllipsisSize = ["large", "small"] as const;
+type BreadcrumbEllipsisSizeType = (typeof breadcrumbEllipsisSize)[number];
 
-export { breadcrumbSize };
-export type { BreadcrumbSizeType };
+export { breadcrumbEllipsisSize };
+export type { BreadcrumbEllipsisSizeType };
