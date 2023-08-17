@@ -14,5 +14,5 @@ interface ITextFieldMessage {
   validMessage?: string;
 }
 
-export { inputStates, inputTypes, inputSizeTypes };
-export type { InputType, InputSize, InputState, ITextFieldMessage };
+export { inputSizeTypes, inputStates, inputTypes };
+export type { ITextFieldMessage, InputSize, InputState, InputType };
