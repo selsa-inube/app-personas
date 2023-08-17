@@ -5,7 +5,7 @@ import { actionsMock, breakPointsMock, titlesMock } from "./mocks";
 import { parameters, props } from "../props";
 
 const story = {
-  title: "data/Table",
+  title: "design/data/Table",
   component: [Table],
   parameters,
   argTypes: props,

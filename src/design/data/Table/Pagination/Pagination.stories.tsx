@@ -4,7 +4,7 @@ import { parameters, props } from "../props";
 import { PaginationController } from "./PaginationController";
 
 const story = {
-  title: "data/Table/Pagination",
+  title: "design/data/Table/Pagination",
   component: [Pagination],
   parameters,
   argTypes: props,

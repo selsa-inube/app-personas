@@ -7,7 +7,7 @@ import { InteractiveModal, InteractiveModalProps } from "../index";
 import { props } from "../props";
 
 const story = {
-  title: "feedback/InteractiveModal",
+  title: "design/feedback/InteractiveModal",
   components: [InteractiveModal],
   argTypes: props,
 };

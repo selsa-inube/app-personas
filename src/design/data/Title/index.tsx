@@ -7,7 +7,7 @@ import { Text } from "../Text";
 interface TitleProps {
   title: string;
   subtitle?: string;
-  icon?: JSX.Element;
+  icon?: React.JSX.Element;
   navigatePage?: string;
 }
 

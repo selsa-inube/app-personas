@@ -4,7 +4,7 @@ import { Table, TableProps } from "..";
 import { props } from "../props";
 
 const story = {
-  title: "data/Table",
+  title: "design/data/Table",
   component: Table,
   argTypes: props,
 };

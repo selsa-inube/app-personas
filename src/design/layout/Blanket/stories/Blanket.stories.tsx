@@ -6,7 +6,7 @@ import { StyledBackdropBlanket } from "./styles";
 import { Button } from "@design/input/Button";
 
 const story = {
-  title: "utils/Blanket",
+  title: "design/layout/Blanket",
   components: Blanket,
   parameters: {
     docs: {
