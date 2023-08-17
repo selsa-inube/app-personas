@@ -1,20 +1,23 @@
-import { TextFieldProps } from ".";
+import { useState, RefObject } from "react";
+import { MdOutlineError, MdCheckCircle, MdExpandMore } from "react-icons/md";
+
 import { Label } from "../Label";
-import { Text } from "@design/data/Text";
-import { ITextFieldMessage } from "./types";
-import { MdOutlineError, MdCheckCircle } from "react-icons/md";
+import { Text } from "../../data/Text";
+import { DropdownMenu } from "../DropdownMenu";
+import { ISelectMessage } from "./types";
+import { SelectProps } from "."; 
 
 import {
   StyledContainer,
   StyledContainerLabel,
   StyledInputContainer,
-  StyledIcon,
   StyledInput,
+  StyledIcon,
   StyledErrorMessageContainer,
   StyledValidMessageContainer,
 } from "./styles";
 
-function Invalid(props: ITextFieldMessage) {
+function Invalid(props: ISelectMessage) {
   const { isDisabled, state, errorMessage } = props;
   const transformedErrorMessage = errorMessage && `(${errorMessage})`;
 
@@ -28,7 +31,7 @@ function Invalid(props: ITextFieldMessage) {
   );
 }
 
-function Success(props: ITextFieldMessage) {
+function Success(props: ISelectMessage) {
   const { isDisabled, state, validMessage } = props;
 
   return (
@@ -41,41 +44,75 @@ function Success(props: ITextFieldMessage) {
   );
 }
 
-function TextFieldUI(props: TextFieldProps) {
+interface SelectUIProps extends SelectProps {
+  isFocused?: boolean;
+  openOptions: boolean;
+  selectRef?: RefObject<HTMLDivElement> | null;
+  onCloseOptions: () => void;
+}
+
+function SelectUI(props: SelectUIProps) {
   const {
-    label = "",
+    label,
     name,
     id,
     placeholder,
     isDisabled = false,
-    type,
-    value,
-    handleChange,
-    iconBefore,
-    iconAfter,
-    maxLength,
-    minLength,
-    max,
-    min,
-    isRequired,
-    state = "pending",
-    errorMessage,
-    validMessage,
-    inputSize = "compact",
     isFullWidth = false,
     isFocused = false,
+    isRequired,
+    readOnly = false,
+    state = "pending",
+    inputSize = "compact",
+    errorMessage,
+    validMessage,
+    handleChange,
     handleFocus,
     handleBlur,
-    readOnly,
+    options,
+    openOptions,
+    value,
+    handleClick,
+    onCloseOptions,
+    selectRef
+
   } = props;
+
+  const [selectedOption, setSelectedOption] = useState(value);
+
+  const handleChangeOption = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setSelectedOption(newValue);
+    
+    if (typeof handleChange === "function") {
+      handleChange(event);
+    }
+  };
+
+  const handleOptionClick = (id: string) => {
+    const option = options.find((option) => option.id === id);
+    setSelectedOption(option?.label);
+  };
+
+  const interceptorOnClick = (e: React.MouseEvent) => {
+    if (typeof handleClick === "function") {
+      handleClick(e);
+    }
+    if (typeof onCloseOptions === "function") {
+      onCloseOptions();
+    }
+  };
 
   const transformedIsInvalid = state === "invalid" ? true : false;
 
   return (
-    <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
+    <StyledContainer
+      isFullWidth={isFullWidth}
+      isDisabled={isDisabled}
+      ref={selectRef}
+    >
       <StyledContainerLabel
         alignItems="center"
-        wrap="wrap"
         isDisabled={isDisabled}
       >
         {label && (
@@ -100,40 +137,29 @@ function TextFieldUI(props: TextFieldProps) {
         isDisabled={isDisabled}
         isFocused={isFocused}
         state={state}
-        iconBefore={iconBefore}
-        iconAfter={iconAfter}
       >
-        {iconBefore && (
-          <StyledIcon isDisabled={isDisabled} iconBefore={iconBefore}>
-            {iconBefore}
-          </StyledIcon>
-        )}
-
         <StyledInput
-          label={label}
+          autoComplete="off"
+          readOnly={readOnly}
+          value={selectedOption || value}
           name={name}
           id={id}
           placeholder={placeholder}
           isDisabled={isDisabled}
+          required={isRequired}
+          state={state}
+          inputSize={inputSize}
           isFullWidth={isFullWidth}
-          type={type}
-          value={value}
-          maxLength={maxLength}
-          minLength={minLength}
-          max={max}
-          min={min}
-          onChange={handleChange}
+          isFocused={isFocused}
+          onChange={handleChangeOption}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          readOnly={readOnly}
-          inputSize={inputSize}
+          onClick={(e: React.MouseEvent) => interceptorOnClick(e)}
         />
 
-        {iconAfter && (
-          <StyledIcon iconAfter={iconAfter} isDisabled={isDisabled}>
-            {iconAfter}
-          </StyledIcon>
-        )}
+        <StyledIcon isDisabled={isDisabled}>
+          <MdExpandMore onClick={onCloseOptions} />
+        </StyledIcon>
       </StyledInputContainer>
 
       {state === "invalid" && (
@@ -150,8 +176,17 @@ function TextFieldUI(props: TextFieldProps) {
           validMessage={validMessage}
         />
       )}
+      {openOptions && !isDisabled && (
+        <DropdownMenu
+          options={options}
+          handleClick={handleOptionClick}
+          onCloseOptions={onCloseOptions}
+          handleSelect={handleOptionClick}
+        />
+      )}
     </StyledContainer>
   );
 }
 
-export { TextFieldUI };
+export { SelectUI };
+export type { SelectUIProps };

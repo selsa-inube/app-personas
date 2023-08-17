@@ -1,68 +1,53 @@
-import { useState } from "react";
-import { TextFieldUI } from "./interface";
-import {
-  InputType,
-  InputSize,
-  InputState,
-  inputStates,
-  inputTypes,
-} from "./types";
+import { useState, useRef, useEffect } from "react";
+import { SelectUI } from "./interface";
+import { InputSize, InputState, inputStates, ISelectOption } from "./types";
 
-interface TextFieldProps {
+interface SelectProps {
   label?: string;
-  name: string;
+  name?: string;
   id: string;
-  placeholder: string;
+  placeholder?: string;
   isDisabled?: boolean;
   value?: string | number;
-  iconBefore?: React.JSX.Element;
-  iconAfter?: React.JSX.Element;
-  maxLength?: number;
-  minLength?: number;
-  max?: number;
-  min?: number;
-  isRequired: boolean;
+  isRequired?: boolean;
+  state?: InputState;
   errorMessage?: string;
   validMessage?: string;
+  inputSize?: InputSize;
   isFullWidth?: boolean;
   readOnly?: boolean;
-  isFocused?: boolean;
-  type?: InputType;
-  state?: InputState;
-  inputSize?: InputSize;
+  options: ISelectOption[];
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleClick?: (event: React.MouseEvent) => void;
 }
 
-function TextField(props: TextFieldProps) {
+function Select(props: SelectProps) {
   const {
     label,
     name,
     id,
     placeholder,
     isDisabled = false,
-    type = "text",
-    state = "pending",
-    inputSize,
-    value,
+    value = "",
     handleChange,
-    iconBefore,
-    iconAfter,
-    maxLength,
-    minLength,
-    max,
-    min,
     isRequired = false,
+    state = "pending",
     errorMessage,
     validMessage,
+    inputSize = "wide",
     isFullWidth = false,
     handleFocus,
     handleBlur,
+    options,
+    handleClick,
     readOnly,
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
+  const [open, setOpen] = useState(false);
+  const selectRef = useRef<HTMLDivElement | null>(null);
 
   const interceptFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!readOnly) {
@@ -80,12 +65,29 @@ function TextField(props: TextFieldProps) {
     }
   };
 
+  const handleCloseOptions = () => {
+    setOpen(!open);
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as Node | null;
+    if (selectRef.current && target && !selectRef.current.contains(target)) {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [selectRef]);
+
   const transformedIsDisabled =
     typeof isDisabled === "boolean" ? isDisabled : false;
 
   const transformedState = inputStates.includes(state) ? state : "pending";
-
-  const transformedTypes = inputTypes.includes(type) ? type : "text";
 
   const transformedIsRequired =
     typeof isRequired === "boolean" ? isRequired : false;
@@ -93,37 +95,33 @@ function TextField(props: TextFieldProps) {
   const transformedIsFullWidth =
     typeof isFullWidth === "boolean" ? isFullWidth : false;
 
-  const transformedReadOnly = typeof readOnly === "boolean" ? readOnly : false;
-
   return (
-    <TextFieldUI
+    <SelectUI
       label={label}
       name={name}
       id={id}
       placeholder={placeholder}
       isDisabled={transformedIsDisabled}
-      type={transformedTypes}
       value={value}
       handleChange={handleChange}
-      iconBefore={iconBefore}
-      iconAfter={iconAfter}
-      maxLength={maxLength}
-      minLength={minLength}
-      max={max}
-      min={min}
       isRequired={transformedIsRequired}
       inputSize={inputSize}
       state={transformedState}
       errorMessage={errorMessage}
       validMessage={validMessage}
+      readOnly={readOnly}
       isFullWidth={transformedIsFullWidth}
       isFocused={isFocused}
       handleFocus={interceptFocus}
       handleBlur={interceptBlur}
-      readOnly={transformedReadOnly}
+      options={options}
+      openOptions={open}
+      handleClick={handleClick}
+      onCloseOptions={handleCloseOptions}
+      selectRef={selectRef}
     />
   );
 }
 
-export { TextField };
-export type { TextFieldProps };
+export { Select };
+export type { SelectProps };
