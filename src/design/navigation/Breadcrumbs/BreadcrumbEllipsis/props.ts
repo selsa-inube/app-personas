@@ -1,4 +1,4 @@
-import { breadcrumbEllipsisSize } from "./types";
+import { breadcrumbVariantSize } from "../types";
 
 const props = {
   handleClick: {
@@ -7,7 +7,7 @@ const props = {
     description: "shall be determine the behavior of the click event",
   },
   size: {
-    options: breadcrumbEllipsisSize,
+    options: breadcrumbVariantSize,
     control: { type: "select" },
     description: "indicates the font size used in the component",
     table: {

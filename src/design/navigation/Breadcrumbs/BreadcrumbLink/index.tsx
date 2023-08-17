@@ -1,13 +1,13 @@
 import { Text } from "@design/data/Text";
 import { StyledBreadcrumbLink, StyledContainerLink } from "./styles";
-import { BreadcrumbLinkSizeType, breadcrumbLinksize } from "./types";
+import { breadcrumbSize, BreadcrumbSizeType } from "../types";
 
 interface BreadcrumbLinkProps {
   isActive?: boolean;
   label: string;
   path?: string;
   id: string;
-  typo?: BreadcrumbLinkSizeType;
+  typo?: BreadcrumbSizeType;
   cursorHover?: boolean;
   handleClick?: () => void;
 }
@@ -23,9 +23,7 @@ function BreadcrumbLink(props: BreadcrumbLinkProps) {
     handleClick,
   } = props;
 
-  const transformedTypos: BreadcrumbLinkSizeType = breadcrumbLinksize.includes(
-    typo
-  )
+  const transformedTypos: BreadcrumbSizeType = breadcrumbSize.includes(typo)
     ? typo
     : "large";
   const transformedIsActive: boolean =
