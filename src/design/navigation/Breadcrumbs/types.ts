@@ -14,4 +14,6 @@ const breadcrumbSize = ["large", "medium", "small"] as const;
 
 type BreadcrumbSizeType = (typeof breadcrumbSize)[number];
 
+export { breadcrumbSize };
+
 export type { BreadcrumbSizeType, IBreadcrumbItem, IBreadcrumbRoute };
