@@ -7,7 +7,7 @@ type InputSize = (typeof inputSizeTypes)[number];
 const inputStates = ["valid", "invalid", "pending"];
 type InputState = (typeof inputStates)[number];
 
-interface IMessage {
+interface ITextFieldMessage {
   state?: InputState;
   isDisabled?: boolean;
   errorMessage?: string;
@@ -15,4 +15,4 @@ interface IMessage {
 }
 
 export { inputStates, inputTypes, inputSizeTypes };
-export type { InputType, InputSize, InputState, IMessage };
+export type { InputType, InputSize, InputState, ITextFieldMessage };

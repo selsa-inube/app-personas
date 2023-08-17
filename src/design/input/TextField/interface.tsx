@@ -1,7 +1,7 @@
 import { TextFieldProps } from ".";
 import { Label } from "../Label";
 import { Text } from "@design/data/Text";
-import { IMessage } from "./types";
+import { ITextFieldMessage } from "./types";
 import { MdOutlineError, MdCheckCircle } from "react-icons/md";
 
 import {
@@ -14,7 +14,7 @@ import {
   StyledValidMessageContainer,
 } from "./styles";
 
-function Invalid(props: IMessage) {
+function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
   const transformedErrorMessage = errorMessage && `(${errorMessage})`;
 
@@ -28,7 +28,7 @@ function Invalid(props: IMessage) {
   );
 }
 
-function Success(props: IMessage) {
+function Success(props: ITextFieldMessage) {
   const { isDisabled, state, validMessage } = props;
 
   return (

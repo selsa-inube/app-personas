@@ -1,11 +1,11 @@
-import React, { useState, useRef, forwardRef } from "react";
+import { useState, RefObject } from "react";
 import { MdOutlineError, MdCheckCircle, MdExpandMore } from "react-icons/md";
 
 import { Label } from "../Label";
 import { Text } from "../../data/Text";
 import { DropdownMenu } from "../DropdownMenu";
-import { IMessage } from "../TextField/types";
-import { ISelectInterface } from "./types";
+import { ISelectMessage } from "./types";
+import { SelectProps } from "."; 
 
 import {
   StyledContainer,
@@ -17,7 +17,7 @@ import {
   StyledValidMessageContainer,
 } from "./styles";
 
-function Invalid(props: IMessage) {
+function Invalid(props: ISelectMessage) {
   const { isDisabled, state, errorMessage } = props;
   const transformedErrorMessage = errorMessage && `(${errorMessage})`;
 
@@ -31,7 +31,7 @@ function Invalid(props: IMessage) {
   );
 }
 
-function Success(props: IMessage) {
+function Success(props: ISelectMessage) {
   const { isDisabled, state, validMessage } = props;
 
   return (
@@ -44,7 +44,14 @@ function Success(props: IMessage) {
   );
 }
 
-function SelectUI(props: ISelectInterface, ref: React.Ref<HTMLDivElement>) {
+interface SelectUIProps extends SelectProps {
+  isFocused?: boolean;
+  openOptions: boolean;
+  selectRef?: RefObject<HTMLDivElement> | null;
+  onCloseOptions: () => void;
+}
+
+function SelectUI(props: SelectUIProps) {
   const {
     label,
     name,
@@ -67,16 +74,18 @@ function SelectUI(props: ISelectInterface, ref: React.Ref<HTMLDivElement>) {
     value,
     handleClick,
     onCloseOptions,
+    selectRef
+
   } = props;
 
   const [selectedOption, setSelectedOption] = useState(value);
 
-  const handleChangeP = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeOption = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     setSelectedOption(newValue);
     
-    if (typeof props.handleChange === "function") {
-      props.handleChange(event);
+    if (typeof handleChange === "function") {
+      handleChange(event);
     }
   };
 
@@ -100,7 +109,7 @@ function SelectUI(props: ISelectInterface, ref: React.Ref<HTMLDivElement>) {
     <StyledContainer
       isFullWidth={isFullWidth}
       isDisabled={isDisabled}
-      ref={ref}
+      ref={selectRef}
     >
       <StyledContainerLabel
         alignItems="center"
@@ -142,7 +151,7 @@ function SelectUI(props: ISelectInterface, ref: React.Ref<HTMLDivElement>) {
           inputSize={inputSize}
           isFullWidth={isFullWidth}
           isFocused={isFocused}
-          onChange={handleChangeP}
+          onChange={handleChangeOption}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onClick={(e: React.MouseEvent) => interceptorOnClick(e)}
@@ -179,6 +188,5 @@ function SelectUI(props: ISelectInterface, ref: React.Ref<HTMLDivElement>) {
   );
 }
 
-const ForwardedSelectUI = forwardRef<HTMLDivElement, ISelectInterface>(SelectUI);
-
-export { ForwardedSelectUI as SelectUI };
+export { SelectUI };
+export type { SelectUIProps };

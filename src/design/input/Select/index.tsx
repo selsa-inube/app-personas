@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { SelectUI } from "./interface";
-import { InputSize, InputState, inputStates, ISelectOptions } from "./types";
+import { InputSize, InputState, inputStates, ISelectOption } from "./types";
 
 interface SelectProps {
   label?: string;
@@ -16,7 +16,7 @@ interface SelectProps {
   inputSize?: InputSize;
   isFullWidth?: boolean;
   readOnly?: boolean;
-  options: ISelectOptions[];
+  options: ISelectOption[];
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -118,7 +118,7 @@ function Select(props: SelectProps) {
       openOptions={open}
       handleClick={handleClick}
       onCloseOptions={handleCloseOptions}
-      ref={selectRef}
+      selectRef={selectRef}
     />
   );
 }

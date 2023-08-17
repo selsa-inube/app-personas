@@ -1,6 +1,3 @@
-import { RefObject } from "react";
-import { SelectProps } from ".";
-
 const inputSizeTypes = ["wide", "compact"];
 type InputSize = (typeof inputSizeTypes)[number];
 
@@ -10,7 +7,7 @@ type InputState = (typeof inputStates)[number];
 const inputTypes = ["text", "email", "number", "password", "search", "tel"];
 type InputType = (typeof inputTypes)[number];
 
-interface ISelectOptions {
+interface ISelectOption {
   id: string;
   label: string;
   isDisabled: boolean;
@@ -22,19 +19,19 @@ interface IOption {
   label: string;
 }
 
-interface ISelectInterface extends SelectProps {
-  isFocused?: boolean;
-  openOptions: boolean;
-  ref?: RefObject<{ contains: (e: EventTarget) => EventTarget }>;
-  onCloseOptions: () => void;
+interface ISelectMessage {
+  state?: InputState;
+  isDisabled?: boolean;
+  errorMessage?: string;
+  validMessage?: string;
 }
 
 export { inputStates, inputSizeTypes, inputTypes };
 export type {
   InputState,
   InputSize,
-  ISelectOptions,
+  ISelectOption,
   IOption,
-  ISelectInterface,
+  ISelectMessage,
   InputType,
 };
