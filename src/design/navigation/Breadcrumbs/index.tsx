@@ -1,7 +1,7 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
-import { BreadcrumbEllipsis } from "../BreadcrumbEllipsis";
-import { BreadcrumbLink } from "../BreadcrumbLink";
+import { BreadcrumbEllipsis } from "./BreadcrumbEllipsis";
+import { BreadcrumbLink } from "./BreadcrumbLink";
 
 import { StyledBreadcrumbs } from "./styles";
 import { BreadcrumbSizeType, IBreadcrumbItem } from "./types";

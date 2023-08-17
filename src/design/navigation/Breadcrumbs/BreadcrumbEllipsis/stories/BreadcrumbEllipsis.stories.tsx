@@ -1,13 +1,13 @@
 import { BrowserRouter } from "react-router-dom";
-import { BreadcrumbMenu, BreadcrumbMenuProps } from "..";
-import { props } from "../props";
 import { ThemeProvider } from "styled-components";
 import { theme } from "@config/theme";
+import { BreadcrumbEllipsis, BreadcrumbEllipsisProps } from "../index";
+import { props } from "../props";
 import { StoryFn } from "@storybook/react";
 
 const story = {
-  title: "design/navigation/BreadcrumbMenu",
-  components: [BreadcrumbMenu],
+  title: "design/navigation/Breadcrumbs/BreadcrumbEllipsis",
+  components: [BreadcrumbEllipsis],
   tags: ["autodocs"],
   argTypes: {
     ...props,
@@ -21,10 +21,8 @@ const story = {
   ],
 };
 
-export const Default = (args: BreadcrumbMenuProps) => (
-  <div style={{ height: "100px", transform: "translateZ(0)" }}>
-    <BreadcrumbMenu {...args} />
-  </div>
+export const Default = (args: BreadcrumbEllipsisProps) => (
+  <BreadcrumbEllipsis {...args} />
 );
 Default.args = {
   routes: [
@@ -40,11 +38,13 @@ Default.args = {
       id: "usersEdition",
     },
   ],
+  size: "large",
+  cursorHover: true,
 };
 
-export const Themed = (args: BreadcrumbMenuProps) => (
+export const Themed = (args: BreadcrumbEllipsisProps) => (
   <ThemeProvider theme={theme}>
-    <BreadcrumbMenu {...args} />
+    <BreadcrumbEllipsis {...args} />
   </ThemeProvider>
 );
 

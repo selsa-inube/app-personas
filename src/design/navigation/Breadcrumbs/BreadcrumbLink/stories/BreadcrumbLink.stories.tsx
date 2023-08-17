@@ -1,13 +1,17 @@
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
-import { theme } from "@config/theme";
-import { BreadcrumbMenuLink, BreadcrumbMenuLinkProps } from "..";
-import { props } from "../props";
+import { BreadcrumbLink, BreadcrumbLinkProps } from "..";
+import { BreadcrumbLinkController } from "./BreadcrumbLinkController";
 import { StoryFn } from "@storybook/react";
 
+import { ThemeProvider } from "styled-components";
+
+import { theme } from "@config/theme";
+
+import { props } from "../props";
+
 const story = {
-  title: "design/navigation/BreadcrumbMenuLink",
-  components: [BreadcrumbMenuLink],
+  title: "design/navigation/Breadcrumbs/BreadcrumbLink",
+  components: [BreadcrumbLink],
   tags: ["autodocs"],
   argTypes: {
     ...props,
@@ -21,19 +25,21 @@ const story = {
   ],
 };
 
-export const Default = (args: BreadcrumbMenuLinkProps) => (
-  <BreadcrumbMenuLink {...args} />
+export const Default = (args: BreadcrumbLinkProps) => (
+  <BreadcrumbLinkController {...args} />
 );
 Default.args = {
   label: "Privileges",
   path: "/privileges",
   id: "privileges",
+  isActive: false,
   typo: "large",
+  cursorHover: true,
 };
 
-export const Themed = (args: BreadcrumbMenuLinkProps) => (
+export const Themed = (args: BreadcrumbLinkProps) => (
   <ThemeProvider theme={theme}>
-    <BreadcrumbMenuLink {...args} />
+    <BreadcrumbLinkController {...args} />
   </ThemeProvider>
 );
 

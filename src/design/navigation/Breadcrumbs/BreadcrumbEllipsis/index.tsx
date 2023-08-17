@@ -8,11 +8,12 @@ import {
   StyledContainerEllipsis,
   StyledRelativeContainer,
 } from "./styles";
-import { BreadcrumbEllipsisSizeType, IRoute } from "./types";
+import { IBreadcrumbRoute } from "../types";
+import { BreadcrumbEllipsisSizeType } from "./types";
 
 interface BreadcrumbEllipsisProps {
   size?: BreadcrumbEllipsisSizeType;
-  routes: IRoute[];
+  routes: IBreadcrumbRoute[];
   cursorHover?: boolean;
 }
 

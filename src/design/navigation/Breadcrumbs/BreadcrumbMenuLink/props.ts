@@ -1,4 +1,4 @@
-import { breadcrumbMenuLinksize } from "./types";
+import { breadcrumbSize } from "../types";
 
 const props = {
   id: {
@@ -10,7 +10,7 @@ const props = {
     description: "shall constitute the content to be displayed",
   },
   typo: {
-    options: breadcrumbMenuLinksize,
+    options: breadcrumbSize,
     control: { type: "select" },
     description: "indicates the font size used in the component",
   },
