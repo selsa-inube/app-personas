@@ -1,19 +1,19 @@
-import { useState, RefObject } from "react";
-import { MdOutlineError, MdCheckCircle, MdExpandMore } from "react-icons/md";
+import { RefObject, useState } from "react";
+import { MdCheckCircle, MdExpandMore, MdOutlineError } from "react-icons/md";
 
-import { Label } from "../Label";
+import { SelectProps } from ".";
 import { Text } from "../../data/Text";
 import { DropdownMenu } from "../DropdownMenu";
-import { ISelectMessage } from "./types";
-import { SelectProps } from "."; 
+import { Label } from "../Label";
+import { ISelectMessage, ISelectOption } from "./types";
 
 import {
   StyledContainer,
   StyledContainerLabel,
-  StyledInputContainer,
-  StyledInput,
-  StyledIcon,
   StyledErrorMessageContainer,
+  StyledIcon,
+  StyledInput,
+  StyledInputContainer,
   StyledValidMessageContainer,
 } from "./styles";
 
@@ -45,6 +45,7 @@ function Success(props: ISelectMessage) {
 }
 
 interface SelectUIProps extends SelectProps {
+  currentOption: ISelectOption;
   isFocused?: boolean;
   openOptions: boolean;
   selectRef?: RefObject<HTMLDivElement> | null;
@@ -61,7 +62,6 @@ function SelectUI(props: SelectUIProps) {
     isFullWidth = false,
     isFocused = false,
     isRequired,
-    readOnly = false,
     state = "pending",
     inputSize = "compact",
     errorMessage,
@@ -71,36 +71,29 @@ function SelectUI(props: SelectUIProps) {
     handleBlur,
     options,
     openOptions,
-    value,
+    currentOption,
     handleClick,
     onCloseOptions,
-    selectRef
-
+    selectRef,
   } = props;
 
-  const [selectedOption, setSelectedOption] = useState(value);
-
-  const handleChangeOption = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    setSelectedOption(newValue);
-    
-    if (typeof handleChange === "function") {
-      handleChange(event);
-    }
-  };
+  const [selectedOption, setSelectedOption] = useState(currentOption);
 
   const handleOptionClick = (id: string) => {
     const option = options.find((option) => option.id === id);
-    setSelectedOption(option?.label);
+    if (!option) return;
+
+    setSelectedOption(option);
+
+    if (handleChange) handleChange(option);
+
+    onCloseOptions();
   };
 
   const interceptorOnClick = (e: React.MouseEvent) => {
-    if (typeof handleClick === "function") {
-      handleClick(e);
-    }
-    if (typeof onCloseOptions === "function") {
-      onCloseOptions();
-    }
+    if (handleClick) handleClick(e);
+
+    onCloseOptions();
   };
 
   const transformedIsInvalid = state === "invalid" ? true : false;
@@ -111,10 +104,7 @@ function SelectUI(props: SelectUIProps) {
       isDisabled={isDisabled}
       ref={selectRef}
     >
-      <StyledContainerLabel
-        alignItems="center"
-        isDisabled={isDisabled}
-      >
+      <StyledContainerLabel alignItems="center" isDisabled={isDisabled}>
         {label && (
           <Label
             htmlFor={id}
@@ -137,21 +127,20 @@ function SelectUI(props: SelectUIProps) {
         isDisabled={isDisabled}
         isFocused={isFocused}
         state={state}
+        inputSize={inputSize}
       >
         <StyledInput
           autoComplete="off"
-          readOnly={readOnly}
-          value={selectedOption || value}
+          readOnly
+          value={selectedOption.value}
           name={name}
           id={id}
           placeholder={placeholder}
           isDisabled={isDisabled}
           required={isRequired}
           state={state}
-          inputSize={inputSize}
           isFullWidth={isFullWidth}
           isFocused={isFocused}
-          onChange={handleChangeOption}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onClick={(e: React.MouseEvent) => interceptorOnClick(e)}
@@ -181,7 +170,6 @@ function SelectUI(props: SelectUIProps) {
           options={options}
           handleClick={handleOptionClick}
           onCloseOptions={onCloseOptions}
-          handleSelect={handleOptionClick}
         />
       )}
     </StyledContainer>

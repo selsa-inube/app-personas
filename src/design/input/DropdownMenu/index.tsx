@@ -5,24 +5,15 @@ interface DropdownMenuProps {
   options: DropdownItemProps[];
   handleClick?: (id: string) => void;
   onCloseOptions?: () => void;
-  handleSelect?: (id: string) => void;
 }
 
 function DropdownMenu(props: DropdownMenuProps) {
-  const { options, handleClick, onCloseOptions, handleSelect } = props;
+  const { options, handleClick, onCloseOptions } = props;
 
   const handleOptionClick = (id: string) => {
-    if (typeof handleClick === "function") {
-      handleClick(id);
-    }
+    if (handleClick) handleClick(id);
 
-    if (typeof onCloseOptions === "function") {
-      onCloseOptions();
-    }
-
-    if (typeof handleSelect === "function") {
-      handleSelect(id);
-    }
+    if (onCloseOptions) onCloseOptions();
   };
 
   return (
@@ -34,9 +25,8 @@ function DropdownMenu(props: DropdownMenuProps) {
           isDisabled={dropDownItem.isDisabled}
           isFocused={dropDownItem.isFocused}
           handleClick={() => handleOptionClick(dropDownItem.id)}
-        >
-          {dropDownItem.children}
-        </DropdownItem>
+          value={dropDownItem.value}
+        />
       ))}
     </StyledDropdownMenu>
   );

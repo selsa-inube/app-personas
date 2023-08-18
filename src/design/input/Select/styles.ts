@@ -8,7 +8,7 @@ interface IStyledContainer {
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
-  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "auto")};
+  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   width: ${({ isFullWidth }) => (isFullWidth ? "100%" : "fit-content")};
 `;
 
@@ -33,6 +33,7 @@ interface IStyledInputContainer {
   isDisabled: boolean;
   isFocused: boolean;
   state: string;
+  inputSize: InputSize;
 }
 
 const StyledInputContainer = styled.div<IStyledInputContainer>`
@@ -44,8 +45,13 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
 
+  height: ${({ inputSize }) =>
+    inputSize === "compact"
+      ? `${inube.spacing.s500}`
+      : `${inube.spacing.s600}`};
+
   background: ${({ theme }) =>
-    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+    theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
   grid-template-columns: 1fr auto;
   border: 1px solid
     ${({ theme, isDisabled, state, isFocused }) => {
@@ -75,28 +81,28 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
 interface IStyledInput {
   isDisabled: boolean;
   isFullWidth: boolean;
-  inputSize: InputSize;
   isFocused?: boolean;
   state: string;
 }
 
 const StyledInput = styled.input<IStyledInput>`
+  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   outline: none;
   border-radius: ${inube.spacing.s100};
 
   font-family: ${({ theme }) =>
-    theme.typography?.body?.large?.font || inube.typography.body.large.font};
+    theme.typography?.body?.medium?.font || inube.typography.body.medium.font};
   font-size: ${({ theme }) =>
-    theme.typography?.body?.large?.size || inube.typography.body.large.size};
+    theme.typography?.body?.medium?.size || inube.typography.body.medium.size};
   font-weight: ${({ theme }) =>
-    theme.typography?.body?.large?.weight ||
-    inube.typography.body.large.weight};
+    theme.typography?.body?.medium?.weight ||
+    inube.typography.body.medium.weight};
   letter-spacing: ${({ theme }) =>
-    theme.typography?.body?.large?.tracking ||
-    inube.typography.body.large.tracking};
+    theme.typography?.body?.medium?.tracking ||
+    inube.typography.body.medium.tracking};
   line-height: ${({ theme }) =>
-    theme.typography?.body?.large?.lineHeight ||
-    inube.typography.body.large.lineHeight};
+    theme.typography?.body?.medium?.lineHeight ||
+    inube.typography.body.medium.lineHeight};
 
   color: ${({ theme, isDisabled }) => {
     if (isDisabled) {
@@ -107,14 +113,10 @@ const StyledInput = styled.input<IStyledInput>`
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
   background: ${({ theme }) =>
-    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+    theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
   border: none;
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
-  height: ${({ inputSize }) =>
-    inputSize === "compact"
-      ? `${inube.spacing.s400}`
-      : `${inube.spacing.s500}`};
 
   border: none;
 
@@ -228,9 +230,9 @@ const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
 export {
   StyledContainer,
   StyledContainerLabel,
-  StyledInputContainer,
-  StyledInput,
-  StyledIcon,
   StyledErrorMessageContainer,
+  StyledIcon,
+  StyledInput,
+  StyledInputContainer,
   StyledValidMessageContainer,
 };

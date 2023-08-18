@@ -1,3 +1,4 @@
+import { StoryFn } from "@storybook/react";
 import { DropdownMenu, DropdownMenuProps } from ".";
 import { props } from "./props";
 
@@ -13,26 +14,25 @@ const story = {
   },
 };
 
-export const Default = (args: DropdownMenuProps) => <DropdownMenu {...args} />;
+export const Default: StoryFn<DropdownMenuProps> = (args) => (
+  <DropdownMenu {...args} />
+);
 Default.args = {
   options: [
     {
       id: "CE995433",
       isFocused: false,
-      htmlFor: "/",
-      children: "Crédito educativo - CE995433",
+      value: "Crédito educativo - CE995433",
     },
     {
       id: "CL002807",
       isFocused: false,
-      htmlFor: "/",
-      children: "Crédito libre inversión - CL002807",
+      value: "Crédito libre inversión - CL002807",
     },
     {
       id: "CL002808",
       isDisabled: true,
-      htmlFor: "/",
-      children: "Crédito libre inversión - CL002808",
+      value: "Crédito libre inversión - CL002808",
     },
   ],
 };

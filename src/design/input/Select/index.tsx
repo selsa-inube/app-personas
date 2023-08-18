@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SelectUI } from "./interface";
-import { InputSize, InputState, inputStates, ISelectOption } from "./types";
+import { ISelectOption, InputSize, InputState, inputStates } from "./types";
 
 interface SelectProps {
   label?: string;
@@ -8,7 +8,7 @@ interface SelectProps {
   id: string;
   placeholder?: string;
   isDisabled?: boolean;
-  value?: string | number;
+  value?: ISelectOption;
   isRequired?: boolean;
   state?: InputState;
   errorMessage?: string;
@@ -17,7 +17,7 @@ interface SelectProps {
   isFullWidth?: boolean;
   readOnly?: boolean;
   options: ISelectOption[];
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (option: ISelectOption) => void;
   handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClick?: (event: React.MouseEvent) => void;
@@ -30,7 +30,10 @@ function Select(props: SelectProps) {
     id,
     placeholder,
     isDisabled = false,
-    value = "",
+    value = {
+      id: "empty",
+      value: "Seleccione una opción",
+    },
     handleChange,
     isRequired = false,
     state = "pending",
@@ -53,16 +56,13 @@ function Select(props: SelectProps) {
     if (!readOnly) {
       setIsFocused(true);
     }
-    if (typeof handleFocus === "function") {
-      handleFocus(e);
-    }
+    if (handleFocus) handleFocus(e);
   };
 
   const interceptBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsFocused(false);
-    if (typeof handleBlur === "function") {
-      handleBlur(e);
-    }
+
+    if (handleBlur) handleBlur(e);
   };
 
   const handleCloseOptions = () => {
@@ -102,14 +102,13 @@ function Select(props: SelectProps) {
       id={id}
       placeholder={placeholder}
       isDisabled={transformedIsDisabled}
-      value={value}
+      currentOption={value}
       handleChange={handleChange}
       isRequired={transformedIsRequired}
       inputSize={inputSize}
       state={transformedState}
       errorMessage={errorMessage}
       validMessage={validMessage}
-      readOnly={readOnly}
       isFullWidth={transformedIsFullWidth}
       isFocused={isFocused}
       handleFocus={interceptFocus}
