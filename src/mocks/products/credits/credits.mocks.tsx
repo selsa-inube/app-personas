@@ -2,8 +2,8 @@ import { IProduct } from "src/types/pages/product.types";
 
 const creditsMock: IProduct[] = [
   {
-    id: "C2786238-55",
-    title: "Educativo",
+    id: "CE995433",
+    title: "Crédito educativo",
     attributes: [
       { id: "next_payment_value", label: "Próximo pago", value: 500000 },
       { id: "next_payment_date", label: "Próxima fecha", value: "02/ABR/2023" },
@@ -13,6 +13,7 @@ const creditsMock: IProduct[] = [
     ],
     movements: [
       {
+        id: "movement-1",
         date: "2023-08-15",
         reference: "DN1001210",
         description: "Pago crédito educativo",
@@ -25,6 +26,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-",
         date: "2023-09-15",
         reference: "DN1001211",
         description: "Abono extraordinario",
@@ -37,6 +39,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-2",
         date: "2023-10-15",
         reference: "DN1001212",
         description: "Pago crédito educativo",
@@ -49,6 +52,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-3",
         date: "2023-11-15",
         reference: "DN1001213",
         description: "Abono extraordinario",
@@ -61,6 +65,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-4",
         date: "2023-12-15",
         reference: "DN1001214",
         description: "Pago crédito educativo",
@@ -73,6 +78,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-5",
         date: "2024-01-15",
         reference: "DN1001215",
         description: "Abono extraordinario",
@@ -85,6 +91,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-6",
         date: "2024-02-15",
         reference: "DN1001216",
         description: "Pago crédito educativo",
@@ -97,6 +104,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-7",
         date: "2024-03-15",
         reference: "DN1001217",
         description: "Abono extraordinario",
@@ -109,6 +117,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-8",
         date: "2024-04-15",
         reference: "DN1001218",
         description: "Pago crédito educativo",
@@ -121,6 +130,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-9",
         date: "2024-05-15",
         reference: "DN1001219",
         description: "Abono extraordinario",
@@ -133,6 +143,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-10",
         date: "2024-06-15",
         reference: "DN1001220",
         description: "Pago crédito educativo",
@@ -145,6 +156,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-11",
         date: "2024-07-15",
         reference: "DN1001221",
         description: "Abono extraordinario",
@@ -157,6 +169,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-12",
         date: "2024-08-15",
         reference: "DN1001222",
         description: "Pago crédito educativo",
@@ -169,6 +182,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-13",
         date: "2024-09-15",
         reference: "DN1001223",
         description: "Abono extraordinario",
@@ -181,6 +195,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-14",
         date: "2024-10-15",
         reference: "DN1001224",
         description: "Pago crédito educativo",
@@ -193,6 +208,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-15",
         date: "2024-11-15",
         reference: "DN1001225",
         description: "Abono extraordinario",
@@ -205,6 +221,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-16",
         date: "2024-12-15",
         reference: "DN1001226",
         description: "Pago crédito educativo",
@@ -217,6 +234,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-17",
         date: "2025-01-15",
         reference: "DN1001227",
         description: "Abono extraordinario",
@@ -229,6 +247,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-18",
         date: "2025-02-15",
         reference: "DN1001228",
         description: "Pago crédito educativo",
@@ -241,6 +260,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-19",
         date: "2025-03-15",
         reference: "DN1001229",
         description: "Abono extraordinario",
@@ -253,6 +273,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-20",
         date: "2025-04-15",
         reference: "DN1001230",
         description: "Pago crédito educativo",
@@ -265,6 +286,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-21",
         date: "2025-05-15",
         reference: "DN1001231",
         description: "Abono extraordinario",
@@ -277,6 +299,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-22",
         date: "2025-06-15",
         reference: "DN1001232",
         description: "Pago crédito educativo",
@@ -289,6 +312,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-23",
         date: "2025-07-15",
         reference: "DN1001233",
         description: "Abono extraordinario",
@@ -301,6 +325,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-24",
         date: "2025-08-15",
         reference: "DN1001234",
         description: "Pago crédito educativo",
@@ -313,6 +338,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-25",
         date: "2025-09-15",
         reference: "DN1001235",
         description: "Abono extraordinario",
@@ -325,6 +351,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-26",
         date: "2025-10-15",
         reference: "DN1001236",
         description: "Pago crédito educativo",
@@ -337,6 +364,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-27",
         date: "2025-11-15",
         reference: "DN1001237",
         description: "Abono extraordinario",
@@ -349,6 +377,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-28",
         date: "2025-12-15",
         reference: "DN1001238",
         description: "Pago crédito educativo",
@@ -361,6 +390,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-29",
         date: "2026-01-15",
         reference: "DN1001239",
         description: "Abono extraordinario",
@@ -618,8 +648,8 @@ const creditsMock: IProduct[] = [
     tags: [],
   },
   {
-    id: "C9786288-14",
-    title: "Libre inversión",
+    id: "CL000807",
+    title: "Crédito libre inversión",
     attributes: [
       { id: "next_payment_value", label: "Próximo pago", value: 1100000 },
       { id: "next_payment_date", label: "Próxima fecha", value: "02/MAY/2023" },
@@ -629,6 +659,7 @@ const creditsMock: IProduct[] = [
     ],
     movements: [
       {
+        id: "movement-1",
         date: "2023-08-15",
         reference: "DN1001210",
         description: "Pago crédito educativo",
@@ -641,6 +672,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-2",
         date: "2023-09-15",
         reference: "DN1001211",
         description: "Abono extraordinario",
@@ -653,6 +685,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-3",
         date: "2023-10-15",
         reference: "DN1001212",
         description: "Pago crédito educativo",
@@ -665,6 +698,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-4",
         date: "2023-11-15",
         reference: "DN1001213",
         description: "Abono extraordinario",
@@ -677,6 +711,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-5",
         date: "2023-12-15",
         reference: "DN1001214",
         description: "Pago crédito educativo",
@@ -689,6 +724,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-6",
         date: "2024-01-15",
         reference: "DN1001215",
         description: "Abono extraordinario",
@@ -701,6 +737,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-7",
         date: "2024-02-15",
         reference: "DN1001216",
         description: "Pago crédito educativo",
@@ -713,6 +750,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-8",
         date: "2024-03-15",
         reference: "DN1001217",
         description: "Abono extraordinario",
@@ -725,6 +763,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-9",
         date: "2024-04-15",
         reference: "DN1001218",
         description: "Pago crédito educativo",
@@ -737,6 +776,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-10",
         date: "2024-05-15",
         reference: "DN1001219",
         description: "Abono extraordinario",
@@ -749,6 +789,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-11",
         date: "2024-06-15",
         reference: "DN1001220",
         description: "Pago crédito educativo",
@@ -761,6 +802,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-12",
         date: "2024-07-15",
         reference: "DN1001221",
         description: "Abono extraordinario",
@@ -773,6 +815,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-13",
         date: "2024-08-15",
         reference: "DN1001222",
         description: "Pago crédito educativo",
@@ -785,6 +828,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-14",
         date: "2024-09-15",
         reference: "DN1001223",
         description: "Abono extraordinario",
@@ -797,6 +841,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-15",
         date: "2024-10-15",
         reference: "DN1001224",
         description: "Pago crédito educativo",
@@ -809,6 +854,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-16",
         date: "2024-11-15",
         reference: "DN1001225",
         description: "Abono extraordinario",
@@ -821,6 +867,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-17",
         date: "2024-12-15",
         reference: "DN1001226",
         description: "Pago crédito educativo",
@@ -833,6 +880,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-18",
         date: "2025-01-15",
         reference: "DN1001227",
         description: "Abono extraordinario",
@@ -845,6 +893,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-19",
         date: "2025-02-15",
         reference: "DN1001228",
         description: "Pago crédito educativo",
@@ -857,6 +906,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-20",
         date: "2025-03-15",
         reference: "DN1001229",
         description: "Abono extraordinario",
@@ -869,6 +919,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-21",
         date: "2025-04-15",
         reference: "DN1001230",
         description: "Pago crédito educativo",
@@ -881,6 +932,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-22",
         date: "2025-05-15",
         reference: "DN1001231",
         description: "Abono extraordinario",
@@ -893,6 +945,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-23",
         date: "2025-06-15",
         reference: "DN1001232",
         description: "Pago crédito educativo",
@@ -905,6 +958,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-24",
         date: "2025-07-15",
         reference: "DN1001233",
         description: "Abono extraordinario",
@@ -917,6 +971,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-25",
         date: "2025-08-15",
         reference: "DN1001234",
         description: "Pago crédito educativo",
@@ -929,6 +984,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-26",
         date: "2025-09-15",
         reference: "DN1001235",
         description: "Abono extraordinario",
@@ -941,6 +997,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-27",
         date: "2025-10-15",
         reference: "DN1001236",
         description: "Pago crédito educativo",
@@ -953,6 +1010,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-28",
         date: "2025-11-15",
         reference: "DN1001237",
         description: "Abono extraordinario",
@@ -965,6 +1023,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-29",
         date: "2025-12-15",
         reference: "DN1001238",
         description: "Pago crédito educativo",
@@ -977,6 +1036,7 @@ const creditsMock: IProduct[] = [
         others: 0,
       },
       {
+        id: "movement-30",
         date: "2026-01-15",
         reference: "DN1001239",
         description: "Abono extraordinario",

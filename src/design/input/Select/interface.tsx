@@ -1,4 +1,4 @@
-import { RefObject, useState } from "react";
+import { RefObject } from "react";
 import { MdCheckCircle, MdExpandMore, MdOutlineError } from "react-icons/md";
 
 import { SelectProps } from ".";
@@ -77,13 +77,9 @@ function SelectUI(props: SelectUIProps) {
     selectRef,
   } = props;
 
-  const [selectedOption, setSelectedOption] = useState(currentOption);
-
   const handleOptionClick = (id: string) => {
     const option = options.find((option) => option.id === id);
     if (!option) return;
-
-    setSelectedOption(option);
 
     if (handleChange) handleChange(option);
 
@@ -132,7 +128,7 @@ function SelectUI(props: SelectUIProps) {
         <StyledInput
           autoComplete="off"
           readOnly
-          value={selectedOption.value}
+          value={currentOption.value}
           name={name}
           id={id}
           placeholder={placeholder}

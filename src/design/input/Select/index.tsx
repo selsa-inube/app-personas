@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { SelectUI } from "./interface";
 import { ISelectOption, InputSize, InputState, inputStates } from "./types";
+import { SelectUI } from "./interface";
 
 interface SelectProps {
   label?: string;

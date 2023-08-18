@@ -22,6 +22,7 @@ interface IAttribute {
 }
 
 interface IMovement {
+  id: string;
   date: string;
   reference: string;
   description: string;
@@ -54,4 +55,4 @@ interface IProduct {
   tags?: ITagProduct[];
 }
 
-export type { IProduct, ITagProduct, IAttribute };
+export type { IAttribute, IProduct, ITagProduct, IMovement };
