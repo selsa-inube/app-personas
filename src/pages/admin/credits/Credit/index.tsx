@@ -3,29 +3,45 @@ import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
+import { Select } from "@design/input/Select";
+import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import creditsMock from "@mocks/products/credits/credits.mocks";
+import { useEffect, useState } from "react";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
+import { useParams } from "react-router-dom";
 import { myCredits } from "../MyCredits/config/boxes";
 import { crumbsMyCredits } from "../MyCredits/config/navigation";
 import {
   extractMyCreditAttributes,
   myCreditAttributeBreakpoints,
 } from "../MyCredits/config/products";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { Text } from "@design/data/Text";
 
 function Credit() {
-  const [selectedProduct, ssetSelectedProduct] = useState(null);
   const { credit_id } = useParams();
+  const [selectedProduct, setSelectedProduct] = useState<string>();
+  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const mquery = useMediaQuery("(min-width: 1400px)");
 
+  useEffect(() => {
+    setSelectedProduct(credit_id);
+    const creditsOptions: ISelectOption[] = creditsMock.map((credit) => ({
+      id: credit.id,
+      value: `Crédito ${credit.title} - ${credit.id}`,
+      children: `Crédito ${credit.title} - ${credit.id}`,
+      label: credit.title,
+      isDisabled: false,
+    }));
+    setProductsOptions(creditsOptions);
+  }, []);
 
+  const handleChangeProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedProduct(event.target.value);
+  };
 
   return (
     <>
@@ -47,9 +63,13 @@ function Credit() {
         templateColumns={mquery ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s300">
-          <Text type="title" size="medium">
-            Tus productos
-          </Text>
+          <Select
+            id="products"
+            handleChange={handleChangeProduct}
+            label="Seleccion de producto"
+            options={productsOptions}
+            value={selectedProduct}
+          />
           <Box {...myCredits}>
             <Stack direction="column" gap="s075">
               {creditsMock.length === 0 ? (
