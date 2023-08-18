@@ -1,3 +1,4 @@
+import { StoryFn } from "@storybook/react";
 import { Select, SelectProps } from ".";
 import { props } from "./props";
 
@@ -13,36 +14,34 @@ const story = {
   },
 };
 
-export const Default = (args: SelectProps) => <Select {...args} />;
+export const Default: StoryFn<SelectProps> = (args) => <Select {...args} />;
 Default.args = {
   isDisabled: false,
   isFullWidth: false,
   isRequired: false,
-  type: "text",
-  inputSize: "compact",
+  inputSize: "wide",
   state: "pending",
   label: "Username",
   placeholder: "Enter your name",
   readOnly: false,
-  value: "Crédito libre inversión CL002806",
+  value: {
+    isDisabled: false,
+    id: "CL002807",
+    value: "Crédito libre inversión CL002807",
+  },
   options: [
     {
-      isDisabled: false,
-      isFocused: false,
       id: "CL002807",
-      children: "Crédito libre inversión CL002807",
+      value: "Crédito libre inversión CL002807",
     },
     {
-      isDisabled: false,
-      isFocused: false,
       id: "CL002808",
-      children: "Crédito libre inversión CL002808",
+      value: "Crédito libre inversión CL002808",
     },
     {
       isDisabled: true,
-      isFocused: false,
       id: "CL002809",
-      children: "Crédito libre inversión CL002809",
+      value: "Crédito libre inversión CL002809",
     },
   ],
 };

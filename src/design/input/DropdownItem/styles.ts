@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import styled from "styled-components";
 
 interface IStyledDropdownItem {
   isDisabled: boolean;
@@ -12,7 +12,8 @@ const StyledDropdownItem = styled.li<IStyledDropdownItem>`
   align-items: center;
   align-self: stretch;
   min-height: ${inube.spacing.s500};
-  padding: ${inube.spacing.s050} ${inube.spacing.s200} ${inube.spacing.s050} ${inube.spacing.s150};
+  padding: ${inube.spacing.s050} ${inube.spacing.s200} ${inube.spacing.s050}
+    ${inube.spacing.s150};
   cursor: ${({ isDisabled }) => (!isDisabled ? "pointer" : "not-allowed")};
 
   border-left: ${inube.spacing.s050} solid
@@ -40,7 +41,7 @@ const StyledDropdownItem = styled.li<IStyledDropdownItem>`
   }
 
   &:hover {
-    border-left: 5px solid
+    border-left: ${inube.spacing.s050} solid
       ${({ theme, isDisabled }) =>
         isDisabled
           ? "none"
