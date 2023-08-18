@@ -1,13 +1,13 @@
-import { useState, useRef } from "react";
-import { StyledDropdownItem } from "./styles";
 import { Text } from "@design/data/Text";
+import { useRef, useState } from "react";
+import { StyledDropdownItem } from "./styles";
 
 interface DropdownItemProps {
   id: string;
   isDisabled?: boolean;
   isFocused?: boolean;
   isSelected?: boolean;
-  children: string;
+  value: string;
   handleClick?: (id: string) => void;
   handleSelect?: (label: string) => void;
 }
@@ -18,7 +18,7 @@ function DropdownItem(props: DropdownItemProps) {
     isDisabled = false,
     isSelected = false,
     isFocused = false,
-    children,
+    value,
     handleClick,
     handleSelect,
   } = props;
@@ -27,13 +27,12 @@ function DropdownItem(props: DropdownItemProps) {
   const itemRef = useRef(null);
 
   const handleOptionClick = (label: string) => {
+    if (isDisabled) return;
     setSelect(true);
-    if (handleClick && typeof handleClick === "function") {
-      handleClick(id);
-    }
-    if (handleSelect && typeof handleSelect === "function") {
-      handleSelect(label);
-    }
+    
+    if (handleClick) handleClick(id);
+
+    if (handleSelect) handleSelect(label);
   };
 
   const interceptorOnBlur = () => {
@@ -46,13 +45,13 @@ function DropdownItem(props: DropdownItemProps) {
       isDisabled={isDisabled}
       isFocused={isFocused}
       isSelected={select}
-      onClick={() => handleOptionClick(children)}
+      onClick={() => handleOptionClick(value)}
       ref={itemRef}
       onBlur={interceptorOnBlur}
       tabIndex={0}
     >
       <Text size="medium" type="body">
-        {children}
+        {value}
       </Text>
     </StyledDropdownItem>
   );

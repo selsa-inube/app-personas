@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { TextFieldUI } from "./interface";
 import {
-  InputType,
   InputSize,
   InputState,
+  InputType,
   inputStates,
   inputTypes,
 } from "./types";
@@ -68,16 +68,12 @@ function TextField(props: TextFieldProps) {
     if (!readOnly) {
       setIsFocused(true);
     }
-    if (typeof handleFocus === "function") {
-      handleFocus(e);
-    }
+    if (handleFocus) handleFocus(e);
   };
 
   const interceptBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsFocused(false);
-    if (typeof handleBlur === "function") {
-      handleBlur(e);
-    }
+    if (handleBlur) handleBlur(e);
   };
 
   const transformedIsDisabled =

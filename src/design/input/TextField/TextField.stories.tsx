@@ -1,11 +1,12 @@
-import { TextField, TextFieldProps } from ".";
-import { props } from "./props";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
 } from "react-icons/md";
+import { TextField, TextFieldProps } from ".";
+import { props } from "./props";
 
 import { fondecom } from "@mocks/design/themes/fondecom";
+import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 
 const story = {
@@ -17,7 +18,10 @@ const story = {
   },
 };
 
-export const Default = (args: TextFieldProps) => <TextField {...args} />;
+export const Default: StoryFn<TextFieldProps> = (args) => (
+  <TextField {...args} />
+);
+
 Default.args = {
   isDisabled: false,
   isFullWidth: false,

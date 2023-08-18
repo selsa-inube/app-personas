@@ -9,9 +9,8 @@ type InputType = (typeof inputTypes)[number];
 
 interface ISelectOption {
   id: string;
-  label: string;
-  isDisabled: boolean;
-  children: string;
+  isDisabled?: boolean;
+  value: string;
 }
 
 interface IOption {
@@ -26,12 +25,12 @@ interface ISelectMessage {
   validMessage?: string;
 }
 
-export { inputStates, inputSizeTypes, inputTypes };
+export { inputSizeTypes, inputStates, inputTypes };
 export type {
-  InputState,
-  InputSize,
-  ISelectOption,
   IOption,
   ISelectMessage,
+  ISelectOption,
+  InputSize,
+  InputState,
   InputType,
 };

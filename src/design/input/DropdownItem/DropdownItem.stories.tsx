@@ -1,3 +1,4 @@
+import { StoryFn } from "@storybook/react";
 import { DropdownItem, DropdownItemProps } from ".";
 import { props } from "./props";
 
@@ -13,12 +14,14 @@ const story = {
   },
 };
 
-export const Default = (args: DropdownItemProps) => <DropdownItem {...args} />;
+export const Default: StoryFn<DropdownItemProps> = (args) => (
+  <DropdownItem {...args} />
+);
 Default.args = {
   isDisabled: false,
   isFocused: false,
   id: "CL002807",
-  children: "Crédito libre inversión CL002807",
+  value: "Crédito libre inversión CL002807",
 };
 
 const theme = {

@@ -1,3 +1,4 @@
+import { StoryFn } from "@storybook/react";
 import { Label, LabelProps } from ".";
 import { props } from "./props";
 
@@ -13,7 +14,7 @@ const story = {
   },
 };
 
-export const Default = (args: LabelProps) => <Label {...args} />;
+export const Default: StoryFn<LabelProps> = (args) => <Label {...args} />;
 Default.args = {
   size: "large",
   isDisabled: false,
