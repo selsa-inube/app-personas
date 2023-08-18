@@ -31,7 +31,7 @@ function Select(props: SelectProps) {
     placeholder,
     isDisabled = false,
     value = {
-      id: "empty",
+      id: "",
       value: "Seleccione una opción",
     },
     handleChange,
