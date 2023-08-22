@@ -1,12 +1,12 @@
+import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
-import { Icon } from "@design/data/Icon";
 
-import { StyledQuickAccess, StyledContainer, StyledLink } from "./styles";
-import { ILinks } from "./types";
+import { StyledContainer, StyledLink, StyledQuickAccess } from "./styles";
+import { ILink } from "./types";
 
 interface QuickAccessProps {
-  links: ILinks[];
+  links: ILink[];
 }
 
 function QuickAccess(props: QuickAccessProps) {
@@ -20,7 +20,7 @@ function QuickAccess(props: QuickAccessProps) {
           {links.map((link) => (
             <StyledLink key={link.label} to={link.path}>
               <Stack alignItems="center" gap="24px" padding="8px 16px">
-                <Icon icon={link.icon} spacing="none" appearance="dark"/>
+                <Icon icon={link.icon} spacing="none" appearance="dark" />
                 <Text size="medium">{link.label}</Text>
               </Stack>
             </StyledLink>
@@ -32,4 +32,4 @@ function QuickAccess(props: QuickAccessProps) {
 }
 
 export { QuickAccess };
-export type {QuickAccessProps}
+export type { QuickAccessProps };

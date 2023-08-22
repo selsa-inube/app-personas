@@ -96,8 +96,6 @@ function SelectUI(props: SelectUIProps) {
     onCloseOptions();
   };
 
-  const transformedIsInvalid = state === "invalid" ? true : false;
-
   return (
     <StyledContainer
       isFullWidth={isFullWidth}
@@ -110,7 +108,7 @@ function SelectUI(props: SelectUIProps) {
             htmlFor={id}
             isDisabled={isDisabled}
             isFocused={isFocused}
-            isInvalid={transformedIsInvalid}
+            isInvalid={state === "invalid"}
           >
             {label}
           </Label>
