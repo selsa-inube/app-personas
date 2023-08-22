@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import styled from "styled-components";
 
 const StyledDropdownMenu = styled.div`
   display: flex;
@@ -15,6 +15,9 @@ const StyledDropdownMenu = styled.div`
 
   box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15),
     0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  width: 100%;
+  z-index: 1;
 `;
 
 export { StyledDropdownMenu };
