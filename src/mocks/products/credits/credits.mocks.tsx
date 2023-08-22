@@ -24,6 +24,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499192,
       },
       {
         id: "movement-",
@@ -37,6 +38,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499191,
       },
       {
         id: "movement-2",
@@ -50,6 +52,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499193,
       },
       {
         id: "movement-3",
@@ -63,6 +66,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499194,
       },
       {
         id: "movement-4",
@@ -76,6 +80,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499195,
       },
       {
         id: "movement-5",
@@ -89,6 +94,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499196,
       },
       {
         id: "movement-6",
@@ -102,6 +108,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499197,
       },
       {
         id: "movement-7",
@@ -115,6 +122,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499198,
       },
       {
         id: "movement-8",
@@ -128,6 +136,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499199,
       },
       {
         id: "movement-9",
@@ -141,6 +150,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499191,
       },
       {
         id: "movement-10",
@@ -154,6 +164,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499192,
       },
       {
         id: "movement-11",
@@ -167,6 +178,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499193,
       },
       {
         id: "movement-12",
@@ -180,6 +192,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499194,
       },
       {
         id: "movement-13",
@@ -193,6 +206,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499195,
       },
       {
         id: "movement-14",
@@ -206,6 +220,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499196,
       },
       {
         id: "movement-15",
@@ -219,6 +234,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499197,
       },
       {
         id: "movement-16",
@@ -232,6 +248,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499198,
       },
       {
         id: "movement-17",
@@ -245,6 +262,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499199,
       },
       {
         id: "movement-18",
@@ -258,6 +276,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499191,
       },
       {
         id: "movement-19",
@@ -271,6 +290,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499192,
       },
       {
         id: "movement-20",
@@ -284,6 +304,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499193,
       },
       {
         id: "movement-21",
@@ -297,6 +318,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499194,
       },
       {
         id: "movement-22",
@@ -310,6 +332,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499195,
       },
       {
         id: "movement-23",
@@ -323,6 +346,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499196,
       },
       {
         id: "movement-24",
@@ -336,6 +360,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499197,
       },
       {
         id: "movement-25",
@@ -349,6 +374,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499198,
       },
       {
         id: "movement-26",
@@ -362,6 +388,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499199,
       },
       {
         id: "movement-27",
@@ -375,6 +402,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 4991910,
       },
       {
         id: "movement-28",
@@ -388,6 +416,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499111,
       },
       {
         id: "movement-29",
@@ -401,6 +430,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499112,
       },
     ],
     amortization: [
@@ -670,6 +700,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499113,
       },
       {
         id: "movement-2",
@@ -683,6 +714,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499114,
       },
       {
         id: "movement-3",
@@ -696,6 +728,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499191,
       },
       {
         id: "movement-4",
@@ -709,6 +742,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499192,
       },
       {
         id: "movement-5",
@@ -722,6 +756,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499193,
       },
       {
         id: "movement-6",
@@ -735,6 +770,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499194,
       },
       {
         id: "movement-7",
@@ -748,6 +784,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499195,
       },
       {
         id: "movement-8",
@@ -761,6 +798,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499196,
       },
       {
         id: "movement-9",
@@ -774,6 +812,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499197,
       },
       {
         id: "movement-10",
@@ -787,6 +826,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499198,
       },
       {
         id: "movement-11",
@@ -800,6 +840,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499199,
       },
       {
         id: "movement-12",
@@ -813,6 +854,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499191,
       },
       {
         id: "movement-13",
@@ -826,6 +868,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499192,
       },
       {
         id: "movement-14",
@@ -839,6 +882,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499193,
       },
       {
         id: "movement-15",
@@ -852,6 +896,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499194,
       },
       {
         id: "movement-16",
@@ -865,6 +910,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499195,
       },
       {
         id: "movement-17",
@@ -878,6 +924,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499196,
       },
       {
         id: "movement-18",
@@ -891,6 +938,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499197,
       },
       {
         id: "movement-19",
@@ -904,6 +952,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499198,
       },
       {
         id: "movement-20",
@@ -917,6 +966,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499199,
       },
       {
         id: "movement-21",
@@ -930,6 +980,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499191,
       },
       {
         id: "movement-22",
@@ -943,6 +994,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499192,
       },
       {
         id: "movement-23",
@@ -956,6 +1008,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499193,
       },
       {
         id: "movement-24",
@@ -969,6 +1022,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499194,
       },
       {
         id: "movement-25",
@@ -982,6 +1036,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499195,
       },
       {
         id: "movement-26",
@@ -995,6 +1050,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499196,
       },
       {
         id: "movement-27",
@@ -1008,6 +1064,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499197,
       },
       {
         id: "movement-28",
@@ -1021,6 +1078,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499198,
       },
       {
         id: "movement-29",
@@ -1034,6 +1092,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 49919,
       },
       {
         id: "movement-30",
@@ -1047,6 +1106,7 @@ const creditsMock: IProduct[] = [
         capitalization: 0,
         commission: 0,
         others: 0,
+        totalValue: 499191,
       },
     ],
     amortization: [

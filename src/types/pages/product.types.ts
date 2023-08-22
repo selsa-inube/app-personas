@@ -33,6 +33,7 @@ interface IMovement {
   capitalization: number;
   others: number;
   commission: number;
+  totalValue: number;
 }
 
 interface IAmortization {

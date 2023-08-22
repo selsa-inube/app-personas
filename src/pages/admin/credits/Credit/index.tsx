@@ -23,26 +23,30 @@ import {
   MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { MovementValue } from "../MyCredits/MovementValue";
+import { AmountValue } from "../MyCredits/AmountValue";
 import { crumbsMyCredits } from "../MyCredits/config/navigation";
 import {
   creditBox,
   creditTableBreakpoints,
   creditTableTitles,
 } from "./config/credit";
-import { StyledMovementsContainer } from "./styles";
+import { StyledIconView, StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 
 const creditTableActions: IAction[] = [
   {
     id: "1",
     actionName: "Valor",
-    content: (movement) => <MovementValue movement={movement} />,
+    content: (movement) => <AmountValue value={movement.totalValue} />,
   },
   {
     id: "2",
     actionName: "Ver",
-    content: () => <MdOpenInNew />,
+    content: () => (
+      <StyledIconView>
+        <MdOpenInNew />
+      </StyledIconView>
+    ),
   },
 ];
 
