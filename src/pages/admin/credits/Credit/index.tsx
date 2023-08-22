@@ -15,6 +15,7 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import creditsMock from "@mocks/products/credits/credits.mocks";
+import { IMovement } from "@ptypes/pages/product.types";
 import { useEffect, useState } from "react";
 import {
   MdArrowBack,
@@ -22,8 +23,8 @@ import {
   MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { crumbsMyCredits } from "../MyCredits/config/navigation";
 import { MovementValue } from "../MyCredits/MovementValue";
+import { crumbsMyCredits } from "../MyCredits/config/navigation";
 import {
   creditBox,
   creditTableBreakpoints,
@@ -51,6 +52,7 @@ function Credit() {
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
+  const [movements, setMovements] = useState<IMovement[]>();
 
   const mquery = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(min-width: 750px)");
@@ -80,6 +82,8 @@ function Credit() {
       data: foundCreditData,
       option: foundCreditOption,
     });
+
+    setMovements(foundCreditData.movements?.slice(0, 10));
   };
 
   const handleChangeProduct = (option: ISelectOption) => {
@@ -154,8 +158,8 @@ function Credit() {
                 titles={creditTableTitles}
                 breakpoints={creditTableBreakpoints}
                 actions={creditTableActions}
-                entries={selectedProduct.data.movements || []}
-                pageLength={selectedProduct.data.movements?.length || 0}
+                entries={movements || []}
+                pageLength={movements?.length || 0}
               />
               <Button
                 appearance="dark"
