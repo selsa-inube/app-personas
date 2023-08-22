@@ -2,7 +2,7 @@ interface IBreadcrumbItem {
   path: string;
   label: string;
   id: string;
-  isActive: boolean;
+  isActive?: boolean;
 }
 interface IBreadcrumbRoute {
   label: string;
