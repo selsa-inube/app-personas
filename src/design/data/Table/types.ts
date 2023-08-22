@@ -6,7 +6,7 @@ interface ITitle {
 
 interface IEntry {
   id: string;
-  [key: string]: string | number;
+  [key: string]: any;
 }
 
 interface IAction {

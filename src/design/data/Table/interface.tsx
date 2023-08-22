@@ -7,6 +7,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Text } from "../Text";
 import {
   StyledTable,
+  StyledTableContainer,
   StyledTbody,
   StyledTd,
   StyledThAction,
@@ -127,49 +128,62 @@ const TableUI = (props: TableUIProps) => {
   );
 
   return (
-    <StyledTable>
-      <StyledThead>
-        <StyledTr>
-          {TitleColumns.map((title) => (
-            <StyledThTitle
-              key={`title-${title.id}`}
-              aria-label={title.titleName}
-            >
-              <Text type="label" size="medium" appearance="dark">
-                {title.titleName}
-              </Text>
-            </StyledThTitle>
-          ))}
-          {showActionTitle(actions, mediaActionOpen)}
-        </StyledTr>
-      </StyledThead>
-      <StyledTbody>
-        {entries.map((entry) => (
-          <StyledTr
-            key={`entry-${entry.id}`}
-            aria-labelledby={`entry-${entry.id}`}
-          >
+    <StyledTableContainer>
+      <StyledTable>
+        <StyledThead>
+          <StyledTr>
             {TitleColumns.map((title) => (
-              <StyledTd key={`e-${entry[title.id]}`}>
-                <Text type="body" size="small" appearance="dark">
-                  {entry[title.id]}
+              <StyledThTitle
+                key={`title-${title.id}`}
+                aria-label={title.titleName}
+              >
+                <Text
+                  type="label"
+                  textAlign="center"
+                  size="medium"
+                  appearance="dark"
+                >
+                  {title.titleName}
                 </Text>
-              </StyledTd>
+              </StyledThTitle>
             ))}
-            {ShowAction(
-              portalId,
-              actions,
-              entry,
-              mediaActionOpen,
-              modalTitle,
-              titles,
-              infoTitle,
-              actionsTitle
-            )}
+            {showActionTitle(actions, mediaActionOpen)}
           </StyledTr>
-        ))}
-      </StyledTbody>
-    </StyledTable>
+        </StyledThead>
+        <StyledTbody>
+          {entries.map((entry, index) => (
+            <StyledTr
+              key={`entry-${entry.id}`}
+              aria-labelledby={`entry-${entry.id}`}
+              isLastTr={index === entries.length - 1}
+            >
+              {TitleColumns.map((title) => (
+                <StyledTd key={`e-${entry[title.id]}`}>
+                  <Text
+                    type="body"
+                    textAlign="center"
+                    size="small"
+                    appearance="dark"
+                  >
+                    {entry[title.id]}
+                  </Text>
+                </StyledTd>
+              ))}
+              {ShowAction(
+                portalId,
+                actions,
+                entry,
+                mediaActionOpen,
+                modalTitle,
+                titles,
+                infoTitle,
+                actionsTitle
+              )}
+            </StyledTr>
+          ))}
+        </StyledTbody>
+      </StyledTable>
+    </StyledTableContainer>
   );
 };
 

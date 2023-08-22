@@ -88,7 +88,6 @@ interface IStyledInput {
 const StyledInput = styled.input<IStyledInput>`
   cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   outline: none;
-  border-radius: ${inube.spacing.s100};
 
   font-family: ${({ theme }) =>
     theme.typography?.body?.medium?.font || inube.typography.body.medium.font};

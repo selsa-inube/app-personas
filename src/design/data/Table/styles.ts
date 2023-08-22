@@ -1,6 +1,15 @@
 import { inube } from "@design/tokens";
 import styled from "styled-components";
 
+const StyledTableContainer = styled.div`
+  border-radius: 8px;
+  border: solid 1px
+    ${({ theme }) =>
+      theme.color?.stroke?.divider?.regular ||
+      inube.color.stroke.divider.regular};
+  overflow: hidden;
+`;
+
 const StyledTable = styled.table`
   box-sizing: border-box;
   border-collapse: collapse;
@@ -22,11 +31,19 @@ const StyledTbody = styled.tbody`
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
 `;
 
-const StyledTr = styled.tr`
+interface IStyledTr {
+  isLastTr?: boolean;
+}
+
+const StyledTr = styled.tr<IStyledTr>`
   border-bottom: solid 1px
-    ${({ theme }) =>
-      theme.color?.stroke?.divider?.regular ||
-      inube.color.stroke.divider.regular};
+    ${({ isLastTr, theme }) => {
+      if (isLastTr) return "transparent";
+      return (
+        theme.color?.stroke?.divider?.regular ||
+        inube.color.stroke.divider.regular
+      );
+    }};
   height: 40px;
 `;
 
@@ -48,6 +65,7 @@ const StyledTd = styled.td`
 
 export {
   StyledTable,
+  StyledTableContainer,
   StyledTbody,
   StyledTd,
   StyledThAction,
