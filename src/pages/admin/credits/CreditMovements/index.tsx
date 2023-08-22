@@ -16,12 +16,12 @@ import { useEffect, useState } from "react";
 import { MdAdd, MdArrowBack, MdOpenInNew } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AmountValue } from "../MyCredits/AmountValue";
+import {
+  movementsTableBreakpoints,
+  movementsTableTitles,
+} from "../MyCredits/config/tables";
 import { StyledIconView, StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
-import {
-  movementsTableTitles,
-  movementsTableBreakpoints,
-} from "../MyCredits/config/tables";
 
 const creditTableActions: IAction[] = [
   {
@@ -100,7 +100,7 @@ function CreditMovements() {
   };
 
   const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-credits/${option.id}`);
+    navigate(`/my-credits/${option.id}/credit-movements`);
   };
 
   const handleAddMovements = () => {
