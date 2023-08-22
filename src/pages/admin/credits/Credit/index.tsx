@@ -23,7 +23,7 @@ import {
 } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { crumbsMyCredits } from "../MyCredits/config/navigation";
-import { MovementValue } from "./MovementValue";
+import { MovementValue } from "../MyCredits/MovementValue";
 import {
   creditBox,
   creditTableBreakpoints,
