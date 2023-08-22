@@ -16,6 +16,7 @@ import { theme } from "@config/theme";
 import { Page } from "@design/layout/Page";
 
 import { Credit } from "@pages/admin/credits/Credit";
+import { CreditMovements } from "@pages/admin/credits/CreditMovements";
 import { MyCredits } from "@pages/admin/credits/MyCredits";
 import { Home } from "@pages/admin/home";
 
@@ -28,6 +29,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="my-credits" element={<MyCredits />} />
         <Route path="my-credits/:credit_id" element={<Credit />} />
+        <Route
+          path="my-credits/:credit_id/credit-movements"
+          element={<CreditMovements />}
+        />
       </Route>
     )
   );

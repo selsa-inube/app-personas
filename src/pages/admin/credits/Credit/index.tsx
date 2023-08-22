@@ -15,7 +15,6 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import creditsMock from "@mocks/products/credits/credits.mocks";
-import { IMovement } from "@ptypes/pages/product.types";
 import { useEffect, useState } from "react";
 import {
   MdArrowBack,
@@ -27,11 +26,10 @@ import { AmountValue } from "../MyCredits/AmountValue";
 import { crumbsMyCredits } from "../MyCredits/config/navigation";
 import {
   creditBox,
-  creditTableBreakpoints,
-  creditTableTitles,
 } from "./config/credit";
 import { StyledIconView, StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { movementsTableBreakpoints, movementsTableTitles } from "../MyCredits/config/tables";
 
 const creditTableActions: IAction[] = [
   {
@@ -56,7 +54,6 @@ function Credit() {
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
-  const [movements, setMovements] = useState<IMovement[]>();
 
   const mquery = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(min-width: 750px)");
@@ -66,28 +63,23 @@ function Credit() {
   }, [credit_id]);
 
   const handleSortProduct = () => {
-    const creditsOptions: ISelectOption[] = creditsMock.map((credit) => ({
-      id: credit.id,
-      value: `${credit.title} - ${credit.id}`,
-    }));
+    const creditsOptions = creditsMock.map((credit) => {
+      const productOption = {
+        id: credit.id,
+        value: `${credit.title} - ${credit.id}`,
+      };
 
-    setProductsOptions(creditsOptions);
+      if (credit.id === credit_id) {
+        setSelectedProduct({
+          data: { ...credit, movements: credit.movements?.slice(0, 14) },
+          option: productOption,
+        });
+      }
 
-    const foundCreditData = creditsMock.find(
-      (credit) => credit.id === credit_id
-    );
-    const foundCreditOption = creditsOptions.find(
-      (credit) => credit.id === credit_id
-    );
-
-    if (!foundCreditData || !foundCreditOption) return;
-
-    setSelectedProduct({
-      data: foundCreditData,
-      option: foundCreditOption,
+      return productOption;
     });
 
-    setMovements(foundCreditData.movements?.slice(0, 10));
+    setProductsOptions(creditsOptions);
   };
 
   const handleChangeProduct = (option: ISelectOption) => {
@@ -101,7 +93,7 @@ function Credit() {
       <Stack direction="column" gap="s300">
         <Breadcrumbs crumbs={crumbsMyCredits} />
         <Title
-          title="Consulta de Créditos"
+          title="Consulta de créditos"
           subtitle="Información detallada de tus productos de crédito"
           icon={<MdArrowBack />}
           navigatePage="/my-credits"
@@ -159,16 +151,18 @@ function Credit() {
             <StyledMovementsContainer>
               <Table
                 id="modals"
-                titles={creditTableTitles}
-                breakpoints={creditTableBreakpoints}
+                titles={movementsTableTitles}
+                breakpoints={movementsTableBreakpoints}
                 actions={creditTableActions}
-                entries={movements || []}
-                pageLength={movements?.length || 0}
+                entries={selectedProduct.data.movements || []}
+                pageLength={selectedProduct.data.movements?.length || 0}
               />
               <Button
+                type="link"
                 appearance="dark"
                 variant="none"
                 iconBefore={<MdOutlineAssignmentTurnedIn />}
+                path={`/my-credits/${credit_id}/credit-movements`}
               >
                 Movimientos
               </Button>
