@@ -1,12 +1,12 @@
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 
-import { StyledNav, StyledList, StyledContent, StyledFooter } from "./styles";
-import { ISections } from "@design/layout/Page/types";
+import { ISection } from "@design/layout/Page/types";
+import { StyledContent, StyledFooter, StyledList, StyledNav } from "./styles";
 
 interface NavProps {
   title?: string;
-  sections: ISections[];
+  sections: ISection[];
   currentLocation: string;
 }
 
@@ -37,7 +37,10 @@ function Nav(props: NavProps) {
                 key={link.label}
                 path={link.path}
                 icon={link.icon}
-                selected={link.path === currentLocation ? true : false}
+                selected={
+                  currentLocation === link.path ||
+                  currentLocation.startsWith(link.path + "/")
+                }
               >
                 {link.label}
               </NavLink>

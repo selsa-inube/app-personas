@@ -1,7 +1,7 @@
-interface ILinks {
+interface ILink {
     label: string;
     path: string;
     icon: React.JSX.Element;
   }
   
-  export type { ILinks }
+  export type { ILink }

@@ -4,7 +4,6 @@ import { Stack } from "../../layout/Stack";
 
 import { MdChevronRight } from "react-icons/md";
 
-import { useState } from "react";
 import { StyledLink, StyledNavLink } from "./styles";
 
 interface NavLinkProps {

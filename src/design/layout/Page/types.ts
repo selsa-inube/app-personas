@@ -1,18 +1,18 @@
-import { ILinks } from "@components/cards/QuickAccess/types";
+import { ILink } from "@components/cards/QuickAccess/types";
 
-interface IHeader{
-    logoURL: string;
-    username: string;
-    client?: string; 
+interface IHeader {
+  logoURL: string;
+  username: string;
+  client?: string;
 }
-interface INav{ 
-    title?: string,
-    sections: ISections[];
-  }
-
-interface ISections{
-    title: string;
-    links: ILinks[];
+interface INav {
+  title?: string;
+  sections: ISection[];
 }
 
-  export type {IHeader, INav, ISections};
+interface ISection {
+  title: string;
+  links: ILink[];
+}
+
+export type { IHeader, INav, ISection };

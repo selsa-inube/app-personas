@@ -1,16 +1,16 @@
+import { Text } from "@design/data/Text";
+import { MdCheckCircle, MdOutlineError } from "react-icons/md";
 import { TextFieldProps } from ".";
 import { Label } from "../Label";
-import { Text } from "@design/data/Text";
 import { ITextFieldMessage } from "./types";
-import { MdOutlineError, MdCheckCircle } from "react-icons/md";
 
 import {
   StyledContainer,
   StyledContainerLabel,
-  StyledInputContainer,
+  StyledErrorMessageContainer,
   StyledIcon,
   StyledInput,
-  StyledErrorMessageContainer,
+  StyledInputContainer,
   StyledValidMessageContainer,
 } from "./styles";
 
@@ -69,8 +69,6 @@ function TextFieldUI(props: TextFieldProps) {
     readOnly,
   } = props;
 
-  const transformedIsInvalid = state === "invalid" ? true : false;
-
   return (
     <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
       <StyledContainerLabel
@@ -83,7 +81,7 @@ function TextFieldUI(props: TextFieldProps) {
             htmlFor={id}
             isDisabled={isDisabled}
             isFocused={isFocused}
-            isInvalid={transformedIsInvalid}
+            isInvalid={state === "invalid"}
           >
             {label}
           </Label>
