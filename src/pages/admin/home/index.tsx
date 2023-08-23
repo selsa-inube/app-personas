@@ -15,17 +15,26 @@ import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
+  MdOutlineRealEstateAgent
 } from "react-icons/md";
-import { cards, credits, savings } from "./config/boxes";
+import { cards, credits, savings, investments } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
 } from "./config/products";
 import { cardProducts, savingsProducts } from "./mocks";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
+import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
+  const userId = "1";
+
+  const getInvestmentProducts = ( userId: string ) => {
+    return investmentsMock.filter((investment) => investment.userOwner === userId);
+  };
+
+  const investmentProducts = getInvestmentProducts( userId );
 
   return (
     <>
@@ -104,6 +113,24 @@ function Home() {
               )}
             </Stack>
           </Box>
+          {investmentProducts.length > 0 && (
+            <Box {...investments}>
+              <Stack direction="column" gap="s075">
+                {investmentProducts.map((investment) => (
+                  <Product
+                    id={investment.id}
+                    key={investment.id}
+                    title={investment.title}
+                    description={investment.id}
+                    attributes={investment.attributes}
+                    tags={investment.tags}
+                    icon={<MdOutlineRealEstateAgent />}
+                    navigateTo={`/my-investments/${investment.id}`}
+                  />
+                ))}
+              </Stack>
+            </Box>
+          )}
         </Stack>
         {mquery && <QuickAccess links={quickLinks} />}
       </Grid>

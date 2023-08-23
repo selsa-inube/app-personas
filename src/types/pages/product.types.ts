@@ -54,6 +54,7 @@ interface IProduct {
   movements?: IMovement[];
   amortization?: IAmortization[];
   tags?: ITagProduct[];
+  userOwner?: string;
 }
 
 export type { IAttribute, IProduct, ITagProduct, IMovement };
