@@ -1,13 +1,14 @@
 import {
-  MdOutlineAirplaneTicket,
-  MdOutlineAccountBalanceWallet,
-  MdOutlineAssignment,
-  MdOutlineCreditCard,
   MdOutlineAccountBalance,
-  MdOutlineSavings,
-  MdOutlineHouse,
-  MdOutlineSportsCricket,
+  MdOutlineAccountBalanceWallet,
+  MdOutlineAirplaneTicket,
+  MdOutlineAssignment,
   MdOutlineAttachMoney,
+  MdOutlineBalance,
+  MdOutlineCreditCard,
+  MdOutlineHouse,
+  MdOutlineSavings,
+  MdOutlineSportsCricket,
 } from "react-icons/md";
 
 const nav = {
@@ -34,6 +35,11 @@ const nav = {
           label: "Mis tarjetas",
           path: "/products",
           icon: <MdOutlineCreditCard />,
+        },
+        {
+          label: "Mis inversiones",
+          path: "/my-investments",
+          icon: <MdOutlineBalance />,
         },
         {
           label: "Mis solicitudes",
