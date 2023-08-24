@@ -3,6 +3,8 @@ import {
   MdOutlineAccountBalance,
   MdOutlineCreditScore,
   MdOutlineSavings,
+  MdOutlineBalance,
+  MdOutlineAdd
 } from "react-icons/md";
 
 const savings = {
@@ -42,4 +44,17 @@ const cards = {
   },
 };
 
-export { cards, credits, savings };
+const investments = {
+  title: "Inversiones",
+  subtitle: "Resumen productos de inversión",
+  icon: <MdOutlineBalance />,
+  navigateTo: "/my-investments",
+  collapsing: { start: false, allow: false },
+  button: {
+    label: "Solicitar CDAT",
+    icon: <MdOutlineAdd/>,
+    path: "/my-investments",
+  }
+};
+
+export { cards, credits, savings, investments };
