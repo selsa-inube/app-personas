@@ -23,7 +23,6 @@ const movementsTableBreakpoints = [
   { breakpoint: "(max-width: 890px)", totalColumns: 3 },
   { breakpoint: "(max-width: 650px)", totalColumns: 2 },
   { breakpoint: "(max-width: 506px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 416px)", totalColumns: 1 },
 ];
 
 export { movementsTableBreakpoints, movementsTableTitles };
