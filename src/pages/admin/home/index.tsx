@@ -30,11 +30,11 @@ function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
   const userId = "1";
 
-  const getInvestmentProducts = ( userId: string ) => {
+  const getInvestmentProducts = () => {
     return investmentsMock.filter((investment) => investment.userOwner === userId);
   };
 
-  const investmentProducts = getInvestmentProducts( userId );
+  const investmentProducts = getInvestmentProducts();
 
   return (
     <>
