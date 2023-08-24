@@ -37,6 +37,7 @@ const creditTableActions: IAction[] = [
         <MdOpenInNew />
       </StyledIconView>
     ),
+    mobilePriority: true,
   },
 ];
 
@@ -171,6 +172,7 @@ function CreditMovements() {
               actions={creditTableActions}
               entries={selectedProduct.movements}
               pageLength={selectedProduct.movements.length}
+              hideMobileResume
             />
             <Button
               appearance="primary"

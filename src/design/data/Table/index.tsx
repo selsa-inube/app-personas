@@ -16,6 +16,8 @@ interface TableProps {
   modalTitle?: string;
   infoTitle?: string;
   actionsTitle?: string;
+  hideMobileResume?: boolean;
+  mobileResumeTitle?: string;
 }
 
 const Table = (props: TableProps) => {
@@ -30,6 +32,8 @@ const Table = (props: TableProps) => {
     modalTitle,
     infoTitle,
     actionsTitle,
+    hideMobileResume,
+    mobileResumeTitle,
   } = props;
 
   const filteredEntries = useMemo(() => {
@@ -97,6 +101,8 @@ const Table = (props: TableProps) => {
           modalTitle={modalTitle!}
           infoTitle={infoTitle!}
           actionsTitle={actionsTitle!}
+          hideMobileResume={hideMobileResume}
+          mobileResumeTitle={mobileResumeTitle}
         />
         {filteredEntries.length > pageLength && (
           <Pagination
