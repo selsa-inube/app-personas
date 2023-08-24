@@ -11,10 +11,10 @@ interface BoxAttributeProps {
 function BoxAttribute(props: BoxAttributeProps) {
   const { label, value } = props;
 
-  const smallScreen = useMediaQuery("(min-width: 450px)");
+  const smallScreen = useMediaQuery("(max-width: 750px)");
 
   return (
-    <StyledBoxAttribute>
+    <StyledBoxAttribute smallScreen={smallScreen}>
       <Stack justifyContent="space-between" alignItems="center">
         <Text
           type="label"
