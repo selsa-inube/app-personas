@@ -39,42 +39,33 @@ function totalTitleColumns(
   return priorityColumns(titles, numColumns);
 }
 
-function showActionsTitles(
+const renderActionTitle = (actionName: string, key?: React.Key) => (
+  <StyledThAction key={key}>
+    <Text type="label" size="medium" textAlign="center" appearance="dark">
+      {actionName}
+    </Text>
+  </StyledThAction>
+);
+
+function renderActionsTitles(
   actions: IAction[],
   mediaQuery: boolean,
   mobileResumeTitle?: string,
   hideMobileResume?: boolean
 ) {
-  const mobileOption = actions.find((title) => title.mobilePriority);
+  const actionsList =
+    hideMobileResume && mediaQuery
+      ? actions.filter((title) => title.mobilePriority)
+      : actions;
 
-  if (mobileOption && hideMobileResume && mediaQuery) {
-    return (
-      <StyledThAction>
-        <Text type="label" size="medium" textAlign="center" appearance="dark">
-          {mobileOption.actionName}
-        </Text>
-      </StyledThAction>
-    );
-  }
-
-  return !mediaQuery ? (
-    actions.map((action) => (
-      <StyledThAction key={`action-${action.id}`}>
-        <Text type="label" size="medium" textAlign="center" appearance="dark">
-          {action.actionName}
-        </Text>
-      </StyledThAction>
-    ))
-  ) : (
-    <StyledThAction>
-      <Text type="label" size="medium" textAlign="center" appearance="dark">
-        {mobileResumeTitle ? mobileResumeTitle : "Abrir"}
-      </Text>
-    </StyledThAction>
-  );
+  return mediaQuery && !hideMobileResume
+    ? renderActionTitle(mobileResumeTitle ? mobileResumeTitle : "Abrir")
+    : actionsList.map((action) =>
+        renderActionTitle(action.actionName, `action-${action.id}`)
+      );
 }
 
-function ShowActions(
+function renderActions(
   portalId: string,
   actions: IAction[],
   entry: IEntry,
@@ -85,21 +76,12 @@ function ShowActions(
   actionsTitle: string,
   hideMobileResume?: boolean
 ) {
-  const mobileOption = actions.find((action) => action.mobilePriority);
+  const actionsList =
+    hideMobileResume && mediaQuery
+      ? actions.filter((action) => action.mobilePriority)
+      : actions;
 
-  if (mobileOption && hideMobileResume && mediaQuery) {
-    return <StyledTd>{mobileOption.content(entry)}</StyledTd>;
-  }
-
-  return !mediaQuery ? (
-    <>
-      {actions.map((action) => (
-        <StyledTd key={`${entry.id}-${action.id}`}>
-          {action.content(entry)}
-        </StyledTd>
-      ))}
-    </>
-  ) : (
+  return mediaQuery && !hideMobileResume ? (
     <StyledTd>
       <DisplayEntry
         portalId={portalId}
@@ -111,6 +93,12 @@ function ShowActions(
         actionsTitle={actionsTitle}
       />
     </StyledTd>
+  ) : (
+    actionsList.map((action) => (
+      <StyledTd key={`${entry.id}-${action.id}`}>
+        {action.content(entry)}
+      </StyledTd>
+    ))
   );
 }
 
@@ -175,7 +163,7 @@ const TableUI = (props: TableUIProps) => {
                 </Text>
               </StyledThTitle>
             ))}
-            {showActionsTitles(
+            {renderActionsTitles(
               actions,
               mediaActionOpen,
               mobileResumeTitle,
@@ -202,7 +190,7 @@ const TableUI = (props: TableUIProps) => {
                   </Text>
                 </StyledTd>
               ))}
-              {ShowActions(
+              {renderActions(
                 portalId,
                 actions,
                 entry,
