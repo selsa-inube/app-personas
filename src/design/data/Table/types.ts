@@ -13,6 +13,7 @@ interface IAction {
   id: string;
   actionName: string;
   content: (entry: IEntry) => React.ReactNode;
+  mobilePriority?: boolean;
 }
 
 interface IBreakpoint {

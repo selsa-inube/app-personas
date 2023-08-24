@@ -25,11 +25,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AmountValue } from "../MyCredits/AmountValue";
 import { crumbsMyCredits } from "../MyCredits/config/navigation";
 import {
-  creditBox,
-} from "./config/credit";
+  movementsTableBreakpoints,
+  movementsTableTitles,
+} from "../MyCredits/config/tables";
+import { creditBox } from "./config/credit";
 import { StyledIconView, StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
-import { movementsTableBreakpoints, movementsTableTitles } from "../MyCredits/config/tables";
 
 const creditTableActions: IAction[] = [
   {
@@ -45,6 +46,7 @@ const creditTableActions: IAction[] = [
         <MdOpenInNew />
       </StyledIconView>
     ),
+    mobilePriority: true,
   },
 ];
 
@@ -56,11 +58,11 @@ function Credit() {
   const navigate = useNavigate();
 
   const mquery = useMediaQuery("(min-width: 1400px)");
-  const isMobile = useMediaQuery("(min-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
 
   useEffect(() => {
     handleSortProduct();
-  }, [credit_id]);
+  }, [credit_id, isMobile]);
 
   const handleSortProduct = () => {
     const creditsOptions = creditsMock.map((credit) => {
@@ -71,7 +73,10 @@ function Credit() {
 
       if (credit.id === credit_id) {
         setSelectedProduct({
-          data: { ...credit, movements: credit.movements?.slice(0, 14) },
+          data: {
+            ...credit,
+            movements: credit.movements?.slice(0, isMobile ? 5 : 10),
+          },
           option: productOption,
         });
       }
@@ -122,19 +127,19 @@ function Credit() {
             {...creditBox}
           >
             <Stack direction="column" gap="s100">
-              <Stack gap="s100" direction={isMobile ? "row" : "column"}>
+              <Stack gap="s100" direction={isMobile ? "column" : "row"}>
                 <BoxAttribute label="Fecha de préstamo" value="15/Ene/2023" />
                 <BoxAttribute label="Valor de préstamo" value="$8.300.000" />
               </Stack>
-              <Stack gap="s100" direction={isMobile ? "row" : "column"}>
+              <Stack gap="s100" direction={isMobile ? "column" : "row"}>
                 <BoxAttribute label="Próximo vencimiento" value="15/Abr/2023" />
                 <BoxAttribute label="Próximo pago" value="$500.000" />
               </Stack>
-              <Stack gap="s100" direction={isMobile ? "row" : "column"}>
+              <Stack gap="s100" direction={isMobile ? "column" : "row"}>
                 <BoxAttribute label="Cuota" value="5 de 12" />
                 <BoxAttribute label="Periodicidad" value="Mensual" />
               </Stack>
-              <Stack gap="s100" direction={isMobile ? "row" : "column"}>
+              <Stack gap="s100" direction={isMobile ? "column" : "row"}>
                 <BoxAttribute
                   label="Medio de pago"
                   value="Grúas de occidente"
@@ -156,6 +161,7 @@ function Credit() {
                 actions={creditTableActions}
                 entries={selectedProduct.data.movements || []}
                 pageLength={selectedProduct.data.movements?.length || 0}
+                hideMobileResume
               />
               <Button
                 type="link"
