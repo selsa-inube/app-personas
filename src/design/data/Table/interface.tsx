@@ -39,9 +39,26 @@ function totalTitleColumns(
   return priorityColumns(titles, numColumns);
 }
 
-function showActionTitle(actionTitle: IAction[], mediaQuery: boolean) {
+function showActionsTitles(
+  actions: IAction[],
+  mediaQuery: boolean,
+  mobileResumeTitle?: string,
+  hideMobileResume?: boolean
+) {
+  const mobileOption = actions.find((title) => title.mobilePriority);
+
+  if (mobileOption && hideMobileResume && mediaQuery) {
+    return (
+      <StyledThAction>
+        <Text type="label" size="medium" textAlign="center" appearance="dark">
+          {mobileOption.actionName}
+        </Text>
+      </StyledThAction>
+    );
+  }
+
   return !mediaQuery ? (
-    actionTitle.map((action) => (
+    actions.map((action) => (
       <StyledThAction key={`action-${action.id}`}>
         <Text type="label" size="medium" textAlign="center" appearance="dark">
           {action.actionName}
@@ -51,25 +68,32 @@ function showActionTitle(actionTitle: IAction[], mediaQuery: boolean) {
   ) : (
     <StyledThAction>
       <Text type="label" size="medium" textAlign="center" appearance="dark">
-        Open
+        {mobileResumeTitle ? mobileResumeTitle : "Abrir"}
       </Text>
     </StyledThAction>
   );
 }
 
-function ShowAction(
+function ShowActions(
   portalId: string,
-  actionContent: IAction[],
+  actions: IAction[],
   entry: IEntry,
   mediaQuery: boolean,
   modalTitle: string,
   titleLabels: ITitle[],
   infoTitle: string,
-  actionsTitle: string
+  actionsTitle: string,
+  hideMobileResume?: boolean
 ) {
+  const mobileOption = actions.find((action) => action.mobilePriority);
+
+  if (mobileOption && hideMobileResume && mediaQuery) {
+    return <StyledTd>{mobileOption.content(entry)}</StyledTd>;
+  }
+
   return !mediaQuery ? (
     <>
-      {actionContent.map((action) => (
+      {actions.map((action) => (
         <StyledTd key={`${entry.id}-${action.id}`}>
           {action.content(entry)}
         </StyledTd>
@@ -81,7 +105,7 @@ function ShowAction(
         portalId={portalId}
         entry={entry}
         title={modalTitle}
-        actions={actionContent}
+        actions={actions}
         titleLabels={titleLabels}
         infoTitle={infoTitle}
         actionsTitle={actionsTitle}
@@ -99,6 +123,8 @@ interface TableUIProps {
   modalTitle: string;
   infoTitle: string;
   actionsTitle: string;
+  hideMobileResume?: boolean;
+  mobileResumeTitle?: string;
 }
 
 const TableUI = (props: TableUIProps) => {
@@ -111,6 +137,8 @@ const TableUI = (props: TableUIProps) => {
     modalTitle,
     infoTitle,
     actionsTitle,
+    hideMobileResume,
+    mobileResumeTitle,
   } = props;
 
   const mediaActionOpen = useMediaQuery("(max-width: 850px)");
@@ -147,7 +175,12 @@ const TableUI = (props: TableUIProps) => {
                 </Text>
               </StyledThTitle>
             ))}
-            {showActionTitle(actions, mediaActionOpen)}
+            {showActionsTitles(
+              actions,
+              mediaActionOpen,
+              mobileResumeTitle,
+              hideMobileResume
+            )}
           </StyledTr>
         </StyledThead>
         <StyledTbody>
@@ -169,7 +202,7 @@ const TableUI = (props: TableUIProps) => {
                   </Text>
                 </StyledTd>
               ))}
-              {ShowAction(
+              {ShowActions(
                 portalId,
                 actions,
                 entry,
@@ -177,7 +210,8 @@ const TableUI = (props: TableUIProps) => {
                 modalTitle,
                 titles,
                 infoTitle,
-                actionsTitle
+                actionsTitle,
+                hideMobileResume
               )}
             </StyledTr>
           ))}
