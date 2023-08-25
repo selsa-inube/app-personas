@@ -17,8 +17,14 @@ interface ITagProduct {
 
 interface IAttribute {
   id: string;
-  label: string;
-  value: number | string;
+  label?: string;
+  value?: number | string;
+  expirationDate?: string;
+  requestDate?: string;
+  description?: string;
+  interestRate?: number;
+  deadlineDays?: number;
+  beneficiaries?: string[];
 }
 
 interface IMovement {
