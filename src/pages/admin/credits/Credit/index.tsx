@@ -37,6 +37,7 @@ const creditTableActions: IAction[] = [
     id: "1",
     actionName: "Valor",
     content: (movement) => <AmountValue value={movement.totalValue} />,
+    mobilePriority: true,
   },
   {
     id: "2",
