@@ -3,31 +3,35 @@ import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
-import { Breadcrumbs, IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
+import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import creditsMock from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
-import { MdAdd, MdArrowBack, MdOpenInNew } from "react-icons/md";
+import { MdArrowBack, MdOpenInNew, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AmountValue } from "../MyCredits/AmountValue";
 import {
-  movementsTableBreakpoints,
-  movementsTableTitles,
+  amortizationTableBreakpoints,
+  amortizationTableTitles,
 } from "../MyCredits/config/tables";
-import { StyledIconView, StyledMovementsContainer } from "./styles";
+import { StyledIconView, StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { Box } from "@components/cards/Box";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 
 const creditTableActions: IAction[] = [
   {
     id: "1",
-    actionName: "Valor",
-    content: (movement) => <AmountValue value={movement.totalValue} />,
+    actionName: "Cuota",
+    content: (amortization) => (
+      <AmountValue value={amortization.totalMonthlyValue} />
+    ),
+    mobilePriority: true,
   },
   {
     id: "2",
@@ -41,17 +45,18 @@ const creditTableActions: IAction[] = [
   },
 ];
 
-function CreditMovements() {
+function CreditAmortization() {
   const { credit_id } = useParams();
-  const [selectedProduct, setSelectedProduct] =
-    useState<ISelectedProductState>();
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-
   const mquery = useMediaQuery("(min-width: 1400px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
 
-  const crumbsMovements: IBreadcrumbItem[] = [
+  const [selectedProduct, setSelectedProduct] = useState<
+    ISelectedProductState | undefined
+  >(undefined);
+  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+
+  const crumbsAmortization = [
     {
       id: "home",
       path: "/",
@@ -68,9 +73,9 @@ function CreditMovements() {
       label: "Consulta de créditos",
     },
     {
-      id: "creditMovements",
-      path: `/my-credits/${credit_id}/credit-movements`,
-      label: "Movimientos",
+      id: "creditAmortization",
+      path: `/my-credits/${credit_id}/credit-amortization`,
+      label: "Plan de pagos",
       isActive: true,
     },
   ];
@@ -83,14 +88,23 @@ function CreditMovements() {
     const creditsOptions = creditsMock.map((credit) => {
       const productOption = {
         id: credit.id,
+        title: credit.title,
         value: `${credit.title} - ${credit.id}`,
       };
 
       if (credit.id === credit_id) {
         setSelectedProduct({
-          totalMovements: credit.movements?.length || 0,
-          movements: credit.movements?.slice(0, 14) || [],
+          totalAmortization: credit.amortization?.length || 0,
+          amortization: credit.amortization || [],
           option: productOption,
+          interestRateAttr: credit.attributes.find(
+            (attr) => attr.id === "interest_rate"
+          ) || { id: "", label: "", value: "" },
+          termsAttr: credit.attributes.find((attr) => attr.id === "terms") || {
+            id: "",
+            label: "",
+            value: "",
+          },
         });
       }
 
@@ -101,37 +115,7 @@ function CreditMovements() {
   };
 
   const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-credits/${option.id}/credit-movements`);
-  };
-
-  const handleAddMovements = () => {
-    setLoading(true);
-
-    setTimeout(() => {
-      try {
-        if (!selectedProduct?.movements) return;
-
-        const foundProduct = creditsMock.find(
-          (credit) => credit.id === credit_id
-        );
-
-        if (!foundProduct) return;
-
-        const newMovements = foundProduct.movements?.slice(
-          selectedProduct.movements.length,
-          selectedProduct.movements.length + 5
-        );
-
-        if (newMovements) {
-          setSelectedProduct({
-            ...selectedProduct,
-            movements: [...selectedProduct.movements, ...newMovements],
-          });
-        }
-      } finally {
-        setLoading(false);
-      }
-    }, 500);
+    navigate(`/my-credits/${option.id}/credit-amortization`);
   };
 
   if (!selectedProduct) return null;
@@ -139,10 +123,10 @@ function CreditMovements() {
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsMovements} />
+        <Breadcrumbs crumbs={crumbsAmortization} />
         <Title
-          title="Movimientos"
-          subtitle="Movimientos recientes del producto"
+          title="Plan de pagos"
+          subtitle="Detalle de la amortización del crédito"
           icon={<MdArrowBack />}
           navigatePage={`/my-credits/${credit_id}`}
         />
@@ -164,30 +148,33 @@ function CreditMovements() {
             value={selectedProduct?.option}
             isFullWidth
           />
-          <StyledMovementsContainer>
+          <Box
+            title={selectedProduct.option.title}
+            subtitle={selectedProduct.option.id}
+            icon={<MdOutlineAttachMoney size={34} />}
+            collapsing={{ start: false, allow: false }}
+          >
+            <Stack direction={isMobile ? "column" : "row"} gap="s100">
+              <BoxAttribute
+                label={selectedProduct.interestRateAttr.label}
+                value={selectedProduct.interestRateAttr.value}
+              />
+              <BoxAttribute
+                label={selectedProduct.termsAttr.label}
+                value={selectedProduct.termsAttr.value}
+              />
+            </Stack>
+          </Box>
+          <StyledAmortizationContainer>
             <Table
               id="modals"
-              titles={movementsTableTitles}
-              breakpoints={movementsTableBreakpoints}
+              titles={amortizationTableTitles}
+              breakpoints={amortizationTableBreakpoints}
               actions={creditTableActions}
-              entries={selectedProduct.movements}
-              pageLength={selectedProduct.movements.length}
+              entries={selectedProduct.amortization}
               hideMobileResume
             />
-            <Button
-              appearance="primary"
-              variant="none"
-              iconBefore={<MdAdd />}
-              handleClick={handleAddMovements}
-              load={loading}
-              disabled={
-                selectedProduct.movements.length ===
-                selectedProduct.totalMovements
-              }
-            >
-              Ver más movimientos
-            </Button>
-          </StyledMovementsContainer>
+          </StyledAmortizationContainer>
         </Stack>
         {mquery && <QuickAccess links={quickLinks} />}
       </Grid>
@@ -195,4 +182,4 @@ function CreditMovements() {
   );
 }
 
-export { CreditMovements };
+export { CreditAmortization };
