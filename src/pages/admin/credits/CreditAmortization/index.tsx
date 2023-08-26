@@ -51,9 +51,8 @@ function CreditAmortization() {
   const mquery = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 750px)");
 
-  const [selectedProduct, setSelectedProduct] = useState<
-    ISelectedProductState | undefined
-  >(undefined);
+  const [selectedProduct, setSelectedProduct] =
+    useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
 
   const crumbsAmortization = [
@@ -118,6 +117,26 @@ function CreditAmortization() {
     navigate(`/my-credits/${option.id}/credit-amortization`);
   };
 
+  function formatCurrency(value: number) {
+    return value.toLocaleString("es-CO", {
+      style: "currency",
+      currency: "COP",
+    });
+  }
+
+  const currencyAmortization = selectedProduct?.amortization.map((entry) => {
+    const currencyOthers = formatCurrency(entry.others);
+    const currencyInterest = formatCurrency(entry.interest);
+    const currencyCapitalPayment = formatCurrency(entry.capitalPayment);
+
+    return {
+      ...entry,
+      others: currencyOthers,
+      interest: currencyInterest,
+      capitalPayment: currencyCapitalPayment,
+    };
+  });
+
   if (!selectedProduct) return null;
 
   return (
@@ -171,7 +190,7 @@ function CreditAmortization() {
               titles={amortizationTableTitles}
               breakpoints={amortizationTableBreakpoints}
               actions={creditTableActions}
-              entries={selectedProduct.amortization}
+              entries={currencyAmortization || []}
               hideMobileResume
             />
           </StyledAmortizationContainer>
