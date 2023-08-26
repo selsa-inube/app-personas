@@ -12,6 +12,14 @@ function extractCreditAttributes(credit: IProduct) {
   );
 }
 
+const investmentAttributes = ["investment_value"];
+
+function extractInvestmentAttributes(investment: IProduct) {
+  return investment.attributes.filter((attribute) =>
+    investmentAttributes.includes(attribute.id)
+  );
+}
+
 const creditAttributeBreakpoints = {
   "(min-width: 1100px)": 3,
   "(min-width: 950px)": 2,
@@ -21,4 +29,8 @@ const creditAttributeBreakpoints = {
   "(max-width: 660px)": 1,
 };
 
-export { creditAttributeBreakpoints, extractCreditAttributes };
+export {
+  creditAttributeBreakpoints,
+  extractCreditAttributes,
+  extractInvestmentAttributes,
+};
