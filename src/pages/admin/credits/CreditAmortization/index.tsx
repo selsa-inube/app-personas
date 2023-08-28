@@ -1,3 +1,5 @@
+import { Box } from "@components/cards/Box";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
@@ -10,7 +12,7 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import creditsMock from "@mocks/products/credits/credits.mocks";
+import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
 import { MdArrowBack, MdOpenInNew, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,10 +21,8 @@ import {
   amortizationTableBreakpoints,
   amortizationTableTitles,
 } from "../MyCredits/config/tables";
-import { StyledIconView, StyledAmortizationContainer } from "./styles";
+import { StyledAmortizationContainer, StyledIconView } from "./styles";
 import { ISelectedProductState } from "./types";
-import { Box } from "@components/cards/Box";
-import { BoxAttribute } from "@components/cards/BoxAttribute";
 
 const creditTableActions: IAction[] = [
   {
