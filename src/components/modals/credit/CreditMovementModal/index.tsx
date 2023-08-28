@@ -1,3 +1,4 @@
+import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
@@ -17,7 +18,13 @@ const renderTransactionSpecification = (
   value: string | number
 ) => (
   <Stack gap="s100" alignItems="center">
-    <MdAdd size={16} cursor="pointer" />
+    <Icon
+      appearance="dark"
+      icon={<MdAdd />}
+      cursorHover={true}
+      size="16px"
+      spacing="none"
+    />
     <Stack justifyContent="space-between" width="100%">
       <Text type="label" size="medium" appearance="dark">
         {label}
@@ -57,7 +64,14 @@ function CreditMovementModal(props: CreditMovementModalProps) {
               Movimiento
             </Text>
 
-            <MdOutlineClose onClick={onCloseModal} size={20} cursor="pointer" />
+            <Icon
+              appearance="dark"
+              icon={<MdOutlineClose />}
+              onClick={onCloseModal}
+              cursorHover={true}
+              size="20px"
+              spacing="none"
+            />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
             Detalles de la transacción

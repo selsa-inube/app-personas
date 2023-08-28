@@ -1,4 +1,5 @@
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
+import { Icon } from "@design/data/Icon";
 import { IMovement } from "@ptypes/pages/product.types";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
@@ -18,7 +19,14 @@ function ViewMovement(props: ViewMovementProps) {
 
   return (
     <>
-      <MdOpenInNew cursor="pointer" onClick={handleToggleModal} size={16} />
+      <Icon
+        appearance="dark"
+        onClick={handleToggleModal}
+        icon={<MdOpenInNew />}
+        cursorHover={true}
+        size="16px"
+        spacing="none"
+      />
       {showModal && (
         <CreditMovementModal
           portalId="modals"
