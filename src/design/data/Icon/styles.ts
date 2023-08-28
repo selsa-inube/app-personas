@@ -117,6 +117,9 @@ const StyledIcon = styled.figure<IStyledIcon>`
       if (spacing === "compact") {
         return inube.spacing.s050;
       }
+      if (spacing === "none") {
+        return inube.spacing.s0;
+      }
       return inube.spacing.s025;
     }};
   }

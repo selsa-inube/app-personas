@@ -1504,6 +1504,4 @@ const creditsMock: IProduct[] = [
   },
 ];
 
-export default creditsMock;
-
 export { creditsMock };
