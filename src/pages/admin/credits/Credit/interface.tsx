@@ -14,7 +14,11 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { MdArrowBack, MdOutlineAssignmentTurnedIn } from "react-icons/md";
+import {
+  MdArrowBack,
+  MdOutlineAssignment,
+  MdOutlineAssignmentTurnedIn,
+} from "react-icons/md";
 import { crumbsMyCredits } from "../MyCredits/config/navigation";
 import {
   movementsTableBreakpoints,
@@ -76,6 +80,11 @@ function CreditUI(props: CreditUIProps) {
           <Box
             title={selectedProduct.data.title}
             subtitle={selectedProduct.data.id}
+            button={{
+              label: "Plan de pagos",
+              icon: <MdOutlineAssignment />,
+              path: `/my-credits/${credit_id}/credit-amortization`,
+            }}
             {...creditBox}
           >
             <Stack direction="column" gap="s100">

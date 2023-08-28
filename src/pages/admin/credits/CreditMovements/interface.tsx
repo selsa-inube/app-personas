@@ -27,6 +27,7 @@ interface CreditMovementsUIProps {
   productsOptions: ISelectOption[];
   creditTableActions: IAction[];
   loading: boolean;
+  credit_id?: string;
 }
 
 function CreditMovementsUI(props: CreditMovementsUIProps) {
@@ -38,6 +39,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
     productsOptions,
     creditTableActions,
     loading,
+    credit_id,
   } = props;
 
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -50,7 +52,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
           title="Movimientos"
           subtitle="Movimientos recientes del producto"
           icon={<MdArrowBack />}
-          navigatePage="/my-credits"
+          navigatePage={`/my-credits/${credit_id}`}
         />
       </Stack>
 
