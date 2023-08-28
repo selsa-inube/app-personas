@@ -31,6 +31,8 @@ function Title(props: TitleProps) {
             onClick={handleBackPage}
             icon={icon}
             cursorHover={true}
+            size="20px"
+            spacing="none"
           />
         )}
 
