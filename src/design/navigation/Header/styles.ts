@@ -6,9 +6,10 @@ const StyledHeader = styled.header`
   margin: 0;
   padding-left: 16px;
   height: 53px;
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  user-select: none;
   box-shadow: 0px 0px 4px 4px
     ${({ theme }) =>
       theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
