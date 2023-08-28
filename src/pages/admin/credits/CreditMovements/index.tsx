@@ -103,6 +103,7 @@ function CreditMovements() {
       loading={loading}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
+      credit_id={credit_id}
     />
   );
 }

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-import { Stack } from "@design/layout/Stack";
+import { StyledTableContainer } from "./styles";
 import { Pagination } from "./Pagination";
 import { TableUI } from "./interface";
 import { IAction, IBreakpoint, IEntry, ITitle } from "./types";
@@ -91,7 +91,7 @@ const Table = (props: TableProps) => {
 
   return (
     <div id={id}>
-      <Stack direction="column">
+      <StyledTableContainer>
         <TableUI
           portalId={id}
           titles={titles}
@@ -115,7 +115,7 @@ const Table = (props: TableProps) => {
             handleEndPage={goToEndPage}
           />
         )}
-      </Stack>
+      </StyledTableContainer>
     </div>
   );
 };
