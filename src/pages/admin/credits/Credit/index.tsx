@@ -19,17 +19,17 @@ import { useEffect, useState } from "react";
 import {
   MdArrowBack,
   MdOpenInNew,
-  MdOutlineAssignmentTurnedIn,
   MdOutlineAssignment,
+  MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AmountValue } from "../MyCredits/AmountValue";
-import { crumbsMyCredits } from "../MyCredits/config/navigation";
 import {
   movementsTableBreakpoints,
   movementsTableTitles,
 } from "../MyCredits/config/tables";
 import { creditBox } from "./config/credit";
+import { crumbsCredit } from "./config/navigation";
 import { StyledIconView, StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 
@@ -98,7 +98,7 @@ function Credit() {
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsMyCredits} />
+        <Breadcrumbs crumbs={crumbsCredit(credit_id)} />
         <Title
           title="Consulta de créditos"
           subtitle="Información detallada de tus productos de crédito"
