@@ -18,7 +18,7 @@ interface ITagProduct {
 interface IAttribute {
   id: string;
   label: string;
-  value: number | string;
+  value: number | string | string[];
 }
 
 interface IMovement {
