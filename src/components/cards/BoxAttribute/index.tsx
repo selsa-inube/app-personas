@@ -5,7 +5,7 @@ import { StyledBoxAttribute } from "./styles";
 
 interface BoxAttributeProps {
   label: string;
-  value: string | number;
+  value: number | string | string[];
 }
 
 function BoxAttribute(props: BoxAttributeProps) {

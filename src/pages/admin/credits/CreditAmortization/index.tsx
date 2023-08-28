@@ -45,6 +45,12 @@ const creditTableActions: IAction[] = [
   },
 ];
 
+function formatCurrency(value: number) {
+  return value.toLocaleString("es-CO", {
+    currency: "COP",
+  });
+}
+
 function CreditAmortization() {
   const { credit_id } = useParams();
   const navigate = useNavigate();
@@ -117,13 +123,6 @@ function CreditAmortization() {
     navigate(`/my-credits/${option.id}/credit-amortization`);
   };
 
-  function formatCurrency(value: number) {
-    return value.toLocaleString("es-CO", {
-      style: "currency",
-      currency: "COP",
-    });
-  }
-
   const currencyAmortization = selectedProduct?.amortization.map((entry) => {
     const currencyOthers = formatCurrency(entry.others);
     const currencyInterest = formatCurrency(entry.interest);
@@ -131,9 +130,9 @@ function CreditAmortization() {
 
     return {
       ...entry,
-      others: currencyOthers,
-      interest: currencyInterest,
-      capitalPayment: currencyCapitalPayment,
+      others: `$ ${currencyOthers}`,
+      interest: `$ ${currencyInterest}`,
+      capitalPayment: `$ ${currencyCapitalPayment}`,
     };
   });
 
