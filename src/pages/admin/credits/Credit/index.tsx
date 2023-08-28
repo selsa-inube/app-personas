@@ -20,6 +20,7 @@ import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineAssignmentTurnedIn,
+  MdOutlineAssignment,
 } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AmountValue } from "../MyCredits/AmountValue";
@@ -125,6 +126,11 @@ function Credit() {
           <Box
             title={selectedProduct.data.title}
             subtitle={selectedProduct.data.id}
+            button={{
+              label: "Plan de pagos",
+              icon: <MdOutlineAssignment />,
+              path: `/my-credits/${credit_id}/credit-amortization`,
+            }}
             {...creditBox}
           >
             <Stack direction="column" gap="s100">

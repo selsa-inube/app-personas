@@ -11,6 +11,10 @@ const StyledTableContainer = styled.div`
 `;
 
 const StyledTable = styled.table`
+  outline: solid 1px
+    ${({ theme }) =>
+      theme.color?.stroke?.divider?.regular ||
+      inube.color.stroke.divider.regular};
   box-sizing: border-box;
   border-collapse: collapse;
   table-layout: auto;
