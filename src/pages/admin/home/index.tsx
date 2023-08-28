@@ -15,12 +15,13 @@ import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
-  MdOutlineRealEstateAgent
+  MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import { cards, credits, savings, investments } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
+  extractInvestmentAttributes,
 } from "./config/products";
 import { cardProducts, savingsProducts } from "./mocks";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
@@ -31,7 +32,9 @@ function Home() {
   const userId = "1";
 
   const getInvestmentProducts = () => {
-    return investmentsMock.filter((investment) => investment.userOwner === userId);
+    return investmentsMock.filter(
+      (investment) => investment.userOwner === userId
+    );
   };
 
   const investmentProducts = getInvestmentProducts();
@@ -122,7 +125,7 @@ function Home() {
                     key={investment.id}
                     title={investment.title}
                     description={investment.id}
-                    attributes={investment.attributes}
+                    attributes={extractInvestmentAttributes(investment)}
                     tags={investment.tags}
                     icon={<MdOutlineRealEstateAgent />}
                     navigateTo={`/my-investments/${investment.id}`}
