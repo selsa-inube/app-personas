@@ -1,8 +1,7 @@
 import { IProduct } from "@ptypes/pages/product.types";
 
 const myInvestmentAttributes = [
-  "investment-CDAT",
-  "investment-CDT"
+  "investment_value"
 ];
 
 function extractMyInvestmentAttributes(investment: IProduct) {
