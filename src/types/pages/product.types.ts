@@ -18,7 +18,7 @@ interface ITagProduct {
 interface IAttribute {
   id: string;
   label: string;
-  value: number | string;
+  value: number | string | string[];
 }
 
 interface IMovement {
@@ -37,6 +37,7 @@ interface IMovement {
 }
 
 interface IAmortization {
+  id: string;
   paymentNumber: number;
   date: string;
   capitalPayment: number;
@@ -45,6 +46,8 @@ interface IAmortization {
   patrimonialInsurance: number;
   capitalization: number;
   others: number;
+  totalMonthlyValue: number;
+  projectedBalance: number;
 }
 
 interface IProduct {
@@ -57,4 +60,4 @@ interface IProduct {
   userOwner?: string;
 }
 
-export type { IAttribute, IProduct, ITagProduct, IMovement };
+export type { IAttribute, IProduct, ITagProduct, IMovement, IAmortization };

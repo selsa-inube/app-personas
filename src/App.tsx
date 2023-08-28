@@ -17,6 +17,7 @@ import { Page } from "@design/layout/Page";
 
 import { Credit } from "@pages/admin/credits/Credit";
 import { CreditMovements } from "@pages/admin/credits/CreditMovements";
+import { CreditAmortization } from "@pages/admin/credits/CreditAmortization";
 import { MyCredits } from "@pages/admin/credits/MyCredits";
 import { Investment } from "@pages/admin/investments/Investment";
 import { MyInvestments } from "@pages/admin/investments/MyInvestments";
@@ -37,6 +38,10 @@ function App() {
         />
         <Route path="my-investments" element={<MyInvestments />} />
         <Route path="my-investments/:product_id" element={<Investment />} />
+        <Route
+          path="my-credits/:credit_id/credit-amortization"
+          element={<CreditAmortization />}
+        />
       </Route>
     )
   );
