@@ -19,12 +19,12 @@ import {
   MdOutlineAssignment,
   MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
-import { crumbsMyCredits } from "../MyCredits/config/navigation";
 import {
   movementsTableBreakpoints,
   movementsTableTitles,
 } from "../MyCredits/config/tables";
 import { creditBox } from "./config/credit";
+import { crumbsCredit } from "./config/navigation";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 
@@ -52,7 +52,7 @@ function CreditUI(props: CreditUIProps) {
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsMyCredits} />
+        <Breadcrumbs crumbs={crumbsCredit(credit_id)} />
         <Title
           title="Consulta de créditos"
           subtitle="Información detallada de tus productos de crédito"
