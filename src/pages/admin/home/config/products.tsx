@@ -1,4 +1,5 @@
 import { IProduct } from "@ptypes/pages/product.types";
+import { currencyFormat } from "src/utils/formats";
 
 const creditAttributes = [
   "next_payment_value",
@@ -7,17 +8,29 @@ const creditAttributes = [
 ];
 
 function extractCreditAttributes(credit: IProduct) {
-  return credit.attributes.filter((attribute) =>
+  const attributes = credit.attributes.filter((attribute) =>
     creditAttributes.includes(attribute.id)
   );
+  attributes.forEach((attribute) => {
+    if (typeof attribute.value === "number") {
+      attribute.value = currencyFormat(attribute.value);
+    }
+  });
+  return attributes;
 }
 
 const investmentAttributes = ["investment_value"];
 
 function extractInvestmentAttributes(investment: IProduct) {
-  return investment.attributes.filter((attribute) =>
+  const investments = investment.attributes.filter((attribute) =>
     investmentAttributes.includes(attribute.id)
   );
+  investments.forEach((investment) => {
+    if (typeof investment.value === "number") {
+      investment.value = currencyFormat(investment.value);
+    }
+  });
+  return investments;
 }
 
 const creditAttributeBreakpoints = {

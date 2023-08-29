@@ -16,7 +16,8 @@ import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
 import { MdArrowBack, MdOpenInNew, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { AmountValue } from "../MyCredits/AmountValue";
+import { Text } from "@design/data/Text";
+import { currencyFormat } from "src/utils/formats";
 import {
   amortizationTableBreakpoints,
   amortizationTableTitles,
@@ -29,7 +30,9 @@ const creditTableActions: IAction[] = [
     id: "1",
     actionName: "Cuota",
     content: (amortization) => (
-      <AmountValue value={amortization.totalMonthlyValue} />
+      <Text type="body" size="small" appearance="dark">
+        {currencyFormat(amortization.totalMonthlyValue)}
+      </Text>
     ),
     mobilePriority: true,
   },
@@ -44,12 +47,6 @@ const creditTableActions: IAction[] = [
     mobilePriority: true,
   },
 ];
-
-function formatCurrency(value: number) {
-  return value.toLocaleString("es-CO", {
-    currency: "COP",
-  });
-}
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -124,15 +121,15 @@ function CreditAmortization() {
   };
 
   const currencyAmortization = selectedProduct?.amortization.map((entry) => {
-    const currencyOthers = formatCurrency(entry.others);
-    const currencyInterest = formatCurrency(entry.interest);
-    const currencyCapitalPayment = formatCurrency(entry.capitalPayment);
+    const currencyOthers = currencyFormat(entry.others);
+    const currencyInterest = currencyFormat(entry.interest);
+    const currencyCapitalPayment = currencyFormat(entry.capitalPayment);
 
     return {
       ...entry,
-      others: `$ ${currencyOthers}`,
-      interest: `$ ${currencyInterest}`,
-      capitalPayment: `$ ${currencyCapitalPayment}`,
+      others: currencyOthers,
+      interest: currencyInterest,
+      capitalPayment: currencyCapitalPayment,
     };
   });
 

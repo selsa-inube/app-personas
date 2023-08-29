@@ -1,4 +1,5 @@
 import { IProduct } from "src/types/pages/product.types";
+import { currencyFormat } from "src/utils/formats";
 
 const myCreditAttributes = [
   "next_payment_value",
@@ -7,9 +8,15 @@ const myCreditAttributes = [
 ];
 
 function extractMyCreditAttributes(credit: IProduct) {
-  return credit.attributes.filter((attribute) =>
+  const attributes = credit.attributes.filter((attribute) =>
     myCreditAttributes.includes(attribute.id)
   );
+  attributes.forEach((attribute) => {
+    if (typeof attribute.value === "number") {
+      attribute.value = currencyFormat(attribute.value);
+    }
+  });
+  return attributes;
 }
 
 const myCreditAttributeBreakpoints = {
