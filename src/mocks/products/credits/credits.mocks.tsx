@@ -23,7 +23,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499192,
       },
       {
@@ -37,7 +36,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499191,
       },
       {
@@ -51,7 +49,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499193,
       },
       {
@@ -65,7 +62,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499194,
       },
       {
@@ -79,7 +75,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499195,
       },
       {
@@ -93,7 +88,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499196,
       },
       {
@@ -107,7 +101,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499197,
       },
       {
@@ -121,7 +114,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499198,
       },
       {
@@ -135,7 +127,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499199,
       },
       {
@@ -149,7 +140,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499191,
       },
       {
@@ -163,7 +153,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499192,
       },
       {
@@ -177,7 +166,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499193,
       },
       {
@@ -191,7 +179,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499194,
       },
       {
@@ -205,7 +192,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499195,
       },
       {
@@ -219,7 +205,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499196,
       },
       {
@@ -233,7 +218,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499197,
       },
       {
@@ -247,7 +231,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499198,
       },
       {
@@ -261,7 +244,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499199,
       },
       {
@@ -275,7 +257,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499191,
       },
       {
@@ -289,7 +270,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499192,
       },
       {
@@ -303,7 +283,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499193,
       },
       {
@@ -317,7 +296,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499194,
       },
       {
@@ -331,7 +309,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499195,
       },
       {
@@ -345,7 +322,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499196,
       },
       {
@@ -359,7 +335,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499197,
       },
       {
@@ -373,7 +348,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499198,
       },
       {
@@ -387,7 +361,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499199,
       },
       {
@@ -401,7 +374,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499191,
       },
       {
@@ -415,7 +387,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499111,
       },
       {
@@ -429,7 +400,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499112,
       },
     ],
@@ -771,7 +741,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499191,
       },
       {
@@ -785,7 +754,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499193,
       },
       {
@@ -799,7 +767,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499194,
       },
       {
@@ -813,7 +780,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499195,
       },
       {
@@ -827,7 +793,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499196,
       },
       {
@@ -841,7 +806,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499197,
       },
       {
@@ -855,7 +819,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499198,
       },
       {
@@ -869,7 +832,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499199,
       },
       {
@@ -883,7 +845,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499191,
       },
       {
@@ -897,7 +858,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499192,
       },
       {
@@ -911,7 +871,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499193,
       },
       {
@@ -925,7 +884,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499194,
       },
       {
@@ -939,7 +897,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499195,
       },
       {
@@ -953,7 +910,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499196,
       },
       {
@@ -967,7 +923,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499197,
       },
       {
@@ -981,7 +936,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499198,
       },
       {
@@ -995,7 +949,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499199,
       },
       {
@@ -1009,7 +962,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499191,
       },
       {
@@ -1023,7 +975,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499192,
       },
       {
@@ -1037,7 +988,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499193,
       },
       {
@@ -1051,7 +1001,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499194,
       },
       {
@@ -1065,7 +1014,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499195,
       },
       {
@@ -1079,7 +1027,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499196,
       },
       {
@@ -1093,7 +1040,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499197,
       },
       {
@@ -1107,7 +1053,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499198,
       },
       {
@@ -1121,7 +1066,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499199,
       },
       {
@@ -1135,7 +1079,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499191,
       },
       {
@@ -1149,7 +1092,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499111,
       },
       {
@@ -1163,7 +1105,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499112,
       },
       {
@@ -1177,7 +1118,6 @@ const creditsMock: IProduct[] = [
         patrimonialInsurance: 0,
         capitalization: 0,
         commission: 0,
-        others: 0,
         totalValue: 499113,
       },
     ],

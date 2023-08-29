@@ -14,40 +14,42 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
-import { MdArrowBack, MdOpenInNew, MdOutlineAttachMoney } from "react-icons/md";
+import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { AmountValue } from "../MyCredits/AmountValue";
 import {
   amortizationTableBreakpoints,
   amortizationTableTitles,
 } from "../MyCredits/config/tables";
-import { StyledAmortizationContainer, StyledIconView } from "./styles";
+import { StyledAmortizationContainer } from "./styles";
+import { ViewPayment } from "../MyCredits/ViewPayment";
+import { mapPayment } from "./config/table";
 import { ISelectedProductState } from "./types";
+import { Text } from "@design/data/Text";
 
 const creditTableActions: IAction[] = [
   {
     id: "1",
     actionName: "Cuota",
     content: (amortization) => (
-      <AmountValue value={amortization.totalMonthlyValue} />
+      <Text type="body" size="small" appearance="dark">
+        {amortization.totalMonthlyValue}
+      </Text>
     ),
     mobilePriority: true,
   },
   {
     id: "2",
     actionName: "Ver",
-    content: () => (
-      <StyledIconView>
-        <MdOpenInNew />
-      </StyledIconView>
-    ),
+    content: (payment) => <ViewPayment payment={mapPayment(payment)} />,
     mobilePriority: true,
   },
 ];
 
 function formatCurrency(value: number) {
   return value.toLocaleString("es-CO", {
+    style: "currency",
     currency: "COP",
+    minimumFractionDigits: 0,
   });
 }
 
@@ -127,12 +129,24 @@ function CreditAmortization() {
     const currencyOthers = formatCurrency(entry.others);
     const currencyInterest = formatCurrency(entry.interest);
     const currencyCapitalPayment = formatCurrency(entry.capitalPayment);
+    const currencyLifeInsurance = formatCurrency(entry.lifeInsurance);
+    const currencyCapitalization = formatCurrency(entry.capitalization);
+    const currencyTotalMonthlyValue = formatCurrency(entry.totalMonthlyValue);
+    const currencyProjectedBalance = formatCurrency(entry.projectedBalance);
+    const currencyPatrimonialInsurance = formatCurrency(
+      entry.patrimonialInsurance
+    );
 
     return {
       ...entry,
-      others: `$ ${currencyOthers}`,
-      interest: `$ ${currencyInterest}`,
-      capitalPayment: `$ ${currencyCapitalPayment}`,
+      others: currencyOthers,
+      interest: currencyInterest,
+      capitalPayment: currencyCapitalPayment,
+      lifeInsurance: currencyLifeInsurance,
+      capitalization: currencyCapitalization,
+      totalMonthlyValue: currencyTotalMonthlyValue,
+      projectedBalance: currencyProjectedBalance,
+      patrimonialInsurance: currencyPatrimonialInsurance,
     };
   });
 
