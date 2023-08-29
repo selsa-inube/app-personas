@@ -46,6 +46,7 @@ interface IAmortization {
   patrimonialInsurance: number;
   capitalization: number;
   others: number;
+  othersValues: number;
   totalMonthlyValue: number;
   projectedBalance: number;
 }
