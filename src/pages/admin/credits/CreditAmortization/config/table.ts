@@ -12,7 +12,6 @@ const mapPayment = (payment: IEntry): IAmortization => {
     patrimonialInsurance: payment?.patrimonialInsurance,
     capitalization: payment?.capitalization,
     others: payment?.others,
-    othersValues: payment?.othersValues,
     totalMonthlyValue: payment?.totalMonthlyValue,
     projectedBalance: payment?.projectedBalance,
   };

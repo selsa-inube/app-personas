@@ -31,7 +31,6 @@ interface IMovement {
   lifeInsurance: number;
   patrimonialInsurance: number;
   capitalization: number;
-  others: number;
   commission: number;
   totalValue: number;
 }
@@ -46,7 +45,6 @@ interface IAmortization {
   patrimonialInsurance: number;
   capitalization: number;
   others: number;
-  othersValues: number;
   totalMonthlyValue: number;
   projectedBalance: number;
 }

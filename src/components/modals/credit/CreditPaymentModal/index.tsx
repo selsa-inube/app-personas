@@ -112,7 +112,6 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
               "Capitalización:",
               payment.capitalization
             )}
-            {renderTransactionSpecification("Otros:", payment.othersValues)}
           </Stack>
 
           <Stack direction="column" gap="s150">

@@ -131,7 +131,6 @@ function CreditAmortization() {
     const currencyCapitalPayment = formatCurrency(entry.capitalPayment);
     const currencyLifeInsurance = formatCurrency(entry.lifeInsurance);
     const currencyCapitalization = formatCurrency(entry.capitalization);
-    const currencyOthersValues = formatCurrency(entry.othersValues);
     const currencyTotalMonthlyValue = formatCurrency(entry.totalMonthlyValue);
     const currencyProjectedBalance = formatCurrency(entry.projectedBalance);
     const currencyPatrimonialInsurance = formatCurrency(
@@ -145,7 +144,6 @@ function CreditAmortization() {
       capitalPayment: currencyCapitalPayment,
       lifeInsurance: currencyLifeInsurance,
       capitalization: currencyCapitalization,
-      othersValues: currencyOthersValues,
       totalMonthlyValue: currencyTotalMonthlyValue,
       projectedBalance: currencyProjectedBalance,
       patrimonialInsurance: currencyPatrimonialInsurance,

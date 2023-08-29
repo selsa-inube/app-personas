@@ -123,7 +123,6 @@ function CreditMovementModal(props: CreditMovementModalProps) {
               movement.capitalization
             )}
             {renderTransactionSpecification("Comisión:", movement.commission)}
-            {renderTransactionSpecification("Otros:", movement.others)}
           </Stack>
 
           <Stack direction="column" gap="s150">
