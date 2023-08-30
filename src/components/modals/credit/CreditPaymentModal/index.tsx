@@ -3,7 +3,7 @@ import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IMovement } from "@ptypes/pages/product.types";
+import { IAmortization } from "@ptypes/pages/product.types";
 import { createPortal } from "react-dom";
 import { MdAdd, MdOutlineClose } from "react-icons/md";
 import {
@@ -31,20 +31,20 @@ const renderTransactionSpecification = (
       </Text>
 
       <Text type="body" size="small" appearance="gray">
-        $ {value}
+        {value}
       </Text>
     </Stack>
   </Stack>
 );
 
-interface CreditMovementModalProps {
+interface CreditPaymentModalProps {
   portalId: string;
   onCloseModal: () => void;
-  movement: IMovement;
+  payment: IAmortization;
 }
 
-function CreditMovementModal(props: CreditMovementModalProps) {
-  const { portalId, onCloseModal, movement } = props;
+function CreditPaymentModal(props: CreditPaymentModalProps) {
+  const { portalId, onCloseModal, payment } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -58,10 +58,10 @@ function CreditMovementModal(props: CreditMovementModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal smallScreen={smallScreen}>
-        <Stack direction="column" width="100%">
+        <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
-              Movimiento
+              Pago
             </Text>
 
             <Icon
@@ -82,47 +82,36 @@ function CreditMovementModal(props: CreditMovementModalProps) {
 
         <StyledBodyHead>
           <Text type="title" size="medium" appearance="dark">
-            {movement.reference} - {movement.date}
+            Cuota {payment.paymentNumber} - {payment.date}
           </Text>
-
-          <Stack gap="s100" alignItems="center">
-            <Text type="label" size="medium" appearance="dark">
-              Descripción:
-            </Text>
-
-            <Text type="body" size="small" appearance="gray">
-              {movement.description}
-            </Text>
-          </Stack>
         </StyledBodyHead>
 
         <StyledBody>
           <Text type="title" size="medium" appearance="dark">
-            Especificación de la transacción
+            Especificación pago mínimo (cuota)
           </Text>
 
           <Stack direction="column" gap="s200">
             {renderTransactionSpecification(
               "Abono capital:",
-              movement.capitalPayment
+              payment.capitalPayment
             )}
             {renderTransactionSpecification(
               "Interés de mora:",
-              movement.interest
+              payment.interest
             )}
             {renderTransactionSpecification(
               "Seguro de vida:",
-              movement.lifeInsurance
+              payment.lifeInsurance
             )}
             {renderTransactionSpecification(
               "Seguro patrimonial:",
-              movement.patrimonialInsurance
+              payment.patrimonialInsurance
             )}
             {renderTransactionSpecification(
               "Capitalización:",
-              movement.capitalization
+              payment.capitalization
             )}
-            {renderTransactionSpecification("Comisión:", movement.commission)}
           </Stack>
 
           <Stack direction="column" gap="s150">
@@ -130,11 +119,20 @@ function CreditMovementModal(props: CreditMovementModalProps) {
 
             <Stack justifyContent="space-between" alignItems="center">
               <Text type="title" size="medium" appearance="gray">
-                Pago total:
+                Total cuota mensual:
               </Text>
 
               <Text type="title" size="medium" appearance="dark">
-                $ {movement.totalValue}
+                {payment.totalMonthlyValue}
+              </Text>
+            </Stack>
+            <Stack justifyContent="space-between" alignItems="center">
+              <Text type="title" size="medium" appearance="gray">
+                Saldo proyectado:
+              </Text>
+
+              <Text type="title" size="medium" appearance="dark">
+                {payment.projectedBalance}
               </Text>
             </Stack>
           </Stack>
@@ -145,4 +143,4 @@ function CreditMovementModal(props: CreditMovementModalProps) {
   );
 }
 
-export { CreditMovementModal };
+export { CreditPaymentModal };
