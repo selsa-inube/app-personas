@@ -12,7 +12,7 @@ function extractCreditAttributes(credit: IProduct) {
   );
 }
 
-const investmentAttributes = ["investment_value"];
+const investmentAttributes = ["expiration_date", "investment_value"];
 
 function extractInvestmentAttributes(investment: IProduct) {
   return investment.attributes.filter((attribute) =>
