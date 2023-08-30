@@ -6,10 +6,24 @@ const creditsMock: IProduct[] = [
     title: "Crédito educativo",
     attributes: [
       { id: "next_payment_value", label: "Próximo pago", value: 500000 },
-      { id: "next_payment_date", label: "Próxima fecha", value: "02/ABR/2023" },
-      { id: "net_value", label: "Saldo total", value: 1225000 },
-      { id: "interest_rate", label: "Tasa de interes:", value: "15.70 % NAMV" },
+      { id: "next_payment_date", label: "Próxima fecha", value: "02/Abr/2023" },
+      { id: "net_value", label: "Saldo total", value: 7025550 },
+      { id: "interest_rate", label: "Tasa de interés", value: "15.70 % NAMV" },
       { id: "terms", label: "Plazo:", value: "24 Meses" },
+      { id: "loan_date", label: "Fecha de préstamo", value: "15/Nov/2022" },
+      { id: "loan_value", label: "Valor del préstamo", value: 10300000 },
+      {
+        id: "next_due_date",
+        label: "Próximo vencimiento",
+        value: "15/May/2023",
+      },
+      { id: "quote", label: "Cuota", value: "6 de 12" },
+      { id: "peridiocity", label: "Periodicidad", value: "Mensual" },
+      {
+        id: "payment_means",
+        label: "Medio de pago",
+        value: "Grúas de occidente",
+      },
     ],
     movements: [
       {
@@ -723,11 +737,24 @@ const creditsMock: IProduct[] = [
     id: "CL000807",
     title: "Crédito libre inversión",
     attributes: [
-      { id: "next_payment_value", label: "Próximo pago", value: 1100000 },
-      { id: "next_payment_date", label: "Próxima fecha", value: "02/MAY/2023" },
-      { id: "net_value", label: "Saldo total", value: 18100000 },
-      { id: "interest_rate", label: "Tasa de interes", value: "18.69 % NAMV" },
-      { id: "terms", label: "Plazo", value: "24 Meses" },
+      { id: "next_payment_value", label: "Próximo pago", value: 500000 },
+      { id: "next_payment_date", label: "Próxima fecha", value: "02/Mar/2023" },
+      { id: "net_value", label: "Saldo total", value: 1500000 },
+      { id: "interest_rate", label: "Tasa de interés", value: "3,04 % NAMV" },
+      { id: "loan_date", label: "Fecha de préstamo", value: "15/Ene/2023" },
+      { id: "loan_value", label: "Valor del préstamo", value: 8300000 },
+      {
+        id: "next_due_date",
+        label: "Próximo vencimiento",
+        value: "15/Abr/2023",
+      },
+      { id: "quote", label: "Cuota", value: "5 de 12" },
+      { id: "peridiocity", label: "Periodicidad", value: "Mensual" },
+      {
+        id: "payment_means",
+        label: "Medio de pago",
+        value: "Grúas de occidente",
+      },
     ],
     movements: [
       {

@@ -1,4 +1,4 @@
-import { IAmortization, IAttribute } from "@ptypes/pages/product.types";
+import { IProduct } from "@ptypes/pages/product.types";
 
 interface IOption {
   id: string;
@@ -8,11 +8,8 @@ interface IOption {
 }
 
 interface ISelectedProductState {
-  amortization: IAmortization[];
+  credit: IProduct;
   option: IOption;
-  totalAmortization: number;
-  interestRateAttr: IAttribute;
-  termsAttr: IAttribute;
 }
 
 export type { ISelectedProductState };

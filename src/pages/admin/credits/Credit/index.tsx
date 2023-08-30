@@ -47,7 +47,7 @@ function Credit() {
 
       if (credit.id === credit_id) {
         setSelectedProduct({
-          data: {
+          credit: {
             ...credit,
             movements: credit.movements?.slice(0, isMobile ? 5 : 10),
           },

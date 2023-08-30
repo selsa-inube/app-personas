@@ -17,4 +17,27 @@ const mapPayment = (payment: IEntry): IAmortization => {
   };
 };
 
-export { mapPayment };
+function currencyFormat(value: number) {
+  return value.toLocaleString("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0,
+  });
+}
+
+const formatCurrencyEntries = (amortization: IAmortization[]) =>
+  amortization.map((entry) => {
+    return {
+      ...entry,
+      others: currencyFormat(entry.others),
+      interest: currencyFormat(entry.interest),
+      capitalPayment: currencyFormat(entry.capitalPayment),
+      lifeInsurance: currencyFormat(entry.lifeInsurance),
+      capitalization: currencyFormat(entry.capitalization),
+      totalMonthlyValue: currencyFormat(entry.totalMonthlyValue),
+      projectedBalance: currencyFormat(entry.projectedBalance),
+      patrimonialInsurance: currencyFormat(entry.patrimonialInsurance),
+    };
+  });
+
+export { formatCurrencyEntries, mapPayment };
