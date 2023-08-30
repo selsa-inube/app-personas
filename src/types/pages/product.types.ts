@@ -10,7 +10,7 @@ const productAppearance = [
 ] as const;
 
 type ProductAppearanceType = (typeof productAppearance)[number];
-interface ITagProduct {
+interface ITag {
   label: string;
   appearance: ProductAppearanceType;
 }
@@ -56,8 +56,8 @@ interface IProduct {
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
-  tags?: ITagProduct[];
+  tags?: ITag[];
   userOwner?: string;
 }
 
-export type { IAttribute, IProduct, ITagProduct, IMovement, IAmortization };
+export type { IAmortization, IAttribute, IMovement, IProduct, ITag };

@@ -6,7 +6,7 @@ import { Stack } from "@design/layout/Stack";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { ITagProduct, IAttribute } from "src/types/pages/product.types";
+import { IAttribute, ITag } from "src/types/pages/product.types";
 import { StyledProduct } from "./styles";
 
 interface ProductProps {
@@ -16,7 +16,7 @@ interface ProductProps {
   icon?: React.JSX.Element;
   attributes?: IAttribute[];
   breakpoints?: Record<string, number>;
-  tags?: ITagProduct[];
+  tags?: ITag[];
   empty?: boolean;
   navigateTo?: string;
 }
