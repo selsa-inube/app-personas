@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { inube } from "@design/tokens";
 
 const StyledBreadcrumbs = styled.ul`
   padding: 0;
@@ -8,6 +9,8 @@ const StyledBreadcrumbs = styled.ul`
     pointer-events: none;
     content: "/";
     margin: 0 8px;
+    color: ${({ theme }) =>
+      theme.color?.text?.gray?.regular || inube.color.text.gray.regular};
   }
   & li > p {
     display: inherit;

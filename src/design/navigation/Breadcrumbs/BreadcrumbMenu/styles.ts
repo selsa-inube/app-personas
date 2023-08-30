@@ -4,8 +4,8 @@ import { inube } from "@design/tokens";
 const StyledBreadcrumbMenu = styled.div`
   position: absolute;
   width: fit-content;
-  max-width: 160px;
   min-width: 100px;
+  max-width: 160px;
   overflow: hidden;
   box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
     0px 1px 2px 0px rgba(0, 0, 0, 0.3);

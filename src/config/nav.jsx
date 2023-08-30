@@ -27,6 +27,11 @@ const nav = {
           icon: <MdOutlineSavings />,
         },
         {
+          label: "Mis inversiones",
+          path: "/my-investments",
+          icon: <MdOutlineBalance />,
+        },
+        {
           label: "Mis créditos",
           path: "/my-credits",
           icon: <MdOutlineAccountBalance />,
@@ -36,11 +41,7 @@ const nav = {
           path: "/products",
           icon: <MdOutlineCreditCard />,
         },
-        {
-          label: "Mis inversiones",
-          path: "/my-investments",
-          icon: <MdOutlineBalance />,
-        },
+
         {
           label: "Mis solicitudes",
           path: "/products",

@@ -11,13 +11,15 @@ import { quickLinks } from "@config/quickLinks";
 
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
+import { creditsMock } from "@mocks/products/credits/credits.mocks";
+import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
   MdOutlineRealEstateAgent,
 } from "react-icons/md";
-import { cards, credits, savings, investments } from "./config/boxes";
+import { cards, credits, investments, savings } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
@@ -26,8 +28,6 @@ import {
   formatInvestmentCurrencyAttrs,
 } from "./config/products";
 import { cardProducts, savingsProducts } from "./mocks";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
-import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -78,6 +78,24 @@ function Home() {
               )}
             </Stack>
           </Box>
+          {investmentProducts.length > 0 && (
+            <Box {...investments}>
+              <Stack direction="column" gap="s075">
+                {investmentProducts.map((investment) => (
+                  <Product
+                    id={investment.id}
+                    key={investment.id}
+                    title={investment.title}
+                    description={investment.id}
+                    attributes={extractInvestmentAttributes(investment)}
+                    tags={investment.tags}
+                    icon={<MdOutlineRealEstateAgent />}
+                    navigateTo={`/my-investments/${investment.id}`}
+                  />
+                ))}
+              </Stack>
+            </Box>
+          )}
           <Box {...credits}>
             <Stack direction="column" gap="s075">
               {creditsMock.length === 0 ? (
@@ -121,27 +139,6 @@ function Home() {
               )}
             </Stack>
           </Box>
-          {investmentProducts.length > 0 && (
-            <Box {...investments}>
-              <Stack direction="column" gap="s075">
-                {investmentProducts.map((investment) => {
-                  const attributes = extractInvestmentAttributes(investment);
-                  return (
-                    <Product
-                      id={investment.id}
-                      key={investment.id}
-                      title={investment.title}
-                      description={investment.id}
-                      attributes={formatInvestmentCurrencyAttrs(attributes)}
-                      tags={investment.tags}
-                      icon={<MdOutlineRealEstateAgent />}
-                      navigateTo={`/my-investments/${investment.id}`}
-                    />
-                  );
-                })}
-              </Stack>
-            </Box>
-          )}
         </Stack>
         {mquery && <QuickAccess links={quickLinks} />}
       </Grid>

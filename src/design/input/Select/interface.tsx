@@ -97,6 +97,7 @@ function SelectUI(props: SelectUIProps) {
       isFullWidth={isFullWidth}
       isDisabled={isDisabled}
       ref={selectRef}
+      onClick={(e: React.MouseEvent) => interceptorOnClick(e)}
     >
       <StyledContainerLabel alignItems="center" isDisabled={isDisabled}>
         {label && (
@@ -137,7 +138,6 @@ function SelectUI(props: SelectUIProps) {
           isFocused={isFocused}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          onClick={(e: React.MouseEvent) => interceptorOnClick(e)}
         />
 
         <StyledIcon isDisabled={isDisabled}>
