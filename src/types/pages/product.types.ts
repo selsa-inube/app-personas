@@ -1,19 +1,4 @@
-const productAppearance = [
-  "primary",
-  "success",
-  "warning",
-  "error",
-  "help",
-  "dark",
-  "gray",
-  "light",
-] as const;
-
-type ProductAppearanceType = (typeof productAppearance)[number];
-interface ITag {
-  label: string;
-  appearance: ProductAppearanceType;
-}
+import { TagProps } from "@design/data/Tag";
 
 interface IAttribute {
   id: string;
@@ -56,8 +41,8 @@ interface IProduct {
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
-  tags?: ITag[];
+  tags?: TagProps[];
   userOwner?: string;
 }
 
-export type { IAmortization, IAttribute, IMovement, IProduct, ITag };
+export type { IAmortization, IAttribute, IMovement, IProduct };

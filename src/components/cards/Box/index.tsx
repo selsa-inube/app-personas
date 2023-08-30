@@ -6,8 +6,7 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 
-import { Tag } from "@design/data/Tag";
-import { ITag } from "@ptypes/pages/product.types";
+import { Tag, TagProps } from "@design/data/Tag";
 import {
   StyledBox,
   StyledCollapseIcon,
@@ -30,7 +29,7 @@ interface BoxProps {
     allow: boolean;
     start: boolean;
   };
-  tags?: ITag[];
+  tags?: TagProps[];
 }
 
 function Box(props: BoxProps) {
