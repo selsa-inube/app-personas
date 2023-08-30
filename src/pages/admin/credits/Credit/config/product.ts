@@ -1,4 +1,5 @@
 import { IAttribute, IProduct } from "src/types/pages/product.types";
+import { currencyFormat } from "src/utils/formats";
 
 const creditAttributes = [
   "loan_date",
@@ -18,15 +19,6 @@ function extractCreditAttributes(credit: IProduct) {
     creditAttributes.includes(attribute.id)
   );
 }
-
-const currencyFormat = (price: number): string => {
-  return (
-    "$ " +
-    price.toLocaleString("es-CO", {
-      currency: "COP",
-    })
-  );
-};
 
 function formatCreditCurrencyAttrs(attributes: IAttribute[]) {
   return attributes.map((attribute) => {

@@ -1,5 +1,6 @@
 import { IEntry } from "@design/data/Table/types";
 import { IAmortization } from "@ptypes/pages/product.types";
+import { currencyFormat } from "src/utils/formats";
 
 const mapPayment = (payment: IEntry): IAmortization => {
   return {
@@ -16,14 +17,6 @@ const mapPayment = (payment: IEntry): IAmortization => {
     projectedBalance: payment?.projectedBalance,
   };
 };
-
-function currencyFormat(value: number) {
-  return value.toLocaleString("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  });
-}
 
 const formatCurrencyEntries = (amortization: IAmortization[]) =>
   amortization.map((entry) => {
