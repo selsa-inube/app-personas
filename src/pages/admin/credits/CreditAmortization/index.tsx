@@ -16,6 +16,7 @@ import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
+import { currencyFormat } from "src/utils/formats";
 import {
   amortizationTableBreakpoints,
   amortizationTableTitles,
@@ -44,14 +45,6 @@ const creditTableActions: IAction[] = [
     mobilePriority: true,
   },
 ];
-
-function formatCurrency(value: number) {
-  return value.toLocaleString("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  });
-}
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -126,14 +119,14 @@ function CreditAmortization() {
   };
 
   const currencyAmortization = selectedProduct?.amortization.map((entry) => {
-    const currencyOthers = formatCurrency(entry.others);
-    const currencyInterest = formatCurrency(entry.interest);
-    const currencyCapitalPayment = formatCurrency(entry.capitalPayment);
-    const currencyLifeInsurance = formatCurrency(entry.lifeInsurance);
-    const currencyCapitalization = formatCurrency(entry.capitalization);
-    const currencyTotalMonthlyValue = formatCurrency(entry.totalMonthlyValue);
-    const currencyProjectedBalance = formatCurrency(entry.projectedBalance);
-    const currencyPatrimonialInsurance = formatCurrency(
+    const currencyOthers = currencyFormat(entry.others);
+    const currencyInterest = currencyFormat(entry.interest);
+    const currencyCapitalPayment = currencyFormat(entry.capitalPayment);
+    const currencyLifeInsurance = currencyFormat(entry.lifeInsurance);
+    const currencyCapitalization = currencyFormat(entry.capitalization);
+    const currencyTotalMonthlyValue = currencyFormat(entry.totalMonthlyValue);
+    const currencyProjectedBalance = currencyFormat(entry.projectedBalance);
+    const currencyPatrimonialInsurance = currencyFormat(
       entry.patrimonialInsurance
     );
 

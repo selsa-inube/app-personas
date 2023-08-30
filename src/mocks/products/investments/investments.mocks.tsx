@@ -13,7 +13,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "investment_value",
         label: "Valor",
-        value: "$3.582.900",
+        value: 3582900,
       },
       {
         id: "interest_rate",
@@ -55,7 +55,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "investment_value",
         label: "Valor",
-        value: "$1.387.500",
+        value: 1387500,
       },
       {
         id: "interest_rate",
@@ -97,7 +97,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "investment_value",
         label: "Valor",
-        value: "$12.137.100",
+        value: 12137100,
       },
       {
         id: "interest_rate",
@@ -139,7 +139,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "investment_value",
         label: "Valor",
-        value: "$3.017.700",
+        value: 3017700,
       },
       {
         id: "interest_rate",

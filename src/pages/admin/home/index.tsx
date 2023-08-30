@@ -24,6 +24,8 @@ import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
   extractInvestmentAttributes,
+  formatCreditCurrencyAttrs,
+  formatInvestmentCurrencyAttrs,
 } from "./config/products";
 import { cardProducts, savingsProducts } from "./mocks";
 
@@ -85,7 +87,9 @@ function Home() {
                     key={investment.id}
                     title={investment.title}
                     description={investment.id}
-                    attributes={extractInvestmentAttributes(investment)}
+                    attributes={formatInvestmentCurrencyAttrs(
+                      extractInvestmentAttributes(investment)
+                    )}
                     tags={investment.tags}
                     icon={<MdOutlineRealEstateAgent />}
                     navigateTo={`/my-investments/${investment.id}`}
@@ -105,7 +109,9 @@ function Home() {
                     key={credit.id}
                     title={credit.title}
                     description={credit.id}
-                    attributes={extractCreditAttributes(credit)}
+                    attributes={formatCreditCurrencyAttrs(
+                      extractCreditAttributes(credit)
+                    )}
                     breakpoints={creditAttributeBreakpoints}
                     tags={credit.tags}
                     icon={<MdOutlineAttachMoney />}

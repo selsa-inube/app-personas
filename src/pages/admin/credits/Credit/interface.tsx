@@ -27,6 +27,7 @@ import { creditBox } from "./config/credit";
 import { crumbsCredit } from "./config/navigation";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { currencyFormat } from "src/utils/formats";
 
 interface CreditUIProps {
   isMobile?: boolean;
@@ -91,11 +92,17 @@ function CreditUI(props: CreditUIProps) {
             <Stack direction="column" gap="s100">
               <Stack gap="s100" direction={isMobile ? "column" : "row"}>
                 <BoxAttribute label="Fecha de préstamo" value="15/Ene/2023" />
-                <BoxAttribute label="Valor de préstamo" value="$8.300.000" />
+                <BoxAttribute
+                  label="Valor de préstamo"
+                  value={currencyFormat(8300000)}
+                />
               </Stack>
               <Stack gap="s100" direction={isMobile ? "column" : "row"}>
                 <BoxAttribute label="Próximo vencimiento" value="15/Abr/2023" />
-                <BoxAttribute label="Próximo pago" value="$500.000" />
+                <BoxAttribute
+                  label="Próximo pago"
+                  value={currencyFormat(500000)}
+                />
               </Stack>
               <Stack gap="s100" direction={isMobile ? "column" : "row"}>
                 <BoxAttribute label="Cuota" value="5 de 12" />
