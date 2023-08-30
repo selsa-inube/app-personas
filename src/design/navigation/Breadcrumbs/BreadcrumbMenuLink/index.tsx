@@ -12,13 +12,13 @@ interface BreadcrumbMenuLinkProps {
 }
 
 function BreadcrumbMenuLink(props: BreadcrumbMenuLinkProps) {
-  const { label, path, id, typo = "large" } = props;
-  const transformedTypos = breadcrumbSize.includes(typo) ? typo : "large";
+  const { label, path, id, typo = "small" } = props;
+  const transformedTypos = breadcrumbSize.includes(typo) ? typo : "small";
   return (
     <StyledBreadcrumbMenuLink to={path}>
       <StyledContainerLink id={id}>
         <Stack alignItems="center">
-          <Text type="label" size={transformedTypos} padding="8px 12px">
+          <Text type="label" size={transformedTypos}>
             {label}
           </Text>
         </Stack>
