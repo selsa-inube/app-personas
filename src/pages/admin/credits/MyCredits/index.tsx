@@ -21,6 +21,7 @@ import { crumbsMyCredits } from "./config/navigation";
 import {
   extractMyCreditAttributes,
   myCreditAttributeBreakpoints,
+  formatMyCreditCurrencyAttrs,
 } from "./config/products";
 
 function MyCredits() {
@@ -54,19 +55,22 @@ function MyCredits() {
               {creditsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
-                creditsMock.map((credit) => (
-                  <Product
-                    id={credit.id}
-                    key={credit.id}
-                    title={credit.title}
-                    description={credit.id}
-                    attributes={extractMyCreditAttributes(credit)}
-                    breakpoints={myCreditAttributeBreakpoints}
-                    tags={credit.tags}
-                    icon={<MdOutlineAttachMoney />}
-                    navigateTo={`/my-credits/${credit.id}`}
-                  />
-                ))
+                creditsMock.map((credit) => {
+                  const attributes = extractMyCreditAttributes(credit);
+                  return (
+                    <Product
+                      id={credit.id}
+                      key={credit.id}
+                      title={credit.title}
+                      description={credit.id}
+                      attributes={formatMyCreditCurrencyAttrs(attributes)}
+                      breakpoints={myCreditAttributeBreakpoints}
+                      tags={credit.tags}
+                      icon={<MdOutlineAttachMoney />}
+                      navigateTo={`/my-credits/${credit.id}`}
+                    />
+                  );
+                })
               )}
             </Stack>
           </Box>

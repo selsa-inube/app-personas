@@ -22,6 +22,8 @@ import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
   extractInvestmentAttributes,
+  formatCreditCurrencyAttrs,
+  formatInvestmentCurrencyAttrs,
 } from "./config/products";
 import { cardProducts, savingsProducts } from "./mocks";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
@@ -81,19 +83,22 @@ function Home() {
               {creditsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
-                creditsMock.map((credit) => (
-                  <Product
-                    id={credit.id}
-                    key={credit.id}
-                    title={credit.title}
-                    description={credit.id}
-                    attributes={extractCreditAttributes(credit)}
-                    breakpoints={creditAttributeBreakpoints}
-                    tags={credit.tags}
-                    icon={<MdOutlineAttachMoney />}
-                    navigateTo={`/my-credits/${credit.id}`}
-                  />
-                ))
+                creditsMock.map((credit) => {
+                  const attributes = extractCreditAttributes(credit);
+                  return (
+                    <Product
+                      id={credit.id}
+                      key={credit.id}
+                      title={credit.title}
+                      description={credit.id}
+                      attributes={formatCreditCurrencyAttrs(attributes)}
+                      breakpoints={creditAttributeBreakpoints}
+                      tags={credit.tags}
+                      icon={<MdOutlineAttachMoney />}
+                      navigateTo={`/my-credits/${credit.id}`}
+                    />
+                  );
+                })
               )}
             </Stack>
           </Box>
@@ -119,18 +124,21 @@ function Home() {
           {investmentProducts.length > 0 && (
             <Box {...investments}>
               <Stack direction="column" gap="s075">
-                {investmentProducts.map((investment) => (
-                  <Product
-                    id={investment.id}
-                    key={investment.id}
-                    title={investment.title}
-                    description={investment.id}
-                    attributes={extractInvestmentAttributes(investment)}
-                    tags={investment.tags}
-                    icon={<MdOutlineRealEstateAgent />}
-                    navigateTo={`/my-investments/${investment.id}`}
-                  />
-                ))}
+                {investmentProducts.map((investment) => {
+                  const attributes = extractInvestmentAttributes(investment);
+                  return (
+                    <Product
+                      id={investment.id}
+                      key={investment.id}
+                      title={investment.title}
+                      description={investment.id}
+                      attributes={formatInvestmentCurrencyAttrs(attributes)}
+                      tags={investment.tags}
+                      icon={<MdOutlineRealEstateAgent />}
+                      navigateTo={`/my-investments/${investment.id}`}
+                    />
+                  );
+                })}
               </Stack>
             </Box>
           )}

@@ -1,4 +1,4 @@
-import { IProduct } from "@ptypes/pages/product.types";
+import { IProduct, IAttribute } from "@ptypes/pages/product.types";
 import { currencyFormat } from "src/utils/formats";
 
 const creditAttributes = [
@@ -7,30 +7,45 @@ const creditAttributes = [
   "net_value",
 ];
 
+const creditCurrencyAttributes = ["net_value", "next_payment_value"];
+
 function extractCreditAttributes(credit: IProduct) {
-  const attributes = credit.attributes.filter((attribute) =>
+  return credit.attributes.filter((attribute) =>
     creditAttributes.includes(attribute.id)
   );
-  attributes.forEach((attribute) => {
-    if (typeof attribute.value === "number") {
-      attribute.value = currencyFormat(attribute.value);
+}
+
+function formatCreditCurrencyAttrs(attributes: IAttribute[]) {
+  return attributes.map((attribute) => {
+    if (creditCurrencyAttributes.includes(attribute.id)) {
+      return {
+        ...attribute,
+        value: currencyFormat(Number(attribute.value)),
+      };
     }
+    return attribute;
   });
-  return attributes;
 }
 
 const investmentAttributes = ["investment_value"];
+const investmentCurrencyAttributes = ["investment_value"];
 
 function extractInvestmentAttributes(investment: IProduct) {
-  const investments = investment.attributes.filter((attribute) =>
+  return investment.attributes.filter((attribute) =>
     investmentAttributes.includes(attribute.id)
   );
-  investments.forEach((investment) => {
-    if (typeof investment.value === "number") {
-      investment.value = currencyFormat(investment.value);
+}
+
+function formatInvestmentCurrencyAttrs(investment: IAttribute[]) {
+  return investment.map((investment) => {
+    if (investmentCurrencyAttributes.includes(investment.id)) {
+      return {
+        ...investment,
+        value: currencyFormat(Number(investment.value)),
+      };
     }
+    return investment;
   });
-  return investments;
 }
 
 const creditAttributeBreakpoints = {
@@ -46,4 +61,6 @@ export {
   creditAttributeBreakpoints,
   extractCreditAttributes,
   extractInvestmentAttributes,
+  formatCreditCurrencyAttrs,
+  formatInvestmentCurrencyAttrs,
 };
