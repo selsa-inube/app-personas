@@ -46,8 +46,8 @@ Default.args = {
     },
     {
       icon: <MdOutlineAddHome />,
-      label: "Abrir CDT",
-      path: "/cdt",
+      label: "Abrir CDAT",
+      path: "/cdat",
     },
     {
       icon: <MdOutlineSupportAgent />,
@@ -58,7 +58,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
 export const Themed = (args: QuickAccessProps) => (
