@@ -24,8 +24,8 @@ const quickLinks = [
   },
   {
     icon: <MdOutlineAddHome />,
-    label: "Abrir CDAT",
-    path: "/cdat",
+    label: "Abrir CDT",
+    path: "/cdt",
   },
   {
     icon: <MdOutlineSupportAgent />,

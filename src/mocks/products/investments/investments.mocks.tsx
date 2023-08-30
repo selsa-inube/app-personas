@@ -45,7 +45,7 @@ const investmentsMock: IProduct[] = [
   },
   {
     id: "IVJ75434",
-    title: "CDAT",
+    title: "CDT",
     attributes: [
       {
         id: "investment_value",
@@ -129,7 +129,7 @@ const investmentsMock: IProduct[] = [
   },
   {
     id: "ICR72145",
-    title: "CDAT",
+    title: "CDT",
     attributes: [
       {
         id: "investment_value",
