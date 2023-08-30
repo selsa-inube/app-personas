@@ -1,12 +1,12 @@
 import { Icon } from "@design/data/Icon";
-import { Tag } from "@design/data/Tag";
+import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { ITagProduct, IAttribute } from "src/types/pages/product.types";
+import { IAttribute } from "src/types/pages/product.types";
 import { StyledProduct } from "./styles";
 
 interface ProductProps {
@@ -16,7 +16,7 @@ interface ProductProps {
   icon?: React.JSX.Element;
   attributes?: IAttribute[];
   breakpoints?: Record<string, number>;
-  tags?: ITagProduct[];
+  tags?: TagProps[];
   empty?: boolean;
   navigateTo?: string;
 }

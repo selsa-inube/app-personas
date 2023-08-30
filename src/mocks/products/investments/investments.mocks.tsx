@@ -6,9 +6,14 @@ const investmentsMock: IProduct[] = [
     title: "CDAT",
     attributes: [
       {
+        id: "expiration_date",
+        label: "Fecha de vencimiento",
+        value: "16/Feb/2023",
+      },
+      {
         id: "investment_value",
         label: "Valor",
-        value: "$3.582.900",
+        value: 3582900,
       },
       {
         id: "interest_rate",
@@ -26,11 +31,6 @@ const investmentsMock: IProduct[] = [
         value: ["John Doe"],
       },
       {
-        id: "expiration_date",
-        label: "Fecha de vencimiento",
-        value: "16/Feb/2023",
-      },
-      {
         id: "request_date",
         label: "Fecha de solicitud",
         value: "01/Feb/2023",
@@ -45,12 +45,17 @@ const investmentsMock: IProduct[] = [
   },
   {
     id: "IVJ75434",
-    title: "CDT",
+    title: "CDAT",
     attributes: [
+      {
+        id: "expiration_date",
+        label: "Fecha de vencimiento",
+        value: "30/Nov/2023",
+      },
       {
         id: "investment_value",
         label: "Valor",
-        value: "$1.387.500",
+        value: 1387500,
       },
       {
         id: "interest_rate",
@@ -66,11 +71,6 @@ const investmentsMock: IProduct[] = [
         id: "beneficiaries",
         label: "Beneficiarios",
         value: ["Alice Johnson", "Bob Williams"],
-      },
-      {
-        id: "expiration_date",
-        label: "Fecha de vencimiento",
-        value: "30/Nov/2023",
       },
       {
         id: "request_date",
@@ -90,9 +90,14 @@ const investmentsMock: IProduct[] = [
     title: "CDAT",
     attributes: [
       {
+        id: "expiration_date",
+        label: "Fecha de vencimiento",
+        value: "15/Ene/2024",
+      },
+      {
         id: "investment_value",
         label: "Valor",
-        value: "$12.137.100",
+        value: 12137100,
       },
       {
         id: "interest_rate",
@@ -110,11 +115,6 @@ const investmentsMock: IProduct[] = [
         value: ["Michael Brown", "Emma Lee", "Jane Smith"],
       },
       {
-        id: "expiration_date",
-        label: "Fecha de vencimiento",
-        value: "15/Ene/2024",
-      },
-      {
         id: "request_date",
         label: "Fecha de solicitud",
         value: "05/Sep/2023",
@@ -129,12 +129,17 @@ const investmentsMock: IProduct[] = [
   },
   {
     id: "ICR72145",
-    title: "CDT",
+    title: "CDAT",
     attributes: [
+      {
+        id: "expiration_date",
+        label: "Fecha de vencimiento",
+        value: "20/Dic/2023",
+      },
       {
         id: "investment_value",
         label: "Valor",
-        value: "$3.017.700",
+        value: 3017700,
       },
       {
         id: "interest_rate",
@@ -155,11 +160,6 @@ const investmentsMock: IProduct[] = [
           "Alice Johnsson",
           "Bob Willians",
         ],
-      },
-      {
-        id: "expiration_date",
-        label: "Fecha de vencimiento",
-        value: "20/Dic/2023",
       },
       {
         id: "request_date",

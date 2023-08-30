@@ -22,6 +22,7 @@ import {
   extractMyInvestmentAttributes,
   myInvestmentAttributeBreakpoints,
 } from "./config/products";
+import { formatMyInvestmentCurrencyAttrs } from "./config/products";
 
 function MyInvestments() {
   const smallScreen = useMediaQuery("(min-width: 1400px)");
@@ -71,7 +72,9 @@ function MyInvestments() {
                     key={investment.id}
                     title={investment.title}
                     description={investment.id}
-                    attributes={extractMyInvestmentAttributes(investment)}
+                    attributes={formatMyInvestmentCurrencyAttrs(
+                      extractMyInvestmentAttributes(investment)
+                    )}
                     breakpoints={myInvestmentAttributeBreakpoints}
                     tags={investment.tags}
                     icon={<MdOutlineRealEstateAgent />}

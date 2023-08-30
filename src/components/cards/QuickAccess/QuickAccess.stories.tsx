@@ -46,8 +46,8 @@ Default.args = {
     },
     {
       icon: <MdOutlineAddHome />,
-      label: "Abrir CDT",
-      path: "/cdt",
+      label: "Abrir CDAT",
+      path: "/cdat",
     },
     {
       icon: <MdOutlineSupportAgent />,

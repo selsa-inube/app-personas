@@ -1,4 +1,5 @@
-import { IProduct } from "src/types/pages/product.types";
+import { IProduct, IAttribute } from "src/types/pages/product.types";
+import { currencyFormat } from "src/utils/formats";
 
 const myCreditAttributes = [
   "next_payment_value",
@@ -6,10 +7,24 @@ const myCreditAttributes = [
   "net_value",
 ];
 
+const myCreditCurrencyAttributes = ["net_value", "next_payment_value"];
+
 function extractMyCreditAttributes(credit: IProduct) {
   return credit.attributes.filter((attribute) =>
     myCreditAttributes.includes(attribute.id)
   );
+}
+
+function formatMyCreditCurrencyAttrs(attributes: IAttribute[]) {
+  return attributes.map((attribute) => {
+    if (myCreditCurrencyAttributes.includes(attribute.id)) {
+      return {
+        ...attribute,
+        value: currencyFormat(Number(attribute.value)),
+      };
+    }
+    return attribute;
+  });
 }
 
 const myCreditAttributeBreakpoints = {
@@ -21,4 +36,8 @@ const myCreditAttributeBreakpoints = {
   "(max-width: 660px)": 1,
 };
 
-export { extractMyCreditAttributes, myCreditAttributeBreakpoints };
+export {
+  extractMyCreditAttributes,
+  formatMyCreditCurrencyAttrs,
+  myCreditAttributeBreakpoints,
+};

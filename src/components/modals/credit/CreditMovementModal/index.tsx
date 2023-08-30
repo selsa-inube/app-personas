@@ -6,6 +6,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IMovement } from "@ptypes/pages/product.types";
 import { createPortal } from "react-dom";
 import { MdAdd, MdOutlineClose } from "react-icons/md";
+import { currencyFormat } from "src/utils/formats";
 import {
   StyledBody,
   StyledBodyHead,
@@ -13,10 +14,7 @@ import {
   StyledModal,
 } from "./styles";
 
-const renderTransactionSpecification = (
-  label: string,
-  value: string | number
-) => (
+const renderTransactionSpecification = (label: string, value: number) => (
   <Stack gap="s100" alignItems="center">
     <Icon
       appearance="dark"
@@ -31,7 +29,7 @@ const renderTransactionSpecification = (
       </Text>
 
       <Text type="body" size="small" appearance="gray">
-        $ {value}
+        {currencyFormat(value)}
       </Text>
     </Stack>
   </Stack>
@@ -134,7 +132,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
               </Text>
 
               <Text type="title" size="medium" appearance="dark">
-                $ {movement.totalValue}
+                {currencyFormat(movement.totalValue)}
               </Text>
             </Stack>
           </Stack>

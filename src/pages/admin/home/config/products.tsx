@@ -1,4 +1,5 @@
-import { IProduct } from "@ptypes/pages/product.types";
+import { IProduct, IAttribute } from "@ptypes/pages/product.types";
+import { currencyFormat } from "src/utils/formats";
 
 const creditAttributes = [
   "next_payment_value",
@@ -6,18 +7,45 @@ const creditAttributes = [
   "net_value",
 ];
 
+const creditCurrencyAttributes = ["net_value", "next_payment_value"];
+
 function extractCreditAttributes(credit: IProduct) {
   return credit.attributes.filter((attribute) =>
     creditAttributes.includes(attribute.id)
   );
 }
 
-const investmentAttributes = ["investment_value"];
+function formatCreditCurrencyAttrs(attributes: IAttribute[]) {
+  return attributes.map((attribute) => {
+    if (creditCurrencyAttributes.includes(attribute.id)) {
+      return {
+        ...attribute,
+        value: currencyFormat(Number(attribute.value)),
+      };
+    }
+    return attribute;
+  });
+}
+
+const investmentAttributes = ["expiration_date", "investment_value"];
+const investmentCurrencyAttributes = ["investment_value"];
 
 function extractInvestmentAttributes(investment: IProduct) {
   return investment.attributes.filter((attribute) =>
     investmentAttributes.includes(attribute.id)
   );
+}
+
+function formatInvestmentCurrencyAttrs(investment: IAttribute[]) {
+  return investment.map((investment) => {
+    if (investmentCurrencyAttributes.includes(investment.id)) {
+      return {
+        ...investment,
+        value: currencyFormat(Number(investment.value)),
+      };
+    }
+    return investment;
+  });
 }
 
 const creditAttributeBreakpoints = {
@@ -33,4 +61,6 @@ export {
   creditAttributeBreakpoints,
   extractCreditAttributes,
   extractInvestmentAttributes,
+  formatCreditCurrencyAttrs,
+  formatInvestmentCurrencyAttrs,
 };

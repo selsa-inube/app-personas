@@ -86,6 +86,7 @@ function CreditUI(props: CreditUIProps) {
           <Box
             title={selectedProduct.credit.title}
             subtitle={selectedProduct.credit.id}
+            tags={selectedProduct.credit.tags}
             button={{
               label: "Plan de pagos",
               icon: <MdOutlineAssignment />,

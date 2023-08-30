@@ -6,6 +6,7 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 
+import { Tag, TagProps } from "@design/data/Tag";
 import {
   StyledBox,
   StyledCollapseIcon,
@@ -28,6 +29,7 @@ interface BoxProps {
     allow: boolean;
     start: boolean;
   };
+  tags?: TagProps[];
 }
 
 function Box(props: BoxProps) {
@@ -42,6 +44,7 @@ function Box(props: BoxProps) {
       allow: true,
       start: false,
     },
+    tags = [],
   } = props;
 
   const [collapse, setCollapse] = useState(collapsing.start);
@@ -56,9 +59,16 @@ function Box(props: BoxProps) {
               <Text type="title" size="medium">
                 {title}
               </Text>
-              <Text appearance="gray" size="small">
-                {subtitle}
-              </Text>
+
+              <Stack gap="s100" alignItems="center">
+                <Text appearance="gray" size="small">
+                  {subtitle}
+                </Text>
+                <Stack gap="s050">
+                  {tags.length > 0 &&
+                    tags.map((tag) => <Tag {...tag} key={tag.label} />)}
+                </Stack>
+              </Stack>
             </Stack>
           </StyledLink>
           {collapsing.allow && (

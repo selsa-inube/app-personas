@@ -21,6 +21,7 @@ import { crumbsMyCredits } from "./config/navigation";
 import {
   extractMyCreditAttributes,
   myCreditAttributeBreakpoints,
+  formatMyCreditCurrencyAttrs,
 } from "./config/products";
 
 function MyCredits() {
@@ -60,7 +61,9 @@ function MyCredits() {
                     key={credit.id}
                     title={credit.title}
                     description={credit.id}
-                    attributes={extractMyCreditAttributes(credit)}
+                    attributes={formatMyCreditCurrencyAttrs(
+                      extractMyCreditAttributes(credit)
+                    )}
                     breakpoints={myCreditAttributeBreakpoints}
                     tags={credit.tags}
                     icon={<MdOutlineAttachMoney />}
