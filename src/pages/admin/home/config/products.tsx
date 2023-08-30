@@ -27,7 +27,7 @@ function formatCreditCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-const investmentAttributes = ["investment_value"];
+const investmentAttributes = ["expiration_date", "investment_value"];
 const investmentCurrencyAttributes = ["investment_value"];
 
 function extractInvestmentAttributes(investment: IProduct) {
