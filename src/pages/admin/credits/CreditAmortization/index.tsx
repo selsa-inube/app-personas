@@ -151,7 +151,7 @@ function CreditAmortization() {
               {attributes.map((attr) => (
                 <BoxAttribute
                   key={attr.id}
-                  label={attr.label}
+                  label={`${attr.label}: `}
                   value={attr.value}
                 />
               ))}
