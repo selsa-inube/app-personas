@@ -5,9 +5,13 @@ const creditsMock: IProduct[] = [
     id: "CE995433",
     title: "Crédito educativo",
     attributes: [
-      { id: "next_payment_value", label: "Próximo pago", value: 500000 },
-      { id: "next_payment_date", label: "Próxima fecha", value: "02/Abr/2023" },
       { id: "net_value", label: "Saldo total", value: 7025550 },
+      {
+        id: "next_payment_date",
+        label: "Fecha próximo pago",
+        value: "02/Abr/2023",
+      },
+      { id: "next_payment_value", label: "Próximo pago", value: 500000 },
       { id: "interest_rate", label: "Tasa de interés", value: "15.70 % NAMV" },
       { id: "terms", label: "Plazo", value: "24 Meses" },
       { id: "loan_date", label: "Fecha de préstamo", value: "15/Nov/2022" },
@@ -737,9 +741,13 @@ const creditsMock: IProduct[] = [
     id: "CL000807",
     title: "Crédito libre inversión",
     attributes: [
-      { id: "next_payment_value", label: "Próximo pago", value: 500000 },
-      { id: "next_payment_date", label: "Próxima fecha", value: "02/Mar/2023" },
       { id: "net_value", label: "Saldo total", value: 1500000 },
+      {
+        id: "next_payment_date",
+        label: "Fecha próximo pago",
+        value: "02/Mar/2023",
+      },
+      { id: "next_payment_value", label: "Próximo pago", value: 500000 },
       { id: "interest_rate", label: "Tasa de interés", value: "3,04 % NAMV" },
       { id: "terms", label: "Plazo", value: "24 Meses" },
       { id: "loan_date", label: "Fecha de préstamo", value: "15/Ene/2023" },

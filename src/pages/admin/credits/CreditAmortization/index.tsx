@@ -17,7 +17,6 @@ import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { currencyFormat } from "src/utils/formats";
 import { ViewPayment } from "../MyCredits/ViewPayment";
 import {
   amortizationTableBreakpoints,
@@ -34,7 +33,7 @@ const creditTableActions: IAction[] = [
     actionName: "Cuota",
     content: (amortization) => (
       <Text type="body" size="small" appearance="dark">
-        {currencyFormat(amortization.totalMonthlyValue)}
+        {amortization.totalMonthlyValue}
       </Text>
     ),
     mobilePriority: true,
@@ -178,4 +177,3 @@ function CreditAmortization() {
 }
 
 export { CreditAmortization };
-

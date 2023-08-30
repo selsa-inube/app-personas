@@ -15,8 +15,12 @@ const creditAttributes = [
 const creditCurrencyAttributes = ["loan_value", "next_payment_value"];
 
 function extractCreditAttributes(credit: IProduct) {
-  return credit.attributes.filter((attribute) =>
+  const foundAttributes = credit.attributes.filter((attribute) =>
     creditAttributes.includes(attribute.id)
+  );
+
+  return foundAttributes.sort(
+    (a, b) => creditAttributes.indexOf(a.id) - creditAttributes.indexOf(b.id)
   );
 }
 
