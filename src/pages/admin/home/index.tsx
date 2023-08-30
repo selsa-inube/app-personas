@@ -87,7 +87,9 @@ function Home() {
                     key={investment.id}
                     title={investment.title}
                     description={investment.id}
-                    attributes={extractInvestmentAttributes(investment)}
+                    attributes={formatInvestmentCurrencyAttrs(
+                      extractInvestmentAttributes(investment)
+                    )}
                     tags={investment.tags}
                     icon={<MdOutlineRealEstateAgent />}
                     navigateTo={`/my-investments/${investment.id}`}
@@ -101,22 +103,21 @@ function Home() {
               {creditsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
-                creditsMock.map((credit) => {
-                  const attributes = extractCreditAttributes(credit);
-                  return (
-                    <Product
-                      id={credit.id}
-                      key={credit.id}
-                      title={credit.title}
-                      description={credit.id}
-                      attributes={formatCreditCurrencyAttrs(attributes)}
-                      breakpoints={creditAttributeBreakpoints}
-                      tags={credit.tags}
-                      icon={<MdOutlineAttachMoney />}
-                      navigateTo={`/my-credits/${credit.id}`}
-                    />
-                  );
-                })
+                creditsMock.map((credit) => (
+                  <Product
+                    id={credit.id}
+                    key={credit.id}
+                    title={credit.title}
+                    description={credit.id}
+                    attributes={formatCreditCurrencyAttrs(
+                      extractCreditAttributes(credit)
+                    )}
+                    breakpoints={creditAttributeBreakpoints}
+                    tags={credit.tags}
+                    icon={<MdOutlineAttachMoney />}
+                    navigateTo={`/my-credits/${credit.id}`}
+                  />
+                ))
               )}
             </Stack>
           </Box>
