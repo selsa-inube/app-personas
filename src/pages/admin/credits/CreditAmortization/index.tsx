@@ -14,16 +14,18 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
-import { MdArrowBack, MdOpenInNew, MdOutlineAttachMoney } from "react-icons/md";
+import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { Text } from "@design/data/Text";
 import { currencyFormat } from "src/utils/formats";
 import {
   amortizationTableBreakpoints,
   amortizationTableTitles,
 } from "../MyCredits/config/tables";
-import { StyledAmortizationContainer, StyledIconView } from "./styles";
+import { StyledAmortizationContainer } from "./styles";
+import { ViewPayment } from "../MyCredits/ViewPayment";
+import { mapPayment } from "./config/table";
 import { ISelectedProductState } from "./types";
+import { Text } from "@design/data/Text";
 
 const creditTableActions: IAction[] = [
   {
@@ -31,7 +33,7 @@ const creditTableActions: IAction[] = [
     actionName: "Cuota",
     content: (amortization) => (
       <Text type="body" size="small" appearance="dark">
-        {currencyFormat(amortization.totalMonthlyValue)}
+        {amortization.totalMonthlyValue}
       </Text>
     ),
     mobilePriority: true,
@@ -39,11 +41,7 @@ const creditTableActions: IAction[] = [
   {
     id: "2",
     actionName: "Ver",
-    content: () => (
-      <StyledIconView>
-        <MdOpenInNew />
-      </StyledIconView>
-    ),
+    content: (payment) => <ViewPayment payment={mapPayment(payment)} />,
     mobilePriority: true,
   },
 ];
@@ -124,12 +122,24 @@ function CreditAmortization() {
     const currencyOthers = currencyFormat(entry.others);
     const currencyInterest = currencyFormat(entry.interest);
     const currencyCapitalPayment = currencyFormat(entry.capitalPayment);
+    const currencyLifeInsurance = currencyFormat(entry.lifeInsurance);
+    const currencyCapitalization = currencyFormat(entry.capitalization);
+    const currencyTotalMonthlyValue = currencyFormat(entry.totalMonthlyValue);
+    const currencyProjectedBalance = currencyFormat(entry.projectedBalance);
+    const currencyPatrimonialInsurance = currencyFormat(
+      entry.patrimonialInsurance
+    );
 
     return {
       ...entry,
       others: currencyOthers,
       interest: currencyInterest,
       capitalPayment: currencyCapitalPayment,
+      lifeInsurance: currencyLifeInsurance,
+      capitalization: currencyCapitalization,
+      totalMonthlyValue: currencyTotalMonthlyValue,
+      projectedBalance: currencyProjectedBalance,
+      patrimonialInsurance: currencyPatrimonialInsurance,
     };
   });
 

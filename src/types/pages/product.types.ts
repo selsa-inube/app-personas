@@ -31,7 +31,6 @@ interface IMovement {
   lifeInsurance: number;
   patrimonialInsurance: number;
   capitalization: number;
-  others: number;
   commission: number;
   totalValue: number;
 }

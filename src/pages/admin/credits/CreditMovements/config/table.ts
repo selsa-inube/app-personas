@@ -12,7 +12,6 @@ const mapMovement = (movement: IEntry): IMovement => {
     lifeInsurance: movement?.lifeInsurance,
     patrimonialInsurance: movement?.patrimonialInsurance,
     capitalization: movement?.capitalization,
-    others: movement?.others,
     commission: movement?.commission,
     totalValue: movement?.totalValue,
   };
