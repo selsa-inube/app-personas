@@ -37,15 +37,12 @@ function Product(props: ProductProps) {
   const mobile = useMediaQuery("(max-width: 450px)");
 
   const attributeQueries = Object.keys(breakpoints);
-  const attributeMediaQueries = useMediaQueries(attributeQueries) as {
-    [key: string]: boolean;
-  };
+  const attributeMediaQueries = useMediaQueries(attributeQueries);
   const index = attributeQueries.findIndex(
     (query) => attributeMediaQueries[query] === true
   );
   const visibleAttributes = attributes.slice(
-    0,
-    breakpoints[attributeQueries[index]]
+    -breakpoints[attributeQueries[index]]
   );
 
   return (
