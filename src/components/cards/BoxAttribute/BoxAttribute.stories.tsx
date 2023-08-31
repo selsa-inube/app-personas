@@ -3,6 +3,7 @@ import { props } from "./props";
 
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
+import { MdAndroid } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
 import { BoxAttribute, BoxAttributeProps } from ".";
 
@@ -22,13 +23,28 @@ const story = {
   ],
 };
 
-export const Default = (args: BoxAttributeProps) => <BoxAttribute {...args} />;
+export const Default: StoryFn<BoxAttributeProps> = (args) => (
+  <BoxAttribute {...args} />
+);
 Default.args = {
   label: "Label",
   value: "Value",
 };
 
-export const Themed = (args: BoxAttributeProps) => (
+export const WithButton: StoryFn<BoxAttributeProps> = (args) => (
+  <BoxAttribute {...args} />
+);
+
+WithButton.args = {
+  label: "Label",
+  value: "Value",
+  withButton: true,
+  onClickButton: () => {},
+  buttonValue: 2,
+  buttonIcon: <MdAndroid />,
+};
+
+export const Themed: StoryFn<BoxAttributeProps> = (args) => (
   <ThemeProvider theme={themes["fondecom"]}>
     <BoxAttribute {...args} />
   </ThemeProvider>
