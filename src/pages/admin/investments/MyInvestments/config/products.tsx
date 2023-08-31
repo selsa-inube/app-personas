@@ -29,7 +29,7 @@ function formatMyInvestmentCurrencyAttrs(investment: IAttribute[]) {
 }
 
 const myInvestmentAttributeBreakpoints = {
-  "(min-width: 280px)": 3,
+  "(min-width: 1100px)": 3,
   "(min-width: 950px)": 2,
   "(min-width: 895px)": 1,
   "(min-width: 750px)": 3,

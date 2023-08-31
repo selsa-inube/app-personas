@@ -26,6 +26,7 @@ import {
   extractInvestmentAttributes,
   formatCreditCurrencyAttrs,
   formatInvestmentCurrencyAttrs,
+  investmentAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts, savingsProducts } from "./mocks";
 
@@ -93,6 +94,7 @@ function Home() {
                     tags={investment.tags}
                     icon={<MdOutlineRealEstateAgent />}
                     navigateTo={`/my-investments/${investment.id}`}
+                    breakpoints={investmentAttributeBreakpoints}
                   />
                 ))}
               </Stack>
