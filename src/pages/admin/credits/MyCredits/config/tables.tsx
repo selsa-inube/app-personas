@@ -50,6 +50,7 @@ const amortizationTableBreakpoints = [
   { breakpoint: "(max-width: 800px)", totalColumns: 4 },
   { breakpoint: "(max-width: 650px)", totalColumns: 3 },
   { breakpoint: "(max-width: 500px)", totalColumns: 2 },
+  { breakpoint: "(max-width: 390px)", totalColumns: 2 },
 ];
 
 const movementsTableBreakpoints = [
@@ -58,12 +59,12 @@ const movementsTableBreakpoints = [
   { breakpoint: "(max-width: 910px)", totalColumns: 2 },
   { breakpoint: "(max-width: 890px)", totalColumns: 3 },
   { breakpoint: "(max-width: 650px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 300px)", totalColumns: 1 },
+  { breakpoint: "(max-width: 390px)", totalColumns: 1 },
 ];
 
 export {
-  movementsTableBreakpoints,
-  movementsTableTitles,
   amortizationTableBreakpoints,
   amortizationTableTitles,
+  movementsTableBreakpoints,
+  movementsTableTitles,
 };
