@@ -1,12 +1,18 @@
-import { IProduct, IAttribute } from "@ptypes/pages/product.types";
+import { IAttribute, IProduct } from "@ptypes/pages/product.types";
 import { currencyFormat } from "src/utils/formats";
 
-const myInvestmentAttributes = ["investment_value"];
+const myInvestmentAttributes = ["expiration_date", "investment_value"];
 const myinvestmentCurrencyAttributes = ["investment_value"];
 
 function extractMyInvestmentAttributes(investment: IProduct) {
-  return investment.attributes.filter((attribute) =>
+  const foundAttributes = investment.attributes.filter((attribute) =>
     myInvestmentAttributes.includes(attribute.id)
+  );
+
+  return foundAttributes.sort(
+    (a, b) =>
+      myInvestmentAttributes.indexOf(a.id) -
+      myInvestmentAttributes.indexOf(b.id)
   );
 }
 

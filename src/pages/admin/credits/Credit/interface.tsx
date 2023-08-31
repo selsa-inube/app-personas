@@ -25,9 +25,12 @@ import {
 } from "../MyCredits/config/tables";
 import { creditBox } from "./config/credit";
 import { crumbsCredit } from "./config/navigation";
+import {
+  extractCreditAttributes,
+  formatCreditCurrencyAttrs,
+} from "./config/product";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
-import { currencyFormat } from "src/utils/formats";
 
 interface CreditUIProps {
   isMobile?: boolean;
@@ -49,6 +52,8 @@ function CreditUI(props: CreditUIProps) {
   } = props;
 
   const mquery = useMediaQuery("(min-width: 1400px)");
+
+  const attributes = extractCreditAttributes(selectedProduct.credit);
 
   return (
     <>
@@ -79,9 +84,9 @@ function CreditUI(props: CreditUIProps) {
             isFullWidth
           />
           <Box
-            title={selectedProduct.data.title}
-            subtitle={selectedProduct.data.id}
-            tags={selectedProduct.data.tags}
+            title={selectedProduct.credit.title}
+            subtitle={selectedProduct.credit.id}
+            tags={selectedProduct.credit.tags}
             button={{
               label: "Plan de pagos",
               icon: <MdOutlineAssignment />,
@@ -90,31 +95,15 @@ function CreditUI(props: CreditUIProps) {
             {...creditBox}
           >
             <Stack direction="column" gap="s100">
-              <Stack gap="s100" direction={isMobile ? "column" : "row"}>
-                <BoxAttribute label="Fecha de préstamo" value="15/Ene/2023" />
-                <BoxAttribute
-                  label="Valor de préstamo"
-                  value={currencyFormat(8300000)}
-                />
-              </Stack>
-              <Stack gap="s100" direction={isMobile ? "column" : "row"}>
-                <BoxAttribute label="Próximo vencimiento" value="15/Abr/2023" />
-                <BoxAttribute
-                  label="Próximo pago"
-                  value={currencyFormat(500000)}
-                />
-              </Stack>
-              <Stack gap="s100" direction={isMobile ? "column" : "row"}>
-                <BoxAttribute label="Cuota" value="5 de 12" />
-                <BoxAttribute label="Periodicidad" value="Mensual" />
-              </Stack>
-              <Stack gap="s100" direction={isMobile ? "column" : "row"}>
-                <BoxAttribute
-                  label="Medio de pago"
-                  value="Grúas de occidente"
-                />
-                <BoxAttribute label="Tasa de interés" value="3,04 % NAMV" />
-              </Stack>
+              <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
+                {formatCreditCurrencyAttrs(attributes).map((attr) => (
+                  <BoxAttribute
+                    key={attr.id}
+                    label={`${attr.label}: `}
+                    value={attr.value}
+                  />
+                ))}
+              </Grid>
             </Stack>
           </Box>
 
@@ -128,8 +117,8 @@ function CreditUI(props: CreditUIProps) {
                 titles={movementsTableTitles}
                 breakpoints={movementsTableBreakpoints}
                 actions={creditTableActions}
-                entries={selectedProduct.data.movements || []}
-                pageLength={selectedProduct.data.movements?.length || 0}
+                entries={selectedProduct.credit.movements || []}
+                pageLength={selectedProduct.credit.movements?.length || 0}
                 hideMobileResume
               />
               <Button

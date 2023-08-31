@@ -1,17 +1,21 @@
-import { IProduct, IAttribute } from "@ptypes/pages/product.types";
+import { IAttribute, IProduct } from "@ptypes/pages/product.types";
 import { currencyFormat } from "src/utils/formats";
 
 const creditAttributes = [
-  "next_payment_value",
-  "next_payment_date",
   "net_value",
+  "next_payment_date",
+  "next_payment_value",
 ];
 
 const creditCurrencyAttributes = ["net_value", "next_payment_value"];
 
 function extractCreditAttributes(credit: IProduct) {
-  return credit.attributes.filter((attribute) =>
+  const foundAttributes = credit.attributes.filter((attribute) =>
     creditAttributes.includes(attribute.id)
+  );
+
+  return foundAttributes.sort(
+    (a, b) => creditAttributes.indexOf(a.id) - creditAttributes.indexOf(b.id)
   );
 }
 
@@ -31,8 +35,13 @@ const investmentAttributes = ["expiration_date", "investment_value"];
 const investmentCurrencyAttributes = ["investment_value"];
 
 function extractInvestmentAttributes(investment: IProduct) {
-  return investment.attributes.filter((attribute) =>
+  const foundAttributes = investment.attributes.filter((attribute) =>
     investmentAttributes.includes(attribute.id)
+  );
+
+  return foundAttributes.sort(
+    (a, b) =>
+      investmentAttributes.indexOf(a.id) - investmentAttributes.indexOf(b.id)
   );
 }
 

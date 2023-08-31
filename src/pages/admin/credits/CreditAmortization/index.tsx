@@ -4,6 +4,7 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
+import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
@@ -16,16 +17,15 @@ import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { currencyFormat } from "src/utils/formats";
+import { ViewPayment } from "../MyCredits/ViewPayment";
 import {
   amortizationTableBreakpoints,
   amortizationTableTitles,
 } from "../MyCredits/config/tables";
+import { extractCreditAmortizationAttrs } from "./config/product";
+import { formatCurrencyEntries, mapPayment } from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
-import { ViewPayment } from "../MyCredits/ViewPayment";
-import { mapPayment } from "./config/table";
 import { ISelectedProductState } from "./types";
-import { Text } from "@design/data/Text";
 
 const creditTableActions: IAction[] = [
   {
@@ -94,17 +94,8 @@ function CreditAmortization() {
 
       if (credit.id === credit_id) {
         setSelectedProduct({
-          totalAmortization: credit.amortization?.length || 0,
-          amortization: credit.amortization || [],
+          credit,
           option: productOption,
-          interestRateAttr: credit.attributes.find(
-            (attr) => attr.id === "interest_rate"
-          ) || { id: "", label: "", value: "" },
-          termsAttr: credit.attributes.find((attr) => attr.id === "terms") || {
-            id: "",
-            label: "",
-            value: "",
-          },
         });
       }
 
@@ -118,32 +109,9 @@ function CreditAmortization() {
     navigate(`/my-credits/${option.id}/credit-amortization`);
   };
 
-  const currencyAmortization = selectedProduct?.amortization.map((entry) => {
-    const currencyOthers = currencyFormat(entry.others);
-    const currencyInterest = currencyFormat(entry.interest);
-    const currencyCapitalPayment = currencyFormat(entry.capitalPayment);
-    const currencyLifeInsurance = currencyFormat(entry.lifeInsurance);
-    const currencyCapitalization = currencyFormat(entry.capitalization);
-    const currencyTotalMonthlyValue = currencyFormat(entry.totalMonthlyValue);
-    const currencyProjectedBalance = currencyFormat(entry.projectedBalance);
-    const currencyPatrimonialInsurance = currencyFormat(
-      entry.patrimonialInsurance
-    );
+  if (!selectedProduct || !selectedProduct.credit.amortization) return null;
 
-    return {
-      ...entry,
-      others: currencyOthers,
-      interest: currencyInterest,
-      capitalPayment: currencyCapitalPayment,
-      lifeInsurance: currencyLifeInsurance,
-      capitalization: currencyCapitalization,
-      totalMonthlyValue: currencyTotalMonthlyValue,
-      projectedBalance: currencyProjectedBalance,
-      patrimonialInsurance: currencyPatrimonialInsurance,
-    };
-  });
-
-  if (!selectedProduct) return null;
+  const attributes = extractCreditAmortizationAttrs(selectedProduct.credit);
 
   return (
     <>
@@ -179,16 +147,15 @@ function CreditAmortization() {
             icon={<MdOutlineAttachMoney size={34} />}
             collapsing={{ start: false, allow: false }}
           >
-            <Stack direction={isMobile ? "column" : "row"} gap="s100">
-              <BoxAttribute
-                label={selectedProduct.interestRateAttr.label}
-                value={selectedProduct.interestRateAttr.value}
-              />
-              <BoxAttribute
-                label={selectedProduct.termsAttr.label}
-                value={selectedProduct.termsAttr.value}
-              />
-            </Stack>
+            <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
+              {attributes.map((attr) => (
+                <BoxAttribute
+                  key={attr.id}
+                  label={`${attr.label}: `}
+                  value={attr.value}
+                />
+              ))}
+            </Grid>
           </Box>
           <StyledAmortizationContainer>
             <Table
@@ -196,7 +163,9 @@ function CreditAmortization() {
               titles={amortizationTableTitles}
               breakpoints={amortizationTableBreakpoints}
               actions={creditTableActions}
-              entries={currencyAmortization || []}
+              entries={formatCurrencyEntries(
+                selectedProduct.credit.amortization
+              )}
               hideMobileResume
             />
           </StyledAmortizationContainer>

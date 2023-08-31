@@ -1,17 +1,22 @@
-import { IProduct, IAttribute } from "src/types/pages/product.types";
+import { IAttribute, IProduct } from "src/types/pages/product.types";
 import { currencyFormat } from "src/utils/formats";
 
 const myCreditAttributes = [
-  "next_payment_value",
-  "next_payment_date",
   "net_value",
+  "next_payment_date",
+  "next_payment_value",
 ];
 
 const myCreditCurrencyAttributes = ["net_value", "next_payment_value"];
 
 function extractMyCreditAttributes(credit: IProduct) {
-  return credit.attributes.filter((attribute) =>
+  const foundAttributes = credit.attributes.filter((attribute) =>
     myCreditAttributes.includes(attribute.id)
+  );
+
+  return foundAttributes.sort(
+    (a, b) =>
+      myCreditAttributes.indexOf(a.id) - myCreditAttributes.indexOf(b.id)
   );
 }
 

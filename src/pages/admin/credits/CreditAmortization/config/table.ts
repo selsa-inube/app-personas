@@ -1,5 +1,6 @@
 import { IEntry } from "@design/data/Table/types";
 import { IAmortization } from "@ptypes/pages/product.types";
+import { currencyFormat } from "src/utils/formats";
 
 const mapPayment = (payment: IEntry): IAmortization => {
   return {
@@ -17,4 +18,19 @@ const mapPayment = (payment: IEntry): IAmortization => {
   };
 };
 
-export { mapPayment };
+const formatCurrencyEntries = (amortization: IAmortization[]) =>
+  amortization.map((entry) => {
+    return {
+      ...entry,
+      others: currencyFormat(entry.others),
+      interest: currencyFormat(entry.interest),
+      capitalPayment: currencyFormat(entry.capitalPayment),
+      lifeInsurance: currencyFormat(entry.lifeInsurance),
+      capitalization: currencyFormat(entry.capitalization),
+      totalMonthlyValue: currencyFormat(entry.totalMonthlyValue),
+      projectedBalance: currencyFormat(entry.projectedBalance),
+      patrimonialInsurance: currencyFormat(entry.patrimonialInsurance),
+    };
+  });
+
+export { formatCurrencyEntries, mapPayment };
