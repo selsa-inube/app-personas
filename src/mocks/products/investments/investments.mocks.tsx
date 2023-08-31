@@ -36,9 +36,9 @@ const investmentsMock: IProduct[] = [
         value: "01/Feb/2023",
       },
       {
-        id: "Descripción:",
-        label: "Fecha de solicitud",
-        value: "Certificado de Depósito de Ahorro a Término fijo.",
+        id: "description",
+        label: "Descripción",
+        value: "Certificado",
       },
     ],
     userOwner: "1",
@@ -60,7 +60,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "interest_rate",
         label: "Tasa (%)",
-        value: "0,7 %",
+        value: "0,7 % NAMV",
       },
       {
         id: "deadline_days",
@@ -80,7 +80,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "description",
         label: "Descripción",
-        value: "Certificado de Depósito a Término.",
+        value: "Certificado",
       },
     ],
     userOwner: "1",
@@ -102,7 +102,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "interest_rate",
         label: "Tasa (%)",
-        value: "0,6%",
+        value: "0,6% NAMV",
       },
       {
         id: "deadline_days",
@@ -122,7 +122,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "description",
         label: "Descripción",
-        value: "Certificado de Depósito de Ahorro a Término fijo.",
+        value: "Certificado",
       },
     ],
     userOwner: "2",
@@ -144,7 +144,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "interest_rate",
         label: "Tasa (%)",
-        value: "0,8%",
+        value: "0,8% NAMV",
       },
       {
         id: "deadline_days",
@@ -169,7 +169,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "description",
         label: "Descripción",
-        value: "Certificado de Depósito a Término.",
+        value: "Certificado",
       },
     ],
     userOwner: "2",
