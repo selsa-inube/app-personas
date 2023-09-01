@@ -6,7 +6,7 @@ import { StyledBoxAttribute } from "./styles";
 
 interface BoxAttributeProps {
   label: string;
-  value: number | string | string[];
+  value?: number | string | string[];
   withButton?: boolean;
   buttonIcon?: React.JSX.Element;
   buttonValue?: string | number;
