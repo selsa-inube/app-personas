@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 import { Button } from "@design/input/Button";
 import { StoryFn } from "@storybook/react";
 import { IAttribute } from "@ptypes/pages/product.types";
-import { AttributeModal, AttributeModalProps } from ".";
+import { AttributesModal, AttributesModalProps } from ".";
 import { themes } from "@mocks/design/themes";
 import { props } from "./props";
 
@@ -21,15 +21,17 @@ const attributes: IAttribute[] = [
 ];
 
 const story = {
-  title: "components/modals/AttributeModal",
-  component: [AttributeModal],
+  title: "components/modals/AttributesModal",
+  component: [AttributesModal],
   tags: ["autodocs"],
   argTypes: {
     ...props,
   },
 };
 
-const Template: StoryFn<AttributeModalProps & { theme?: boolean }> = (args) => {
+const Template: StoryFn<AttributesModalProps & { theme?: boolean }> = (
+  args
+) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleModal = () => {
@@ -38,14 +40,14 @@ const Template: StoryFn<AttributeModalProps & { theme?: boolean }> = (args) => {
 
   return (
     <>
-      <Button handleClick={handleModal}>Show AttributeModal</Button>
+      <Button handleClick={handleModal}>Show AttributesModal</Button>
       {showModal &&
         (args.theme ? (
           <ThemeProvider theme={themes["fondecom"]}>
-            <AttributeModal {...args} onCloseModal={handleModal} />
+            <AttributesModal {...args} onCloseModal={handleModal} />
           </ThemeProvider>
         ) : (
-          <AttributeModal {...args} onCloseModal={handleModal} />
+          <AttributesModal {...args} onCloseModal={handleModal} />
         ))}
     </>
   );

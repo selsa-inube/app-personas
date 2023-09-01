@@ -9,7 +9,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { StyledDivider, StyledModal } from "./styles";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 
-interface AttributeModalProps {
+interface AttributesModalProps {
   title: string;
   description?: string;
   portalId: string;
@@ -17,7 +17,7 @@ interface AttributeModalProps {
   onCloseModal: () => void;
 }
 
-function AttributeModal(props: AttributeModalProps) {
+function AttributesModal(props: AttributesModalProps) {
   const { title, description, portalId, attributes, onCloseModal } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
@@ -70,5 +70,5 @@ function AttributeModal(props: AttributeModalProps) {
   );
 }
 
-export type { AttributeModalProps };
-export { AttributeModal };
+export type { AttributesModalProps };
+export { AttributesModal };
