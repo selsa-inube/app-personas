@@ -23,14 +23,14 @@ import {
   myInvestmentAttributeBreakpoints,
 } from "./config/products";
 import { formatMyInvestmentCurrencyAttrs } from "./config/products";
+import { USER_ID } from "src/App";
 
 function MyInvestments() {
   const smallScreen = useMediaQuery("(min-width: 1400px)");
-  const userId = "1";
 
   const getInvestmentProducts = () => {
     return investmentsMock.filter(
-      (investment) => investment.userOwner === userId
+      (investment) => investment.userOwner === USER_ID
     );
   };
 

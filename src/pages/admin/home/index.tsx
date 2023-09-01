@@ -29,14 +29,14 @@ import {
   investmentAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts, savingsProducts } from "./mocks";
+import { USER_ID } from "src/App";
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
-  const userId = "1";
 
   const getInvestmentProducts = () => {
     return investmentsMock.filter(
-      (investment) => investment.userOwner === userId
+      (investment) => investment.userOwner === USER_ID
     );
   };
 

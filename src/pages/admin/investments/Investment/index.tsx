@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { InvestmentUI } from "./interface";
 import { ISelectedProductState } from "./types";
+import { USER_ID } from "src/App";
+
 function Investment() {
   const { product_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
@@ -18,11 +20,9 @@ function Investment() {
     handleSortProduct();
   }, [product_id, isMobile]);
 
-  const userId = "1";
-
   const handleSortProduct = () => {
     const userInvestments = investmentsMock.filter(
-      (investment) => investment.userOwner === userId
+      (investment) => investment.userOwner === USER_ID
     );
 
     const investmentsOptions = userInvestments.map((investment) => {
@@ -59,7 +59,7 @@ function Investment() {
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
       isMobile={isMobile}
-      product_id={product_id}
+      productId={product_id}
     />
   );
 }

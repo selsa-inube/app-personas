@@ -23,6 +23,8 @@ import { Home } from "@pages/admin/home";
 import { Investment } from "@pages/admin/investments/Investment";
 import { MyInvestments } from "@pages/admin/investments/MyInvestments";
 
+const USER_ID = "1";
+
 function App() {
   useFonts(theme.typography.fonts);
 
@@ -56,4 +58,5 @@ function App() {
   );
 }
 
+export { USER_ID };
 export default App;

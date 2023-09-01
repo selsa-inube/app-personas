@@ -24,7 +24,7 @@ interface InvestmentUIProps {
   handleChangeProduct: (option: ISelectOption) => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
-  product_id?: string;
+  productId?: string;
 }
 
 function InvestmentUI(props: InvestmentUIProps) {
@@ -33,7 +33,7 @@ function InvestmentUI(props: InvestmentUIProps) {
     handleChangeProduct,
     selectedProduct,
     productsOptions,
-    product_id,
+    productId,
   } = props;
 
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -51,7 +51,7 @@ function InvestmentUI(props: InvestmentUIProps) {
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsInvestment(product_id)} />
+        <Breadcrumbs crumbs={crumbsInvestment(productId)} />
         <Title
           title="Consulta de inversiones"
           subtitle="Información detallada de tus productos de inversión"
