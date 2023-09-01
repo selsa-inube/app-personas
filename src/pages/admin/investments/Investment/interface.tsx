@@ -18,35 +18,33 @@ import {
   formatInvestmentCurrencyAttrs,
 } from "./config/product";
 import { ISelectedProductState } from "./types";
+import { IBeneficiariesModal } from ".";
+import { AttributesModal } from "@components/modals/AttributesModal";
 
 interface InvestmentUIProps {
   isMobile?: boolean;
-  handleChangeProduct: (option: ISelectOption) => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
+  beneficiariesModal: IBeneficiariesModal;
   productId?: string;
+  handleChangeProduct: (option: ISelectOption) => void;
+  handleToggleModal: () => void;
 }
 
 function InvestmentUI(props: InvestmentUIProps) {
   const {
     isMobile,
-    handleChangeProduct,
     selectedProduct,
     productsOptions,
     productId,
+    beneficiariesModal,
+    handleToggleModal,
+    handleChangeProduct,
   } = props;
 
   const mquery = useMediaQuery("(min-width: 1400px)");
 
   const attributes = extractInvestmentAttributes(selectedProduct.investment);
-
-  const beneficiariesAttribute = selectedProduct.investment.attributes.find(
-    (attr) => attr.id === "beneficiaries"
-  );
-
-  const beneficiariesLength = Array.isArray(beneficiariesAttribute?.value)
-    ? beneficiariesAttribute?.value.length
-    : 0;
 
   return (
     <>
@@ -105,7 +103,8 @@ function InvestmentUI(props: InvestmentUIProps) {
                   key="beneficiariesAttr"
                   label="Beneficiarios:"
                   buttonIcon={<MdOpenInNew />}
-                  buttonValue={beneficiariesLength}
+                  buttonValue={beneficiariesModal.data.length}
+                  onClickButton={handleToggleModal}
                   withButton
                 />
               </Grid>
@@ -114,6 +113,15 @@ function InvestmentUI(props: InvestmentUIProps) {
         </Stack>
         {mquery && <QuickAccess links={quickLinks} />}
       </Grid>
+      {beneficiariesModal.show && (
+        <AttributesModal
+          portalId="modals"
+          title="Beneficiarios"
+          description="Porcentaje de participación"
+          onCloseModal={handleToggleModal}
+          attributes={beneficiariesModal.data}
+        ></AttributesModal>
+      )}
     </>
   );
 }

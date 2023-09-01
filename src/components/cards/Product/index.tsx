@@ -97,7 +97,7 @@ function Product(props: ProductProps) {
                   {attribute.label}
                 </Text>
                 <Text size="small" textAlign="center" appearance="gray">
-                  {attribute.value}
+                  {String(attribute.value)}
                 </Text>
               </Stack>
             ))}

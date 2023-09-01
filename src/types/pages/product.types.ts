@@ -3,7 +3,7 @@ import { TagProps } from "@design/data/Tag";
 interface IAttribute {
   id: string;
   label: string;
-  value: number | string | string[];
+  value: number | string | IAttribute[];
 }
 
 interface IMovement {

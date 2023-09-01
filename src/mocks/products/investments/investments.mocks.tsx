@@ -28,7 +28,18 @@ const investmentsMock: IProduct[] = [
       {
         id: "beneficiaries",
         label: "Beneficiarios",
-        value: ["John Doe"],
+        value: [
+          {
+            id: "beneficiarie-1",
+            label: "Alice Johnson",
+            value: "75%",
+          },
+          {
+            id: "beneficiarie-2",
+            label: "Bob Williams",
+            value: "25%",
+          },
+        ],
       },
       {
         id: "request_date",
@@ -70,7 +81,23 @@ const investmentsMock: IProduct[] = [
       {
         id: "beneficiaries",
         label: "Beneficiarios",
-        value: ["Alice Johnson", "Bob Williams"],
+        value: [
+          {
+            id: "beneficiarie-1",
+            label: "Eva Smith",
+            value: "50%",
+          },
+          {
+            id: "beneficiarie-2",
+            label: "Michael Brown",
+            value: "25%",
+          },
+          {
+            id: "beneficiarie-3",
+            label: "Sophia Davis",
+            value: "25%",
+          },
+        ],
       },
       {
         id: "request_date",
@@ -112,7 +139,28 @@ const investmentsMock: IProduct[] = [
       {
         id: "beneficiaries",
         label: "Beneficiarios",
-        value: ["Michael Brown", "Emma Lee", "Jane Smith"],
+        value: [
+          {
+            id: "beneficiarie-1",
+            label: "Oliver Wilson",
+            value: "20%",
+          },
+          {
+            id: "beneficiarie-2",
+            label: "Sophie Johnson",
+            value: "20%",
+          },
+          {
+            id: "beneficiarie-3",
+            label: "Liam Davis",
+            value: "30%",
+          },
+          {
+            id: "beneficiarie-4",
+            label: "Ava Smith",
+            value: "10%",
+          },
+        ],
       },
       {
         id: "request_date",
@@ -155,10 +203,31 @@ const investmentsMock: IProduct[] = [
         id: "beneficiaries",
         label: "Beneficiarios",
         value: [
-          "Sophia Clark",
-          "William Johnson",
-          "Alice Johnsson",
-          "Bob Willians",
+          {
+            id: "beneficiarie-1",
+            label: "Noah Brown",
+            value: "50%",
+          },
+          {
+            id: "beneficiarie-2",
+            label: "Mia Wilson",
+            value: "20%",
+          },
+          {
+            id: "beneficiarie-3",
+            label: "Ethan Anderson",
+            value: "10%",
+          },
+          {
+            id: "beneficiarie-4",
+            label: "Olivia Davis",
+            value: "10%",
+          },
+          {
+            id: "beneficiarie-5",
+            label: "Liam Harris",
+            value: "10%",
+          },
         ],
       },
       {

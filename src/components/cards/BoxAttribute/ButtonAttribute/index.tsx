@@ -11,16 +11,10 @@ interface ButtonAttributeProps {
 function ButtonAttribute(props: ButtonAttributeProps) {
   const { onClick, icon, value } = props;
   return (
-    <StyledContainer>
+    <StyledContainer onClick={onClick}>
       {icon && (
         <StyledIcon>
-          <Icon
-            icon={icon}
-            appearance="dark"
-            size="16px"
-            spacing="none"
-            onClick={onClick}
-          />
+          <Icon icon={icon} appearance="dark" size="16px" spacing="none" />
         </StyledIcon>
       )}
 

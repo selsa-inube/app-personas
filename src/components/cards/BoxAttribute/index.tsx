@@ -3,10 +3,11 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { ButtonAttribute } from "./ButtonAttribute";
 import { StyledBoxAttribute } from "./styles";
+import { IAttribute } from "@ptypes/pages/product.types";
 
 interface BoxAttributeProps {
   label: string;
-  value?: number | string | string[];
+  value?: number | string | IAttribute[];
   withButton?: boolean;
   buttonIcon?: React.JSX.Element;
   buttonValue?: string | number;
@@ -42,7 +43,7 @@ function BoxAttribute(props: BoxAttributeProps) {
             size={smallScreen ? "small" : "medium"}
             appearance="gray"
           >
-            {value}
+            {String(value)}
           </Text>
         )}
       </Stack>
