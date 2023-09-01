@@ -22,6 +22,7 @@ import { MyCredits } from "@pages/admin/credits/MyCredits";
 import { Home } from "@pages/admin/home";
 import { Investment } from "@pages/admin/investments/Investment";
 import { MyInvestments } from "@pages/admin/investments/MyInvestments";
+import { MySavings } from "@pages/admin/savings/MySavings";
 
 const USER_ID = "1";
 
@@ -44,6 +45,7 @@ function App() {
         />
         <Route path="my-investments" element={<MyInvestments />} />
         <Route path="my-investments/:product_id" element={<Investment />} />
+        <Route path="my-savings" element={<MySavings />} />
       </Route>
     )
   );

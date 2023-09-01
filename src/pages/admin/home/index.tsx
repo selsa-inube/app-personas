@@ -13,23 +13,27 @@ import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
   MdOutlineRealEstateAgent,
 } from "react-icons/md";
+import { USER_ID } from "src/App";
 import { cards, credits, investments, savings } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
   extractInvestmentAttributes,
+  extractSavingAttributes,
   formatCreditCurrencyAttrs,
   formatInvestmentCurrencyAttrs,
+  formatSavingCurrencyAttrs,
   investmentAttributeBreakpoints,
+  savingAttributeBreakpoints,
 } from "./config/products";
-import { cardProducts, savingsProducts } from "./mocks";
-import { USER_ID } from "src/App";
+import { cardProducts } from "./mocks";
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -59,21 +63,24 @@ function Home() {
           </Text>
           <Box {...savings}>
             <Stack direction="column" gap="s075">
-              {savingsProducts.length === 0 ? (
+              {savingsMock.length === 0 ? (
                 <Product
                   empty={true}
                   icon={<MdOutlineAccountBalanceWallet />}
                 />
               ) : (
-                savingsProducts.map(({ title, id, attributes, tags }) => (
+                savingsMock.map((saving) => (
                   <Product
-                    id={id}
-                    key={id}
-                    title={title}
-                    description={id}
-                    attributes={attributes}
-                    tags={tags}
+                    id={saving.id}
+                    key={saving.id}
+                    title={saving.title}
+                    description={saving.id}
+                    attributes={formatSavingCurrencyAttrs(
+                      extractSavingAttributes(saving)
+                    )}
+                    tags={saving.tags}
                     icon={<MdOutlineAccountBalanceWallet />}
+                    breakpoints={savingAttributeBreakpoints}
                   />
                 ))
               )}
