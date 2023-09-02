@@ -1,38 +1,33 @@
-import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
-
-import { useMediaQuery } from "@hooks/useMediaQuery";
-
-import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
-
 import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
-
 import { quickLinks } from "@config/quickLinks";
-
+import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
+import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
-import { myCredits } from "./config/boxes";
-import { crumbsMyCredits } from "./config/navigation";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
+import { mySavings } from "./config/boxes";
+import { crumbsMySavings } from "./config/navigation";
 import {
-  extractMyCreditAttributes,
-  formatMyCreditCurrencyAttrs,
-  myCreditAttributeBreakpoints,
+  extractMySavingsAttributes,
+  formatMySavingsCurrencyAttrs,
+  mySavingsAttributeBreakpoints,
 } from "./config/products";
 
-function MyCredits() {
+function MySavings() {
   const mquery = useMediaQuery("(min-width: 1400px)");
 
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsMyCredits} />
+        <Breadcrumbs crumbs={crumbsMySavings} />
         <Title
-          title="Mis créditos"
+          title="Mis ahorros"
           subtitle="Consulta y solicita tus productos"
           icon={<MdArrowBack />}
           navigatePage="/"
@@ -50,24 +45,24 @@ function MyCredits() {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <Box {...myCredits}>
+          <Box {...mySavings}>
             <Stack direction="column" gap="s075">
-              {creditsMock.length === 0 ? (
+              {savingsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
-                creditsMock.map((credit) => (
+                savingsMock.map((product) => (
                   <Product
-                    id={credit.id}
-                    key={credit.id}
-                    title={credit.title}
-                    description={credit.id}
-                    attributes={formatMyCreditCurrencyAttrs(
-                      extractMyCreditAttributes(credit)
+                    id={product.id}
+                    key={product.id}
+                    title={product.title}
+                    description={product.id}
+                    attributes={formatMySavingsCurrencyAttrs(
+                      extractMySavingsAttributes(product)
                     )}
-                    breakpoints={myCreditAttributeBreakpoints}
-                    tags={credit.tags}
+                    breakpoints={mySavingsAttributeBreakpoints}
+                    tags={product.tags}
                     icon={<MdOutlineAttachMoney />}
-                    navigateTo={`/my-credits/${credit.id}`}
+                    navigateTo={`/my-savings/${product.id}`}
                   />
                 ))
               )}
@@ -80,4 +75,4 @@ function MyCredits() {
   );
 }
 
-export { MyCredits };
+export { MySavings };
