@@ -1,9 +1,9 @@
-import { MdAdd, MdOutlineSavings } from "react-icons/md";
+import { MdAccountBalanceWallet, MdAdd } from "react-icons/md";
 
 const mySavings = {
   title: "Ahorros",
   subtitle: "Resumen productos de ahorros",
-  icon: <MdOutlineSavings />,
+  icon: <MdAccountBalanceWallet />,
   collapsing: { start: false, allow: false },
   button: {
     label: "Solicitar ahorro",
