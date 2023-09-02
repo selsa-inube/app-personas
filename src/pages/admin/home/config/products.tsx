@@ -57,6 +57,33 @@ function formatInvestmentCurrencyAttrs(investment: IAttribute[]) {
   });
 }
 
+const savingAttributes = ["net_value"];
+
+const savingCurrencyAttributes = ["net_value"];
+
+function extractSavingAttributes(credit: IProduct) {
+  const foundAttributes = credit.attributes.filter((attribute) =>
+  savingAttributes.includes(attribute.id)
+  );
+
+  return foundAttributes.sort(
+    (a, b) =>
+    savingAttributes.indexOf(a.id) - savingAttributes.indexOf(b.id)
+  );
+}
+
+function formatSavingCurrencyAttrs(attributes: IAttribute[]) {
+  return attributes.map((attribute) => {
+    if (savingCurrencyAttributes.includes(attribute.id)) {
+      return {
+        ...attribute,
+        value: currencyFormat(Number(attribute.value)),
+      };
+    }
+    return attribute;
+  });
+}
+
 const creditAttributeBreakpoints = {
   "(min-width: 1100px)": 3,
   "(min-width: 950px)": 2,
@@ -75,11 +102,24 @@ const investmentAttributeBreakpoints = {
   "(max-width: 660px)": 1,
 };
 
+const savingAttributeBreakpoints = {
+  "(min-width: 1100px)": 3,
+  "(min-width: 950px)": 2,
+  "(min-width: 895px)": 1,
+  "(min-width: 750px)": 3,
+  "(min-width: 650px)": 2,
+  "(max-width: 660px)": 1,
+};
+
+
 export {
   creditAttributeBreakpoints,
   investmentAttributeBreakpoints,
+  savingAttributeBreakpoints,
   extractCreditAttributes,
   extractInvestmentAttributes,
   formatCreditCurrencyAttrs,
   formatInvestmentCurrencyAttrs,
+  extractSavingAttributes,
+  formatSavingCurrencyAttrs,
 };

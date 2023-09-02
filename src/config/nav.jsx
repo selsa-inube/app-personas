@@ -23,7 +23,7 @@ const nav = {
         },
         {
           label: "Mis cuentas",
-          path: "/accounts",
+          path: "/my-savings",
           icon: <MdOutlineSavings />,
         },
         {
