@@ -6,9 +6,9 @@ interface ISelectedProductState {
   option: ISelectOption;
 }
 
-interface IBeneficiariesModal {
+interface IBeneficiariesModalState {
   show: boolean;
   data: IAttribute[];
 }
 
-export type { ISelectedProductState, IBeneficiariesModal };
+export type { ISelectedProductState, IBeneficiariesModalState };

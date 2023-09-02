@@ -17,15 +17,14 @@ import {
   extractInvestmentAttributes,
   formatInvestmentCurrencyAttrs,
 } from "./config/product";
-import { ISelectedProductState } from "./types";
-import { IBeneficiariesModal } from ".";
+import { ISelectedProductState, IBeneficiariesModalState } from "./types";
 import { AttributesModal } from "@components/modals/AttributesModal";
 
 interface InvestmentUIProps {
   isMobile?: boolean;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
-  beneficiariesModal: IBeneficiariesModal;
+  beneficiariesModal: IBeneficiariesModalState;
   productId?: string;
   handleChangeProduct: (option: ISelectOption) => void;
   handleToggleModal: () => void;
@@ -120,7 +119,7 @@ function InvestmentUI(props: InvestmentUIProps) {
           description="Porcentaje de participación"
           onCloseModal={handleToggleModal}
           attributes={beneficiariesModal.data}
-        ></AttributesModal>
+        />
       )}
     </>
   );

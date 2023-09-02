@@ -7,7 +7,7 @@ import { InvestmentUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { USER_ID } from "src/App";
 import { IAttribute } from "@ptypes/pages/product.types";
-import { IBeneficiariesModal } from "./types";
+import { IBeneficiariesModalState } from "./types";
 
 function Investment() {
   const { product_id } = useParams();
@@ -16,7 +16,7 @@ function Investment() {
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
   const [beneficiariesModal, setBeneficiariesModal] =
-    useState<IBeneficiariesModal>({
+    useState<IBeneficiariesModalState>({
       show: false,
       data: [],
     });
@@ -98,5 +98,4 @@ function Investment() {
   );
 }
 
-export type { IBeneficiariesModal };
 export { Investment };
