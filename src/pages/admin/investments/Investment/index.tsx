@@ -6,6 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { InvestmentUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { USER_ID } from "src/App";
+import { IAttribute } from "@ptypes/pages/product.types";
+import { IBeneficiariesModalState } from "./types";
 
 function Investment() {
   const { product_id } = useParams();
@@ -13,6 +15,36 @@ function Investment() {
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
+  const [beneficiariesModal, setBeneficiariesModal] =
+    useState<IBeneficiariesModalState>({
+      show: false,
+      data: [],
+    });
+
+  const handleToggleModal = () => {
+    setBeneficiariesModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
+  useEffect(() => {
+    if (selectedProduct) {
+      const beneficiariesAttribute = selectedProduct.investment.attributes.find(
+        (attr) => attr.id === "beneficiaries"
+      );
+      if (beneficiariesAttribute) {
+        let beneficiaries: IAttribute[] = [];
+        if (Array.isArray(beneficiariesAttribute.value)) {
+          beneficiaries = beneficiariesAttribute.value;
+        }
+        setBeneficiariesModal({
+          show: false,
+          data: beneficiaries,
+        });
+      }
+    }
+  }, [selectedProduct]);
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -56,10 +88,12 @@ function Investment() {
   return (
     <InvestmentUI
       handleChangeProduct={handleChangeProduct}
+      handleToggleModal={handleToggleModal}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
       isMobile={isMobile}
       productId={product_id}
+      beneficiariesModal={beneficiariesModal}
     />
   );
 }
