@@ -62,7 +62,7 @@ function MySavings() {
                     breakpoints={mySavingsAttributeBreakpoints}
                     tags={product.tags}
                     icon={<MdOutlineAttachMoney />}
-                    navigateTo={`/my-savings/${product.id}`}
+                    navigateTo={`/my-savings/account/${product.id}`}
                   />
                 ))
               )}
