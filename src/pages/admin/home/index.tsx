@@ -81,6 +81,7 @@ function Home() {
                     tags={saving.tags}
                     icon={<MdOutlineAccountBalanceWallet />}
                     breakpoints={savingAttributeBreakpoints}
+                    navigateTo={`/my-savings/account/${saving.id}`}
                   />
                 ))
               )}
