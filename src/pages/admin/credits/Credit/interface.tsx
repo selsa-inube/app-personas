@@ -14,6 +14,7 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useState } from "react";
 import {
   MdArrowBack,
   MdOutlineAssignment,
@@ -50,10 +51,9 @@ function CreditUI(props: CreditUIProps) {
     creditTableActions,
     credit_id,
   } = props;
+  const attributes = extractCreditAttributes(selectedProduct.credit);
 
   const mquery = useMediaQuery("(min-width: 1400px)");
-
-  const attributes = extractCreditAttributes(selectedProduct.credit);
 
   return (
     <>
