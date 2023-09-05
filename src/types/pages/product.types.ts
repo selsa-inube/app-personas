@@ -20,6 +20,14 @@ interface IMovement {
   totalValue: number;
 }
 
+interface ISavingMovements {
+  id: string;
+  date: string;
+  reference: string;
+  description: string;
+  totalValue: number;
+}
+
 interface IAmortization {
   id: string;
   paymentNumber: number;
@@ -39,6 +47,7 @@ interface IProduct {
   title: string;
   attributes: IAttribute[];
   movements?: IMovement[];
+  savingMovements?: ISavingMovements[];
   amortization?: IAmortization[];
   tags?: TagProps[];
   userOwner?: string;
