@@ -53,17 +53,7 @@ function CreditUI(props: CreditUIProps) {
   } = props;
   const attributes = extractCreditAttributes(selectedProduct.credit);
 
-  const [visibleAttributes, setVisibleAttributes] = useState(attributes.length);
-
   const mquery = useMediaQuery("(min-width: 1400px)");
-
-  const handleCollapse = () => {
-    if (visibleAttributes === 3) {
-      setVisibleAttributes(attributes.length);
-      return;
-    }
-    setVisibleAttributes(3);
-  };
 
   return (
     <>
@@ -104,19 +94,16 @@ function CreditUI(props: CreditUIProps) {
             }}
             {...creditBox}
             withCustomCollapse
-            onCustomCollapse={handleCollapse}
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-                {formatCreditCurrencyAttrs(attributes)
-                  .slice(0, visibleAttributes)
-                  .map((attr) => (
-                    <BoxAttribute
-                      key={attr.id}
-                      label={`${attr.label}: `}
-                      value={attr.value}
-                    />
-                  ))}
+                {formatCreditCurrencyAttrs(attributes).map((attr) => (
+                  <BoxAttribute
+                    key={attr.id}
+                    label={`${attr.label}: `}
+                    value={attr.value}
+                  />
+                ))}
               </Grid>
             </Stack>
           </Box>
