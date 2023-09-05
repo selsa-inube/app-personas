@@ -30,6 +30,8 @@ interface BoxProps {
     start: boolean;
   };
   tags?: TagProps[];
+  withCustomCollapse?: boolean;
+  onCustomCollapse?: () => void;
 }
 
 function Box(props: BoxProps) {
@@ -45,9 +47,19 @@ function Box(props: BoxProps) {
       start: false,
     },
     tags = [],
+    withCustomCollapse,
+    onCustomCollapse,
   } = props;
 
   const [collapse, setCollapse] = useState(collapsing.start);
+
+  const handleCollapse = () => {
+    setCollapse(!collapse);
+
+    if (withCustomCollapse && onCustomCollapse) {
+      onCustomCollapse();
+    }
+  };
 
   return (
     <StyledBox>
@@ -72,10 +84,7 @@ function Box(props: BoxProps) {
             </Stack>
           </StyledLink>
           {collapsing.allow && (
-            <StyledCollapseIcon
-              collapse={collapse}
-              onClick={() => setCollapse(!collapse)}
-            >
+            <StyledCollapseIcon collapse={collapse} onClick={handleCollapse}>
               <Icon
                 icon={<MdOutlineChevronRight />}
                 appearance="dark"
@@ -86,7 +95,7 @@ function Box(props: BoxProps) {
           )}
         </Stack>
         <StyledDivider />
-        {(!collapsing.allow || collapse) && children}
+        {(withCustomCollapse || !collapsing.allow || collapse) && children}
         {button && (
           <Stack justifyContent="flex-end">
             <Button

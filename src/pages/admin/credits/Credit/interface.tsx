@@ -14,6 +14,7 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useState } from "react";
 import {
   MdArrowBack,
   MdOutlineAssignment,
@@ -50,10 +51,19 @@ function CreditUI(props: CreditUIProps) {
     creditTableActions,
     credit_id,
   } = props;
+  const attributes = extractCreditAttributes(selectedProduct.credit);
+
+  const [visibleAttributes, setVisibleAttributes] = useState(attributes.length);
 
   const mquery = useMediaQuery("(min-width: 1400px)");
 
-  const attributes = extractCreditAttributes(selectedProduct.credit);
+  const handleCollapse = () => {
+    if (visibleAttributes === 3) {
+      setVisibleAttributes(attributes.length);
+      return;
+    }
+    setVisibleAttributes(3);
+  };
 
   return (
     <>
@@ -93,16 +103,20 @@ function CreditUI(props: CreditUIProps) {
               path: `/my-credits/${credit_id}/credit-amortization`,
             }}
             {...creditBox}
+            withCustomCollapse
+            onCustomCollapse={handleCollapse}
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-                {formatCreditCurrencyAttrs(attributes).map((attr) => (
-                  <BoxAttribute
-                    key={attr.id}
-                    label={`${attr.label}: `}
-                    value={attr.value}
-                  />
-                ))}
+                {formatCreditCurrencyAttrs(attributes)
+                  .slice(0, visibleAttributes)
+                  .map((attr) => (
+                    <BoxAttribute
+                      key={attr.id}
+                      label={`${attr.label}: `}
+                      value={attr.value}
+                    />
+                  ))}
               </Grid>
             </Stack>
           </Box>
