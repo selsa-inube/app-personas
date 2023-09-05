@@ -93,7 +93,6 @@ function CreditUI(props: CreditUIProps) {
               path: `/my-credits/${credit_id}/credit-amortization`,
             }}
             {...creditBox}
-            withCustomCollapse
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
