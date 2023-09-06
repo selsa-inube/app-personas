@@ -58,7 +58,7 @@ function App() {
           element={<Navigate to="/my-savings" replace />}
         />
         <Route
-          path="my-savings/account/:product_id/saving-movements"
+          path="my-savings/account/:product_id/movements"
           element={<SavingsAccountMovements />}
         />
       </Route>

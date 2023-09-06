@@ -69,7 +69,7 @@ function SavingsAccountMovements() {
   };
 
   const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-savings/account/${option.id}/saving-movements`);
+    navigate(`/my-savings/account/${option.id}/movements`);
   };
 
   const handleAddMovements = () => {

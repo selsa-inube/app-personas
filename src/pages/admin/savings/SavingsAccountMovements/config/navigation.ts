@@ -20,7 +20,7 @@ const crumbsSavingsAccountMovements = (
   },
   {
     id: "savingsAccountMovements",
-    path: `/my-savings/account${product_id}/saving-movements`,
+    path: `/my-savings/account${product_id}/movements`,
     label: "Movimientos",
     isActive: true,
   },

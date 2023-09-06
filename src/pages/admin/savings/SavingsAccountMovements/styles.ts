@@ -13,12 +13,4 @@ const StyledMovementsContainer = styled.div`
   }
 `;
 
-const StyledIconView = styled.div`
-  > svg:hover {
-    cursor: pointer;
-    color: ${({ theme }) =>
-      theme.color?.text?.primary?.hover || inube.color.text.primary.hover};
-  }
-`;
-
-export { StyledIconView, StyledMovementsContainer };
+export { StyledMovementsContainer };

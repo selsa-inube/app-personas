@@ -140,7 +140,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 appearance="dark"
                 variant="none"
                 iconBefore={<MdOutlineAssignmentTurnedIn />}
-                path={`/my-savings/account/${productId}/saving-movements`}
+                path={`/my-savings/account/${productId}/movements`}
               >
                 Movimientos
               </Button>

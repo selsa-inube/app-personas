@@ -22,7 +22,7 @@ const StyledDivider = styled.hr`
   width: 100%;
   height: 0px;
   border: none;
-  border-top: 0.5px solid;
+  border-top: 0.5px dashed;
   border-top-color: ${({ theme }) =>
     theme.color?.stroke?.divider?.regular ||
     inube.color.stroke.divider.regular};
