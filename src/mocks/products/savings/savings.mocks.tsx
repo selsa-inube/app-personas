@@ -187,7 +187,7 @@ const savingsMock: IProduct[] = [
           },
           {
             id: "beneficiary-3",
-            label: "Charlie Davis",
+            label: "David Quintero",
             value: "30%",
           },
         ],
@@ -313,22 +313,22 @@ const savingsMock: IProduct[] = [
         value: [
           {
             id: "beneficiary-1",
-            label: "Ermenegildo Zegna",
+            label: "Jose Diaz",
             value: "70%",
           },
           {
             id: "beneficiary-2",
-            label: "Leonel Andres",
+            label: "Luis Perez",
             value: "20%",
           },
           {
             id: "beneficiary-3",
-            label: "Paulette Goddard",
+            label: "Carlos Osbaldo",
             value: "5%",
           },
           {
             id: "beneficiary-4",
-            label: "Charlie Chaplin",
+            label: "Gustavo Albeiro",
             value: "5%",
           },
         ],
@@ -469,12 +469,12 @@ const savingsMock: IProduct[] = [
           },
           {
             id: "beneficiary-4",
-            label: "Jude Bellingham",
+            label: "Sebastian Garcia",
             value: "20%",
           },
           {
             id: "beneficiary-5",
-            label: "Stephen Curry",
+            label: "Johan Lara",
             value: "20%",
           },
         ],
