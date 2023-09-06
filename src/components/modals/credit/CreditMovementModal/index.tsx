@@ -14,7 +14,7 @@ import {
   StyledModal,
 } from "./styles";
 
-const renderTransactionSpecification = (label: string, value: number) => (
+const renderTransactionSpecification = (label: string, value?: number) => (
   <Stack gap="s100" alignItems="center">
     <Icon
       appearance="dark"
@@ -102,27 +102,27 @@ function CreditMovementModal(props: CreditMovementModalProps) {
           <Stack direction="column" gap="s200">
             {renderTransactionSpecification(
               "Abono capital:",
-              movement.capitalPayment || 0
+              movement.capitalPayment
             )}
             {renderTransactionSpecification(
               "Interés de mora:",
-              movement.interest || 0
+              movement.interest
             )}
             {renderTransactionSpecification(
               "Seguro de vida:",
-              movement.lifeInsurance || 0
+              movement.lifeInsurance
             )}
             {renderTransactionSpecification(
               "Seguro patrimonial:",
-              movement.patrimonialInsurance || 0
+              movement.patrimonialInsurance
             )}
             {renderTransactionSpecification(
               "Capitalización:",
-              movement.capitalization || 0
+              movement.capitalization
             )}
             {renderTransactionSpecification(
               "Comisión:",
-              movement.commission || 0
+              movement.commission
             )}
           </Stack>
 
