@@ -16,10 +16,6 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
-  movementsTableBreakpoints,
-  movementsTableTitles,
-} from "@pages/admin/credits/MyCredits/config/tables";
-import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineAssignmentTurnedIn,
@@ -33,6 +29,10 @@ import {
 import { savingsAccountBox } from "./config/saving";
 import { StyledMovementsContainer } from "./styles";
 import { IBeneficiariesModalState, ISelectedProductState } from "./types";
+import {
+  savingsAccountMovementsTableTitles,
+  savingsAccountMovementsTableBreakpoints,
+} from "../SavingsAccountMovements/config/table";
 
 interface SavingsAccountUIProps {
   isMobile?: boolean;
@@ -128,8 +128,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             <StyledMovementsContainer>
               <Table
                 id="modals"
-                titles={movementsTableTitles}
-                breakpoints={movementsTableBreakpoints}
+                titles={savingsAccountMovementsTableTitles}
+                breakpoints={savingsAccountMovementsTableBreakpoints}
                 actions={savingTableActions}
                 entries={selectedProduct.saving.movements || []}
                 pageLength={selectedProduct.saving.movements?.length || 0}
