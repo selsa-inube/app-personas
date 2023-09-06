@@ -11,12 +11,12 @@ interface IMovement {
   date: string;
   reference: string;
   description: string;
-  capitalPayment: number;
-  interest: number;
-  lifeInsurance: number;
-  patrimonialInsurance: number;
-  capitalization: number;
-  commission: number;
+  capitalPayment?: number;
+  interest?: number;
+  lifeInsurance?: number;
+  patrimonialInsurance?: number;
+  capitalization?: number;
+  commission?: number;
   totalValue: number;
 }
 

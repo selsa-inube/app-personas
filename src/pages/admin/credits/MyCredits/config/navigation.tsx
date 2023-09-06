@@ -5,7 +5,6 @@ const crumbsMyCredits: IBreadcrumbItem[] = [
     id: "home",
     path: "/",
     label: "Home",
-    isActive: false,
   },
   {
     id: "myCredits",

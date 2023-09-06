@@ -102,25 +102,28 @@ function CreditMovementModal(props: CreditMovementModalProps) {
           <Stack direction="column" gap="s200">
             {renderTransactionSpecification(
               "Abono capital:",
-              movement.capitalPayment
+              movement.capitalPayment || 0
             )}
             {renderTransactionSpecification(
               "Interés de mora:",
-              movement.interest
+              movement.interest || 0
             )}
             {renderTransactionSpecification(
               "Seguro de vida:",
-              movement.lifeInsurance
+              movement.lifeInsurance || 0
             )}
             {renderTransactionSpecification(
               "Seguro patrimonial:",
-              movement.patrimonialInsurance
+              movement.patrimonialInsurance || 0
             )}
             {renderTransactionSpecification(
               "Capitalización:",
-              movement.capitalization
+              movement.capitalization || 0
             )}
-            {renderTransactionSpecification("Comisión:", movement.commission)}
+            {renderTransactionSpecification(
+              "Comisión:",
+              movement.commission || 0
+            )}
           </Stack>
 
           <Stack direction="column" gap="s150">
