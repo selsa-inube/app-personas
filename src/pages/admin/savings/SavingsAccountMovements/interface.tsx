@@ -8,7 +8,7 @@ import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
-import { Breadcrumbs, IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
+import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack } from "react-icons/md";
@@ -21,7 +21,6 @@ import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 
 interface SavingsAccountMovementsUIProps {
-  crumbsMovements: IBreadcrumbItem[];
   handleChangeProduct: (option: ISelectOption) => void;
   handleAddMovements: () => void;
   selectedProduct: ISelectedProductState;
@@ -33,7 +32,6 @@ interface SavingsAccountMovementsUIProps {
 
 function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
   const {
-    crumbsMovements,
     handleAddMovements,
     handleChangeProduct,
     selectedProduct,

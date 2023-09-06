@@ -17,25 +17,27 @@ interface SavingMovementModalProps {
 
 const renderTransactionSpecification = (
   label: string,
-  value: string | number
+  values: string[] | number[]
 ) => (
   <StyledBodyItem>
     <Text type="label" size="large" appearance="dark">
       {label}
     </Text>
 
-    {typeof value === "number" ? (
-      <Text
-        type={value >= 0 ? "body" : "label"}
-        size={value >= 0 ? "medium" : "large"}
-        appearance={value >= 0 ? "gray" : "error"}
-      >
-        {currencyFormat(value)}
-      </Text>
-    ) : (
-      <Text type="body" size="medium" appearance={"gray"}>
-        {value}
-      </Text>
+    {values.map((value) =>
+      typeof value === "number" ? (
+        <Text
+          type={value >= 0 ? "body" : "label"}
+          size={value >= 0 ? "medium" : "large"}
+          appearance={value >= 0 ? "gray" : "error"}
+        >
+          {currencyFormat(value)}
+        </Text>
+      ) : (
+        <Text type="body" size="medium" appearance={"gray"}>
+          {value}
+        </Text>
+      )
     )}
   </StyledBodyItem>
 );
@@ -51,6 +53,15 @@ function SavingMovementModal(props: SavingMovementModalProps) {
       "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
     );
   }
+
+  const buildSecondDescription = () => {
+    const sequence = movement.sequence ? `Sec:${movement.sequence}` : "";
+    const cardNumber = movement.cardNumber
+      ? `Tarjeta:${movement.cardNumber}`
+      : "";
+
+    return `${sequence} ${cardNumber}`;
+  };
 
   return createPortal(
     <Blanket>
@@ -77,10 +88,13 @@ function SavingMovementModal(props: SavingMovementModalProps) {
 
         <StyledDivider />
         <Stack direction="column" alignItems="flex-start" gap="s075">
-          {renderTransactionSpecification("Valor", movement.totalValue)}
-          {renderTransactionSpecification("Fecha", movement.date)}
-          {renderTransactionSpecification("Descripción", movement.description)}
-          {renderTransactionSpecification("Referencia", movement.reference)}
+          {renderTransactionSpecification("Valor", [movement.totalValue])}
+          {renderTransactionSpecification("Fecha", [movement.date])}
+          {renderTransactionSpecification("Descripción", [
+            movement.description,
+            buildSecondDescription(),
+          ])}
+          {renderTransactionSpecification("Referencia", [movement.reference])}
         </Stack>
       </StyledModal>
     </Blanket>,

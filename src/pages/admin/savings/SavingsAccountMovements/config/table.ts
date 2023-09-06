@@ -8,6 +8,8 @@ const mapSavingAccountMovement = (movement: IEntry): IMovement => {
     reference: movement?.reference,
     description: movement?.description,
     totalValue: movement?.totalValue,
+    sequence: movement?.sequence,
+    cardNumber: movement?.cardNumber,
   };
 };
 

@@ -1,6 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { AttributesModal } from "@components/modals/AttributesModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
@@ -14,25 +15,24 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { AttributesModal } from "@components/modals/AttributesModal";
-import {
-  MdArrowBack,
-  MdOutlinePaid,
-  MdOutlineAssignmentTurnedIn,
-  MdOpenInNew,
-} from "react-icons/md";
 import {
   movementsTableBreakpoints,
   movementsTableTitles,
 } from "@pages/admin/credits/MyCredits/config/tables";
-import { savingsAccountBox } from "./config/saving";
+import {
+  MdArrowBack,
+  MdOpenInNew,
+  MdOutlineAssignmentTurnedIn,
+  MdOutlinePaid,
+} from "react-icons/md";
 import { crumbsSaving } from "./config/navigation";
 import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
+import { savingsAccountBox } from "./config/saving";
 import { StyledMovementsContainer } from "./styles";
-import { ISelectedProductState, IBeneficiariesModalState } from "./types";
+import { IBeneficiariesModalState, ISelectedProductState } from "./types";
 
 interface SavingsAccountUIProps {
   isMobile?: boolean;
@@ -140,7 +140,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 appearance="dark"
                 variant="none"
                 iconBefore={<MdOutlineAssignmentTurnedIn />}
-                path={`/my-savings/account/${productId}/movements`}
+                path={`/my-savings/account/${productId}/saving-movements`}
               >
                 Movimientos
               </Button>

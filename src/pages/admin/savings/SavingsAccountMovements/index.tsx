@@ -2,7 +2,6 @@ import { IAction } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { ISelectOption } from "@design/input/Select/types";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { crumbsMovements } from "@pages/admin/credits/CreditMovements/config/navigation";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { currencyFormat } from "src/utils/formats";
@@ -107,7 +106,6 @@ function SavingsAccountMovements() {
 
   return (
     <SavingsAccountMovementsUI
-      crumbsMovements={crumbsMovements(product_id)}
       handleAddMovements={handleAddMovements}
       handleChangeProduct={handleChangeProduct}
       savingsAccountTableActions={savingsAccountTableActions}

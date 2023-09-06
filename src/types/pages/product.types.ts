@@ -18,6 +18,8 @@ interface IMovement {
   capitalization?: number;
   commission?: number;
   totalValue: number;
+  cardNumber?: string;
+  sequence?: string;
 }
 
 interface IAmortization {

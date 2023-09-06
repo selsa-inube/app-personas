@@ -1,15 +1,16 @@
 import { IAction } from "@design/data/Table/types";
+import { Text } from "@design/data/Text";
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { IAttribute } from "@ptypes/pages/product.types";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { SavingsAccountUI } from "./interface";
-import { ISelectedProductState, IBeneficiariesModalState } from "./types";
-import { Text } from "@design/data/Text";
 import { currencyFormat } from "src/utils/formats";
-import { IAttribute } from "@ptypes/pages/product.types";
-import { MdOpenInNew } from "react-icons/md";
+import { mapSavingAccountMovement } from "../SavingsAccountMovements/config/table";
+import { SavingsAccountUI } from "./interface";
+import { IBeneficiariesModalState, ISelectedProductState } from "./types";
+import { ViewSavingMovement } from "../MySavings/ViewSavingMovement";
 
 const savingTableActions: IAction[] = [
   {
@@ -30,7 +31,9 @@ const savingTableActions: IAction[] = [
   {
     id: "2",
     actionName: "Ver",
-    content: () => <MdOpenInNew />,
+    content: (movement) => (
+      <ViewSavingMovement movement={mapSavingAccountMovement(movement)} />
+    ),
     mobilePriority: true,
   },
 ];
