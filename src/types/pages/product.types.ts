@@ -11,20 +11,12 @@ interface IMovement {
   date: string;
   reference: string;
   description: string;
-  capitalPayment: number;
-  interest: number;
-  lifeInsurance: number;
-  patrimonialInsurance: number;
-  capitalization: number;
-  commission: number;
-  totalValue: number;
-}
-
-interface ISavingMovements {
-  id: string;
-  date: string;
-  reference: string;
-  description: string;
+  capitalPayment?: number;
+  interest?: number;
+  lifeInsurance?: number;
+  patrimonialInsurance?: number;
+  capitalization?: number;
+  commission?: number;
   totalValue: number;
 }
 
@@ -47,7 +39,6 @@ interface IProduct {
   title: string;
   attributes: IAttribute[];
   movements?: IMovement[];
-  savingMovements?: ISavingMovements[];
   amortization?: IAmortization[];
   tags?: TagProps[];
   userOwner?: string;

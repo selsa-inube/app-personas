@@ -25,7 +25,7 @@ import {
   movementsTableBreakpoints,
   movementsTableTitles,
 } from "@pages/admin/credits/MyCredits/config/tables";
-import { savingBox } from "./config/saving";
+import { savingsAccountBox } from "./config/saving";
 import { crumbsSaving } from "./config/navigation";
 import {
   extractSavingAttributes,
@@ -98,7 +98,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               icon: <MdOutlinePaid />,
               path: ``,
             }}
-            {...savingBox}
+            {...savingsAccountBox}
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
@@ -131,8 +131,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 titles={movementsTableTitles}
                 breakpoints={movementsTableBreakpoints}
                 actions={savingTableActions}
-                entries={selectedProduct.saving.savingMovements || []}
-                pageLength={selectedProduct.saving.savingMovements?.length || 0}
+                entries={selectedProduct.saving.movements || []}
+                pageLength={selectedProduct.saving.movements?.length || 0}
                 hideMobileResume
               />
               <Button

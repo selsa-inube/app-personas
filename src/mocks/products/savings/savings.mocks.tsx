@@ -57,7 +57,7 @@ const savingsMock: IProduct[] = [
         ],
       },
     ],
-    savingMovements: [
+    movements: [
       {
         id: "movement-1",
         date: "10/May/2023",
@@ -193,7 +193,7 @@ const savingsMock: IProduct[] = [
         ],
       },
     ],
-    savingMovements: [
+    movements: [
       {
         id: "movement-1",
         date: "15/Jul/2023",
@@ -334,7 +334,7 @@ const savingsMock: IProduct[] = [
         ],
       },
     ],
-    savingMovements: [
+    movements: [
       {
         id: "movement-21",
         date: "10/Ago/2023",
@@ -480,7 +480,7 @@ const savingsMock: IProduct[] = [
         ],
       },
     ],
-    savingMovements: [
+    movements: [
       {
         id: "movement-1",
         date: "18/Jul/2023",

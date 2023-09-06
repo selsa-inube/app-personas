@@ -1,8 +1,8 @@
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
-const savingBox = {
+const savingsAccountBox = {
   icon: <MdOutlineAccountBalanceWallet />,
   collapsing: { start: false, allow: false },
 };
 
-export { savingBox };
+export { savingsAccountBox };

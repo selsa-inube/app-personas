@@ -5,13 +5,11 @@ const crumbsSaving = (product_id?: string): IBreadcrumbItem[] => [
     id: "home",
     path: "/",
     label: "Home",
-    isActive: false,
   },
   {
     id: "mySavings",
     path: "/my-savings",
     label: "Mis ahorros",
-    isActive: false,
   },
   {
     id: "savingAccount",
