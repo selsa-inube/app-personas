@@ -273,7 +273,7 @@ const savingsMock: IProduct[] = [
     id: "200 - 91214069",
     attributes: [
       {
-        id: "totalBalance",
+        id: "net_value",
         label: "Saldo total",
         value: 7642790,
       },
@@ -294,12 +294,12 @@ const savingsMock: IProduct[] = [
         ],
       },
       {
-        id: "pendingPayment",
+        id: "pending_payment",
         label: "Pago pendiente",
         value: 0,
       },
       {
-        id: "withdrawalBalance",
+        id: "withdrawal_balance",
         label: "Cupo retiro ahorro",
         value: 0,
       },
