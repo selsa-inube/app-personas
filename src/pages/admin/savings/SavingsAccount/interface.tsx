@@ -14,56 +14,62 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useState } from "react";
+import { AttributesModal } from "@components/modals/AttributesModal";
 import {
   MdArrowBack,
-  MdOutlineAssignment,
+  MdOutlinePaid,
   MdOutlineAssignmentTurnedIn,
+  MdOpenInNew,
 } from "react-icons/md";
 import {
   movementsTableBreakpoints,
   movementsTableTitles,
-} from "../MyCredits/config/tables";
-import { creditBox } from "./config/credit";
-import { crumbsCredit } from "./config/navigation";
+} from "@pages/admin/credits/MyCredits/config/tables";
+import { savingsAccountBox } from "./config/saving";
+import { crumbsSaving } from "./config/navigation";
 import {
-  extractCreditAttributes,
-  formatCreditCurrencyAttrs,
+  extractSavingAttributes,
+  formatSavingCurrencyAttrs,
 } from "./config/product";
 import { StyledMovementsContainer } from "./styles";
-import { ISelectedProductState } from "./types";
+import { ISelectedProductState, IBeneficiariesModalState } from "./types";
 
-interface CreditUIProps {
+interface SavingsAccountUIProps {
   isMobile?: boolean;
-  handleChangeProduct: (option: ISelectOption) => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
-  creditTableActions: IAction[];
-  credit_id?: string;
+  beneficiariesModal: IBeneficiariesModalState;
+  savingTableActions: IAction[];
+  productId?: string;
+  handleToggleModal: () => void;
+  handleChangeProduct: (option: ISelectOption) => void;
 }
 
-function CreditUI(props: CreditUIProps) {
+function SavingsAccountUI(props: SavingsAccountUIProps) {
   const {
     isMobile,
-    handleChangeProduct,
     selectedProduct,
     productsOptions,
-    creditTableActions,
-    credit_id,
+    savingTableActions,
+    beneficiariesModal,
+    productId,
+    handleToggleModal,
+    handleChangeProduct,
   } = props;
-  const attributes = extractCreditAttributes(selectedProduct.credit);
 
   const mquery = useMediaQuery("(min-width: 1400px)");
+
+  const attributes = extractSavingAttributes(selectedProduct.saving);
 
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsCredit(credit_id)} />
+        <Breadcrumbs crumbs={crumbsSaving(productId)} />
         <Title
-          title="Consulta de créditos"
-          subtitle="Información detallada de tus productos de crédito"
+          title="Consulta de ahorros"
+          subtitle="Información detallada de tus productos de ahorro"
           icon={<MdArrowBack />}
-          navigatePage="/my-credits"
+          navigatePage="/my-savings"
         />
       </Stack>
 
@@ -76,7 +82,7 @@ function CreditUI(props: CreditUIProps) {
       >
         <Stack direction="column" gap="s300">
           <Select
-            id="creditProducts"
+            id="savingProducts"
             handleChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
@@ -84,25 +90,33 @@ function CreditUI(props: CreditUIProps) {
             isFullWidth
           />
           <Box
-            title={selectedProduct.credit.title}
-            subtitle={selectedProduct.credit.id}
-            tags={selectedProduct.credit.tags}
+            title={selectedProduct.saving.title}
+            subtitle={`Cuenta de ahorros - ${selectedProduct.saving.id}`}
+            tags={selectedProduct.saving.tags}
             button={{
-              label: "Plan de pagos",
-              icon: <MdOutlineAssignment />,
-              path: `/my-credits/${credit_id}/credit-amortization`,
+              label: "Compromisos de ahorro",
+              icon: <MdOutlinePaid />,
+              path: ``,
             }}
-            {...creditBox}
+            {...savingsAccountBox}
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-                {formatCreditCurrencyAttrs(attributes).map((attr) => (
+                {formatSavingCurrencyAttrs(attributes).map((attr) => (
                   <BoxAttribute
                     key={attr.id}
                     label={`${attr.label}: `}
                     value={attr.value}
                   />
                 ))}
+                <BoxAttribute
+                  key="beneficiariesAttr"
+                  label="Beneficiarios:"
+                  buttonIcon={<MdOpenInNew />}
+                  buttonValue={beneficiariesModal.data.length}
+                  onClickButton={handleToggleModal}
+                  withButton
+                />
               </Grid>
             </Stack>
           </Box>
@@ -116,9 +130,9 @@ function CreditUI(props: CreditUIProps) {
                 id="modals"
                 titles={movementsTableTitles}
                 breakpoints={movementsTableBreakpoints}
-                actions={creditTableActions}
-                entries={selectedProduct.credit.movements || []}
-                pageLength={selectedProduct.credit.movements?.length || 0}
+                actions={savingTableActions}
+                entries={selectedProduct.saving.movements || []}
+                pageLength={selectedProduct.saving.movements?.length || 0}
                 hideMobileResume
               />
               <Button
@@ -126,7 +140,7 @@ function CreditUI(props: CreditUIProps) {
                 appearance="dark"
                 variant="none"
                 iconBefore={<MdOutlineAssignmentTurnedIn />}
-                path={`/my-credits/${credit_id}/credit-movements`}
+                path={`/my-savings/account/${productId}/movements`}
               >
                 Movimientos
               </Button>
@@ -135,8 +149,17 @@ function CreditUI(props: CreditUIProps) {
         </Stack>
         {mquery && <QuickAccess links={quickLinks} />}
       </Grid>
+      {beneficiariesModal.show && (
+        <AttributesModal
+          portalId="modals"
+          title="Beneficiarios"
+          description="Porcentaje de participación"
+          onCloseModal={handleToggleModal}
+          attributes={beneficiariesModal.data}
+        />
+      )}
     </>
   );
 }
 
-export { CreditUI };
+export { SavingsAccountUI };

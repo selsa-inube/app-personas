@@ -1,4 +1,5 @@
 import {
+  Navigate,
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -51,6 +52,10 @@ function App() {
         <Route
           path="my-savings/account/:product_id"
           element={<SavingsAccount />}
+        />
+        <Route
+          path="my-savings/account"
+          element={<Navigate to="/my-savings" replace />}
         />
         <Route
           path="my-savings/account/:product_id/saving-movements"
