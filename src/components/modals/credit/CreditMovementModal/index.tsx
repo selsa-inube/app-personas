@@ -14,7 +14,7 @@ import {
   StyledModal,
 } from "./styles";
 
-const renderTransactionSpecification = (label: string, value?: number) => (
+const renderTransactionSpecification = (label: string, value: number) => (
   <Stack gap="s100" alignItems="center">
     <Icon
       appearance="dark"
@@ -29,7 +29,7 @@ const renderTransactionSpecification = (label: string, value?: number) => (
       </Text>
 
       <Text type="body" size="small" appearance="gray">
-        {value && currencyFormat(value)}
+        {value}
       </Text>
     </Stack>
   </Stack>
