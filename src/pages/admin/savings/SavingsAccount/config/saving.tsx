@@ -1,8 +1,16 @@
-import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import {
+  MdOutlineAccountBalanceWallet,
+  MdOutlineHandshake,
+} from "react-icons/md";
 
-const savingsAccountBox = {
-  icon: <MdOutlineAccountBalanceWallet />,
-  collapsing: { start: false, allow: false },
+const savingsAccountIcons: Record<string, React.JSX.Element> = {
+  CA: <MdOutlineAccountBalanceWallet />,
+  AP: <MdOutlineHandshake />,
 };
 
-export { savingsAccountBox };
+const savingsAccountBox = (type?: string) => ({
+  icon: type ? savingsAccountIcons[type] : savingsAccountIcons.CA,
+  collapsing: { start: false, allow: false },
+});
+
+export { savingsAccountIcons, savingsAccountBox };

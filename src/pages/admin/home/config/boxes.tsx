@@ -1,16 +1,16 @@
 import {
-  MdAccountBalanceWallet,
   MdAdd,
   MdOutlineAccountBalance,
   MdOutlineAdd,
   MdOutlineBalance,
   MdOutlineCreditScore,
+  MdOutlineSavings,
 } from "react-icons/md";
 
 const savings = {
   title: "Ahorros",
   subtitle: "Consulta tus cuentas",
-  icon: <MdAccountBalanceWallet />,
+  icon: <MdOutlineSavings />,
   navigateTo: "/my-savings",
   collapsing: { start: false, allow: false },
   button: {
