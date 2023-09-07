@@ -3,7 +3,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
-import { IAction } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
@@ -14,12 +13,12 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useState } from "react";
 import {
   MdArrowBack,
   MdOutlineAssignment,
   MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
+import { creditMovementsTableActions } from "../CreditMovements/config/table";
 import {
   movementsTableBreakpoints,
   movementsTableTitles,
@@ -38,7 +37,6 @@ interface CreditUIProps {
   handleChangeProduct: (option: ISelectOption) => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
-  creditTableActions: IAction[];
   credit_id?: string;
 }
 
@@ -48,7 +46,6 @@ function CreditUI(props: CreditUIProps) {
     handleChangeProduct,
     selectedProduct,
     productsOptions,
-    creditTableActions,
     credit_id,
   } = props;
   const attributes = extractCreditAttributes(selectedProduct.credit);
@@ -80,7 +77,7 @@ function CreditUI(props: CreditUIProps) {
             handleChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct?.option}
+            value={selectedProduct.option}
             isFullWidth
           />
           <Box
@@ -116,7 +113,7 @@ function CreditUI(props: CreditUIProps) {
                 id="modals"
                 titles={movementsTableTitles}
                 breakpoints={movementsTableBreakpoints}
-                actions={creditTableActions}
+                actions={creditMovementsTableActions}
                 entries={selectedProduct.credit.movements || []}
                 pageLength={selectedProduct.credit.movements?.length || 0}
                 hideMobileResume

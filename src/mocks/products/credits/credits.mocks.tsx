@@ -4,6 +4,8 @@ const creditsMock: IProduct[] = [
   {
     id: "CE995433",
     title: "Crédito educativo",
+    description: "Crédito educativo - CE995433",
+    type: "CE",
     attributes: [
       { id: "net_value", label: "Saldo total", value: 7025550 },
       {
@@ -740,6 +742,8 @@ const creditsMock: IProduct[] = [
   {
     id: "CL000807",
     title: "Crédito libre inversión",
+    description: "Crédito libre inversión - CL000807",
+    type: "CL",
     attributes: [
       { id: "net_value", label: "Saldo total", value: 1500000 },
       {

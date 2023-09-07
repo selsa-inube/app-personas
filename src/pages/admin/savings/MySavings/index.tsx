@@ -56,13 +56,13 @@ function MySavings() {
                     id={product.id}
                     key={product.id}
                     title={product.title}
-                    description={product.id}
+                    description={product.description}
                     attributes={formatMySavingsCurrencyAttrs(
                       extractMySavingsAttributes(product)
                     )}
                     breakpoints={mySavingsAttributeBreakpoints}
                     tags={product.tags}
-                    icon={savingsAccountIcons[product.type || "CA"]}
+                    icon={savingsAccountIcons[product.type]}
                     navigateTo={`/my-savings/account/${product.id}`}
                   />
                 ))
