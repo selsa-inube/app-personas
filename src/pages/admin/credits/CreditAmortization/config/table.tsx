@@ -1,8 +1,10 @@
-import { IEntry } from "@design/data/Table/types";
+import { IAction, IEntry } from "@design/data/Table/types";
+import { Text } from "@design/data/Text";
 import { IAmortization } from "@ptypes/pages/product.types";
 import { currencyFormat } from "src/utils/formats";
+import { ViewPayment } from "../../MyCredits/ViewPayment";
 
-const mapPayment = (payment: IEntry): IAmortization => {
+const mapCreditPayment = (payment: IEntry): IAmortization => {
   return {
     id: payment?.id,
     date: payment?.date,
@@ -33,4 +35,27 @@ const formatCurrencyEntries = (amortization: IAmortization[]) =>
     };
   });
 
-export { formatCurrencyEntries, mapPayment };
+const creditAmortizationTableActions: IAction[] = [
+  {
+    id: "1",
+    actionName: "Cuota",
+    content: (amortization) => (
+      <Text type="body" size="small" appearance="dark">
+        {amortization.totalMonthlyValue}
+      </Text>
+    ),
+    mobilePriority: true,
+  },
+  {
+    id: "2",
+    actionName: "Ver",
+    content: (payment) => <ViewPayment payment={mapCreditPayment(payment)} />,
+    mobilePriority: true,
+  },
+];
+
+export {
+  creditAmortizationTableActions,
+  formatCurrencyEntries,
+  mapCreditPayment,
+};

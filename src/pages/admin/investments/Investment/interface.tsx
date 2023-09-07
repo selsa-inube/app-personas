@@ -3,7 +3,10 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { AttributesModal } from "@components/modals/AttributesModal";
 import { quickLinks } from "@config/quickLinks";
+import { Table } from "@design/data/Table";
+import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
+import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
@@ -11,6 +14,7 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { StyledMovementsContainer } from "@pages/admin/credits/Credit/styles";
 import {
   MdArrowBack,
   MdOpenInNew,
@@ -22,15 +26,12 @@ import {
   extractInvestmentAttributes,
   formatInvestmentCurrencyAttrs,
 } from "./config/product";
-import { IModalState, ISelectedProductState } from "./types";
-import { Table } from "@design/data/Table";
-import { Button } from "@design/input/Button";
-import { StyledMovementsContainer } from "@pages/admin/credits/Credit/styles";
 import {
-  movementsTableTitles,
-  movementsTableBreakpoints,
-} from "@pages/admin/credits/MyCredits/config/tables";
-import { Text } from "@design/data/Text";
+  investmentMovementsTableActions,
+  investmentMovementsTableBreakpoints,
+  investmentMovementsTableTitles,
+} from "../InvestmentMovements/config/table";
+import { IModalState, ISelectedProductState } from "./types";
 
 interface InvestmentUIProps {
   isMobile?: boolean;
@@ -84,7 +85,7 @@ function InvestmentUI(props: InvestmentUIProps) {
             handleChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct?.option}
+            value={selectedProduct.option}
             inputSize={isMobile ? "compact" : "wide"}
             isFullWidth
           />
@@ -148,11 +149,11 @@ function InvestmentUI(props: InvestmentUIProps) {
               <StyledMovementsContainer>
                 <Table
                   id="modals"
-                  titles={movementsTableTitles}
-                  breakpoints={movementsTableBreakpoints}
-                  actions={savingTableActions}
-                  entries={selectedProduct.saving.movements || []}
-                  pageLength={selectedProduct.saving.movements?.length || 0}
+                  titles={investmentMovementsTableTitles}
+                  breakpoints={investmentMovementsTableBreakpoints}
+                  actions={investmentMovementsTableActions}
+                  entries={selectedProduct.investment.movements || []}
+                  pageLength={selectedProduct.investment.movements?.length || 0}
                   hideMobileResume
                 />
                 <Button
@@ -160,7 +161,7 @@ function InvestmentUI(props: InvestmentUIProps) {
                   appearance="dark"
                   variant="none"
                   iconBefore={<MdOutlineAssignmentTurnedIn />}
-                  path={`/my-savings/account/${productId}/movements`}
+                  path={`/my-investments/${productId}/movements`}
                 >
                   Movimientos
                 </Button>

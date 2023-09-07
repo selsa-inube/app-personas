@@ -65,7 +65,7 @@ function Investment() {
     const investmentsOptions = userInvestments.map((investment) => {
       const productOption = {
         id: investment.id,
-        value: `${investment.title} - ${investment.id}`,
+        value: investment.description,
       };
 
       if (investment.id === product_id) {

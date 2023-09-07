@@ -4,7 +4,6 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { AttributesModal } from "@components/modals/AttributesModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
-import { IAction } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
@@ -21,6 +20,11 @@ import {
   MdOutlineAssignmentTurnedIn,
   MdOutlinePaid,
 } from "react-icons/md";
+import {
+  savingsAccountMovementsTableActions,
+  savingsAccountMovementsTableBreakpoints,
+  savingsAccountMovementsTableTitles,
+} from "../SavingsAccountMovements/config/table";
 import { crumbsSaving } from "./config/navigation";
 import {
   extractSavingAttributes,
@@ -29,17 +33,12 @@ import {
 import { savingsAccountBox } from "./config/saving";
 import { StyledMovementsContainer } from "./styles";
 import { IBeneficiariesModalState, ISelectedProductState } from "./types";
-import {
-  savingsAccountMovementsTableTitles,
-  savingsAccountMovementsTableBreakpoints,
-} from "../SavingsAccountMovements/config/table";
 
 interface SavingsAccountUIProps {
   isMobile?: boolean;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
   beneficiariesModal: IBeneficiariesModalState;
-  savingTableActions: IAction[];
   productId?: string;
   handleToggleModal: () => void;
   handleChangeProduct: (option: ISelectOption) => void;
@@ -50,7 +49,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     isMobile,
     selectedProduct,
     productsOptions,
-    savingTableActions,
     beneficiariesModal,
     productId,
     handleToggleModal,
@@ -86,7 +84,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             handleChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct?.option}
+            value={selectedProduct.option}
             isFullWidth
           />
           <Box
@@ -130,7 +128,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 id="modals"
                 titles={savingsAccountMovementsTableTitles}
                 breakpoints={savingsAccountMovementsTableBreakpoints}
-                actions={savingTableActions}
+                actions={savingsAccountMovementsTableActions}
                 entries={selectedProduct.saving.movements || []}
                 pageLength={selectedProduct.saving.movements?.length || 0}
                 hideMobileResume

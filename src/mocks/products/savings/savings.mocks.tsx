@@ -4,6 +4,7 @@ const savingsMock: IProduct[] = [
   {
     title: "Cuenta familiar",
     id: "CA214554",
+    type: "CA",
     description: "Cuenta de ahorros - CA214554",
     attributes: [
       {
@@ -284,6 +285,7 @@ const savingsMock: IProduct[] = [
   {
     title: "Cuenta de ahorros",
     id: "CA652879",
+    type: "CA",
     description: "Cuenta de ahorros - CA652879",
     attributes: [
       {
@@ -563,6 +565,7 @@ const savingsMock: IProduct[] = [
   {
     title: "Aportes sociales",
     id: "AP985647",
+    type: "AP",
     description: "Aportes sociales - 200 - AP985647",
     attributes: [
       {
@@ -926,6 +929,7 @@ const savingsMock: IProduct[] = [
   {
     title: "Ahorro permanente",
     id: "201 - AP781230",
+    type: "AP",
     description: "Ahorro permanente - 201 - AP781230",
     attributes: [
       {

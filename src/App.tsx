@@ -22,6 +22,7 @@ import { CreditMovements } from "@pages/admin/credits/CreditMovements";
 import { MyCredits } from "@pages/admin/credits/MyCredits";
 import { Home } from "@pages/admin/home";
 import { Investment } from "@pages/admin/investments/Investment";
+import { InvestmentMovements } from "@pages/admin/investments/InvestmentMovements";
 import { MyInvestments } from "@pages/admin/investments/MyInvestments";
 import { MySavings } from "@pages/admin/savings/MySavings";
 import { SavingsAccount } from "@pages/admin/savings/SavingsAccount";
@@ -48,6 +49,10 @@ function App() {
         />
         <Route path="my-investments" element={<MyInvestments />} />
         <Route path="my-investments/:product_id" element={<Investment />} />
+        <Route
+          path="my-investments/:product_id/movements"
+          element={<InvestmentMovements />}
+        />
         <Route path="my-savings" element={<MySavings />} />
         <Route
           path="my-savings/account/:product_id"

@@ -65,6 +65,7 @@ const StyledThAction = styled.th`
 const StyledTd = styled.td`
   padding: 0px 16px;
   text-align: center;
+  max-width: 310px;
 `;
 
 export {

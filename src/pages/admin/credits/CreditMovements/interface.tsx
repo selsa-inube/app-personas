@@ -1,7 +1,6 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
-import { IAction } from "@design/data/Table/types";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -16,6 +15,7 @@ import {
   movementsTableBreakpoints,
   movementsTableTitles,
 } from "../MyCredits/config/tables";
+import { creditMovementsTableActions } from "./config/table";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 
@@ -25,7 +25,6 @@ interface CreditMovementsUIProps {
   handleAddMovements: () => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
-  creditTableActions: IAction[];
   loading: boolean;
   credit_id?: string;
 }
@@ -37,7 +36,6 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
     handleChangeProduct,
     selectedProduct,
     productsOptions,
-    creditTableActions,
     loading,
     credit_id,
   } = props;
@@ -69,7 +67,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
             handleChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct?.option}
+            value={selectedProduct.option}
             isFullWidth
           />
           <StyledMovementsContainer>
@@ -77,7 +75,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
               id="modals"
               titles={movementsTableTitles}
               breakpoints={movementsTableBreakpoints}
-              actions={creditTableActions}
+              actions={creditMovementsTableActions}
               entries={selectedProduct.movements}
               pageLength={selectedProduct.movements.length}
               hideMobileResume

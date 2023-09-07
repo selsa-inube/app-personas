@@ -1,41 +1,10 @@
-import { IAction } from "@design/data/Table/types";
-import { Text } from "@design/data/Text";
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { currencyFormat } from "src/utils/formats";
 import { SavingsAccountUI } from "./interface";
 import { IBeneficiariesModalState, ISelectedProductState } from "./types";
-import { ViewSavingMovement } from "../MySavings/ViewSavingMovement";
-import { mapSavingAccountMovement } from "../SavingsAccountMovements/config/table";
-
-const savingTableActions: IAction[] = [
-  {
-    id: "1",
-    actionName: "Valor",
-    content: (movement) => (
-      <Text
-        type="body"
-        size="small"
-        appearance={movement.totalValue >= 0 ? "dark" : "error"}
-        cursorHover
-      >
-        {currencyFormat(movement.totalValue)}
-      </Text>
-    ),
-    mobilePriority: true,
-  },
-  {
-    id: "2",
-    actionName: "Ver",
-    content: (movement) => (
-      <ViewSavingMovement movement={mapSavingAccountMovement(movement)} />
-    ),
-    mobilePriority: true,
-  },
-];
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -81,7 +50,7 @@ function SavingsAccount() {
     const savingsOptions = savingsMock.map((saving) => {
       const productOption = {
         id: saving.id,
-        value: `${saving.title} - ${saving.id}`,
+        value: saving.description,
       };
 
       if (saving.id === product_id) {
@@ -117,7 +86,6 @@ function SavingsAccount() {
     <SavingsAccountUI
       handleToggleModal={handleToggleModal}
       handleChangeProduct={handleChangeProduct}
-      savingTableActions={savingTableActions}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
       isMobile={isMobile}
