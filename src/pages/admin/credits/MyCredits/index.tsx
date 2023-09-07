@@ -60,7 +60,7 @@ function MyCredits() {
                     id={credit.id}
                     key={credit.id}
                     title={credit.title}
-                    description={credit.id}
+                    description={credit.description}
                     attributes={formatMyCreditCurrencyAttrs(
                       extractMyCreditAttributes(credit)
                     )}

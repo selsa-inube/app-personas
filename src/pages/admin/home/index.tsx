@@ -18,7 +18,6 @@ import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
-  MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import { USER_ID } from "src/App";
 import { cards, credits, investments, savings } from "./config/boxes";
@@ -34,6 +33,7 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
+import { investmentIcons } from "../investments/Investment/config/investment";
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -74,7 +74,7 @@ function Home() {
                     id={saving.id}
                     key={saving.id}
                     title={saving.title}
-                    description={saving.id}
+                    description={saving.description}
                     attributes={formatSavingCurrencyAttrs(
                       extractSavingAttributes(saving)
                     )}
@@ -95,12 +95,12 @@ function Home() {
                     id={investment.id}
                     key={investment.id}
                     title={investment.title}
-                    description={investment.id}
+                    description={investment.description}
                     attributes={formatInvestmentCurrencyAttrs(
                       extractInvestmentAttributes(investment)
                     )}
                     tags={investment.tags}
-                    icon={<MdOutlineRealEstateAgent />}
+                    icon={investmentIcons[investment.type]}
                     navigateTo={`/my-investments/${investment.id}`}
                     breakpoints={investmentAttributeBreakpoints}
                   />
@@ -118,7 +118,7 @@ function Home() {
                     id={credit.id}
                     key={credit.id}
                     title={credit.title}
-                    description={credit.id}
+                    description={credit.description}
                     attributes={formatCreditCurrencyAttrs(
                       extractCreditAttributes(credit)
                     )}
@@ -136,17 +136,19 @@ function Home() {
               {cardProducts.length === 0 ? (
                 <Product icon={<MdOutlineCreditCard />} empty={true} />
               ) : (
-                cardProducts.map(({ title, id, attributes, tags }) => (
-                  <Product
-                    id={id}
-                    key={id}
-                    title={title}
-                    description={id}
-                    attributes={attributes}
-                    tags={tags}
-                    icon={<MdOutlineCreditCard />}
-                  />
-                ))
+                cardProducts.map(
+                  ({ title, id, attributes, tags, description }) => (
+                    <Product
+                      id={id}
+                      key={id}
+                      title={title}
+                      description={description}
+                      attributes={attributes}
+                      tags={tags}
+                      icon={<MdOutlineCreditCard />}
+                    />
+                  )
+                )
               )}
             </Stack>
           </Box>

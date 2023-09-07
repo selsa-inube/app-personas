@@ -55,7 +55,7 @@ function MySavings() {
                     id={product.id}
                     key={product.id}
                     title={product.title}
-                    description={product.id}
+                    description={product.description}
                     attributes={formatMySavingsCurrencyAttrs(
                       extractMySavingsAttributes(product)
                     )}

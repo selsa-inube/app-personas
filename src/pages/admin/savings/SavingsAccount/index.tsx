@@ -1,15 +1,14 @@
 import { IAction } from "@design/data/Table/types";
+import { Text } from "@design/data/Text";
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { SavingsAccountUI } from "./interface";
-import { ISelectedProductState, IBeneficiariesModalState } from "./types";
-import { Text } from "@design/data/Text";
-import { currencyFormat } from "src/utils/formats";
-import { IAttribute } from "@ptypes/pages/product.types";
 import { MdOpenInNew } from "react-icons/md";
+import { useNavigate, useParams } from "react-router-dom";
+import { currencyFormat } from "src/utils/formats";
+import { SavingsAccountUI } from "./interface";
+import { IBeneficiariesModalState, ISelectedProductState } from "./types";
 
 const savingTableActions: IAction[] = [
   {
@@ -49,34 +48,31 @@ function SavingsAccount() {
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
-  const handleToggleModal = () => {
-    setBeneficiariesModal((prevState) => ({
-      ...prevState,
-      show: !prevState.show,
-    }));
-  };
-
   useEffect(() => {
-    if (selectedProduct) {
-      const beneficiariesAttribute = selectedProduct.saving.attributes.find(
-        (attr) => attr.id === "beneficiaries"
-      );
-      if (beneficiariesAttribute) {
-        let beneficiaries: IAttribute[] = [];
-        if (Array.isArray(beneficiariesAttribute.value)) {
-          beneficiaries = beneficiariesAttribute.value;
-        }
-        setBeneficiariesModal({
-          show: false,
-          data: beneficiaries,
-        });
-      }
-    }
+    getBeneficiaries();
   }, [selectedProduct]);
 
   useEffect(() => {
     handleSortProduct();
   }, [product_id, isMobile]);
+
+  const getBeneficiaries = () => {
+    if (selectedProduct) {
+      const beneficiariesAttribute = selectedProduct.saving.attributes.find(
+        (attr) => attr.id === "beneficiaries"
+      );
+
+      if (
+        beneficiariesAttribute &&
+        Array.isArray(beneficiariesAttribute.value)
+      ) {
+        setBeneficiariesModal({
+          ...beneficiariesModal,
+          data: beneficiariesAttribute.value,
+        });
+      }
+    }
+  };
 
   const handleSortProduct = () => {
     const savingsOptions = savingsMock.map((saving) => {
@@ -103,6 +99,13 @@ function SavingsAccount() {
 
   const handleChangeProduct = (option: ISelectOption) => {
     navigate(`/my-savings/account/${option.id}`);
+  };
+
+  const handleToggleModal = () => {
+    setBeneficiariesModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
   };
 
   if (!selectedProduct) return null;

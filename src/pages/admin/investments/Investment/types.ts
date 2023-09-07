@@ -1,14 +1,16 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IProduct, IAttribute } from "@ptypes/pages/product.types";
+import { IAttribute, IProduct } from "@ptypes/pages/product.types";
 
 interface ISelectedProductState {
   investment: IProduct;
   option: ISelectOption;
 }
 
-interface IBeneficiariesModalState {
-  show: boolean;
-  data: IAttribute[];
+interface IModalState {
+  showBeneficiaries: boolean;
+  showRefund: boolean;
+  dataBeneficiaries: IAttribute[];
+  dataRefund: IAttribute[];
 }
 
-export type { ISelectedProductState, IBeneficiariesModalState };
+export type { IModalState, ISelectedProductState };

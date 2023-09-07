@@ -34,9 +34,13 @@ interface IAmortization {
   projectedBalance: number;
 }
 
+type ProductType = "CA" | "CD" | "AP" | "CL" | "CE";
+
 interface IProduct {
   id: string;
   title: string;
+  description: string;
+  type: ProductType;
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
