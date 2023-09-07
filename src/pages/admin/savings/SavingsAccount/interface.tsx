@@ -98,7 +98,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               icon: <MdOutlinePaid />,
               path: ``,
             }}
-            {...savingsAccountBox}
+            {...savingsAccountBox(selectedProduct.saving.type)}
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
