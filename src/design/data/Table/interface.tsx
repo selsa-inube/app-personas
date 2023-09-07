@@ -151,12 +151,7 @@ const TableUI = (props: TableUIProps) => {
               key={`title-${title.id}`}
               aria-label={title.titleName}
             >
-              <Text
-                type="label"
-                textAlign="center"
-                size="medium"
-                appearance="dark"
-              >
+              <Text type="label" size="medium" appearance="dark">
                 {title.titleName}
               </Text>
             </StyledThTitle>
@@ -178,13 +173,9 @@ const TableUI = (props: TableUIProps) => {
           >
             {TitleColumns.map((title) => (
               <StyledTd key={`e-${entry[title.id]}`}>
-                <Text
-                  type="body"
-                  textAlign="center"
-                  size="small"
-                  appearance="dark"
-                >
+                <Text type="body" size="small" appearance="dark" ellipsis>
                   {entry[title.id]}
+                  {entry[title.id].length > 60 && "..."}
                 </Text>
               </StyledTd>
             ))}

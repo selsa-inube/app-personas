@@ -29,7 +29,7 @@ const renderTransactionSpecification = (label: string, value?: number) => (
       </Text>
 
       <Text type="body" size="small" appearance="gray">
-        {value && currencyFormat(value)}
+        {value}
       </Text>
     </Stack>
   </Stack>
@@ -120,7 +120,10 @@ function CreditMovementModal(props: CreditMovementModalProps) {
               "Capitalización:",
               movement.capitalization
             )}
-            {renderTransactionSpecification("Comisión:", movement.commission)}
+            {renderTransactionSpecification(
+              "Comisión:",
+              movement.commission
+            )}
           </Stack>
 
           <Stack direction="column" gap="s150">

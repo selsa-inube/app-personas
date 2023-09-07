@@ -25,6 +25,7 @@ import { Investment } from "@pages/admin/investments/Investment";
 import { MyInvestments } from "@pages/admin/investments/MyInvestments";
 import { MySavings } from "@pages/admin/savings/MySavings";
 import { SavingsAccount } from "@pages/admin/savings/SavingsAccount";
+import { SavingsAccountMovements } from "@pages/admin/savings/SavingsAccountMovements";
 
 const USER_ID = "1";
 
@@ -55,6 +56,10 @@ function App() {
         <Route
           path="my-savings/account"
           element={<Navigate to="/my-savings" replace />}
+        />
+        <Route
+          path="my-savings/account/:product_id/movements"
+          element={<SavingsAccountMovements />}
         />
       </Route>
     )

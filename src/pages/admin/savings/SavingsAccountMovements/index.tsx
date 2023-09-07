@@ -1,18 +1,16 @@
 import { IAction } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { ISelectOption } from "@design/input/Select/types";
-import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { IAttribute } from "@ptypes/pages/product.types";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { currencyFormat } from "src/utils/formats";
-import { mapSavingAccountMovement } from "../SavingsAccountMovements/config/table";
-import { SavingsAccountUI } from "./interface";
-import { IBeneficiariesModalState, ISelectedProductState } from "./types";
 import { ViewSavingMovement } from "../MySavings/ViewSavingMovement";
+import { mapSavingAccountMovement } from "./config/table";
+import { SavingsAccountMovementsUI } from "./interface";
+import { ISelectedProductState } from "./types";
 
-const savingTableActions: IAction[] = [
+const savingsAccountTableActions: IAction[] = [
   {
     id: "1",
     actionName: "Valor",
@@ -21,7 +19,6 @@ const savingTableActions: IAction[] = [
         type="body"
         size="small"
         appearance={movement.totalValue >= 0 ? "dark" : "error"}
-        cursorHover
       >
         {currencyFormat(movement.totalValue)}
       </Text>
@@ -38,48 +35,17 @@ const savingTableActions: IAction[] = [
   },
 ];
 
-function SavingsAccount() {
+function SavingsAccountMovements() {
   const { product_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
-  const [beneficiariesModal, setBeneficiariesModal] =
-    useState<IBeneficiariesModalState>({
-      show: false,
-      data: [],
-    });
-
-  const isMobile = useMediaQuery("(max-width: 750px)");
-
-  const handleToggleModal = () => {
-    setBeneficiariesModal((prevState) => ({
-      ...prevState,
-      show: !prevState.show,
-    }));
-  };
-
-  useEffect(() => {
-    if (selectedProduct) {
-      const beneficiariesAttribute = selectedProduct.saving.attributes.find(
-        (attr) => attr.id === "beneficiaries"
-      );
-      if (beneficiariesAttribute) {
-        let beneficiaries: IAttribute[] = [];
-        if (Array.isArray(beneficiariesAttribute.value)) {
-          beneficiaries = beneficiariesAttribute.value;
-        }
-        setBeneficiariesModal({
-          show: false,
-          data: beneficiaries,
-        });
-      }
-    }
-  }, [selectedProduct]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     handleSortProduct();
-  }, [product_id, isMobile]);
+  }, [product_id]);
 
   const handleSortProduct = () => {
     const savingsOptions = savingsMock.map((saving) => {
@@ -90,10 +56,8 @@ function SavingsAccount() {
 
       if (saving.id === product_id) {
         setSelectedProduct({
-          saving: {
-            ...saving,
-            movements: saving.movements?.slice(0, isMobile ? 5 : 10),
-          },
+          totalMovements: saving.movements?.length || 0,
+          movements: saving.movements?.slice(0, 14) || [],
           option: productOption,
         });
       }
@@ -105,23 +69,52 @@ function SavingsAccount() {
   };
 
   const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-savings/account/${option.id}`);
+    navigate(`/my-savings/account/${option.id}/movements`);
+  };
+
+  const handleAddMovements = () => {
+    setLoading(true);
+
+    setTimeout(() => {
+      try {
+        if (!selectedProduct?.movements) return;
+
+        const foundProduct = savingsMock.find(
+          (saving) => saving.id === product_id
+        );
+
+        if (!foundProduct) return;
+
+        const newMovements = foundProduct.movements?.slice(
+          selectedProduct.movements.length,
+          selectedProduct.movements.length + 5
+        );
+
+        if (newMovements) {
+          setSelectedProduct({
+            ...selectedProduct,
+            movements: [...selectedProduct.movements, ...newMovements],
+          });
+        }
+      } finally {
+        setLoading(false);
+      }
+    }, 500);
   };
 
   if (!selectedProduct) return null;
 
   return (
-    <SavingsAccountUI
-      handleToggleModal={handleToggleModal}
+    <SavingsAccountMovementsUI
+      handleAddMovements={handleAddMovements}
       handleChangeProduct={handleChangeProduct}
-      savingTableActions={savingTableActions}
+      savingsAccountTableActions={savingsAccountTableActions}
+      loading={loading}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
-      isMobile={isMobile}
-      productId={product_id}
-      beneficiariesModal={beneficiariesModal}
+      product_id={product_id}
     />
   );
 }
 
-export { SavingsAccount };
+export { SavingsAccountMovements };

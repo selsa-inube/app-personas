@@ -1,6 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { AttributesModal } from "@components/modals/AttributesModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
@@ -14,25 +15,24 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { AttributesModal } from "@components/modals/AttributesModal";
 import {
   MdArrowBack,
-  MdOutlinePaid,
-  MdOutlineAssignmentTurnedIn,
   MdOpenInNew,
+  MdOutlineAssignmentTurnedIn,
+  MdOutlinePaid,
 } from "react-icons/md";
-import {
-  movementsTableBreakpoints,
-  movementsTableTitles,
-} from "@pages/admin/credits/MyCredits/config/tables";
-import { savingsAccountBox } from "./config/saving";
 import { crumbsSaving } from "./config/navigation";
 import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
+import { savingsAccountBox } from "./config/saving";
 import { StyledMovementsContainer } from "./styles";
-import { ISelectedProductState, IBeneficiariesModalState } from "./types";
+import { IBeneficiariesModalState, ISelectedProductState } from "./types";
+import {
+  savingsAccountMovementsTableTitles,
+  savingsAccountMovementsTableBreakpoints,
+} from "../SavingsAccountMovements/config/table";
 
 interface SavingsAccountUIProps {
   isMobile?: boolean;
@@ -128,8 +128,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             <StyledMovementsContainer>
               <Table
                 id="modals"
-                titles={movementsTableTitles}
-                breakpoints={movementsTableBreakpoints}
+                titles={savingsAccountMovementsTableTitles}
+                breakpoints={savingsAccountMovementsTableBreakpoints}
                 actions={savingTableActions}
                 entries={selectedProduct.saving.movements || []}
                 pageLength={selectedProduct.saving.movements?.length || 0}

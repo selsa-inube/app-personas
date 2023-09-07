@@ -13,4 +13,4 @@ const StyledMovementsContainer = styled.div`
   }
 `;
 
-export {  StyledMovementsContainer };
+export { StyledMovementsContainer };
