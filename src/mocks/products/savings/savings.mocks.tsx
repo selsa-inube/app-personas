@@ -564,9 +564,9 @@ const savingsMock: IProduct[] = [
   },
   {
     title: "Aportes sociales",
-    id: "AP985647",
+    id: "200-91214069",
     type: "AP",
-    description: "Aportes sociales - 200 - AP985647",
+    description: "Aportes sociales - 200 - 91214069",
     attributes: [
       {
         id: "net_value",
@@ -928,9 +928,9 @@ const savingsMock: IProduct[] = [
   },
   {
     title: "Ahorro permanente",
-    id: "201 - AP781230",
+    id: "201-91214069",
     type: "AP",
-    description: "Ahorro permanente - 201 - AP781230",
+    description: "Ahorro permanente - 201 - 91214069",
     attributes: [
       {
         id: "net_value",
