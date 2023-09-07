@@ -20,6 +20,7 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 import { USER_ID } from "src/App";
+import { investmentIcons } from "../investments/Investment/config/investment";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
 import { cards, credits, investments, savings } from "./config/boxes";
 import {
@@ -34,7 +35,6 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
-import { investmentIcons } from "../investments/Investment/config/investment";
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -80,7 +80,7 @@ function Home() {
                       extractSavingAttributes(saving)
                     )}
                     tags={saving.tags}
-                    icon={savingsAccountIcons[saving.type || "CA"]}
+                    icon={savingsAccountIcons[saving.type]}
                     breakpoints={savingAttributeBreakpoints}
                     navigateTo={`/my-savings/account/${saving.id}`}
                   />

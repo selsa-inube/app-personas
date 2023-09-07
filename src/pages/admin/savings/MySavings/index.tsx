@@ -62,7 +62,7 @@ function MySavings() {
                     )}
                     breakpoints={mySavingsAttributeBreakpoints}
                     tags={product.tags}
-                    icon={savingsAccountIcons[product.type || "CA"]}
+                    icon={savingsAccountIcons[product.type]}
                     navigateTo={`/my-savings/account/${product.id}`}
                   />
                 ))
