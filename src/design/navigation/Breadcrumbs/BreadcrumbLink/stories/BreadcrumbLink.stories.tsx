@@ -1,7 +1,7 @@
+import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { BreadcrumbLink, BreadcrumbLinkProps } from "..";
 import { BreadcrumbLinkController } from "./BreadcrumbLinkController";
-import { StoryFn } from "@storybook/react";
 
 import { ThemeProvider } from "styled-components";
 

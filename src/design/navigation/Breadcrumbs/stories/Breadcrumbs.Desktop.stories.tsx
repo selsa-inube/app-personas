@@ -1,9 +1,9 @@
-import { BrowserRouter } from "react-router-dom";
-import { props } from "../props";
-import { Breadcrumbs, BreadcrumbsProps } from "..";
-import { ThemeProvider } from "styled-components";
 import { theme } from "@config/theme";
 import { StoryFn } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { Breadcrumbs, BreadcrumbsProps } from "..";
+import { props } from "../props";
 
 const story = {
   title: "design/navigation/Breadcrumbs",
@@ -25,19 +25,16 @@ Desktop.args = {
       path: "/home",
       label: "Inicio",
       id: "/home",
-      isActive: false,
     },
     {
       path: "/home/users",
       label: "Usuarios",
       id: "/home/users",
-      isActive: false,
     },
     {
       path: "/home/users/invitation",
       label: "Invitación",
       id: "/home/users/invitation",
-      isActive: false,
     },
     {
       path: "/home/users/invitation/edition",
