@@ -102,7 +102,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-                {formatSavingCurrencyAttrs(attributes).map((attr) => (
+                {formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type).map((attr) => (
                   <BoxAttribute
                     key={attr.id}
                     label={`${attr.label}: `}
