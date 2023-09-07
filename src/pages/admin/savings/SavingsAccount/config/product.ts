@@ -11,7 +11,7 @@ const savingAttributes: Record<string, string[]> = {
     "account_to_salary",
     "interest_rate",
   ],
-  AP: ["net_value", "pending_payment", "withdrawal_balance"],
+  AP: ["net_value", "withdrawal_balance", "pending_payment"],
 };
 
 const savingCurrencyAttributes: Record<string, string[]> = {
