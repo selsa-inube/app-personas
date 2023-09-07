@@ -3,8 +3,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
-import { IAction } from "@design/data/Table/types";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
@@ -17,34 +15,17 @@ import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import { ViewPayment } from "../MyCredits/ViewPayment";
 import {
   amortizationTableBreakpoints,
   amortizationTableTitles,
 } from "../MyCredits/config/tables";
 import { extractCreditAmortizationAttrs } from "./config/product";
-import { formatCurrencyEntries, mapPayment } from "./config/table";
+import {
+  creditAmortizationTableActions,
+  formatCurrencyEntries,
+} from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
-
-const creditTableActions: IAction[] = [
-  {
-    id: "1",
-    actionName: "Cuota",
-    content: (amortization) => (
-      <Text type="body" size="small" appearance="dark">
-        {amortization.totalMonthlyValue}
-      </Text>
-    ),
-    mobilePriority: true,
-  },
-  {
-    id: "2",
-    actionName: "Ver",
-    content: (payment) => <ViewPayment payment={mapPayment(payment)} />,
-    mobilePriority: true,
-  },
-];
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -89,7 +70,7 @@ function CreditAmortization() {
       const productOption = {
         id: credit.id,
         title: credit.title,
-        value: `${credit.title} - ${credit.id}`,
+        value: credit.description,
       };
 
       if (credit.id === credit_id) {
@@ -138,7 +119,7 @@ function CreditAmortization() {
             handleChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct?.option}
+            value={selectedProduct.option}
             isFullWidth
           />
           <Box
@@ -162,7 +143,7 @@ function CreditAmortization() {
               id="modals"
               titles={amortizationTableTitles}
               breakpoints={amortizationTableBreakpoints}
-              actions={creditTableActions}
+              actions={creditAmortizationTableActions}
               entries={formatCurrencyEntries(
                 selectedProduct.credit.amortization
               )}

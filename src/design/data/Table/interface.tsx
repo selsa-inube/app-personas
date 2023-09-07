@@ -175,7 +175,6 @@ const TableUI = (props: TableUIProps) => {
               <StyledTd key={`e-${entry[title.id]}`}>
                 <Text type="body" size="small" appearance="dark" ellipsis>
                   {entry[title.id]}
-                  {entry[title.id].length > 60 && "..."}
                 </Text>
               </StyledTd>
             ))}

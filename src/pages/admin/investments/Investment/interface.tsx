@@ -1,8 +1,12 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { AttributesModal } from "@components/modals/AttributesModal";
 import { quickLinks } from "@config/quickLinks";
+import { Table } from "@design/data/Table";
+import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
+import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
@@ -10,24 +14,35 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { MdArrowBack, MdOpenInNew } from "react-icons/md";
+import { StyledMovementsContainer } from "@pages/admin/credits/Credit/styles";
+import {
+  MdArrowBack,
+  MdOpenInNew,
+  MdOutlineAssignmentTurnedIn,
+  MdOutlinePaid,
+} from "react-icons/md";
+import {
+  investmentMovementsTableActions,
+  investmentMovementsTableBreakpoints,
+  investmentMovementsTableTitles,
+} from "../InvestmentMovements/config/table";
 import { investmentBox } from "./config/investment";
 import { crumbsInvestment } from "./config/navigation";
 import {
   extractInvestmentAttributes,
   formatInvestmentCurrencyAttrs,
 } from "./config/product";
-import { ISelectedProductState, IBeneficiariesModalState } from "./types";
-import { AttributesModal } from "@components/modals/AttributesModal";
+import { IModalState, ISelectedProductState } from "./types";
 
 interface InvestmentUIProps {
   isMobile?: boolean;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
-  beneficiariesModal: IBeneficiariesModalState;
+  modals: IModalState;
   productId?: string;
   handleChangeProduct: (option: ISelectOption) => void;
-  handleToggleModal: () => void;
+  handleToggleBeneficiariesModal: () => void;
+  handleToggleRefundModal: () => void;
 }
 
 function InvestmentUI(props: InvestmentUIProps) {
@@ -36,8 +51,9 @@ function InvestmentUI(props: InvestmentUIProps) {
     selectedProduct,
     productsOptions,
     productId,
-    beneficiariesModal,
-    handleToggleModal,
+    modals,
+    handleToggleBeneficiariesModal,
+    handleToggleRefundModal,
     handleChangeProduct,
   } = props;
 
@@ -70,7 +86,7 @@ function InvestmentUI(props: InvestmentUIProps) {
             handleChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct?.option}
+            value={selectedProduct.option}
             inputSize={isMobile ? "compact" : "wide"}
             isFullWidth
           />
@@ -79,46 +95,95 @@ function InvestmentUI(props: InvestmentUIProps) {
             subtitle={
               isMobile
                 ? selectedProduct.investment.id
-                : `${selectedProduct.investment.title} - ${selectedProduct.investment.id}`
+                : selectedProduct.investment.description
             }
             tags={selectedProduct.investment.tags}
-            {...investmentBox}
+            button={{
+              label: "Compromisos de ahorro",
+              icon: <MdOutlinePaid />,
+              path: ``,
+            }}
+            {...investmentBox(selectedProduct.investment.type)}
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-                <BoxAttribute
-                  key="titleAttr"
-                  label="Titulo:"
-                  value={selectedProduct.investment.id}
-                />
-                {formatInvestmentCurrencyAttrs(attributes).map((attr) => (
+                {selectedProduct.investment.type === "CD" && (
+                  <BoxAttribute
+                    key="titleAttr"
+                    label="Titulo:"
+                    value={selectedProduct.investment.id}
+                  />
+                )}
+
+                {formatInvestmentCurrencyAttrs(
+                  attributes,
+                  selectedProduct.investment.type
+                ).map((attr) => (
                   <BoxAttribute
                     key={attr.id}
                     label={`${attr.label}: `}
                     value={attr.value}
                   />
                 ))}
+
+                {selectedProduct.investment.type === "AP" && (
+                  <BoxAttribute
+                    label="Reembolso:"
+                    buttonIcon={<MdOpenInNew />}
+                    buttonValue="Ver"
+                    onClickButton={handleToggleRefundModal}
+                    withButton
+                  />
+                )}
+
                 <BoxAttribute
-                  key="beneficiariesAttr"
                   label="Beneficiarios:"
                   buttonIcon={<MdOpenInNew />}
-                  buttonValue={beneficiariesModal.data.length}
-                  onClickButton={handleToggleModal}
+                  buttonValue={modals.dataBeneficiaries.length}
+                  onClickButton={handleToggleBeneficiariesModal}
                   withButton
                 />
               </Grid>
             </Stack>
           </Box>
+
+          {selectedProduct.investment.type === "AP" && (
+            <Stack direction="column" gap="s200" alignItems="flex-start">
+              <Text type="title" size="medium">
+                Últimos movimientos
+              </Text>
+              <StyledMovementsContainer>
+                <Table
+                  id="modals"
+                  titles={investmentMovementsTableTitles}
+                  breakpoints={investmentMovementsTableBreakpoints}
+                  actions={investmentMovementsTableActions}
+                  entries={selectedProduct.investment.movements || []}
+                  pageLength={selectedProduct.investment.movements?.length || 0}
+                  hideMobileResume
+                />
+                <Button
+                  type="link"
+                  appearance="dark"
+                  variant="none"
+                  iconBefore={<MdOutlineAssignmentTurnedIn />}
+                  path={`/my-investments/${productId}/movements`}
+                >
+                  Movimientos
+                </Button>
+              </StyledMovementsContainer>
+            </Stack>
+          )}
         </Stack>
         {mquery && <QuickAccess links={quickLinks} />}
       </Grid>
-      {beneficiariesModal.show && (
+      {modals.showBeneficiaries && (
         <AttributesModal
           portalId="modals"
           title="Beneficiarios"
           description="Porcentaje de participación"
-          onCloseModal={handleToggleModal}
-          attributes={beneficiariesModal.data}
+          onCloseModal={handleToggleBeneficiariesModal}
+          attributes={modals.dataBeneficiaries}
         />
       )}
     </>

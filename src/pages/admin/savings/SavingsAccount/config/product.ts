@@ -21,7 +21,6 @@ const savingCurrencyAttributes: Record<string, string[]> = {
 
 function extractSavingAttributes(saving: IProduct) {
   const savingType = saving.type;
-  if (!savingType) return [];
 
   const foundAttributes = saving.attributes.filter((attribute) =>
     savingAttributes[savingType].includes(attribute.id)
@@ -36,10 +35,8 @@ function extractSavingAttributes(saving: IProduct) {
 
 function formatSavingCurrencyAttrs(
   attributes: IAttribute[],
-  productType?: string
+  productType: string
 ) {
-  if (!productType) return [];
-
   return attributes.map((attribute) => {
     if (savingCurrencyAttributes[productType].includes(attribute.id)) {
       return {
