@@ -31,12 +31,12 @@ const investmentsMock: IProduct[] = [
         value: [
           {
             id: "beneficiarie-1",
-            label: "Alice Johnson",
+            label: "Alicia Arenas",
             value: "75%",
           },
           {
             id: "beneficiarie-2",
-            label: "Bob Williams",
+            label: "Andres Garcia",
             value: "25%",
           },
         ],
@@ -95,17 +95,17 @@ const investmentsMock: IProduct[] = [
         value: [
           {
             id: "beneficiarie-1",
-            label: "Eva Smith",
+            label: "Eva Rodriguez",
             value: "50%",
           },
           {
             id: "beneficiarie-2",
-            label: "Michael Brown",
+            label: "Felipe Lopez",
             value: "25%",
           },
           {
             id: "beneficiarie-3",
-            label: "Sophia Davis",
+            label: "Andrea Lopez",
             value: "25%",
           },
         ],
@@ -152,22 +152,22 @@ const investmentsMock: IProduct[] = [
         value: [
           {
             id: "beneficiarie-1",
-            label: "Oliver Wilson",
+            label: "Gabriel Hernandez",
             value: "20%",
           },
           {
             id: "beneficiarie-2",
-            label: "Sophie Johnson",
+            label: "Mario Moreno",
             value: "20%",
           },
           {
             id: "beneficiarie-3",
-            label: "Liam Davis",
+            label: "Lucia Grajales",
             value: "30%",
           },
           {
             id: "beneficiarie-4",
-            label: "Ava Smith",
+            label: "Armando Santamaria",
             value: "10%",
           },
         ],
@@ -226,27 +226,27 @@ const investmentsMock: IProduct[] = [
         value: [
           {
             id: "beneficiarie-1",
-            label: "Noah Brown",
+            label: "Nora Sanchez",
             value: "50%",
           },
           {
             id: "beneficiarie-2",
-            label: "Mia Wilson",
+            label: "Martin Diaz",
             value: "20%",
           },
           {
             id: "beneficiarie-3",
-            label: "Ethan Anderson",
+            label: "Santiago Diaz",
             value: "10%",
           },
           {
             id: "beneficiarie-4",
-            label: "Olivia Davis",
+            label: "Sofia Diaz",
             value: "10%",
           },
           {
             id: "beneficiarie-5",
-            label: "Liam Harris",
+            label: "Valeria Diaz",
             value: "10%",
           },
         ],
