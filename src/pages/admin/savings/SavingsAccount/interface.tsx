@@ -89,7 +89,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           />
           <Box
             title={selectedProduct.saving.title}
-            subtitle={`Cuenta de ahorros - ${selectedProduct.saving.id}`}
+            subtitle={selectedProduct.saving.description}
             tags={selectedProduct.saving.tags}
             button={{
               label: "Compromisos de ahorro",

@@ -19,18 +19,19 @@ import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineAssignmentTurnedIn,
+  MdOutlinePaid,
 } from "react-icons/md";
+import {
+  investmentMovementsTableActions,
+  investmentMovementsTableBreakpoints,
+  investmentMovementsTableTitles,
+} from "../InvestmentMovements/config/table";
 import { investmentBox } from "./config/investment";
 import { crumbsInvestment } from "./config/navigation";
 import {
   extractInvestmentAttributes,
   formatInvestmentCurrencyAttrs,
 } from "./config/product";
-import {
-  investmentMovementsTableActions,
-  investmentMovementsTableBreakpoints,
-  investmentMovementsTableTitles,
-} from "../InvestmentMovements/config/table";
 import { IModalState, ISelectedProductState } from "./types";
 
 interface InvestmentUIProps {
@@ -94,9 +95,14 @@ function InvestmentUI(props: InvestmentUIProps) {
             subtitle={
               isMobile
                 ? selectedProduct.investment.id
-                : `${selectedProduct.investment.title} - ${selectedProduct.investment.id}`
+                : selectedProduct.investment.description
             }
             tags={selectedProduct.investment.tags}
+            button={{
+              label: "Compromisos de ahorro",
+              icon: <MdOutlinePaid />,
+              path: ``,
+            }}
             {...investmentBox(selectedProduct.investment.type)}
           >
             <Stack direction="column" gap="s100">
