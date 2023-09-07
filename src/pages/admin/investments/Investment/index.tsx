@@ -20,42 +20,34 @@ function Investment() {
     dataRefund: [],
   });
 
+  const isMobile = useMediaQuery("(max-width: 750px)");
+
   useEffect(() => {
-    if (selectedProduct) {
-      const beneficiariesAttribute = selectedProduct.investment.attributes.find(
-        (attr) => attr.id === "beneficiaries"
-      );
+    updateModals("beneficiaries", "dataBeneficiaries");
 
-      if (
-        beneficiariesAttribute &&
-        Array.isArray(beneficiariesAttribute.value)
-      ) {
-        setModals({
-          ...modals,
-          dataBeneficiaries: beneficiariesAttribute.value,
-        });
-      }
-
-      if (selectedProduct.investment.type === "AP") {
-        const refundAttribute = selectedProduct.investment.attributes.find(
-          (attr) => attr.id === "refund_value"
-        );
-
-        if (refundAttribute && Array.isArray(refundAttribute.value)) {
-          setModals({
-            ...modals,
-            dataRefund: refundAttribute.value,
-          });
-        }
-      }
+    if (selectedProduct && selectedProduct.investment.type === "AP") {
+      updateModals("refund_value", "dataRefund");
     }
   }, [selectedProduct]);
-
-  const isMobile = useMediaQuery("(max-width: 750px)");
 
   useEffect(() => {
     handleSortProduct();
   }, [product_id, isMobile]);
+
+  const updateModals = (attrId: string, modalKey: string) => {
+    if (!selectedProduct) return;
+
+    const attribute = selectedProduct.investment.attributes.find(
+      (attr) => attr.id === attrId
+    );
+
+    if (attribute && Array.isArray(attribute.value)) {
+      setModals((prevModals) => ({
+        ...prevModals,
+        [modalKey]: attribute.value,
+      }));
+    }
+  };
 
   const handleSortProduct = () => {
     const userInvestments = investmentsMock.filter(
