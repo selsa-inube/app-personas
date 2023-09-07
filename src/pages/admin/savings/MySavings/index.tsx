@@ -11,7 +11,8 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
-import { mySavings } from "./config/boxes";
+import { savingsAccountIcons } from "../SavingsAccount/config/saving";
+import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
 import {
   extractMySavingsAttributes,
@@ -45,7 +46,7 @@ function MySavings() {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <Box {...mySavings}>
+          <Box {...mySavingsBox}>
             <Stack direction="column" gap="s075">
               {savingsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
@@ -61,7 +62,7 @@ function MySavings() {
                     )}
                     breakpoints={mySavingsAttributeBreakpoints}
                     tags={product.tags}
-                    icon={<MdOutlineAttachMoney />}
+                    icon={savingsAccountIcons[product.type || "CA"]}
                     navigateTo={`/my-savings/account/${product.id}`}
                   />
                 ))

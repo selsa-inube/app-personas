@@ -96,11 +96,11 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               icon: <MdOutlinePaid />,
               path: ``,
             }}
-            {...savingsAccountBox}
+            {...savingsAccountBox(selectedProduct.saving.type)}
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-                {formatSavingCurrencyAttrs(attributes).map((attr) => (
+                {formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type).map((attr) => (
                   <BoxAttribute
                     key={attr.id}
                     label={`${attr.label}: `}

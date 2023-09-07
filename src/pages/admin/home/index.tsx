@@ -20,6 +20,7 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 import { USER_ID } from "src/App";
+import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
 import { cards, credits, investments, savings } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
@@ -79,7 +80,7 @@ function Home() {
                       extractSavingAttributes(saving)
                     )}
                     tags={saving.tags}
-                    icon={<MdOutlineAccountBalanceWallet />}
+                    icon={savingsAccountIcons[saving.type || "CA"]}
                     breakpoints={savingAttributeBreakpoints}
                     navigateTo={`/my-savings/account/${saving.id}`}
                   />
