@@ -31,12 +31,12 @@ const investmentsMock: IProduct[] = [
         value: [
           {
             id: "beneficiarie-1",
-            label: "Alice Johnson",
+            label: "Alicia Arenas",
             value: "75%",
           },
           {
             id: "beneficiarie-2",
-            label: "Bob Williams",
+            label: "Andres Garcia",
             value: "25%",
           },
         ],
@@ -55,28 +55,39 @@ const investmentsMock: IProduct[] = [
     userOwner: "1",
   },
   {
-    id: "IVJ75434",
-    title: "CDAT",
+    id: "AP781230",
+    title: "Ahorro programado",
     attributes: [
       {
-        id: "expiration_date",
-        label: "Fecha de vencimiento",
-        value: "30/Nov/2023",
-      },
-      {
         id: "investment_value",
-        label: "Valor",
-        value: 1387500,
+        label: "Saldo total",
+        value: 150000,
       },
       {
         id: "interest_rate",
-        label: "Tasa (%)",
-        value: "0,7 % NAMV",
+        label: "Tasa de interés",
+        value: "6,05 % NAMV",
       },
       {
-        id: "deadline_days",
-        label: "Plazo en días",
-        value: "45 días",
+        id: "refund_value",
+        label: "Reembolso",
+        value: [
+          {
+            id: "bank_id",
+            label: "Cuenta",
+            value: "Banco Davivienda",
+          },
+          {
+            id: "account_type",
+            label: "Tipo de cuenta",
+            value: "Cuenta de ahorros",
+          },
+          {
+            id: "account_number",
+            label: "Número de cuenta",
+            value: "013010065684Z",
+          },
+        ]
       },
       {
         id: "beneficiaries",
@@ -84,33 +95,32 @@ const investmentsMock: IProduct[] = [
         value: [
           {
             id: "beneficiarie-1",
-            label: "Eva Smith",
+            label: "Eva Rodriguez",
             value: "50%",
           },
           {
             id: "beneficiarie-2",
-            label: "Michael Brown",
+            label: "Felipe Lopez",
             value: "25%",
           },
           {
             id: "beneficiarie-3",
-            label: "Sophia Davis",
+            label: "Andrea Lopez",
             value: "25%",
           },
         ],
       },
-      {
-        id: "request_date",
-        label: "Fecha de solicitud",
-        value: "20/Ago/2023",
-      },
-      {
-        id: "description",
-        label: "Descripción",
-        value: "Certificado",
-      },
     ],
     userOwner: "1",
+    movements: [
+      {
+        id: "movement-1",
+        date: "05/May/2023",
+        reference: "NI1000076",
+        description: "Traslado excedentes Mayo 05 de 2023 - 1543342 Aplicar abono proceso 1543342",
+        totalValue: 150000,
+      },
+    ]
   },
   {
     id: "ILD79545",
@@ -142,22 +152,22 @@ const investmentsMock: IProduct[] = [
         value: [
           {
             id: "beneficiarie-1",
-            label: "Oliver Wilson",
+            label: "Gabriel Hernandez",
             value: "20%",
           },
           {
             id: "beneficiarie-2",
-            label: "Sophie Johnson",
+            label: "Mario Moreno",
             value: "20%",
           },
           {
             id: "beneficiarie-3",
-            label: "Liam Davis",
+            label: "Lucia Grajales",
             value: "30%",
           },
           {
             id: "beneficiarie-4",
-            label: "Ava Smith",
+            label: "Armando Santamaria",
             value: "10%",
           },
         ],
@@ -176,28 +186,39 @@ const investmentsMock: IProduct[] = [
     userOwner: "2",
   },
   {
-    id: "ICR72145",
-    title: "CDAT",
+    id: "AP782103",
+    title: "Ahorro programado",
     attributes: [
       {
-        id: "expiration_date",
-        label: "Fecha de vencimiento",
-        value: "20/Dic/2023",
-      },
-      {
         id: "investment_value",
-        label: "Valor",
-        value: 3017700,
+        label: "Saldo total",
+        value: 300000,
       },
       {
         id: "interest_rate",
-        label: "Tasa (%)",
-        value: "0,8% NAMV",
+        label: "Tasa de interés",
+        value: "6,05 % NAMV",
       },
       {
-        id: "deadline_days",
-        label: "Plazo en días",
-        value: "40 Días",
+        id: "refund_value",
+        label: "Reembolso",
+        value: [
+          {
+            id: "bank_id",
+            label: "Cuenta",
+            value: "Bancolombia",
+          },
+          {
+            id: "account_type",
+            label: "Tipo de cuenta",
+            value: "Cuenta de ahorros",
+          },
+          {
+            id: "account_number",
+            label: "Número de cuenta",
+            value: "013010061432Z",
+          },
+        ]
       },
       {
         id: "beneficiaries",
@@ -205,43 +226,42 @@ const investmentsMock: IProduct[] = [
         value: [
           {
             id: "beneficiarie-1",
-            label: "Noah Brown",
+            label: "Nora Sanchez",
             value: "50%",
           },
           {
             id: "beneficiarie-2",
-            label: "Mia Wilson",
+            label: "Martin Diaz",
             value: "20%",
           },
           {
             id: "beneficiarie-3",
-            label: "Ethan Anderson",
+            label: "Santiago Diaz",
             value: "10%",
           },
           {
             id: "beneficiarie-4",
-            label: "Olivia Davis",
+            label: "Sofia Diaz",
             value: "10%",
           },
           {
             id: "beneficiarie-5",
-            label: "Liam Harris",
+            label: "Valeria Diaz",
             value: "10%",
           },
         ],
       },
-      {
-        id: "request_date",
-        label: "Fecha de solicitud",
-        value: "15/Ago/2023",
-      },
-      {
-        id: "description",
-        label: "Descripción",
-        value: "Certificado",
-      },
     ],
     userOwner: "2",
+    movements: [
+      {
+        id: "movement-1",
+        date: "10/Jun/2023",
+        reference: "NI1000295",
+        description: "Traslado excedentes Junio 10 de 2023 - 1543777 Aplicar abono proceso 1543777",
+        totalValue: 300000,
+      },
+    ]
   },
 ];
 
