@@ -930,7 +930,7 @@ const savingsMock: IProduct[] = [
     title: "Ahorro permanente",
     id: "201-91214069",
     type: "AP",
-    description: "Ahorro permanente - 201 - 91214069",
+    description: "Ahorro permanente 201 - 91214069",
     attributes: [
       {
         id: "net_value",
@@ -954,27 +954,12 @@ const savingsMock: IProduct[] = [
           {
             id: "beneficiary-1",
             label: "Carlos Gardel",
-            value: "20%",
+            value: "50%",
           },
           {
             id: "beneficiary-2",
             label: "Richard Ríos",
-            value: "20%",
-          },
-          {
-            id: "beneficiary-3",
-            label: "Endrick Felipe",
-            value: "20%",
-          },
-          {
-            id: "beneficiary-4",
-            label: "Sebastian Garcia",
-            value: "20%",
-          },
-          {
-            id: "beneficiary-5",
-            label: "Johan Lara",
-            value: "20%",
+            value: "50%",
           },
         ],
       },
