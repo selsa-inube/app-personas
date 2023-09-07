@@ -151,12 +151,7 @@ const TableUI = (props: TableUIProps) => {
               key={`title-${title.id}`}
               aria-label={title.titleName}
             >
-              <Text
-                type="label"
-                textAlign="center"
-                size="medium"
-                appearance="dark"
-              >
+              <Text type="label" size="medium" appearance="dark">
                 {title.titleName}
               </Text>
             </StyledThTitle>
