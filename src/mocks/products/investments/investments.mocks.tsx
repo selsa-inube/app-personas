@@ -2,9 +2,9 @@ import { IProduct } from "@ptypes/pages/product.types";
 
 const investmentsMock: IProduct[] = [
   {
-    id: "CD627438",
+    id: "2 - 22100619",
     title: "CDAT",
-    description: "Certificado de depósito - CD627438",
+    description: "Certificado de depósito - 2 - 22100619",
     type: "CD",
     attributes: [
       {
@@ -57,9 +57,9 @@ const investmentsMock: IProduct[] = [
     userOwner: "1",
   },
   {
-    id: "AP781230",
+    id: "2- 23110125",
     title: "Ahorro programado",
-    description: "Ahorro programado - AP781230",
+    description: "Ahorro programado - 2 - 23110125",
     type: "AP",
     attributes: [
       {

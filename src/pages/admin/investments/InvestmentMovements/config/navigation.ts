@@ -1,6 +1,8 @@
 import { IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
 
-const crumbsInvestment = (productId?: string): IBreadcrumbItem[] => [
+const crumbsInvestmentMovements = (
+  productId?: string
+): IBreadcrumbItem[] => [
   {
     id: "home",
     path: "/",
@@ -15,8 +17,13 @@ const crumbsInvestment = (productId?: string): IBreadcrumbItem[] => [
     id: "investment",
     path: `/my-investments/${productId}`,
     label: "Consulta de inversiones",
+  },
+  {
+    id: "investmentMovements",
+    path: `/my-investments/${productId}/movements`,
+    label: "Movimientos",
     isActive: true,
   },
 ];
 
-export { crumbsInvestment };
+export { crumbsInvestmentMovements };

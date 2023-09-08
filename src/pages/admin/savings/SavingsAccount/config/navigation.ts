@@ -1,6 +1,6 @@
 import { IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
 
-const crumbsSaving = (product_id?: string): IBreadcrumbItem[] => [
+const crumbsSaving = (productId?: string): IBreadcrumbItem[] => [
   {
     id: "home",
     path: "/",
@@ -13,7 +13,7 @@ const crumbsSaving = (product_id?: string): IBreadcrumbItem[] => [
   },
   {
     id: "savingAccount",
-    path: `/my-savings/account/${product_id}`,
+    path: `/my-savings/account/${productId}`,
     label: "Consulta de ahorros",
     isActive: true,
   },
