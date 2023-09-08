@@ -123,7 +123,7 @@ const investmentsMock: IProduct[] = [
     ],
     commitments: [
       {
-        id: "statutory_obligations",
+        id: "commitment-1",
         title: "Obligaciones estatutarias",
         attributes: [
           {
@@ -154,7 +154,7 @@ const investmentsMock: IProduct[] = [
         ],
       },
       {
-        id: "pass_acount",
+        id: "commitment-2",
         title: "Abono a cuenta",
         attributes: [
           {
