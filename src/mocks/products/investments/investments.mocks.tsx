@@ -2,15 +2,15 @@ import { IProduct } from "@ptypes/pages/product.types";
 
 const investmentsMock: IProduct[] = [
   {
-    id: "CD627438",
+    id: "2 - 231000619",
     title: "CDAT",
-    description: "Certificado de depósito - CD627438",
+    description: "2 - 231000619",
     type: "CD",
     attributes: [
       {
         id: "expiration_date",
         label: "Fecha de vencimiento",
-        value: "16/Feb/2023",
+        value: "30/Jun/2023",
       },
       {
         id: "investment_value",
@@ -25,7 +25,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "deadline_days",
         label: "Plazo en días",
-        value: "15 Dias",
+        value: "180 Dias",
       },
       {
         id: "beneficiaries",
@@ -46,7 +46,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "request_date",
         label: "Fecha de solicitud",
-        value: "01/Feb/2023",
+        value: "01/Ene/2023",
       },
       {
         id: "description",
@@ -104,13 +104,8 @@ const investmentsMock: IProduct[] = [
           },
           {
             id: "beneficiarie-2",
-            label: "Felipe Lopez",
-            value: "25%",
-          },
-          {
-            id: "beneficiarie-3",
             label: "Andrea Lopez",
-            value: "25%",
+            value: "50%",
           },
         ],
       },
