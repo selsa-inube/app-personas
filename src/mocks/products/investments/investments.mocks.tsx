@@ -57,9 +57,9 @@ const investmentsMock: IProduct[] = [
     userOwner: "1",
   },
   {
-    id: "AP781230",
+    id: "2- 23110125",
     title: "Ahorro programado",
-    description: "Ahorro programado - AP781230",
+    description: "Ahorro programado 2 - 23110125",
     type: "AP",
     attributes: [
       {

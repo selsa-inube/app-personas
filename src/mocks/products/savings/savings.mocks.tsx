@@ -566,7 +566,7 @@ const savingsMock: IProduct[] = [
     title: "Aportes sociales",
     id: "200-91214069",
     type: "AP",
-    description: "Aportes sociales - 200 - 91214069",
+    description: "Aportes sociales 200 - 91214069",
     attributes: [
       {
         id: "net_value",

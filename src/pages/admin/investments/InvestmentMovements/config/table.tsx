@@ -1,8 +1,8 @@
 import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
-import { ViewSavingMovement } from "@pages/admin/savings/MySavings/ViewSavingMovement";
 import { IMovement } from "@ptypes/pages/product.types";
 import { currencyFormat } from "src/utils/formats";
+import { ViewInvestmentMovement } from "../../MyInvestments/ViewInvestmentMovement";
 
 const mapInvestmentMovement = (movement: IEntry): IMovement => {
   return {
@@ -60,7 +60,7 @@ const investmentMovementsTableActions: IAction[] = [
     id: "2",
     actionName: "Ver",
     content: (movement) => (
-      <ViewSavingMovement movement={mapInvestmentMovement(movement)} />
+      <ViewInvestmentMovement movement={mapInvestmentMovement(movement)} />
     ),
     mobilePriority: true,
   },

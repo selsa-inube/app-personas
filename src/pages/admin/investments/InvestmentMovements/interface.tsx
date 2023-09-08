@@ -11,16 +11,16 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack } from "react-icons/md";
-import { crumbsSavingsAccountMovements } from "./config/navigation";
+import { crumbsInvestmentMovements } from "./config/navigation";
 import {
-  savingsAccountMovementsTableActions,
-  savingsAccountMovementsTableBreakpoints,
-  savingsAccountMovementsTableTitles,
+  investmentMovementsTableActions,
+  investmentMovementsTableBreakpoints,
+  investmentMovementsTableTitles,
 } from "./config/table";
-import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { StyledMovementsContainer } from "./styles";
 
-interface SavingsAccountMovementsUIProps {
+interface InvestmentMovementsUIProps {
   handleChangeProduct: (option: ISelectOption) => void;
   handleAddMovements: () => void;
   selectedProduct: ISelectedProductState;
@@ -29,7 +29,7 @@ interface SavingsAccountMovementsUIProps {
   productId?: string;
 }
 
-function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
+function InvestmentMovementsUI(props: InvestmentMovementsUIProps) {
   const {
     handleAddMovements,
     handleChangeProduct,
@@ -38,18 +38,17 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
     loading,
     productId,
   } = props;
-
   const mquery = useMediaQuery("(min-width: 1400px)");
 
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsSavingsAccountMovements(productId)} />
+        <Breadcrumbs crumbs={crumbsInvestmentMovements(productId)} />
         <Title
           title="Movimientos"
           subtitle="Movimientos recientes del producto"
           icon={<MdArrowBack />}
-          navigatePage={`/my-savings/account/${productId}`}
+          navigatePage={`/my-investments/${productId}`}
         />
       </Stack>
 
@@ -72,9 +71,9 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
           <StyledMovementsContainer>
             <Table
               id="modals"
-              titles={savingsAccountMovementsTableTitles}
-              breakpoints={savingsAccountMovementsTableBreakpoints}
-              actions={savingsAccountMovementsTableActions}
+              titles={investmentMovementsTableTitles}
+              breakpoints={investmentMovementsTableBreakpoints}
+              actions={investmentMovementsTableActions}
               entries={selectedProduct.movements}
               pageLength={selectedProduct.movements.length}
               hideMobileResume
@@ -100,4 +99,4 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
   );
 }
 
-export { SavingsAccountMovementsUI };
+export { InvestmentMovementsUI };

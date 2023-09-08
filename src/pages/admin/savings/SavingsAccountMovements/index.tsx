@@ -81,7 +81,7 @@ function SavingsAccountMovements() {
       loading={loading}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
-      product_id={product_id}
+      productId={product_id}
     />
   );
 }
