@@ -930,7 +930,7 @@ const savingsMock: IProduct[] = [
     title: "Ahorro permanente",
     id: "201-91214069",
     type: "AP",
-    description: "Ahorro permanente 201 - 91214069",
+    description: "201 - 91214069",
     attributes: [
       {
         id: "net_value",
