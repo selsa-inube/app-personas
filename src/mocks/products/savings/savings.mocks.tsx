@@ -3,9 +3,9 @@ import { IProduct } from "@ptypes/pages/product.types";
 const savingsMock: IProduct[] = [
   {
     title: "Cuenta familiar",
-    id: "CA214554",
+    id: "013001157292",
     type: "CA",
-    description: "Cuenta de ahorros - CA214554",
+    description: "013001157292",
     attributes: [
       {
         id: "net_value",
@@ -284,9 +284,9 @@ const savingsMock: IProduct[] = [
   },
   {
     title: "Cuenta de ahorros",
-    id: "CA652879",
+    id: "013001162025",
     type: "CA",
-    description: "Cuenta de ahorros - CA652879",
+    description: "013001162025",
     attributes: [
       {
         id: "net_value",
