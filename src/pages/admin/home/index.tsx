@@ -18,9 +18,9 @@ import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
-  MdOutlineRealEstateAgent,
 } from "react-icons/md";
 import { USER_ID } from "src/App";
+import { investmentIcons } from "../investments/Investment/config/investment";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
 import { cards, credits, investments, savings } from "./config/boxes";
 import {
@@ -75,12 +75,12 @@ function Home() {
                     id={saving.id}
                     key={saving.id}
                     title={saving.title}
-                    description={saving.id}
+                    description={saving.description}
                     attributes={formatSavingCurrencyAttrs(
                       extractSavingAttributes(saving)
                     )}
                     tags={saving.tags}
-                    icon={savingsAccountIcons[saving.type || "CA"]}
+                    icon={savingsAccountIcons[saving.type]}
                     breakpoints={savingAttributeBreakpoints}
                     navigateTo={`/my-savings/account/${saving.id}`}
                   />
@@ -96,12 +96,12 @@ function Home() {
                     id={investment.id}
                     key={investment.id}
                     title={investment.title}
-                    description={investment.id}
+                    description={investment.description}
                     attributes={formatInvestmentCurrencyAttrs(
                       extractInvestmentAttributes(investment)
                     )}
                     tags={investment.tags}
-                    icon={<MdOutlineRealEstateAgent />}
+                    icon={investmentIcons[investment.type]}
                     navigateTo={`/my-investments/${investment.id}`}
                     breakpoints={investmentAttributeBreakpoints}
                   />
@@ -119,7 +119,7 @@ function Home() {
                     id={credit.id}
                     key={credit.id}
                     title={credit.title}
-                    description={credit.id}
+                    description={credit.description}
                     attributes={formatCreditCurrencyAttrs(
                       extractCreditAttributes(credit)
                     )}
@@ -137,17 +137,19 @@ function Home() {
               {cardProducts.length === 0 ? (
                 <Product icon={<MdOutlineCreditCard />} empty={true} />
               ) : (
-                cardProducts.map(({ title, id, attributes, tags }) => (
-                  <Product
-                    id={id}
-                    key={id}
-                    title={title}
-                    description={id}
-                    attributes={attributes}
-                    tags={tags}
-                    icon={<MdOutlineCreditCard />}
-                  />
-                ))
+                cardProducts.map(
+                  ({ title, id, attributes, tags, description }) => (
+                    <Product
+                      id={id}
+                      key={id}
+                      title={title}
+                      description={description}
+                      attributes={attributes}
+                      tags={tags}
+                      icon={<MdOutlineCreditCard />}
+                    />
+                  )
+                )
               )}
             </Stack>
           </Box>

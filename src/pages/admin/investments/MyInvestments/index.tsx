@@ -16,14 +16,15 @@ import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
+import { USER_ID } from "src/App";
+import { investmentIcons } from "../Investment/config/investment";
 import { myInvestments } from "./config/boxes";
 import { crumbsMyInvestments } from "./config/navigation";
 import {
   extractMyInvestmentAttributes,
+  formatMyInvestmentCurrencyAttrs,
   myInvestmentAttributeBreakpoints,
 } from "./config/products";
-import { formatMyInvestmentCurrencyAttrs } from "./config/products";
-import { USER_ID } from "src/App";
 
 function MyInvestments() {
   const smallScreen = useMediaQuery("(min-width: 1400px)");
@@ -71,13 +72,13 @@ function MyInvestments() {
                     id={investment.id}
                     key={investment.id}
                     title={investment.title}
-                    description={investment.id}
+                    description={investment.description}
                     attributes={formatMyInvestmentCurrencyAttrs(
                       extractMyInvestmentAttributes(investment)
                     )}
                     breakpoints={myInvestmentAttributeBreakpoints}
                     tags={investment.tags}
-                    icon={<MdOutlineRealEstateAgent />}
+                    icon={investmentIcons[investment.type]}
                     navigateTo={`/my-investments/${investment.id}`}
                   />
                 ))

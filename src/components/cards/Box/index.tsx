@@ -66,7 +66,7 @@ function Box(props: BoxProps) {
       <Stack direction="column" gap="s200">
         <Stack justifyContent="space-between" alignItems="center">
           <StyledLink to={navigateTo}>
-            <Icon icon={icon} variant="filled" />
+            <Icon icon={icon} variant="filled" cursorHover />
             <Stack direction="column" gap="s025">
               <Text type="title" size="medium">
                 {title}

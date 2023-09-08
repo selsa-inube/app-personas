@@ -1,8 +1,13 @@
-import { MdOutlineRealEstateAgent } from "react-icons/md";
+import { MdOutlineRealEstateAgent, MdOutlineTimer } from "react-icons/md";
 
-const investmentBox = {
-  icon: <MdOutlineRealEstateAgent />,
-  collapsing: { start: false, allow: false },
+const investmentIcons: Record<string, React.JSX.Element> = {
+  CD: <MdOutlineRealEstateAgent />,
+  AP: <MdOutlineTimer />,
 };
 
-export { investmentBox };
+const investmentBox = (type: string) => ({
+  icon: investmentIcons[type],
+  collapsing: { start: false, allow: false },
+});
+
+export { investmentBox, investmentIcons };

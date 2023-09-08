@@ -1,34 +1,10 @@
-import { IAction } from "@design/data/Table/types";
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { mapMovement } from "../CreditMovements/config/table";
-import { ViewMovement } from "../MyCredits/ViewMovement";
 import { CreditUI } from "./interface";
 import { ISelectedProductState } from "./types";
-import { Text } from "@design/data/Text";
-import { currencyFormat } from "src/utils/formats";
-
-const creditTableActions: IAction[] = [
-  {
-    id: "1",
-    actionName: "Valor",
-    content: (movement) => (
-      <Text type="body" size="small" appearance="dark">
-        {currencyFormat(movement.totalValue)}
-      </Text>
-    ),
-    mobilePriority: true,
-  },
-  {
-    id: "2",
-    actionName: "Ver",
-    content: (movement) => <ViewMovement movement={mapMovement(movement)} />,
-    mobilePriority: true,
-  },
-];
 
 function Credit() {
   const { credit_id } = useParams();
@@ -47,7 +23,7 @@ function Credit() {
     const creditsOptions = creditsMock.map((credit) => {
       const productOption = {
         id: credit.id,
-        value: `${credit.title} - ${credit.id}`,
+        value: credit.description,
       };
 
       if (credit.id === credit_id) {
@@ -74,7 +50,6 @@ function Credit() {
 
   return (
     <CreditUI
-      creditTableActions={creditTableActions}
       handleChangeProduct={handleChangeProduct}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}

@@ -1,7 +1,6 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
-import { IAction } from "@design/data/Table/types";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -14,6 +13,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
 import {
+  savingsAccountMovementsTableActions,
   savingsAccountMovementsTableBreakpoints,
   savingsAccountMovementsTableTitles,
 } from "./config/table";
@@ -25,7 +25,6 @@ interface SavingsAccountMovementsUIProps {
   handleAddMovements: () => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
-  savingsAccountTableActions: IAction[];
   loading: boolean;
   product_id?: string;
 }
@@ -36,7 +35,6 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
     handleChangeProduct,
     selectedProduct,
     productsOptions,
-    savingsAccountTableActions,
     loading,
     product_id,
   } = props;
@@ -68,7 +66,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
             handleChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct?.option}
+            value={selectedProduct.option}
             isFullWidth
           />
           <StyledMovementsContainer>
@@ -76,7 +74,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
               id="modals"
               titles={savingsAccountMovementsTableTitles}
               breakpoints={savingsAccountMovementsTableBreakpoints}
-              actions={savingsAccountTableActions}
+              actions={savingsAccountMovementsTableActions}
               entries={selectedProduct.movements}
               pageLength={selectedProduct.movements.length}
               hideMobileResume
