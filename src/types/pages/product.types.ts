@@ -36,6 +36,13 @@ interface IAmortization {
   projectedBalance: number;
 }
 
+interface ICommitment {
+  id: string;
+  title: string;
+  attributes: IAttribute[];
+  tags?: TagProps[];
+}
+
 type ProductType = "CA" | "CD" | "AP" | "CL" | "CE";
 
 interface IProduct {
@@ -46,6 +53,7 @@ interface IProduct {
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
+  commitments?: ICommitment[];
   tags?: TagProps[];
   userOwner?: string;
 }
