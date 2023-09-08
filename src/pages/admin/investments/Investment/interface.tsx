@@ -33,6 +33,7 @@ import {
   formatInvestmentCurrencyAttrs,
 } from "./config/product";
 import { IModalState, ISelectedProductState } from "./types";
+import { ReimbursementModal } from "@components/modals/investment/ReimbursementModal";
 
 interface InvestmentUIProps {
   isMobile?: boolean;
@@ -177,6 +178,13 @@ function InvestmentUI(props: InvestmentUIProps) {
         </Stack>
         {mquery && <QuickAccess links={quickLinks} />}
       </Grid>
+      {modals.showRefund && (
+        <ReimbursementModal
+          portalId="modals"
+          reimbursement={modals.dataRefund}
+          onCloseModal={handleToggleRefundModal}
+        />
+      )}
       {modals.showBeneficiaries && (
         <AttributesModal
           portalId="modals"
