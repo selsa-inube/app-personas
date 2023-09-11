@@ -59,7 +59,7 @@ const investmentsMock: IProduct[] = [
   {
     id: "2- 23110125",
     title: "Ahorro programado",
-    description: "Ahorro programado 2 - 23110125",
+    description: "2 - 23110125",
     type: "AP",
     attributes: [
       {
