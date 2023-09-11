@@ -33,6 +33,10 @@ const StyledCircleId = styled.div`
     ${({ theme }) =>
       theme.color?.stroke?.primary.regular ||
       inube.color.stroke.primary.regular};
+
+  & p {
+    letter-spacing: ${inube.spacing.s0};
+  }
 `;
 
 const StyledButton = styled.div<IStyledButton>`
