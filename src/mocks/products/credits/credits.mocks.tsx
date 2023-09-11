@@ -2,7 +2,7 @@ import { IProduct } from "src/types/pages/product.types";
 
 const creditsMock: IProduct[] = [
   {
-    id: "10 - 231016759",
+    id: "10-231016759",
     title: "Fanáticos viajeros",
     description: "Fanáticos viajeros 10 - 2310167593",
     type: "CE",
@@ -649,7 +649,7 @@ const creditsMock: IProduct[] = [
     tags: [],
   },
   {
-    id: "10 - 220102710",
+    id: "10-220102710",
     title: "Crediaportes",
     description: "Crediaportes 10 - 220102710",
     type: "CL",

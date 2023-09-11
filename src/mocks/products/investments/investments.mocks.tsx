@@ -2,7 +2,7 @@ import { IProduct } from "@ptypes/pages/product.types";
 
 const investmentsMock: IProduct[] = [
   {
-    id: "2 - 231000619",
+    id: "2-231000619",
     title: "CDAT",
     description: "2 - 231000619",
     type: "CD",
@@ -57,7 +57,7 @@ const investmentsMock: IProduct[] = [
     userOwner: "1",
   },
   {
-    id: "2- 23110125",
+    id: "2-23110125",
     title: "Ahorro programado",
     description: "Ahorro programado 2 - 23110125",
     type: "AP",
