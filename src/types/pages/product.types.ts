@@ -54,6 +54,7 @@ interface IProduct {
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
+  commitments?: ICommitment[];
   tags?: TagProps[];
   userOwner?: string;
 }
