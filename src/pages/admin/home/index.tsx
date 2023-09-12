@@ -1,18 +1,17 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
-
 import { Box } from "@components/cards/Box";
 import { QuickAccess } from "@components/cards/QuickAccess";
-
 import { quickLinks } from "@config/quickLinks";
 
 import { Product } from "@components/cards/Product";
+import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import {
   MdOutlineAccountBalanceWallet,
@@ -21,6 +20,7 @@ import {
 } from "react-icons/md";
 import { USER_ID } from "src/App";
 import { investmentIcons } from "../investments/Investment/config/investment";
+import { extractCommitmentAttribute } from "../savings/MySavings/config/commitments";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
 import { cards, credits, investments, savings } from "./config/boxes";
 import {
@@ -35,6 +35,34 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
+
+const renderSavingCommitments = () => {
+  return savingsCommitmentsMock.map((commitment) => {
+    const valueToPay = extractCommitmentAttribute(
+      commitment.attributes,
+      "value_to_pay"
+    );
+    const nextPayDate = extractCommitmentAttribute(
+      commitment.attributes,
+      "next_pay_date"
+    );
+
+    const tagValue = commitment.id === "statutory_obligations" ? "En mora" : "";
+
+    return (
+      <SavingsCommitmentCard
+        key={commitment.id}
+        title={commitment.title}
+        label="Ver"
+        descriptionLabel={nextPayDate?.label}
+        descriptionValue={String(nextPayDate?.value)}
+        value={Number(valueToPay?.value)}
+        tagValue={tagValue}
+        onClick={() => {}}
+      />
+    );
+  });
+};
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -63,6 +91,9 @@ function Home() {
             Tus productos
           </Text>
           <Box {...savings}>
+            <Text type="label" size="medium">
+              Tus cuentas
+            </Text>
             <Stack direction="column" gap="s075">
               {savingsMock.length === 0 ? (
                 <Product
@@ -86,6 +117,14 @@ function Home() {
                   />
                 ))
               )}
+            </Stack>
+            {savingsCommitmentsMock.length > 0 && (
+              <Text type="label" size="medium">
+                Tus compromisos
+              </Text>
+            )}
+            <Stack direction="column" gap="s100">
+              {renderSavingCommitments()}
             </Stack>
           </Box>
           {investmentProducts.length > 0 && (

@@ -1,6 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
@@ -10,8 +11,10 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { savingsAccountIcons } from "../SavingsAccount/config/saving";
+import { extractCommitmentAttribute } from "./config/commitments";
 import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
 import {
@@ -19,6 +22,34 @@ import {
   formatMySavingsCurrencyAttrs,
   mySavingsAttributeBreakpoints,
 } from "./config/products";
+
+const renderSavingCommitments = () => {
+  return savingsCommitmentsMock.map((commitment) => {
+    const valueToPay = extractCommitmentAttribute(
+      commitment.attributes,
+      "value_to_pay"
+    );
+    const nextPayDate = extractCommitmentAttribute(
+      commitment.attributes,
+      "next_pay_date"
+    );
+
+    const tagValue = commitment.id === "statutory_obligations" ? "En mora" : "";
+
+    return (
+      <SavingsCommitmentCard
+        key={commitment.id}
+        title={commitment.title}
+        label="Ver"
+        descriptionLabel={nextPayDate?.label}
+        descriptionValue={String(nextPayDate?.value)}
+        value={Number(valueToPay?.value)}
+        tagValue={tagValue}
+        onClick={() => {}}
+      />
+    );
+  });
+};
 
 function MySavings() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -47,6 +78,9 @@ function MySavings() {
             Tus productos
           </Text>
           <Box {...mySavingsBox}>
+            <Text type="label" size="medium">
+              Tus cuentas
+            </Text>
             <Stack direction="column" gap="s075">
               {savingsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
@@ -67,6 +101,14 @@ function MySavings() {
                   />
                 ))
               )}
+            </Stack>
+            {savingsCommitmentsMock.length > 0 && (
+              <Text type="label" size="medium">
+                Tus compromisos
+              </Text>
+            )}
+            <Stack direction="column" gap="s100">
+              {renderSavingCommitments()}
             </Stack>
           </Box>
         </Stack>
