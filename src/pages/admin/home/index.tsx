@@ -23,7 +23,6 @@ import {
 } from "react-icons/md";
 import { USER_ID } from "src/App";
 import { investmentIcons } from "../investments/Investment/config/investment";
-import { extractCommitmentAttribute } from "../investments/MyInvestments/config/commitments";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
 import { cards, credits, investments, savings } from "./config/boxes";
 import {
@@ -38,14 +37,12 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
+import { extractAttribute } from "src/utils/products";
 
 const renderInvestmentCommitments = () => {
   return investmentsCommitmentsMock.map((commitment) => {
-    const valueToPay = extractCommitmentAttribute(
-      commitment.attributes,
-      "value_to_pay"
-    );
-    const nextPayDate = extractCommitmentAttribute(
+    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
+    const nextPayDate = extractAttribute(
       commitment.attributes,
       "next_pay_date"
     );
@@ -120,7 +117,7 @@ function Home() {
             <Box {...investments}>
               <Stack direction="column" gap="s200">
                 {investmentsCommitmentsMock.length > 0 && (
-                  <Text type="label" size="medium" appearance="dark">
+                  <Text type="label" size="medium">
                     Tus productos
                   </Text>
                 )}
@@ -144,8 +141,8 @@ function Home() {
                 </Stack>
 
                 {investmentsCommitmentsMock.length > 0 && (
-                  <Text type="label" size="medium" appearance="dark">
-                    Tus obligaciones
+                  <Text type="label" size="medium">
+                    Tus compromisos
                   </Text>
                 )}
 

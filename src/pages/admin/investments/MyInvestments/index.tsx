@@ -18,8 +18,8 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
-import { extractCommitmentAttribute } from "@pages/admin/investments/MyInvestments/config/commitments";
 import { USER_ID } from "src/App";
+import { extractAttribute } from "src/utils/products";
 import { investmentIcons } from "../Investment/config/investment";
 import { myInvestments } from "./config/boxes";
 import { crumbsMyInvestments } from "./config/navigation";
@@ -31,11 +31,8 @@ import {
 
 const renderInvestmentCommitments = () => {
   return investmentsCommitmentsMock.map((commitment) => {
-    const valueToPay = extractCommitmentAttribute(
-      commitment.attributes,
-      "value_to_pay"
-    );
-    const nextPayDate = extractCommitmentAttribute(
+    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
+    const nextPayDate = extractAttribute(
       commitment.attributes,
       "next_pay_date"
     );
@@ -93,7 +90,7 @@ function MyInvestments() {
           <Box {...myInvestments}>
             <Stack direction="column" gap="s200">
               {investmentsCommitmentsMock.length > 0 && (
-                <Text type="label" size="medium" appearance="dark">
+                <Text type="label" size="medium">
                   Tus productos
                 </Text>
               )}
@@ -121,8 +118,8 @@ function MyInvestments() {
               </Stack>
 
               {investmentsCommitmentsMock.length > 0 && (
-                <Text type="label" size="medium" appearance="dark">
-                  Tus obligaciones
+                <Text type="label" size="medium">
+                  Tus compromisos
                 </Text>
               )}
 
