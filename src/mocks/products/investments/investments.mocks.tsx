@@ -2,7 +2,7 @@ import { IProduct } from "@ptypes/pages/product.types";
 
 const investmentsMock: IProduct[] = [
   {
-    id: "2 - 231000619",
+    id: "2-231000619",
     title: "CDAT",
     description: "2 - 231000619",
     type: "CD",
@@ -57,7 +57,7 @@ const investmentsMock: IProduct[] = [
     userOwner: "1",
   },
   {
-    id: "2- 23110125",
+    id: "2-23110125",
     title: "Ahorro programado",
     description: "2 - 23110125",
     type: "AP",
@@ -119,76 +119,6 @@ const investmentsMock: IProduct[] = [
         description:
           "Traslado excedentes Mayo 05 de 2023 - 1543342 Aplicar abono proceso 1543342",
         totalValue: 150000,
-      },
-    ],
-    commitments: [
-      {
-        id: "commitment-1",
-        title: "Obligaciones estatutarias",
-        attributes: [
-          {
-            id: "next_pay_date",
-            label: "Fecha próximo pago",
-            value: "08/Abr/2023",
-          },
-          {
-            id: "value_to_pay",
-            label: "Valor a pagar",
-            value: 210000,
-          },
-          {
-            id: "due_date",
-            label: "Fecha vencimiento",
-            value: "08/Mayo/2023",
-          },
-          {
-            id: "pay_method",
-            label: "Medio de pago",
-            value: "Grúas de occidente",
-          },
-          {
-            id: "periodicity",
-            label: "Periodicidad",
-            value: "Mensual",
-          },
-        ],
-      },
-      {
-        id: "commitment-2",
-        title: "Abono a cuenta",
-        attributes: [
-          {
-            id: "next_pay_date",
-            label: "Fecha próximo pago",
-            value: "10/Oct/2023",
-          },
-          {
-            id: "value_to_pay",
-            label: "Valor a pagar",
-            value: 80000,
-          },
-          {
-            id: "due_date",
-            label: "Fecha vencimiento",
-            value: "10/Nov/2023",
-          },
-          {
-            id: "pay_method",
-            label: "Medio de pago",
-            value: "Grúas de occidente",
-          },
-          {
-            id: "periodicity",
-            label: "Periodicidad",
-            value: "Mensual",
-          },
-        ],
-        tags: [
-          {
-            label: "En mora",
-            appearance: "error",
-          },
-        ],
       },
     ],
   },

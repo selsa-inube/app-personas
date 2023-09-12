@@ -40,6 +40,7 @@ interface ICommitment {
   id: string;
   title: string;
   attributes: IAttribute[];
+  products: string[];
   tags?: TagProps[];
 }
 
@@ -53,9 +54,8 @@ interface IProduct {
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
-  commitments?: ICommitment[];
   tags?: TagProps[];
   userOwner?: string;
 }
 
-export type { IAmortization, IAttribute, IMovement, IProduct };
+export type { IAmortization, IAttribute, ICommitment, IMovement, IProduct };
