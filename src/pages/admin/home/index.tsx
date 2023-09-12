@@ -102,7 +102,7 @@ function Home() {
                     key={saving.id}
                     title={saving.title}
                     description={truncateAndObfuscateDescription(
-                      saving.description,
+                      saving.id,
                       saving.type,
                       4
                     )}
@@ -133,7 +133,7 @@ function Home() {
                       id={investment.id}
                       key={investment.id}
                       title={investment.title}
-                      description={investment.description}
+                      description={investment.id}
                       attributes={formatInvestmentCurrencyAttrs(
                         extractInvestmentAttributes(investment)
                       )}
@@ -167,7 +167,7 @@ function Home() {
                     id={credit.id}
                     key={credit.id}
                     title={credit.title}
-                    description={credit.description}
+                    description={credit.id}
                     attributes={formatCreditCurrencyAttrs(
                       extractCreditAttributes(credit)
                     )}

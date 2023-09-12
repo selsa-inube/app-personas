@@ -58,7 +58,7 @@ function MySavings() {
                     key={product.id}
                     title={product.title}
                     description={truncateAndObfuscateDescription(
-                      product.description,
+                      product.id,
                       product.type,
                       4
                     )}

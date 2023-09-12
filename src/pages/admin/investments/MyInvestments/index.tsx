@@ -104,7 +104,7 @@ function MyInvestments() {
                       id={investment.id}
                       key={investment.id}
                       title={investment.title}
-                      description={investment.description}
+                      description={investment.id}
                       attributes={formatMyInvestmentCurrencyAttrs(
                         extractMyInvestmentAttributes(investment)
                       )}
