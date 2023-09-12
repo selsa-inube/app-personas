@@ -1,6 +1,6 @@
 import { ICommitment } from "@ptypes/pages/product.types";
 
-const savingsCommitments: ICommitment[] = [
+const savingsCommitmentsMock: ICommitment[] = [
   {
     id: "pass_acount",
     title: "Abono a cuenta",
@@ -74,4 +74,4 @@ const savingsCommitments: ICommitment[] = [
   },
 ];
 
-export { savingsCommitments };
+export { savingsCommitmentsMock };

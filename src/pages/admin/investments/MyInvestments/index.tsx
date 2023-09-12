@@ -12,10 +12,13 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { quickLinks } from "@config/quickLinks";
 
+import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
+import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
+import { extractCommitmentAttribute } from "@pages/admin/investments/MyInvestments/config/commitments";
 import { USER_ID } from "src/App";
 import { investmentIcons } from "../Investment/config/investment";
 import { myInvestments } from "./config/boxes";
@@ -25,6 +28,31 @@ import {
   formatMyInvestmentCurrencyAttrs,
   myInvestmentAttributeBreakpoints,
 } from "./config/products";
+
+const renderInvestmentCommitments = () => {
+  return investmentsCommitmentsMock.map((commitment) => {
+    const valueToPay = extractCommitmentAttribute(
+      commitment.attributes,
+      "value_to_pay"
+    );
+    const nextPayDate = extractCommitmentAttribute(
+      commitment.attributes,
+      "next_pay_date"
+    );
+
+    return (
+      <SavingsCommitmentCard
+        key={commitment.id}
+        title={commitment.title}
+        label="Ver"
+        descriptionLabel={nextPayDate?.label}
+        descriptionValue={String(nextPayDate?.value)}
+        onClick={() => {}}
+        value={Number(valueToPay?.value)}
+      />
+    );
+  });
+};
 
 function MyInvestments() {
   const smallScreen = useMediaQuery("(min-width: 1400px)");
@@ -63,26 +91,42 @@ function MyInvestments() {
             Tus productos
           </Text>
           <Box {...myInvestments}>
-            <Stack direction="column" gap="s075">
-              {investmentProducts.length === 0 ? (
-                <Product empty={true} icon={<MdOutlineRealEstateAgent />} />
-              ) : (
-                investmentProducts.map((investment) => (
-                  <Product
-                    id={investment.id}
-                    key={investment.id}
-                    title={investment.title}
-                    description={investment.description}
-                    attributes={formatMyInvestmentCurrencyAttrs(
-                      extractMyInvestmentAttributes(investment)
-                    )}
-                    breakpoints={myInvestmentAttributeBreakpoints}
-                    tags={investment.tags}
-                    icon={investmentIcons[investment.type]}
-                    navigateTo={`/my-investments/${investment.id}`}
-                  />
-                ))
+            <Stack direction="column" gap="s200">
+              {investmentsCommitmentsMock.length > 0 && (
+                <Text type="label" size="medium" appearance="dark">
+                  Tus productos
+                </Text>
               )}
+
+              <Stack direction="column" gap="s100">
+                {investmentProducts.length === 0 ? (
+                  <Product empty={true} icon={<MdOutlineRealEstateAgent />} />
+                ) : (
+                  investmentProducts.map((investment) => (
+                    <Product
+                      id={investment.id}
+                      key={investment.id}
+                      title={investment.title}
+                      description={investment.description}
+                      attributes={formatMyInvestmentCurrencyAttrs(
+                        extractMyInvestmentAttributes(investment)
+                      )}
+                      breakpoints={myInvestmentAttributeBreakpoints}
+                      tags={investment.tags}
+                      icon={investmentIcons[investment.type]}
+                      navigateTo={`/my-investments/${investment.id}`}
+                    />
+                  ))
+                )}
+              </Stack>
+
+              {investmentsCommitmentsMock.length > 0 && (
+                <Text type="label" size="medium" appearance="dark">
+                  Tus obligaciones
+                </Text>
+              )}
+
+              {renderInvestmentCommitments()}
             </Stack>
           </Box>
         </Stack>
