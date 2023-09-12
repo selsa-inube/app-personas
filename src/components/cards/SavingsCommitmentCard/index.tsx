@@ -13,7 +13,7 @@ interface SavingsCommitmentCardProps {
   value: number;
   label: string;
   tagValue?: string;
-  description?: string;
+  descriptionLabel?: string;
   descriptionValue?: string;
 }
 
@@ -24,7 +24,7 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
     title,
     label,
     tagValue,
-    description,
+    descriptionLabel,
     descriptionValue,
   } = props;
 
@@ -54,7 +54,7 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
         ) : (
           <Stack gap="s100">
             <Text type="label" size="small">
-              {description}:
+              {descriptionLabel}:
             </Text>
             <Text type="body" size="small" appearance="gray">
               {descriptionValue}

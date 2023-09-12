@@ -34,7 +34,7 @@ Default.args = {
   title: "Product name",
   value: 8900,
   onClick: action("Icon MdOpenInNew Clicked"),
-  description: "Description",
+  descriptionLabel: "Description",
   descriptionValue: "value",
   label: "label",
 };
