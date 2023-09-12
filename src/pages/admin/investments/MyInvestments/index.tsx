@@ -123,7 +123,9 @@ function MyInvestments() {
                 </Text>
               )}
 
-              {renderInvestmentCommitments()}
+              <Stack direction="column" gap="s100">
+                {renderInvestmentCommitments()}
+              </Stack>
             </Stack>
           </Box>
         </Stack>

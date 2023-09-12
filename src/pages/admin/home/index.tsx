@@ -22,6 +22,7 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 import { USER_ID } from "src/App";
+import { extractAttribute } from "src/utils/products";
 import { investmentIcons } from "../investments/Investment/config/investment";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
 import { cards, credits, investments, savings } from "./config/boxes";
@@ -37,7 +38,6 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
-import { extractAttribute } from "src/utils/products";
 
 const renderInvestmentCommitments = () => {
   return investmentsCommitmentsMock.map((commitment) => {
@@ -146,7 +146,9 @@ function Home() {
                   </Text>
                 )}
 
-                {renderInvestmentCommitments()}
+                <Stack direction="column" gap="s100">
+                  {renderInvestmentCommitments()}
+                </Stack>
               </Stack>
             </Box>
           )}
