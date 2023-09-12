@@ -33,6 +33,7 @@ import {
   formatSavingCurrencyAttrs,
   investmentAttributeBreakpoints,
   savingAttributeBreakpoints,
+  truncateAndObfuscateDescription,
 } from "./config/products";
 import { cardProducts } from "./mocks";
 
@@ -75,7 +76,10 @@ function Home() {
                     id={saving.id}
                     key={saving.id}
                     title={saving.title}
-                    description={saving.description}
+                    description={truncateAndObfuscateDescription(
+                      saving.description,
+                      saving.type
+                    )}
                     attributes={formatSavingCurrencyAttrs(
                       extractSavingAttributes(saving)
                     )}

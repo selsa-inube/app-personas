@@ -63,12 +63,11 @@ const savingCurrencyAttributes = ["net_value"];
 
 function extractSavingAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>
-  savingAttributes.includes(attribute.id)
+    savingAttributes.includes(attribute.id)
   );
 
   return foundAttributes.sort(
-    (a, b) =>
-    savingAttributes.indexOf(a.id) - savingAttributes.indexOf(b.id)
+    (a, b) => savingAttributes.indexOf(a.id) - savingAttributes.indexOf(b.id)
   );
 }
 
@@ -82,6 +81,15 @@ function formatSavingCurrencyAttrs(attributes: IAttribute[]) {
     }
     return attribute;
   });
+}
+
+function truncateAndObfuscateDescription(description: string, type: string) {
+  if (type === "CA") {
+    const lastFourCharacters = description.slice(-4);
+    return "**" + lastFourCharacters;
+  } else {
+    return description;
+  }
 }
 
 const creditAttributeBreakpoints = {
@@ -111,7 +119,6 @@ const savingAttributeBreakpoints = {
   "(max-width: 660px)": 1,
 };
 
-
 export {
   creditAttributeBreakpoints,
   investmentAttributeBreakpoints,
@@ -122,4 +129,5 @@ export {
   formatInvestmentCurrencyAttrs,
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
+  truncateAndObfuscateDescription,
 };

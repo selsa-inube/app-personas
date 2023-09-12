@@ -18,6 +18,7 @@ import {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
   mySavingsAttributeBreakpoints,
+  truncateAndObfuscateDescription,
 } from "./config/products";
 
 function MySavings() {
@@ -56,7 +57,10 @@ function MySavings() {
                     id={product.id}
                     key={product.id}
                     title={product.title}
-                    description={product.description}
+                    description={truncateAndObfuscateDescription(
+                      product.description,
+                      product.type
+                    )}
                     attributes={formatMySavingsCurrencyAttrs(
                       extractMySavingsAttributes(product)
                     )}
