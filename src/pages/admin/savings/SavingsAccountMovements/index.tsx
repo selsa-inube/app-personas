@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsAccountMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
-import { truncateAndObfuscateDescription } from "./config/product";
 
 function SavingsAccountMovements() {
   const { product_id } = useParams();
@@ -22,10 +21,7 @@ function SavingsAccountMovements() {
     const savingsOptions = savingsMock.map((saving) => {
       const productOption = {
         id: saving.id,
-        value: `${saving.title} - ${truncateAndObfuscateDescription(
-          saving.description,
-          saving.type
-        )}`,
+        value: saving.description,
       };
 
       if (saving.id === product_id) {

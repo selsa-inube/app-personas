@@ -28,14 +28,6 @@ function formatMySavingsCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function truncateAndObfuscateDescription(description: string, type: string) {
-  if (type === "CA") {
-    const lastFourCharacters = description.slice(-4);
-    return "**" + lastFourCharacters;
-  } else {
-    return description;
-  }
-}
 const mySavingsAttributeBreakpoints = {
   "(min-width: 1100px)": 3,
   "(min-width: 950px)": 2,
@@ -49,5 +41,4 @@ export {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
   mySavingsAttributeBreakpoints,
-  truncateAndObfuscateDescription,
 };

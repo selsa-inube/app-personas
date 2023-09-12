@@ -83,15 +83,6 @@ function formatSavingCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function truncateAndObfuscateDescription(description: string, type: string) {
-  if (type === "CA") {
-    const lastFourCharacters = description.slice(-4);
-    return "**" + lastFourCharacters;
-  } else {
-    return description;
-  }
-}
-
 const creditAttributeBreakpoints = {
   "(min-width: 1100px)": 3,
   "(min-width: 950px)": 2,
@@ -129,5 +120,4 @@ export {
   formatInvestmentCurrencyAttrs,
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
-  truncateAndObfuscateDescription,
 };

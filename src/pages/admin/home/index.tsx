@@ -33,9 +33,9 @@ import {
   formatSavingCurrencyAttrs,
   investmentAttributeBreakpoints,
   savingAttributeBreakpoints,
-  truncateAndObfuscateDescription,
 } from "./config/products";
 import { cardProducts } from "./mocks";
+import { truncateAndObfuscateDescription } from "src/utils/formats";
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -78,7 +78,8 @@ function Home() {
                     title={saving.title}
                     description={truncateAndObfuscateDescription(
                       saving.description,
-                      saving.type
+                      saving.type,
+                      4
                     )}
                     attributes={formatSavingCurrencyAttrs(
                       extractSavingAttributes(saving)

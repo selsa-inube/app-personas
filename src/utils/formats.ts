@@ -10,4 +10,17 @@ const currencyFormat = (price: number): string => {
   }).format(price);
 };
 
-export { currencyFormat };
+function truncateAndObfuscateDescription(
+  description: string,
+  type: string,
+  lengthToShow: number
+) {
+  if (type === "CA") {
+    const truncatedText = description.slice(-lengthToShow);
+    return "**" + truncatedText;
+  } else {
+    return description;
+  }
+}
+
+export { currencyFormat, truncateAndObfuscateDescription };

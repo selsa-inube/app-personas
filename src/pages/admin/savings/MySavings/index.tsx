@@ -18,8 +18,8 @@ import {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
   mySavingsAttributeBreakpoints,
-  truncateAndObfuscateDescription,
 } from "./config/products";
+import { truncateAndObfuscateDescription } from "src/utils/formats";
 
 function MySavings() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -59,7 +59,8 @@ function MySavings() {
                     title={product.title}
                     description={truncateAndObfuscateDescription(
                       product.description,
-                      product.type
+                      product.type,
+                      4
                     )}
                     attributes={formatMySavingsCurrencyAttrs(
                       extractMySavingsAttributes(product)
