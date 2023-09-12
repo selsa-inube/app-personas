@@ -39,20 +39,38 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
-import { ICommitment } from "@ptypes/pages/product.types";
 
-const renderCommitments = (commitments: ICommitment[], showTag: boolean) => {
-  return commitments.map((commitment) => {
+const renderInvestmentCommitments = () => {
+  return investmentsCommitmentsMock.map((commitment) => {
     const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
     const nextPayDate = extractAttribute(
       commitment.attributes,
       "next_pay_date"
     );
 
-    const tagValue =
-      showTag && commitment.id === "statutory_obligations"
-        ? "En mora"
-        : undefined;
+    return (
+      <SavingsCommitmentCard
+        key={commitment.id}
+        title={commitment.title}
+        label="Ver"
+        descriptionLabel={nextPayDate?.label}
+        descriptionValue={String(nextPayDate?.value)}
+        onClick={() => {}}
+        value={Number(valueToPay?.value)}
+      />
+    );
+  });
+};
+
+const renderSavingCommitments = () => {
+  return savingsCommitmentsMock.map((commitment) => {
+    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
+    const nextPayDate = extractAttribute(
+      commitment.attributes,
+      "next_pay_date"
+    );
+
+    const tagValue = commitment.id === "statutory_obligations" ? "En mora" : "";
 
     return (
       <SavingsCommitmentCard
@@ -129,7 +147,7 @@ function Home() {
               </Text>
             )}
             <Stack direction="column" gap="s100">
-              {renderCommitments(savingsCommitmentsMock, true)}
+              {renderSavingCommitments()}
             </Stack>
           </Box>
           {investmentProducts.length > 0 && (
@@ -166,7 +184,7 @@ function Home() {
                 )}
 
                 <Stack direction="column" gap="s100">
-                  {renderCommitments(investmentsCommitmentsMock, false)}
+                  {renderInvestmentCommitments()}
                 </Stack>
               </Stack>
             </Box>
