@@ -14,7 +14,7 @@ import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { savingsAccountIcons } from "../SavingsAccount/config/saving";
-import { extractCommitmentAttribute } from "./config/commitments";
+import { extractAttribute } from "src/utils/products";
 import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
 import {
@@ -25,11 +25,8 @@ import {
 
 const renderSavingCommitments = () => {
   return savingsCommitmentsMock.map((commitment) => {
-    const valueToPay = extractCommitmentAttribute(
-      commitment.attributes,
-      "value_to_pay"
-    );
-    const nextPayDate = extractCommitmentAttribute(
+    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
+    const nextPayDate = extractAttribute(
       commitment.attributes,
       "next_pay_date"
     );
