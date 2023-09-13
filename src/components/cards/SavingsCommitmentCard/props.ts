@@ -20,9 +20,9 @@ const props = {
     description:
       "This property is also a string and is used to display a label that accompanies the savings commitment value. It can be a brief description or a label that clarifies the meaning of the value.",
   },
-  tagValue: {
+  tag: {
     description:
-      "This is an optional property that can be used to display an additional label on the card. If a value is provided for tagValue, it will be displayed as an error tag on the card.",
+      "This is an optional property that can be used to display an additional label on the card. If a value is provided for tag, it will be displayed as an error tag on the card.",
   },
   descriptionLabel: {
     description:

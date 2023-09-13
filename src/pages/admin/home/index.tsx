@@ -14,6 +14,7 @@ import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import {
@@ -62,6 +63,29 @@ const renderInvestmentCommitments = () => {
   });
 };
 
+const renderSavingCommitments = () => {
+  return savingsCommitmentsMock.map((commitment) => {
+    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
+    const nextPayDate = extractAttribute(
+      commitment.attributes,
+      "next_pay_date"
+    );
+
+    return (
+      <SavingsCommitmentCard
+        key={commitment.id}
+        title={commitment.title}
+        label="Ver"
+        descriptionLabel={nextPayDate?.label}
+        descriptionValue={String(nextPayDate?.value)}
+        value={Number(valueToPay?.value)}
+        tag={commitment.tag}
+        onClick={() => {}}
+      />
+    );
+  });
+};
+
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
 
@@ -89,6 +113,11 @@ function Home() {
             Tus productos
           </Text>
           <Box {...savings}>
+            {savingsCommitmentsMock.length > 0 && (
+              <Text type="label" size="medium">
+                Tus cuentas
+              </Text>
+            )}
             <Stack direction="column" gap="s100">
               {savingsMock.length === 0 ? (
                 <Product
@@ -116,6 +145,14 @@ function Home() {
                   />
                 ))
               )}
+            </Stack>
+            {savingsCommitmentsMock.length > 0 && (
+              <Text type="label" size="medium">
+                Tus compromisos
+              </Text>
+            )}
+            <Stack direction="column" gap="s100">
+              {renderSavingCommitments()}
             </Stack>
           </Box>
           {investmentProducts.length > 0 && (
