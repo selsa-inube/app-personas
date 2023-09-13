@@ -40,7 +40,7 @@ const renderSavingCommitments = () => {
         descriptionLabel={nextPayDate?.label}
         descriptionValue={String(nextPayDate?.value)}
         value={Number(valueToPay?.value)}
-        tagValue={commitment.tag}
+        tag={commitment.tag}
         onClick={() => {}}
       />
     );
