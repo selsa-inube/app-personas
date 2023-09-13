@@ -9,6 +9,7 @@ import {
   StyledLogoContainer,
   StyledUser,
   StyledLink,
+  StyledContainer,
 } from "./styles";
 
 interface HeaderProps {
@@ -26,14 +27,16 @@ function Header(props: HeaderProps) {
 
   return (
     <StyledHeader>
-      <StyledLogoContainer to="/">
-        <StyledLogo src={logoURL} />
-      </StyledLogoContainer>
+      <StyledContainer>
+        <StyledLogoContainer to="/">
+          <StyledLogo src={logoURL} />
+        </StyledLogoContainer>
+      </StyledContainer>
       {isTablet &&
         links &&
         links.map((link, index) => (
           <StyledLink key={index} to={link.path}>
-            <Text type="label" size="medium">
+            <Text type="label" size="medium" appearance="gray">
               {link.label}
             </Text>
           </StyledLink>
