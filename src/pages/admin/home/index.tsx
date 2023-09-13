@@ -38,6 +38,7 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
+import { truncateAndObfuscateDescription } from "src/utils/formats";
 
 const renderInvestmentCommitments = () => {
   return investmentsCommitmentsMock.map((commitment) => {
@@ -100,7 +101,11 @@ function Home() {
                     id={saving.id}
                     key={saving.id}
                     title={saving.title}
-                    description={saving.description}
+                    description={truncateAndObfuscateDescription(
+                      saving.id,
+                      saving.type,
+                      4
+                    )}
                     attributes={formatSavingCurrencyAttrs(
                       extractSavingAttributes(saving)
                     )}
@@ -128,7 +133,7 @@ function Home() {
                       id={investment.id}
                       key={investment.id}
                       title={investment.title}
-                      description={investment.description}
+                      description={investment.id}
                       attributes={formatInvestmentCurrencyAttrs(
                         extractInvestmentAttributes(investment)
                       )}
@@ -162,7 +167,7 @@ function Home() {
                     id={credit.id}
                     key={credit.id}
                     title={credit.title}
-                    description={credit.description}
+                    description={credit.id}
                     attributes={formatCreditCurrencyAttrs(
                       extractCreditAttributes(credit)
                     )}

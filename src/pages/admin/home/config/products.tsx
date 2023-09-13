@@ -63,12 +63,11 @@ const savingCurrencyAttributes = ["net_value"];
 
 function extractSavingAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>
-  savingAttributes.includes(attribute.id)
+    savingAttributes.includes(attribute.id)
   );
 
   return foundAttributes.sort(
-    (a, b) =>
-    savingAttributes.indexOf(a.id) - savingAttributes.indexOf(b.id)
+    (a, b) => savingAttributes.indexOf(a.id) - savingAttributes.indexOf(b.id)
   );
 }
 
@@ -110,7 +109,6 @@ const savingAttributeBreakpoints = {
   "(min-width: 650px)": 2,
   "(max-width: 660px)": 1,
 };
-
 
 export {
   creditAttributeBreakpoints,

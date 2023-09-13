@@ -93,11 +93,7 @@ function InvestmentUI(props: InvestmentUIProps) {
           />
           <Box
             title={selectedProduct.investment.title}
-            subtitle={
-              isMobile
-                ? selectedProduct.investment.id
-                : selectedProduct.investment.description
-            }
+            subtitle={selectedProduct.investment.id}
             tags={selectedProduct.investment.tags}
             button={{
               label: "Compromisos de ahorro",
