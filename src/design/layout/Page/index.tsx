@@ -26,6 +26,7 @@ function Page(props: PageProps) {
         logoURL={header.logoURL}
         username={header.username}
         client={header.client}
+        links={header.links}
       />
       <Grid
         templateColumns={navBreakpoint ? "auto 1fr" : "1fr"}

@@ -21,10 +21,22 @@ const StyledHeader = styled.header`
 
 const StyledLogoContainer = styled(Link)`
   display: flex;
+  flex-grow: 1;
 `;
 
 const StyledLogo = styled.img`
   width: 120px;
+`;
+
+const StyledLink = styled(Link)`
+  display: flex;
+  text-decoration: none;
+  padding: ${inube.spacing.s200};
+
+  p {
+    color: ${({ theme }) =>
+      theme.color?.text?.gray?.hover || inube.color.text.gray.hover};
+  }
 `;
 
 const StyledUser = styled.div`
@@ -39,4 +51,10 @@ const StyledUser = styled.div`
   align-items: center;
 `;
 
-export { StyledHeader, StyledLogoContainer, StyledLogo, StyledUser };
+export {
+  StyledHeader,
+  StyledLogoContainer,
+  StyledLogo,
+  StyledUser,
+  StyledLink,
+};
