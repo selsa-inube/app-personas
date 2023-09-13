@@ -31,12 +31,10 @@ const savingsCommitmentsMock: ICommitment[] = [
         value: "Mensual",
       },
     ],
-    tags: [
-      {
-        label: "En mora",
-        appearance: "error",
-      },
-    ],
+    tag: {
+      label: "En mora",
+      appearance: "error",
+    },
     products: ["201-91214069"],
   },
   {
@@ -69,7 +67,6 @@ const savingsCommitmentsMock: ICommitment[] = [
         value: "Mensual",
       },
     ],
-    tags: [],
     products: ["201-91214069"],
   },
 ];

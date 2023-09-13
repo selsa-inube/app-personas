@@ -31,8 +31,6 @@ const renderSavingCommitments = () => {
       "next_pay_date"
     );
 
-    const tagValue = commitment.id === "statutory_obligations" ? "En mora" : "";
-
     return (
       <SavingsCommitmentCard
         key={commitment.id}
@@ -41,7 +39,7 @@ const renderSavingCommitments = () => {
         descriptionLabel={nextPayDate?.label}
         descriptionValue={String(nextPayDate?.value)}
         value={Number(valueToPay?.value)}
-        tagValue={tagValue}
+        tagValue={commitment.tag}
         onClick={() => {}}
       />
     );
@@ -75,9 +73,11 @@ function MySavings() {
             Tus productos
           </Text>
           <Box {...mySavingsBox}>
-            <Text type="label" size="medium">
-              Tus cuentas
-            </Text>
+            {savingsCommitmentsMock.length > 0 && (
+              <Text type="label" size="medium">
+                Tus cuentas
+              </Text>
+            )}
             <Stack direction="column" gap="s075">
               {savingsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
