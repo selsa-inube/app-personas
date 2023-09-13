@@ -10,6 +10,10 @@ const props = {
     description:
       "Controls the name of the client that the user is currently representing inside the app.",
   },
+  links: {
+    description:
+      "Controls the different links that can be represented in the header.",
+  },
 };
 
 export { props };
