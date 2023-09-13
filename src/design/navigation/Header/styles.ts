@@ -17,6 +17,7 @@ const StyledHeader = styled.header`
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
+  gap: ${inube.spacing.s500};
 `;
 
 const StyledContainer = styled.div`
