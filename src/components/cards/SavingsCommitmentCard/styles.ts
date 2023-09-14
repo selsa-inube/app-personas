@@ -17,8 +17,6 @@ const StyledCardHeading = styled.div`
 const StyledViewContainer = styled.button`
   display: flex;
   align-items: center;
-  cursor: pointer;
-  user-select: none;
   border: 0;
   background: none;
   gap: ${inube.spacing.s050};
