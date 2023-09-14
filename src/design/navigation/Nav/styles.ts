@@ -22,6 +22,21 @@ const StyledList = styled.ul`
   padding: ${inube.spacing.s0};
 `;
 
+const StyledSeparatorLine = styled.div`
+  height: 1px;
+  padding: 0.5px 0px;
+  margin: ${inube.spacing.s100} ${inube.spacing.s200};
+  background-color: ${({ theme }) =>
+    theme.color?.stroke?.divider?.regular ||
+    inube.color.stroke.divider.regular};
+`;
+
 const StyledFooter = styled.footer``;
 
-export { StyledNav, StyledList, StyledContent, StyledFooter };
+export {
+  StyledNav,
+  StyledList,
+  StyledContent,
+  StyledFooter,
+  StyledSeparatorLine,
+};
