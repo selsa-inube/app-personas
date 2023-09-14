@@ -26,6 +26,12 @@ Default.args = {
   logoURL: "http://www.sistemasenlinea.com.co/images/selsalogo-small-grey.png",
   username: "Leonardo Garzón",
   client: "Fondecom",
+  links: [
+    {
+      label: "Actualizar datos",
+      path: "/update-data"
+    },
+  ]
 };
 
 const theme = {
@@ -41,6 +47,12 @@ Themed.args = {
   logoURL:
     "https://fondecom.coop/wp-content/uploads/2022/07/LOGO-GRANDE-1024x305.png",
   username: "Leonardo Garzón",
+  links: [
+    {
+      label: "Actualizar datos",
+      path: "/update-data"
+    },
+  ]
 };
 
 export default story;

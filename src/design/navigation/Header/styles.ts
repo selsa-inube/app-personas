@@ -17,6 +17,12 @@ const StyledHeader = styled.header`
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
+  gap: ${inube.spacing.s500};
+`;
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
 `;
 
 const StyledLogoContainer = styled(Link)`
@@ -25,6 +31,12 @@ const StyledLogoContainer = styled(Link)`
 
 const StyledLogo = styled.img`
   width: 120px;
+`;
+
+const StyledLink = styled(Link)`
+  display: flex;
+  text-decoration: none;
+  padding: ${inube.spacing.s200};
 `;
 
 const StyledUser = styled.div`
@@ -39,4 +51,11 @@ const StyledUser = styled.div`
   align-items: center;
 `;
 
-export { StyledHeader, StyledLogoContainer, StyledLogo, StyledUser };
+export {
+  StyledHeader,
+  StyledLogoContainer,
+  StyledLogo,
+  StyledUser,
+  StyledLink,
+  StyledContainer
+};

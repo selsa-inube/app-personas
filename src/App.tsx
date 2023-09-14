@@ -71,6 +71,7 @@ function App() {
           path="my-savings/commitment/:commitment_id"
           element={<SavingsCommitments />}
         />
+        <Route path="/update-data" />
       </Route>
     )
   );
