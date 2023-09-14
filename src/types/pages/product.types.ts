@@ -58,4 +58,11 @@ interface IProduct {
   userOwner?: string;
 }
 
-export type { IAmortization, IAttribute, ICommitment, IMovement, IProduct };
+export type {
+  IAmortization,
+  IAttribute,
+  ICommitment,
+  IMovement,
+  IProduct,
+  ProductType,
+};
