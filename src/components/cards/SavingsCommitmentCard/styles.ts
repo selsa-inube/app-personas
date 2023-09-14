@@ -14,11 +14,13 @@ const StyledCardHeading = styled.div`
     theme.color?.surface?.light?.regular || inube.color.surface.light.regular};
 `;
 
-const StyledViewContainer = styled.div`
+const StyledViewContainer = styled.button`
   display: flex;
   align-items: center;
   cursor: pointer;
   user-select: none;
+  border: 0;
+  background: none;
   gap: ${inube.spacing.s050};
 `;
 
