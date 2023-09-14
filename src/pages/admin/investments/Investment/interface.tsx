@@ -2,6 +2,7 @@ import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { AttributesModal } from "@components/modals/AttributesModal";
+import { ReimbursementModal } from "@components/modals/investment/ReimbursementModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
@@ -19,13 +20,13 @@ import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineAssignmentTurnedIn,
-  MdOutlinePaid,
 } from "react-icons/md";
 import {
   investmentMovementsTableActions,
   investmentMovementsTableBreakpoints,
   investmentMovementsTableTitles,
 } from "../InvestmentMovements/config/table";
+import { investmentBoxButton } from "./config/box";
 import { investmentBox } from "./config/investment";
 import { crumbsInvestment } from "./config/navigation";
 import {
@@ -33,7 +34,6 @@ import {
   formatInvestmentCurrencyAttrs,
 } from "./config/product";
 import { IModalState, ISelectedProductState } from "./types";
-import { ReimbursementModal } from "@components/modals/investment/ReimbursementModal";
 
 interface InvestmentUIProps {
   isMobile?: boolean;
@@ -99,11 +99,7 @@ function InvestmentUI(props: InvestmentUIProps) {
                 : selectedProduct.investment.description
             }
             tags={selectedProduct.investment.tags}
-            button={{
-              label: "Compromisos de ahorro",
-              icon: <MdOutlinePaid />,
-              path: ``,
-            }}
+            button={investmentBoxButton(selectedProduct.investment.type)}
             {...investmentBox(selectedProduct.investment.type)}
           >
             <Stack direction="column" gap="s100">
