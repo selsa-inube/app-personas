@@ -14,4 +14,12 @@ const StyledCardHeading = styled.div`
     theme.color?.surface?.light?.regular || inube.color.surface.light.regular};
 `;
 
-export { StyledCardContainer, StyledCardHeading };
+const StyledViewContainer = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: ${inube.spacing.s050};
+`;
+
+export { StyledCardContainer, StyledCardHeading, StyledViewContainer };
