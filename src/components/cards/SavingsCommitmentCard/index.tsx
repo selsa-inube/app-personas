@@ -74,7 +74,6 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
             appearance="dark"
             size="16px"
             spacing="none"
-            cursorHover
           />
         </StyledViewContainer>
       </Stack>

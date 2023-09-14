@@ -18,6 +18,7 @@ const StyledViewContainer = styled.button`
   display: flex;
   align-items: center;
   border: 0;
+  cursor: pointer;
   background: none;
   gap: ${inube.spacing.s050};
 `;
