@@ -1,8 +1,13 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IProduct, IAttribute } from "@ptypes/pages/product.types";
+import { IProduct, IAttribute, ICommitment } from "@ptypes/pages/product.types";
 
 interface ISelectedProductState {
   saving: IProduct;
+  option: ISelectOption;
+}
+
+interface ISelectedCommitmentState {
+  commitment: ICommitment;
   option: ISelectOption;
 }
 
@@ -11,4 +16,4 @@ interface IBeneficiariesModalState {
   data: IAttribute[];
 }
 
-export type { ISelectedProductState, IBeneficiariesModalState };
+export type { ISelectedProductState, IBeneficiariesModalState, ISelectedCommitmentState };

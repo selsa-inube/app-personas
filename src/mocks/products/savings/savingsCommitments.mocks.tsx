@@ -4,6 +4,7 @@ const savingsCommitmentsMock: ICommitment[] = [
   {
     id: "statutory_obligations",
     title: "Obligaciones estatutarias",
+    description: "Compromiso de ahorro",
     attributes: [
       {
         id: "next_pay_date",
@@ -35,11 +36,12 @@ const savingsCommitmentsMock: ICommitment[] = [
       label: "En mora",
       appearance: "error",
     },
-    products: ["201-91214069"],
+    products: ["013001157292"],
   },
   {
     id: "pass_acount",
     title: "Abono a cuenta",
+    description: "Compromiso de ahorro",
     attributes: [
       {
         id: "next_pay_date",

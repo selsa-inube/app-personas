@@ -27,6 +27,7 @@ import { MyInvestments } from "@pages/admin/investments/MyInvestments";
 import { MySavings } from "@pages/admin/savings/MySavings";
 import { SavingsAccount } from "@pages/admin/savings/SavingsAccount";
 import { SavingsAccountMovements } from "@pages/admin/savings/SavingsAccountMovements";
+import { SavingsCommitments } from "@pages/admin/savings/SavingsCommitments";
 
 const USER_ID = "1";
 
@@ -65,6 +66,10 @@ function App() {
         <Route
           path="my-savings/account/:product_id/movements"
           element={<SavingsAccountMovements />}
+        />
+        <Route
+          path="my-savings/commitment/:commitment_id"
+          element={<SavingsCommitments />}
         />
       </Route>
     )
