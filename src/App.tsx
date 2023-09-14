@@ -66,6 +66,7 @@ function App() {
           path="my-savings/account/:product_id/movements"
           element={<SavingsAccountMovements />}
         />
+        <Route path="/update-data" />
       </Route>
     )
   );

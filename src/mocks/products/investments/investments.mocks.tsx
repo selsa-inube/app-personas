@@ -4,7 +4,7 @@ const investmentsMock: IProduct[] = [
   {
     id: "2-231000619",
     title: "CDAT",
-    description: "2 - 231000619",
+    description: "CDAT 2 - 231000619",
     type: "CD",
     attributes: [
       {
@@ -59,7 +59,7 @@ const investmentsMock: IProduct[] = [
   {
     id: "2-23110125",
     title: "Ahorro programado",
-    description: "2 - 23110125",
+    description: "Ahorro programado 2 - 23110125",
     type: "AP",
     attributes: [
       {

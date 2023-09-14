@@ -10,9 +10,12 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 
 import { Product } from "@components/cards/Product";
+import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
+import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import {
   MdOutlineAccountBalanceWallet,
@@ -20,6 +23,7 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 import { USER_ID } from "src/App";
+import { extractAttribute } from "src/utils/products";
 import { investmentIcons } from "../investments/Investment/config/investment";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
 import { cards, credits, investments, savings } from "./config/boxes";
@@ -35,6 +39,52 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
+import { truncateAndObfuscateDescription } from "src/utils/formats";
+
+const renderInvestmentCommitments = () => {
+  return investmentsCommitmentsMock.map((commitment) => {
+    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
+    const nextPayDate = extractAttribute(
+      commitment.attributes,
+      "next_pay_date"
+    );
+
+    return (
+      <SavingsCommitmentCard
+        key={commitment.id}
+        title={commitment.title}
+        label="Ver"
+        descriptionLabel={nextPayDate?.label}
+        descriptionValue={String(nextPayDate?.value)}
+        onClick={() => {}}
+        value={Number(valueToPay?.value)}
+      />
+    );
+  });
+};
+
+const renderSavingCommitments = () => {
+  return savingsCommitmentsMock.map((commitment) => {
+    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
+    const nextPayDate = extractAttribute(
+      commitment.attributes,
+      "next_pay_date"
+    );
+
+    return (
+      <SavingsCommitmentCard
+        key={commitment.id}
+        title={commitment.title}
+        label="Ver"
+        descriptionLabel={nextPayDate?.label}
+        descriptionValue={String(nextPayDate?.value)}
+        value={Number(valueToPay?.value)}
+        tag={commitment.tag}
+        onClick={() => {}}
+      />
+    );
+  });
+};
 
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -63,7 +113,12 @@ function Home() {
             Tus productos
           </Text>
           <Box {...savings}>
-            <Stack direction="column" gap="s075">
+            {savingsCommitmentsMock.length > 0 && (
+              <Text type="label" size="medium">
+                Tus cuentas
+              </Text>
+            )}
+            <Stack direction="column" gap="s100">
               {savingsMock.length === 0 ? (
                 <Product
                   empty={true}
@@ -75,7 +130,11 @@ function Home() {
                     id={saving.id}
                     key={saving.id}
                     title={saving.title}
-                    description={saving.description}
+                    description={truncateAndObfuscateDescription(
+                      saving.id,
+                      saving.type,
+                      4
+                    )}
                     attributes={formatSavingCurrencyAttrs(
                       extractSavingAttributes(saving)
                     )}
@@ -87,30 +146,56 @@ function Home() {
                 ))
               )}
             </Stack>
+            {savingsCommitmentsMock.length > 0 && (
+              <Text type="label" size="medium">
+                Tus compromisos
+              </Text>
+            )}
+            <Stack direction="column" gap="s100">
+              {renderSavingCommitments()}
+            </Stack>
           </Box>
           {investmentProducts.length > 0 && (
             <Box {...investments}>
-              <Stack direction="column" gap="s075">
-                {investmentProducts.map((investment) => (
-                  <Product
-                    id={investment.id}
-                    key={investment.id}
-                    title={investment.title}
-                    description={investment.description}
-                    attributes={formatInvestmentCurrencyAttrs(
-                      extractInvestmentAttributes(investment)
-                    )}
-                    tags={investment.tags}
-                    icon={investmentIcons[investment.type]}
-                    navigateTo={`/my-investments/${investment.id}`}
-                    breakpoints={investmentAttributeBreakpoints}
-                  />
-                ))}
+              <Stack direction="column" gap="s200">
+                {investmentsCommitmentsMock.length > 0 && (
+                  <Text type="label" size="medium">
+                    Tus productos
+                  </Text>
+                )}
+
+                <Stack direction="column" gap="s100">
+                  {investmentProducts.map((investment) => (
+                    <Product
+                      id={investment.id}
+                      key={investment.id}
+                      title={investment.title}
+                      description={investment.id}
+                      attributes={formatInvestmentCurrencyAttrs(
+                        extractInvestmentAttributes(investment)
+                      )}
+                      tags={investment.tags}
+                      icon={investmentIcons[investment.type]}
+                      navigateTo={`/my-investments/${investment.id}`}
+                      breakpoints={investmentAttributeBreakpoints}
+                    />
+                  ))}
+                </Stack>
+
+                {investmentsCommitmentsMock.length > 0 && (
+                  <Text type="label" size="medium">
+                    Tus compromisos
+                  </Text>
+                )}
+
+                <Stack direction="column" gap="s100">
+                  {renderInvestmentCommitments()}
+                </Stack>
               </Stack>
             </Box>
           )}
           <Box {...credits}>
-            <Stack direction="column" gap="s075">
+            <Stack direction="column" gap="s100">
               {creditsMock.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
@@ -119,7 +204,7 @@ function Home() {
                     id={credit.id}
                     key={credit.id}
                     title={credit.title}
-                    description={credit.description}
+                    description={credit.id}
                     attributes={formatCreditCurrencyAttrs(
                       extractCreditAttributes(credit)
                     )}
@@ -133,7 +218,7 @@ function Home() {
             </Stack>
           </Box>
           <Box {...cards}>
-            <Stack direction="column" gap="s075">
+            <Stack direction="column" gap="s100">
               {cardProducts.length === 0 ? (
                 <Product icon={<MdOutlineCreditCard />} empty={true} />
               ) : (

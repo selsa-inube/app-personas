@@ -2,7 +2,7 @@ import { MdOpenInNew } from "react-icons/md";
 import { StyledCardContainer, StyledCardHeading } from "./styles";
 import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
-import { Tag } from "@design/data/Tag";
+import { Tag, TagProps } from "@design/data/Tag";
 import { Icon } from "@design/data/Icon";
 import { currencyFormat } from "src/utils/formats";
 import { inube } from "@design/tokens";
@@ -12,7 +12,7 @@ interface SavingsCommitmentCardProps {
   title: string;
   value: number;
   label: string;
-  tagValue?: string;
+  tag?: TagProps;
   descriptionLabel?: string;
   descriptionValue?: string;
 }
@@ -23,7 +23,7 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
     value,
     title,
     label,
-    tagValue,
+    tag,
     descriptionLabel,
     descriptionValue,
   } = props;
@@ -49,8 +49,8 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
         alignItems="center"
         padding={`${inube.spacing.s075} ${inube.spacing.s100}`}
       >
-        {tagValue ? (
-          <Tag appearance="error" label={tagValue} />
+        {tag ? (
+          <Tag label={tag.label} appearance={tag.appearance} />
         ) : (
           <Stack gap="s100">
             <Text type="label" size="small">
