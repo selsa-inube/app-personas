@@ -1,6 +1,6 @@
 import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
-import { IMovement } from "@ptypes/pages/product.types";
+import { IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/formats";
 import { ViewSavingMovement } from "../../MySavings/ViewSavingMovement";
 

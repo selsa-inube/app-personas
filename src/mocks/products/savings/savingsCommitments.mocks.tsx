@@ -1,4 +1,4 @@
-import { ICommitment } from "@ptypes/pages/product.types";
+import { ICommitment } from "src/model/entity/product";
 
 const savingsCommitmentsMock: ICommitment[] = [
   {

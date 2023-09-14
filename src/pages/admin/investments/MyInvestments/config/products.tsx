@@ -1,4 +1,4 @@
-import { IAttribute, IProduct } from "@ptypes/pages/product.types";
+import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/formats";
 
 const myInvestmentAttributes = ["expiration_date", "investment_value"];

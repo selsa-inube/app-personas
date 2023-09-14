@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { ThemeProvider } from "styled-components";
 import { Button } from "@design/input/Button";
-import { StoryFn } from "@storybook/react";
-import { IAttribute } from "@ptypes/pages/product.types";
-import { AttributesModal, AttributesModalProps } from ".";
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
+import { useState } from "react";
+import { IAttribute } from "src/model/entity/product";
+import { ThemeProvider } from "styled-components";
+import { AttributesModal, AttributesModalProps } from ".";
 import { props } from "./props";
 
 const attributes: IAttribute[] = [
