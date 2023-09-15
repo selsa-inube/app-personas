@@ -72,13 +72,22 @@ const router = createBrowserRouter(
 
 function App() {
   useFonts(theme.typography.fonts);
-  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, isLoading, logout } = useAuth0();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       loginWithRedirect();
     }
   }, [isLoading, isAuthenticated]);
+
+  const handleLogout = () => {
+    logout();
+  };
+
+  if (isAuthenticated) {
+    // Puedes mostrar una pantalla de carga mientras Auth0 verifica la autenticación.
+    return <div onClick={handleLogout}>Autenticado</div>;
+  }
 
   return (
     <>
