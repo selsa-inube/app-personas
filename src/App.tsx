@@ -82,6 +82,14 @@ function App() {
 
   console.log(isLoading);
   console.log(isAuthenticated);
+
+  if (!isAuthenticated) {
+    return <div onClick={() => loginWithRedirect()}>Auth</div>;
+  }
+
+  if (isAuthenticated) {
+    return <div onClick={() => logout()}>Logout</div>;
+  }
   return (
     <>
       <GlobalStyles />
