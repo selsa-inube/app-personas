@@ -41,10 +41,12 @@ Default.args = {
 
 WhitTag.args = {
   ...Default.args,
-  tag: {
-    label: "Tag",
-    appearance: "error",
-  },
+  tag: [
+    {
+      label: "Tag",
+      appearance: "error",
+    },
+  ],
 };
 
 Themed.args = {

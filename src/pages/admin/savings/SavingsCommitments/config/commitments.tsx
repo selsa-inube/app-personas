@@ -1,4 +1,4 @@
-import { IAttribute, ICommitment } from "@ptypes/pages/product.types";
+import { IAttribute, ICommitment } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/formats";
 
 const savingsCommitmentsAttributes = ["next_pay_date", "due_date", "pay_method", "periodicity"];

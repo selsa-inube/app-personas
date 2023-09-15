@@ -16,7 +16,7 @@ interface SavingsCommitmentCardProps {
   title: string;
   value: number;
   label: string;
-  tag?: TagProps;
+  tag?: TagProps[];
   descriptionLabel?: string;
   descriptionValue?: string;
 }
@@ -54,7 +54,7 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
         padding={`${inube.spacing.s075} ${inube.spacing.s100}`}
       >
         {tag ? (
-          <Tag label={tag.label} appearance={tag.appearance} />
+          tag.map((tag) => <Tag {...tag} key={tag.label} />)
         ) : (
           <Stack gap="s100">
             <Text type="label" size="small">

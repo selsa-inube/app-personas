@@ -75,6 +75,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               title={selectedCommitment.commitment.title}
               subtitle={selectedCommitment.commitment.description}
               collapsing={{ start: false, allow: false }}
+              tags={selectedCommitment.commitment.tag}
             >
               <Stack direction="column" gap="s100">
                 <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
