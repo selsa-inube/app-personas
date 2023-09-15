@@ -1,5 +1,5 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IProduct, IAttribute } from "@ptypes/pages/product.types";
+import { IAttribute, IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {
   saving: IProduct;
@@ -11,4 +11,4 @@ interface IBeneficiariesModalState {
   data: IAttribute[];
 }
 
-export type { ISelectedProductState, IBeneficiariesModalState };
+export type { IBeneficiariesModalState, ISelectedProductState };

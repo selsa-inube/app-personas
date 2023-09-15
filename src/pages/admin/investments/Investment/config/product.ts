@@ -1,4 +1,4 @@
-import { IAttribute, IProduct } from "src/types/pages/product.types";
+import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/formats";
 
 const investmentAttributes: Record<string, string[]> = {

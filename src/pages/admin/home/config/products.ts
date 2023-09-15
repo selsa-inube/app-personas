@@ -1,4 +1,4 @@
-import { IAttribute, IProduct } from "@ptypes/pages/product.types";
+import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/formats";
 
 const creditAttributes = [
@@ -112,12 +112,12 @@ const savingAttributeBreakpoints = {
 
 export {
   creditAttributeBreakpoints,
-  investmentAttributeBreakpoints,
-  savingAttributeBreakpoints,
   extractCreditAttributes,
   extractInvestmentAttributes,
+  extractSavingAttributes,
   formatCreditCurrencyAttrs,
   formatInvestmentCurrencyAttrs,
-  extractSavingAttributes,
   formatSavingCurrencyAttrs,
+  investmentAttributeBreakpoints,
+  savingAttributeBreakpoints,
 };

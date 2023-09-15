@@ -6,7 +6,7 @@ import { Stack } from "@design/layout/Stack";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IAttribute } from "src/types/pages/product.types";
+import { IAttribute } from "src/model/entity/product";
 import { StyledProduct } from "./styles";
 
 interface ProductProps {

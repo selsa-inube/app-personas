@@ -1,5 +1,5 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IMovement } from "@ptypes/pages/product.types";
+import { IMovement } from "src/model/entity/product";
 
 interface ISelectedProductState {
   movements: IMovement[];

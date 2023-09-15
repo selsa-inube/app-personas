@@ -1,6 +1,6 @@
 import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
-import { IAmortization } from "@ptypes/pages/product.types";
+import { IAmortization } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/formats";
 import { ViewPayment } from "../../MyCredits/ViewPayment";
 

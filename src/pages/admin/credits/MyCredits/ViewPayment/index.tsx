@@ -1,8 +1,8 @@
 import { CreditPaymentModal } from "@components/modals/credit/CreditPaymentModal";
 import { Icon } from "@design/data/Icon";
-import { IAmortization } from "@ptypes/pages/product.types";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
+import { IAmortization } from "src/model/entity/product";
 
 interface ViewPaymentProps {
   payment: IAmortization;

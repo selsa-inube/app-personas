@@ -1,9 +1,9 @@
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { IAttribute } from "src/model/entity/product";
 import { ButtonAttribute } from "./ButtonAttribute";
 import { StyledBoxAttribute } from "./styles";
-import { IAttribute } from "@ptypes/pages/product.types";
 
 interface BoxAttributeProps {
   label: string;

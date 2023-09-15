@@ -1,17 +1,32 @@
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
+import { MdLogout } from "react-icons/md";
 
 import { ISection } from "@design/layout/Page/types";
-import { StyledContent, StyledFooter, StyledList, StyledNav } from "./styles";
+import {
+  StyledContent,
+  StyledFooter,
+  StyledList,
+  StyledNav,
+  StyledSeparatorLine,
+} from "./styles";
 
 interface NavProps {
   title?: string;
   sections: ISection[];
   currentLocation: string;
+  logoutPath: string;
+  logoutTitle: string;
 }
 
 function Nav(props: NavProps) {
-  const { title = "Menu", sections, currentLocation } = props;
+  const {
+    title = "Menu",
+    sections,
+    currentLocation,
+    logoutPath,
+    logoutTitle,
+  } = props;
   const year = new Date().getFullYear();
 
   return (
@@ -47,6 +62,10 @@ function Nav(props: NavProps) {
             ))}
           </StyledList>
         ))}
+        <StyledSeparatorLine />
+        <NavLink key="logout" icon={<MdLogout />} path={logoutPath}>
+          {logoutTitle}
+        </NavLink>
       </StyledContent>
       <StyledFooter>
         <Text type="label" size="medium" textAlign="center" padding="s300">

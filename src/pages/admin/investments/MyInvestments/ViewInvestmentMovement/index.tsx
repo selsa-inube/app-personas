@@ -1,8 +1,8 @@
 import { InvestmentMovementModal } from "@components/modals/investment/InvestmentMovementModal";
 import { Icon } from "@design/data/Icon";
-import { IMovement } from "@ptypes/pages/product.types";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
+import { IMovement } from "src/model/entity/product";
 
 interface ViewInvestmentMovementProps {
   movement: IMovement;

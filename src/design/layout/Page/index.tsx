@@ -9,7 +9,7 @@ import { Grid } from "../Grid";
 import { StyledPage, StyledMain } from "./styles";
 import { IHeader, INav } from "./types";
 
-interface PageProps{
+interface PageProps {
   header: IHeader;
   nav: INav;
 }
@@ -37,6 +37,8 @@ function Page(props: PageProps) {
             title={nav.title}
             sections={nav.sections}
             currentLocation={currentLocation}
+            logoutTitle="Logout"
+            logoutPath=""
           />
         )}
         <StyledMain>

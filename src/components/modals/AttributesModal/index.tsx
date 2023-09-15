@@ -1,13 +1,13 @@
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IAttribute } from "@ptypes/pages/product.types";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
+import { IAttribute } from "src/model/entity/product";
 import { StyledDivider, StyledModal } from "./styles";
-import { BoxAttribute } from "@components/cards/BoxAttribute";
 
 interface AttributesModalProps {
   title: string;
@@ -70,5 +70,5 @@ function AttributesModal(props: AttributesModalProps) {
   );
 }
 
-export type { AttributesModalProps };
 export { AttributesModal };
+export type { AttributesModalProps };

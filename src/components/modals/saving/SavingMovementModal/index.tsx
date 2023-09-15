@@ -3,9 +3,9 @@ import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IMovement } from "@ptypes/pages/product.types";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
+import { IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/formats";
 import { StyledBodyItem, StyledDivider, StyledModal } from "./styles";
 

@@ -3,9 +3,9 @@ import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IAttribute } from "@ptypes/pages/product.types";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
+import { IAttribute } from "src/model/entity/product";
 import { StyledBodyItem, StyledDivider, StyledModal } from "./styles";
 
 interface ReimbursementModalProps {
