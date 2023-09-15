@@ -23,6 +23,7 @@ import {
   mySavingsAttributeBreakpoints,
 } from "./config/products";
 import { truncateAndObfuscateDescription } from "src/utils/formats";
+import { useNavigate } from "react-router-dom";
 
 const renderSavingCommitments = () => {
   return savingsCommitmentsMock.map((commitment) => {
@@ -31,6 +32,11 @@ const renderSavingCommitments = () => {
       commitment.attributes,
       "next_pay_date"
     );
+    const navigate = useNavigate();
+
+    const handleNavigateCommitment = () => {
+      navigate(`/my-savings/commitment/${commitment.id}`);
+    };
 
     return (
       <SavingsCommitmentCard
@@ -41,7 +47,7 @@ const renderSavingCommitments = () => {
         descriptionValue={String(nextPayDate?.value)}
         value={Number(valueToPay?.value)}
         tag={commitment.tag}
-        onClick={() => {}}
+        onClick={handleNavigateCommitment}
       />
     );
   });
