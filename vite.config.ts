@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react(), vitesconfigPaths()],
   server: {
     open: true,
+    port: 3000,
   },
   resolve: {
     alias: {
