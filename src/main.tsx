@@ -14,7 +14,8 @@ root.render(
       domain={AUTH0_DOMAIN}
       clientId={AUTH0_CLIENT_ID}
       authorizationParams={{
-        redirect_uri: AUTH0_REDIRECT_URI,
+        redirect_uri:
+          "https://personas-git-sl-253fix-repeated-reloads-inube.vercel.app",
       }}
     >
       <App />
