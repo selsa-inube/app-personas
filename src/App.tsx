@@ -72,17 +72,13 @@ const router = createBrowserRouter(
 
 function App() {
   useFonts(theme.typography.fonts);
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isLoading && !isAuthenticated) {
       loginWithRedirect();
     }
-  }, []);
-
-  if (!isAuthenticated) {
-    return null;
-  }
+  }, [isLoading, isAuthenticated]);
 
   return (
     <>
