@@ -1,5 +1,5 @@
-import { ProductType } from "@ptypes/pages/product.types";
 import { MdOutlinePaid } from "react-icons/md";
+import { ProductType } from "src/model/entity/product";
 
 const investmentBoxButton = (type: ProductType) =>
   type === "AP"
