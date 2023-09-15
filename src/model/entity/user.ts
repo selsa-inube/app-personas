@@ -10,7 +10,7 @@ interface IIdentification {
 }
 
 interface IPersonalData {
-  identification: IIdentification[];
+  identification: IIdentification;
   birthDate: string;
   birthCity: string;
   gender: string;
@@ -29,8 +29,8 @@ interface IContactData {
 }
 
 interface IFamilyThird {
-  identification: IIdentification[];
-  contact: IContactData[];
+  identification: IIdentification;
+  contact: IContactData;
   information: {
     birthDate: string;
     gender: string;
@@ -43,8 +43,8 @@ interface IFamilyThird {
 }
 
 interface IThird {
-  personalData: IPersonalData[];
-  contact: IContactData[];
+  personalData: IPersonalData;
+  contact: IContactData;
   familyGroup?: IFamilyThird[];
 }
 
