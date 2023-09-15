@@ -36,7 +36,7 @@ const savingsCommitmentsMock: ICommitment[] = [
       label: "En mora",
       appearance: "error",
     },
-    products: ["013001157292"],
+    products: ["201-91214069", "200-91214069"],
   },
   {
     id: "pass_acount",
@@ -69,7 +69,7 @@ const savingsCommitmentsMock: ICommitment[] = [
         value: "Mensual",
       },
     ],
-    products: ["201-91214069"],
+    products: ["013001157292"],
   },
 ];
 

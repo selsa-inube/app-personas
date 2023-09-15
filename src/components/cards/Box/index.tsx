@@ -17,7 +17,7 @@ import {
 interface BoxProps {
   icon?: React.JSX.Element;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   children: React.ReactNode;
   button?: {
     label: string;

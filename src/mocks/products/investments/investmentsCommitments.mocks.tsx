@@ -4,6 +4,7 @@ const investmentsCommitmentsMock: ICommitment[] = [
   {
     id: "commitment-1",
     title: "Ahorro programado",
+    description: "Compromiso de ahorro",
     attributes: [
       {
         id: "next_pay_date",
