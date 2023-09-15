@@ -1,5 +1,9 @@
 import { MdOpenInNew } from "react-icons/md";
-import { StyledCardContainer, StyledCardHeading } from "./styles";
+import {
+  StyledCardContainer,
+  StyledCardHeading,
+  StyledViewContainer,
+} from "./styles";
 import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
 import { Tag, TagProps } from "@design/data/Tag";
@@ -61,19 +65,17 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
             </Text>
           </Stack>
         )}
-        <Stack gap="s050" alignItems="center">
+        <StyledViewContainer onClick={onClick}>
           <Text type="label" size="small">
             {label}
           </Text>
           <Icon
-            onClick={onClick}
             icon={<MdOpenInNew />}
             appearance="dark"
             size="16px"
             spacing="none"
-            cursorHover
           />
-        </Stack>
+        </StyledViewContainer>
       </Stack>
     </StyledCardContainer>
   );
