@@ -80,6 +80,10 @@ function App() {
     }
   }, []);
 
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <>
       <GlobalStyles />
