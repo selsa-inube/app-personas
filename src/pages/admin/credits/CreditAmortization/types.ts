@@ -1,4 +1,4 @@
-import { IProduct } from "@ptypes/pages/product.types";
+import { IProduct } from "src/model/entity/product";
 
 interface IOption {
   id: string;

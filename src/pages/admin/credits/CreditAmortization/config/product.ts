@@ -1,4 +1,4 @@
-import { IProduct } from "src/types/pages/product.types";
+import { IProduct } from "src/model/entity/product";
 
 const creditAmortizationAttrs = ["interest_rate", "terms"];
 

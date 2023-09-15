@@ -1,5 +1,5 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IAttribute, IProduct } from "@ptypes/pages/product.types";
+import { IAttribute, IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {
   investment: IProduct;
