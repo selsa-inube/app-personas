@@ -32,6 +32,33 @@ interface SavingsCommitmentsUIProps {
   isMobile: boolean;
 }
 
+function renderProducts(selectedCommitment: ISelectedCommitmentState) {
+  return selectedCommitment.commitment.products.map((commitment) => {
+    const product = savingsMock.find((savings) => savings.id === commitment);
+    if (product) {
+      return (
+        <Product
+          id={product.id}
+          key={product.id}
+          title={product.title}
+          description={truncateAndObfuscateDescription(
+            product.id,
+            product.type,
+            4
+          )}
+          attributes={formatMySavingsCurrencyAttrs(
+            extractMySavingsAttributes(product)
+          )}
+          breakpoints={mySavingsAttributeBreakpoints}
+          tags={product.tags}
+          icon={savingsAccountIcons[product.type]}
+          navigateTo={`/my-savings/account/${product.id}`}
+        />
+      );
+    }
+  });
+}
+
 function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
   const {
     commitmentId,
@@ -42,6 +69,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
   } = props;
 
   const mquery = useMediaQuery("(min-width: 1400px)");
+  const mqueryMobile = useMediaQuery("(max-width: 450px)");
 
   return (
     <>
@@ -61,7 +89,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
         }
         templateColumns={mquery ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={mqueryMobile ? "s200" : "s300"}>
           <Select
             id="savingCommitments"
             handleChange={handleChangeCommitment}
@@ -70,12 +98,12 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             value={selectedCommitment.option}
             isFullWidth
           />
-          <Stack direction="column" gap="s400">
+          <Stack direction="column" gap={mqueryMobile ? "s250" : "s400"}>
             <Box
               title={selectedCommitment.commitment.title}
               subtitle={selectedCommitment.commitment.description}
               collapsing={{ start: false, allow: false }}
-              tags={selectedCommitment.commitment.tag}
+              tags={selectedCommitment.commitment.boxTags}
             >
               <Stack direction="column" gap="s100">
                 <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
@@ -97,33 +125,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               subtitle="Productos que reciben dinero de este compromiso de ahorro"
               collapsing={{ start: false, allow: false }}
             >
-              {selectedCommitment &&
-                selectedCommitment.commitment.products.map((commitment) => {
-                  const matchingSavings = savingsMock.find(
-                    (savings) => savings.id === commitment
-                  );
-                  if (matchingSavings) {
-                    return (
-                      <Product
-                        id={matchingSavings.id}
-                        key={matchingSavings.id}
-                        title={matchingSavings.title}
-                        description={truncateAndObfuscateDescription(
-                          matchingSavings.id,
-                          matchingSavings.type,
-                          4
-                        )}
-                        attributes={formatMySavingsCurrencyAttrs(
-                          extractMySavingsAttributes(matchingSavings)
-                        )}
-                        breakpoints={mySavingsAttributeBreakpoints}
-                        tags={matchingSavings.tags}
-                        icon={savingsAccountIcons[matchingSavings.type]}
-                        navigateTo={`/my-savings/account/${matchingSavings.id}`}
-                      />
-                    );
-                  }
-                })}
+              {renderProducts(selectedCommitment)}
             </Box>
           </Stack>
         </Stack>
