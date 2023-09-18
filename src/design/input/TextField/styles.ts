@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import styled from "styled-components";
 import { InputSize } from "./types";
 
 interface IStyledContainer {
@@ -111,7 +111,7 @@ interface IStyledInput {
   label: string;
   isDisabled: boolean;
   isFullWidth: boolean;
-  inputSize: InputSize;
+  $size: InputSize;
 }
 
 const StyledInput = styled.input<IStyledInput>`
@@ -145,10 +145,8 @@ const StyledInput = styled.input<IStyledInput>`
   border: none;
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
-  height: ${({ inputSize }) =>
-    inputSize === "compact"
-      ? `${inube.spacing.s400}`
-      : `${inube.spacing.s500}`};
+  height: ${({ $size }) =>
+    $size === "compact" ? `${inube.spacing.s400}` : `${inube.spacing.s500}`};
 
   border: none;
 
@@ -244,9 +242,9 @@ const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
 export {
   StyledContainer,
   StyledContainerLabel,
-  StyledInputContainer,
+  StyledErrorMessageContainer,
   StyledIcon,
   StyledInput,
-  StyledErrorMessageContainer,
+  StyledInputContainer,
   StyledValidMessageContainer,
 };

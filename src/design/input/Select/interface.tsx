@@ -63,7 +63,7 @@ function SelectUI(props: SelectUIProps) {
     isFocused = false,
     isRequired,
     state = "pending",
-    inputSize = "compact",
+    size = "compact",
     errorMessage,
     validMessage,
     handleChange,
@@ -78,10 +78,12 @@ function SelectUI(props: SelectUIProps) {
   } = props;
 
   const handleOptionClick = (id: string) => {
-    const option = options.find((option) => option.id === id);
-    if (!option) return;
+    if (!options) return;
 
-    if (handleChange) handleChange(option);
+    const optionFound = options.find((option) => option.id === id);
+    if (!optionFound) return;
+
+    if (handleChange) handleChange(optionFound);
 
     onCloseOptions();
   };
@@ -122,7 +124,7 @@ function SelectUI(props: SelectUIProps) {
         isDisabled={isDisabled}
         isFocused={isFocused}
         state={state}
-        inputSize={inputSize}
+        size={size}
       >
         <StyledInput
           autoComplete="off"

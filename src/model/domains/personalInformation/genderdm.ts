@@ -1,19 +1,24 @@
+import { ISelectOption } from "@design/input/Select/types";
+import { convertDomainToList, convertDomainToOptions } from "../helper";
+
 const genderData = {
   FEMALE: {
     id: "female",
     value: "Femenino",
-    description: "Femenino",
   },
   MASCULINO: {
     id: "masculino",
     value: "Masculino",
-    description: "Masculino",
   },
 };
 
-const genderDM: typeof genderData & { list: string[] } = {
+const genderDM: typeof genderData & {
+  list: string[];
+  options: ISelectOption[];
+} = {
   ...genderData,
-  list: Object.values(genderData).map((gender) => gender.value),
+  list: convertDomainToList(genderData),
+  options: convertDomainToOptions(genderData),
 };
 
 export { genderDM };

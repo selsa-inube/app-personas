@@ -34,7 +34,7 @@ interface IStyledInputContainer {
   isDisabled: boolean;
   isFocused: boolean;
   state: string;
-  inputSize: InputSize;
+  size: InputSize;
 }
 
 const StyledInputContainer = styled.div<IStyledInputContainer>`
@@ -46,8 +46,8 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
 
-  height: ${({ inputSize }) =>
-    inputSize === "compact"
+  height: ${({ size }) =>
+    size === "compact"
       ? `${inube.spacing.s500}`
       : `${inube.spacing.s600}`};
 
