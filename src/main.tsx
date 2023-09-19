@@ -6,10 +6,8 @@ import App from "./App";
 const AUTH0_DOMAIN = import.meta.env.VITE_AUTH0_DOMAIN;
 const AUTH0_CLIENT_ID = import.meta.env.VITE_AUTH0_CLIENT_ID;
 const AUTH0_REDIRECT_URI = import.meta.env.VITE_AUTH0_REDIRECT_URI;
-
 const PROD = import.meta.env.PROD;
-
-const HOST = window.location.origin;
+const redirect_uri = PROD ? window.location.origin : AUTH0_REDIRECT_URI;
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
@@ -18,7 +16,7 @@ root.render(
       domain={AUTH0_DOMAIN}
       clientId={AUTH0_CLIENT_ID}
       authorizationParams={{
-        redirect_uri: PROD ? HOST : AUTH0_REDIRECT_URI,
+        redirect_uri,
       }}
     >
       <App />
