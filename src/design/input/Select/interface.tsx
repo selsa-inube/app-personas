@@ -82,7 +82,14 @@ function SelectUI(props: SelectUIProps) {
     const optionFound = options.find((option) => option.id === id);
     if (!optionFound) return;
 
-    if (handleChange) handleChange(optionFound.id);
+    const event = {
+      target: {
+        name,
+        value: optionFound.id,
+      },
+    } as React.ChangeEvent<HTMLSelectElement>;
+
+    if (handleChange) handleChange(event);
 
     onCloseOptions();
   };
@@ -148,6 +155,14 @@ function SelectUI(props: SelectUIProps) {
         </StyledIcon>
       </StyledInputContainer>
 
+      {openOptions && !isDisabled && (
+        <DropdownMenu
+          options={options}
+          handleClick={handleOptionClick}
+          onCloseOptions={onCloseOptions}
+        />
+      )}
+
       {state === "invalid" && (
         <Invalid
           isDisabled={isDisabled}
@@ -160,13 +175,6 @@ function SelectUI(props: SelectUIProps) {
           isDisabled={isDisabled}
           state={state}
           validMessage={validMessage}
-        />
-      )}
-      {openOptions && !isDisabled && (
-        <DropdownMenu
-          options={options}
-          handleClick={handleOptionClick}
-          onCloseOptions={onCloseOptions}
         />
       )}
     </StyledContainer>

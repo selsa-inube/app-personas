@@ -21,7 +21,7 @@ import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 
 interface SavingsAccountMovementsUIProps {
-  handleChangeProduct: (option: string) => void;
+  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleAddMovements: () => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];

@@ -76,7 +76,8 @@ function Investment() {
     setProductsOptions(investmentsOptions);
   };
 
-  const handleChangeProduct = (id: string) => {
+  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value: id } = event.target;
     navigate(`/my-investments/${id}`);
   };
 

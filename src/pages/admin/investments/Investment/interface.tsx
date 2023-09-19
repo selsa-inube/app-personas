@@ -41,7 +41,7 @@ interface InvestmentUIProps {
   productsOptions: ISelectOption[];
   modals: IModalState;
   productId?: string;
-  handleChangeProduct: (option: string) => void;
+  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleToggleBeneficiariesModal: () => void;
   handleToggleRefundModal: () => void;
 }

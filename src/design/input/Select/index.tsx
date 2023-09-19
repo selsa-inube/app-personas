@@ -17,7 +17,7 @@ interface SelectProps {
   isFullWidth?: boolean;
   readOnly?: boolean;
   options?: ISelectOption[];
-  handleChange?: (id: string) => void;
+  handleChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClick?: (event: React.MouseEvent) => void;

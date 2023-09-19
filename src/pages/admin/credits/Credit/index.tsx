@@ -42,7 +42,8 @@ function Credit() {
     setProductsOptions(creditsOptions);
   };
 
-  const handleChangeProduct = (id: string) => {
+  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value: id } = event.target;
     navigate(`/my-credits/${id}`);
   };
 

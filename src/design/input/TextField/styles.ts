@@ -205,11 +205,11 @@ const StyledErrorMessageContainer = styled.div<IStyledMessageContainer>`
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
+  margin-top: ${inube.spacing.s050};
 
   & svg {
     width: 14px;
     height: 14px;
-    margin-top: ${inube.spacing.s050};
     padding-left: ${inube.spacing.s050};
   }
 `;
@@ -234,10 +234,11 @@ const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
 
+  margin-top: ${inube.spacing.s050};
+
   & svg {
     width: 14px;
     height: 14px;
-    margin-top: ${inube.spacing.s050};
     padding-left: ${inube.spacing.s200};
   }
 `;

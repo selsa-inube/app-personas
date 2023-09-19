@@ -38,7 +38,8 @@ function SavingsAccountMovements() {
     setProductsOptions(savingsOptions);
   };
 
-  const handleChangeProduct = (id: string) => {
+  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value: id } = event.target;
     navigate(`/my-savings/account/${id}/movements`);
   };
 

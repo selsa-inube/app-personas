@@ -23,16 +23,10 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 import { USER_ID } from "src/App";
-import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
-import { genderDM } from "src/model/domains/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/personalInformation/identificationdm";
-import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
 import { truncateAndObfuscateDescription } from "src/utils/formats";
 import { extractAttribute } from "src/utils/products";
 import { investmentIcons } from "../investments/Investment/config/investment";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
-import { PersonalInformationForm } from "../update-data/forms/PersonalInformationForm";
 import { cards, credits, investments, savings } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
@@ -247,25 +241,6 @@ function Home() {
         </Stack>
         {mquery && <QuickAccess links={quickLinks} />}
       </Grid>
-
-      <PersonalInformationForm
-        initialValues={{
-          birthDate: "02/Ago/1990",
-          bloodType: bloodTypeDM.AB_NEGATIVE.id,
-          city: cityDM.BOGOTA.id,
-          expeditionDate: "05/Ago/2008",
-          expeditionPlace: cityDM.BOGOTA.id,
-          firstLastName: "González",
-          firstName: "Leonardo",
-          gender: genderDM.MASCULINO.id,
-          identificationType: identificationTypeDM.CC.id,
-          identification: 123456789,
-          maritalStatus: maritalStatusDM.SINGLE.id,
-          secondLastName: "González",
-          secondName: "Leonardo",
-        }}
-        handleSubmit={() => {}}
-      />
     </>
   );
 }
