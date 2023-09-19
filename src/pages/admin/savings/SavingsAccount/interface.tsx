@@ -41,7 +41,7 @@ interface SavingsAccountUIProps {
   beneficiariesModal: IBeneficiariesModalState;
   productId?: string;
   handleToggleModal: () => void;
-  handleChangeProduct: (option: ISelectOption) => void;
+  handleChangeProduct: (option: string) => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {

@@ -1,6 +1,7 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
+import { inube } from "@design/tokens";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
@@ -23,7 +24,10 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
   }
 
   return (
-    <Grid templateColumns="1fr 1fr">
+    <Grid
+      templateColumns="1fr 1fr"
+      gap={`${inube.spacing.s200} ${inube.spacing.s300}`}
+    >
       <TextField
         label="Primer nombre"
         placeholder="Primer nombre"
@@ -104,6 +108,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         size="compact"
         isFullWidth
         options={cityDM.options}
+        handleBlur={formik.handleBlur}
+        errorMessage={formik.errors.expeditionPlace}
+        isDisabled={loading}
+        state={stateValue("expeditionPlace")}
+        handleChange={formik.handleChange}
       />
 
       <TextField
@@ -120,6 +129,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         isFullWidth
         state={stateValue("expeditionDate")}
         handleBlur={formik.handleBlur}
+        handleChange={formik.handleChange}
       />
 
       <TextField
@@ -136,6 +146,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         isFullWidth
         state={stateValue("birthDate")}
         handleBlur={formik.handleBlur}
+        handleChange={formik.handleChange}
       />
 
       <Select
@@ -147,6 +158,10 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         isFullWidth
         options={cityDM.options}
         handleBlur={formik.handleBlur}
+        errorMessage={formik.errors.city}
+        isDisabled={loading}
+        state={stateValue("city")}
+        handleChange={formik.handleChange}
       />
 
       <Select
@@ -158,6 +173,10 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         isFullWidth
         options={genderDM.options}
         handleBlur={formik.handleBlur}
+        errorMessage={formik.errors.gender}
+        isDisabled={loading}
+        state={stateValue("gender")}
+        handleChange={formik.handleChange}
       />
 
       <Select
@@ -169,6 +188,10 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         isFullWidth
         options={maritalStatusDM.options}
         handleBlur={formik.handleBlur}
+        errorMessage={formik.errors.maritalStatus}
+        isDisabled={loading}
+        state={stateValue("maritalStatus")}
+        handleChange={formik.handleChange}
       />
 
       <Select
@@ -180,6 +203,10 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         isFullWidth
         options={bloodTypeDM.options}
         handleBlur={formik.handleBlur}
+        errorMessage={formik.errors.bloodType}
+        isDisabled={loading}
+        state={stateValue("bloodType")}
+        handleChange={formik.handleChange}
       />
     </Grid>
   );

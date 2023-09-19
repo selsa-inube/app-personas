@@ -29,7 +29,7 @@ function CreditMovements() {
         setSelectedProduct({
           totalMovements: credit.movements?.length || 0,
           movements: credit.movements?.slice(0, 14) || [],
-          option: productOption,
+          option: productOption.id,
         });
       }
 
@@ -39,8 +39,8 @@ function CreditMovements() {
     setProductsOptions(creditsOptions);
   };
 
-  const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-credits/${option.id}/credit-movements`);
+  const handleChangeProduct = (id: string) => {
+    navigate(`/my-credits/${id}/credit-movements`);
   };
 
   const handleAddMovements = () => {

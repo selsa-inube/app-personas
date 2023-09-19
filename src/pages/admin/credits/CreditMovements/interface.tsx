@@ -21,7 +21,7 @@ import { ISelectedProductState } from "./types";
 
 interface CreditMovementsUIProps {
   crumbsMovements: IBreadcrumbItem[];
-  handleChangeProduct: (option: ISelectOption) => void;
+  handleChangeProduct: (option: string) => void;
   handleAddMovements: () => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];

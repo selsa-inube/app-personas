@@ -41,17 +41,15 @@ const validationRules = {
     .min(8, validationMessages.minCharacters(8))
     .max(30, validationMessages.maxCharacters(30)),
 
-  birthDate: Yup.date().test(
-    "valid-birth-date",
-    validationMessages.validBirthDate,
-    (value) => typeof value !== "undefined"
-  ),
+  birthDate: Yup.string()
+    .matches(regex.date, validationMessages.validBirthDate)
+    .min(11, validationMessages.minCharacters(11))
+    .max(11, validationMessages.maxCharacters(11)),
 
-  expeditionDate: Yup.date().test(
-    "valid-expedition-date",
-    validationMessages.validExpeditionDate,
-    (value) => typeof value !== "undefined"
-  ),
+  expeditionDate: Yup.string()
+    .matches(regex.date, validationMessages.validExpeditionDate)
+    .min(11, validationMessages.minCharacters(11))
+    .max(11, validationMessages.maxCharacters(11)),
 };
 
 export { validationRules };

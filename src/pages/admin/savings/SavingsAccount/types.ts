@@ -1,9 +1,8 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { IAttribute, IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {
   saving: IProduct;
-  option: ISelectOption;
+  option: string;
 }
 
 interface IBeneficiariesModalState {

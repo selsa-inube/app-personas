@@ -9,8 +9,10 @@ import { IPersonalInformationEntry } from "./types";
 const LOADING_TIMEOUT = 1500;
 
 const validationSchema = Yup.object({
-  email: validationRules.email.required(validationMessages.required),
-  phone: validationRules.phone.required(validationMessages.required),
+  expeditionDate: validationRules.expeditionDate.required(
+    validationMessages.required
+  ),
+  birthDate: validationRules.birthDate.required(validationMessages.required),
 });
 
 interface PersonalInformationFormProps {
@@ -27,6 +29,7 @@ function PersonalInformationForm(props: PersonalInformationFormProps) {
     initialValues,
     validationSchema,
     validateOnChange: false,
+
     onSubmit: () => {
       setLoading(true);
 
@@ -36,14 +39,6 @@ function PersonalInformationForm(props: PersonalInformationFormProps) {
       }, LOADING_TIMEOUT);
     },
   });
-
-  const handleSubmitForm = () => {
-    formik.validateForm().then((errors) => {
-      if (Object.keys(errors).length > 0) {
-      }
-      formik.handleSubmit();
-    });
-  };
 
   return <PersonalInformationFormUI loading={loading} formik={formik} />;
 }

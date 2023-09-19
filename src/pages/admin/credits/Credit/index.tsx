@@ -32,7 +32,7 @@ function Credit() {
             ...credit,
             movements: credit.movements?.slice(0, isMobile ? 5 : 10),
           },
-          option: productOption,
+          option: productOption.id,
         });
       }
 
@@ -42,8 +42,8 @@ function Credit() {
     setProductsOptions(creditsOptions);
   };
 
-  const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-credits/${option.id}`);
+  const handleChangeProduct = (id: string) => {
+    navigate(`/my-credits/${id}`);
   };
 
   if (!selectedProduct) return null;

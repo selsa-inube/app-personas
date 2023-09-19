@@ -41,7 +41,7 @@ interface InvestmentUIProps {
   productsOptions: ISelectOption[];
   modals: IModalState;
   productId?: string;
-  handleChangeProduct: (option: ISelectOption) => void;
+  handleChangeProduct: (option: string) => void;
   handleToggleBeneficiariesModal: () => void;
   handleToggleRefundModal: () => void;
 }
@@ -88,7 +88,7 @@ function InvestmentUI(props: InvestmentUIProps) {
             label="Selección de producto"
             options={productsOptions}
             value={selectedProduct.option}
-            inputSize={isMobile ? "compact" : "wide"}
+            size={isMobile ? "compact" : "wide"}
             isFullWidth
           />
           <Box

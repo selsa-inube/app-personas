@@ -47,8 +47,9 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
 
-  background: ${({ theme }) =>
-    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+  background: ${({ theme, isDisabled }) =>
+    isDisabled &&
+    (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
   grid-template-columns: ${({ iconBefore, iconAfter }) => {
     if (iconBefore && iconAfter) {
@@ -140,13 +141,15 @@ const StyledInput = styled.input<IStyledInput>`
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
-  background: ${({ theme }) =>
-    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+  background: ${({ theme, isDisabled }) =>
+    isDisabled &&
+    (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
+
   border: none;
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
   height: ${({ $size }) =>
-    $size === "compact" ? `${inube.spacing.s400}` : `${inube.spacing.s500}`};
+    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s500}`};
 
   border: none;
 

@@ -59,7 +59,7 @@ function SavingsAccount() {
             ...saving,
             movements: saving.movements?.slice(0, isMobile ? 5 : 10),
           },
-          option: productOption,
+          option: productOption.id,
         });
       }
 
@@ -69,8 +69,8 @@ function SavingsAccount() {
     setProductsOptions(savingsOptions);
   };
 
-  const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-savings/account/${option.id}`);
+  const handleChangeProduct = (id: string) => {
+    navigate(`/my-savings/account/${id}`);
   };
 
   const handleToggleModal = () => {

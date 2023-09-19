@@ -8,7 +8,7 @@ interface SelectProps {
   id: string;
   placeholder?: string;
   isDisabled?: boolean;
-  value?: ISelectOption;
+  value?: string;
   isRequired?: boolean;
   state?: InputState;
   errorMessage?: string;
@@ -17,7 +17,7 @@ interface SelectProps {
   isFullWidth?: boolean;
   readOnly?: boolean;
   options?: ISelectOption[];
-  handleChange?: (option: ISelectOption) => void;
+  handleChange?: (id: string) => void;
   handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClick?: (event: React.MouseEvent) => void;
@@ -30,10 +30,7 @@ function Select(props: SelectProps) {
     id,
     placeholder,
     isDisabled = false,
-    value = {
-      id: "",
-      value: "Seleccione una opción",
-    },
+    value,
     handleChange,
     isRequired = false,
     state = "pending",
@@ -108,7 +105,7 @@ function Select(props: SelectProps) {
       id={id}
       placeholder={placeholder}
       isDisabled={transformedIsDisabled}
-      currentOption={value}
+      value={value}
       handleChange={handleChange}
       isRequired={transformedIsRequired}
       size={size}

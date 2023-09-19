@@ -34,7 +34,6 @@ interface IStyledInputContainer {
   isDisabled: boolean;
   isFocused: boolean;
   state: string;
-  size: InputSize;
 }
 
 const StyledInputContainer = styled.div<IStyledInputContainer>`
@@ -46,13 +45,10 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
 
-  height: ${({ size }) =>
-    size === "compact"
-      ? `${inube.spacing.s500}`
-      : `${inube.spacing.s600}`};
+  background: ${({ theme, isDisabled }) =>
+    isDisabled &&
+    (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
-  background: ${({ theme }) =>
-    theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
   grid-template-columns: 1fr auto;
   border: 1px solid
     ${({ theme, isDisabled, state, isFocused }) => {
@@ -84,6 +80,7 @@ interface IStyledInput {
   isFullWidth: boolean;
   isFocused?: boolean;
   state: string;
+  $size: InputSize;
 }
 
 const StyledInput = styled.input<IStyledInput>`
@@ -112,12 +109,14 @@ const StyledInput = styled.input<IStyledInput>`
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
-  background: ${({ theme }) =>
-    theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
+  background: ${({ theme, isDisabled }) =>
+    isDisabled &&
+    (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
   border: none;
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
-
+  height: ${({ $size }) =>
+    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s400}`};
   border: none;
 
   ::placeholder {
@@ -223,7 +222,7 @@ const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
     width: 14px;
     height: 14px;
     margin-top: ${inube.spacing.s050};
-    padding-left: ${inube.spacing.s050};
+    padding-left: ${inube.spacing.s200};
   }
 `;
 

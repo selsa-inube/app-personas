@@ -34,7 +34,7 @@ import { ISelectedProductState } from "./types";
 
 interface CreditUIProps {
   isMobile?: boolean;
-  handleChangeProduct: (option: ISelectOption) => void;
+  handleChangeProduct: (option: string) => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
   credit_id?: string;

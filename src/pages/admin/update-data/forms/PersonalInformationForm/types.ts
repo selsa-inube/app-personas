@@ -1,15 +1,13 @@
-import { ISelectOption } from "@design/input/Select/types";
-
 interface IPersonalInformationEntry {
   firstName: string;
   secondName: string;
   firstLastName: string;
   secondLastName: string;
-  identificationType: ISelectOption;
+  identificationType: string;
   identification: number;
   expeditionPlace: string;
-  expeditionDate: Date;
-  birthDate: Date;
+  expeditionDate: string;
+  birthDate: string;
   city: string;
   gender: string;
   maritalStatus: string;
