@@ -61,7 +61,7 @@ function TextFieldUI(props: TextFieldProps) {
     state = "pending",
     errorMessage,
     validMessage,
-    inputSize = "compact",
+    size = "compact",
     isFullWidth = false,
     isFocused = false,
     handleFocus,
@@ -124,7 +124,7 @@ function TextFieldUI(props: TextFieldProps) {
           onFocus={handleFocus}
           onBlur={handleBlur}
           readOnly={readOnly}
-          inputSize={inputSize}
+          $size={size}
         />
 
         {iconAfter && (

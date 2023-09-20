@@ -86,8 +86,9 @@ function CreditAmortization() {
     setProductsOptions(creditsOptions);
   };
 
-  const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-credits/${option.id}/credit-amortization`);
+  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value: id } = event.target;
+    navigate(`/my-credits/${id}/credit-amortization`);
   };
 
   if (!selectedProduct || !selectedProduct.credit.amortization) return null;
@@ -119,7 +120,7 @@ function CreditAmortization() {
             handleChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct.option}
+            value={selectedProduct.option.id}
             isFullWidth
           />
           <Box

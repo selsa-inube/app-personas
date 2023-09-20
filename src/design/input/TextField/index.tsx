@@ -29,7 +29,7 @@ interface TextFieldProps {
   isFocused?: boolean;
   type?: InputType;
   state?: InputState;
-  inputSize?: InputSize;
+  size?: InputSize;
   handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -44,7 +44,7 @@ function TextField(props: TextFieldProps) {
     isDisabled = false,
     type = "text",
     state = "pending",
-    inputSize,
+    size,
     value,
     handleChange,
     iconBefore,
@@ -108,7 +108,7 @@ function TextField(props: TextFieldProps) {
       max={max}
       min={min}
       isRequired={transformedIsRequired}
-      inputSize={inputSize}
+      size={size}
       state={transformedState}
       errorMessage={errorMessage}
       validMessage={validMessage}

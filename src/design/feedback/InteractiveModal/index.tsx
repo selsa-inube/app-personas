@@ -75,7 +75,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
                         value={infoData[field.id]}
                         isFullWidth={true}
                         type="text"
-                        inputSize="compact"
+                        size="compact"
                         readOnly={true}
                       />
                     )
@@ -90,7 +90,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
                     value={infoData[key]}
                     isFullWidth={true}
                     type="text"
-                    inputSize="compact"
+                    size="compact"
                     readOnly={true}
                   />
                 ))}

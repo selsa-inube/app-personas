@@ -1,24 +1,25 @@
+import { ISelectOption } from "@design/input/Select/types";
+import { convertDomainToList, convertDomainToOptions } from "../helper";
+
 const cityData = {
   BOGOTA: {
     id: "bogota",
-    value: "Bogota",
-    description: "Bogotá - Distrito Capital",
+    value: "Bogotá - Distrito Capital",
   },
   MEDELLIN: {
     id: "medellin",
-    value: "Medellin",
-    description: "Medellín - Antioquia",
+    value: "Medellín - Antioquia",
   },
   CALI: {
     id: "cali",
-    value: "Cali",
-    description: "Cali - Valle del Cauca",
+    value: "Cali - Valle del Cauca",
   },
 };
 
-const cityDM: typeof cityData & { list: string[] } = {
+const cityDM: typeof cityData & { list: string[]; options: ISelectOption[] } = {
   ...cityData,
-  list: Object.values(cityData).map((city) => city.value),
+  list: convertDomainToList(cityData),
+  options: convertDomainToOptions(cityData),
 };
 
 export { cityDM };

@@ -17,11 +17,11 @@ import {
   investmentMovementsTableBreakpoints,
   investmentMovementsTableTitles,
 } from "./config/table";
-import { ISelectedProductState } from "./types";
 import { StyledMovementsContainer } from "./styles";
+import { ISelectedProductState } from "./types";
 
 interface InvestmentMovementsUIProps {
-  handleChangeProduct: (option: ISelectOption) => void;
+  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleAddMovements: () => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];

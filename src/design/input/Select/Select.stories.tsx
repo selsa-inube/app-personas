@@ -19,16 +19,12 @@ Default.args = {
   isDisabled: false,
   isFullWidth: false,
   isRequired: false,
-  inputSize: "wide",
+  size: "wide",
   state: "pending",
   label: "Username",
   placeholder: "Enter your name",
   readOnly: false,
-  value: {
-    isDisabled: false,
-    id: "CL002807",
-    value: "Crédito libre inversión CL002807",
-  },
+  value: "CL002807",
   options: [
     {
       id: "CL002807",

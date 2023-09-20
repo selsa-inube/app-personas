@@ -5,7 +5,7 @@ import { SelectProps } from ".";
 import { Text } from "../../data/Text";
 import { DropdownMenu } from "../DropdownMenu";
 import { Label } from "../Label";
-import { ISelectMessage, ISelectOption } from "./types";
+import { ISelectMessage } from "./types";
 
 import {
   StyledContainer,
@@ -45,7 +45,6 @@ function Success(props: ISelectMessage) {
 }
 
 interface SelectUIProps extends SelectProps {
-  currentOption: ISelectOption;
   isFocused?: boolean;
   openOptions: boolean;
   selectRef?: RefObject<HTMLDivElement> | null;
@@ -63,7 +62,7 @@ function SelectUI(props: SelectUIProps) {
     isFocused = false,
     isRequired,
     state = "pending",
-    inputSize = "compact",
+    size = "compact",
     errorMessage,
     validMessage,
     handleChange,
@@ -71,17 +70,26 @@ function SelectUI(props: SelectUIProps) {
     handleBlur,
     options,
     openOptions,
-    currentOption,
+    value,
     handleClick,
     onCloseOptions,
     selectRef,
   } = props;
 
   const handleOptionClick = (id: string) => {
-    const option = options.find((option) => option.id === id);
-    if (!option) return;
+    if (!options) return;
 
-    if (handleChange) handleChange(option);
+    const optionFound = options.find((option) => option.id === id);
+    if (!optionFound) return;
+
+    const event = {
+      target: {
+        name,
+        value: optionFound.id,
+      },
+    } as React.ChangeEvent<HTMLSelectElement>;
+
+    if (handleChange) handleChange(event);
 
     onCloseOptions();
   };
@@ -91,6 +99,8 @@ function SelectUI(props: SelectUIProps) {
 
     onCloseOptions();
   };
+
+  const currentOption = options?.find((option) => option.id === value);
 
   return (
     <StyledContainer
@@ -122,12 +132,11 @@ function SelectUI(props: SelectUIProps) {
         isDisabled={isDisabled}
         isFocused={isFocused}
         state={state}
-        inputSize={inputSize}
       >
         <StyledInput
           autoComplete="off"
           readOnly
-          value={currentOption.value}
+          value={currentOption?.value || "Seleccione una opción"}
           name={name}
           id={id}
           placeholder={placeholder}
@@ -138,12 +147,21 @@ function SelectUI(props: SelectUIProps) {
           isFocused={isFocused}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          $size={size}
         />
 
         <StyledIcon isDisabled={isDisabled}>
           <MdExpandMore onClick={onCloseOptions} />
         </StyledIcon>
       </StyledInputContainer>
+
+      {openOptions && !isDisabled && (
+        <DropdownMenu
+          options={options}
+          handleClick={handleOptionClick}
+          onCloseOptions={onCloseOptions}
+        />
+      )}
 
       {state === "invalid" && (
         <Invalid
@@ -157,13 +175,6 @@ function SelectUI(props: SelectUIProps) {
           isDisabled={isDisabled}
           state={state}
           validMessage={validMessage}
-        />
-      )}
-      {openOptions && !isDisabled && (
-        <DropdownMenu
-          options={options}
-          handleClick={handleOptionClick}
-          onCloseOptions={onCloseOptions}
         />
       )}
     </StyledContainer>

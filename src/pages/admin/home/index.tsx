@@ -14,15 +14,16 @@ import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
 } from "react-icons/md";
 import { USER_ID } from "src/App";
+import { truncateAndObfuscateDescription } from "src/utils/formats";
 import { extractAttribute } from "src/utils/products";
 import { investmentIcons } from "../investments/Investment/config/investment";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
@@ -39,7 +40,7 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
-import { truncateAndObfuscateDescription } from "src/utils/formats";
+import { useNavigate } from "react-router-dom";
 
 const renderInvestmentCommitments = () => {
   return investmentsCommitmentsMock.map((commitment) => {
@@ -70,6 +71,11 @@ const renderSavingCommitments = () => {
       commitment.attributes,
       "next_pay_date"
     );
+    const navigate = useNavigate();
+
+    const handleNavigateCommitment = () => {
+      navigate(`/my-savings/commitment/${commitment.id}`);
+    };
 
     return (
       <SavingsCommitmentCard
@@ -80,7 +86,7 @@ const renderSavingCommitments = () => {
         descriptionValue={String(nextPayDate?.value)}
         value={Number(valueToPay?.value)}
         tag={commitment.tag}
-        onClick={() => {}}
+        onClick={handleNavigateCommitment}
       />
     );
   });

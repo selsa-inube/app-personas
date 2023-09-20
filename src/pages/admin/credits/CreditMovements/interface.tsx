@@ -21,7 +21,7 @@ import { ISelectedProductState } from "./types";
 
 interface CreditMovementsUIProps {
   crumbsMovements: IBreadcrumbItem[];
-  handleChangeProduct: (option: ISelectOption) => void;
+  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleAddMovements: () => void;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];

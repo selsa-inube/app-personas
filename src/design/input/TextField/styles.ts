@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import styled from "styled-components";
 import { InputSize } from "./types";
 
 interface IStyledContainer {
@@ -47,8 +47,9 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
 
-  background: ${({ theme }) =>
-    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+  background: ${({ theme, isDisabled }) =>
+    isDisabled &&
+    (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
   grid-template-columns: ${({ iconBefore, iconAfter }) => {
     if (iconBefore && iconAfter) {
@@ -111,7 +112,7 @@ interface IStyledInput {
   label: string;
   isDisabled: boolean;
   isFullWidth: boolean;
-  inputSize: InputSize;
+  $size: InputSize;
 }
 
 const StyledInput = styled.input<IStyledInput>`
@@ -140,15 +141,15 @@ const StyledInput = styled.input<IStyledInput>`
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
-  background: ${({ theme }) =>
-    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+  background: ${({ theme, isDisabled }) =>
+    isDisabled &&
+    (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
+
   border: none;
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
-  height: ${({ inputSize }) =>
-    inputSize === "compact"
-      ? `${inube.spacing.s400}`
-      : `${inube.spacing.s500}`};
+  height: ${({ $size }) =>
+    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s500}`};
 
   border: none;
 
@@ -204,11 +205,11 @@ const StyledErrorMessageContainer = styled.div<IStyledMessageContainer>`
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
+  margin-top: ${inube.spacing.s050};
 
   & svg {
     width: 14px;
     height: 14px;
-    margin-top: ${inube.spacing.s050};
     padding-left: ${inube.spacing.s050};
   }
 `;
@@ -233,10 +234,11 @@ const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
 
+  margin-top: ${inube.spacing.s050};
+
   & svg {
     width: 14px;
     height: 14px;
-    margin-top: ${inube.spacing.s050};
     padding-left: ${inube.spacing.s200};
   }
 `;
@@ -244,9 +246,9 @@ const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
 export {
   StyledContainer,
   StyledContainerLabel,
-  StyledInputContainer,
+  StyledErrorMessageContainer,
   StyledIcon,
   StyledInput,
-  StyledErrorMessageContainer,
+  StyledInputContainer,
   StyledValidMessageContainer,
 };

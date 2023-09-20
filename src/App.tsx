@@ -28,6 +28,7 @@ import { MyInvestments } from "@pages/admin/investments/MyInvestments";
 import { MySavings } from "@pages/admin/savings/MySavings";
 import { SavingsAccount } from "@pages/admin/savings/SavingsAccount";
 import { SavingsAccountMovements } from "@pages/admin/savings/SavingsAccountMovements";
+import { SavingsCommitments } from "@pages/admin/savings/SavingsCommitments";
 import { useEffect } from "react";
 
 const USER_ID = "1";
@@ -65,6 +66,10 @@ const router = createBrowserRouter(
         path="my-savings/account/:product_id/movements"
         element={<SavingsAccountMovements />}
       />
+        <Route
+          path="my-savings/commitment/:commitment_id"
+          element={<SavingsCommitments />}
+        />
       <Route path="/update-data" />
     </Route>
   )
@@ -79,6 +84,10 @@ function App() {
       loginWithRedirect();
     }
   }, [isLoading, isAuthenticated]);
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <>

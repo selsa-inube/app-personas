@@ -28,7 +28,7 @@ function SavingsAccountMovements() {
         setSelectedProduct({
           totalMovements: saving.movements?.length || 0,
           movements: saving.movements?.slice(0, 14) || [],
-          option: productOption,
+          option: productOption.id,
         });
       }
 
@@ -38,8 +38,9 @@ function SavingsAccountMovements() {
     setProductsOptions(savingsOptions);
   };
 
-  const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-savings/account/${option.id}/movements`);
+  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value: id } = event.target;
+    navigate(`/my-savings/account/${id}/movements`);
   };
 
   const handleAddMovements = () => {
