@@ -28,7 +28,7 @@ function InvestmentMovements() {
         setSelectedProduct({
           totalMovements: investment.movements?.length || 0,
           movements: investment.movements?.slice(0, 14) || [],
-          option: productOption,
+          option: productOption.id,
         });
       }
 
@@ -38,12 +38,13 @@ function InvestmentMovements() {
     setProductsOptions(investmentsOptions);
   };
 
-  const handleChangeProduct = (option: ISelectOption) => {
+  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value: id } = event.target;
     const goToInvestment = investmentsMock.find(
-      (investment) => investment.id === option.id
+      (investment) => investment.id === id
     );
     if (!goToInvestment?.movements) return;
-    navigate(`/my-investments/${option.id}/movements`);
+    navigate(`/my-investments/${id}/movements`);
   };
 
   const handleAddMovements = () => {

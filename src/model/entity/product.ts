@@ -39,6 +39,7 @@ interface IAmortization {
 interface ICommitment {
   id: string;
   title: string;
+  description?: string;
   attributes: IAttribute[];
   products: string[];
   tag?: TagProps;

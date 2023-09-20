@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { ISelectOption, InputSize, InputState, inputStates } from "./types";
 import { SelectUI } from "./interface";
+import { ISelectOption, InputSize, InputState, inputStates } from "./types";
 
 interface SelectProps {
   label?: string;
@@ -8,16 +8,16 @@ interface SelectProps {
   id: string;
   placeholder?: string;
   isDisabled?: boolean;
-  value?: ISelectOption;
+  value?: string;
   isRequired?: boolean;
   state?: InputState;
   errorMessage?: string;
   validMessage?: string;
-  inputSize?: InputSize;
+  size?: InputSize;
   isFullWidth?: boolean;
   readOnly?: boolean;
-  options: ISelectOption[];
-  handleChange?: (option: ISelectOption) => void;
+  options?: ISelectOption[];
+  handleChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleClick?: (event: React.MouseEvent) => void;
@@ -30,16 +30,13 @@ function Select(props: SelectProps) {
     id,
     placeholder,
     isDisabled = false,
-    value = {
-      id: "",
-      value: "Seleccione una opción",
-    },
+    value,
     handleChange,
     isRequired = false,
     state = "pending",
     errorMessage,
     validMessage,
-    inputSize = "wide",
+    size = "wide",
     isFullWidth = false,
     handleFocus,
     handleBlur,
@@ -95,6 +92,12 @@ function Select(props: SelectProps) {
   const transformedIsFullWidth =
     typeof isFullWidth === "boolean" ? isFullWidth : false;
 
+  if (!isDisabled && !options) {
+    console.warn(
+      'The "options" prop is required if the select is not disabled.'
+    );
+  }
+
   return (
     <SelectUI
       label={label}
@@ -102,10 +105,10 @@ function Select(props: SelectProps) {
       id={id}
       placeholder={placeholder}
       isDisabled={transformedIsDisabled}
-      currentOption={value}
+      value={value}
       handleChange={handleChange}
       isRequired={transformedIsRequired}
-      inputSize={inputSize}
+      size={size}
       state={transformedState}
       errorMessage={errorMessage}
       validMessage={validMessage}
