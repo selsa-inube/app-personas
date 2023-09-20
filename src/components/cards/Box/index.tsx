@@ -15,9 +15,9 @@ import {
 } from "./styles";
 
 interface BoxProps {
-  icon: React.JSX.Element;
+  icon?: React.JSX.Element;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   children: React.ReactNode;
   button?: {
     label: string;
@@ -66,7 +66,9 @@ function Box(props: BoxProps) {
       <Stack direction="column" gap="s200">
         <Stack justifyContent="space-between" alignItems="center">
           <StyledLink to={navigateTo}>
-            <Icon icon={icon} variant="filled" cursorHover />
+            {icon && (
+              <Icon icon={icon} variant="filled" cursorHover />
+            )}
             <Stack direction="column" gap="s025">
               <Text type="title" size="medium">
                 {title}
