@@ -43,7 +43,6 @@ interface ICommitment {
   attributes: IAttribute[];
   products: string[];
   tag?: TagProps;
-  boxTags?: TagProps[];
 }
 
 type ProductType = "CA" | "CD" | "AP" | "CL" | "CE";

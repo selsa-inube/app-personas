@@ -36,12 +36,6 @@ const savingsCommitmentsMock: ICommitment[] = [
       label: "En mora",
       appearance: "error",
     },
-    boxTags: [
-      {
-        label: "En mora",
-        appearance: "error",
-      },
-    ],
     products: ["201-91214069", "200-91214069"],
   },
   {

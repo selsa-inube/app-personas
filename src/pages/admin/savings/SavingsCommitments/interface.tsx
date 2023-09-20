@@ -32,8 +32,8 @@ interface SavingsCommitmentsUIProps {
   isMobile: boolean;
 }
 
-function renderProducts(selectedCommitment: ISelectedCommitmentState) {
-  return selectedCommitment.commitment.products.map((commitment) => {
+function renderProducts(selectedCommitment: ISelectedCommitmentState['commitment']['products']) {
+  return selectedCommitment.map((commitment) => {
     const product = savingsMock.find((savings) => savings.id === commitment);
     if (product) {
       return (
@@ -103,7 +103,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               title={selectedCommitment.commitment.title}
               subtitle={selectedCommitment.commitment.description}
               collapsing={{ start: false, allow: false }}
-              tags={selectedCommitment.commitment.boxTags}
+              tags={selectedCommitment.commitment.tag && [selectedCommitment.commitment.tag]}
             >
               <Stack direction="column" gap="s100">
                 <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
@@ -125,7 +125,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               subtitle="Productos que reciben dinero de este compromiso de ahorro"
               collapsing={{ start: false, allow: false }}
             >
-              {renderProducts(selectedCommitment)}
+              {renderProducts(selectedCommitment.commitment.products)}
             </Box>
           </Stack>
         </Stack>
