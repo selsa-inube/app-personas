@@ -27,7 +27,7 @@ Default.args = {
   isFullWidth: false,
   isRequired: false,
   type: "text",
-  inputSize: "compact",
+  size: "compact",
   state: "pending",
   label: "Username",
   placeholder: "Write your full name",

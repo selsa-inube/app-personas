@@ -3,7 +3,7 @@ import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {
   saving: IProduct;
-  option: ISelectOption;
+  option: string;
 }
 
 interface ISelectedCommitmentState {
@@ -16,4 +16,8 @@ interface IBeneficiariesModalState {
   data: IAttribute[];
 }
 
-export type { ISelectedProductState, IBeneficiariesModalState, ISelectedCommitmentState };
+export type {
+  IBeneficiariesModalState,
+  ISelectedCommitmentState,
+  ISelectedProductState,
+};

@@ -66,7 +66,7 @@ function Investment() {
             ...investment,
             attributes: investment.attributes,
           },
-          option: productOption,
+          option: productOption.id,
         });
       }
 
@@ -76,8 +76,9 @@ function Investment() {
     setProductsOptions(investmentsOptions);
   };
 
-  const handleChangeProduct = (option: ISelectOption) => {
-    navigate(`/my-investments/${option.id}`);
+  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value: id } = event.target;
+    navigate(`/my-investments/${id}`);
   };
 
   const handleToggleBeneficiariesModal = () => {
