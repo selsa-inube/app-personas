@@ -85,6 +85,10 @@ function App() {
     }
   }, [isLoading, isAuthenticated]);
 
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <>
       <GlobalStyles />
