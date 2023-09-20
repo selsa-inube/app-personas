@@ -1,8 +1,14 @@
-import { IAttribute, IProduct } from "src/model/entity/product";
+import { ISelectOption } from "@design/input/Select/types";
+import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {
   saving: IProduct;
   option: string;
+}
+
+interface ISelectedCommitmentState {
+  commitment: ICommitment;
+  option: ISelectOption;
 }
 
 interface IBeneficiariesModalState {
@@ -10,4 +16,8 @@ interface IBeneficiariesModalState {
   data: IAttribute[];
 }
 
-export type { IBeneficiariesModalState, ISelectedProductState };
+export type {
+  IBeneficiariesModalState,
+  ISelectedCommitmentState,
+  ISelectedProductState,
+};
