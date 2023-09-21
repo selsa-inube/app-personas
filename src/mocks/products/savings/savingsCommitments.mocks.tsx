@@ -9,7 +9,7 @@ const savingsCommitmentsMock: ICommitment[] = [
       {
         id: "next_pay_date",
         label: "Fecha próximo pago",
-        value: "immediate",
+        value: "inmediato",
       },
       {
         id: "value_to_pay",
