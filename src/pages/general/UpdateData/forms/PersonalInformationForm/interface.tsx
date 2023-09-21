@@ -2,11 +2,13 @@ import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
+import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
 
 interface PersonalInformationFormUIProps {
@@ -23,11 +25,13 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
     return "valid";
   }
 
+  const mquery = useMediaQuery("(max-width: 750px)");
+
   return (
     <form>
       <Grid
-        templateColumns="1fr 1fr"
-        gap={`${inube.spacing.s200} ${inube.spacing.s300}`}
+        templateColumns={mquery ? "1fr" : "1fr 1fr"}
+        gap={mquery ? "s150" : `${inube.spacing.s200} ${inube.spacing.s300}`}
       >
         <TextField
           label="Primer nombre"
@@ -86,6 +90,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isFullWidth
           readOnly
           isDisabled
+          options={identificationTypeDM.options}
         />
 
         <TextField
