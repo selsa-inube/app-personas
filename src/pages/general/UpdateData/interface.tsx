@@ -75,12 +75,13 @@ function UpdateDataUI(props: UpdateDataUIProps) {
       <Stack direction="column" gap="s300">
         {renderStepContent(currentStep, formReferences, updateData)}
 
-        <Stack direction="row" gap="s300" justifyContent="flex-end">
+        <Stack gap="s150" justifyContent="flex-end">
           <Button
             handleClick={handlePreviousStep}
             type="button"
             disabled={currentStep === steps[0].id}
             spacing={isMobile ? "compact" : "wide"}
+            appearance="gray"
           >
             Atrás
           </Button>
