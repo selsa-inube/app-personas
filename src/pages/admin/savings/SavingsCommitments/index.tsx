@@ -41,8 +41,9 @@ function SavingsCommitments() {
     setCommitmentsOptions(commitmentsOptions);
   };
 
-  const handleChangeCommitment = (option: ISelectOption) => {
-    navigate(`/my-savings/commitment/${option.id}`);
+  const handleChangeCommitment = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value: id } = event.target;
+    navigate(`/my-savings/commitment/${id}`);
   };
 
   if (!selectedCommitment) return null;
