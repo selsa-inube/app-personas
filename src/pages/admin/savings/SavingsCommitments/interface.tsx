@@ -27,7 +27,7 @@ import { crumbsSavingsCommitments } from "./config/navigation";
 interface SavingsCommitmentsUIProps {
   commitmentId?: string;
   commitmentsOptions: ISelectOption[];
-  handleChangeCommitment: (option: ISelectOption) => void;
+  handleChangeCommitment: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   selectedCommitment: ISelectedCommitmentState;
   isMobile: boolean;
 }
@@ -95,7 +95,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             handleChange={handleChangeCommitment}
             label="Selección del compromiso"
             options={commitmentsOptions}
-            value={selectedCommitment.option}
+            value={selectedCommitment.option.id}
             isFullWidth
           />
           <Stack direction="column" gap={mqueryMobile ? "s250" : "s400"}>

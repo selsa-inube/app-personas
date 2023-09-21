@@ -11,10 +11,11 @@ interface NavLinkProps {
   children: React.ReactNode;
   path?: string;
   selected?: boolean;
+  onClick?: () => void;
 }
 
 function NavLink(props: NavLinkProps) {
-  const { icon, children, path = "", selected = false } = props;
+  const { icon, children, path = "", selected = false, onClick } = props;
 
   function getIconAppearance() {
     if (selected) {
@@ -24,7 +25,7 @@ function NavLink(props: NavLinkProps) {
   }
 
   return (
-    <StyledNavLink selected={selected}>
+    <StyledNavLink selected={selected} onClick={onClick}>
       <StyledLink to={path} selected={selected}>
         <Stack width="100%" alignItems="center" justifyContent="space-between">
           <Stack alignItems="center" gap="24px">
