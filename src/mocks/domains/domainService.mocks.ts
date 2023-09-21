@@ -9,12 +9,16 @@ const domains: Record<string, ISelectOption[]> = {
   maritalStatus: maritalStatusData,
 };
 
-function getDomainById(domainId: string): ISelectOption[] {
+function getDomainById(domainId: string) {
   return domains[domainId];
 }
 
-function getDomainsByIds(domainIds: string[]): ISelectOption[][] {
-  return domainIds.map((id) => getDomainById(id));
+function getDomainsByIds(domainIds: string[]) {
+  const domainValues: Record<string, ISelectOption[]> = {};
+  domainIds.forEach((id) => {
+    domainValues[id] = getDomainById(id);
+  });
+  return domainValues;
 }
 
 export { getDomainById, getDomainsByIds };
