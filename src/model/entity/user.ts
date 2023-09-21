@@ -5,7 +5,7 @@ interface IIdentification {
   secondLastName?: string;
   type: string;
   number: string;
-  place?: string;
+  city: string;
   date?: string;
 }
 
@@ -49,9 +49,9 @@ interface IThird {
 }
 
 export type {
-  IIdentification,
-  IPersonalData,
   IContactData,
   IFamilyThird,
+  IIdentification,
+  IPersonalData,
   IThird,
 };
