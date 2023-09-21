@@ -15,7 +15,7 @@ const validationSchema = Yup.object({
 
 interface PersonalInformationFormProps {
   initialValues: IPersonalInformationEntry;
-  handleSubmit: (values: IPersonalInformationEntry) => void;
+  handleSubmit?: (values: IPersonalInformationEntry) => void;
   loading?: boolean;
 }
 
@@ -29,7 +29,7 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit,
+    onSubmit: handleSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => ({
