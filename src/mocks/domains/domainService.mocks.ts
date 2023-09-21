@@ -1,12 +1,12 @@
-import { cityDM } from "src/model/domains/personalInformation/citydm";
-import { genderDM } from "src/model/domains/personalInformation/genderdm";
-import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
+import { cityData } from "./city";
+import { genderData } from "./gender";
+import { maritalStatusData } from "./maritalstatus";
 import { ISelectOption } from "@design/input/Select/types";
 
 const domains: Record<string, ISelectOption[]> = {
-  city: cityDM.options,
-  gender: genderDM.options,
-  maritalStatus: maritalStatusDM.options,
+  city: cityData,
+  gender: genderData,
+  maritalStatus: maritalStatusData,
 };
 
 function getDomainById(domainId: string): ISelectOption[] {
