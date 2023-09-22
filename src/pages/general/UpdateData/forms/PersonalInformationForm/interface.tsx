@@ -119,6 +119,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("expeditionPlace")}
           handleChange={formik.handleChange}
+          validMessage="El lugar de expedición es válido"
         />
 
         <TextField
@@ -136,6 +137,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           state={stateValue("expeditionDate")}
           handleBlur={formik.handleBlur}
           handleChange={formik.handleChange}
+          validMessage="La fecha de expedición es válida"
         />
 
         <TextField
@@ -153,6 +155,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           state={stateValue("birthDate")}
           handleBlur={formik.handleBlur}
           handleChange={formik.handleChange}
+          validMessage="La fecha de nacimiento es válida"
         />
 
         <Select
@@ -168,6 +171,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("city")}
           handleChange={formik.handleChange}
+          validMessage="La ciudad de nacimiento es válida"
         />
 
         <Select
@@ -183,6 +187,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("gender")}
           handleChange={formik.handleChange}
+          validMessage="El género es válido"
         />
 
         <Select
@@ -198,6 +203,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("maritalStatus")}
           handleChange={formik.handleChange}
+          validMessage="El estado civil es válido"
         />
 
         <Select
@@ -213,6 +219,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("bloodType")}
           handleChange={formik.handleChange}
+          validMessage="El factor RH es válido"
         />
       </Grid>
     </form>
