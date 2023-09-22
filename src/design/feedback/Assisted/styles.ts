@@ -12,7 +12,6 @@ interface IStyledAssistedContainer {
 const StyledAssistedContainer = styled.div<IStyledAssistedContainer>`
   display: flex;
   flex-direction: column;
-  max-width: 1065px;
   gap: ${inube.spacing.s150};
   border-radius: ${({ smallScreen }) =>
     smallScreen ? inube.spacing.s100 : inube.spacing.s200};
