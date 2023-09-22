@@ -1,14 +1,12 @@
 import { Button } from "@design/input/Button";
-import { Product } from "@components/cards/Product";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { CommitmentsSavingModal, CommitmentsSavingModalProps } from ".";
 import { props, parameters } from "./props";
-import { MdOutlineTimer } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
-import { currencyFormat } from "src/utils/formats";
+import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 
 const story = {
   title: "components/modals/CommitmentsSavingModal",
@@ -54,16 +52,7 @@ const Template: StoryFn<CommitmentsSavingModalProps & { theme?: boolean }> = (
 export const Default = Template.bind({});
 Default.args = {
   portalId: "modals",
-  products: (
-    <Product
-      title="Ahorro programado"
-      description="2 - 23110125"
-      icon={<MdOutlineTimer />}
-      attributes={[
-        { id: "1", label: "Valor a pagar", value: currencyFormat(150000) },
-      ]}
-    />
-  ),
+  commitments: investmentsCommitmentsMock,
 };
 
 export const Themed = Template.bind({});
