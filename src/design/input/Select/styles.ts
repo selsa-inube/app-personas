@@ -169,8 +169,9 @@ interface IStyledMessageContainer {
 const StyledErrorMessageContainer = styled.div<IStyledMessageContainer>`
   display: flex;
   align-items: center;
-  margin-left: ${inube.spacing.s150};
   pointer-events: none;
+  gap: ${inube.spacing.s050};
+
   color: ${({ theme, isDisabled, state }) => {
     if (isDisabled) {
       return (
@@ -195,11 +196,16 @@ const StyledErrorMessageContainer = styled.div<IStyledMessageContainer>`
   & svg {
     width: 14px;
     height: 14px;
-    padding-left: ${inube.spacing.s050};
+    padding-left: ${inube.spacing.s200};
   }
 `;
 
 const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  gap: ${inube.spacing.s050};
+
   color: ${({ theme, isDisabled, state }) => {
     if (isDisabled) {
       return (
