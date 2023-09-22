@@ -30,6 +30,7 @@ import { SavingsAccount } from "@pages/admin/savings/SavingsAccount";
 import { SavingsAccountMovements } from "@pages/admin/savings/SavingsAccountMovements";
 import { SavingsCommitments } from "@pages/admin/savings/SavingsCommitments";
 import { useEffect } from "react";
+import { UpdateData } from "@pages/general/UpdateData";
 
 const USER_ID = "1";
 
@@ -66,11 +67,11 @@ const router = createBrowserRouter(
         path="my-savings/account/:product_id/movements"
         element={<SavingsAccountMovements />}
       />
-        <Route
-          path="my-savings/commitment/:commitment_id"
-          element={<SavingsCommitments />}
-        />
-      <Route path="/update-data" />
+      <Route
+        path="my-savings/commitment/:commitment_id"
+        element={<SavingsCommitments />}
+      />
+      <Route path="/update-data" element={<UpdateData />} />
     </Route>
   )
 );
