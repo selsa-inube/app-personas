@@ -8,7 +8,6 @@ import { MdOutlineClose } from "react-icons/md";
 import { StyledDivider, StyledModal } from "./styles";
 import { ICommitment } from "src/model/entity/product";
 import { Product } from "@components/cards/Product";
-import { MdOutlineTimer } from "react-icons/md";
 import {
   extractMyCommitmentAttributes,
   formatMyCommitmentCurrencyAttrs,
@@ -17,11 +16,12 @@ import {
 interface CommitmentsSavingModalProps {
   portalId: string;
   commitments: ICommitment[];
+  commitmentsIcons: Record<string, React.JSX.Element>;
   onCloseModal: () => void;
 }
 
 function CommitmentsSavingModal(props: CommitmentsSavingModalProps) {
-  const { portalId, commitments, onCloseModal } = props;
+  const { portalId, commitments, commitmentsIcons, onCloseModal } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -65,7 +65,7 @@ function CommitmentsSavingModal(props: CommitmentsSavingModalProps) {
               key={commitment.id}
               title={commitment.title}
               description={commitment.description}
-              icon={<MdOutlineTimer />}
+              icon={commitmentsIcons[commitment.type]}
               attributes={formatMyCommitmentCurrencyAttrs(
                 extractMyCommitmentAttributes(commitment)
               )}

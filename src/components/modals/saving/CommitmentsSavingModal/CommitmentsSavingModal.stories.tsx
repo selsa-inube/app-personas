@@ -7,6 +7,7 @@ import { CommitmentsSavingModal, CommitmentsSavingModalProps } from ".";
 import { props, parameters } from "./props";
 import { BrowserRouter } from "react-router-dom";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
+import { investmentIcons } from "@pages/admin/investments/Investment/config/investment";
 
 const story = {
   title: "components/modals/CommitmentsSavingModal",
@@ -53,6 +54,7 @@ export const Default = Template.bind({});
 Default.args = {
   portalId: "modals",
   commitments: investmentsCommitmentsMock,
+  commitmentsIcons: investmentIcons,
 };
 
 export const Themed = Template.bind({});
