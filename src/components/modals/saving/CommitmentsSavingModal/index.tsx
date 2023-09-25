@@ -8,16 +8,32 @@ import { MdOutlineClose } from "react-icons/md";
 import { StyledDivider, StyledModal } from "./styles";
 import { ICommitment } from "src/model/entity/product";
 import { Product } from "@components/cards/Product";
-import {
-  extractMyCommitmentAttributes,
-  formatMyCommitmentCurrencyAttrs,
-} from "./config/products";
+import { currencyFormat } from "src/utils/formats";
+import { IAttribute } from "src/model/entity/product";
 
 interface CommitmentsSavingModalProps {
   portalId: string;
   commitments: ICommitment[];
   commitmentsIcons: Record<string, React.JSX.Element>;
   onCloseModal: () => void;
+}
+
+function formatValueToPayAttribute(attributes: IAttribute[]) {
+  const valueToPayAttribute = attributes.find(
+    (attribute) => attribute.id === "value_to_pay"
+  );
+
+  if (valueToPayAttribute) {
+    const formattedValue = currencyFormat(Number(valueToPayAttribute.value));
+    return [
+      {
+        ...valueToPayAttribute,
+        value: formattedValue,
+      },
+    ];
+  } else {
+    return [];
+  }
 }
 
 function CommitmentsSavingModal(props: CommitmentsSavingModalProps) {
@@ -66,9 +82,7 @@ function CommitmentsSavingModal(props: CommitmentsSavingModalProps) {
               title={commitment.title}
               description={commitment.description}
               icon={commitmentsIcons[commitment.type]}
-              attributes={formatMyCommitmentCurrencyAttrs(
-                extractMyCommitmentAttributes(commitment)
-              )}
+              attributes={formatValueToPayAttribute(commitment.attributes)}
             />
           ))}
         </Stack>
