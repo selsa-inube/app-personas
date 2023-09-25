@@ -175,7 +175,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         />
 
         <Select
-          label="Genero"
+          label="Género"
           name="gender"
           id="gender"
           value={formik.values.gender}
