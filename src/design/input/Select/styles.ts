@@ -101,11 +101,14 @@ const StyledInput = styled.input<IStyledInput>`
     theme.typography?.body?.medium?.lineHeight ||
     inube.typography.body.medium.lineHeight};
 
-  color: ${({ theme, isDisabled }) => {
+  color: ${({ theme, isDisabled, readOnly }) => {
     if (isDisabled) {
       return (
         theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
       );
+    }
+    if (readOnly) {
+      return theme.color?.text?.gray?.hover || inube.color.text.gray.hover;
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
