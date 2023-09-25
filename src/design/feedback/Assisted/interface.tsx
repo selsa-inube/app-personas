@@ -50,7 +50,7 @@ function AssistedUI(props: AssistedUIProps) {
     lastStep,
   } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 560px)");
+  const smallScreen = useMediaQuery("(max-width: 744px)");
 
   return (
     <StyledAssistedContainer smallScreen={smallScreen}>
