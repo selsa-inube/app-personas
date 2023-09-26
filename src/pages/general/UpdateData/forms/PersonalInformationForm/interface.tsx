@@ -2,11 +2,13 @@ import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
+import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
 
 interface PersonalInformationFormUIProps {
@@ -23,11 +25,13 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
     return "valid";
   }
 
+  const mquery = useMediaQuery("(max-width: 750px)");
+
   return (
     <form>
       <Grid
-        templateColumns="1fr 1fr"
-        gap={`${inube.spacing.s200} ${inube.spacing.s300}`}
+        templateColumns={mquery ? "1fr" : "1fr 1fr"}
+        gap={mquery ? "s150" : `${inube.spacing.s200} ${inube.spacing.s300}`}
       >
         <TextField
           label="Primer nombre"
@@ -86,6 +90,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isFullWidth
           readOnly
           isDisabled
+          options={identificationTypeDM.options}
         />
 
         <TextField
@@ -114,6 +119,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("expeditionPlace")}
           handleChange={formik.handleChange}
+          validMessage="El lugar de expedición es válido"
         />
 
         <TextField
@@ -131,6 +137,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           state={stateValue("expeditionDate")}
           handleBlur={formik.handleBlur}
           handleChange={formik.handleChange}
+          validMessage="La fecha de expedición es válida"
         />
 
         <TextField
@@ -148,6 +155,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           state={stateValue("birthDate")}
           handleBlur={formik.handleBlur}
           handleChange={formik.handleChange}
+          validMessage="La fecha de nacimiento es válida"
         />
 
         <Select
@@ -163,10 +171,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("city")}
           handleChange={formik.handleChange}
+          validMessage="La ciudad de nacimiento es válida"
         />
 
         <Select
-          label="Genero"
+          label="Género"
           name="gender"
           id="gender"
           value={formik.values.gender}
@@ -178,6 +187,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("gender")}
           handleChange={formik.handleChange}
+          validMessage="El género es válido"
         />
 
         <Select
@@ -193,6 +203,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("maritalStatus")}
           handleChange={formik.handleChange}
+          validMessage="El estado civil es válido"
         />
 
         <Select
@@ -208,6 +219,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("bloodType")}
           handleChange={formik.handleChange}
+          validMessage="El factor RH es válido"
         />
       </Grid>
     </form>
