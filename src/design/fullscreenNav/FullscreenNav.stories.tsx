@@ -1,3 +1,8 @@
+import { BrowserRouter } from "react-router-dom";
+import { themes } from "@mocks/design/themes";
+import { ThemeProvider } from "styled-components";
+import { FullScreenNav, FullScreenNavProps } from ".";
+import { props } from "./props";
 import {
   MdOutlineAccountBalance,
   MdOutlineAccountBalanceWallet,
@@ -12,19 +17,28 @@ import {
   MdOutlineSportsCricket,
 } from "react-icons/md";
 
-const header = {
-  logoURL:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbrWOwST-34PyX9rqlHzqEjqunO1PcMzpHJVUIV-7lL4HJ7tcEeNHaj6Redj1lFAOr4Q&usqp=CAU",
-  username: "Leonardo Garzón",
-  links: [
-    {
-      label: "Actualizar datos",
-      path: "/update-data",
-    },
-  ],
-  portalId: "portal",
+const story = {
+  title: "design/FullscreenNav/FullscreenNav",
+  component: FullScreenNav,
+  tags: ["autodocs"],
+  argTypes: {
+    ...props,
+  },
+  parameters: {
+    layout: "fullscreen",
+  },
+};
+
+export const Default = (args: FullScreenNavProps) => (
+  <BrowserRouter>
+    <FullScreenNav {...args} />
+  </BrowserRouter>
+);
+
+Default.args = {
   logoutPath: "/",
   logoutTitle: "Logout",
+  portalId: "portal",
   navigation: {
     title: "MENU",
     sections: {
@@ -113,4 +127,18 @@ const header = {
   },
 };
 
-export { header };
+const theme = {
+  ...themes["fondecom"],
+};
+
+export const Themed = (args: FullScreenNavProps) => (
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
+      <FullScreenNav {...args} />
+    </BrowserRouter>
+  </ThemeProvider>
+);
+
+Themed.args = Default.args;
+
+export default story;
