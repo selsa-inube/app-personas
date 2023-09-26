@@ -42,7 +42,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           readOnly
-          isDisabled
         />
 
         <TextField
@@ -54,7 +53,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           readOnly
-          isDisabled
         />
 
         <TextField
@@ -66,7 +64,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           readOnly
-          isDisabled
         />
 
         <TextField
@@ -78,7 +75,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           readOnly
-          isDisabled
         />
 
         <Select
@@ -89,7 +85,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           readOnly
-          isDisabled
           options={identificationTypeDM.options}
         />
 
@@ -100,7 +95,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           id="identification"
           value={formik.values.identification}
           type="number"
-          isDisabled
           size="compact"
           isFullWidth
           readOnly

@@ -141,6 +141,7 @@ function Select(props: SelectProps) {
       onCloseOptions={handleCloseOptions}
       selectRef={selectRef}
       handleOptionClick={handleOptionClick}
+      readOnly={readOnly}
     />
   );
 }
