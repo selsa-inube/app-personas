@@ -2,6 +2,7 @@ import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { AttributesModal } from "@components/modals/AttributesModal";
+import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
@@ -29,7 +30,7 @@ import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
-import { savingsAccountBox } from "./config/saving";
+import { savingCommitmentsIcons, savingsAccountBox } from "./config/saving";
 import { StyledMovementsContainer } from "./styles";
 import {
   IBeneficiariesModalState,
@@ -165,6 +166,14 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           description="Porcentaje de participación"
           onCloseModal={handleToggleBeneficiariesModal}
           attributes={beneficiariesModal.data}
+        />
+      )}
+      {commitmentsModal.show && (
+        <SavingCommitmentsModal
+          portalId="modals"
+          onCloseModal={handleToggleCommitmentsModal}
+          commitments={commitmentsModal.data}
+          commitmentsIcons={savingCommitmentsIcons}
         />
       )}
     </>
