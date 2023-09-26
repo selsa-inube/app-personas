@@ -34,6 +34,7 @@ interface IStyledInputContainer {
   isDisabled: boolean;
   isFocused: boolean;
   state: string;
+  readOnly?: boolean;
 }
 
 const StyledInputContainer = styled.div<IStyledInputContainer>`
@@ -45,8 +46,8 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
 
-  background: ${({ theme, isDisabled }) =>
-    isDisabled &&
+  background-color: ${({ theme, isDisabled, readOnly }) =>
+    (isDisabled || readOnly) &&
     (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
   grid-template-columns: 1fr auto;
@@ -81,6 +82,7 @@ interface IStyledInput {
   isFocused?: boolean;
   state: string;
   $size: InputSize;
+  readOnly?: boolean;
 }
 
 const StyledInput = styled.input<IStyledInput>`
@@ -101,20 +103,16 @@ const StyledInput = styled.input<IStyledInput>`
     theme.typography?.body?.medium?.lineHeight ||
     inube.typography.body.medium.lineHeight};
 
-  color: ${({ theme, isDisabled, readOnly }) => {
-    if (isDisabled) {
-      return (
-        theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
-      );
-    }
-    if (readOnly) {
-      return theme.color?.text?.gray?.hover || inube.color.text.gray.hover;
-    }
-    return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
-  }};
-  background: ${({ theme, isDisabled }) =>
-    isDisabled &&
-    (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
+  color: ${({ theme, isDisabled, readOnly }) =>
+    isDisabled
+      ? theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
+      : readOnly
+      ? theme.color?.text?.gray?.hover || inube.color.text.gray.hover
+      : theme.color?.text?.dark?.regular || inube.color.text.dark.regular};
+  background-color: ${({ theme, isDisabled, readOnly }) =>
+    isDisabled || readOnly
+      ? theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear
+      : "inherit"};
   border: none;
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
@@ -148,14 +146,15 @@ const StyledInput = styled.input<IStyledInput>`
 
 interface IStyledIcon {
   isDisabled?: boolean;
+  readOnly?: boolean;
 }
 
 const StyledIcon = styled.div<IStyledIcon>`
   display: grid;
   justify-content: center;
   align-items: center;
-  color: ${({ theme, isDisabled }) =>
-    isDisabled &&
+  color: ${({ theme, isDisabled, readOnly }) =>
+    (isDisabled || readOnly) &&
     (theme.color?.text?.dark?.hover || inube.color.text.dark.hover)};
 
   & svg {
