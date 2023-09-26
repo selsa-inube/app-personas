@@ -36,7 +36,7 @@ const StyledLine = styled.div<IStyledLine>`
   transition: width 0.15s ease-in-out,
     border-radius
       ${({ isCurrentStep }) =>
-        isCurrentStep ? "0.16s ease-in" : "0.01s ease-out"};
+        isCurrentStep ? "0.25s ease-in" : "0.01s ease-out"};
   width: ${({ isCurrentStep, isPreviousStep }) =>
     isCurrentStep || isPreviousStep ? "100%" : "0%"};
   height: ${({ smallScreen }) =>
