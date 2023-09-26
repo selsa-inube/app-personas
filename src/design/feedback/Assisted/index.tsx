@@ -1,5 +1,5 @@
-import { IStep } from "./types";
 import { AssistedUI } from "./interface";
+import { IStep } from "./types";
 
 interface AssistedProps {
   steps: IStep[];
@@ -27,7 +27,7 @@ function Assisted(props: AssistedProps) {
   };
 
   const currentStepInfo = steps.find((step) => step.id === currentStep);
-  const lastStep = Math.max(...steps.map((step) => step.id));
+  const lastStep = steps[steps.length - 1].id;
 
   return (
     <AssistedUI
@@ -41,5 +41,5 @@ function Assisted(props: AssistedProps) {
   );
 }
 
-export type { AssistedProps };
 export { Assisted };
+export type { AssistedProps };
