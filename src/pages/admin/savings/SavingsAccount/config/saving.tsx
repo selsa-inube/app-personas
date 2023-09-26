@@ -1,6 +1,8 @@
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineHandshake,
+  MdOutlineRealEstateAgent,
+  MdOutlineTimer,
 } from "react-icons/md";
 
 const savingsAccountIcons: Record<string, React.JSX.Element> = {
@@ -13,4 +15,9 @@ const savingsAccountBox = (type: string) => ({
   collapsing: { start: false, allow: false },
 });
 
-export { savingsAccountIcons, savingsAccountBox };
+const savingCommitmentsIcons: Record<string, React.JSX.Element> = {
+  "0S": <MdOutlineRealEstateAgent />,
+  SC: <MdOutlineTimer />,
+};
+
+export { savingCommitmentsIcons, savingsAccountBox, savingsAccountIcons };

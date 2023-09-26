@@ -1,3 +1,4 @@
+import { Product } from "@components/cards/Product";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
@@ -5,13 +6,11 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { StyledDivider, StyledModal } from "./styles";
-import { ICommitment } from "src/model/entity/product";
-import { Product } from "@components/cards/Product";
+import { IAttribute, ICommitment } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/formats";
-import { IAttribute } from "src/model/entity/product";
+import { StyledDivider, StyledModal } from "./styles";
 
-interface CommitmentsSavingModalProps {
+interface SavingCommitmentsModalProps {
   portalId: string;
   commitments: ICommitment[];
   commitmentsIcons: Record<string, React.JSX.Element>;
@@ -36,7 +35,7 @@ function formatValueToPayAttribute(attributes: IAttribute[]) {
   }
 }
 
-function CommitmentsSavingModal(props: CommitmentsSavingModalProps) {
+function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
   const { portalId, commitments, commitmentsIcons, onCloseModal } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
@@ -92,5 +91,5 @@ function CommitmentsSavingModal(props: CommitmentsSavingModalProps) {
   );
 }
 
-export { CommitmentsSavingModal };
-export type { CommitmentsSavingModalProps };
+export { SavingCommitmentsModal };
+export type { SavingCommitmentsModalProps };

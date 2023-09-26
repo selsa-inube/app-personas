@@ -1,16 +1,19 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ISelectedCommitmentState } from "../SavingsAccount/types";
 import { SavingsCommitmentsUI } from "./interface";
 
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
+import { ISelectedCommitmentState } from "./types";
 
 function SavingsCommitments() {
   const { commitment_id } = useParams();
-  const [commitmentsOptions, setCommitmentsOptions] = useState<ISelectOption[]>([]);
-  const [selectedCommitment, setSelectedCommitment] = useState<ISelectedCommitmentState>();
+  const [commitmentsOptions, setCommitmentsOptions] = useState<ISelectOption[]>(
+    []
+  );
+  const [selectedCommitment, setSelectedCommitment] =
+    useState<ISelectedCommitmentState>();
   const isMobile = useMediaQuery("(max-width: 750px)");
   const navigate = useNavigate();
 
@@ -30,7 +33,7 @@ function SavingsCommitments() {
           commitment: {
             ...commitment,
             attributes: commitment.attributes,
-          },          
+          },
           option: commitmentOption,
         });
       }
@@ -41,7 +44,9 @@ function SavingsCommitments() {
     setCommitmentsOptions(commitmentsOptions);
   };
 
-  const handleChangeCommitment = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeCommitment = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { value: id } = event.target;
     navigate(`/my-savings/commitment/${id}`);
   };
