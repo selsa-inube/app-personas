@@ -10,7 +10,6 @@ interface StepProps {
 function Step(props: StepProps) {
   const { stepNumber, currentStep, lastStep, smallScreen } = props;
 
-  const firstIsCurrent = currentStep === stepNumber && currentStep === 1;
   const isFirstStep = stepNumber === 1;
   const isLastStep = stepNumber === lastStep;
   const isPreviousStep = stepNumber < currentStep;
@@ -23,8 +22,6 @@ function Step(props: StepProps) {
         isPreviousStep={isPreviousStep}
         smallScreen={smallScreen}
         isCurrentStep={isCurrentStep}
-        firstIsCurrent={firstIsCurrent}
-        isLastStep={isLastStep}
       />
     </StyledStepContainer>
   );
