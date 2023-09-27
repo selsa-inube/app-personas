@@ -72,7 +72,7 @@ function AssistedUI(props: AssistedUIProps) {
         <Stack
           direction="column"
           width="100%"
-          gap="s100"
+          gap="s150"
           padding={`0 ${smallScreen ? inube.spacing.s150 : inube.spacing.s200}`}
         >
           <Stack gap="s100" alignItems="center">
@@ -95,16 +95,21 @@ function AssistedUI(props: AssistedUIProps) {
             </Text>
           </Stack>
           {!smallScreen && (
-            <Stack
-              justifyContent="space-between"
-              alignItems="center"
-              gap="s100"
-            >
-              {renderSteps(steps, currentStep, lastStep, smallScreen)}
-              <Text type="label" size="small">
-                {currentStep}/{lastStep}
+            <>
+              <Stack
+                justifyContent="space-between"
+                alignItems="center"
+                gap="s100"
+              >
+                {renderSteps(steps, currentStep, lastStep, smallScreen)}
+                <Text type="label" size="small">
+                  {currentStep}/{lastStep}
+                </Text>
+              </Stack>
+              <Text type="label" size="medium" appearance="gray">
+                {currentStepInfo?.stepDescription}
               </Text>
-            </Stack>
+            </>
           )}
         </Stack>
         <StyledButton smallScreen={smallScreen}>
@@ -117,7 +122,14 @@ function AssistedUI(props: AssistedUIProps) {
           </Button>
         </StyledButton>
       </Stack>
-      {smallScreen && renderSteps(steps, currentStep, lastStep, smallScreen)}
+      {smallScreen && (
+        <>
+          {renderSteps(steps, currentStep, lastStep, smallScreen)}
+          <Text type="label" size="small" appearance="gray">
+            {currentStepInfo?.stepDescription}
+          </Text>
+        </>
+      )}
     </StyledAssistedContainer>
   );
 }

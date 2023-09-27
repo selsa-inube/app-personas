@@ -10,31 +10,37 @@ const stepsMock = [
   {
     id: 1,
     stepName: "Información general",
+    stepDescription: "Description Información general",
   },
 
   {
     id: 2,
     stepName: "Ramas",
+    stepDescription: "Description Ramas",
   },
 
   {
     id: 3,
     stepName: "Proyectos",
+    stepDescription: "Description Proyectos",
   },
 
   {
     id: 4,
     stepName: "Unidades de ayuda",
+    stepDescription: "Description Unidades de ayuda",
   },
 
   {
     id: 5,
     stepName: "Nómina",
+    stepDescription: "Description Nómina",
   },
 
   {
     id: 6,
     stepName: "Verificación",
+    stepDescription: "Description Verificación",
   },
 ];
 
