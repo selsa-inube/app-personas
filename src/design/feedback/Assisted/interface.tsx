@@ -91,7 +91,7 @@ function AssistedUI(props: AssistedUIProps) {
               </Text>
             </StyledCircleId>
             <Text type="title" size={smallScreen ? "small" : "medium"}>
-              {currentStepInfo?.stepName}
+              {currentStepInfo?.name}
             </Text>
           </Stack>
           {!smallScreen && (
@@ -107,7 +107,7 @@ function AssistedUI(props: AssistedUIProps) {
                 </Text>
               </Stack>
               <Text type="label" size="medium" appearance="gray">
-                {currentStepInfo?.stepDescription}
+                {currentStepInfo?.description}
               </Text>
             </>
           )}
@@ -126,7 +126,7 @@ function AssistedUI(props: AssistedUIProps) {
         <>
           {renderSteps(steps, currentStep, lastStep, smallScreen)}
           <Text type="label" size="small" appearance="gray">
-            {currentStepInfo?.stepDescription}
+            {currentStepInfo?.description}
           </Text>
         </>
       )}
