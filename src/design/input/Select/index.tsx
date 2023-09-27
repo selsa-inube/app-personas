@@ -12,7 +12,6 @@ interface SelectProps {
   isRequired?: boolean;
   state?: InputState;
   errorMessage?: string;
-  validMessage?: string;
   size?: InputSize;
   isFullWidth?: boolean;
   readOnly?: boolean;
@@ -35,7 +34,6 @@ function Select(props: SelectProps) {
     isRequired = false,
     state = "pending",
     errorMessage,
-    validMessage,
     size = "wide",
     isFullWidth = false,
     handleFocus,
@@ -130,7 +128,6 @@ function Select(props: SelectProps) {
       size={size}
       state={transformedState}
       errorMessage={errorMessage}
-      validMessage={validMessage}
       isFullWidth={transformedIsFullWidth}
       isFocused={isFocused}
       handleFocus={interceptFocus}
