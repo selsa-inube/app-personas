@@ -1,6 +1,7 @@
 interface IStep {
   id: number;
-  stepName: string;
+  name: string;
+  description: string;
 }
 
 export type { IStep };

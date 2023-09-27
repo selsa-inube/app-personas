@@ -1,10 +1,15 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsAccountUI } from "./interface";
-import { IBeneficiariesModalState, ISelectedProductState } from "./types";
+import {
+  IBeneficiariesModalState,
+  ICommitmentsModalState,
+  ISelectedProductState,
+} from "./types";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -17,11 +22,17 @@ function SavingsAccount() {
       show: false,
       data: [],
     });
+  const [commitmentsModal, setCommitmentsModal] =
+    useState<ICommitmentsModalState>({
+      show: false,
+      data: [],
+    });
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   useEffect(() => {
     getBeneficiaries();
+    getCommitments();
   }, [selectedProduct]);
 
   useEffect(() => {
@@ -29,21 +40,31 @@ function SavingsAccount() {
   }, [product_id, isMobile]);
 
   const getBeneficiaries = () => {
-    if (selectedProduct) {
-      const beneficiariesAttribute = selectedProduct.saving.attributes.find(
-        (attr) => attr.id === "beneficiaries"
-      );
+    if (!selectedProduct) return;
 
-      if (
-        beneficiariesAttribute &&
-        Array.isArray(beneficiariesAttribute.value)
-      ) {
-        setBeneficiariesModal({
-          ...beneficiariesModal,
-          data: beneficiariesAttribute.value,
-        });
-      }
+    const beneficiariesAttribute = selectedProduct.saving.attributes.find(
+      (attr) => attr.id === "beneficiaries"
+    );
+
+    if (beneficiariesAttribute && Array.isArray(beneficiariesAttribute.value)) {
+      setBeneficiariesModal({
+        ...beneficiariesModal,
+        data: beneficiariesAttribute.value,
+      });
     }
+  };
+
+  const getCommitments = () => {
+    if (!selectedProduct) return;
+
+    const foundCommitments = savingsCommitmentsMock.filter((commitment) =>
+      commitment.products.includes(selectedProduct.saving.id)
+    );
+
+    setCommitmentsModal({
+      ...commitmentsModal,
+      data: foundCommitments,
+    });
   };
 
   const handleSortProduct = () => {
@@ -74,8 +95,15 @@ function SavingsAccount() {
     navigate(`/my-savings/account/${id}`);
   };
 
-  const handleToggleModal = () => {
+  const handleToggleBeneficiariesModal = () => {
     setBeneficiariesModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
+  const handleToggleCommitmentsModal = () => {
+    setCommitmentsModal((prevState) => ({
       ...prevState,
       show: !prevState.show,
     }));
@@ -85,13 +113,15 @@ function SavingsAccount() {
 
   return (
     <SavingsAccountUI
-      handleToggleModal={handleToggleModal}
+      handleToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       handleChangeProduct={handleChangeProduct}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
       isMobile={isMobile}
       productId={product_id}
       beneficiariesModal={beneficiariesModal}
+      commitmentsModal={commitmentsModal}
+      handleToggleCommitmentsModal={handleToggleCommitmentsModal}
     />
   );
 }

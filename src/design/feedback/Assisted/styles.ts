@@ -12,7 +12,7 @@ interface IStyledAssistedContainer {
 const StyledAssistedContainer = styled.div<IStyledAssistedContainer>`
   display: flex;
   flex-direction: column;
-  gap: ${inube.spacing.s150};
+  gap: ${inube.spacing.s100};
   border-radius: ${({ smallScreen }) =>
     smallScreen ? inube.spacing.s100 : inube.spacing.s200};
   padding: ${({ smallScreen }) =>

@@ -59,7 +59,7 @@ function TextField(props: TextFieldProps) {
     isFullWidth = false,
     handleFocus,
     handleBlur,
-    readOnly,
+    readOnly = false,
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
@@ -89,8 +89,6 @@ function TextField(props: TextFieldProps) {
   const transformedIsFullWidth =
     typeof isFullWidth === "boolean" ? isFullWidth : false;
 
-  const transformedReadOnly = typeof readOnly === "boolean" ? readOnly : false;
-
   return (
     <TextFieldUI
       label={label}
@@ -116,7 +114,7 @@ function TextField(props: TextFieldProps) {
       isFocused={isFocused}
       handleFocus={interceptFocus}
       handleBlur={interceptBlur}
-      readOnly={transformedReadOnly}
+      readOnly={readOnly}
     />
   );
 }

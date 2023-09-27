@@ -1,33 +1,48 @@
 import { inube } from "@design/tokens";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-interface IStyledBackgroundColor {
-  isPreviousStep: boolean;
-  smallScreen: boolean;
-  currentStep?: boolean;
+interface IStyledStepContainer {
+  isFirstStep: boolean;
+  isLastStep: boolean;
 }
 
-const backgroundColor = css<IStyledBackgroundColor>`
-  background-color: ${({ currentStep, isPreviousStep, theme }) =>
-    currentStep || isPreviousStep
-      ? theme.color?.text?.primary.regular || inube.color.text.primary.regular
-      : theme.color?.surface?.dark.clear || inube.color.surface.dark.clear};
+const StyledStepContainer = styled.div<IStyledStepContainer>`
+  width: 100%;
+  border-top-left-radius: ${({ isFirstStep }) => (isFirstStep ? "25px" : "0")};
+  border-bottom-left-radius: ${({ isFirstStep }) =>
+    isFirstStep ? "25px" : "0"};
+  border-top-right-radius: ${({ isLastStep }) => (isLastStep ? "25px" : "0")};
+  border-bottom-right-radius: ${({ isLastStep }) =>
+    isLastStep ? "25px" : "0"};
+  background-color: ${({ theme }) =>
+    inube.color.surface.dark.clear || theme.color?.surface?.dark.clear};
 `;
 
-const StyledStep = styled.div`
-  position: relative;
-  min-width: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s100 : inube.spacing.s200};
+interface IStyledLine {
+  isPreviousStep: boolean;
+  smallScreen: boolean;
+  isCurrentStep: boolean;
+  isFirstStep: boolean;
+}
+
+const StyledLine = styled.div<IStyledLine>`
+  border-top-left-radius: ${({ isFirstStep }) => (isFirstStep ? "25px" : "0")};
+  border-bottom-left-radius: ${({ isFirstStep }) =>
+    isFirstStep ? "25px" : "0"};
+  border-top-right-radius: ${({ isCurrentStep }) =>
+    isCurrentStep ? "25px" : "0"};
+  border-bottom-right-radius: ${({ isCurrentStep }) =>
+    isCurrentStep ? "25px" : "0"};
+  transition: width 0.15s ease-in-out,
+    border-radius
+      ${({ isCurrentStep }) =>
+        isCurrentStep ? "0.25s ease-in" : "0.01s ease-out"};
+  width: ${({ isCurrentStep, isPreviousStep }) =>
+    isCurrentStep || isPreviousStep ? "100%" : "0%"};
   height: ${({ smallScreen }) =>
     smallScreen ? inube.spacing.s100 : inube.spacing.s200};
-  border-radius: 50%;
-  ${backgroundColor}
+  background-color: ${({ theme }) =>
+    theme.color?.text?.primary.regular || inube.color.text.primary.regular};
 `;
 
-const StyledLine = styled.div`
-  width: 100%;
-  margin: 0 ${({ smallScreen }) => (smallScreen ? "-5px" : "-7px")};
-  ${backgroundColor}
-`;
-
-export { StyledStep, StyledLine };
+export { StyledLine, StyledStepContainer };

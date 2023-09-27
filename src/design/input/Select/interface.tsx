@@ -75,6 +75,7 @@ function SelectUI(props: SelectUIProps) {
     onCloseOptions,
     selectRef,
     handleOptionClick,
+    readOnly = false
   } = props;
 
   const interceptorOnClick = (e: React.MouseEvent) => {
@@ -118,10 +119,11 @@ function SelectUI(props: SelectUIProps) {
         isDisabled={isDisabled}
         isFocused={isFocused}
         state={state}
+        readOnly={readOnly}
       >
         <StyledInput
           autoComplete="off"
-          readOnly
+          readOnly={readOnly}
           value={currentOption?.value || "Seleccione una opción"}
           name={name}
           id={id}
@@ -134,12 +136,12 @@ function SelectUI(props: SelectUIProps) {
           $size={size}
         />
 
-        <StyledIcon isDisabled={isDisabled}>
+        <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
           <MdExpandMore onClick={onCloseOptions} />
         </StyledIcon>
       </StyledInputContainer>
 
-      {openOptions && !isDisabled && (
+      {openOptions && !isDisabled && !readOnly && (
         <DropdownMenu
           options={options}
           handleClick={handleOptionClick}
