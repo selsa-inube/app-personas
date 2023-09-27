@@ -82,7 +82,7 @@ interface IStyledInput {
   isFocused?: boolean;
   state: string;
   $size: InputSize;
-  readOnly?: boolean;
+  $readOnly?: boolean;
 }
 
 const StyledInput = styled.input<IStyledInput>`
@@ -103,14 +103,14 @@ const StyledInput = styled.input<IStyledInput>`
     theme.typography?.body?.medium?.lineHeight ||
     inube.typography.body.medium.lineHeight};
 
-  color: ${({ theme, isDisabled, readOnly }) =>
+  color: ${({ theme, isDisabled, $readOnly }) =>
     isDisabled
       ? theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
-      : readOnly
+      : $readOnly
       ? theme.color?.text?.gray?.hover || inube.color.text.gray.hover
       : theme.color?.text?.dark?.regular || inube.color.text.dark.regular};
-  background-color: ${({ theme, isDisabled, readOnly }) =>
-    isDisabled || readOnly
+  background-color: ${({ theme, isDisabled, $readOnly }) =>
+    isDisabled || $readOnly
       ? theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear
       : "inherit"};
   border: none;

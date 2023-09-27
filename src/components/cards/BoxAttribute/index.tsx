@@ -1,5 +1,5 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
+import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "src/model/entity/product";
 import { ButtonAttribute } from "./ButtonAttribute";
@@ -22,7 +22,12 @@ function BoxAttribute(props: BoxAttributeProps) {
 
   return (
     <StyledBoxAttribute smallScreen={smallScreen}>
-      <Stack justifyContent="space-between" alignItems="center">
+      <Grid
+        templateColumns="auto 1fr"
+        width="100%"
+        gap="s100"
+        alignItems="center"
+      >
         <Text
           type="label"
           size={smallScreen ? "small" : "medium"}
@@ -42,11 +47,12 @@ function BoxAttribute(props: BoxAttributeProps) {
             type="body"
             size={smallScreen ? "small" : "medium"}
             appearance="gray"
+            textAlign="end"
           >
             {String(value)}
           </Text>
         )}
-      </Stack>
+      </Grid>
     </StyledBoxAttribute>
   );
 }
