@@ -36,6 +36,7 @@ interface IStyledInputContainer {
   state: string;
   iconBefore: React.ReactNode;
   iconAfter: React.ReactNode;
+  readOnly?: boolean;
 }
 
 const StyledInputContainer = styled.div<IStyledInputContainer>`
@@ -47,8 +48,8 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
 
-  background: ${({ theme, isDisabled }) =>
-    isDisabled &&
+  background-color: ${({ theme, isDisabled, readOnly }) =>
+    (isDisabled || readOnly) &&
     (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
   grid-template-columns: ${({ iconBefore, iconAfter }) => {
@@ -111,6 +112,7 @@ const StyledIcon = styled.div<IStyledIcon>`
 interface IStyledInput {
   label: string;
   isDisabled: boolean;
+  readOnly?: boolean;
   isFullWidth: boolean;
   $size: InputSize;
 }
@@ -133,16 +135,21 @@ const StyledInput = styled.input<IStyledInput>`
     theme.typography?.body?.large?.lineHeight ||
     inube.typography.body.large.lineHeight};
 
-  color: ${({ theme, isDisabled }) => {
+  color: ${({ theme, isDisabled, readOnly }) => {
     if (isDisabled) {
       return (
         theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
       );
     }
+    if (readOnly){
+      return (
+        theme.color?.text?.gray?.hover || inube.color.text.gray.hover
+      )
+    }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
-  background: ${({ theme, isDisabled }) =>
-    isDisabled &&
+  background: ${({ theme, isDisabled, readOnly }) =>
+    (isDisabled || readOnly) &&
     (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
   border: none;

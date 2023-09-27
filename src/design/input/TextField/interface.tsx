@@ -100,6 +100,7 @@ function TextFieldUI(props: TextFieldProps) {
         state={state}
         iconBefore={iconBefore}
         iconAfter={iconAfter}
+        readOnly={readOnly}
       >
         {iconBefore && (
           <StyledIcon isDisabled={isDisabled} iconBefore={iconBefore}>

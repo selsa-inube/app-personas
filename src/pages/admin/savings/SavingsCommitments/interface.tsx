@@ -20,9 +20,9 @@ import {
   mySavingsAttributeBreakpoints,
 } from "../MySavings/config/products";
 import { savingsAccountIcons } from "../SavingsAccount/config/saving";
-import { ISelectedCommitmentState } from "../SavingsAccount/types";
 import { formatSavingCommitmentsCurrencyAttrs } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
+import { ISelectedCommitmentState } from "./types";
 
 interface SavingsCommitmentsUIProps {
   commitmentId?: string;
@@ -32,7 +32,9 @@ interface SavingsCommitmentsUIProps {
   isMobile: boolean;
 }
 
-function renderProducts(selectedCommitment: ISelectedCommitmentState['commitment']['products']) {
+function renderProducts(
+  selectedCommitment: ISelectedCommitmentState["commitment"]["products"]
+) {
   return selectedCommitment.map((commitment) => {
     const product = savingsMock.find((savings) => savings.id === commitment);
     if (product) {
@@ -103,7 +105,11 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               title={selectedCommitment.commitment.title}
               subtitle={selectedCommitment.commitment.description}
               collapsing={{ start: false, allow: false }}
-              tags={selectedCommitment.commitment.tag && [selectedCommitment.commitment.tag]}
+              tags={
+                selectedCommitment.commitment.tag && [
+                  selectedCommitment.commitment.tag,
+                ]
+              }
             >
               <Stack direction="column" gap="s100">
                 <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
