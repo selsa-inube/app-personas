@@ -2,7 +2,7 @@ const updateDataSteps = {
   personalInformation: {
     id: 1,
     name: "Información personal",
-    description: "Diligencia la información que nos permita identificarte..",
+    description: "Diligencia la información que nos permita identificarte.",
   },
   contactData: {
     id: 2,
