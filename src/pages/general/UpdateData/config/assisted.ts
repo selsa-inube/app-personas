@@ -1,15 +1,19 @@
 const updateDataSteps = {
   personalInformation: {
     id: 1,
-    stepName: "Información personal",
+    name: "Información personal",
+    description: "Diligencia la información que nos permita identificarte.",
   },
   contactData: {
     id: 2,
-    stepName: "Datos de contacto",
+    name: "Datos de contacto",
+    description: "Diligencia la información que nos permita contactarte.",
   },
   familyGroup: {
     id: 3,
-    stepName: "Grupo familiar",
+    name: "Grupo familiar",
+    description:
+      "Diligencia la información que nos permita identificar tu núcleo familiar.",
   },
 };
 
