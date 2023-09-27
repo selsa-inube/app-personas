@@ -49,6 +49,7 @@ interface SelectUIProps extends SelectProps {
   openOptions: boolean;
   selectRef?: RefObject<HTMLDivElement> | null;
   onCloseOptions: () => void;
+  handleOptionClick: (id: string) => void;
 }
 
 function SelectUI(props: SelectUIProps) {
@@ -65,7 +66,6 @@ function SelectUI(props: SelectUIProps) {
     size = "compact",
     errorMessage,
     validMessage,
-    handleChange,
     handleFocus,
     handleBlur,
     options,
@@ -74,25 +74,9 @@ function SelectUI(props: SelectUIProps) {
     handleClick,
     onCloseOptions,
     selectRef,
+    handleOptionClick,
+    readOnly = false
   } = props;
-
-  const handleOptionClick = (id: string) => {
-    if (!options) return;
-
-    const optionFound = options.find((option) => option.id === id);
-    if (!optionFound) return;
-
-    const event = {
-      target: {
-        name,
-        value: optionFound.id,
-      },
-    } as React.ChangeEvent<HTMLSelectElement>;
-
-    if (handleChange) handleChange(event);
-
-    onCloseOptions();
-  };
 
   const interceptorOnClick = (e: React.MouseEvent) => {
     if (handleClick) handleClick(e);
@@ -104,10 +88,13 @@ function SelectUI(props: SelectUIProps) {
 
   return (
     <StyledContainer
+      tabIndex={0}
       isFullWidth={isFullWidth}
       isDisabled={isDisabled}
       ref={selectRef}
-      onClick={(e: React.MouseEvent) => interceptorOnClick(e)}
+      onClick={interceptorOnClick}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
     >
       <StyledContainerLabel alignItems="center" isDisabled={isDisabled}>
         {label && (
@@ -132,10 +119,11 @@ function SelectUI(props: SelectUIProps) {
         isDisabled={isDisabled}
         isFocused={isFocused}
         state={state}
+        readOnly={readOnly}
       >
         <StyledInput
           autoComplete="off"
-          readOnly
+          readOnly={readOnly}
           value={currentOption?.value || "Seleccione una opción"}
           name={name}
           id={id}
@@ -145,17 +133,15 @@ function SelectUI(props: SelectUIProps) {
           state={state}
           isFullWidth={isFullWidth}
           isFocused={isFocused}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
           $size={size}
         />
 
-        <StyledIcon isDisabled={isDisabled}>
+        <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
           <MdExpandMore onClick={onCloseOptions} />
         </StyledIcon>
       </StyledInputContainer>
 
-      {openOptions && !isDisabled && (
+      {openOptions && !isDisabled && !readOnly && (
         <DropdownMenu
           options={options}
           handleClick={handleOptionClick}
