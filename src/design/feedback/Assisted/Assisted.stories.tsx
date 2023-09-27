@@ -9,32 +9,38 @@ import { action } from "@storybook/addon-actions";
 const stepsMock = [
   {
     id: 1,
-    stepName: "Información general",
+    name: "Información general",
+    description: "Description Información general",
   },
 
   {
     id: 2,
-    stepName: "Ramas",
+    name: "Ramas",
+    description: "Description Ramas",
   },
 
   {
     id: 3,
-    stepName: "Proyectos",
+    name: "Proyectos",
+    description: "Description Proyectos",
   },
 
   {
     id: 4,
-    stepName: "Unidades de ayuda",
+    name: "Unidades de ayuda",
+    description: "Description Unidades de ayuda",
   },
 
   {
     id: 5,
-    stepName: "Nómina",
+    name: "Nómina",
+    description: "Description Nómina",
   },
 
   {
     id: 6,
-    stepName: "Verificación",
+    name: "Verificación",
+    description: "Description Verificación",
   },
 ];
 
