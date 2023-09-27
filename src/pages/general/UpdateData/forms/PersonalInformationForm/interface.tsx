@@ -118,7 +118,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
 
         <TextField
           label="Fecha de expedición"
-          placeholder="Fecha de expedición"
+          placeholder="Ejemplo: 01/Ene/1990"
           name="expeditionDate"
           id="expeditionDate"
           value={formik.values.expeditionDate}
@@ -136,7 +136,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
 
         <TextField
           label="Fecha de nacimiento"
-          placeholder="Fecha de nacimiento"
+          placeholder="Ejemplo: 01/Ene/1990"
           name="birthDate"
           id="birthDate"
           value={formik.values.birthDate}
