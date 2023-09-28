@@ -10,6 +10,7 @@ import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
+import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -22,6 +23,12 @@ const renderStepContent = (
         <PersonalInformationForm
           initialValues={updateData.personalInformation}
           ref={formReferences.personalInformation}
+        />
+      )}
+      {currentStep === updateDataSteps.personalAssets.id && (
+        <PersonalAssetsForm
+          initialValues={updateData.personalAssets}
+          ref={formReferences.personalAssets}
         />
       )}
     </>

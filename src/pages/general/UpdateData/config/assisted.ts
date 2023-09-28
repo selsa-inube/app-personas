@@ -15,8 +15,13 @@ const updateDataSteps = {
     description:
       "Diligencia la información que nos permita identificar tu núcleo familiar.",
   },
-  verification: {
+  personalAssets: {
     id: 4,
+    name: "Activos personales",
+    description: "Diligencia la información para registrar tus bienes.",
+  },
+  verification: {
+    id: 5,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",
