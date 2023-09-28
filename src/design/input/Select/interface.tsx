@@ -108,7 +108,8 @@ function SelectUI(props: SelectUIProps) {
       >
         <StyledInput
           autoComplete="off"
-          readOnly={readOnly}
+          $readOnly={readOnly}
+          readOnly
           value={currentOption?.value || "Seleccione una opción"}
           name={name}
           id={id}
