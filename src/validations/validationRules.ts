@@ -50,6 +50,11 @@ const validationRules = {
     .matches(regex.date, validationMessages.validExpeditionDate)
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
+
+  money: Yup.string()
+    .matches(regex.onlyNumbers)
+    .min(1, validationMessages.minNumbers(1))
+    .max(10, validationMessages.maxNumbers(20)),
 };
 
 export { validationRules };
