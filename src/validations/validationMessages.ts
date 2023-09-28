@@ -13,9 +13,9 @@ const validationMessages = {
   validPassword: `Este campo debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número`,
   passwordMatch: "Las contraseñas no coinciden",
   validBirthDate:
-    "Formato de fecha incorrecto. Use el formato: dd/mes/aaaa (por ejemplo, 01/Ene/1990).",
+    "Formato de fecha incorrecto. Ejemplo de formato: 01/Ene/1990.",
   validExpeditionDate:
-    "Formato de fecha incorrecto. Use el formato: dd/mes/aaaa (por ejemplo, 01/Ene/1990).",
+    "Formato de fecha incorrecto. Ejemplo de formato: 01/Ene/1990.",
 };
 
 export { validationMessages };
