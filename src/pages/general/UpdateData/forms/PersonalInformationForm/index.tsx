@@ -7,10 +7,8 @@ import { PersonalInformationFormUI } from "./interface";
 import { IPersonalInformationEntry } from "./types";
 
 const validationSchema = Yup.object({
-  expeditionDate: validationRules.expeditionDate.required(
-    validationMessages.required
-  ),
-  birthDate: validationRules.birthDate.required(validationMessages.required),
+  expeditionDate: validationRules.date.required(validationMessages.required),
+  birthDate: validationRules.date.required(validationMessages.required),
 });
 
 interface PersonalInformationFormProps {

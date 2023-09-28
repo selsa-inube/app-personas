@@ -3,28 +3,28 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { PersonalAssetsFormUI } from "./interface";
-import { IPersonalAssetEntries } from "./types";
+import { PersonalDebtsFormUI } from "./interface";
+import { IPersonalDebtEntries } from "./types";
 
 const validationSchema = Yup.object({
-  commercialValue: validationRules.money.required(validationMessages.required),
+  terminationDate: validationRules.date.required(validationMessages.required),
   debtBalance: validationRules.money.required(validationMessages.required),
   financialEntity: validationRules.name.required(validationMessages.required),
   quota: validationRules.money.required(validationMessages.required),
 });
 
-interface PersonalAssetsFormProps {
-  initialValues: IPersonalAssetEntries;
-  handleSubmit?: (values: IPersonalAssetEntries) => void;
+interface PersonalDebtsFormProps {
+  initialValues: IPersonalDebtEntries;
+  handleSubmit?: (values: IPersonalDebtEntries) => void;
 }
 
-const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
-  props: PersonalAssetsFormProps,
-  ref: React.Ref<FormikProps<IPersonalAssetEntries>>
+const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
+  props: PersonalDebtsFormProps,
+  ref: React.Ref<FormikProps<IPersonalDebtEntries>>
 ) {
   const { initialValues, handleSubmit } = props;
 
-  const [showAddAssetModal, setShowAddAssetModal] = useState(false);
+  const [showAddDebtModal, setShowAddDebtModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -38,16 +38,16 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   }));
 
   const handleToggleModal = () => {
-    setShowAddAssetModal(!showAddAssetModal);
+    setShowAddDebtModal(!showAddDebtModal);
   };
 
   return (
-    <PersonalAssetsFormUI
+    <PersonalDebtsFormUI
       formik={formik}
-      showAddAssetModal={showAddAssetModal}
+      showAddDebtModal={showAddDebtModal}
       handleToggleModal={handleToggleModal}
     />
   );
 });
 
-export { PersonalAssetsForm };
+export { PersonalDebtsForm };

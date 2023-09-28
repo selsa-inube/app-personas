@@ -6,20 +6,19 @@ import { TextField } from "@design/input/TextField";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { StyledDivider, StyledModal } from "./styles";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 
-interface AddAssetModalProps {
+interface AddDebtModalProps {
   portalId: string;
   formik: FormikValues;
   onCloseModal: () => void;
 }
 
-function AddAssetModal(props: AddAssetModalProps) {
+function AddDebtModal(props: AddDebtModalProps) {
   const { portalId, formik, onCloseModal } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
@@ -37,7 +36,7 @@ function AddAssetModal(props: AddAssetModalProps) {
     return "valid";
   }
 
-  const assetDM = getDomainById("asset")
+  const liabilityDM = getDomainById("liability");
 
   return createPortal(
     <Blanket>
@@ -65,31 +64,31 @@ function AddAssetModal(props: AddAssetModalProps) {
         <StyledDivider dashed />
         <Stack direction="column" gap="s150" width="100%">
           <Select
-            label="Tipo de activo"
-            name="assetType"
-            id="assetType"
+            label="Tipo de pasivo"
+            name="liabilityType"
+            id="liabilityType"
             size="compact"
             isFullWidth
-            options={assetDM}
-            handleBlur={formik.assetType}
-            errorMessage={formik.errors.assetType}
-            state={stateValue("assetType")}
+            options={liabilityDM}
+            handleBlur={formik.liabilityType}
+            errorMessage={formik.errors.liabilityType}
+            state={stateValue("liabilityType")}
             handleChange={formik.handleChange}
           />
           <TextField
-            label="Valor comercial"
-            name="commercialValue"
-            id="commercialValue"
-            placeholder="Digite el valor comercial estimado"
-            value={formik.values.commercialValue}
+            label="Fecha de terminación"
+            name="terminationDate"
+            id="terminationDate"
+            placeholder="Digite la fecha de terminación"
+            value={formik.values.terminationDate}
             type="text"
-            errorMessage={formik.errors.commercialValue}
+            errorMessage={formik.errors.terminationDate}
             size="compact"
             isFullWidth
-            state={stateValue("commercialValue")}
+            state={stateValue("terminationDate")}
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
-            validMessage="El valor comercial es válido"
+            validMessage="La fecha de terminación es válida"
           />
           <TextField
             label="Saldo de la deuda"
@@ -171,4 +170,4 @@ function AddAssetModal(props: AddAssetModalProps) {
   );
 }
 
-export { AddAssetModal };
+export { AddDebtModal };

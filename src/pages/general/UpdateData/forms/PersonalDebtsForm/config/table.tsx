@@ -3,15 +3,15 @@ import { IAction } from "@design/data/Table/types";
 import { mapInvestmentMovement } from "@pages/admin/investments/InvestmentMovements/config/table";
 import { MdOpenInNew } from "react-icons/md";
 
-const personalAssetsTableTitles = [
+const personalDebtsTableTitles = [
   {
-    id: "assetType",
-    titleName: "Tipo de activo",
+    id: "liabilityType",
+    titleName: "Tipo de pasivo",
     priority: 0,
   },
   {
-    id: "commercialValue",
-    titleName: "Valor comercial",
+    id: "terminationDate",
+    titleName: "Fecha de terminación",
     priority: 1,
   },
   {
@@ -31,7 +31,7 @@ const personalAssetsTableTitles = [
   },
 ];
 
-const personalAssetsTableBreakpoints = [
+const personalDebtsTableBreakpoints = [
   { breakpoint: "(min-width: 1229px)", totalColumns: 5 },
   { breakpoint: "(max-width: 1120px)", totalColumns: 4 },
   { breakpoint: "(max-width: 1000px)", totalColumns: 3 },
@@ -41,11 +41,11 @@ const personalAssetsTableBreakpoints = [
   { breakpoint: "(max-width: 390px)", totalColumns: 1 },
 ];
 
-const personalAssetsTableActions: IAction[] = [
+const personalDebtsTableActions: IAction[] = [
   {
     id: "1",
     actionName: "Ver",
-    content: (asset) => (
+    content: (debt) => (
       <Icon
         appearance="dark"
         icon={<MdOpenInNew />}
@@ -60,7 +60,7 @@ const personalAssetsTableActions: IAction[] = [
 
 export {
   mapInvestmentMovement,
-  personalAssetsTableActions,
-  personalAssetsTableBreakpoints,
-  personalAssetsTableTitles,
+  personalDebtsTableActions,
+  personalDebtsTableBreakpoints,
+  personalDebtsTableTitles,
 };

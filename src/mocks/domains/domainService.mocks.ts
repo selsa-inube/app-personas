@@ -1,12 +1,16 @@
+import { ISelectOption } from "@design/input/Select/types";
+import { assetData } from "./asset";
 import { cityData } from "./city";
 import { genderData } from "./gender";
+import { liabilityData } from "./liability";
 import { maritalStatusData } from "./maritalstatus";
-import { ISelectOption } from "@design/input/Select/types";
 
 const domains: Record<string, ISelectOption[]> = {
   city: cityData,
   gender: genderData,
   maritalStatus: maritalStatusData,
+  asset: assetData,
+  liability: liabilityData,
 };
 
 function getDomainById(domainId: string) {
