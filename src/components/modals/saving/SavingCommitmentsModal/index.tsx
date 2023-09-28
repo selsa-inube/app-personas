@@ -82,6 +82,7 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
               description={commitment.description}
               icon={commitmentsIcons[commitment.type]}
               attributes={formatValueToPayAttribute(commitment.attributes)}
+              navigateTo={`/my-savings/commitment/${commitment.id}`}
             />
           ))}
         </Stack>
