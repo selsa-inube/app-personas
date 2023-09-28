@@ -15,6 +15,12 @@ const updateDataSteps = {
     description:
       "Diligencia la información que nos permita identificar tu núcleo familiar.",
   },
+  verification: {
+    id: 4,
+    name: "Verificación",
+    description:
+      "Verifica que la información diligenciada sea correcta y envía la solicitud.",
+  },
 };
 
 export { updateDataSteps };
