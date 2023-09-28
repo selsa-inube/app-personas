@@ -202,40 +202,6 @@ const StyledErrorMessageContainer = styled.div<IStyledMessageContainer>`
   }
 `;
 
-const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-  gap: ${inube.spacing.s050};
-
-  color: ${({ theme, isDisabled, state }) => {
-    if (isDisabled) {
-      return (
-        theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
-      );
-    }
-    if (state === "valid") {
-      return (
-        theme.color?.text?.success?.regular || inube.color.text.success?.regular
-      );
-    }
-    if (state === "invalid") {
-      return (
-        theme.color?.text?.error?.regular || inube.color.text.error.regular
-      );
-    }
-    return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
-  }};
-
-  margin-top: ${inube.spacing.s050};
-
-  & svg {
-    width: 14px;
-    height: 14px;
-    padding-left: ${inube.spacing.s200};
-  }
-`;
-
 export {
   StyledContainer,
   StyledContainerLabel,
@@ -243,5 +209,4 @@ export {
   StyledIcon,
   StyledInput,
   StyledInputContainer,
-  StyledValidMessageContainer,
 };
