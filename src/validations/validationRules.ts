@@ -77,6 +77,10 @@ const validationRules = {
     .matches(regex.onlyNumbers, validationMessages.validLandlinePhone)
     .min(8, validationMessages.minNumbers(8))
     .max(10, validationMessages.maxNumbers(10)),
+  money: Yup.string()
+    .matches(regex.onlyNumbers)
+    .min(1, validationMessages.minNumbers(1))
+    .max(10, validationMessages.maxNumbers(20)),
 };
 
 export { validationRules };

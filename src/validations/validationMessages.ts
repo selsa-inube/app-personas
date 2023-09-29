@@ -12,8 +12,10 @@ const validationMessages = {
   validPhone: "Este campo debe tener un número de teléfono válido",
   validPassword: `Este campo debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número`,
   passwordMatch: "Las contraseñas no coinciden",
-  validBirthDate: "La fecha de nacimiento no es válida",
-  validExpeditionDate: "La fecha de expedición no es válida",
+  validBirthDate:
+    "Formato de fecha incorrecto. Ejemplo de formato: 01/Ene/1990.",
+  validExpeditionDate:
+    "Formato de fecha incorrecto. Ejemplo de formato: 01/Ene/1990.",
   validPostalCode: "Este campo debe contener un código postal válido",
   validLandlinePhone: "Este campo debe tener un número de teléfono fijo válido",
   validCountry: "Este campo debe contener un país válido",

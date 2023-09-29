@@ -3,24 +3,31 @@ import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { updateDataSteps } from "./config/assisted";
 import { mapPersonalInformation, mapContactData } from "./config/mappers";
+import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
 function UpdateData() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(
+    updateDataSteps.personalInformation.id
+  );
   const steps = Object.values(updateDataSteps);
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: mapPersonalInformation(usersMock[0]),
     contactData: mapContactData(usersMock[0]),
+    personalAssets: { entries: [] },
   });
+
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
   const contactDataRef = useRef<FormikProps<IContactDataEntry>>(null);
+  const personalAssetsRef = useRef<FormikProps<IPersonalAssetEntries>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
     contactData: contactDataRef,
+    personalAssets: personalAssetsRef,
   };
 
   const handleStepChange = (stepId: number) => {

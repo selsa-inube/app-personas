@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 
-import { StyledTableContainer } from "./styles";
 import { Pagination } from "./Pagination";
 import { TableUI } from "./interface";
+import { StyledTableContainer } from "./styles";
 import { IAction, IBreakpoint, IEntry, ITitle } from "./types";
 
 interface TableProps {
@@ -90,33 +90,31 @@ const Table = (props: TableProps) => {
   }
 
   return (
-    <div id={id}>
-      <StyledTableContainer>
-        <TableUI
-          portalId={id}
-          titles={titles}
-          actions={actions}
-          entries={getPageEntries()}
-          breakpoints={breakpoints!}
-          modalTitle={modalTitle!}
-          infoTitle={infoTitle!}
-          actionsTitle={actionsTitle!}
-          hideMobileResume={hideMobileResume}
-          mobileResumeTitle={mobileResumeTitle}
+    <StyledTableContainer id={id}>
+      <TableUI
+        portalId={id}
+        titles={titles}
+        actions={actions}
+        entries={getPageEntries()}
+        breakpoints={breakpoints!}
+        modalTitle={modalTitle!}
+        infoTitle={infoTitle!}
+        actionsTitle={actionsTitle!}
+        hideMobileResume={hideMobileResume}
+        mobileResumeTitle={mobileResumeTitle}
+      />
+      {filteredEntries.length > pageLength && (
+        <Pagination
+          firstEntryInPage={firstEntryInPage}
+          lastEntryInPage={lastEntryInPage}
+          totalRecords={filteredEntries.length}
+          handleStartPage={goToFirstPage}
+          handlePrevPage={prevPage}
+          handleNextPage={nextPage}
+          handleEndPage={goToEndPage}
         />
-        {filteredEntries.length > pageLength && (
-          <Pagination
-            firstEntryInPage={firstEntryInPage}
-            lastEntryInPage={lastEntryInPage}
-            totalRecords={filteredEntries.length}
-            handleStartPage={goToFirstPage}
-            handlePrevPage={prevPage}
-            handleNextPage={nextPage}
-            handleEndPage={goToEndPage}
-          />
-        )}
-      </StyledTableContainer>
-    </div>
+      )}
+    </StyledTableContainer>
   );
 };
 
