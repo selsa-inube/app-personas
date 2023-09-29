@@ -18,7 +18,7 @@ function UpdateData() {
   const steps = Object.values(updateDataSteps);
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: mapPersonalInformation(usersMock[0]),
-    contactData: mapContactData(usersMock[0]),
+    contactData: mapContactData(usersMock[0].contact[0]),
     personalAssets: { entries: [] },
     personalDebts: { entries: [] },
     personalReferences: { entries: [] },
@@ -28,8 +28,9 @@ function UpdateData() {
   const contactDataRef = useRef<FormikProps<IContactDataEntry>>(null);
   const personalAssetsRef = useRef<FormikProps<IPersonalAssetEntries>>(null);
   const personalDebtsRef = useRef<FormikProps<IPersonalDebtEntries>>(null);
-  const personalReferencesRef = useRef<FormikProps<IPersonalReferenceEntries>>(null);
-    
+  const personalReferencesRef =
+    useRef<FormikProps<IPersonalReferenceEntries>>(null);
+
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
     contactData: contactDataRef,

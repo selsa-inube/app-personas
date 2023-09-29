@@ -1,4 +1,5 @@
 interface IContactDataEntry {
+  id: string;
   country: string;
   stateOrDepartment: string;
   city: string;

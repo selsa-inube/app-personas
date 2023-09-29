@@ -1,4 +1,4 @@
-import { IThird } from "src/model/entity/user";
+import { IContactData, IThird } from "src/model/entity/user";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 
@@ -23,16 +23,17 @@ const mapPersonalInformation = (
   };
 };
 
-const mapContactData = (contactInfoData: IThird): IContactDataEntry => {
+const mapContactData = (contactInfoData: IContactData): IContactDataEntry => {
   return {
-    country: contactInfoData.contact.country,
-    stateOrDepartment: contactInfoData.contact.department,
-    city: contactInfoData.contact.city,
-    address: contactInfoData.contact.address,
-    postalCode: contactInfoData.contact.zipCode || "",
-    landlinePhone: contactInfoData.contact.landlinePhone || "",
-    cellPhone: contactInfoData.contact.cellPhone,
-    email: contactInfoData.contact.email,
+    id: contactInfoData.id,
+    country: contactInfoData.country,
+    stateOrDepartment: contactInfoData.department,
+    city: contactInfoData.city,
+    address: contactInfoData.address,
+    postalCode: contactInfoData.zipCode || "",
+    landlinePhone: contactInfoData.landlinePhone || "",
+    cellPhone: contactInfoData.cellPhone,
+    email: contactInfoData.email,
   };
 };
 

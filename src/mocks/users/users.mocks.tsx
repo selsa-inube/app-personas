@@ -19,16 +19,30 @@ const usersMock: IThird[] = [
       maritalStatus: "single",
       bloodType: "o_positive",
     },
-    contact: {
-      country: "Colombia",
-      address: "CR 1 No 66 42 AP 202 BL 7",
-      department: "Cundinamarca",
-      city: "bogota",
-      zipCode: "111511",
-      landlinePhone: "37670777",
-      cellPhone: "3205510052",
-      email: "dgarzon@sistemasenlinea.com.co",
-    },
+    contact: [
+      {
+        id: "01",
+        country: "Colombia",
+        address: "CR 1 No 66 42 AP 202 BL 7",
+        department: "Cundinamarca",
+        city: "bogota",
+        zipCode: "111511",
+        landlinePhone: "37670777",
+        cellPhone: "3205510052",
+        email: "dgarzon@sistemasenlinea.com.co",
+      },
+      {
+        id: "02",
+        country: "Colombia",
+        address: "CR 2 No 88 23 AP 009 BL 5",
+        department: "Antioquia",
+        city: "medellin",
+        zipCode: "112375",
+        landlinePhone: "35689034",
+        cellPhone: "3124573839",
+        email: "jgarcia@sistemasenlinea.com.co",
+      },
+    ],
     familyGroup: [
       {
         identification: {
@@ -41,6 +55,7 @@ const usersMock: IThird[] = [
           city: "bogota",
         },
         contact: {
+          id: "01",
           country: "Colombia",
           address: "CR 1 No 66 42 AP 202 BL 7",
           department: "Cundinamarca",
@@ -68,6 +83,7 @@ const usersMock: IThird[] = [
           city: "bogota",
         },
         contact: {
+          id: "01",
           country: "Colombia",
           address: "CR 1 No 66 42 AP 501 BL 4",
           department: "Cundinamarca",
