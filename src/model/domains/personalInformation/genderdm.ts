@@ -1,4 +1,3 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const genderData = {
@@ -12,13 +11,14 @@ const genderData = {
   },
 };
 
-const genderDM: typeof genderData & {
-  list: string[];
-  options: ISelectOption[];
-} = {
+const genderDMValueOf = (id: string) =>
+  convertDomainToOptions(genderData).find((city) => city.id === id);
+
+const genderDM = {
   ...genderData,
   list: convertDomainToList(genderData),
   options: convertDomainToOptions(genderData),
+  valueOf: genderDMValueOf,
 };
 
 export { genderDM };

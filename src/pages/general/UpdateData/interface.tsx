@@ -11,6 +11,7 @@ import { crumbsUpdateData } from "./config/navigation";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
+import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
 const renderStepContent = (
@@ -36,6 +37,12 @@ const renderStepContent = (
         <PersonalDebtsForm
           initialValues={updateData.personalDebts}
           ref={formReferences.personalDebts}
+        />
+      )}
+      {currentStep === updateDataSteps.personalReferences.id && (
+        <PersonalReferencesForm
+          initialValues={updateData.personalReferences}
+          ref={formReferences.personalReferences}
         />
       )}
     </>

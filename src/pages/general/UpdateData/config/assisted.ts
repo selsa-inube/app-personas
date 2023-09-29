@@ -26,8 +26,14 @@ const updateDataSteps = {
     description:
       "Diligencia la información acerca de las deudas que posees actualmente.",
   },
-  verification: {
+  personalReferences: {
     id: 6,
+    name: "Referencias personales",
+    description:
+      "Diligencia la información de aquellas personas que te conocen.",
+  },
+  verification: {
+    id: 7,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",

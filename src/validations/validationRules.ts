@@ -50,6 +50,10 @@ const validationRules = {
     .matches(regex.onlyNumbers)
     .min(1, validationMessages.minNumbers(1))
     .max(10, validationMessages.maxNumbers(20)),
+
+  address: Yup.string()
+    .min(5, validationMessages.minCharacters(5))
+    .max(100, validationMessages.maxCharacters(100)),
 };
 
 export { validationRules };
