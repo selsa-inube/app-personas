@@ -4,6 +4,7 @@ import { Fieldset } from "@design/input/Fieldset";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 
 interface ContactDataFormUIProps {
   formik: FormikValues;
@@ -70,7 +71,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Ciudad"
             name="city"
             id="city"
-            value={formik.values.city}
+            value={getValueOfDomain(formik.values.city, "cityType")?.value}
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.city}
             isDisabled={loading}
