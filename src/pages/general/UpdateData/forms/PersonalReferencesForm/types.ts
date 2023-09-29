@@ -1,11 +1,12 @@
 interface IPersonalReferenceEntry {
-  id?: number;
+  id?: string;
   referenceType?: string;
   name?: string;
   address?: string;
   email?: string;
   phone?: string;
   city?: string;
+  observations?: string;
 }
 
 interface IPersonalReferenceEntries extends IPersonalReferenceEntry {

@@ -51,7 +51,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
       formik.setFieldValue("entries", [
         ...formik.values.entries,
         {
-          id: formik.values.entries.length + 1,
+          id: String(formik.values.entries.length + 1),
           referenceType: getValueOfDomain(
             formik.values.referenceType,
             "referenceType"
@@ -61,6 +61,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
           email: formik.values.email,
           phone: formik.values.phone,
           city: cityDM.valueOf(formik.values.city)?.value,
+          observations: formik.values.observations,
         },
       ]);
     }
