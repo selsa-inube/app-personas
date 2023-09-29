@@ -35,7 +35,7 @@ function FullscreenMenu(props: FullscreenMenuProps) {
     <StyledFullscreenNav>
       <StyledCloseMenu>
         <Text type="title" size="small" appearance="gray">
-          {navigation.title}
+          MENU
         </Text>
         <MdClose onClick={onClose} />
       </StyledCloseMenu>
