@@ -6,6 +6,7 @@ import { FullscreenMenu } from "./FullscreenMenu";
 import { INav } from "@design/layout/Page/types";
 import { IHeaderLink } from "../Header/types";
 
+
 interface FullscreenNavProps {
   portalId: string;
   logoutPath: string;
