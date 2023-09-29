@@ -20,8 +20,14 @@ const updateDataSteps = {
     name: "Activos personales",
     description: "Diligencia la información para registrar tus bienes.",
   },
-  verification: {
+  personalDebts: {
     id: 5,
+    name: "Deudas personales",
+    description:
+      "Diligencia la información acerca de las deudas que posees actualmente.",
+  },
+  verification: {
+    id: 6,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",

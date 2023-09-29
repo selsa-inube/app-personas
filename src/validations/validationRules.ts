@@ -41,13 +41,8 @@ const validationRules = {
     .min(8, validationMessages.minCharacters(8))
     .max(30, validationMessages.maxCharacters(30)),
 
-  birthDate: Yup.string()
+  date: Yup.string()
     .matches(regex.date, validationMessages.validBirthDate)
-    .min(11, validationMessages.minCharacters(11))
-    .max(11, validationMessages.maxCharacters(11)),
-
-  expeditionDate: Yup.string()
-    .matches(regex.date, validationMessages.validExpeditionDate)
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 

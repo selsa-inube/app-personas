@@ -12,15 +12,15 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledDivider, StyledModal } from "./styles";
 
-interface AddAssetModalProps {
+interface AddDebtModalProps {
   portalId: string;
   formik: FormikValues;
   onCloseModal: () => void;
-  onAddAsset: () => void;
+  onAddDebt: () => void;
 }
 
-function AddAssetModal(props: AddAssetModalProps) {
-  const { portalId, formik, onCloseModal, onAddAsset } = props;
+function AddDebtModal(props: AddDebtModalProps) {
+  const { portalId, formik, onCloseModal, onAddDebt } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -37,7 +37,7 @@ function AddAssetModal(props: AddAssetModalProps) {
     return "valid";
   }
 
-  const assetTypeDM = getDomainById("assetType");
+  const liabilityTypeDM = getDomainById("liabilityType");
 
   return createPortal(
     <Blanket>
@@ -45,7 +45,7 @@ function AddAssetModal(props: AddAssetModalProps) {
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
-              Adicionar bien
+              Adicionar deuda
             </Text>
 
             <Icon
@@ -58,46 +58,46 @@ function AddAssetModal(props: AddAssetModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Agrega un bien a la actualización
+            Agrega una deuda a la actualización
           </Text>
         </Stack>
 
         <StyledDivider dashed />
         <Stack direction="column" gap="s150" width="100%">
           <Select
-            label="Tipo de activo"
-            name="assetType"
-            id="assetType"
+            label="Tipo de pasivo"
+            name="liabilityType"
+            id="liabilityType"
             size="compact"
             isFullWidth
-            options={assetTypeDM}
+            options={liabilityTypeDM}
             handleBlur={formik.handleBlur}
-            errorMessage={formik.errors.assetType}
-            state={stateValue("assetType")}
+            errorMessage={formik.errors.liabilityType}
+            state={stateValue("liabilityType")}
             handleChange={formik.handleChange}
-            value={formik.values.assetType || ""}
+            value={formik.values.liabilityType || ""}
           />
           <TextField
-            label="Valor comercial"
-            name="commercialValue"
-            id="commercialValue"
-            placeholder="Digite el valor comercial estimado"
-            value={formik.values.commercialValue || ""}
+            label="Fecha de terminación"
+            name="terminationDate"
+            id="terminationDate"
+            placeholder="Digite la fecha de terminación"
+            value={formik.values.terminationDate|| ""}
             type="text"
-            errorMessage={formik.errors.commercialValue}
+            errorMessage={formik.errors.terminationDate}
             size="compact"
             isFullWidth
-            state={stateValue("commercialValue")}
+            state={stateValue("terminationDate")}
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
-            validMessage="El valor comercial es válido"
+            validMessage="La fecha de terminación es válida"
           />
           <TextField
             label="Saldo de la deuda"
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={formik.values.debtBalance || ""}
+            value={formik.values.debtBalance|| ""}
             type="text"
             errorMessage={formik.errors.debtBalance}
             size="compact"
@@ -112,7 +112,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="financialEntity"
             id="financialEntity"
             placeholder="Digite el nombre de la entidad"
-            value={formik.values.financialEntity || ""}
+            value={formik.values.financialEntity|| ""}
             type="text"
             errorMessage={formik.errors.financialEntity}
             size="compact"
@@ -127,7 +127,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={formik.values.quota || ""}
+            value={formik.values.quota|| ""}
             type="text"
             errorMessage={formik.errors.quota}
             size="compact"
@@ -164,7 +164,7 @@ function AddAssetModal(props: AddAssetModalProps) {
           </Button>
           <Button
             spacing="compact"
-            handleClick={onAddAsset}
+            handleClick={onAddDebt}
             disabled={!formik.isValid}
             appearance="gray"
           >
@@ -177,4 +177,4 @@ function AddAssetModal(props: AddAssetModalProps) {
   );
 }
 
-export { AddAssetModal };
+export { AddDebtModal };
