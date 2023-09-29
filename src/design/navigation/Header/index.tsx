@@ -4,7 +4,7 @@ import { IHeaderLink } from "./types";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 
-import { FullScreenNav } from "@design/navigation/fullscreenNav";
+import { FullscreenNav } from "@design/navigation/fullscreenNav";
 
 import {
   StyledHeader,
@@ -46,7 +46,7 @@ function Header(props: HeaderProps) {
     <StyledHeader>
       {!isTablet ? (
         <Stack gap="s200" justifyContent="center" alignItems="center">
-          <FullScreenNav
+          <FullscreenNav
             portalId={portalId}
             logoutPath={logoutPath}
             logoutTitle={logoutTitle}
