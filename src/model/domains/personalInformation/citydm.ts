@@ -1,4 +1,3 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const cityData = {
@@ -16,10 +15,14 @@ const cityData = {
   },
 };
 
-const cityDM: typeof cityData & { list: string[]; options: ISelectOption[] } = {
+const cityDMValueOf = (id: string) =>
+  convertDomainToOptions(cityData).find((city) => city.id === id);
+
+const cityDM = {
   ...cityData,
   list: convertDomainToList(cityData),
   options: convertDomainToOptions(cityData),
+  valueOf: cityDMValueOf,
 };
 
 export { cityDM };

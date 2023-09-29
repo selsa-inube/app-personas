@@ -35,9 +35,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
     onSubmit: handleSubmit || (() => {}),
   });
 
-  useImperativeHandle(ref, () => ({
-    ...formik,
-  }));
+  useImperativeHandle(ref, () => formik);
 
   const handleToggleModal = () => {
     setShowAddAssetModal(!showAddAssetModal);

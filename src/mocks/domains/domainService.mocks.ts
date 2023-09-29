@@ -1,12 +1,8 @@
-import { cityData } from "./city";
-import { genderData } from "./gender";
-import { maritalStatusData } from "./maritalstatus";
 import { ISelectOption } from "@design/input/Select/types";
+import { referenceTypeData } from "./referenceType";
 
 const domains: Record<string, ISelectOption[]> = {
-  city: cityData,
-  gender: genderData,
-  maritalStatus: maritalStatusData,
+  referenceType: referenceTypeData,
 };
 
 function getDomainById(domainId: string) {
@@ -21,4 +17,8 @@ function getDomainsByIds(domainIds: string[]) {
   return domainValues;
 }
 
-export { getDomainById, getDomainsByIds };
+function getValueOfDomain(id: string, domainId: string) {
+  return getDomainById(domainId).find((domain) => domain.id === id);
+}
+
+export { getDomainById, getDomainsByIds, getValueOfDomain };

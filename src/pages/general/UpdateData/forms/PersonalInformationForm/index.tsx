@@ -32,9 +32,7 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
     onSubmit: handleSubmit || (() => {}),
   });
 
-  useImperativeHandle(ref, () => ({
-    ...formik,
-  }));
+  useImperativeHandle(ref, () => formik);
 
   return <PersonalInformationFormUI loading={loading} formik={formik} />;
 });
