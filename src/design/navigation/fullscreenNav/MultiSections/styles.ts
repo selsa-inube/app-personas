@@ -2,7 +2,7 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledCollapseIcon {
-  collapse: boolean;
+  collapse?: boolean;
 }
 
 const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
@@ -18,7 +18,7 @@ const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
 `;
 
 interface IStyledSectionContainer {
-  selected: boolean;
+  selected?: boolean;
 }
 
 const StyledSectionContainer = styled.div<IStyledSectionContainer>`

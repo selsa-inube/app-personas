@@ -1,5 +1,4 @@
 import { ILink } from "@components/cards/QuickAccess/types";
-import { INavigation } from "@design/fullscreenNav/types";
 import { IHeaderLink } from "@design/navigation/Header/types";
 
 interface IHeader {
@@ -10,7 +9,7 @@ interface IHeader {
   portalId: string;
   logoutPath: string;
   logoutTitle: string;
-  navigation: INavigation;
+  navigation: INav;
 }
 
 interface INav {

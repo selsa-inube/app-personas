@@ -12,11 +12,11 @@ const StyledFullscreenNav = styled.nav`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: ${({ theme }) =>
-    theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
+    theme.color?.surface?.nav?.regular || inube.color.surface.nav.regular};
   -webkit-overflow-scrolling: touch;
 `;
 
@@ -32,12 +32,12 @@ const StyledCloseMenu = styled.div`
   }
 `;
 
-const StyledSeparatorLine = styled.div`
+const StyledSeparatorLine = styled.hr`
   width: calc(100% - 32px);
   margin: ${inube.spacing.s100} ${inube.spacing.s250};
-  height: 1px;
   background-color: ${({ theme }) =>
-    theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
+    theme.color?.stroke?.divider?.regular ||
+    inube.color.stroke.divider.regular};
 `;
 
 const StyledFooter = styled.footer`

@@ -3,17 +3,19 @@ import { createPortal } from "react-dom";
 import { MdMenu } from "react-icons/md";
 import { StyledContDropMenu } from "./styles";
 import { FullscreenMenu } from "./FullscreenMenu";
-import { INavigation } from "./types";
+import { INav } from "@design/layout/Page/types";
+import { IHeaderLink } from "../Header/types";
 
-interface FullScreenNavProps {
+interface FullscreenNavProps {
   portalId: string;
   logoutPath: string;
   logoutTitle: string;
-  navigation: INavigation;
+  navigation: INav;
+  links?: IHeaderLink[];
 }
 
-function FullScreenNav(props: FullScreenNavProps) {
-  const { portalId, logoutPath, logoutTitle, navigation } = props;
+function FullscreenNav(props: FullscreenNavProps) {
+  const { portalId, logoutPath, logoutTitle, navigation, links } = props;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const node = document.getElementById(portalId);
 
@@ -26,20 +28,21 @@ function FullScreenNav(props: FullScreenNavProps) {
       <StyledContDropMenu>
         <MdMenu onClick={() => setIsMenuOpen(true)} />
       </StyledContDropMenu>
-      {isMenuOpen && node && (
+      {isMenuOpen &&
+        node &&
         createPortal(
           <FullscreenMenu
             onClose={handleClose}
             logoutPath={logoutPath}
             logoutTitle={logoutTitle}
             navigation={navigation}
+            links={links}
           />,
           node
-        )
-      )}
+        )}
     </>
   );
 }
 
-export { FullScreenNav };
-export type { FullScreenNavProps };
+export { FullscreenNav };
+export type { FullscreenNavProps };

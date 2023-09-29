@@ -1,5 +1,4 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { INavigation } from "../types";
 import { MdClose, MdLogout } from "react-icons/md";
 import { Text } from "@design/data/Text";
 import { NavLink } from "@design/navigation/NavLink";
@@ -11,16 +10,19 @@ import {
   StyledSeparatorLine,
   StyledFooter,
 } from "./styles";
+import { INav } from "@design/layout/Page/types";
+import { IHeaderLink } from "@design/navigation/Header/types";
 
 interface FullscreenMenuProps {
   logoutPath: string;
   logoutTitle: string;
-  navigation: INavigation;
+  navigation: INav;
+  links?: IHeaderLink[];
   onClose: () => void;
 }
 
 function FullscreenMenu(props: FullscreenMenuProps) {
-  const { logoutPath, logoutTitle, navigation, onClose } = props;
+  const { logoutPath, logoutTitle, navigation, links, onClose } = props;
   const { logout } = useAuth0();
 
   function handleLogout() {
@@ -38,9 +40,13 @@ function FullscreenMenu(props: FullscreenMenuProps) {
         <MdClose onClick={onClose} />
       </StyledCloseMenu>
       {totalSections > 1 ? (
-        <MultiSections navigation={navigation} onClose={onClose} />
+        <MultiSections
+          navigation={navigation}
+          onClose={onClose}
+          links={links}
+        />
       ) : (
-        <OneSection navigation={navigation} onClose={onClose} />
+        <OneSection navigation={navigation} onClose={onClose} links={links} />
       )}
       <StyledSeparatorLine />
       <NavLink

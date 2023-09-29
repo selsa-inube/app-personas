@@ -3,9 +3,8 @@ import { User } from "../../data/User";
 import { IHeaderLink } from "./types";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
-import { INavigation } from "@design/fullscreenNav/types";
 
-import { FullScreenNav } from "@design/fullscreenNav";
+import { FullScreenNav } from "@design/navigation/fullscreenNav";
 
 import {
   StyledHeader,
@@ -15,6 +14,7 @@ import {
   StyledLink,
   StyledContainer,
 } from "./styles";
+import { INav } from "@design/layout/Page/types";
 
 interface HeaderProps {
   logoURL?: string;
@@ -24,7 +24,7 @@ interface HeaderProps {
   portalId: string;
   logoutPath: string;
   logoutTitle: string;
-  navigation: INavigation;
+  navigation: INav;
 }
 
 function Header(props: HeaderProps) {
@@ -51,6 +51,7 @@ function Header(props: HeaderProps) {
             logoutPath={logoutPath}
             logoutTitle={logoutTitle}
             navigation={navigation}
+            links={links}
           />
           <StyledContainer>
             <StyledLogoContainer to="/">

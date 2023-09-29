@@ -1,9 +1,11 @@
+import { INav } from "@design/layout/Page/types";
 import { Stack } from "@design/layout/Stack";
-import { INavigation } from "../types";
+import { IHeaderLink } from "@design/navigation/Header/types";
 import { NavLink } from "@design/navigation/NavLink";
 
 interface OneSectionProps {
-  navigation: INavigation;
+  navigation: INav;
+  links?: IHeaderLink[];
   onClose: () => void;
 }
 
@@ -15,7 +17,7 @@ function OneSection(props: OneSectionProps) {
     <Stack direction="column">
       {Object.values(sectionValue.links).map((linkValue) => (
         <NavLink
-          key={linkValue.id}
+          key={linkValue.label}
           children={linkValue.label}
           icon={linkValue.icon}
           path={linkValue.path}
