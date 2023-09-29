@@ -14,6 +14,12 @@ const validationMessages = {
   passwordMatch: "Las contraseñas no coinciden",
   validBirthDate: "La fecha de nacimiento no es válida",
   validExpeditionDate: "La fecha de expedición no es válida",
+  validPostalCode: "Este campo debe contener un código postal válido",
+  validLandlinePhone: "Este campo debe tener un número de teléfono fijo válido",
+  validCountry: "Este campo debe contener un país válido",
+  validStateOrDepartment:
+    "Este campo debe contener un estado o departamento válido",
+  validCity: "Este campo debe contener una ciudad válida",
 };
 
 export { validationMessages };

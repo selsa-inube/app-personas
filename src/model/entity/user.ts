@@ -19,6 +19,7 @@ interface IPersonalData {
 }
 
 interface IContactData {
+  country: string;
   address: string;
   department: string;
   city: string;

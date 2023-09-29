@@ -2,8 +2,9 @@ import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { updateDataSteps } from "./config/assisted";
-import { mapPersonalInformation } from "./config/mappers";
+import { mapPersonalInformation, mapContactData } from "./config/mappers";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
+import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
@@ -12,11 +13,14 @@ function UpdateData() {
   const steps = Object.values(updateDataSteps);
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: mapPersonalInformation(usersMock[0]),
+    contactData: mapContactData(usersMock[0]),
   });
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
+  const contactDataRef = useRef<FormikProps<IContactDataEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
+    contactData: contactDataRef,
   };
 
   const handleStepChange = (stepId: number) => {

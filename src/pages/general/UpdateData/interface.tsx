@@ -9,6 +9,7 @@ import { MdArrowBack } from "react-icons/md";
 import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
+import { ContactDataForm } from "./forms/ContactDataForm";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
 const renderStepContent = (
@@ -22,6 +23,12 @@ const renderStepContent = (
         <PersonalInformationForm
           initialValues={updateData.personalInformation}
           ref={formReferences.personalInformation}
+        />
+      )}
+      {currentStep === updateDataSteps.contactData.id && (
+        <ContactDataForm
+          initialValues={updateData.contactData}
+          ref={formReferences.contactData}
         />
       )}
     </>
