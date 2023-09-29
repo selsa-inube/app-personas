@@ -1,4 +1,3 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const identificationTypeData = {
@@ -28,13 +27,14 @@ const identificationTypeData = {
   },
 };
 
-const identificationTypeDM: typeof identificationTypeData & {
-  list: string[];
-  options: ISelectOption[];
-} = {
+const identificationTypeDMValueOf = (id: string) =>
+  convertDomainToOptions(identificationTypeData).find((city) => city.id === id);
+
+const identificationTypeDM = {
   ...identificationTypeData,
   list: convertDomainToList(identificationTypeData),
   options: convertDomainToOptions(identificationTypeData),
+  valueOf: identificationTypeDMValueOf,
 };
 
 export { identificationTypeDM };

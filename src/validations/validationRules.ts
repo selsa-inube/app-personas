@@ -41,7 +41,7 @@ const validationRules = {
     .min(8, validationMessages.minCharacters(8))
     .max(30, validationMessages.maxCharacters(30)),
 
-  birthDate: Yup.string()
+  date: Yup.string()
     .matches(regex.date, validationMessages.validBirthDate)
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
@@ -55,10 +55,6 @@ const validationRules = {
     .matches(regex.onlyLetters, validationMessages.validCountry)
     .min(3, validationMessages.minCharacters(3))
     .max(25, validationMessages.maxCharacters(25)),
-
-  address: Yup.string()
-    .min(10, validationMessages.minCharacters(10))
-    .max(40, validationMessages.maxCharacters(40)),
 
   stateOrDepartment: Yup.string()
     .matches(regex.onlyLetters, validationMessages.validStateOrDepartment)
@@ -81,6 +77,10 @@ const validationRules = {
     .matches(regex.onlyNumbers)
     .min(1, validationMessages.minNumbers(1))
     .max(10, validationMessages.maxNumbers(20)),
+
+  address: Yup.string()
+    .min(5, validationMessages.minCharacters(5))
+    .max(100, validationMessages.maxCharacters(100)),
 };
 
 export { validationRules };
