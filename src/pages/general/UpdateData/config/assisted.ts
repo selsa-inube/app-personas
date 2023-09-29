@@ -20,6 +20,12 @@ const updateDataSteps = {
     name: "Activos personales",
     description: "Diligencia la información para registrar tus bienes.",
   },
+  personalDebts: {
+    id: 5,
+    name: "Deudas personales",
+    description:
+      "Diligencia la información acerca de las deudas que posees actualmente.",
+  },
   personalReferences: {
     id: 6,
     name: "Referencias personales",

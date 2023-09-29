@@ -1,7 +1,11 @@
 import { ISelectOption } from "@design/input/Select/types";
+import { assetTypeData } from "./assetType";
+import { liabilityTypeData } from "./liabilityType";
 import { referenceTypeData } from "./referenceType";
 
 const domains: Record<string, ISelectOption[]> = {
+  assetType: assetTypeData,
+  liabilityType: liabilityTypeData,
   referenceType: referenceTypeData,
 };
 

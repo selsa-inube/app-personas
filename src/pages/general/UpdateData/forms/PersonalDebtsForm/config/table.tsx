@@ -1,23 +1,23 @@
 import { Icon } from "@design/data/Icon";
 import { IAction } from "@design/data/Table/types";
 import { mapInvestmentMovement } from "@pages/admin/investments/InvestmentMovements/config/table";
-import { MdOutlineModeEdit, MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 
-const personalAssetsTableTitles = [
+const personalDebtsTableTitles = [
   {
-    id: "assetType",
-    titleName: "Tipo de activo",
-    priority: 0,
+    id: "liabilityType",
+    titleName: "Tipo de pasivo",
+    priority: 1,
   },
   {
-    id: "commercialValue",
-    titleName: "Valor comercial",
-    priority: 1,
+    id: "terminationDate",
+    titleName: "Fecha de terminación",
+    priority: 2,
   },
   {
     id: "debtBalance",
     titleName: "Saldo de la deuda",
-    priority: 2,
+    priority: 0,
   },
   {
     id: "financialEntity",
@@ -31,7 +31,7 @@ const personalAssetsTableTitles = [
   },
 ];
 
-const personalAssetsTableBreakpoints = [
+const personalDebtsTableBreakpoints = [
   { breakpoint: "(min-width: 1229px)", totalColumns: 5 },
   { breakpoint: "(max-width: 1120px)", totalColumns: 4 },
   { breakpoint: "(max-width: 1000px)", totalColumns: 3 },
@@ -41,11 +41,11 @@ const personalAssetsTableBreakpoints = [
   { breakpoint: "(max-width: 390px)", totalColumns: 1 },
 ];
 
-const personalAssetsTableActions: IAction[] = [
+const personalDebtsTableActions: IAction[] = [
   {
     id: "1",
     actionName: "Editar",
-    content: (asset) => (
+    content: (debt) => (
       <Icon
         appearance="dark"
         icon={<MdOutlineModeEdit />}
@@ -59,7 +59,7 @@ const personalAssetsTableActions: IAction[] = [
   {
     id: "2",
     actionName: "Borrar",
-    content: (asset) => (
+    content: (debt) => (
       <Icon
         appearance="dark"
         icon={<MdDeleteOutline />}
@@ -74,7 +74,7 @@ const personalAssetsTableActions: IAction[] = [
 
 export {
   mapInvestmentMovement,
-  personalAssetsTableActions,
-  personalAssetsTableBreakpoints,
-  personalAssetsTableTitles,
+  personalDebtsTableActions,
+  personalDebtsTableBreakpoints,
+  personalDebtsTableTitles,
 };
