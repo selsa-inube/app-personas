@@ -10,17 +10,18 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
+import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { StyledDivider, StyledModal } from "./styles";
 
-interface AddAssetModalProps {
+interface AddReferenceModalProps {
   portalId: string;
   formik: FormikValues;
   onCloseModal: () => void;
-  onAddAsset: () => void;
+  onAddReference: () => void;
 }
 
-function AddAssetModal(props: AddAssetModalProps) {
-  const { portalId, formik, onCloseModal, onAddAsset } = props;
+function AddReferenceModal(props: AddReferenceModalProps) {
+  const { portalId, formik, onCloseModal, onAddReference } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -37,7 +38,7 @@ function AddAssetModal(props: AddAssetModalProps) {
     return "valid";
   }
 
-  const assetTypeDM = getDomainById("assetType");
+  const referenceTypeDM = getDomainById("referenceType");
 
   return createPortal(
     <Blanket>
@@ -45,7 +46,7 @@ function AddAssetModal(props: AddAssetModalProps) {
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
-              Adicionar bien
+              Adicionar referencia
             </Text>
 
             <Icon
@@ -58,99 +59,97 @@ function AddAssetModal(props: AddAssetModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Agrega un bien a la actualización
+            Agrega una referencia personal
           </Text>
         </Stack>
 
         <StyledDivider dashed />
         <Stack direction="column" gap="s150" width="100%">
           <Select
-            label="Tipo de activo"
-            name="assetType"
-            id="assetType"
+            label="Tipo de referencia"
+            name="referenceType"
+            id="referenceType"
             size="compact"
             isFullWidth
-            options={assetTypeDM}
+            options={referenceTypeDM}
             handleBlur={formik.handleBlur}
-            errorMessage={formik.errors.assetType}
-            state={stateValue("assetType")}
-            handleChange={formik.handleChange}
-            value={formik.values.assetType || ""}
+            errorMessage={formik.errors.referenceType}
+            state={stateValue("referenceType")}
+            handleChange={(e) => formik.handleChange(e)}
+            value={formik.values.referenceType || ""}
           />
           <TextField
-            label="Valor comercial"
-            name="commercialValue"
-            id="commercialValue"
-            placeholder="Digite el valor comercial estimado"
-            value={formik.values.commercialValue || ""}
+            label="Nombre"
+            name="name"
+            id="name"
+            placeholder="Digite el nombre de la referencia"
+            value={formik.values.name || ""}
             type="text"
-            errorMessage={formik.errors.commercialValue}
+            errorMessage={formik.errors.name}
             size="compact"
             isFullWidth
-            state={stateValue("commercialValue")}
+            state={stateValue("name")}
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
-            validMessage="El valor comercial es válido"
+            validMessage="El nombre de la referencia es válido"
           />
           <TextField
-            label="Saldo de la deuda"
-            name="debtBalance"
-            id="debtBalance"
-            placeholder="Digite el saldo total de la deuda"
-            value={formik.values.debtBalance || ""}
+            label="Dirección"
+            name="address"
+            id="address"
+            placeholder="Digite la dirección de residencia"
+            value={formik.values.address || ""}
             type="text"
-            errorMessage={formik.errors.debtBalance}
+            errorMessage={formik.errors.address}
             size="compact"
             isFullWidth
-            state={stateValue("debtBalance")}
+            state={stateValue("address")}
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
-            validMessage="El saldo de la deuda es válido"
+            validMessage="La dirección es válida"
           />
           <TextField
-            label="Entidad financiera"
-            name="financialEntity"
-            id="financialEntity"
-            placeholder="Digite el nombre de la entidad"
-            value={formik.values.financialEntity || ""}
+            label="Correo electrónico"
+            name="email"
+            id="email"
+            placeholder="Digite el correo electrónico"
+            value={formik.values.email || ""}
             type="text"
-            errorMessage={formik.errors.financialEntity}
+            errorMessage={formik.errors.email}
             size="compact"
             isFullWidth
-            state={stateValue("financialEntity")}
+            state={stateValue("email")}
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
-            validMessage="El nombre de la entidad es válido"
+            validMessage="El correo electrónico es válido"
           />
           <TextField
-            label="Cuota"
-            name="quota"
-            id="quota"
-            placeholder="Digite el valor de la cuota"
-            value={formik.values.quota || ""}
+            label="Celular"
+            name="phone"
+            id="phone"
+            placeholder="Digite el número de celular"
+            value={formik.values.phone || ""}
             type="text"
-            errorMessage={formik.errors.quota}
+            errorMessage={formik.errors.phone}
             size="compact"
             isFullWidth
-            state={stateValue("quota")}
+            state={stateValue("phone")}
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
-            validMessage="El valor de la cuota es válido"
+            validMessage="El número de celular es válido"
           />
-          <TextField
-            label="Observaciones"
-            name="observations"
-            id="observations"
-            placeholder="Digite las observaciones"
-            value={formik.values.observations || ""}
-            type="text"
-            errorMessage={formik.errors.observations}
+          <Select
+            label="Ciudad"
+            name="city"
+            id="city"
             size="compact"
             isFullWidth
-            state={stateValue("observations")}
+            options={cityDM.options}
             handleBlur={formik.handleBlur}
+            errorMessage={formik.errors.city}
+            state={stateValue("city")}
             handleChange={formik.handleChange}
-            validMessage="Las observaciones son válidas"
+            value={formik.values.city || ""}
           />
         </Stack>
 
@@ -164,7 +163,7 @@ function AddAssetModal(props: AddAssetModalProps) {
           </Button>
           <Button
             spacing="compact"
-            handleClick={onAddAsset}
+            handleClick={onAddReference}
             disabled={!formik.isValid}
             appearance="gray"
           >
@@ -177,4 +176,4 @@ function AddAssetModal(props: AddAssetModalProps) {
   );
 }
 
-export { AddAssetModal };
+export { AddReferenceModal };

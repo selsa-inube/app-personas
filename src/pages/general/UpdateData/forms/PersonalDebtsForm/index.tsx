@@ -4,29 +4,29 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { PersonalAssetsFormUI } from "./interface";
-import { IPersonalAssetEntries } from "./types";
+import { PersonalDebtsFormUI } from "./interface";
+import { IPersonalDebtEntries } from "./types";
 
 const validationSchema = Yup.object({
-  assetType: Yup.string().required(validationMessages.required),
-  commercialValue: validationRules.money.required(validationMessages.required),
+  liabilityType: Yup.string().required(validationMessages.required),
+  terminationDate: validationRules.date.required(validationMessages.required),
   debtBalance: validationRules.money.required(validationMessages.required),
   financialEntity: validationRules.name.required(validationMessages.required),
   quota: validationRules.money.required(validationMessages.required),
 });
 
-interface PersonalAssetsFormProps {
-  initialValues: IPersonalAssetEntries;
-  handleSubmit?: (values: IPersonalAssetEntries) => void;
+interface PersonalDebtsFormProps {
+  initialValues: IPersonalDebtEntries;
+  handleSubmit?: (values: IPersonalDebtEntries) => void;
 }
 
-const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
-  props: PersonalAssetsFormProps,
-  ref: React.Ref<FormikProps<IPersonalAssetEntries>>
+const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
+  props: PersonalDebtsFormProps,
+  ref: React.Ref<FormikProps<IPersonalDebtEntries>>
 ) {
   const { initialValues, handleSubmit } = props;
 
-  const [showAddAssetModal, setShowAddAssetModal] = useState(false);
+  const [showAddDebtModal, setShowAddDebtModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -38,21 +38,23 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   useImperativeHandle(ref, () => formik);
 
   const handleToggleModal = () => {
-    setShowAddAssetModal(!showAddAssetModal);
+    setShowAddDebtModal(!showAddDebtModal);
   };
 
-  const handleAddAsset = async () => {
+  const handleAddDebt = async () => {
     await formik.validateForm();
-    if (formik.isValid && formik.values.assetType) {
-      setShowAddAssetModal(false);
+    if (formik.isValid && formik.values.liabilityType) {
+      setShowAddDebtModal(false);
 
       formik.setFieldValue("entries", [
         ...formik.values.entries,
         {
           id: String(formik.values.entries.length + 1),
-          assetType: getValueOfDomain(formik.values.assetType, "assetType")
-            ?.value,
-          commercialValue: formik.values.commercialValue,
+          liabilityType: getValueOfDomain(
+            formik.values.liabilityType,
+            "liabilityType"
+          )?.value,
+          terminationDate: formik.values.terminationDate,
           debtBalance: formik.values.debtBalance,
           financialEntity: formik.values.financialEntity,
           quota: formik.values.quota,
@@ -63,13 +65,13 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   };
 
   return (
-    <PersonalAssetsFormUI
+    <PersonalDebtsFormUI
       formik={formik}
-      showAddAssetModal={showAddAssetModal}
+      showAddDebtModal={showAddDebtModal}
       handleToggleModal={handleToggleModal}
-      handleAddAsset={handleAddAsset}
+      handleAddDebt={handleAddDebt}
     />
   );
 });
 
-export { PersonalAssetsForm };
+export { PersonalDebtsForm };

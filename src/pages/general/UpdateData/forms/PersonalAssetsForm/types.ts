@@ -1,12 +1,14 @@
 interface IPersonalAssetEntry {
-  type: string;
-  commercialValue: number;
-  debtBalance: number;
-  financialEntity: string;
-  quota: number;
+  id?: string;
+  assetType?: string;
+  commercialValue?: number;
+  debtBalance?: number;
+  financialEntity?: string;
+  quota?: number;
+  observations?: string;
 }
 
-interface IPersonalAssetEntries {
+interface IPersonalAssetEntries extends IPersonalAssetEntry {
   entries: IPersonalAssetEntry[];
 }
 
