@@ -14,10 +14,11 @@ interface PersonalDebtsFormUIProps {
   formik: FormikValues;
   showAddDebtModal: boolean;
   handleToggleModal: () => void;
+  handleAddDebt: () => void;
 }
 
 function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
-  const { formik, showAddDebtModal, handleToggleModal } = props;
+  const { formik, showAddDebtModal, handleToggleModal, handleAddDebt } = props;
   return (
     <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
       <Button
@@ -41,6 +42,7 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
           portalId="modals"
           formik={formik}
           onCloseModal={handleToggleModal}
+          onAddDebt={handleAddDebt}
         />
       )}
     </Stack>

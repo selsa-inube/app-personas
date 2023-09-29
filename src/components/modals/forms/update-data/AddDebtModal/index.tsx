@@ -16,10 +16,11 @@ interface AddDebtModalProps {
   portalId: string;
   formik: FormikValues;
   onCloseModal: () => void;
+  onAddDebt: () => void;
 }
 
 function AddDebtModal(props: AddDebtModalProps) {
-  const { portalId, formik, onCloseModal } = props;
+  const { portalId, formik, onCloseModal, onAddDebt } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -36,7 +37,7 @@ function AddDebtModal(props: AddDebtModalProps) {
     return "valid";
   }
 
-  const liabilityDM = getDomainById("liability");
+  const liabilityTypeDM = getDomainById("liabilityType");
 
   return createPortal(
     <Blanket>
@@ -44,7 +45,7 @@ function AddDebtModal(props: AddDebtModalProps) {
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
-              Adicionar bien
+              Adicionar deuda
             </Text>
 
             <Icon
@@ -57,7 +58,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Agrega un bien a la actualización
+            Agrega una deuda a la actualización
           </Text>
         </Stack>
 
@@ -69,18 +70,19 @@ function AddDebtModal(props: AddDebtModalProps) {
             id="liabilityType"
             size="compact"
             isFullWidth
-            options={liabilityDM}
-            handleBlur={formik.liabilityType}
+            options={liabilityTypeDM}
+            handleBlur={formik.handleBlur}
             errorMessage={formik.errors.liabilityType}
             state={stateValue("liabilityType")}
             handleChange={formik.handleChange}
+            value={formik.values.liabilityType || ""}
           />
           <TextField
             label="Fecha de terminación"
             name="terminationDate"
             id="terminationDate"
             placeholder="Digite la fecha de terminación"
-            value={formik.values.terminationDate}
+            value={formik.values.terminationDate|| ""}
             type="text"
             errorMessage={formik.errors.terminationDate}
             size="compact"
@@ -95,7 +97,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={formik.values.debtBalance}
+            value={formik.values.debtBalance|| ""}
             type="text"
             errorMessage={formik.errors.debtBalance}
             size="compact"
@@ -110,7 +112,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="financialEntity"
             id="financialEntity"
             placeholder="Digite el nombre de la entidad"
-            value={formik.values.financialEntity}
+            value={formik.values.financialEntity|| ""}
             type="text"
             errorMessage={formik.errors.financialEntity}
             size="compact"
@@ -125,7 +127,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={formik.values.quota}
+            value={formik.values.quota|| ""}
             type="text"
             errorMessage={formik.errors.quota}
             size="compact"
@@ -140,7 +142,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="observations"
             id="observations"
             placeholder="Digite las observaciones"
-            value={formik.values.observations}
+            value={formik.values.observations || ""}
             type="text"
             errorMessage={formik.errors.observations}
             size="compact"
@@ -160,7 +162,12 @@ function AddDebtModal(props: AddDebtModalProps) {
           >
             Cancelar
           </Button>
-          <Button spacing="compact" disabled appearance="gray">
+          <Button
+            spacing="compact"
+            handleClick={onAddDebt}
+            disabled={!formik.isValid}
+            appearance="gray"
+          >
             Adicionar
           </Button>
         </Stack>

@@ -1,16 +1,10 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { assetData } from "./asset";
-import { cityData } from "./city";
-import { genderData } from "./gender";
-import { liabilityData } from "./liability";
-import { maritalStatusData } from "./maritalstatus";
+import { liabilityTypeData } from "./liabilityType";
+import { assetTypeData } from "./assetType";
 
 const domains: Record<string, ISelectOption[]> = {
-  city: cityData,
-  gender: genderData,
-  maritalStatus: maritalStatusData,
-  asset: assetData,
-  liability: liabilityData,
+  assetType: assetTypeData,
+  liabilityType: liabilityTypeData,
 };
 
 function getDomainById(domainId: string) {
@@ -25,4 +19,8 @@ function getDomainsByIds(domainIds: string[]) {
   return domainValues;
 }
 
-export { getDomainById, getDomainsByIds };
+function getValueOfDomain(id: string, domainId: string) {
+  return getDomainById(domainId).find((domain) => domain.id === id);
+}
+
+export { getDomainById, getDomainsByIds, getValueOfDomain };

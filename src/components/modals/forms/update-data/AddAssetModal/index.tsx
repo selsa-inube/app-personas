@@ -6,21 +6,21 @@ import { TextField } from "@design/input/TextField";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { StyledDivider, StyledModal } from "./styles";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 
 interface AddAssetModalProps {
   portalId: string;
   formik: FormikValues;
   onCloseModal: () => void;
+  onAddAsset: () => void;
 }
 
 function AddAssetModal(props: AddAssetModalProps) {
-  const { portalId, formik, onCloseModal } = props;
+  const { portalId, formik, onCloseModal, onAddAsset } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -37,7 +37,7 @@ function AddAssetModal(props: AddAssetModalProps) {
     return "valid";
   }
 
-  const assetDM = getDomainById("asset")
+  const assetTypeDM = getDomainById("assetType");
 
   return createPortal(
     <Blanket>
@@ -70,18 +70,19 @@ function AddAssetModal(props: AddAssetModalProps) {
             id="assetType"
             size="compact"
             isFullWidth
-            options={assetDM}
-            handleBlur={formik.assetType}
+            options={assetTypeDM}
+            handleBlur={formik.handleBlur}
             errorMessage={formik.errors.assetType}
             state={stateValue("assetType")}
             handleChange={formik.handleChange}
+            value={formik.values.assetType || ""}
           />
           <TextField
             label="Valor comercial"
             name="commercialValue"
             id="commercialValue"
             placeholder="Digite el valor comercial estimado"
-            value={formik.values.commercialValue}
+            value={formik.values.commercialValue || ""}
             type="text"
             errorMessage={formik.errors.commercialValue}
             size="compact"
@@ -96,7 +97,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={formik.values.debtBalance}
+            value={formik.values.debtBalance || ""}
             type="text"
             errorMessage={formik.errors.debtBalance}
             size="compact"
@@ -111,7 +112,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="financialEntity"
             id="financialEntity"
             placeholder="Digite el nombre de la entidad"
-            value={formik.values.financialEntity}
+            value={formik.values.financialEntity || ""}
             type="text"
             errorMessage={formik.errors.financialEntity}
             size="compact"
@@ -126,7 +127,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={formik.values.quota}
+            value={formik.values.quota || ""}
             type="text"
             errorMessage={formik.errors.quota}
             size="compact"
@@ -141,7 +142,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="observations"
             id="observations"
             placeholder="Digite las observaciones"
-            value={formik.values.observations}
+            value={formik.values.observations || ""}
             type="text"
             errorMessage={formik.errors.observations}
             size="compact"
@@ -161,7 +162,12 @@ function AddAssetModal(props: AddAssetModalProps) {
           >
             Cancelar
           </Button>
-          <Button spacing="compact" disabled appearance="gray">
+          <Button
+            spacing="compact"
+            handleClick={onAddAsset}
+            disabled={!formik.isValid}
+            appearance="gray"
+          >
             Adicionar
           </Button>
         </Stack>

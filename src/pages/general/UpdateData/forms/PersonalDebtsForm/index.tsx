@@ -1,3 +1,4 @@
+import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
@@ -7,6 +8,7 @@ import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
 
 const validationSchema = Yup.object({
+  liabilityType: Yup.string().required(validationMessages.required),
   terminationDate: validationRules.date.required(validationMessages.required),
   debtBalance: validationRules.money.required(validationMessages.required),
   financialEntity: validationRules.name.required(validationMessages.required),
@@ -33,12 +35,33 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
     onSubmit: handleSubmit || (() => {}),
   });
 
-  useImperativeHandle(ref, () => ({
-    ...formik,
-  }));
+  useImperativeHandle(ref, () => formik);
 
   const handleToggleModal = () => {
     setShowAddDebtModal(!showAddDebtModal);
+  };
+
+  const handleAddDebt = async () => {
+    await formik.validateForm();
+    if (formik.isValid && formik.values.liabilityType) {
+      setShowAddDebtModal(false);
+
+      formik.setFieldValue("entries", [
+        ...formik.values.entries,
+        {
+          id: String(formik.values.entries.length + 1),
+          liabilityType: getValueOfDomain(
+            formik.values.liabilityType,
+            "liabilityType"
+          )?.value,
+          terminationDate: formik.values.terminationDate,
+          debtBalance: formik.values.debtBalance,
+          financialEntity: formik.values.financialEntity,
+          quota: formik.values.quota,
+          observations: formik.values.observations,
+        },
+      ]);
+    }
   };
 
   return (
@@ -46,6 +69,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
       formik={formik}
       showAddDebtModal={showAddDebtModal}
       handleToggleModal={handleToggleModal}
+      handleAddDebt={handleAddDebt}
     />
   );
 });

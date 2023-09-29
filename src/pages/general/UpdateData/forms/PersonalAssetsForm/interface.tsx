@@ -14,10 +14,12 @@ interface PersonalAssetsFormUIProps {
   formik: FormikValues;
   showAddAssetModal: boolean;
   handleToggleModal: () => void;
+  handleAddAsset: () => void;
 }
 
 function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
-  const { formik, showAddAssetModal, handleToggleModal } = props;
+  const { formik, showAddAssetModal, handleToggleModal, handleAddAsset } =
+    props;
   return (
     <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
       <Button
@@ -41,6 +43,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
           portalId="modals"
           formik={formik}
           onCloseModal={handleToggleModal}
+          onAddAsset={handleAddAsset}
         />
       )}
     </Stack>

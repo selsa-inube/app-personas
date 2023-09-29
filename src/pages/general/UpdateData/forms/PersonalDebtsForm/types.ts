@@ -1,12 +1,14 @@
 interface IPersonalDebtEntry {
-  liabilityType: string;
-  terminationDate: string;
-  debtBalance: number;
-  financialEntity: string;
-  quota: number;
+  id?: string;
+  liabilityType?: string;
+  terminationDate?: string;
+  debtBalance?: number;
+  financialEntity?: string;
+  quota?: number;
+  observations?: string;
 }
 
-interface IPersonalDebtEntries {
+interface IPersonalDebtEntries extends IPersonalDebtEntry {
   entries: IPersonalDebtEntry[];
 }
 

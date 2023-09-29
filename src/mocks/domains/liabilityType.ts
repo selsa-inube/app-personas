@@ -1,4 +1,4 @@
-const liabilityData = [
+const liabilityTypeData = [
   {
     id: "liability1",
     value: "Tipo de pasivo 1",
@@ -13,4 +13,4 @@ const liabilityData = [
   },
 ];
 
-export { liabilityData };
+export { liabilityTypeData };

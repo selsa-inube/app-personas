@@ -1,23 +1,23 @@
 import { Icon } from "@design/data/Icon";
 import { IAction } from "@design/data/Table/types";
 import { mapInvestmentMovement } from "@pages/admin/investments/InvestmentMovements/config/table";
-import { MdOpenInNew } from "react-icons/md";
+import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 
 const personalDebtsTableTitles = [
   {
     id: "liabilityType",
     titleName: "Tipo de pasivo",
-    priority: 0,
+    priority: 1,
   },
   {
     id: "terminationDate",
     titleName: "Fecha de terminación",
-    priority: 1,
+    priority: 2,
   },
   {
     id: "debtBalance",
     titleName: "Saldo de la deuda",
-    priority: 2,
+    priority: 0,
   },
   {
     id: "financialEntity",
@@ -44,11 +44,25 @@ const personalDebtsTableBreakpoints = [
 const personalDebtsTableActions: IAction[] = [
   {
     id: "1",
-    actionName: "Ver",
+    actionName: "Editar",
     content: (debt) => (
       <Icon
         appearance="dark"
-        icon={<MdOpenInNew />}
+        icon={<MdOutlineModeEdit />}
+        cursorHover={true}
+        size="16px"
+        spacing="none"
+      />
+    ),
+    mobilePriority: true,
+  },
+  {
+    id: "2",
+    actionName: "Borrar",
+    content: (debt) => (
+      <Icon
+        appearance="dark"
+        icon={<MdDeleteOutline />}
         cursorHover={true}
         size="16px"
         spacing="none"

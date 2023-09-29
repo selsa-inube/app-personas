@@ -1,4 +1,4 @@
-const assetData = [
+const assetTypeData = [
   {
     id: "asset1",
     value: "Tipo de activo 1",
@@ -13,4 +13,4 @@ const assetData = [
   },
 ];
 
-export { assetData };
+export { assetTypeData };
