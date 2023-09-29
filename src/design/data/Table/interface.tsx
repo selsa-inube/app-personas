@@ -165,32 +165,42 @@ const TableUI = (props: TableUIProps) => {
         </StyledTr>
       </StyledThead>
       <StyledTbody>
-        {entries.map((entry, index) => (
-          <StyledTr
-            key={`entry-${entry.id}`}
-            aria-labelledby={`entry-${entry.id}`}
-            isLastTr={index === entries.length - 1}
-          >
-            {TitleColumns.map((title) => (
-              <StyledTd key={`e-${entry[title.id]}`}>
-                <Text type="body" size="small" appearance="dark" ellipsis>
-                  {entry[title.id]}
-                </Text>
-              </StyledTd>
-            ))}
-            {renderActions(
-              portalId,
-              actions,
-              entry,
-              mediaActionOpen,
-              modalTitle,
-              titles,
-              infoTitle,
-              actionsTitle,
-              hideMobileResume
-            )}
+        {entries.length > 0 ? (
+          entries.map((entry, index) => (
+            <StyledTr
+              key={`entry-${entry.id}`}
+              aria-labelledby={`entry-${entry.id}`}
+              isLastTr={index === entries.length - 1}
+            >
+              {TitleColumns.map((title) => (
+                <StyledTd key={`e-${entry[title.id]}`}>
+                  <Text type="body" size="small" appearance="dark" ellipsis>
+                    {entry[title.id]}
+                  </Text>
+                </StyledTd>
+              ))}
+              {renderActions(
+                portalId,
+                actions,
+                entry,
+                mediaActionOpen,
+                modalTitle,
+                titles,
+                infoTitle,
+                actionsTitle,
+                hideMobileResume
+              )}
+            </StyledTr>
+          ))
+        ) : (
+          <StyledTr aria-labelledby={`no-data`} isLastTr>
+            <StyledTd colSpan={TitleColumns.length + 1}>
+              <Text type="body" size="small" appearance="dark" ellipsis>
+                No se encontró información
+              </Text>
+            </StyledTd>
           </StyledTr>
-        ))}
+        )}
       </StyledTbody>
     </StyledTable>
   );

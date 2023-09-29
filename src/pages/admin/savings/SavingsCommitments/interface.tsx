@@ -131,7 +131,9 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               subtitle="Productos que reciben dinero de este compromiso de ahorro"
               collapsing={{ start: false, allow: false }}
             >
-              {renderProducts(selectedCommitment.commitment.products)}
+              <Stack direction="column" gap="s100">
+                {renderProducts(selectedCommitment.commitment.products)}
+              </Stack>
             </Box>
           </Stack>
         </Stack>

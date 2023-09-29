@@ -1,53 +1,53 @@
-import { IStep } from "./types";
+import { Text } from "@design/data/Text";
+import { Button } from "@design/input/Button";
+import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { MdArrowBack, MdArrowForward, MdCheckCircle } from "react-icons/md";
+import { Step } from "./Step";
 import {
   StyledAssistedContainer,
-  StyledCircleId,
   StyledButton,
+  StyledCircleId,
 } from "./styles";
-import { Button } from "@design/input/Button";
-import { MdArrowBack, MdArrowForward, MdCheckCircle } from "react-icons/md";
-import { Stack } from "@design/layout/Stack";
-import { Text } from "@design/data/Text";
-import { inube } from "@design/tokens";
-import { Step } from "./Step";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-
-interface AssistedUIProps {
-  steps: IStep[];
-  currentStep: number;
-  handlePreviousStep: () => void;
-  handleNextStep: () => void;
-  currentStepInfo?: IStep;
-  lastStep: number;
-}
+import { IStep } from "./types";
 
 const renderSteps = (
   steps: IStep[],
-  currentStep: number,
-  lastStep: number,
+  currentStepIndex: number,
+  lastStepIndex: number,
   smallScreen: boolean
 ) => (
   <Stack justifyContent="center" width="100%">
-    {steps.map((step) => (
+    {steps.map((step, stepIndex) => (
       <Step
         key={step.id}
-        stepNumber={step.id}
-        lastStep={lastStep}
-        currentStep={currentStep}
+        stepNumber={stepIndex}
+        lastStepIndex={lastStepIndex}
+        currentStepIndex={currentStepIndex}
         smallScreen={smallScreen}
       />
     ))}
   </Stack>
 );
 
+interface AssistedUIProps {
+  steps: IStep[];
+  currentStepIndex: number;
+  lastStepIndex: number;
+  currentStepInfo?: IStep;
+  handlePreviousStep: () => void;
+  handleNextStep: () => void;
+}
+
 function AssistedUI(props: AssistedUIProps) {
   const {
     steps,
-    currentStep,
+    currentStepIndex,
+    lastStepIndex,
+    currentStepInfo,
     handlePreviousStep,
     handleNextStep,
-    currentStepInfo,
-    lastStep,
   } = props;
 
   const smallScreen = useMediaQuery("(max-width: 744px)");
@@ -64,7 +64,7 @@ function AssistedUI(props: AssistedUIProps) {
             variant="none"
             iconBefore={<MdArrowBack size={18} />}
             handleClick={handlePreviousStep}
-            disabled={currentStep === steps[0].id}
+            disabled={currentStepIndex === 0}
           >
             {!smallScreen && "Atrás"}
           </Button>
@@ -83,10 +83,10 @@ function AssistedUI(props: AssistedUIProps) {
                 appearance="information"
                 margin="auto"
               >
-                {currentStep === lastStep ? (
+                {currentStepIndex === lastStepIndex ? (
                   <MdCheckCircle size={17} />
                 ) : (
-                  currentStep
+                  currentStepIndex + 1
                 )}
               </Text>
             </StyledCircleId>
@@ -101,9 +101,14 @@ function AssistedUI(props: AssistedUIProps) {
                 alignItems="center"
                 gap="s100"
               >
-                {renderSteps(steps, currentStep, lastStep, smallScreen)}
+                {renderSteps(
+                  steps,
+                  currentStepIndex,
+                  lastStepIndex,
+                  smallScreen
+                )}
                 <Text type="label" size="small">
-                  {currentStep}/{lastStep}
+                  {currentStepIndex + 1}/{steps.length}
                 </Text>
               </Stack>
               <Text type="label" size="medium" appearance="gray">
@@ -124,7 +129,7 @@ function AssistedUI(props: AssistedUIProps) {
       </Stack>
       {smallScreen && (
         <>
-          {renderSteps(steps, currentStep, lastStep, smallScreen)}
+          {renderSteps(steps, currentStepIndex, lastStepIndex, smallScreen)}
           <Text type="label" size="small" appearance="gray">
             {currentStepInfo?.description}
           </Text>
