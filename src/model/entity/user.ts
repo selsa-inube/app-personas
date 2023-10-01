@@ -42,15 +42,23 @@ interface IFamilyThird {
   };
 }
 
+interface IBankTransfersAccount {
+  bankingEntity: string;
+  accountType: string;
+  accountNumber: number;
+}
+
 interface IThird {
   personalData: IPersonalData;
   contact: IContactData;
   familyGroup?: IFamilyThird[];
+  bankTransfersAccount: IBankTransfersAccount;
 }
 
 export type {
   IContactData,
   IFamilyThird,
+  IBankTransfersAccount,
   IIdentification,
   IPersonalData,
   IThird,

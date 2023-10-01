@@ -46,6 +46,11 @@ const validationRules = {
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 
+  accountNumber: Yup.string()
+    .matches(regex.onlyNumbers)
+    .min(11, validationMessages.minNumbers(11))
+    .max(11, validationMessages.maxNumbers(11)),
+
   money: Yup.string()
     .matches(regex.onlyNumbers)
     .min(1, validationMessages.minNumbers(1))

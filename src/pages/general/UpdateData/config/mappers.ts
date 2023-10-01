@@ -1,5 +1,7 @@
 import { IThird } from "src/model/entity/user";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
+import { IBankTransfersAccount } from "src/model/entity/user";
+import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -22,4 +24,14 @@ const mapPersonalInformation = (
   };
 };
 
-export { mapPersonalInformation };
+const mapBankTransfers = (
+  bankTransfersAccount: IBankTransfersAccount
+): IBankTransfersEntry => {
+  return {
+    bankingEntity: bankTransfersAccount.bankingEntity,
+    accountType: bankTransfersAccount.accountType,
+    accountNumber: bankTransfersAccount.accountNumber,
+  };
+};
+
+export { mapPersonalInformation, mapBankTransfers };
