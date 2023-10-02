@@ -131,6 +131,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           handleBlur={formik.handleBlur}
           handleChange={formik.handleChange}
           validMessage="La fecha de expedición es válida"
+          isRequired
         />
 
         <TextField
@@ -149,6 +150,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           handleBlur={formik.handleBlur}
           handleChange={formik.handleChange}
           validMessage="La fecha de nacimiento es válida"
+          isRequired
         />
 
         <Select

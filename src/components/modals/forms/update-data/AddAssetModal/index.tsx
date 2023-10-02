@@ -76,6 +76,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             state={stateValue("assetType")}
             handleChange={formik.handleChange}
             value={formik.values.assetType || ""}
+            isRequired
           />
           <TextField
             label="Valor comercial"
@@ -91,6 +92,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El valor comercial es válido"
+            isRequired
           />
           <TextField
             label="Saldo de la deuda"
@@ -106,6 +108,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El saldo de la deuda es válido"
+            isRequired
           />
           <TextField
             label="Entidad financiera"
@@ -121,6 +124,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El nombre de la entidad es válido"
+            isRequired
           />
           <TextField
             label="Cuota"
@@ -136,6 +140,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El valor de la cuota es válido"
+            isRequired
           />
           <TextField
             label="Observaciones"

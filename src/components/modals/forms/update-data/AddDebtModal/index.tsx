@@ -76,6 +76,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             state={stateValue("liabilityType")}
             handleChange={formik.handleChange}
             value={formik.values.liabilityType || ""}
+            isRequired
           />
           <TextField
             label="Fecha de terminación"
@@ -91,6 +92,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="La fecha de terminación es válida"
+            isRequired
           />
           <TextField
             label="Saldo de la deuda"
@@ -106,6 +108,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El saldo de la deuda es válido"
+            isRequired
           />
           <TextField
             label="Entidad financiera"
@@ -121,6 +124,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El nombre de la entidad es válido"
+            isRequired
           />
           <TextField
             label="Cuota"
@@ -136,6 +140,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El valor de la cuota es válido"
+            isRequired
           />
           <TextField
             label="Observaciones"
