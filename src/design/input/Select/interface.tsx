@@ -95,7 +95,7 @@ function SelectUI(props: SelectUIProps) {
 
         {isRequired && !isDisabled && (
           <Text type="body" size="small" appearance="dark">
-            (Required)
+            (Requerido)
           </Text>
         )}
       </StyledContainerLabel>
