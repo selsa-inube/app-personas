@@ -8,6 +8,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
+import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
@@ -43,6 +44,12 @@ const renderStepContent = (
         <PersonalReferencesForm
           initialValues={updateData.personalReferences}
           ref={formReferences.personalReferences}
+        />
+      )}
+      {currentStep === updateDataSteps.financialOperations.id && (
+        <FinancialOperationsForm
+          initialValues={updateData.financialOperations}
+          ref={formReferences.financialOperations}
         />
       )}
     </>
