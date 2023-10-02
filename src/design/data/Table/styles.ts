@@ -8,6 +8,7 @@ const StyledTableContainer = styled.div`
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
   overflow: hidden;
+  width: 100%;
 `;
 
 const StyledTable = styled.table`

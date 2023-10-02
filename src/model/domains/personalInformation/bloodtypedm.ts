@@ -1,4 +1,3 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const bloodTypeData = {
@@ -36,13 +35,14 @@ const bloodTypeData = {
   },
 };
 
-const bloodTypeDM: typeof bloodTypeData & {
-  list: string[];
-  options: ISelectOption[];
-} = {
+const bloodTypeDMValueOf = (id: string) =>
+  convertDomainToOptions(bloodTypeData).find((city) => city.id === id);
+
+const bloodTypeDM = {
   ...bloodTypeData,
   list: convertDomainToList(bloodTypeData),
   options: convertDomainToOptions(bloodTypeData),
+  valueOf: bloodTypeDMValueOf,
 };
 
 export { bloodTypeDM };

@@ -2,9 +2,10 @@ import { ICommitment } from "src/model/entity/product";
 
 const savingsCommitmentsMock: ICommitment[] = [
   {
-    id: "200-0001",
+    id: "2 - 236607895",
     title: "Obligaciones estatutarias",
-    description: "Compromiso de ahorro",
+    description: "2 - 236607895",
+    type: "0S",
     attributes: [
       {
         id: "next_pay_date",
@@ -39,9 +40,10 @@ const savingsCommitmentsMock: ICommitment[] = [
     products: ["201-91214069", "200-91214069"],
   },
   {
-    id: "200-0002",
+    id: "2 - 23110125",
     title: "Abono a cuenta",
-    description: "Compromiso de ahorro",
+    description: "2 - 23110125",
+    type: "SC",
     attributes: [
       {
         id: "next_pay_date",
@@ -69,7 +71,7 @@ const savingsCommitmentsMock: ICommitment[] = [
         value: "Mensual",
       },
     ],
-    products: ["013001157292"],
+    products: ["013001162025"],
   },
 ];
 

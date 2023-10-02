@@ -2,6 +2,7 @@ import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { AttributesModal } from "@components/modals/AttributesModal";
+import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
@@ -18,7 +19,6 @@ import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineAssignmentTurnedIn,
-  MdOutlinePaid,
 } from "react-icons/md";
 import {
   savingsAccountMovementsTableActions,
@@ -30,9 +30,13 @@ import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
-import { savingsAccountBox } from "./config/saving";
+import { savingCommitmentsIcons, savingsAccountBox } from "./config/saving";
 import { StyledMovementsContainer } from "./styles";
-import { IBeneficiariesModalState, ISelectedProductState } from "./types";
+import {
+  IBeneficiariesModalState,
+  ICommitmentsModalState,
+  ISelectedProductState,
+} from "./types";
 
 interface SavingsAccountUIProps {
   isMobile?: boolean;
@@ -40,8 +44,10 @@ interface SavingsAccountUIProps {
   productsOptions: ISelectOption[];
   beneficiariesModal: IBeneficiariesModalState;
   productId?: string;
-  handleToggleModal: () => void;
+  handleToggleBeneficiariesModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  commitmentsModal: ICommitmentsModalState;
+  handleToggleCommitmentsModal: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -51,8 +57,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     productsOptions,
     beneficiariesModal,
     productId,
-    handleToggleModal,
+    handleToggleBeneficiariesModal,
     handleChangeProduct,
+    commitmentsModal,
+    handleToggleCommitmentsModal,
   } = props;
 
   const mquery = useMediaQuery("(min-width: 1400px)");
@@ -91,11 +99,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             title={selectedProduct.saving.title}
             subtitle={selectedProduct.saving.id}
             tags={selectedProduct.saving.tags}
-            button={{
-              label: "Compromisos de ahorro",
-              icon: <MdOutlinePaid />,
-              path: ``,
-            }}
             {...savingsAccountBox(selectedProduct.saving.type)}
           >
             <Stack direction="column" gap="s100">
@@ -111,11 +114,17 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   />
                 ))}
                 <BoxAttribute
-                  key="beneficiariesAttr"
                   label="Beneficiarios:"
                   buttonIcon={<MdOpenInNew />}
                   buttonValue={beneficiariesModal.data.length}
-                  onClickButton={handleToggleModal}
+                  onClickButton={handleToggleBeneficiariesModal}
+                  withButton
+                />
+                <BoxAttribute
+                  label="Compromisos de ahorro:"
+                  buttonIcon={<MdOpenInNew />}
+                  buttonValue={commitmentsModal.data.length}
+                  onClickButton={handleToggleCommitmentsModal}
                   withButton
                 />
               </Grid>
@@ -155,8 +164,16 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           portalId="modals"
           title="Beneficiarios"
           description="Porcentaje de participación"
-          onCloseModal={handleToggleModal}
+          onCloseModal={handleToggleBeneficiariesModal}
           attributes={beneficiariesModal.data}
+        />
+      )}
+      {commitmentsModal.show && (
+        <SavingCommitmentsModal
+          portalId="modals"
+          onCloseModal={handleToggleCommitmentsModal}
+          commitments={commitmentsModal.data}
+          commitmentsIcons={savingCommitmentsIcons}
         />
       )}
     </>

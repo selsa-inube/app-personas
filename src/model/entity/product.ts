@@ -36,9 +36,12 @@ interface IAmortization {
   projectedBalance: number;
 }
 
+type CommitmentType = "AP" | "0S" | "SC";
+
 interface ICommitment {
   id: string;
   title: string;
+  type: CommitmentType;
   description?: string;
   attributes: IAttribute[];
   products: string[];

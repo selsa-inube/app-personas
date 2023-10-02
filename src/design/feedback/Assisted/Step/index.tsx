@@ -1,29 +1,29 @@
-import { StyledStep, StyledLine } from "./styles";
+import { StyledLine, StyledStepContainer } from "./styles";
 
 interface StepProps {
   stepNumber: number;
-  currentStep: number;
-  lastStep: number;
+  currentStepIndex: number;
+  lastStepIndex: number;
   smallScreen: boolean;
 }
 
 function Step(props: StepProps) {
-  const { stepNumber, currentStep, lastStep, smallScreen } = props;
-  const isLastStep: boolean = stepNumber === lastStep;
-  const isPreviousStep: boolean = stepNumber < currentStep;
-  const isCurrentStep: boolean = stepNumber === currentStep;
+  const { stepNumber, currentStepIndex, lastStepIndex, smallScreen } = props;
+
+  const isFirstStep = stepNumber === 0;
+  const isLastStep = stepNumber === lastStepIndex;
+  const isPreviousStep = stepNumber < currentStepIndex;
+  const isCurrentStep = stepNumber === currentStepIndex;
 
   return (
-    <>
-      <StyledStep
+    <StyledStepContainer isFirstStep={isFirstStep} isLastStep={isLastStep}>
+      <StyledLine
+        isFirstStep={isFirstStep}
         isPreviousStep={isPreviousStep}
-        currentStep={isCurrentStep}
         smallScreen={smallScreen}
+        isCurrentStep={isCurrentStep}
       />
-      {!isLastStep && (
-        <StyledLine isPreviousStep={isPreviousStep} smallScreen={smallScreen} />
-      )}
-    </>
+    </StyledStepContainer>
   );
 }
 
