@@ -19,7 +19,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
     return "valid";
   }
 
-  const mquery = useMediaQuery("(max-width: 750px)");
+  const mquery = useMediaQuery("(max-width: 1100px)");
 
   return (
     <form>
