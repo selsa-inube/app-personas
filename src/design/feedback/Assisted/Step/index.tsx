@@ -2,18 +2,18 @@ import { StyledLine, StyledStepContainer } from "./styles";
 
 interface StepProps {
   stepNumber: number;
-  currentStep: number;
-  lastStep: number;
+  currentStepIndex: number;
+  lastStepIndex: number;
   smallScreen: boolean;
 }
 
 function Step(props: StepProps) {
-  const { stepNumber, currentStep, lastStep, smallScreen } = props;
+  const { stepNumber, currentStepIndex, lastStepIndex, smallScreen } = props;
 
-  const isFirstStep = stepNumber === 1;
-  const isLastStep = stepNumber === lastStep;
-  const isPreviousStep = stepNumber < currentStep;
-  const isCurrentStep = stepNumber === currentStep;
+  const isFirstStep = stepNumber === 0;
+  const isLastStep = stepNumber === lastStepIndex;
+  const isPreviousStep = stepNumber < currentStepIndex;
+  const isCurrentStep = stepNumber === currentStepIndex;
 
   return (
     <StyledStepContainer isFirstStep={isFirstStep} isLastStep={isLastStep}>

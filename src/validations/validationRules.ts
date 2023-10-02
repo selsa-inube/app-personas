@@ -41,15 +41,19 @@ const validationRules = {
     .min(8, validationMessages.minCharacters(8))
     .max(30, validationMessages.maxCharacters(30)),
 
-  birthDate: Yup.string()
+  date: Yup.string()
     .matches(regex.date, validationMessages.validBirthDate)
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 
-  expeditionDate: Yup.string()
-    .matches(regex.date, validationMessages.validExpeditionDate)
-    .min(11, validationMessages.minCharacters(11))
-    .max(11, validationMessages.maxCharacters(11)),
+  money: Yup.string()
+    .matches(regex.onlyNumbers)
+    .min(1, validationMessages.minNumbers(1))
+    .max(10, validationMessages.maxNumbers(20)),
+
+  address: Yup.string()
+    .min(5, validationMessages.minCharacters(5))
+    .max(100, validationMessages.maxCharacters(100)),
 };
 
 export { validationRules };

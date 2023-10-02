@@ -3,20 +3,34 @@ import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { updateDataSteps } from "./config/assisted";
 import { mapPersonalInformation } from "./config/mappers";
+import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
+import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
+import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
 
 function UpdateData() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(
+    updateDataSteps.personalInformation.id
+  );
   const steps = Object.values(updateDataSteps);
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: mapPersonalInformation(usersMock[0]),
+    personalAssets: { entries: [] },
+    personalDebts: { entries: [] },
+    personalReferences: { entries: [] },
   });
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
-
+  const personalAssetsRef = useRef<FormikProps<IPersonalAssetEntries>>(null);
+  const personalDebtsRef = useRef<FormikProps<IPersonalDebtEntries>>(null);
+  const personalReferencesRef = useRef<FormikProps<IPersonalReferenceEntries>>(null);
+    
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
+    personalAssets: personalAssetsRef,
+    personalDebts: personalDebtsRef,
+    personalReferences: personalReferencesRef,
   };
 
   const handleStepChange = (stepId: number) => {

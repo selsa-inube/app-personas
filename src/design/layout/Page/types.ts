@@ -6,7 +6,12 @@ interface IHeader {
   username: string;
   client?: string;
   links?: IHeaderLink[];
+  portalId: string;
+  logoutPath: string;
+  logoutTitle: string;
+  navigation: INav;
 }
+
 interface INav {
   title?: string;
   sections: ISection[];
