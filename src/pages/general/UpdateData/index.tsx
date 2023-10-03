@@ -2,14 +2,21 @@ import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { updateDataSteps } from "./config/assisted";
-import { mapPersonalInformation, mapPersonalResidence } from "./config/mappers";
+import {
+  mapFinancialOperations,
+  mapPersonalInformation,
+  mapContactData,
+  mapPersonalResidence,
+} from "./config/mappers";
+import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
 import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
 import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
+import { IContactDataEntry } from "./forms/ContactDataForm/types";
+import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "./forms/PersonalResidenceForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
-import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
 
 function UpdateData() {
   const [currentStep, setCurrentStep] = useState(
@@ -18,24 +25,32 @@ function UpdateData() {
   const steps = Object.values(updateDataSteps);
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: mapPersonalInformation(usersMock[0]),
+    contactData: mapContactData(usersMock[0].contact[0]),
     personalAssets: { entries: [] },
     personalDebts: { entries: [] },
     personalReferences: { entries: [] },
+    financialOperations: mapFinancialOperations(),
     personalResidence: mapPersonalResidence(usersMock[0].personalResidence),
   });
+
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
+  const contactDataRef = useRef<FormikProps<IContactDataEntry>>(null);
   const personalAssetsRef = useRef<FormikProps<IPersonalAssetEntries>>(null);
   const personalDebtsRef = useRef<FormikProps<IPersonalDebtEntries>>(null);
   const personalReferencesRef =
     useRef<FormikProps<IPersonalReferenceEntries>>(null);
+  const financialOperationsRef =
+    useRef<FormikProps<IFinancialOperationsEntry>>(null);
   const personalResidenceRef =
     useRef<FormikProps<IPersonalResidenceEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
+    contactData: contactDataRef,
     personalAssets: personalAssetsRef,
     personalDebts: personalDebtsRef,
     personalReferences: personalReferencesRef,
+    financialOperations: financialOperationsRef,
     personalResidence: personalResidenceRef,
   };
 

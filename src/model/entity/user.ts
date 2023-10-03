@@ -19,6 +19,8 @@ interface IPersonalData {
 }
 
 interface IContactData {
+  id: string;
+  country: string;
   address: string;
   department: string;
   city: string;
@@ -56,7 +58,7 @@ interface IPersonalResidence {
 
 interface IThird {
   personalData: IPersonalData;
-  contact: IContactData;
+  contact: IContactData[];
   familyGroup?: IFamilyThird[];
   personalResidence: IPersonalResidence;
 }
