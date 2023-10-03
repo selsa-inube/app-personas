@@ -38,9 +38,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     onSubmit: handleSubmit || (() => {}),
   });
 
-  useImperativeHandle(ref, () => ({
-    ...formik,
-  }));
+  useImperativeHandle(ref, () => formik);
 
   return <ContactDataFormUI loading={loading} formik={formik} />;
 });
