@@ -79,6 +79,17 @@ const usersMock: IThird[] = [
         },
       },
     ],
+    personalResidence: {
+      type: "",
+      stratum: "",
+      bankingEntity: "",
+      dueDate: "",
+      tenant: "",
+      tenantCellPhone: "",
+      ownerName: "",
+      relationship: "",
+      ownerCellPhone: "",
+    },
   },
 ];
 

@@ -67,7 +67,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
     return "1fr";
   }};
 
-  border: 1px solid
+  outline: 1px solid
     ${({ theme, isDisabled, state, isFocused }) => {
       if (isDisabled) {
         return (
@@ -141,10 +141,8 @@ const StyledInput = styled.input<IStyledInput>`
         theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
       );
     }
-    if (readOnly){
-      return (
-        theme.color?.text?.gray?.hover || inube.color.text.gray.hover
-      )
+    if (readOnly) {
+      return theme.color?.text?.gray?.hover || inube.color.text.gray.hover;
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
@@ -156,9 +154,7 @@ const StyledInput = styled.input<IStyledInput>`
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
   height: ${({ $size }) =>
-    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s500}`};
-
-  border: none;
+    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s400}`};
 
   ::placeholder {
     color: ${({ theme }) =>

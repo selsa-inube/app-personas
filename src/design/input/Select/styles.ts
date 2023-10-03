@@ -51,7 +51,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
     (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
   grid-template-columns: 1fr auto;
-  border: 1px solid
+  outline: 1px solid
     ${({ theme, isDisabled, state, isFocused }) => {
       if (isDisabled) {
         return (

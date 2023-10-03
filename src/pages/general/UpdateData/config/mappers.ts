@@ -1,5 +1,7 @@
 import { IThird } from "src/model/entity/user";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
+import { IPersonalResidence } from "src/model/entity/user";
+import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -22,4 +24,20 @@ const mapPersonalInformation = (
   };
 };
 
-export { mapPersonalInformation };
+const mapPersonalResidence = (
+  personalResidence: IPersonalResidence
+): IPersonalResidenceEntry => {
+  return {
+    type: personalResidence.type,
+    stratum: personalResidence.stratum,
+    bankingEntity: personalResidence.bankingEntity,
+    dueDate: personalResidence.dueDate,
+    tenant: personalResidence.tenant,
+    tenantCellPhone: personalResidence.tenantCellPhone,
+    ownerName: personalResidence.ownerName,
+    relationship: personalResidence.relationship,
+    ownerCellPhone: personalResidence.ownerCellPhone,
+  };
+};
+
+export { mapPersonalInformation, mapPersonalResidence };

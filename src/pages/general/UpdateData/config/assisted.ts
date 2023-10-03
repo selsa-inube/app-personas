@@ -32,8 +32,13 @@ const updateDataSteps = {
     description:
       "Diligencia la información de aquellas personas que te conocen.",
   },
-  verification: {
+  personalResidence: {
     id: 7,
+    name: "Residencia personal",
+    description: "Diligencia la información del inmueble donde vives.",
+  },
+  verification: {
+    id: 8,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",

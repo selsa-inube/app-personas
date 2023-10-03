@@ -42,10 +42,23 @@ interface IFamilyThird {
   };
 }
 
+interface IPersonalResidence {
+  type: string;
+  stratum: string;
+  bankingEntity: string;
+  dueDate: string;
+  tenant: string;
+  tenantCellPhone: string;
+  ownerName: string;
+  relationship: string;
+  ownerCellPhone: string;
+}
+
 interface IThird {
   personalData: IPersonalData;
   contact: IContactData;
   familyGroup?: IFamilyThird[];
+  personalResidence: IPersonalResidence;
 }
 
 export type {
@@ -53,5 +66,6 @@ export type {
   IFamilyThird,
   IIdentification,
   IPersonalData,
+  IPersonalResidence,
   IThird,
 };

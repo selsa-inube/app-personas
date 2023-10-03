@@ -2,11 +2,15 @@ import { ISelectOption } from "@design/input/Select/types";
 import { assetTypeData } from "./assetType";
 import { liabilityTypeData } from "./liabilityType";
 import { referenceTypeData } from "./referenceType";
+import { personalResidenceTypeData } from "./personalResidenceType";
+import { stratumDate } from "./stratum";
 
 const domains: Record<string, ISelectOption[]> = {
   assetType: assetTypeData,
   liabilityType: liabilityTypeData,
   referenceType: referenceTypeData,
+  personalResidenceType: personalResidenceTypeData,
+  stratum: stratumDate,
 };
 
 function getDomainById(domainId: string) {
