@@ -32,8 +32,14 @@ const updateDataSteps = {
     description:
       "Diligencia la información de aquellas personas que te conocen.",
   },
-  verification: {
+  financialOperations: {
     id: 7,
+    name: "Operaciones financieras",
+    description:
+      "Diligencia la información si realizas operaciones financieras en el exterior.",
+  },
+  verification: {
+    id: 8,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",

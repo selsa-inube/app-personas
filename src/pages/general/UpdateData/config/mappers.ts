@@ -1,4 +1,5 @@
-import { IContactData, IThird } from "src/model/entity/user";
+import { IThird, IContactData } from "src/model/entity/user";
+import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 
@@ -37,4 +38,14 @@ const mapContactData = (contactInfoData: IContactData): IContactDataEntry => {
   };
 };
 
-export { mapPersonalInformation, mapContactData };
+const mapFinancialOperations = (
+  financialOperationsData?: Record<string, string>
+): IFinancialOperationsEntry => {
+  return {
+    hasForeignCurrencyAccounts: financialOperationsData?.financialOperations,
+    hasForeignCurrencyTransactions:
+      financialOperationsData?.financialOperations,
+  };
+};
+
+export { mapFinancialOperations, mapPersonalInformation, mapContactData };
