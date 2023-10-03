@@ -8,19 +8,19 @@ import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 
 interface IFormsUpdateData {
   personalInformation: IPersonalInformationEntry;
+  bankTransfers: IBankTransfersEntry;
   personalAssets: IPersonalAssetEntries;
   personalDebts: IPersonalDebtEntries;
   personalReferences: IPersonalReferenceEntries;
-  bankTransfers: IBankTransfersEntry;
   financialOperations: IFinancialOperationsEntry;
 }
 
 interface IFormsUpdateDataRefs {
   personalInformation: React.RefObject<FormikProps<IPersonalInformationEntry>>;
+  bankTransfers: React.RefObject<FormikProps<IBankTransfersEntry>>;
   personalAssets: React.RefObject<FormikProps<IPersonalAssetEntries>>;
   personalDebts: React.RefObject<FormikProps<IPersonalDebtEntries>>;
   personalReferences: React.RefObject<FormikProps<IPersonalReferenceEntries>>;
-  bankTransfers: React.RefObject<FormikProps<IBankTransfersEntry>>;
   financialOperations: React.RefObject<FormikProps<IFinancialOperationsEntry>>;
 }
 

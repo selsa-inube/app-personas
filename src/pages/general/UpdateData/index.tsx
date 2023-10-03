@@ -30,20 +30,20 @@ function UpdateData() {
     financialOperations: mapFinancialOperations(),
   });
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
+  const bankTransfersRef = useRef<FormikProps<IBankTransfersEntry>>(null);
   const personalAssetsRef = useRef<FormikProps<IPersonalAssetEntries>>(null);
   const personalDebtsRef = useRef<FormikProps<IPersonalDebtEntries>>(null);
   const personalReferencesRef =
     useRef<FormikProps<IPersonalReferenceEntries>>(null);
-  const bankTransfersRef = useRef<FormikProps<IBankTransfersEntry>>(null);
   const financialOperationsRef =
     useRef<FormikProps<IFinancialOperationsEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
+    bankTransfers: bankTransfersRef,
     personalAssets: personalAssetsRef,
     personalDebts: personalDebtsRef,
     personalReferences: personalReferencesRef,
-    bankTransfers: bankTransfersRef,
     financialOperations: financialOperationsRef,
   };
 

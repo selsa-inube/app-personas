@@ -29,6 +29,12 @@ const renderStepContent = (
           ref={formReferences.personalInformation}
         />
       )}
+      {currentStep === updateDataSteps.bankTransfers.id && (
+        <BankTransfersForm
+          initialValues={updateData.bankTransfers}
+          ref={formReferences.bankTransfers}
+        />
+      )}
       {currentStep === updateDataSteps.personalAssets.id && (
         <PersonalAssetsForm
           initialValues={updateData.personalAssets}
@@ -39,12 +45,6 @@ const renderStepContent = (
         <PersonalDebtsForm
           initialValues={updateData.personalDebts}
           ref={formReferences.personalDebts}
-        />
-      )}
-      {currentStep === updateDataSteps.bankTransfers.id && (
-        <BankTransfersForm
-          initialValues={updateData.bankTransfers}
-          ref={formReferences.bankTransfers}
         />
       )}
       {currentStep === updateDataSteps.personalReferences.id && (
