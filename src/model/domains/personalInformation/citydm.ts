@@ -25,4 +25,4 @@ const cityDM = {
   valueOf: cityDMValueOf,
 };
 
-export { cityDM, cityDMValueOf };
+export { cityDM };
