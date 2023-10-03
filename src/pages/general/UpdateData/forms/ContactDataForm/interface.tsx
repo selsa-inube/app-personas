@@ -4,7 +4,7 @@ import { Fieldset } from "@design/input/Fieldset";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
+import { cityDMValueOf } from "src/model/domains/personalInformation/citydm";
 
 interface ContactDataFormUIProps {
   formik: FormikValues;
@@ -71,7 +71,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Ciudad"
             name="city"
             id="city"
-            value={cityDM.BOGOTA.value}
+            value={cityDMValueOf(formik.values.city)?.value}
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.city}
             isDisabled={loading}
