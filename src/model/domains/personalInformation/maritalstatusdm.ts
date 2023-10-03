@@ -24,13 +24,14 @@ const maritalStatusData = {
   },
 };
 
-const maritalStatusDM: typeof maritalStatusData & {
-  list: string[];
-  options: ISelectOption[];
-} = {
+const maritalStatusDMValueOf = (id: string) =>
+  convertDomainToOptions(maritalStatusData).find((city) => city.id === id);
+
+const maritalStatusDM = {
   ...maritalStatusData,
   list: convertDomainToList(maritalStatusData),
   options: convertDomainToOptions(maritalStatusData),
+  valueOf: maritalStatusDMValueOf,
 };
 
 export { maritalStatusDM };

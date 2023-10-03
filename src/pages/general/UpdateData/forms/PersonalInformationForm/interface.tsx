@@ -113,12 +113,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("expeditionPlace")}
           handleChange={formik.handleChange}
-          validMessage="El lugar de expedición es válido"
         />
 
         <TextField
           label="Fecha de expedición"
-          placeholder="Fecha de expedición"
+          placeholder="Ejemplo: 01/Ene/1990"
           name="expeditionDate"
           id="expeditionDate"
           value={formik.values.expeditionDate}
@@ -136,7 +135,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
 
         <TextField
           label="Fecha de nacimiento"
-          placeholder="Fecha de nacimiento"
+          placeholder="Ejemplo: 01/Ene/1990"
           name="birthDate"
           id="birthDate"
           value={formik.values.birthDate}
@@ -165,7 +164,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("city")}
           handleChange={formik.handleChange}
-          validMessage="La ciudad de nacimiento es válida"
         />
 
         <Select
@@ -181,7 +179,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("gender")}
           handleChange={formik.handleChange}
-          validMessage="El género es válido"
         />
 
         <Select
@@ -197,7 +194,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("maritalStatus")}
           handleChange={formik.handleChange}
-          validMessage="El estado civil es válido"
         />
 
         <Select
@@ -213,7 +209,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           state={stateValue("bloodType")}
           handleChange={formik.handleChange}
-          validMessage="El factor RH es válido"
         />
       </Grid>
     </form>

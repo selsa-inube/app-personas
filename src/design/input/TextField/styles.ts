@@ -141,10 +141,8 @@ const StyledInput = styled.input<IStyledInput>`
         theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
       );
     }
-    if (readOnly){
-      return (
-        theme.color?.text?.gray?.hover || inube.color.text.gray.hover
-      )
+    if (readOnly) {
+      return theme.color?.text?.gray?.hover || inube.color.text.gray.hover;
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
@@ -155,8 +153,7 @@ const StyledInput = styled.input<IStyledInput>`
   border: none;
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
-  height: ${({ $size }) =>
-    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s500}`};
+  height: ${({ $size }) => ($size === "compact" ? "22px" : "30px")};
 
   border: none;
 
