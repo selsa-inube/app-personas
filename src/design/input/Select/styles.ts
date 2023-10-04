@@ -42,6 +42,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   align-items: center;
   box-sizing: border-box;
   user-select: none;
+  cursor: ${({ readOnly }) => readOnly && "not-allowed"};
   border-radius: ${inube.spacing.s100};
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
@@ -88,7 +89,7 @@ interface IStyledInput {
 const StyledInput = styled.input<IStyledInput>`
   cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   outline: none;
-
+  cursor: ${({ $readOnly }) => $readOnly && "not-allowed"};
   font-family: ${({ theme }) =>
     theme.typography?.body?.medium?.font || inube.typography.body.medium.font};
   font-size: ${({ theme }) =>

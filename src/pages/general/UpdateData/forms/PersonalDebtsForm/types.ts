@@ -2,9 +2,9 @@ interface IPersonalDebtEntry {
   id?: string;
   liabilityType?: string;
   terminationDate?: string;
-  debtBalance?: number;
+  debtBalance?: string;
   financialEntity?: string;
-  quota?: number;
+  quota?: string;
   observations?: string;
 }
 

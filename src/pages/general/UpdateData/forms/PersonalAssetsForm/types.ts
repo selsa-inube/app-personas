@@ -1,10 +1,10 @@
 interface IPersonalAssetEntry {
   id?: string;
   assetType?: string;
-  commercialValue?: number;
-  debtBalance?: number;
+  commercialValue?: string;
+  debtBalance?: string;
   financialEntity?: string;
-  quota?: number;
+  quota?: string;
   observations?: string;
 }
 

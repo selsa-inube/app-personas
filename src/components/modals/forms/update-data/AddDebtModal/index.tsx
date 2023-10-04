@@ -10,7 +10,10 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
+import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledDivider, StyledModal } from "./styles";
+
+const liabilityTypeDM = getDomainById("liabilityType");
 
 interface AddDebtModalProps {
   portalId: string;
@@ -31,13 +34,21 @@ function AddDebtModal(props: AddDebtModalProps) {
     );
   }
 
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
+  const stateValue = (fieldName: string) => {
+    if (!formik.touched[fieldName]) return "pending";
+    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
     return "valid";
-  }
+  };
 
-  const liabilityTypeDM = getDomainById("liabilityType");
+  const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
+    formik.setFieldValue(e.target.name, parseCurrencyString(e.target.value));
+  };
+
+  const validateCurrencyField = (fieldName: string) => {
+    return typeof formik.values[fieldName] === "number"
+      ? currencyFormat(formik.values[fieldName])
+      : "";
+  };
 
   return createPortal(
     <Blanket>
@@ -76,13 +87,14 @@ function AddDebtModal(props: AddDebtModalProps) {
             state={stateValue("liabilityType")}
             handleChange={formik.handleChange}
             value={formik.values.liabilityType || ""}
+            isRequired
           />
           <TextField
             label="Fecha de terminación"
             name="terminationDate"
             id="terminationDate"
             placeholder="Digite la fecha de terminación"
-            value={formik.values.terminationDate|| ""}
+            value={formik.values.terminationDate || ""}
             type="text"
             errorMessage={formik.errors.terminationDate}
             size="compact"
@@ -91,20 +103,21 @@ function AddDebtModal(props: AddDebtModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="La fecha de terminación es válida"
+            isRequired
           />
           <TextField
             label="Saldo de la deuda"
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={formik.values.debtBalance|| ""}
+            value={validateCurrencyField("debtBalance")}
             type="text"
             errorMessage={formik.errors.debtBalance}
             size="compact"
             isFullWidth
             state={stateValue("debtBalance")}
             handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            handleChange={handleChangeWithCurrency}
             validMessage="El saldo de la deuda es válido"
           />
           <TextField
@@ -112,7 +125,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="financialEntity"
             id="financialEntity"
             placeholder="Digite el nombre de la entidad"
-            value={formik.values.financialEntity|| ""}
+            value={formik.values.financialEntity || "0"}
             type="text"
             errorMessage={formik.errors.financialEntity}
             size="compact"
@@ -127,14 +140,14 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={formik.values.quota|| ""}
+            value={validateCurrencyField("quota")}
             type="text"
             errorMessage={formik.errors.quota}
             size="compact"
             isFullWidth
             state={stateValue("quota")}
             handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            handleChange={handleChangeWithCurrency}
             validMessage="El valor de la cuota es válido"
           />
           <TextField
@@ -166,7 +179,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             spacing="compact"
             handleClick={onAddDebt}
             disabled={!formik.isValid}
-            appearance="gray"
+            appearance="primary"
           >
             Adicionar
           </Button>
