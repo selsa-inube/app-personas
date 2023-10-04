@@ -32,11 +32,11 @@ function AddReferenceModal(props: AddReferenceModalProps) {
     );
   }
 
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
+  const stateValue = (fieldName: string) => {
+    if (!formik.touched[fieldName]) return "pending";
+    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
     return "valid";
-  }
+  };
 
   const referenceTypeDM = getDomainById("referenceType");
 
@@ -170,8 +170,8 @@ function AddReferenceModal(props: AddReferenceModalProps) {
           <Button
             spacing="compact"
             handleClick={onAddReference}
-            disabled={!formik.isValid}
-            appearance="gray"
+            disabled={!formik.dirty || !formik.isValid}
+            appearance="primary"
           >
             Adicionar
           </Button>
