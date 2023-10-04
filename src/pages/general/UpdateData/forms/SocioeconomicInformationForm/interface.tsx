@@ -84,7 +84,7 @@ function SocioeconomicInformationFormUI(
           handleChange={formik.handleChange}
           validMessage="El número ingresado es correcto"
           isFullWidth
-          //isRequired
+          isRequired
         />
         <Select
           label="Población vulnerable"
