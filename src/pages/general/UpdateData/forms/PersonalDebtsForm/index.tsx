@@ -10,9 +10,9 @@ import { IPersonalDebtEntries } from "./types";
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
   terminationDate: validationRules.date.required(validationMessages.required),
-  debtBalance: validationRules.money.required(validationMessages.required),
-  financialEntity: validationRules.name.required(validationMessages.required),
-  quota: validationRules.money.required(validationMessages.required),
+  debtBalance: validationRules.money,
+  financialEntity: validationRules.name,
+  quota: validationRules.money,
 });
 
 interface PersonalDebtsFormProps {

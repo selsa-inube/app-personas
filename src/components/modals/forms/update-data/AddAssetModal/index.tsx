@@ -76,6 +76,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             state={stateValue("assetType")}
             handleChange={formik.handleChange}
             value={formik.values.assetType || ""}
+            isRequired
           />
           <TextField
             label="Valor comercial"
@@ -91,6 +92,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El valor comercial es válido"
+            isRequired
           />
           <TextField
             label="Saldo de la deuda"

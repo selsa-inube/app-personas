@@ -81,6 +81,11 @@ const validationRules = {
   address: Yup.string()
     .min(5, validationMessages.minCharacters(5))
     .max(100, validationMessages.maxCharacters(100)),
+
+  accountNumber: Yup.string()
+    .matches(regex.onlyNumbers)
+    .min(11, validationMessages.minNumbers(11))
+    .max(11, validationMessages.maxNumbers(11)),
 };
 
 export { validationRules };

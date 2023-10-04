@@ -2,6 +2,8 @@ import { IThird, IContactData } from "src/model/entity/user";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
+import { IBankTransfersAccount } from "src/model/entity/user";
+import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IPersonalSocioEconomicInformationEntry } from "../forms/PersonalSocioEconomicInformation/types";
 
 const mapPersonalInformation = (
@@ -39,6 +41,16 @@ const mapContactData = (contactInfoData: IContactData): IContactDataEntry => {
   };
 };
 
+const mapBankTransfers = (
+  bankTransfersAccount: IBankTransfersAccount
+): IBankTransfersEntry => {
+  return {
+    bankingEntity: bankTransfersAccount.bankingEntity,
+    accountType: bankTransfersAccount.accountType,
+    accountNumber: bankTransfersAccount.accountNumber,
+  };
+};
+
 const mapFinancialOperations = (
   financialOperationsData?: Record<string, string>
 ): IFinancialOperationsEntry => {
@@ -64,4 +76,9 @@ const mapPersonalSocioeconomicInformation = (
   };
 };
 
-export { mapFinancialOperations, mapPersonalInformation, mapContactData, mapPersonalSocioeconomicInformation };
+export {
+  mapFinancialOperations,
+  mapPersonalInformation,
+  mapContactData, mapPersonalSocioeconomicInformation,
+  mapBankTransfers,
+};
