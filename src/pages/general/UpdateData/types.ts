@@ -7,6 +7,9 @@ import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 import { IPersonalSocioEconomicInformationEntry } from "./forms/PersonalSocioEconomicInformation/types";
+=========
+import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
+>>>>>>>>> Temporary merge branch 2
 
 interface IFormsUpdateData {
   personalInformation: IPersonalInformationEntry;

@@ -81,5 +81,5 @@ export {
   mapPersonalInformation,
   mapContactData, 
   mapBankTransfers,
-  mapPersonalSocioeconomicInformation,
+  mapPersonalSocioeconomicInformation
 };
