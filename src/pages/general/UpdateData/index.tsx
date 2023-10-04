@@ -16,7 +16,7 @@ import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
-import { IPersonalSocioEconomicInformationEntry } from "./forms/PersonalSocioEconomicInformation/types";
+import { ISocioeconomicInformationEntry } from "./forms/PersonalSocioEconomicInformation/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
@@ -46,7 +46,7 @@ function UpdateData() {
   const financialOperationsRef =
     useRef<FormikProps<IFinancialOperationsEntry>>(null);
   const personalSocioEconomicsRef =
-    useRef<FormikProps<IPersonalSocioEconomicInformationEntry>>(null);
+    useRef<FormikProps<ISocioeconomicInformationEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,

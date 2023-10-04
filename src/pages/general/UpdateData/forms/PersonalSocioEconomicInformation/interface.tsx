@@ -5,16 +5,16 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
-import { educationLevelTypeDM } from "src/model/domains/personalInformation/educationLeveldm";
-import { vulnerablePopulationTypeDM } from "src/model/domains/personalInformation/vulnerablePopulationdm";
+import { educationLevelTypeDM } from "src/model/domains/socioEconomicInformation/educationLeveldm";
+import { vulnerablePopulationTypeDM } from "src/model/domains/socioEconomicInformation/vulnerablePopulationdm";
 
-interface PersonalSocioEconomicInformationFormUIProps {
+interface SocioeconomicInformationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
 }
 
-function PersonalSocioEconomicInformationFormUI(
-  props: PersonalSocioEconomicInformationFormUIProps
+function SocioeconomicInformationFormUI(
+  props: SocioeconomicInformationFormUIProps
 ) {
   const { formik, loading } = props;
 
@@ -70,17 +70,21 @@ function PersonalSocioEconomicInformationFormUI(
         />
         <TextField
           label="Número de personas a cargo"
-          placeholder="Digite el numero de personas a cargo"
+          placeholder="Digite el número de personas a cargo"
           name="dependants"
           id="dependants"
           value={formik.values.dependants}
+          errorMessage={formik.errors.dependants}
           type="number"
           iconAfter={<MdOutlineModeEdit size={18} />}
+          state={stateValue("dependants")}
           isDisabled={loading}
           size="compact"
           handleBlur={formik.handleBlur}
           handleChange={formik.handleChange}
+          validMessage="El número ingresado es correcto"
           isFullWidth
+          isRequired
         />
         <Select
           label="Población vulnerable"
@@ -131,4 +135,4 @@ function PersonalSocioEconomicInformationFormUI(
   );
 }
 
-export { PersonalSocioEconomicInformationFormUI };
+export { SocioeconomicInformationFormUI };

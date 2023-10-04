@@ -4,7 +4,7 @@ import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/type
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IBankTransfersAccount } from "src/model/entity/user";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
-import { IPersonalSocioEconomicInformationEntry } from "../forms/PersonalSocioEconomicInformation/types";
+import { ISocioeconomicInformationEntry } from "../forms/PersonalSocioEconomicInformation/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -63,7 +63,7 @@ const mapFinancialOperations = (
 
 const mapPersonalSocioeconomicInformation = (
   personalSocioEconomicData?: Record<string, string>
-): IPersonalSocioEconomicInformationEntry => {
+): ISocioeconomicInformationEntry => {
   return {
     educationLevel: personalSocioEconomicData?.educationLevel || "",
     isResponsibleHome: personalSocioEconomicData?.isResponsibleHome || "",

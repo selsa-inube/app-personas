@@ -6,7 +6,7 @@ import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
-import { IPersonalSocioEconomicInformationEntry } from "./forms/PersonalSocioEconomicInformation/types";
+import { ISocioeconomicInformationEntry } from "./forms/PersonalSocioEconomicInformation/types";
 
 interface IFormsUpdateData {
   personalInformation: IPersonalInformationEntry;
@@ -16,7 +16,7 @@ interface IFormsUpdateData {
   personalDebts: IPersonalDebtEntries;
   personalReferences: IPersonalReferenceEntries;
   financialOperations: IFinancialOperationsEntry;
-  personalSocioEconomicInformation: IPersonalSocioEconomicInformationEntry;
+  personalSocioEconomicInformation: ISocioeconomicInformationEntry;
 }
 
 interface IFormsUpdateDataRefs {
@@ -27,7 +27,7 @@ interface IFormsUpdateDataRefs {
   personalDebts: React.RefObject<FormikProps<IPersonalDebtEntries>>;
   personalReferences: React.RefObject<FormikProps<IPersonalReferenceEntries>>;
   financialOperations: React.RefObject<FormikProps<IFinancialOperationsEntry>>;
-  personalSocioEconomicInformation: React.RefObject<FormikProps<IPersonalSocioEconomicInformationEntry>>;
+  personalSocioEconomicInformation: React.RefObject<FormikProps<ISocioeconomicInformationEntry>>;
 }
 
 export type { IFormsUpdateData, IFormsUpdateDataRefs };

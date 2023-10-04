@@ -1,32 +1,40 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
-import { IPersonalSocioEconomicInformationEntry } from "./types";
-import { PersonalSocioEconomicInformationFormUI } from "./interface";
+import { ISocioeconomicInformationEntry } from "./types";
+import { SocioeconomicInformationFormUI } from "./interface";
+import * as Yup from "yup";
+import { validationRules } from "src/validations/validationRules";
+import { validationMessages } from "src/validations/validationMessages";
 
-interface PersonalSocioEconomicInformationFormProps {
-  initialValues: IPersonalSocioEconomicInformationEntry;
-  handleSubmit?: (values: IPersonalSocioEconomicInformationEntry) => void;
+const validationSchema = Yup.object({
+  dependants: validationRules.dependants.required(validationMessages.required),
+});
+
+interface SocioeconomicInformationFormProps {
+  initialValues: ISocioeconomicInformationEntry;
+  handleSubmit?: (values: ISocioeconomicInformationEntry) => void;
   loading?: boolean;
 }
 
-const PersonalSocioEconomicInformationForm = forwardRef(
-  function PersonalSocioEconomicInformationForm(
-    props: PersonalSocioEconomicInformationFormProps,
-    ref: React.Ref<FormikProps<IPersonalSocioEconomicInformationEntry>>
+const SocioeconomicInformationForm = forwardRef(
+  function SocioeconomicInformationForm(
+    props: SocioeconomicInformationFormProps,
+    ref: React.Ref<FormikProps<ISocioeconomicInformationEntry>>
   ) {
     const { initialValues, handleSubmit, loading } = props;
 
     const formik = useFormik({
         initialValues,
+        validationSchema,
         validateOnChange: false,
         onSubmit: handleSubmit || (() => {}),
       });
 
       useImperativeHandle(ref, () => formik);
 
-      return <PersonalSocioEconomicInformationFormUI loading={loading} formik={formik} />;
+      return <SocioeconomicInformationFormUI loading={loading} formik={formik} />;
   }
 );
 
-export { PersonalSocioEconomicInformationForm };
-export type { PersonalSocioEconomicInformationFormProps };
+export { SocioeconomicInformationForm };
+export type { SocioeconomicInformationFormProps };

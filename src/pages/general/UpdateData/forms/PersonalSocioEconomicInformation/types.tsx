@@ -1,4 +1,4 @@
-interface IPersonalSocioEconomicInformationEntry {
+interface ISocioeconomicInformationEntry {
   educationLevel: string;
   isResponsibleHome: string;
   isSingleMother: string;
@@ -9,4 +9,4 @@ interface IPersonalSocioEconomicInformationEntry {
   isPublicOfficials: string;
 }
 
-export type { IPersonalSocioEconomicInformationEntry };
+export type { ISocioeconomicInformationEntry };
