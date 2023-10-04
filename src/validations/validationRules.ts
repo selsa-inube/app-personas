@@ -46,6 +46,33 @@ const validationRules = {
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 
+  expeditionDate: Yup.string()
+    .matches(regex.date, validationMessages.validExpeditionDate)
+    .min(11, validationMessages.minCharacters(11))
+    .max(11, validationMessages.maxCharacters(11)),
+
+  country: Yup.string()
+    .matches(regex.onlyLetters, validationMessages.validCountry)
+    .min(3, validationMessages.minCharacters(3))
+    .max(25, validationMessages.maxCharacters(25)),
+
+  stateOrDepartment: Yup.string()
+    .matches(regex.onlyLetters, validationMessages.validStateOrDepartment)
+    .max(25, validationMessages.maxCharacters(25)),
+
+  city: Yup.string()
+    .matches(regex.onlyLetters, validationMessages.validCity)
+    .max(25, validationMessages.maxCharacters(25)),
+
+  postalCode: Yup.string()
+    .matches(regex.onlyNumbers, validationMessages.validPostalCode)
+    .min(5, validationMessages.minNumbers(5))
+    .max(10, validationMessages.maxNumbers(10)),
+
+  landlinePhone: Yup.string()
+    .matches(regex.onlyNumbers, validationMessages.validLandlinePhone)
+    .min(8, validationMessages.minNumbers(8))
+    .max(10, validationMessages.maxNumbers(10)),
   money: Yup.string()
     .matches(regex.onlyNumbers)
     .min(1, validationMessages.minNumbers(1))

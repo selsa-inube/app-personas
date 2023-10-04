@@ -12,6 +12,7 @@ import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
+import { ContactDataForm } from "./forms/ContactDataForm";
 import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 import { PersonalSocioEconomicInformationForm } from "./forms/PersonalSocioEconomicInformation";
@@ -27,6 +28,12 @@ const renderStepContent = (
         <PersonalInformationForm
           initialValues={updateData.personalInformation}
           ref={formReferences.personalInformation}
+        />
+      )}
+      {currentStep === updateDataSteps.contactData.id && (
+        <ContactDataForm
+          initialValues={updateData.contactData}
+          ref={formReferences.contactData}
         />
       )}
       {currentStep === updateDataSteps.personalAssets.id && (
