@@ -5,10 +5,12 @@ import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
+import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 
 interface IFormsUpdateData {
   personalInformation: IPersonalInformationEntry;
   contactData: IContactDataEntry;
+  bankTransfers: IBankTransfersEntry;
   personalAssets: IPersonalAssetEntries;
   personalDebts: IPersonalDebtEntries;
   personalReferences: IPersonalReferenceEntries;
@@ -18,6 +20,7 @@ interface IFormsUpdateData {
 interface IFormsUpdateDataRefs {
   personalInformation: React.RefObject<FormikProps<IPersonalInformationEntry>>;
   contactData: React.RefObject<FormikProps<IContactDataEntry>>;
+  bankTransfers: React.RefObject<FormikProps<IBankTransfersEntry>>;
   personalAssets: React.RefObject<FormikProps<IPersonalAssetEntries>>;
   personalDebts: React.RefObject<FormikProps<IPersonalDebtEntries>>;
   personalReferences: React.RefObject<FormikProps<IPersonalReferenceEntries>>;
