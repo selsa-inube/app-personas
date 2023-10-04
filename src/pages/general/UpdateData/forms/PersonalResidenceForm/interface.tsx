@@ -55,7 +55,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           state={stateValue("stratum")}
           handleChange={formik.handleChange}
         />
-        {formik.values.type === residenceTypeDM.OWN_WITHOUT_MORTGAGE.id && (
+        {formik.values.type === residenceTypeDM.OWN_WITH_MORTGAGE.id && (
           <>
             <TextField
               label="Entidad bancaria"
