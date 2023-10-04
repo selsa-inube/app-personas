@@ -1,5 +1,9 @@
-import { IThird } from "src/model/entity/user";
+import { IThird, IContactData } from "src/model/entity/user";
+import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
+import { IContactDataEntry } from "../forms/ContactDataForm/types";
+import { IBankTransfersAccount } from "src/model/entity/user";
+import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -22,4 +26,43 @@ const mapPersonalInformation = (
   };
 };
 
-export { mapPersonalInformation };
+const mapContactData = (contactInfoData: IContactData): IContactDataEntry => {
+  return {
+    id: contactInfoData.id,
+    country: contactInfoData.country,
+    stateOrDepartment: contactInfoData.department,
+    city: contactInfoData.city,
+    address: contactInfoData.address,
+    postalCode: contactInfoData.zipCode || "",
+    landlinePhone: contactInfoData.landlinePhone || "",
+    cellPhone: contactInfoData.cellPhone,
+    email: contactInfoData.email,
+  };
+};
+
+const mapBankTransfers = (
+  bankTransfersAccount: IBankTransfersAccount
+): IBankTransfersEntry => {
+  return {
+    bankingEntity: bankTransfersAccount.bankingEntity,
+    accountType: bankTransfersAccount.accountType,
+    accountNumber: bankTransfersAccount.accountNumber,
+  };
+};
+
+const mapFinancialOperations = (
+  financialOperationsData?: Record<string, string>
+): IFinancialOperationsEntry => {
+  return {
+    hasForeignCurrencyAccounts: financialOperationsData?.financialOperations,
+    hasForeignCurrencyTransactions:
+      financialOperationsData?.financialOperations,
+  };
+};
+
+export {
+  mapFinancialOperations,
+  mapPersonalInformation,
+  mapContactData,
+  mapBankTransfers,
+};

@@ -87,6 +87,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             state={stateValue("liabilityType")}
             handleChange={formik.handleChange}
             value={formik.values.liabilityType || ""}
+            isRequired
           />
           <TextField
             label="Fecha de terminación"
@@ -102,6 +103,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="La fecha de terminación es válida"
+            isRequired
           />
           <TextField
             label="Saldo de la deuda"
