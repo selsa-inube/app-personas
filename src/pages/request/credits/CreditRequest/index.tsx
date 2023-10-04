@@ -48,8 +48,9 @@ function CreditRequest() {
           </Text>
 
           <Stack direction="column" gap="s300">
-            {creditRequestCards.map((card) => (
+            {creditRequestCards.map((card, index) => (
               <RequestCard
+                key={index}
                 title={card.title}
                 descriptions={card.descriptions}
                 onClick={() => handleCardNavigate(card.navigateTo)}

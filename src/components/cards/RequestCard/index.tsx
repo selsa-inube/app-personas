@@ -22,9 +22,9 @@ function RequestCard(props: RequestCardProps) {
         </Text>
 
         <Stack direction="column" gap="s150">
-          {descriptions.map((suggestion) => {
+          {descriptions.map((description, index) => {
             return (
-              <Stack gap="s100">
+              <Stack gap="s100" key={index}>
                 <Icon
                   icon={<MdOutlineStarBorder />}
                   appearance="primary"
@@ -32,7 +32,7 @@ function RequestCard(props: RequestCardProps) {
                   spacing="none"
                 />
                 <Text type="body" size="medium" appearance="gray">
-                  {suggestion}
+                  {description}
                 </Text>
               </Stack>
             );
@@ -46,3 +46,4 @@ function RequestCard(props: RequestCardProps) {
 }
 
 export { RequestCard };
+export type { RequestCardProps };
