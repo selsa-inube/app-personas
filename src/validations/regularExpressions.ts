@@ -6,7 +6,7 @@ const regex = {
   passwordFormat:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=_¡¿!?.])([a-zA-Z\d@#$%^&+=_¡¿!?.]){8,}$/,
   date: /^(0[1-9]|[12][0-9]|3[01])\/(Ene|Feb|Mar|Abr|May|Jun|Jul|Ago|Sep|Oct|Nov|Dic)\/\d{4}$/,
-  currencyFormat: /^\$\s\d{1,3}(\.\d{3})*(\.\d{2})?$/,
+  
 };
 
 export { regex };

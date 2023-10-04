@@ -13,6 +13,8 @@ import { MdOutlineClose } from "react-icons/md";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { StyledDivider, StyledModal } from "./styles";
 
+const referenceTypeDM = getDomainById("referenceType");
+
 interface AddReferenceModalProps {
   portalId: string;
   formik: FormikValues;
@@ -32,13 +34,11 @@ function AddReferenceModal(props: AddReferenceModalProps) {
     );
   }
 
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
+  const stateValue = (fieldName: string) => {
+    if (!formik.touched[fieldName]) return "pending";
+    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
     return "valid";
-  }
-
-  const referenceTypeDM = getDomainById("referenceType");
+  };
 
   return createPortal(
     <Blanket>

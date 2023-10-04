@@ -11,9 +11,12 @@ const currencyFormat = (price: number): string => {
 };
 
 const parseCurrencyString = (currencyString: string): number => {
-  let num = parseInt(currencyString.replace(/\$|\./g, ""));
+  if (currencyString === "$ 0.0") {
+    return NaN;
+  }
 
-  return isNaN(num) ? 0 : num;
+  let num = parseInt(currencyString.replace(/\$|\./g, ""));
+  return num;
 };
 
 const truncateAndObfuscateDescription = (

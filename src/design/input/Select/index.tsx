@@ -86,8 +86,8 @@ function Select(props: SelectProps) {
 
     if (handleChange) handleChange(event);
 
-    setIsFocused(false);
-    handleCloseOptions();
+    /* setIsFocused(false);
+    handleCloseOptions(); */
   };
 
   useEffect(() => {

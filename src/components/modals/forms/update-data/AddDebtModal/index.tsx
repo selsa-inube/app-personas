@@ -13,6 +13,8 @@ import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledDivider, StyledModal } from "./styles";
 
+const liabilityTypeDM = getDomainById("liabilityType");
+
 interface AddDebtModalProps {
   portalId: string;
   formik: FormikValues;
@@ -32,13 +34,21 @@ function AddDebtModal(props: AddDebtModalProps) {
     );
   }
 
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
+  const stateValue = (fieldName: string) => {
+    if (!formik.touched[fieldName]) return "pending";
+    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
     return "valid";
-  }
+  };
 
-  const liabilityTypeDM = getDomainById("liabilityType");
+  const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
+    formik.setFieldValue(e.target.name, parseCurrencyString(e.target.value));
+  };
+
+  const validateCurrencyField = (fieldName: string) => {
+    return typeof formik.values[fieldName] === "number"
+      ? currencyFormat(formik.values[fieldName])
+      : "";
+  };
 
   return createPortal(
     <Blanket>
@@ -98,16 +108,14 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={currencyFormat(
-              parseCurrencyString(formik.values.commercialValue || "0")
-            )}
+            value={validateCurrencyField("debtBalance")}
             type="text"
             errorMessage={formik.errors.debtBalance}
             size="compact"
             isFullWidth
             state={stateValue("debtBalance")}
             handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            handleChange={handleChangeWithCurrency}
             validMessage="El saldo de la deuda es válido"
           />
           <TextField
@@ -130,16 +138,14 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={currencyFormat(
-              parseCurrencyString(formik.values.commercialValue || "0")
-            )}
+            value={validateCurrencyField("quota")}
             type="text"
             errorMessage={formik.errors.quota}
             size="compact"
             isFullWidth
             state={stateValue("quota")}
             handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            handleChange={handleChangeWithCurrency}
             validMessage="El valor de la cuota es válido"
           />
           <TextField
