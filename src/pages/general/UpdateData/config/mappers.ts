@@ -3,6 +3,8 @@ import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/type
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IPersonalSocioEconomicInformationEntry } from "../forms/PersonalSocioEconomicInformation/types";
+import { IBankTransfersAccount } from "src/model/entity/user";
+import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -39,6 +41,16 @@ const mapContactData = (contactInfoData: IContactData): IContactDataEntry => {
   };
 };
 
+const mapBankTransfers = (
+  bankTransfersAccount: IBankTransfersAccount
+): IBankTransfersEntry => {
+  return {
+    bankingEntity: bankTransfersAccount.bankingEntity,
+    accountType: bankTransfersAccount.accountType,
+    accountNumber: bankTransfersAccount.accountNumber,
+  };
+};
+
 const mapFinancialOperations = (
   financialOperationsData?: Record<string, string>
 ): IFinancialOperationsEntry => {
@@ -64,4 +76,10 @@ const mapPersonalSocioeconomicInformation = (
   };
 };
 
-export { mapFinancialOperations, mapPersonalInformation, mapContactData, mapPersonalSocioeconomicInformation };
+export {
+  mapFinancialOperations,
+  mapPersonalInformation,
+  mapContactData,
+  mapBankTransfers,
+  mapPersonalSocioeconomicInformation
+};
