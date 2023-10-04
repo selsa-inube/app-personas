@@ -10,6 +10,7 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
+import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledDivider, StyledModal } from "./styles";
 
 interface AddDebtModalProps {
@@ -97,7 +98,9 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={formik.values.debtBalance || ""}
+            value={currencyFormat(
+              parseCurrencyString(formik.values.commercialValue || "0")
+            )}
             type="text"
             errorMessage={formik.errors.debtBalance}
             size="compact"
@@ -127,7 +130,9 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={formik.values.quota || ""}
+            value={currencyFormat(
+              parseCurrencyString(formik.values.commercialValue || "0")
+            )}
             type="text"
             errorMessage={formik.errors.quota}
             size="compact"

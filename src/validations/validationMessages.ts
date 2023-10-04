@@ -16,6 +16,9 @@ const validationMessages = {
     "Formato de fecha incorrecto. Ejemplo de formato: 01/Ene/1990.",
   validExpeditionDate:
     "Formato de fecha incorrecto. Ejemplo de formato: 01/Ene/1990.",
+
+  validCurrency:
+    "Este campo debe tener un formato de moneda válido. Ejemplo: $ 1.000.000",
 };
 
 export { validationMessages };

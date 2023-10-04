@@ -11,11 +11,9 @@ const currencyFormat = (price: number): string => {
 };
 
 const parseCurrencyString = (currencyString: string): number => {
-  const cleanString = currencyString.replace(/[^0-9.-]/g, "");
+  let num = parseInt(currencyString.replace(/\$|\./g, ""));
 
-  const numberValue = parseFloat(cleanString);
-
-  return isNaN(numberValue) ? 0 : numberValue;
+  return isNaN(num) ? 0 : num;
 };
 
 const truncateAndObfuscateDescription = (

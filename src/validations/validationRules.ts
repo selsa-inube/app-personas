@@ -47,7 +47,7 @@ const validationRules = {
     .max(11, validationMessages.maxCharacters(11)),
 
   money: Yup.string()
-    .matches(regex.currencyFormat)
+    .matches(regex.currencyFormat, validationMessages.validCurrency)
     .min(1, validationMessages.minNumbers(1))
     .max(10, validationMessages.maxNumbers(20)),
 

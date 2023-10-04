@@ -85,7 +85,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             id="commercialValue"
             placeholder="Digite el valor comercial estimado"
             value={currencyFormat(
-              parseCurrencyString(formik.values.commercialValue || 0)
+              parseCurrencyString(formik.values.commercialValue || "0")
             )}
             type="text"
             errorMessage={formik.errors.commercialValue}
@@ -93,10 +93,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             isFullWidth
             state={stateValue("commercialValue")}
             handleBlur={formik.handleBlur}
-            handleChange={(e) => {
-              console.log(parseCurrencyString(e.target.value));
-              formik.handleChange(e);
-            }}
+            handleChange={formik.handleChange}
             validMessage="El valor comercial es válido"
             isRequired
           />
@@ -105,7 +102,9 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={formik.values.debtBalance || ""}
+            value={currencyFormat(
+              parseCurrencyString(formik.values.commercialValue || "0")
+            )}
             type="text"
             errorMessage={formik.errors.debtBalance}
             size="compact"
@@ -135,7 +134,9 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={formik.values.quota || ""}
+            value={currencyFormat(
+              parseCurrencyString(formik.values.commercialValue || "0")
+            )}
             type="text"
             errorMessage={formik.errors.quota}
             size="compact"
