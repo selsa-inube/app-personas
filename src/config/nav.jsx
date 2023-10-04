@@ -54,17 +54,17 @@ const nav = {
       links: [
         {
           label: "Ahorros",
-          path: "/credit",
+          path: "/savings",
           icon: <MdOutlineAccountBalanceWallet />,
         },
         {
           label: "Créditos",
-          path: "/savings",
+          path: "/credit",
           icon: <MdOutlineAttachMoney />,
         },
         {
           label: "Eventos",
-          path: "/holidays",
+          path: "/events",
           icon: <MdOutlineSportsCricket />,
         },
         {
