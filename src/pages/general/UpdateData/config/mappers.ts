@@ -79,6 +79,7 @@ const mapPersonalSocioeconomicInformation = (
 export {
   mapFinancialOperations,
   mapPersonalInformation,
-  mapContactData, mapPersonalSocioeconomicInformation,
+  mapContactData, 
   mapBankTransfers,
+  mapPersonalSocioeconomicInformation,
 };
