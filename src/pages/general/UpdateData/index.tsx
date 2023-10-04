@@ -33,7 +33,9 @@ function UpdateData() {
     personalDebts: { entries: [] },
     personalReferences: { entries: [] },
     financialOperations: mapFinancialOperations(),
-    personalResidence: mapPersonalResidence(usersMock[0].personalResidence),
+    personalResidence: mapPersonalResidence(
+      usersMock[0].personalData.residence
+    ),
   });
 
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);

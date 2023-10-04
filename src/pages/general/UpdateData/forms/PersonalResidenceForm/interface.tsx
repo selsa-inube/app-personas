@@ -55,7 +55,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           state={stateValue("stratum")}
           handleChange={formik.handleChange}
         />
-        {formik.values.type === "ownWithMortgage" && (
+        {formik.values.type === residenceTypeDM.OWN_WITHOUT_MORTGAGE.id && (
           <>
             <TextField
               label="Entidad bancaria"
@@ -89,7 +89,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
             />
           </>
         )}
-        {formik.values.type === "rent" && (
+        {formik.values.type === residenceTypeDM.RENT.id && (
           <>
             <TextField
               label="Nombre del arrendador"
@@ -123,7 +123,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
             />
           </>
         )}
-        {formik.values.type === "familiar" && (
+        {formik.values.type === residenceTypeDM.FAMILIAR.id && (
           <>
             <TextField
               label="Nombre del titular"

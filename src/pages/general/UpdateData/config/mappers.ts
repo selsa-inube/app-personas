@@ -1,7 +1,7 @@
 import { IThird, IContactData } from "src/model/entity/user";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
-import { IPersonalResidence } from "src/model/entity/user";
+import { IResidence } from "src/model/entity/user";
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IBankTransfersAccount } from "src/model/entity/user";
@@ -63,7 +63,7 @@ const mapFinancialOperations = (
 };
 
 const mapPersonalResidence = (
-  personalResidence: IPersonalResidence
+  personalResidence: IResidence
 ): IPersonalResidenceEntry => {
   return {
     type: personalResidence.type,

@@ -68,7 +68,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
     return "1fr";
   }};
 
-  outline: 1px solid
+  border: 1px solid
     ${({ theme, isDisabled, state, isFocused }) => {
       if (isDisabled) {
         return (

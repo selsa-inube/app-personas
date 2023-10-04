@@ -7,10 +7,6 @@ const validationRules = {
     .matches(regex.onlyLetters, validationMessages.onlyLetters)
     .min(8, validationMessages.minCharacters(8))
     .max(30, validationMessages.maxCharacters(30)),
-  lastName: Yup.string()
-    .matches(regex.onlyLetters, validationMessages.onlyLetters)
-    .min(8, validationMessages.minCharacters(8))
-    .max(30, validationMessages.maxCharacters(30)),
 
   identification: Yup.string()
     .test(
@@ -85,10 +81,6 @@ const validationRules = {
     .matches(regex.onlyNumbers)
     .min(11, validationMessages.minNumbers(11))
     .max(11, validationMessages.maxNumbers(11)),
-
-  bankingEntity: Yup.string()
-    .matches(regex.onlyLetters, validationMessages.onlyLetters)
-    .max(25, validationMessages.maxCharacters(25)),
 };
 
 export { validationRules };
