@@ -49,4 +49,19 @@ const mapFinancialOperations = (
   };
 };
 
-export { mapFinancialOperations, mapPersonalInformation };
+const mapPersonalSocioeconomicInformation = (
+  personalSocioEconomicData?: Record<string, string>
+): IPersonalSocioEconomicInformationEntry => {
+  return {
+    educationLevel: personalSocioEconomicData?.educationLevel || "",
+    isResponsibleHome: personalSocioEconomicData?.isResponsibleHome || "",
+    isSingleMother: personalSocioEconomicData?.isSingleMother || "",
+    dependants: Number(personalSocioEconomicData?.dependants) || 0,
+    vulnerablePopulation: personalSocioEconomicData?.vulnerablePopulation || "",
+    isPublicExposed: personalSocioEconomicData?.isPublicExposed || "",
+    isDeclaredIncome: personalSocioEconomicData?.isDeclaredIncome || "",
+    isPublicOfficials: personalSocioEconomicData?.isPublicOfficials || "",
+  };
+};
+
+export { mapFinancialOperations, mapPersonalInformation, mapContactData, mapPersonalSocioeconomicInformation };
