@@ -82,7 +82,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="terminationDate"
             id="terminationDate"
             placeholder="Digite la fecha de terminación"
-            value={formik.values.terminationDate|| ""}
+            value={formik.values.terminationDate || ""}
             type="text"
             errorMessage={formik.errors.terminationDate}
             size="compact"
@@ -97,7 +97,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={formik.values.debtBalance|| ""}
+            value={formik.values.debtBalance || ""}
             type="text"
             errorMessage={formik.errors.debtBalance}
             size="compact"
@@ -112,7 +112,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="financialEntity"
             id="financialEntity"
             placeholder="Digite el nombre de la entidad"
-            value={formik.values.financialEntity|| ""}
+            value={formik.values.financialEntity || "0"}
             type="text"
             errorMessage={formik.errors.financialEntity}
             size="compact"
@@ -127,7 +127,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={formik.values.quota|| ""}
+            value={formik.values.quota || ""}
             type="text"
             errorMessage={formik.errors.quota}
             size="compact"
@@ -166,7 +166,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             spacing="compact"
             handleClick={onAddDebt}
             disabled={!formik.isValid}
-            appearance="gray"
+            appearance="primary"
           >
             Adicionar
           </Button>

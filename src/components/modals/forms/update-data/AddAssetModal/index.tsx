@@ -10,6 +10,7 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
+import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledDivider, StyledModal } from "./styles";
 
 interface AddAssetModalProps {
@@ -76,21 +77,28 @@ function AddAssetModal(props: AddAssetModalProps) {
             state={stateValue("assetType")}
             handleChange={formik.handleChange}
             value={formik.values.assetType || ""}
+            isRequired
           />
           <TextField
             label="Valor comercial"
             name="commercialValue"
             id="commercialValue"
             placeholder="Digite el valor comercial estimado"
-            value={formik.values.commercialValue || ""}
+            value={currencyFormat(
+              parseCurrencyString(formik.values.commercialValue || 0)
+            )}
             type="text"
             errorMessage={formik.errors.commercialValue}
             size="compact"
             isFullWidth
             state={stateValue("commercialValue")}
             handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            handleChange={(e) => {
+              console.log(parseCurrencyString(e.target.value));
+              formik.handleChange(e);
+            }}
             validMessage="El valor comercial es válido"
+            isRequired
           />
           <TextField
             label="Saldo de la deuda"
@@ -166,7 +174,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             spacing="compact"
             handleClick={onAddAsset}
             disabled={!formik.isValid}
-            appearance="gray"
+            appearance="primary"
           >
             Adicionar
           </Button>
