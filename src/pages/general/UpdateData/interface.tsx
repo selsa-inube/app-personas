@@ -16,7 +16,7 @@ import { ContactDataForm } from "./forms/ContactDataForm";
 import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
-import { SocioeconomicInformationForm } from "./forms/PersonalSocioEconomicInformation";
+import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -67,10 +67,10 @@ const renderStepContent = (
           ref={formReferences.financialOperations}
         />
       )}
-      {currentStep === updateDataSteps.personalSocioEconomicInformation.id && (
+      {currentStep === updateDataSteps.socioeconomicInformation.id && (
         <SocioeconomicInformationForm
-          initialValues={updateData.personalSocioEconomicInformation}
-          ref={formReferences.personalSocioEconomicInformation}
+          initialValues={updateData.socioeconomicInformation}
+          ref={formReferences.socioeconomicInformation}
         />
       )}
     </>

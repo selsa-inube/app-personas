@@ -7,7 +7,7 @@ import {
   mapPersonalInformation,
   mapBankTransfers,
   mapContactData,
-  mapPersonalSocioeconomicInformation
+  mapSocioeconomicInformation,
 } from "./config/mappers";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
@@ -16,7 +16,7 @@ import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
-import { ISocioeconomicInformationEntry } from "./forms/PersonalSocioEconomicInformation/types";
+import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
@@ -33,7 +33,7 @@ function UpdateData() {
     personalDebts: { entries: [] },
     personalReferences: { entries: [] },
     financialOperations: mapFinancialOperations(),
-    personalSocioEconomicInformation: mapPersonalSocioeconomicInformation(),
+    socioeconomicInformation: mapSocioeconomicInformation(),
   });
 
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
@@ -45,7 +45,7 @@ function UpdateData() {
     useRef<FormikProps<IPersonalReferenceEntries>>(null);
   const financialOperationsRef =
     useRef<FormikProps<IFinancialOperationsEntry>>(null);
-  const personalSocioEconomicsRef =
+  const socioeconomicsRef =
     useRef<FormikProps<ISocioeconomicInformationEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
@@ -56,7 +56,7 @@ function UpdateData() {
     personalDebts: personalDebtsRef,
     personalReferences: personalReferencesRef,
     financialOperations: financialOperationsRef,
-    personalSocioEconomicInformation: personalSocioEconomicsRef,
+    socioeconomicInformation: socioeconomicsRef,
   };
 
   const handleStepChange = (stepId: number) => {

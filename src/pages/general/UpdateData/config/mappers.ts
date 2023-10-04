@@ -4,7 +4,7 @@ import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/type
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IBankTransfersAccount } from "src/model/entity/user";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
-import { ISocioeconomicInformationEntry } from "../forms/PersonalSocioEconomicInformation/types";
+import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -61,25 +61,25 @@ const mapFinancialOperations = (
   };
 };
 
-const mapPersonalSocioeconomicInformation = (
-  personalSocioEconomicData?: Record<string, string>
+const mapSocioeconomicInformation = (
+  socioeconomicData?: Record<string, string>
 ): ISocioeconomicInformationEntry => {
   return {
-    educationLevel: personalSocioEconomicData?.educationLevel || "",
-    isResponsibleHome: personalSocioEconomicData?.isResponsibleHome || "",
-    isSingleMother: personalSocioEconomicData?.isSingleMother || "",
-    dependants: Number(personalSocioEconomicData?.dependants) || 0,
-    vulnerablePopulation: personalSocioEconomicData?.vulnerablePopulation || "",
-    isPublicExposed: personalSocioEconomicData?.isPublicExposed || "",
-    isDeclaredIncome: personalSocioEconomicData?.isDeclaredIncome || "",
-    isPublicOfficials: personalSocioEconomicData?.isPublicOfficials || "",
+    educationLevel: socioeconomicData?.educationLevel || "",
+    isResponsibleHome: socioeconomicData?.isResponsibleHome || "",
+    isSingleMother: socioeconomicData?.isSingleMother || "",
+    dependants: Number(socioeconomicData?.dependants) || 0,
+    vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
+    isPublicExposed: socioeconomicData?.isPublicExposed || "",
+    isDeclaredIncome: socioeconomicData?.isDeclaredIncome || "",
+    isPublicOfficials: socioeconomicData?.isPublicOfficials || "",
   };
 };
 
 export {
   mapFinancialOperations,
   mapPersonalInformation,
-  mapContactData, 
+  mapContactData,
   mapBankTransfers,
-  mapPersonalSocioeconomicInformation
+  mapSocioeconomicInformation,
 };

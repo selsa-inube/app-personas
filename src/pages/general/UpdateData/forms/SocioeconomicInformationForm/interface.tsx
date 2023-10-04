@@ -5,8 +5,8 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
-import { educationLevelTypeDM } from "src/model/domains/socioEconomicInformation/educationLeveldm";
-import { vulnerablePopulationTypeDM } from "src/model/domains/socioEconomicInformation/vulnerablePopulationdm";
+import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
+import { vulnerablePopulationTypeDM } from "src/model/domains/socioeconomicInformation/vulnerablePopulationdm";
 
 interface SocioeconomicInformationFormUIProps {
   formik: FormikValues;
@@ -24,8 +24,8 @@ function SocioeconomicInformationFormUI(
     return "valid";
   }
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
-  const isTablet = useMediaQuery("(max-width: 1100px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
+  const isTablet = useMediaQuery("(max-width: 1200px)");
 
   return (
     <form>
@@ -84,7 +84,7 @@ function SocioeconomicInformationFormUI(
           handleChange={formik.handleChange}
           validMessage="El número ingresado es correcto"
           isFullWidth
-          isRequired
+          //isRequired
         />
         <Select
           label="Población vulnerable"

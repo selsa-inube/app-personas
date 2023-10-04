@@ -44,7 +44,7 @@ const updateDataSteps = {
     description:
       "Diligencia la información si realizas operaciones financieras en el exterior.",
   },
-  personalSocioEconomicInformation: {
+  socioeconomicInformation: {
     id: 9,
     name: "Información socioeconómica",
     description:
