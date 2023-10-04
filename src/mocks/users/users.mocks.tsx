@@ -98,6 +98,11 @@ const usersMock: IThird[] = [
         },
       },
     ],
+    bankTransfersAccount: {
+      bankingEntity: "bancolombia",
+      accountType: "savingsAccount",
+      accountNumber: 76454473406,
+    },
     personalResidence: {
       type: "",
       stratum: "",

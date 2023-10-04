@@ -5,10 +5,12 @@ import { updateDataSteps } from "./config/assisted";
 import {
   mapFinancialOperations,
   mapPersonalInformation,
+  mapBankTransfers,
   mapContactData,
   mapPersonalResidence,
 } from "./config/mappers";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
+import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
 import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
@@ -26,6 +28,7 @@ function UpdateData() {
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: mapPersonalInformation(usersMock[0]),
     contactData: mapContactData(usersMock[0].contact[0]),
+    bankTransfers: mapBankTransfers(usersMock[0].bankTransfersAccount),
     personalAssets: { entries: [] },
     personalDebts: { entries: [] },
     personalReferences: { entries: [] },
@@ -35,6 +38,7 @@ function UpdateData() {
 
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
   const contactDataRef = useRef<FormikProps<IContactDataEntry>>(null);
+  const bankTransfersRef = useRef<FormikProps<IBankTransfersEntry>>(null);
   const personalAssetsRef = useRef<FormikProps<IPersonalAssetEntries>>(null);
   const personalDebtsRef = useRef<FormikProps<IPersonalDebtEntries>>(null);
   const personalReferencesRef =
@@ -47,6 +51,7 @@ function UpdateData() {
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
     contactData: contactDataRef,
+    bankTransfers: bankTransfersRef,
     personalAssets: personalAssetsRef,
     personalDebts: personalDebtsRef,
     personalReferences: personalReferencesRef,

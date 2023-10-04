@@ -44,6 +44,12 @@ interface IFamilyThird {
   };
 }
 
+interface IBankTransfersAccount {
+  bankingEntity: string;
+  accountType: string;
+  accountNumber: number;
+}
+
 interface IPersonalResidence {
   type: string;
   stratum: string;
@@ -55,17 +61,18 @@ interface IPersonalResidence {
   relationship: string;
   ownerCellPhone: string;
 }
-
 interface IThird {
   personalData: IPersonalData;
   contact: IContactData[];
   familyGroup?: IFamilyThird[];
+  bankTransfersAccount: IBankTransfersAccount;
   personalResidence: IPersonalResidence;
 }
 
 export type {
   IContactData,
   IFamilyThird,
+  IBankTransfersAccount,
   IIdentification,
   IPersonalData,
   IPersonalResidence,

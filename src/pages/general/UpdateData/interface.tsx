@@ -15,6 +15,7 @@ import { PersonalResidenceForm } from "./forms/PersonalResidenceForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
+import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
 const renderStepContent = (
@@ -34,6 +35,12 @@ const renderStepContent = (
         <ContactDataForm
           initialValues={updateData.contactData}
           ref={formReferences.contactData}
+        />
+      )}
+      {currentStep === updateDataSteps.bankTransfers.id && (
+        <BankTransfersForm
+          initialValues={updateData.bankTransfers}
+          ref={formReferences.bankTransfers}
         />
       )}
       {currentStep === updateDataSteps.personalAssets.id && (
