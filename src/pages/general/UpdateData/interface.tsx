@@ -14,6 +14,7 @@ import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
 import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
+import { PersonalSocioEconomicInformationForm } from "./forms/PersonalSocioEconomicInformation";
 
 const renderStepContent = (
   currentStep: number,
@@ -50,6 +51,12 @@ const renderStepContent = (
         <FinancialOperationsForm
           initialValues={updateData.financialOperations}
           ref={formReferences.financialOperations}
+        />
+      )}
+      {currentStep === updateDataSteps.personalSocioEconomicInformation.id && (
+        <PersonalSocioEconomicInformationForm
+          initialValues={updateData.personalSocioEconomicInformation}
+          ref={formReferences.personalSocioEconomicInformation}
         />
       )}
     </>

@@ -38,8 +38,14 @@ const updateDataSteps = {
     description:
       "Diligencia la información si realizas operaciones financieras en el exterior.",
   },
-  verification: {
+  personalSocioEconomicInformation: {
     id: 8,
+    name: "Información socioeconómica",
+    description:
+      "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
+  },
+  verification: {
+    id: 9,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",

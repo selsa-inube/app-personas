@@ -5,12 +5,14 @@ import { updateDataSteps } from "./config/assisted";
 import {
   mapFinancialOperations,
   mapPersonalInformation,
+  mapPersonalSocioeconomicInformation
 } from "./config/mappers";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
 import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
 import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
+import { IPersonalSocioEconomicInformationEntry } from "./forms/PersonalSocioEconomicInformation/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
@@ -25,6 +27,7 @@ function UpdateData() {
     personalDebts: { entries: [] },
     personalReferences: { entries: [] },
     financialOperations: mapFinancialOperations(),
+    personalSocioEconomicInformation: mapPersonalSocioeconomicInformation(),
   });
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
   const personalAssetsRef = useRef<FormikProps<IPersonalAssetEntries>>(null);
@@ -33,6 +36,8 @@ function UpdateData() {
     useRef<FormikProps<IPersonalReferenceEntries>>(null);
   const financialOperationsRef =
     useRef<FormikProps<IFinancialOperationsEntry>>(null);
+  const personalSocioEconomicsRef =
+    useRef<FormikProps<IPersonalSocioEconomicInformationEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
@@ -40,6 +45,7 @@ function UpdateData() {
     personalDebts: personalDebtsRef,
     personalReferences: personalReferencesRef,
     financialOperations: financialOperationsRef,
+    personalSocioEconomicInformation: personalSocioEconomicsRef,
   };
 
   const handleStepChange = (stepId: number) => {
