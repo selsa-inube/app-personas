@@ -17,10 +17,12 @@ import { Page } from "@design/layout/Page";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { Home } from "@pages/admin/home";
-import { useEffect } from "react";
-import { AdminRoutes } from "./routes/admin";
 import { UpdateData } from "@pages/general/UpdateData";
-import { RequestRoutes } from "./routes/request";
+import { useEffect } from "react";
+import { CreditRoutes } from "./routes/credit";
+import { MyCreditsRoutes } from "./routes/myCredits";
+import { MyInvestmentsRoutes } from "./routes/myInvestments";
+import { MySavingsRoutes } from "./routes/mySavings";
 
 const USER_ID = "1";
 
@@ -28,9 +30,13 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Page header={header} nav={nav} />}>
       <Route path="/" element={<Home />} />
-      <AdminRoutes />
 
-      <Route path="request/*" element={<RequestRoutes />} />
+      <Route path="my-credits/*" element={<MyCreditsRoutes />} />
+      <Route path="my-investments/*" element={<MyInvestmentsRoutes />} />
+      <Route path="my-savings/*" element={<MySavingsRoutes />} />
+
+      <Route path="credit/*" element={<CreditRoutes />} />
+
       <Route path="/update-data" element={<UpdateData />} />
     </Route>
   )
