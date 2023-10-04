@@ -3,7 +3,9 @@ import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
+import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
+import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 
 interface PersonalResidenceFormUIProps {
   formik: FormikValues;
@@ -19,13 +21,13 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
     return "valid";
   }
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const mquery = useMediaQuery("(max-width: 750px)");
 
   return (
     <form>
       <Grid
-        templateColumns={isMobile ? "1fr" : "1fr 1fr "}
-        gap={isMobile ? "s200" : "s300"}
+        templateColumns={mquery ? "1fr" : "1fr 1fr "}
+        gap={mquery ? "s200" : "s300"}
       >
         <Select
           label="Tipo de vivienda"
@@ -33,7 +35,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           id="type"
           value={formik.values.type}
           isFullWidth
-          options={getDomainById("personalResidenceType")}
+          size={mquery ? "compact" : "wide"}
+          options={residenceTypeDM.options}
           handleBlur={formik.handleBlur}
           isDisabled={loading}
           state={stateValue("type")}
@@ -45,12 +48,128 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           id="stratum"
           value={formik.values.stratum}
           isFullWidth
-          options={getDomainById("stratum")}
+          size={mquery ? "compact" : "wide"}
+          options={stratumDM.options}
           handleBlur={formik.handleBlur}
           isDisabled={loading}
           state={stateValue("stratum")}
           handleChange={formik.handleChange}
         />
+        {formik.values.type === "ownWithMortgage" && (
+          <>
+            <TextField
+              label="Entidad bancaria"
+              placeholder="Entidad bancaria"
+              name="bankingEntity"
+              id="bankingEntity"
+              value={formik.values.bankingEntity}
+              errorMessage={formik.errors.bankingEntity}
+              isDisabled={loading}
+              isFullWidth
+              size={mquery ? "compact" : "wide"}
+              state={stateValue("bankingEntity")}
+              handleBlur={formik.handleBlur}
+              handleChange={formik.handleChange}
+              validMessage="La entidad bancaria es válida"
+            />
+            <TextField
+              label="Fecha de vencimiento"
+              placeholder="Ejemplo: 01/Ene/1990"
+              name="dueDate"
+              id="dueDate"
+              value={formik.values.dueDate}
+              errorMessage={formik.errors.dueDate}
+              isDisabled={loading}
+              isFullWidth
+              size={mquery ? "compact" : "wide"}
+              state={stateValue("dueDate")}
+              handleBlur={formik.handleBlur}
+              handleChange={formik.handleChange}
+              validMessage="La fecha de vencimiento es válida"
+            />
+          </>
+        )}
+        {formik.values.type === "rent" && (
+          <>
+            <TextField
+              label="Nombre del arrendador"
+              placeholder="Nombre del arrendador"
+              name="tenant"
+              id="tenant"
+              value={formik.values.tenant}
+              errorMessage={formik.errors.tenant}
+              isDisabled={loading}
+              isFullWidth
+              size={mquery ? "compact" : "wide"}
+              state={stateValue("tenant")}
+              handleBlur={formik.handleBlur}
+              handleChange={formik.handleChange}
+              validMessage="El nombre del arrendador es válido"
+            />
+            <TextField
+              label="Celular del arrendador"
+              placeholder="Celular del arrendador"
+              name="tenantCellPhone"
+              id="tenantCellPhone"
+              value={formik.values.tenantCellPhone}
+              errorMessage={formik.errors.tenantCellPhone}
+              isDisabled={loading}
+              isFullWidth
+              size={mquery ? "compact" : "wide"}
+              state={stateValue("tenantCellPhone")}
+              handleBlur={formik.handleBlur}
+              handleChange={formik.handleChange}
+              validMessage="El celular del arrendador es válido"
+            />
+          </>
+        )}
+        {formik.values.type === "familiar" && (
+          <>
+            <TextField
+              label="Nombre del titular"
+              placeholder="Nombre del titular"
+              name="ownerName"
+              id="ownerName"
+              value={formik.values.ownerName}
+              errorMessage={formik.errors.ownerName}
+              isDisabled={loading}
+              isFullWidth
+              size={mquery ? "compact" : "wide"}
+              state={stateValue("ownerName")}
+              handleBlur={formik.handleBlur}
+              handleChange={formik.handleChange}
+              validMessage="El nombre del titular es válido"
+            />
+            <Select
+              label="Parentesco"
+              name="relationship"
+              id="relationship"
+              value={formik.values.relationship}
+              isFullWidth
+              size={mquery ? "compact" : "wide"}
+              options={relationshipDM.options}
+              handleBlur={formik.handleBlur}
+              isDisabled={loading}
+              state={stateValue("relationship")}
+              handleChange={formik.handleChange}
+            />
+            <TextField
+              label="Celular del titular"
+              placeholder="Celular del titular"
+              name="ownerCellPhone"
+              id="ownerCellPhone"
+              value={formik.values.ownerCellPhone}
+              errorMessage={formik.errors.ownerCellPhone}
+              isDisabled={loading}
+              isFullWidth
+              size={mquery ? "compact" : "wide"}
+              state={stateValue("ownerCellPhone")}
+              handleBlur={formik.handleBlur}
+              handleChange={formik.handleChange}
+              validMessage="El celular del titular es válido"
+            />
+          </>
+        )}
       </Grid>
     </form>
   );

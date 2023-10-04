@@ -81,6 +81,10 @@ const validationRules = {
   address: Yup.string()
     .min(5, validationMessages.minCharacters(5))
     .max(100, validationMessages.maxCharacters(100)),
+
+  bankingEntity: Yup.string()
+    .matches(regex.onlyLetters, validationMessages.onlyLetters)
+    .max(25, validationMessages.maxCharacters(25)),
 };
 
 export { validationRules };

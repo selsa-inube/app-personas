@@ -5,6 +5,7 @@ const validationMessages = {
   minNumbers: (count: number) => `Debe tener al menos ${count} números`,
   required: "Este campo no puede estar vacío",
   onlyLetters: "Este campo debe contener solo letras",
+  onlyNumbers: "Este campo debe contener solo numeros",
   validIdentification:
     "Este campo debe contener un número de identificación válido",
   validEmail:
