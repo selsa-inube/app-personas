@@ -35,10 +35,8 @@ Default.args = {
   readOnly: false,
   iconBefore: <MdOutlineAccountBalanceWallet />,
   iconAfter: <MdOutlineAttachMoney />,
-  autocomplete: true,
-  suggestions: [{id:"opcion-1", value:"opcion-1"}, {id:"opcion-2", value:"opcion-2"}, {id:"opcion-3", value:"opcion-3"}],
-  autocompleteChars: 3
 };
+
 
 const theme = {
   ...fondecom,
@@ -51,6 +49,25 @@ export const Themed = (args: TextFieldProps) => (
 );
 Themed.args = {
   ...Default.args,
+};
+
+export const Autocomplete: StoryFn<TextFieldProps> = (args) => (
+  <TextField {...args} />
+);
+
+Autocomplete.args = {
+  isDisabled: false,
+  isFullWidth: false,
+  isRequired: false,
+  type: "text",
+  size: "compact",
+  state: "pending",
+  label: "Option",
+  placeholder: "Write an option",
+  readOnly: false,
+  autocomplete: true,
+  suggestions: [{id:"Opción-1", value:"Opción-1"}, {id:"Opción-2", value:"Opción-2"}, {id:"Opción-3", value:"Opción-3"}],
+  autocompleteChars: 1
 };
 
 export default story;
