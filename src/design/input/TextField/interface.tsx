@@ -13,6 +13,8 @@ import {
   StyledInputContainer,
   StyledValidMessageContainer,
 } from "./styles";
+import { useState } from "react";
+import { DropdownMenu } from "../DropdownMenu";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -67,7 +69,39 @@ function TextFieldUI(props: TextFieldProps) {
     handleFocus,
     handleBlur,
     readOnly,
+    autocomplete,
+    suggestions,
+    autocompleteChars,
   } = props;
+
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [inputValue, setInputValue] = useState(value || "");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+
+    if (
+      autocomplete &&
+      (typeof autocompleteChars === "number"
+        ? newValue.length >= autocompleteChars
+        : true)
+    ) {
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+
+    setInputValue(newValue);
+
+    if (handleChange) {
+      handleChange(event);
+    }
+  };
+
+  const handleSuggestionSelect = (selectedValue: string) => {
+    setInputValue(selectedValue);
+    setShowDropdown(false);
+  };
 
   return (
     <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
@@ -116,25 +150,29 @@ function TextFieldUI(props: TextFieldProps) {
           isDisabled={isDisabled}
           isFullWidth={isFullWidth}
           type={type}
-          value={value}
+          value={inputValue}
           maxLength={maxLength}
           minLength={minLength}
           max={max}
           min={min}
-          onChange={handleChange}
+          onChange={handleInputChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
           readOnly={readOnly}
           $size={size}
         />
-
         {iconAfter && (
           <StyledIcon iconAfter={iconAfter} isDisabled={isDisabled}>
             {iconAfter}
           </StyledIcon>
         )}
       </StyledInputContainer>
-
+      {showDropdown && (
+        <DropdownMenu
+          options={suggestions}
+          handleClick={handleSuggestionSelect}
+        />
+      )}
       {state === "invalid" && (
         <Invalid
           isDisabled={isDisabled}

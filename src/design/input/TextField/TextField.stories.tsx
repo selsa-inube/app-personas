@@ -3,7 +3,7 @@ import {
   MdOutlineAttachMoney,
 } from "react-icons/md";
 import { TextField, TextFieldProps } from ".";
-import { props } from "./props";
+import { props, parameters } from "./props";
 
 import { fondecom } from "@mocks/design/themes/fondecom";
 import { StoryFn } from "@storybook/react";
@@ -13,6 +13,7 @@ const story = {
   title: "design/input/TextField",
   component: [TextField],
   tags: ["autodocs"],
+  parameters,
   argTypes: {
     ...props,
   },
@@ -34,6 +35,9 @@ Default.args = {
   readOnly: false,
   iconBefore: <MdOutlineAccountBalanceWallet />,
   iconAfter: <MdOutlineAttachMoney />,
+  autocomplete: true,
+  suggestions: [{id:"opcion-1", value:"opcion-1"}, {id:"opcion-2", value:"opcion-2"}, {id:"opcion-3", value:"opcion-3"}],
+  autocompleteChars: 3
 };
 
 const theme = {
