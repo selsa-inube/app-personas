@@ -18,16 +18,42 @@ const usersMock: IThird[] = [
       gender: "masculino",
       maritalStatus: "single",
       bloodType: "o_positive",
+      residence: {
+        type: "",
+        stratum: "",
+        bankingEntity: "Banco de Bogotá",
+        dueDate: "02/Ago/2030",
+        tenant: "José Alejandro Pérez Gómez",
+        tenantCellPhone: "3123202874",
+        ownerName: "José Alejandro Pérez Gómez",
+        relationship: "father",
+        ownerCellPhone: "3123202874",
+      },
     },
-    contact: {
-      address: "CR 1 No 66 42 AP 202 BL 7",
-      department: "Cundinamarca",
-      city: "bogota",
-      zipCode: "111511",
-      landlinePhone: "37670777",
-      cellPhone: "320 5510052",
-      email: "dgarzon@sistemasenlinea.com.co",
-    },
+    contact: [
+      {
+        id: "01",
+        country: "Colombia",
+        address: "CR 1 No 66 42 AP 202 BL 7",
+        department: "Cundinamarca",
+        city: "bogota",
+        zipCode: "111511",
+        landlinePhone: "37670777",
+        cellPhone: "3205510052",
+        email: "dgarzon@sistemasenlinea.com.co",
+      },
+      {
+        id: "02",
+        country: "Colombia",
+        address: "CR 2 No 88 23 AP 009 BL 5",
+        department: "Antioquia",
+        city: "medellin",
+        zipCode: "112375",
+        landlinePhone: "35689034",
+        cellPhone: "3124573839",
+        email: "jgarcia@sistemasenlinea.com.co",
+      },
+    ],
     familyGroup: [
       {
         identification: {
@@ -37,14 +63,16 @@ const usersMock: IThird[] = [
           secondLastName: "Marín",
           type: "cc",
           number: "13156778",
-          city: "bogotal",
+          city: "bogota",
         },
         contact: {
+          id: "01",
+          country: "Colombia",
           address: "CR 1 No 66 42 AP 202 BL 7",
           department: "Cundinamarca",
           city: "bogota",
           landlinePhone: "37670777",
-          cellPhone: "314 2881128",
+          cellPhone: "3142881128",
           email: "leidy.angel@litigando.com.co",
         },
         information: {
@@ -66,10 +94,12 @@ const usersMock: IThird[] = [
           city: "bogota",
         },
         contact: {
+          id: "01",
+          country: "Colombia",
           address: "CR 1 No 66 42 AP 501 BL 4",
           department: "Cundinamarca",
           city: "bogota",
-          cellPhone: "320 5510052",
+          cellPhone: "3205510052",
           email: "eunice.paramo@outlook.com",
         },
         information: {
@@ -79,6 +109,11 @@ const usersMock: IThird[] = [
         },
       },
     ],
+    bankTransfersAccount: {
+      bankingEntity: "bancolombia",
+      accountType: "savingsAccount",
+      accountNumber: 76454473406,
+    },
   },
 ];
 

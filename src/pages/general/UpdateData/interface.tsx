@@ -8,10 +8,14 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
+import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
+import { PersonalResidenceForm } from "./forms/PersonalResidenceForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
+import { ContactDataForm } from "./forms/ContactDataForm";
 import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
+import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
 const renderStepContent = (
@@ -25,6 +29,18 @@ const renderStepContent = (
         <PersonalInformationForm
           initialValues={updateData.personalInformation}
           ref={formReferences.personalInformation}
+        />
+      )}
+      {currentStep === updateDataSteps.contactData.id && (
+        <ContactDataForm
+          initialValues={updateData.contactData}
+          ref={formReferences.contactData}
+        />
+      )}
+      {currentStep === updateDataSteps.bankTransfers.id && (
+        <BankTransfersForm
+          initialValues={updateData.bankTransfers}
+          ref={formReferences.bankTransfers}
         />
       )}
       {currentStep === updateDataSteps.personalAssets.id && (
@@ -43,6 +59,18 @@ const renderStepContent = (
         <PersonalReferencesForm
           initialValues={updateData.personalReferences}
           ref={formReferences.personalReferences}
+        />
+      )}
+      {currentStep === updateDataSteps.financialOperations.id && (
+        <FinancialOperationsForm
+          initialValues={updateData.financialOperations}
+          ref={formReferences.financialOperations}
+        />
+      )}
+      {currentStep === updateDataSteps.personalResidence.id && (
+        <PersonalResidenceForm
+          initialValues={updateData.personalResidence}
+          ref={formReferences.personalResidence}
         />
       )}
     </>

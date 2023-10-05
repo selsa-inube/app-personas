@@ -13,6 +13,8 @@ import { MdOutlineClose } from "react-icons/md";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { StyledDivider, StyledModal } from "./styles";
 
+const referenceTypeDM = getDomainById("referenceType");
+
 interface AddReferenceModalProps {
   portalId: string;
   formik: FormikValues;
@@ -32,13 +34,11 @@ function AddReferenceModal(props: AddReferenceModalProps) {
     );
   }
 
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
+  const stateValue = (fieldName: string) => {
+    if (!formik.touched[fieldName]) return "pending";
+    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
     return "valid";
-  }
-
-  const referenceTypeDM = getDomainById("referenceType");
+  };
 
   return createPortal(
     <Blanket>
@@ -77,6 +77,7 @@ function AddReferenceModal(props: AddReferenceModalProps) {
             state={stateValue("referenceType")}
             handleChange={(e) => formik.handleChange(e)}
             value={formik.values.referenceType || ""}
+            isRequired
           />
           <TextField
             label="Nombre"
@@ -92,6 +93,7 @@ function AddReferenceModal(props: AddReferenceModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El nombre de la referencia es válido"
+            isRequired
           />
           <TextField
             label="Dirección"
@@ -107,6 +109,7 @@ function AddReferenceModal(props: AddReferenceModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="La dirección es válida"
+            isRequired
           />
           <TextField
             label="Correo electrónico"
@@ -122,6 +125,7 @@ function AddReferenceModal(props: AddReferenceModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El correo electrónico es válido"
+            isRequired
           />
           <TextField
             label="Celular"
@@ -137,6 +141,7 @@ function AddReferenceModal(props: AddReferenceModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El número de celular es válido"
+            isRequired
           />
           <Select
             label="Ciudad"
@@ -150,6 +155,7 @@ function AddReferenceModal(props: AddReferenceModalProps) {
             state={stateValue("city")}
             handleChange={formik.handleChange}
             value={formik.values.city || ""}
+            isRequired
           />
         </Stack>
 

@@ -19,11 +19,11 @@ interface PersonalInformationFormUIProps {
 function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
   const { formik, loading } = props;
 
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
+  const stateValue = (fieldName: string) => {
+    if (!formik.touched[fieldName]) return "pending";
+    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
     return "valid";
-  }
+  };
 
   const mquery = useMediaQuery("(max-width: 750px)");
 
@@ -131,6 +131,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           handleBlur={formik.handleBlur}
           handleChange={formik.handleChange}
           validMessage="La fecha de expedición es válida"
+          isRequired
         />
 
         <TextField
@@ -149,6 +150,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           handleBlur={formik.handleBlur}
           handleChange={formik.handleChange}
           validMessage="La fecha de nacimiento es válida"
+          isRequired
         />
 
         <Select
