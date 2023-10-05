@@ -154,9 +154,8 @@ const StyledInput = styled.input<IStyledInput>`
   border: none;
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
-  height: ${({ $size }) => ($size === "compact" ? "22px" : "30px")};
-
-  border: none;
+  height: ${({ $size }) =>
+    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s400}`};
 
   ::placeholder {
     color: ${({ theme }) =>

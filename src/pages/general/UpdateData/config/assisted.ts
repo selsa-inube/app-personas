@@ -44,6 +44,11 @@ const updateDataSteps = {
     description:
       "Diligencia la información si realizas operaciones financieras en el exterior.",
   },
+  personalResidence: {
+    id: 9,
+    name: "Residencia personal",
+    description: "Diligencia la información del inmueble donde vives.",
+  },
   socioeconomicInformation: {
     id: 9,
     name: "Información socioeconómica",

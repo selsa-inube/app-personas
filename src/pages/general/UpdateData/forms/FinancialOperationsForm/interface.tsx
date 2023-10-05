@@ -19,7 +19,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
     return "valid";
   }
 
-  const mquery = useMediaQuery("(max-width: 1100px)");
+  const mquery = useMediaQuery("(max-width: 1200px)");
 
   return (
     <form>
@@ -32,7 +32,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
           name="hasForeignCurrencyTransactions"
           id="hasForeignCurrencyTransactions"
           value={formik.values.hasForeignCurrencyTransactions}
-          size="compact"
+          size={mquery ? "compact" : "wide"}
           isFullWidth
           options={activeDM.options}
           handleBlur={formik.handleBlur}
@@ -48,7 +48,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
           name="hasForeignCurrencyAccounts"
           id="hasForeignCurrencyAccounts"
           value={formik.values.hasForeignCurrencyAccounts}
-          size="compact"
+          size={mquery ? "compact" : "wide"}
           isFullWidth
           options={activeDM.options}
           handleBlur={formik.handleBlur}

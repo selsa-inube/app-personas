@@ -1,15 +1,23 @@
 const assetTypeData = [
   {
-    id: "asset1",
-    value: "Tipo de activo 1",
+    id: "property",
+    value: "Inmueble",
   },
   {
-    id: "asset2",
-    value: "Tipo de activo 2",
+    id: "machinery",
+    value: "Maquinaria",
   },
   {
-    id: "asset3",
-    value: "Tipo de activo 3",
+    id: "vehicle",
+    value: "Vehículo",
+  },
+  {
+    id: "securities",
+    value: "Valores mobiliarios",
+  },
+  {
+    id: "other",
+    value: "Otros",
   },
 ];
 

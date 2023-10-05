@@ -7,6 +7,7 @@ import {
   mapPersonalInformation,
   mapBankTransfers,
   mapContactData,
+  mapPersonalResidence,
   mapSocioeconomicInformation,
 } from "./config/mappers";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
@@ -16,6 +17,7 @@ import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
+import { IPersonalResidenceEntry } from "./forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
@@ -33,6 +35,9 @@ function UpdateData() {
     personalDebts: { entries: [] },
     personalReferences: { entries: [] },
     financialOperations: mapFinancialOperations(),
+    personalResidence: mapPersonalResidence(
+      usersMock[0].personalData.residence
+    ),
     socioeconomicInformation: mapSocioeconomicInformation(),
   });
 
@@ -45,6 +50,8 @@ function UpdateData() {
     useRef<FormikProps<IPersonalReferenceEntries>>(null);
   const financialOperationsRef =
     useRef<FormikProps<IFinancialOperationsEntry>>(null);
+  const personalResidenceRef =
+    useRef<FormikProps<IPersonalResidenceEntry>>(null);
   const socioeconomicsRef =
     useRef<FormikProps<ISocioeconomicInformationEntry>>(null);
 
@@ -56,6 +63,7 @@ function UpdateData() {
     personalDebts: personalDebtsRef,
     personalReferences: personalReferencesRef,
     financialOperations: financialOperationsRef,
+    personalResidence: personalResidenceRef,
     socioeconomicInformation: socioeconomicsRef,
   };
 

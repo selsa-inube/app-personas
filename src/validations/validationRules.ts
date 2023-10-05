@@ -7,10 +7,6 @@ const validationRules = {
     .matches(regex.onlyLetters, validationMessages.onlyLetters)
     .min(8, validationMessages.minCharacters(8))
     .max(30, validationMessages.maxCharacters(30)),
-  lastName: Yup.string()
-    .matches(regex.onlyLetters, validationMessages.onlyLetters)
-    .min(8, validationMessages.minCharacters(8))
-    .max(30, validationMessages.maxCharacters(30)),
 
   identification: Yup.string()
     .test(
@@ -46,6 +42,9 @@ const validationRules = {
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 
+  money: Yup.number()
+    .min(1, validationMessages.minCurrencyNumbers(1))
+    .max(1000000000, validationMessages.maxCurrencyNumbers(1000000000)),
   expeditionDate: Yup.string()
     .matches(regex.date, validationMessages.validExpeditionDate)
     .min(11, validationMessages.minCharacters(11))
@@ -73,10 +72,6 @@ const validationRules = {
     .matches(regex.onlyNumbers, validationMessages.validLandlinePhone)
     .min(8, validationMessages.minNumbers(8))
     .max(10, validationMessages.maxNumbers(10)),
-  money: Yup.string()
-    .matches(regex.onlyNumbers)
-    .min(1, validationMessages.minNumbers(1))
-    .max(10, validationMessages.maxNumbers(20)),
 
   address: Yup.string()
     .min(5, validationMessages.minCharacters(5))

@@ -1,6 +1,8 @@
 import { IThird, IContactData } from "src/model/entity/user";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
+import { IResidence } from "src/model/entity/user";
+import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IBankTransfersAccount } from "src/model/entity/user";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
@@ -61,6 +63,22 @@ const mapFinancialOperations = (
   };
 };
 
+const mapPersonalResidence = (
+  personalResidence: IResidence
+): IPersonalResidenceEntry => {
+  return {
+    type: personalResidence.type,
+    stratum: personalResidence.stratum,
+    bankingEntity: personalResidence.bankingEntity,
+    dueDate: personalResidence.dueDate,
+    tenant: personalResidence.tenant,
+    tenantCellPhone: personalResidence.tenantCellPhone,
+    ownerName: personalResidence.ownerName,
+    relationship: personalResidence.relationship,
+    ownerCellPhone: personalResidence.ownerCellPhone,
+  };
+};
+
 const mapSocioeconomicInformation = (
   socioeconomicData?: Record<string, string>
 ): ISocioeconomicInformationEntry => {
@@ -81,5 +99,6 @@ export {
   mapPersonalInformation,
   mapContactData,
   mapBankTransfers,
+  mapPersonalResidence,
   mapSocioeconomicInformation,
 };
