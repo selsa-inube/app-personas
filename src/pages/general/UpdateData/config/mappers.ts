@@ -1,9 +1,12 @@
 import { IThird, IContactData } from "src/model/entity/user";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
+import { IResidence } from "src/model/entity/user";
+import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IBankTransfersAccount } from "src/model/entity/user";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
+import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -60,9 +63,42 @@ const mapFinancialOperations = (
   };
 };
 
+const mapPersonalResidence = (
+  personalResidence: IResidence
+): IPersonalResidenceEntry => {
+  return {
+    type: personalResidence.type,
+    stratum: personalResidence.stratum,
+    bankingEntity: personalResidence.bankingEntity,
+    dueDate: personalResidence.dueDate,
+    tenant: personalResidence.tenant,
+    tenantCellPhone: personalResidence.tenantCellPhone,
+    ownerName: personalResidence.ownerName,
+    relationship: personalResidence.relationship,
+    ownerCellPhone: personalResidence.ownerCellPhone,
+  };
+};
+
+const mapSocioeconomicInformation = (
+  socioeconomicData?: Record<string, string>
+): ISocioeconomicInformationEntry => {
+  return {
+    educationLevel: socioeconomicData?.educationLevel || "",
+    isResponsibleHome: socioeconomicData?.isResponsibleHome || "",
+    isSingleMother: socioeconomicData?.isSingleMother || "",
+    dependants: Number(socioeconomicData?.dependants) || 0,
+    vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
+    isPublicExposed: socioeconomicData?.isPublicExposed || "",
+    isDeclaredIncome: socioeconomicData?.isDeclaredIncome || "",
+    isPublicOfficials: socioeconomicData?.isPublicOfficials || "",
+  };
+};
+
 export {
   mapFinancialOperations,
   mapPersonalInformation,
   mapContactData,
   mapBankTransfers,
+  mapPersonalResidence,
+  mapSocioeconomicInformation,
 };

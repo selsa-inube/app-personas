@@ -10,7 +10,10 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
+import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledDivider, StyledModal } from "./styles";
+
+const assetTypeDM = getDomainById("assetType");
 
 interface AddAssetModalProps {
   portalId: string;
@@ -31,13 +34,22 @@ function AddAssetModal(props: AddAssetModalProps) {
     );
   }
 
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
+  const stateValue = (fieldName: string) => {
+    if (!formik.touched[fieldName]) return "pending";
+    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
     return "valid";
-  }
+  };
 
-  const assetTypeDM = getDomainById("assetType");
+  const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const parsedValue = parseCurrencyString(e.target.value);
+    formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);
+  };
+
+  const validateCurrencyField = (fieldName: string) => {
+    return typeof formik.values[fieldName] === "number"
+      ? currencyFormat(formik.values[fieldName])
+      : "";
+  };
 
   return createPortal(
     <Blanket>
@@ -83,14 +95,14 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="commercialValue"
             id="commercialValue"
             placeholder="Digite el valor comercial estimado"
-            value={formik.values.commercialValue || ""}
+            value={validateCurrencyField("commercialValue")}
             type="text"
             errorMessage={formik.errors.commercialValue}
             size="compact"
             isFullWidth
             state={stateValue("commercialValue")}
             handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            handleChange={handleChangeWithCurrency}
             validMessage="El valor comercial es válido"
             isRequired
           />
@@ -99,14 +111,14 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="debtBalance"
             id="debtBalance"
             placeholder="Digite el saldo total de la deuda"
-            value={formik.values.debtBalance || ""}
+            value={validateCurrencyField("debtBalance")}
             type="text"
             errorMessage={formik.errors.debtBalance}
             size="compact"
             isFullWidth
             state={stateValue("debtBalance")}
             handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            handleChange={handleChangeWithCurrency}
             validMessage="El saldo de la deuda es válido"
           />
           <TextField
@@ -129,14 +141,14 @@ function AddAssetModal(props: AddAssetModalProps) {
             name="quota"
             id="quota"
             placeholder="Digite el valor de la cuota"
-            value={formik.values.quota || ""}
+            value={validateCurrencyField("quota")}
             type="text"
             errorMessage={formik.errors.quota}
             size="compact"
             isFullWidth
             state={stateValue("quota")}
             handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            handleChange={handleChangeWithCurrency}
             validMessage="El valor de la cuota es válido"
           />
           <TextField
@@ -167,8 +179,8 @@ function AddAssetModal(props: AddAssetModalProps) {
           <Button
             spacing="compact"
             handleClick={onAddAsset}
-            disabled={!formik.isValid}
-            appearance="gray"
+            disabled={!formik.dirty || !formik.isValid}
+            appearance="primary"
           >
             Adicionar
           </Button>

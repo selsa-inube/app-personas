@@ -11,11 +11,13 @@ import { crumbsUpdateData } from "./config/navigation";
 import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
+import { PersonalResidenceForm } from "./forms/PersonalResidenceForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
+import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -64,6 +66,18 @@ const renderStepContent = (
         <FinancialOperationsForm
           initialValues={updateData.financialOperations}
           ref={formReferences.financialOperations}
+        />
+      )}
+      {currentStep === updateDataSteps.personalResidence.id && (
+        <PersonalResidenceForm
+          initialValues={updateData.personalResidence}
+          ref={formReferences.personalResidence}
+        />
+      )}
+      {currentStep === updateDataSteps.socioeconomicInformation.id && (
+        <SocioeconomicInformationForm
+          initialValues={updateData.socioeconomicInformation}
+          ref={formReferences.socioeconomicInformation}
         />
       )}
     </>

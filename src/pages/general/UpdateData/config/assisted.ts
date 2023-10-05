@@ -44,8 +44,19 @@ const updateDataSteps = {
     description:
       "Diligencia la información si realizas operaciones financieras en el exterior.",
   },
-  verification: {
+  personalResidence: {
     id: 9,
+    name: "Residencia personal",
+    description: "Diligencia la información del inmueble donde vives.",
+  },
+  socioeconomicInformation: {
+    id: 10,
+    name: "Información socioeconómica",
+    description:
+      "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
+  },
+  verification: {
+    id: 11,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",
