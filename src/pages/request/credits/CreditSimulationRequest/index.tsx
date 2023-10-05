@@ -1,6 +1,7 @@
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { creditSimulationRequestSteps } from "./config/assisted";
+import { initalValuesCreditSimulation } from "./config/initialValues";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { CreditSimulationRequestUI } from "./interface";
 import {
@@ -15,7 +16,7 @@ function CreditSimulationRequest() {
   const steps = Object.values(creditSimulationRequestSteps);
   const [creditSimulationRequest, setCreditSimulationRequest] =
     useState<IFormsCreditSimulationRequest>({
-      destination: {},
+      destination: initalValuesCreditSimulation.destination,
     });
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
