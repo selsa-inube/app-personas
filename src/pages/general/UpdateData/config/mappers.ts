@@ -6,6 +6,7 @@ import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IBankTransfersAccount } from "src/model/entity/user";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
+import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -78,10 +79,26 @@ const mapPersonalResidence = (
   };
 };
 
+const mapSocioeconomicInformation = (
+  socioeconomicData?: Record<string, string>
+): ISocioeconomicInformationEntry => {
+  return {
+    educationLevel: socioeconomicData?.educationLevel || "",
+    isResponsibleHome: socioeconomicData?.isResponsibleHome || "",
+    isSingleMother: socioeconomicData?.isSingleMother || "",
+    dependants: Number(socioeconomicData?.dependants) || 0,
+    vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
+    isPublicExposed: socioeconomicData?.isPublicExposed || "",
+    isDeclaredIncome: socioeconomicData?.isDeclaredIncome || "",
+    isPublicOfficials: socioeconomicData?.isPublicOfficials || "",
+  };
+};
+
 export {
   mapFinancialOperations,
   mapPersonalInformation,
   mapContactData,
   mapBankTransfers,
   mapPersonalResidence,
+  mapSocioeconomicInformation,
 };
