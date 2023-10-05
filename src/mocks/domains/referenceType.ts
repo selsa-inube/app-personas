@@ -1,15 +1,19 @@
 const referenceTypeData = [
   {
-    id: "reference1",
-    value: "Referencia 1",
+    id: "commercial",
+    value: "Comercial",
   },
   {
-    id: "reference2",
-    value: "Referencia 2",
+    id: "financial",
+    value: "Financiera",
   },
   {
-    id: "reference3",
-    value: "Referencia 3",
+    id: "familiar",
+    value: "Familiar",
+  },
+  {
+    id: "personal",
+    value: "Personal",
   },
 ];
 
