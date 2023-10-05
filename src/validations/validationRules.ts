@@ -83,7 +83,7 @@ const validationRules = {
     .max(11, validationMessages.maxNumbers(11)),
 
   dependants: Yup.string()
-    .matches(regex.onlyNumbers)
+    .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
     .min(1, validationMessages.minNumbers(1))
     .max(2, validationMessages.maxNumbers(2)),
 };

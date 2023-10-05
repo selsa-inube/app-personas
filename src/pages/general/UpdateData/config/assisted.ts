@@ -50,13 +50,13 @@ const updateDataSteps = {
     description: "Diligencia la información del inmueble donde vives.",
   },
   socioeconomicInformation: {
-    id: 9,
+    id: 10,
     name: "Información socioeconómica",
     description:
       "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
   },
   verification: {
-    id: 10,
+    id: 11,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",
