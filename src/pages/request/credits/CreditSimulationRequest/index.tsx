@@ -8,6 +8,7 @@ import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
 } from "./types";
+import { ISimulationEntry } from "./forms/SimulationForm/types";
 
 function CreditSimulationRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -17,12 +18,15 @@ function CreditSimulationRequest() {
   const [creditSimulationRequest, setCreditSimulationRequest] =
     useState<IFormsCreditSimulationRequest>({
       destination: initalValuesCreditSimulation.destination,
+      simulation: initalValuesCreditSimulation.simulation,
     });
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
+  const simulationRef = useRef<FormikProps<ISimulationEntry>>(null);
 
   const formReferences: IFormsCreditSimulationRequestRefs = {
     destination: destinationRef,
+    simulation: simulationRef,
   };
 
   const handleStepChange = (stepId: number) => {
