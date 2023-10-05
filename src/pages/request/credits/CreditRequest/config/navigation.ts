@@ -6,7 +6,7 @@ const crumbsCreditRequest = [
   },
   {
     id: "creditRequest",
-    path: "/request/credits",
+    path: "/credit",
     label: "Solicitud de crédito",
     isActive: true,
   },

@@ -41,7 +41,7 @@ function CreditRequest() {
         }
         templateColumns={mquery ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s400">
+        <Stack direction="column" gap={mquery ? "s400" : "s250"}>
           <Text type="title" size="small">
             Aquí encontraras las opciones que puedes usar para realizar tu
             solicitud de crédito.
