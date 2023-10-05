@@ -13,7 +13,7 @@ const creditRequestCards = [
       "Sugerido si ya conoces cual producto de crédito necesitas.",
       "Sugerido si quiere simular su crédito variando monto y plazo.",
     ],
-    navigateTo: "/",
+    navigateTo: "simulation",
   },
 ];
 

@@ -1,0 +1,124 @@
+import { QuickAccess } from "@components/cards/QuickAccess";
+import { quickLinks } from "@config/quickLinks";
+import { Title } from "@design/data/Title";
+import { Assisted } from "@design/feedback/Assisted";
+import { IStep } from "@design/feedback/Assisted/types";
+import { Button } from "@design/input/Button";
+import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
+import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { MdArrowBack } from "react-icons/md";
+import { creditSimulationRequestSteps } from "./config/assisted";
+import { crumbsCreditSimulationRequest } from "./config/navigation";
+import { DestinationForm } from "./forms/DestinationForm";
+import {
+  IFormsCreditSimulationRequest,
+  IFormsCreditSimulationRequestRefs,
+} from "./types";
+
+const renderStepContent = (
+  currentStep: number,
+  formReferences: IFormsCreditSimulationRequestRefs,
+  creditSimulationRequest: IFormsCreditSimulationRequest
+) => {
+  return (
+    <>
+      {currentStep === creditSimulationRequestSteps.destination.id && (
+        <DestinationForm
+          initialValues={creditSimulationRequest.destination}
+          ref={formReferences.destination}
+        />
+      )}
+    </>
+  );
+};
+
+interface CreditSimulationRequestUIProps {
+  currentStep: number;
+  steps: IStep[];
+  handleStepChange: (stepId: number) => void;
+  handleFinishAssisted: () => void;
+  handleNextStep: () => void;
+  handlePreviousStep: () => void;
+  creditSimulationRequest: IFormsCreditSimulationRequest;
+  formReferences: IFormsCreditSimulationRequestRefs;
+}
+
+function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
+  const {
+    currentStep,
+    steps,
+    handleStepChange,
+    handleFinishAssisted,
+    handleNextStep,
+    handlePreviousStep,
+    creditSimulationRequest,
+    formReferences,
+  } = props;
+
+  const mquery = useMediaQuery("(min-width: 1400px)");
+  const isMobile = useMediaQuery("(max-width: 450px)");
+
+  return (
+    <>
+      <Stack direction="column" gap="s300">
+        <Breadcrumbs crumbs={crumbsCreditSimulationRequest} />
+        <Title
+          title="Solicitud por simulación"
+          subtitle="Simula tu solicitud de crédito"
+          icon={<MdArrowBack />}
+          navigatePage="/credit"
+        />
+      </Stack>
+
+      <Grid
+        margin={
+          mquery ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
+        }
+        gap="s600"
+        templateColumns={mquery ? "1fr 250px" : "1fr"}
+      >
+        <Stack direction="column" gap="s500">
+          <Assisted
+            steps={steps}
+            currentStep={currentStep}
+            handleFinishAssisted={handleFinishAssisted}
+            handleStepChange={handleStepChange}
+          />
+
+          <Stack direction="column" gap="s300">
+            {renderStepContent(
+              currentStep,
+              formReferences,
+              creditSimulationRequest
+            )}
+
+            <Stack gap="s150" justifyContent="flex-end">
+              <Button
+                handleClick={handlePreviousStep}
+                type="button"
+                disabled={currentStep === steps[0].id}
+                spacing={isMobile ? "compact" : "wide"}
+                appearance="gray"
+              >
+                Atrás
+              </Button>
+
+              <Button
+                handleClick={handleNextStep}
+                spacing={isMobile ? "compact" : "wide"}
+              >
+                Siguiente
+              </Button>
+            </Stack>
+          </Stack>
+        </Stack>
+        {mquery && <QuickAccess links={quickLinks} />}
+      </Grid>
+    </>
+  );
+}
+
+export { CreditSimulationRequestUI };
