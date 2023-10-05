@@ -44,6 +44,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   align-items: center;
   box-sizing: border-box;
   user-select: none;
+  cursor: ${({ readOnly }) => readOnly && "not-allowed"};
   border-radius: ${inube.spacing.s100};
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
@@ -120,7 +121,7 @@ interface IStyledInput {
 const StyledInput = styled.input<IStyledInput>`
   outline: none;
   border-radius: ${inube.spacing.s100};
-
+  cursor: ${({ readOnly }) => readOnly && "not-allowed"};
   font-family: ${({ theme }) =>
     theme.typography?.body?.large?.font || inube.typography.body.large.font};
   font-size: ${({ theme }) =>
@@ -141,10 +142,8 @@ const StyledInput = styled.input<IStyledInput>`
         theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
       );
     }
-    if (readOnly){
-      return (
-        theme.color?.text?.gray?.hover || inube.color.text.gray.hover
-      )
+    if (readOnly) {
+      return theme.color?.text?.gray?.hover || inube.color.text.gray.hover;
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
@@ -156,9 +155,7 @@ const StyledInput = styled.input<IStyledInput>`
 
   width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
   height: ${({ $size }) =>
-    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s500}`};
-
-  border: none;
+    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s400}`};
 
   ::placeholder {
     color: ${({ theme }) =>
