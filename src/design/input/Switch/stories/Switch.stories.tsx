@@ -17,7 +17,7 @@ const story = {
 };
 
 export const Default: StoryFn<SwitchProps> = (args) => (
-  <SwitchController {...args} onSwitchChange={args.onChange} />
+  <SwitchController {...args} onSwitchChange={args.handleChange} />
 );
 Default.args = {
   id: "id",
@@ -26,7 +26,7 @@ Default.args = {
   label: "Switch",
   checked: false,
   sizeSwitch: "small",
-  onChange: () => {},
+  handleChange: () => {},
 };
 
 const theme = {
@@ -35,7 +35,7 @@ const theme = {
 
 export const Themed = (args: SwitchProps) => (
   <ThemeProvider theme={theme}>
-    <SwitchController {...args} onSwitchChange={args.onChange} />
+    <SwitchController {...args} onSwitchChange={args.handleChange} />
   </ThemeProvider>
 );
 Themed.args = {

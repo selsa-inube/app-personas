@@ -10,7 +10,7 @@ interface SwitchProps {
   value?: string;
   sizeSwitch?: SwitchSizeType;
   checked?: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   margin: string;
   padding: string;
@@ -25,7 +25,7 @@ const Switch = (props: SwitchProps) => {
     value,
     sizeSwitch = "small",
     checked = false,
-    onChange,
+    handleChange,
     label,
     margin = "s0",
     padding = "s0",
@@ -47,7 +47,7 @@ const Switch = (props: SwitchProps) => {
           value={value}
           sizeSwitch={sizeSwitch}
           checked={checked}
-          onChange={onChange}
+          onChange={handleChange}
           disabled={disabled}
           name={name}
         />

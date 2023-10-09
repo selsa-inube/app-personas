@@ -9,12 +9,12 @@ const SwitchController = (
   const { checked = false, onSwitchChange } = props;
   const [switchChecked, setSwitchChecked] = useState(checked);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSwitchChecked(e.target.checked);
     onSwitchChange && onSwitchChange(e);
   };
 
-  return <Switch {...props} checked={switchChecked} onChange={onChange} />;
+  return <Switch {...props} checked={switchChecked} handleChange={handleChange} />;
 };
 
 export { SwitchController };
