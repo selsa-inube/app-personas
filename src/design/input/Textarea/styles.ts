@@ -10,6 +10,8 @@ interface StyledTextarea {
   isFullwidth?: boolean;
   isFocused?: boolean;
   isMobile?: boolean;
+  isDisabled?: boolean;
+  isRequired?: boolean;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
@@ -24,13 +26,13 @@ const StyledTextarea = styled.textarea<StyledTextarea>`
   width: ${({ isFullwidth }) => (isFullwidth ? "calc(100% - 32px)" : "452px")};
   resize: ${({ isFullwidth }) => (isFullwidth ? "none" : "both")};
   height: ${({ isMobile }) => (isMobile ? "140px" : "76px")};
-  color: ${({ disabled, theme }) =>
-    disabled
+  color: ${({ isDisabled, theme }) =>
+    isDisabled
       ? theme?.color?.text?.gray?.disabled || inube.color.text.gray.disabled
       : theme?.color?.text?.dark?.regular || inube.color.text.dark.regular};
   border: 1px solid
-    ${({ disabled, isFocused, theme }) => {
-      if (disabled) {
+    ${({ isDisabled, isFocused, theme }) => {
+      if (isDisabled) {
         return (
           theme?.color?.stroke?.gray?.disabled ||
           inube.color.stroke.gray.disabled
@@ -48,7 +50,7 @@ const StyledTextarea = styled.textarea<StyledTextarea>`
         inube.color.stroke.divider.regular
       );
     }};
-  ${({ disabled }) => disabled && "pointer-events: none; opacity: 0.5;"}
+  ${({ isDisabled }) => isDisabled && "pointer-events: none; opacity: 0.5;"}
 
   ::placeholder {
     color: ${({ theme }) =>

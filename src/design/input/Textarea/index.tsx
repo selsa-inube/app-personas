@@ -11,13 +11,13 @@ interface ITextareaProps {
   name?: string;
   id: string;
   placeholder?: string;
-  disabled?: boolean;
+  isDisabled?: boolean;
   isFocused?: boolean;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   maxLength?: number;
-  required?: boolean;
-  fullwidth?: boolean;
+  isRequired?: boolean;
+  isFullWidth?: boolean;
   onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   readOnly?: boolean;
@@ -28,15 +28,12 @@ const Counter = (
     valueLength: number;
   }
 ) => {
-  const { maxLength, disabled, valueLength } = props;
+  const { maxLength, isDisabled, valueLength } = props;
 
   return (
-    <Text
-      type="body"
-      size="small"
-      appearance="gray"
-      disabled={disabled}
-    >{`${valueLength}/${maxLength}`}</Text>
+    <Text type="body" size="small" appearance="gray" disabled={isDisabled}>
+      {valueLength}/{maxLength}
+    </Text>
   );
 };
 
@@ -46,11 +43,11 @@ const Textarea = (props: ITextareaProps) => {
     name,
     id,
     placeholder,
-    disabled,
+    isDisabled,
     value = "",
     maxLength = 0,
-    required,
-    fullwidth,
+    isRequired,
+    isFullWidth,
     onChange,
     onFocus,
     onBlur,
@@ -59,7 +56,7 @@ const Textarea = (props: ITextareaProps) => {
 
   const [isFocused, setIsFocused] = useState(false);
 
-  const newValue = value.slice(0, maxLength);
+  const truncatedValue = value.slice(0, maxLength);
 
   const isMobile = useMediaQuery("(max-width: 560px)");
 
@@ -80,9 +77,9 @@ const Textarea = (props: ITextareaProps) => {
   };
 
   return (
-    <StyledContainer isFullwidth={fullwidth} isDisabled={disabled}>
+    <StyledContainer isFullwidth={isFullWidth} isDisabled={isDisabled}>
       <Stack width="100%" margin={`0px 0px ${inube.spacing.s050} 0px`}>
-        {(label || required) && (
+        {(label || isRequired) && (
           <Stack
             gap="4px"
             alignItems="center"
@@ -91,7 +88,7 @@ const Textarea = (props: ITextareaProps) => {
             {label && (
               <Label
                 htmlFor={id}
-                isDisabled={disabled}
+                isDisabled={isDisabled}
                 isFocused={isFocused}
                 size={isMobile ? "medium" : "large"}
               >
@@ -99,19 +96,19 @@ const Textarea = (props: ITextareaProps) => {
               </Label>
             )}
 
-            {required && !disabled && (
+            {isRequired && !isDisabled && (
               <Text type="body" size="small" appearance="dark">
                 (Requerido)
               </Text>
             )}
           </Stack>
         )}
-        {!disabled && (
+        {!isDisabled && (
           <Stack justifyContent="flex-end" alignItems="center" width="100%">
             <Counter
               maxLength={maxLength}
-              disabled={disabled}
-              valueLength={newValue!.length}
+              isDisabled={isDisabled}
+              valueLength={truncatedValue!.length}
             />
           </Stack>
         )}
@@ -121,12 +118,12 @@ const Textarea = (props: ITextareaProps) => {
         name={name}
         id={id}
         placeholder={placeholder}
-        disabled={disabled}
-        required={required}
-        isFullwidth={fullwidth}
+        isDisabled={isDisabled}
+        isRequired={isRequired}
+        isFullwidth={isFullWidth}
         isFocused={isFocused}
         readOnly={readOnly}
-        value={newValue}
+        value={truncatedValue}
         isMobile={isMobile}
         onChange={onChange}
         onFocus={interceptFocus}

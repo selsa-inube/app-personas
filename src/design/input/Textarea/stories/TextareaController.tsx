@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ITextareaProps, Textarea } from "..";
+import { action } from "@storybook/addon-actions";
 
 const TextareaController = (props: ITextareaProps) => {
   const { value = "", maxLength = 0 } = props;
@@ -12,13 +13,14 @@ const TextareaController = (props: ITextareaProps) => {
 
   const onFocus = () => {
     setForm(form);
-    console.log("onFocus event");
+    action("onFocus event");
   };
 
   const onBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setForm(form);
-    console.log("onBlur event");
+    action("onBlur event");
   };
+
   return (
     <Textarea
       {...props}

@@ -31,10 +31,7 @@ const props = {
   value: {
     description: "component initial value",
   },
-  onChange: {
-    description:
-      "allows you to control what to do when the user changes the value of the component",
-  },
+
   maxLength: {
     description:
       "defines how many characters maximum are received in the component value",

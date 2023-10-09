@@ -4,6 +4,7 @@ import { fondecom } from "@mocks/design/themes/fondecom";
 import { props, parameters } from "../props";
 import { ITextareaProps, Textarea } from "..";
 import { TextareaController } from "./TextareaController";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/input/Textarea",
@@ -13,15 +14,17 @@ const story = {
   argTypes: props,
 };
 
-const Default = (args: ITextareaProps) => <TextareaController {...args} />;
+const Default: StoryFn<ITextareaProps> = (args) => (
+  <TextareaController {...args} />
+);
 Default.args = {
   label: "Textarea",
   name: "textarea",
   id: "textarea",
   placeholder: "Storybook Textarea",
-  disabled: false,
-  fullwidth: false,
-  required: true,
+  isDisabled: false,
+  isFullWidth: false,
+  isRequired: true,
   maxLength: 220,
   value:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil veniam, reiciendis ipsum itaque unde odio voluptatum ab cumque deleniti dolore magnam quas hic rem, mollitia adipisci. Officiis accusamus aut consectetur",

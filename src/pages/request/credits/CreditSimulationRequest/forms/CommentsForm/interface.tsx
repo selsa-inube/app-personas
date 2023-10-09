@@ -16,14 +16,14 @@ function CommentsFormUI(props: CommentsFormUIProps) {
         name="comments"
         label="Comentarios"
         placeholder="Escribe tus comentarios"
-        maxLength={250}
-        disabled={loading}
+        maxLength={150}
+        isDisabled={loading}
         value={formik.values.comments}
         onBlur={formik.onBlur}
         onChange={formik.handleChange}
         onFocus={formik.isFocused}
-        fullwidth
-      ></Textarea>
+        isFullWidth
+      />
     </form>
   );
 }
