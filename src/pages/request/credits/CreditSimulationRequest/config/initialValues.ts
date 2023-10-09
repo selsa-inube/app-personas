@@ -10,8 +10,9 @@ const simulation: ISimulationEntry = {
   creditDestination: "",
   product: "",
   amount: "",
-  deadline: "",
   peridiocity: "",
+  deadline: "",
+  simulationWithQuota: false,
 };
 
 const initalValuesCreditSimulation = {

@@ -76,8 +76,8 @@ function UpdateData() {
       const values =
         formReferences[stepKey as keyof IFormsUpdateDataRefs]?.current?.values;
 
-      setUpdateData((prevInvitationData) => ({
-        ...prevInvitationData,
+      setUpdateData((prevUpdateData) => ({
+        ...prevUpdateData,
         [stepKey]: values,
       }));
     }

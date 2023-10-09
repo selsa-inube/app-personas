@@ -7,30 +7,28 @@ const creditSimulationRequestSteps = {
   simulation: {
     id: 2,
     name: "Simulación",
-    description: "Description .",
+    description: "Description",
   },
   preliquidation: {
     id: 3,
     name: "Preliquidación",
-    description:
-      "Description.",
+    description: "Description.",
   },
   disbursement: {
     id: 4,
     name: "Desembolso",
-    description:
-      "Selecciona la forma de desembolso.",
+    description: "Selecciona la forma de desembolso.",
   },
   comments: {
     id: 5,
     name: "Comentarios",
-    description: "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
+    description:
+      "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
   },
   termsAndConditions: {
     id: 6,
     name: "Términos y condiciones",
-    description:
-      "Aceptaciones y avisos de privacidad.",
+    description: "Aceptaciones y avisos de privacidad.",
   },
   verification: {
     id: 7,

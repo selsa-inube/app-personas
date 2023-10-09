@@ -5,7 +5,7 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { destinationProducts } from "@mocks/products/credits/request.mocks";
+import { destinationProductsMock } from "@mocks/products/credits/request.mocks";
 import { FormikValues } from "formik";
 
 interface DestinationFormUIProps {
@@ -24,7 +24,6 @@ function DestinationFormUI(props: DestinationFormUIProps) {
   }
 
   const isMobile = useMediaQuery("(max-width: 750px)");
-  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   const creditDestinationDM = getDomainById("creditDestination");
 
@@ -57,19 +56,24 @@ function DestinationFormUI(props: DestinationFormUIProps) {
               </Text>
 
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s200">
-                {destinationProducts[
+                {destinationProductsMock[
                   formik.values
-                    .creditDestination as keyof typeof destinationProducts
-                ].map((product) => (
-                  <RadioCard
-                    id={formik.values.creditDestination}
-                    name={formik.values.creditDestination}
-                    title={product.title}
-                    description={product.description}
-                    onClick={() => customHandleChange("product", product.id)}
-                    checked={formik.values.product === product.id}
-                  />
-                ))}
+                    .creditDestination as keyof typeof destinationProductsMock
+                ].map(
+                  (product) =>
+                    product && (
+                      <RadioCard
+                        id={formik.values.creditDestination}
+                        name={formik.values.creditDestination}
+                        title={product.value}
+                        description={product.description || ""}
+                        onClick={() =>
+                          customHandleChange("product", product.id)
+                        }
+                        checked={formik.values.product === product.id}
+                      />
+                    )
+                )}
               </Grid>
             </>
           )}

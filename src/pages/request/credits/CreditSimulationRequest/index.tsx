@@ -3,12 +3,12 @@ import { useRef, useState } from "react";
 import { creditSimulationRequestSteps } from "./config/assisted";
 import { initalValuesCreditSimulation } from "./config/initialValues";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
+import { ISimulationEntry } from "./forms/SimulationForm/types";
 import { CreditSimulationRequestUI } from "./interface";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
 } from "./types";
-import { ISimulationEntry } from "./forms/SimulationForm/types";
 
 function CreditSimulationRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -29,7 +29,27 @@ function CreditSimulationRequest() {
     simulation: simulationRef,
   };
 
+  const handleStepsValuesRules = () => {
+    switch (currentStep) {
+      case creditSimulationRequestSteps.destination.id: {
+        const destinationValues = destinationRef.current?.values;
+        if (!destinationValues) return;
+
+        setCreditSimulationRequest((prevCreditSimulationRequest) => ({
+          ...prevCreditSimulationRequest,
+          simulation: {
+            ...prevCreditSimulationRequest.simulation,
+            creditDestination: destinationValues?.creditDestination,
+            product: destinationValues?.product,
+          },
+        }));
+      }
+    }
+  };
+
   const handleStepChange = (stepId: number) => {
+    handleStepsValuesRules();
+
     const stepKey = Object.entries(creditSimulationRequestSteps).find(
       ([, config]) => config.id === currentStep
     )?.[0];
@@ -39,14 +59,16 @@ function CreditSimulationRequest() {
         formReferences[stepKey as keyof IFormsCreditSimulationRequestRefs]
           ?.current?.values;
 
-      setCreditSimulationRequest((prevInvitationData) => ({
-        ...prevInvitationData,
+      setCreditSimulationRequest((prevCreditSimulationRequest) => ({
+        ...prevCreditSimulationRequest,
         [stepKey]: values,
       }));
     }
 
     setCurrentStep(stepId);
   };
+
+  console.log(currentStep);
 
   const handleFinishAssisted = () => {};
 

@@ -122,9 +122,11 @@ function SelectUI(props: SelectUIProps) {
           $size={size}
         />
 
-        <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
-          <MdExpandMore onClick={onCloseOptions} />
-        </StyledIcon>
+        {!readOnly && (
+          <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
+            <MdExpandMore onClick={onCloseOptions} />
+          </StyledIcon>
+        )}
       </StyledInputContainer>
 
       {openOptions && !isDisabled && !readOnly && (
