@@ -1,10 +1,14 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
+import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { DestinationFormUI } from "./interface";
 import { IDestinationEntry } from "./types";
 
-const validationSchema = Yup.object({});
+const validationSchema = Yup.object({
+  creditDestination: Yup.string().required(validationMessages.required),
+  product: Yup.string().required(validationMessages.required),
+});
 
 interface DestinationFormProps {
   initialValues: IDestinationEntry;
@@ -27,7 +31,17 @@ const DestinationForm = forwardRef(function DestinationForm(
 
   useImperativeHandle(ref, () => formik);
 
-  return <DestinationFormUI loading={loading} formik={formik} />;
+  const customHandleChange = (fieldName: string, value: string) => {
+    formik.setFieldValue(fieldName, value);
+  };
+
+  return (
+    <DestinationFormUI
+      loading={loading}
+      formik={formik}
+      customHandleChange={customHandleChange}
+    />
+  );
 });
 
 export { DestinationForm };
