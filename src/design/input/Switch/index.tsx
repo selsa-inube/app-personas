@@ -8,7 +8,7 @@ interface SwitchProps {
   id: string;
   name?: string;
   value?: string;
-  sizeSwitch?: SwitchSizeType;
+  size?: SwitchSizeType;
   checked?: boolean;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
@@ -23,7 +23,7 @@ const Switch = (props: SwitchProps) => {
     id,
     name,
     value,
-    sizeSwitch = "small",
+    size = "small",
     checked = false,
     handleChange,
     label,
@@ -40,24 +40,24 @@ const Switch = (props: SwitchProps) => {
       margin={margin}
       padding={padding}
     >
-      <StyledContainer sizeSwitch={sizeSwitch}>
+      <StyledContainer size={size}>
         <StyledInput
           id={id}
           type="checkbox"
           value={value}
-          sizeSwitch={sizeSwitch}
+          $size={size}
           checked={checked}
           onChange={handleChange}
           disabled={disabled}
           name={name}
         />
-        <StyledSpan sizeSwitch={sizeSwitch} disabled={disabled} checked={checked}>
+        <StyledSpan size={size} disabled={disabled} checked={checked}>
           {checked ? (
-            <StyledIcon checked={checked} sizeSwitch={sizeSwitch} disabled={disabled}>
+            <StyledIcon checked={checked} size={size} disabled={disabled}>
               <MdDone />
             </StyledIcon>
           ) : (
-            <StyledIcon checked={checked} sizeSwitch={sizeSwitch} disabled={disabled}>
+            <StyledIcon checked={checked} size={size} disabled={disabled}>
               <MdClose />
             </StyledIcon>
           )}

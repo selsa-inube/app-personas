@@ -50,7 +50,7 @@ const props = {
     description:
       "is a function that the component receives and that can be executed every time the switch state is modified",
   },
-  sizeSwitch: {
+  size: {
     options: switchSizes,
     control: { type: "select" },
     description: "toggle size",

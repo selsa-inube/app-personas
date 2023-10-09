@@ -3,7 +3,7 @@ import { SwitchSizeType } from "./types";
 import { inube } from "@design/tokens";
 
 interface IStyledSpan {
-  sizeSwitch?: SwitchSizeType;
+  size?: SwitchSizeType;
   disabled?: boolean;
   checked?: boolean;
 }
@@ -46,28 +46,28 @@ const StyledSpan = styled.span<IStyledSpan>`
       `0.5px solid ${
         theme.color?.stroke?.light?.disabled || inube.color.stroke.gray.disabled
       }`};
-    width: ${({ sizeSwitch }) => (sizeSwitch === "small" ? "12px" : "16px")};
-    height: ${({ sizeSwitch }) => (sizeSwitch === "small" ? "12px" : "16px")};
-    bottom: ${({ sizeSwitch }) =>
-      sizeSwitch === "small"
+    width: ${({ size }) => (size === "small" ? "12px" : "16px")};
+    height: ${({ size }) => (size === "small" ? "12px" : "16px")};
+    bottom: ${({ size }) =>
+      size === "small"
         ? `calc((${inube.spacing.s200} - ${inube.spacing.s150}) / 2)`
         : `calc((${inube.spacing.s250} - ${inube.spacing.s200}) / 2)`};
   }
 `;
 
 interface IStyledContainer {
-  sizeSwitch?: SwitchSizeType;
+  size?: SwitchSizeType;
 }
 
 const StyledContainer = styled.label<IStyledContainer>`
   position: relative;
   display: inline-block;
-  width: ${({ sizeSwitch }) => (sizeSwitch === "small" ? "32px" : "40px")};
-  height: ${({ sizeSwitch }) => (sizeSwitch === "small" ? "16px" : "20px")};
+  width: ${({ size }) => (size === "small" ? "32px" : "40px")};
+  height: ${({ size }) => (size === "small" ? "16px" : "20px")};
 `;
 
 interface IStyledInput {
-  sizeSwitch?: SwitchSizeType;
+  $size?: SwitchSizeType;
   disabled?: boolean;
   checked?: boolean;
 }
@@ -97,13 +97,13 @@ const StyledInput = styled.input<IStyledInput>`
 
   &:checked + span:before {
     left: ${inube.spacing.s025};
-    transform: ${({ sizeSwitch }) =>
-      sizeSwitch === "small" ? `translateX(16px)` : `translateX(20px)`};
+    transform: ${({ $size }) =>
+      $size === "small" ? `translateX(16px)` : `translateX(20px)`};
   }
 `;
 
 interface IStyledIcon {
-  sizeSwitch?: SwitchSizeType;
+  size?: SwitchSizeType;
   disabled?: boolean;
   checked?: boolean;
 }
@@ -117,15 +117,15 @@ const StyledIcon = styled.div<IStyledIcon>`
               inube.color.surface.light.regular
             : theme.color?.stroke?.gray?.disabled ||
               inube.color.stroke.gray.disabled};
-        width: ${({ sizeSwitch }) => (sizeSwitch === "small" ? "10px" : "14px")};
-        height: ${({ sizeSwitch }) => (sizeSwitch === "small" ? "10px" : "14px")};
-        padding-left: ${({ sizeSwitch }) =>
-          sizeSwitch === "small" ? inube.spacing.s025 : "none"};
+        width: ${({ size }) => (size === "small" ? "10px" : "14px")};
+        height: ${({ size }) => (size === "small" ? "10px" : "14px")};
+        padding-left: ${({ size }) =>
+          size === "small" ? inube.spacing.s025 : "none"};
         top: calc(${inube.spacing.s075} / 2);
-        left: ${({ sizeSwitch, checked }) =>
-          sizeSwitch === "small" && checked
+        left: ${({ size, checked }) =>
+          size === "small" && checked
             ? `calc(${inube.spacing.s075} / 2)`
-            : sizeSwitch === "large" && checked
+            : size === "large" && checked
             ? `${inube.spacing.s050}`
             : `${inube.spacing.s250}`};
     }

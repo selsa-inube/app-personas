@@ -25,7 +25,7 @@ Default.args = {
   value: "switchTest1",
   label: "Switch",
   checked: false,
-  sizeSwitch: "small",
+  size: "small",
   handleChange: () => {},
 };
 
