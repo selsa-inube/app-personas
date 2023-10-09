@@ -170,8 +170,8 @@ function AddReferenceModal(props: AddReferenceModalProps) {
           <Button
             spacing="compact"
             handleClick={onAddReference}
-            disabled={!formik.isValid}
-            appearance="gray"
+            disabled={!formik.dirty || !formik.isValid}
+            appearance="primary"
           >
             Adicionar
           </Button>
