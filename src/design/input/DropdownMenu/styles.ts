@@ -7,7 +7,7 @@ const StyledDropdownMenu = styled.div`
   align-items: flex-start;
   align-self: stretch;
   overflow: auto;
-  max-height: 382px;
+  max-height: 384px;
   padding: ${inube.spacing.s050} ${inube.spacing.s0};
   margin-top: ${inube.spacing.s100};
   border-radius: ${inube.spacing.s050};
@@ -28,10 +28,6 @@ const StyledDropdownMenu = styled.div`
   ::-webkit-scrollbar-thumb {
     background: ${({ theme }) =>
       theme.color?.surface?.dark?.clear || inube.color.surface.dark.clear};
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
   }
 `;
 

@@ -167,12 +167,26 @@ function TextFieldUI(props: TextFieldProps) {
           </StyledIcon>
         )}
       </StyledInputContainer>
-      {showDropdown && (
-        <DropdownMenu
-          options={suggestions}
-          handleClick={handleSuggestionSelect}
-        />
-      )}
+      {showDropdown &&
+        suggestions &&
+        suggestions.length > 0 &&
+        suggestions.some((suggestion) =>
+          suggestion.value
+            .toLowerCase()
+            .startsWith(String(inputValue).toLowerCase())
+        ) && (
+          <DropdownMenu
+            options={suggestions
+              .filter((suggestion) =>
+                suggestion.value
+                  .toLowerCase()
+                  .startsWith(String(inputValue).toLowerCase())
+              )
+              .flat()}
+            handleClick={handleSuggestionSelect}
+          />
+        )}
+
       {state === "invalid" && (
         <Invalid
           isDisabled={isDisabled}

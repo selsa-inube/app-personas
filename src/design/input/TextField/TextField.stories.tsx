@@ -37,7 +37,6 @@ Default.args = {
   iconAfter: <MdOutlineAttachMoney />,
 };
 
-
 const theme = {
   ...fondecom,
 };
@@ -66,8 +65,18 @@ Autocomplete.args = {
   placeholder: "Write an option",
   readOnly: false,
   autocomplete: true,
-  suggestions: [{id:"Opción-1", value:"Opción-1"}, {id:"Opción-2", value:"Opción-2"}, {id:"Opción-3", value:"Opción-3"}],
-  autocompleteChars: 1
+  suggestions: [
+    { id: "Opción-A", value: "Opción-A" },
+    { id: "Opción-B", value: "Opción-B" },
+    { id: "Opción-C", value: "Opción-C" },
+    { id: "Opción-D", value: "Opción-D" },
+    { id: "Opción-E", value: "Opción-E" },
+    { id: "Opción-F", value: "Opción-F" },
+    { id: "Opción-G", value: "Opción-G" },
+    { id: "Opción-H", value: "Opción-H" },
+    { id: "Opción-I", value: "Opción-I" },
+  ],
+  autocompleteChars: 2,
 };
 
 export default story;
