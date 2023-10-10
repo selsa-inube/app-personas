@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { creditSimulationRequestSteps } from "./config/assisted";
 import { initalValuesCreditSimulation } from "./config/initialValues";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
+import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { CreditSimulationRequestUI } from "./interface";
 import {
   IFormsCreditSimulationRequest,
@@ -17,12 +18,15 @@ function CreditSimulationRequest() {
   const [creditSimulationRequest, setCreditSimulationRequest] =
     useState<IFormsCreditSimulationRequest>({
       destination: initalValuesCreditSimulation.destination,
+      comments: initalValuesCreditSimulation.comments,
     });
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
+  const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
 
   const formReferences: IFormsCreditSimulationRequestRefs = {
     destination: destinationRef,
+    comments: commentsRef,
   };
 
   const handleStepChange = (stepId: number) => {

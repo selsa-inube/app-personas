@@ -27,7 +27,7 @@ function Select(props: SelectProps) {
     label,
     name,
     id,
-    placeholder,
+    placeholder = "Seleccione una opción",
     isDisabled = false,
     value,
     handleChange,
@@ -68,6 +68,13 @@ function Select(props: SelectProps) {
     const target = event.target as Node | null;
     if (selectRef.current && target && !selectRef.current.contains(target)) {
       setOpen(false);
+    }
+    if (handleBlur) {
+      const event = {
+        target: selectRef.current,
+      } as React.FocusEvent<HTMLDivElement>;
+
+      handleBlur(event);
     }
   };
 
