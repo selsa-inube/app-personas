@@ -64,16 +64,12 @@ const Textarea = (props: ITextareaProps) => {
     if (!readOnly) {
       setIsFocused(true);
     }
-    if (typeof onFocus === "function") {
-      onFocus(e);
-    }
+    onFocus && onFocus(e);
   };
 
   const interceptBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setIsFocused(false);
-    if (typeof onBlur === "function") {
-      onBlur(e);
-    }
+    onBlur && onBlur(e);
   };
 
   return (
