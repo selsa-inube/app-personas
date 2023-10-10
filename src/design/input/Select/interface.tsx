@@ -95,7 +95,7 @@ function SelectUI(props: SelectUIProps) {
 
         {isRequired && !isDisabled && (
           <Text type="body" size="small" appearance="dark">
-            (Required)
+            (Requerido)
           </Text>
         )}
       </StyledContainerLabel>
@@ -110,7 +110,7 @@ function SelectUI(props: SelectUIProps) {
           autoComplete="off"
           $readOnly={readOnly}
           readOnly
-          value={currentOption?.value || "Seleccione una opción"}
+          value={currentOption?.value}
           name={name}
           id={id}
           placeholder={placeholder}

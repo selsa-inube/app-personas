@@ -10,9 +10,9 @@ import { IPersonalAssetEntries } from "./types";
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),
   commercialValue: validationRules.money.required(validationMessages.required),
-  debtBalance: validationRules.money.required(validationMessages.required),
-  financialEntity: validationRules.name.required(validationMessages.required),
-  quota: validationRules.money.required(validationMessages.required),
+  debtBalance: validationRules.money,
+  financialEntity: validationRules.name,
+  quota: validationRules.money,
 });
 
 interface PersonalAssetsFormProps {

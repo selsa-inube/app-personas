@@ -13,6 +13,8 @@ import {
   StyledInputContainer,
   StyledValidMessageContainer,
 } from "./styles";
+import { useState } from "react";
+import { DropdownMenu } from "../DropdownMenu";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -67,7 +69,34 @@ function TextFieldUI(props: TextFieldProps) {
     handleFocus,
     handleBlur,
     readOnly,
+    autocomplete,
+    suggestions,
+    autocompleteChars,
   } = props;
+
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [inputValue, setInputValue] = useState(value || "");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
+    if (autocompleteChars ? value.length >= autocompleteChars : true) {
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+
+    setInputValue(value);
+
+    if (handleChange) {
+      handleChange(event);
+    }
+  };
+
+  const handleSuggestionSelect = (selectedValue: string) => {
+    setInputValue(selectedValue);
+    setShowDropdown(false);
+  };
 
   return (
     <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
@@ -89,7 +118,7 @@ function TextFieldUI(props: TextFieldProps) {
 
         {isRequired && !isDisabled && (
           <Text type="body" size="small" appearance="dark">
-            (Required)
+            (Requerido)
           </Text>
         )}
       </StyledContainerLabel>
@@ -116,24 +145,42 @@ function TextFieldUI(props: TextFieldProps) {
           isDisabled={isDisabled}
           isFullWidth={isFullWidth}
           type={type}
-          value={value}
+          value={inputValue}
           maxLength={maxLength}
           minLength={minLength}
           max={max}
           min={min}
-          onChange={handleChange}
+          onChange={handleInputChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
           readOnly={readOnly}
           $size={size}
         />
-
         {iconAfter && (
           <StyledIcon iconAfter={iconAfter} isDisabled={isDisabled}>
             {iconAfter}
           </StyledIcon>
         )}
       </StyledInputContainer>
+      {showDropdown &&
+        suggestions &&
+        suggestions.length > 0 &&
+        suggestions.some((suggestion) =>
+          suggestion.value
+            .toLowerCase()
+            .includes(String(inputValue).toLowerCase())
+        ) && (
+          <DropdownMenu
+            options={suggestions
+              .filter((suggestion) =>
+                suggestion.value
+                  .toLowerCase()
+                  .includes(String(inputValue).toLowerCase())
+              )
+              .flat()}
+            handleClick={handleSuggestionSelect}
+          />
+        )}
 
       {state === "invalid" && (
         <Invalid

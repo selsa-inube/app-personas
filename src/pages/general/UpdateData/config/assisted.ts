@@ -9,11 +9,11 @@ const updateDataSteps = {
     name: "Datos de contacto",
     description: "Diligencia la información que nos permita contactarte.",
   },
-  familyGroup: {
+  bankTransfers: {
     id: 3,
-    name: "Grupo familiar",
+    name: "Transferencias bancarias",
     description:
-      "Diligencia la información que nos permita identificar tu núcleo familiar.",
+      "Diligencia la información donde podemos realizarte transferencias de dinero.",
   },
   personalAssets: {
     id: 4,
@@ -32,8 +32,25 @@ const updateDataSteps = {
     description:
       "Diligencia la información de aquellas personas que te conocen.",
   },
-  verification: {
+  financialOperations: {
     id: 7,
+    name: "Operaciones financieras",
+    description:
+      "Diligencia la información si realizas operaciones financieras en el exterior.",
+  },
+  personalResidence: {
+    id: 8,
+    name: "Residencia personal",
+    description: "Diligencia la información del inmueble donde vives.",
+  },
+  socioeconomicInformation: {
+    id: 9,
+    name: "Información socioeconómica",
+    description:
+      "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
+  },
+  verification: {
+    id: 10,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",
