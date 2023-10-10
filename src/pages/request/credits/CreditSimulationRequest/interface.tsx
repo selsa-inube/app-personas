@@ -13,6 +13,7 @@ import { MdArrowBack } from "react-icons/md";
 import { creditSimulationRequestSteps } from "./config/assisted";
 import { crumbsCreditSimulationRequest } from "./config/navigation";
 import { DestinationForm } from "./forms/DestinationForm";
+import { CommentsForm } from "./forms/CommentsForm";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
@@ -29,6 +30,12 @@ const renderStepContent = (
         <DestinationForm
           initialValues={creditSimulationRequest.destination}
           ref={formReferences.destination}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.comments.id && (
+        <CommentsForm
+          initialValues={creditSimulationRequest.comments}
+          ref={formReferences.comments}
         />
       )}
     </>

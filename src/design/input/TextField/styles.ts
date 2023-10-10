@@ -10,6 +10,7 @@ interface IStyledContainer {
 const StyledContainer = styled.div<IStyledContainer>`
   cursor: ${({ isDisabled }) => isDisabled && "not-allowed"};
   width: ${({ isFullWidth }) => (isFullWidth ? "100%" : "fit-content")};
+  position: relative;
 `;
 
 interface IStyledContainerLabel {
