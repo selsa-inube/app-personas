@@ -12,10 +12,11 @@ interface DestinationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   customHandleChange: (fieldName: string, value: string) => void;
+  customHandleBlur: (event: React.FocusEvent<HTMLDivElement, Element>) => void;
 }
 
 function DestinationFormUI(props: DestinationFormUIProps) {
-  const { formik, loading, customHandleChange } = props;
+  const { formik, loading, customHandleChange, customHandleBlur } = props;
 
   function stateValue(attribute: string) {
     if (!formik.touched[attribute]) return "pending";
@@ -41,7 +42,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             size="compact"
             isFullWidth
             options={creditDestinationDM}
-            handleBlur={formik.handleBlur}
+            handleBlur={customHandleBlur}
             errorMessage={formik.errors.creditDestination}
             isDisabled={loading}
             state={stateValue("creditDestination")}

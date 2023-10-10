@@ -20,6 +20,7 @@ function CreditSimulationRequest() {
       destination: initalValuesCreditSimulation.destination,
       simulation: initalValuesCreditSimulation.simulation,
     });
+  const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const simulationRef = useRef<FormikProps<ISimulationEntry>>(null);
@@ -50,25 +51,26 @@ function CreditSimulationRequest() {
   const handleStepChange = (stepId: number) => {
     handleStepsValuesRules();
 
-    const stepKey = Object.entries(creditSimulationRequestSteps).find(
+    const currentStepKey = Object.entries(creditSimulationRequestSteps).find(
       ([, config]) => config.id === currentStep
     )?.[0];
 
-    if (stepKey) {
+    if (currentStepKey) {
       const values =
-        formReferences[stepKey as keyof IFormsCreditSimulationRequestRefs]
-          ?.current?.values;
+        formReferences[
+          currentStepKey as keyof IFormsCreditSimulationRequestRefs
+        ]?.current?.values;
+
+      console.log(values);
 
       setCreditSimulationRequest((prevCreditSimulationRequest) => ({
         ...prevCreditSimulationRequest,
-        [stepKey]: values,
+        [currentStepKey]: values,
       }));
     }
 
     setCurrentStep(stepId);
   };
-
-  console.log(currentStep);
 
   const handleFinishAssisted = () => {};
 
@@ -92,6 +94,8 @@ function CreditSimulationRequest() {
       handlePreviousStep={handlePreviousStep}
       handleStepChange={handleStepChange}
       steps={steps}
+      isCurrentFormValid={isCurrentFormValid}
+      setIsCurrentFormValid={setIsCurrentFormValid}
     />
   );
 }

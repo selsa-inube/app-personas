@@ -13,6 +13,7 @@ const validationSchema = Yup.object({
 
 interface SimulationFormProps {
   initialValues: ISimulationEntry;
+  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: ISimulationEntry) => void;
   loading?: boolean;
 }
@@ -21,7 +22,7 @@ const SimulationForm = forwardRef(function SimulationForm(
   props: SimulationFormProps,
   ref: React.Ref<FormikProps<ISimulationEntry>>
 ) {
-  const { initialValues, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, handleSubmit, loading } = props;
   const [simulatedCredit, setSimulatedCredit] =
     useState<ISimulatedCreditState>();
 
@@ -63,7 +64,7 @@ const SimulationForm = forwardRef(function SimulationForm(
       setSimulatedCredit({
         quota,
         cycleInterest: 200000,
-        netValue: 28130279,
+        netValue: Number(formik.values.amount) + 200000,
       });
 
       setLoadingSimulation(false);

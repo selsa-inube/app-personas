@@ -22,7 +22,8 @@ import {
 const renderStepContent = (
   currentStep: number,
   formReferences: IFormsCreditSimulationRequestRefs,
-  creditSimulationRequest: IFormsCreditSimulationRequest
+  creditSimulationRequest: IFormsCreditSimulationRequest,
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   return (
     <>
@@ -30,12 +31,14 @@ const renderStepContent = (
         <DestinationForm
           initialValues={creditSimulationRequest.destination}
           ref={formReferences.destination}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === creditSimulationRequestSteps.simulation.id && (
         <SimulationForm
           initialValues={creditSimulationRequest.simulation}
           ref={formReferences.simulation}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
     </>
@@ -45,6 +48,8 @@ const renderStepContent = (
 interface CreditSimulationRequestUIProps {
   currentStep: number;
   steps: IStep[];
+  isCurrentFormValid: boolean;
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
@@ -57,6 +62,8 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
   const {
     currentStep,
     steps,
+    isCurrentFormValid,
+    setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
@@ -99,7 +106,8 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
             {renderStepContent(
               currentStep,
               formReferences,
-              creditSimulationRequest
+              creditSimulationRequest,
+              setIsCurrentFormValid
             )}
 
             <Stack gap="s150" justifyContent="flex-end">
@@ -116,6 +124,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
               <Button
                 handleClick={handleNextStep}
                 spacing={isMobile ? "compact" : "wide"}
+                disabled={!isCurrentFormValid}
               >
                 Siguiente
               </Button>
