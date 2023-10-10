@@ -78,20 +78,15 @@ function TextFieldUI(props: TextFieldProps) {
   const [inputValue, setInputValue] = useState(value || "");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
+    const value = event.target.value;
 
-    if (
-      autocomplete &&
-      (typeof autocompleteChars === "number"
-        ? newValue.length >= autocompleteChars
-        : true)
-    ) {
+    if (autocompleteChars ? value.length >= autocompleteChars : true) {
       setShowDropdown(true);
     } else {
       setShowDropdown(false);
     }
 
-    setInputValue(newValue);
+    setInputValue(value);
 
     if (handleChange) {
       handleChange(event);
@@ -173,14 +168,14 @@ function TextFieldUI(props: TextFieldProps) {
         suggestions.some((suggestion) =>
           suggestion.value
             .toLowerCase()
-            .startsWith(String(inputValue).toLowerCase())
+            .includes(String(inputValue).toLowerCase())
         ) && (
           <DropdownMenu
             options={suggestions
               .filter((suggestion) =>
                 suggestion.value
                   .toLowerCase()
-                  .startsWith(String(inputValue).toLowerCase())
+                  .includes(String(inputValue).toLowerCase())
               )
               .flat()}
             handleClick={handleSuggestionSelect}
