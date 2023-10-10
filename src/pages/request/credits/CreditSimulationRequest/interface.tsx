@@ -12,6 +12,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { creditSimulationRequestSteps } from "./config/assisted";
 import { crumbsCreditSimulationRequest } from "./config/navigation";
+import { CommentsForm } from "./forms/CommentsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { SimulationForm } from "./forms/SimulationForm";
 import {
@@ -39,6 +40,12 @@ const renderStepContent = (
           initialValues={creditSimulationRequest.simulation}
           ref={formReferences.simulation}
           onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.comments.id && (
+        <CommentsForm
+          initialValues={creditSimulationRequest.comments}
+          ref={formReferences.comments}
         />
       )}
     </>

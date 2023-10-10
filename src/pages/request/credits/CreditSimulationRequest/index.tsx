@@ -2,6 +2,7 @@ import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { creditSimulationRequestSteps } from "./config/assisted";
 import { initalValuesCreditSimulation } from "./config/initialValues";
+import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISimulationEntry } from "./forms/SimulationForm/types";
 import { CreditSimulationRequestUI } from "./interface";
@@ -19,15 +20,18 @@ function CreditSimulationRequest() {
     useState<IFormsCreditSimulationRequest>({
       destination: initalValuesCreditSimulation.destination,
       simulation: initalValuesCreditSimulation.simulation,
+      comments: initalValuesCreditSimulation.comments,
     });
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const simulationRef = useRef<FormikProps<ISimulationEntry>>(null);
+  const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
 
   const formReferences: IFormsCreditSimulationRequestRefs = {
     destination: destinationRef,
     simulation: simulationRef,
+    comments: commentsRef,
   };
 
   const handleStepsValuesRules = () => {

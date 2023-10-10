@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { DropdownItemProps } from "../DropdownItem";
 import { TextFieldUI } from "./interface";
 import {
   InputSize,
@@ -30,6 +31,9 @@ interface TextFieldProps {
   type?: InputType;
   state?: InputState;
   size?: InputSize;
+  autocomplete?: boolean;
+  suggestions?: DropdownItemProps[];
+  autocompleteChars?: number; 
   handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -60,6 +64,9 @@ function TextField(props: TextFieldProps) {
     handleFocus,
     handleBlur,
     readOnly = false,
+    autocomplete = false,
+    suggestions,
+    autocompleteChars
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
@@ -115,6 +122,9 @@ function TextField(props: TextFieldProps) {
       handleFocus={interceptFocus}
       handleBlur={interceptBlur}
       readOnly={readOnly}
+      autocomplete={autocomplete}
+      suggestions={suggestions}
+      autocompleteChars={autocompleteChars}
     />
   );
 }
