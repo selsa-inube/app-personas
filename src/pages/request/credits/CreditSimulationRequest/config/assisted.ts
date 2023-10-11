@@ -44,7 +44,7 @@ const creditSimulationRequestSteps = {
   },
 };
 
-const stepsValuesRules = (
+const creditSimulationStepsRules = (
   currentStep: number,
   currentCreditSimulationRequest: IFormsCreditSimulationRequest,
   formReferences: IFormsCreditSimulationRequestRefs,
@@ -107,4 +107,4 @@ const stepsValuesRules = (
 
   return newCreditSimulationRequest;
 };
-export { creditSimulationRequestSteps, stepsValuesRules };
+export { creditSimulationRequestSteps, creditSimulationStepsRules };

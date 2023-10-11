@@ -42,9 +42,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     if (handleSubmit) return;
 
     formik.validateForm().then((errors) => {
-      if (Object.keys(errors).length === 0) {
-        onFormValid(true);
-      }
+      onFormValid(Object.keys(errors).length === 0);
     });
   };
 

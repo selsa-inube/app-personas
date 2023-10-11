@@ -2,7 +2,7 @@ import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import {
   creditSimulationRequestSteps,
-  stepsValuesRules,
+  creditSimulationStepsRules,
 } from "./config/assisted";
 import { initalValuesCreditSimulation } from "./config/initialValues";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
@@ -49,7 +49,7 @@ function CreditSimulationRequest() {
   };
 
   const handleStepChange = (stepId: number) => {
-    const newCreditSimulationRequest = stepsValuesRules(
+    const newCreditSimulationRequest = creditSimulationStepsRules(
       currentStep,
       creditSimulationRequest,
       formReferences,
