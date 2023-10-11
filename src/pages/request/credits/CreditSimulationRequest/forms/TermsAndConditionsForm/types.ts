@@ -1,5 +1,5 @@
 interface ITermsAndConditionsEntry {
-  comments: string;
+  termsAndConditions: boolean;
 }
 
 export type { ITermsAndConditionsEntry };

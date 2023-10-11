@@ -20,7 +20,7 @@ function CreditSimulationRequest() {
     useState<IFormsCreditSimulationRequest>({
       destination: initalValuesCreditSimulation.destination,
       comments: initalValuesCreditSimulation.comments,
-      termsAndConditions: initalValuesCreditSimulation.comments,
+      termsAndConditions: initalValuesCreditSimulation.termsAndConditions,
     });
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);

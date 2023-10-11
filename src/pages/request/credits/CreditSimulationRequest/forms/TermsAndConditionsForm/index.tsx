@@ -2,6 +2,11 @@ import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
 import { TermsAndConditionsFormUI } from "./interface";
 import { ITermsAndConditionsEntry } from "./types";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  termsAndConditions: Yup.boolean().test((value) => value === true),
+});
 
 interface TermsAndConditionsFormProps {
   initialValues: ITermsAndConditionsEntry;
@@ -17,7 +22,7 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
 
   const formik = useFormik({
     initialValues,
-    validateOnChange: false,
+    validationSchema,
     onSubmit: handleSubmit || (() => {}),
   });
 
