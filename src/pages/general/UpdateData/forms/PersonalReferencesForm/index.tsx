@@ -19,6 +19,7 @@ const validationSchema = Yup.object({
 
 interface PersonalReferencesFormProps {
   initialValues: IPersonalReferenceEntries;
+  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: IPersonalReferenceEntries) => void;
 }
 
@@ -26,7 +27,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
   props: PersonalReferencesFormProps,
   ref: React.Ref<FormikProps<IPersonalReferenceEntries>>
 ) {
-  const { initialValues, handleSubmit } = props;
+  const { initialValues, onFormValid, handleSubmit } = props;
 
   const [showAddReferenceModal, setShowAddReferenceModal] = useState(false);
 

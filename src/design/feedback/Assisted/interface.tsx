@@ -36,6 +36,7 @@ interface AssistedUIProps {
   currentStepIndex: number;
   lastStepIndex: number;
   currentStepInfo?: IStep;
+  disableNextStep?: boolean;
   handlePreviousStep: () => void;
   handleNextStep: () => void;
 }
@@ -46,6 +47,7 @@ function AssistedUI(props: AssistedUIProps) {
     currentStepIndex,
     lastStepIndex,
     currentStepInfo,
+    disableNextStep,
     handlePreviousStep,
     handleNextStep,
   } = props;
@@ -122,6 +124,7 @@ function AssistedUI(props: AssistedUIProps) {
             variant="none"
             iconAfter={<MdArrowForward size={18} />}
             handleClick={handleNextStep}
+            disabled={disableNextStep}
           >
             {!smallScreen && "Siguiente"}
           </Button>

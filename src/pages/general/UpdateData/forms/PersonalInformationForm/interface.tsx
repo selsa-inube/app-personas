@@ -14,10 +14,11 @@ import { maritalStatusDM } from "src/model/domains/personalInformation/maritalst
 interface PersonalInformationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
-  const { formik, loading } = props;
+  const { formik, loading, customHandleBlur } = props;
 
   const stateValue = (fieldName: string) => {
     if (!formik.touched[fieldName]) return "pending";
@@ -108,7 +109,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={cityDM.options}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           errorMessage={formik.errors.expeditionPlace}
           isDisabled={loading}
           state={stateValue("expeditionPlace")}
@@ -128,7 +129,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           state={stateValue("expeditionDate")}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           handleChange={formik.handleChange}
           validMessage="La fecha de expedición es válida"
           isRequired
@@ -147,7 +148,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           state={stateValue("birthDate")}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           handleChange={formik.handleChange}
           validMessage="La fecha de nacimiento es válida"
           isRequired
@@ -161,7 +162,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={cityDM.options}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           errorMessage={formik.errors.city}
           isDisabled={loading}
           state={stateValue("city")}
@@ -176,7 +177,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={genderDM.options}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           errorMessage={formik.errors.gender}
           isDisabled={loading}
           state={stateValue("gender")}
@@ -191,7 +192,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={maritalStatusDM.options}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           errorMessage={formik.errors.maritalStatus}
           isDisabled={loading}
           state={stateValue("maritalStatus")}
@@ -206,7 +207,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={bloodTypeDM.options}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           errorMessage={formik.errors.bloodType}
           isDisabled={loading}
           state={stateValue("bloodType")}
