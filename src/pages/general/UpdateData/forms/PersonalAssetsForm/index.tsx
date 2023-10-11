@@ -6,6 +6,8 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalAssetsFormUI } from "./interface";
 import { IPersonalAssetEntries } from "./types";
+import { currencyFormat } from "src/utils/formats";
+
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),
@@ -53,10 +55,10 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
           id: String(formik.values.entries.length + 1),
           assetType: getValueOfDomain(formik.values.assetType, "assetType")
             ?.value,
-          commercialValue: formik.values.commercialValue,
-          debtBalance: formik.values.debtBalance,
+          commercialValue: currencyFormat(Number(formik.values.commercialValue)),
+          debtBalance: currencyFormat(Number(formik.values.debtBalance)),
           financialEntity: formik.values.financialEntity,
-          quota: formik.values.quota,
+          quota: currencyFormat(Number(formik.values.quota)),
           observations: formik.values.observations,
         },
       ]);

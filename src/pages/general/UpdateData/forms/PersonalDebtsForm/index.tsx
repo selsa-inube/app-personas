@@ -6,6 +6,7 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
+import { currencyFormat } from "src/utils/formats";
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
@@ -56,9 +57,9 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
             "liabilityType"
           )?.value,
           terminationDate: formik.values.terminationDate,
-          debtBalance: formik.values.debtBalance,
+          debtBalance: currencyFormat(Number(formik.values.debtBalance)),
           financialEntity: formik.values.financialEntity,
-          quota: formik.values.quota,
+          quota: currencyFormat(Number(formik.values.quota)),
           observations: formik.values.observations,
         },
       ]);
