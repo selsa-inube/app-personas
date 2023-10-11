@@ -64,6 +64,7 @@ const SimulationForm = forwardRef(function SimulationForm(
 
       setLoadingSimulation(false);
       onFormValid(true);
+      
     }, 1000);
   };
 
