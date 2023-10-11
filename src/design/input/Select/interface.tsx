@@ -110,7 +110,7 @@ function SelectUI(props: SelectUIProps) {
           autoComplete="off"
           $readOnly={readOnly}
           readOnly
-          value={currentOption?.value || "Seleccione una opción"}
+          value={currentOption?.value}
           name={name}
           id={id}
           placeholder={placeholder}
@@ -122,9 +122,11 @@ function SelectUI(props: SelectUIProps) {
           $size={size}
         />
 
-        <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
-          <MdExpandMore onClick={onCloseOptions} />
-        </StyledIcon>
+        {!readOnly && (
+          <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
+            <MdExpandMore onClick={onCloseOptions} />
+          </StyledIcon>
+        )}
       </StyledInputContainer>
 
       {openOptions && !isDisabled && !readOnly && (

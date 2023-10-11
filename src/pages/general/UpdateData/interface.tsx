@@ -22,62 +22,72 @@ import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationFo
 const renderStepContent = (
   currentStep: number,
   formReferences: IFormsUpdateDataRefs,
-  updateData: IFormsUpdateData
+  updateData: IFormsUpdateData,
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   return (
     <>
       {currentStep === updateDataSteps.personalInformation.id && (
         <PersonalInformationForm
-          initialValues={updateData.personalInformation}
+          initialValues={updateData.personalInformation.values}
           ref={formReferences.personalInformation}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.contactData.id && (
         <ContactDataForm
-          initialValues={updateData.contactData}
+          initialValues={updateData.contactData.values}
           ref={formReferences.contactData}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.bankTransfers.id && (
         <BankTransfersForm
-          initialValues={updateData.bankTransfers}
+          initialValues={updateData.bankTransfers.values}
           ref={formReferences.bankTransfers}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.personalAssets.id && (
         <PersonalAssetsForm
-          initialValues={updateData.personalAssets}
+          initialValues={updateData.personalAssets.values}
           ref={formReferences.personalAssets}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.personalDebts.id && (
         <PersonalDebtsForm
-          initialValues={updateData.personalDebts}
+          initialValues={updateData.personalDebts.values}
           ref={formReferences.personalDebts}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.personalReferences.id && (
         <PersonalReferencesForm
-          initialValues={updateData.personalReferences}
+          initialValues={updateData.personalReferences.values}
           ref={formReferences.personalReferences}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.financialOperations.id && (
         <FinancialOperationsForm
-          initialValues={updateData.financialOperations}
+          initialValues={updateData.financialOperations.values}
           ref={formReferences.financialOperations}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.personalResidence.id && (
         <PersonalResidenceForm
-          initialValues={updateData.personalResidence}
+          initialValues={updateData.personalResidence.values}
           ref={formReferences.personalResidence}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.socioeconomicInformation.id && (
         <SocioeconomicInformationForm
-          initialValues={updateData.socioeconomicInformation}
+          initialValues={updateData.socioeconomicInformation.values}
           ref={formReferences.socioeconomicInformation}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
     </>
@@ -87,6 +97,8 @@ const renderStepContent = (
 interface UpdateDataUIProps {
   currentStep: number;
   steps: IStep[];
+  isCurrentFormValid: boolean;
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
@@ -99,6 +111,8 @@ function UpdateDataUI(props: UpdateDataUIProps) {
   const {
     currentStep,
     steps,
+    isCurrentFormValid,
+    setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
@@ -126,10 +140,11 @@ function UpdateDataUI(props: UpdateDataUIProps) {
         currentStep={currentStep}
         handleFinishAssisted={handleFinishAssisted}
         handleStepChange={handleStepChange}
+        disableNextStep={!isCurrentFormValid}
       />
 
       <Stack direction="column" gap="s300">
-        {renderStepContent(currentStep, formReferences, updateData)}
+        {renderStepContent(currentStep, formReferences, updateData, setIsCurrentFormValid)}
 
         <Stack gap="s150" justifyContent="flex-end">
           <Button
@@ -145,6 +160,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
           <Button
             handleClick={handleNextStep}
             spacing={isMobile ? "compact" : "wide"}
+            disabled={!isCurrentFormValid}
           >
             Siguiente
           </Button>

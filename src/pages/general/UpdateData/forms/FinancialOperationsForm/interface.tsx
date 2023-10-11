@@ -8,10 +8,11 @@ import { activeDM } from "src/model/domains/general/activedm";
 interface FinancialOperationsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
-  const { formik, loading } = props;
+  const { formik, loading, customHandleBlur } = props;
 
   function stateValue(attribute: string) {
     if (!formik.touched[attribute]) return "pending";
@@ -35,7 +36,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
           size={mquery ? "compact" : "wide"}
           isFullWidth
           options={activeDM.options}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           errorMessage={formik.errors.hasForeignCurrencyTransactions}
           isDisabled={loading}
           state={stateValue("hasForeignCurrencyTransactions")}
@@ -51,7 +52,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
           size={mquery ? "compact" : "wide"}
           isFullWidth
           options={activeDM.options}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           errorMessage={formik.errors.hasForeignCurrencyAccounts}
           isDisabled={loading}
           state={stateValue("hasForeignCurrencyAccounts")}

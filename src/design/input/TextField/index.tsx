@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { DropdownItemProps } from "../DropdownItem";
 import { TextFieldUI } from "./interface";
 import {
   InputSize,
@@ -30,9 +31,12 @@ interface TextFieldProps {
   type?: InputType;
   state?: InputState;
   size?: InputSize;
+  autocomplete?: boolean;
+  suggestions?: DropdownItemProps[];
+  autocompleteChars?: number;
   handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleFocus?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  handleBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 function TextField(props: TextFieldProps) {
@@ -60,18 +64,21 @@ function TextField(props: TextFieldProps) {
     handleFocus,
     handleBlur,
     readOnly = false,
+    autocomplete = false,
+    suggestions,
+    autocompleteChars,
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
 
-  const interceptFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const interceptFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!readOnly) {
       setIsFocused(true);
     }
     if (handleFocus) handleFocus(e);
   };
 
-  const interceptBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const interceptBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(false);
     if (handleBlur) handleBlur(e);
   };
@@ -115,6 +122,9 @@ function TextField(props: TextFieldProps) {
       handleFocus={interceptFocus}
       handleBlur={interceptBlur}
       readOnly={readOnly}
+      autocomplete={autocomplete}
+      suggestions={suggestions}
+      autocompleteChars={autocompleteChars}
     />
   );
 }

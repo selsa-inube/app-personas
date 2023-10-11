@@ -9,10 +9,11 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 interface BankTransfersFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function BankTransfersFormUI(props: BankTransfersFormUIProps) {
-  const { formik, loading } = props;
+  const { formik, loading, customHandleBlur } = props;
 
   function stateValue(attribute: string) {
     if (!formik.touched[attribute]) return "pending";
@@ -39,7 +40,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           size="compact"
           isFullWidth
           options={getDomainById("bank")}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           isDisabled={loading}
           state={stateValue("bankingEntity")}
           handleChange={formik.handleChange}
@@ -52,7 +53,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           size="compact"
           isFullWidth
           options={getDomainById("accountType")}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           isDisabled={loading}
           state={stateValue("accountType")}
           handleChange={formik.handleChange}
@@ -70,7 +71,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           size="compact"
           isFullWidth
           state={stateValue("accountNumber")}
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           handleChange={formik.handleChange}
           validMessage="El numero de cuenta es válido"
         />

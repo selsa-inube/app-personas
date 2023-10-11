@@ -11,12 +11,13 @@ import { vulnerablePopulationTypeDM } from "src/model/domains/socioeconomicInfor
 interface SocioeconomicInformationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function SocioeconomicInformationFormUI(
   props: SocioeconomicInformationFormUIProps
 ) {
-  const { formik, loading } = props;
+  const { formik, loading, customHandleBlur } = props;
 
   const stateValue = (fieldName: string) => {
     if (!formik.touched[fieldName]) return "pending";
@@ -80,7 +81,7 @@ function SocioeconomicInformationFormUI(
           state={stateValue("dependants")}
           isDisabled={loading}
           size="compact"
-          handleBlur={formik.handleBlur}
+          handleBlur={customHandleBlur}
           handleChange={formik.handleChange}
           validMessage="El número ingresado es correcto"
           isFullWidth

@@ -1,18 +1,20 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IServerDomain } from "@ptypes/domain.types";
 import { accountTypeData } from "./accountType";
 import { assetTypeData } from "./assetType";
 import { bankData } from "./bank";
 import { creditDestinationData } from "./creditDestination";
+import { creditProductTypeData } from "./creditProductType";
 import { liabilityTypeData } from "./liabilityType";
 import { referenceTypeData } from "./referenceType";
 
-const domains: Record<string, ISelectOption[]> = {
+const domains: Record<string, IServerDomain[]> = {
   assetType: assetTypeData,
   liabilityType: liabilityTypeData,
   referenceType: referenceTypeData,
   accountType: accountTypeData,
   bank: bankData,
   creditDestination: creditDestinationData,
+  creditProductType: creditProductTypeData,
 };
 
 function getDomainById(domainId: string) {
@@ -20,7 +22,7 @@ function getDomainById(domainId: string) {
 }
 
 function getDomainsByIds(domainIds: string[]) {
-  const domainValues: Record<string, ISelectOption[]> = {};
+  const domainValues: Record<string, IServerDomain[]> = {};
   domainIds.forEach((id) => {
     domainValues[id] = getDomainById(id);
   });

@@ -1,33 +1,23 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
-import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
-import * as Yup from "yup";
-import { BankTransfersFormUI } from "./interface";
-import { IBankTransfersEntry } from "./types";
+import { CommentsFormUI } from "./interface";
+import { ICommentsEntry } from "./types";
 
-const validationSchema = Yup.object({
-  accountNumber: validationRules.accountNumber.required(
-    validationMessages.required
-  ),
-});
-
-interface BankTransfersFormProps {
-  initialValues: IBankTransfersEntry;
+interface CommentsFormProps {
+  initialValues: ICommentsEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSubmit?: (values: IBankTransfersEntry) => void;
+  handleSubmit?: (values: ICommentsEntry) => void;
   loading?: boolean;
 }
 
-const BankTransfersForm = forwardRef(function BankTransfersForm(
-  props: BankTransfersFormProps,
-  ref: React.Ref<FormikProps<IBankTransfersEntry>>
+const CommentsForm = forwardRef(function CommentsForm(
+  props: CommentsFormProps,
+  ref: React.Ref<FormikProps<ICommentsEntry>>
 ) {
   const { initialValues, onFormValid, handleSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
-    validationSchema,
     validateOnChange: false,
     onSubmit: handleSubmit || (() => {}),
   });
@@ -45,7 +35,7 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
   };
 
   return (
-    <BankTransfersFormUI
+    <CommentsFormUI
       loading={loading}
       formik={formik}
       customHandleBlur={customHandleBlur}
@@ -53,5 +43,5 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
   );
 });
 
-export { BankTransfersForm };
-export type { BankTransfersFormProps };
+export { CommentsForm };
+export type { CommentsFormProps };
