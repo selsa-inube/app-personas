@@ -3,19 +3,19 @@ import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { updateDataSteps } from "./config/assisted";
 import {
-  mapFinancialOperations,
-  mapPersonalInformation,
   mapBankTransfers,
   mapContactData,
+  mapFinancialOperations,
+  mapPersonalInformation,
   mapPersonalResidence,
   mapSocioeconomicInformation,
 } from "./config/mappers";
-import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
+import { IContactDataEntry } from "./forms/ContactDataForm/types";
+import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
 import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
 import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
-import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "./forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
@@ -27,18 +27,33 @@ function UpdateData() {
     updateDataSteps.personalInformation.id
   );
   const steps = Object.values(updateDataSteps);
+  const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
+
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
-    personalInformation: mapPersonalInformation(usersMock[0]),
-    contactData: mapContactData(usersMock[0].contact[0]),
-    bankTransfers: mapBankTransfers(usersMock[0].bankTransfersAccount),
-    personalAssets: { entries: [] },
-    personalDebts: { entries: [] },
-    personalReferences: { entries: [] },
-    financialOperations: mapFinancialOperations(),
-    personalResidence: mapPersonalResidence(
-      usersMock[0].personalData.residence
-    ),
-    socioeconomicInformation: mapSocioeconomicInformation(),
+    personalInformation: {
+      isValid: true,
+      values: mapPersonalInformation(usersMock[0]),
+    },
+    contactData: {
+      isValid: true,
+      values: mapContactData(usersMock[0].contact[0]),
+    },
+    bankTransfers: {
+      isValid: true,
+      values: mapBankTransfers(usersMock[0].bankTransfersAccount),
+    },
+    personalAssets: { isValid: true, values: { entries: [] } },
+    personalDebts: { isValid: true, values: { entries: [] } },
+    personalReferences: { isValid: true, values: { entries: [] } },
+    financialOperations: { isValid: true, values: mapFinancialOperations() },
+    personalResidence: {
+      isValid: true,
+      values: mapPersonalResidence(usersMock[0].personalData.residence),
+    },
+    socioeconomicInformation: {
+      isValid: true,
+      values: mapSocioeconomicInformation(),
+    },
   });
 
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
@@ -78,9 +93,19 @@ function UpdateData() {
 
       setUpdateData((prevUpdateData) => ({
         ...prevUpdateData,
-        [stepKey]: values,
+        [stepKey]: { isValid: isCurrentFormValid, values },
       }));
     }
+
+    const changeStepKey = Object.entries(updateDataSteps).find(
+      ([, config]) => config.id === stepId
+    )?.[0];
+
+    if (!changeStepKey) return;
+
+    setIsCurrentFormValid(
+      updateData[changeStepKey as keyof IFormsUpdateData]?.isValid || false
+    );
 
     setCurrentStep(stepId);
   };
@@ -107,6 +132,8 @@ function UpdateData() {
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       steps={steps}
+      isCurrentFormValid={isCurrentFormValid}
+      setIsCurrentFormValid={setIsCurrentFormValid}
     />
   );
 }
