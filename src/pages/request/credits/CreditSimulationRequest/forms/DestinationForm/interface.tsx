@@ -12,7 +12,7 @@ interface DestinationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   customHandleChange: (fieldName: string, value: string) => void;
-  customHandleBlur: (event: React.FocusEvent<HTMLDivElement, Element>) => void;
+  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function DestinationFormUI(props: DestinationFormUIProps) {

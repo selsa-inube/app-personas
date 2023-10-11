@@ -4,9 +4,9 @@ import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISimulationEntry } from "./forms/SimulationForm/types";
 
 interface IFormsCreditSimulationRequest {
-  destination: IDestinationEntry;
-  simulation: ISimulationEntry;
-  comments: ICommentsEntry;
+  destination: { isValid: boolean; values: IDestinationEntry };
+  simulation: { isValid: boolean; values: ISimulationEntry };
+  comments: { isValid: boolean; values: ICommentsEntry };
 }
 
 interface IFormsCreditSimulationRequestRefs {

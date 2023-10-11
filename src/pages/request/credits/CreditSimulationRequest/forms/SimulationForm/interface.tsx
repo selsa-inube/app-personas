@@ -16,28 +16,18 @@ import { FormikValues } from "formik";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledList } from "./styles";
-import { ISimulatedCreditState } from "./types";
 
 interface SimulationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   interestRate: number;
-  simulatedCredit?: ISimulatedCreditState;
   loadingSimulation?: boolean;
-  customHandleChange: (fieldName: string, value: string) => void;
   simulateCredit: () => void;
 }
 
 function SimulationFormUI(props: SimulationFormUIProps) {
-  const {
-    formik,
-    loading,
-    interestRate,
-    simulatedCredit,
-    loadingSimulation,
-    customHandleChange,
-    simulateCredit,
-  } = props;
+  const { formik, loading, interestRate, loadingSimulation, simulateCredit } =
+    props;
 
   function stateValue(attribute: string) {
     if (!formik.touched[attribute]) return "pending";
@@ -175,14 +165,13 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={handleChangeWithCurrency}
                   validMessage="El valor es válido"
-                  isRequired
                 />
 
                 <Select
                   label="Periodicidad"
                   name="peridiocity"
                   id="peridiocity"
-                  value={peridiocityDM.MONTHLY.id}
+                  value={formik.values.peridiocity}
                   size="compact"
                   isFullWidth
                   options={peridiocityDM.options}
@@ -200,7 +189,7 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                   name="deadline"
                   id="deadline"
                   value={formik.values.deadline}
-                  type="text"
+                  type="number"
                   errorMessage={formik.errors.deadline}
                   isDisabled={loading}
                   size="compact"
@@ -209,7 +198,6 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={formik.handleChange}
                   validMessage="El plazo es válido"
-                  isRequired
                 />
               </Grid>
 
@@ -218,13 +206,18 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                   variant="outlined"
                   handleClick={simulateCredit}
                   load={loadingSimulation}
+                  disabled={
+                    !formik.values.amount ||
+                    !formik.values.deadline ||
+                    !formik.values.peridiocity
+                  }
                 >
                   Simular
                 </Button>
               </Stack>
             </Stack>
 
-            {simulatedCredit && (
+            {formik.values.quota && (
               <>
                 <Divider dashed />
 
@@ -235,7 +228,7 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                   <Stack direction="column" gap="s150">
                     <BoxAttribute
                       label="Cuota mensual:"
-                      value={`${currencyFormat(simulatedCredit.quota)}`}
+                      value={`${currencyFormat(formik.values.quota)}`}
                     />
                     <BoxAttribute
                       label="Plazo:"
@@ -247,11 +240,11 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                     />
                     <BoxAttribute
                       label="Intereses de ajuste al ciclo:"
-                      value={`${currencyFormat(simulatedCredit.cycleInterest)}`}
+                      value={`${currencyFormat(formik.values.cycleInterest)}`}
                     />
                     <BoxAttribute
                       label="Valor neto a recibir:"
-                      value={`${currencyFormat(simulatedCredit.netValue)}`}
+                      value={`${currencyFormat(formik.values.netValue)}`}
                     />
                   </Stack>
                 </Stack>

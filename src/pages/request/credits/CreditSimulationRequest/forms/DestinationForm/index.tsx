@@ -36,16 +36,12 @@ const DestinationForm = forwardRef(function DestinationForm(
     formik.setFieldValue(fieldName, value);
   };
 
-  const customHandleBlur = (
-    event: React.FocusEvent<HTMLDivElement, Element>
-  ) => {
+  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
 
     if (handleSubmit) return;
 
     formik.validateForm().then((errors) => {
-      console.log(Object.keys(errors));
-
       if (Object.keys(errors).length === 0) {
         onFormValid(true);
       }

@@ -1,3 +1,9 @@
+import {
+  IFormsCreditSimulationRequest,
+  IFormsCreditSimulationRequestRefs,
+} from "../types";
+import { initalValuesCreditSimulation } from "./initialValues";
+
 const creditSimulationRequestSteps = {
   destination: {
     id: 1,
@@ -38,4 +44,55 @@ const creditSimulationRequestSteps = {
   },
 };
 
-export { creditSimulationRequestSteps };
+const stepsValuesRules = (
+  currentStep: number,
+  currentCreditSimulationRequest: IFormsCreditSimulationRequest,
+  formReferences: IFormsCreditSimulationRequestRefs,
+  isCurrentFormValid: boolean
+) => {
+  let newCreditSimulationRequest = { ...currentCreditSimulationRequest };
+
+  switch (currentStep) {
+    case creditSimulationRequestSteps.destination.id: {
+      const values = formReferences.destination.current?.values;
+
+      if (!values) return currentCreditSimulationRequest;
+
+      newCreditSimulationRequest.destination = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentCreditSimulationRequest.destination.values)
+      ) {
+        newCreditSimulationRequest.simulation = {
+          isValid: false,
+          values: {
+            ...initalValuesCreditSimulation.simulation,
+            creditDestination: values?.creditDestination,
+            product: values?.product,
+          },
+        };
+      }
+
+      break;
+    }
+    case creditSimulationRequestSteps.simulation.id: {
+      const values = formReferences.simulation.current?.values;
+
+      if (!values) return currentCreditSimulationRequest;
+
+      newCreditSimulationRequest.simulation = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      break;
+    }
+  }
+
+  return newCreditSimulationRequest;
+};
+export { creditSimulationRequestSteps, stepsValuesRules };

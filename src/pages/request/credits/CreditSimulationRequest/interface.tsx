@@ -30,21 +30,21 @@ const renderStepContent = (
     <>
       {currentStep === creditSimulationRequestSteps.destination.id && (
         <DestinationForm
-          initialValues={creditSimulationRequest.destination}
+          initialValues={creditSimulationRequest.destination.values}
           ref={formReferences.destination}
           onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === creditSimulationRequestSteps.simulation.id && (
         <SimulationForm
-          initialValues={creditSimulationRequest.simulation}
+          initialValues={creditSimulationRequest.simulation.values}
           ref={formReferences.simulation}
           onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === creditSimulationRequestSteps.comments.id && (
         <CommentsForm
-          initialValues={creditSimulationRequest.comments}
+          initialValues={creditSimulationRequest.comments.values}
           ref={formReferences.comments}
         />
       )}
@@ -107,6 +107,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
             currentStep={currentStep}
             handleFinishAssisted={handleFinishAssisted}
             handleStepChange={handleStepChange}
+            disableNextStep={!isCurrentFormValid}
           />
 
           <Stack direction="column" gap="s300">

@@ -1,6 +1,9 @@
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
-import { creditSimulationRequestSteps } from "./config/assisted";
+import {
+  creditSimulationRequestSteps,
+  stepsValuesRules,
+} from "./config/assisted";
 import { initalValuesCreditSimulation } from "./config/initialValues";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
@@ -16,13 +19,24 @@ function CreditSimulationRequest() {
     creditSimulationRequestSteps.destination.id
   );
   const steps = Object.values(creditSimulationRequestSteps);
+
+  const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
+
   const [creditSimulationRequest, setCreditSimulationRequest] =
     useState<IFormsCreditSimulationRequest>({
-      destination: initalValuesCreditSimulation.destination,
-      simulation: initalValuesCreditSimulation.simulation,
-      comments: initalValuesCreditSimulation.comments,
+      destination: {
+        isValid: false,
+        values: initalValuesCreditSimulation.destination,
+      },
+      simulation: {
+        isValid: false,
+        values: initalValuesCreditSimulation.simulation,
+      },
+      comments: {
+        isValid: false,
+        values: initalValuesCreditSimulation.comments,
+      },
     });
-  const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const simulationRef = useRef<FormikProps<ISimulationEntry>>(null);
@@ -34,44 +48,26 @@ function CreditSimulationRequest() {
     comments: commentsRef,
   };
 
-  const handleStepsValuesRules = () => {
-    switch (currentStep) {
-      case creditSimulationRequestSteps.destination.id: {
-        const destinationValues = destinationRef.current?.values;
-        if (!destinationValues) return;
-
-        setCreditSimulationRequest((prevCreditSimulationRequest) => ({
-          ...prevCreditSimulationRequest,
-          simulation: {
-            ...prevCreditSimulationRequest.simulation,
-            creditDestination: destinationValues?.creditDestination,
-            product: destinationValues?.product,
-          },
-        }));
-      }
-    }
-  };
-
   const handleStepChange = (stepId: number) => {
-    handleStepsValuesRules();
+    const newCreditSimulationRequest = stepsValuesRules(
+      currentStep,
+      creditSimulationRequest,
+      formReferences,
+      isCurrentFormValid
+    );
+    setCreditSimulationRequest(newCreditSimulationRequest);
 
-    const currentStepKey = Object.entries(creditSimulationRequestSteps).find(
-      ([, config]) => config.id === currentStep
+    const changeStepKey = Object.entries(creditSimulationRequestSteps).find(
+      ([, config]) => config.id === stepId
     )?.[0];
 
-    if (currentStepKey) {
-      const values =
-        formReferences[
-          currentStepKey as keyof IFormsCreditSimulationRequestRefs
-        ]?.current?.values;
+    if (!changeStepKey) return;
 
-      console.log(values);
-
-      setCreditSimulationRequest((prevCreditSimulationRequest) => ({
-        ...prevCreditSimulationRequest,
-        [currentStepKey]: values,
-      }));
-    }
+    setIsCurrentFormValid(
+      newCreditSimulationRequest[
+        changeStepKey as keyof IFormsCreditSimulationRequest
+      ]?.isValid || false
+    );
 
     setCurrentStep(stepId);
   };

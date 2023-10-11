@@ -5,12 +5,9 @@ interface ISimulationEntry {
   amount: string;
   peridiocity: string;
   deadline: string;
+  quota: string;
+  cycleInterest: string;
+  netValue: string;
 }
 
-interface ISimulatedCreditState {
-  quota: number;
-  cycleInterest: number;
-  netValue: number;
-}
-
-export type { ISimulatedCreditState, ISimulationEntry };
+export type { ISimulationEntry };
