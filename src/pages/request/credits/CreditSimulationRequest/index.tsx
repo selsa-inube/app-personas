@@ -17,7 +17,7 @@ import {
 
 function CreditSimulationRequest() {
   const [currentStep, setCurrentStep] = useState(
-    creditSimulationRequestSteps.termsAndConditions.id
+    creditSimulationRequestSteps.destination.id
   );
   const steps = Object.values(creditSimulationRequestSteps);
 
