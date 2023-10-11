@@ -12,6 +12,7 @@ const validationSchema = Yup.object({
 
 interface DestinationFormProps {
   initialValues: IDestinationEntry;
+  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: IDestinationEntry) => void;
   loading?: boolean;
 }
@@ -20,7 +21,7 @@ const DestinationForm = forwardRef(function DestinationForm(
   props: DestinationFormProps,
   ref: React.Ref<FormikProps<IDestinationEntry>>
 ) {
-  const { initialValues, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, handleSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
@@ -35,11 +36,22 @@ const DestinationForm = forwardRef(function DestinationForm(
     formik.setFieldValue(fieldName, value);
   };
 
+  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
+    formik.handleBlur(event);
+
+    if (handleSubmit) return;
+
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
+  };
+
   return (
     <DestinationFormUI
       loading={loading}
       formik={formik}
       customHandleChange={customHandleChange}
+      customHandleBlur={customHandleBlur}
     />
   );
 });

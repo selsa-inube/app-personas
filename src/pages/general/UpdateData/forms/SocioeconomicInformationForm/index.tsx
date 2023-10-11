@@ -1,10 +1,10 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
-import { ISocioeconomicInformationEntry } from "./types";
-import { SocioeconomicInformationFormUI } from "./interface";
-import * as Yup from "yup";
-import { validationRules } from "src/validations/validationRules";
 import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
+import * as Yup from "yup";
+import { SocioeconomicInformationFormUI } from "./interface";
+import { ISocioeconomicInformationEntry } from "./types";
 
 const validationSchema = Yup.object({
   dependants: validationRules.dependants.required(validationMessages.required),
@@ -12,6 +12,7 @@ const validationSchema = Yup.object({
 
 interface SocioeconomicInformationFormProps {
   initialValues: ISocioeconomicInformationEntry;
+  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: ISocioeconomicInformationEntry) => void;
   loading?: boolean;
 }
@@ -21,18 +22,36 @@ const SocioeconomicInformationForm = forwardRef(
     props: SocioeconomicInformationFormProps,
     ref: React.Ref<FormikProps<ISocioeconomicInformationEntry>>
   ) {
-    const { initialValues, handleSubmit, loading } = props;
+    const { initialValues, onFormValid, handleSubmit, loading } = props;
 
     const formik = useFormik({
-        initialValues,
-        validationSchema,
-        validateOnChange: false,
-        onSubmit: handleSubmit || (() => {}),
+      initialValues,
+      validationSchema,
+      validateOnChange: false,
+      onSubmit: handleSubmit || (() => {}),
+    });
+
+    useImperativeHandle(ref, () => formik);
+
+    const customHandleBlur = (
+      event: React.FocusEvent<HTMLElement, Element>
+    ) => {
+      formik.handleBlur(event);
+
+      if (handleSubmit) return;
+
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
       });
+    };
 
-      useImperativeHandle(ref, () => formik);
-
-      return <SocioeconomicInformationFormUI loading={loading} formik={formik} />;
+    return (
+      <SocioeconomicInformationFormUI
+        loading={loading}
+        formik={formik}
+        customHandleBlur={customHandleBlur}
+      />
+    );
   }
 );
 

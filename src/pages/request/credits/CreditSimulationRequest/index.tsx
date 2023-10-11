@@ -1,9 +1,13 @@
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
-import { creditSimulationRequestSteps } from "./config/assisted";
+import {
+  creditSimulationRequestSteps,
+  creditSimulationStepsRules,
+} from "./config/assisted";
 import { initalValuesCreditSimulation } from "./config/initialValues";
-import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
+import { IDestinationEntry } from "./forms/DestinationForm/types";
+import { ISimulationEntry } from "./forms/SimulationForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CreditSimulationRequestUI } from "./interface";
 import {
@@ -16,39 +20,62 @@ function CreditSimulationRequest() {
     creditSimulationRequestSteps.destination.id
   );
   const steps = Object.values(creditSimulationRequestSteps);
+
+  const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
+
   const [creditSimulationRequest, setCreditSimulationRequest] =
     useState<IFormsCreditSimulationRequest>({
-      destination: initalValuesCreditSimulation.destination,
-      comments: initalValuesCreditSimulation.comments,
-      termsAndConditions: initalValuesCreditSimulation.termsAndConditions,
+      destination: {
+        isValid: false,
+        values: initalValuesCreditSimulation.destination,
+      },
+      simulation: {
+        isValid: false,
+        values: initalValuesCreditSimulation.simulation,
+      },
+      comments: {
+        isValid: false,
+        values: initalValuesCreditSimulation.comments,
+      },
+      termsAndConditions: {
+        isValid: false,
+        values: initalValuesCreditSimulation.termsAndConditions,
+      },
     });
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
+  const simulationRef = useRef<FormikProps<ISimulationEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
 
   const formReferences: IFormsCreditSimulationRequestRefs = {
     destination: destinationRef,
+    simulation: simulationRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
   };
 
   const handleStepChange = (stepId: number) => {
-    const stepKey = Object.entries(creditSimulationRequestSteps).find(
-      ([, config]) => config.id === currentStep
+    const newCreditSimulationRequest = creditSimulationStepsRules(
+      currentStep,
+      creditSimulationRequest,
+      formReferences,
+      isCurrentFormValid
+    );
+    setCreditSimulationRequest(newCreditSimulationRequest);
+
+    const changeStepKey = Object.entries(creditSimulationRequestSteps).find(
+      ([, config]) => config.id === stepId
     )?.[0];
 
-    if (stepKey) {
-      const values =
-        formReferences[stepKey as keyof IFormsCreditSimulationRequestRefs]
-          ?.current?.values;
+    if (!changeStepKey) return;
 
-      setCreditSimulationRequest((prevInvitationData) => ({
-        ...prevInvitationData,
-        [stepKey]: values,
-      }));
-    }
+    setIsCurrentFormValid(
+      newCreditSimulationRequest[
+        changeStepKey as keyof IFormsCreditSimulationRequest
+      ]?.isValid || false
+    );
 
     setCurrentStep(stepId);
   };
@@ -75,6 +102,8 @@ function CreditSimulationRequest() {
       handlePreviousStep={handlePreviousStep}
       handleStepChange={handleStepChange}
       steps={steps}
+      isCurrentFormValid={isCurrentFormValid}
+      setIsCurrentFormValid={setIsCurrentFormValid}
     />
   );
 }

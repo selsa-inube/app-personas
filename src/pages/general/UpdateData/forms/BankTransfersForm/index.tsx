@@ -14,6 +14,7 @@ const validationSchema = Yup.object({
 
 interface BankTransfersFormProps {
   initialValues: IBankTransfersEntry;
+  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: IBankTransfersEntry) => void;
   loading?: boolean;
 }
@@ -22,7 +23,7 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
   props: BankTransfersFormProps,
   ref: React.Ref<FormikProps<IBankTransfersEntry>>
 ) {
-  const { initialValues, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, handleSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
@@ -33,7 +34,23 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
 
   useImperativeHandle(ref, () => formik);
 
-  return <BankTransfersFormUI loading={loading} formik={formik} />;
+  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
+    formik.handleBlur(event);
+
+    if (handleSubmit) return;
+
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
+  };
+
+  return (
+    <BankTransfersFormUI
+      loading={loading}
+      formik={formik}
+      customHandleBlur={customHandleBlur}
+    />
+  );
 });
 
 export { BankTransfersForm };

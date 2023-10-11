@@ -21,6 +21,7 @@ const validationSchema = Yup.object({
 
 interface ContactDataFormProps {
   initialValues: IContactDataEntry;
+  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: IContactDataEntry) => void;
   loading?: boolean;
 }
@@ -29,7 +30,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   props: ContactDataFormProps,
   ref: React.Ref<FormikProps<IContactDataEntry>>
 ) {
-  const { initialValues, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, handleSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
@@ -40,7 +41,23 @@ const ContactDataForm = forwardRef(function ContactDataForm(
 
   useImperativeHandle(ref, () => formik);
 
-  return <ContactDataFormUI loading={loading} formik={formik} />;
+  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
+    formik.handleBlur(event);
+
+    if (handleSubmit) return;
+
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
+  };
+
+  return (
+    <ContactDataFormUI
+      loading={loading}
+      formik={formik}
+      customHandleBlur={customHandleBlur}
+    />
+  );
 });
 
 export { ContactDataForm };
