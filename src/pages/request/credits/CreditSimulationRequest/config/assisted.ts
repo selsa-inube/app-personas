@@ -91,6 +91,18 @@ const stepsValuesRules = (
 
       break;
     }
+    case creditSimulationRequestSteps.comments.id: {
+      const values = formReferences.comments.current?.values;
+
+      if (!values) return currentCreditSimulationRequest;
+
+      newCreditSimulationRequest.comments = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      break;
+    }
   }
 
   return newCreditSimulationRequest;
