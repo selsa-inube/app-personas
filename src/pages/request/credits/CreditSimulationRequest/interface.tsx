@@ -46,6 +46,7 @@ const renderStepContent = (
         <CommentsForm
           initialValues={creditSimulationRequest.comments.values}
           ref={formReferences.comments}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
     </>
