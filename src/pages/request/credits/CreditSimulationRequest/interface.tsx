@@ -54,6 +54,7 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={creditSimulationRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
     </>

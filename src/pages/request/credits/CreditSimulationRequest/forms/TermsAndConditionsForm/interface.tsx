@@ -12,6 +12,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 interface TermsAndConditionsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function generateTermsAndConditionsParagraphs(texts: string[]) {
@@ -23,11 +24,7 @@ function generateTermsAndConditionsParagraphs(texts: string[]) {
 }
 
 function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
-  const { formik, loading } = props;
-
-  if (!formik.values.termsAndConditions) {
-    formik.isValid = false;
-  }
+  const { formik, loading, customHandleChange } = props;
 
   const isMobile = useMediaQuery("(max-width: 560px)");
 
@@ -48,7 +45,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
           name="termsAndConditions"
           label="Acepto los términos y condiciones"
           size={isMobile ? "small" : "large"}
-          handleChange={formik.handleChange}
+          handleChange={customHandleChange}
           checked={formik.values.termsAndConditions}
           disabled={loading}
         />
