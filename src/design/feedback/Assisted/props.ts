@@ -16,6 +16,13 @@ const props = {
     description:
       "is the current step number that will be received from the parent or interface that is using it",
   },
+  stepsFlow: {
+    description:
+      "is the flow of steps that the component will receive to map them",
+  },
+  disableNextStep: {
+    description: "is an indicator to disable the next step button",
+  },
 };
 
-export { props, parameters };
+export { parameters, props };

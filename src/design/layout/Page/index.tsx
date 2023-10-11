@@ -1,11 +1,8 @@
 import { useLocation, Outlet } from "react-router-dom";
-
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
 import { Grid } from "../Grid";
-
 import { StyledPage, StyledMain } from "./styles";
 import { IHeader, INav } from "./types";
 
@@ -27,6 +24,10 @@ function Page(props: PageProps) {
         username={header.username}
         client={header.client}
         links={header.links}
+        portalId={header.portalId}
+        logoutPath={header.logoutPath}
+        logoutTitle={header.logoutTitle}
+        navigation={header.navigation}
       />
       <Grid
         templateColumns={navBreakpoint ? "auto 1fr" : "1fr"}

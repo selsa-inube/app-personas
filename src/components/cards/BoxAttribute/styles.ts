@@ -6,6 +6,8 @@ interface IStyledBoxAttribute {
 }
 
 const StyledBoxAttribute = styled.div<IStyledBoxAttribute>`
+  display: flex;
+  align-items: center;
   border-radius: 8px;
   padding: ${({ smallScreen }) =>
     smallScreen

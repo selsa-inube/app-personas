@@ -1,5 +1,14 @@
 import { inputSizeTypes, inputStates, inputTypes } from "./types";
 
+const parameters = {
+  docs: {
+    description: {
+      component:
+        "A TextField is used to collect and display text information, serving as an interactive data entry field for users to write and submit data.",
+    },
+  },
+};
+
 const props = {
   label: {
     description: "Controls the text to display in the label",
@@ -82,6 +91,15 @@ const props = {
   htmlFor: {
     description: "Controls the identification of the label",
   },
+  autocomplete: {
+    description: "Corresponds to a functionality that automatically suggests and completes words or phrases while a user is writing them",
+  },
+  suggestions: {
+    description: "Corresponds to the options provided by the autocomplete option",
+  },
+  autocompleteChars: {
+    description: "Corresponds to the number of characters from which you will start evaluating autocomplete options",
+  },
 };
 
-export { props };
+export { props, parameters };

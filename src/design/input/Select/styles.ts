@@ -42,6 +42,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   align-items: center;
   box-sizing: border-box;
   user-select: none;
+  cursor: ${({ readOnly }) => readOnly && "not-allowed"};
   border-radius: ${inube.spacing.s100};
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
@@ -82,13 +83,13 @@ interface IStyledInput {
   isFocused?: boolean;
   state: string;
   $size: InputSize;
-  readOnly?: boolean;
+  $readOnly?: boolean;
 }
 
 const StyledInput = styled.input<IStyledInput>`
   cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   outline: none;
-
+  cursor: ${({ $readOnly }) => $readOnly && "not-allowed"};
   font-family: ${({ theme }) =>
     theme.typography?.body?.medium?.font || inube.typography.body.medium.font};
   font-size: ${({ theme }) =>
@@ -103,14 +104,14 @@ const StyledInput = styled.input<IStyledInput>`
     theme.typography?.body?.medium?.lineHeight ||
     inube.typography.body.medium.lineHeight};
 
-  color: ${({ theme, isDisabled, readOnly }) =>
+  color: ${({ theme, isDisabled, $readOnly }) =>
     isDisabled
       ? theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
-      : readOnly
+      : $readOnly
       ? theme.color?.text?.gray?.hover || inube.color.text.gray.hover
       : theme.color?.text?.dark?.regular || inube.color.text.dark.regular};
-  background-color: ${({ theme, isDisabled, readOnly }) =>
-    isDisabled || readOnly
+  background-color: ${({ theme, isDisabled, $readOnly }) =>
+    isDisabled || $readOnly
       ? theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear
       : "inherit"};
   border: none;
@@ -202,40 +203,6 @@ const StyledErrorMessageContainer = styled.div<IStyledMessageContainer>`
   }
 `;
 
-const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-  gap: ${inube.spacing.s050};
-
-  color: ${({ theme, isDisabled, state }) => {
-    if (isDisabled) {
-      return (
-        theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
-      );
-    }
-    if (state === "valid") {
-      return (
-        theme.color?.text?.success?.regular || inube.color.text.success?.regular
-      );
-    }
-    if (state === "invalid") {
-      return (
-        theme.color?.text?.error?.regular || inube.color.text.error.regular
-      );
-    }
-    return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
-  }};
-
-  margin-top: ${inube.spacing.s050};
-
-  & svg {
-    width: 14px;
-    height: 14px;
-    padding-left: ${inube.spacing.s200};
-  }
-`;
-
 export {
   StyledContainer,
   StyledContainerLabel,
@@ -243,5 +210,4 @@ export {
   StyledIcon,
   StyledInput,
   StyledInputContainer,
-  StyledValidMessageContainer,
 };

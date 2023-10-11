@@ -7,14 +7,13 @@ import { PersonalInformationFormUI } from "./interface";
 import { IPersonalInformationEntry } from "./types";
 
 const validationSchema = Yup.object({
-  expeditionDate: validationRules.expeditionDate.required(
-    validationMessages.required
-  ),
-  birthDate: validationRules.birthDate.required(validationMessages.required),
+  expeditionDate: validationRules.date.required(validationMessages.required),
+  birthDate: validationRules.date.required(validationMessages.required),
 });
 
 interface PersonalInformationFormProps {
   initialValues: IPersonalInformationEntry;
+  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: IPersonalInformationEntry) => void;
   loading?: boolean;
 }
@@ -23,7 +22,7 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
   props: PersonalInformationFormProps,
   ref: React.Ref<FormikProps<IPersonalInformationEntry>>
 ) {
-  const { initialValues, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, handleSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
@@ -32,11 +31,25 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
     onSubmit: handleSubmit || (() => {}),
   });
 
-  useImperativeHandle(ref, () => ({
-    ...formik,
-  }));
+  useImperativeHandle(ref, () => formik);
 
-  return <PersonalInformationFormUI loading={loading} formik={formik} />;
+  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
+    formik.handleBlur(event);
+
+    if (handleSubmit) return;
+
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
+  };
+
+  return (
+    <PersonalInformationFormUI
+      loading={loading}
+      formik={formik}
+      customHandleBlur={customHandleBlur}
+    />
+  );
 });
 
 export { PersonalInformationForm };

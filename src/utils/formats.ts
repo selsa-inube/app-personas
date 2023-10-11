@@ -10,17 +10,26 @@ const currencyFormat = (price: number): string => {
   }).format(price);
 };
 
-function truncateAndObfuscateDescription(
+const parseCurrencyString = (currencyString: string): number => {
+  if (currencyString === "$ 0.0") {
+    return NaN;
+  }
+
+  let num = parseInt(currencyString.replace(/\$|\./g, ""));
+  return num;
+};
+
+const truncateAndObfuscateDescription = (
   description: string,
   type: string,
   lengthToShow: number
-) {
+) => {
   if (type === "CA") {
     const truncatedText = description.slice(-lengthToShow);
     return "**" + truncatedText;
   } else {
     return description;
   }
-}
+};
 
-export { currencyFormat, truncateAndObfuscateDescription };
+export { currencyFormat, parseCurrencyString, truncateAndObfuscateDescription };

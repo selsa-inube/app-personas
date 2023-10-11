@@ -12,7 +12,6 @@ interface SelectProps {
   isRequired?: boolean;
   state?: InputState;
   errorMessage?: string;
-  validMessage?: string;
   size?: InputSize;
   isFullWidth?: boolean;
   readOnly?: boolean;
@@ -28,14 +27,13 @@ function Select(props: SelectProps) {
     label,
     name,
     id,
-    placeholder,
+    placeholder = "Seleccione una opción",
     isDisabled = false,
     value,
     handleChange,
     isRequired = false,
     state = "pending",
     errorMessage,
-    validMessage,
     size = "wide",
     isFullWidth = false,
     handleFocus,
@@ -70,6 +68,13 @@ function Select(props: SelectProps) {
     const target = event.target as Node | null;
     if (selectRef.current && target && !selectRef.current.contains(target)) {
       setOpen(false);
+    }
+    if (handleBlur) {
+      const event = {
+        target: selectRef.current,
+      } as React.FocusEvent<HTMLDivElement>;
+
+      handleBlur(event);
     }
   };
 
@@ -130,7 +135,6 @@ function Select(props: SelectProps) {
       size={size}
       state={transformedState}
       errorMessage={errorMessage}
-      validMessage={validMessage}
       isFullWidth={transformedIsFullWidth}
       isFocused={isFocused}
       handleFocus={interceptFocus}

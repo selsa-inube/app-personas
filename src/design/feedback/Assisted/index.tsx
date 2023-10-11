@@ -4,39 +4,56 @@ import { IStep } from "./types";
 interface AssistedProps {
   steps: IStep[];
   currentStep: number;
+  stepsFlow?: number[];
+  disableNextStep?: boolean;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
 }
 
 function Assisted(props: AssistedProps) {
-  const { steps, currentStep, handleStepChange, handleFinishAssisted } = props;
+  const {
+    steps,
+    currentStep,
+    stepsFlow,
+    disableNextStep,
+    handleStepChange,
+    handleFinishAssisted,
+  } = props;
+
+  const activeSteps = stepsFlow
+    ? steps.filter((step) => stepsFlow.includes(step.id))
+    : steps;
+
+  const currentStepIndex = activeSteps.findIndex(
+    (step) => step.id === currentStep
+  );
+
+  const currentStepInfo = activeSteps.find((step) => step.id === currentStep);
+
+  const lastStepIndex = activeSteps.length - 1;
 
   const handleNextStep = () => {
-    const currentStepIndex = steps.findIndex((step) => step.id === currentStep);
-    if (currentStepIndex === steps.length - 1) {
+    if (currentStepIndex === activeSteps.length - 1) {
       handleFinishAssisted();
       return;
     }
-    handleStepChange(steps[currentStepIndex + 1].id);
+    handleStepChange(activeSteps[currentStepIndex + 1].id);
   };
 
   const handlePreviousStep = () => {
-    const currentStepIndex = steps.findIndex((step) => step.id === currentStep);
     if (currentStepIndex === 0) return;
-    handleStepChange(steps[currentStepIndex - 1].id);
+    handleStepChange(activeSteps[currentStepIndex - 1].id);
   };
-
-  const currentStepInfo = steps.find((step) => step.id === currentStep);
-  const lastStep = steps[steps.length - 1].id;
 
   return (
     <AssistedUI
-      steps={steps}
-      currentStep={currentStep}
+      steps={activeSteps}
+      currentStepIndex={currentStepIndex}
       handlePreviousStep={handlePreviousStep}
       handleNextStep={handleNextStep}
       currentStepInfo={currentStepInfo}
-      lastStep={lastStep}
+      lastStepIndex={lastStepIndex}
+      disableNextStep={disableNextStep}
     />
   );
 }

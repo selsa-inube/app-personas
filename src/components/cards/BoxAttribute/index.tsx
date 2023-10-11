@@ -1,4 +1,5 @@
 import { Text } from "@design/data/Text";
+import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "src/model/entity/product";
@@ -22,7 +23,13 @@ function BoxAttribute(props: BoxAttributeProps) {
 
   return (
     <StyledBoxAttribute smallScreen={smallScreen}>
-      <Stack justifyContent="space-between" alignItems="center">
+      <Grid
+        templateColumns="auto 1fr"
+        width="100%"
+        gap="s100"
+        alignItems="center"
+        justifyContent="space-between"
+      >
         <Text
           type="label"
           size={smallScreen ? "small" : "medium"}
@@ -31,22 +38,25 @@ function BoxAttribute(props: BoxAttributeProps) {
           {label}
         </Text>
 
-        {withButton ? (
-          <ButtonAttribute
-            icon={buttonIcon}
-            value={buttonValue}
-            onClick={onClickButton}
-          />
-        ) : (
-          <Text
-            type="body"
-            size={smallScreen ? "small" : "medium"}
-            appearance="gray"
-          >
-            {String(value)}
-          </Text>
-        )}
-      </Stack>
+        <Stack alignItems="center" justifyContent="flex-end">
+          {withButton ? (
+            <ButtonAttribute
+              icon={buttonIcon}
+              value={buttonValue}
+              onClick={onClickButton}
+            />
+          ) : (
+            <Text
+              type="body"
+              size={smallScreen ? "small" : "medium"}
+              appearance="gray"
+              textAlign="end"
+            >
+              {String(value)}
+            </Text>
+          )}
+        </Stack>
+      </Grid>
     </StyledBoxAttribute>
   );
 }

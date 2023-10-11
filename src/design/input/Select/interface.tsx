@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { MdCheckCircle, MdExpandMore, MdOutlineError } from "react-icons/md";
+import { MdExpandMore, MdOutlineError } from "react-icons/md";
 
 import { SelectProps } from ".";
 import { Text } from "../../data/Text";
@@ -14,7 +14,6 @@ import {
   StyledIcon,
   StyledInput,
   StyledInputContainer,
-  StyledValidMessageContainer,
 } from "./styles";
 
 function Invalid(props: ISelectMessage) {
@@ -28,19 +27,6 @@ function Invalid(props: ISelectMessage) {
         {transformedErrorMessage}
       </Text>
     </StyledErrorMessageContainer>
-  );
-}
-
-function Success(props: ISelectMessage) {
-  const { isDisabled, state, validMessage } = props;
-
-  return (
-    <StyledValidMessageContainer isDisabled={isDisabled} state={state}>
-      <MdCheckCircle />
-      <Text type="body" size="small" appearance="success" disabled={isDisabled}>
-        {validMessage}
-      </Text>
-    </StyledValidMessageContainer>
   );
 }
 
@@ -65,7 +51,6 @@ function SelectUI(props: SelectUIProps) {
     state = "pending",
     size = "compact",
     errorMessage,
-    validMessage,
     handleFocus,
     handleBlur,
     options,
@@ -75,7 +60,7 @@ function SelectUI(props: SelectUIProps) {
     onCloseOptions,
     selectRef,
     handleOptionClick,
-    readOnly = false
+    readOnly = false,
   } = props;
 
   const interceptorOnClick = (e: React.MouseEvent) => {
@@ -110,7 +95,7 @@ function SelectUI(props: SelectUIProps) {
 
         {isRequired && !isDisabled && (
           <Text type="body" size="small" appearance="dark">
-            (Required)
+            (Requerido)
           </Text>
         )}
       </StyledContainerLabel>
@@ -123,8 +108,9 @@ function SelectUI(props: SelectUIProps) {
       >
         <StyledInput
           autoComplete="off"
-          readOnly={readOnly}
-          value={currentOption?.value || "Seleccione una opción"}
+          $readOnly={readOnly}
+          readOnly
+          value={currentOption?.value}
           name={name}
           id={id}
           placeholder={placeholder}
@@ -136,9 +122,11 @@ function SelectUI(props: SelectUIProps) {
           $size={size}
         />
 
-        <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
-          <MdExpandMore onClick={onCloseOptions} />
-        </StyledIcon>
+        {!readOnly && (
+          <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
+            <MdExpandMore onClick={onCloseOptions} />
+          </StyledIcon>
+        )}
       </StyledInputContainer>
 
       {openOptions && !isDisabled && !readOnly && (
@@ -154,13 +142,6 @@ function SelectUI(props: SelectUIProps) {
           isDisabled={isDisabled}
           state={state}
           errorMessage={errorMessage}
-        />
-      )}
-      {state === "valid" && (
-        <Success
-          isDisabled={isDisabled}
-          state={state}
-          validMessage={validMessage}
         />
       )}
     </StyledContainer>
