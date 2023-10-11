@@ -1,15 +1,19 @@
 const liabilityTypeData = [
   {
-    id: "liability1",
-    value: "Tipo de pasivo 1",
+    id: "consumerCredit",
+    value: "Crédito de consumo",
   },
   {
-    id: "liability2",
-    value: "Tipo de pasivo 2",
+    id: "housingCredit",
+    value: "Crédito de vivienda",
   },
   {
-    id: "liability3",
-    value: "Tipo de pasivo 3",
+    id: "commercialCredit",
+    value: "Crédito comercial",
+  },
+  {
+    id: "creditCard",
+    value: "Tarjeta de crédito",
   },
 ];
 
