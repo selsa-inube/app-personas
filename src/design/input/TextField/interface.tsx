@@ -104,8 +104,6 @@ function TextFieldUI(props: TextFieldProps) {
     setShowDropdown(false);
   };
 
-  console.log(value);
-
   return (
     <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
       <StyledContainerLabel
