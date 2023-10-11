@@ -4,6 +4,8 @@ import { TextFieldProps } from ".";
 import { Label } from "../Label";
 import { ITextFieldMessage } from "./types";
 
+import { useState } from "react";
+import { DropdownMenu } from "../DropdownMenu";
 import {
   StyledContainer,
   StyledContainerLabel,
@@ -13,8 +15,6 @@ import {
   StyledInputContainer,
   StyledValidMessageContainer,
 } from "./styles";
-import { useState } from "react";
-import { DropdownMenu } from "../DropdownMenu";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -75,28 +75,36 @@ function TextFieldUI(props: TextFieldProps) {
   } = props;
 
   const [showDropdown, setShowDropdown] = useState(false);
-  const [inputValue, setInputValue] = useState(value || "");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
-    if (autocompleteChars ? value.length >= autocompleteChars : true) {
+    if (
+      autocomplete && autocompleteChars
+        ? value.length >= autocompleteChars
+        : true
+    ) {
       setShowDropdown(true);
     } else {
       setShowDropdown(false);
     }
 
-    setInputValue(value);
-
-    if (handleChange) {
-      handleChange(event);
-    }
+    handleChange && handleChange(event);
   };
 
   const handleSuggestionSelect = (selectedValue: string) => {
-    setInputValue(selectedValue);
+    const event = {
+      target: {
+        name,
+        value: selectedValue,
+      },
+    } as React.ChangeEvent<HTMLInputElement>;
+
+    handleChange && handleChange(event);
     setShowDropdown(false);
   };
+
+  console.log(value);
 
   return (
     <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
@@ -145,7 +153,7 @@ function TextFieldUI(props: TextFieldProps) {
           isDisabled={isDisabled}
           isFullWidth={isFullWidth}
           type={type}
-          value={inputValue}
+          value={value}
           maxLength={maxLength}
           minLength={minLength}
           max={max}
@@ -166,16 +174,14 @@ function TextFieldUI(props: TextFieldProps) {
         suggestions &&
         suggestions.length > 0 &&
         suggestions.some((suggestion) =>
-          suggestion.value
-            .toLowerCase()
-            .includes(String(inputValue).toLowerCase())
+          suggestion.value.toLowerCase().includes(String(value).toLowerCase())
         ) && (
           <DropdownMenu
             options={suggestions
               .filter((suggestion) =>
                 suggestion.value
                   .toLowerCase()
-                  .includes(String(inputValue).toLowerCase())
+                  .includes(String(value).toLowerCase())
               )
               .flat()}
             handleClick={handleSuggestionSelect}

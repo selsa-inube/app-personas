@@ -6,7 +6,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { StyledContainer, StyledTextarea } from "./styles";
 
-interface ITextareaProps {
+interface TextareaProps {
   label?: string;
   name?: string;
   id: string;
@@ -24,7 +24,7 @@ interface ITextareaProps {
 }
 
 const Counter = (
-  props: Omit<ITextareaProps, "id"> & {
+  props: Omit<TextareaProps, "id"> & {
     valueLength: number;
   }
 ) => {
@@ -37,7 +37,7 @@ const Counter = (
   );
 };
 
-const Textarea = (props: ITextareaProps) => {
+const Textarea = (props: TextareaProps) => {
   const {
     label,
     name,
@@ -129,5 +129,5 @@ const Textarea = (props: ITextareaProps) => {
   );
 };
 
-export type { ITextareaProps };
+export type { TextareaProps };
 export { Textarea };
