@@ -1,3 +1,4 @@
+import { AddDebtModal } from "@components/modals/forms/update-data/AddDebtModal";
 import { Table } from "@design/data/Table";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
@@ -8,7 +9,6 @@ import {
   personalDebtsTableBreakpoints,
   personalDebtsTableTitles,
 } from "./config/table";
-import { AddDebtModal } from "@components/modals/forms/update-data/AddDebtModal";
 
 interface PersonalDebtsFormUIProps {
   formik: FormikValues;
