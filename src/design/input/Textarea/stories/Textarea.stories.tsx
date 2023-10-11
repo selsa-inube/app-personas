@@ -2,7 +2,7 @@ import { ThemeProvider } from "styled-components";
 
 import { fondecom } from "@mocks/design/themes/fondecom";
 import { props, parameters } from "../props";
-import { ITextareaProps, Textarea } from "..";
+import { TextareaProps, Textarea } from "..";
 import { TextareaController } from "./TextareaController";
 import { StoryFn } from "@storybook/react";
 
@@ -14,7 +14,7 @@ const story = {
   argTypes: props,
 };
 
-const Default: StoryFn<ITextareaProps> = (args) => (
+const Default: StoryFn<TextareaProps> = (args) => (
   <TextareaController {...args} />
 );
 Default.args = {
@@ -34,7 +34,7 @@ const theme = {
   ...fondecom,
 };
 
-const Themed = (args: ITextareaProps) => (
+const Themed = (args: TextareaProps) => (
   <ThemeProvider theme={theme}>
     <TextareaController {...args} />
   </ThemeProvider>
