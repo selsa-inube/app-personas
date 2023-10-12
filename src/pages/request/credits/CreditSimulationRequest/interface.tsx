@@ -48,7 +48,6 @@ const renderStepContent = (
         <PreliquidationForm
           initialValues={creditSimulationRequest.preliquidation.values}
           ref={formReferences.preliquidation}
-          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === creditSimulationRequestSteps.comments.id && (

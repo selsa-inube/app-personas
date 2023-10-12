@@ -35,7 +35,7 @@ function CreditSimulationRequest() {
         values: initalValuesCreditSimulation.simulation,
       },
       preliquidation: {
-        isValid: false,
+        isValid: true,
         values: initalValuesCreditSimulation.preliquidation,
       },
       comments: {
