@@ -14,7 +14,7 @@ const header = {
   ],
   portalId: "portal",
   logoutPath: "/",
-  logoutTitle: "Logout",
+  logoutTitle: "Cerrar sesión",
   navigation: nav,
 };
 
