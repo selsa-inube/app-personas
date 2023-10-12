@@ -13,12 +13,13 @@ const creditSimulationRequestSteps = {
   simulation: {
     id: 2,
     name: "Simulación",
-    description: "Description",
+    description: "Ingresa los valores para simular tu crédito.",
   },
   preliquidation: {
     id: 3,
     name: "Preliquidación",
-    description: "Description.",
+    description:
+      "Revisa el proceso de amortización de tu solicitud de crédito.",
   },
   disbursement: {
     id: 4,
@@ -85,6 +86,18 @@ const creditSimulationStepsRules = (
       if (!values) return currentCreditSimulationRequest;
 
       newCreditSimulationRequest.simulation = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      break;
+    }
+    case creditSimulationRequestSteps.preliquidation.id: {
+      const values = formReferences.preliquidation.current?.values;
+
+      if (!values) return currentCreditSimulationRequest;
+
+      newCreditSimulationRequest.preliquidation = {
         isValid: isCurrentFormValid,
         values,
       };

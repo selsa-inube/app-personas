@@ -16,7 +16,7 @@ const StyledFieldset = styled.fieldset<IStyledFieldset>`
   padding: ${({ smallScreen }) =>
     !smallScreen
       ? inube.spacing.s300
-      : `${inube.spacing.s250} ${inube.spacing.s150}`};
+      : `${inube.spacing.s250} ${inube.spacing.s200}`};
 `;
 
 export { StyledFieldset };
