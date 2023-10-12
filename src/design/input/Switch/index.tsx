@@ -2,7 +2,7 @@ import { Stack } from "@design/layout/Stack";
 import { Label } from "../Label";
 import { MdDone, MdClose } from "react-icons/md";
 import { StyledContainer, StyledInput, StyledSpan, StyledIcon } from "./styles";
-import  { SwitchSizeType } from "./types";
+import { SwitchSizeType } from "./types";
 
 interface SwitchProps {
   id: string;
@@ -12,8 +12,8 @@ interface SwitchProps {
   checked?: boolean;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
-  margin: string;
-  padding: string;
+  margin?: string;
+  padding?: string;
   disabled?: boolean;
 }
 
