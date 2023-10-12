@@ -8,6 +8,7 @@ import { initalValuesCreditSimulation } from "./config/initialValues";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISimulationEntry } from "./forms/SimulationForm/types";
+import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CreditSimulationRequestUI } from "./interface";
 import {
   IFormsCreditSimulationRequest,
@@ -36,16 +37,23 @@ function CreditSimulationRequest() {
         isValid: false,
         values: initalValuesCreditSimulation.comments,
       },
+      termsAndConditions: {
+        isValid: false,
+        values: initalValuesCreditSimulation.termsAndConditions,
+      },
     });
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const simulationRef = useRef<FormikProps<ISimulationEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
+  const termsAndConditionsRef =
+    useRef<FormikProps<ITermsAndConditionsEntry>>(null);
 
   const formReferences: IFormsCreditSimulationRequestRefs = {
     destination: destinationRef,
     simulation: simulationRef,
     comments: commentsRef,
+    termsAndConditions: termsAndConditionsRef,
   };
 
   const handleStepChange = (stepId: number) => {

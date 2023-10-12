@@ -15,6 +15,7 @@ import { crumbsCreditSimulationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { SimulationForm } from "./forms/SimulationForm";
+import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
@@ -46,6 +47,13 @@ const renderStepContent = (
         <CommentsForm
           initialValues={creditSimulationRequest.comments.values}
           ref={formReferences.comments}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.termsAndConditions.id && (
+        <TermsAndConditionsForm
+          initialValues={creditSimulationRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
