@@ -8,6 +8,7 @@ import { initalValuesCreditSimulation } from "./config/initialValues";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISimulationEntry } from "./forms/SimulationForm/types";
+import { IPreliquidationEntry } from "./forms/PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CreditSimulationRequestUI } from "./interface";
 import {
@@ -33,6 +34,10 @@ function CreditSimulationRequest() {
         isValid: false,
         values: initalValuesCreditSimulation.simulation,
       },
+      preliquidation: {
+        isValid: true,
+        values: initalValuesCreditSimulation.preliquidation,
+      },
       comments: {
         isValid: false,
         values: initalValuesCreditSimulation.comments,
@@ -45,6 +50,7 @@ function CreditSimulationRequest() {
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const simulationRef = useRef<FormikProps<ISimulationEntry>>(null);
+  const preliquidationRef = useRef<FormikProps<IPreliquidationEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
@@ -52,6 +58,7 @@ function CreditSimulationRequest() {
   const formReferences: IFormsCreditSimulationRequestRefs = {
     destination: destinationRef,
     simulation: simulationRef,
+    preliquidation: preliquidationRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
   };
