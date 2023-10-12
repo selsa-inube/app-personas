@@ -5,9 +5,9 @@ const countryData = {
     id: "USA",
     value: "Estados Unidos",
   },
-  COL: {
-    id: "COL",
-    value: "Colombia",
+  PER: {
+    id: "PER",
+    value: "Peru",
   },
   ARG: {
     id: "ARG",
