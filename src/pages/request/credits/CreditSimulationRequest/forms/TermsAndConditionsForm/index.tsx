@@ -5,7 +5,7 @@ import { ITermsAndConditionsEntry } from "./types";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({
-  termsAndConditions: Yup.boolean().test((value) => value === false),
+  accept: Yup.boolean().test((value) => value === false),
 });
 
 interface TermsAndConditionsFormProps {
@@ -31,8 +31,6 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
 
   const customHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     formik.handleChange(event);
-
-    if (handleSubmit) return;
 
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);

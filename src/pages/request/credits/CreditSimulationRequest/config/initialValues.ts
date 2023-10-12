@@ -26,7 +26,7 @@ const comments: ICommentsEntry = {
 };
 
 const termsAndConditions: ITermsAndConditionsEntry = {
-  termsAndConditions: false,
+  accept: false,
 };
 
 const initalValuesCreditSimulation = {

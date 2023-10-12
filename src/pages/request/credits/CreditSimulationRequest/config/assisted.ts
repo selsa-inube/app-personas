@@ -103,6 +103,18 @@ const creditSimulationStepsRules = (
 
       break;
     }
+    case creditSimulationRequestSteps.termsAndConditions.id: {
+      const values = formReferences.termsAndConditions.current?.values;
+
+      if (!values) return currentCreditSimulationRequest;
+
+      newCreditSimulationRequest.termsAndConditions = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      break;
+    }
   }
 
   return newCreditSimulationRequest;

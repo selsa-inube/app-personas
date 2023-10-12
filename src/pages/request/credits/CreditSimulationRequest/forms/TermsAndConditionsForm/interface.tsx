@@ -6,14 +6,8 @@ import {
   StyledTermsAndConditionsInfo,
   StyledTermsAndConditionsContainer,
 } from "./styles";
-import { termsAndConditionsTexts } from "./termsAndConditionsInfo";
+import { termsAndConditionsTexts } from "./config/termsAndConditions";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
-interface TermsAndConditionsFormUIProps {
-  formik: FormikValues;
-  loading?: boolean;
-  customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 function generateTermsAndConditionsParagraphs(texts: string[]) {
   return texts.map((text, index) => (
@@ -21,6 +15,12 @@ function generateTermsAndConditionsParagraphs(texts: string[]) {
       {text}
     </Text>
   ));
+}
+
+interface TermsAndConditionsFormUIProps {
+  formik: FormikValues;
+  loading?: boolean;
+  customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
@@ -41,12 +41,12 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
           </StyledTermsAndConditionsInfo>
         </StyledTermsAndConditionsContainer>
         <Switch
-          id="termsAndConditions"
-          name="termsAndConditions"
+          id="accept"
+          name="accept"
           label="Acepto los términos y condiciones"
           size={isMobile ? "small" : "large"}
           handleChange={customHandleChange}
-          checked={formik.values.termsAndConditions}
+          checked={formik.values.accept}
           disabled={loading}
         />
       </Stack>
