@@ -7,6 +7,7 @@ import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IBankTransfersAccount } from "src/model/entity/user";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
+import { IFinancialOperations } from "src/model/entity/user";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -54,12 +55,19 @@ const mapBankTransfers = (
 };
 
 const mapFinancialOperations = (
-  financialOperationsData?: Record<string, string>
+  financialOperationsData?: IFinancialOperations
 ): IFinancialOperationsEntry => {
   return {
-    hasForeignCurrencyAccounts: financialOperationsData?.financialOperations,
+    hasForeignCurrencyAccounts:
+      financialOperationsData?.hasForeignCurrencyAccounts || "",
     hasForeignCurrencyTransactions:
-      financialOperationsData?.financialOperations,
+      financialOperationsData?.hasForeignCurrencyAccounts || "",
+    descriptionOperationsForeignCurrency:
+      financialOperationsData?.descriptionOperationsForeignCurrency || "",
+    country: financialOperationsData?.country || "",
+    bankingEntity: financialOperationsData?.bankingEntity || "",
+    currency: financialOperationsData?.currency || "",
+    accountNumber: Number(financialOperationsData?.accountNumber),
   };
 };
 

@@ -5,6 +5,7 @@ import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { StyledContainer, StyledTextarea } from "./styles";
+import { CounterAppearence } from "./types";
 
 interface TextareaProps {
   label?: string;
@@ -21,19 +22,24 @@ interface TextareaProps {
   onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   readOnly?: boolean;
+  lengthThreshold?: number;
 }
 
 const Counter = (
   props: Omit<TextareaProps, "id"> & {
     valueLength: number;
+    appearance: CounterAppearence;
   }
 ) => {
-  const { maxLength, isDisabled, valueLength } = props;
+  const { maxLength, appearance, isDisabled, valueLength } = props;
 
   return (
-    <Text type="body" size="small" appearance="gray" disabled={isDisabled}>
-      {valueLength}/{maxLength}
-    </Text>
+    <Text
+      type="body"
+      size="small"
+      disabled={isDisabled}
+      appearance={appearance}
+    >{`${valueLength}/${maxLength}`}</Text>
   );
 };
 
@@ -52,6 +58,7 @@ const Textarea = (props: TextareaProps) => {
     onFocus,
     onBlur,
     readOnly,
+    lengthThreshold = 0,
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
@@ -59,6 +66,13 @@ const Textarea = (props: TextareaProps) => {
   const truncatedValue = value.slice(0, maxLength);
 
   const isMobile = useMediaQuery("(max-width: 560px)");
+
+  let appearance: CounterAppearence =
+    maxLength - value.length <= lengthThreshold && value.length <= maxLength
+      ? "warning"
+      : value!?.length > maxLength
+      ? "error"
+      : "gray";
 
   const interceptFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (!readOnly) {
@@ -77,6 +91,7 @@ const Textarea = (props: TextareaProps) => {
       <Stack width="100%" margin={`0px 0px ${inube.spacing.s050} 0px`}>
         {(label || isRequired) && (
           <Stack
+            width="100%"
             gap="4px"
             alignItems="center"
             padding={`0px 0px 0px ${inube.spacing.s200}`}
@@ -100,9 +115,11 @@ const Textarea = (props: TextareaProps) => {
           </Stack>
         )}
         {!isDisabled && (
-          <Stack justifyContent="flex-end" alignItems="center" width="100%">
+          <Stack justifyContent="flex-end" alignItems="center">
             <Counter
+              appearance={appearance}
               maxLength={maxLength}
+              lengthThreshold={lengthThreshold}
               isDisabled={isDisabled}
               valueLength={truncatedValue!.length}
             />

@@ -3,6 +3,7 @@ import { forwardRef, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { FinancialOperationsFormUI } from "./interface";
+import { validationRules } from "src/validations/validationRules";
 import { IFinancialOperationsEntry } from "./types";
 
 const validationSchema = Yup.object({
@@ -10,6 +11,12 @@ const validationSchema = Yup.object({
     validationMessages.required
   ),
   hasForeignCurrencyAccounts: Yup.string().required(
+    validationMessages.required
+  ),
+  accountNumber: validationRules.accountNumber.required(
+    validationMessages.required
+  ),
+  descriptionOperationsForeignCurrency: Yup.string().required(
     validationMessages.required
   ),
 });
