@@ -15,6 +15,7 @@ import { crumbsCreditSimulationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { SimulationForm } from "./forms/SimulationForm";
+import { PreliquidationForm } from "./forms/PreliquidationForm";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
@@ -46,6 +47,13 @@ const renderStepContent = (
         <CommentsForm
           initialValues={creditSimulationRequest.comments.values}
           ref={formReferences.comments}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.preliquidation.id && (
+        <PreliquidationForm
+          initialValues={creditSimulationRequest.preliquidation.values}
+          ref={formReferences.preliquidation}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -102,7 +110,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
         gap="s600"
         templateColumns={mquery ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s500">
+        <Stack direction="column" gap={isMobile ? "s300" : "s500"}>
           <Assisted
             steps={steps}
             currentStep={currentStep}
