@@ -3,6 +3,7 @@ import { ICommentsEntry } from "../forms/CommentsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 import { ISimulationEntry } from "../forms/SimulationForm/types";
 import { IPreliquidationEntry } from "../forms/PreliquidationForm/types";
+import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
 const destination: IDestinationEntry = {
   creditDestination: "",
@@ -21,10 +22,6 @@ const simulation: ISimulationEntry = {
   netValue: "",
 };
 
-const comments: ICommentsEntry = {
-  comments: "",
-};
-
 const preliquidation: IPreliquidationEntry = {
   amount: 20500000,
   advanceInterestAdjustmentCycle: 49250,
@@ -32,11 +29,20 @@ const preliquidation: IPreliquidationEntry = {
   netValueToSend: 10444975,
 };
 
+const comments: ICommentsEntry = {
+  comments: "",
+};
+
+const termsAndConditions: ITermsAndConditionsEntry = {
+  accept: false,
+};
+
 const initalValuesCreditSimulation = {
   destination,
   simulation,
-  comments,
   preliquidation,
+  comments,
+  termsAndConditions,
 };
 
 export { initalValuesCreditSimulation };

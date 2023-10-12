@@ -16,6 +16,7 @@ import { CommentsForm } from "./forms/CommentsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { SimulationForm } from "./forms/SimulationForm";
 import { PreliquidationForm } from "./forms/PreliquidationForm";
+import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
@@ -43,6 +44,13 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
+      {currentStep === creditSimulationRequestSteps.preliquidation.id && (
+        <PreliquidationForm
+          initialValues={creditSimulationRequest.preliquidation.values}
+          ref={formReferences.preliquidation}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep === creditSimulationRequestSteps.comments.id && (
         <CommentsForm
           initialValues={creditSimulationRequest.comments.values}
@@ -50,10 +58,10 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.preliquidation.id && (
-        <PreliquidationForm
-          initialValues={creditSimulationRequest.preliquidation.values}
-          ref={formReferences.preliquidation}
+      {currentStep === creditSimulationRequestSteps.termsAndConditions.id && (
+        <TermsAndConditionsForm
+          initialValues={creditSimulationRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}

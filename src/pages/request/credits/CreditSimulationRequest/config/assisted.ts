@@ -92,6 +92,18 @@ const creditSimulationStepsRules = (
 
       break;
     }
+    case creditSimulationRequestSteps.preliquidation.id: {
+      const values = formReferences.preliquidation.current?.values;
+
+      if (!values) return currentCreditSimulationRequest;
+
+      newCreditSimulationRequest.preliquidation = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      break;
+    }
     case creditSimulationRequestSteps.comments.id: {
       const values = formReferences.comments.current?.values;
 
@@ -104,12 +116,12 @@ const creditSimulationStepsRules = (
 
       break;
     }
-    case creditSimulationRequestSteps.preliquidation.id: {
-      const values = formReferences.preliquidation.current?.values;
+    case creditSimulationRequestSteps.termsAndConditions.id: {
+      const values = formReferences.termsAndConditions.current?.values;
 
       if (!values) return currentCreditSimulationRequest;
 
-      newCreditSimulationRequest.preliquidation = {
+      newCreditSimulationRequest.termsAndConditions = {
         isValid: isCurrentFormValid,
         values,
       };
