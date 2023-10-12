@@ -23,11 +23,11 @@ const educationLevelData = {
   },
   PRIMARY: {
     id: "primary",
-    value: "Primaría",
+    value: "Primaria",
   },
   SECONDARY: {
     id: "secondary",
-    value: "Secundaría",
+    value: "Secundaria",
   },
   TECHNICAL: {
     id: "technical",
