@@ -79,7 +79,7 @@ function CreditSimulationRequest() {
 
     setCurrentStep(stepId);
 
-    window.scrollTo(0, 0);
+    document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
   const handleFinishAssisted = () => {};
