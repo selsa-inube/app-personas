@@ -3,45 +3,28 @@ import { Stack } from "@design/layout/Stack";
 import { Label } from "../Label";
 import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
+import { Counter } from "./Counter";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { StyledContainer, StyledTextarea } from "./styles";
 import { CounterAppearence } from "./types";
 
 interface TextareaProps {
   label?: string;
-  name?: string;
+  name: string;
   id: string;
   placeholder?: string;
   isDisabled?: boolean;
   isFocused?: boolean;
   value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  handleChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   maxLength?: number;
   isRequired?: boolean;
   isFullWidth?: boolean;
-  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  handleFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  handleBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   readOnly?: boolean;
   lengthThreshold?: number;
 }
-
-const Counter = (
-  props: Omit<TextareaProps, "id"> & {
-    valueLength: number;
-    appearance: CounterAppearence;
-  }
-) => {
-  const { maxLength, appearance, isDisabled, valueLength } = props;
-
-  return (
-    <Text
-      type="body"
-      size="small"
-      disabled={isDisabled}
-      appearance={appearance}
-    >{`${valueLength}/${maxLength}`}</Text>
-  );
-};
 
 const Textarea = (props: TextareaProps) => {
   const {
@@ -51,12 +34,12 @@ const Textarea = (props: TextareaProps) => {
     placeholder,
     isDisabled,
     value = "",
-    maxLength = 0,
+    maxLength = Infinity,
     isRequired,
     isFullWidth,
-    onChange,
-    onFocus,
-    onBlur,
+    handleChange,
+    handleFocus,
+    handleBlur,
     readOnly,
     lengthThreshold = 0,
   } = props;
@@ -68,9 +51,10 @@ const Textarea = (props: TextareaProps) => {
   const isMobile = useMediaQuery("(max-width: 560px)");
 
   let appearance: CounterAppearence =
-    maxLength - value.length <= lengthThreshold && value.length <= maxLength
+    maxLength - truncatedValue.length <= lengthThreshold &&
+    truncatedValue.length < maxLength
       ? "warning"
-      : value!?.length > maxLength
+      : truncatedValue.length === maxLength
       ? "error"
       : "gray";
 
@@ -78,12 +62,12 @@ const Textarea = (props: TextareaProps) => {
     if (!readOnly) {
       setIsFocused(true);
     }
-    onFocus && onFocus(e);
+    handleFocus && handleFocus(e);
   };
 
   const interceptBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setIsFocused(false);
-    onBlur && onBlur(e);
+    handleBlur && handleBlur(e);
   };
 
   return (
@@ -119,7 +103,6 @@ const Textarea = (props: TextareaProps) => {
             <Counter
               appearance={appearance}
               maxLength={maxLength}
-              lengthThreshold={lengthThreshold}
               isDisabled={isDisabled}
               valueLength={truncatedValue!.length}
             />
@@ -138,7 +121,7 @@ const Textarea = (props: TextareaProps) => {
         readOnly={readOnly}
         value={truncatedValue}
         isMobile={isMobile}
-        onChange={onChange}
+        onChange={handleChange}
         onFocus={interceptFocus}
         onBlur={interceptBlur}
       />

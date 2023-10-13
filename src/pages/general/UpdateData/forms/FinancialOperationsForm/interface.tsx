@@ -27,7 +27,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
 
   const mquery = useMediaQuery("(max-width: 1200px)");
 
-  const showFields =
+  const shouldShowForeignCurrencyFields =
     formik.values.hasForeignCurrencyTransactions === activeDM.Y.id ||
     formik.values.hasForeignCurrencyAccounts === activeDM.Y.id;
 
@@ -70,7 +70,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             isRequired
           />
         </Grid>
-        {showFields && (
+        {shouldShowForeignCurrencyFields && (
           <>
             <Textarea
               id="descriptionOperationsForeignCurrency"
@@ -80,9 +80,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               maxLength={200}
               isDisabled={loading}
               value={formik.values.descriptionOperationsForeignCurrency}
-              onBlur={customHandleBlur}
-              onChange={formik.handleChange}
-              onFocus={formik.isFocused}
+              handleBlur={customHandleBlur}
+              handleChange={formik.handleChange}
+              handleFocus={formik.isFocused}
               lengthThreshold={20}
               isFullWidth
             />

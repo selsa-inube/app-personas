@@ -16,9 +16,10 @@ const validationSchema = Yup.object({
   accountNumber: validationRules.accountNumber.required(
     validationMessages.required
   ),
-  descriptionOperationsForeignCurrency: Yup.string().required(
-    validationMessages.required
-  ),
+  descriptionOperationsForeignCurrency: Yup.string()
+    .required(validationMessages.required)
+    .min(1)
+    .max(300),
 });
 
 interface FinancialOperationsFormProps {
