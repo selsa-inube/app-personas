@@ -6,7 +6,7 @@ import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types"
 
 const destination: IDestinationEntry = {
   creditDestination: "",
-  product: "",
+  product: null,
 };
 
 const simulation: ISimulationEntry = {
