@@ -1,6 +1,6 @@
 interface IDestinationEntry {
   creditDestination: string;
-  product: string | null;
+  product: string;
 }
 
 export type { IDestinationEntry };
