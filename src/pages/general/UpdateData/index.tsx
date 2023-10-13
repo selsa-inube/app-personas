@@ -108,6 +108,8 @@ function UpdateData() {
     );
 
     setCurrentStep(stepId);
+
+    window.scrollTo(0, 0);
   };
 
   const handleFinishAssisted = () => {};

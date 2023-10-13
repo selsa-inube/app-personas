@@ -76,10 +76,10 @@ function CreditSimulationRequest() {
         changeStepKey as keyof IFormsCreditSimulationRequest
       ]?.isValid || false
     );
-    console.log("aca");
-    window.scrollTo(0, 0);
 
     setCurrentStep(stepId);
+
+    window.scrollTo(0, 0);
   };
 
   const handleFinishAssisted = () => {};
