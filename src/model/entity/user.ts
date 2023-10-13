@@ -62,11 +62,22 @@ interface IResidence {
   relationship: string;
   ownerCellPhone: string;
 }
+
+interface IFinancialOperations {
+  hasForeignCurrencyTransactions: string;
+  hasForeignCurrencyAccounts: string;
+  descriptionOperationsForeignCurrency: string;
+  country: string;
+  bankingEntity: string;
+  currency: string;
+  accountNumber: number;
+}
 interface IThird {
   personalData: IPersonalData;
   contact: IContactData[];
   familyGroup?: IFamilyThird[];
   bankTransfersAccount: IBankTransfersAccount;
+  financialOperations: IFinancialOperations;
 }
 
 export type {
@@ -75,6 +86,7 @@ export type {
   IBankTransfersAccount,
   IIdentification,
   IPersonalData,
+  IFinancialOperations,
   IResidence,
   IThird,
 };
