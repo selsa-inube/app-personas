@@ -111,6 +111,8 @@ function UpdateData() {
     );
 
     setCurrentStep(stepId);
+
+    document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
   const handleFinishAssisted = () => {};

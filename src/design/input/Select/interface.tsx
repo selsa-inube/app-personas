@@ -110,7 +110,7 @@ function SelectUI(props: SelectUIProps) {
           autoComplete="off"
           $readOnly={readOnly}
           readOnly
-          value={currentOption?.value}
+          value={currentOption?.value || ""}
           name={name}
           id={id}
           placeholder={placeholder}

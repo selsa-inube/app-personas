@@ -16,7 +16,14 @@ function RadioCard(props: RadioCardProps) {
 
   return (
     <StyledCardContainer onClick={onClick}>
-      <StyledInputRadio id={id} name={name} type="radio" checked={checked} />
+      <StyledInputRadio
+        id={id}
+        name={name}
+        type="radio"
+        value={id}
+        checked={checked}
+        readOnly
+      />
       <Stack direction="column" gap="s100">
         <Text type="label" size="large">
           {title}
