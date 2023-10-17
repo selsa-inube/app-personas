@@ -19,7 +19,17 @@ function MultiSections(props: MultiSectionsProps) {
 
   const combinedSectionValues = [
     ...Object.values(navigation.sections),
-    ...(links || []).map((link) => ({ title: link.label, links: [link] })),
+    ...(links || []).reduce((result, link) => {
+      const existingSection = result.find(
+        (section) => section.title === (link.title || link.label)
+      );
+      if (existingSection) {
+        existingSection.links.push(link);
+      } else {
+        result.push({ title: link.title || link.label, links: [link] });
+      }
+      return result;
+    }, [] as { title: string; links: IHeaderLink[] }[]),
   ];
 
   const [sectionCollapse, setSectionCollapse] = useState<{
