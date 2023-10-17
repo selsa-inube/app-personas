@@ -2,12 +2,13 @@ import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
 } from "react-icons/md";
-import { TextField, TextFieldProps } from ".";
-import { props, parameters } from "./props";
+import { TextField, TextFieldProps } from "..";
+import { parameters, props } from "../props";
 
 import { fondecom } from "@mocks/design/themes/fondecom";
 import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
+import { AutocompleteController } from "./AutocompleteController";
 
 const story = {
   title: "design/input/TextField",
@@ -51,7 +52,7 @@ Themed.args = {
 };
 
 export const Autocomplete: StoryFn<TextFieldProps> = (args) => (
-  <TextField {...args} />
+  <AutocompleteController {...args} />
 );
 
 Autocomplete.args = {

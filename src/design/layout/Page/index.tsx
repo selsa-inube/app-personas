@@ -38,7 +38,7 @@ function Page(props: PageProps) {
             title={nav.title}
             sections={nav.sections}
             currentLocation={currentLocation}
-            logoutTitle="Logout"
+            logoutTitle="Cerrar sesión"
             logoutPath=""
           />
         )}

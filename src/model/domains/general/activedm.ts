@@ -3,7 +3,7 @@ import { convertDomainToList, convertDomainToOptions } from "../helper";
 const activeData = {
   Y: {
     id: "Y",
-    value: "Si",
+    value: "Sí",
   },
   N: {
     id: "N",
