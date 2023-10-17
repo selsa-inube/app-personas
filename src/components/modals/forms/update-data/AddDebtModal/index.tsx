@@ -41,7 +41,8 @@ function AddDebtModal(props: AddDebtModalProps) {
   };
 
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue(e.target.name, parseCurrencyString(e.target.value));
+    const parsedValue = parseCurrencyString(e.target.value);
+    formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);
   };
 
   const validateCurrencyField = (fieldName: string) => {
