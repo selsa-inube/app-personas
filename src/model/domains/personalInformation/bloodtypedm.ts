@@ -3,35 +3,35 @@ import { convertDomainToList, convertDomainToOptions } from "../helper";
 const bloodTypeData = {
   O_POSITIVE: {
     id: "o_positive",
-    value: "O+",
+    value: "O +",
   },
   O_NEGATIVE: {
     id: "o_negative",
-    value: "O-",
+    value: "O -",
   },
   A_POSITIVE: {
     id: "a_positive",
-    value: "A+",
+    value: "A +",
   },
   A_NEGATIVE: {
     id: "a_negative",
-    value: "A-",
+    value: "A -",
   },
   B_POSITIVE: {
     id: "b_positive",
-    value: "B+",
+    value: "B +",
   },
   B_NEGATIVE: {
     id: "b_negative",
-    value: "B-",
+    value: "B -",
   },
   AB_POSITIVE: {
     id: "ab_positive",
-    value: "AB+",
+    value: "AB +",
   },
   AB_NEGATIVE: {
     id: "ab_negative",
-    value: "AB-",
+    value: "AB -",
   },
 };
 
