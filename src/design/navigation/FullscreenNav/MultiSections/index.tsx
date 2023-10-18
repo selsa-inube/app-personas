@@ -17,10 +17,14 @@ interface MultiSectionsProps {
 function MultiSections(props: MultiSectionsProps) {
   const { navigation, links, onClose } = props;
 
-  const combinedSectionValues = [
-    ...Object.values(navigation.sections),
-    ...(links || []).map((link) => ({ title: link.label, links: [link] })),
-  ];
+  const combinedSectionValues = [...Object.values(navigation.sections)];
+
+  if (links && links.length > 0) {
+    combinedSectionValues.push({
+      title: "links",
+      links: links,
+    });
+  }
 
   const [sectionCollapse, setSectionCollapse] = useState<{
     [sectionName: string]: boolean;
