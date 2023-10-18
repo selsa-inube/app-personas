@@ -6,14 +6,14 @@ import { Stack } from "../../layout/Stack";
 import {
   StyledButton,
   StyledButtonContent,
-  StyledSpinnerContainer,
   StyledLink,
+  StyledSpinnerContainer,
 } from "./styles";
 import {
   ButtonAppearanceType,
   ButtonSpacingType,
-  ButtonVariantType,
   ButtonTypesType,
+  ButtonVariantType,
 } from "./types";
 
 interface ButtonProps {
