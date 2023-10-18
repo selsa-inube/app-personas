@@ -9,7 +9,7 @@ import {
 
 const savings = {
   title: "Ahorros",
-  subtitle: "Consulta tus cuentas",
+  subtitle: "Resumen productos de ahorro",
   icon: <MdOutlineSavings />,
   navigateTo: "/my-savings",
   collapsing: { start: false, allow: false },
