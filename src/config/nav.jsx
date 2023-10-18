@@ -22,7 +22,7 @@ const nav = {
           icon: <MdOutlineHouse />,
         },
         {
-          label: "Mis cuentas",
+          label: "Mis ahorros",
           path: "/my-savings",
           icon: <MdOutlineSavings />,
         },
