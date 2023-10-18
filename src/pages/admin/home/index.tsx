@@ -86,8 +86,8 @@ function Home() {
     );
   };
 
-  const investmentProductsCD = getInvestmentsProducts("CD");
-  const investmentProductsAP = getInvestmentsProducts("AP");
+  const cdats = getInvestmentsProducts("CD");
+  const programmedSavings = getInvestmentsProducts("AP");
 
   return (
     <>
@@ -177,13 +177,13 @@ function Home() {
                 </Stack>
               </Stack>
               <Stack direction="column" gap="s200">
-                {investmentProductsCD.length > 0 && (
+                {cdats.length > 0 && (
                   <Text type="label" size="medium">
                     CDAT
                   </Text>
                 )}
                 <Stack direction="column" gap="s100">
-                  {investmentProductsCD.map((investment) => (
+                  {cdats.map((investment) => (
                     <Product
                       id={investment.id}
                       key={investment.id}
@@ -201,13 +201,13 @@ function Home() {
                 </Stack>
               </Stack>
               <Stack direction="column" gap="s200">
-                {investmentProductsAP.length > 0 && (
+                {programmedSavings.length > 0 && (
                   <Text type="label" size="medium">
                     Ahorros programados
                   </Text>
                 )}
                 <Stack direction="column" gap="s100">
-                  {investmentProductsAP.map((investment) => (
+                  {programmedSavings.map((investment) => (
                     <Product
                       id={investment.id}
                       key={investment.id}
