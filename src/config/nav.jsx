@@ -4,7 +4,6 @@ import {
   MdOutlineAirplaneTicket,
   MdOutlineAssignment,
   MdOutlineAttachMoney,
-  MdOutlineBalance,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlineSavings,
@@ -25,11 +24,6 @@ const nav = {
           label: "Mis cuentas",
           path: "/my-savings",
           icon: <MdOutlineSavings />,
-        },
-        {
-          label: "Mis inversiones",
-          path: "/my-investments",
-          icon: <MdOutlineBalance />,
         },
         {
           label: "Mis créditos",
