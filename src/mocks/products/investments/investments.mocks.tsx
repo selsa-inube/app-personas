@@ -10,7 +10,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "expiration_date",
         label: "Fecha de vencimiento",
-        value: "30/Jun/2023",
+        value: "16/Feb/2023",
       },
       {
         id: "investment_value",
@@ -62,6 +62,11 @@ const investmentsMock: IProduct[] = [
     description: "Ahorro programado 2 - 23110125",
     type: "AP",
     attributes: [
+      {
+        id: "expiration_date",
+        label: "Fecha de vencimiento",
+        value: "23/Sep/2023",
+      },
       {
         id: "investment_value",
         label: "Saldo total",
