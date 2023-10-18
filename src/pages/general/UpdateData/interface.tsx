@@ -8,22 +8,24 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
+import { BankTransfersForm } from "./forms/BankTransfersForm";
+import { ContactDataForm } from "./forms/ContactDataForm";
 import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
-import { PersonalResidenceForm } from "./forms/PersonalResidenceForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
-import { ContactDataForm } from "./forms/ContactDataForm";
 import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
-import { BankTransfersForm } from "./forms/BankTransfersForm";
-import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
+import { PersonalResidenceForm } from "./forms/PersonalResidenceForm";
 import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
+import { UpdateDataVerification } from "./forms/Verification";
+import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
 const renderStepContent = (
   currentStep: number,
   formReferences: IFormsUpdateDataRefs,
   updateData: IFormsUpdateData,
-  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
+  handleStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -90,6 +92,9 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
+      {currentStep === updateDataSteps.verification.id && (
+        <UpdateDataVerification updatedData={updateData} handleStepChange={handleStepChange} />
+      )}
     </>
   );
 };
@@ -98,7 +103,7 @@ interface UpdateDataUIProps {
   currentStep: number;
   steps: IStep[];
   isCurrentFormValid: boolean;
-  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
@@ -144,7 +149,13 @@ function UpdateDataUI(props: UpdateDataUIProps) {
       />
 
       <Stack direction="column" gap="s300">
-        {renderStepContent(currentStep, formReferences, updateData, setIsCurrentFormValid)}
+        {renderStepContent(
+          currentStep,
+          formReferences,
+          updateData,
+          setIsCurrentFormValid,
+          handleStepChange,
+        )}
 
         <Stack gap="s150" justifyContent="flex-end">
           <Button
