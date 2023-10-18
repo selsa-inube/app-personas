@@ -14,7 +14,6 @@ import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
-import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import {
@@ -27,7 +26,7 @@ import { truncateAndObfuscateDescription } from "src/utils/formats";
 import { extractAttribute } from "src/utils/products";
 import { investmentIcons } from "../investments/Investment/config/investment";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
-import { cards, credits, investments, savings } from "./config/boxes";
+import { cards, credits, savings } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
@@ -41,28 +40,6 @@ import {
 } from "./config/products";
 import { cardProducts } from "./mocks";
 import { useNavigate } from "react-router-dom";
-
-const renderInvestmentCommitments = () => {
-  return investmentsCommitmentsMock.map((commitment) => {
-    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
-    const nextPayDate = extractAttribute(
-      commitment.attributes,
-      "next_pay_date"
-    );
-
-    return (
-      <SavingsCommitmentCard
-        key={commitment.id}
-        title={commitment.title}
-        label="Ver"
-        descriptionLabel={nextPayDate?.label}
-        descriptionValue={String(nextPayDate?.value)}
-        onClick={() => {}}
-        value={Number(valueToPay?.value)}
-      />
-    );
-  });
-};
 
 const renderSavingCommitments = () => {
   return savingsCommitmentsMock.map((commitment) => {
@@ -111,14 +88,6 @@ function Home() {
 
   const investmentProductsCD = getInvestmentsProducts("CD");
   const investmentProductsAP = getInvestmentsProducts("AP");
-
-  const getInvestmentProducts = () => {
-    return investmentsMock.filter(
-      (investment) => investment.userOwner === USER_ID
-    );
-  };
-
-  const investmentProducts = getInvestmentProducts();
 
   return (
     <>
@@ -273,45 +242,6 @@ function Home() {
               </Stack>
             </Stack>
           </Box>
-          {investmentProducts.length > 0 && (
-            <Box {...investments}>
-              <Stack direction="column" gap="s200">
-                {investmentsCommitmentsMock.length > 0 && (
-                  <Text type="label" size="medium">
-                    Tus productos
-                  </Text>
-                )}
-
-                <Stack direction="column" gap="s100">
-                  {investmentProducts.map((investment) => (
-                    <Product
-                      id={investment.id}
-                      key={investment.id}
-                      title={investment.title}
-                      description={investment.id}
-                      attributes={formatInvestmentCurrencyAttrs(
-                        extractInvestmentAttributes(investment)
-                      )}
-                      tags={investment.tags}
-                      icon={investmentIcons[investment.type]}
-                      navigateTo={`/my-investments/${investment.id}`}
-                      breakpoints={investmentAttributeBreakpoints}
-                    />
-                  ))}
-                </Stack>
-
-                {investmentsCommitmentsMock.length > 0 && (
-                  <Text type="label" size="medium">
-                    Tus compromisos
-                  </Text>
-                )}
-
-                <Stack direction="column" gap="s100">
-                  {renderInvestmentCommitments()}
-                </Stack>
-              </Stack>
-            </Box>
-          )}
           <Box {...credits}>
             <Stack direction="column" gap="s100">
               {creditsMock.length === 0 ? (

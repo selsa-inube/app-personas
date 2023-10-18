@@ -45,17 +45,4 @@ const cards = {
   },
 };
 
-const investments = {
-  title: "Inversiones",
-  subtitle: "Resumen productos de inversión",
-  icon: <MdOutlineBalance />,
-  navigateTo: "/my-investments",
-  collapsing: { start: false, allow: false },
-  button: {
-    label: "Solicitar CDAT",
-    icon: <MdOutlineAdd />,
-    path: "/my-investments",
-  },
-};
-
-export { cards, credits, investments, savings };
+export { cards, credits, savings };
