@@ -7,7 +7,6 @@ const header = {
   username: "Leonardo Garzón",
   links: [
     {
-      title: "links",
       label: "Actualizar datos",
       path: "/update-data",
       icon: <MdOutlineBadge />,

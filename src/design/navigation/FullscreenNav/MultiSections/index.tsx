@@ -17,20 +17,14 @@ interface MultiSectionsProps {
 function MultiSections(props: MultiSectionsProps) {
   const { navigation, links, onClose } = props;
 
-  const combinedSectionValues = [
-    ...Object.values(navigation.sections),
-    ...(links || []).reduce((result, link) => {
-      const existingSection = result.find(
-        (section) => section.title === (link.title || link.label)
-      );
-      if (existingSection) {
-        existingSection.links.push(link);
-      } else {
-        result.push({ title: link.title || link.label, links: [link] });
-      }
-      return result;
-    }, [] as { title: string; links: IHeaderLink[] }[]),
-  ];
+  const combinedSectionValues = [...Object.values(navigation.sections)];
+
+  if (links && links.length > 0) {
+    combinedSectionValues.push({
+      title: "links",
+      links: links,
+    });
+  }
 
   const [sectionCollapse, setSectionCollapse] = useState<{
     [sectionName: string]: boolean;
