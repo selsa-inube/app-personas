@@ -1,0 +1,13 @@
+const updateDataBoxTitles: Record<string, string> = {
+  personalInformation: "Información personal",
+  contactData: "Datos de contacto",
+  bankTransfers: "Transferencias bancarias",
+  personalAssets: "Activos personales",
+  personalDebts: "Deudas personales",
+  personalReferences: "Referencias",
+  financialOperations: "Operaciones financieras",
+  personalResidence: "Residencia personal",
+  socioeconomicInformation: "Información socioeconómica",
+};
+
+export { updateDataBoxTitles };
