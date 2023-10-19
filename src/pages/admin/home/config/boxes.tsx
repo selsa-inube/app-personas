@@ -32,7 +32,7 @@ const credits = {
 };
 
 const cards = {
-  title: "Tarjetas de créditos",
+  title: "Tarjetas de crédito",
   subtitle: "Resumen tarjetas de crédito",
   icon: <MdOutlineCreditScore />,
   collapsing: { start: false, allow: true },
