@@ -60,6 +60,25 @@ const renderPersonalInfoVerification = (
   </Grid>
 );
 
+const renderContacDataVerification = (
+  values: IContactDataEntry,
+  isTablet: boolean
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    <BoxAttribute label="País:" value={values.country} />
+    <BoxAttribute
+      label="Estado / Departamento:"
+      value={values.stateOrDepartment}
+    />
+    <BoxAttribute label="Ciudad:" value={cityDM.valueOf(values.city)?.value} />
+    <BoxAttribute label="Dirección:" value={values.address} />
+    <BoxAttribute label="Código postal:" value={values.postalCode} />
+    <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
+    <BoxAttribute label="Celular:" value={values.cellPhone} />
+    <BoxAttribute label="Correo:" value={values.email} />
+  </Grid>
+);
+
 const renderBankTransfersVerification = (
   values: IBankTransfersEntry,
   isTablet: boolean
@@ -74,25 +93,6 @@ const renderBankTransfersVerification = (
       value={getValueOfDomain(values.accountType, "accountType")?.value}
     />
     <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
-  </Grid>
-);
-
-const renderContacDataVerification = (
-  values: IContactDataEntry,
-  isTablet: boolean
-) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
-    <BoxAttribute label="País" value={values.country} />
-    <BoxAttribute
-      label="Estado / Departamento"
-      value={values.stateOrDepartment}
-    />
-    <BoxAttribute label="Ciudad" value={cityDM.valueOf(values.city)?.value} />
-    <BoxAttribute label="Dirección" value={values.address} />
-    <BoxAttribute label="Código postal" value={values.postalCode} />
-    <BoxAttribute label="Teléfono" value={values.landlinePhone} />
-    <BoxAttribute label="Celular" value={values.cellPhone} />
-    <BoxAttribute label="Correo" value={values.email} />
   </Grid>
 );
 
