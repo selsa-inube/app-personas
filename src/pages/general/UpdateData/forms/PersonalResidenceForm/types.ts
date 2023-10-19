@@ -1,7 +1,7 @@
 interface IPersonalResidenceEntry {
   type: string;
   stratum: string;
-  bankingEntity: string;
+  bankEntity: string;
   dueDate: string;
   tenant: string;
   tenantCellPhone: string;

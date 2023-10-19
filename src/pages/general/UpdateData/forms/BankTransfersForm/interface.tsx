@@ -2,9 +2,9 @@ import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 
 interface BankTransfersFormUIProps {
   formik: FormikValues;
@@ -34,15 +34,15 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
       >
         <Select
           label="Entidad bancaria"
-          name="bankingEntity"
-          id="bankingEntity"
-          value={formik.values.bankingEntity}
+          name="bankEntity"
+          id="bankEntity"
+          value={formik.values.bankEntity}
           size="compact"
           isFullWidth
           options={getDomainById("bank")}
           handleBlur={customHandleBlur}
           isDisabled={loading}
-          state={stateValue("bankingEntity")}
+          state={stateValue("bankEntity")}
           handleChange={formik.handleChange}
         />
         <Select
