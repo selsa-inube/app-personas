@@ -331,7 +331,10 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   name="entity"
                   id="entity"
                   label="Entidad"
-                  value={usersMock[0].bankTransfersAccount.bankingEntity}
+                  value={
+                    formik.values.entity ||
+                    usersMock[0].bankTransfersAccount.bankEntity
+                  }
                   options={bankData.map((bank) => ({
                     value: bank.value,
                     id: bank.id,
@@ -349,7 +352,10 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   name="accountType"
                   id="accountType"
                   label="Tipo de cuenta"
-                  value={usersMock[0].bankTransfersAccount.accountType}
+                  value={
+                    formik.values.accountType ||
+                    usersMock[0].bankTransfersAccount.accountType
+                  }
                   options={accountTypeData.map((accountType) => ({
                     value: accountType.value,
                     id: accountType.id,
@@ -370,7 +376,10 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   placeholder="Escribe el numero de cuenta"
                   size="compact"
                   type="number"
-                  value={usersMock[0].bankTransfersAccount.accountNumber}
+                  value={
+                    formik.values.accountNumber ||
+                    usersMock[0].bankTransfersAccount.accountNumber
+                  }
                   handleBlur={customHandleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de cuenta ingresado es válido"
