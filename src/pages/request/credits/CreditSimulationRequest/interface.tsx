@@ -21,6 +21,7 @@ import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
 } from "./types";
+import { DisbursementForm } from "./forms/DisbursementForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -48,6 +49,13 @@ const renderStepContent = (
         <PreliquidationForm
           initialValues={creditSimulationRequest.preliquidation.values}
           ref={formReferences.preliquidation}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.disbursement.id && (
+        <DisbursementForm
+          initialValues={creditSimulationRequest.disbursement.values}
+          ref={formReferences.disbursement}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === creditSimulationRequestSteps.comments.id && (
