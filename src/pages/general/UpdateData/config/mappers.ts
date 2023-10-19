@@ -58,7 +58,7 @@ const mapBankTransfers = (
   bankTransfersAccount: IBankTransfersAccount
 ): IBankTransfersEntry => {
   return {
-    bankingEntity: bankTransfersAccount.bankingEntity,
+    bankEntity: bankTransfersAccount.bankEntity,
     accountType: bankTransfersAccount.accountType,
     accountNumber: bankTransfersAccount.accountNumber,
   };
@@ -96,10 +96,9 @@ const mapFinancialOperations = (
       financialOperationsData?.hasForeignCurrencyAccounts || "",
     hasForeignCurrencyTransactions:
       financialOperationsData?.hasForeignCurrencyAccounts || "",
-    descriptionOperationsForeignCurrency:
-      financialOperationsData?.descriptionOperationsForeignCurrency || "",
+    descriptionOperations: financialOperationsData?.descriptionOperations || "",
     country: financialOperationsData?.country || "",
-    bankingEntity: financialOperationsData?.bankingEntity || "",
+    bankEntity: financialOperationsData?.bankEntity || "",
     currency: financialOperationsData?.currency || "",
     accountNumber: Number(financialOperationsData?.accountNumber),
   };
@@ -111,7 +110,7 @@ const mapPersonalResidence = (
   return {
     type: personalResidence.type,
     stratum: personalResidence.stratum,
-    bankingEntity: personalResidence.bankingEntity,
+    bankEntity: personalResidence.bankEntity,
     dueDate: personalResidence.dueDate,
     tenant: personalResidence.tenant,
     tenantCellPhone: personalResidence.tenantCellPhone,
