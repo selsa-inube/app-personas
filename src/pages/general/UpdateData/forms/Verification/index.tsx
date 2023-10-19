@@ -16,6 +16,7 @@ import { maritalStatusDM } from "src/model/domains/personalInformation/maritalst
 import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
+import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
 import { updateDataSteps } from "../../config/assisted";
 import { mapPersonalAsset } from "../../config/mappers";
 import { IFormsUpdateData } from "../../types";
@@ -24,6 +25,7 @@ import { IFinancialOperationsEntry } from "../FinancialOperationsForm/types";
 import { IPersonalAssetEntries } from "../PersonalAssetsForm/types";
 import { IPersonalInformationEntry } from "../PersonalInformationForm/types";
 import { IPersonalResidenceEntry } from "../PersonalResidenceForm/types";
+import { ISocioeconomicInformationEntry } from "../SocioeconomicInformationForm/types";
 import { updateDataBoxTitles } from "./config/box";
 
 const renderPersonalInfoVerification = (
@@ -202,6 +204,60 @@ const renderPersonalResidenceVerification = (
   </Grid>
 );
 
+const renderSocioeconomicInfoVerification = (
+  values: ISocioeconomicInformationEntry,
+  isTablet: boolean
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    {values.educationLevel !== "" && (
+      <BoxAttribute
+        label="Nivel de estudios:"
+        value={educationLevelTypeDM.valueOf(values.educationLevel)?.value}
+      />
+    )}
+
+    {values.isResponsibleHome !== "" && (
+      <BoxAttribute
+        label="Responsable del hogar:"
+        value={activeDM.valueOf(values.isResponsibleHome)?.value}
+      />
+    )}
+
+    {values.isSingleMother !== "" && (
+      <BoxAttribute
+        label="Mujer cabeza de familia:"
+        value={activeDM.valueOf(values.isSingleMother)?.value}
+      />
+    )}
+
+    <BoxAttribute
+      label="Numero de personas a cargo:"
+      value={values.dependants}
+    />
+
+    {values.isPublicExposed !== "" && (
+      <BoxAttribute
+        label="Públicamente expuesto:"
+        value={activeDM.valueOf(values.isPublicExposed)?.value}
+      />
+    )}
+
+    {values.isDeclaredIncome !== "" && (
+      <BoxAttribute
+        label="Declara renta:"
+        value={activeDM.valueOf(values.isDeclaredIncome)?.value}
+      />
+    )}
+
+    {values.isPublicOfficials !== "" && (
+      <BoxAttribute
+        label="Administra recursos publicos:"
+        value={activeDM.valueOf(values.isPublicOfficials)?.value}
+      />
+    )}
+  </Grid>
+);
+
 interface VerificationProps {
   updatedData: IFormsUpdateData;
   handleStepChange: (stepId: number) => void;
@@ -247,6 +303,11 @@ function UpdateDataVerification(props: VerificationProps) {
             {key === "personalResidence" &&
               renderPersonalResidenceVerification(
                 updatedData.personalResidence.values,
+                isTablet
+              )}
+            {key === "socioeconomicInformation" &&
+              renderSocioeconomicInfoVerification(
+                updatedData.socioeconomicInformation.values,
                 isTablet
               )}
             <Button
