@@ -21,7 +21,6 @@ import { UpdateData } from "@pages/general/UpdateData";
 import { useEffect } from "react";
 import { CreditRoutes } from "./routes/credit";
 import { MyCreditsRoutes } from "./routes/myCredits";
-import { MyInvestmentsRoutes } from "./routes/myInvestments";
 import { MySavingsRoutes } from "./routes/mySavings";
 
 const USER_ID = "1";
@@ -32,7 +31,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Home />} />
 
       <Route path="my-credits/*" element={<MyCreditsRoutes />} />
-      <Route path="my-investments/*" element={<MyInvestmentsRoutes />} />
+
       <Route path="my-savings/*" element={<MySavingsRoutes />} />
 
       <Route path="credit/*" element={<CreditRoutes />} />
