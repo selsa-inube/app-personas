@@ -45,7 +45,10 @@ function UpdateData() {
     personalAssets: { isValid: true, values: { entries: [] } },
     personalDebts: { isValid: true, values: { entries: [] } },
     personalReferences: { isValid: true, values: { entries: [] } },
-    financialOperations: { isValid: true, values: mapFinancialOperations() },
+    financialOperations: {
+      isValid: true,
+      values: mapFinancialOperations(usersMock[0].financialOperations),
+    },
     personalResidence: {
       isValid: true,
       values: mapPersonalResidence(usersMock[0].personalData.residence),
@@ -108,6 +111,8 @@ function UpdateData() {
     );
 
     setCurrentStep(stepId);
+
+    document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
   const handleFinishAssisted = () => {};
