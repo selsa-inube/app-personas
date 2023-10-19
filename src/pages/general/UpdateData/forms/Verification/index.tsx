@@ -13,14 +13,18 @@ import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
+import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
+import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
+import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { updateDataSteps } from "../../config/assisted";
+import { mapPersonalAsset } from "../../config/mappers";
 import { IFormsUpdateData } from "../../types";
 import { IBankTransfersEntry } from "../BankTransfersForm/types";
 import { IFinancialOperationsEntry } from "../FinancialOperationsForm/types";
 import { IPersonalAssetEntries } from "../PersonalAssetsForm/types";
 import { IPersonalInformationEntry } from "../PersonalInformationForm/types";
+import { IPersonalResidenceEntry } from "../PersonalResidenceForm/types";
 import { updateDataBoxTitles } from "./config/box";
-import { mapPersonalAsset } from "../../config/mappers";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -161,6 +165,43 @@ const renderfinancialOperationsVerification = (
   </Stack>
 );
 
+const renderPersonalResidenceVerification = (
+  values: IPersonalResidenceEntry,
+  isTablet: boolean
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    {values.type && (
+      <BoxAttribute
+        label="Tipo de vivienda:"
+        value={residenceTypeDM.valueOf(values.type)?.value}
+      />
+    )}
+
+    {values.stratum && (
+      <BoxAttribute
+        label="Estrato de la vivienda:"
+        value={stratumDM.valueOf(values.stratum)?.value}
+      />
+    )}
+    {values.ownerName && (
+      <BoxAttribute label="Nombre del titular:" value={values.ownerName} />
+    )}
+    {values.relationship && (
+      <BoxAttribute
+        label="Parentesco:"
+        value={relationshipDM.valueOf(values.relationship)?.value}
+      />
+    )}
+
+    {values.ownerCellPhone && (
+      <BoxAttribute
+        label="Celular del titular:"
+        value={values.ownerCellPhone}
+      />
+    )}
+  </Grid>
+);
+
 interface VerificationProps {
   updatedData: IFormsUpdateData;
   handleStepChange: (stepId: number) => void;
@@ -191,6 +232,7 @@ function UpdateDataVerification(props: VerificationProps) {
                 updatedData.bankTransfers.values,
                 isTablet
               )}
+
             {key === "personalAssets" &&
               renderPersonalAssetsVerification(
                 updatedData.personalAssets.values,
@@ -199,6 +241,12 @@ function UpdateDataVerification(props: VerificationProps) {
             {key === "financialOperations" &&
               renderfinancialOperationsVerification(
                 updatedData.financialOperations.values,
+                isTablet
+              )}
+
+            {key === "personalResidence" &&
+              renderPersonalResidenceVerification(
+                updatedData.personalResidence.values,
                 isTablet
               )}
             <Button
