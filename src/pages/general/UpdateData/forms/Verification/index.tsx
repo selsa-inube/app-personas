@@ -85,20 +85,35 @@ const renderPersonalResidenceVerification = (
   isTablet: boolean
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
-    <BoxAttribute
-      label="Tipo de vivienda:"
-      value={residenceTypeDM.valueOf(values.type)?.value}
-    />
-    <BoxAttribute
-      label="Estrato de la vivienda:"
-      value={stratumDM.valueOf(values.stratum)?.value}
-    />
-    <BoxAttribute label="Nombre del titular:" value={values.ownerName} />
-    <BoxAttribute
-      label="Parentesco:"
-      value={relationshipDM.valueOf(values.relationship)?.value}
-    />
-    <BoxAttribute label="Celular del titular:" value={values.ownerCellPhone} />
+    {values.type && (
+      <BoxAttribute
+        label="Tipo de vivienda:"
+        value={residenceTypeDM.valueOf(values.type)?.value}
+      />
+    )}
+
+    {values.stratum && (
+      <BoxAttribute
+        label="Estrato de la vivienda:"
+        value={stratumDM.valueOf(values.stratum)?.value}
+      />
+    )}
+    {values.ownerName && (
+      <BoxAttribute label="Nombre del titular:" value={values.ownerName} />
+    )}
+    {values.relationship && (
+      <BoxAttribute
+        label="Parentesco:"
+        value={relationshipDM.valueOf(values.relationship)?.value}
+      />
+    )}
+
+    {values.ownerCellPhone && (
+      <BoxAttribute
+        label="Celular del titular:"
+        value={values.ownerCellPhone}
+      />
+    )}
   </Grid>
 );
 
