@@ -11,10 +11,14 @@ import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
+import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
+import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
+import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { updateDataSteps } from "../../config/assisted";
 import { IFormsUpdateData } from "../../types";
 import { IBankTransfersEntry } from "../BankTransfersForm/types";
 import { IPersonalInformationEntry } from "../PersonalInformationForm/types";
+import { IPersonalResidenceEntry } from "../PersonalResidenceForm/types";
 import { updateDataBoxTitles } from "./config/box";
 
 const renderPersonalInfoVerification = (
@@ -76,6 +80,28 @@ const renderBankTransfersVerification = (
   </Grid>
 );
 
+const renderPersonalResidenceVerification = (
+  values: IPersonalResidenceEntry,
+  isTablet: boolean
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    <BoxAttribute
+      label="Tipo de vivienda:"
+      value={residenceTypeDM.valueOf(values.type)?.value}
+    />
+    <BoxAttribute
+      label="Estrato de la vivienda:"
+      value={stratumDM.valueOf(values.stratum)?.value}
+    />
+    <BoxAttribute label="Nombre del titular:" value={values.ownerName} />
+    <BoxAttribute
+      label="Parentesco:"
+      value={relationshipDM.valueOf(values.relationship)?.value}
+    />
+    <BoxAttribute label="Celular del titular:" value={values.ownerCellPhone} />
+  </Grid>
+);
+
 interface VerificationProps {
   updatedData: IFormsUpdateData;
   handleStepChange: (stepId: number) => void;
@@ -104,6 +130,12 @@ function UpdateDataVerification(props: VerificationProps) {
             {key === "bankTransfers" &&
               renderBankTransfersVerification(
                 updatedData.bankTransfers.values,
+                isTablet
+              )}
+
+            {key === "personalResidence" &&
+              renderPersonalResidenceVerification(
+                updatedData.personalResidence.values,
                 isTablet
               )}
             <Button
