@@ -1,8 +1,6 @@
 import {
   MdAdd,
   MdOutlineAccountBalance,
-  MdOutlineAdd,
-  MdOutlineBalance,
   MdOutlineCreditScore,
   MdOutlineSavings,
 } from "react-icons/md";
@@ -12,7 +10,7 @@ const savings = {
   subtitle: "Resumen productos de ahorro",
   icon: <MdOutlineSavings />,
   navigateTo: "/my-savings",
-  collapsing: { start: false, allow: false },
+  collapsing: { start: false, allow: true },
   button: {
     label: "Solicitar ahorro",
     icon: <MdAdd />,
@@ -22,10 +20,10 @@ const savings = {
 
 const credits = {
   title: "Créditos",
-  subtitle: "Consulta tus préstamos",
+  subtitle: "Resumen productos de crédito",
   icon: <MdOutlineAccountBalance />,
   navigateTo: "/my-credits",
-  collapsing: { start: false, allow: false },
+  collapsing: { start: false, allow: true },
   button: {
     label: "Solicitar crédito",
     icon: <MdAdd />,
@@ -34,10 +32,10 @@ const credits = {
 };
 
 const cards = {
-  title: "Tarjetas",
-  subtitle: "Consulta tus compras",
+  title: "Tarjetas de créditos",
+  subtitle: "Resumen tarjetas de crédito",
   icon: <MdOutlineCreditScore />,
-  collapsing: { start: false, allow: false },
+  collapsing: { start: false, allow: true },
   button: {
     label: "Solicitar tarjeta",
     icon: <MdAdd />,
