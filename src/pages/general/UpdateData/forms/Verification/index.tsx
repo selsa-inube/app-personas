@@ -12,6 +12,7 @@ import { identificationTypeDM } from "src/model/domains/personalInformation/iden
 import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
 import { updateDataSteps } from "../../config/assisted";
 import { IFormsUpdateData } from "../../types";
+import { IContactDataEntry } from "../ContactDataForm/types";
 import { IPersonalInformationEntry } from "../PersonalInformationForm/types";
 
 const renderPersonalInfoVerification = (
@@ -84,6 +85,51 @@ const renderPersonalInfoVerification = (
   </Accordion>
 );
 
+const renderContacDataVerification = (
+  values: IContactDataEntry,
+  handleStepChange: (stepId: number) => void,
+  isTablet: boolean
+) => (
+  <Accordion title="Datos de contacto">
+    <Stack
+      direction="column"
+      width="100%"
+      alignItems="flex-end"
+      gap={isTablet ? "s150" : "s200"}
+    >
+      <Grid
+        templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+        gap="s100"
+        width="100%"
+      >
+        <BoxAttribute label="País" value={values.country} />
+        <BoxAttribute
+          label="Estado / Departamento"
+          value={values.stateOrDepartment}
+        />
+        <BoxAttribute
+          label="Ciudad"
+          value={cityDM.valueOf(values.city)?.value}
+        />
+        <BoxAttribute label="Dirección" value={values.address} />
+        <BoxAttribute label="Código postal" value={values.postalCode} />
+        <BoxAttribute label="Teléfono" value={values.landlinePhone} />
+        <BoxAttribute label="Celular" value={values.cellPhone} />
+        <BoxAttribute label="Correo" value={values.email} />
+      </Grid>
+
+      <Button
+        iconBefore={<MdOutlineArrowBack />}
+        handleClick={() => handleStepChange(updateDataSteps.contactData.id)}
+        variant="none"
+        appearance="dark"
+      >
+        Regresar a este paso
+      </Button>
+    </Stack>
+  </Accordion>
+);
+
 interface VerificationProps {
   updatedData: IFormsUpdateData;
   handleStepChange: (stepId: number) => void;
@@ -98,6 +144,11 @@ function UpdateDataVerification(props: VerificationProps) {
     <Stack direction="column" gap="s300">
       {renderPersonalInfoVerification(
         updatedData.personalInformation.values,
+        handleStepChange,
+        isTablet
+      )}
+      {renderContacDataVerification(
+        updatedData.contactData.values,
         handleStepChange,
         isTablet
       )}
