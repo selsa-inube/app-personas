@@ -4,6 +4,7 @@ import { Button } from "@design/input/Button";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
@@ -63,8 +64,14 @@ const renderBankTransfersVerification = (
   isTablet: boolean
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
-    <BoxAttribute label="Entidad bancaria:" value={values.bankingEntity} />
-    <BoxAttribute label="Tipo de cuenta:" value={values.accountType} />
+    <BoxAttribute
+      label="Entidad bancaria:"
+      value={getValueOfDomain(values.bankingEntity, "bank")?.value}
+    />
+    <BoxAttribute
+      label="Tipo de cuenta:"
+      value={getValueOfDomain(values.accountType, "accountType")?.value}
+    />
     <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
   </Grid>
 );
