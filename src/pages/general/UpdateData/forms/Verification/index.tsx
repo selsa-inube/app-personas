@@ -1,6 +1,7 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Accordion } from "@design/data/Accordion";
 import { Button } from "@design/input/Button";
+import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -16,8 +17,10 @@ import { updateDataSteps } from "../../config/assisted";
 import { IFormsUpdateData } from "../../types";
 import { IBankTransfersEntry } from "../BankTransfersForm/types";
 import { IFinancialOperationsEntry } from "../FinancialOperationsForm/types";
+import { IPersonalAssetEntries } from "../PersonalAssetsForm/types";
 import { IPersonalInformationEntry } from "../PersonalInformationForm/types";
 import { updateDataBoxTitles } from "./config/box";
+import { mapPersonalAsset } from "../../config/mappers";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -76,6 +79,43 @@ const renderBankTransfersVerification = (
     />
     <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
   </Grid>
+);
+
+const renderPersonalAssetsVerification = (
+  values: IPersonalAssetEntries,
+  isTablet: boolean
+) => (
+  <Stack direction="column" gap="s250" width="100%">
+    {values.entries.map((entry, index) => {
+      const personalAsset = mapPersonalAsset(entry, index);
+      return (
+        <>
+          {index !== 0 && <Divider dashed />}
+          <Grid
+            templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+            gap="s100"
+            width="100%"
+            key={entry.id}
+          >
+            <BoxAttribute
+              label="Nombre del activo:"
+              value={personalAsset.assetType}
+            />
+            <BoxAttribute
+              label="Valor comercial:"
+              value={personalAsset.quota}
+            />
+            <BoxAttribute label="Saldo deuda:" value={personalAsset.quota} />
+            <BoxAttribute
+              label="Entidad financiera:"
+              value={personalAsset.financialEntity}
+            />
+            <BoxAttribute label="Cuota:" value={personalAsset.quota} />
+          </Grid>
+        </>
+      );
+    })}
+  </Stack>
 );
 
 const renderfinancialOperationsVerification = (
@@ -149,6 +189,11 @@ function UpdateDataVerification(props: VerificationProps) {
             {key === "bankTransfers" &&
               renderBankTransfersVerification(
                 updatedData.bankTransfers.values,
+                isTablet
+              )}
+            {key === "personalAssets" &&
+              renderPersonalAssetsVerification(
+                updatedData.personalAssets.values,
                 isTablet
               )}
             {key === "financialOperations" &&

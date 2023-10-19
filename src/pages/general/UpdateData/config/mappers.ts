@@ -1,3 +1,5 @@
+import { IEntry } from "@design/data/Table/types";
+import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import {
   IBankTransfersAccount,
   IContactData,
@@ -5,9 +7,14 @@ import {
   IResidence,
   IThird,
 } from "src/model/entity/user";
+import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
+import {
+  IPersonalAssetEntries,
+  IPersonalAssetEntry,
+} from "../forms/PersonalAssetsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
@@ -55,6 +62,30 @@ const mapBankTransfers = (
     accountType: bankTransfersAccount.accountType,
     accountNumber: bankTransfersAccount.accountNumber,
   };
+};
+
+const mapPersonalAsset = (
+  personalAsset: IPersonalAssetEntry,
+  index: number
+): IEntry => {
+  return {
+    id: personalAsset.id || String(index),
+    assetType: getValueOfDomain(personalAsset.assetType || "", "assetType")
+      ?.value,
+    commercialValue: currencyFormat(Number(personalAsset.commercialValue)),
+    debtBalance: currencyFormat(Number(personalAsset.debtBalance)),
+    financialEntity: personalAsset.financialEntity,
+    observations: personalAsset.observations,
+    quota: currencyFormat(Number(personalAsset.quota)),
+  };
+};
+
+const mapPersonalAssets = (
+  personalAssets: IPersonalAssetEntries["entries"]
+): IEntry[] => {
+  return personalAssets.map((personalAsset, index) =>
+    mapPersonalAsset(personalAsset, index)
+  );
 };
 
 const mapFinancialOperations = (
@@ -108,6 +139,8 @@ export {
   mapBankTransfers,
   mapContactData,
   mapFinancialOperations,
+  mapPersonalAsset,
+  mapPersonalAssets,
   mapPersonalInformation,
   mapPersonalResidence,
   mapSocioeconomicInformation,
