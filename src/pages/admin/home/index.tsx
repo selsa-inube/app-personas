@@ -26,6 +26,7 @@ import { truncateAndObfuscateDescription } from "src/utils/formats";
 import { extractAttribute } from "src/utils/products";
 import { investmentIcons } from "../investments/Investment/config/investment";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
+import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { cards, credits, savings } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
@@ -41,8 +42,12 @@ import {
 import { cardProducts } from "./mocks";
 import { useNavigate } from "react-router-dom";
 
-const renderSavingCommitments = () => {
-  return savingsCommitmentsMock.map((commitment) => {
+const renderProductsCommitments = () => {
+  const productsCommitments = [
+    ...savingsCommitmentsMock,
+    ...investmentsCommitmentsMock,
+  ];
+  return productsCommitments.map((commitment) => {
     const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
     const nextPayDate = extractAttribute(
       commitment.attributes,
@@ -238,7 +243,7 @@ function Home() {
                 </Text>
               )}
               <Stack direction="column" gap="s100">
-                {renderSavingCommitments()}
+                {renderProductsCommitments()}
               </Stack>
             </Stack>
           </Box>
