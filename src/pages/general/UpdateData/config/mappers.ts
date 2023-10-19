@@ -1,13 +1,16 @@
-import { IThird, IContactData } from "src/model/entity/user";
+import {
+  IBankTransfersAccount,
+  IContactData,
+  IFinancialOperations,
+  IResidence,
+  IThird,
+} from "src/model/entity/user";
+import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
+import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
-import { IResidence } from "src/model/entity/user";
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
-import { IContactDataEntry } from "../forms/ContactDataForm/types";
-import { IBankTransfersAccount } from "src/model/entity/user";
-import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
-import { IFinancialOperations } from "src/model/entity/user";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -48,7 +51,7 @@ const mapBankTransfers = (
   bankTransfersAccount: IBankTransfersAccount
 ): IBankTransfersEntry => {
   return {
-    bankingEntity: bankTransfersAccount.bankingEntity,
+    bankEntity: bankTransfersAccount.bankEntity,
     accountType: bankTransfersAccount.accountType,
     accountNumber: bankTransfersAccount.accountNumber,
   };
@@ -62,10 +65,9 @@ const mapFinancialOperations = (
       financialOperationsData?.hasForeignCurrencyAccounts || "",
     hasForeignCurrencyTransactions:
       financialOperationsData?.hasForeignCurrencyAccounts || "",
-    descriptionOperationsForeignCurrency:
-      financialOperationsData?.descriptionOperationsForeignCurrency || "",
+    descriptionOperations: financialOperationsData?.descriptionOperations || "",
     country: financialOperationsData?.country || "",
-    bankingEntity: financialOperationsData?.bankingEntity || "",
+    bankEntity: financialOperationsData?.bankEntity || "",
     currency: financialOperationsData?.currency || "",
     accountNumber: Number(financialOperationsData?.accountNumber),
   };
@@ -77,7 +79,7 @@ const mapPersonalResidence = (
   return {
     type: personalResidence.type,
     stratum: personalResidence.stratum,
-    bankingEntity: personalResidence.bankingEntity,
+    bankEntity: personalResidence.bankEntity,
     dueDate: personalResidence.dueDate,
     tenant: personalResidence.tenant,
     tenantCellPhone: personalResidence.tenantCellPhone,
@@ -103,10 +105,10 @@ const mapSocioeconomicInformation = (
 };
 
 export {
+  mapBankTransfers,
+  mapContactData,
   mapFinancialOperations,
   mapPersonalInformation,
-  mapContactData,
-  mapBankTransfers,
   mapPersonalResidence,
   mapSocioeconomicInformation,
 };

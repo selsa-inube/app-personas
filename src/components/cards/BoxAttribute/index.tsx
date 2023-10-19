@@ -12,19 +12,27 @@ interface BoxAttributeProps {
   withButton?: boolean;
   buttonIcon?: React.JSX.Element;
   buttonValue?: string | number;
+  direction?: "row" | "column";
   onClickButton?: () => void;
 }
 
 function BoxAttribute(props: BoxAttributeProps) {
-  const { label, value, withButton, buttonIcon, buttonValue, onClickButton } =
-    props;
+  const {
+    label,
+    value,
+    withButton,
+    buttonIcon,
+    buttonValue,
+    direction,
+    onClickButton,
+  } = props;
 
   const smallScreen = useMediaQuery("(max-width: 750px)");
 
   return (
     <StyledBoxAttribute smallScreen={smallScreen}>
       <Grid
-        templateColumns="auto 1fr"
+        templateColumns={direction === "column" ? "1fr" : "auto 1fr"}
         width="100%"
         gap="s100"
         alignItems="center"
@@ -50,7 +58,7 @@ function BoxAttribute(props: BoxAttributeProps) {
               type="body"
               size={smallScreen ? "small" : "medium"}
               appearance="gray"
-              textAlign="end"
+              textAlign={direction === "column" ? "start" : "end"}
             >
               {String(value)}
             </Text>

@@ -3,9 +3,9 @@ import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
+import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 
 interface PersonalResidenceFormUIProps {
   formik: FormikValues;
@@ -61,14 +61,14 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
             <TextField
               label="Entidad bancaria"
               placeholder="Entidad bancaria"
-              name="bankingEntity"
-              id="bankingEntity"
-              value={formik.values.bankingEntity}
-              errorMessage={formik.errors.bankingEntity}
+              name="bankEntity"
+              id="bankEntity"
+              value={formik.values.bankEntity}
+              errorMessage={formik.errors.bankEntity}
               isDisabled={loading}
               isFullWidth
               size={mquery ? "compact" : "wide"}
-              state={stateValue("bankingEntity")}
+              state={stateValue("bankEntity")}
               handleBlur={customHandleBlur}
               handleChange={formik.handleChange}
               validMessage="La entidad bancaria es válida"
