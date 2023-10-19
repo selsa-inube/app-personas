@@ -6,15 +6,18 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { MdOutlineArrowBack } from "react-icons/md";
+import { activeDM } from "src/model/domains/general/activedm";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
+import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
 import { updateDataSteps } from "../../config/assisted";
 import { IFormsUpdateData } from "../../types";
 import { IBankTransfersEntry } from "../BankTransfersForm/types";
 import { IPersonalInformationEntry } from "../PersonalInformationForm/types";
+import { ISocioeconomicInformationEntry } from "../SocioeconomicInformationForm/types";
 import { updateDataBoxTitles } from "./config/box";
 
 const renderPersonalInfoVerification = (
@@ -76,6 +79,60 @@ const renderBankTransfersVerification = (
   </Grid>
 );
 
+const renderSocioeconomicInfoVerification = (
+  values: ISocioeconomicInformationEntry,
+  isTablet: boolean
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    {values.educationLevel !== "" && (
+      <BoxAttribute
+        label="Nivel de estudios:"
+        value={educationLevelTypeDM.valueOf(values.educationLevel)?.value}
+      />
+    )}
+
+    {values.isResponsibleHome !== "" && (
+      <BoxAttribute
+        label="Responsable del hogar:"
+        value={activeDM.valueOf(values.isResponsibleHome)?.value}
+      />
+    )}
+
+    {values.isSingleMother !== "" && (
+      <BoxAttribute
+        label="Mujer cabeza de familia:"
+        value={activeDM.valueOf(values.isSingleMother)?.value}
+      />
+    )}
+
+    <BoxAttribute
+      label="Numero de personas a cargo:"
+      value={values.dependants}
+    />
+
+    {values.isPublicExposed !== "" && (
+      <BoxAttribute
+        label="Públicamente expuesto:"
+        value={activeDM.valueOf(values.isPublicExposed)?.value}
+      />
+    )}
+
+    {values.isDeclaredIncome !== "" && (
+      <BoxAttribute
+        label="Declara renta:"
+        value={activeDM.valueOf(values.isDeclaredIncome)?.value}
+      />
+    )}
+
+    {values.isPublicOfficials !== "" && (
+      <BoxAttribute
+        label="Administra recursos publicos:"
+        value={activeDM.valueOf(values.isPublicOfficials)?.value}
+      />
+    )}
+  </Grid>
+);
+
 interface VerificationProps {
   updatedData: IFormsUpdateData;
   handleStepChange: (stepId: number) => void;
@@ -104,6 +161,11 @@ function UpdateDataVerification(props: VerificationProps) {
             {key === "bankTransfers" &&
               renderBankTransfersVerification(
                 updatedData.bankTransfers.values,
+                isTablet
+              )}
+            {key === "socioeconomicInformation" &&
+              renderSocioeconomicInfoVerification(
+                updatedData.socioeconomicInformation.values,
                 isTablet
               )}
             <Button
