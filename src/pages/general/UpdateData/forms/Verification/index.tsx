@@ -1,11 +1,13 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Accordion } from "@design/data/Accordion";
 import { Button } from "@design/input/Button";
+import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { MdOutlineArrowBack } from "react-icons/md";
+import { activeDM } from "src/model/domains/general/activedm";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
@@ -15,8 +17,11 @@ import { relationshipDM } from "src/model/domains/personalResidence/relationship
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { updateDataSteps } from "../../config/assisted";
+import { mapPersonalAsset } from "../../config/mappers";
 import { IFormsUpdateData } from "../../types";
 import { IBankTransfersEntry } from "../BankTransfersForm/types";
+import { IFinancialOperationsEntry } from "../FinancialOperationsForm/types";
+import { IPersonalAssetEntries } from "../PersonalAssetsForm/types";
 import { IPersonalInformationEntry } from "../PersonalInformationForm/types";
 import { IPersonalResidenceEntry } from "../PersonalResidenceForm/types";
 import { updateDataBoxTitles } from "./config/box";
@@ -70,7 +75,7 @@ const renderBankTransfersVerification = (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     <BoxAttribute
       label="Entidad bancaria:"
-      value={getValueOfDomain(values.bankingEntity, "bank")?.value}
+      value={getValueOfDomain(values.bankEntity, "bank")?.value}
     />
     <BoxAttribute
       label="Tipo de cuenta:"
@@ -78,6 +83,86 @@ const renderBankTransfersVerification = (
     />
     <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
   </Grid>
+);
+
+const renderPersonalAssetsVerification = (
+  values: IPersonalAssetEntries,
+  isTablet: boolean
+) => (
+  <Stack direction="column" gap="s250" width="100%">
+    {values.entries.map((entry, index) => {
+      const personalAsset = mapPersonalAsset(entry, index);
+      return (
+        <>
+          {index !== 0 && <Divider dashed />}
+          <Grid
+            templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+            gap="s100"
+            width="100%"
+            key={entry.id}
+          >
+            <BoxAttribute
+              label="Nombre del activo:"
+              value={personalAsset.assetType}
+            />
+            <BoxAttribute
+              label="Valor comercial:"
+              value={personalAsset.quota}
+            />
+            <BoxAttribute label="Saldo deuda:" value={personalAsset.quota} />
+            <BoxAttribute
+              label="Entidad financiera:"
+              value={personalAsset.financialEntity}
+            />
+            <BoxAttribute label="Cuota:" value={personalAsset.quota} />
+          </Grid>
+        </>
+      );
+    })}
+  </Stack>
+);
+
+const renderfinancialOperationsVerification = (
+  values: IFinancialOperationsEntry,
+  isTablet: boolean
+) => (
+  <Stack direction="column" gap="s100">
+    <Grid
+      templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+      gap="s100"
+      width="100%"
+    >
+      <BoxAttribute
+        label="Operaciones en moneda extranjera:"
+        value={activeDM.valueOf(values.hasForeignCurrencyTransactions)?.value}
+      />
+      <BoxAttribute
+        label="Cuentas en moneda extranjera:"
+        value={activeDM.valueOf(values.hasForeignCurrencyAccounts)?.value}
+      />
+    </Grid>
+    <BoxAttribute
+      label="Descripción de las operaciones:"
+      value={values.descriptionOperations}
+      direction="column"
+    />
+    <Grid
+      templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+      gap="s100"
+      width="100%"
+    >
+      <BoxAttribute label="País:" value={values.country} />
+      <BoxAttribute
+        label="Banco:"
+        value={getValueOfDomain(values.bankEntity, "bankForeign")?.value}
+      />
+      <BoxAttribute
+        label="Moneda:"
+        value={getValueOfDomain(values.currency, "currency")?.value}
+      />
+      <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
+    </Grid>
+  </Stack>
 );
 
 const renderPersonalResidenceVerification = (
@@ -145,6 +230,17 @@ function UpdateDataVerification(props: VerificationProps) {
             {key === "bankTransfers" &&
               renderBankTransfersVerification(
                 updatedData.bankTransfers.values,
+                isTablet
+              )}
+
+            {key === "personalAssets" &&
+              renderPersonalAssetsVerification(
+                updatedData.personalAssets.values,
+                isTablet
+              )}
+            {key === "financialOperations" &&
+              renderfinancialOperationsVerification(
+                updatedData.financialOperations.values,
                 isTablet
               )}
 

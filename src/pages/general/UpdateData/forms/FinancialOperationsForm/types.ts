@@ -1,9 +1,9 @@
 interface IFinancialOperationsEntry {
   hasForeignCurrencyTransactions: string;
   hasForeignCurrencyAccounts: string;
-  descriptionOperationsForeignCurrency: string;
+  descriptionOperations: string;
   country: string;
-  bankingEntity: string;
+  bankEntity: string;
   currency: string;
   accountNumber: number;
 }
