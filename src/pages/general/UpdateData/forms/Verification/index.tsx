@@ -18,12 +18,13 @@ import { residenceTypeDM } from "src/model/domains/personalResidence/residencety
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
 import { updateDataSteps } from "../../config/assisted";
-import { mapPersonalAsset } from "../../config/mappers";
+import { mapPersonalAsset, mapPersonalDebt } from "../../config/mappers";
 import { IFormsUpdateData } from "../../types";
 import { IBankTransfersEntry } from "../BankTransfersForm/types";
 import { IContactDataEntry } from "../ContactDataForm/types";
 import { IFinancialOperationsEntry } from "../FinancialOperationsForm/types";
 import { IPersonalAssetEntries } from "../PersonalAssetsForm/types";
+import { IPersonalDebtEntries } from "../PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "../PersonalInformationForm/types";
 import { IPersonalResidenceEntry } from "../PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../SocioeconomicInformationForm/types";
@@ -129,14 +130,51 @@ const renderPersonalAssetsVerification = (
             />
             <BoxAttribute
               label="Valor comercial:"
-              value={personalAsset.quota}
+              value={personalAsset.commercialValue}
             />
-            <BoxAttribute label="Saldo deuda:" value={personalAsset.quota} />
+            <BoxAttribute label="Saldo deuda:" value={personalAsset.debtBalance} />
             <BoxAttribute
               label="Entidad financiera:"
               value={personalAsset.financialEntity}
             />
             <BoxAttribute label="Cuota:" value={personalAsset.quota} />
+          </Grid>
+        </>
+      );
+    })}
+  </Stack>
+);
+
+const renderPersonalDebtVerification = (
+  values: IPersonalDebtEntries,
+  isTablet: boolean
+) => (
+  <Stack direction="column" gap="s250" width="100%">
+    {values.entries.map((entry, index) => {
+      const personalDebt = mapPersonalDebt(entry, index);
+      return (
+        <>
+          {index !== 0 && <Divider dashed />}
+          <Grid
+            templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+            gap="s100"
+            width="100%"
+            key={entry.id}
+          >
+            <BoxAttribute
+              label="Nombre del pasivo:"
+              value={personalDebt.liabilityType}
+            />
+            <BoxAttribute
+              label="Fecha de terminación:"
+              value={personalDebt.terminationDate}
+            />
+            <BoxAttribute label="Saldo deuda:" value={personalDebt.debtBalance} />
+            <BoxAttribute
+              label="Entidad financiera:"
+              value={personalDebt.financialEntity}
+            />
+            <BoxAttribute label="Cuota:" value={personalDebt.quota} />
           </Grid>
         </>
       );
@@ -319,6 +357,11 @@ function UpdateDataVerification(props: VerificationProps) {
                 updatedData.personalAssets.values,
                 isTablet
               )}
+            {key === "personalDebts" &&
+              renderPersonalDebtVerification(
+                updatedData.personalDebts.values,
+                isTablet
+              )}
             {key === "financialOperations" &&
               renderfinancialOperationsVerification(
                 updatedData.financialOperations.values,
@@ -355,3 +398,4 @@ function UpdateDataVerification(props: VerificationProps) {
 }
 
 export { UpdateDataVerification };
+

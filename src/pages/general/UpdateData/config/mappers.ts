@@ -15,6 +15,10 @@ import {
   IPersonalAssetEntries,
   IPersonalAssetEntry,
 } from "../forms/PersonalAssetsForm/types";
+import {
+  IPersonalDebtEntries,
+  IPersonalDebtEntry,
+} from "../forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
@@ -67,7 +71,7 @@ const mapBankTransfers = (
 const mapPersonalAsset = (
   personalAsset: IPersonalAssetEntry,
   index: number
-): IEntry => {
+): IEntry | IPersonalAssetEntry => {
   return {
     id: personalAsset.id || String(index),
     assetType: getValueOfDomain(personalAsset.assetType || "", "assetType")
@@ -83,8 +87,34 @@ const mapPersonalAsset = (
 const mapPersonalAssets = (
   personalAssets: IPersonalAssetEntries["entries"]
 ): IEntry[] => {
-  return personalAssets.map((personalAsset, index) =>
-    mapPersonalAsset(personalAsset, index)
+  return personalAssets.map(
+    (personalAsset, index) => mapPersonalAsset(personalAsset, index) as IEntry
+  );
+};
+
+const mapPersonalDebt = (
+  personalDebt: IPersonalDebtEntry,
+  index: number
+): IEntry | IPersonalDebtEntry => {
+  return {
+    id: personalDebt.id || String(index),
+    liabilityType: getValueOfDomain(
+      personalDebt.liabilityType || "",
+      "liabilityType"
+    )?.value,
+    terminationDate: personalDebt.terminationDate,
+    debtBalance: currencyFormat(Number(personalDebt.debtBalance)),
+    financialEntity: personalDebt.financialEntity,
+    quota: currencyFormat(Number(personalDebt.quota)),
+    observations: personalDebt.observations,
+  };
+};
+
+const mapPersonalDebts = (
+  personalDebts: IPersonalDebtEntries["entries"]
+): IEntry[] => {
+  return personalDebts.map(
+    (personalDebt, index) => mapPersonalDebt(personalDebt, index) as IEntry
   );
 };
 
@@ -141,6 +171,8 @@ export {
   mapFinancialOperations,
   mapPersonalAsset,
   mapPersonalAssets,
+  mapPersonalDebt,
+  mapPersonalDebts,
   mapPersonalInformation,
   mapPersonalResidence,
   mapSocioeconomicInformation,

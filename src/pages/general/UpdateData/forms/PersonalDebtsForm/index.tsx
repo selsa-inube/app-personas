@@ -1,4 +1,3 @@
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
@@ -6,7 +5,6 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
-import { currencyFormat } from "src/utils/formats";
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
@@ -52,14 +50,11 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
         ...formik.values.entries,
         {
           id: String(formik.values.entries.length + 1),
-          liabilityType: getValueOfDomain(
-            formik.values.liabilityType,
-            "liabilityType"
-          )?.value,
+          liabilityType: formik.values.liabilityType,
           terminationDate: formik.values.terminationDate,
-          debtBalance: currencyFormat(Number(formik.values.debtBalance)),
+          debtBalance: formik.values.debtBalance,
           financialEntity: formik.values.financialEntity,
-          quota: currencyFormat(Number(formik.values.quota)),
+          quota: formik.values.quota,
           observations: formik.values.observations,
         },
       ]);
