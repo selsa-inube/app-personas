@@ -44,14 +44,14 @@ function Box(props: BoxProps) {
     navigateTo = "",
     collapsing = {
       allow: true,
-      start: false,
+      start: true,
     },
     tags = [],
     withCustomCollapse,
     onCustomCollapse,
   } = props;
 
-  const [collapse, setCollapse] = useState(collapsing.start);
+  const [collapse, setCollapse] = useState(!collapsing.start);
 
   const handleCollapse = () => {
     setCollapse(!collapse);
@@ -66,9 +66,7 @@ function Box(props: BoxProps) {
       <Stack direction="column" gap="s200">
         <Stack justifyContent="space-between" alignItems="center">
           <StyledLink to={navigateTo}>
-            {icon && (
-              <Icon icon={icon} variant="filled" cursorHover />
-            )}
+            {icon && <Icon icon={icon} variant="filled" cursorHover />}
             <Stack direction="column" gap="s025">
               <Text type="title" size="medium">
                 {title}

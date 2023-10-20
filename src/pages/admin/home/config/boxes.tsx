@@ -10,7 +10,7 @@ const savings = {
   subtitle: "Resumen productos de ahorro",
   icon: <MdOutlineSavings />,
   navigateTo: "/my-savings",
-  collapsing: { start: true, allow: true },
+  collapsing: { start: false, allow: true },
   button: {
     label: "Solicitar ahorro",
     icon: <MdAdd />,
@@ -23,7 +23,7 @@ const credits = {
   subtitle: "Resumen productos de crédito",
   icon: <MdOutlineAccountBalance />,
   navigateTo: "/my-credits",
-  collapsing: { start: true, allow: true },
+  collapsing: { start: false, allow: true },
   button: {
     label: "Solicitar crédito",
     icon: <MdAdd />,
@@ -35,7 +35,7 @@ const cards = {
   title: "Tarjetas de crédito",
   subtitle: "Resumen tarjetas de crédito",
   icon: <MdOutlineCreditScore />,
-  collapsing: { start: true, allow: true },
+  collapsing: { start: false, allow: true },
   button: {
     label: "Solicitar tarjeta",
     icon: <MdAdd />,
