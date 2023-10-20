@@ -24,7 +24,7 @@ import {
 import { USER_ID } from "src/App";
 import { truncateAndObfuscateDescription } from "src/utils/formats";
 import { extractAttribute } from "src/utils/products";
-import { investmentIcons } from "../investments/Investment/config/investment";
+import { investmentIcons } from "../savings/SavingsAccount/config/saving";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { cards, credits, savings } from "./config/boxes";
@@ -199,7 +199,7 @@ function Home() {
                       )}
                       tags={investment.tags}
                       icon={investmentIcons[investment.type]}
-                      navigateTo={`/my-investments/${investment.id}`}
+                      navigateTo={`/my-savings/account/${investment.id}`}
                       breakpoints={investmentAttributeBreakpoints}
                     />
                   ))}
@@ -223,7 +223,7 @@ function Home() {
                       )}
                       tags={investment.tags}
                       icon={investmentIcons[investment.type]}
-                      navigateTo={`/my-investments/${investment.id}`}
+                      navigateTo={`/my-savings/account/${investment.id}`}
                       breakpoints={investmentAttributeBreakpoints}
                     />
                   ))}
