@@ -51,7 +51,7 @@ function Box(props: BoxProps) {
     onCustomCollapse,
   } = props;
 
-  const [collapse, setCollapse] = useState(!collapsing.start);
+  const [collapse, setCollapse] = useState(collapsing.start);
 
   const handleCollapse = () => {
     setCollapse(!collapse);
@@ -95,7 +95,7 @@ function Box(props: BoxProps) {
           )}
         </Stack>
         <StyledDivider />
-        {(withCustomCollapse || !collapsing.allow || collapse) && children}
+        {(withCustomCollapse || !collapsing.allow || !collapse) && children}
         {button && (
           <Stack justifyContent="flex-end">
             <Button
