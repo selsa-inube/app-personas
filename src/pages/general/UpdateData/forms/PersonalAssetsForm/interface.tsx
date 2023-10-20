@@ -4,6 +4,7 @@ import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { MdOutlineAddHome } from "react-icons/md";
+import { mapPersonalAssets } from "../../config/mappers";
 import {
   personalAssetsTableActions,
   personalAssetsTableBreakpoints,
@@ -34,7 +35,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
         titles={personalAssetsTableTitles}
         breakpoints={personalAssetsTableBreakpoints}
         actions={personalAssetsTableActions}
-        entries={formik.values.entries}
+        entries={mapPersonalAssets(formik.values.entries)}
         pageLength={formik.values.entries.length}
         hideMobileResume
       />
