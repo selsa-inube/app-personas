@@ -1,14 +1,14 @@
-import { inube } from "@design/tokens";
 import { Select } from "@design/input/Select";
-import { Textarea } from "@design/input/Textarea";
 import { TextField } from "@design/input/TextField";
+import { Textarea } from "@design/input/Textarea";
 import { Grid } from "@design/layout/Grid";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { FormikValues } from "formik";
-import { activeDM } from "src/model/domains/general/activedm";
-import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { FormikValues } from "formik";
+import { countryDM } from "src/model/domains/financialOperations/countrydm";
+import { activeDM } from "src/model/domains/general/activedm";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikValues;
@@ -73,13 +73,13 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         {showForeignCurrencyFields && (
           <>
             <Textarea
-              id="descriptionOperationsForeignCurrency"
-              name="descriptionOperationsForeignCurrency"
+              id="descriptionOperations"
+              name="descriptionOperations"
               label="Descripción de las operaciones en moneda extrajera"
               placeholder="Escribe la descripción de las operaciones en moneda extrajera"
               maxLength={200}
               isDisabled={loading}
-              value={formik.values.descriptionOperationsForeignCurrency}
+              value={formik.values.descriptionOperations}
               handleBlur={customHandleBlur}
               handleChange={formik.handleChange}
               handleFocus={formik.isFocused}
@@ -108,14 +108,14 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               />
               <Select
                 label="Banco"
-                name="bankingEntity"
-                id="bankingEntity"
-                value={formik.values.bankingEntity}
+                name="bankEntity"
+                id="bankEntity"
+                value={formik.values.bankEntity}
                 size={mquery ? "compact" : "wide"}
                 isFullWidth
                 options={getDomainById("bankForeign")}
                 handleBlur={customHandleBlur}
-                errorMessage={formik.errors.bankingEntity}
+                errorMessage={formik.errors.bankEntity}
                 isDisabled={loading}
                 handleChange={formik.handleChange}
               />

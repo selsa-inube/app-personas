@@ -7,7 +7,7 @@ import { PersonalResidenceFormUI } from "./interface";
 import { IPersonalResidenceEntry } from "./types";
 
 const validationSchema = Yup.object({
-  bankingEntity: validationRules.name.required(validationMessages.required),
+  bankEntity: validationRules.name.required(validationMessages.required),
   dueDate: validationRules.date.required(validationMessages.required),
   tenant: validationRules.name.required(validationMessages.required),
   tenantCellPhone: validationRules.phone.required(validationMessages.required),
