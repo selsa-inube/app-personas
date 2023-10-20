@@ -39,7 +39,9 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
   const creditDisbursementDM = getDomainById("creditDisbursement");
 
   const filteredOptionsIdentificationType = identificationTypeDM.options.filter(
-    (option) => option.id !== "rc" && option.id !== "ti"
+    (option) =>
+      option.id !== identificationTypeDM.RC.id &&
+      option.id !== identificationTypeDM.TI.id
   );
 
   return (
@@ -74,7 +76,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                 id: product.id,
               }))}
             handleChange={customHandleChange}
-            handleBlur={customHandleBlur}
+            handleBlur={formik.handleBlur}
             state={stateValue("accountNumber")}
             errorMessage={formik.errors.accountNumber}
             isFullWidth
@@ -89,7 +91,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
             placeholder="Describe las múltiples formas de desembolso que deseas utilizar."
             maxLength={150}
             value={formik.values.observations}
-            handleBlur={customHandleBlur}
+            handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             handleFocus={formik.isFocused}
             isDisabled={loading}
@@ -110,7 +112,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               id: supplier.id,
             }))}
             handleChange={customHandleChange}
-            handleBlur={customHandleBlur}
+            handleBlur={formik.handleBlur}
             state={stateValue("supplier")}
             errorMessage={formik.errors.supplier}
             isFullWidth
@@ -133,12 +135,13 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               isDisabled={loading}
               options={filteredOptionsIdentificationType}
               handleChange={customHandleChange}
-              handleBlur={customHandleBlur}
+              handleBlur={formik.handleBlur}
               state={stateValue("identificationType")}
               errorMessage={formik.errors.identificationType}
               isFullWidth
             />
-            {formik.values.identificationType === "nit" ? (
+            {formik.values.identificationType ===
+            identificationTypeDM.NIT.id ? (
               <>
                 <TextField
                   name="identification"
@@ -148,7 +151,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="number"
                   value={formik.values.identification}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de identificación ingresado es válido"
                   isFullWidth
@@ -161,15 +164,15 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.socialReason}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El nombre de razón social ingresado es válido"
                   isFullWidth
                 />
               </>
-            ) : formik.values.identificationType === "cc" ||
-              formik.values.identificationType === "ce" ||
-              formik.values.identificationType === "pa" ? (
+            ) : formik.values.identificationType === identificationTypeDM.CC.id ||
+              formik.values.identificationType === identificationTypeDM.CE.id ||
+              formik.values.identificationType === identificationTypeDM.PA.id ? (
               <>
                 <TextField
                   name="identification"
@@ -179,7 +182,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="number"
                   value={formik.values.identification}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de identificación ingresado es válido"
                   isFullWidth
@@ -192,7 +195,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.firstName}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El nombre ingresado es válido"
                   isFullWidth
@@ -205,7 +208,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.secondName}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El nombre ingresado es válido"
                   isFullWidth
@@ -218,7 +221,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.firstLastName}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El apellido ingresado es válido"
                   isFullWidth
@@ -231,7 +234,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.secondLastName}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El apellido ingresado es válido"
                   isFullWidth
@@ -245,7 +248,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   isDisabled={loading}
                   options={genderDM.options}
                   handleChange={formik.handleChange}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   state={stateValue("gender")}
                   errorMessage={formik.errors.gender}
                   isFullWidth
@@ -270,7 +273,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               size="compact"
               isDisabled={loading}
               handleChange={customHandleChange}
-              handleBlur={customHandleBlur}
+              handleBlur={formik.handleBlur}
               state={stateValue("account")}
               errorMessage={formik.errors.account}
               isFullWidth
@@ -289,7 +292,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   isDisabled={loading}
                   handleChange={customHandleChange}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   state={stateValue("entity")}
                   errorMessage={formik.errors.entity}
                   isFullWidth
@@ -306,7 +309,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   isDisabled={loading}
                   handleChange={customHandleChange}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   state={stateValue("accountType")}
                   errorMessage={formik.errors.accountType}
                   isFullWidth
@@ -319,7 +322,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="number"
                   value={formik.values.accountNumber}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de cuenta ingresado es válido"
                   isFullWidth
@@ -363,7 +366,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   isDisabled={loading}
                   state={stateValue("accountType")}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   errorMessage={formik.errors.accountType}
                   isFullWidth
@@ -380,7 +383,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                     formik.values.accountNumber ||
                     usersMock[0].bankTransfersAccount.accountNumber
                   }
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de cuenta ingresado es válido"
                   isFullWidth
@@ -404,7 +407,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               size="compact"
               isDisabled={loading}
               handleChange={customHandleChange}
-              handleBlur={customHandleBlur}
+              handleBlur={formik.handleBlur}
               state={stateValue("supplier")}
               errorMessage={formik.errors.supplier}
               isFullWidth
@@ -421,7 +424,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               size="compact"
               isDisabled={loading}
               handleChange={customHandleChange}
-              handleBlur={customHandleBlur}
+              handleBlur={formik.handleBlur}
               state={stateValue("entity")}
               errorMessage={formik.errors.entity}
               isFullWidth
@@ -438,7 +441,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               size="compact"
               isDisabled={loading}
               handleChange={customHandleChange}
-              handleBlur={customHandleBlur}
+              handleBlur={formik.handleBlur}
               state={stateValue("accountType")}
               errorMessage={formik.errors.accountType}
               isFullWidth
@@ -451,7 +454,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               size="compact"
               type="number"
               value={formik.values.accountNumber}
-              handleBlur={customHandleBlur}
+              handleBlur={formik.handleBlur}
               handleChange={customHandleChange}
               validMessage="El número de cuenta ingresado es válido"
               isFullWidth
@@ -474,7 +477,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               isDisabled={loading}
               options={filteredOptionsIdentificationType}
               handleChange={customHandleChange}
-              handleBlur={customHandleBlur}
+              handleBlur={formik.handleBlur}
               state={stateValue("identificationType")}
               errorMessage={formik.errors.identificationType}
               isFullWidth
@@ -489,7 +492,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="number"
                   value={formik.values.identification}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de identificación ingresado es válido"
                   isFullWidth
@@ -502,7 +505,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.socialReason}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El nombre de razón social ingresado es válido"
                   isFullWidth
@@ -519,7 +522,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   isDisabled={loading}
                   handleChange={customHandleChange}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   state={stateValue("entity")}
                   errorMessage={formik.errors.entity}
                   isFullWidth
@@ -536,7 +539,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   isDisabled={loading}
                   state={stateValue("accountType")}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   errorMessage={formik.errors.accountType}
                   isFullWidth
@@ -549,7 +552,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="number"
                   value={formik.values.accountNumber}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de cuenta ingresado es válido"
                   isFullWidth
@@ -567,7 +570,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="number"
                   value={formik.values.identification}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de identificación ingresado es válido"
                   isFullWidth
@@ -580,7 +583,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.firstName}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El nombre ingresado es válido"
                   isFullWidth
@@ -593,7 +596,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.secondName}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El nombre ingresado es válido"
                   isFullWidth
@@ -606,7 +609,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.firstLastName}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El apellido ingresado es válido"
                   isFullWidth
@@ -619,7 +622,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="text"
                   value={formik.values.secondLastName}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El apellido ingresado es válido"
                   isFullWidth
@@ -633,7 +636,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   isDisabled={loading}
                   options={genderDM.options}
                   handleChange={formik.handleChange}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   state={stateValue("gender")}
                   errorMessage={formik.errors.gender}
                   isFullWidth
@@ -650,7 +653,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   isDisabled={loading}
                   handleChange={customHandleChange}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   state={stateValue("entity")}
                   errorMessage={formik.errors.entity}
                   isFullWidth
@@ -667,7 +670,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   isDisabled={loading}
                   state={stateValue("accountType")}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   errorMessage={formik.errors.accountType}
                   isFullWidth
@@ -680,7 +683,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   size="compact"
                   type="number"
                   value={formik.values.accountNumber}
-                  handleBlur={customHandleBlur}
+                  handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de cuenta ingresado es válido"
                   isFullWidth
