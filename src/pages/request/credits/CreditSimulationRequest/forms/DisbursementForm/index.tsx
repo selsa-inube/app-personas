@@ -44,18 +44,32 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       onFormValid(Object.keys(errors).length === 0);
     });
   };
-
+  
   const customHandleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    formik.setFieldValue(event.target.name, event.target.value);
-    const newValidationSchema = validationSchema.concat(
-      disbursementCustomValidationSchemas[event.target.name]?.[
-        event.target.value
-      ] as Yup.ObjectSchema<{ creditDisbursement: string }>
-    );
+    const { name, value } = event.target;
 
-    setDynamicValidationSchema(newValidationSchema);
+    if (!name || !value) {
+      return;
+    }
+
+    formik.setFieldValue(name, value);
+
+    if (validationSchema && disbursementCustomValidationSchemas) {
+      const customValidationSchema =
+        disbursementCustomValidationSchemas[name]?.[value];
+
+      if (
+        customValidationSchema &&
+        Yup.object().isType(customValidationSchema)
+      ) {
+        const newValidationSchema = validationSchema.concat(
+          customValidationSchema
+        ) as Yup.ObjectSchema<{ creditDisbursement: string }>;
+        setDynamicValidationSchema(newValidationSchema);
+      }
+    }
   };
 
   return (
