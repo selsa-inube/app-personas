@@ -46,7 +46,10 @@ function BoxAttribute(props: BoxAttributeProps) {
           {label}
         </Text>
 
-        <Stack alignItems="center" justifyContent="flex-end">
+        <Stack
+          alignItems="center"
+          justifyContent={direction === "column" ? "flex-start" : "flex-end"}
+        >
           {withButton ? (
             <ButtonAttribute
               icon={buttonIcon}
