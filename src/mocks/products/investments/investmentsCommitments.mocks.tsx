@@ -2,9 +2,9 @@ import { ICommitment } from "src/model/entity/product";
 
 const investmentsCommitmentsMock: ICommitment[] = [
   {
-    id: "commitment-1",
+    id: "2 - 23110125",
     title: "Ahorro programado",
-    description: "Compromiso de ahorro",
+    description: "Compromiso de inversión",
     type: "AP",
     attributes: [
       {
