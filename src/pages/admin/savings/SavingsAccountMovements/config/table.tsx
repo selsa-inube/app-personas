@@ -16,6 +16,16 @@ const mapSavingAccountMovement = (movement: IEntry): IMovement => {
   };
 };
 
+const mapInvestmentMovement = (movement: IEntry): IMovement => {
+  return {
+    id: movement?.id,
+    date: movement?.date,
+    reference: movement?.reference,
+    description: movement?.description,
+    totalValue: movement?.totalValue,
+  };
+};
+
 const savingsAccountMovementsTableTitles = [
   {
     id: "date",
@@ -71,6 +81,7 @@ const savingsAccountMovementsTableActions: IAction[] = [
 
 export {
   mapSavingAccountMovement,
+  mapInvestmentMovement,
   savingsAccountMovementsTableActions,
   savingsAccountMovementsTableBreakpoints,
   savingsAccountMovementsTableTitles,

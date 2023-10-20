@@ -21,6 +21,7 @@ import { updateDataSteps } from "../../config/assisted";
 import { mapPersonalAsset } from "../../config/mappers";
 import { IFormsUpdateData } from "../../types";
 import { IBankTransfersEntry } from "../BankTransfersForm/types";
+import { IContactDataEntry } from "../ContactDataForm/types";
 import { IFinancialOperationsEntry } from "../FinancialOperationsForm/types";
 import { IPersonalAssetEntries } from "../PersonalAssetsForm/types";
 import { IPersonalInformationEntry } from "../PersonalInformationForm/types";
@@ -67,6 +68,25 @@ const renderPersonalInfoVerification = (
       label="Factor RH:"
       value={bloodTypeDM.valueOf(values.bloodType)?.value}
     />
+  </Grid>
+);
+
+const renderContacDataVerification = (
+  values: IContactDataEntry,
+  isTablet: boolean
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    <BoxAttribute label="País:" value={values.country} />
+    <BoxAttribute
+      label="Estado / Departamento:"
+      value={values.stateOrDepartment}
+    />
+    <BoxAttribute label="Ciudad:" value={cityDM.valueOf(values.city)?.value} />
+    <BoxAttribute label="Dirección:" value={values.address} />
+    <BoxAttribute label="Código postal:" value={values.postalCode} />
+    <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
+    <BoxAttribute label="Celular:" value={values.cellPhone} />
+    <BoxAttribute label="Correo:" value={values.email} />
   </Grid>
 );
 
@@ -128,7 +148,7 @@ const renderfinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
   isTablet: boolean
 ) => (
-  <Stack direction="column" gap="s100">
+  <Stack direction="column" gap="s100" width="100%">
     <Grid
       templateColumns={isTablet ? "1fr" : "1fr 1fr"}
       gap="s100"
@@ -281,6 +301,11 @@ function UpdateDataVerification(props: VerificationProps) {
             {key === "personalInformation" &&
               renderPersonalInfoVerification(
                 updatedData.personalInformation.values,
+                isTablet
+              )}
+            {key === "contactData" &&
+              renderContacDataVerification(
+                updatedData.contactData.values,
                 isTablet
               )}
             {key === "bankTransfers" &&
