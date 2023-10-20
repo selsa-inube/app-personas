@@ -1,7 +1,7 @@
 import { Button } from "@design/input/Button";
 import { themes } from "@mocks/design/themes";
-import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
-import { investmentIcons } from "@pages/admin/investments/Investment/config/investment";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
+import { savingsAccountIcons } from "@pages/admin/savings/SavingsAccount/config/saving";
 import { StoryFn } from "@storybook/react";
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
@@ -53,8 +53,8 @@ const Template: StoryFn<SavingCommitmentsModalProps & { theme?: boolean }> = (
 export const Default = Template.bind({});
 Default.args = {
   portalId: "modals",
-  commitments: investmentsCommitmentsMock,
-  commitmentsIcons: investmentIcons,
+  commitments: savingsCommitmentsMock,
+  commitmentsIcons: savingsAccountIcons,
 };
 
 export const Themed = Template.bind({});
