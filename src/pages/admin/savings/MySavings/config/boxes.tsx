@@ -4,7 +4,7 @@ const mySavingsBox = {
   title: "Ahorros",
   subtitle: "Resumen productos de ahorros",
   icon: <MdOutlineSavings />,
-  collapsing: { start: false, allow: false },
+  collapsing: { start: true, allow: false },
   button: {
     label: "Solicitar ahorro",
     icon: <MdAdd />,
