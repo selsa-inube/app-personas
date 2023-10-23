@@ -14,14 +14,14 @@ import { creditSimulationRequestSteps } from "./config/assisted";
 import { crumbsCreditSimulationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
 import { DestinationForm } from "./forms/DestinationForm";
-import { SimulationForm } from "./forms/SimulationForm";
+import { DisbursementForm } from "./forms/DisbursementForm";
 import { PreliquidationForm } from "./forms/PreliquidationForm";
+import { SimulationForm } from "./forms/SimulationForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
 } from "./types";
-import { DisbursementForm } from "./forms/DisbursementForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -158,7 +158,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
                 spacing={isMobile ? "compact" : "wide"}
                 disabled={!isCurrentFormValid}
               >
-                Siguiente
+                {currentStep === steps.length ? "Enviar" : "Siguiente"}
               </Button>
             </Stack>
           </Stack>
