@@ -4,7 +4,7 @@ const myCredits = {
   title: "Créditos",
   subtitle: "Resumen productos de crédito",
   icon: <MdOutlineAccountBalance />,
-  collapsing: { start: false, allow: false },
+  collapsing: { start: true, allow: false },
   button: {
     label: "Solicitar crédito",
     icon: <MdAdd />,

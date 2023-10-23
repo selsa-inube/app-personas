@@ -104,6 +104,18 @@ const creditSimulationStepsRules = (
 
       break;
     }
+    case creditSimulationRequestSteps.disbursement.id: {
+      const values = formReferences.disbursement.current?.values;
+
+      if (!values) return currentCreditSimulationRequest;
+
+      newCreditSimulationRequest.disbursement = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      break;
+    }
     case creditSimulationRequestSteps.comments.id: {
       const values = formReferences.comments.current?.values;
 

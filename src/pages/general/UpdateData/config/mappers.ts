@@ -1,5 +1,6 @@
 import { IEntry } from "@design/data/Table/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { cityDM } from "src/model/domains/personalInformation/citydm";
 import {
   IBankTransfersAccount,
   IContactData,
@@ -20,6 +21,10 @@ import {
   IPersonalDebtEntry,
 } from "../forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
+import {
+  IPersonalReferenceEntries,
+  IPersonalReferenceEntry,
+} from "../forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
@@ -116,6 +121,34 @@ const mapPersonalDebts = (
   return personalDebts.map(
     (personalDebt, index) => mapPersonalDebt(personalDebt, index) as IEntry
   );
+}
+
+const mapPersonalReference = (
+  personalAsset: IPersonalReferenceEntry,
+  index: number
+): IEntry | IPersonalReferenceEntry => {
+  return {
+    id: personalAsset.id || String(index),
+    referenceType: getValueOfDomain(
+      personalAsset.referenceType || "",
+      "referenceType"
+    )?.value,
+    name: personalAsset.name,
+    address: personalAsset.address,
+    email: personalAsset.email,
+    phone: personalAsset.phone,
+    city: cityDM.valueOf(personalAsset.city || "")?.value,
+    observations: personalAsset.observations,
+  };
+};
+
+const mapPersonalReferences = (
+  personalReferences: IPersonalReferenceEntries["entries"]
+): IEntry[] => {
+  return personalReferences.map(
+    (personalReference, index) =>
+      mapPersonalReference(personalReference, index) as IEntry
+  );
 };
 
 const mapFinancialOperations = (
@@ -174,6 +207,8 @@ export {
   mapPersonalDebt,
   mapPersonalDebts,
   mapPersonalInformation,
+  mapPersonalReference,
+  mapPersonalReferences,
   mapPersonalResidence,
   mapSocioeconomicInformation,
 };

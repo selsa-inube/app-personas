@@ -9,7 +9,6 @@ import { props } from "./props";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 
-
 const story = {
   title: "components/cards/Box",
   components: [Box],
@@ -36,7 +35,7 @@ Default.args = {
   },
   collapsing: {
     allow: true,
-    start: true,
+    start: false,
   },
   children: (
     <Text type="body" size="medium" appearance="gray">
@@ -47,7 +46,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
 export const Themed = (args: BoxProps) => (

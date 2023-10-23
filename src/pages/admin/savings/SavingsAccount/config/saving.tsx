@@ -12,7 +12,7 @@ const savingsAccountIcons: Record<string, React.JSX.Element> = {
 
 const savingsAccountBox = (type: string) => ({
   icon: type ? savingsAccountIcons[type] : savingsAccountIcons.CA,
-  collapsing: { start: false, allow: false },
+  collapsing: { start: true, allow: false },
 });
 
 const savingCommitmentsIcons: Record<string, React.JSX.Element> = {
@@ -27,7 +27,7 @@ const investmentIcons: Record<string, React.JSX.Element> = {
 
 const investmentBox = (type: string) => ({
   icon: investmentIcons[type],
-  collapsing: { start: false, allow: false },
+  collapsing: { start: true, allow: false },
 });
 
 export {
