@@ -5,7 +5,6 @@ import { IPreliquidationEntry } from "./types";
 
 interface PreliquidationFormProps {
   initialValues: IPreliquidationEntry;
-
   handleSubmit?: (values: IPreliquidationEntry) => void;
   loading?: boolean;
 }

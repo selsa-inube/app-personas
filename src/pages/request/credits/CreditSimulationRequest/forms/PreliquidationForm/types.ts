@@ -1,8 +1,8 @@
 interface IPreliquidationEntry {
   amount: number;
-  advanceInterestAdjustmentCycle: number;
+  interestAdjustmentCycle: number;
   chargesAndDiscounts: number;
-  netValueToSend: number;
+  netValue: number;
 }
 
 export type { IPreliquidationEntry };
