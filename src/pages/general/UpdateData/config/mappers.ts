@@ -1,5 +1,6 @@
 import { IEntry } from "@design/data/Table/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { cityDM } from "src/model/domains/personalInformation/citydm";
 import {
   IBankTransfersAccount,
   IContactData,
@@ -16,6 +17,10 @@ import {
   IPersonalAssetEntry,
 } from "../forms/PersonalAssetsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
+import {
+  IPersonalReferenceEntries,
+  IPersonalReferenceEntry,
+} from "../forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
@@ -67,7 +72,7 @@ const mapBankTransfers = (
 const mapPersonalAsset = (
   personalAsset: IPersonalAssetEntry,
   index: number
-): IEntry => {
+): IEntry | IPersonalAssetEntry => {
   return {
     id: personalAsset.id || String(index),
     assetType: getValueOfDomain(personalAsset.assetType || "", "assetType")
@@ -83,8 +88,36 @@ const mapPersonalAsset = (
 const mapPersonalAssets = (
   personalAssets: IPersonalAssetEntries["entries"]
 ): IEntry[] => {
-  return personalAssets.map((personalAsset, index) =>
-    mapPersonalAsset(personalAsset, index)
+  return personalAssets.map(
+    (personalAsset, index) => mapPersonalAsset(personalAsset, index) as IEntry
+  );
+};
+
+const mapPersonalReference = (
+  personalAsset: IPersonalReferenceEntry,
+  index: number
+): IEntry | IPersonalReferenceEntry => {
+  return {
+    id: personalAsset.id || String(index),
+    referenceType: getValueOfDomain(
+      personalAsset.referenceType || "",
+      "referenceType"
+    )?.value,
+    name: personalAsset.name,
+    address: personalAsset.address,
+    email: personalAsset.email,
+    phone: personalAsset.phone,
+    city: cityDM.valueOf(personalAsset.city || "")?.value,
+    observations: personalAsset.observations,
+  };
+};
+
+const mapPersonalReferences = (
+  personalReferences: IPersonalReferenceEntries["entries"]
+): IEntry[] => {
+  return personalReferences.map(
+    (personalReference, index) =>
+      mapPersonalReference(personalReference, index) as IEntry
   );
 };
 
@@ -142,6 +175,8 @@ export {
   mapPersonalAsset,
   mapPersonalAssets,
   mapPersonalInformation,
+  mapPersonalReference,
+  mapPersonalReferences,
   mapPersonalResidence,
   mapSocioeconomicInformation,
 };

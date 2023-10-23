@@ -4,6 +4,7 @@ import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
+import { mapPersonalReferences } from "../../config/mappers";
 import {
   personalReferencesTableActions,
   personalReferencesTableBreakpoints,
@@ -39,7 +40,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           titles={personalReferencesTableTitles}
           breakpoints={personalReferencesTableBreakpoints}
           actions={personalReferencesTableActions}
-          entries={formik.values.entries}
+          entries={mapPersonalReferences(formik.values.entries)}
           pageLength={formik.values.entries.length}
           hideMobileResume
         />

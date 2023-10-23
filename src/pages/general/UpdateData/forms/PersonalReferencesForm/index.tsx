@@ -1,7 +1,5 @@
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -53,15 +51,12 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
         ...formik.values.entries,
         {
           id: String(formik.values.entries.length + 1),
-          referenceType: getValueOfDomain(
-            formik.values.referenceType,
-            "referenceType"
-          )?.value,
+          referenceType: formik.values.referenceType,
           name: formik.values.name,
           address: formik.values.address,
           email: formik.values.email,
           phone: formik.values.phone,
-          city: cityDM.valueOf(formik.values.city)?.value,
+          city: formik.values.city,
           observations: formik.values.observations,
         },
       ]);
