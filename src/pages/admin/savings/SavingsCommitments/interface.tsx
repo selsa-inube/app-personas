@@ -104,7 +104,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             <Box
               title={selectedCommitment.commitment.title}
               subtitle={selectedCommitment.commitment.description}
-              collapsing={{ start: false, allow: false }}
+              collapsing={{ start: true, allow: false }}
               tags={
                 selectedCommitment.commitment.tag && [
                   selectedCommitment.commitment.tag,
@@ -129,7 +129,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               icon={<MdSyncAlt />}
               title="Destinaciones"
               subtitle="Productos que reciben dinero de este compromiso de ahorro"
-              collapsing={{ start: false, allow: false }}
+              collapsing={{ start: true, allow: false }}
             >
               <Stack direction="column" gap="s100">
                 {renderProducts(selectedCommitment.commitment.products)}

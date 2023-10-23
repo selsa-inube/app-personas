@@ -1,9 +1,9 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { FinancialOperationsFormUI } from "./interface";
-import { validationRules } from "src/validations/validationRules";
 import { IFinancialOperationsEntry } from "./types";
 
 const validationSchema = Yup.object({
@@ -16,7 +16,7 @@ const validationSchema = Yup.object({
   accountNumber: validationRules.accountNumber.required(
     validationMessages.required
   ),
-  descriptionOperationsForeignCurrency: Yup.string()
+  descriptionOperations: Yup.string()
     .required(validationMessages.required)
     .min(1)
     .max(300),

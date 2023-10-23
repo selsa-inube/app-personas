@@ -1,6 +1,6 @@
 import { Icon } from "@design/data/Icon";
 import { IAction } from "@design/data/Table/types";
-import { mapInvestmentMovement } from "@pages/admin/investments/InvestmentMovements/config/table";
+import { mapInvestmentMovement } from "@pages/admin/savings/SavingsAccountMovements/config/table";
 import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 
 const personalDebtsTableTitles = [

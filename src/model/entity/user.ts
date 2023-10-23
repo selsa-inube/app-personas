@@ -46,7 +46,7 @@ interface IFamilyThird {
 }
 
 interface IBankTransfersAccount {
-  bankingEntity: string;
+  bankEntity: string;
   accountType: string;
   accountNumber: number;
 }
@@ -54,7 +54,7 @@ interface IBankTransfersAccount {
 interface IResidence {
   type: string;
   stratum: string;
-  bankingEntity: string;
+  bankEntity: string;
   dueDate: string;
   tenant: string;
   tenantCellPhone: string;
@@ -66,9 +66,9 @@ interface IResidence {
 interface IFinancialOperations {
   hasForeignCurrencyTransactions: string;
   hasForeignCurrencyAccounts: string;
-  descriptionOperationsForeignCurrency: string;
+  descriptionOperations: string;
   country: string;
-  bankingEntity: string;
+  bankEntity: string;
   currency: string;
   accountNumber: number;
 }
@@ -81,12 +81,12 @@ interface IThird {
 }
 
 export type {
+  IBankTransfersAccount,
   IContactData,
   IFamilyThird,
-  IBankTransfersAccount,
+  IFinancialOperations,
   IIdentification,
   IPersonalData,
-  IFinancialOperations,
   IResidence,
   IThird,
 };
