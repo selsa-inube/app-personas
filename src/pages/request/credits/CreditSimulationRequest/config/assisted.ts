@@ -94,14 +94,17 @@ const creditSimulationStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentCreditSimulationRequest.simulation.values)
       ) {
+        const tempChargesAndDiscounts = Math.floor(
+          Number(values.amount) * 0.4880866
+        );
         newCreditSimulationRequest.preliquidation = {
           isValid: true,
           values: {
             ...initalValuesCreditSimulation.preliquidation,
             amount: Number(values.amount),
             interestAdjustmentCycle: 49250,
-            chargesAndDiscounts: 10005775,
-            netValue: Number(values.amount) - 49250 - 10005775,
+            chargesAndDiscounts: tempChargesAndDiscounts,
+            netValue: Number(values.amount) - 49250 - tempChargesAndDiscounts,
           },
         };
       }
