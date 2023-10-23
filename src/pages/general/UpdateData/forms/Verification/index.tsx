@@ -6,6 +6,7 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import React from "react";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
@@ -116,13 +117,12 @@ const renderPersonalAssetsVerification = (
     {values.entries.map((entry, index) => {
       const personalAsset = mapPersonalAsset(entry, index);
       return (
-        <>
+        <React.Fragment key={entry.id}>
           {index !== 0 && <Divider dashed />}
           <Grid
             templateColumns={isTablet ? "1fr" : "1fr 1fr"}
             gap="s100"
             width="100%"
-            key={entry.id}
           >
             <BoxAttribute
               label="Nombre del activo:"
@@ -132,14 +132,17 @@ const renderPersonalAssetsVerification = (
               label="Valor comercial:"
               value={personalAsset.commercialValue}
             />
-            <BoxAttribute label="Saldo deuda:" value={personalAsset.debtBalance} />
+            <BoxAttribute
+              label="Saldo deuda:"
+              value={personalAsset.debtBalance}
+            />
             <BoxAttribute
               label="Entidad financiera:"
               value={personalAsset.financialEntity}
             />
             <BoxAttribute label="Cuota:" value={personalAsset.quota} />
           </Grid>
-        </>
+        </React.Fragment>
       );
     })}
   </Stack>
@@ -169,7 +172,10 @@ const renderPersonalDebtVerification = (
               label="Fecha de terminación:"
               value={personalDebt.terminationDate}
             />
-            <BoxAttribute label="Saldo deuda:" value={personalDebt.debtBalance} />
+            <BoxAttribute
+              label="Saldo deuda:"
+              value={personalDebt.debtBalance}
+            />
             <BoxAttribute
               label="Entidad financiera:"
               value={personalDebt.financialEntity}
@@ -398,4 +404,3 @@ function UpdateDataVerification(props: VerificationProps) {
 }
 
 export { UpdateDataVerification };
-
