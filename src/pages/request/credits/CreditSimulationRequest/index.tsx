@@ -7,15 +7,15 @@ import {
 import { initalValuesCreditSimulation } from "./config/initialValues";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
-import { ISimulationEntry } from "./forms/SimulationForm/types";
+import { IDisbursementEntry } from "./forms/DisbursementForm/types";
 import { IPreliquidationEntry } from "./forms/PreliquidationForm/types";
+import { ISimulationEntry } from "./forms/SimulationForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CreditSimulationRequestUI } from "./interface";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
 } from "./types";
-import { IDisbursementEntry } from "./forms/DisbursementForm/types";
 
 function CreditSimulationRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -44,7 +44,7 @@ function CreditSimulationRequest() {
         values: initalValuesCreditSimulation.disbursement,
       },
       comments: {
-        isValid: false,
+        isValid: true,
         values: initalValuesCreditSimulation.comments,
       },
       termsAndConditions: {
