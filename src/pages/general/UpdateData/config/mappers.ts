@@ -16,6 +16,10 @@ import {
   IPersonalAssetEntries,
   IPersonalAssetEntry,
 } from "../forms/PersonalAssetsForm/types";
+import {
+  IPersonalDebtEntries,
+  IPersonalDebtEntry,
+} from "../forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
 import {
   IPersonalReferenceEntries,
@@ -92,6 +96,32 @@ const mapPersonalAssets = (
     (personalAsset, index) => mapPersonalAsset(personalAsset, index) as IEntry
   );
 };
+
+const mapPersonalDebt = (
+  personalDebt: IPersonalDebtEntry,
+  index: number
+): IEntry | IPersonalDebtEntry => {
+  return {
+    id: personalDebt.id || String(index),
+    liabilityType: getValueOfDomain(
+      personalDebt.liabilityType || "",
+      "liabilityType"
+    )?.value,
+    terminationDate: personalDebt.terminationDate,
+    debtBalance: currencyFormat(Number(personalDebt.debtBalance)),
+    financialEntity: personalDebt.financialEntity,
+    quota: currencyFormat(Number(personalDebt.quota)),
+    observations: personalDebt.observations,
+  };
+};
+
+const mapPersonalDebts = (
+  personalDebts: IPersonalDebtEntries["entries"]
+): IEntry[] => {
+  return personalDebts.map(
+    (personalDebt, index) => mapPersonalDebt(personalDebt, index) as IEntry
+  );
+}
 
 const mapPersonalReference = (
   personalAsset: IPersonalReferenceEntry,
@@ -174,6 +204,8 @@ export {
   mapFinancialOperations,
   mapPersonalAsset,
   mapPersonalAssets,
+  mapPersonalDebt,
+  mapPersonalDebts,
   mapPersonalInformation,
   mapPersonalReference,
   mapPersonalReferences,

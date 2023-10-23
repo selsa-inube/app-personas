@@ -5,6 +5,7 @@ import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import {
   mapPersonalAsset,
+  mapPersonalDebt,
   mapPersonalReference,
 } from "@pages/general/UpdateData/config/mappers";
 import { IFormsUpdateData } from "@pages/general/UpdateData/types";
@@ -23,6 +24,7 @@ import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IFinancialOperationsEntry } from "../../FinancialOperationsForm/types";
 import { IPersonalAssetEntries } from "../../PersonalAssetsForm/types";
+import { IPersonalDebtEntries } from "../../PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "../../PersonalInformationForm/types";
 import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
@@ -135,6 +137,45 @@ const renderPersonalAssetsVerification = (
               value={personalAsset.financialEntity}
             />
             <BoxAttribute label="Cuota:" value={personalAsset.quota} />
+          </Grid>
+        </React.Fragment>
+      );
+    })}
+  </Stack>
+);
+
+const renderPersonalDebtVerification = (
+  values: IPersonalDebtEntries,
+  isTablet: boolean
+) => (
+  <Stack direction="column" gap="s250" width="100%">
+    {values.entries.map((entry, index) => {
+      const personalDebt = mapPersonalDebt(entry, index);
+      return (
+        <React.Fragment key={entry.id}>
+          {index !== 0 && <Divider dashed />}
+          <Grid
+            templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+            gap="s100"
+            width="100%"
+          >
+            <BoxAttribute
+              label="Nombre del pasivo:"
+              value={personalDebt.liabilityType}
+            />
+            <BoxAttribute
+              label="Fecha de terminación:"
+              value={personalDebt.terminationDate}
+            />
+            <BoxAttribute
+              label="Saldo deuda:"
+              value={personalDebt.debtBalance}
+            />
+            <BoxAttribute
+              label="Entidad financiera:"
+              value={personalDebt.financialEntity}
+            />
+            <BoxAttribute label="Cuota:" value={personalDebt.quota} />
           </Grid>
         </React.Fragment>
       );
@@ -341,6 +382,12 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "personalAssets" &&
         renderPersonalAssetsVerification(
           updatedData.personalAssets.values,
+          isTablet
+        )}
+
+      {stepKey === "personalDebts" &&
+        renderPersonalDebtVerification(
+          updatedData.personalDebts.values,
           isTablet
         )}
 
