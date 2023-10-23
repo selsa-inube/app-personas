@@ -3,6 +3,7 @@ import { ICommentsEntry } from "../forms/CommentsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 import { ISimulationEntry } from "../forms/SimulationForm/types";
 import { IPreliquidationEntry } from "../forms/PreliquidationForm/types";
+import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
 const destination: IDestinationEntry = {
@@ -29,6 +30,25 @@ const preliquidation: IPreliquidationEntry = {
   netValueToSend: 10444975,
 };
 
+const disbursement: IDisbursementEntry = {
+  creditDisbursement: "",
+  accountNumber: "",
+  observations: "",
+  supplier: "",
+  identicationType: "",
+  identification: "",
+  socialReason: "",
+  firstName: "",
+  secondName: "",
+  firstLastName: "",
+  secondLastName: "",
+  gender: "",
+  others: "",
+  account: "",
+  entity: "",
+  accountType: "",
+};
+
 const comments: ICommentsEntry = {
   comments: "",
 };
@@ -41,6 +61,7 @@ const initalValuesCreditSimulation = {
   destination,
   simulation,
   preliquidation,
+  disbursement,
   comments,
   termsAndConditions,
 };

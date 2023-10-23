@@ -15,6 +15,7 @@ import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
 } from "./types";
+import { IDisbursementEntry } from "./forms/DisbursementForm/types";
 
 function CreditSimulationRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -38,6 +39,10 @@ function CreditSimulationRequest() {
         isValid: true,
         values: initalValuesCreditSimulation.preliquidation,
       },
+      disbursement: {
+        isValid: false,
+        values: initalValuesCreditSimulation.disbursement,
+      },
       comments: {
         isValid: false,
         values: initalValuesCreditSimulation.comments,
@@ -51,6 +56,7 @@ function CreditSimulationRequest() {
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const simulationRef = useRef<FormikProps<ISimulationEntry>>(null);
   const preliquidationRef = useRef<FormikProps<IPreliquidationEntry>>(null);
+  const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
@@ -59,6 +65,7 @@ function CreditSimulationRequest() {
     destination: destinationRef,
     simulation: simulationRef,
     preliquidation: preliquidationRef,
+    disbursement: disbursementRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
   };
