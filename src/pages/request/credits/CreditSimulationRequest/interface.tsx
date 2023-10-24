@@ -73,12 +73,12 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.verification.id && (
+      {/* {currentStep === creditSimulationRequestSteps.verification.id && (
         <CreditSimulationRequestVerification
           creditSimulationRequest={creditSimulationRequest}
           handleStepChange={handleStepChange}
         />
-      )}
+      )} */}
     </>
   );
 };
