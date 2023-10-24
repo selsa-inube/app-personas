@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { inube } from "../../tokens";
-import { Link } from "react-router-dom";
 import {
   ButtonAppearanceType,
   ButtonSpacingType,
@@ -76,6 +76,36 @@ const StyledButtonGeneral = css<IStyledButtonGeneral>`
   }};
 
   &:hover {
+    @media (hover: hover) {
+      border-color: ${({ theme, appearance, disabled }) => {
+        if (!disabled) {
+          return (
+            theme.color?.stroke?.[appearance]?.hover ||
+            inube.color.stroke[appearance].hover
+          );
+        }
+      }};
+
+      background-color: ${({ theme, appearance, variant, disabled, $load }) => {
+        if (!disabled && !$load) {
+          if (variant === "filled") {
+            return (
+              theme.color?.surface?.[appearance]?.hover ||
+              inube.color.surface[appearance].hover
+            );
+          }
+        }
+      }};
+    }
+
+    cursor: ${({ disabled, $load }) => {
+      if ($load || disabled) {
+        return "not-allowed";
+      }
+    }};
+  }
+
+  &:active {
     border-color: ${({ theme, appearance, disabled }) => {
       if (!disabled) {
         return (
@@ -93,12 +123,6 @@ const StyledButtonGeneral = css<IStyledButtonGeneral>`
             inube.color.surface[appearance].hover
           );
         }
-      }
-    }};
-
-    cursor: ${({ disabled, $load }) => {
-      if ($load || disabled) {
-        return "not-allowed";
       }
     }};
   }
@@ -135,6 +159,6 @@ const StyledButtonContent = styled.div<IStyledButtonContent>`
 export {
   StyledButton,
   StyledButtonContent,
-  StyledSpinnerContainer,
   StyledLink,
+  StyledSpinnerContainer,
 };

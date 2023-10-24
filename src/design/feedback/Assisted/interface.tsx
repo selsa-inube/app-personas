@@ -4,38 +4,21 @@ import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack, MdArrowForward, MdCheckCircle } from "react-icons/md";
-import { Step } from "./Step";
 import {
   StyledAssistedContainer,
+  StyledBar,
+  StyledBarContainer,
   StyledButton,
   StyledCircleId,
 } from "./styles";
 import { IStep } from "./types";
-
-const renderSteps = (
-  steps: IStep[],
-  currentStepIndex: number,
-  lastStepIndex: number,
-  smallScreen: boolean
-) => (
-  <Stack justifyContent="center" width="100%">
-    {steps.map((step, stepIndex) => (
-      <Step
-        key={step.id}
-        stepNumber={stepIndex}
-        lastStepIndex={lastStepIndex}
-        currentStepIndex={currentStepIndex}
-        smallScreen={smallScreen}
-      />
-    ))}
-  </Stack>
-);
 
 interface AssistedUIProps {
   steps: IStep[];
   currentStepIndex: number;
   lastStepIndex: number;
   currentStepInfo?: IStep;
+  disableNextStep?: boolean;
   handlePreviousStep: () => void;
   handleNextStep: () => void;
 }
@@ -46,11 +29,14 @@ function AssistedUI(props: AssistedUIProps) {
     currentStepIndex,
     lastStepIndex,
     currentStepInfo,
+    disableNextStep,
     handlePreviousStep,
     handleNextStep,
   } = props;
 
   const smallScreen = useMediaQuery("(max-width: 744px)");
+
+  const barWidth = ((currentStepIndex + 1) / steps.length) * 100;
 
   return (
     <StyledAssistedContainer smallScreen={smallScreen}>
@@ -101,12 +87,9 @@ function AssistedUI(props: AssistedUIProps) {
                 alignItems="center"
                 gap="s100"
               >
-                {renderSteps(
-                  steps,
-                  currentStepIndex,
-                  lastStepIndex,
-                  smallScreen
-                )}
+                <StyledBarContainer smallScreen={smallScreen}>
+                  <StyledBar smallScreen={smallScreen} width={barWidth} />
+                </StyledBarContainer>
                 <Text type="label" size="small">
                   {currentStepIndex + 1}/{steps.length}
                 </Text>
@@ -122,14 +105,19 @@ function AssistedUI(props: AssistedUIProps) {
             variant="none"
             iconAfter={<MdArrowForward size={18} />}
             handleClick={handleNextStep}
+            disabled={disableNextStep}
           >
-            {!smallScreen && "Siguiente"}
+            {!smallScreen && currentStepIndex === steps.length - 1
+              ? "Enviar"
+              : "Siguiente"}
           </Button>
         </StyledButton>
       </Stack>
       {smallScreen && (
         <>
-          {renderSteps(steps, currentStepIndex, lastStepIndex, smallScreen)}
+          <StyledBarContainer smallScreen={smallScreen}>
+            <StyledBar smallScreen={smallScreen} width={barWidth} />
+          </StyledBarContainer>
           <Text type="label" size="small" appearance="gray">
             {currentStepInfo?.description}
           </Text>

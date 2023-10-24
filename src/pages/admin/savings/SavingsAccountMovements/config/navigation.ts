@@ -16,7 +16,7 @@ const crumbsSavingsAccountMovements = (
   {
     id: "savingsAccount",
     path: `/my-savings/account/${productId}`,
-    label: "Consulta de créditos",
+    label: "Consulta de ahorros",
   },
   {
     id: "savingsAccountMovements",

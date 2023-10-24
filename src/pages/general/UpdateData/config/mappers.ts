@@ -1,11 +1,31 @@
-import { IThird, IContactData } from "src/model/entity/user";
-import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
-import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
-import { IResidence } from "src/model/entity/user";
-import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
-import { IContactDataEntry } from "../forms/ContactDataForm/types";
-import { IBankTransfersAccount } from "src/model/entity/user";
+import { IEntry } from "@design/data/Table/types";
+import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { cityDM } from "src/model/domains/personalInformation/citydm";
+import {
+  IBankTransfersAccount,
+  IContactData,
+  IFinancialOperations,
+  IResidence,
+  IThird,
+} from "src/model/entity/user";
+import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
+import { IContactDataEntry } from "../forms/ContactDataForm/types";
+import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
+import {
+  IPersonalAssetEntries,
+  IPersonalAssetEntry,
+} from "../forms/PersonalAssetsForm/types";
+import {
+  IPersonalDebtEntries,
+  IPersonalDebtEntry,
+} from "../forms/PersonalDebtsForm/types";
+import { IPersonalInformationEntry } from "../forms/PersonalInformationForm/types";
+import {
+  IPersonalReferenceEntries,
+  IPersonalReferenceEntry,
+} from "../forms/PersonalReferencesForm/types";
+import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
 const mapPersonalInformation = (
@@ -47,19 +67,103 @@ const mapBankTransfers = (
   bankTransfersAccount: IBankTransfersAccount
 ): IBankTransfersEntry => {
   return {
-    bankingEntity: bankTransfersAccount.bankingEntity,
+    bankEntity: bankTransfersAccount.bankEntity,
     accountType: bankTransfersAccount.accountType,
     accountNumber: bankTransfersAccount.accountNumber,
   };
 };
 
+const mapPersonalAsset = (
+  personalAsset: IPersonalAssetEntry,
+  index: number
+): IEntry | IPersonalAssetEntry => {
+  return {
+    id: personalAsset.id || String(index),
+    assetType: getValueOfDomain(personalAsset.assetType || "", "assetType")
+      ?.value,
+    commercialValue: currencyFormat(Number(personalAsset.commercialValue)),
+    debtBalance: currencyFormat(Number(personalAsset.debtBalance)),
+    financialEntity: personalAsset.financialEntity,
+    observations: personalAsset.observations,
+    quota: currencyFormat(Number(personalAsset.quota)),
+  };
+};
+
+const mapPersonalAssets = (
+  personalAssets: IPersonalAssetEntries["entries"]
+): IEntry[] => {
+  return personalAssets.map(
+    (personalAsset, index) => mapPersonalAsset(personalAsset, index) as IEntry
+  );
+};
+
+const mapPersonalDebt = (
+  personalDebt: IPersonalDebtEntry,
+  index: number
+): IEntry | IPersonalDebtEntry => {
+  return {
+    id: personalDebt.id || String(index),
+    liabilityType: getValueOfDomain(
+      personalDebt.liabilityType || "",
+      "liabilityType"
+    )?.value,
+    terminationDate: personalDebt.terminationDate,
+    debtBalance: currencyFormat(Number(personalDebt.debtBalance)),
+    financialEntity: personalDebt.financialEntity,
+    quota: currencyFormat(Number(personalDebt.quota)),
+    observations: personalDebt.observations,
+  };
+};
+
+const mapPersonalDebts = (
+  personalDebts: IPersonalDebtEntries["entries"]
+): IEntry[] => {
+  return personalDebts.map(
+    (personalDebt, index) => mapPersonalDebt(personalDebt, index) as IEntry
+  );
+}
+
+const mapPersonalReference = (
+  personalAsset: IPersonalReferenceEntry,
+  index: number
+): IEntry | IPersonalReferenceEntry => {
+  return {
+    id: personalAsset.id || String(index),
+    referenceType: getValueOfDomain(
+      personalAsset.referenceType || "",
+      "referenceType"
+    )?.value,
+    name: personalAsset.name,
+    address: personalAsset.address,
+    email: personalAsset.email,
+    phone: personalAsset.phone,
+    city: cityDM.valueOf(personalAsset.city || "")?.value,
+    observations: personalAsset.observations,
+  };
+};
+
+const mapPersonalReferences = (
+  personalReferences: IPersonalReferenceEntries["entries"]
+): IEntry[] => {
+  return personalReferences.map(
+    (personalReference, index) =>
+      mapPersonalReference(personalReference, index) as IEntry
+  );
+};
+
 const mapFinancialOperations = (
-  financialOperationsData?: Record<string, string>
+  financialOperationsData?: IFinancialOperations
 ): IFinancialOperationsEntry => {
   return {
-    hasForeignCurrencyAccounts: financialOperationsData?.financialOperations,
+    hasForeignCurrencyAccounts:
+      financialOperationsData?.hasForeignCurrencyAccounts || "",
     hasForeignCurrencyTransactions:
-      financialOperationsData?.financialOperations,
+      financialOperationsData?.hasForeignCurrencyAccounts || "",
+    descriptionOperations: financialOperationsData?.descriptionOperations || "",
+    country: financialOperationsData?.country || "",
+    bankEntity: financialOperationsData?.bankEntity || "",
+    currency: financialOperationsData?.currency || "",
+    accountNumber: Number(financialOperationsData?.accountNumber),
   };
 };
 
@@ -69,7 +173,7 @@ const mapPersonalResidence = (
   return {
     type: personalResidence.type,
     stratum: personalResidence.stratum,
-    bankingEntity: personalResidence.bankingEntity,
+    bankEntity: personalResidence.bankEntity,
     dueDate: personalResidence.dueDate,
     tenant: personalResidence.tenant,
     tenantCellPhone: personalResidence.tenantCellPhone,
@@ -95,10 +199,16 @@ const mapSocioeconomicInformation = (
 };
 
 export {
-  mapFinancialOperations,
-  mapPersonalInformation,
-  mapContactData,
   mapBankTransfers,
+  mapContactData,
+  mapFinancialOperations,
+  mapPersonalAsset,
+  mapPersonalAssets,
+  mapPersonalDebt,
+  mapPersonalDebts,
+  mapPersonalInformation,
+  mapPersonalReference,
+  mapPersonalReferences,
   mapPersonalResidence,
   mapSocioeconomicInformation,
 };

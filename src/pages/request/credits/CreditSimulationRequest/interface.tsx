@@ -12,8 +12,12 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { creditSimulationRequestSteps } from "./config/assisted";
 import { crumbsCreditSimulationRequest } from "./config/navigation";
-import { DestinationForm } from "./forms/DestinationForm";
 import { CommentsForm } from "./forms/CommentsForm";
+import { DestinationForm } from "./forms/DestinationForm";
+import { DisbursementForm } from "./forms/DisbursementForm";
+import { PreliquidationForm } from "./forms/PreliquidationForm";
+import { SimulationForm } from "./forms/SimulationForm";
+import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
@@ -22,20 +26,50 @@ import {
 const renderStepContent = (
   currentStep: number,
   formReferences: IFormsCreditSimulationRequestRefs,
-  creditSimulationRequest: IFormsCreditSimulationRequest
+  creditSimulationRequest: IFormsCreditSimulationRequest,
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   return (
     <>
       {currentStep === creditSimulationRequestSteps.destination.id && (
         <DestinationForm
-          initialValues={creditSimulationRequest.destination}
+          initialValues={creditSimulationRequest.destination.values}
           ref={formReferences.destination}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.simulation.id && (
+        <SimulationForm
+          initialValues={creditSimulationRequest.simulation.values}
+          ref={formReferences.simulation}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.preliquidation.id && (
+        <PreliquidationForm
+          initialValues={creditSimulationRequest.preliquidation.values}
+          ref={formReferences.preliquidation}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.disbursement.id && (
+        <DisbursementForm
+          initialValues={creditSimulationRequest.disbursement.values}
+          ref={formReferences.disbursement}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === creditSimulationRequestSteps.comments.id && (
         <CommentsForm
-          initialValues={creditSimulationRequest.comments}
+          initialValues={creditSimulationRequest.comments.values}
           ref={formReferences.comments}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.termsAndConditions.id && (
+        <TermsAndConditionsForm
+          initialValues={creditSimulationRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
     </>
@@ -45,6 +79,8 @@ const renderStepContent = (
 interface CreditSimulationRequestUIProps {
   currentStep: number;
   steps: IStep[];
+  isCurrentFormValid: boolean;
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
@@ -57,6 +93,8 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
   const {
     currentStep,
     steps,
+    isCurrentFormValid,
+    setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
@@ -87,19 +125,21 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
         gap="s600"
         templateColumns={mquery ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s500">
+        <Stack direction="column" gap={isMobile ? "s300" : "s500"}>
           <Assisted
             steps={steps}
             currentStep={currentStep}
             handleFinishAssisted={handleFinishAssisted}
             handleStepChange={handleStepChange}
+            disableNextStep={!isCurrentFormValid}
           />
 
           <Stack direction="column" gap="s300">
             {renderStepContent(
               currentStep,
               formReferences,
-              creditSimulationRequest
+              creditSimulationRequest,
+              setIsCurrentFormValid
             )}
 
             <Stack gap="s150" justifyContent="flex-end">
@@ -116,8 +156,9 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
               <Button
                 handleClick={handleNextStep}
                 spacing={isMobile ? "compact" : "wide"}
+                disabled={!isCurrentFormValid}
               >
-                Siguiente
+                {currentStep === steps.length ? "Enviar" : "Siguiente"}
               </Button>
             </Stack>
           </Stack>

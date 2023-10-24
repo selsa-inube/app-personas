@@ -41,7 +41,8 @@ function AddDebtModal(props: AddDebtModalProps) {
   };
 
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue(e.target.name, parseCurrencyString(e.target.value));
+    const parsedValue = parseCurrencyString(e.target.value);
+    formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);
   };
 
   const validateCurrencyField = (fieldName: string) => {
@@ -93,7 +94,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             label="Fecha de terminación"
             name="terminationDate"
             id="terminationDate"
-            placeholder="Digite la fecha de terminación"
+            placeholder="Ejemplo: 01/Ene/1990"
             value={formik.values.terminationDate || ""}
             type="text"
             errorMessage={formik.errors.terminationDate}
@@ -119,13 +120,14 @@ function AddDebtModal(props: AddDebtModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={handleChangeWithCurrency}
             validMessage="El saldo de la deuda es válido"
+            isRequired
           />
           <TextField
             label="Entidad financiera"
             name="financialEntity"
             id="financialEntity"
             placeholder="Digite el nombre de la entidad"
-            value={formik.values.financialEntity || "0"}
+            value={formik.values.financialEntity || ""}
             type="text"
             errorMessage={formik.errors.financialEntity}
             size="compact"
@@ -149,6 +151,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={handleChangeWithCurrency}
             validMessage="El valor de la cuota es válido"
+            isRequired
           />
           <TextField
             label="Observaciones"
