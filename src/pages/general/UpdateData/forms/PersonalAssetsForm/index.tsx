@@ -1,4 +1,3 @@
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
@@ -51,8 +50,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
         ...formik.values.entries,
         {
           id: String(formik.values.entries.length + 1),
-          assetType: getValueOfDomain(formik.values.assetType, "assetType")
-            ?.value,
+          assetType: formik.values.assetType,
           commercialValue: formik.values.commercialValue,
           debtBalance: formik.values.debtBalance,
           financialEntity: formik.values.financialEntity,

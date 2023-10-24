@@ -4,7 +4,7 @@ const savingsCommitmentsMock: ICommitment[] = [
   {
     id: "2 - 236607895",
     title: "Obligaciones estatutarias",
-    description: "2 - 236607895",
+    description: "Compromiso de ahorro",
     type: "0S",
     attributes: [
       {
@@ -40,9 +40,9 @@ const savingsCommitmentsMock: ICommitment[] = [
     products: ["201-91214069", "200-91214069"],
   },
   {
-    id: "2 - 23110125",
+    id: "2 - 236607896",
     title: "Abono a cuenta",
-    description: "2 - 23110125",
+    description: "Compromiso de ahorro",
     type: "SC",
     attributes: [
       {
@@ -71,7 +71,7 @@ const savingsCommitmentsMock: ICommitment[] = [
         value: "Mensual",
       },
     ],
-    products: ["013001162025"],
+    products: ["013001157292"],
   },
 ];
 

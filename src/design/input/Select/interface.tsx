@@ -73,6 +73,7 @@ function SelectUI(props: SelectUIProps) {
 
   return (
     <StyledContainer
+      id="selectComponent"
       tabIndex={0}
       isFullWidth={isFullWidth}
       isDisabled={isDisabled}
@@ -110,7 +111,7 @@ function SelectUI(props: SelectUIProps) {
           autoComplete="off"
           $readOnly={readOnly}
           readOnly
-          value={currentOption?.value}
+          value={currentOption?.value || ""}
           name={name}
           id={id}
           placeholder={placeholder}

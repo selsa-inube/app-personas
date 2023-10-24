@@ -1,34 +1,32 @@
-import { useState } from "react";
-import { ITextareaProps, Textarea } from "..";
 import { action } from "@storybook/addon-actions";
+import { useState } from "react";
+import { Textarea, TextareaProps } from "..";
 
-const TextareaController = (props: ITextareaProps) => {
+const TextareaController = (props: TextareaProps) => {
   const { value = "", maxLength = 0 } = props;
-  const [form, setForm] = useState({ value });
+  const [text, setText] = useState(value);
 
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setForm({ value: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
     return;
   };
 
-  const onFocus = () => {
-    setForm(form);
+  const handleFocus = () => {
     action("onFocus event");
   };
 
-  const onBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
-    setForm(form);
+  const handleBlur = () => {
     action("onBlur event");
   };
 
   return (
     <Textarea
       {...props}
-      value={form.value}
+      value={text}
       maxLength={maxLength}
-      onChange={onChange}
-      onFocus={onFocus}
-      onBlur={onBlur}
+      handleChange={handleChange}
+      handleFocus={handleFocus}
+      handleBlur={handleBlur}
     />
   );
 };

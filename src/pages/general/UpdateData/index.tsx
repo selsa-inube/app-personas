@@ -45,7 +45,10 @@ function UpdateData() {
     personalAssets: { isValid: true, values: { entries: [] } },
     personalDebts: { isValid: true, values: { entries: [] } },
     personalReferences: { isValid: true, values: { entries: [] } },
-    financialOperations: { isValid: true, values: mapFinancialOperations() },
+    financialOperations: {
+      isValid: true,
+      values: mapFinancialOperations(usersMock[0].financialOperations),
+    },
     personalResidence: {
       isValid: true,
       values: mapPersonalResidence(usersMock[0].personalData.residence),
@@ -103,11 +106,17 @@ function UpdateData() {
 
     if (!changeStepKey) return;
 
+    const changeIsVerification = stepId === steps.length;
+
     setIsCurrentFormValid(
-      updateData[changeStepKey as keyof IFormsUpdateData]?.isValid || false
+      changeIsVerification ||
+        updateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
+        false
     );
 
     setCurrentStep(stepId);
+
+    document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
   const handleFinishAssisted = () => {};

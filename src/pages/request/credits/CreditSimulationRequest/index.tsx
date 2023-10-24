@@ -7,7 +7,10 @@ import {
 import { initalValuesCreditSimulation } from "./config/initialValues";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
+import { IDisbursementEntry } from "./forms/DisbursementForm/types";
+import { IPreliquidationEntry } from "./forms/PreliquidationForm/types";
 import { ISimulationEntry } from "./forms/SimulationForm/types";
+import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CreditSimulationRequestUI } from "./interface";
 import {
   IFormsCreditSimulationRequest,
@@ -32,20 +35,39 @@ function CreditSimulationRequest() {
         isValid: false,
         values: initalValuesCreditSimulation.simulation,
       },
-      comments: {
+      preliquidation: {
+        isValid: true,
+        values: initalValuesCreditSimulation.preliquidation,
+      },
+      disbursement: {
         isValid: false,
+        values: initalValuesCreditSimulation.disbursement,
+      },
+      comments: {
+        isValid: true,
         values: initalValuesCreditSimulation.comments,
+      },
+      termsAndConditions: {
+        isValid: false,
+        values: initalValuesCreditSimulation.termsAndConditions,
       },
     });
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const simulationRef = useRef<FormikProps<ISimulationEntry>>(null);
+  const preliquidationRef = useRef<FormikProps<IPreliquidationEntry>>(null);
+  const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
+  const termsAndConditionsRef =
+    useRef<FormikProps<ITermsAndConditionsEntry>>(null);
 
   const formReferences: IFormsCreditSimulationRequestRefs = {
     destination: destinationRef,
     simulation: simulationRef,
+    preliquidation: preliquidationRef,
+    disbursement: disbursementRef,
     comments: commentsRef,
+    termsAndConditions: termsAndConditionsRef,
   };
 
   const handleStepChange = (stepId: number) => {
@@ -63,13 +85,18 @@ function CreditSimulationRequest() {
 
     if (!changeStepKey) return;
 
+    const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
-      newCreditSimulationRequest[
-        changeStepKey as keyof IFormsCreditSimulationRequest
-      ]?.isValid || false
+      changeIsVerification ||
+        newCreditSimulationRequest[
+          changeStepKey as keyof IFormsCreditSimulationRequest
+        ]?.isValid ||
+        false
     );
 
     setCurrentStep(stepId);
+
+    document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
   const handleFinishAssisted = () => {};

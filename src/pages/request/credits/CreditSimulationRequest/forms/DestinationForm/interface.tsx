@@ -72,6 +72,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                           customHandleChange("product", product.id)
                         }
                         checked={formik.values.product === product.id}
+                        key={product.id}
                       />
                     )
                 )}

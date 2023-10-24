@@ -1,6 +1,7 @@
 import { interestRatesMock } from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { currencyFormat } from "src/utils/formats";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -12,6 +13,7 @@ const validationSchema = Yup.object({
   deadline: Yup.number()
     .min(1, validationMessages.minNumbers(10))
     .max(1000, validationMessages.maxNumbers(1000)),
+  quota: validationRules.money,
 });
 
 interface SimulationFormProps {
@@ -28,10 +30,12 @@ const SimulationForm = forwardRef(function SimulationForm(
   const { initialValues, onFormValid, handleSubmit, loading } = props;
 
   const [loadingSimulation, setLoadingSimulation] = useState(false);
+  const [dynamicValidationSchema, setDynamicValidationSchema] =
+    useState(validationSchema);
 
   const formik = useFormik({
     initialValues,
-    validationSchema,
+    validationSchema: dynamicValidationSchema,
     validateOnChange: false,
     onSubmit: handleSubmit || (() => {}),
   });
@@ -45,27 +49,86 @@ const SimulationForm = forwardRef(function SimulationForm(
 
   const simulateCredit = () => {
     setLoadingSimulation(true);
-
     setTimeout(() => {
       const amount = Number(formik.values.amount);
-      const deadline = Number(formik.values.deadline);
-
       const interestRateDecimal = interestRate / 100;
 
-      const quota =
-        (amount *
-          interestRateDecimal *
-          Math.pow(1 + interestRateDecimal, deadline)) /
-        (Math.pow(1 + interestRateDecimal, deadline) - 1);
+      if (formik.values.simulationWithQuota) {
+        const quota = Number(formik.values.quota);
 
-      formik.setFieldValue("quota", quota);
+        if (quota <= amount * interestRateDecimal) {
+          return;
+        }
+
+        const deadline =
+          Math.log(quota / (quota - amount * interestRateDecimal)) /
+          Math.log(1 + interestRateDecimal);
+
+        formik.setFieldValue("deadline", Math.ceil(deadline));
+      } else {
+        const deadline = Number(formik.values.deadline);
+
+        const quota =
+          (amount *
+            interestRateDecimal *
+            Math.pow(1 + interestRateDecimal, deadline)) /
+          (Math.pow(1 + interestRateDecimal, deadline) - 1);
+
+        formik.setFieldValue("quota", quota);
+      }
+
       formik.setFieldValue("cycleInterest", 200000);
       formik.setFieldValue("netValue", amount + 200000);
-
+      formik.setFieldValue("hasResult", true);
       setLoadingSimulation(false);
       onFormValid(true);
-      
     }, 1000);
+  };
+
+  const customHandleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    formik.handleChange(event);
+
+    if (event.target.name === "simulationWithQuota") {
+      formik.setFieldValue("quota", "");
+      formik.setFieldValue("deadline", "");
+      formik.setFormikState((state) => {
+        return {
+          ...state,
+          touched: {
+            ...state.touched,
+            quota: false,
+            deadline: false,
+          },
+        };
+      });
+
+      const checked = "checked" in event.target && event.target.checked;
+
+      if (!checked) return;
+
+      const amount = Number(formik.values.amount);
+      const interestRateDecimal = interestRate / 100;
+
+      const newValidationSchema = validationSchema.concat(
+        Yup.object({
+          quota: validationRules.money
+            .required(validationMessages.required)
+            .test(
+              "valid-quota",
+              `La cuota debe ser mayor a: ${currencyFormat(
+                amount * interestRateDecimal
+              )}`,
+              (value) => Number(value) > amount * interestRateDecimal
+            ),
+        })
+      );
+      setDynamicValidationSchema(newValidationSchema);
+    }
+
+    formik.setFieldValue("hasResult", false);
+    onFormValid(false);
   };
 
   return (
@@ -75,6 +138,8 @@ const SimulationForm = forwardRef(function SimulationForm(
       interestRate={interestRate}
       loadingSimulation={loadingSimulation}
       simulateCredit={simulateCredit}
+      customHandleChange={customHandleChange}
+      onFormValid={onFormValid}
     />
   );
 });

@@ -20,9 +20,9 @@ function CommentsFormUI(props: CommentsFormUIProps) {
         maxLength={150}
         isDisabled={loading}
         value={formik.values.comments}
-        onBlur={customHandleBlur}
-        onChange={formik.handleChange}
-        onFocus={formik.isFocused}
+        handleBlur={customHandleBlur}
+        handleChange={formik.handleChange}
+        handleFocus={formik.isFocused}
         isFullWidth
       />
     </form>

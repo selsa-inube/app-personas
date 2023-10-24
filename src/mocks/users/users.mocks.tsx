@@ -21,7 +21,7 @@ const usersMock: IThird[] = [
       residence: {
         type: "",
         stratum: "",
-        bankingEntity: "Banco de Bogotá",
+        bankEntity: "Banco de Bogotá",
         dueDate: "02/Ago/2030",
         tenant: "José Alejandro Pérez Gómez",
         tenantCellPhone: "3123202874",
@@ -110,9 +110,19 @@ const usersMock: IThird[] = [
       },
     ],
     bankTransfersAccount: {
-      bankingEntity: "bancolombia",
+      bankEntity: "bancolombia",
       accountType: "savingsAccount",
       accountNumber: 76454473406,
+    },
+    financialOperations: {
+      hasForeignCurrencyAccounts: "",
+      hasForeignCurrencyTransactions: "",
+      descriptionOperations:
+        "Importación de materia prima, importación auto partes, importación de repuestos, importación de equipos celulares, importación de equipos médicos, importación de piezas electrónicas.",
+      country: "USA",
+      bankEntity: "bankOfAmerica",
+      currency: "dollars",
+      accountNumber: 76454473409,
     },
   },
 ];
