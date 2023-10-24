@@ -107,7 +107,9 @@ function AssistedUI(props: AssistedUIProps) {
             handleClick={handleNextStep}
             disabled={disableNextStep}
           >
-            {!smallScreen && "Siguiente"}
+            {!smallScreen && currentStepIndex === steps.length - 1
+              ? "Enviar"
+              : "Siguiente"}
           </Button>
         </StyledButton>
       </Stack>

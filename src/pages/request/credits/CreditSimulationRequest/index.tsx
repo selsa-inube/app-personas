@@ -85,10 +85,13 @@ function CreditSimulationRequest() {
 
     if (!changeStepKey) return;
 
+    const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
-      newCreditSimulationRequest[
-        changeStepKey as keyof IFormsCreditSimulationRequest
-      ]?.isValid || false
+      changeIsVerification ||
+        newCreditSimulationRequest[
+          changeStepKey as keyof IFormsCreditSimulationRequest
+        ]?.isValid ||
+        false
     );
 
     setCurrentStep(stepId);
