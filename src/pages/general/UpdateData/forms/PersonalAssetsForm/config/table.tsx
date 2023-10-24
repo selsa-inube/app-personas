@@ -1,7 +1,4 @@
-import { Icon } from "@design/data/Icon";
-import { IAction } from "@design/data/Table/types";
 import { mapInvestmentMovement } from "@pages/admin/investments/InvestmentMovements/config/table";
-import { MdOutlineModeEdit, MdDeleteOutline } from "react-icons/md";
 
 const personalAssetsTableTitles = [
   {
@@ -41,40 +38,8 @@ const personalAssetsTableBreakpoints = [
   { breakpoint: "(max-width: 390px)", totalColumns: 1 },
 ];
 
-const personalAssetsTableActions: IAction[] = [
-  {
-    id: "1",
-    actionName: "Editar",
-    content: (asset) => (
-      <Icon
-        appearance="dark"
-        icon={<MdOutlineModeEdit />}
-        cursorHover={true}
-        size="16px"
-        spacing="none"
-      />
-    ),
-    mobilePriority: true,
-  },
-  {
-    id: "2",
-    actionName: "Borrar",
-    content: (asset) => (
-      <Icon
-        appearance="dark"
-        icon={<MdDeleteOutline />}
-        cursorHover={true}
-        size="16px"
-        spacing="none"
-      />
-    ),
-    mobilePriority: true,
-  },
-];
-
 export {
   mapInvestmentMovement,
-  personalAssetsTableActions,
   personalAssetsTableBreakpoints,
   personalAssetsTableTitles,
 };
