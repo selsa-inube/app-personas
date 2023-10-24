@@ -5,6 +5,9 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalReferencesFormUI } from "./interface";
 import { IPersonalReferenceEntries } from "./types";
+import { IAction } from "@design/data/Table/types";
+import { Icon } from "@design/data/Icon";
+import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 
 const validationSchema = Yup.object({
   referenceType: Yup.string().required(validationMessages.required),
@@ -63,12 +66,58 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
     }
   };
 
+  const handleDeleteReference = (referenceId: string) => {
+    const referenceIndex = formik.values.entries.findIndex(
+      (reference) => reference.id === referenceId
+    );
+
+    if (referenceIndex !== -1) {
+      const updatedReferences = [...formik.values.entries];
+      updatedReferences.splice(referenceIndex, 1);
+
+      formik.setFieldValue("entries", updatedReferences);
+    }
+  };
+
+  const personalReferencesTableActions: IAction[] = [
+    {
+      id: "1",
+      actionName: "Editar",
+      content: (reference) => (
+        <Icon
+          appearance="dark"
+          icon={<MdOutlineModeEdit />}
+          cursorHover={true}
+          size="16px"
+          spacing="none"
+        />
+      ),
+      mobilePriority: true,
+    },
+    {
+      id: "2",
+      actionName: "Borrar",
+      content: (reference) => (
+        <Icon
+          appearance="dark"
+          icon={<MdDeleteOutline />}
+          cursorHover={true}
+          size="16px"
+          spacing="none"
+          onClick={() => handleDeleteReference(reference.id)}
+        />
+      ),
+      mobilePriority: true,
+    },
+  ];
+
   return (
     <PersonalReferencesFormUI
       formik={formik}
       showAddReferenceModal={showAddReferenceModal}
       handleToggleModal={handleToggleModal}
       handleAddReference={handleAddReference}
+      personalReferencesTableActions={personalReferencesTableActions}
     />
   );
 });
