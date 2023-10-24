@@ -5,6 +5,9 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
+import { IAction } from "@design/data/Table/types";
+import { Icon } from "@design/data/Icon";
+import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
@@ -61,12 +64,58 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
     }
   };
 
+  const handleDeleteDebt = (debtId: string) => {
+    const debtIndex = formik.values.entries.findIndex(
+      (debt) => debt.id === debtId
+    );
+
+    if (debtIndex !== -1) {
+      const updatedDebts = [...formik.values.entries];
+      updatedDebts.splice(debtIndex, 1);
+
+      formik.setFieldValue("entries", updatedDebts);
+    }
+  };
+
+  const personalDebtsTableActions: IAction[] = [
+    {
+      id: "1",
+      actionName: "Editar",
+      content: (debt) => (
+        <Icon
+          appearance="dark"
+          icon={<MdOutlineModeEdit />}
+          cursorHover={true}
+          size="16px"
+          spacing="none"
+        />
+      ),
+      mobilePriority: true,
+    },
+    {
+      id: "2",
+      actionName: "Borrar",
+      content: (debt) => (
+        <Icon
+          appearance="dark"
+          icon={<MdDeleteOutline />}
+          cursorHover={true}
+          size="16px"
+          spacing="none"
+          onClick={() => handleDeleteDebt(debt.id)}
+        />
+      ),
+      mobilePriority: true,
+    },
+  ];
+
   return (
     <PersonalDebtsFormUI
       formik={formik}
       showAddDebtModal={showAddDebtModal}
       handleToggleModal={handleToggleModal}
       handleAddDebt={handleAddDebt}
+      personalDebtsTableActions={personalDebtsTableActions}
     />
   );
 });
