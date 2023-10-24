@@ -21,6 +21,7 @@ interface PersonalAssetsFormUIProps {
 function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
   const { formik, showAddAssetModal, handleToggleModal, handleAddAsset } =
     props;
+
   return (
     <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
       <Button
