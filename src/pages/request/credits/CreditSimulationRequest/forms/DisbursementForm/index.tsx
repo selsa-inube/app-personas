@@ -55,6 +55,9 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     const customValidationSchema =
       disbursementCustomValidationSchemas[name]?.[value];
 
+    if (!customValidationSchema) return;
+
+    console.log(customValidationSchema);
     const newValidationSchema = validationSchema.concat(
       customValidationSchema
     ) as Yup.ObjectSchema<{ creditDisbursement: string }>;
