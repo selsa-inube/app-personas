@@ -121,10 +121,21 @@ function SimulationFormUI(props: SimulationFormUIProps) {
 
                 <Stack justifyContent="space-between">
                   <Text type="label" size="medium">
-                    Garantía personal:
+                    Con codeudores:
                   </Text>
                   <Text type="body" size="medium" appearance="gray">
-                    {currencyFormat(maximumQuotas.personalWarranty)}
+                    {currencyFormat(maximumQuotas.withCoDebtors)}
+                  </Text>
+                </Stack>
+
+                <Divider dashed />
+
+                <Stack justifyContent="space-between">
+                  <Text type="label" size="medium">
+                    Con afianzamiento:
+                  </Text>
+                  <Text type="body" size="medium" appearance="gray">
+                    {currencyFormat(maximumQuotas.withStrengthening)}
                   </Text>
                 </Stack>
 
