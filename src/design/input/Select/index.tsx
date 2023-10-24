@@ -69,9 +69,16 @@ function Select(props: SelectProps) {
     if (selectRef.current && target && !selectRef.current.contains(target)) {
       setOpen(false);
     }
+    if (handleBlur) {
+      const event = {
+        target: selectRef.current,
+      } as React.FocusEvent<HTMLDivElement>;
+
+      handleBlur(event);
+    }
   };
 
-  const handleOptionClick = async (id: string) => {
+  const handleOptionClick = (id: string) => {
     if (!options) return;
 
     const optionFound = options.find((option) => option.id === id);
@@ -82,19 +89,9 @@ function Select(props: SelectProps) {
         name,
         value: optionFound.id,
       },
-    } as
-      | React.ChangeEvent<HTMLSelectElement>
-      | React.FocusEvent<HTMLDivElement>;
+    } as React.ChangeEvent<HTMLSelectElement>;
 
-    if (handleChange) {
-      const changeEvent = event as React.ChangeEvent<HTMLSelectElement>;
-      await handleChange(changeEvent);
-    }
-
-    if (handleBlur) {
-      const blurEvent = event as React.FocusEvent<HTMLDivElement>;
-      handleBlur(blurEvent);
-    }
+    if (handleChange) handleChange(event);
 
     setIsFocused(false);
     handleCloseOptions();
