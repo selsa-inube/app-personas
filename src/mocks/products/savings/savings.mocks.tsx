@@ -9,7 +9,7 @@ const savingsMock: IProduct[] = [
     attributes: [
       {
         id: "net_value",
-        label: "Saldo total",
+        label: "Total ahorrado",
         value: 785923,
       },
       {
@@ -290,7 +290,7 @@ const savingsMock: IProduct[] = [
     attributes: [
       {
         id: "net_value",
-        label: "Saldo total",
+        label: "Total ahorrado",
         value: 592381,
       },
       {
@@ -565,9 +565,14 @@ const savingsMock: IProduct[] = [
   {
     title: "Aportes sociales",
     id: "200-91214069",
-    type: "AP",
+    type: "AS",
     description: "Aportes sociales 200 - 91214069",
     attributes: [
+      {
+        id: "saved_value",
+        label: "Total ahorrado",
+        value: 7642790,
+      },
       {
         id: "net_value",
         label: "Saldo total",
@@ -929,9 +934,14 @@ const savingsMock: IProduct[] = [
   {
     title: "Ahorro permanente",
     id: "201-91214069",
-    type: "AP",
+    type: "APE",
     description: "Ahorro permanente 201 - 91214069",
     attributes: [
+      {
+        id: "saved_value",
+        label: "Total ahorrado",
+        value: 1980656,
+      },
       {
         id: "net_value",
         label: "Saldo total",

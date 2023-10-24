@@ -77,12 +77,12 @@ const renderProductsCommitments = () => {
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
 
-  const getSavingProducts = (type: string) => {
-    return savingsMock.filter((investment) => investment.type === type);
+  const getSavingProducts = (types: string[]) => {
+    return savingsMock.filter((investment) => types.includes(investment.type));
   };
 
-  const savingsAccountsMock = getSavingProducts("CA");
-  const savingsStatutoryContributionsMock = getSavingProducts("AP");
+  const savingsAccountsMock = getSavingProducts(["CA"]);
+  const savingsStatutoryContributionsMock = getSavingProducts(["APE", "AS"]);
 
   const getInvestmentsProducts = (type: string) => {
     return investmentsMock.filter(

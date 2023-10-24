@@ -1,5 +1,6 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsAccountMovementsUI } from "./interface";
@@ -18,7 +19,12 @@ function SavingsAccountMovements() {
   }, [product_id]);
 
   const handleSortProduct = () => {
-    const savingsOptions = savingsMock.map((saving) => {
+    const products = [
+      ...savingsMock,
+      ...investmentsMock.filter((item) => item.type !== "CD"),
+    ];
+
+    const savingsOptions = products.map((saving) => {
       const productOption = {
         id: saving.id,
         value: saving.description,
@@ -50,7 +56,12 @@ function SavingsAccountMovements() {
       try {
         if (!selectedProduct?.movements) return;
 
-        const foundProduct = savingsMock.find(
+        const products = [
+          ...savingsMock,
+          ...investmentsMock.filter((item) => item.type !== "CD"),
+        ];
+
+        const foundProduct = products.find(
           (saving) => saving.id === product_id
         );
 
