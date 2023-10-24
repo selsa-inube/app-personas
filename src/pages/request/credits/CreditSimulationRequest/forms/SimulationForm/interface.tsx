@@ -23,11 +23,22 @@ interface SimulationFormUIProps {
   interestRate: number;
   loadingSimulation?: boolean;
   simulateCredit: () => void;
+  customHandleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function SimulationFormUI(props: SimulationFormUIProps) {
-  const { formik, loading, interestRate, loadingSimulation, simulateCredit } =
-    props;
+  const {
+    formik,
+    loading,
+    interestRate,
+    loadingSimulation,
+    simulateCredit,
+    customHandleChange,
+    onFormValid,
+  } = props;
 
   function stateValue(attribute: string) {
     if (!formik.touched[attribute]) return "pending";
@@ -48,6 +59,8 @@ function SimulationFormUI(props: SimulationFormUIProps) {
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
     const parsedValue = parseCurrencyString(e.target.value);
     formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);
+    formik.setFieldValue("hasResult", false);
+    onFormValid(false);
   };
 
   const validateCurrencyField = (fieldName: string) => {
@@ -140,7 +153,7 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                 <Switch
                   id="simulationWithQuota"
                   name="simulationWithQuota"
-                  handleChange={formik.handleChange}
+                  handleChange={customHandleChange}
                   checked={formik.values.simulationWithQuota}
                   label="Simular con el valor de la cuota"
                   margin="0"
@@ -179,26 +192,45 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                   errorMessage={formik.errors.peridiocity}
                   isDisabled={loading}
                   state={stateValue("peridiocity")}
-                  handleChange={formik.handleChange}
+                  handleChange={customHandleChange}
                   readOnly
                 />
 
-                <TextField
-                  label="Plazo"
-                  placeholder="Ingresa la cantidad de meses"
-                  name="deadline"
-                  id="deadline"
-                  value={formik.values.deadline}
-                  type="number"
-                  errorMessage={formik.errors.deadline}
-                  isDisabled={loading}
-                  size="compact"
-                  isFullWidth
-                  state={stateValue("deadline")}
-                  handleBlur={formik.handleBlur}
-                  handleChange={formik.handleChange}
-                  validMessage="El plazo es válido"
-                />
+                {formik.values.simulationWithQuota ? (
+                  <TextField
+                    label="Cuota"
+                    placeholder="Ingresa el valor de la cuota"
+                    name="quota"
+                    id="quota"
+                    value={validateCurrencyField("quota")}
+                    type="text"
+                    errorMessage={formik.errors.quota}
+                    isDisabled={loading}
+                    size="compact"
+                    isFullWidth
+                    state={stateValue("quota")}
+                    handleBlur={formik.handleBlur}
+                    handleChange={handleChangeWithCurrency}
+                    validMessage="La cuota es válida"
+                  />
+                ) : (
+                  <TextField
+                    label="Plazo"
+                    placeholder="Ingresa la cantidad de meses"
+                    name="deadline"
+                    id="deadline"
+                    value={formik.values.deadline}
+                    type="number"
+                    errorMessage={formik.errors.deadline}
+                    isDisabled={loading}
+                    size="compact"
+                    isFullWidth
+                    state={stateValue("deadline")}
+                    handleBlur={formik.handleBlur}
+                    handleChange={customHandleChange}
+                    validMessage="El plazo es válido"
+                  />
+                )}
               </Grid>
 
               <Stack width="100%" justifyContent="flex-end">
@@ -208,8 +240,8 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                   load={loadingSimulation}
                   disabled={
                     !formik.values.amount ||
-                    !formik.values.deadline ||
-                    !formik.values.peridiocity
+                    !formik.values.peridiocity ||
+                    (!formik.values.deadline && !formik.values.quota)
                   }
                 >
                   Simular
@@ -217,7 +249,7 @@ function SimulationFormUI(props: SimulationFormUIProps) {
               </Stack>
             </Stack>
 
-            {formik.values.quota && (
+            {formik.values.hasResult && (
               <>
                 <Divider dashed />
 
