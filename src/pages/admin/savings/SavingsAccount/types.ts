@@ -10,6 +10,11 @@ interface IBeneficiariesModalState {
   data: IAttribute[];
 }
 
+interface IReimbursementModalState {
+  show: boolean;
+  data: IAttribute[];
+}
+
 interface ICommitmentsModalState {
   show: boolean;
   data: ICommitment[];
@@ -19,4 +24,5 @@ export type {
   IBeneficiariesModalState,
   ICommitmentsModalState,
   ISelectedProductState,
+  IReimbursementModalState,
 };

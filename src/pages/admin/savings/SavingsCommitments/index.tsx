@@ -5,6 +5,7 @@ import { SavingsCommitmentsUI } from "./interface";
 
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
+import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { ISelectedCommitmentState } from "./types";
 
 function SavingsCommitments() {
@@ -22,7 +23,11 @@ function SavingsCommitments() {
   }, [commitment_id, isMobile]);
 
   const handleSortCommitment = () => {
-    const commitmentsOptions = savingsCommitmentsMock.map((commitment) => {
+    const productsCommitments = [
+      ...savingsCommitmentsMock,
+      ...investmentsCommitmentsMock,
+    ];
+    const commitmentsOptions = productsCommitments.map((commitment) => {
       const commitmentOption = {
         id: commitment.id,
         value: commitment.title,

@@ -1,13 +1,16 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
+import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
+  IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
 
@@ -22,6 +25,11 @@ function SavingsAccount() {
       show: false,
       data: [],
     });
+  const [reimbursementModal, setReimbursementModal] =
+    useState<IReimbursementModalState>({
+      show: false,
+      data: [],
+    });
   const [commitmentsModal, setCommitmentsModal] =
     useState<ICommitmentsModalState>({
       show: false,
@@ -33,6 +41,7 @@ function SavingsAccount() {
   useEffect(() => {
     getBeneficiaries();
     getCommitments();
+    getReimbursement();
   }, [selectedProduct]);
 
   useEffect(() => {
@@ -54,10 +63,30 @@ function SavingsAccount() {
     }
   };
 
+  const getReimbursement = () => {
+    if (!selectedProduct) return;
+
+    const reimbursementAttribute = selectedProduct.saving.attributes.find(
+      (attr) => attr.id === "refund_value"
+    );
+
+    if (reimbursementAttribute && Array.isArray(reimbursementAttribute.value)) {
+      setReimbursementModal({
+        ...beneficiariesModal,
+        data: reimbursementAttribute.value,
+      });
+    }
+  };
+
   const getCommitments = () => {
     if (!selectedProduct) return;
 
-    const foundCommitments = savingsCommitmentsMock.filter((commitment) =>
+    const productsCommitments = [
+      ...savingsCommitmentsMock,
+      ...investmentsCommitmentsMock,
+    ];
+
+    const foundCommitments = productsCommitments.filter((commitment) =>
       commitment.products.includes(selectedProduct.saving.id)
     );
 
@@ -68,7 +97,8 @@ function SavingsAccount() {
   };
 
   const handleSortProduct = () => {
-    const savingsOptions = savingsMock.map((saving) => {
+    const products = [...savingsMock, ...investmentsMock];
+    const savingsOptions = products.map((saving) => {
       const productOption = {
         id: saving.id,
         value: saving.description,
@@ -102,6 +132,13 @@ function SavingsAccount() {
     }));
   };
 
+  const handleToggleReimbursementModal = () => {
+    setReimbursementModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
   const handleToggleCommitmentsModal = () => {
     setCommitmentsModal((prevState) => ({
       ...prevState,
@@ -121,7 +158,9 @@ function SavingsAccount() {
       productId={product_id}
       beneficiariesModal={beneficiariesModal}
       commitmentsModal={commitmentsModal}
+      reimbursementModal={reimbursementModal}
       handleToggleCommitmentsModal={handleToggleCommitmentsModal}
+      handleToggleReimbursementModal={handleToggleReimbursementModal}
     />
   );
 }
