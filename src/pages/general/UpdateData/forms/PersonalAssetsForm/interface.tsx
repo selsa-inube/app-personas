@@ -27,6 +27,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
     handleAddAsset,
     personalAssetsTableActions,
   } = props;
+
   return (
     <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
       <Button

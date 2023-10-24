@@ -14,8 +14,9 @@ import { creditSimulationRequestSteps } from "./config/assisted";
 import { crumbsCreditSimulationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
 import { DestinationForm } from "./forms/DestinationForm";
-import { SimulationForm } from "./forms/SimulationForm";
+import { DisbursementForm } from "./forms/DisbursementForm";
 import { PreliquidationForm } from "./forms/PreliquidationForm";
+import { SimulationForm } from "./forms/SimulationForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import {
   IFormsCreditSimulationRequest,
@@ -48,6 +49,13 @@ const renderStepContent = (
         <PreliquidationForm
           initialValues={creditSimulationRequest.preliquidation.values}
           ref={formReferences.preliquidation}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.disbursement.id && (
+        <DisbursementForm
+          initialValues={creditSimulationRequest.disbursement.values}
+          ref={formReferences.disbursement}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === creditSimulationRequestSteps.comments.id && (
@@ -150,7 +158,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
                 spacing={isMobile ? "compact" : "wide"}
                 disabled={!isCurrentFormValid}
               >
-                Siguiente
+                {currentStep === steps.length ? "Enviar" : "Siguiente"}
               </Button>
             </Stack>
           </Stack>

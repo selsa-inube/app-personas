@@ -1,4 +1,4 @@
-import { mapInvestmentMovement } from "@pages/admin/investments/InvestmentMovements/config/table";
+import { mapInvestmentMovement } from "@pages/admin/savings/SavingsAccountMovements/config/table";
 
 const personalAssetsTableTitles = [
   {
