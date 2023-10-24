@@ -1,7 +1,7 @@
 const creditSimulationRequestBoxTitles: Record<string, string> = {
   destination: "Destinación",
   simulation: "Simulación",
-  preliquidation: "RPreliquidación",
+  preliquidation: "Preliquidación",
   disbursement: "Desembolso",
   comments: "Comentarios",
   termsAndConditions: "Términos y condiciones",

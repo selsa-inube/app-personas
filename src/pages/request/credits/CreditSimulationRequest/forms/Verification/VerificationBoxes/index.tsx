@@ -6,6 +6,8 @@ import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { MdAdd, MdDragHandle, MdRemove } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
+import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { currencyFormat } from "src/utils/formats";
 import { IFormsCreditSimulationRequest } from "../../../types";
 import { ICommentsEntry } from "../../CommentsForm/types";
@@ -46,8 +48,11 @@ const renderSimulationVerification = (
       label="Valor simulado:"
       value={currencyFormat(Number(values.amount))}
     />
-    <BoxAttribute label="Periodicidad:" value={values.peridiocity} />
-    <BoxAttribute label="Plazo:" value={values.deadline} />
+    <BoxAttribute
+      label="Periodicidad:"
+      value={peridiocityDM.valueOf(values.peridiocity)?.value}
+    />
+    <BoxAttribute label="Plazo:" value={`${values.deadline} Meses`} />
     <BoxAttribute
       label="Cuota mensual:"
       value={currencyFormat(Number(values.quota))}
@@ -71,7 +76,7 @@ const renderPreliquidationVerification = (
   values: IPreliquidationEntry,
   isTablet: boolean
 ) => (
-  <Stack direction="column" gap={isTablet ? "s200" : "s250"}>
+  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
     <TextField
       label="Monto"
       placeholder="Monto"
@@ -125,23 +130,81 @@ const renderDisbursementVerification = (
   values: IDisbursementEntry,
   isTablet: boolean
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Stack direction="column" gap="s100" width="100%">
     <BoxAttribute
       label="Forma de desembolso:"
-      value={values.creditDisbursement}
+      value={
+        getValueOfDomain(values.creditDisbursement, "creditDisbursement")?.value
+      }
     />
-    <BoxAttribute
-      label="Cuentas en moneda extranjera:"
-      value={values.accountNumber}
-    />
-  </Grid>
+    {values.accountNumber && (
+      <BoxAttribute
+        label="Cuentas en moneda extranjera:"
+        value={values.accountNumber}
+      />
+    )}
+    {values.observations && (
+      <BoxAttribute
+        label="Observaciones:"
+        value={values.observations}
+        direction="column"
+      />
+    )}
+    {values.supplier && (
+      <BoxAttribute
+        label="Proveedor:"
+        value={getValueOfDomain(values.supplier, "suppliersType")?.value}
+      />
+    )}
+    {values.identicationType && (
+      <BoxAttribute
+        label="Tipo de identificación:"
+        value={
+          getValueOfDomain(values.identicationType, "identificationType")?.value
+        }
+      />
+    )}
+    {values.identification && (
+      <BoxAttribute label="Identificación:" value={values.identification} />
+    )}
+    {values.socialReason && (
+      <BoxAttribute label="Razón social:" value={values.socialReason} />
+    )}
+    {values.firstName && (
+      <BoxAttribute label="Primer nombre:" value={values.firstName} />
+    )}
+    {values.secondName && (
+      <BoxAttribute label="Segundo nombre:" value={values.secondName} />
+    )}
+    {values.firstLastName && (
+      <BoxAttribute label="Primer apellido:" value={values.firstLastName} />
+    )}
+    {values.secondLastName && (
+      <BoxAttribute label="Segundo apellido:" value={values.secondLastName} />
+    )}
+    {values.gender && (
+      <BoxAttribute
+        label="Género:"
+        value={genderDM.valueOf(values.gender)?.value}
+      />
+    )}
+    {values.others && <BoxAttribute label="Otros:" value={values.others} />}
+    {values.account && <BoxAttribute label="Cuenta:" value={values.account} />}
+    {values.entity && <BoxAttribute label="Entidad:" value={values.entity} />}
+    {values.accountType && (
+      <BoxAttribute
+        label="Tipo de cuenta:"
+        value={getValueOfDomain(values.accountType, "accountType")?.value}
+      />
+    )}
+  </Stack>
 );
 
 const renderCommentsVerification = (
   values: ICommentsEntry,
   isTablet: boolean
 ) => (
-  <Stack width="100%">
+  <Stack width="100%" direction="column">
     <BoxAttribute
       label="Comentarios adicionales:"
       value={values.comments}
@@ -154,7 +217,7 @@ const renderTermsAndConditionsVerification = (
   values: ITermsAndConditionsEntry,
   isTablet: boolean
 ) => (
-  <Stack width="100%">
+  <Stack width="100%" direction="column">
     <BoxAttribute
       label="Acepta términos y condiciones:"
       value={values.accept ? activeDM.Y.value : activeDM.N.value}
