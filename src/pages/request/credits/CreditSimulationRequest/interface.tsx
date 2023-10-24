@@ -22,6 +22,7 @@ import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
 } from "./types";
+import { CreditSimulationRequestVerification } from "./forms/Verification";
 
 const renderStepContent = (
   currentStep: number,
@@ -70,6 +71,12 @@ const renderStepContent = (
           initialValues={creditSimulationRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.verification.id && (
+        <CreditSimulationRequestVerification
+          creditSimulationRequest={creditSimulationRequest}
+          handleStepChange={handleStepChange}
         />
       )}
     </>
