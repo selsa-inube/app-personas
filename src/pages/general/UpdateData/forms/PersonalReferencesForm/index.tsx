@@ -7,7 +7,8 @@ import { PersonalReferencesFormUI } from "./interface";
 import { IPersonalReferenceEntries } from "./types";
 import { IAction } from "@design/data/Table/types";
 import { Icon } from "@design/data/Icon";
-import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { DeleteReference } from "./DeleteReference";
 
 const validationSchema = Yup.object({
   referenceType: Yup.string().required(validationMessages.required),
@@ -98,13 +99,9 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
       id: "2",
       actionName: "Borrar",
       content: (reference) => (
-        <Icon
-          appearance="dark"
-          icon={<MdDeleteOutline />}
-          cursorHover={true}
-          size="16px"
-          spacing="none"
-          onClick={() => handleDeleteReference(reference.id)}
+        <DeleteReference
+          reference={reference}
+          handleDeleteReference={() => handleDeleteReference(reference.id)}
         />
       ),
       mobilePriority: true,
