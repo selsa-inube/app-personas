@@ -12,6 +12,7 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { MdArrowBack, MdSyncAlt } from "react-icons/md";
 import { truncateAndObfuscateDescription } from "src/utils/formats";
 import {
@@ -20,6 +21,7 @@ import {
   mySavingsAttributeBreakpoints,
 } from "../MySavings/config/products";
 import { savingsAccountIcons } from "../SavingsAccount/config/saving";
+import { investmentIcons } from "../SavingsAccount/config/saving";
 import { formatSavingCommitmentsCurrencyAttrs } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
 import { ISelectedCommitmentState } from "./types";
@@ -36,8 +38,10 @@ function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"]
 ) {
   return selectedCommitment.map((commitment) => {
-    const product = savingsMock.find((savings) => savings.id === commitment);
+    const products = [...savingsMock, ...investmentsMock];
+    const product = products.find((savings) => savings.id === commitment);
     if (product) {
+      const productsIcons = { ...savingsAccountIcons, ...investmentIcons };
       return (
         <Product
           id={product.id}
@@ -53,7 +57,7 @@ function renderProducts(
           )}
           breakpoints={mySavingsAttributeBreakpoints}
           tags={product.tags}
-          icon={savingsAccountIcons[product.type]}
+          icon={productsIcons[product.type]}
           navigateTo={`/my-savings/account/${product.id}`}
         />
       );

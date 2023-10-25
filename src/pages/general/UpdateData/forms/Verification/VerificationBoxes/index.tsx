@@ -220,7 +220,7 @@ const renderPersonalReferencesVerification = (
   </Stack>
 );
 
-const renderfinancialOperationsVerification = (
+const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
   isTablet: boolean
 ) => (
@@ -398,7 +398,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "financialOperations" &&
-        renderfinancialOperationsVerification(
+        renderFinancialOperationsVerification(
           updatedData.financialOperations.values,
           isTablet
         )}
