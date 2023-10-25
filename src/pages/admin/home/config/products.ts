@@ -31,8 +31,8 @@ function formatCreditCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-const investmentAttributes = ["expiration_date", "investment_value"];
-const investmentCurrencyAttributes = ["investment_value"];
+const investmentAttributes = ["expiration_date", "net_value"];
+const investmentCurrencyAttributes = ["net_value"];
 
 function extractInvestmentAttributes(investment: IProduct) {
   const foundAttributes = investment.attributes.filter((attribute) =>

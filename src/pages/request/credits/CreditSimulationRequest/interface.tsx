@@ -18,6 +18,7 @@ import { DisbursementForm } from "./forms/DisbursementForm";
 import { PreliquidationForm } from "./forms/PreliquidationForm";
 import { SimulationForm } from "./forms/SimulationForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
+import { CreditSimulationRequestVerification } from "./forms/Verification";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
@@ -27,7 +28,8 @@ const renderStepContent = (
   currentStep: number,
   formReferences: IFormsCreditSimulationRequestRefs,
   creditSimulationRequest: IFormsCreditSimulationRequest,
-  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
+  handleStepChange: (stepId: number) => void
 ) => {
   return (
     <>
@@ -70,6 +72,12 @@ const renderStepContent = (
           initialValues={creditSimulationRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.verification.id && (
+        <CreditSimulationRequestVerification
+          creditSimulationRequest={creditSimulationRequest}
+          handleStepChange={handleStepChange}
         />
       )}
     </>
@@ -139,7 +147,8 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
               currentStep,
               formReferences,
               creditSimulationRequest,
-              setIsCurrentFormValid
+              setIsCurrentFormValid,
+              handleStepChange
             )}
 
             <Stack gap="s150" justifyContent="flex-end">

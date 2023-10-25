@@ -48,7 +48,7 @@ interface ICommitment {
   tag?: TagProps;
 }
 
-type ProductType = "CA" | "CD" | "AP" | "CL" | "CE";
+type ProductType = "CA" | "CD" | "AP" | "CL" | "CE" | "APE" | "AS";
 
 interface IProduct {
   id: string;

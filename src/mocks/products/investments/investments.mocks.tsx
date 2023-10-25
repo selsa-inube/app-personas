@@ -2,21 +2,27 @@ import { IProduct } from "src/model/entity/product";
 
 const investmentsMock: IProduct[] = [
   {
-    id: "2-231000619",
+    id: "2-22100619",
     title: "CDAT",
-    description: "CDAT 2 - 231000619",
+    description: "CDAT 2 - 22100619",
     type: "CD",
     attributes: [
+      {
+        id: "title",
+        label: "Titulo",
+        value: "2 - 22100619",
+      },
+      {
+        id: "net_value",
+        label: "Valor",
+        value: 3582900,
+      },
       {
         id: "expiration_date",
         label: "Fecha de vencimiento",
         value: "16/Feb/2023",
       },
-      {
-        id: "investment_value",
-        label: "Valor",
-        value: 3582900,
-      },
+
       {
         id: "interest_rate",
         label: "Tasa (%)",
@@ -63,12 +69,17 @@ const investmentsMock: IProduct[] = [
     type: "AP",
     attributes: [
       {
+        id: "saved_value",
+        label: "Total ahorrado",
+        value: 150000,
+      },
+      {
         id: "expiration_date",
         label: "Fecha de vencimiento",
         value: "23/Sep/2023",
       },
       {
-        id: "investment_value",
+        id: "net_value",
         label: "Saldo total",
         value: 150000,
       },
@@ -115,7 +126,6 @@ const investmentsMock: IProduct[] = [
         ],
       },
     ],
-    userOwner: "1",
     movements: [
       {
         id: "movement-1",
@@ -126,6 +136,7 @@ const investmentsMock: IProduct[] = [
         totalValue: 150000,
       },
     ],
+    userOwner: "1",
   },
 ];
 

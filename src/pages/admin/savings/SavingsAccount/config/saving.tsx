@@ -3,11 +3,15 @@ import {
   MdOutlineHandshake,
   MdOutlineRealEstateAgent,
   MdOutlineTimer,
+  MdCalendarMonth,
 } from "react-icons/md";
 
 const savingsAccountIcons: Record<string, React.JSX.Element> = {
   CA: <MdOutlineAccountBalanceWallet />,
-  AP: <MdOutlineHandshake />,
+  APE: <MdOutlineHandshake />,
+  AS: <MdOutlineHandshake />,
+  CD: <MdOutlineRealEstateAgent />,
+  AP: <MdOutlineTimer />,
 };
 
 const savingsAccountBox = (type: string) => ({
@@ -18,6 +22,10 @@ const savingsAccountBox = (type: string) => ({
 const savingCommitmentsIcons: Record<string, React.JSX.Element> = {
   "0S": <MdOutlineRealEstateAgent />,
   SC: <MdOutlineTimer />,
+};
+
+const investmentCommitmentsIcons: Record<string, React.JSX.Element> = {
+  AP: <MdCalendarMonth />,
 };
 
 const investmentIcons: Record<string, React.JSX.Element> = {
@@ -31,6 +39,7 @@ const investmentBox = (type: string) => ({
 });
 
 export {
+  investmentCommitmentsIcons,
   savingCommitmentsIcons,
   savingsAccountIcons,
   investmentIcons,
