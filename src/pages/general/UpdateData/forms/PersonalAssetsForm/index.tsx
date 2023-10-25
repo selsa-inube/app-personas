@@ -7,7 +7,8 @@ import { PersonalAssetsFormUI } from "./interface";
 import { IPersonalAssetEntries } from "./types";
 import { IAction } from "@design/data/Table/types";
 import { Icon } from "@design/data/Icon";
-import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { DeleteAsset } from "./DeleteAsset";
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),
@@ -65,16 +66,11 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   };
 
   const handleDeleteAsset = (assetId: string) => {
-    const assetIndex = formik.values.entries.findIndex(
-      (asset) => asset.id === assetId
+    const updatedAssets = formik.values.entries.filter(
+      (asset) => asset.id !== assetId
     );
 
-    if (assetIndex !== -1) {
-      const updatedAssets = [...formik.values.entries];
-      updatedAssets.splice(assetIndex, 1);
-
-      formik.setFieldValue("entries", updatedAssets);
-    }
+    formik.setFieldValue("entries", updatedAssets);
   };
 
   const personalAssetsTableActions: IAction[] = [
@@ -96,13 +92,9 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
       id: "2",
       actionName: "Borrar",
       content: (asset) => (
-        <Icon
-          appearance="dark"
-          icon={<MdDeleteOutline />}
-          cursorHover={true}
-          size="16px"
-          spacing="none"
-          onClick={() => handleDeleteAsset(asset.id)}
+        <DeleteAsset
+          asset={asset}
+          handleDeleteAsset={() => handleDeleteAsset(asset.id)}
         />
       ),
       mobilePriority: true,
