@@ -77,6 +77,7 @@ const SimulationForm = forwardRef(function SimulationForm(
         formik.setFieldValue("quota", quota);
       }
 
+      formik.setFieldValue("interestRate", interestRate);
       formik.setFieldValue("cycleInterest", 200000);
       formik.setFieldValue("netValue", amount + 200000);
       formik.setFieldValue("hasResult", true);
