@@ -5,6 +5,10 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalReferencesFormUI } from "./interface";
 import { IPersonalReferenceEntries } from "./types";
+import { IAction } from "@design/data/Table/types";
+import { Icon } from "@design/data/Icon";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { DeleteReference } from "./DeleteReference";
 
 const validationSchema = Yup.object({
   referenceType: Yup.string().required(validationMessages.required),
@@ -63,12 +67,49 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
     }
   };
 
+  const handleDeleteReference = (referenceId: string) => {
+    const updatedReferences = formik.values.entries.filter(
+      (reference) => reference.id !== referenceId
+    );
+
+    formik.setFieldValue("entries", updatedReferences);
+  };
+
+  const personalReferencesTableActions: IAction[] = [
+    {
+      id: "1",
+      actionName: "Editar",
+      content: (reference) => (
+        <Icon
+          appearance="dark"
+          icon={<MdOutlineModeEdit />}
+          cursorHover={true}
+          size="16px"
+          spacing="none"
+        />
+      ),
+      mobilePriority: true,
+    },
+    {
+      id: "2",
+      actionName: "Borrar",
+      content: (reference) => (
+        <DeleteReference
+          reference={reference}
+          handleDeleteReference={() => handleDeleteReference(reference.id)}
+        />
+      ),
+      mobilePriority: true,
+    },
+  ];
+
   return (
     <PersonalReferencesFormUI
       formik={formik}
       showAddReferenceModal={showAddReferenceModal}
       handleToggleModal={handleToggleModal}
       handleAddReference={handleAddReference}
+      personalReferencesTableActions={personalReferencesTableActions}
     />
   );
 });
