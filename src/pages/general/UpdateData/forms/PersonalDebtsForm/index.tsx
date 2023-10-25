@@ -7,7 +7,8 @@ import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
 import { IAction } from "@design/data/Table/types";
 import { Icon } from "@design/data/Icon";
-import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { DeleteDebt } from "./DeleteDebt";
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
@@ -96,13 +97,9 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
       id: "2",
       actionName: "Borrar",
       content: (debt) => (
-        <Icon
-          appearance="dark"
-          icon={<MdDeleteOutline />}
-          cursorHover={true}
-          size="16px"
-          spacing="none"
-          onClick={() => handleDeleteDebt(debt.id)}
+        <DeleteDebt
+          debt={debt}
+          handleDeleteDebt={() => handleDeleteDebt(debt.id)}
         />
       ),
       mobilePriority: true,
