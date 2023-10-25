@@ -12,21 +12,17 @@ function DeleteReference(props: DeleteReferenceProps) {
   
   const [showModal, setShowModal] = useState(false);
 
-  const handleShowModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
+  const handleToggleModal = () => {
+    setShowModal(!showModal);
   };
 
   return (
     <DeleteReferenceUI
       reference={reference}
       showModal={showModal}
-      handleShowModal={handleShowModal}
+      handleShowModal={handleToggleModal}
       handleDeleteUser={handleDeleteReference}
-      closeModal={closeModal}
+      closeModal={handleToggleModal}
     />
   );
 }

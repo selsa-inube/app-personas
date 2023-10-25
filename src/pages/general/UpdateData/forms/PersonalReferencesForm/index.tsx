@@ -68,16 +68,11 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
   };
 
   const handleDeleteReference = (referenceId: string) => {
-    const referenceIndex = formik.values.entries.findIndex(
-      (reference) => reference.id === referenceId
+    const updatedReferences = formik.values.entries.filter(
+      (reference) => reference.id !== referenceId
     );
 
-    if (referenceIndex !== -1) {
-      const updatedReferences = [...formik.values.entries];
-      updatedReferences.splice(referenceIndex, 1);
-
-      formik.setFieldValue("entries", updatedReferences);
-    }
+    formik.setFieldValue("entries", updatedReferences);
   };
 
   const personalReferencesTableActions: IAction[] = [
