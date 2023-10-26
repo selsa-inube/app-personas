@@ -2,9 +2,9 @@ import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
+import { disbursementCustomValidationSchemas } from "./config/validationSchema";
 import { DisbursementFormUI } from "./interface";
 import { IDisbursementEntry } from "./types";
-import { disbursementCustomValidationSchemas } from "./config/validationSchema";
 
 const validationSchema = Yup.object({
   creditDisbursement: Yup.string().required(validationMessages.required),
@@ -44,32 +44,23 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       onFormValid(Object.keys(errors).length === 0);
     });
   };
-  
+
   const customHandleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
 
-    if (!name || !value) {
-      return;
-    }
-
     formik.setFieldValue(name, value);
 
-    if (validationSchema && disbursementCustomValidationSchemas) {
-      const customValidationSchema =
-        disbursementCustomValidationSchemas[name]?.[value];
+    const customValidationSchema =
+      disbursementCustomValidationSchemas[name]?.[value];
 
-      if (
-        customValidationSchema &&
-        Yup.object().isType(customValidationSchema)
-      ) {
-        const newValidationSchema = validationSchema.concat(
-          customValidationSchema
-        ) as Yup.ObjectSchema<{ creditDisbursement: string }>;
-        setDynamicValidationSchema(newValidationSchema);
-      }
-    }
+    if (!customValidationSchema) return;
+
+    const newValidationSchema = validationSchema.concat(
+      customValidationSchema
+    ) as Yup.ObjectSchema<{ creditDisbursement: string }>;
+    setDynamicValidationSchema(newValidationSchema);
   };
 
   return (

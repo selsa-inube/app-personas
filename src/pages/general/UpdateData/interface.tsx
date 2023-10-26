@@ -25,7 +25,7 @@ const renderStepContent = (
   formReferences: IFormsUpdateDataRefs,
   updateData: IFormsUpdateData,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void,
+  handleStepChange: (stepId: number) => void
 ) => {
   return (
     <>
@@ -93,7 +93,10 @@ const renderStepContent = (
         />
       )}
       {currentStep === updateDataSteps.verification.id && (
-        <UpdateDataVerification updatedData={updateData} handleStepChange={handleStepChange} />
+        <UpdateDataVerification
+          updatedData={updateData}
+          handleStepChange={handleStepChange}
+        />
       )}
     </>
   );
@@ -154,7 +157,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
           formReferences,
           updateData,
           setIsCurrentFormValid,
-          handleStepChange,
+          handleStepChange
         )}
 
         <Stack gap="s150" justifyContent="flex-end">
@@ -173,7 +176,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
             spacing={isMobile ? "compact" : "wide"}
             disabled={!isCurrentFormValid}
           >
-            Siguiente
+            {currentStep === steps.length ? "Enviar" : "Siguiente"}
           </Button>
         </Stack>
       </Stack>

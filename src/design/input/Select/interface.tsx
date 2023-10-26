@@ -73,6 +73,7 @@ function SelectUI(props: SelectUIProps) {
 
   return (
     <StyledContainer
+      id="selectComponent"
       tabIndex={0}
       isFullWidth={isFullWidth}
       isDisabled={isDisabled}
