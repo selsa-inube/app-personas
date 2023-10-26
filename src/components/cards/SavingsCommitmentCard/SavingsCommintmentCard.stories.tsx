@@ -34,15 +34,15 @@ Default.args = {
   title: "Product name",
   value: 8900,
   onClick: action("Icon MdOpenInNew Clicked"),
-  descriptionLabel: "Description",
-  descriptionValue: "value",
-  label: "label",
+  descriptionDate: "Description Date",
+  descriptionValue: "Description Value",
+  date: "Date",
 };
 
 WhitTag.args = {
   ...Default.args,
   tag: {
-    label: "Tag",
+    label: "Text",
     appearance: "error",
   },
 };

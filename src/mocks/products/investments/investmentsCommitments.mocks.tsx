@@ -9,7 +9,7 @@ const investmentsCommitmentsMock: ICommitment[] = [
     attributes: [
       {
         id: "next_pay_date",
-        label: "Fecha próximo pago",
+        label: "Fecha de pago",
         value: "23/Sep/2023",
       },
       {

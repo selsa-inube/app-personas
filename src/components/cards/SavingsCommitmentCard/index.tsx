@@ -1,23 +1,18 @@
-import { MdOpenInNew } from "react-icons/md";
-import {
-  StyledCardContainer,
-  StyledCardHeading,
-  StyledViewContainer,
-} from "./styles";
+import { MdCalendarMonth } from "react-icons/md";
+import { StyledCardContainer } from "./styles";
 import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Icon } from "@design/data/Icon";
 import { currencyFormat } from "src/utils/formats";
-import { inube } from "@design/tokens";
 
 interface SavingsCommitmentCardProps {
   onClick: () => void;
   title: string;
   value: number;
-  label: string;
+  date: string;
   tag?: TagProps;
-  descriptionLabel?: string;
+  descriptionDate?: string;
   descriptionValue?: string;
 }
 
@@ -26,56 +21,40 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
     onClick,
     value,
     title,
-    label,
+    date,
     tag,
-    descriptionLabel,
+    descriptionDate,
     descriptionValue,
   } = props;
 
   return (
-    <StyledCardContainer>
-      <StyledCardHeading>
-        <Stack
-          justifyContent="space-between"
-          alignItems="center"
-          padding={`${inube.spacing.s075} ${inube.spacing.s100}`}
-        >
+    <StyledCardContainer onClick={onClick}>
+      <Stack direction="column" alignItems="flex-start" gap="s075">
+        <Stack alignItems="center" gap="s075">
+          <Icon size="16px" icon={<MdCalendarMonth />} spacing="none"></Icon>
           <Text type="label" size="medium">
             {title}
           </Text>
+        </Stack>
+        {tag && <Tag label={tag.label} appearance={tag.appearance} />}
+      </Stack>
+      <Stack direction="column">
+        <Stack gap="s075">
           <Text type="label" size="small">
+            {descriptionValue}:
+          </Text>
+          <Text type="body" size="small" appearance="gray">
             {currencyFormat(value)}
           </Text>
         </Stack>
-      </StyledCardHeading>
-      <Stack
-        justifyContent="space-between"
-        alignItems="center"
-        padding={`${inube.spacing.s075} ${inube.spacing.s100}`}
-      >
-        {tag ? (
-          <Tag label={tag.label} appearance={tag.appearance} />
-        ) : (
-          <Stack gap="s100">
-            <Text type="label" size="small">
-              {descriptionLabel}:
-            </Text>
-            <Text type="body" size="small" appearance="gray">
-              {descriptionValue}
-            </Text>
-          </Stack>
-        )}
-        <StyledViewContainer onClick={onClick}>
+        <Stack gap="s075">
           <Text type="label" size="small">
-            {label}
+            {descriptionDate}:
           </Text>
-          <Icon
-            icon={<MdOpenInNew />}
-            appearance="dark"
-            size="16px"
-            spacing="none"
-          />
-        </StyledViewContainer>
+          <Text type="body" size="small" appearance="gray">
+            {date}
+          </Text>
+        </Stack>
       </Stack>
     </StyledCardContainer>
   );
