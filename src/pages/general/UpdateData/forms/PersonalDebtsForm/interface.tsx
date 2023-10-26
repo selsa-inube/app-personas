@@ -5,8 +5,8 @@ import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { MdOutlineAccountBalance } from "react-icons/md";
 import { mapPersonalDebts } from "../../config/mappers";
+import { IAction } from "@design/data/Table/types";
 import {
-  personalDebtsTableActions,
   personalDebtsTableBreakpoints,
   personalDebtsTableTitles,
 } from "./config/table";
@@ -16,10 +16,17 @@ interface PersonalDebtsFormUIProps {
   showAddDebtModal: boolean;
   handleToggleModal: () => void;
   handleAddDebt: () => void;
+  personalDebtsTableActions: IAction[];
 }
 
 function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
-  const { formik, showAddDebtModal, handleToggleModal, handleAddDebt } = props;
+  const {
+    formik,
+    showAddDebtModal,
+    handleToggleModal,
+    handleAddDebt,
+    personalDebtsTableActions,
+  } = props;
 
   return (
     <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
