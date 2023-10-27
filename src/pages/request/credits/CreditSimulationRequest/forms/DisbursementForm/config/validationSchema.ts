@@ -59,7 +59,7 @@ const disbursementCustomValidationSchemas: {
       identification: validationRules.identification.required(
         validationMessages.required
       ),
-      socialReason: Yup.string().required(validationMessages.required),
+      /* socialReason: Yup.string().required(validationMessages.required), */
     }),
     [identificationTypeDM.CC.id]: Yup.object({
       identification: validationRules.identification.required(
