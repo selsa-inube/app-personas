@@ -7,7 +7,7 @@ import { DisbursementFormUI } from "./interface";
 import { IDisbursementEntry } from "./types";
 
 const validationSchema = Yup.object({
-  creditDisbursement: Yup.string().required(validationMessages.required),
+  disbursementType: Yup.string().required(validationMessages.required),
 });
 
 interface DisbursementFormProps {
@@ -52,6 +52,14 @@ const DisbursementForm = forwardRef(function DisbursementForm(
 
     formik.setFieldValue(name, value);
 
+    if (name === "disbursementType") {
+      formik.resetForm({
+        values: {
+          disbursementType: value,
+        },
+      });
+    }
+
     const customValidationSchema =
       disbursementCustomValidationSchemas[name]?.[value];
 
@@ -59,7 +67,8 @@ const DisbursementForm = forwardRef(function DisbursementForm(
 
     const newValidationSchema = validationSchema.concat(
       customValidationSchema
-    ) as Yup.ObjectSchema<{ creditDisbursement: string }>;
+    ) as Yup.ObjectSchema<{ disbursementType: string }>;
+
     setDynamicValidationSchema(newValidationSchema);
   };
 

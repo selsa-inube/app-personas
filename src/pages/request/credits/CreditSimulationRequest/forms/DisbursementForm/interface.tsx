@@ -1,20 +1,20 @@
-import { FormikValues } from "formik";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { inube } from "@design/tokens";
 import { Select } from "@design/input/Select";
-import { Stack } from "@design/layout/Stack";
+import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
 import { Grid } from "@design/layout/Grid";
-import { TextField } from "@design/input/TextField";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
-import { genderDM } from "src/model/domains/personalInformation/genderdm";
-import { suppliersTypeData } from "@mocks/domains/suppliersType";
-import { bankData } from "@mocks/domains/bank";
+import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { accountTypeData } from "@mocks/domains/accountType";
+import { bankData } from "@mocks/domains/bank";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { suppliersTypeData } from "@mocks/domains/suppliersType";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
+import { FormikValues } from "formik";
 import { statusDM } from "src/model/domains/general/statusdm";
+import { genderDM } from "src/model/domains/personalInformation/genderdm";
+import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 
 interface DisbursementFormUIProps {
   formik: FormikValues;
@@ -36,7 +36,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
 
   const isTablet = useMediaQuery("(max-width: 900px)");
 
-  const creditDisbursementDM = getDomainById("creditDisbursement");
+  const disbursementTypeDM = getDomainById("disbursementType");
 
   const filteredOptionsIdentificationType = identificationTypeDM.options.filter(
     (option) =>
@@ -48,20 +48,20 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
     <form>
       <Stack direction="column" gap="s300">
         <Select
-          name="creditDisbursement"
-          id="creditDisbursement"
+          name="disbursementType"
+          id="disbursementType"
           label="Forma de desembolso"
-          value={formik.values.creditDisbursement}
+          value={formik.values.disbursementType}
           size="compact"
           isDisabled={loading}
-          options={creditDisbursementDM}
+          options={disbursementTypeDM}
           handleChange={customHandleChange}
           handleBlur={customHandleBlur}
-          state={stateValue("creditDisbursement")}
-          errorMessage={formik.errors.creditDisbursement}
+          state={stateValue("disbursementType")}
+          errorMessage={formik.errors.disbursementType}
           isFullWidth
         />
-        {formik.values.creditDisbursement === "localSavingsDeposit" && (
+        {formik.values.disbursementType === "localSavingsDeposit" && (
           <Select
             name="accountNumber"
             id="accountNumber"
@@ -82,8 +82,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
             isFullWidth
           />
         )}
-        {(formik.values.creditDisbursement === "multiplePaymentRecipients" ||
-          formik.values.creditDisbursement === "others") && (
+        {(formik.values.disbursementType === "multiplePaymentRecipients" ||
+          formik.values.disbursementType === "others") && (
           <Textarea
             name="observations"
             id="observations"
@@ -91,15 +91,18 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
             placeholder="Describe las múltiples formas de desembolso que deseas utilizar."
             maxLength={150}
             value={formik.values.observations}
-            handleBlur={formik.handleBlur}
+            handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
             handleFocus={formik.isFocused}
+            state={stateValue("observations")}
+            errorMessage={formik.errors.observations}
+            validMessage="Las observaciones son válidas"
             isDisabled={loading}
             isFullWidth
           />
         )}
-        {(formik.values.creditDisbursement === "supplierManagerCheck" ||
-          formik.values.creditDisbursement === "supplierPayeeCheck") && (
+        {(formik.values.disbursementType === "supplierManagerCheck" ||
+          formik.values.disbursementType === "supplierPayeeCheck") && (
           <Select
             name="supplier"
             id="supplier"
@@ -118,8 +121,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
             isFullWidth
           />
         )}
-        {(formik.values.creditDisbursement === "thirdPartManagerCheck" ||
-          formik.values.creditDisbursement === "thirdPartPayeeCheck") && (
+        {(formik.values.disbursementType === "thirdPartManagerCheck" ||
+          formik.values.disbursementType === "thirdPartPayeeCheck") && (
           <Grid
             templateColumns={isTablet ? "1fr" : "1fr 1fr"}
             gap={
@@ -140,8 +143,9 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               errorMessage={formik.errors.identificationType}
               isFullWidth
             />
+
             {formik.values.identificationType ===
-            identificationTypeDM.NIT.id ? (
+              identificationTypeDM.NIT.id && (
               <>
                 <TextField
                   name="identification"
@@ -170,94 +174,107 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   isFullWidth
                 />
               </>
-            ) : formik.values.identificationType === identificationTypeDM.CC.id ||
+            )}
+
+            {formik.values.identificationType === identificationTypeDM.CC.id ||
               formik.values.identificationType === identificationTypeDM.CE.id ||
-              formik.values.identificationType === identificationTypeDM.PA.id ? (
-              <>
-                <TextField
-                  name="identification"
-                  id="identification"
-                  label="Identificación"
-                  placeholder="Escribe el numero de identificación"
-                  size="compact"
-                  type="number"
-                  value={formik.values.identification}
-                  handleBlur={formik.handleBlur}
-                  handleChange={customHandleChange}
-                  validMessage="El número de identificación ingresado es válido"
-                  isFullWidth
-                />
-                <TextField
-                  name="firstName"
-                  id="firstName"
-                  label="Primer nombre"
-                  placeholder="Primer nombre"
-                  size="compact"
-                  type="text"
-                  value={formik.values.firstName}
-                  handleBlur={formik.handleBlur}
-                  handleChange={customHandleChange}
-                  validMessage="El nombre ingresado es válido"
-                  isFullWidth
-                />
-                <TextField
-                  name="secondName"
-                  id="secondName"
-                  label="Segundo nombre"
-                  placeholder="Segundo nombre"
-                  size="compact"
-                  type="text"
-                  value={formik.values.secondName}
-                  handleBlur={formik.handleBlur}
-                  handleChange={customHandleChange}
-                  validMessage="El nombre ingresado es válido"
-                  isFullWidth
-                />
-                <TextField
-                  name="firstLastName"
-                  id="firstLastName"
-                  label="Primer apellido"
-                  placeholder="Primer apellido"
-                  size="compact"
-                  type="text"
-                  value={formik.values.firstLastName}
-                  handleBlur={formik.handleBlur}
-                  handleChange={customHandleChange}
-                  validMessage="El apellido ingresado es válido"
-                  isFullWidth
-                />
-                <TextField
-                  name="secondLastName"
-                  id="secondLastName"
-                  label="Segundo apellido"
-                  placeholder="Segundo apellido"
-                  size="compact"
-                  type="text"
-                  value={formik.values.secondLastName}
-                  handleBlur={formik.handleBlur}
-                  handleChange={customHandleChange}
-                  validMessage="El apellido ingresado es válido"
-                  isFullWidth
-                />
-                <Select
-                  name="gender"
-                  id="gender"
-                  label="Género"
-                  value={formik.values.gender}
-                  size="compact"
-                  isDisabled={loading}
-                  options={genderDM.options}
-                  handleChange={formik.handleChange}
-                  handleBlur={formik.handleBlur}
-                  state={stateValue("gender")}
-                  errorMessage={formik.errors.gender}
-                  isFullWidth
-                />
-              </>
-            ) : null}
+              (formik.values.identificationType ===
+                identificationTypeDM.PA.id && (
+                <>
+                  <TextField
+                    name="identification"
+                    id="identification"
+                    label="Identificación"
+                    placeholder="Escribe el numero de identificación"
+                    size="compact"
+                    type="number"
+                    value={formik.values.identification}
+                    handleBlur={formik.handleBlur}
+                    handleChange={customHandleChange}
+                    validMessage="El número de identificación ingresado es válido"
+                    errorMessage={formik.errors.identification}
+                    state={stateValue("identification")}
+                    isFullWidth
+                  />
+                  <TextField
+                    name="firstName"
+                    id="firstName"
+                    label="Primer nombre"
+                    placeholder="Primer nombre"
+                    size="compact"
+                    type="text"
+                    value={formik.values.firstName}
+                    handleBlur={formik.handleBlur}
+                    handleChange={customHandleChange}
+                    validMessage="El nombre ingresado es válido"
+                    errorMessage={formik.errors.firstName}
+                    state={stateValue("firstName")}
+                    isFullWidth
+                  />
+                  <TextField
+                    name="secondName"
+                    id="secondName"
+                    label="Segundo nombre"
+                    placeholder="Segundo nombre"
+                    size="compact"
+                    type="text"
+                    value={formik.values.secondName}
+                    handleBlur={formik.handleBlur}
+                    handleChange={customHandleChange}
+                    validMessage="El nombre ingresado es válido"
+                    errorMessage={formik.errors.secondName}
+                    state={stateValue("secondName")}
+                    isFullWidth
+                  />
+                  <TextField
+                    name="firstLastName"
+                    id="firstLastName"
+                    label="Primer apellido"
+                    placeholder="Primer apellido"
+                    size="compact"
+                    type="text"
+                    value={formik.values.firstLastName}
+                    handleBlur={formik.handleBlur}
+                    handleChange={customHandleChange}
+                    validMessage="El apellido ingresado es válido"
+                    errorMessage={formik.errors.firstLastName}
+                    state={stateValue("firstLastName")}
+                    isFullWidth
+                  />
+                  <TextField
+                    name="secondLastName"
+                    id="secondLastName"
+                    label="Segundo apellido"
+                    placeholder="Segundo apellido"
+                    size="compact"
+                    type="text"
+                    value={formik.values.secondLastName}
+                    handleBlur={formik.handleBlur}
+                    handleChange={customHandleChange}
+                    validMessage="El apellido ingresado es válido"
+                    errorMessage={formik.errors.secondLastName}
+                    state={stateValue("secondLastName")}
+                    isFullWidth
+                  />
+                  <Select
+                    name="gender"
+                    id="gender"
+                    label="Género"
+                    value={formik.values.gender}
+                    size="compact"
+                    isDisabled={loading}
+                    options={genderDM.options}
+                    handleChange={formik.handleChange}
+                    handleBlur={formik.handleBlur}
+                    state={stateValue("gender")}
+                    errorMessage={formik.errors.gender}
+                    isFullWidth
+                  />
+                </>
+              ))}
           </Grid>
         )}
-        {formik.values.creditDisbursement === "ownAccountTransfer" && (
+        {formik.values.disbursementType === "ownAccountTransfer" && (
           <Grid
             templateColumns={isTablet ? "1fr" : "1fr 1fr"}
             gap={
@@ -325,6 +342,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de cuenta ingresado es válido"
+                  errorMessage={formik.errors.accountNumber}
+                  state={stateValue("accountNumber")}
                   isFullWidth
                 />
               </>
@@ -393,7 +412,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
             ) : null}
           </Grid>
         )}
-        {formik.values.creditDisbursement === "supplierExternalTransfer" && (
+        {formik.values.disbursementType === "supplierExternalTransfer" && (
           <>
             <Select
               name="supplier"
@@ -457,11 +476,13 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
               handleBlur={formik.handleBlur}
               handleChange={customHandleChange}
               validMessage="El número de cuenta ingresado es válido"
+              errorMessage={formik.errors.accountNumber}
+              state={stateValue("accountNumber")}
               isFullWidth
             />
           </>
         )}
-        {formik.values.creditDisbursement === "thirdPartExternalTransfer" && (
+        {formik.values.disbursementType === "thirdPartExternalTransfer" && (
           <Grid
             templateColumns={isTablet ? "1fr" : "1fr 1fr"}
             gap={
@@ -495,6 +516,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de identificación ingresado es válido"
+                  errorMessage={formik.errors.identification}
+                  state={stateValue("identification")}
                   isFullWidth
                 />
                 <TextField
@@ -508,6 +531,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El nombre de razón social ingresado es válido"
+                  errorMessage={formik.errors.socialReason}
+                  state={stateValue("socialReason")}
                   isFullWidth
                 />
                 <Select
@@ -555,6 +580,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de cuenta ingresado es válido"
+                  errorMessage={formik.errors.accountNumber}
+                  state={stateValue("accountNumber")}
                   isFullWidth
                 />
               </>
@@ -573,6 +600,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de identificación ingresado es válido"
+                  errorMessage={formik.errors.identification}
+                  state={stateValue("identification")}
                   isFullWidth
                 />
                 <TextField
@@ -586,6 +615,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El nombre ingresado es válido"
+                  errorMessage={formik.errors.firstName}
+                  state={stateValue("firstName")}
                   isFullWidth
                 />
                 <TextField
@@ -599,6 +630,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El nombre ingresado es válido"
+                  errorMessage={formik.errors.secondName}
+                  state={stateValue("secondName")}
                   isFullWidth
                 />
                 <TextField
@@ -612,6 +645,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El apellido ingresado es válido"
+                  errorMessage={formik.errors.firstLastName}
+                  state={stateValue("firstLastName")}
                   isFullWidth
                 />
                 <TextField
@@ -625,6 +660,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El apellido ingresado es válido"
+                  errorMessage={formik.errors.secondLastName}
+                  state={stateValue("secondLastName")}
                   isFullWidth
                 />
                 <Select
@@ -686,6 +723,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
                   handleBlur={formik.handleBlur}
                   handleChange={customHandleChange}
                   validMessage="El número de cuenta ingresado es válido"
+                  errorMessage={formik.errors.accountNumber}
+                  state={stateValue("accountNumber")}
                   isFullWidth
                 />
               </>
