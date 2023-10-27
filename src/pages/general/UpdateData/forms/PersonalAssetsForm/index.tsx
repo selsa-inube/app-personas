@@ -41,6 +41,17 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
 
   const handleToggleModal = () => {
     setShowAddAssetModal(!showAddAssetModal);
+    const fieldsToClear = [
+      "assetType",
+      "commercialValue",
+      "debtBalance",
+      "financialEntity",
+      "quota",
+      "observations",
+    ];
+
+    fieldsToClear.forEach((field) => formik.setFieldValue(field, ""));
+    formik.setTouched({});
   };
 
   const handleAddAsset = async () => {

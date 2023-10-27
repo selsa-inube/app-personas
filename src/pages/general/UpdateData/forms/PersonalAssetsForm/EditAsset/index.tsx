@@ -9,45 +9,53 @@ interface EditAssetProps {
   formik: FormikValues;
 }
 
+const getEditAsset = (asset: IPersonalAssetEntry, formik: FormikValues) => {
+  const assetToEdit: IPersonalAssetEntry = formik.values.entries.find(
+    (entry: IPersonalAssetEntry) => entry.id === asset.id
+  );
+
+  if (assetToEdit) {
+    formik.setValues({
+      entries: formik.values.entries,
+      ...assetToEdit,
+    });
+  }
+};
+
 function EditAsset(props: EditAssetProps) {
   const { asset, formik } = props;
 
   const [showModal, setShowModal] = useState(false);
-
-  const getEditAsset = () => {
-    const assetToEdit = formik.values.entries.find(
-      (entry: IPersonalAssetEntry) => entry.id === asset.id
-    );
-
-    if (assetToEdit) {
-      formik.setValues({
-        ...formik.values,
-        ...assetToEdit,
-      });
-    }
-  };
-
-  const updateAsset = (entry: IPersonalAssetEntry) => {
-    if (entry.id === asset.id) {
-      return {
-        id: asset.id,
-        ...formik.values,
-      };
-    } else {
-      return entry;
-    }
-  };
 
   const handleEditAsset = async () => {
     await formik.validateForm();
 
     if (formik.isValid && formik.values.assetType) {
       setShowModal(false);
-      const updatedEntries = formik.values.entries.map(updateAsset);
+      const updatedEntries: IPersonalAssetEntry = formik.values.entries.map(
+        (entry: IPersonalAssetEntry) => {
+          if (entry.id === asset.id) {
+            return {
+              id: asset.id,
+              assetType: formik.values.assetType,
+              commercialValue: formik.values.commercialValue,
+              debtBalance: formik.values.debtBalance,
+              financialEntity: formik.values.financialEntity,
+              quota: formik.values.quota,
+              observations: formik.values.observations,
+            };
+          } else {
+            return entry;
+          }
+        }
+      );
 
       formik.setFieldValue("entries", updatedEntries);
     }
+  };
 
+  const handleToggleModal = () => {
+    setShowModal(!showModal);
     const fieldsToClear = [
       "assetType",
       "commercialValue",
@@ -58,17 +66,11 @@ function EditAsset(props: EditAssetProps) {
     ];
 
     fieldsToClear.forEach((field) => formik.setFieldValue(field, ""));
-
-    formik.setTouched({});
-  };
-
-  const handleToggleModal = () => {
-    setShowModal(!showModal);
   };
 
   const handleEditModal = () => {
     setShowModal(true);
-    getEditAsset();
+    getEditAsset(asset, formik);
   };
 
   return (

@@ -18,11 +18,11 @@ const assetTypeDM = getDomainById("assetType");
 interface AssetModalProps {
   title: string;
   description: string;
-  textButton: string;
+  confirmButtonText: string;
   portalId: string;
   formik: FormikValues;
   onCloseModal: () => void;
-  onSubmit: () => void;
+  onConfirm: () => void;
 }
 
 function AssetModal(props: AssetModalProps) {
@@ -31,9 +31,9 @@ function AssetModal(props: AssetModalProps) {
     formik,
     title,
     description,
-    textButton,
+    confirmButtonText,
     onCloseModal,
-    onSubmit,
+    onConfirm,
   } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
@@ -189,11 +189,11 @@ function AssetModal(props: AssetModalProps) {
           </Button>
           <Button
             spacing="compact"
-            handleClick={onSubmit}
+            handleClick={onConfirm}
             disabled={!formik.dirty || !formik.isValid}
             appearance="primary"
           >
-            {textButton}
+            {confirmButtonText}
           </Button>
         </Stack>
       </StyledModal>

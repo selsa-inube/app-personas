@@ -50,11 +50,11 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
         <AssetModal
           title="Adicionar bien"
           description="Agrega un bien a la actualización de datos."
-          textButton="Adicionar"
+          confirmButtonText="Adicionar"
           portalId="modals"
           formik={formik}
           onCloseModal={handleToggleModal}
-          onSubmit={handleAddAsset}
+          onConfirm={handleAddAsset}
         />
       )}
     </Stack>

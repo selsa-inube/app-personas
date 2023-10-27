@@ -30,11 +30,11 @@ function EditAssetUI(props: EditAssetUIProps) {
         <AssetModal
           title="Editar bien"
           description="Edita la información de tus bienes."
-          textButton="Guardar"
+          confirmButtonText="Guardar"
           portalId="modals"
           formik={formik}
           onCloseModal={closeModal}
-          onSubmit={handleEditAsset}
+          onConfirm={handleEditAsset}
         />
       )}
     </>
