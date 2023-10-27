@@ -11,7 +11,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { DeleteAsset } from "./DeleteAsset";
 
 const validationSchema = Yup.object({
-  assetType: Yup.string().required(validationMessages.required),
+  assetName: Yup.string().required(validationMessages.required),
   commercialValue: validationRules.money.required(validationMessages.required),
   debtBalance: validationRules.money,
   financialEntity: validationRules.name,
@@ -47,14 +47,14 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
 
   const handleAddAsset = async () => {
     await formik.validateForm();
-    if (formik.isValid && formik.values.assetType) {
+    if (formik.isValid && formik.values.assetName) {
       setShowAddAssetModal(false);
 
       formik.setFieldValue("entries", [
         ...formik.values.entries,
         {
           id: String(formik.values.entries.length + 1),
-          assetType: formik.values.assetType,
+          assetName: formik.values.assetName,
           commercialValue: formik.values.commercialValue,
           debtBalance: formik.values.debtBalance,
           financialEntity: formik.values.financialEntity,

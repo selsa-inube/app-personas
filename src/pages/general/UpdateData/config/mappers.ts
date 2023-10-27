@@ -79,8 +79,7 @@ const mapPersonalAsset = (
 ): IEntry | IPersonalAssetEntry => {
   return {
     id: personalAsset.id || String(index),
-    assetType: getValueOfDomain(personalAsset.assetType || "", "assetType")
-      ?.value,
+    assetName: personalAsset.assetName,
     commercialValue: currencyFormat(Number(personalAsset.commercialValue)),
     debtBalance: currencyFormat(Number(personalAsset.debtBalance)),
     financialEntity: personalAsset.financialEntity,

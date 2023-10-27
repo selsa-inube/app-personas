@@ -2,8 +2,8 @@ import { mapInvestmentMovement } from "@pages/admin/savings/SavingsAccountMoveme
 
 const personalAssetsTableTitles = [
   {
-    id: "assetType",
-    titleName: "Tipo de activo",
+    id: "assetName",
+    titleName: "Nombre del activo",
     priority: 0,
   },
   {

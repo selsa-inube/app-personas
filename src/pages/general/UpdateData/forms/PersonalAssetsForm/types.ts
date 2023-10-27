@@ -1,6 +1,6 @@
 interface IPersonalAssetEntry {
   id?: string;
-  assetType?: string;
+  assetName?: string;
   commercialValue?: string;
   debtBalance?: string;
   financialEntity?: string;

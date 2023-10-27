@@ -6,14 +6,11 @@ import { TextField } from "@design/input/TextField";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledDivider, StyledModal } from "./styles";
-
-const assetTypeDM = getDomainById("assetType");
 
 interface AddAssetModalProps {
   portalId: string;
@@ -76,19 +73,20 @@ function AddAssetModal(props: AddAssetModalProps) {
 
         <StyledDivider dashed />
         <Stack direction="column" gap="s150" width="100%">
-          <Select
-            label="Tipo de activo"
-            name="assetType"
-            id="assetType"
+          <TextField
+            label="Nombre del activo"
+            name="assetName"
+            id="assetName"
+            placeholder="Digita el nombre del activo"
+            value={formik.values.assetName || ""}
+            type="text"
+            errorMessage={formik.errors.assetName}
             size="compact"
             isFullWidth
-            options={assetTypeDM}
+            state={stateValue("assetName")}
             handleBlur={formik.handleBlur}
-            errorMessage={formik.errors.assetType}
-            state={stateValue("assetType")}
             handleChange={formik.handleChange}
-            value={formik.values.assetType || ""}
-            isRequired
+            validMessage="El nombre del activo es válido"
           />
           <TextField
             label="Valor comercial"
