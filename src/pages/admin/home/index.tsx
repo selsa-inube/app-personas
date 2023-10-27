@@ -24,7 +24,7 @@ import {
 import { USER_ID } from "src/App";
 import { truncateAndObfuscateDescription } from "src/utils/formats";
 import { extractAttribute } from "src/utils/products";
-import { investmentIcons } from "../investments/Investment/config/investment";
+import { investmentIcons } from "../savings/SavingsAccount/config/saving";
 import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { cards, credits, savings } from "./config/boxes";
@@ -77,12 +77,12 @@ const renderProductsCommitments = () => {
 function Home() {
   const mquery = useMediaQuery("(min-width: 1400px)");
 
-  const getSavingProducts = (type: string) => {
-    return savingsMock.filter((investment) => investment.type === type);
+  const getSavingProducts = (types: string[]) => {
+    return savingsMock.filter((investment) => types.includes(investment.type));
   };
 
-  const savingsAccountsMock = getSavingProducts("CA");
-  const savingsStatutoryContributionsMock = getSavingProducts("AP");
+  const savingsAccountsMock = getSavingProducts(["CA"]);
+  const savingsStatutoryContributionsMock = getSavingProducts(["APE", "AS"]);
 
   const getInvestmentsProducts = (type: string) => {
     return investmentsMock.filter(
@@ -199,7 +199,7 @@ function Home() {
                       )}
                       tags={investment.tags}
                       icon={investmentIcons[investment.type]}
-                      navigateTo={`/my-investments/${investment.id}`}
+                      navigateTo={`/my-savings/account/${investment.id}`}
                       breakpoints={investmentAttributeBreakpoints}
                     />
                   ))}
@@ -223,7 +223,7 @@ function Home() {
                       )}
                       tags={investment.tags}
                       icon={investmentIcons[investment.type]}
-                      navigateTo={`/my-investments/${investment.id}`}
+                      navigateTo={`/my-savings/account/${investment.id}`}
                       breakpoints={investmentAttributeBreakpoints}
                     />
                   ))}

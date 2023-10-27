@@ -8,6 +8,7 @@ interface ISimulationEntry {
   quota: string;
   cycleInterest: string;
   netValue: string;
+  interestRate: string;
 }
 
 export type { ISimulationEntry };

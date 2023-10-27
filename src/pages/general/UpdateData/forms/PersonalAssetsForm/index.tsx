@@ -5,6 +5,10 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalAssetsFormUI } from "./interface";
 import { IPersonalAssetEntries } from "./types";
+import { IAction } from "@design/data/Table/types";
+import { Icon } from "@design/data/Icon";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { DeleteAsset } from "./DeleteAsset";
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),
@@ -61,12 +65,49 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
     }
   };
 
+  const handleDeleteAsset = (assetId: string) => {
+    const updatedAssets = formik.values.entries.filter(
+      (asset) => asset.id !== assetId
+    );
+
+    formik.setFieldValue("entries", updatedAssets);
+  };
+
+  const personalAssetsTableActions: IAction[] = [
+    {
+      id: "1",
+      actionName: "Editar",
+      content: (asset) => (
+        <Icon
+          appearance="dark"
+          icon={<MdOutlineModeEdit />}
+          cursorHover={true}
+          size="16px"
+          spacing="none"
+        />
+      ),
+      mobilePriority: true,
+    },
+    {
+      id: "2",
+      actionName: "Borrar",
+      content: (asset) => (
+        <DeleteAsset
+          asset={asset}
+          handleDeleteAsset={() => handleDeleteAsset(asset.id)}
+        />
+      ),
+      mobilePriority: true,
+    },
+  ];
+
   return (
     <PersonalAssetsFormUI
       formik={formik}
       showAddAssetModal={showAddAssetModal}
       handleToggleModal={handleToggleModal}
       handleAddAsset={handleAddAsset}
+      personalAssetsTableActions={personalAssetsTableActions}
     />
   );
 });

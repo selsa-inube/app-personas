@@ -3,6 +3,7 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { AttributesModal } from "@components/modals/AttributesModal";
 import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
+import { ReimbursementModal } from "@components/modals/investment/ReimbursementModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
@@ -31,11 +32,13 @@ import {
   formatSavingCurrencyAttrs,
 } from "./config/product";
 import { savingCommitmentsIcons, savingsAccountBox } from "./config/saving";
+import { investmentCommitmentsIcons } from "./config/saving";
 import { StyledMovementsContainer } from "./styles";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
   ISelectedProductState,
+  IReimbursementModalState,
 } from "./types";
 
 interface SavingsAccountUIProps {
@@ -43,11 +46,13 @@ interface SavingsAccountUIProps {
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
   beneficiariesModal: IBeneficiariesModalState;
+  reimbursementModal: IReimbursementModalState;
   productId?: string;
   handleToggleBeneficiariesModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   commitmentsModal: ICommitmentsModalState;
   handleToggleCommitmentsModal: () => void;
+  handleToggleReimbursementModal: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -56,24 +61,41 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     selectedProduct,
     productsOptions,
     beneficiariesModal,
+    reimbursementModal,
     productId,
     handleToggleBeneficiariesModal,
     handleChangeProduct,
     commitmentsModal,
     handleToggleCommitmentsModal,
+    handleToggleReimbursementModal,
   } = props;
 
   const mquery = useMediaQuery("(min-width: 1400px)");
 
   const attributes = extractSavingAttributes(selectedProduct.saving);
 
+  const productsIcons = {
+    ...savingCommitmentsIcons,
+    ...investmentCommitmentsIcons,
+  };
+
+  const isInvestment =
+    selectedProduct.saving.type === "CD" ||
+    selectedProduct.saving.type === "AP";
+
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsSaving(productId)} />
+        <Breadcrumbs crumbs={crumbsSaving(isInvestment, productId)} />
         <Title
-          title="Consulta de ahorros"
-          subtitle="Información detallada de tus productos de ahorro"
+          title={
+            isInvestment ? "Consulta de inversiones" : "Consulta de ahorros"
+          }
+          subtitle={
+            isInvestment
+              ? "Información detallada de tus productos de inversión"
+              : "Información detallada de tus productos de ahorro"
+          }
           icon={<MdArrowBack />}
           navigatePage="/my-savings"
         />
@@ -113,6 +135,15 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                     value={attr.value}
                   />
                 ))}
+                {selectedProduct.saving.type === "AP" && (
+                  <BoxAttribute
+                    label="Reembolso:"
+                    buttonIcon={<MdOpenInNew />}
+                    buttonValue="Ver"
+                    onClickButton={handleToggleReimbursementModal}
+                    withButton
+                  />
+                )}
                 <BoxAttribute
                   label="Beneficiarios:"
                   buttonIcon={<MdOpenInNew />}
@@ -120,45 +151,55 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   onClickButton={handleToggleBeneficiariesModal}
                   withButton
                 />
-                <BoxAttribute
-                  label="Compromisos de ahorro:"
-                  buttonIcon={<MdOpenInNew />}
-                  buttonValue={commitmentsModal.data.length}
-                  onClickButton={handleToggleCommitmentsModal}
-                  withButton
-                />
+                {selectedProduct.saving.type !== "CD" && (
+                  <BoxAttribute
+                    label="Compromisos de ahorro:"
+                    buttonIcon={<MdOpenInNew />}
+                    buttonValue={commitmentsModal.data.length}
+                    onClickButton={handleToggleCommitmentsModal}
+                    withButton
+                  />
+                )}
               </Grid>
             </Stack>
           </Box>
-
-          <Stack direction="column" gap="s200" alignItems="flex-start">
-            <Text type="title" size="medium">
-              Últimos movimientos
-            </Text>
-            <StyledMovementsContainer>
-              <Table
-                id="modals"
-                titles={savingsAccountMovementsTableTitles}
-                breakpoints={savingsAccountMovementsTableBreakpoints}
-                actions={savingsAccountMovementsTableActions}
-                entries={selectedProduct.saving.movements || []}
-                pageLength={selectedProduct.saving.movements?.length || 0}
-                hideMobileResume
-              />
-              <Button
-                type="link"
-                appearance="dark"
-                variant="none"
-                iconBefore={<MdOutlineAssignmentTurnedIn />}
-                path={`/my-savings/account/${productId}/movements`}
-              >
-                Movimientos
-              </Button>
-            </StyledMovementsContainer>
-          </Stack>
+          {selectedProduct.saving.type !== "CD" && (
+            <Stack direction="column" gap="s200" alignItems="flex-start">
+              <Text type="title" size="medium">
+                Últimos movimientos
+              </Text>
+              <StyledMovementsContainer>
+                <Table
+                  id="modals"
+                  titles={savingsAccountMovementsTableTitles}
+                  breakpoints={savingsAccountMovementsTableBreakpoints}
+                  actions={savingsAccountMovementsTableActions}
+                  entries={selectedProduct.saving.movements || []}
+                  pageLength={selectedProduct.saving.movements?.length || 0}
+                  hideMobileResume
+                />
+                <Button
+                  type="link"
+                  appearance="dark"
+                  variant="none"
+                  iconBefore={<MdOutlineAssignmentTurnedIn />}
+                  path={`/my-savings/account/${productId}/movements`}
+                >
+                  Movimientos
+                </Button>
+              </StyledMovementsContainer>
+            </Stack>
+          )}
         </Stack>
         {mquery && <QuickAccess links={quickLinks} />}
       </Grid>
+      {reimbursementModal.show && (
+        <ReimbursementModal
+          portalId="modals"
+          reimbursement={reimbursementModal.data}
+          onCloseModal={handleToggleReimbursementModal}
+        />
+      )}
       {beneficiariesModal.show && (
         <AttributesModal
           portalId="modals"
@@ -173,7 +214,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           portalId="modals"
           onCloseModal={handleToggleCommitmentsModal}
           commitments={commitmentsModal.data}
-          commitmentsIcons={savingCommitmentsIcons}
+          commitmentsIcons={productsIcons}
         />
       )}
     </>

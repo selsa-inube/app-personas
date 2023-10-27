@@ -78,7 +78,7 @@ const creditSimulationStepsRules = (
         };
       }
 
-      break;
+      return newCreditSimulationRequest;
     }
     case creditSimulationRequestSteps.simulation.id: {
       const values = formReferences.simulation.current?.values;
@@ -90,46 +90,42 @@ const creditSimulationStepsRules = (
         values,
       };
 
-      break;
-    }
-    case creditSimulationRequestSteps.preliquidation.id: {
-      const values = formReferences.preliquidation.current?.values;
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentCreditSimulationRequest.simulation.values)
+      ) {
+        const tempChargesAndDiscounts = Math.floor(
+          Number(values.amount) * 0.4880866
+        );
+        newCreditSimulationRequest.preliquidation = {
+          isValid: true,
+          values: {
+            ...initalValuesCreditSimulation.preliquidation,
+            amount: Number(values.amount),
+            interestAdjustmentCycle: 49250,
+            chargesAndDiscounts: tempChargesAndDiscounts,
+            netValue: Number(values.amount) - 49250 - tempChargesAndDiscounts,
+          },
+        };
+      }
 
-      if (!values) return currentCreditSimulationRequest;
-
-      newCreditSimulationRequest.preliquidation = {
-        isValid: isCurrentFormValid,
-        values,
-      };
-
-      break;
-    }
-    case creditSimulationRequestSteps.comments.id: {
-      const values = formReferences.comments.current?.values;
-
-      if (!values) return currentCreditSimulationRequest;
-
-      newCreditSimulationRequest.comments = {
-        isValid: isCurrentFormValid,
-        values,
-      };
-
-      break;
-    }
-    case creditSimulationRequestSteps.termsAndConditions.id: {
-      const values = formReferences.termsAndConditions.current?.values;
-
-      if (!values) return currentCreditSimulationRequest;
-
-      newCreditSimulationRequest.termsAndConditions = {
-        isValid: isCurrentFormValid,
-        values,
-      };
-
-      break;
+      return newCreditSimulationRequest;
     }
   }
 
-  return newCreditSimulationRequest;
+  const stepKey = Object.entries(creditSimulationRequestSteps).find(
+    ([, config]) => config.id === currentStep
+  )?.[0];
+
+  if (!stepKey) return currentCreditSimulationRequest;
+
+  const values =
+    formReferences[stepKey as keyof IFormsCreditSimulationRequest]?.current
+      ?.values;
+
+  return (newCreditSimulationRequest = {
+    ...newCreditSimulationRequest,
+    [stepKey]: { isValid: isCurrentFormValid, values },
+  });
 };
 export { creditSimulationRequestSteps, creditSimulationStepsRules };

@@ -4,8 +4,9 @@ import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
+import { mapPersonalReferences } from "../../config/mappers";
+import { IAction } from "@design/data/Table/types";
 import {
-  personalReferencesTableActions,
   personalReferencesTableBreakpoints,
   personalReferencesTableTitles,
 } from "./config/table";
@@ -15,6 +16,7 @@ interface PersonalReferencesFormUIProps {
   showAddReferenceModal: boolean;
   handleToggleModal: () => void;
   handleAddReference: () => void;
+  personalReferencesTableActions: IAction[];
 }
 
 function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
@@ -23,6 +25,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
     showAddReferenceModal,
     handleToggleModal,
     handleAddReference,
+    personalReferencesTableActions
   } = props;
   return (
     <>
@@ -39,7 +42,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           titles={personalReferencesTableTitles}
           breakpoints={personalReferencesTableBreakpoints}
           actions={personalReferencesTableActions}
-          entries={formik.values.entries}
+          entries={mapPersonalReferences(formik.values.entries)}
           pageLength={formik.values.entries.length}
           hideMobileResume
         />

@@ -1,7 +1,4 @@
-import { Icon } from "@design/data/Icon";
-import { IAction } from "@design/data/Table/types";
-import { mapInvestmentMovement } from "@pages/admin/investments/InvestmentMovements/config/table";
-import { MdDeleteOutline, MdOutlineModeEdit } from "react-icons/md";
+import { mapInvestmentMovement } from "@pages/admin/savings/SavingsAccountMovements/config/table";
 
 const personalDebtsTableTitles = [
   {
@@ -41,40 +38,8 @@ const personalDebtsTableBreakpoints = [
   { breakpoint: "(max-width: 390px)", totalColumns: 1 },
 ];
 
-const personalDebtsTableActions: IAction[] = [
-  {
-    id: "1",
-    actionName: "Editar",
-    content: (debt) => (
-      <Icon
-        appearance="dark"
-        icon={<MdOutlineModeEdit />}
-        cursorHover={true}
-        size="16px"
-        spacing="none"
-      />
-    ),
-    mobilePriority: true,
-  },
-  {
-    id: "2",
-    actionName: "Borrar",
-    content: (debt) => (
-      <Icon
-        appearance="dark"
-        icon={<MdDeleteOutline />}
-        cursorHover={true}
-        size="16px"
-        spacing="none"
-      />
-    ),
-    mobilePriority: true,
-  },
-];
-
 export {
   mapInvestmentMovement,
-  personalDebtsTableActions,
   personalDebtsTableBreakpoints,
   personalDebtsTableTitles,
 };

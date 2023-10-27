@@ -1,12 +1,14 @@
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalReferencesFormUI } from "./interface";
 import { IPersonalReferenceEntries } from "./types";
+import { IAction } from "@design/data/Table/types";
+import { Icon } from "@design/data/Icon";
+import { MdOutlineModeEdit } from "react-icons/md";
+import { DeleteReference } from "./DeleteReference";
 
 const validationSchema = Yup.object({
   referenceType: Yup.string().required(validationMessages.required),
@@ -53,20 +55,53 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
         ...formik.values.entries,
         {
           id: String(formik.values.entries.length + 1),
-          referenceType: getValueOfDomain(
-            formik.values.referenceType,
-            "referenceType"
-          )?.value,
+          referenceType: formik.values.referenceType,
           name: formik.values.name,
           address: formik.values.address,
           email: formik.values.email,
           phone: formik.values.phone,
-          city: cityDM.valueOf(formik.values.city)?.value,
+          city: formik.values.city,
           observations: formik.values.observations,
         },
       ]);
     }
   };
+
+  const handleDeleteReference = (referenceId: string) => {
+    const updatedReferences = formik.values.entries.filter(
+      (reference) => reference.id !== referenceId
+    );
+
+    formik.setFieldValue("entries", updatedReferences);
+  };
+
+  const personalReferencesTableActions: IAction[] = [
+    {
+      id: "1",
+      actionName: "Editar",
+      content: (reference) => (
+        <Icon
+          appearance="dark"
+          icon={<MdOutlineModeEdit />}
+          cursorHover={true}
+          size="16px"
+          spacing="none"
+        />
+      ),
+      mobilePriority: true,
+    },
+    {
+      id: "2",
+      actionName: "Borrar",
+      content: (reference) => (
+        <DeleteReference
+          reference={reference}
+          handleDeleteReference={() => handleDeleteReference(reference.id)}
+        />
+      ),
+      mobilePriority: true,
+    },
+  ];
 
   return (
     <PersonalReferencesFormUI
@@ -74,6 +109,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
       showAddReferenceModal={showAddReferenceModal}
       handleToggleModal={handleToggleModal}
       handleAddReference={handleAddReference}
+      personalReferencesTableActions={personalReferencesTableActions}
     />
   );
 });

@@ -5,8 +5,8 @@ import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { MdOutlineAddHome } from "react-icons/md";
 import { mapPersonalAssets } from "../../config/mappers";
+import { IAction } from "@design/data/Table/types";
 import {
-  personalAssetsTableActions,
   personalAssetsTableBreakpoints,
   personalAssetsTableTitles,
 } from "./config/table";
@@ -16,11 +16,18 @@ interface PersonalAssetsFormUIProps {
   showAddAssetModal: boolean;
   handleToggleModal: () => void;
   handleAddAsset: () => void;
+  personalAssetsTableActions: IAction[];
 }
 
 function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
-  const { formik, showAddAssetModal, handleToggleModal, handleAddAsset } =
-    props;
+  const {
+    formik,
+    showAddAssetModal,
+    handleToggleModal,
+    handleAddAsset,
+    personalAssetsTableActions,
+  } = props;
+
   return (
     <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
       <Button

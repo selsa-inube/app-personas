@@ -1,8 +1,9 @@
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { ICommentsEntry } from "../forms/CommentsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
-import { ISimulationEntry } from "../forms/SimulationForm/types";
+import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { IPreliquidationEntry } from "../forms/PreliquidationForm/types";
+import { ISimulationEntry } from "../forms/SimulationForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
 const destination: IDestinationEntry = {
@@ -20,13 +21,33 @@ const simulation: ISimulationEntry = {
   quota: "",
   cycleInterest: "",
   netValue: "",
+  interestRate: "",
 };
 
 const preliquidation: IPreliquidationEntry = {
-  amount: 20500000,
-  advanceInterestAdjustmentCycle: 49250,
+  amount: 0,
+  interestAdjustmentCycle: 0,
   chargesAndDiscounts: 0,
-  netValueToSend: 10444975,
+  netValue: 0,
+};
+
+const disbursement: IDisbursementEntry = {
+  creditDisbursement: "",
+  accountNumber: "",
+  observations: "",
+  supplier: "",
+  identicationType: "",
+  identification: "",
+  socialReason: "",
+  firstName: "",
+  secondName: "",
+  firstLastName: "",
+  secondLastName: "",
+  gender: "",
+  others: "",
+  account: "",
+  entity: "",
+  accountType: "",
 };
 
 const comments: ICommentsEntry = {
@@ -41,6 +62,7 @@ const initalValuesCreditSimulation = {
   destination,
   simulation,
   preliquidation,
+  disbursement,
   comments,
   termsAndConditions,
 };

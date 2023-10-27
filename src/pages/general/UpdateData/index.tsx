@@ -106,8 +106,12 @@ function UpdateData() {
 
     if (!changeStepKey) return;
 
+    const changeIsVerification = stepId === steps.length;
+
     setIsCurrentFormValid(
-      updateData[changeStepKey as keyof IFormsUpdateData]?.isValid || false
+      changeIsVerification ||
+        updateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
+        false
     );
 
     setCurrentStep(stepId);

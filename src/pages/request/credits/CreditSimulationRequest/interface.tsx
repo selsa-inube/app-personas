@@ -14,9 +14,11 @@ import { creditSimulationRequestSteps } from "./config/assisted";
 import { crumbsCreditSimulationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
 import { DestinationForm } from "./forms/DestinationForm";
-import { SimulationForm } from "./forms/SimulationForm";
+import { DisbursementForm } from "./forms/DisbursementForm";
 import { PreliquidationForm } from "./forms/PreliquidationForm";
+import { SimulationForm } from "./forms/SimulationForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
+import { CreditSimulationRequestVerification } from "./forms/Verification";
 import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
@@ -26,7 +28,8 @@ const renderStepContent = (
   currentStep: number,
   formReferences: IFormsCreditSimulationRequestRefs,
   creditSimulationRequest: IFormsCreditSimulationRequest,
-  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
+  handleStepChange: (stepId: number) => void
 ) => {
   return (
     <>
@@ -50,6 +53,13 @@ const renderStepContent = (
           ref={formReferences.preliquidation}
         />
       )}
+      {currentStep === creditSimulationRequestSteps.disbursement.id && (
+        <DisbursementForm
+          initialValues={creditSimulationRequest.disbursement.values}
+          ref={formReferences.disbursement}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep === creditSimulationRequestSteps.comments.id && (
         <CommentsForm
           initialValues={creditSimulationRequest.comments.values}
@@ -62,6 +72,12 @@ const renderStepContent = (
           initialValues={creditSimulationRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.verification.id && (
+        <CreditSimulationRequestVerification
+          creditSimulationRequest={creditSimulationRequest}
+          handleStepChange={handleStepChange}
         />
       )}
     </>
@@ -131,7 +147,8 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
               currentStep,
               formReferences,
               creditSimulationRequest,
-              setIsCurrentFormValid
+              setIsCurrentFormValid,
+              handleStepChange
             )}
 
             <Stack gap="s150" justifyContent="flex-end">
@@ -150,7 +167,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
                 spacing={isMobile ? "compact" : "wide"}
                 disabled={!isCurrentFormValid}
               >
-                Siguiente
+                {currentStep === steps.length ? "Enviar" : "Siguiente"}
               </Button>
             </Stack>
           </Stack>
