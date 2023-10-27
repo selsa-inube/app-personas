@@ -233,7 +233,7 @@ function renderContent(mquery: boolean) {
 }
 
 function MySavings() {
-  const mquery = useMediaQuery("(min-width: 1450px)");
+  const mquery = useMediaQuery("(min-width: 1440px)");
   return (
     <>
       <Stack direction="column" gap="s300">

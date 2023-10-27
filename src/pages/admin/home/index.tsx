@@ -289,7 +289,7 @@ function renderContent(mquery: boolean) {
 }
 
 function Home() {
-  const mquery = useMediaQuery("(min-width: 1450px)");
+  const mquery = useMediaQuery("(min-width: 1440px)");
   return (
     <>
       <Title
