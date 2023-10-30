@@ -106,16 +106,15 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Código postal"
             name="postalCode"
             id="postalCode"
+            type="number"
             value={formik.values.postalCode}
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.postalCode}
             isDisabled={loading}
             size={isMobile ? "compact" : "wide"}
             isFullWidth
-            state={stateValue("postalCode")}
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
-            validMessage="El código postal es válido"
           />
 
           <TextField
@@ -123,16 +122,15 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Teléfono"
             name="landlinePhone"
             id="landlinePhone"
+            type="number"
             value={formik.values.landlinePhone}
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.landlinePhone}
             isDisabled={loading}
             size={isMobile ? "compact" : "wide"}
             isFullWidth
-            state={stateValue("landlinePhone")}
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
-            validMessage="El teléfono es válido"
           />
 
           <TextField
