@@ -44,9 +44,8 @@ function EditAsset(props: EditAssetProps) {
               quota: formik.values.quota,
               observations: formik.values.observations,
             };
-          } else {
-            return entry;
           }
+          return entry;
         }
       );
 
