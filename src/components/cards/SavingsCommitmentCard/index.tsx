@@ -4,34 +4,25 @@ import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Icon } from "@design/data/Icon";
-import { currencyFormat } from "src/utils/formats";
+import { IAttribute } from "src/model/entity/product";
 
 interface SavingsCommitmentCardProps {
   onClick: () => void;
   title: string;
-  value: number;
-  date: string;
   tag?: TagProps;
-  descriptionDate?: string;
-  descriptionValue?: string;
+  attributes: IAttribute[];
 }
 
 function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
-  const {
-    onClick,
-    value,
-    title,
-    date,
-    tag,
-    descriptionDate,
-    descriptionValue,
-  } = props;
+  const { onClick, title, tag, attributes } = props;
+
+  const truncatedAttributes = attributes.slice(0, 2);
 
   return (
     <StyledCardContainer onClick={onClick}>
       <Stack direction="column" alignItems="flex-start" gap="s075">
         <Stack alignItems="center" gap="s075">
-          <Icon size="16px" icon={<MdCalendarMonth />} spacing="none"></Icon>
+          <Icon size="16px" icon={<MdCalendarMonth />} spacing="none" />
           <Text type="label" size="medium">
             {title}
           </Text>
@@ -39,22 +30,16 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
         {tag && <Tag label={tag.label} appearance={tag.appearance} />}
       </Stack>
       <Stack direction="column">
-        <Stack gap="s075">
-          <Text type="label" size="small">
-            {descriptionValue}:
-          </Text>
-          <Text type="body" size="small" appearance="gray">
-            {currencyFormat(value)}
-          </Text>
-        </Stack>
-        <Stack gap="s075">
-          <Text type="label" size="small">
-            {descriptionDate}:
-          </Text>
-          <Text type="body" size="small" appearance="gray">
-            {date}
-          </Text>
-        </Stack>
+        {truncatedAttributes.map((attribute, index) => (
+          <Stack gap="s075" key={index}>
+            <Text type="label" size="small">
+              {attribute.label}:
+            </Text>
+            <Text type="body" size="small" appearance="gray">
+              {String(attribute.value)}
+            </Text>
+          </Stack>
+        ))}
       </Stack>
     </StyledCardContainer>
   );

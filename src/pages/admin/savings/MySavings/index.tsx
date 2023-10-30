@@ -32,6 +32,8 @@ import { formatInvestmentCurrencyAttrs } from "@pages/admin/home/config/products
 import { extractInvestmentAttributes } from "@pages/admin/home/config/products";
 import { investmentAttributeBreakpoints } from "@pages/admin/home/config/products";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
+import { currencyFormat } from "src/utils/formats";
+import { IAttribute } from "src/model/entity/product";
 
 const renderSavingCommitments = () => {
   const productsCommitments = [
@@ -46,6 +48,16 @@ const renderSavingCommitments = () => {
     );
     const navigate = useNavigate();
 
+    const currencyValueToPay = valueToPay && {
+      id: valueToPay.id || "",
+      label: valueToPay.label || "",
+      value: currencyFormat(Number(valueToPay.value)),
+    };
+
+    const attributes: IAttribute[] = [];
+    if (currencyValueToPay) attributes.push(currencyValueToPay);
+    if (nextPayDate) attributes.push(nextPayDate);
+
     const handleNavigateCommitment = () => {
       navigate(`/my-savings/commitment/${commitment.id}`);
     };
@@ -54,18 +66,15 @@ const renderSavingCommitments = () => {
       <SavingsCommitmentCard
         key={commitment.id}
         title={commitment.title}
-        descriptionDate={nextPayDate?.label}
-        descriptionValue={String(valueToPay?.label)}
-        date={String(nextPayDate?.value)}
-        value={Number(valueToPay?.value)}
         tag={commitment.tag}
+        attributes={attributes}
         onClick={handleNavigateCommitment}
       />
     );
   });
 };
 
-function renderContent(mquery: boolean) {
+function renderMySavingsContent() {
   const getSavingProducts = (types: string[]) => {
     return savingsMock.filter((investment) => types.includes(investment.type));
   };
@@ -160,54 +169,54 @@ function renderContent(mquery: boolean) {
                 )}
               </Stack>
             </Stack>
-            <Stack direction="column" gap="s200">
-              {cdats.length > 0 && (
+            {cdats.length > 0 && (
+              <Stack direction="column" gap="s200">
                 <Text type="label" size="medium">
                   CDAT
                 </Text>
-              )}
-              <Stack direction="column" gap="s100">
-                {cdats.map((investment) => (
-                  <Product
-                    id={investment.id}
-                    key={investment.id}
-                    title={investment.title}
-                    description={investment.id}
-                    attributes={formatInvestmentCurrencyAttrs(
-                      extractInvestmentAttributes(investment)
-                    )}
-                    tags={investment.tags}
-                    icon={investmentIcons[investment.type]}
-                    navigateTo={`/my-savings/account/${investment.id}`}
-                    breakpoints={investmentAttributeBreakpoints}
-                  />
-                ))}
+                <Stack direction="column" gap="s100">
+                  {cdats.map((investment) => (
+                    <Product
+                      id={investment.id}
+                      key={investment.id}
+                      title={investment.title}
+                      description={investment.id}
+                      attributes={formatInvestmentCurrencyAttrs(
+                        extractInvestmentAttributes(investment)
+                      )}
+                      tags={investment.tags}
+                      icon={investmentIcons[investment.type]}
+                      navigateTo={`/my-savings/account/${investment.id}`}
+                      breakpoints={investmentAttributeBreakpoints}
+                    />
+                  ))}
+                </Stack>
               </Stack>
-            </Stack>
-            <Stack direction="column" gap="s200">
-              {programmedSavings.length > 0 && (
+            )}
+            {programmedSavings.length > 0 && (
+              <Stack direction="column" gap="s200">
                 <Text type="label" size="medium">
                   Ahorros programados
                 </Text>
-              )}
-              <Stack direction="column" gap="s100">
-                {programmedSavings.map((investment) => (
-                  <Product
-                    id={investment.id}
-                    key={investment.id}
-                    title={investment.title}
-                    description={investment.id}
-                    attributes={formatInvestmentCurrencyAttrs(
-                      extractInvestmentAttributes(investment)
-                    )}
-                    tags={investment.tags}
-                    icon={investmentIcons[investment.type]}
-                    navigateTo={`/my-savings/account/${investment.id}`}
-                    breakpoints={investmentAttributeBreakpoints}
-                  />
-                ))}
+                <Stack direction="column" gap="s100">
+                  {programmedSavings.map((investment) => (
+                    <Product
+                      id={investment.id}
+                      key={investment.id}
+                      title={investment.title}
+                      description={investment.id}
+                      attributes={formatInvestmentCurrencyAttrs(
+                        extractInvestmentAttributes(investment)
+                      )}
+                      tags={investment.tags}
+                      icon={investmentIcons[investment.type]}
+                      navigateTo={`/my-savings/account/${investment.id}`}
+                      breakpoints={investmentAttributeBreakpoints}
+                    />
+                  ))}
+                </Stack>
               </Stack>
-            </Stack>
+            )}
             <Stack justifyContent="flex-end" gap="s100">
               <Text type="label" size="large">
                 Total ahorrado :
@@ -216,18 +225,20 @@ function renderContent(mquery: boolean) {
                 $ 14.734.650
               </Text>
             </Stack>
-            {savingsCommitmentsMock.length > 0 && (
-              <Text type="label" size="medium">
-                Compromisos
-              </Text>
-            )}
-            <StyledCommitmentsContainer>
-              {renderSavingCommitments()}
-            </StyledCommitmentsContainer>
+            {savingsCommitmentsMock.length &&
+              investmentsCommitmentsMock.length > 0 && (
+                <>
+                  <Text type="label" size="medium">
+                    Compromisos
+                  </Text>
+                  <StyledCommitmentsContainer>
+                    {renderSavingCommitments()}
+                  </StyledCommitmentsContainer>
+                </>
+              )}
           </Stack>
         </Box>
       </Stack>
-      {mquery && <QuickAccess links={quickLinks} />}
     </>
   );
 }
@@ -248,7 +259,7 @@ function MySavings() {
 
       {!mquery ? (
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
-          {renderContent(mquery)}
+          {renderMySavingsContent()}
         </Stack>
       ) : (
         <Grid
@@ -256,7 +267,8 @@ function MySavings() {
           margin={`${inube.spacing.s600} 0 0`}
           templateColumns="1fr 250px"
         >
-          {renderContent(mquery)}
+          {renderMySavingsContent()}
+          <QuickAccess links={quickLinks} />
         </Grid>
       )}
     </>

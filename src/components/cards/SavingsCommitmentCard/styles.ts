@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { inube } from "@design/tokens";
 
 const StyledCardContainer = styled.div`
+  width: 238px;
   min-width: 238px;
   height: 120px;
   display: flex;

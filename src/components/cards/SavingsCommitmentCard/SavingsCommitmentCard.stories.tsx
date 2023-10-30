@@ -32,11 +32,11 @@ export const Themed: StoryFn<SavingsCommitmentCardProps> = (args) => (
 
 Default.args = {
   title: "Product name",
-  value: 8900,
   onClick: action("Icon MdOpenInNew Clicked"),
-  descriptionDate: "Description Date",
-  descriptionValue: "Description Value",
-  date: "Date",
+  attributes: [
+    { id: "1", label: "Attribute 1", value: "Value 1" },
+    { id: "2", label: "Attribute 2", value: "Value 2" },
+  ],
 };
 
 WhitTag.args = {
