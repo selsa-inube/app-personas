@@ -1,22 +1,18 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
-import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { ContactDataFormUI } from "./interface";
 import { IContactDataEntry } from "./types";
 
 const validationSchema = Yup.object({
-  country: validationRules.country.required(validationMessages.required),
-  stateOrDepartment: validationRules.stateOrDepartment.required(
-    validationMessages.required
-  ),
-  city: validationRules.city.required(validationMessages.required),
-  address: validationRules.address.required(validationMessages.required),
-  postalCode: validationRules.postalCode,
-  landlinePhone: validationRules.landlinePhone,
-  cellPhone: validationRules.phone.required(validationMessages.required),
-  email: validationRules.email.required(validationMessages.required),
+  country: Yup.string(),
+  stateOrDepartment: Yup.string(),
+  city: Yup.string(),
+  address: Yup.string(),
+  postalCode: Yup.string(),
+  landlinePhone: Yup.string(),
+  cellPhone: Yup.string(),
+  email: Yup.string(),
 });
 
 interface ContactDataFormProps {
