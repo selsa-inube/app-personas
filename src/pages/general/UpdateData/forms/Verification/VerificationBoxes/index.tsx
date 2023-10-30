@@ -125,7 +125,7 @@ const renderPersonalAssetsVerification = (
           >
             <BoxAttribute
               label="Nombre del activo:"
-              value={personalAsset.assetName}
+              value={personalAsset.assetType}
             />
             <BoxAttribute
               label="Valor comercial:"

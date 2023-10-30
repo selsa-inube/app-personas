@@ -11,6 +11,9 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledDivider, StyledModal } from "./styles";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
+
+const assetTypeDM = getDomainById("assetType");
 
 interface AddAssetModalProps {
   portalId: string;
@@ -56,7 +59,6 @@ function AddAssetModal(props: AddAssetModalProps) {
             <Text type="title" size="large" appearance="dark">
               Adicionar bien
             </Text>
-
             <Icon
               appearance="dark"
               icon={<MdOutlineClose />}
@@ -73,6 +75,20 @@ function AddAssetModal(props: AddAssetModalProps) {
 
         <StyledDivider dashed />
         <Stack direction="column" gap="s150" width="100%">
+        <Select
+            label="Tipo de activo"
+            name="assetType"
+            id="assetType"
+            size="compact"
+            isFullWidth
+            options={assetTypeDM}
+            handleBlur={formik.handleBlur}
+            errorMessage={formik.errors.assetType}
+            state={stateValue("assetType")}
+            handleChange={formik.handleChange}
+            value={formik.values.assetType || ""}
+            isRequired
+          />
           <TextField
             label="Nombre del activo"
             name="assetName"
