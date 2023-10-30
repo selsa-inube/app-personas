@@ -21,6 +21,7 @@ const simulation: ISimulationEntry = {
   quota: "",
   cycleInterest: "",
   netValue: "",
+  interestRate: "",
 };
 
 const preliquidation: IPreliquidationEntry = {
