@@ -15,15 +15,26 @@ import { StyledDivider, StyledModal } from "./styles";
 
 const assetTypeDM = getDomainById("assetType");
 
-interface AddAssetModalProps {
+interface AssetModalProps {
+  title: string;
+  description: string;
+  confirmButtonText: string;
   portalId: string;
   formik: FormikValues;
   onCloseModal: () => void;
-  onAddAsset: () => void;
+  onConfirm: () => void;
 }
 
-function AddAssetModal(props: AddAssetModalProps) {
-  const { portalId, formik, onCloseModal, onAddAsset } = props;
+function AssetModal(props: AssetModalProps) {
+  const {
+    portalId,
+    formik,
+    title,
+    description,
+    confirmButtonText,
+    onCloseModal,
+    onConfirm,
+  } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -57,7 +68,7 @@ function AddAssetModal(props: AddAssetModalProps) {
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
-              Adicionar bien
+              {title}
             </Text>
 
             <Icon
@@ -70,7 +81,7 @@ function AddAssetModal(props: AddAssetModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Agrega un bien a la actualización
+            {description}
           </Text>
         </Stack>
 
@@ -178,11 +189,11 @@ function AddAssetModal(props: AddAssetModalProps) {
           </Button>
           <Button
             spacing="compact"
-            handleClick={onAddAsset}
+            handleClick={onConfirm}
             disabled={!formik.dirty || !formik.isValid}
             appearance="primary"
           >
-            Adicionar
+            {confirmButtonText}
           </Button>
         </Stack>
       </StyledModal>
@@ -191,4 +202,4 @@ function AddAssetModal(props: AddAssetModalProps) {
   );
 }
 
-export { AddAssetModal };
+export { AssetModal };
