@@ -1,38 +1,18 @@
 import { accountTypeData } from "@mocks/domains/accountType";
+import { bankData } from "@mocks/domains/bank";
 import { suppliersTypeData } from "@mocks/domains/suppliersType";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { usersMock } from "@mocks/users/users.mocks";
+import { IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
+import { statusDM } from "src/model/domains/general/statusdm";
+import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 
-const getCommonFields = (
-  formik: FormikValues,
-  handleChange?: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void,
-  handleBlur?: (event: React.FocusEvent<HTMLElement, Element>) => void
-) => ({
-  accountNumber: {
-    name: "accountNumber",
-    type: "select",
-    label: "Numero de cuenta",
-    placeholder: "Escribe el numero de cuenta",
-    size: "compact",
-    options: savingsMock
-      .filter((product) => product.type === "CA")
-      .map((product) => ({
-        value: product.description,
-        id: product.id,
-      })),
-    value: formik.values.accountNumber,
-    handleChange: handleChange || formik.handleChange,
-    handleBlur: handleBlur || formik.handleBlur,
-    state: "valid",
-    errorMessage: formik.errors.accountNumber,
-    isFullWidth: true,
-    validation: Yup.string().required(validationMessages.required),
-  },
+const commonFields = {
   observations: {
     name: "observations",
     type: "textarea",
@@ -40,51 +20,41 @@ const getCommonFields = (
     placeholder:
       "Describe las múltiples formas de desembolso que deseas utilizar.",
     size: "compact",
-    value: formik.values.observations,
-    handleChange: handleChange || formik.handleChange,
-    handleBlur: handleBlur || formik.handleBlur,
-    state: "valid",
-    errorMessage: formik.errors.observations,
+    validMessage: "Las observaciones ingresadas son válidas",
     isFullWidth: true,
+    gridColumn: "span 2",
+    maxLength: 150,
     validation: Yup.string()
-      .min(10, validationMessages.minCharacters(10))
-      .required(validationMessages.required),
+      .required(validationMessages.required)
+      .min(10, validationMessages.minCharacters(10)),
   },
-  supplier: {
+  supplier: (gridColumn: string) => ({
     name: "supplier",
     type: "select",
     label: "Proveedor",
-    placeholder: "Escribe el numero de cuenta",
+    placeholder: "",
     size: "compact",
     options: suppliersTypeData.map((supplier) => ({
       value: supplier.value,
       id: supplier.id,
     })),
-    value: formik.values.supplier,
-    handleChange: handleChange || formik.handleChange,
-    handleBlur: handleBlur || formik.handleBlur,
-    state: "valid",
-    errorMessage: formik.errors.supplier,
     isFullWidth: true,
+    gridColumn,
     validation: Yup.string().required(validationMessages.required),
-  },
+  }),
   identificationType: {
     name: "identificationType",
     type: "select",
     label: "Tipo de identificación",
-    placeholder: "Escribe el numero de cuenta",
+    placeholder: "",
     size: "compact",
     options: identificationTypeDM.options.filter(
       (option) =>
         option.id !== identificationTypeDM.RC.id &&
         option.id !== identificationTypeDM.TI.id
     ),
-    value: formik.values.identificationType,
-    handleChange: handleChange || formik.handleChange,
-    handleBlur: handleBlur || formik.handleBlur,
-    state: "valid",
-    errorMessage: formik.errors.identificationType,
     isFullWidth: true,
+    gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
   },
   identification: {
@@ -93,15 +63,14 @@ const getCommonFields = (
     label: "Identificación",
     placeholder: "Escribe el numero de identificación",
     size: "compact",
-    value: formik.values.identification,
-    handleChange: handleChange || formik.handleChange,
-    handleBlur: handleBlur || formik.handleBlur,
-    state: "valid",
-    errorMessage: formik.errors.identification,
+    validationMessage: "El número de identificación ingresado es válido",
     isFullWidth: true,
-    validation: Yup.string().required(validationMessages.required),
+    gridColumn: "span 1",
+    validation: validationRules.identification.required(
+      validationMessages.required
+    ),
   },
-  accountType: {
+  accountType: (gridColumn: string, value?: string, readOnly?: boolean) => ({
     name: "accountType",
     type: "select",
     label: "Tipo de cuenta",
@@ -111,54 +80,141 @@ const getCommonFields = (
       value: accountType.value,
       id: accountType.id,
     })),
-    value: formik.values.accountType,
-    handleChange: handleChange || formik.handleChange,
-    handleBlur: handleBlur || formik.handleBlur,
-    state: "valid",
-    errorMessage: formik.errors.accountType,
+    value,
     isFullWidth: true,
+    gridColumn,
+    readOnly,
     validation: Yup.string().required(validationMessages.required),
-  },
-  accountNubmer: {
+  }),
+  accountNumber: {
     name: "accountNumber",
-    type: "text",
+    type: "select",
+    label: "Numero de cuenta",
+    size: "compact",
+    placeholder: "",
+    options: savingsMock
+      .filter((product) => product.type === "CA")
+      .map((product) => ({
+        value: product.description,
+        id: product.id,
+      })),
+    isFullWidth: true,
+    gridColumn: "span 2",
+    validation: Yup.string()
+      .min(5, validationMessages.minNumbers(5))
+      .required(validationMessages.required),
+  },
+  writeAccountNumber: (
+    gridColumn: string,
+    value?: string,
+    readOnly?: boolean
+  ) => ({
+    name: "writeAccountNumber",
     label: "Numero de cuenta",
     placeholder: "Escribe el numero de cuenta",
     size: "compact",
-    value: formik.values.accountNumber,
-    handleChange: handleChange || formik.handleChange,
-    handleBlur: handleBlur || formik.handleBlur,
-    state: "valid",
-    errorMessage: formik.errors.accountNumber,
+    type: "text",
+    value,
+    validMessage: "El número de cuenta ingresado es válido",
     isFullWidth: true,
+    gridColumn,
+    readOnly,
     validation: Yup.string()
-      .required(validationMessages.required)
-      .min(5, validationMessages.minNumbers(5)),
+      .min(5, validationMessages.minNumbers(5))
+      .required(validationMessages.required),
+  }),
+  entity: (gridColumn: string, value?: string, readOnly?: boolean) => ({
+    name: "entity",
+    type: "select",
+    label: "Entidad",
+    placeholder: "",
+    size: "compact",
+    options: bankData.map((bank) => ({
+      value: bank.value,
+      id: bank.id,
+    })),
+    value,
+    isFullWidth: true,
+    gridColumn,
+    readOnly,
+    validation: Yup.string().required(validationMessages.required),
+  }),
+  socialReason: {
+    name: "socialReason",
+    type: "text",
+    label: "Razón social",
+    placeholder: "Escribe el nombre",
+    size: "compact",
+    validationMessage: "La razón social ingresada es válida",
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: Yup.string().required(validationMessages.required),
   },
-});
-
-const getFieldState = (formik: FormikValues, attribute: string) => {
-  if (!formik.touched[attribute]) return "pending";
-  if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
-  return "valid";
+  firstName: {
+    name: "firstName",
+    type: "text",
+    label: "Primer nombre",
+    placeholder: "Escribe el nombre",
+    size: "compact",
+    validationMessage: "El nombre ingresado es válido",
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: validationRules.name.required(validationMessages.required),
+  },
+  secondName: {
+    name: "secondName",
+    type: "text",
+    label: "Segundo nombre",
+    placeholder: "Escribe el nombre",
+    size: "compact",
+    validationMessage: "El nombre ingresado es válido",
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: validationRules.name.required(validationMessages.required),
+  },
+  firstLastName: {
+    name: "firstLastName",
+    type: "text",
+    label: "Primer apellido",
+    placeholder: "Escribe el apellido",
+    size: "compact",
+    validationMessage: "El apellido ingresado es válido",
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: validationRules.name.required(validationMessages.required),
+  },
+  secondLastName: {
+    name: "secondLastName",
+    type: "text",
+    label: "Segundo apellido",
+    placeholder: "Escribe el apellido",
+    size: "compact",
+    validationMessage: "El apellido ingresado es válido",
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: validationRules.name.required(validationMessages.required),
+  },
+  gender: {
+    name: "gender",
+    type: "select",
+    label: "Género",
+    placeholder: "",
+    size: "compact",
+    options: genderDM.options,
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: Yup.string().required(validationMessages.required),
+  },
 };
 
-const structureDisbursementForm = (
-  formik: FormikValues,
-  handleChange?: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void,
-  handleBlur?: (event: React.FocusEvent<HTMLElement, Element>) => void
-) /* : IFormStructure */ => {
-  const commonFields = getCommonFields(formik, handleChange, handleBlur);
-
-  /*  return {
+const structureDisbursementForm = (formik: FormikValues): IFormStructure => {
+  return {
     disbursementType: {
       localSavingsDeposit: [commonFields.accountNumber],
       multiplePaymentRecipients: [commonFields.observations],
-      supplierManagerCheck: [commonFields.supplier],
+      supplierManagerCheck: [commonFields.supplier("span 2")],
       thirdPartManagerCheck: [commonFields.identificationType],
-      supplierPayeeCheck: [commonFields.supplier],
+      supplierPayeeCheck: [commonFields.supplier("span 1")],
       thirdPartPayeeCheck: [
         commonFields.identificationType,
         commonFields.identification,
@@ -166,139 +222,83 @@ const structureDisbursementForm = (
       others: [commonFields.observations],
       ownAccountTransfer: [
         {
-          name: "entity",
+          name: "accountStatus",
           type: "select",
-          label: "Entidad",
-          placeholder: "Escribe el numero de cuenta",
+          label: "Cuenta",
+          options: statusDM.options,
           size: "compact",
-          options: bankData.map((bank) => ({
-            value: bank.value,
-            id: bank.id,
-          })),
-          value: formik.values.entity,
-          handleChange: handleChange || formik.handleChange,
-          handleBlur: handleBlur || formik.handleBlur,
-          state: "valid",
-          errorMessage: formik.errors.entity,
           isFullWidth: true,
+          gridColumn: "span 1",
+          placeholder: "",
           validation: Yup.string().required(validationMessages.required),
         },
-        commonFields.accountType,
-        commonFields.accountNubmer,
       ],
       supplierExternalTransfer: [
-        commonFields.supplier,
-        {
-          name: "entity",
-          type: "select",
-          label: "Entidad",
-          placeholder: "Escribe el numero de cuenta",
-          size: "compact",
-          options: bankData.map((bank) => ({
-            value: bank.value,
-            id: bank.id,
-          })),
-          value: formik.values.entity,
-          handleChange: handleChange || formik.handleChange,
-          handleBlur: handleBlur || formik.handleBlur,
-          state: "valid",
-          errorMessage: formik.errors.entity,
-          isFullWidth: true,
-          validation: Yup.string().required(validationMessages.required),
-        },
-        commonFields.accountType,
+        commonFields.supplier("span 2"),
+        commonFields.entity("span 2"),
+        commonFields.accountType("span 2"),
+        commonFields.writeAccountNumber("span 2"),
       ],
-      thirdPartExternalTransfer: [
-        commonFields.identificationType,
-        commonFields.identification,
-        {
-          name: "entity",
-          type: "select",
-          label: "Entidad",
-          placeholder: "Escribe el numero de cuenta",
-          size: "compact",
-          options: bankData.map((bank) => ({
-            value: bank.value,
-            id: bank.id,
-          })),
-          value: formik.values.entity,
-          handleChange: handleChange || formik.handleChange,
-          handleBlur: handleBlur || formik.handleBlur,
-          state: "valid",
-          errorMessage: formik.errors.entity,
-          isFullWidth: true,
-          validation: Yup.string().required(validationMessages.required),
-        },
-        commonFields.accountType,
-        commonFields.accountNubmer,
-        commonFields.observations,
-      ],
+      thirdPartExternalTransfer: [commonFields.identificationType],
     },
     identificationType: {
-      [identificationTypeDM.NIT.id]: [
-        commonFields.identification,
-        {
-          name: "socialReason",
-          type: "text",
-          label: "Razón social",
-          placeholder: "Escribe el nombre",
-          size: "compact",
-          value: formik.values.socialReason,
-          handleChange: handleChange || formik.handleChange,
-          handleBlur: handleBlur || formik.handleBlur,
-          state: "valid",
-          errorMessage: formik.errors.socialReason,
-          isFullWidth: true,
-          validation: Yup.string().required(validationMessages.required),
-        },
+      [identificationTypeDM.NIT.id]:
+        formik.values.disbursementType === "thirdPartExternalTransfer"
+          ? [
+              commonFields.identification,
+              commonFields.socialReason,
+              commonFields.entity("span 1"),
+              commonFields.accountType("span 1"),
+              commonFields.writeAccountNumber("span 1"),
+            ]
+          : [commonFields.identification, commonFields.socialReason],
+      [identificationTypeDM.CC.id]:
+        formik.values.disbursementType === "thirdPartExternalTransfer"
+          ? [
+              commonFields.identification,
+              commonFields.firstName,
+              commonFields.secondName,
+              commonFields.firstLastName,
+              commonFields.secondLastName,
+              commonFields.gender,
+              commonFields.entity("span 1"),
+              commonFields.accountType("span 1"),
+              commonFields.writeAccountNumber("span 1"),
+            ]
+          : [
+              commonFields.identification,
+              commonFields.firstName,
+              commonFields.secondName,
+              commonFields.firstLastName,
+              commonFields.secondLastName,
+              commonFields.gender,
+            ],
+    },
+    accountStatus: {
+      [statusDM.NEW.id]: [
+        commonFields.entity("span 1"),
+        commonFields.accountType("span 1"),
+        commonFields.writeAccountNumber("span 1"),
       ],
-      [identificationTypeDM.CC.id]: [
-        commonFields.identification,
-        {
-          name: "firstName",
-          type: "text",
-          label: "Primer nombre",
-          placeholder: "Escribe el primer nombre",
-          size: "compact",
-          value: formik.values.firstName,
-          handleChange: handleChange || formik.handleChange,
-          handleBlur: handleBlur || formik.handleBlur,
-          state: "valid",
-          errorMessage: formik.errors.firstName,
-          isFullWidth: true,
-          validation: Yup.string().required(validationMessages.required),
-        },
-        {
-          name: "secondName",
-          type: "text",
-          label: "Segundo nombre",
-          placeholder: "Escribe el segundo nombre",
-          size: "compact",
-          value: formik.values.secondName,
-          handleChange: handleChange || formik.handleChange,
-          handleBlur: handleBlur || formik.handleBlur,
-          state: "valid",
-          errorMessage: formik.errors.secondName,
-          isFullWidth: true,
-          validation: Yup.string().required(validationMessages.required),
-        },
-        {
-          name: "firstLastName",
-          type: "text",
-          label: "Primer apellido",
-          placeholder: "Escribe el primer apellido",
-          size: "compact",
-          value: formik.values.firstLastName,
-          handleChange: handleChange || formik.handleChange,
-          handleBlur: handleBlur || formik.handleBlur,
-          state: "valid",
-          errorMessage: formik.errors.firstLastName,
-          isFullWidth: true,
-          validation: Yup.string().required(validationMessages.required),
-        },
+      [statusDM.REGISTERED.id]: [
+        commonFields.entity(
+          "span 1",
+          usersMock[0].bankTransfersAccount.bankEntity,
+          true
+        ),
+        commonFields.accountType(
+          "span 1",
+          usersMock[0].bankTransfersAccount.accountType,
+          true
+        ),
+        commonFields.writeAccountNumber(
+          "span 1",
+          String(usersMock[0].bankTransfersAccount.accountNumber),
+          true
+        ),
       ],
     },
-  }; */
+  };
 };
 
 export { structureDisbursementForm };

@@ -1,30 +1,28 @@
 import { InputSize, ISelectOption } from "@design/input/Select/types";
 import * as Yup from "yup";
 
+const inputTypes = ["select", "text", "textarea"];
+type InputType = (typeof inputTypes)[number];
+
 interface IFormField {
   name: string;
-  type: "select" | "text" | "textarea";
+  type: InputType;
   label: string;
   placeholder: string;
   size: InputSize;
   options?: ISelectOption[];
-  value: string;
-  handleChange: (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => void;
-  handleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
-  state: string;
-  errorMessage: string;
+  value?: string;
   validMessage?: string;
   isFullWidth?: boolean;
-  validation?: Yup.StringSchema<string, Yup.AnyObject, undefined, "">;
+  readOnly?: boolean;
+  maxLength?: number;
+  gridColumn: string;
+  validation: Yup.StringSchema<string, Yup.AnyObject, undefined, "">;
 }
 
 interface IFormStructure {
-  [key: string]: {
-    [key: string]: IFormField[];
+  [listenFieldKey: string]: {
+    [value: string]: IFormField[];
   };
 }
 

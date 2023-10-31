@@ -1,15 +1,15 @@
 import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const statusData = {
-    NEW: {
-      id: "new",
-      value: "Nuevo",
-    },
-    REGISTERED: {
-      id: "registred",
-      value: "Registrado",
-    },
-  };
+  NEW: {
+    id: "new",
+    value: "Nuevo",
+  },
+  REGISTERED: {
+    id: "registered",
+    value: "Registrado",
+  },
+};
 
 const statusDMValueOf = (id: string) =>
   convertDomainToOptions(statusData).find((status) => status.id === id);

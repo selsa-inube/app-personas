@@ -1,12 +1,14 @@
+import { IFormField } from "@ptypes/forms.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { generateDynamicForm } from "src/utils/forms";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
-import { disbursementCustomValidationSchemas } from "./config/validationSchema";
+import { structureDisbursementForm } from "./config/form";
 import { DisbursementFormUI } from "./interface";
 import { IDisbursementEntry } from "./types";
 
-const validationSchema = Yup.object({
+const initValidationSchema = Yup.object({
   disbursementType: Yup.string().required(validationMessages.required),
 });
 
@@ -23,14 +25,20 @@ const DisbursementForm = forwardRef(function DisbursementForm(
 ) {
   const { initialValues, handleSubmit, onFormValid, loading } = props;
 
-  const [dynamicValidationSchema, setDynamicValidationSchema] =
-    useState(validationSchema);
+  const [dynamicForm, setDynamicForm] = useState<{
+    renderFields: IFormField[];
+    validationSchema: Yup.ObjectSchema<{}, Yup.AnyObject, {}, "">;
+  }>({
+    renderFields: [],
+    validationSchema: initValidationSchema,
+  });
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicValidationSchema,
+    validationSchema: dynamicForm.validationSchema,
     validateOnChange: false,
     onSubmit: handleSubmit || (() => {}),
+    enableReinitialize: true,
   });
 
   useImperativeHandle(ref, () => formik);
@@ -46,7 +54,9 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   };
 
   const customHandleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = event.target;
 
@@ -60,16 +70,21 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       });
     }
 
-    const customValidationSchema =
-      disbursementCustomValidationSchemas[name]?.[value];
+    const { renderFields, validationSchema } = generateDynamicForm(
+      {
+        ...formik,
+        values: {
+          ...formik.values,
+          [name]: value,
+        },
+      },
+      structureDisbursementForm(formik)
+    );
 
-    if (!customValidationSchema) return;
-
-    const newValidationSchema = validationSchema.concat(
-      customValidationSchema
-    ) as Yup.ObjectSchema<{ disbursementType: string }>;
-
-    setDynamicValidationSchema(newValidationSchema);
+    setDynamicForm({
+      renderFields,
+      validationSchema: initValidationSchema.concat(validationSchema),
+    });
   };
 
   return (
@@ -78,6 +93,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       formik={formik}
       customHandleBlur={customHandleBlur}
       customHandleChange={customHandleChange}
+      renderFields={dynamicForm.renderFields}
     />
   );
 });
