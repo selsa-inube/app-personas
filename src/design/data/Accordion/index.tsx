@@ -7,12 +7,13 @@ import { StyledContainer, StyledHead } from "./styles";
 
 interface AccordionProps {
   title: string;
+  collapsing?: boolean;
   children: React.ReactNode;
 }
 
 function Accordion(props: AccordionProps) {
-  const { title, children } = props;
-  const [isOpen, setIsOpen] = useState(false);
+  const { title, collapsing = true, children } = props;
+  const [isOpen, setIsOpen] = useState(collapsing);
 
   const handleToggleOpen = () => setIsOpen(!isOpen);
 
