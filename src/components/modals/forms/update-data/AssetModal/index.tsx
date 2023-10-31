@@ -6,12 +6,12 @@ import { TextField } from "@design/input/TextField";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledDivider, StyledModal } from "./styles";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 
 const assetTypeDM = getDomainById("assetType");
 
@@ -86,7 +86,7 @@ function AssetModal(props: AssetModalProps) {
 
         <StyledDivider dashed />
         <Stack direction="column" gap="s150" width="100%">
-        <Select
+          <Select
             label="Tipo de activo"
             name="assetType"
             id="assetType"

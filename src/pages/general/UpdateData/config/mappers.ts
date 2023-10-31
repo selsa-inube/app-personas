@@ -122,7 +122,7 @@ const mapPersonalDebts = (
   return personalDebts.map(
     (personalDebt, index) => mapPersonalDebt(personalDebt, index) as IEntry
   );
-}
+};
 
 const mapPersonalReference = (
   personalAsset: IPersonalReferenceEntry,
