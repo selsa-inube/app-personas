@@ -5,15 +5,17 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
+import { IRequiredFields } from "./types";
 
 interface ContactDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  requiredContactFields: IRequiredFields;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, customHandleBlur } = props;
+  const { formik, loading, requiredContactFields, customHandleBlur } = props;
 
   function stateValue(attribute: string) {
     if (!formik.touched[attribute]) return "pending";
@@ -48,6 +50,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
             validMessage="El país es válido"
+            isRequired={requiredContactFields.country}
           />
 
           <TextField
@@ -65,6 +68,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
             validMessage="El estado / departamento es válido"
+            isRequired={requiredContactFields.stateOrDepartment}
           />
 
           <TextField
@@ -82,6 +86,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
             validMessage="La ciudad es válida"
+            isRequired={requiredContactFields.city}
           />
 
           <TextField
@@ -99,6 +104,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
             validMessage="La dirección es válida"
+            isRequired={requiredContactFields.address}
           />
 
           <TextField
@@ -116,6 +122,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
             validMessage="El código postal es válido"
+            isRequired={requiredContactFields.postalCode}
           />
 
           <TextField
@@ -133,6 +140,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
             validMessage="El teléfono es válido"
+            isRequired={requiredContactFields.landlinePhone}
           />
 
           <TextField
@@ -150,6 +158,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
             validMessage="El celular es válido"
+            isRequired={requiredContactFields.cellPhone}
           />
 
           <TextField
@@ -167,6 +176,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
             validMessage="El correo electronico es válido"
+            isRequired={requiredContactFields.email}
           />
         </Grid>
       </Fieldset>

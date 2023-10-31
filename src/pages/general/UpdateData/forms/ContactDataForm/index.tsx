@@ -1,19 +1,12 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
+import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
+import { useState } from "react";
 import { ContactDataFormUI } from "./interface";
 import { IContactDataEntry } from "./types";
-
-const validationSchema = Yup.object({
-  country: Yup.string(),
-  stateOrDepartment: Yup.string(),
-  city: Yup.string(),
-  address: Yup.string(),
-  postalCode: Yup.string(),
-  landlinePhone: Yup.string(),
-  cellPhone: Yup.string(),
-  email: Yup.string(),
-});
+import { requiredFields } from "./config/formConfig";
 
 interface ContactDataFormProps {
   initialValues: IContactDataEntry;
@@ -27,6 +20,36 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   ref: React.Ref<FormikProps<IContactDataEntry>>
 ) {
   const { initialValues, onFormValid, handleSubmit, loading } = props;
+
+  const [requiredContactFields, setRequiredContactFields] =
+    useState(requiredFields);
+
+  const validationSchema = Yup.object().shape({
+    country: requiredContactFields.country
+      ? validationRules.country.required(validationMessages.required)
+      : validationRules.country,
+    stateOrDepartment: requiredContactFields.stateOrDepartment
+      ? validationRules.stateOrDepartment.required(validationMessages.required)
+      : validationRules.stateOrDepartment,
+    city: requiredContactFields.city
+      ? validationRules.city.required(validationMessages.required)
+      : validationRules.city,
+    address: requiredContactFields.address
+      ? validationRules.address.required(validationMessages.required)
+      : validationRules.address,
+    postalCode: requiredContactFields.postalCode
+      ? validationRules.postalCode.required(validationMessages.required)
+      : validationRules.postalCode,
+    landlinePhone: requiredContactFields.landlinePhone
+      ? validationRules.landlinePhone.required(validationMessages.required)
+      : validationRules.landlinePhone,
+    cellPhone: requiredContactFields.cellPhone
+      ? validationRules.phone.required(validationMessages.required)
+      : validationRules.phone,
+    email: requiredContactFields.email
+      ? validationRules.email.required(validationMessages.required)
+      : validationRules.email,
+  });
 
   const formik = useFormik({
     initialValues,
@@ -52,6 +75,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
       loading={loading}
       formik={formik}
       customHandleBlur={customHandleBlur}
+      requiredContactFields={requiredContactFields}
     />
   );
 });
