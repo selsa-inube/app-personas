@@ -1,6 +1,6 @@
 import { IFormField } from "@ptypes/forms.types";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { generateDynamicForm } from "src/utils/forms";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
@@ -42,6 +42,20 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   });
 
   useImperativeHandle(ref, () => formik);
+
+  useEffect(() => {
+    if (formik.values.disbursementType) {
+      const { renderFields, validationSchema } = generateDynamicForm(
+        formik,
+        structureDisbursementForm(formik)
+      );
+
+      setDynamicForm({
+        renderFields,
+        validationSchema: initValidationSchema.concat(validationSchema),
+      });
+    }
+  }, []);
 
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
