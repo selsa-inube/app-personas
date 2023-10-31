@@ -7,12 +7,13 @@ import { StyledContainer, StyledHead } from "./styles";
 
 interface AccordionProps {
   title: string;
+  defaultOpen?: boolean;
   children: React.ReactNode;
 }
 
 function Accordion(props: AccordionProps) {
-  const { title, children } = props;
-  const [isOpen, setIsOpen] = useState(false);
+  const { title, defaultOpen = true, children } = props;
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const handleToggleOpen = () => setIsOpen(!isOpen);
 

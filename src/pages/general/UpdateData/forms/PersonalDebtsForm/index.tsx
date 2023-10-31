@@ -1,18 +1,20 @@
+import { Icon } from "@design/data/Icon";
+import { IAction } from "@design/data/Table/types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { MdOutlineModeEdit } from "react-icons/md";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
+import { DeleteDebt } from "./DeleteDebt";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
-import { IAction } from "@design/data/Table/types";
-import { Icon } from "@design/data/Icon";
-import { MdOutlineModeEdit } from "react-icons/md";
-import { DeleteDebt } from "./DeleteDebt";
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
-  terminationDate: validationRules.date.required(validationMessages.required),
+  terminationDate: validationRules.date
+    .concat(validationRules.notPastDate)
+    .required(validationMessages.required),
   debtBalance: validationRules.money.required(validationMessages.required),
   financialEntity: validationRules.name.required(validationMessages.required),
   quota: validationRules.money.required(validationMessages.required),
