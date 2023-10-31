@@ -32,7 +32,7 @@ const preliquidation: IPreliquidationEntry = {
 };
 
 const disbursement: IDisbursementEntry = {
-  creditDisbursement: "",
+  disbursementType: "",
   accountNumber: "",
   observations: "",
   supplier: "",
