@@ -1,12 +1,45 @@
-import { useState } from "react";
-import { Stack } from "@design/layout/Stack";
-import { Label } from "../Label";
 import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
-import { Counter } from "./Counter";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useState } from "react";
+import { MdCheckCircle, MdOutlineError } from "react-icons/md";
+import { Label } from "../Label";
+import {
+  StyledErrorMessageContainer,
+  StyledValidMessageContainer,
+} from "../TextField/styles";
+import { ITextFieldMessage, InputState } from "../TextField/types";
+import { Counter } from "./Counter";
 import { StyledContainer, StyledTextarea } from "./styles";
 import { CounterAppearence } from "./types";
+
+function Invalid(props: ITextFieldMessage) {
+  const { isDisabled, state, errorMessage } = props;
+  const transformedErrorMessage = errorMessage && `(${errorMessage})`;
+
+  return (
+    <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
+      <MdOutlineError />
+      <Text type="body" size="small" appearance="error" disabled={isDisabled}>
+        {transformedErrorMessage}
+      </Text>
+    </StyledErrorMessageContainer>
+  );
+}
+
+function Success(props: ITextFieldMessage) {
+  const { isDisabled, state, validMessage } = props;
+
+  return (
+    <StyledValidMessageContainer isDisabled={isDisabled} state={state}>
+      <MdCheckCircle />
+      <Text type="body" size="small" appearance="success" disabled={isDisabled}>
+        {validMessage}
+      </Text>
+    </StyledValidMessageContainer>
+  );
+}
 
 interface TextareaProps {
   label?: string;
@@ -24,6 +57,9 @@ interface TextareaProps {
   handleBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   readOnly?: boolean;
   lengthThreshold?: number;
+  state?: InputState;
+  errorMessage?: string;
+  validMessage?: string;
 }
 
 const Textarea = (props: TextareaProps) => {
@@ -42,6 +78,9 @@ const Textarea = (props: TextareaProps) => {
     handleBlur,
     readOnly,
     lengthThreshold = 0,
+    state = "pending",
+    errorMessage,
+    validMessage,
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
@@ -125,9 +164,24 @@ const Textarea = (props: TextareaProps) => {
         onFocus={interceptFocus}
         onBlur={interceptBlur}
       />
+
+      {state === "invalid" && (
+        <Invalid
+          isDisabled={isDisabled}
+          state={state}
+          errorMessage={errorMessage}
+        />
+      )}
+      {state === "valid" && (
+        <Success
+          isDisabled={isDisabled}
+          state={state}
+          validMessage={validMessage}
+        />
+      )}
     </StyledContainer>
   );
 };
 
-export type { TextareaProps };
 export { Textarea };
+export type { TextareaProps };
