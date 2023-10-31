@@ -86,12 +86,12 @@ function TextField(props: TextFieldProps) {
   const transformedIsDisabled =
     typeof isDisabled === "boolean" ? isDisabled : false;
 
+  const transformedState = inputStates.includes(state) ? state : "pending";
+
   const transformedTypes = inputTypes.includes(type) ? type : "text";
 
   const transformedIsRequired =
     typeof isRequired === "boolean" ? isRequired : false;
-
-  const transformedState = inputStates.includes(state) ? state : "pending";
 
   const transformedIsFullWidth =
     typeof isFullWidth === "boolean" ? isFullWidth : false;

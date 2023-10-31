@@ -108,10 +108,10 @@ function Select(props: SelectProps) {
   const transformedIsDisabled =
     typeof isDisabled === "boolean" ? isDisabled : false;
 
+  const transformedState = inputStates.includes(state) ? state : "pending";
+
   const transformedIsRequired =
     typeof isRequired === "boolean" ? isRequired : false;
-
-  const transformedState = inputStates.includes(state) ? state : "pending";
 
   const transformedIsFullWidth =
     typeof isFullWidth === "boolean" ? isFullWidth : false;
