@@ -1,4 +1,4 @@
-import { AddReferenceModal } from "@components/modals/forms/update-data/AddReferenceModal";
+import { ReferenceModal } from "@components/modals/forms/update-data/ReferenceModal";
 import { Table } from "@design/data/Table";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
@@ -25,7 +25,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
     showAddReferenceModal,
     handleToggleModal,
     handleAddReference,
-    personalReferencesTableActions
+    personalReferencesTableActions,
   } = props;
   return (
     <>
@@ -42,17 +42,20 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           titles={personalReferencesTableTitles}
           breakpoints={personalReferencesTableBreakpoints}
           actions={personalReferencesTableActions}
-          entries={mapPersonalReferences(formik.values.entries)}
+          entries={mapPersonalReferences(formik.values.entries)}          
           pageLength={formik.values.entries.length}
           hideMobileResume
         />
       </Stack>
       {showAddReferenceModal && (
-        <AddReferenceModal
+        <ReferenceModal
+          title="Adicionar referencia"
+          description="Agrega una referencia personal"
+          confirmButtonText="Adicionar"
           portalId="modals"
           formik={formik}
           onCloseModal={handleToggleModal}
-          onAddReference={handleAddReference}
+          onConfirm={handleAddReference}
         />
       )}
     </>
