@@ -11,7 +11,7 @@ import { DeleteAsset } from "./DeleteAsset";
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),
-  assetName: Yup.string(),
+  assetName: Yup.string().required(validationMessages.required),
   commercialValue: validationRules.money.required(validationMessages.required),
   debtBalance: validationRules.money,
   financialEntity: validationRules.name,

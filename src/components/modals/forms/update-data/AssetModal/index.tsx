@@ -114,6 +114,7 @@ function AssetModal(props: AssetModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El nombre del activo es válido"
+            isRequired
           />
           <TextField
             label="Valor comercial"
