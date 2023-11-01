@@ -1,7 +1,7 @@
-const creditDisbursementData = [
+const disbursementTypeData = [
   {
     id: "localSavingsDeposit",
-    value: "Abono en cuenta de ahorros local",
+    value: "Abono en cuenta de ahorros propia",
   },
   {
     id: "multiplePaymentRecipients",
@@ -53,4 +53,4 @@ const creditDisbursementData = [
   },
 ];
 
-export { creditDisbursementData };
+export { disbursementTypeData };

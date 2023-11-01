@@ -1,5 +1,5 @@
 interface IDisbursementEntry {
-  creditDisbursement: string;
+  disbursementType: string;
   accountNumber?: string;
   observations?: string;
   supplier?: string;
