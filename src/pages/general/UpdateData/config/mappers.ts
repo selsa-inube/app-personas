@@ -125,21 +125,20 @@ const mapPersonalDebts = (
 };
 
 const mapPersonalReference = (
-  personalAsset: IPersonalReferenceEntry,
+  personalReference: IPersonalReferenceEntry,
   index: number
 ): IEntry | IPersonalReferenceEntry => {
   return {
-    id: personalAsset.id || String(index),
+    id: personalReference.id || String(index),
     referenceType: getValueOfDomain(
-      personalAsset.referenceType || "",
+      personalReference.referenceType || "",
       "referenceType"
     )?.value,
-    name: personalAsset.name,
-    address: personalAsset.address,
-    email: personalAsset.email,
-    phone: personalAsset.phone,
-    city: cityDM.valueOf(personalAsset.city || "")?.value,
-    observations: personalAsset.observations,
+    name: personalReference.name,
+    address: personalReference.address,
+    email: personalReference.email,
+    phone: personalReference.phone,
+    city: cityDM.valueOf(personalReference.city || "")?.value,
   };
 };
 

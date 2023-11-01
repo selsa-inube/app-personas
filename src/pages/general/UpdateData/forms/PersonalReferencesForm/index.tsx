@@ -6,9 +6,8 @@ import * as Yup from "yup";
 import { PersonalReferencesFormUI } from "./interface";
 import { IPersonalReferenceEntries } from "./types";
 import { IAction } from "@design/data/Table/types";
-import { Icon } from "@design/data/Icon";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { DeleteReference } from "./DeleteReference";
+import { EditReference } from "./EditReference";
 
 const validationSchema = Yup.object({
   referenceType: Yup.string().required(validationMessages.required),
@@ -21,7 +20,6 @@ const validationSchema = Yup.object({
 
 interface PersonalReferencesFormProps {
   initialValues: IPersonalReferenceEntries;
-  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: IPersonalReferenceEntries) => void;
 }
 
@@ -29,7 +27,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
   props: PersonalReferencesFormProps,
   ref: React.Ref<FormikProps<IPersonalReferenceEntries>>
 ) {
-  const { initialValues, onFormValid, handleSubmit } = props;
+  const { initialValues, handleSubmit } = props;
 
   const [showAddReferenceModal, setShowAddReferenceModal] = useState(false);
 
@@ -44,6 +42,17 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
 
   const handleToggleModal = () => {
     setShowAddReferenceModal(!showAddReferenceModal);
+    const fieldsToClear = [
+      "referenceType",
+      "name",
+      "address",
+      "email",
+      "phone",
+      "city",
+    ];
+
+    fieldsToClear.forEach((field) => formik.setFieldValue(field, ""));
+    formik.setTouched({});
   };
 
   const handleAddReference = async () => {
@@ -61,10 +70,22 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
           email: formik.values.email,
           phone: formik.values.phone,
           city: formik.values.city,
-          observations: formik.values.observations,
         },
       ]);
+
+      const fieldsToClear = [
+        "referenceType",
+        "name",
+        "address",
+        "email",
+        "phone",
+        "city",
+      ];
+
+      fieldsToClear.forEach((field) => formik.setFieldValue(field, ""));
     }
+
+    formik.setTouched({});
   };
 
   const handleDeleteReference = (referenceId: string) => {
@@ -80,13 +101,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
       id: "1",
       actionName: "Editar",
       content: (reference) => (
-        <Icon
-          appearance="dark"
-          icon={<MdOutlineModeEdit />}
-          cursorHover={true}
-          size="16px"
-          spacing="none"
-        />
+        <EditReference reference={reference} formik={formik} />
       ),
       mobilePriority: true,
     },

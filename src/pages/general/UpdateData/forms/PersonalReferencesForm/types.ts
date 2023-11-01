@@ -6,7 +6,6 @@ interface IPersonalReferenceEntry {
   email?: string;
   phone?: string;
   city?: string;
-  observations?: string;
 }
 
 interface IPersonalReferenceEntries extends IPersonalReferenceEntry {
