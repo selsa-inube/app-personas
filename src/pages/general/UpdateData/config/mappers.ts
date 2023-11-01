@@ -81,6 +81,7 @@ const mapPersonalAsset = (
     id: personalAsset.id || String(index),
     assetType: getValueOfDomain(personalAsset.assetType || "", "assetType")
       ?.value,
+    assetName: personalAsset.assetName,
     commercialValue: currencyFormat(Number(personalAsset.commercialValue)),
     debtBalance: currencyFormat(Number(personalAsset.debtBalance)),
     financialEntity: personalAsset.financialEntity,
@@ -122,24 +123,23 @@ const mapPersonalDebts = (
   return personalDebts.map(
     (personalDebt, index) => mapPersonalDebt(personalDebt, index) as IEntry
   );
-}
+};
 
 const mapPersonalReference = (
-  personalAsset: IPersonalReferenceEntry,
+  personalReference: IPersonalReferenceEntry,
   index: number
 ): IEntry | IPersonalReferenceEntry => {
   return {
-    id: personalAsset.id || String(index),
+    id: personalReference.id || String(index),
     referenceType: getValueOfDomain(
-      personalAsset.referenceType || "",
+      personalReference.referenceType || "",
       "referenceType"
     )?.value,
-    name: personalAsset.name,
-    address: personalAsset.address,
-    email: personalAsset.email,
-    phone: personalAsset.phone,
-    city: cityDM.valueOf(personalAsset.city || "")?.value,
-    observations: personalAsset.observations,
+    name: personalReference.name,
+    address: personalReference.address,
+    email: personalReference.email,
+    phone: personalReference.phone,
+    city: cityDM.valueOf(personalReference.city || "")?.value,
   };
 };
 

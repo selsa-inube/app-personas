@@ -70,7 +70,6 @@ function AssetModal(props: AssetModalProps) {
             <Text type="title" size="large" appearance="dark">
               {title}
             </Text>
-
             <Icon
               appearance="dark"
               icon={<MdOutlineClose />}
@@ -99,6 +98,22 @@ function AssetModal(props: AssetModalProps) {
             state={stateValue("assetType")}
             handleChange={formik.handleChange}
             value={formik.values.assetType || ""}
+            isRequired
+          />
+          <TextField
+            label="Nombre del activo"
+            name="assetName"
+            id="assetName"
+            placeholder="Digita el nombre del activo"
+            value={formik.values.assetName || ""}
+            type="text"
+            errorMessage={formik.errors.assetName}
+            size="compact"
+            isFullWidth
+            state={stateValue("assetName")}
+            handleBlur={formik.handleBlur}
+            handleChange={formik.handleChange}
+            validMessage="El nombre del activo es válido"
             isRequired
           />
           <TextField
