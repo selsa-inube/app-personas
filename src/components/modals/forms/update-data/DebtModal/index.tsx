@@ -15,15 +15,26 @@ import { StyledDivider, StyledModal } from "./styles";
 
 const liabilityTypeDM = getDomainById("liabilityType");
 
-interface AddDebtModalProps {
+interface DebtModalProps {
+  title: string;
+  description: string;
+  confirmButtonText: string;
   portalId: string;
   formik: FormikValues;
   onCloseModal: () => void;
-  onAddDebt: () => void;
+  onConfirm: () => void;
 }
 
-function AddDebtModal(props: AddDebtModalProps) {
-  const { portalId, formik, onCloseModal, onAddDebt } = props;
+function DebtModal(props: DebtModalProps) {
+  const {
+    portalId,
+    formik,
+    title,
+    description,
+    confirmButtonText,
+    onCloseModal,
+    onConfirm,
+  } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -57,9 +68,8 @@ function AddDebtModal(props: AddDebtModalProps) {
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
-              Adicionar deuda
+              {title}
             </Text>
-
             <Icon
               appearance="dark"
               icon={<MdOutlineClose />}
@@ -70,7 +80,7 @@ function AddDebtModal(props: AddDebtModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Agrega una deuda a la actualización
+            {description}
           </Text>
         </Stack>
 
@@ -88,6 +98,22 @@ function AddDebtModal(props: AddDebtModalProps) {
             state={stateValue("liabilityType")}
             handleChange={formik.handleChange}
             value={formik.values.liabilityType || ""}
+            isRequired
+          />
+          <TextField
+            label="Nombre del pasivo"
+            name="debtName"
+            id="debtName"
+            placeholder="Digite el nombre del pasivo"
+            value={formik.values.debtName || ""}
+            type="text"
+            errorMessage={formik.errors.debtName}
+            size="compact"
+            isFullWidth
+            state={stateValue("debtName")}
+            handleBlur={formik.handleBlur}
+            handleChange={formik.handleChange}
+            validMessage="El nombre del pasivo es válido"
             isRequired
           />
           <TextField
@@ -180,11 +206,11 @@ function AddDebtModal(props: AddDebtModalProps) {
           </Button>
           <Button
             spacing="compact"
-            handleClick={onAddDebt}
+            handleClick={onConfirm}
             disabled={!formik.isValid}
             appearance="primary"
           >
-            Adicionar
+            {confirmButtonText}
           </Button>
         </Stack>
       </StyledModal>
@@ -193,4 +219,4 @@ function AddDebtModal(props: AddDebtModalProps) {
   );
 }
 
-export { AddDebtModal };
+export { DebtModal };

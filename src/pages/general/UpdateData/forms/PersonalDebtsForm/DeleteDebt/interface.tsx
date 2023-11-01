@@ -33,7 +33,7 @@ function DeleteDebtUI(props: DeleteDebtUIProps) {
       {showModal && (
         <DecisionModal
           title={title}
-          description={description(`"${debt.liabilityType}"`)}
+          description={description(`"${debt.debtName}"`)}
           appearance={appearance}
           actionText={actionText}
           onCloseModal={closeModal}

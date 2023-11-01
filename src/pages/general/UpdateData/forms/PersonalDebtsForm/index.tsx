@@ -1,17 +1,17 @@
-import { Icon } from "@design/data/Icon";
 import { IAction } from "@design/data/Table/types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { DeleteDebt } from "./DeleteDebt";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
+import { EditDebt } from "./EditDebt";
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
+  debtName: Yup.string().required(validationMessages.required),
   terminationDate: validationRules.date
     .concat(validationRules.notPastDate)
     .required(validationMessages.required),
@@ -22,7 +22,6 @@ const validationSchema = Yup.object({
 
 interface PersonalDebtsFormProps {
   initialValues: IPersonalDebtEntries;
-  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: IPersonalDebtEntries) => void;
 }
 
@@ -30,7 +29,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
   props: PersonalDebtsFormProps,
   ref: React.Ref<FormikProps<IPersonalDebtEntries>>
 ) {
-  const { initialValues, onFormValid, handleSubmit } = props;
+  const { initialValues, handleSubmit } = props;
 
   const [showAddDebtModal, setShowAddDebtModal] = useState(false);
 
@@ -45,6 +44,18 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
 
   const handleToggleModal = () => {
     setShowAddDebtModal(!showAddDebtModal);
+    const fieldsToClear = [
+      "liabilityType",
+      "debtName",
+      "terminationDate",
+      "debtBalance",
+      "financialEntity",
+      "quota",
+      "observations",
+    ];
+
+    fieldsToClear.forEach((field) => formik.setFieldValue(field, ""));
+    formik.setTouched({});
   };
 
   const handleAddDebt = async () => {
@@ -57,6 +68,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
         {
           id: String(formik.values.entries.length + 1),
           liabilityType: formik.values.liabilityType,
+          debtName: formik.values.debtName,
           terminationDate: formik.values.terminationDate,
           debtBalance: formik.values.debtBalance,
           financialEntity: formik.values.financialEntity,
@@ -64,7 +76,21 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
           observations: formik.values.observations,
         },
       ]);
+
+      const fieldsToClear = [
+        "liabilityType",
+        "debtName",
+        "terminationDate",
+        "debtBalance",
+        "financialEntity",
+        "quota",
+        "observations",
+      ];
+
+      fieldsToClear.forEach((field) => formik.setFieldValue(field, ""));
     }
+
+    formik.setTouched({});
   };
 
   const handleDeleteDebt = (debtId: string) => {
@@ -84,15 +110,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
     {
       id: "1",
       actionName: "Editar",
-      content: (debt) => (
-        <Icon
-          appearance="dark"
-          icon={<MdOutlineModeEdit />}
-          cursorHover={true}
-          size="16px"
-          spacing="none"
-        />
-      ),
+      content: (debt) => <EditDebt debt={debt} formik={formik} />,
       mobilePriority: true,
     },
     {

@@ -4,7 +4,12 @@ const personalDebtsTableTitles = [
   {
     id: "liabilityType",
     titleName: "Tipo de pasivo",
-    priority: 1,
+    priority: 5,
+  },
+  {
+    id: "debtName",
+    titleName: "Nombre del pasivo",
+    priority: 0,
   },
   {
     id: "terminationDate",
@@ -14,7 +19,7 @@ const personalDebtsTableTitles = [
   {
     id: "debtBalance",
     titleName: "Saldo de la deuda",
-    priority: 0,
+    priority: 1,
   },
   {
     id: "financialEntity",
@@ -29,7 +34,8 @@ const personalDebtsTableTitles = [
 ];
 
 const personalDebtsTableBreakpoints = [
-  { breakpoint: "(min-width: 1229px)", totalColumns: 5 },
+  { breakpoint: "(min-width: 1229px)", totalColumns: 6 },
+  { breakpoint: "(max-width: 1180px)", totalColumns: 5 },
   { breakpoint: "(max-width: 1120px)", totalColumns: 4 },
   { breakpoint: "(max-width: 1000px)", totalColumns: 3 },
   { breakpoint: "(max-width: 900px)", totalColumns: 4 },
