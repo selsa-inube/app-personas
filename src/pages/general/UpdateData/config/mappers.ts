@@ -81,6 +81,7 @@ const mapPersonalAsset = (
     id: personalAsset.id || String(index),
     assetType: getValueOfDomain(personalAsset.assetType || "", "assetType")
       ?.value,
+    assetName: personalAsset.assetName,
     commercialValue: currencyFormat(Number(personalAsset.commercialValue)),
     debtBalance: currencyFormat(Number(personalAsset.debtBalance)),
     financialEntity: personalAsset.financialEntity,
@@ -121,7 +122,7 @@ const mapPersonalDebts = (
   return personalDebts.map(
     (personalDebt, index) => mapPersonalDebt(personalDebt, index) as IEntry
   );
-}
+};
 
 const mapPersonalReference = (
   personalAsset: IPersonalReferenceEntry,
