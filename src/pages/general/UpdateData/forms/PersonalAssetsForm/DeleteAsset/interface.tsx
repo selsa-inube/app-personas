@@ -32,7 +32,7 @@ function DeleteAssetUI(props: DeleteAssetUIProps) {
       {showModal && (
         <DecisionModal
           title={title}
-          description={description(`"${asset.assetType}"`)}
+          description={description(`"${asset.assetName}"`)}
           appearance={appearance}
           actionText={actionText}
           onCloseModal={closeModal}

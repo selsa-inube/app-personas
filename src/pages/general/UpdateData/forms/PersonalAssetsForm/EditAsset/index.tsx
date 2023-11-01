@@ -38,6 +38,7 @@ function EditAsset(props: EditAssetProps) {
             return {
               id: asset.id,
               assetType: formik.values.assetType,
+              assetName: formik.values.assetName,
               commercialValue: formik.values.commercialValue,
               debtBalance: formik.values.debtBalance,
               financialEntity: formik.values.financialEntity,
@@ -57,6 +58,7 @@ function EditAsset(props: EditAssetProps) {
     setShowModal(!showModal);
     const fieldsToClear = [
       "assetType",
+      "assetName",
       "commercialValue",
       "debtBalance",
       "financialEntity",
