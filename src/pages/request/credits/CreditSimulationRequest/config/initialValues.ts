@@ -34,9 +34,10 @@ const preliquidation: IPreliquidationEntry = {
 const disbursement: IDisbursementEntry = {
   disbursementType: "",
   accountNumber: "",
+  writeAccountNumber: "",
   observations: "",
   supplier: "",
-  identicationType: "",
+  identificationType: "",
   identification: "",
   socialReason: "",
   firstName: "",
@@ -45,7 +46,6 @@ const disbursement: IDisbursementEntry = {
   secondLastName: "",
   gender: "",
   others: "",
-  account: "",
   entity: "",
   accountType: "",
 };
