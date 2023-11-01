@@ -134,7 +134,7 @@ const renderDisbursementVerification = (
     <BoxAttribute
       label="Forma de desembolso:"
       value={
-        getValueOfDomain(values.creditDisbursement, "creditDisbursement")?.value
+        getValueOfDomain(values.disbursementType, "disbursementType")?.value
       }
     />
     {values.accountNumber && (

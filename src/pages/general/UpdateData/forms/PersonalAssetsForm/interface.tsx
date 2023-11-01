@@ -1,4 +1,4 @@
-import { AddAssetModal } from "@components/modals/forms/update-data/AddAssetModal";
+import { AssetModal } from "@components/modals/forms/update-data/AssetModal";
 import { Table } from "@design/data/Table";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
@@ -47,11 +47,14 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
         hideMobileResume
       />
       {showAddAssetModal && (
-        <AddAssetModal
+        <AssetModal
+          title="Adicionar bien"
+          description="Agrega un bien a la actualización de datos."
+          confirmButtonText="Adicionar"
           portalId="modals"
           formik={formik}
           onCloseModal={handleToggleModal}
-          onAddAsset={handleAddAsset}
+          onConfirm={handleAddAsset}
         />
       )}
     </Stack>
