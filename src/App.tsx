@@ -22,8 +22,13 @@ import { useEffect } from "react";
 import { CreditRoutes } from "./routes/credit";
 import { MyCreditsRoutes } from "./routes/myCredits";
 import { MySavingsRoutes } from "./routes/mySavings";
+import { validateUser } from "./services/identidad/authorization";
 
 const USER_ID = "1";
+
+const CLIENT_ID = "";
+const CLIENT_SECRET = "";
+const REALM = "";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,6 +51,10 @@ function App() {
   const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
+    validateUser(CLIENT_ID, CLIENT_SECRET, REALM);
+  }, []);
+
+  /*  useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       loginWithRedirect();
     }
@@ -53,7 +62,7 @@ function App() {
 
   if (!isAuthenticated) {
     return null;
-  }
+  } */
 
   return (
     <>
