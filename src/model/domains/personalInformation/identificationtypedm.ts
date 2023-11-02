@@ -23,7 +23,7 @@ const identificationTypeData = {
   },
   NIT: {
     id: "nit",
-    value: "Número de identificación tributaria",
+    value: "NIT",
   },
 };
 

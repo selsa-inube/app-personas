@@ -4,6 +4,11 @@ const personalAssetsTableTitles = [
   {
     id: "assetType",
     titleName: "Tipo de activo",
+    priority: 5,
+  },
+  {
+    id: "assetName",
+    titleName: "Nombre del activo",
     priority: 0,
   },
   {
@@ -29,7 +34,8 @@ const personalAssetsTableTitles = [
 ];
 
 const personalAssetsTableBreakpoints = [
-  { breakpoint: "(min-width: 1229px)", totalColumns: 5 },
+  { breakpoint: "(min-width: 1229px)", totalColumns: 6 },
+  { breakpoint: "(max-width: 1180px)", totalColumns: 5 },
   { breakpoint: "(max-width: 1120px)", totalColumns: 4 },
   { breakpoint: "(max-width: 1000px)", totalColumns: 3 },
   { breakpoint: "(max-width: 900px)", totalColumns: 4 },
