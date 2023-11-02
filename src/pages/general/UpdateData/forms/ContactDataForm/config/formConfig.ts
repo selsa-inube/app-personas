@@ -1,6 +1,4 @@
-import { IRequiredFields } from "../types";
-
-const requiredFields: IRequiredFields = {
+const contactDataRequiredFields = {
   country: false,
   stateOrDepartment: false,
   city: false,
@@ -11,4 +9,4 @@ const requiredFields: IRequiredFields = {
   email: false,
 };
 
-export { requiredFields };
+export { contactDataRequiredFields };

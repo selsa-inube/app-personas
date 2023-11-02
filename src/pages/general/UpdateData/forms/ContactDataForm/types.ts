@@ -10,15 +10,4 @@ interface IContactDataEntry {
   email: string;
 }
 
-interface IRequiredFields {
-  country: boolean;
-  stateOrDepartment: boolean;
-  city: boolean;
-  address: boolean;
-  postalCode: boolean;
-  landlinePhone: boolean;
-  cellPhone: boolean;
-  email: boolean;
-}
-
-export type { IContactDataEntry, IRequiredFields };
+export type { IContactDataEntry };
