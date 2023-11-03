@@ -5,7 +5,7 @@ import { validationMessages } from "./validationMessages";
 const validationRules = {
   name: Yup.string()
     .matches(regex.onlyLetters, validationMessages.onlyLetters)
-    .min(8, validationMessages.minCharacters(8))
+    .min(2, validationMessages.minCharacters(2))
     .max(30, validationMessages.maxCharacters(30)),
 
   identification: Yup.string()
