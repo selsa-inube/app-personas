@@ -7,7 +7,6 @@ import {
 
 import { GlobalStyles } from "@design/styles";
 import { useFonts } from "@hooks/useFonts";
-import { ThemeProvider } from "styled-components";
 
 import { header } from "@config/header";
 import { nav } from "@config/nav";
@@ -15,20 +14,14 @@ import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
 
-import { useAuth0 } from "@auth0/auth0-react";
 import { Home } from "@pages/admin/home";
 import { UpdateData } from "@pages/general/UpdateData";
-import { useEffect } from "react";
+import AppContextProvider from "./context";
 import { CreditRoutes } from "./routes/credit";
 import { MyCreditsRoutes } from "./routes/myCredits";
 import { MySavingsRoutes } from "./routes/mySavings";
-import { validateUser } from "./services/identidad/authorization";
 
 const USER_ID = "1";
-
-const CLIENT_ID = "";
-const CLIENT_SECRET = "";
-const REALM = "";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,29 +41,12 @@ const router = createBrowserRouter(
 
 function App() {
   useFonts(theme.typography.fonts);
-  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
-
-  useEffect(() => {
-    validateUser(CLIENT_ID, CLIENT_SECRET, REALM);
-  }, []);
-
-  /*  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      loginWithRedirect();
-    }
-  }, [isLoading, isAuthenticated]);
-
-  if (!isAuthenticated) {
-    return null;
-  } */
 
   return (
-    <>
+    <AppContextProvider>
       <GlobalStyles />
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
-      </ThemeProvider>
-    </>
+      <RouterProvider router={router} />
+    </AppContextProvider>
   );
 }
 

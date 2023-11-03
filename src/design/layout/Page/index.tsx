@@ -1,9 +1,11 @@
-import { useLocation, Outlet } from "react-router-dom";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useContext } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { AppContext } from "src/context";
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
 import { Grid } from "../Grid";
-import { StyledPage, StyledMain } from "./styles";
+import { StyledMain, StyledPage } from "./styles";
 import { IHeader, INav } from "./types";
 
 interface PageProps {
@@ -14,6 +16,7 @@ interface PageProps {
 function Page(props: PageProps) {
   const currentLocation = useLocation().pathname;
   const navBreakpoint = useMediaQuery("(min-width: 900px)");
+  const { user } = useContext(AppContext);
 
   const { header, nav } = props;
 
@@ -21,7 +24,9 @@ function Page(props: PageProps) {
     <StyledPage>
       <Header
         logoURL={header.logoURL}
-        username={header.username}
+        username={
+          user ? `${user.firstName} ${user.firstLastName}` : header.username
+        }
         client={header.client}
         links={header.links}
         portalId={header.portalId}

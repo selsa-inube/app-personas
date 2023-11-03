@@ -1,9 +1,10 @@
+import { useContext } from "react";
+import { MdLogout } from "react-icons/md";
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
-import { MdLogout } from "react-icons/md";
-import { useAuth0 } from "@auth0/auth0-react";
 
 import { ISection } from "@design/layout/Page/types";
+import { AppContext } from "src/context";
 import {
   StyledContent,
   StyledFooter,
@@ -30,11 +31,7 @@ function Nav(props: NavProps) {
   } = props;
   const year = new Date().getFullYear();
 
-  const { logout } = useAuth0();
-
-  function handleLogout() {
-    logout();
-  }
+  const { handleLogout } = useContext(AppContext);
 
   return (
     <StyledNav>

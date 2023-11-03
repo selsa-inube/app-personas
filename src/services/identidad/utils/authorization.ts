@@ -1,4 +1,8 @@
-import { generateCodeChallengePair, generateState } from "src/utils/codes";
+import {
+  generateCodeChallengePair,
+  generateState,
+} from "src/services/identidad/utils/codes";
+import { IUser } from "../types";
 
 const SERVICE_URL =
   "https://odin.selsacloud.com/linix/v7/da77663b-eeaf-42a0-a093-5efbdb1e54d2/servicio/identidad";
@@ -21,20 +25,23 @@ interface IAuthorizationCodeResponse {
 }
 
 const requestAuthorizationCode = async (
-  cliendId: string,
+  clientId: string,
   clientSecret: string,
-  realm: string
+  realm: string,
+  redirectUri: string,
+  scopes?: string[]
 ) => {
   try {
+    const scope = scopes ? scopes.join(" ") : "openid";
     const bodyParams = new URLSearchParams();
     bodyParams.append("response_type", "code");
     bodyParams.append("response_mode", "query");
     bodyParams.append("state", generateState());
-    bodyParams.append("redirect_uri", "http://localhost:3000");
-    bodyParams.append("client_id", cliendId);
+    bodyParams.append("redirect_uri", redirectUri);
+    bodyParams.append("client_id", clientId);
     bodyParams.append("client_secret", clientSecret);
     bodyParams.append("redirect", "false");
-    bodyParams.append("scope", "openid profile email identityDocument");
+    bodyParams.append("scope", scope);
 
     const res = await fetch(`${SERVICE_URL}/oauth2/autorizar`, {
       method: "POST",
@@ -56,7 +63,7 @@ const requestAuthorizationCode = async (
       return authorizationCodeResponse;
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -70,17 +77,18 @@ interface IAccessTokenResponse {
 
 const getAccessToken = async (
   code: string,
-  cliendId: string,
+  clientId: string,
   clientSecret: string,
-  realm: string
+  realm: string,
+  redirectUri: string
 ) => {
   try {
     const codeChallengePair = await generateCodeChallengePair();
 
     const bodyParams = new URLSearchParams();
-    bodyParams.append("redirect_uri", "http://localhost:3000");
+    bodyParams.append("redirect_uri", redirectUri);
     bodyParams.append("code", code);
-    bodyParams.append("client_id", cliendId);
+    bodyParams.append("client_id", clientId);
     bodyParams.append("client_secret", clientSecret);
     bodyParams.append("code_verifier", codeChallengePair.codeVerifier);
     bodyParams.append("code_challenge", codeChallengePair.codeChallenge);
@@ -115,44 +123,42 @@ const getAccessToken = async (
       return accessTokenResponse;
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
 interface IVerifyAccessTokenResponse {
   expireIn: number;
-  scopes: string[];
-  user: {
-    id: string;
-    login: string;
-    url: string;
-  };
+  idSesion: string;
+  user: IUser;
 }
 
 const verifyAccessToken = async (accessToken: string, realm: string) => {
   try {
-    console.log(accessToken);
     const res = await fetch(`${SERVICE_URL}/oauth2/token/${realm}/info`, {
       method: "GET",
       headers: {
-        /* Realm: realm, */
         "Content-Type": "application/json",
         Authorization: `1/${accessToken}`,
       },
     });
 
-    if (!res.ok) console.log(res.statusText);
-
     const data = await res.json();
-    console.log(data);
-    if (data.expire_in && data.scopes && data.user) {
+
+    if (data.expires_in && data.idSesion && data.usuario) {
       const verifyAccessTokenResponse: IVerifyAccessTokenResponse = {
-        expireIn: data.expire_in,
-        scopes: data.scopes,
+        expireIn: data.expires_in,
+        idSesion: data.idSesion,
         user: {
-          id: data.user.id,
-          login: data.user.login,
-          url: data.user.url,
+          id: data.usuario.id,
+          company: data.usuario.repositorio,
+          email: data.usuario.correoElectronico,
+          firstName: data.usuario.primerNombre,
+          secondName: data.usuario.segundoNombre,
+          firstLastName: data.usuario.primerApellido,
+          secondLastName: data.usuario.segundoApellido,
+          identification: data.usuario.identificacion,
+          phone: data.usuario.telefonoMovil,
         },
       };
 
@@ -163,33 +169,9 @@ const verifyAccessToken = async (accessToken: string, realm: string) => {
   }
 };
 
-const validateUser = async (
-  cliendId: string,
-  clientSecret: string,
-  realm: string
-) => {
-  const user = sessionStorage.getItem("user");
-
-  if (!user) {
-    const { authorizationCode, state } = getAuthorizationCode();
-    if (!authorizationCode || !state) {
-      requestAuthorizationCode(cliendId, clientSecret, realm);
-      return;
-    }
-
-    const accessToken = await getAccessToken(
-      authorizationCode,
-      cliendId,
-      clientSecret,
-      realm
-    );
-    console.log(accessToken);
-
-    if (!accessToken) return;
-
-    const verifyResult = await verifyAccessToken(accessToken?.token, realm);
-    console.log(verifyResult);
-  }
+export {
+  getAccessToken,
+  getAuthorizationCode,
+  requestAuthorizationCode,
+  verifyAccessToken,
 };
-
-export { validateUser };
