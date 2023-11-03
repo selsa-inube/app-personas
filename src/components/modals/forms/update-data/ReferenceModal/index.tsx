@@ -15,15 +15,26 @@ import { StyledDivider, StyledModal } from "./styles";
 
 const referenceTypeDM = getDomainById("referenceType");
 
-interface AddReferenceModalProps {
+interface ReferenceModalProps {
+  title: string;
+  description: string;
+  confirmButtonText: string;
   portalId: string;
   formik: FormikValues;
   onCloseModal: () => void;
-  onAddReference: () => void;
+  onConfirm: () => void;
 }
 
-function AddReferenceModal(props: AddReferenceModalProps) {
-  const { portalId, formik, onCloseModal, onAddReference } = props;
+function ReferenceModal(props: ReferenceModalProps) {
+  const {
+    portalId,
+    formik,
+    title,
+    description,
+    confirmButtonText,
+    onCloseModal,
+    onConfirm,
+  } = props;
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -46,7 +57,7 @@ function AddReferenceModal(props: AddReferenceModalProps) {
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
-              Adicionar referencia
+              {title}
             </Text>
 
             <Icon
@@ -59,7 +70,7 @@ function AddReferenceModal(props: AddReferenceModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Agrega una referencia personal
+            {description}
           </Text>
         </Stack>
 
@@ -169,11 +180,11 @@ function AddReferenceModal(props: AddReferenceModalProps) {
           </Button>
           <Button
             spacing="compact"
-            handleClick={onAddReference}
+            handleClick={onConfirm}
             disabled={!formik.dirty || !formik.isValid}
             appearance="primary"
           >
-            Adicionar
+            {confirmButtonText}
           </Button>
         </Stack>
       </StyledModal>
@@ -182,4 +193,4 @@ function AddReferenceModal(props: AddReferenceModalProps) {
   );
 }
 
-export { AddReferenceModal };
+export { ReferenceModal };

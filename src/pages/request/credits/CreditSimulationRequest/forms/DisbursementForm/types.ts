@@ -1,9 +1,10 @@
 interface IDisbursementEntry {
-  creditDisbursement: string;
+  disbursementType: string;
   accountNumber?: string;
+  writeAccountNumber?: string;
   observations?: string;
   supplier?: string;
-  identicationType?: string;
+  identificationType?: string;
   identification?: string;
   socialReason?: string;
   firstName?: string;
@@ -11,8 +12,7 @@ interface IDisbursementEntry {
   firstLastName?: string;
   secondLastName?: string;
   gender?: string;
-  others?: string,
-  account?: string,
+  others?: string;
   entity?: string;
   accountType?: string;
 }
