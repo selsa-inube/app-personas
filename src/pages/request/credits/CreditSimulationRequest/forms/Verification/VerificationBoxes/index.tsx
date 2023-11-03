@@ -4,10 +4,12 @@ import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdAdd, MdDragHandle, MdRemove } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
+import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { currencyFormat } from "src/utils/formats";
 import { IFormsCreditSimulationRequest } from "../../../types";
 import { ICommentsEntry } from "../../CommentsForm/types";
@@ -126,6 +128,10 @@ const renderPreliquidationVerification = (
   </Stack>
 );
 
+const getAccountDescription = (accountId: string) => {
+  return savingsMock.find((saving) => saving.id === accountId)?.description;
+};
+
 const renderDisbursementVerification = (
   values: IDisbursementEntry,
   isTablet: boolean
@@ -137,10 +143,22 @@ const renderDisbursementVerification = (
         getValueOfDomain(values.disbursementType, "disbursementType")?.value
       }
     />
+    {values.accountType && (
+      <BoxAttribute
+        label="Tipo de cuenta:"
+        value={getValueOfDomain(values.accountType, "accountType")?.value}
+      />
+    )}
     {values.accountNumber && (
       <BoxAttribute
-        label="Cuentas en moneda extranjera:"
-        value={values.accountNumber}
+        label="Numero de cuenta:"
+        value={getAccountDescription(values.accountNumber)}
+      />
+    )}
+    {values.writeAccountNumber && (
+      <BoxAttribute
+        label="Numero de cuenta:"
+        value={values.writeAccountNumber}
       />
     )}
     {values.observations && (
@@ -156,12 +174,10 @@ const renderDisbursementVerification = (
         value={getValueOfDomain(values.supplier, "suppliersType")?.value}
       />
     )}
-    {values.identicationType && (
+    {values.identificationType && (
       <BoxAttribute
         label="Tipo de identificación:"
-        value={
-          getValueOfDomain(values.identicationType, "identificationType")?.value
-        }
+        value={identificationTypeDM.valueOf(values.identificationType)?.value}
       />
     )}
     {values.identification && (
@@ -189,12 +205,10 @@ const renderDisbursementVerification = (
       />
     )}
     {values.others && <BoxAttribute label="Otros:" value={values.others} />}
-    {values.account && <BoxAttribute label="Cuenta:" value={values.account} />}
-    {values.entity && <BoxAttribute label="Entidad:" value={values.entity} />}
-    {values.accountType && (
+    {values.entity && (
       <BoxAttribute
-        label="Tipo de cuenta:"
-        value={getValueOfDomain(values.accountType, "accountType")?.value}
+        label="Entidad:"
+        value={getValueOfDomain(values.entity, "bank")?.value}
       />
     )}
   </Stack>

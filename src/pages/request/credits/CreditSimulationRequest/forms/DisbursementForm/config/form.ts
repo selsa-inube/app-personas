@@ -63,7 +63,7 @@ const commonFields = {
     label: "Identificación",
     placeholder: "Escribe el numero de identificación",
     size: "compact",
-    validationMessage: "El número de identificación ingresado es válido",
+    validMessage: "El número de identificación ingresado es válido",
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.identification.required(
@@ -145,7 +145,7 @@ const commonFields = {
     label: "Razón social",
     placeholder: "Escribe el nombre",
     size: "compact",
-    validationMessage: "La razón social ingresada es válida",
+    validMessage: "La razón social ingresada es válida",
     isFullWidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
@@ -156,7 +156,7 @@ const commonFields = {
     label: "Primer nombre",
     placeholder: "Escribe el nombre",
     size: "compact",
-    validationMessage: "El nombre ingresado es válido",
+    validMessage: "El nombre ingresado es válido",
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.name.required(validationMessages.required),
@@ -167,7 +167,7 @@ const commonFields = {
     label: "Segundo nombre",
     placeholder: "Escribe el nombre",
     size: "compact",
-    validationMessage: "El nombre ingresado es válido",
+    validMessage: "El nombre ingresado es válido",
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.name.required(validationMessages.required),
@@ -178,7 +178,7 @@ const commonFields = {
     label: "Primer apellido",
     placeholder: "Escribe el apellido",
     size: "compact",
-    validationMessage: "El apellido ingresado es válido",
+    validMessage: "El apellido ingresado es válido",
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.name.required(validationMessages.required),
@@ -189,7 +189,7 @@ const commonFields = {
     label: "Segundo apellido",
     placeholder: "Escribe el apellido",
     size: "compact",
-    validationMessage: "El apellido ingresado es válido",
+    validMessage: "El apellido ingresado es válido",
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.name.required(validationMessages.required),
@@ -253,6 +253,48 @@ const structureDisbursementForm = (formik: FormikValues): IFormStructure => {
             ]
           : [commonFields.identification, commonFields.socialReason],
       [identificationTypeDM.CC.id]:
+        formik.values.disbursementType === "thirdPartExternalTransfer"
+          ? [
+              commonFields.identification,
+              commonFields.firstName,
+              commonFields.secondName,
+              commonFields.firstLastName,
+              commonFields.secondLastName,
+              commonFields.gender,
+              commonFields.entity("span 1"),
+              commonFields.accountType("span 1"),
+              commonFields.writeAccountNumber("span 1"),
+            ]
+          : [
+              commonFields.identification,
+              commonFields.firstName,
+              commonFields.secondName,
+              commonFields.firstLastName,
+              commonFields.secondLastName,
+              commonFields.gender,
+            ],
+      [identificationTypeDM.CE.id]:
+        formik.values.disbursementType === "thirdPartExternalTransfer"
+          ? [
+              commonFields.identification,
+              commonFields.firstName,
+              commonFields.secondName,
+              commonFields.firstLastName,
+              commonFields.secondLastName,
+              commonFields.gender,
+              commonFields.entity("span 1"),
+              commonFields.accountType("span 1"),
+              commonFields.writeAccountNumber("span 1"),
+            ]
+          : [
+              commonFields.identification,
+              commonFields.firstName,
+              commonFields.secondName,
+              commonFields.firstLastName,
+              commonFields.secondLastName,
+              commonFields.gender,
+            ],
+      [identificationTypeDM.PA.id]:
         formik.values.disbursementType === "thirdPartExternalTransfer"
           ? [
               commonFields.identification,
