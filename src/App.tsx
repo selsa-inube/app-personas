@@ -16,7 +16,7 @@ import { Page } from "@design/layout/Page";
 
 import { Home } from "@pages/admin/home";
 import { UpdateData } from "@pages/general/UpdateData";
-import AppContextProvider from "./context";
+import { AppContextProvider } from "./context";
 import { CreditRoutes } from "./routes/credit";
 import { MyCreditsRoutes } from "./routes/myCredits";
 import { MySavingsRoutes } from "./routes/mySavings";

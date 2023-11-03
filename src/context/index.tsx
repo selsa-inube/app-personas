@@ -11,7 +11,7 @@ interface AppContextProviderProps {
   children: React.ReactNode;
 }
 
-export default function AppContextProvider(props: AppContextProviderProps) {
+function AppContextProvider(props: AppContextProviderProps) {
   const { children } = props;
   const { user, isLoading, loginWithRedirect, isAuthenticated, logout } =
     useAuth(authConfig);
@@ -41,3 +41,5 @@ export default function AppContextProvider(props: AppContextProviderProps) {
     </AppContext.Provider>
   );
 }
+
+export { AppContextProvider };
