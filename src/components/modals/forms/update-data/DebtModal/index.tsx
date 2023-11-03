@@ -162,6 +162,7 @@ function DebtModal(props: DebtModalProps) {
             handleBlur={formik.handleBlur}
             handleChange={formik.handleChange}
             validMessage="El nombre de la entidad es válido"
+            isRequired
           />
           <TextField
             label="Cuota"
