@@ -6,12 +6,12 @@ import * as Yup from "yup";
 import { PersonalAssetsFormUI } from "./interface";
 import { IPersonalAssetEntries } from "./types";
 import { IAction } from "@design/data/Table/types";
-import { Icon } from "@design/data/Icon";
-import { MdOutlineModeEdit } from "react-icons/md";
+import { EditAsset } from "./EditAsset";
 import { DeleteAsset } from "./DeleteAsset";
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),
+  assetName: Yup.string().required(validationMessages.required),
   commercialValue: validationRules.money.required(validationMessages.required),
   debtBalance: validationRules.money,
   financialEntity: validationRules.name,
@@ -20,7 +20,6 @@ const validationSchema = Yup.object({
 
 interface PersonalAssetsFormProps {
   initialValues: IPersonalAssetEntries;
-  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit?: (values: IPersonalAssetEntries) => void;
 }
 
@@ -28,7 +27,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   props: PersonalAssetsFormProps,
   ref: React.Ref<FormikProps<IPersonalAssetEntries>>
 ) {
-  const { initialValues, onFormValid, handleSubmit } = props;
+  const { initialValues, handleSubmit } = props;
 
   const [showAddAssetModal, setShowAddAssetModal] = useState(false);
 
@@ -43,6 +42,18 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
 
   const handleToggleModal = () => {
     setShowAddAssetModal(!showAddAssetModal);
+    const fieldsToClear = [
+      "assetType",
+      "assetName",
+      "commercialValue",
+      "debtBalance",
+      "financialEntity",
+      "quota",
+      "observations",
+    ];
+
+    fieldsToClear.forEach((field) => formik.setFieldValue(field, ""));
+    formik.setTouched({});
   };
 
   const handleAddAsset = async () => {
@@ -55,6 +66,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
         {
           id: String(formik.values.entries.length + 1),
           assetType: formik.values.assetType,
+          assetName: formik.values.assetName,
           commercialValue: formik.values.commercialValue,
           debtBalance: formik.values.debtBalance,
           financialEntity: formik.values.financialEntity,
@@ -62,7 +74,21 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
           observations: formik.values.observations,
         },
       ]);
+
+      const fieldsToClear = [
+        "assetType",
+        "assetName",
+        "commercialValue",
+        "debtBalance",
+        "financialEntity",
+        "quota",
+        "observations",
+      ];
+
+      fieldsToClear.forEach((field) => formik.setFieldValue(field, ""));
     }
+
+    formik.setTouched({});
   };
 
   const handleDeleteAsset = (assetId: string) => {
@@ -77,15 +103,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
     {
       id: "1",
       actionName: "Editar",
-      content: (asset) => (
-        <Icon
-          appearance="dark"
-          icon={<MdOutlineModeEdit />}
-          cursorHover={true}
-          size="16px"
-          spacing="none"
-        />
-      ),
+      content: (asset) => <EditAsset asset={asset} formik={formik} />,
       mobilePriority: true,
     },
     {

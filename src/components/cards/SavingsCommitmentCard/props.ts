@@ -12,25 +12,15 @@ const props = {
     description:
       "This property is used to display a title on the card, such as a header.",
   },
-  value: {
+
+  attributes: {
     description:
-      "This property represents a numeric value and is used to display information related to the savings commitment value. The value is formatted as a currency amount using the currencyFormat function before displaying it on the card.",
+      "This is an array of objects. Each object in this array represents an attribute of the savings commitment, The first two attributes in this array are displayed on the card.",
   },
-  label: {
-    description:
-      "This property is also a string and is used to display a label that accompanies the savings commitment value. It can be a brief description or a label that clarifies the meaning of the value.",
-  },
+
   tag: {
     description:
       "This is an optional property that can be used to display an additional label on the card. If a value is provided for tag, it will be displayed as an error tag on the card.",
-  },
-  descriptionLabel: {
-    description:
-      "This property is a string used to display a brief description on the card. It can be a description of the savings commitment or some other relevant detail.",
-  },
-  descriptionValue: {
-    description:
-      "Similar to description, this property is a string and is used to display information related to the description. It can be a specific amount or additional details related to the description.",
   },
 };
 

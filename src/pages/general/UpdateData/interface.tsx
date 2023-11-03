@@ -54,7 +54,6 @@ const renderStepContent = (
         <PersonalAssetsForm
           initialValues={updateData.personalAssets.values}
           ref={formReferences.personalAssets}
-          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.personalDebts.id && (
@@ -68,7 +67,6 @@ const renderStepContent = (
         <PersonalReferencesForm
           initialValues={updateData.personalReferences.values}
           ref={formReferences.personalReferences}
-          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.financialOperations.id && (
