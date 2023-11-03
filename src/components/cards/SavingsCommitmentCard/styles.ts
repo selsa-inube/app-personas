@@ -2,25 +2,22 @@ import styled from "styled-components";
 import { inube } from "@design/tokens";
 
 const StyledCardContainer = styled.div`
-  overflow: hidden;
-  border-radius: ${inube.spacing.s100};
-  outline: 1px solid
-    ${({ theme }) =>
-      theme.color?.stroke?.light?.regular || inube.color.stroke.light.regular};
-`;
-
-const StyledCardHeading = styled.div`
-  background-color: ${({ theme }) =>
-    theme.color?.surface?.light?.regular || inube.color.surface.light.regular};
-`;
-
-const StyledViewContainer = styled.button`
+  width: 238px;
+  min-width: 238px;
+  height: 120px;
   display: flex;
-  align-items: center;
-  border: 0;
-  cursor: pointer;
-  background: none;
-  gap: ${inube.spacing.s050};
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: ${inube.spacing.s150};
+  border-radius: ${inube.spacing.s050};
+  background-color: ${({ theme }) =>
+    theme.color?.surface?.gray.clear || inube.color.surface.gray.clear};
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ theme }) =>
+      theme.color?.surface?.gray?.hover || inube.color.surface.gray.hover};
+  }
 `;
 
-export { StyledCardContainer, StyledCardHeading, StyledViewContainer };
+export { StyledCardContainer };

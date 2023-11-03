@@ -115,8 +115,8 @@ const usersMock: IThird[] = [
       accountNumber: 76454473406,
     },
     financialOperations: {
-      hasForeignCurrencyAccounts: "",
-      hasForeignCurrencyTransactions: "",
+      hasForeignCurrencyAccounts: "Y",
+      hasForeignCurrencyTransactions: "N",
       descriptionOperations:
         "Importación de materia prima, importación auto partes, importación de repuestos, importación de equipos celulares, importación de equipos médicos, importación de piezas electrónicas.",
       country: "USA",
