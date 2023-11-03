@@ -48,14 +48,14 @@ const ContactDataForm = forwardRef(function ContactDataForm(
 ) {
   const { initialValues, onFormValid, handleSubmit, loading } = props;
 
+  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
+
   const formik = useFormik({
     initialValues,
-    validationSchema,
+    validationSchema: dynamicSchema,
     validateOnChange: false,
     onSubmit: handleSubmit || (() => {}),
   });
-
-  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
 
   useImperativeHandle(ref, () => formik);
 
@@ -74,7 +74,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
       loading={loading}
       formik={formik}
       customHandleBlur={customHandleBlur}
-      schema={dynamicSchema}
+      valdiationSchema={dynamicSchema}
     />
   );
 });
