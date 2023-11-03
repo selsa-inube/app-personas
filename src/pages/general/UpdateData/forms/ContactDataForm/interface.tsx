@@ -10,15 +10,15 @@ import { getFieldState } from "src/utils/forms";
 interface ContactDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  valdiationSchema: ObjectSchema<{}>;
+  validationSchema: ObjectSchema<{}>;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, valdiationSchema, customHandleBlur } = props;
+  const { formik, loading, validationSchema, customHandleBlur } = props;
 
   const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = valdiationSchema.describe().fields[
+    const fieldDescription = validationSchema.describe().fields[
       fieldName
     ] as any;
     return !fieldDescription.nullable && !fieldDescription.optional;

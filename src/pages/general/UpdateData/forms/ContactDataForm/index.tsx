@@ -74,7 +74,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
       loading={loading}
       formik={formik}
       customHandleBlur={customHandleBlur}
-      valdiationSchema={dynamicSchema}
+      validationSchema={dynamicSchema}
     />
   );
 });
