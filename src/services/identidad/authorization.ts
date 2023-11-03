@@ -132,13 +132,12 @@ interface IVerifyAccessTokenResponse {
 const verifyAccessToken = async (accessToken: string, realm: string) => {
   try {
     console.log(accessToken);
-    const res = await fetch(`${SERVICE_URL}/oauth2/token/info`, {
-      method: "POST",
+    const res = await fetch(`${SERVICE_URL}/oauth2/token/${realm}/info`, {
+      method: "GET",
       headers: {
-        Realm: realm,
-        "Content-Type": "application/x-www-form-urlencoded",
+        /* Realm: realm, */
+        "Content-Type": "application/json",
         Authorization: `1/${accessToken}`,
-        body: "grant_type=authorization_code",
       },
     });
 
