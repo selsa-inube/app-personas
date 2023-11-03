@@ -113,8 +113,10 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size={isMobile ? "compact" : "wide"}
             isFullWidth
+            state={stateValue("postalCode")}
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
+            validMessage="El código postal es válido"
           />
 
           <TextField
@@ -129,8 +131,10 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size={isMobile ? "compact" : "wide"}
             isFullWidth
+            state={stateValue("landlinePhone")}
             handleBlur={customHandleBlur}
             handleChange={formik.handleChange}
+            validMessage="El teléfono es válido"
           />
 
           <TextField

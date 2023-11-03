@@ -74,14 +74,16 @@ function TextFieldUI(props: TextFieldProps) {
     autocompleteChars,
   } = props;
 
+  const [inputValue, setInputValue] = useState(value);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const newValue = event.target.value;
+    setInputValue(newValue);
 
     if (
       autocomplete && autocompleteChars
-        ? value.length >= autocompleteChars
+        ? newValue.length >= autocompleteChars
         : true
     ) {
       setShowDropdown(true);
@@ -151,7 +153,7 @@ function TextFieldUI(props: TextFieldProps) {
           isDisabled={isDisabled}
           isFullWidth={isFullWidth}
           type={type}
-          value={value}
+          value={inputValue}
           maxLength={maxLength}
           minLength={minLength}
           max={max}
@@ -172,14 +174,16 @@ function TextFieldUI(props: TextFieldProps) {
         suggestions &&
         suggestions.length > 0 &&
         suggestions.some((suggestion) =>
-          suggestion.value.toLowerCase().includes(String(value).toLowerCase())
+          suggestion.value
+            .toLowerCase()
+            .includes(String(inputValue).toLowerCase())
         ) && (
           <DropdownMenu
             options={suggestions
               .filter((suggestion) =>
                 suggestion.value
                   .toLowerCase()
-                  .includes(String(value).toLowerCase())
+                  .includes(String(inputValue).toLowerCase())
               )
               .flat()}
             handleClick={handleSuggestionSelect}
@@ -193,7 +197,7 @@ function TextFieldUI(props: TextFieldProps) {
           errorMessage={errorMessage}
         />
       )}
-      {state === "valid" && (
+      {state === "valid" && inputValue && inputValue.toString().length > 0 && (
         <Success
           isDisabled={isDisabled}
           state={state}
