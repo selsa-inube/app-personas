@@ -210,17 +210,16 @@ function renderMySavingsContent(
                 $ 14.734.650
               </Text>
             </Stack>
-            {savingsCommitmentsMock.length > 0 &&
-              investmentsCommitmentsMock.length > 0 && (
-                <>
-                  <Text type="label" size="medium">
-                    Compromisos
-                  </Text>
-                  <StyledCommitmentsContainer>
-                    {renderSavingCommitments(productsCommitments)}
-                  </StyledCommitmentsContainer>
-                </>
-              )}
+            {productsCommitments.length > 0 && (
+              <>
+                <Text type="label" size="medium">
+                  Compromisos
+                </Text>
+                <StyledCommitmentsContainer>
+                  {renderSavingCommitments(productsCommitments)}
+                </StyledCommitmentsContainer>
+              </>
+            )}
           </Stack>
         </Box>
       </Stack>

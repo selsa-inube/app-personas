@@ -220,17 +220,16 @@ function renderHomeContent(
                 $ 14.734.650
               </Text>
             </Stack>
-            {savingsCommitmentsMock.length > 0 &&
-              investmentsCommitmentsMock.length > 0 && (
-                <>
-                  <Text type="label" size="medium">
-                    Compromisos
-                  </Text>
-                  <StyledCommitmentsContainer>
-                    {renderProductsCommitments(productsCommitments)}
-                  </StyledCommitmentsContainer>
-                </>
-              )}
+            {productsCommitments.length > 0 && (
+              <>
+                <Text type="label" size="medium">
+                  Compromisos
+                </Text>
+                <StyledCommitmentsContainer>
+                  {renderProductsCommitments(productsCommitments)}
+                </StyledCommitmentsContainer>
+              </>
+            )}
           </Stack>
         </Box>
         <Box {...credits}>
