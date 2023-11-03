@@ -220,7 +220,7 @@ function renderHomeContent(
                 $ 14.734.650
               </Text>
             </Stack>
-            {savingsCommitmentsMock.length &&
+            {savingsCommitmentsMock.length > 0 &&
               investmentsCommitmentsMock.length > 0 && (
                 <>
                   <Text type="label" size="medium">

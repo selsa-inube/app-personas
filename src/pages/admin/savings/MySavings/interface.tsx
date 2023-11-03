@@ -210,7 +210,7 @@ function renderMySavingsContent(
                 $ 14.734.650
               </Text>
             </Stack>
-            {savingsCommitmentsMock.length &&
+            {savingsCommitmentsMock.length > 0 &&
               investmentsCommitmentsMock.length > 0 && (
                 <>
                   <Text type="label" size="medium">
@@ -228,7 +228,7 @@ function renderMySavingsContent(
   );
 }
 
-interface MySavingsUI {
+interface MySavingsUIProps {
   productsCommitments: ICommitment[];
   savingsAccountsMock: IProduct[];
   savingsStatutoryContributionsMock: IProduct[];
@@ -236,7 +236,7 @@ interface MySavingsUI {
   programmedSavings: IProduct[];
 }
 
-function MySavingsUI(props: MySavingsUI) {
+function MySavingsUI(props: MySavingsUIProps) {
   const {
     productsCommitments,
     savingsAccountsMock,
