@@ -48,8 +48,30 @@ const validationRules = {
     (value) => {
       if (!value) return true;
 
+      const months: { [key: string]: number } = {
+        Ene: 0,
+        Feb: 1,
+        Mar: 2,
+        Abr: 3,
+        May: 4,
+        Jun: 5,
+        Jul: 6,
+        Ago: 7,
+        Sep: 8,
+        Oct: 9,
+        Nov: 10,
+        Dic: 11,
+      };
+
+      const dateDivider = value.split("/");
+      const monthAbbrev = dateDivider[1];
+      const monthNumber = months[monthAbbrev];
+      const year = parseInt(dateDivider[2]);
+      const day = parseInt(dateDivider[0]);
+
+      const date = new Date(year, monthNumber, day);
       const today = new Date();
-      const date = new Date(value);
+
       return date >= today;
     }
   ),

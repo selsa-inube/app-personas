@@ -1,4 +1,4 @@
-import { AddDebtModal } from "@components/modals/forms/update-data/AddDebtModal";
+import { DebtModal } from "@components/modals/forms/update-data/DebtModal";
 import { Table } from "@design/data/Table";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
@@ -47,11 +47,14 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
         hideMobileResume
       />
       {showAddDebtModal && (
-        <AddDebtModal
+        <DebtModal
+          title="Adicionar deuda"
+          description="Agrega una deuda a la actualización"
+          confirmButtonText="Adicionar"
           portalId="modals"
           formik={formik}
           onCloseModal={handleToggleModal}
-          onAddDebt={handleAddDebt}
+          onConfirm={handleAddDebt}
         />
       )}
     </Stack>

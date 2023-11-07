@@ -1,6 +1,7 @@
 interface IPersonalDebtEntry {
   id?: string;
   liabilityType?: string;
+  debtName?: string;
   terminationDate?: string;
   debtBalance?: string;
   financialEntity?: string;
