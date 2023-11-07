@@ -172,8 +172,8 @@ const TableUI = (props: TableUIProps) => {
               aria-labelledby={`entry-${entry.id}`}
               isLastTr={index === entries.length - 1}
             >
-              {TitleColumns.map((title, index) => (
-                <StyledTd key={`e-${index}`}>
+              {TitleColumns.map((title) => (
+                <StyledTd key={`e-${title.id}`}>
                   <Text type="body" size="small" appearance="dark" ellipsis>
                     {entry[title.id]}
                   </Text>
