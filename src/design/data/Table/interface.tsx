@@ -173,7 +173,7 @@ const TableUI = (props: TableUIProps) => {
               isLastTr={index === entries.length - 1}
             >
               {TitleColumns.map((title) => (
-                <StyledTd key={`e-${entry[title.id]}`}>
+                <StyledTd key={`e-${title.id}`}>
                   <Text type="body" size="small" appearance="dark" ellipsis>
                     {entry[title.id]}
                   </Text>
