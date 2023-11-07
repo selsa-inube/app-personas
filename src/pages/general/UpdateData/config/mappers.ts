@@ -108,6 +108,7 @@ const mapPersonalDebt = (
       personalDebt.liabilityType || "",
       "liabilityType"
     )?.value,
+    debtName: personalDebt.debtName,
     terminationDate: personalDebt.terminationDate,
     debtBalance: currencyFormat(Number(personalDebt.debtBalance)),
     financialEntity: personalDebt.financialEntity,
