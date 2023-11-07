@@ -11,6 +11,7 @@ import { crumbsUpdateData } from "./config/navigation";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
+import { IncomeForm } from "./forms/IncomeForm";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
@@ -86,6 +87,13 @@ const renderStepContent = (
         <SocioeconomicInformationForm
           initialValues={updateData.socioeconomicInformation.values}
           ref={formReferences.socioeconomicInformation}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === updateDataSteps.income.id && (
+        <IncomeForm
+          initialValues={updateData.income.values}
+          ref={formReferences.income}
           onFormValid={setIsCurrentFormValid}
         />
       )}
