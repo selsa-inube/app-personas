@@ -49,8 +49,14 @@ const updateDataSteps = {
     description:
       "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
   },
-  verification: {
+  expenses: {
     id: 10,
+    name: "Egresos",
+    description:
+      "Diligencia la información de la cantidad de dinero que usas mensualmente.",
+  },
+  verification: {
+    id: 11,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",
