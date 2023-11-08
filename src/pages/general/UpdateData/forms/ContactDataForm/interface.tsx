@@ -4,7 +4,6 @@ import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { ObjectSchema } from "yup";
 import { getFieldState } from "src/utils/forms";
 interface ContactDataFormUIProps {
@@ -77,7 +76,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Ciudad"
             name="city"
             id="city"
-            value={cityDM.valueOf(formik.values.city)?.value}
+            value={formik.values.city}
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.city}
             isDisabled={loading}
@@ -113,6 +112,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Código postal"
             name="postalCode"
             id="postalCode"
+            type="number"
             value={formik.values.postalCode}
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.postalCode}
@@ -131,6 +131,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Teléfono"
             name="landlinePhone"
             id="landlinePhone"
+            type="number"
             value={formik.values.landlinePhone}
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.landlinePhone}
