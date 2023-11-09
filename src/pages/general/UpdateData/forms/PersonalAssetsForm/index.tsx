@@ -8,6 +8,16 @@ import { IPersonalAssetEntries } from "./types";
 import { IAction } from "@design/data/Table/types";
 import { EditAsset } from "./EditAsset";
 import { DeleteAsset } from "./DeleteAsset";
+import { IMessage, EMessageType } from "@ptypes/messages.types";
+import { deleteAssetMessages } from "./config/deleteAsset.config";
+
+const initialMessageState: IMessage = {
+  show: false,
+  title: "",
+  description: "",
+  icon: <></>,
+  appearance: "primary",
+};
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),
@@ -30,6 +40,22 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   const { initialValues, handleSubmit } = props;
 
   const [showAddAssetModal, setShowAddAssetModal] = useState(false);
+  const [message, setMessage] = useState(initialMessageState);
+
+  const handleShowMessage = (message: IMessage) => {
+    const { title, description, icon, appearance } = message;
+    setMessage({
+      show: true,
+      title,
+      description,
+      icon,
+      appearance,
+    });
+  };
+
+  const onCloseMessage = () => {
+    setMessage(initialMessageState);
+  };
 
   const formik = useFormik({
     initialValues,
@@ -92,11 +118,29 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   };
 
   const handleDeleteAsset = (assetId: string) => {
+    let MessageType = EMessageType.SUCCESS;
+
+    const asset = formik.values.entries.find((entry) => entry.id === assetId);
+
     const updatedAssets = formik.values.entries.filter(
       (asset) => asset.id !== assetId
     );
 
-    formik.setFieldValue("entries", updatedAssets);
+    if (updatedAssets.length === formik.values.entries.length) {
+      MessageType = EMessageType.FAILED;
+    } else {
+      formik.setFieldValue("entries", updatedAssets);
+    }
+
+    const { icon, title, description, appearance } =
+      deleteAssetMessages[MessageType];
+
+    handleShowMessage({
+      title,
+      description: description(asset?.assetName),
+      icon,
+      appearance,
+    });
   };
 
   const personalAssetsTableActions: IAction[] = [
@@ -126,6 +170,8 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
       handleToggleModal={handleToggleModal}
       handleAddAsset={handleAddAsset}
       personalAssetsTableActions={personalAssetsTableActions}
+      message={message}
+      onCloseMessage={onCloseMessage}
     />
   );
 });
