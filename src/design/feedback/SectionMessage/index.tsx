@@ -46,32 +46,37 @@ const SectionMessage = (props: SectionMessageProps) => {
         <Stack
           gap="16px"
           alignItems={isMessageResponsive ? "center" : undefined}
+          width="100%"
         >
-          <Stack alignItems="center" gap="16px">
+          <Stack alignItems="center" gap="16px" width="100%">
             <Icon
               size="24px"
               spacing="wide"
               appearance={appearance}
               icon={icon}
             />
-            <Stack direction="column" gap="6px">
-              <Text size="large">{title}</Text>
+            <Stack direction="column" gap="6px" width="100%">
+              <Stack justifyContent="space-between" alignItems="center">
+                <Text size="large" type="label">
+                  {title}
+                </Text>
+                <Icon
+                  size="16px"
+                  spacing="none"
+                  onClick={closeSectionMessage}
+                  appearance="dark"
+                  icon={<MdClear />}
+                  cursorHover
+                />
+              </Stack>
+
               {!isMessageResponsive && (
-                <Text size="small" appearance="gray">
+                <Text type="body" size="small" appearance="gray">
                   {newDescription}
                 </Text>
               )}
             </Stack>
           </Stack>
-        </Stack>
-        <Stack alignItems={isMessageResponsive ? "center" : undefined}>
-          <Icon
-            size="16px"
-            onClick={closeSectionMessage}
-            appearance={appearance}
-            icon={<MdClear />}
-            cursorHover
-          />
         </Stack>
       </Stack>
       {duration && (

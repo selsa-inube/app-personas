@@ -9,8 +9,11 @@ interface IStyledSectionMessage {
 
 const StyledSectionMessage = styled.div<IStyledSectionMessage>`
   position: fixed;
-  right: ${inube.spacing.s800};
-  bottom: ${inube.spacing.s400};
+  right: ${(props) =>
+    props.isMessageResponsive ? inube.spacing.s300 : inube.spacing.s800};
+  left: ${(props) => (props.isMessageResponsive ? inube.spacing.s300 : "auto")};
+  bottom: ${(props) =>
+    props.isMessageResponsive ? inube.spacing.s300 : inube.spacing.s400};
   background-color: ${({ theme, appearance }) => {
     return (
       theme?.color?.surface?.[appearance!]?.clear ||
