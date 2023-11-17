@@ -8,6 +8,16 @@ import { DeleteDebt } from "./DeleteDebt";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
 import { EditDebt } from "./EditDebt";
+import { IMessage, EMessageType } from "@ptypes/messages.types";
+import { deleteDebtMessages } from "./config/deleteDebt.config";
+
+const initialMessageState: IMessage = {
+  show: false,
+  title: "",
+  description: "",
+  icon: <></>,
+  appearance: "primary",
+};
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
@@ -32,6 +42,22 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
   const { initialValues, handleSubmit } = props;
 
   const [showAddDebtModal, setShowAddDebtModal] = useState(false);
+  const [message, setMessage] = useState(initialMessageState);
+
+  const handleShowMessage = (message: IMessage) => {
+    const { title, description, icon, appearance } = message;
+    setMessage({
+      show: true,
+      title,
+      description,
+      icon,
+      appearance,
+    });
+  };
+
+  const onCloseMessage = () => {
+    setMessage(initialMessageState);
+  };
 
   const formik = useFormik({
     initialValues,
@@ -94,16 +120,29 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
   };
 
   const handleDeleteDebt = (debtId: string) => {
-    const debtIndex = formik.values.entries.findIndex(
-      (debt) => debt.id === debtId
+    let MessageType = EMessageType.SUCCESS;
+
+    const debt = formik.values.entries.find((entry) => entry.id === debtId);
+
+    const updatedDebts = formik.values.entries.filter(
+      (debt) => debt.id !== debtId
     );
 
-    if (debtIndex !== -1) {
-      const updatedDebts = [...formik.values.entries];
-      updatedDebts.splice(debtIndex, 1);
-
+    if (updatedDebts.length === formik.values.entries.length) {
+      MessageType = EMessageType.FAILED;
+    } else {
       formik.setFieldValue("entries", updatedDebts);
     }
+
+    const { icon, title, description, appearance } =
+      deleteDebtMessages[MessageType];
+
+    handleShowMessage({
+      title,
+      description: description(debt?.debtName),
+      icon,
+      appearance,
+    });
   };
 
   const personalDebtsTableActions: IAction[] = [
@@ -133,6 +172,8 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
       handleToggleModal={handleToggleModal}
       handleAddDebt={handleAddDebt}
       personalDebtsTableActions={personalDebtsTableActions}
+      message={message}
+      onCloseMessage={onCloseMessage}
     />
   );
 });
