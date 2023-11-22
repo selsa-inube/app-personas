@@ -10,6 +10,8 @@ import {
   personalAssetsTableBreakpoints,
   personalAssetsTableTitles,
 } from "./config/table";
+import { SectionMessage } from "@design/feedback/SectionMessage";
+import { IMessage } from "@ptypes/messages.types";
 
 interface PersonalAssetsFormUIProps {
   formik: FormikValues;
@@ -17,6 +19,8 @@ interface PersonalAssetsFormUIProps {
   handleToggleModal: () => void;
   handleAddAsset: () => void;
   personalAssetsTableActions: IAction[];
+  message: IMessage;
+  onCloseMessage: () => void;
 }
 
 function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
@@ -26,38 +30,53 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
     handleToggleModal,
     handleAddAsset,
     personalAssetsTableActions,
+    message,
+    onCloseMessage,
   } = props;
 
   return (
-    <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
-      <Button
-        iconBefore={<MdOutlineAddHome />}
-        variant="none"
-        handleClick={handleToggleModal}
-      >
-        Adicionar bien
-      </Button>
-      <Table
-        id="modals"
-        titles={personalAssetsTableTitles}
-        breakpoints={personalAssetsTableBreakpoints}
-        actions={personalAssetsTableActions}
-        entries={mapPersonalAssets(formik.values.entries)}
-        pageLength={formik.values.entries.length}
-        hideMobileResume
-      />
-      {showAddAssetModal && (
-        <AssetModal
-          title="Adicionar bien"
-          description="Agrega un bien a la actualización de datos."
-          confirmButtonText="Adicionar"
-          portalId="modals"
-          formik={formik}
-          onCloseModal={handleToggleModal}
-          onConfirm={handleAddAsset}
+    <>
+      <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
+        <Button
+          iconBefore={<MdOutlineAddHome />}
+          variant="none"
+          handleClick={handleToggleModal}
+        >
+          Adicionar bien
+        </Button>
+        <Table
+          id="modals"
+          titles={personalAssetsTableTitles}
+          breakpoints={personalAssetsTableBreakpoints}
+          actions={personalAssetsTableActions}
+          entries={mapPersonalAssets(formik.values.entries)}
+          pageLength={formik.values.entries.length}
+          hideMobileResume
+        />
+        {showAddAssetModal && (
+          <AssetModal
+            title="Adicionar bien"
+            description="Agrega un bien a la actualización de datos."
+            confirmButtonText="Adicionar"
+            portalId="modals"
+            formik={formik}
+            onCloseModal={handleToggleModal}
+            onConfirm={handleAddAsset}
+          />
+        )}
+      </Stack>
+      {message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          icon={message.icon}
+          appearance={message.appearance}
+          duration={1500}
+          closeSectionMessage={onCloseMessage}
+          isMessageResponsive
         />
       )}
-    </Stack>
+    </>
   );
 }
 

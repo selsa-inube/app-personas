@@ -10,6 +10,8 @@ import {
   personalReferencesTableBreakpoints,
   personalReferencesTableTitles,
 } from "./config/table";
+import { SectionMessage } from "@design/feedback/SectionMessage";
+import { IMessage } from "@ptypes/messages.types";
 
 interface PersonalReferencesFormUIProps {
   formik: FormikValues;
@@ -17,6 +19,8 @@ interface PersonalReferencesFormUIProps {
   handleToggleModal: () => void;
   handleAddReference: () => void;
   personalReferencesTableActions: IAction[];
+  message: IMessage;
+  onCloseMessage: () => void;
 }
 
 function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
@@ -26,6 +30,8 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
     handleToggleModal,
     handleAddReference,
     personalReferencesTableActions,
+    message,
+    onCloseMessage,
   } = props;
   return (
     <>
@@ -42,7 +48,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           titles={personalReferencesTableTitles}
           breakpoints={personalReferencesTableBreakpoints}
           actions={personalReferencesTableActions}
-          entries={mapPersonalReferences(formik.values.entries)}          
+          entries={mapPersonalReferences(formik.values.entries)}
           pageLength={formik.values.entries.length}
           hideMobileResume
         />
@@ -56,6 +62,17 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           formik={formik}
           onCloseModal={handleToggleModal}
           onConfirm={handleAddReference}
+        />
+      )}
+      {message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          icon={message.icon}
+          appearance={message.appearance}
+          duration={1500}
+          closeSectionMessage={onCloseMessage}
+          isMessageResponsive
         />
       )}
     </>
