@@ -10,6 +10,7 @@ import { disbursementTypeData } from "./disbursementType";
 import { liabilityTypeData } from "./liabilityType";
 import { referenceTypeData } from "./referenceType";
 import { suppliersTypeData } from "./suppliersType";
+import { CompaniesData } from "./companies";
 
 const domains: Record<string, IServerDomain[]> = {
   assetType: assetTypeData,
@@ -23,6 +24,7 @@ const domains: Record<string, IServerDomain[]> = {
   currency: currencyData,
   bankForeign: bankForeignData,
   suppliersType: suppliersTypeData,
+  companies: CompaniesData,
 };
 
 function getDomainById(domainId: string) {

@@ -7,6 +7,7 @@ import {
   IFinancialOperations,
   IResidence,
   IThird,
+  IEconomicActivity,
 } from "src/model/entity/user";
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
@@ -27,6 +28,7 @@ import {
 } from "../forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
+import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -199,6 +201,34 @@ const mapSocioeconomicInformation = (
   };
 };
 
+const mapEconomicActivity = (
+  economicActivityData: IEconomicActivity
+): IEconomicActivityEntry => {
+  return {
+    economicActivity: economicActivityData.economicActivity,
+    profession: economicActivityData.profession,
+    job: economicActivityData.job,
+    mainCiiuActivity: economicActivityData.mainCiiuActivity,
+    secondaryCiiuActivity: economicActivityData.secondaryCiiuActivity,
+    economicSector: economicActivityData.economicSector,
+    company: economicActivityData.company,
+    contractType: economicActivityData.contractType,
+    admissionDate: economicActivityData.admissionDate,
+    contractExpiration: economicActivityData.contractExpiration,
+    severanceRegime: economicActivityData.severanceRegime,
+    workday: economicActivityData.workday,
+    position: economicActivityData.position,
+    dependence: economicActivityData.dependence,
+    employeeCode: economicActivityData.employeeCode,
+    companyFormality: economicActivityData.companyFormality,
+    companyCountry: economicActivityData.companyCountry,
+    companyCity: economicActivityData.companyCity,
+    companyPhone: economicActivityData.companyPhone,
+    companyAddress: economicActivityData.companyAddress,
+    companyEmail: economicActivityData.companyEmail,
+  };
+};
+
 export {
   mapBankTransfers,
   mapContactData,
@@ -212,4 +242,5 @@ export {
   mapPersonalReferences,
   mapPersonalResidence,
   mapSocioeconomicInformation,
+  mapEconomicActivity,
 };

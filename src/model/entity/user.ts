@@ -72,12 +72,37 @@ interface IFinancialOperations {
   currency: string;
   accountNumber: number;
 }
+
+interface IEconomicActivity {
+  economicActivity: string;
+  profession: string;
+  job: string;
+  mainCiiuActivity: string;
+  secondaryCiiuActivity: string;
+  economicSector: string;
+  company: string;
+  contractType: string;
+  admissionDate: string;
+  contractExpiration: string;
+  severanceRegime: string;
+  workday: string;
+  position: string;
+  dependence: string;
+  employeeCode: string;
+  companyFormality: string;
+  companyCountry: string;
+  companyCity: string;
+  companyPhone: string;
+  companyAddress: string;
+  companyEmail: string;
+}
 interface IThird {
   personalData: IPersonalData;
   contact: IContactData[];
   familyGroup?: IFamilyThird[];
   bankTransfersAccount: IBankTransfersAccount;
   financialOperations: IFinancialOperations;
+  economicActivity: IEconomicActivity;
 }
 
 export type {
@@ -89,4 +114,5 @@ export type {
   IPersonalData,
   IResidence,
   IThird,
+  IEconomicActivity,
 };

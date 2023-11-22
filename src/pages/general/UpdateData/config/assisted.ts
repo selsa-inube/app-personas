@@ -49,8 +49,13 @@ const updateDataSteps = {
     description:
       "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
   },
-  verification: {
+  economicActivity: {
     id: 10,
+    name: "Actividad económica",
+    description: "Diligencia la información acerca tu actividad económica.",
+  },
+  verification: {
+    id: 11,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",

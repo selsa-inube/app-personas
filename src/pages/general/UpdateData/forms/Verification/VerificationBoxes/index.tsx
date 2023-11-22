@@ -2,6 +2,7 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
+import { Text } from "@design/data/Text";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import {
   mapPersonalAsset,
@@ -20,6 +21,16 @@ import { relationshipDM } from "src/model/domains/personalResidence/relationship
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
+import { economicActivityDM } from "src/model/domains/economicActivity/economicActivitydm";
+import { professionDM } from "src/model/domains/economicActivity/professiondm";
+import { economicSectorDM } from "src/model/domains/economicActivity/economicSectordm";
+import { contractTypeDM } from "src/model/domains/economicActivity/contractTypedm";
+import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceRegimedm";
+import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
+import { positionDM } from "src/model/domains/economicActivity/positiondm";
+import { dependenceDM } from "src/model/domains/economicActivity/dependencedm";
+import { companyFormalityDM } from "src/model/domains/economicActivity/companyFormalitydm";
+import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IFinancialOperationsEntry } from "../../FinancialOperationsForm/types";
@@ -29,6 +40,7 @@ import { IPersonalInformationEntry } from "../../PersonalInformationForm/types";
 import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
+import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -354,6 +366,192 @@ const renderSocioeconomicInfoVerification = (
   </Grid>
 );
 
+const renderEconomicActivityVerification = (
+  values: IEconomicActivityEntry,
+  isTablet: boolean
+) => (
+  <Stack width="100%" direction="column" gap="s250">
+    {values.economicActivity !== "" && (
+      <Text type="label" size="medium">
+        Clasificación económica
+      </Text>
+    )}
+
+    <Grid
+      templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+      gap="s100"
+      width="100%"
+    >
+      {values.economicActivity !== "" && (
+        <BoxAttribute
+          label="Actividad económica:"
+          value={economicActivityDM.valueOf(values.economicActivity)?.value}
+        />
+      )}
+
+      {values.profession && (
+        <BoxAttribute
+          label="Profesión:"
+          value={professionDM.valueOf(values.profession)?.value}
+        />
+      )}
+
+      {values.job && <BoxAttribute label="Oficio:" value={values.job} />}
+
+      {values.mainCiiuActivity && (
+        <BoxAttribute
+          label="Actividad CIIU principal:"
+          value={values.mainCiiuActivity}
+        />
+      )}
+
+      {values.secondaryCiiuActivity && (
+        <BoxAttribute
+          label="Actividad CIIU secundaria:"
+          value={values.secondaryCiiuActivity}
+        />
+      )}
+
+      {values.economicSector && (
+        <BoxAttribute
+          label="Sector económico:"
+          value={economicSectorDM.valueOf(values.economicSector)?.value}
+        />
+      )}
+    </Grid>
+
+    {(values.company ||
+      values.contractType ||
+      values.admissionDate ||
+      values.contractExpiration ||
+      values.severanceRegime ||
+      values.workday ||
+      values.position ||
+      values.dependence ||
+      values.employeeCode ||
+      values.companyFormality ||
+      values.companyCountry ||
+      values.companyCity ||
+      values.companyPhone ||
+      values.companyAddress ||
+      values.companyEmail) && (
+      <>
+        <Text type="label" size="medium">
+          Detalles laborales
+        </Text>
+
+        <Grid
+          templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+          gap="s100"
+          width="100%"
+        >
+          {values.company && (
+            <BoxAttribute label="Empresa:" value={values.company} />
+          )}
+
+          {values.contractType && (
+            <BoxAttribute
+              label="Tipo de contrato:"
+              value={contractTypeDM.valueOf(values.contractType)?.value}
+            />
+          )}
+
+          {values.admissionDate && (
+            <BoxAttribute
+              label="Fecha de ingreso:"
+              value={values.admissionDate}
+            />
+          )}
+
+          {values.contractExpiration && (
+            <BoxAttribute
+              label="Vencimiento del contrato:"
+              value={values.contractExpiration}
+            />
+          )}
+
+          {values.severanceRegime && (
+            <BoxAttribute
+              label="Régimen de cesantías:"
+              value={severanceRegimeDM.valueOf(values.severanceRegime)?.value}
+            />
+          )}
+
+          {values.workday && (
+            <BoxAttribute
+              label="Jornada laboral:"
+              value={workdayDM.valueOf(values.workday)?.value}
+            />
+          )}
+
+          {values.position && (
+            <BoxAttribute
+              label="Cargo:"
+              value={positionDM.valueOf(values.position)?.value}
+            />
+          )}
+
+          {values.dependence && (
+            <BoxAttribute
+              label="Dependencia:"
+              value={dependenceDM.valueOf(values.dependence)?.value}
+            />
+          )}
+
+          {values.employeeCode && (
+            <BoxAttribute
+              label="Código como empleado:"
+              value={values.employeeCode}
+            />
+          )}
+
+          {values.companyFormality && (
+            <BoxAttribute
+              label="Formalidad de la empresa:"
+              value={companyFormalityDM.valueOf(values.companyFormality)?.value}
+            />
+          )}
+
+          {values.companyCountry && (
+            <BoxAttribute
+              label="País de la empresa:"
+              value={countryDM.valueOf(values.companyCountry)?.value}
+            />
+          )}
+
+          {values.companyCity && (
+            <BoxAttribute
+              label="Ciudad de la empresa:"
+              value={values.companyCity}
+            />
+          )}
+
+          {values.companyPhone && (
+            <BoxAttribute
+              label="Teléfono de la empresa:"
+              value={values.companyPhone}
+            />
+          )}
+
+          {values.companyAddress && (
+            <BoxAttribute
+              label="Dirección de la empresa:"
+              value={values.companyAddress}
+            />
+          )}
+
+          {values.companyEmail && (
+            <BoxAttribute
+              label="Correo electrónico de la empresa:"
+              value={values.companyEmail}
+            />
+          )}
+        </Grid>
+      </>
+    )}
+  </Stack>
+);
+
 interface VerificationBoxesProps {
   updatedData: IFormsUpdateData;
   stepKey: string;
@@ -412,6 +610,11 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "socioeconomicInformation" &&
         renderSocioeconomicInfoVerification(
           updatedData.socioeconomicInformation.values,
+          isTablet
+        )}
+      {stepKey === "economicActivity" &&
+        renderEconomicActivityVerification(
+          updatedData.economicActivity.values,
           isTablet
         )}
     </>
