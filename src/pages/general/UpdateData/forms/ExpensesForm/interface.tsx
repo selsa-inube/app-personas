@@ -11,12 +11,11 @@ import { getFieldState } from "src/utils/forms";
 interface ExpensesFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  totalExpenses: number;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function ExpensesFormUI(props: ExpensesFormUIProps) {
-  const { formik, loading, totalExpenses, customHandleBlur } = props;
+  const { formik, loading, customHandleBlur } = props;
 
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
     const parsedValue = parseCurrencyString(e.target.value);
@@ -157,7 +156,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             Total gastos reportados:
           </Text>
           <Text type="title" size="medium">
-            {currencyFormat(totalExpenses)}
+            {currencyFormat(formik.values.totalExpenses || 0)}
           </Text>
         </Stack>
       </Stack>

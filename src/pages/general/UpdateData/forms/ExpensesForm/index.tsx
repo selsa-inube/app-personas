@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useImperativeHandle } from "react";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { ExpensesFormUI } from "./interface";
@@ -13,6 +13,7 @@ const validationSchema = Yup.object({
   transportationAssistance: validationRules.money,
   foodAssistance: validationRules.money,
   others: validationRules.money,
+  totalExpenses: validationRules.money,
 });
 
 interface ExpensesFormProps {
@@ -27,7 +28,6 @@ const ExpensesForm = forwardRef(function ExpensesForm(
   ref: React.Ref<FormikProps<IExpensesEntry>>
 ) {
   const { initialValues, onFormValid, handleSubmit, loading } = props;
-  const [totalExpenses, setTotalExpenses] = useState(0);
 
   const formik = useFormik({
     initialValues,
@@ -50,18 +50,24 @@ const ExpensesForm = forwardRef(function ExpensesForm(
   };
 
   const getTotalExpenses = () => {
-    const totalExpenses = Object.values(formik.values).reduce((acc, curr) => {
-      return Number(acc) + Number(curr);
-    }, 0);
+    const totalExpenses = Object.entries(formik.values).reduce(
+      (acc, [key, value]) => {
+        if (key !== "totalExpenses") {
+          return acc + (typeof value === "number" ? value : 0);
+        }
 
-    setTotalExpenses(totalExpenses);
+        return acc;
+      },
+      0
+    );
+    
+    formik.setFieldValue("totalExpenses", totalExpenses);
   };
 
   return (
     <ExpensesFormUI
       loading={loading}
       formik={formik}
-      totalExpenses={totalExpenses}
       customHandleBlur={customHandleBlur}
     />
   );
