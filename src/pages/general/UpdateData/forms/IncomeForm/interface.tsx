@@ -11,12 +11,11 @@ import { getFieldState } from "src/utils/forms";
 interface IncomeFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  totalIncome: number;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function IncomeFormUI(props: IncomeFormUIProps) {
-  const { formik, loading, totalIncome, customHandleBlur } = props;
+  const { formik, loading, customHandleBlur } = props;
 
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
     const parsedValue = parseCurrencyString(e.target.value);
@@ -159,7 +158,7 @@ function IncomeFormUI(props: IncomeFormUIProps) {
             Total ingresos reportados:
           </Text>
           <Text type="title" size="medium">
-            {currencyFormat(totalIncome)}
+            {currencyFormat(formik.values.totalIncome || 0)}
           </Text>
         </Stack>
       </Stack>

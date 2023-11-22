@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useImperativeHandle } from "react";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { IncomeFormUI } from "./interface";
@@ -13,6 +13,7 @@ const validationSchema = Yup.object({
   transportationAssistance: validationRules.money,
   foodAssistance: validationRules.money,
   others: validationRules.money,
+  totalIncome: validationRules.money,
 });
 
 interface IncomeFormProps {
@@ -27,7 +28,6 @@ const IncomeForm = forwardRef(function IncomeForm(
   ref: React.Ref<FormikProps<IIncomeEntry>>
 ) {
   const { initialValues, onFormValid, handleSubmit, loading } = props;
-  const [totalIncome, setTotalIncome] = useState(0);
 
   const formik = useFormik({
     initialValues,
@@ -54,14 +54,13 @@ const IncomeForm = forwardRef(function IncomeForm(
       return Number(acc) + Number(curr);
     }, 0);
 
-    setTotalIncome(totalIncome);
+    formik.setFieldValue("totalIncome", totalIncome);
   };
 
   return (
     <IncomeFormUI
       loading={loading}
       formik={formik}
-      totalIncome={totalIncome}
       customHandleBlur={customHandleBlur}
     />
   );
