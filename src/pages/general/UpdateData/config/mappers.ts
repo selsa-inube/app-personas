@@ -209,6 +209,7 @@ const mapIncome = (incomeData?: Record<string, string>): IIncomeEntry => {
     transportationAssistance: "",
     foodAssistance: "",
     others: "",
+    totalIncome: "",
   };
 };
 
