@@ -77,11 +77,11 @@ function TextFieldUI(props: TextFieldProps) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const newValue = event.target.value;
 
     if (
       autocomplete && autocompleteChars
-        ? value.length >= autocompleteChars
+        ? newValue.length >= autocompleteChars
         : true
     ) {
       setShowDropdown(true);
@@ -193,7 +193,7 @@ function TextFieldUI(props: TextFieldProps) {
           errorMessage={errorMessage}
         />
       )}
-      {state === "valid" && (
+      {state === "valid" && value && value.toString().length > 0 && (
         <Success
           isDisabled={isDisabled}
           state={state}
