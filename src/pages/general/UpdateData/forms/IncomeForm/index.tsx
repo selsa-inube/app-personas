@@ -50,9 +50,16 @@ const IncomeForm = forwardRef(function IncomeForm(
   };
 
   const getTotalIncome = () => {
-    const totalIncome = Object.values(formik.values).reduce((acc, curr) => {
-      return Number(acc) + Number(curr);
-    }, 0);
+    const totalIncome = Object.entries(formik.values).reduce(
+      (acc, [key, value]) => {
+        if (key !== "totalIncome") {
+          return acc + (typeof value === "number" ? value : 0);
+        }
+
+        return acc;
+      },
+      0
+    );
 
     formik.setFieldValue("totalIncome", totalIncome);
   };
