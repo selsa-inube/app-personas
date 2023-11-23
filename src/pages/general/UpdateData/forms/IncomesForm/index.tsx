@@ -2,8 +2,8 @@ import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { IncomeFormUI } from "./interface";
-import { IIncomeEntry } from "./types";
+import { IncomesFormUI } from "./interface";
+import { IIncomesEntry } from "./types";
 
 const validationSchema = Yup.object({
   basicSalary: validationRules.money,
@@ -13,19 +13,19 @@ const validationSchema = Yup.object({
   transportationAssistance: validationRules.money,
   foodAssistance: validationRules.money,
   others: validationRules.money,
-  totalIncome: validationRules.money,
+  totalIncomes: validationRules.money,
 });
 
-interface IncomeFormProps {
-  initialValues: IIncomeEntry;
+interface IncomesFormProps {
+  initialValues: IIncomesEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSubmit?: (values: IIncomeEntry) => void;
+  handleSubmit?: (values: IIncomesEntry) => void;
   loading?: boolean;
 }
 
-const IncomeForm = forwardRef(function IncomeForm(
-  props: IncomeFormProps,
-  ref: React.Ref<FormikProps<IIncomeEntry>>
+const IncomesForm = forwardRef(function IncomesForm(
+  props: IncomesFormProps,
+  ref: React.Ref<FormikProps<IIncomesEntry>>
 ) {
   const { initialValues, onFormValid, handleSubmit, loading } = props;
 
@@ -40,7 +40,7 @@ const IncomeForm = forwardRef(function IncomeForm(
 
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
-    getTotalIncome();
+    getTotalIncomes();
 
     if (handleSubmit) return;
 
@@ -49,10 +49,10 @@ const IncomeForm = forwardRef(function IncomeForm(
     });
   };
 
-  const getTotalIncome = () => {
-    const totalIncome = Object.entries(formik.values).reduce(
+  const getTotalIncomes = () => {
+    const totalIncomes = Object.entries(formik.values).reduce(
       (acc, [key, value]) => {
-        if (key !== "totalIncome") {
+        if (key !== "totalIncomes") {
           return acc + (typeof value === "number" ? value : 0);
         }
 
@@ -61,11 +61,11 @@ const IncomeForm = forwardRef(function IncomeForm(
       0
     );
 
-    formik.setFieldValue("totalIncome", totalIncome);
+    formik.setFieldValue("totalIncomes", totalIncomes);
   };
 
   return (
-    <IncomeFormUI
+    <IncomesFormUI
       loading={loading}
       formik={formik}
       customHandleBlur={customHandleBlur}
@@ -73,5 +73,5 @@ const IncomeForm = forwardRef(function IncomeForm(
   );
 });
 
-export { IncomeForm };
-export type { IncomeFormProps };
+export { IncomesForm };
+export type { IncomesFormProps };

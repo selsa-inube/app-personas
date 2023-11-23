@@ -6,7 +6,7 @@ import {
   mapBankTransfers,
   mapContactData,
   mapFinancialOperations,
-  mapIncome,
+  mapIncomes,
   mapPersonalInformation,
   mapPersonalResidence,
   mapSocioeconomicInformation,
@@ -14,7 +14,7 @@ import {
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
-import { IIncomeEntry } from "./forms/IncomeForm/types";
+import { IIncomesEntry } from "./forms/IncomesForm/types";
 import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
 import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
@@ -61,7 +61,7 @@ function UpdateData() {
     },
     income: {
       isValid: true,
-      values: mapIncome(),
+      values: mapIncomes(),
     },
   });
 
@@ -78,7 +78,7 @@ function UpdateData() {
     useRef<FormikProps<IPersonalResidenceEntry>>(null);
   const socioeconomicsRef =
     useRef<FormikProps<ISocioeconomicInformationEntry>>(null);
-  const incomeRef = useRef<FormikProps<IIncomeEntry>>(null);
+  const incomeRef = useRef<FormikProps<IIncomesEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,

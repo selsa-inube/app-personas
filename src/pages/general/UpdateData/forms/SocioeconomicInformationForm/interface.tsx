@@ -36,7 +36,7 @@ function SocioeconomicInformationFormUI(
         }
         gap={isMobile ? "s150" : isTablet ? "s200" : "s300"}
       >
-         <Select
+        <Select
           label="Nivel de estudios"
           name="educationLevel"
           id="educationLevel"
@@ -111,9 +111,9 @@ function SocioeconomicInformationFormUI(
         />
         <Select
           label="¿Declara renta?"
-          name="isDeclaredIncome"
-          id="isDeclaredIncome"
-          value={formik.values.isDeclaredIncome}
+          name="isDeclaredIncomes"
+          id="isDeclaredIncomes"
+          value={formik.values.isDeclaredIncomes}
           size="compact"
           options={activeDM.options}
           handleChange={formik.handleChange}

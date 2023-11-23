@@ -24,7 +24,7 @@ import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IFinancialOperationsEntry } from "../../FinancialOperationsForm/types";
-import { IIncomeEntry } from "../../IncomeForm/types";
+import { IIncomesEntry } from "../../IncomesForm/types";
 import { IPersonalAssetEntries } from "../../PersonalAssetsForm/types";
 import { IPersonalDebtEntries } from "../../PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "../../PersonalInformationForm/types";
@@ -340,10 +340,10 @@ const renderSocioeconomicInfoVerification = (
       />
     )}
 
-    {values.isDeclaredIncome !== "" && (
+    {values.isDeclaredIncomes !== "" && (
       <BoxAttribute
         label="Declara renta:"
-        value={activeDM.valueOf(values.isDeclaredIncome)?.value}
+        value={activeDM.valueOf(values.isDeclaredIncomes)?.value}
       />
     )}
 
@@ -356,7 +356,10 @@ const renderSocioeconomicInfoVerification = (
   </Grid>
 );
 
-const renderIncomeVerification = (values: IIncomeEntry, isTablet: boolean) => (
+const renderIncomesVerification = (
+  values: IIncomesEntry,
+  isTablet: boolean
+) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     {values.basicSalary !== "" && (
       <BoxAttribute
@@ -471,7 +474,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "income" &&
-        renderIncomeVerification(updatedData.income.values, isTablet)}
+        renderIncomesVerification(updatedData.income.values, isTablet)}
     </>
   );
 }

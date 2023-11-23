@@ -1,4 +1,4 @@
-interface IIncomeEntry {
+interface IIncomesEntry {
   basicSalary: string;
   bonds: string;
   commissions: string;
@@ -6,7 +6,7 @@ interface IIncomeEntry {
   transportationAssistance: string;
   foodAssistance: string;
   others: string;
-  totalIncome: string;
+  totalIncomes: string;
 }
 
-export type { IIncomeEntry };
+export type { IIncomesEntry };

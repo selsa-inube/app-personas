@@ -2,7 +2,7 @@ import { FormikProps } from "formik";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
-import { IIncomeEntry } from "./forms/IncomeForm/types";
+import { IIncomesEntry } from "./forms/IncomesForm/types";
 import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
 import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
@@ -23,7 +23,7 @@ interface IFormsUpdateData {
     isValid: boolean;
     values: ISocioeconomicInformationEntry;
   };
-  income: { isValid: boolean; values: IIncomeEntry };
+  income: { isValid: boolean; values: IIncomesEntry };
 }
 
 interface IFormsUpdateDataRefs {
@@ -38,7 +38,7 @@ interface IFormsUpdateDataRefs {
   socioeconomicInformation: React.RefObject<
     FormikProps<ISocioeconomicInformationEntry>
   >;
-  income: React.RefObject<FormikProps<IIncomeEntry>>;
+  income: React.RefObject<FormikProps<IIncomesEntry>>;
 }
 
 export type { IFormsUpdateData, IFormsUpdateDataRefs };

@@ -8,13 +8,13 @@ import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { getFieldState } from "src/utils/forms";
 
-interface IncomeFormUIProps {
+interface IncomesFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
-function IncomeFormUI(props: IncomeFormUIProps) {
+function IncomesFormUI(props: IncomesFormUIProps) {
   const { formik, loading, customHandleBlur } = props;
 
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -158,7 +158,7 @@ function IncomeFormUI(props: IncomeFormUIProps) {
             Total ingresos reportados:
           </Text>
           <Text type="title" size="medium">
-            {currencyFormat(formik.values.totalIncome || 0)}
+            {currencyFormat(formik.values.totalIncomes || 0)}
           </Text>
         </Stack>
       </Stack>
@@ -166,4 +166,4 @@ function IncomeFormUI(props: IncomeFormUIProps) {
   );
 }
 
-export { IncomeFormUI };
+export { IncomesFormUI };

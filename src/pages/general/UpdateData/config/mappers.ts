@@ -12,7 +12,7 @@ import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
-import { IIncomeEntry } from "../forms/IncomeForm/types";
+import { IIncomesEntry } from "../forms/IncomesForm/types";
 import {
   IPersonalAssetEntries,
   IPersonalAssetEntry,
@@ -195,12 +195,12 @@ const mapSocioeconomicInformation = (
     dependants: Number(socioeconomicData?.dependants) || 0,
     vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
     isPublicExposed: socioeconomicData?.isPublicExposed || "",
-    isDeclaredIncome: socioeconomicData?.isDeclaredIncome || "",
+    isDeclaredIncomes: socioeconomicData?.isDeclaredIncomes || "",
     isPublicOfficials: socioeconomicData?.isPublicOfficials || "",
   };
 };
 
-const mapIncome = (incomeData?: Record<string, string>): IIncomeEntry => {
+const mapIncomes = (incomeData?: Record<string, string>): IIncomesEntry => {
   return {
     basicSalary: "",
     bonds: "",
@@ -209,7 +209,7 @@ const mapIncome = (incomeData?: Record<string, string>): IIncomeEntry => {
     transportationAssistance: "",
     foodAssistance: "",
     others: "",
-    totalIncome: "",
+    totalIncomes: "",
   };
 };
 
@@ -217,7 +217,7 @@ export {
   mapBankTransfers,
   mapContactData,
   mapFinancialOperations,
-  mapIncome,
+  mapIncomes,
   mapPersonalAsset,
   mapPersonalAssets,
   mapPersonalDebt,
