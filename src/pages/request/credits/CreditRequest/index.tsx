@@ -16,7 +16,7 @@ import { crumbsCreditRequest } from "./config/navigation";
 function CreditRequest() {
   const navigate = useNavigate();
 
-  const mquery = useMediaQuery("(min-width: 1400px)");
+  const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   const handleCardNavigate = (path: string) => {
     navigate(`/credit/${path}`);
@@ -37,11 +37,11 @@ function CreditRequest() {
       <Grid
         gap="s600"
         margin={
-          mquery ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
+          isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={mquery ? "1fr 250px" : "1fr"}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap={mquery ? "s400" : "s250"}>
+        <Stack direction="column" gap={isDesktop ? "s400" : "s250"}>
           <Text type="title" size="small">
             Aquí encontraras las opciones que puedes usar para realizar tu
             solicitud de crédito.
@@ -58,7 +58,7 @@ function CreditRequest() {
             ))}
           </Stack>
         </Stack>
-        {mquery && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
     </>
   );

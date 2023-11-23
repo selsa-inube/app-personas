@@ -34,7 +34,7 @@ function Product(props: ProductProps) {
     navigateTo = "",
   } = props;
 
-  const mobile = useMediaQuery("(max-width: 450px)");
+  const isMobile = useMediaQuery("(max-width: 450px)");
 
   const attributeQueries = Object.keys(breakpoints);
   const attributeMediaQueries = useMediaQueries(attributeQueries);
@@ -59,16 +59,16 @@ function Product(props: ProductProps) {
           )}
           <Stack direction="column" gap="s025">
             <Text
-              type={mobile ? "label" : "title"}
-              size={mobile ? "medium" : "small"}
+              type={isMobile ? "label" : "title"}
+              size={isMobile ? "medium" : "small"}
               appearance={empty ? "gray" : "dark"}
             >
               {!empty ? title : "No tienes productos"}
             </Text>
             {!empty && (
-              <Stack gap={!mobile ? "s100" : "0px"} alignItems="center">
+              <Stack gap={!isMobile ? "s100" : "0px"} alignItems="center">
                 <Text size="small" appearance="gray">
-                  {!mobile && description}
+                  {!isMobile && description}
                 </Text>
                 <Stack gap="s050">
                   {tags.length > 0 &&
@@ -91,7 +91,7 @@ function Product(props: ProductProps) {
               <Stack key={attribute.label} direction="column" gap="s025">
                 <Text
                   type="label"
-                  size={mobile ? "small" : "medium"}
+                  size={isMobile ? "small" : "medium"}
                   textAlign="center"
                 >
                   {attribute.label}

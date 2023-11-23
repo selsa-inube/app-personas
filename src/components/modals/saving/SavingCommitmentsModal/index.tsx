@@ -38,7 +38,7 @@ function formatValueToPayAttribute(attributes: IAttribute[]) {
 function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
   const { portalId, commitments, commitmentsIcons, onCloseModal } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -51,7 +51,7 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={smallScreen}>
+      <StyledModal smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">

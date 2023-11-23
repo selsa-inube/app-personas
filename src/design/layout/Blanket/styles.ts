@@ -2,13 +2,13 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledBlanket {
-  isSmallScreen: boolean;
+  smallScreen: boolean;
 }
 
 const StyledBlanket = styled.div<IStyledBlanket>`
   position: fixed;
   display: grid;
-  place-items: ${(props) => (props.isSmallScreen ? "center" : "initial")};
+  place-items: ${(props) => (props.smallScreen ? "center" : "initial")};
   inset: 0;
   background-color: ${({ theme }) =>
     theme.color?.surface?.blanket?.regular ||

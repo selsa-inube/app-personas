@@ -17,7 +17,7 @@ interface ReimbursementModalProps {
 function ReimbursementModal(props: ReimbursementModalProps) {
   const { portalId, onCloseModal, reimbursement } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -28,7 +28,7 @@ function ReimbursementModal(props: ReimbursementModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={smallScreen}>
+      <StyledModal smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s050">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">

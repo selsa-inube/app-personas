@@ -27,10 +27,10 @@ function BoxAttribute(props: BoxAttributeProps) {
     onClickButton,
   } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
-    <StyledBoxAttribute smallScreen={smallScreen}>
+    <StyledBoxAttribute smallScreen={isMobile}>
       <Grid
         templateColumns={direction === "column" ? "1fr" : "auto 1fr"}
         width="100%"
@@ -40,7 +40,7 @@ function BoxAttribute(props: BoxAttributeProps) {
       >
         <Text
           type="label"
-          size={smallScreen ? "small" : "medium"}
+          size={isMobile ? "small" : "medium"}
           appearance="dark"
         >
           {label}
@@ -59,7 +59,7 @@ function BoxAttribute(props: BoxAttributeProps) {
           ) : (
             <Text
               type="body"
-              size={smallScreen ? "small" : "medium"}
+              size={isMobile ? "small" : "medium"}
               appearance="gray"
               textAlign={direction === "column" ? "start" : "end"}
             >

@@ -111,7 +111,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
     formReferences,
   } = props;
 
-  const mquery = useMediaQuery("(min-width: 1400px)");
+  const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
 
   return (
@@ -128,10 +128,10 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
 
       <Grid
         margin={
-          mquery ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
+          isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
         gap="s600"
-        templateColumns={mquery ? "1fr 250px" : "1fr"}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap={isMobile ? "s300" : "s500"}>
           <Assisted
@@ -172,7 +172,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
             </Stack>
           </Stack>
         </Stack>
-        {mquery && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
     </>
   );

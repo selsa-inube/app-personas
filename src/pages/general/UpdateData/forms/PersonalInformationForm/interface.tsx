@@ -26,13 +26,13 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
     return "valid";
   };
 
-  const mquery = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
     <form>
       <Grid
-        templateColumns={mquery ? "1fr" : "1fr 1fr"}
-        gap={mquery ? "s150" : `${inube.spacing.s200} ${inube.spacing.s300}`}
+        templateColumns={isMobile ? "1fr" : "1fr 1fr"}
+        gap={isMobile ? "s150" : `${inube.spacing.s200} ${inube.spacing.s300}`}
       >
         <TextField
           label="Primer nombre"
