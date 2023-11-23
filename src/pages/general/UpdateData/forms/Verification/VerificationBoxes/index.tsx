@@ -23,6 +23,7 @@ import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
+import { IExpensesEntry } from "../../ExpensesForm/types";
 import { IFinancialOperationsEntry } from "../../FinancialOperationsForm/types";
 import { IIncomesEntry } from "../../IncomesForm/types";
 import { IPersonalAssetEntries } from "../../PersonalAssetsForm/types";
@@ -412,6 +413,62 @@ const renderIncomesVerification = (
   </Grid>
 );
 
+const renderExpensesVerification = (
+  values: IExpensesEntry,
+  isTablet: boolean
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    {values.personalExpenses !== "" && (
+      <BoxAttribute
+        label="Gastos personales:"
+        value={currencyFormat(Number(values.personalExpenses))}
+      />
+    )}
+
+    {values.familyExpenses !== "" && (
+      <BoxAttribute
+        label="Gastos familiares:"
+        value={currencyFormat(Number(values.familyExpenses))}
+      />
+    )}
+
+    {values.credits !== "" && (
+      <BoxAttribute
+        label="Créditos:"
+        value={currencyFormat(Number(values.credits))}
+      />
+    )}
+
+    {values.creditCards !== "" && (
+      <BoxAttribute
+        label="Tarjetas de crédito:"
+        value={currencyFormat(Number(values.creditCards))}
+      />
+    )}
+
+    {values.health !== "" && (
+      <BoxAttribute
+        label="Salud:"
+        value={currencyFormat(Number(values.health))}
+      />
+    )}
+
+    {values.pension !== "" && (
+      <BoxAttribute
+        label="Pensión:"
+        value={currencyFormat(Number(values.pension))}
+      />
+    )}
+
+    {values.others !== "" && (
+      <BoxAttribute
+        label="Otros gastos:"
+        value={currencyFormat(Number(values.others))}
+      />
+    )}
+  </Grid>
+);
+
 interface VerificationBoxesProps {
   updatedData: IFormsUpdateData;
   stepKey: string;
@@ -475,6 +532,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
 
       {stepKey === "income" &&
         renderIncomesVerification(updatedData.income.values, isTablet)}
+      {stepKey === "expenses" &&
+        renderExpensesVerification(updatedData.expenses.values, isTablet)}
     </>
   );
 }
