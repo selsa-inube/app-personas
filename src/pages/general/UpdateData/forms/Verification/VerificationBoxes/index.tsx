@@ -25,6 +25,7 @@ import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IExpensesEntry } from "../../ExpensesForm/types";
 import { IFinancialOperationsEntry } from "../../FinancialOperationsForm/types";
+import { IIncomesEntry } from "../../IncomesForm/types";
 import { IPersonalAssetEntries } from "../../PersonalAssetsForm/types";
 import { IPersonalDebtEntries } from "../../PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "../../PersonalInformationForm/types";
@@ -340,10 +341,10 @@ const renderSocioeconomicInfoVerification = (
       />
     )}
 
-    {values.isDeclaredIncome !== "" && (
+    {values.isDeclaredIncomes !== "" && (
       <BoxAttribute
         label="Declara renta:"
-        value={activeDM.valueOf(values.isDeclaredIncome)?.value}
+        value={activeDM.valueOf(values.isDeclaredIncomes)?.value}
       />
     )}
 
@@ -351,6 +352,62 @@ const renderSocioeconomicInfoVerification = (
       <BoxAttribute
         label="Administra recursos publicos:"
         value={activeDM.valueOf(values.isPublicOfficials)?.value}
+      />
+    )}
+  </Grid>
+);
+
+const renderIncomesVerification = (
+  values: IIncomesEntry,
+  isTablet: boolean
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    {values.basicSalary !== "" && (
+      <BoxAttribute
+        label="Salario básico:"
+        value={currencyFormat(Number(values.basicSalary))}
+      />
+    )}
+
+    {values.bonds !== "" && (
+      <BoxAttribute
+        label="Bonos:"
+        value={currencyFormat(Number(values.bonds))}
+      />
+    )}
+
+    {values.commissions !== "" && (
+      <BoxAttribute
+        label="Comisiones:"
+        value={currencyFormat(Number(values.commissions))}
+      />
+    )}
+
+    {values.overtime !== "" && (
+      <BoxAttribute
+        label="Horas extras:"
+        value={currencyFormat(Number(values.overtime))}
+      />
+    )}
+
+    {values.transportationAssistance !== "" && (
+      <BoxAttribute
+        label="Auxilio de transporte:"
+        value={currencyFormat(Number(values.transportationAssistance))}
+      />
+    )}
+
+    {values.foodAssistance !== "" && (
+      <BoxAttribute
+        label="Auxilio de alimentación:"
+        value={currencyFormat(Number(values.foodAssistance))}
+      />
+    )}
+
+    {values.others !== "" && (
+      <BoxAttribute
+        label="Otros ingresos:"
+        value={currencyFormat(Number(values.others))}
       />
     )}
   </Grid>
@@ -473,6 +530,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet
         )}
 
+      {stepKey === "income" &&
+        renderIncomesVerification(updatedData.income.values, isTablet)}
       {stepKey === "expenses" &&
         renderExpensesVerification(updatedData.expenses.values, isTablet)}
     </>

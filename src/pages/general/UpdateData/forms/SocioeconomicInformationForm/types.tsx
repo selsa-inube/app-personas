@@ -5,7 +5,7 @@ interface ISocioeconomicInformationEntry {
   dependants: number;
   vulnerablePopulation: string;
   isPublicExposed: string;
-  isDeclaredIncome: string;
+  isDeclaredIncomes: string;
   isPublicOfficials: string;
 }
 

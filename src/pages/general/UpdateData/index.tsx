@@ -7,6 +7,7 @@ import {
   mapContactData,
   mapExpenses,
   mapFinancialOperations,
+  mapIncomes,
   mapPersonalInformation,
   mapPersonalResidence,
   mapSocioeconomicInformation,
@@ -15,6 +16,7 @@ import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IExpensesEntry } from "./forms/ExpensesForm/types";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
+import { IIncomesEntry } from "./forms/IncomesForm/types";
 import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
 import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
@@ -59,6 +61,10 @@ function UpdateData() {
       isValid: true,
       values: mapSocioeconomicInformation(),
     },
+    income: {
+      isValid: true,
+      values: mapIncomes(),
+    },
     expenses: { isValid: true, values: mapExpenses() },
   });
 
@@ -75,6 +81,7 @@ function UpdateData() {
     useRef<FormikProps<IPersonalResidenceEntry>>(null);
   const socioeconomicsRef =
     useRef<FormikProps<ISocioeconomicInformationEntry>>(null);
+  const incomeRef = useRef<FormikProps<IIncomesEntry>>(null);
   const expensesRef = useRef<FormikProps<IExpensesEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
@@ -87,6 +94,7 @@ function UpdateData() {
     financialOperations: financialOperationsRef,
     personalResidence: personalResidenceRef,
     socioeconomicInformation: socioeconomicsRef,
+    income: incomeRef,
     expenses: expensesRef,
   };
 

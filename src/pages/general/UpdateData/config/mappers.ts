@@ -13,6 +13,7 @@ import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IExpensesEntry } from "../forms/ExpensesForm/types";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
+import { IIncomesEntry } from "../forms/IncomesForm/types";
 import {
   IPersonalAssetEntries,
   IPersonalAssetEntry,
@@ -195,8 +196,21 @@ const mapSocioeconomicInformation = (
     dependants: Number(socioeconomicData?.dependants) || 0,
     vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
     isPublicExposed: socioeconomicData?.isPublicExposed || "",
-    isDeclaredIncome: socioeconomicData?.isDeclaredIncome || "",
+    isDeclaredIncomes: socioeconomicData?.isDeclaredIncomes || "",
     isPublicOfficials: socioeconomicData?.isPublicOfficials || "",
+  };
+};
+
+const mapIncomes = (incomeData?: Record<string, string>): IIncomesEntry => {
+  return {
+    basicSalary: "",
+    bonds: "",
+    commissions: "",
+    overtime: "",
+    transportationAssistance: "",
+    foodAssistance: "",
+    others: "",
+    totalIncomes: "",
   };
 };
 
@@ -217,6 +231,7 @@ export {
   mapContactData,
   mapExpenses,
   mapFinancialOperations,
+  mapIncomes,
   mapPersonalAsset,
   mapPersonalAssets,
   mapPersonalDebt,

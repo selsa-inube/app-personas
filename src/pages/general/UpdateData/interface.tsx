@@ -12,6 +12,7 @@ import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { ExpensesForm } from "./forms/ExpensesForm";
 import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
+import { IncomesForm } from "./forms/IncomesForm";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
@@ -87,6 +88,13 @@ const renderStepContent = (
         <SocioeconomicInformationForm
           initialValues={updateData.socioeconomicInformation.values}
           ref={formReferences.socioeconomicInformation}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === updateDataSteps.income.id && (
+        <IncomesForm
+          initialValues={updateData.income.values}
+          ref={formReferences.income}
           onFormValid={setIsCurrentFormValid}
         />
       )}
