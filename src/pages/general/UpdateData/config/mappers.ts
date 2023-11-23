@@ -11,6 +11,7 @@ import {
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
+import { IExpensesEntry } from "../forms/ExpensesForm/types";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import {
   IPersonalAssetEntries,
@@ -199,9 +200,22 @@ const mapSocioeconomicInformation = (
   };
 };
 
+const mapExpenses = (expensesData?: Record<string, string>): IExpensesEntry => {
+  return {
+    personalExpenses: "",
+    familyExpenses: "",
+    credits: "",
+    creditCards: "",
+    health: "",
+    pension: "",
+    others: "",
+  };
+};
+
 export {
   mapBankTransfers,
   mapContactData,
+  mapExpenses,
   mapFinancialOperations,
   mapPersonalAsset,
   mapPersonalAssets,
