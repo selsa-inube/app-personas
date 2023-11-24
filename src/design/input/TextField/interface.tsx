@@ -72,6 +72,7 @@ function TextFieldUI(props: TextFieldProps) {
     autocomplete,
     suggestions,
     autocompleteChars,
+    onIconClick,
   } = props;
 
   const [showDropdown, setShowDropdown] = useState(false);
@@ -88,8 +89,9 @@ function TextFieldUI(props: TextFieldProps) {
     } else {
       setShowDropdown(false);
     }
-
-    handleChange && handleChange(event);
+    if (!onIconClick) {
+      handleChange && handleChange(event);
+    }
   };
 
   const handleSuggestionSelect = (selectedValue: string) => {
@@ -138,7 +140,11 @@ function TextFieldUI(props: TextFieldProps) {
         readOnly={readOnly}
       >
         {iconBefore && (
-          <StyledIcon isDisabled={isDisabled} iconBefore={iconBefore}>
+          <StyledIcon
+            isDisabled={isDisabled}
+            iconBefore={iconBefore}
+            onClick={onIconClick}
+          >
             {iconBefore}
           </StyledIcon>
         )}
@@ -163,7 +169,11 @@ function TextFieldUI(props: TextFieldProps) {
           $size={size}
         />
         {iconAfter && (
-          <StyledIcon iconAfter={iconAfter} isDisabled={isDisabled}>
+          <StyledIcon
+            iconAfter={iconAfter}
+            isDisabled={isDisabled}
+            onClick={onIconClick}
+          >
             {iconAfter}
           </StyledIcon>
         )}

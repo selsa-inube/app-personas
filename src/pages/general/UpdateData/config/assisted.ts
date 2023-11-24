@@ -49,6 +49,11 @@ const updateDataSteps = {
     description:
       "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
   },
+  economicActivity: {
+    id: 10,
+    name: "Actividad económica",
+    description: "Diligencia la información acerca tu actividad económica.",
+  },
   income: {
     id: 11,
     name: "Ingresos",

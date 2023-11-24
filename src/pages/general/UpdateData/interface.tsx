@@ -19,6 +19,7 @@ import { PersonalInformationForm } from "./forms/PersonalInformationForm";
 import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
 import { PersonalResidenceForm } from "./forms/PersonalResidenceForm";
 import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
+import { EconomicActivityForm } from "./forms/EconomicActivityForm";
 import { UpdateDataVerification } from "./forms/Verification";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
@@ -88,6 +89,13 @@ const renderStepContent = (
         <SocioeconomicInformationForm
           initialValues={updateData.socioeconomicInformation.values}
           ref={formReferences.socioeconomicInformation}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === updateDataSteps.economicActivity.id && (
+        <EconomicActivityForm
+          initialValues={updateData.economicActivity.values}
+          ref={formReferences.economicActivity}
           onFormValid={setIsCurrentFormValid}
         />
       )}
