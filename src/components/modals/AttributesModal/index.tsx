@@ -20,7 +20,7 @@ interface AttributesModalProps {
 function AttributesModal(props: AttributesModalProps) {
   const { title, description, portalId, attributes, onCloseModal } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -33,7 +33,7 @@ function AttributesModal(props: AttributesModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={smallScreen}>
+      <StyledModal smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">

@@ -32,7 +32,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
     actionsTitle,
   } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 580px)");
 
   const hasActions = actions && actions.length > 0;
 
@@ -48,7 +48,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={smallScreen}>
+      <StyledModal smallScreen={isMobile}>
         <Stack direction="column" gap="24px">
           <Stack direction="column" gap="16px">
             <Stack alignItems="center" justifyContent="space-between">

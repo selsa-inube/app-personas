@@ -1,17 +1,17 @@
 import { ReferenceModal } from "@components/modals/forms/update-data/ReferenceModal";
 import { Table } from "@design/data/Table";
+import { IAction } from "@design/data/Table/types";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
 import { mapPersonalReferences } from "../../config/mappers";
-import { IAction } from "@design/data/Table/types";
 import {
   personalReferencesTableBreakpoints,
   personalReferencesTableTitles,
 } from "./config/table";
-import { SectionMessage } from "@design/feedback/SectionMessage";
-import { IMessage } from "@ptypes/messages.types";
 
 interface PersonalReferencesFormUIProps {
   formik: FormikValues;
@@ -72,7 +72,6 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           appearance={message.appearance}
           duration={1500}
           closeSectionMessage={onCloseMessage}
-          isMessageResponsive
         />
       )}
     </>

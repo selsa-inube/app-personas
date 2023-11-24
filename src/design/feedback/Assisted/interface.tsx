@@ -34,32 +34,32 @@ function AssistedUI(props: AssistedUIProps) {
     handleNextStep,
   } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 744px)");
+  const isMobile = useMediaQuery("(max-width: 744px)");
 
   const barWidth = ((currentStepIndex + 1) / steps.length) * 100;
 
   return (
-    <StyledAssistedContainer smallScreen={smallScreen}>
+    <StyledAssistedContainer smallScreen={isMobile}>
       <Stack
         justifyContent="space-between"
         alignItems="center"
         height="inherit"
       >
-        <StyledButton smallScreen={smallScreen}>
+        <StyledButton smallScreen={isMobile}>
           <Button
             variant="none"
             iconBefore={<MdArrowBack size={18} />}
             handleClick={handlePreviousStep}
             disabled={currentStepIndex === 0}
           >
-            {!smallScreen && "Atrás"}
+            {!isMobile && "Atrás"}
           </Button>
         </StyledButton>
         <Stack
           direction="column"
           width="100%"
           gap="s150"
-          padding={`0 ${smallScreen ? inube.spacing.s150 : inube.spacing.s200}`}
+          padding={`0 ${isMobile ? inube.spacing.s150 : inube.spacing.s200}`}
         >
           <Stack gap="s100" alignItems="center">
             <StyledCircleId>
@@ -76,19 +76,19 @@ function AssistedUI(props: AssistedUIProps) {
                 )}
               </Text>
             </StyledCircleId>
-            <Text type="title" size={smallScreen ? "small" : "medium"}>
+            <Text type="title" size={isMobile ? "small" : "medium"}>
               {currentStepInfo?.name}
             </Text>
           </Stack>
-          {!smallScreen && (
+          {!isMobile && (
             <>
               <Stack
                 justifyContent="space-between"
                 alignItems="center"
                 gap="s100"
               >
-                <StyledBarContainer smallScreen={smallScreen}>
-                  <StyledBar smallScreen={smallScreen} width={barWidth} />
+                <StyledBarContainer smallScreen={isMobile}>
+                  <StyledBar smallScreen={isMobile} width={barWidth} />
                 </StyledBarContainer>
                 <Text type="label" size="small">
                   {currentStepIndex + 1}/{steps.length}
@@ -100,23 +100,23 @@ function AssistedUI(props: AssistedUIProps) {
             </>
           )}
         </Stack>
-        <StyledButton smallScreen={smallScreen}>
+        <StyledButton smallScreen={isMobile}>
           <Button
             variant="none"
             iconAfter={<MdArrowForward size={18} />}
             handleClick={handleNextStep}
             disabled={disableNextStep}
           >
-            {!smallScreen && currentStepIndex === steps.length - 1
+            {!isMobile && currentStepIndex === steps.length - 1
               ? "Enviar"
               : "Siguiente"}
           </Button>
         </StyledButton>
       </Stack>
-      {smallScreen && (
+      {isMobile && (
         <>
-          <StyledBarContainer smallScreen={smallScreen}>
-            <StyledBar smallScreen={smallScreen} width={barWidth} />
+          <StyledBarContainer smallScreen={isMobile}>
+            <StyledBar smallScreen={isMobile} width={barWidth} />
           </StyledBarContainer>
           <Text type="label" size="small" appearance="gray">
             {currentStepInfo?.description}

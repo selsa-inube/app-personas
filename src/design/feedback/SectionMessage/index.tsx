@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { MdClear } from "react-icons/md";
-import { StyledSectionMessage } from "./styles";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { MdClear } from "react-icons/md";
 import { CountdownBar } from "../CountdownBar";
+import { StyledSectionMessage } from "./styles";
 
 import { Icon } from "@design/data/Icon";
 import { MessageAppearanceType } from "./types";
@@ -17,7 +17,6 @@ interface SectionMessageProps {
   appearance: MessageAppearanceType;
   duration: number;
   closeSectionMessage: () => void;
-  isMessageResponsive: boolean;
 }
 
 const SectionMessage = (props: SectionMessageProps) => {
@@ -31,7 +30,7 @@ const SectionMessage = (props: SectionMessageProps) => {
   } = props;
 
   const [isPaused, setIsPaused] = useState(false);
-  const isMessageResponsive = useMediaQuery("(max-width: 565px)");
+  const isMobile = useMediaQuery("(max-width: 565px)");
 
   const newDescription = description.substring(0, 240);
 
@@ -40,12 +39,12 @@ const SectionMessage = (props: SectionMessageProps) => {
       appearance={appearance}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      isMessageResponsive={isMessageResponsive}
+      isMessageResponsive={isMobile}
     >
       <Stack justifyContent="space-between" padding="s200">
         <Stack
           gap="16px"
-          alignItems={isMessageResponsive ? "center" : undefined}
+          alignItems={isMobile ? "center" : undefined}
           width="100%"
         >
           <Stack alignItems="center" gap="16px" width="100%">
@@ -70,7 +69,7 @@ const SectionMessage = (props: SectionMessageProps) => {
                 />
               </Stack>
 
-              {!isMessageResponsive && (
+              {!isMobile && (
                 <Text type="body" size="small" appearance="gray">
                   {newDescription}
                 </Text>

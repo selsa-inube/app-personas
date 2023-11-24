@@ -45,7 +45,7 @@ const renderTransactionSpecification = (
 function SavingMovementModal(props: SavingMovementModalProps) {
   const { portalId, onCloseModal, movement } = props;
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -65,7 +65,7 @@ function SavingMovementModal(props: SavingMovementModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={smallScreen}>
+      <StyledModal smallScreen={isMobile}>
         <Stack direction="column" width="100%">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">

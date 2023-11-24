@@ -73,7 +73,6 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
           appearance={message.appearance}
           duration={1500}
           closeSectionMessage={onCloseMessage}
-          isMessageResponsive
         />
       )}
     </>

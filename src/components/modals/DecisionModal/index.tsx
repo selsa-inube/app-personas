@@ -1,13 +1,13 @@
+import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
+import { ButtonAppearanceType } from "@design/input/Button/types";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
-import { Text } from "@design/data/Text";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
-import { ButtonAppearanceType } from "@design/input/Button/types";
 
 interface DecisionModalProps {
   title: string;
@@ -33,7 +33,7 @@ function DecisionModal(props: DecisionModalProps) {
   } = props;
   const [isLoading, setIsLoading] = useState(false);
 
-  const smallScreen = useMediaQuery("max-width: 580px");
+  const isMobile = useMediaQuery("max-width: 580px");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -43,7 +43,7 @@ function DecisionModal(props: DecisionModalProps) {
   }
 
   const handleActionClick = () => {
-    setIsLoading(loading)
+    setIsLoading(loading);
 
     setTimeout(
       () => {
@@ -56,13 +56,13 @@ function DecisionModal(props: DecisionModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={smallScreen}>
-        <Stack direction="column" gap={smallScreen ? "16px" : "24px"}>
+      <StyledModal smallScreen={isMobile}>
+        <Stack direction="column" gap={isMobile ? "16px" : "24px"}>
           <Stack alignItems="center" justifyContent="space-between">
             <Text
               type="title"
               appearance="dark"
-              size={smallScreen ? "small" : "medium"}
+              size={isMobile ? "small" : "medium"}
             >
               {title}
             </Text>
@@ -71,7 +71,7 @@ function DecisionModal(props: DecisionModalProps) {
           <Text
             type="body"
             appearance="gray"
-            size={smallScreen ? "small" : "large"}
+            size={isMobile ? "small" : "large"}
           >
             {description}
           </Text>
@@ -79,7 +79,7 @@ function DecisionModal(props: DecisionModalProps) {
             <Button
               appearance="gray"
               handleClick={onCloseModal}
-              spacing={smallScreen ? "compact" : "wide"}
+              spacing={isMobile ? "compact" : "wide"}
             >
               Cancel
             </Button>
@@ -87,7 +87,7 @@ function DecisionModal(props: DecisionModalProps) {
               appearance={appearance}
               load={isLoading}
               handleClick={handleActionClick}
-              spacing={smallScreen ? "compact" : "wide"}
+              spacing={isMobile ? "compact" : "wide"}
             >
               {actionText}
             </Button>

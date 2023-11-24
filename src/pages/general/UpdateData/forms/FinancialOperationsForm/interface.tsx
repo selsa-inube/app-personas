@@ -25,7 +25,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
     return "valid";
   }
 
-  const mquery = useMediaQuery("(max-width: 1200px)");
+  const isTablet = useMediaQuery("(max-width: 1200px)");
 
   const showForeignCurrencyFields =
     formik.values.hasForeignCurrencyTransactions === activeDM.Y.id ||
@@ -35,15 +35,17 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
     <form>
       <Stack direction="column" gap="s300">
         <Grid
-          templateColumns={mquery ? "1fr" : "1fr 1fr"}
-          gap={mquery ? "s150" : `${inube.spacing.s200} ${inube.spacing.s300}`}
+          templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+          gap={
+            isTablet ? "s150" : `${inube.spacing.s200} ${inube.spacing.s300}`
+          }
         >
           <Select
             label="¿Realiza operaciones en moneda extrajera?"
             name="hasForeignCurrencyTransactions"
             id="hasForeignCurrencyTransactions"
             value={formik.values.hasForeignCurrencyTransactions}
-            size={mquery ? "compact" : "wide"}
+            size={isTablet ? "compact" : "wide"}
             isFullWidth
             options={activeDM.options}
             handleBlur={customHandleBlur}
@@ -59,7 +61,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             name="hasForeignCurrencyAccounts"
             id="hasForeignCurrencyAccounts"
             value={formik.values.hasForeignCurrencyAccounts}
-            size={mquery ? "compact" : "wide"}
+            size={isTablet ? "compact" : "wide"}
             isFullWidth
             options={activeDM.options}
             handleBlur={customHandleBlur}
@@ -88,9 +90,11 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             />
 
             <Grid
-              templateColumns={mquery ? "1fr" : "1fr 1fr"}
+              templateColumns={isTablet ? "1fr" : "1fr 1fr"}
               gap={
-                mquery ? "s150" : `${inube.spacing.s200} ${inube.spacing.s300}`
+                isTablet
+                  ? "s150"
+                  : `${inube.spacing.s200} ${inube.spacing.s300}`
               }
             >
               <Select
@@ -98,7 +102,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 name="country"
                 id="country"
                 value={formik.values.country}
-                size={mquery ? "compact" : "wide"}
+                size={isTablet ? "compact" : "wide"}
                 isFullWidth
                 options={countryDM.options}
                 handleBlur={customHandleBlur}
@@ -111,7 +115,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 name="bankEntity"
                 id="bankEntity"
                 value={formik.values.bankEntity}
-                size={mquery ? "compact" : "wide"}
+                size={isTablet ? "compact" : "wide"}
                 isFullWidth
                 options={getDomainById("bankForeign")}
                 handleBlur={customHandleBlur}
@@ -124,7 +128,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 name="currency"
                 id="currency"
                 value={formik.values.currency}
-                size={mquery ? "compact" : "wide"}
+                size={isTablet ? "compact" : "wide"}
                 isFullWidth
                 options={getDomainById("currency")}
                 handleBlur={customHandleBlur}
@@ -140,7 +144,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 value={formik.values.accountNumber}
                 errorMessage={formik.errors.accountNumber}
                 isDisabled={loading}
-                size={mquery ? "compact" : "wide"}
+                size={isTablet ? "compact" : "wide"}
                 isFullWidth
                 state={stateValue("accountNumber")}
                 handleBlur={customHandleBlur}

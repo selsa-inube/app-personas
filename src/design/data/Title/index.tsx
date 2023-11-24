@@ -15,7 +15,7 @@ function Title(props: TitleProps) {
   const { title, subtitle, icon, navigatePage } = props;
   const navigate = useNavigate();
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 580px)");
 
   const handleBackPage = () => {
     if (navigatePage) return navigate(navigatePage);
@@ -36,13 +36,13 @@ function Title(props: TitleProps) {
           />
         )}
 
-        <Text as="h1" type="title" size={smallScreen ? "medium" : "large"}>
+        <Text as="h1" type="title" size={isMobile ? "medium" : "large"}>
           {title}
         </Text>
       </Stack>
       <Text
         type="body"
-        size={smallScreen ? "small" : "medium"}
+        size={isMobile ? "small" : "medium"}
         appearance="gray"
       >
         {subtitle}
