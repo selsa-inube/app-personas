@@ -49,12 +49,12 @@ interface TextareaProps {
   isDisabled?: boolean;
   isFocused?: boolean;
   value?: string;
-  handleChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   maxLength?: number;
   isRequired?: boolean;
   isFullWidth?: boolean;
-  handleFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
-  handleBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   readOnly?: boolean;
   lengthThreshold?: number;
   state?: InputState;
@@ -73,9 +73,9 @@ const Textarea = (props: TextareaProps) => {
     maxLength = Infinity,
     isRequired,
     isFullWidth,
-    handleChange,
-    handleFocus,
-    handleBlur,
+    onChange,
+    onFocus,
+    onBlur,
     readOnly,
     lengthThreshold = 0,
     state = "pending",
@@ -101,12 +101,12 @@ const Textarea = (props: TextareaProps) => {
     if (!readOnly) {
       setIsFocused(true);
     }
-    handleFocus && handleFocus(e);
+    onFocus && onFocus(e);
   };
 
   const interceptBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setIsFocused(false);
-    handleBlur && handleBlur(e);
+    onBlur && onBlur(e);
   };
 
   return (
@@ -160,7 +160,7 @@ const Textarea = (props: TextareaProps) => {
         readOnly={readOnly}
         value={truncatedValue}
         isMobile={isMobile}
-        onChange={handleChange}
+        onChange={onChange}
         onFocus={interceptFocus}
         onBlur={interceptBlur}
       />

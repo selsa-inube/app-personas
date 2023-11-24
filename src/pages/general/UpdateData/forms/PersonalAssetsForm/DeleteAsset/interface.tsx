@@ -1,8 +1,8 @@
 import { DecisionModal } from "@components/modals/DecisionModal";
 import { Icon } from "@design/data/Icon";
+import { IEntry } from "@design/data/Table/types";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteAssetModal } from "../config/deleteAsset.config";
-import { IEntry } from "@design/data/Table/types";
 
 interface DeleteAssetUIProps {
   asset: IEntry;
@@ -13,7 +13,8 @@ interface DeleteAssetUIProps {
 }
 
 function DeleteAssetUI(props: DeleteAssetUIProps) {
-  const { asset, showModal, handleShowModal, handleDeleteAsset, closeModal } = props;
+  const { asset, showModal, handleShowModal, handleDeleteAsset, closeModal } =
+    props;
 
   const { title, description, actionText, appearance, portalId } =
     deleteAssetModal;
@@ -36,7 +37,7 @@ function DeleteAssetUI(props: DeleteAssetUIProps) {
           appearance={appearance}
           actionText={actionText}
           onCloseModal={closeModal}
-          handleClick={handleDeleteAsset}
+          onClick={handleDeleteAsset}
           portalId={portalId}
         />
       )}

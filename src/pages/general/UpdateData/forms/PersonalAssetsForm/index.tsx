@@ -1,15 +1,15 @@
+import { IAction } from "@design/data/Table/types";
+import { EMessageType, IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
+import { DeleteAsset } from "./DeleteAsset";
+import { EditAsset } from "./EditAsset";
+import { deleteAssetMessages } from "./config/deleteAsset.config";
 import { PersonalAssetsFormUI } from "./interface";
 import { IPersonalAssetEntries } from "./types";
-import { IAction } from "@design/data/Table/types";
-import { EditAsset } from "./EditAsset";
-import { DeleteAsset } from "./DeleteAsset";
-import { IMessage, EMessageType } from "@ptypes/messages.types";
-import { deleteAssetMessages } from "./config/deleteAsset.config";
 
 const initialMessageState: IMessage = {
   show: false,
@@ -30,14 +30,14 @@ const validationSchema = Yup.object({
 
 interface PersonalAssetsFormProps {
   initialValues: IPersonalAssetEntries;
-  handleSubmit?: (values: IPersonalAssetEntries) => void;
+  onSubmit?: (values: IPersonalAssetEntries) => void;
 }
 
 const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   props: PersonalAssetsFormProps,
   ref: React.Ref<FormikProps<IPersonalAssetEntries>>
 ) {
-  const { initialValues, handleSubmit } = props;
+  const { initialValues, onSubmit } = props;
 
   const [showAddAssetModal, setShowAddAssetModal] = useState(false);
   const [message, setMessage] = useState(initialMessageState);
@@ -61,7 +61,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => formik);

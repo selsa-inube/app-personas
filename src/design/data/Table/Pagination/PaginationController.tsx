@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Pagination } from "../Pagination/index";
 import { TableProps } from "..";
+import { Pagination } from "../Pagination/index";
 
 const PaginationController = (props: TableProps) => {
   const { entries, pageLength = 10 } = props;
@@ -40,10 +40,10 @@ const PaginationController = (props: TableProps) => {
       firstEntryInPage={firstEntryInPage}
       lastEntryInPage={lastEntryInPage}
       totalRecords={entries.length}
-      handleStartPage={goToFirstPage}
-      handlePrevPage={prevPage}
-      handleNextPage={nextPage}
-      handleEndPage={goToEndPage}
+      onStartPage={goToFirstPage}
+      onPrevPage={prevPage}
+      onNextPage={nextPage}
+      onEndPage={goToEndPage}
     />
   );
 };

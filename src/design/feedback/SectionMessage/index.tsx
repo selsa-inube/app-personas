@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { MdClear } from "react-icons/md";
-import { StyledSectionMessage } from "./styles";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { MdClear } from "react-icons/md";
 import { CountdownBar } from "../CountdownBar";
+import { StyledSectionMessage } from "./styles";
 
 import { Icon } from "@design/data/Icon";
 import { MessageAppearanceType } from "./types";
@@ -16,7 +16,7 @@ interface SectionMessageProps {
   description: string;
   appearance: MessageAppearanceType;
   duration: number;
-  closeSectionMessage: () => void;
+  onClose: () => void;
   isMessageResponsive: boolean;
 }
 
@@ -27,7 +27,7 @@ const SectionMessage = (props: SectionMessageProps) => {
     description,
     appearance = "primary",
     duration,
-    closeSectionMessage,
+    onClose,
   } = props;
 
   const [isPaused, setIsPaused] = useState(false);
@@ -63,7 +63,7 @@ const SectionMessage = (props: SectionMessageProps) => {
                 <Icon
                   size="16px"
                   spacing="none"
-                  onClick={closeSectionMessage}
+                  onClick={onClose}
                   appearance="dark"
                   icon={<MdClear />}
                   cursorHover
@@ -84,7 +84,7 @@ const SectionMessage = (props: SectionMessageProps) => {
           paused={isPaused}
           appearance={appearance}
           duration={duration}
-          onCountdown={closeSectionMessage}
+          onCountdown={onClose}
         />
       )}
     </StyledSectionMessage>

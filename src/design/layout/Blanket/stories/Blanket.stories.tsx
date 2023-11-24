@@ -36,7 +36,7 @@ const Template: StoryFn<BlanketProps> = (args) => {
 
   return (
     <>
-      <Button handleClick={handleShowBlanket}>Show Blanket</Button>
+      <Button onClick={handleShowBlanket}>Show Blanket</Button>
       {showBlanket && (
         <Blanket {...args}>
           <StyledBackdropBlanket onClick={() => setShowBlanket(false)} />

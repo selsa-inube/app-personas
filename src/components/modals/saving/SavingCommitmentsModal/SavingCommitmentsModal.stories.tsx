@@ -37,7 +37,7 @@ const Template: StoryFn<SavingCommitmentsModalProps & { theme?: boolean }> = (
 
   return (
     <>
-      <Button handleClick={handleModal}>SavingCommitmentsModal</Button>
+      <Button onClick={handleModal}>SavingCommitmentsModal</Button>
       {showModal &&
         (args.theme ? (
           <ThemeProvider theme={themes["fondecom"]}>

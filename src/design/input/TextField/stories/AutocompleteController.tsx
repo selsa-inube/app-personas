@@ -24,9 +24,9 @@ const AutocompleteController = (props: TextFieldProps) => {
     <TextField
       {...props}
       value={text}
-      handleChange={handleChange}
-      handleFocus={handleFocus}
-      handleBlur={handleBlur}
+      onChange={handleChange}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
     />
   );
 };

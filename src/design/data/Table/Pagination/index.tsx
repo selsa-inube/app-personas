@@ -13,10 +13,10 @@ interface PaginationProps {
   firstEntryInPage: number;
   lastEntryInPage: number;
   totalRecords: number;
-  handleStartPage: () => void;
-  handlePrevPage: () => void;
-  handleNextPage: () => void;
-  handleEndPage: () => void;
+  onStartPage: () => void;
+  onPrevPage: () => void;
+  onNextPage: () => void;
+  onEndPage: () => void;
 }
 
 const Pagination = (props: PaginationProps) => {
@@ -24,10 +24,10 @@ const Pagination = (props: PaginationProps) => {
     firstEntryInPage,
     lastEntryInPage,
     totalRecords,
-    handleStartPage,
-    handlePrevPage,
-    handleNextPage,
-    handleEndPage,
+    onStartPage,
+    onPrevPage,
+    onNextPage,
+    onEndPage,
   } = props;
 
   return (
@@ -46,19 +46,16 @@ const Pagination = (props: PaginationProps) => {
         margin="0px 0px 0px 16px"
         gap="8px"
       >
-        <StyledButton
-          onClick={handleStartPage}
-          aria-label="go to the first page"
-        >
+        <StyledButton onClick={onStartPage} aria-label="go to the first page">
           <MdFirstPage />
         </StyledButton>
-        <StyledButton onClick={handlePrevPage} aria-label="go to previous page">
+        <StyledButton onClick={onPrevPage} aria-label="go to previous page">
           <MdNavigateBefore />
         </StyledButton>
-        <StyledButton onClick={handleNextPage} aria-label="go to next page">
+        <StyledButton onClick={onNextPage} aria-label="go to next page">
           <MdNavigateNext />
         </StyledButton>
-        <StyledButton onClick={handleEndPage} aria-label="go to last page">
+        <StyledButton onClick={onEndPage} aria-label="go to last page">
           <MdLastPage />
         </StyledButton>
       </Stack>

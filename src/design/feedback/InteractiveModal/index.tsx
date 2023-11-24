@@ -12,7 +12,7 @@ import { ILabel } from "./types";
 interface InteractiveModalProps {
   portalId: string;
   title: string;
-  closeModal: () => void;
+  onCloseModal: () => void;
   infoData: IEntry;
   actions?: IAction[];
   labels?: ILabel[];
@@ -24,7 +24,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
   const {
     portalId,
     title,
-    closeModal,
+    onCloseModal,
     infoData,
     actions,
     labels,
@@ -55,7 +55,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
               <Text type="headline" size="small" appearance="dark">
                 {title}
               </Text>
-              <MdClear size={24} cursor="pointer" onClick={closeModal} />
+              <MdClear size={24} cursor="pointer" onClick={onCloseModal} />
             </Stack>
             {hasActions && (
               <Text type="title" size="medium" appearance="dark">

@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
 interface IncomesFormProps {
   initialValues: IIncomesEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSubmit?: (values: IIncomesEntry) => void;
+  onSubmit?: (values: IIncomesEntry) => void;
   loading?: boolean;
 }
 
@@ -27,13 +27,13 @@ const IncomesForm = forwardRef(function IncomesForm(
   props: IncomesFormProps,
   ref: React.Ref<FormikProps<IIncomesEntry>>
 ) {
-  const { initialValues, onFormValid, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -42,7 +42,7 @@ const IncomesForm = forwardRef(function IncomesForm(
     formik.handleBlur(event);
     getTotalIncomes();
 
-    if (handleSubmit) return;
+    if (onSubmit) return;
 
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);

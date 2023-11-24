@@ -34,9 +34,9 @@ interface TextFieldProps {
   autocomplete?: boolean;
   suggestions?: DropdownItemProps[];
   autocompleteChars?: number;
-  handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  handleBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 function TextField(props: TextFieldProps) {
@@ -50,7 +50,7 @@ function TextField(props: TextFieldProps) {
     state = "pending",
     size,
     value,
-    handleChange,
+    onChange,
     iconBefore,
     iconAfter,
     maxLength,
@@ -61,8 +61,8 @@ function TextField(props: TextFieldProps) {
     errorMessage,
     validMessage,
     isFullWidth = false,
-    handleFocus,
-    handleBlur,
+    onFocus,
+    onBlur,
     readOnly = false,
     autocomplete = false,
     suggestions,
@@ -75,12 +75,12 @@ function TextField(props: TextFieldProps) {
     if (!readOnly) {
       setIsFocused(true);
     }
-    if (handleFocus) handleFocus(e);
+    if (onFocus) onFocus(e);
   };
 
   const interceptBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(false);
-    if (handleBlur) handleBlur(e);
+    if (onBlur) onBlur(e);
   };
 
   const transformedIsDisabled =
@@ -105,7 +105,7 @@ function TextField(props: TextFieldProps) {
       isDisabled={transformedIsDisabled}
       type={transformedTypes}
       value={value}
-      handleChange={handleChange}
+      onChange={onChange}
       iconBefore={iconBefore}
       iconAfter={iconAfter}
       maxLength={maxLength}
@@ -119,8 +119,8 @@ function TextField(props: TextFieldProps) {
       validMessage={validMessage}
       isFullWidth={transformedIsFullWidth}
       isFocused={isFocused}
-      handleFocus={interceptFocus}
-      handleBlur={interceptBlur}
+      onFocus={interceptFocus}
+      onBlur={interceptBlur}
       readOnly={readOnly}
       autocomplete={autocomplete}
       suggestions={suggestions}

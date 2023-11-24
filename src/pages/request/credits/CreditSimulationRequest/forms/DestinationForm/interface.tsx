@@ -42,11 +42,11 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             size="compact"
             isFullWidth
             options={creditDestinationDM}
-            handleBlur={customHandleBlur}
+            onBlur={customHandleBlur}
             errorMessage={formik.errors.creditDestination}
             isDisabled={loading}
             state={stateValue("creditDestination")}
-            handleChange={formik.handleChange}
+            onChange={formik.handleChange}
           />
         </Stack>
         <Stack direction="column" gap="s200">

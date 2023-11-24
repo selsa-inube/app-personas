@@ -52,8 +52,8 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             size="compact"
             isFullWidth
             state={getFieldState(formik, "personalExpenses")}
-            handleBlur={customHandleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={customHandleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El valor de los gastos personales es válido"
           />
           <TextField
@@ -68,8 +68,8 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             size="compact"
             isFullWidth
             state={getFieldState(formik, "familyExpenses")}
-            handleBlur={customHandleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={customHandleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El valor de los gastos familiares es válido"
           />
           <TextField
@@ -84,8 +84,8 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             size="compact"
             isFullWidth
             state={getFieldState(formik, "credits")}
-            handleBlur={customHandleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={customHandleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El valor de los créditos es válido"
           />
           <TextField
@@ -100,8 +100,8 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             size="compact"
             isFullWidth
             state={getFieldState(formik, "creditCards")}
-            handleBlur={customHandleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={customHandleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El valor de las tarjetas de crédito es válido"
           />
           <TextField
@@ -115,8 +115,8 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            handleBlur={customHandleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={customHandleBlur}
+            onChange={handleChangeWithCurrency}
             readOnly
           />
           <TextField
@@ -130,8 +130,8 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            handleBlur={customHandleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={customHandleBlur}
+            onChange={handleChangeWithCurrency}
             readOnly
           />
           <TextField
@@ -146,8 +146,8 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             size="compact"
             isFullWidth
             state={getFieldState(formik, "others")}
-            handleBlur={customHandleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={customHandleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El valor de otros gastos es válido"
           />
         </Grid>

@@ -1,17 +1,17 @@
 import { AssetModal } from "@components/modals/forms/update-data/AssetModal";
 import { Table } from "@design/data/Table";
+import { IAction } from "@design/data/Table/types";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlineAddHome } from "react-icons/md";
 import { mapPersonalAssets } from "../../config/mappers";
-import { IAction } from "@design/data/Table/types";
 import {
   personalAssetsTableBreakpoints,
   personalAssetsTableTitles,
 } from "./config/table";
-import { SectionMessage } from "@design/feedback/SectionMessage";
-import { IMessage } from "@ptypes/messages.types";
 
 interface PersonalAssetsFormUIProps {
   formik: FormikValues;
@@ -40,7 +40,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
         <Button
           iconBefore={<MdOutlineAddHome />}
           variant="none"
-          handleClick={handleToggleModal}
+          onClick={handleToggleModal}
         >
           Adicionar bien
         </Button>
@@ -72,7 +72,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
           icon={message.icon}
           appearance={message.appearance}
           duration={1500}
-          closeSectionMessage={onCloseMessage}
+          onClose={onCloseMessage}
           isMessageResponsive
         />
       )}

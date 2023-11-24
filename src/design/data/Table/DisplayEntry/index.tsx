@@ -35,7 +35,7 @@ const DisplayEntry = ({
         <InteractiveModal
           portalId={portalId}
           title={title}
-          closeModal={handleToggleModal}
+          onCloseModal={handleToggleModal}
           infoData={entry}
           actions={actions}
           labels={titleLabels}

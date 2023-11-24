@@ -52,7 +52,7 @@ function TextFieldUI(props: TextFieldProps) {
     isDisabled = false,
     type,
     value,
-    handleChange,
+    onChange,
     iconBefore,
     iconAfter,
     maxLength,
@@ -66,8 +66,8 @@ function TextFieldUI(props: TextFieldProps) {
     size = "compact",
     isFullWidth = false,
     isFocused = false,
-    handleFocus,
-    handleBlur,
+    onFocus,
+    onBlur,
     readOnly,
     autocomplete,
     suggestions,
@@ -89,7 +89,7 @@ function TextFieldUI(props: TextFieldProps) {
       setShowDropdown(false);
     }
 
-    handleChange && handleChange(event);
+    onChange && onChange(event);
   };
 
   const handleSuggestionSelect = (selectedValue: string) => {
@@ -100,7 +100,7 @@ function TextFieldUI(props: TextFieldProps) {
       },
     } as React.ChangeEvent<HTMLInputElement>;
 
-    handleChange && handleChange(event);
+    onChange && onChange(event);
     setShowDropdown(false);
   };
 
@@ -157,8 +157,8 @@ function TextFieldUI(props: TextFieldProps) {
           max={max}
           min={min}
           onChange={handleInputChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          onFocus={onFocus}
+          onBlur={onBlur}
           readOnly={readOnly}
           $size={size}
         />
@@ -182,7 +182,7 @@ function TextFieldUI(props: TextFieldProps) {
                   .includes(String(value).toLowerCase())
               )
               .flat()}
-            handleClick={handleSuggestionSelect}
+            onClick={handleSuggestionSelect}
           />
         )}
 

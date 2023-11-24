@@ -35,7 +35,7 @@ interface SelectUIProps extends SelectProps {
   openOptions: boolean;
   selectRef?: RefObject<HTMLDivElement> | null;
   onCloseOptions: () => void;
-  handleOptionClick: (id: string) => void;
+  onOptionClick: (id: string) => void;
 }
 
 function SelectUI(props: SelectUIProps) {
@@ -51,20 +51,20 @@ function SelectUI(props: SelectUIProps) {
     state = "pending",
     size = "compact",
     errorMessage,
-    handleFocus,
-    handleBlur,
+    onFocus,
+    onBlur,
+    onClick,
     options,
     openOptions,
     value,
-    handleClick,
     onCloseOptions,
     selectRef,
-    handleOptionClick,
+    onOptionClick,
     readOnly = false,
   } = props;
 
   const interceptorOnClick = (e: React.MouseEvent) => {
-    if (handleClick) handleClick(e);
+    if (onClick) onClick(e);
 
     onCloseOptions();
   };
@@ -79,8 +79,8 @@ function SelectUI(props: SelectUIProps) {
       isDisabled={isDisabled}
       ref={selectRef}
       onClick={interceptorOnClick}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
+      onFocus={onFocus}
+      onBlur={onBlur}
     >
       <StyledContainerLabel alignItems="center" isDisabled={isDisabled}>
         {label && (
@@ -133,7 +133,7 @@ function SelectUI(props: SelectUIProps) {
       {openOptions && !isDisabled && !readOnly && (
         <DropdownMenu
           options={options}
-          handleClick={handleOptionClick}
+          onClick={onOptionClick}
           onCloseOptions={onCloseOptions}
         />
       )}

@@ -24,9 +24,9 @@ const TextareaController = (props: TextareaProps) => {
       {...props}
       value={text}
       maxLength={maxLength}
-      handleChange={handleChange}
-      handleFocus={handleFocus}
-      handleBlur={handleBlur}
+      onChange={handleChange}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
     />
   );
 };

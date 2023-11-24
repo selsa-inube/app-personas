@@ -28,7 +28,7 @@ interface ButtonProps {
   disabled?: boolean;
   path?: string;
   type?: ButtonTypesType;
-  handleClick?: () => void;
+  onClick?: () => void;
 }
 
 function renderButtonContent(
@@ -102,7 +102,7 @@ function Button(props: ButtonProps) {
     disabled = false,
     path = "",
     type = "button",
-    handleClick,
+    onClick,
   } = props;
 
   const darkWhenFilled: ButtonAppearanceType[] = ["warning", "gray", "light"];
@@ -164,7 +164,7 @@ function Button(props: ButtonProps) {
       $fullwidth={fullwidth}
       $load={load}
       disabled={disabled}
-      onClick={handleClick}
+      onClick={onClick}
       onMouseEnter={() => toggleHover(true)}
       onMouseLeave={() => toggleHover(false)}
     >

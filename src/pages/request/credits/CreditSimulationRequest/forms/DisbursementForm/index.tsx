@@ -16,7 +16,7 @@ const initValidationSchema = Yup.object({
 interface DisbursementFormProps {
   initialValues: IDisbursementEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSubmit?: (values: IDisbursementEntry) => void;
+  onSubmit?: (values: IDisbursementEntry) => void;
   loading?: boolean;
 }
 
@@ -24,7 +24,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   props: DisbursementFormProps,
   ref: React.Ref<FormikProps<IDisbursementEntry>>
 ) {
-  const { initialValues, handleSubmit, onFormValid, loading } = props;
+  const { initialValues, onSubmit, onFormValid, loading } = props;
 
   const [dynamicForm, setDynamicForm] = useState<{
     renderFields: IFormField[];
@@ -38,7 +38,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     initialValues,
     validationSchema: dynamicForm.validationSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
     enableReinitialize: true,
   });
 
@@ -61,7 +61,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
 
-    if (handleSubmit) return;
+    if (onSubmit) return;
 
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);

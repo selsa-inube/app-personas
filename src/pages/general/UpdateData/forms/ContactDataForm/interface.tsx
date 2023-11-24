@@ -4,8 +4,8 @@ import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { ObjectSchema } from "yup";
 import { getFieldState } from "src/utils/forms";
+import { ObjectSchema } from "yup";
 interface ContactDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
@@ -47,8 +47,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             size={isMobile ? "compact" : "wide"}
             isFullWidth
             state={getFieldState(formik, "country")}
-            handleBlur={customHandleBlur}
-            handleChange={formik.handleChange}
+            onBlur={customHandleBlur}
+            onChange={formik.handleChange}
             validMessage="El país es válido"
             isRequired={isRequired("country")}
           />
@@ -65,8 +65,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             size={isMobile ? "compact" : "wide"}
             isFullWidth
             state={getFieldState(formik, "stateOrDepartment")}
-            handleBlur={customHandleBlur}
-            handleChange={formik.handleChange}
+            onBlur={customHandleBlur}
+            onChange={formik.handleChange}
             validMessage="El estado / departamento es válido"
             isRequired={isRequired("stateOrDepartment")}
           />
@@ -83,8 +83,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             size={isMobile ? "compact" : "wide"}
             isFullWidth
             state={getFieldState(formik, "city")}
-            handleBlur={customHandleBlur}
-            handleChange={formik.handleChange}
+            onBlur={customHandleBlur}
+            onChange={formik.handleChange}
             validMessage="La ciudad es válida"
             isRequired={isRequired("city")}
           />
@@ -101,8 +101,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             size={isMobile ? "compact" : "wide"}
             isFullWidth
             state={getFieldState(formik, "address")}
-            handleBlur={customHandleBlur}
-            handleChange={formik.handleChange}
+            onBlur={customHandleBlur}
+            onChange={formik.handleChange}
             validMessage="La dirección es válida"
             isRequired={isRequired("address")}
           />
@@ -120,8 +120,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             size={isMobile ? "compact" : "wide"}
             isFullWidth
             state={getFieldState(formik, "postalCode")}
-            handleBlur={customHandleBlur}
-            handleChange={formik.handleChange}
+            onBlur={customHandleBlur}
+            onChange={formik.handleChange}
             validMessage="El código postal es válido"
             isRequired={isRequired("postalCode")}
           />
@@ -139,8 +139,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             size={isMobile ? "compact" : "wide"}
             isFullWidth
             state={getFieldState(formik, "landlinePhone")}
-            handleBlur={customHandleBlur}
-            handleChange={formik.handleChange}
+            onBlur={customHandleBlur}
+            onChange={formik.handleChange}
             validMessage="El teléfono es válido"
             isRequired={isRequired("landlinePhone")}
           />
@@ -157,8 +157,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             size={isMobile ? "compact" : "wide"}
             isFullWidth
             state={getFieldState(formik, "cellPhone")}
-            handleBlur={customHandleBlur}
-            handleChange={formik.handleChange}
+            onBlur={customHandleBlur}
+            onChange={formik.handleChange}
             validMessage="El celular es válido"
             isRequired={isRequired("cellPhone")}
           />
@@ -175,8 +175,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             size={isMobile ? "compact" : "wide"}
             isFullWidth
             state={getFieldState(formik, "email")}
-            handleBlur={customHandleBlur}
-            handleChange={formik.handleChange}
+            onBlur={customHandleBlur}
+            onChange={formik.handleChange}
             validMessage="El correo electronico es válido"
             isRequired={isRequired("email")}
           />

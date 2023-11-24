@@ -159,8 +159,8 @@ function UpdateDataUI(props: UpdateDataUIProps) {
       <Assisted
         steps={steps}
         currentStep={currentStep}
-        handleFinishAssisted={handleFinishAssisted}
-        handleStepChange={handleStepChange}
+        onFinishAssisted={handleFinishAssisted}
+        onStepChange={handleStepChange}
         disableNextStep={!isCurrentFormValid}
       />
 
@@ -175,7 +175,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
 
         <Stack gap="s150" justifyContent="flex-end">
           <Button
-            handleClick={handlePreviousStep}
+            onClick={handlePreviousStep}
             type="button"
             disabled={currentStep === steps[0].id}
             spacing={isMobile ? "compact" : "wide"}
@@ -185,7 +185,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
           </Button>
 
           <Button
-            handleClick={handleNextStep}
+            onClick={handleNextStep}
             spacing={isMobile ? "compact" : "wide"}
             disabled={!isCurrentFormValid}
           >

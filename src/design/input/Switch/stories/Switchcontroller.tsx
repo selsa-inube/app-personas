@@ -14,7 +14,7 @@ const SwitchController = (
     onSwitchChange && onSwitchChange(e);
   };
 
-  return <Switch {...props} checked={switchChecked} handleChange={handleChange} />;
+  return <Switch {...props} checked={switchChecked} onChange={handleChange} />;
 };
 
 export { SwitchController };

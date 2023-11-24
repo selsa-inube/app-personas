@@ -1,12 +1,11 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { useState } from "react";
+import { contactDataRequiredFields } from "./config/formConfig";
 import { ContactDataFormUI } from "./interface";
 import { IContactDataEntry } from "./types";
-import { contactDataRequiredFields } from "./config/formConfig";
 
 const validationSchema = Yup.object().shape({
   country: contactDataRequiredFields.country
@@ -38,7 +37,7 @@ const validationSchema = Yup.object().shape({
 interface ContactDataFormProps {
   initialValues: IContactDataEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSubmit?: (values: IContactDataEntry) => void;
+  onSubmit?: (values: IContactDataEntry) => void;
   loading?: boolean;
 }
 
@@ -46,7 +45,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   props: ContactDataFormProps,
   ref: React.Ref<FormikProps<IContactDataEntry>>
 ) {
-  const { initialValues, onFormValid, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
 
@@ -54,7 +53,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     initialValues,
     validationSchema: dynamicSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -62,7 +61,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
 
-    if (handleSubmit) return;
+    if (onSubmit) return;
 
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);

@@ -43,8 +43,8 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
           size="compact"
           isDisabled={loading}
           options={disbursementTypeDM}
-          handleChange={customHandleChange}
-          handleBlur={customHandleBlur}
+          onChange={customHandleChange}
+          onBlur={customHandleBlur}
           state={getFieldState(formik, "disbursementType")}
           errorMessage={formik.errors.disbursementType}
           isFullWidth

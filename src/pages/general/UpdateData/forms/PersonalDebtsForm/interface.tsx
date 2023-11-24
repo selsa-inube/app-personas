@@ -1,17 +1,17 @@
 import { DebtModal } from "@components/modals/forms/update-data/DebtModal";
 import { Table } from "@design/data/Table";
+import { IAction } from "@design/data/Table/types";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlineAccountBalance } from "react-icons/md";
 import { mapPersonalDebts } from "../../config/mappers";
-import { IAction } from "@design/data/Table/types";
 import {
   personalDebtsTableBreakpoints,
   personalDebtsTableTitles,
 } from "./config/table";
-import { SectionMessage } from "@design/feedback/SectionMessage";
-import { IMessage } from "@ptypes/messages.types";
 
 interface PersonalDebtsFormUIProps {
   formik: FormikValues;
@@ -40,7 +40,7 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
         <Button
           iconBefore={<MdOutlineAccountBalance />}
           variant="none"
-          handleClick={handleToggleModal}
+          onClick={handleToggleModal}
         >
           Adicionar deuda
         </Button>
@@ -72,7 +72,7 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
           icon={message.icon}
           appearance={message.appearance}
           duration={1500}
-          closeSectionMessage={onCloseMessage}
+          onClose={onCloseMessage}
           isMessageResponsive
         />
       )}

@@ -1,8 +1,8 @@
 import { DecisionModal } from "@components/modals/DecisionModal";
 import { Icon } from "@design/data/Icon";
+import { IEntry } from "@design/data/Table/types";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteReferenceModal } from "../config/deleteReference.config";
-import { IEntry } from "@design/data/Table/types";
 
 interface DeleteReferenceUIProps {
   reference: IEntry;
@@ -42,7 +42,7 @@ function DeleteReferenceUI(props: DeleteReferenceUIProps) {
           appearance={appearance}
           actionText={actionText}
           onCloseModal={closeModal}
-          handleClick={handleDeleteUser}
+          onClick={handleDeleteUser}
           portalId={portalId}
         />
       )}

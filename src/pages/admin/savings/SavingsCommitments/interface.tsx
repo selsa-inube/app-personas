@@ -11,8 +11,8 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdArrowBack, MdSyncAlt } from "react-icons/md";
 import { truncateAndObfuscateDescription } from "src/utils/formats";
 import {
@@ -20,8 +20,10 @@ import {
   formatMySavingsCurrencyAttrs,
   mySavingsAttributeBreakpoints,
 } from "../MySavings/config/products";
-import { savingsAccountIcons } from "../SavingsAccount/config/saving";
-import { investmentIcons } from "../SavingsAccount/config/saving";
+import {
+  investmentIcons,
+  savingsAccountIcons,
+} from "../SavingsAccount/config/saving";
 import { formatSavingCommitmentsCurrencyAttrs } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
 import { ISelectedCommitmentState } from "./types";
@@ -98,7 +100,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
         <Stack direction="column" gap={mqueryMobile ? "s200" : "s300"}>
           <Select
             id="savingCommitments"
-            handleChange={handleChangeCommitment}
+            onChange={handleChangeCommitment}
             label="Selección del compromiso"
             options={commitmentsOptions}
             value={selectedCommitment.option.id}

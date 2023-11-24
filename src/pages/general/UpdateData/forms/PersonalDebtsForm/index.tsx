@@ -1,15 +1,15 @@
 import { IAction } from "@design/data/Table/types";
+import { EMessageType, IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { DeleteDebt } from "./DeleteDebt";
+import { EditDebt } from "./EditDebt";
+import { deleteDebtMessages } from "./config/deleteDebt.config";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
-import { EditDebt } from "./EditDebt";
-import { IMessage, EMessageType } from "@ptypes/messages.types";
-import { deleteDebtMessages } from "./config/deleteDebt.config";
 
 const initialMessageState: IMessage = {
   show: false,
@@ -32,14 +32,14 @@ const validationSchema = Yup.object({
 
 interface PersonalDebtsFormProps {
   initialValues: IPersonalDebtEntries;
-  handleSubmit?: (values: IPersonalDebtEntries) => void;
+  onSubmit?: (values: IPersonalDebtEntries) => void;
 }
 
 const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
   props: PersonalDebtsFormProps,
   ref: React.Ref<FormikProps<IPersonalDebtEntries>>
 ) {
-  const { initialValues, handleSubmit } = props;
+  const { initialValues, onSubmit } = props;
 
   const [showAddDebtModal, setShowAddDebtModal] = useState(false);
   const [message, setMessage] = useState(initialMessageState);
@@ -63,7 +63,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => formik);

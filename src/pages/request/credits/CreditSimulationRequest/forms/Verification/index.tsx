@@ -36,7 +36,7 @@ function CreditSimulationRequestVerification(props: VerificationProps) {
 
             <Button
               iconBefore={<MdOutlineArrowBack />}
-              handleClick={() =>
+              onClick={() =>
                 handleStepChange(
                   creditSimulationRequestSteps[
                     key as keyof IFormsCreditSimulationRequest

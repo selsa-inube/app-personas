@@ -59,7 +59,7 @@ const Template: StoryFn<AssistedProps & { theme?: boolean }> = (args) => {
       <ThemeProvider theme={theme}>
         <Assisted
           {...args}
-          handleStepChange={handleStepChange}
+          onStepChange={handleStepChange}
           currentStep={currentStep}
         />
       </ThemeProvider>
@@ -69,7 +69,7 @@ const Template: StoryFn<AssistedProps & { theme?: boolean }> = (args) => {
   return (
     <Assisted
       {...args}
-      handleStepChange={handleStepChange}
+      onStepChange={handleStepChange}
       currentStep={currentStep}
     />
   );
@@ -79,7 +79,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   steps: Object.values(stepsMock),
-  handleFinishAssisted: action("Assisted finished"),
+  onFinishAssisted: action("Assisted finished"),
 };
 
 export const ConfigStepsFlow = (args: AssistedProps) => (

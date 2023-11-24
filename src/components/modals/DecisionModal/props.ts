@@ -34,14 +34,6 @@ const props = {
     description:
       "Controls if you want the button running the action to have a spinner at timeout.",
   },
-  onCloseModal: {
-    description:
-      "Corresponds to a function used to close the modal.",
-  },
-  handleClick: {
-    description:
-      "This is the function responsible for executing the decided action.",
-  },
 };
 
-export { props, parameters };
+export { parameters, props };

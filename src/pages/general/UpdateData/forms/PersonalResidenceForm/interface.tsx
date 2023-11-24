@@ -38,10 +38,10 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           isFullWidth
           size={mquery ? "compact" : "wide"}
           options={residenceTypeDM.options}
-          handleBlur={customHandleBlur}
+          onBlur={customHandleBlur}
           isDisabled={loading}
           state={stateValue("type")}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
         />
         <Select
           label="Estrato de la vivienda"
@@ -51,10 +51,10 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           isFullWidth
           size={mquery ? "compact" : "wide"}
           options={stratumDM.options}
-          handleBlur={customHandleBlur}
+          onBlur={customHandleBlur}
           isDisabled={loading}
           state={stateValue("stratum")}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
         />
         {formik.values.type === residenceTypeDM.OWN_WITH_MORTGAGE.id && (
           <>
@@ -69,8 +69,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               isFullWidth
               size={mquery ? "compact" : "wide"}
               state={stateValue("bankEntity")}
-              handleBlur={customHandleBlur}
-              handleChange={formik.handleChange}
+              onBlur={customHandleBlur}
+              onChange={formik.handleChange}
               validMessage="La entidad bancaria es válida"
             />
             <TextField
@@ -84,8 +84,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               isFullWidth
               size={mquery ? "compact" : "wide"}
               state={stateValue("dueDate")}
-              handleBlur={customHandleBlur}
-              handleChange={formik.handleChange}
+              onBlur={customHandleBlur}
+              onChange={formik.handleChange}
               validMessage="La fecha de vencimiento es válida"
             />
           </>
@@ -103,8 +103,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               isFullWidth
               size={mquery ? "compact" : "wide"}
               state={stateValue("tenant")}
-              handleBlur={customHandleBlur}
-              handleChange={formik.handleChange}
+              onBlur={customHandleBlur}
+              onChange={formik.handleChange}
               validMessage="El nombre del arrendador es válido"
             />
             <TextField
@@ -118,8 +118,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               isFullWidth
               size={mquery ? "compact" : "wide"}
               state={stateValue("tenantCellPhone")}
-              handleBlur={customHandleBlur}
-              handleChange={formik.handleChange}
+              onBlur={customHandleBlur}
+              onChange={formik.handleChange}
               validMessage="El celular del arrendador es válido"
             />
           </>
@@ -137,8 +137,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               isFullWidth
               size={mquery ? "compact" : "wide"}
               state={stateValue("ownerName")}
-              handleBlur={customHandleBlur}
-              handleChange={formik.handleChange}
+              onBlur={customHandleBlur}
+              onChange={formik.handleChange}
               validMessage="El nombre del titular es válido"
             />
             <Select
@@ -149,10 +149,10 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               isFullWidth
               size={mquery ? "compact" : "wide"}
               options={relationshipDM.options}
-              handleBlur={customHandleBlur}
+              onBlur={customHandleBlur}
               isDisabled={loading}
               state={stateValue("relationship")}
-              handleChange={formik.handleChange}
+              onChange={formik.handleChange}
             />
             <TextField
               label="Celular del titular"
@@ -165,8 +165,8 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               isFullWidth
               size={mquery ? "compact" : "wide"}
               state={stateValue("ownerCellPhone")}
-              handleBlur={customHandleBlur}
-              handleChange={formik.handleChange}
+              onBlur={customHandleBlur}
+              onChange={formik.handleChange}
               validMessage="El celular del titular es válido"
             />
           </>

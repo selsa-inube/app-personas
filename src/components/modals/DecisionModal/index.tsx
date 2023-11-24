@@ -1,13 +1,13 @@
+import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
+import { ButtonAppearanceType } from "@design/input/Button/types";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
-import { Text } from "@design/data/Text";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
-import { ButtonAppearanceType } from "@design/input/Button/types";
 
 interface DecisionModalProps {
   title: string;
@@ -17,7 +17,7 @@ interface DecisionModalProps {
   loading?: boolean;
   portalId: string;
   onCloseModal: () => void;
-  handleClick: () => void;
+  onClick: () => void;
 }
 
 function DecisionModal(props: DecisionModalProps) {
@@ -29,7 +29,7 @@ function DecisionModal(props: DecisionModalProps) {
     loading = true,
     portalId,
     onCloseModal,
-    handleClick,
+    onClick,
   } = props;
   const [isLoading, setIsLoading] = useState(false);
 
@@ -43,12 +43,12 @@ function DecisionModal(props: DecisionModalProps) {
   }
 
   const handleActionClick = () => {
-    setIsLoading(loading)
+    setIsLoading(loading);
 
     setTimeout(
       () => {
         onCloseModal();
-        handleClick();
+        onClick();
       },
       !loading ? 0 : 1000
     );
@@ -78,7 +78,7 @@ function DecisionModal(props: DecisionModalProps) {
           <Stack justifyContent="flex-end" gap="8px">
             <Button
               appearance="gray"
-              handleClick={onCloseModal}
+              onClick={onCloseModal}
               spacing={smallScreen ? "compact" : "wide"}
             >
               Cancel
@@ -86,7 +86,7 @@ function DecisionModal(props: DecisionModalProps) {
             <Button
               appearance={appearance}
               load={isLoading}
-              handleClick={handleActionClick}
+              onClick={handleActionClick}
               spacing={smallScreen ? "compact" : "wide"}
             >
               {actionText}

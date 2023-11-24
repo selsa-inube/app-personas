@@ -40,7 +40,7 @@ const Template: StoryFn<AttributesModalProps & { theme?: boolean }> = (
 
   return (
     <>
-      <Button handleClick={handleModal}>Show AttributesModal</Button>
+      <Button onClick={handleModal}>Show AttributesModal</Button>
       {showModal &&
         (args.theme ? (
           <ThemeProvider theme={themes["fondecom"]}>

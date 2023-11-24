@@ -40,7 +40,7 @@ function RequestCard(props: RequestCardProps) {
         </Stack>
       </Stack>
 
-      <Button handleClick={onClick}>Solicitar</Button>
+      <Button onClick={onClick}>Solicitar</Button>
     </StyledCardContainer>
   );
 }

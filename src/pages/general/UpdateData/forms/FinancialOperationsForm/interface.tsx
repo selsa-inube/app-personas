@@ -46,11 +46,11 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             size={mquery ? "compact" : "wide"}
             isFullWidth
             options={activeDM.options}
-            handleBlur={customHandleBlur}
+            onBlur={customHandleBlur}
             errorMessage={formik.errors.hasForeignCurrencyTransactions}
             isDisabled={loading}
             state={stateValue("hasForeignCurrencyTransactions")}
-            handleChange={formik.handleChange}
+            onChange={formik.handleChange}
             isRequired
           />
 
@@ -62,11 +62,11 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             size={mquery ? "compact" : "wide"}
             isFullWidth
             options={activeDM.options}
-            handleBlur={customHandleBlur}
+            onBlur={customHandleBlur}
             errorMessage={formik.errors.hasForeignCurrencyAccounts}
             isDisabled={loading}
             state={stateValue("hasForeignCurrencyAccounts")}
-            handleChange={formik.handleChange}
+            onChange={formik.handleChange}
             isRequired
           />
         </Grid>
@@ -80,9 +80,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               maxLength={200}
               isDisabled={loading}
               value={formik.values.descriptionOperations}
-              handleBlur={customHandleBlur}
-              handleChange={formik.handleChange}
-              handleFocus={formik.isFocused}
+              onBlur={customHandleBlur}
+              onChange={formik.handleChange}
+              onFocus={formik.isFocused}
               lengthThreshold={20}
               isFullWidth
             />
@@ -101,10 +101,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 size={mquery ? "compact" : "wide"}
                 isFullWidth
                 options={countryDM.options}
-                handleBlur={customHandleBlur}
+                onBlur={customHandleBlur}
                 errorMessage={formik.errors.country}
                 isDisabled={loading}
-                handleChange={formik.handleChange}
+                onChange={formik.handleChange}
               />
               <Select
                 label="Banco"
@@ -114,10 +114,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 size={mquery ? "compact" : "wide"}
                 isFullWidth
                 options={getDomainById("bankForeign")}
-                handleBlur={customHandleBlur}
+                onBlur={customHandleBlur}
                 errorMessage={formik.errors.bankEntity}
                 isDisabled={loading}
-                handleChange={formik.handleChange}
+                onChange={formik.handleChange}
               />
               <Select
                 label="Moneda"
@@ -127,10 +127,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 size={mquery ? "compact" : "wide"}
                 isFullWidth
                 options={getDomainById("currency")}
-                handleBlur={customHandleBlur}
+                onBlur={customHandleBlur}
                 errorMessage={formik.errors.currency}
                 isDisabled={loading}
-                handleChange={formik.handleChange}
+                onChange={formik.handleChange}
               />
               <TextField
                 label="Numero de cuenta"
@@ -143,8 +143,8 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 size={mquery ? "compact" : "wide"}
                 isFullWidth
                 state={stateValue("accountNumber")}
-                handleBlur={customHandleBlur}
-                handleChange={formik.handleChange}
+                onBlur={customHandleBlur}
+                onChange={formik.handleChange}
                 validMessage="El numero de cuenta es válido"
               />
             </Grid>

@@ -1,15 +1,15 @@
+import { IAction } from "@design/data/Table/types";
+import { EMessageType, IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { PersonalReferencesFormUI } from "./interface";
-import { IPersonalReferenceEntries } from "./types";
-import { IAction } from "@design/data/Table/types";
 import { DeleteReference } from "./DeleteReference";
 import { EditReference } from "./EditReference";
-import { IMessage, EMessageType } from "@ptypes/messages.types";
 import { deleteReferenceMessages } from "./config/deleteReference.config";
+import { PersonalReferencesFormUI } from "./interface";
+import { IPersonalReferenceEntries } from "./types";
 
 const initialMessageState: IMessage = {
   show: false,
@@ -30,14 +30,14 @@ const validationSchema = Yup.object({
 
 interface PersonalReferencesFormProps {
   initialValues: IPersonalReferenceEntries;
-  handleSubmit?: (values: IPersonalReferenceEntries) => void;
+  onSubmit?: (values: IPersonalReferenceEntries) => void;
 }
 
 const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
   props: PersonalReferencesFormProps,
   ref: React.Ref<FormikProps<IPersonalReferenceEntries>>
 ) {
-  const { initialValues, handleSubmit } = props;
+  const { initialValues, onSubmit } = props;
 
   const [showAddReferenceModal, setShowAddReferenceModal] = useState(false);
   const [message, setMessage] = useState(initialMessageState);
@@ -61,7 +61,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => formik);

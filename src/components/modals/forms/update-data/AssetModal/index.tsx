@@ -93,10 +93,10 @@ function AssetModal(props: AssetModalProps) {
             size="compact"
             isFullWidth
             options={assetTypeDM}
-            handleBlur={formik.handleBlur}
+            onBlur={formik.handleBlur}
             errorMessage={formik.errors.assetType}
             state={stateValue("assetType")}
-            handleChange={formik.handleChange}
+            onChange={formik.handleChange}
             value={formik.values.assetType || ""}
             isRequired
           />
@@ -111,8 +111,8 @@ function AssetModal(props: AssetModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("assetName")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="El nombre del activo es válido"
             isRequired
           />
@@ -127,8 +127,8 @@ function AssetModal(props: AssetModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("commercialValue")}
-            handleBlur={formik.handleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={formik.handleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El valor comercial es válido"
             isRequired
           />
@@ -143,8 +143,8 @@ function AssetModal(props: AssetModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("debtBalance")}
-            handleBlur={formik.handleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={formik.handleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El saldo de la deuda es válido"
           />
           <TextField
@@ -158,8 +158,8 @@ function AssetModal(props: AssetModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("financialEntity")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="El nombre de la entidad es válido"
           />
           <TextField
@@ -173,8 +173,8 @@ function AssetModal(props: AssetModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("quota")}
-            handleBlur={formik.handleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={formik.handleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El valor de la cuota es válido"
           />
           <TextField
@@ -188,23 +188,19 @@ function AssetModal(props: AssetModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("observations")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="Las observaciones son válidas"
           />
         </Stack>
 
         <Stack gap="s100">
-          <Button
-            spacing="compact"
-            appearance="gray"
-            handleClick={onCloseModal}
-          >
+          <Button spacing="compact" appearance="gray" onClick={onCloseModal}>
             Cancelar
           </Button>
           <Button
             spacing="compact"
-            handleClick={onConfirm}
+            onClick={onConfirm}
             disabled={!formik.dirty || !formik.isValid}
             appearance="primary"
           >

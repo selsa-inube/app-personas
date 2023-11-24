@@ -109,11 +109,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={cityDM.options}
-          handleBlur={customHandleBlur}
+          onBlur={customHandleBlur}
           errorMessage={formik.errors.expeditionPlace}
           isDisabled={loading}
           state={stateValue("expeditionPlace")}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
         />
 
         <TextField
@@ -129,8 +129,8 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           state={stateValue("expeditionDate")}
-          handleBlur={customHandleBlur}
-          handleChange={formik.handleChange}
+          onBlur={customHandleBlur}
+          onChange={formik.handleChange}
           validMessage="La fecha de expedición es válida"
           isRequired
         />
@@ -148,8 +148,8 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           state={stateValue("birthDate")}
-          handleBlur={customHandleBlur}
-          handleChange={formik.handleChange}
+          onBlur={customHandleBlur}
+          onChange={formik.handleChange}
           validMessage="La fecha de nacimiento es válida"
           isRequired
         />
@@ -162,11 +162,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={cityDM.options}
-          handleBlur={customHandleBlur}
+          onBlur={customHandleBlur}
           errorMessage={formik.errors.city}
           isDisabled={loading}
           state={stateValue("city")}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
         />
 
         <Select
@@ -177,11 +177,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={genderDM.options}
-          handleBlur={customHandleBlur}
+          onBlur={customHandleBlur}
           errorMessage={formik.errors.gender}
           isDisabled={loading}
           state={stateValue("gender")}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
         />
 
         <Select
@@ -192,11 +192,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={maritalStatusDM.options}
-          handleBlur={customHandleBlur}
+          onBlur={customHandleBlur}
           errorMessage={formik.errors.maritalStatus}
           isDisabled={loading}
           state={stateValue("maritalStatus")}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
         />
 
         <Select
@@ -207,11 +207,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={bloodTypeDM.options}
-          handleBlur={customHandleBlur}
+          onBlur={customHandleBlur}
           errorMessage={formik.errors.bloodType}
           isDisabled={loading}
           state={stateValue("bloodType")}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
         />
       </Grid>
     </form>

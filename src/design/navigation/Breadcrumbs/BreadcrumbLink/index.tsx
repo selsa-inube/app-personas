@@ -9,7 +9,7 @@ interface BreadcrumbLinkProps {
   id: string;
   typo?: BreadcrumbSizeType;
   cursorHover?: boolean;
-  handleClick?: () => void;
+  onClick?: () => void;
 }
 
 function BreadcrumbLink(props: BreadcrumbLinkProps) {
@@ -20,7 +20,7 @@ function BreadcrumbLink(props: BreadcrumbLinkProps) {
     id,
     cursorHover = false,
     typo = "large",
-    handleClick,
+    onClick,
   } = props;
 
   const transformedTypos: BreadcrumbSizeType = breadcrumbSize.includes(typo)
@@ -30,7 +30,7 @@ function BreadcrumbLink(props: BreadcrumbLinkProps) {
     typeof isActive === "boolean" ? isActive : false;
 
   return (
-    <StyledContainerLink id={id} onClick={handleClick}>
+    <StyledContainerLink id={id} onClick={onClick}>
       <Text type="label" size={transformedTypos}>
         <StyledBreadcrumbLink
           to={path}

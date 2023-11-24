@@ -63,7 +63,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
         <Stack direction="column" gap="s300">
           <Select
             id="creditProducts"
-            handleChange={handleChangeProduct}
+            onChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
             value={selectedProduct.option}
@@ -83,7 +83,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
               appearance="primary"
               variant="none"
               iconBefore={<MdAdd />}
-              handleClick={handleAddMovements}
+              onClick={handleAddMovements}
               load={loading}
               disabled={
                 selectedProduct.movements.length ===

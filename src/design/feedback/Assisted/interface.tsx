@@ -49,7 +49,7 @@ function AssistedUI(props: AssistedUIProps) {
           <Button
             variant="none"
             iconBefore={<MdArrowBack size={18} />}
-            handleClick={handlePreviousStep}
+            onClick={handlePreviousStep}
             disabled={currentStepIndex === 0}
           >
             {!smallScreen && "Atrás"}
@@ -104,7 +104,7 @@ function AssistedUI(props: AssistedUIProps) {
           <Button
             variant="none"
             iconAfter={<MdArrowForward size={18} />}
-            handleClick={handleNextStep}
+            onClick={handleNextStep}
             disabled={disableNextStep}
           >
             {!smallScreen && currentStepIndex === steps.length - 1
