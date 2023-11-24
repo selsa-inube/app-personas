@@ -21,11 +21,11 @@ import { relationshipDM } from "src/model/domains/personalResidence/relationship
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
-import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydme";
-import { contractTypeDM } from "src/model/domains/economicActivity/contracttypedme";
-import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedme";
+import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydm";
+import { contractTypeDM } from "src/model/domains/economicActivity/contracttypedm";
+import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedm";
 import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
-import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydme";
+import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
