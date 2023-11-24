@@ -7,7 +7,8 @@ import { useState } from "react";
 import { EconomicActivityFormUI } from "./interface";
 import { IEconomicActivityEntry } from "./types";
 import { EconomicActivityRequiredFields } from "./config/formConfig";
-import { IEconomicActivity } from "@mocks/users/economicActivities";
+import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
+import { regex } from "src/validations/regularExpressions";
 
 const validationSchema = Yup.object().shape({
   economicActivity: EconomicActivityRequiredFields.economicActivity
@@ -17,8 +18,16 @@ const validationSchema = Yup.object().shape({
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
   job: EconomicActivityRequiredFields.job
-    ? validationRules.job.required(validationMessages.required)
-    : validationRules.job,
+    ? Yup.string()
+        .matches(regex.onlyLetters, validationMessages.onlyLetters)
+        .min(3, validationMessages.minCharacters(3))
+        .max(15, validationMessages.maxCharacters(15))
+        .required(validationMessages.required)
+    : Yup.string()
+        .matches(regex.onlyLetters, validationMessages.onlyLetters)
+        .min(3, validationMessages.minCharacters(3))
+        .max(15, validationMessages.maxCharacters(15)),
+
   mainCiiuActivity: EconomicActivityRequiredFields.mainCiiuActivity
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
@@ -53,8 +62,16 @@ const validationSchema = Yup.object().shape({
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
   employeeCode: EconomicActivityRequiredFields.employeeCode
-    ? validationRules.employeeCode.required(validationMessages.required)
-    : validationRules.employeeCode,
+    ? Yup.string()
+        .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
+        .min(5, validationMessages.minNumbers(5))
+        .max(10, validationMessages.maxNumbers(10))
+        .required(validationMessages.required)
+    : Yup.string()
+        .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
+        .min(5, validationMessages.minNumbers(5))
+        .max(10, validationMessages.maxNumbers(10)),
+
   companyFormality: EconomicActivityRequiredFields.companyFormality
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
@@ -78,7 +95,7 @@ const validationSchema = Yup.object().shape({
 interface EconomicActivityFormProps {
   initialValues: IEconomicActivityEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSubmit?: (values: IEconomicActivityEntry) => void;
+  onSubmit?: (values: IEconomicActivityEntry) => void;
   loading?: boolean;
 }
 
@@ -86,7 +103,7 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
   props: EconomicActivityFormProps,
   ref: React.Ref<FormikProps<IEconomicActivityEntry>>
 ) {
-  const { initialValues, onFormValid, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
   const [showMainActivityModal, setShowMainActivityModal] = useState(false);
@@ -97,7 +114,7 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
     initialValues,
     validationSchema: dynamicSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -105,7 +122,7 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
 
-    if (handleSubmit) return;
+    if (onSubmit) return;
 
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);

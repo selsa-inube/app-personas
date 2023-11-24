@@ -21,15 +21,11 @@ import { relationshipDM } from "src/model/domains/personalResidence/relationship
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
-import { economicActivityDM } from "src/model/domains/economicActivity/economicActivitydm";
-import { professionDM } from "src/model/domains/economicActivity/professiondm";
-import { economicSectorDM } from "src/model/domains/economicActivity/economicSectordm";
-import { contractTypeDM } from "src/model/domains/economicActivity/contractTypedm";
-import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceRegimedm";
+import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydm";
+import { contractTypeDM } from "src/model/domains/economicActivity/contracttypedm";
+import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedm";
 import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
-import { positionDM } from "src/model/domains/economicActivity/positiondm";
-import { dependenceDM } from "src/model/domains/economicActivity/dependencedm";
-import { companyFormalityDM } from "src/model/domains/economicActivity/companyFormalitydm";
+import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
@@ -395,7 +391,7 @@ const renderEconomicActivityVerification = (
       {values.profession && (
         <BoxAttribute
           label="Profesión:"
-          value={professionDM.valueOf(values.profession)?.value}
+          value={getValueOfDomain(values.profession, "profession")?.value}
         />
       )}
 
@@ -418,7 +414,9 @@ const renderEconomicActivityVerification = (
       {values.economicSector && (
         <BoxAttribute
           label="Sector económico:"
-          value={economicSectorDM.valueOf(values.economicSector)?.value}
+          value={
+            getValueOfDomain(values.economicSector, "economicSector")?.value
+          }
         />
       )}
     </Grid>
@@ -490,14 +488,14 @@ const renderEconomicActivityVerification = (
           {values.position && (
             <BoxAttribute
               label="Cargo:"
-              value={positionDM.valueOf(values.position)?.value}
+              value={getValueOfDomain(values.position, "position")?.value}
             />
           )}
 
           {values.dependence && (
             <BoxAttribute
               label="Dependencia:"
-              value={dependenceDM.valueOf(values.dependence)?.value}
+              value={getValueOfDomain(values.dependence, "dependence")?.value}
             />
           )}
 

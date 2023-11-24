@@ -1,4 +1,4 @@
-const CompaniesData = [
+const companiesData = [
   { id: "Digital M&J", value: "Digital M&J" },
   { id: "Digital Technology TEC", value: "Digital Technology TEC" },
   {
@@ -18,4 +18,4 @@ const CompaniesData = [
   { id: "Digital 10", value: "Digital 10" },
 ];
 
-export { CompaniesData };
+export { companiesData };

@@ -72,7 +72,7 @@ function TextFieldUI(props: TextFieldProps) {
     autocomplete,
     suggestions,
     autocompleteChars,
-    handleIconClick,
+    onIconClick,
   } = props;
 
   const [showDropdown, setShowDropdown] = useState(false);
@@ -89,7 +89,7 @@ function TextFieldUI(props: TextFieldProps) {
     } else {
       setShowDropdown(false);
     }
-    if (!handleIconClick) {
+    if (!onIconClick) {
       handleChange && handleChange(event);
     }
   };
@@ -143,7 +143,7 @@ function TextFieldUI(props: TextFieldProps) {
           <StyledIcon
             isDisabled={isDisabled}
             iconBefore={iconBefore}
-            onClick={handleIconClick}
+            onClick={onIconClick}
           >
             {iconBefore}
           </StyledIcon>
@@ -172,7 +172,7 @@ function TextFieldUI(props: TextFieldProps) {
           <StyledIcon
             iconAfter={iconAfter}
             isDisabled={isDisabled}
-            onClick={handleIconClick}
+            onClick={onIconClick}
           >
             {iconAfter}
           </StyledIcon>

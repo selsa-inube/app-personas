@@ -120,16 +120,6 @@ const validationRules = {
     .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
     .min(1, validationMessages.minNumbers(1))
     .max(2, validationMessages.maxNumbers(2)),
-
-  job: Yup.string()
-    .matches(regex.onlyLetters)
-    .min(3, validationMessages.minNumbers(3))
-    .max(15, validationMessages.maxNumbers(15)),
-
-  employeeCode: Yup.string()
-    .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
-    .min(5, validationMessages.minNumbers(5))
-    .max(10, validationMessages.maxNumbers(10)),
 };
 
 export { validationRules };

@@ -102,7 +102,7 @@ interface IThird {
   familyGroup?: IFamilyThird[];
   bankTransfersAccount: IBankTransfersAccount;
   financialOperations: IFinancialOperations;
-  economicActivity: IEconomicActivity;
+  economicActivity?: IEconomicActivity;
 }
 
 export type {

@@ -5,8 +5,9 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { IEconomicActivity } from "@mocks/users/economicActivities";
-import { StyledDivider, StyledModal, StyledItem, StyledBody } from "./styles";
+import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
+import { StyledModal, StyledItem, StyledBody } from "./styles";
+import { Divider } from "@design/layout/Divider";
 import { TextField } from "@design/input/TextField";
 import { useState } from "react";
 
@@ -16,7 +17,7 @@ interface ItemProps {
   onClick: () => void;
 }
 
-const Item = (props: ItemProps) => {
+function Item(props: ItemProps) {
   const { id, description, onClick } = props;
   return (
     <StyledItem onClick={onClick}>
@@ -30,7 +31,7 @@ const Item = (props: ItemProps) => {
       </Stack>
     </StyledItem>
   );
-};
+}
 
 interface EconomicActivityModalProps {
   portalId: string;
@@ -42,7 +43,6 @@ interface EconomicActivityModalProps {
 function EconomicActivityModal(props: EconomicActivityModalProps) {
   const { portalId, onCloseModal, activities, onSelect } = props;
   const [searchTerm, setSearchTerm] = useState("");
-  const [showActivities, setShowActivities] = useState(false);
 
   const smallScreen = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -54,12 +54,9 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
   }
 
   const filteredActivities = activities.filter(
-    (activity: IEconomicActivity) => {
-      return (
-        activity.id.includes(searchTerm) ||
-        activity.description.includes(searchTerm)
-      );
-    }
+    (activity: IEconomicActivity) =>
+      activity.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      activity.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return createPortal(
@@ -73,11 +70,11 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
 
             <Icon
               appearance="dark"
-              icon={<MdOutlineClose />}
-              onClick={onCloseModal}
-              cursorHover={true}
               size="20px"
               spacing="none"
+              icon={<MdOutlineClose />}
+              onClick={onCloseModal}
+              cursorHover
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
@@ -85,7 +82,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
           </Text>
         </Stack>
 
-        <StyledDivider dashed />
+        <Divider dashed />
         <Stack direction="column" gap="s250">
           <Text type="body" size="medium">
             Digita una palabra clave o código.
@@ -95,10 +92,9 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
             id="searchActivity"
             placeholder="Digita la palabra clave"
             handleChange={(e) => setSearchTerm(e.target.value)}
-            handleFocus={() => setShowActivities(true)}
             isFullWidth
-          ></TextField>
-          {showActivities && (
+          />
+          {searchTerm !== "" && (
             <StyledBody>
               {filteredActivities.length > 0 ? (
                 filteredActivities.map((activity: IEconomicActivity) => (

@@ -4,25 +4,21 @@ import { Select } from "@design/input/Select";
 import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
-import { economicActivityDM } from "src/model/domains/economicActivity/economicActivitydm";
-import { professionDM } from "src/model/domains/economicActivity/professiondm";
-import { economicSectorDM } from "src/model/domains/economicActivity/economicSectordm";
-import { contractTypeDM } from "src/model/domains/economicActivity/contractTypedm";
-import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceRegimedm";
+import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydm";
+import { contractTypeDM } from "src/model/domains/economicActivity/contracttypedm";
+import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedm";
 import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
-import { positionDM } from "src/model/domains/economicActivity/positiondm";
-import { dependenceDM } from "src/model/domains/economicActivity/dependencedm";
-import { companyFormalityDM } from "src/model/domains/economicActivity/companyFormalitydm";
+import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { ObjectSchema } from "yup";
 import { getFieldState } from "src/utils/forms";
 import { MdSearch } from "react-icons/md";
-import { EconomicActivityModal } from "@components/modals/forms/update-data/economicActivityModal";
-import { economicActivitiesMock } from "@mocks/users/economicActivities";
-import { IEconomicActivity } from "@mocks/users/economicActivities";
+import { EconomicActivityModal } from "@components/modals/forms/update-data/EconomicActivityModal";
+import { economicActivitiesMock } from "@mocks/users/economicActivities.mocks";
+import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { Stack } from "@design/layout/Stack";
-import { CompaniesData } from "@mocks/domains/companies";
+import { companiesData } from "@mocks/domains/companies";
 
 interface EconomicActivityFormUIProps {
   formik: FormikValues;
@@ -93,7 +89,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     id="profession"
                     value={formik.values.profession}
                     size="compact"
-                    options={professionDM.options}
+                    options={getDomainById("profession")}
                     state={getFieldState(formik, "profession")}
                     isRequired={isRequired("profession")}
                     errorMessage={formik.errors.profession}
@@ -136,9 +132,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     handleChange={formik.handleChange}
                     validMessage="La actividad es valida"
                     isRequired={isRequired("mainCiiuActivity")}
-                    handleIconClick={() =>
-                      handleToggleModal("mainCiiuActivity")
-                    }
+                    onIconClick={() => handleToggleModal("mainCiiuActivity")}
                   />
                   <TextField
                     label="Actividad CIIU secundaria"
@@ -156,7 +150,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     handleChange={formik.handleChange}
                     validMessage="La actividad es valida"
                     isRequired={isRequired("secondaryCiiuActivity")}
-                    handleIconClick={() =>
+                    onIconClick={() =>
                       handleToggleModal("secondaryCiiuActivity")
                     }
                   />
@@ -166,7 +160,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     id="economicSector"
                     value={formik.values.economicSector}
                     size="compact"
-                    options={economicSectorDM.options}
+                    options={getDomainById("economicSector")}
                     state={getFieldState(formik, "economicSector")}
                     isRequired={isRequired("economicSector")}
                     errorMessage={formik.errors.economicSector}
@@ -298,7 +292,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   id="position"
                   value={formik.values.position}
                   size="compact"
-                  options={positionDM.options}
+                  options={getDomainById("position")}
                   state={getFieldState(formik, "position")}
                   isRequired={isRequired("position")}
                   errorMessage={formik.errors.position}
@@ -315,7 +309,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   id="dependence"
                   value={formik.values.dependence}
                   size="compact"
-                  options={dependenceDM.options}
+                  options={getDomainById("dependence")}
                   state={getFieldState(formik, "dependence")}
                   isRequired={isRequired("dependence")}
                   errorMessage={formik.errors.dependence}
@@ -343,7 +337,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   isRequired={isRequired("employeeCode")}
                 />
                 {!formik.values.company ||
-                  (!CompaniesData.some(
+                  (!companiesData.some(
                     (companyData) => companyData.id === formik.values.company
                   ) && (
                     <>

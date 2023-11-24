@@ -204,30 +204,30 @@ const mapSocioeconomicInformation = (
 };
 
 const mapEconomicActivity = (
-  economicActivityData: IEconomicActivity
+  economicActivityData?: IEconomicActivity
 ): IEconomicActivityEntry => {
   return {
-    economicActivity: economicActivityData.economicActivity,
-    profession: economicActivityData.profession,
-    job: economicActivityData.job,
-    mainCiiuActivity: economicActivityData.mainCiiuActivity,
-    secondaryCiiuActivity: economicActivityData.secondaryCiiuActivity,
-    economicSector: economicActivityData.economicSector,
-    company: economicActivityData.company,
-    contractType: economicActivityData.contractType,
-    admissionDate: economicActivityData.admissionDate,
-    contractExpiration: economicActivityData.contractExpiration,
-    severanceRegime: economicActivityData.severanceRegime,
-    workday: economicActivityData.workday,
-    position: economicActivityData.position,
-    dependence: economicActivityData.dependence,
-    employeeCode: economicActivityData.employeeCode,
-    companyFormality: economicActivityData.companyFormality,
-    companyCountry: economicActivityData.companyCountry,
-    companyCity: economicActivityData.companyCity,
-    companyPhone: economicActivityData.companyPhone,
-    companyAddress: economicActivityData.companyAddress,
-    companyEmail: economicActivityData.companyEmail,
+    economicActivity: economicActivityData?.economicActivity || "",
+    profession: economicActivityData?.profession || "",
+    job: economicActivityData?.job || "",
+    mainCiiuActivity: economicActivityData?.mainCiiuActivity || "",
+    secondaryCiiuActivity: economicActivityData?.secondaryCiiuActivity || "",
+    economicSector: economicActivityData?.economicSector || "",
+    company: economicActivityData?.company || "",
+    contractType: economicActivityData?.contractType || "",
+    admissionDate: economicActivityData?.admissionDate || "",
+    contractExpiration: economicActivityData?.contractExpiration || "",
+    severanceRegime: economicActivityData?.severanceRegime || "",
+    workday: economicActivityData?.workday || "",
+    position: economicActivityData?.position || "",
+    dependence: economicActivityData?.dependence || "",
+    employeeCode: economicActivityData?.employeeCode || "",
+    companyFormality: economicActivityData?.companyFormality || "",
+    companyCountry: economicActivityData?.companyCountry || "",
+    companyCity: economicActivityData?.companyCity || "",
+    companyPhone: economicActivityData?.companyPhone || "",
+    companyAddress: economicActivityData?.companyAddress || "",
+    companyEmail: economicActivityData?.companyEmail || "",
   };
 };
 
