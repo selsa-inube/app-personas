@@ -9,6 +9,8 @@ const updateDataBoxTitles: Record<string, string> = {
   personalResidence: "Residencia personal",
   socioeconomicInformation: "Información socioeconómica",
   economicActivity: "Actividad económica",
+  income: "Ingresos",
+  expenses: "Egresos",
 };
 
 export { updateDataBoxTitles };

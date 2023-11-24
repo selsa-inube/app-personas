@@ -10,7 +10,9 @@ import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
+import { ExpensesForm } from "./forms/ExpensesForm";
 import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
+import { IncomesForm } from "./forms/IncomesForm";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
@@ -94,6 +96,20 @@ const renderStepContent = (
         <EconomicActivityForm
           initialValues={updateData.economicActivity.values}
           ref={formReferences.economicActivity}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === updateDataSteps.income.id && (
+        <IncomesForm
+          initialValues={updateData.income.values}
+          ref={formReferences.income}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === updateDataSteps.expenses.id && (
+        <ExpensesForm
+          initialValues={updateData.expenses.values}
+          ref={formReferences.expenses}
           onFormValid={setIsCurrentFormValid}
         />
       )}

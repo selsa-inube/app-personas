@@ -54,8 +54,20 @@ const updateDataSteps = {
     name: "Actividad económica",
     description: "Diligencia la información acerca tu actividad económica.",
   },
-  verification: {
+  income: {
     id: 11,
+    name: "Ingresos",
+    description:
+      "Diligencia la información de ingresos relativos a tu actividad económica.",
+  },
+  expenses: {
+    id: 12,
+    name: "Egresos",
+    description:
+      "Diligencia la información de la cantidad de dinero que usas mensualmente.",
+  },
+  verification: {
+    id: 13,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",
