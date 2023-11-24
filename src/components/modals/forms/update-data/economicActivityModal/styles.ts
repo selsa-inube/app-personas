@@ -16,10 +16,6 @@ const StyledModal = styled.div<IStyledModal>`
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
 `;
 
-interface IStyledDivider {
-  dashed?: boolean;
-}
-
 const StyledItem = styled.div`
   cursor: pointer;
   padding: ${inube.spacing.s150};
