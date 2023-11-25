@@ -8,10 +8,10 @@ interface BlanketProps {
 
 const Blanket = (props: BlanketProps) => {
   const { children } = props;
-  const isSmallScreen = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 580px)");
 
   return (
-    <StyledBlanket isSmallScreen={!isSmallScreen}>
+    <StyledBlanket smallScreen={!isMobile}>
       <Stack alignItems="center" justifyContent="center">
         {children}
       </Stack>

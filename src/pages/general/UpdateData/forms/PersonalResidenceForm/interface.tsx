@@ -22,13 +22,13 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
     return "valid";
   }
 
-  const mquery = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
     <form>
       <Grid
-        templateColumns={mquery ? "1fr" : "1fr 1fr "}
-        gap={mquery ? "s200" : "s300"}
+        templateColumns={isMobile ? "1fr" : "1fr 1fr "}
+        gap={isMobile ? "s200" : "s300"}
       >
         <Select
           label="Tipo de vivienda"
@@ -36,7 +36,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           id="type"
           value={formik.values.type}
           isFullWidth
-          size={mquery ? "compact" : "wide"}
+          size={isMobile ? "compact" : "wide"}
           options={residenceTypeDM.options}
           onBlur={customHandleBlur}
           isDisabled={loading}
@@ -49,7 +49,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           id="stratum"
           value={formik.values.stratum}
           isFullWidth
-          size={mquery ? "compact" : "wide"}
+          size={isMobile ? "compact" : "wide"}
           options={stratumDM.options}
           onBlur={customHandleBlur}
           isDisabled={loading}
@@ -67,7 +67,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               errorMessage={formik.errors.bankEntity}
               isDisabled={loading}
               isFullWidth
-              size={mquery ? "compact" : "wide"}
+              size={isMobile ? "compact" : "wide"}
               state={stateValue("bankEntity")}
               onBlur={customHandleBlur}
               onChange={formik.handleChange}
@@ -82,7 +82,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               errorMessage={formik.errors.dueDate}
               isDisabled={loading}
               isFullWidth
-              size={mquery ? "compact" : "wide"}
+              size={isMobile ? "compact" : "wide"}
               state={stateValue("dueDate")}
               onBlur={customHandleBlur}
               onChange={formik.handleChange}
@@ -101,7 +101,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               errorMessage={formik.errors.tenant}
               isDisabled={loading}
               isFullWidth
-              size={mquery ? "compact" : "wide"}
+              size={isMobile ? "compact" : "wide"}
               state={stateValue("tenant")}
               onBlur={customHandleBlur}
               onChange={formik.handleChange}
@@ -116,7 +116,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               errorMessage={formik.errors.tenantCellPhone}
               isDisabled={loading}
               isFullWidth
-              size={mquery ? "compact" : "wide"}
+              size={isMobile ? "compact" : "wide"}
               state={stateValue("tenantCellPhone")}
               onBlur={customHandleBlur}
               onChange={formik.handleChange}
@@ -135,7 +135,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               errorMessage={formik.errors.ownerName}
               isDisabled={loading}
               isFullWidth
-              size={mquery ? "compact" : "wide"}
+              size={isMobile ? "compact" : "wide"}
               state={stateValue("ownerName")}
               onBlur={customHandleBlur}
               onChange={formik.handleChange}
@@ -147,7 +147,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               id="relationship"
               value={formik.values.relationship}
               isFullWidth
-              size={mquery ? "compact" : "wide"}
+              size={isMobile ? "compact" : "wide"}
               options={relationshipDM.options}
               onBlur={customHandleBlur}
               isDisabled={loading}
@@ -163,7 +163,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               errorMessage={formik.errors.ownerCellPhone}
               isDisabled={loading}
               isFullWidth
-              size={mquery ? "compact" : "wide"}
+              size={isMobile ? "compact" : "wide"}
               state={stateValue("ownerCellPhone")}
               onBlur={customHandleBlur}
               onChange={formik.handleChange}

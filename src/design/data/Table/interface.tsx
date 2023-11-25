@@ -128,7 +128,7 @@ const TableUI = (props: TableUIProps) => {
     mobileResumeTitle,
   } = props;
 
-  const mediaActionOpen = useMediaQuery("(max-width: 850px)");
+  const isTablet = useMediaQuery("(max-width: 850px)");
 
   const queriesArray = useMemo(
     () => breakpoints.map((breakpoint) => breakpoint.breakpoint),
@@ -158,7 +158,7 @@ const TableUI = (props: TableUIProps) => {
           ))}
           {renderActionsTitles(
             actions,
-            mediaActionOpen,
+            isTablet,
             mobileResumeTitle,
             hideMobileResume
           )}
@@ -183,7 +183,7 @@ const TableUI = (props: TableUIProps) => {
                 portalId,
                 actions,
                 entry,
-                mediaActionOpen,
+                isTablet,
                 modalTitle,
                 titles,
                 infoTitle,

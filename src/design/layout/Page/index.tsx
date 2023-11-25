@@ -13,7 +13,7 @@ interface PageProps {
 
 function Page(props: PageProps) {
   const currentLocation = useLocation().pathname;
-  const navBreakpoint = useMediaQuery("(min-width: 900px)");
+  const isTablet = useMediaQuery("(min-width: 900px)");
 
   const { header, nav } = props;
 
@@ -30,10 +30,10 @@ function Page(props: PageProps) {
         navigation={header.navigation}
       />
       <Grid
-        templateColumns={navBreakpoint ? "auto 1fr" : "1fr"}
+        templateColumns={isTablet ? "auto 1fr" : "1fr"}
         height="calc(100vh - 53px)"
       >
-        {navBreakpoint && (
+        {isTablet && (
           <Nav
             title={nav.title}
             sections={nav.sections}

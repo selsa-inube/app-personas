@@ -37,6 +37,7 @@ interface TextFieldProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onIconClick?: () => void;
 }
 
 function TextField(props: TextFieldProps) {
@@ -67,6 +68,7 @@ function TextField(props: TextFieldProps) {
     autocomplete = false,
     suggestions,
     autocompleteChars,
+    onIconClick,
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
@@ -125,6 +127,7 @@ function TextField(props: TextFieldProps) {
       autocomplete={autocomplete}
       suggestions={suggestions}
       autocompleteChars={autocompleteChars}
+      onIconClick={onIconClick}
     />
   );
 }

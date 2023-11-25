@@ -72,7 +72,6 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           appearance={message.appearance}
           duration={1500}
           onClose={onCloseMessage}
-          isMessageResponsive
         />
       )}
     </>

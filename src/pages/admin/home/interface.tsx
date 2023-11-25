@@ -297,14 +297,14 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
   } = props;
-  const mquery = useMediaQuery("(min-width: 1440px)");
+  const isDesktop = useMediaQuery("(min-width: 1440px)");
   return (
     <>
       <Title
         title="Bienvenido, Leonardo"
         subtitle="Aquí tienes un resumen de tus productos "
       />
-      {!mquery ? (
+      {!isDesktop ? (
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
           {renderHomeContent(
             productsCommitments,

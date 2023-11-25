@@ -31,7 +31,7 @@ const SectionMessage = (props: SectionMessageProps) => {
   } = props;
 
   const [isPaused, setIsPaused] = useState(false);
-  const isMessageResponsive = useMediaQuery("(max-width: 565px)");
+  const isMobile = useMediaQuery("(max-width: 565px)");
 
   const newDescription = description.substring(0, 240);
 
@@ -40,12 +40,12 @@ const SectionMessage = (props: SectionMessageProps) => {
       appearance={appearance}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      isMessageResponsive={isMessageResponsive}
+      isMessageResponsive={isMobile}
     >
       <Stack justifyContent="space-between" padding="s200">
         <Stack
           gap="16px"
-          alignItems={isMessageResponsive ? "center" : undefined}
+          alignItems={isMobile ? "center" : undefined}
           width="100%"
         >
           <Stack alignItems="center" gap="16px" width="100%">
@@ -70,7 +70,7 @@ const SectionMessage = (props: SectionMessageProps) => {
                 />
               </Stack>
 
-              {!isMessageResponsive && (
+              {!isMobile && (
                 <Text type="body" size="small" appearance="gray">
                   {newDescription}
                 </Text>

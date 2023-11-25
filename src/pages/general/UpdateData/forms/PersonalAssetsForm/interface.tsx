@@ -73,7 +73,6 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
           appearance={message.appearance}
           duration={1500}
           onClose={onCloseMessage}
-          isMessageResponsive
         />
       )}
     </>

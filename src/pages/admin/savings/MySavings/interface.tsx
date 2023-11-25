@@ -9,13 +9,26 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
-import { StyledCommitmentsContainer } from "@pages/admin/home/styles";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
+import {
+  extractInvestmentAttributes,
+  formatInvestmentCurrencyAttrs,
+  investmentAttributeBreakpoints,
+} from "@pages/admin/home/config/products";
+import { StyledCommitmentsContainer } from "@pages/admin/home/styles";
 import { MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
-import { savingsAccountIcons } from "../SavingsAccount/config/saving";
-import { investmentIcons } from "../SavingsAccount/config/saving";
+import { useNavigate } from "react-router-dom";
+import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
+import {
+  currencyFormat,
+  truncateAndObfuscateDescription,
+} from "src/utils/formats";
 import { extractAttribute } from "src/utils/products";
+import {
+  investmentIcons,
+  savingsAccountIcons,
+} from "../SavingsAccount/config/saving";
 import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
 import {
@@ -23,16 +36,6 @@ import {
   formatMySavingsCurrencyAttrs,
   mySavingsAttributeBreakpoints,
 } from "./config/products";
-import { truncateAndObfuscateDescription } from "src/utils/formats";
-import { useNavigate } from "react-router-dom";
-import { formatInvestmentCurrencyAttrs } from "@pages/admin/home/config/products";
-import { extractInvestmentAttributes } from "@pages/admin/home/config/products";
-import { investmentAttributeBreakpoints } from "@pages/admin/home/config/products";
-import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
-import { currencyFormat } from "src/utils/formats";
-import { IAttribute } from "src/model/entity/product";
-import { ICommitment } from "src/model/entity/product";
-import { IProduct } from "src/model/entity/product";
 
 const renderSavingCommitments = (productsCommitments: ICommitment[]) => {
   return productsCommitments.map((commitment) => {
@@ -243,7 +246,7 @@ function MySavingsUI(props: MySavingsUIProps) {
     cdats,
     programmedSavings,
   } = props;
-  const mquery = useMediaQuery("(min-width: 1440px)");
+  const isDesktop = useMediaQuery("(min-width: 1440px)");
   return (
     <>
       <Stack direction="column" gap="s300">
@@ -256,7 +259,7 @@ function MySavingsUI(props: MySavingsUIProps) {
         />
       </Stack>
 
-      {!mquery ? (
+      {!isDesktop ? (
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
           {renderMySavingsContent(
             productsCommitments,

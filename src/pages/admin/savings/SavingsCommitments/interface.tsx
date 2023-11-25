@@ -76,8 +76,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
     isMobile,
   } = props;
 
-  const mquery = useMediaQuery("(min-width: 1400px)");
-  const mqueryMobile = useMediaQuery("(max-width: 450px)");
+  const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   return (
     <>
@@ -93,11 +92,11 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
       <Grid
         gap="s600"
         margin={
-          mquery ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
+          isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={mquery ? "1fr 250px" : "1fr"}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap={mqueryMobile ? "s200" : "s300"}>
+        <Stack direction="column" gap={isMobile ? "s200" : "s300"}>
           <Select
             id="savingCommitments"
             onChange={handleChangeCommitment}
@@ -106,7 +105,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             value={selectedCommitment.option.id}
             isFullWidth
           />
-          <Stack direction="column" gap={mqueryMobile ? "s250" : "s400"}>
+          <Stack direction="column" gap={isMobile ? "s250" : "s400"}>
             <Box
               title={selectedCommitment.commitment.title}
               subtitle={selectedCommitment.commitment.description}
@@ -143,7 +142,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             </Box>
           </Stack>
         </Stack>
-        {mquery && <QuickAccess links={quickLinks} />}
+        {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
     </>
   );

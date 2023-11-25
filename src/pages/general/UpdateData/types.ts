@@ -10,6 +10,7 @@ import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "./forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
+import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
 
 interface IFormsUpdateData {
   personalInformation: { isValid: boolean; values: IPersonalInformationEntry };
@@ -24,6 +25,7 @@ interface IFormsUpdateData {
     isValid: boolean;
     values: ISocioeconomicInformationEntry;
   };
+  economicActivity: { isValid: boolean; values: IEconomicActivityEntry };
   income: { isValid: boolean; values: IIncomesEntry };
   expenses: { isValid: boolean; values: IExpensesEntry };
 }
@@ -40,6 +42,7 @@ interface IFormsUpdateDataRefs {
   socioeconomicInformation: React.RefObject<
     FormikProps<ISocioeconomicInformationEntry>
   >;
+  economicActivity: React.RefObject<FormikProps<IEconomicActivityEntry>>;
   income: React.RefObject<FormikProps<IIncomesEntry>>;
   expenses: React.RefObject<FormikProps<IExpensesEntry>>;
 }
