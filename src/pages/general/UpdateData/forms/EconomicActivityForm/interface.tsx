@@ -1,24 +1,26 @@
+import { EconomicActivityModal } from "@components/modals/forms/update-data/EconomicActivityModal";
 import { Fieldset } from "@design/input/Fieldset";
-import { TextField } from "@design/input/TextField";
 import { Select } from "@design/input/Select";
+import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { companiesData } from "@mocks/domains/companies";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
+import {
+  IEconomicActivity,
+  economicActivitiesMock,
+} from "@mocks/users/economicActivities.mocks";
 import { FormikValues } from "formik";
-import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydm";
+import { MdSearch } from "react-icons/md";
+import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
 import { contractTypeDM } from "src/model/domains/economicActivity/contracttypedm";
+import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydm";
 import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedm";
 import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
-import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { ObjectSchema } from "yup";
 import { getFieldState } from "src/utils/forms";
-import { MdSearch } from "react-icons/md";
-import { EconomicActivityModal } from "@components/modals/forms/update-data/EconomicActivityModal";
-import { economicActivitiesMock } from "@mocks/users/economicActivities.mocks";
-import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { Stack } from "@design/layout/Stack";
-import { companiesData } from "@mocks/domains/companies";
+import { ObjectSchema } from "yup";
 
 interface EconomicActivityFormUIProps {
   formik: FormikValues;
@@ -74,10 +76,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                 state={getFieldState(formik, "economicActivity")}
                 isRequired={isRequired("economicActivity")}
                 errorMessage={formik.errors.economicActivity}
-                handleBlur={formik.handleBlur}
-                handleClick={formik.handleClick}
-                handleFocus={formik.handleFocus}
-                handleChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                onClick={formik.handleClick}
+                onFocus={formik.handleFocus}
+                onChange={formik.handleChange}
                 isDisabled={loading}
                 isFullWidth
               />
@@ -93,10 +95,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     state={getFieldState(formik, "profession")}
                     isRequired={isRequired("profession")}
                     errorMessage={formik.errors.profession}
-                    handleBlur={formik.handleBlur}
-                    handleClick={formik.handleClick}
-                    handleFocus={formik.handleFocus}
-                    handleChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    onClick={formik.handleClick}
+                    onFocus={formik.handleFocus}
+                    onChange={formik.handleChange}
                     isDisabled={loading}
                     isFullWidth
                   />
@@ -111,8 +113,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     size="compact"
                     isFullWidth
                     state={getFieldState(formik, "job")}
-                    handleBlur={customHandleBlur}
-                    handleChange={formik.handleChange}
+                    onBlur={customHandleBlur}
+                    onChange={formik.handleChange}
                     validMessage="El Oficio es válido"
                     isRequired={isRequired("job")}
                   />
@@ -128,8 +130,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     size="compact"
                     isFullWidth
                     state={getFieldState(formik, "mainCiiuActivity")}
-                    handleBlur={customHandleBlur}
-                    handleChange={formik.handleChange}
+                    onBlur={customHandleBlur}
+                    onChange={formik.handleChange}
                     validMessage="La actividad es valida"
                     isRequired={isRequired("mainCiiuActivity")}
                     onIconClick={() => handleToggleModal("mainCiiuActivity")}
@@ -146,8 +148,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     size="compact"
                     isFullWidth
                     state={getFieldState(formik, "secondaryCiiuActivity")}
-                    handleBlur={customHandleBlur}
-                    handleChange={formik.handleChange}
+                    onBlur={customHandleBlur}
+                    onChange={formik.handleChange}
                     validMessage="La actividad es valida"
                     isRequired={isRequired("secondaryCiiuActivity")}
                     onIconClick={() =>
@@ -164,10 +166,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     state={getFieldState(formik, "economicSector")}
                     isRequired={isRequired("economicSector")}
                     errorMessage={formik.errors.economicSector}
-                    handleBlur={formik.handleBlur}
-                    handleClick={formik.handleClick}
-                    handleFocus={formik.handleFocus}
-                    handleChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    onClick={formik.handleClick}
+                    onFocus={formik.handleFocus}
+                    onChange={formik.handleChange}
                     isDisabled={loading}
                     isFullWidth
                   />
@@ -195,8 +197,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   size="compact"
                   isFullWidth
                   state={getFieldState(formik, "company")}
-                  handleBlur={customHandleBlur}
-                  handleChange={formik.handleChange}
+                  onBlur={customHandleBlur}
+                  onChange={formik.handleChange}
                   validMessage="La empresa es válida"
                   isRequired={isRequired("company")}
                   suggestions={getDomainById("companies")}
@@ -213,10 +215,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   state={getFieldState(formik, "contractType")}
                   isRequired={isRequired("contractType")}
                   errorMessage={formik.errors.contractType}
-                  handleBlur={formik.handleBlur}
-                  handleClick={formik.handleClick}
-                  handleFocus={formik.handleFocus}
-                  handleChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  onClick={formik.handleClick}
+                  onFocus={formik.handleFocus}
+                  onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
                 />
@@ -231,8 +233,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   size="compact"
                   isFullWidth
                   state={getFieldState(formik, "admissionDate")}
-                  handleBlur={customHandleBlur}
-                  handleChange={formik.handleChange}
+                  onBlur={customHandleBlur}
+                  onChange={formik.handleChange}
                   validMessage="La fecha de ingreso es válida"
                   isRequired={isRequired("admissionDate")}
                 />
@@ -247,8 +249,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   size="compact"
                   isFullWidth
                   state={getFieldState(formik, "contractExpiration")}
-                  handleBlur={customHandleBlur}
-                  handleChange={formik.handleChange}
+                  onBlur={customHandleBlur}
+                  onChange={formik.handleChange}
                   validMessage="La fecha de vencimiento es válida"
                   isRequired={isRequired("contractExpiration")}
                 />
@@ -262,10 +264,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   state={getFieldState(formik, "severanceRegime")}
                   isRequired={isRequired("severanceRegime")}
                   errorMessage={formik.errors.severanceRegime}
-                  handleBlur={formik.handleBlur}
-                  handleClick={formik.handleClick}
-                  handleFocus={formik.handleFocus}
-                  handleChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  onClick={formik.handleClick}
+                  onFocus={formik.handleFocus}
+                  onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
                 />
@@ -279,10 +281,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   state={getFieldState(formik, "workday")}
                   isRequired={isRequired("workday")}
                   errorMessage={formik.errors.workday}
-                  handleBlur={formik.handleBlur}
-                  handleClick={formik.handleClick}
-                  handleFocus={formik.handleFocus}
-                  handleChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  onClick={formik.handleClick}
+                  onFocus={formik.handleFocus}
+                  onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
                 />
@@ -296,10 +298,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   state={getFieldState(formik, "position")}
                   isRequired={isRequired("position")}
                   errorMessage={formik.errors.position}
-                  handleBlur={formik.handleBlur}
-                  handleClick={formik.handleClick}
-                  handleFocus={formik.handleFocus}
-                  handleChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  onClick={formik.handleClick}
+                  onFocus={formik.handleFocus}
+                  onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
                 />
@@ -313,10 +315,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   state={getFieldState(formik, "dependence")}
                   isRequired={isRequired("dependence")}
                   errorMessage={formik.errors.dependence}
-                  handleBlur={formik.handleBlur}
-                  handleClick={formik.handleClick}
-                  handleFocus={formik.handleFocus}
-                  handleChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  onClick={formik.handleClick}
+                  onFocus={formik.handleFocus}
+                  onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
                 />
@@ -331,8 +333,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   size="compact"
                   isFullWidth
                   state={getFieldState(formik, "employeeCode")}
-                  handleBlur={customHandleBlur}
-                  handleChange={formik.handleChange}
+                  onBlur={customHandleBlur}
+                  onChange={formik.handleChange}
                   validMessage="El código como empleado es válido"
                   isRequired={isRequired("employeeCode")}
                 />
@@ -351,10 +353,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         state={getFieldState(formik, "companyFormality")}
                         isRequired={isRequired("companyFormality")}
                         errorMessage={formik.errors.companyFormality}
-                        handleBlur={formik.handleBlur}
-                        handleClick={formik.handleClick}
-                        handleFocus={formik.handleFocus}
-                        handleChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        onClick={formik.handleClick}
+                        onFocus={formik.handleFocus}
+                        onChange={formik.handleChange}
                         isDisabled={loading}
                         isFullWidth
                       />
@@ -368,10 +370,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         state={getFieldState(formik, "companyCountry")}
                         isRequired={isRequired("companyCountry")}
                         errorMessage={formik.errors.companyCountry}
-                        handleBlur={formik.handleBlur}
-                        handleClick={formik.handleClick}
-                        handleFocus={formik.handleFocus}
-                        handleChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        onClick={formik.handleClick}
+                        onFocus={formik.handleFocus}
+                        onChange={formik.handleChange}
                         isDisabled={loading}
                         isFullWidth
                       />
@@ -386,8 +388,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         size="compact"
                         isFullWidth
                         state={getFieldState(formik, "companyCity")}
-                        handleBlur={customHandleBlur}
-                        handleChange={formik.handleChange}
+                        onBlur={customHandleBlur}
+                        onChange={formik.handleChange}
                         validMessage="La ciudad es válida"
                         isRequired={isRequired("companyCity")}
                       />
@@ -402,8 +404,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         size="compact"
                         isFullWidth
                         state={getFieldState(formik, "companyPhone")}
-                        handleBlur={customHandleBlur}
-                        handleChange={formik.handleChange}
+                        onBlur={customHandleBlur}
+                        onChange={formik.handleChange}
                         validMessage="El teléfono de la empresa es válido"
                         isRequired={isRequired("companyPhone")}
                       />
@@ -418,8 +420,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         size="compact"
                         isFullWidth
                         state={getFieldState(formik, "companyAddress")}
-                        handleBlur={customHandleBlur}
-                        handleChange={formik.handleChange}
+                        onBlur={customHandleBlur}
+                        onChange={formik.handleChange}
                         validMessage="La dirección de la empresa es válida"
                         isRequired={isRequired("companyAddress")}
                       />
@@ -434,8 +436,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         size="compact"
                         isFullWidth
                         state={getFieldState(formik, "companyEmail")}
-                        handleBlur={customHandleBlur}
-                        handleChange={formik.handleChange}
+                        onBlur={customHandleBlur}
+                        onChange={formik.handleChange}
                         validMessage="El correo electrónico de la empresa es válido"
                         isRequired={isRequired("companyEmail")}
                       />

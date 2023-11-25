@@ -17,7 +17,6 @@ interface SectionMessageProps {
   appearance: MessageAppearanceType;
   duration: number;
   onClose: () => void;
-  isMessageResponsive: boolean;
 }
 
 const SectionMessage = (props: SectionMessageProps) => {
