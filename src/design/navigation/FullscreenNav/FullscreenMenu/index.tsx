@@ -1,17 +1,17 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { MdClose, MdLogout } from "react-icons/md";
 import { Text } from "@design/data/Text";
-import { NavLink } from "@design/navigation/NavLink";
-import { OneSection } from "../OneSection";
-import { MultiSections } from "../MultiSections";
-import {
-  StyledFullscreenNav,
-  StyledCloseMenu,
-  StyledSeparatorLine,
-  StyledFooter,
-} from "./styles";
 import { INav } from "@design/layout/Page/types";
 import { IHeaderLink } from "@design/navigation/Header/types";
+import { NavLink } from "@design/navigation/NavLink";
+import { useAuth } from "@inube/auth";
+import { MdClose, MdLogout } from "react-icons/md";
+import { MultiSections } from "../MultiSections";
+import { OneSection } from "../OneSection";
+import {
+  StyledCloseMenu,
+  StyledFooter,
+  StyledFullscreenNav,
+  StyledSeparatorLine,
+} from "./styles";
 
 interface FullscreenMenuProps {
   logoutPath: string;
@@ -23,7 +23,7 @@ interface FullscreenMenuProps {
 
 function FullscreenMenu(props: FullscreenMenuProps) {
   const { logoutPath, logoutTitle, navigation, links, onClose } = props;
-  const { logout } = useAuth0();
+  const { logout } = useAuth();
 
   function handleLogout() {
     logout();

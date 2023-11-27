@@ -15,13 +15,14 @@ import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
 
-import { useAuth0 } from "@auth0/auth0-react";
 import { Home } from "@pages/admin/home";
 import { UpdateData } from "@pages/general/UpdateData";
 import { useEffect } from "react";
 import { CreditRoutes } from "./routes/credit";
 import { MyCreditsRoutes } from "./routes/myCredits";
 import { MySavingsRoutes } from "./routes/mySavings";
+
+import { useAuth } from "@inube/auth";
 
 const USER_ID = "1";
 
@@ -43,7 +44,7 @@ const router = createBrowserRouter(
 
 function App() {
   useFonts(theme.typography.fonts);
-  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
