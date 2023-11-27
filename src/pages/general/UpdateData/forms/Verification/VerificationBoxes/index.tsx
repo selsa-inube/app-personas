@@ -671,14 +671,27 @@ const renderRelationshipWithDirectorsVerification = (
   isTablet: boolean
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
-    {values.directorName !== "" && (
-      <BoxAttribute label="Nombre del directivo:" value={values.directorName} />
-    )}
-    {values.directorRelationship !== "" && (
+    {values.hasRelationshipWithDirectors !== "" && (
       <BoxAttribute
-        label="Parentesco:"
-        value={relationshipDM.valueOf(values.directorRelationship)?.value}
+        label="Parentesco con directivos de la entidad:"
+        value={activeDM.valueOf(values.hasRelationshipWithDirectors)?.value}
       />
+    )}
+    {values.hasRelationshipWithDirectors === activeDM.Y.id && (
+      <>
+        {values.directorName !== "" && (
+          <BoxAttribute
+            label="Nombre del directivo:"
+            value={values.directorName}
+          />
+        )}
+        {values.directorRelationship !== "" && (
+          <BoxAttribute
+            label="Parentesco:"
+            value={relationshipDM.valueOf(values.directorRelationship)?.value}
+          />
+        )}
+      </>
     )}
   </Grid>
 );
