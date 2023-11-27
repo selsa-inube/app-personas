@@ -11,6 +11,7 @@ import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types"
 import { IPersonalResidenceEntry } from "./forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
+import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirectorsForm/types";
 
 interface IFormsUpdateData {
   personalInformation: { isValid: boolean; values: IPersonalInformationEntry };
@@ -28,6 +29,10 @@ interface IFormsUpdateData {
   economicActivity: { isValid: boolean; values: IEconomicActivityEntry };
   income: { isValid: boolean; values: IIncomesEntry };
   expenses: { isValid: boolean; values: IExpensesEntry };
+  relationshipWithDirectors: {
+    isValid: boolean;
+    values: IRelationshipWithDirectorsEntry;
+  };
 }
 
 interface IFormsUpdateDataRefs {
@@ -45,6 +50,9 @@ interface IFormsUpdateDataRefs {
   economicActivity: React.RefObject<FormikProps<IEconomicActivityEntry>>;
   income: React.RefObject<FormikProps<IIncomesEntry>>;
   expenses: React.RefObject<FormikProps<IExpensesEntry>>;
+  relationshipWithDirectors: React.RefObject<
+    FormikProps<IRelationshipWithDirectorsEntry>
+  >;
 }
 
 export type { IFormsUpdateData, IFormsUpdateDataRefs };

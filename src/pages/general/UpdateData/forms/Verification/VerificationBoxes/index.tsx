@@ -40,6 +40,7 @@ import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
 import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
+import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -665,6 +666,36 @@ const renderExpensesVerification = (
   </Grid>
 );
 
+const renderRelationshipWithDirectorsVerification = (
+  values: IRelationshipWithDirectorsEntry,
+  isTablet: boolean
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    {values.hasRelationshipWithDirectors !== "" && (
+      <BoxAttribute
+        label="Parentesco con directivos de la entidad:"
+        value={activeDM.valueOf(values.hasRelationshipWithDirectors)?.value}
+      />
+    )}
+    {values.hasRelationshipWithDirectors === activeDM.Y.id && (
+      <>
+        {values.directorName !== "" && (
+          <BoxAttribute
+            label="Nombre del directivo:"
+            value={values.directorName}
+          />
+        )}
+        {values.directorRelationship !== "" && (
+          <BoxAttribute
+            label="Parentesco:"
+            value={relationshipDM.valueOf(values.directorRelationship)?.value}
+          />
+        )}
+      </>
+    )}
+  </Grid>
+);
+
 interface VerificationBoxesProps {
   updatedData: IFormsUpdateData;
   stepKey: string;
@@ -736,6 +767,12 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         renderIncomesVerification(updatedData.income.values, isTablet)}
       {stepKey === "expenses" &&
         renderExpensesVerification(updatedData.expenses.values, isTablet)}
+
+      {stepKey === "relationshipWithDirectors" &&
+        renderRelationshipWithDirectorsVerification(
+          updatedData.relationshipWithDirectors.values,
+          isTablet
+        )}
     </>
   );
 }

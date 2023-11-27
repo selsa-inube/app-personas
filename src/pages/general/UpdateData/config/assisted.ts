@@ -66,8 +66,14 @@ const updateDataSteps = {
     description:
       "Diligencia la información de la cantidad de dinero que usas mensualmente.",
   },
-  verification: {
+  relationshipWithDirectors: {
     id: 13,
+    name: "Relación con directivos",
+    description:
+      "Diligencia la información si posees alguna relación con nuestros directivos.",
+  },
+  verification: {
+    id: 14,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",

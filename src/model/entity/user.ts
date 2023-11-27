@@ -96,6 +96,12 @@ interface IEconomicActivity {
   companyAddress: string;
   companyEmail: string;
 }
+
+interface IRelationshipWithDirectors {
+  hasRelationshipWithDirectors: string;
+  directorName: string;
+  directorRelationship: string;
+}
 interface IThird {
   personalData: IPersonalData;
   contact: IContactData[];
@@ -103,6 +109,7 @@ interface IThird {
   bankTransfersAccount: IBankTransfersAccount;
   financialOperations: IFinancialOperations;
   economicActivity?: IEconomicActivity;
+  relationshipWithDirectors?: IRelationshipWithDirectors;
 }
 
 export type {
@@ -115,4 +122,5 @@ export type {
   IResidence,
   IThird,
   IEconomicActivity,
+  IRelationshipWithDirectors,
 };

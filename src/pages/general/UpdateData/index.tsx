@@ -12,6 +12,7 @@ import {
   mapPersonalResidence,
   mapSocioeconomicInformation,
   mapEconomicActivity,
+  mapRelationshipWithDirectors,
 } from "./config/mappers";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
@@ -25,6 +26,7 @@ import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types"
 import { IPersonalResidenceEntry } from "./forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
+import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirectorsForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
@@ -72,6 +74,12 @@ function UpdateData() {
       values: mapIncomes(),
     },
     expenses: { isValid: true, values: mapExpenses() },
+    relationshipWithDirectors: {
+      isValid: true,
+      values: mapRelationshipWithDirectors(
+        usersMock[0].relationshipWithDirectors
+      ),
+    },
   });
 
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
@@ -90,6 +98,8 @@ function UpdateData() {
   const economicActivityRef = useRef<FormikProps<IEconomicActivityEntry>>(null);
   const incomeRef = useRef<FormikProps<IIncomesEntry>>(null);
   const expensesRef = useRef<FormikProps<IExpensesEntry>>(null);
+  const relationshipWithDirectorsRef =
+    useRef<FormikProps<IRelationshipWithDirectorsEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
@@ -104,6 +114,7 @@ function UpdateData() {
     economicActivity: economicActivityRef,
     income: incomeRef,
     expenses: expensesRef,
+    relationshipWithDirectors: relationshipWithDirectorsRef,
   };
 
   const handleStepChange = (stepId: number) => {
