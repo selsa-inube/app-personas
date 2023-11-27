@@ -164,7 +164,7 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                 <Switch
                   id="simulationWithQuota"
                   name="simulationWithQuota"
-                  handleChange={customHandleChange}
+                  onChange={customHandleChange}
                   checked={formik.values.simulationWithQuota}
                   label="Simular con el valor de la cuota"
                   margin="0"
@@ -186,8 +186,8 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                   size="compact"
                   isFullWidth
                   state={stateValue("amount")}
-                  handleBlur={formik.handleBlur}
-                  handleChange={handleChangeWithCurrency}
+                  onBlur={formik.handleBlur}
+                  onChange={handleChangeWithCurrency}
                   validMessage="El valor es válido"
                 />
 
@@ -199,11 +199,11 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                   size="compact"
                   isFullWidth
                   options={peridiocityDM.options}
-                  handleBlur={formik.handleBlur}
+                  onBlur={formik.handleBlur}
                   errorMessage={formik.errors.peridiocity}
                   isDisabled={loading}
                   state={stateValue("peridiocity")}
-                  handleChange={customHandleChange}
+                  onChange={customHandleChange}
                   readOnly
                 />
 
@@ -220,8 +220,8 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                     size="compact"
                     isFullWidth
                     state={stateValue("quota")}
-                    handleBlur={formik.handleBlur}
-                    handleChange={handleChangeWithCurrency}
+                    onBlur={formik.handleBlur}
+                    onChange={handleChangeWithCurrency}
                     validMessage="La cuota es válida"
                   />
                 ) : (
@@ -237,8 +237,8 @@ function SimulationFormUI(props: SimulationFormUIProps) {
                     size="compact"
                     isFullWidth
                     state={stateValue("deadline")}
-                    handleBlur={formik.handleBlur}
-                    handleChange={customHandleChange}
+                    onBlur={formik.handleBlur}
+                    onChange={customHandleChange}
                     validMessage="El plazo es válido"
                   />
                 )}
@@ -247,7 +247,7 @@ function SimulationFormUI(props: SimulationFormUIProps) {
               <Stack width="100%" justifyContent="flex-end">
                 <Button
                   variant="outlined"
-                  handleClick={simulateCredit}
+                  onClick={simulateCredit}
                   load={loadingSimulation}
                   disabled={
                     !formik.values.amount ||

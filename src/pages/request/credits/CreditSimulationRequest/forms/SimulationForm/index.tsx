@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
 interface SimulationFormProps {
   initialValues: ISimulationEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSubmit?: (values: ISimulationEntry) => void;
+  onSubmit?: (values: ISimulationEntry) => void;
   loading?: boolean;
 }
 
@@ -27,7 +27,7 @@ const SimulationForm = forwardRef(function SimulationForm(
   props: SimulationFormProps,
   ref: React.Ref<FormikProps<ISimulationEntry>>
 ) {
-  const { initialValues, onFormValid, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const [loadingSimulation, setLoadingSimulation] = useState(false);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
@@ -37,7 +37,7 @@ const SimulationForm = forwardRef(function SimulationForm(
     initialValues,
     validationSchema: dynamicValidationSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => formik);

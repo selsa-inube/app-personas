@@ -8,8 +8,8 @@ interface DropdownItemProps {
   isFocused?: boolean;
   isSelected?: boolean;
   value: string;
-  handleClick?: (id: string) => void;
-  handleSelect?: (label: string) => void;
+  onClick?: (id: string) => void;
+  onSelect?: (label: string) => void;
 }
 
 function DropdownItem(props: DropdownItemProps) {
@@ -19,8 +19,8 @@ function DropdownItem(props: DropdownItemProps) {
     isSelected = false,
     isFocused = false,
     value,
-    handleClick,
-    handleSelect,
+    onClick,
+    onSelect,
   } = props;
 
   const [select, setSelect] = useState(isSelected);
@@ -29,10 +29,10 @@ function DropdownItem(props: DropdownItemProps) {
   const handleOptionClick = (label: string) => {
     if (isDisabled) return;
     setSelect(true);
-    
-    if (handleClick) handleClick(id);
 
-    if (handleSelect) handleSelect(label);
+    if (onClick) onClick(id);
+
+    if (onSelect) onSelect(label);
   };
 
   const interceptorOnBlur = () => {

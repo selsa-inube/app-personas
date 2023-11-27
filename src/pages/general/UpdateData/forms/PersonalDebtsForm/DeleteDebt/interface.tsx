@@ -1,8 +1,8 @@
 import { DecisionModal } from "@components/modals/DecisionModal";
 import { Icon } from "@design/data/Icon";
+import { IEntry } from "@design/data/Table/types";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteDebtModal } from "../config/deleteDebt.config";
-import { IEntry } from "@design/data/Table/types";
 
 interface DeleteDebtUIProps {
   debt: IEntry;
@@ -37,7 +37,7 @@ function DeleteDebtUI(props: DeleteDebtUIProps) {
           appearance={appearance}
           actionText={actionText}
           onCloseModal={closeModal}
-          handleClick={handleDeleteDebt}
+          onClick={handleDeleteDebt}
           portalId={portalId}
         />
       )}

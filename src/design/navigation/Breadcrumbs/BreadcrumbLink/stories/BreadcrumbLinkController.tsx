@@ -9,11 +9,7 @@ const BreadcrumbLinkController = (props: BreadcrumbLinkProps) => {
   };
 
   return (
-    <BreadcrumbLink
-      {...props}
-      isActive={isActive}
-      handleClick={handleClickTab}
-    />
+    <BreadcrumbLink {...props} isActive={isActive} onClick={handleClickTab} />
   );
 };
 

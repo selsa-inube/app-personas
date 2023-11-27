@@ -16,7 +16,7 @@ const StepsFlowController = (props: AssistedProps) => {
   return (
     <Assisted
       {...props}
-      handleStepChange={handleStepChange}
+      onStepChange={handleStepChange}
       currentStep={currentStep}
       stepsFlow={configSteps}
     />

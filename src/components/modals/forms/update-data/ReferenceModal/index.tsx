@@ -83,10 +83,10 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             isFullWidth
             options={referenceTypeDM}
-            handleBlur={formik.handleBlur}
+            onBlur={formik.handleBlur}
             errorMessage={formik.errors.referenceType}
             state={stateValue("referenceType")}
-            handleChange={(e) => formik.handleChange(e)}
+            onChange={(e) => formik.handleChange(e)}
             value={formik.values.referenceType || ""}
             isRequired
           />
@@ -101,8 +101,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("name")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="El nombre de la referencia es válido"
             isRequired
           />
@@ -117,8 +117,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("address")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="La dirección es válida"
             isRequired
           />
@@ -133,8 +133,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("email")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="El correo electrónico es válido"
             isRequired
           />
@@ -149,8 +149,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("phone")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="El número de celular es válido"
             isRequired
           />
@@ -161,26 +161,22 @@ function ReferenceModal(props: ReferenceModalProps) {
             size="compact"
             isFullWidth
             options={cityDM.options}
-            handleBlur={formik.handleBlur}
+            onBlur={formik.handleBlur}
             errorMessage={formik.errors.city}
             state={stateValue("city")}
-            handleChange={formik.handleChange}
+            onChange={formik.handleChange}
             value={formik.values.city || ""}
             isRequired
           />
         </Stack>
 
         <Stack gap="s100">
-          <Button
-            spacing="compact"
-            appearance="gray"
-            handleClick={onCloseModal}
-          >
+          <Button spacing="compact" appearance="gray" onClick={onCloseModal}>
             Cancelar
           </Button>
           <Button
             spacing="compact"
-            handleClick={onConfirm}
+            onClick={onConfirm}
             disabled={!formik.dirty || !formik.isValid}
             appearance="primary"
           >

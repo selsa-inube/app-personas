@@ -99,7 +99,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
         <Stack direction="column" gap={isMobile ? "s200" : "s300"}>
           <Select
             id="savingCommitments"
-            handleChange={handleChangeCommitment}
+            onChange={handleChangeCommitment}
             label="Selección del compromiso"
             options={commitmentsOptions}
             value={selectedCommitment.option.id}

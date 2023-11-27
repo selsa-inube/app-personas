@@ -2,8 +2,8 @@ import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { AttributesModal } from "@components/modals/AttributesModal";
-import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { ReimbursementModal } from "@components/modals/investment/ReimbursementModal";
+import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
@@ -31,14 +31,17 @@ import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
-import { savingCommitmentsIcons, savingsAccountBox } from "./config/saving";
-import { investmentCommitmentsIcons } from "./config/saving";
+import {
+  investmentCommitmentsIcons,
+  savingCommitmentsIcons,
+  savingsAccountBox,
+} from "./config/saving";
 import { StyledMovementsContainer } from "./styles";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
-  ISelectedProductState,
   IReimbursementModalState,
+  ISelectedProductState,
 } from "./types";
 
 interface SavingsAccountUIProps {
@@ -111,7 +114,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
         <Stack direction="column" gap="s300">
           <Select
             id="savingProducts"
-            handleChange={handleChangeProduct}
+            onChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
             value={selectedProduct.option}

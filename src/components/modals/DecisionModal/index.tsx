@@ -17,7 +17,7 @@ interface DecisionModalProps {
   loading?: boolean;
   portalId: string;
   onCloseModal: () => void;
-  handleClick: () => void;
+  onClick: () => void;
 }
 
 function DecisionModal(props: DecisionModalProps) {
@@ -29,7 +29,7 @@ function DecisionModal(props: DecisionModalProps) {
     loading = true,
     portalId,
     onCloseModal,
-    handleClick,
+    onClick,
   } = props;
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,7 +48,7 @@ function DecisionModal(props: DecisionModalProps) {
     setTimeout(
       () => {
         onCloseModal();
-        handleClick();
+        onClick();
       },
       !loading ? 0 : 1000
     );
@@ -78,7 +78,7 @@ function DecisionModal(props: DecisionModalProps) {
           <Stack justifyContent="flex-end" gap="8px">
             <Button
               appearance="gray"
-              handleClick={onCloseModal}
+              onClick={onCloseModal}
               spacing={isMobile ? "compact" : "wide"}
             >
               Cancel
@@ -86,7 +86,7 @@ function DecisionModal(props: DecisionModalProps) {
             <Button
               appearance={appearance}
               load={isLoading}
-              handleClick={handleActionClick}
+              onClick={handleActionClick}
               spacing={isMobile ? "compact" : "wide"}
             >
               {actionText}

@@ -16,10 +16,10 @@ interface SelectProps {
   isFullWidth?: boolean;
   readOnly?: boolean;
   options?: ISelectOption[];
-  handleChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
-  handleBlur?: (event: React.FocusEvent<HTMLDivElement>) => void;
-  handleClick?: (event: React.MouseEvent) => void;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLDivElement>) => void;
+  onClick?: (event: React.MouseEvent) => void;
 }
 
 function Select(props: SelectProps) {
@@ -30,16 +30,16 @@ function Select(props: SelectProps) {
     placeholder = "Seleccione una opción",
     isDisabled = false,
     value,
-    handleChange,
     isRequired = false,
     state = "pending",
     errorMessage,
     size = "wide",
     isFullWidth = false,
-    handleFocus,
-    handleBlur,
+    onFocus,
+    onChange,
+    onBlur,
+    onClick,
     options,
-    handleClick,
     readOnly,
   } = props;
 
@@ -51,13 +51,13 @@ function Select(props: SelectProps) {
     if (!readOnly) {
       setIsFocused(true);
     }
-    if (handleFocus) handleFocus(e);
+    if (onFocus) onFocus(e);
   };
 
   const interceptBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     setIsFocused(false);
 
-    if (handleBlur) handleBlur(e);
+    if (onBlur) onBlur(e);
   };
 
   const handleCloseOptions = () => {
@@ -69,12 +69,12 @@ function Select(props: SelectProps) {
     if (selectRef.current && target && !selectRef.current.contains(target)) {
       setOpen(false);
     }
-    if (handleBlur) {
+    if (onBlur) {
       const event = {
         target: selectRef.current,
       } as React.FocusEvent<HTMLDivElement>;
 
-      handleBlur(event);
+      onBlur(event);
     }
   };
 
@@ -91,7 +91,7 @@ function Select(props: SelectProps) {
       },
     } as React.ChangeEvent<HTMLSelectElement>;
 
-    if (handleChange) handleChange(event);
+    if (onChange) onChange(event);
 
     setIsFocused(false);
     handleCloseOptions();
@@ -130,21 +130,21 @@ function Select(props: SelectProps) {
       placeholder={placeholder}
       isDisabled={transformedIsDisabled}
       value={value}
-      handleChange={handleChange}
+      onChange={onChange}
       isRequired={transformedIsRequired}
       size={size}
       state={transformedState}
       errorMessage={errorMessage}
       isFullWidth={transformedIsFullWidth}
       isFocused={isFocused}
-      handleFocus={interceptFocus}
-      handleBlur={interceptBlur}
+      onFocus={interceptFocus}
+      onBlur={interceptBlur}
       options={options}
       openOptions={open}
-      handleClick={handleClick}
+      onClick={onClick}
       onCloseOptions={handleCloseOptions}
       selectRef={selectRef}
-      handleOptionClick={handleOptionClick}
+      onOptionClick={handleOptionClick}
       readOnly={readOnly}
     />
   );

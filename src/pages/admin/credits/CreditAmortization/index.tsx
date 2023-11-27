@@ -117,7 +117,7 @@ function CreditAmortization() {
         <Stack direction="column" gap="s300">
           <Select
             id="creditProducts"
-            handleChange={handleChangeProduct}
+            onChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
             value={selectedProduct.option.id}

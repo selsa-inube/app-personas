@@ -36,7 +36,7 @@ function UpdateDataVerification(props: VerificationProps) {
 
             <Button
               iconBefore={<MdOutlineArrowBack />}
-              handleClick={() =>
+              onClick={() =>
                 handleStepChange(
                   updateDataSteps[key as keyof IFormsUpdateData].id
                 )

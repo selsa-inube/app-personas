@@ -1,11 +1,11 @@
-import { StoryFn } from "@storybook/react";
-import { DecisionModal, DecisionModalProps } from "./index";
-import { action } from "@storybook/addon-actions";
-import { ThemeProvider } from "styled-components";
-import { themes } from "@mocks/design/themes";
 import { Button } from "@design/input/Button";
+import { themes } from "@mocks/design/themes";
+import { action } from "@storybook/addon-actions";
+import { StoryFn } from "@storybook/react";
 import { useState } from "react";
-import { props, parameters } from "./props";
+import { ThemeProvider } from "styled-components";
+import { DecisionModal, DecisionModalProps } from "./index";
+import { parameters, props } from "./props";
 
 const story = {
   title: "components/modals/DecisionModal",
@@ -26,7 +26,7 @@ const Template: StoryFn<DecisionModalProps & { theme?: boolean }> = (args) => {
 
   return (
     <>
-      <Button handleClick={handleModal}>Show Decisión Modal</Button>
+      <Button onClick={handleModal}>Show Decisión Modal</Button>
       {showModal &&
         (args.theme ? (
           <ThemeProvider theme={themes["fondecom"]}>
@@ -49,7 +49,7 @@ Default.args = {
   description: "Text description modal",
   actionText: "Text Action select",
   onCloseModal: closeDecisionModal,
-  handleClick: () => {},
+  onClick: () => {},
   portalId: "modals",
 };
 

@@ -93,10 +93,10 @@ function DebtModal(props: DebtModalProps) {
             size="compact"
             isFullWidth
             options={liabilityTypeDM}
-            handleBlur={formik.handleBlur}
+            onBlur={formik.handleBlur}
             errorMessage={formik.errors.liabilityType}
             state={stateValue("liabilityType")}
-            handleChange={formik.handleChange}
+            onChange={formik.handleChange}
             value={formik.values.liabilityType || ""}
             isRequired
           />
@@ -111,8 +111,8 @@ function DebtModal(props: DebtModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("debtName")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="El nombre del pasivo es válido"
             isRequired
           />
@@ -127,8 +127,8 @@ function DebtModal(props: DebtModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("terminationDate")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="La fecha de terminación es válida"
             isRequired
           />
@@ -143,8 +143,8 @@ function DebtModal(props: DebtModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("debtBalance")}
-            handleBlur={formik.handleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={formik.handleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El saldo de la deuda es válido"
             isRequired
           />
@@ -159,8 +159,8 @@ function DebtModal(props: DebtModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("financialEntity")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="El nombre de la entidad es válido"
             isRequired
           />
@@ -175,8 +175,8 @@ function DebtModal(props: DebtModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("quota")}
-            handleBlur={formik.handleBlur}
-            handleChange={handleChangeWithCurrency}
+            onBlur={formik.handleBlur}
+            onChange={handleChangeWithCurrency}
             validMessage="El valor de la cuota es válido"
             isRequired
           />
@@ -191,23 +191,19 @@ function DebtModal(props: DebtModalProps) {
             size="compact"
             isFullWidth
             state={stateValue("observations")}
-            handleBlur={formik.handleBlur}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
             validMessage="Las observaciones son válidas"
           />
         </Stack>
 
         <Stack gap="s100">
-          <Button
-            spacing="compact"
-            appearance="gray"
-            handleClick={onCloseModal}
-          >
+          <Button spacing="compact" appearance="gray" onClick={onCloseModal}>
             Cancelar
           </Button>
           <Button
             spacing="compact"
-            handleClick={onConfirm}
+            onClick={onConfirm}
             disabled={!formik.isValid}
             appearance="primary"
           >

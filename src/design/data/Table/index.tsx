@@ -108,10 +108,10 @@ const Table = (props: TableProps) => {
           firstEntryInPage={firstEntryInPage}
           lastEntryInPage={lastEntryInPage}
           totalRecords={filteredEntries.length}
-          handleStartPage={goToFirstPage}
-          handlePrevPage={prevPage}
-          handleNextPage={nextPage}
-          handleEndPage={goToEndPage}
+          onStartPage={goToFirstPage}
+          onPrevPage={prevPage}
+          onNextPage={nextPage}
+          onEndPage={goToEndPage}
         />
       )}
     </StyledTableContainer>

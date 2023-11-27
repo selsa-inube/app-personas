@@ -43,7 +43,7 @@ function SocioeconomicInformationFormUI(
           value={formik.values.educationLevel}
           size="compact"
           options={educationLevelTypeDM.options}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
           isDisabled={loading}
           isFullWidth
         />
@@ -54,7 +54,7 @@ function SocioeconomicInformationFormUI(
           value={formik.values.isResponsibleHome}
           size="compact"
           options={activeDM.options}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
           isDisabled={loading}
           isFullWidth
         />
@@ -65,7 +65,7 @@ function SocioeconomicInformationFormUI(
           value={formik.values.isSingleMother}
           size="compact"
           options={activeDM.options}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
           isDisabled={loading}
           isFullWidth
         />
@@ -81,8 +81,8 @@ function SocioeconomicInformationFormUI(
           state={stateValue("dependants")}
           isDisabled={loading}
           size="compact"
-          handleBlur={customHandleBlur}
-          handleChange={formik.handleChange}
+          onBlur={customHandleBlur}
+          onChange={formik.handleChange}
           validMessage="El número ingresado es correcto"
           isFullWidth
           isRequired
@@ -94,7 +94,7 @@ function SocioeconomicInformationFormUI(
           value={formik.values.vulnerablePopulation}
           size="compact"
           options={vulnerablePopulationTypeDM.options}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
           isDisabled={loading}
           isFullWidth
         />
@@ -105,7 +105,7 @@ function SocioeconomicInformationFormUI(
           value={formik.values.isPublicExposed}
           size="compact"
           options={activeDM.options}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
           isDisabled={loading}
           isFullWidth
         />
@@ -116,7 +116,7 @@ function SocioeconomicInformationFormUI(
           value={formik.values.isDeclaredIncomes}
           size="compact"
           options={activeDM.options}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
           isDisabled={loading}
           isFullWidth
         />
@@ -127,7 +127,7 @@ function SocioeconomicInformationFormUI(
           value={formik.values.isPublicOfficials}
           size="compact"
           options={activeDM.options}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
           isDisabled={loading}
           isFullWidth
         />

@@ -40,10 +40,10 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           size="compact"
           isFullWidth
           options={getDomainById("bank")}
-          handleBlur={customHandleBlur}
+          onBlur={customHandleBlur}
           isDisabled={loading}
           state={stateValue("bankEntity")}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
         />
         <Select
           label="Tipo de cuenta"
@@ -53,10 +53,10 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           size="compact"
           isFullWidth
           options={getDomainById("accountType")}
-          handleBlur={customHandleBlur}
+          onBlur={customHandleBlur}
           isDisabled={loading}
           state={stateValue("accountType")}
-          handleChange={formik.handleChange}
+          onChange={formik.handleChange}
         />
 
         <TextField
@@ -71,8 +71,8 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           size="compact"
           isFullWidth
           state={stateValue("accountNumber")}
-          handleBlur={customHandleBlur}
-          handleChange={formik.handleChange}
+          onBlur={customHandleBlur}
+          onChange={formik.handleChange}
           validMessage="El numero de cuenta es válido"
         />
       </Grid>

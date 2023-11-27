@@ -1,7 +1,7 @@
 import { StoryFn } from "@storybook/react";
 import { Switch, SwitchProps } from "..";
+import { parameters, props } from "../props";
 import { SwitchController } from "./Switchcontroller";
-import { props, parameters } from "../props";
 
 import { fondecom } from "@mocks/design/themes/fondecom";
 import { ThemeProvider } from "styled-components";
@@ -17,7 +17,7 @@ const story = {
 };
 
 export const Default: StoryFn<SwitchProps> = (args) => (
-  <SwitchController {...args} onSwitchChange={args.handleChange} />
+  <SwitchController {...args} onSwitchChange={args.onChange} />
 );
 Default.args = {
   id: "id",
@@ -26,7 +26,7 @@ Default.args = {
   label: "Switch",
   checked: false,
   size: "small",
-  handleChange: () => {},
+  onChange: () => {},
 };
 
 const theme = {
@@ -35,7 +35,7 @@ const theme = {
 
 export const Themed = (args: SwitchProps) => (
   <ThemeProvider theme={theme}>
-    <SwitchController {...args} onSwitchChange={args.handleChange} />
+    <SwitchController {...args} onSwitchChange={args.onChange} />
   </ThemeProvider>
 );
 Themed.args = {

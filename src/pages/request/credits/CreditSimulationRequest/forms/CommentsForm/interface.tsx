@@ -1,5 +1,5 @@
-import { FormikValues } from "formik";
 import { Textarea } from "@design/input/Textarea";
+import { FormikValues } from "formik";
 
 interface CommentsFormUIProps {
   formik: FormikValues;
@@ -20,9 +20,9 @@ function CommentsFormUI(props: CommentsFormUIProps) {
         maxLength={150}
         isDisabled={loading}
         value={formik.values.comments}
-        handleBlur={customHandleBlur}
-        handleChange={formik.handleChange}
-        handleFocus={formik.isFocused}
+        onBlur={customHandleBlur}
+        onChange={formik.handleChange}
+        onFocus={formik.isFocused}
         isFullWidth
       />
     </form>

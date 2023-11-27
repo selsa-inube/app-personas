@@ -5,7 +5,7 @@ import { IPreliquidationEntry } from "./types";
 
 interface PreliquidationFormProps {
   initialValues: IPreliquidationEntry;
-  handleSubmit?: (values: IPreliquidationEntry) => void;
+  onSubmit?: (values: IPreliquidationEntry) => void;
   loading?: boolean;
 }
 
@@ -13,12 +13,12 @@ const PreliquidationForm = forwardRef(function PreliquidationForm(
   props: PreliquidationFormProps,
   ref: React.Ref<FormikProps<IPreliquidationEntry>>
 ) {
-  const { initialValues, handleSubmit, loading } = props;
+  const { initialValues, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => formik);

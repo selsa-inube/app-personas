@@ -1,13 +1,13 @@
-import { FormikValues } from "formik";
+import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
 import { Stack } from "@design/layout/Stack";
-import { Text } from "@design/data/Text";
-import {
-  StyledTermsAndConditionsInfo,
-  StyledTermsAndConditionsContainer,
-} from "./styles";
-import { termsAndConditionsTexts } from "./config/termsAndConditions";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { FormikValues } from "formik";
+import { termsAndConditionsTexts } from "./config/termsAndConditions";
+import {
+  StyledTermsAndConditionsContainer,
+  StyledTermsAndConditionsInfo,
+} from "./styles";
 
 function generateTermsAndConditionsParagraphs(texts: string[]) {
   return texts.map((text, index) => (
@@ -45,7 +45,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
           name="accept"
           label="Acepto los términos y condiciones"
           size={isMobile ? "small" : "large"}
-          handleChange={customHandleChange}
+          onChange={customHandleChange}
           checked={formik.values.accept}
           disabled={loading}
         />

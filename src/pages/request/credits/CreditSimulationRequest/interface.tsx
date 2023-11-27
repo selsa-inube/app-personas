@@ -137,8 +137,8 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
           <Assisted
             steps={steps}
             currentStep={currentStep}
-            handleFinishAssisted={handleFinishAssisted}
-            handleStepChange={handleStepChange}
+            onFinishAssisted={handleFinishAssisted}
+            onStepChange={handleStepChange}
             disableNextStep={!isCurrentFormValid}
           />
 
@@ -153,7 +153,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
 
             <Stack gap="s150" justifyContent="flex-end">
               <Button
-                handleClick={handlePreviousStep}
+                onClick={handlePreviousStep}
                 type="button"
                 disabled={currentStep === steps[0].id}
                 spacing={isMobile ? "compact" : "wide"}
@@ -163,7 +163,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
               </Button>
 
               <Button
-                handleClick={handleNextStep}
+                onClick={handleNextStep}
                 spacing={isMobile ? "compact" : "wide"}
                 disabled={!isCurrentFormValid}
               >

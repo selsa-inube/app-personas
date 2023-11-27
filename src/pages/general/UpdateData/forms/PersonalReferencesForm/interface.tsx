@@ -39,7 +39,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
         <Button
           iconBefore={<MdOutlinePersonAddAlt />}
           variant="none"
-          handleClick={handleToggleModal}
+          onClick={handleToggleModal}
         >
           Adicionar referencia
         </Button>
@@ -71,7 +71,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           icon={message.icon}
           appearance={message.appearance}
           duration={1500}
-          closeSectionMessage={onCloseMessage}
+          onClose={onCloseMessage}
         />
       )}
     </>

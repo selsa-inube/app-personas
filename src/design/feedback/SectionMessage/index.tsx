@@ -16,7 +16,7 @@ interface SectionMessageProps {
   description: string;
   appearance: MessageAppearanceType;
   duration: number;
-  closeSectionMessage: () => void;
+  onClose: () => void;
 }
 
 const SectionMessage = (props: SectionMessageProps) => {
@@ -26,7 +26,7 @@ const SectionMessage = (props: SectionMessageProps) => {
     description,
     appearance = "primary",
     duration,
-    closeSectionMessage,
+    onClose,
   } = props;
 
   const [isPaused, setIsPaused] = useState(false);
@@ -62,7 +62,7 @@ const SectionMessage = (props: SectionMessageProps) => {
                 <Icon
                   size="16px"
                   spacing="none"
-                  onClick={closeSectionMessage}
+                  onClick={onClose}
                   appearance="dark"
                   icon={<MdClear />}
                   cursorHover
@@ -83,7 +83,7 @@ const SectionMessage = (props: SectionMessageProps) => {
           paused={isPaused}
           appearance={appearance}
           duration={duration}
-          onCountdown={closeSectionMessage}
+          onCountdown={onClose}
         />
       )}
     </StyledSectionMessage>

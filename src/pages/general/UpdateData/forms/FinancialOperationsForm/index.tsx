@@ -25,7 +25,7 @@ const validationSchema = Yup.object({
 interface FinancialOperationsFormProps {
   initialValues: IFinancialOperationsEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSubmit?: (values: IFinancialOperationsEntry) => void;
+  onSubmit?: (values: IFinancialOperationsEntry) => void;
   loading?: boolean;
 }
 
@@ -33,13 +33,13 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   props: FinancialOperationsFormProps,
   ref: React.Ref<FormikProps<IFinancialOperationsEntry>>
 ) {
-  const { initialValues, onFormValid, handleSubmit, loading } = props;
+  const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: handleSubmit || (() => {}),
+    onSubmit: onSubmit || (() => {}),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -47,7 +47,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
 
-    if (handleSubmit) return;
+    if (onSubmit) return;
 
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);

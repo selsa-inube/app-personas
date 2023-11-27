@@ -80,9 +80,9 @@ const Template: StoryFn<InteractiveModalProps> = (args) => {
 
   return (
     <>
-      <Button handleClick={() => setShowModal(true)}>Show Modal</Button>
+      <Button onClick={() => setShowModal(true)}>Show Modal</Button>
       {showModal && (
-        <InteractiveModal {...args} closeModal={() => setShowModal(false)} />
+        <InteractiveModal {...args} onCloseModal={() => setShowModal(false)} />
       )}
     </>
   );
