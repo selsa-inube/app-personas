@@ -20,6 +20,7 @@ import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
 import { PersonalResidenceForm } from "./forms/PersonalResidenceForm";
 import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
 import { EconomicActivityForm } from "./forms/EconomicActivityForm";
+import { RelationshipWithDirectorsForm } from "./forms/RelationshipWithDirectorsForm";
 import { UpdateDataVerification } from "./forms/Verification";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
@@ -110,6 +111,13 @@ const renderStepContent = (
         <ExpensesForm
           initialValues={updateData.expenses.values}
           ref={formReferences.expenses}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === updateDataSteps.relationshipWithDirectors.id && (
+        <RelationshipWithDirectorsForm
+          initialValues={updateData.relationshipWithDirectors.values}
+          ref={formReferences.relationshipWithDirectors}
           onFormValid={setIsCurrentFormValid}
         />
       )}

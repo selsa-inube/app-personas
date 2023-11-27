@@ -31,6 +31,8 @@ import {
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
+import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirectorsForm/types";
+import { IRelationshipWithDirectors } from "src/model/entity/user";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -256,6 +258,18 @@ const mapExpenses = (expensesData?: Record<string, string>): IExpensesEntry => {
   };
 };
 
+const mapRelationshipWithDirectors = (
+  relationshipWithDirectorsData?: IRelationshipWithDirectors
+): IRelationshipWithDirectorsEntry => {
+  return {
+    hasRelationshipWithDirectors:
+      relationshipWithDirectorsData?.hasRelationshipWithDirectors || "",
+    directorName: relationshipWithDirectorsData?.directorName || "",
+    directorRelationship:
+      relationshipWithDirectorsData?.directorRelationship || "",
+  };
+};
+
 export {
   mapBankTransfers,
   mapContactData,
@@ -272,4 +286,5 @@ export {
   mapPersonalResidence,
   mapSocioeconomicInformation,
   mapEconomicActivity,
+  mapRelationshipWithDirectors,
 };

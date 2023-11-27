@@ -25,6 +25,14 @@ const relationshipData = {
     id: "sister",
     value: "Hermana",
   },
+  SON: {
+    id: "son",
+    value: "Hijo",
+  },
+  DAUGHTER: {
+    id: "daughter",
+    value: "Hija",
+  },
 };
 
 const relationshipDMValueOf = (id: string) =>
