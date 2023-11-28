@@ -1,7 +1,7 @@
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 import { MdLogout } from "react-icons/md";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth } from "@inube/auth";
 
 import { ISection } from "@design/layout/Page/types";
 import {
@@ -30,7 +30,7 @@ function Nav(props: NavProps) {
   } = props;
   const year = new Date().getFullYear();
 
-  const { logout } = useAuth0();
+  const { logout } = useAuth();
 
   function handleLogout() {
     logout();
