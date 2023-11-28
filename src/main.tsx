@@ -1,32 +1,25 @@
-import { AuthProvider } from "@inube/auth";
+import { Auth0Provider } from "@auth0/auth0-react";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-const CLIENT_ID = import.meta.env.VITE_AUTH_CLIENT_ID;
-const CLIENT_SECRET = import.meta.env.VITE_AUTH_CLIENT_SECRET;
-const REALM = import.meta.env.VITE_AUTH_REALM;
-const PROVIDER = import.meta.env.VITE_AUTH_PROVIDER;
-const AUTH_REDIRECT_URI = import.meta.env.VITE_AUTH_REDIRECT_URI;
-const IS_PRODUCTION = import.meta.env.PROD;
-const REDIRECT_URI = IS_PRODUCTION ? window.location.origin : AUTH_REDIRECT_URI;
+const AUTH0_DOMAIN = import.meta.env.VITE_AUTH0_DOMAIN;
+const AUTH0_CLIENT_ID = import.meta.env.VITE_AUTH0_CLIENT_ID;
+const AUTH0_REDIRECT_URI = import.meta.env.VITE_AUTH0_REDIRECT_URI;
+const PROD = import.meta.env.PROD;
+const redirect_uri = PROD ? window.location.origin : AUTH0_REDIRECT_URI;
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   <React.StrictMode>
-    <div>
-      <AuthProvider
-        provider={PROVIDER}
-        clientId={CLIENT_ID}
-        clientSecret={CLIENT_SECRET}
-        realm={REALM}
-        authorizationParams={{
-          redirectUri: REDIRECT_URI,
-          scope: [],
-        }}
-      >
-        <App />
-      </AuthProvider>
-    </div>
+    <Auth0Provider
+      domain={AUTH0_DOMAIN}
+      clientId={AUTH0_CLIENT_ID}
+      authorizationParams={{
+        redirect_uri,
+      }}
+    >
+      <App />
+    </Auth0Provider>
   </React.StrictMode>
 );

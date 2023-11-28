@@ -22,7 +22,7 @@ import { CreditRoutes } from "./routes/credit";
 import { MyCreditsRoutes } from "./routes/myCredits";
 import { MySavingsRoutes } from "./routes/mySavings";
 
-import { useAuth } from "@inube/auth";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const USER_ID = "1";
 
@@ -44,7 +44,7 @@ const router = createBrowserRouter(
 
 function App() {
   useFonts(theme.typography.fonts);
-  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth();
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
