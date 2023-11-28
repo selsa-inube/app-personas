@@ -61,10 +61,10 @@ function RelationshipWithDirectorsFormUI(
             state={getFieldState(formik, "hasRelationshipWithDirectors")}
             isRequired={isRequired("hasRelationshipWithDirectors")}
             errorMessage={formik.errors.hasRelationshipWithDirectors}
-            handleBlur={formik.handleBlur}
-            handleClick={formik.handleClick}
-            handleFocus={formik.handleFocus}
-            handleChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onClick={formik.handleClick}
+            onFocus={formik.handleFocus}
+            onChange={formik.handleChange}
             isDisabled={loading}
             isFullWidth
           />
@@ -82,8 +82,8 @@ function RelationshipWithDirectorsFormUI(
                 size="compact"
                 isFullWidth
                 state={getFieldState(formik, "directorName")}
-                handleBlur={customHandleBlur}
-                handleChange={formik.handleChange}
+                onBlur={customHandleBlur}
+                onChange={formik.handleChange}
                 validMessage="El nombre del directivo es valido"
                 isRequired={isRequired("directorName")}
                 onIconClick={() => handleToggleModal()}
@@ -98,10 +98,10 @@ function RelationshipWithDirectorsFormUI(
                 state={getFieldState(formik, "directorRelationship")}
                 isRequired={isRequired("directorRelationship")}
                 errorMessage={formik.errors.directorRelationship}
-                handleBlur={formik.handleBlur}
-                handleClick={formik.handleClick}
-                handleFocus={formik.handleFocus}
-                handleChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                onClick={formik.handleClick}
+                onFocus={formik.handleFocus}
+                onChange={formik.handleChange}
                 isDisabled={loading}
                 isFullWidth
               />

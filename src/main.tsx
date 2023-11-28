@@ -3,12 +3,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-const AUTH0_DOMAIN = import.meta.env.VITE_AUTH0_DOMAIN;
-const AUTH0_CLIENT_ID = import.meta.env.VITE_AUTH0_CLIENT_ID;
-const AUTH0_REDIRECT_URI = import.meta.env.VITE_AUTH0_REDIRECT_URI;
-const PROD = import.meta.env.PROD;
-const redirect_uri = PROD ? window.location.origin : AUTH0_REDIRECT_URI;
-
 const CLIENT_ID = import.meta.env.VITE_AUTH_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_AUTH_CLIENT_SECRET;
 const REALM = import.meta.env.VITE_AUTH_REALM;

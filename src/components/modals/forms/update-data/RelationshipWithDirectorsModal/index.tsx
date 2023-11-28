@@ -87,7 +87,7 @@ function RelationshipWithDirectorsModal(
             name="searchdirector"
             id="searchdirector"
             placeholder="Digita el nombre o apellido"
-            handleChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             isFullWidth
           />
           {searchTerm !== "" && (
