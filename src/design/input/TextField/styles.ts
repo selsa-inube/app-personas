@@ -78,7 +78,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
           "; pointer-events: none; opacity: 0.5;"
         );
       }
-      if (isFocused) {
+      if (state !== "invalid" && isFocused) {
         return (
           theme.color?.text?.primary?.hover || inube.color.text.primary.hover
         );
