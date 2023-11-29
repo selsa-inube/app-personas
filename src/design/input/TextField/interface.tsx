@@ -118,7 +118,7 @@ function TextFieldUI(props: TextFieldProps) {
           <Label
             htmlFor={id}
             isDisabled={isDisabled}
-            isFocused={isFocused}
+            isFocused={isFocused && state !== "invalid"}
             isInvalid={state === "invalid"}
           >
             {label}
