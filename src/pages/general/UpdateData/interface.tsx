@@ -10,6 +10,7 @@ import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
+import { FamilyGroupForm } from "./forms/FamilyGroupForm";
 import { ExpensesForm } from "./forms/ExpensesForm";
 import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
 import { IncomesForm } from "./forms/IncomesForm";
@@ -45,6 +46,12 @@ const renderStepContent = (
           initialValues={updateData.contactData.values}
           ref={formReferences.contactData}
           onFormValid={setIsCurrentFormValid}
+        />
+      )}
+       {currentStep === updateDataSteps.familyGroup.id && (
+        <FamilyGroupForm
+          initialValues={updateData.familyGroup.values}
+          ref={formReferences.familyGroup}
         />
       )}
       {currentStep === updateDataSteps.bankTransfers.id && (

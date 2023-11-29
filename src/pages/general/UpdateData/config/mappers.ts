@@ -8,6 +8,7 @@ import {
   IResidence,
   IThird,
   IEconomicActivity,
+  IFamilyThird,
 } from "src/model/entity/user";
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
@@ -33,6 +34,8 @@ import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformatio
 import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirectorsForm/types";
 import { IRelationshipWithDirectors } from "src/model/entity/user";
+import { IFamilyGroupEntry } from "../forms/FamilyGroupForm/types";
+import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -67,6 +70,53 @@ const mapContactData = (contactInfoData: IContactData): IContactDataEntry => {
     cellPhone: contactInfoData.cellPhone,
     email: contactInfoData.email,
   };
+};
+
+const mapFamilyGroup = (
+  familyGroupData: IFamilyThird,
+  index: number
+): IFamilyGroupEntry => {
+  return {
+    firstName: familyGroupData.identification.firstName,
+    secondName: familyGroupData.identification.secondName || "",
+    firstLastName: familyGroupData.identification.firstLastName,
+    secondLastName: familyGroupData.identification.secondLastName || "",
+    type: familyGroupData.identification.type,
+    number: familyGroupData.identification.number,
+    city: familyGroupData.identification.city,
+    date: familyGroupData.identification.date || "",
+    id: String(index),
+    country: familyGroupData.contact.country,
+    address: familyGroupData.contact.address,
+    department: familyGroupData.contact.department,
+    zipCode: familyGroupData.contact.zipCode || "",
+    landlinePhone: familyGroupData.contact.landlinePhone || "",
+    cellPhone: familyGroupData.contact.cellPhone,
+    email: familyGroupData.contact.email,
+    birthDate: familyGroupData.information.birthDate || "",
+    gender: familyGroupData.information.gender,
+    relationship: relationshipDM.valueOf(
+      familyGroupData.information.relationship
+    )?.value,
+    isDependent: familyGroupData.information.isDependent,
+    educationLevel: familyGroupData?.information.educationLevel || "",
+    businessActivity: familyGroupData?.information.businessActivity || "",
+    profession: familyGroupData?.information.profession || "",
+    fullName:
+      familyGroupData.identification.firstName +
+      " " +
+      (familyGroupData.identification.secondName || "") +
+      " " +
+      familyGroupData.identification.firstLastName +
+      " " +
+      (familyGroupData.identification.secondLastName || ""),
+  };
+};
+
+const mapFamilyGroups = (familyGroups: IFamilyThird[]): IFamilyGroupEntry[] => {
+  return familyGroups.map((familyGroup, index) =>
+    mapFamilyGroup(familyGroup, index)
+  );
 };
 
 const mapBankTransfers = (
@@ -273,6 +323,8 @@ const mapRelationshipWithDirectors = (
 export {
   mapBankTransfers,
   mapContactData,
+  mapFamilyGroup,
+  mapFamilyGroups,
   mapExpenses,
   mapFinancialOperations,
   mapIncomes,

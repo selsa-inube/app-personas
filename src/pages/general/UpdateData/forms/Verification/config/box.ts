@@ -1,6 +1,7 @@
 const updateDataBoxTitles: Record<string, string> = {
   personalInformation: "Información personal",
   contactData: "Datos de contacto",
+  familyGroup: "Grupo familiar",
   bankTransfers: "Transferencias bancarias",
   personalAssets: "Activos personales",
   personalDebts: "Deudas personales",

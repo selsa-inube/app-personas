@@ -78,11 +78,11 @@ const usersMock: IThird[] = [
         information: {
           birthDate: "24/Oct/1989",
           gender: "female",
-          relationship: "Esposa",
+          relationship: "wife",
           isDependent: false,
-          educationLevel: "Profesional",
-          businessActivity: "Servicios",
-          profession: "Abogada",
+          educationLevel: "university",
+          businessActivity: "services",
+          profession: "lawyer",
         },
       },
       {
@@ -105,7 +105,7 @@ const usersMock: IThird[] = [
         information: {
           birthDate: "10/10/1966",
           gender: "female",
-          relationship: "Madre",
+          relationship: "mother",
         },
       },
     ],
