@@ -5,6 +5,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { getFieldStateUpdateData } from "src/utils/forms";
 
 interface BankTransfersFormUIProps {
   formik: FormikValues;
@@ -14,12 +15,6 @@ interface BankTransfersFormUIProps {
 
 function BankTransfersFormUI(props: BankTransfersFormUIProps) {
   const { formik, loading, customHandleBlur } = props;
-
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
-    return "valid";
-  }
 
   const isMobile = useMediaQuery("(max-width: 750px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -42,7 +37,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           options={getDomainById("bank")}
           onBlur={customHandleBlur}
           isDisabled={loading}
-          state={stateValue("bankEntity")}
+          state={getFieldStateUpdateData(formik, "bankEntity")}
           onChange={formik.handleChange}
         />
         <Select
@@ -55,7 +50,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           options={getDomainById("accountType")}
           onBlur={customHandleBlur}
           isDisabled={loading}
-          state={stateValue("accountType")}
+          state={getFieldStateUpdateData(formik, "accountType")}
           onChange={formik.handleChange}
         />
 
@@ -70,7 +65,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           isDisabled={loading}
           size="compact"
           isFullWidth
-          state={stateValue("accountNumber")}
+          state={getFieldStateUpdateData(formik, "accountNumber")}
           onBlur={customHandleBlur}
           onChange={formik.handleChange}
           validMessage="El numero de cuenta es válido"

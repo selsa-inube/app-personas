@@ -6,7 +6,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
-import { getFieldState } from "src/utils/forms";
+import { getFieldStateUpdateData } from "src/utils/forms";
 
 interface ExpensesFormUIProps {
   formik: FormikValues;
@@ -51,7 +51,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getFieldState(formik, "personalExpenses")}
+            state={getFieldStateUpdateData(formik, "personalExpenses")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor de los gastos personales es válido"
@@ -67,7 +67,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getFieldState(formik, "familyExpenses")}
+            state={getFieldStateUpdateData(formik, "familyExpenses")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor de los gastos familiares es válido"
@@ -83,7 +83,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getFieldState(formik, "credits")}
+            state={getFieldStateUpdateData(formik, "credits")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor de los créditos es válido"
@@ -99,7 +99,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getFieldState(formik, "creditCards")}
+            state={getFieldStateUpdateData(formik, "creditCards")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor de las tarjetas de crédito es válido"
@@ -145,7 +145,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getFieldState(formik, "others")}
+            state={getFieldStateUpdateData(formik, "others")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor de otros gastos es válido"
