@@ -22,7 +22,6 @@ interface IFamilyGroupEntry {
   educationLevel?: string;
   businessActivity?: string;
   profession?: string;
-  fullName?: string;
 }
 
 interface IFamilyGroupEntries extends IFamilyGroupEntry {

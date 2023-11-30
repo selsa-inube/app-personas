@@ -8,18 +8,19 @@ import {
   familyGroupTableBreakpoints,
   familyGroupTableTitles,
 } from "./config/table";
+import { mapFamilyGroupForTable } from "./config/mapper";
 
 interface FamilyGroupFormUIProps {
   formik: FormikValues;
   showFamilyMemberViewModal: boolean;
-  handleToggleModal: () => void;
-  familygroupTableActions: IAction[];
+  handleToggleViewModal: () => void;
+  familyGroupTableActions: IAction[];
 }
 
 function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
   const {
     formik,
-    familygroupTableActions,
+    familyGroupTableActions,
   } = props;
   return (
     <>
@@ -34,8 +35,8 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           id="modals"
           titles={familyGroupTableTitles}
           breakpoints={familyGroupTableBreakpoints}
-          actions={familygroupTableActions}
-          entries={formik.values.entries}
+          actions={familyGroupTableActions}
+          entries={mapFamilyGroupForTable(formik.values.entries)}
           pageLength={formik.values.entries.length}
           hideMobileResume
         />

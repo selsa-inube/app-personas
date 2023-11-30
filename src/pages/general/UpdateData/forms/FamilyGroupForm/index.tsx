@@ -18,7 +18,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
 ) {
   const { initialValues, onSubmit } = props;
 
-  const [showFamilyMemberViewModal, setShowFamilyMemberViewModal] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -28,11 +28,11 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
 
   useImperativeHandle(ref, () => formik);
 
-  const handleToggleModal = () => {
-    setShowFamilyMemberViewModal(!showFamilyMemberViewModal);
+  const handleToggleViewModal = () => {
+    setShowViewModal(!showViewModal);
   };
 
-  const familygroupTableActions: IAction[] = [
+  const familyGroupTableActions: IAction[] = [
     {
       id: "1",
       actionName: "Ver",
@@ -72,9 +72,9 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   return (
     <FamilyGroupFormUI
       formik={formik}
-      showFamilyMemberViewModal={showFamilyMemberViewModal}
-      handleToggleModal={handleToggleModal}
-      familygroupTableActions={familygroupTableActions}
+      showFamilyMemberViewModal={showViewModal}
+      handleToggleViewModal={handleToggleViewModal}
+      familyGroupTableActions={familyGroupTableActions}
     />
   );
 });

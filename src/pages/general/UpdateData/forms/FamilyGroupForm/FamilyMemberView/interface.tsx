@@ -7,11 +7,11 @@ interface FamilyMemberViewUIProps {
   showModal: boolean;
   formik: FormikValues;
   onCloseModal: () => void;
-  handleModalView: () => void;
+  onShowModal: () => void;
 }
 
 function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
-  const { showModal, formik, onCloseModal, handleModalView } = props;
+  const { showModal, formik, onCloseModal, onShowModal } = props;
 
   return (
     <>
@@ -21,13 +21,11 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
         cursorHover={true}
         size="16px"
         spacing="none"
-        onClick={handleModalView}
+        onClick={onShowModal}
       />
 
       {showModal && (
         <FamilyMemberViewModal
-          title="Ver familiar"
-          description="Detalles de la información."
           portalId="modals"
           formik={formik}
           onCloseModal={onCloseModal}

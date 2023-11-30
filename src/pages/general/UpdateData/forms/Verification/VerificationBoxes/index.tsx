@@ -42,6 +42,7 @@ import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationFo
 import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { IFamilyGroupEntries } from "../../FamilyGroupForm/types";
+import { mapFamilyGroupForTable } from "../../FamilyGroupForm/config/mapper";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -107,26 +108,29 @@ const renderContacDataVerification = (
 const renderFamilyGroupVerification = (
   values: IFamilyGroupEntries,
   isTablet: boolean
-) => (
-  <Stack direction="column" gap="s250" width="100%">
-    <Grid
-      templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-      gap="s100"
-      width="100%"
-    >
-      {values.entries.map((entry) => {
-        return (
-          <React.Fragment key={entry.id}>
-            <BoxAttribute
-              label={`${entry.fullName} :` || ""}
-              value={entry.relationship}
-            />
-          </React.Fragment>
-        );
-      })}
-    </Grid>
-  </Stack>
-);
+) => {
+  const transformedEntries = mapFamilyGroupForTable(values.entries);
+  return (
+    <Stack direction="column" gap="s250" width="100%">
+      <Grid
+        templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+        gap="s100"
+        width="100%"
+      >
+        {transformedEntries.map((entry) => {
+          return (
+            <React.Fragment key={entry.id}>
+              <BoxAttribute
+                label={`${entry.fullName} :` || ""}
+                value={entry.relationship}
+              />
+            </React.Fragment>
+          );
+        })}
+      </Grid>
+    </Stack>
+  );
+};
 
 const renderBankTransfersVerification = (
   values: IBankTransfersEntry,

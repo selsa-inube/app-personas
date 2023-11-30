@@ -41,7 +41,7 @@ function FamilyMemberView(props: FamilyMemberViewProps) {
       showModal={showModal}
       formik={formik}
       onCloseModal={handleToggleModal}
-      handleModalView={handleModalView}
+      onShowModal={handleModalView}
     />
   );
 }

@@ -95,21 +95,11 @@ const mapFamilyGroup = (
     email: familyGroupData.contact.email,
     birthDate: familyGroupData.information.birthDate || "",
     gender: familyGroupData.information.gender,
-    relationship: relationshipDM.valueOf(
-      familyGroupData.information.relationship
-    )?.value,
+    relationship: familyGroupData.information.relationship,
     isDependent: familyGroupData.information.isDependent,
     educationLevel: familyGroupData?.information.educationLevel || "",
     businessActivity: familyGroupData?.information.businessActivity || "",
     profession: familyGroupData?.information.profession || "",
-    fullName:
-      familyGroupData.identification.firstName +
-      " " +
-      (familyGroupData.identification.secondName || "") +
-      " " +
-      familyGroupData.identification.firstLastName +
-      " " +
-      (familyGroupData.identification.secondLastName || ""),
   };
 };
 

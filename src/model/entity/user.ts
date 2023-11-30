@@ -42,7 +42,6 @@ interface IFamilyThird {
     educationLevel?: string;
     businessActivity?: string;
     profession?: string;
-    fullName?: string;
   };
 }
 
