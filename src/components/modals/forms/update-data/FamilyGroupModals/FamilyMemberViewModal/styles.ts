@@ -24,7 +24,14 @@ interface IStyledScrollbar {
 
 const StyledScrollbar = styled.div<IStyledScrollbar>`
   height: ${({ smallScreen }) => (smallScreen ? "446px" : "auto")};
-  overflow: auto;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: ${({ smallScreen }) =>
+    smallScreen ? inube.spacing.s150 : inube.spacing.s100};
+  padding: ${({ smallScreen }) =>
+    smallScreen ? inube.spacing.s050 : inube.spacing.s0};
 
   ::-webkit-scrollbar {
     width: 4px;

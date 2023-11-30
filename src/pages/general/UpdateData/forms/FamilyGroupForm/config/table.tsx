@@ -30,10 +30,10 @@ const familyGroupTableBreakpoints = [
   { breakpoint: "(min-width: 1229px)", totalColumns: 5 },
   { breakpoint: "(max-width: 1228px)", totalColumns: 4 },
   { breakpoint: "(max-width: 1020px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 900px)", totalColumns: 4 },
-  { breakpoint: "(max-width: 860px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 670px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 500px)", totalColumns: 1 },
+  { breakpoint: "(max-width: 899px)", totalColumns: 4 },
+  { breakpoint: "(max-width: 760px)", totalColumns: 3 },
+  { breakpoint: "(max-width: 660px)", totalColumns: 2 },
+  { breakpoint: "(max-width: 490px)", totalColumns: 1 },
 ];
 
 export { familyGroupTableBreakpoints, familyGroupTableTitles };

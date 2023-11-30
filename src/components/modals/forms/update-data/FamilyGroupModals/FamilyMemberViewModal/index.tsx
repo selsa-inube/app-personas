@@ -18,8 +18,7 @@ import { relationshipDM } from "src/model/domains/personalResidence/relationship
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { activeDM } from "src/model/domains/general/activedm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
-import { economicActivityApproachDM } from "src/model/domains/economicActivity/economicactivityapproachdm";
-import { professionDM } from "src/model/domains/personalInformation/professiondm";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 
 interface FamilyMemberViewModalProps {
   title: string;
@@ -51,10 +50,6 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
       );
     }
   
-    const selectedRelationship = relationshipDM.options.find(
-      (option) => option.value === formik.values.relationship
-    );
-  
     return createPortal(
       <Blanket>
         <StyledModal smallScreen={isMobile}>
@@ -76,11 +71,10 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               {description}
             </Text>
           </Stack>
-          <Divider dashed={true} />
-          <Stack direction="column" width="100%" gap="s300">
             <StyledScrollbar smallScreen={isMobile}>
+          <Divider dashed={true} />
               <Fieldset title="Identificación">
-                <Grid gap="s250" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+                <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
                   <Select
                     label="Tipo de documento"
                     placeholder=""
@@ -185,7 +179,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                     size="compact"
                     options={relationshipDM.options}
                     isFullWidth
-                    value={selectedRelationship ? selectedRelationship.id : ""}
+                    value={formik.values.relationship}
                     readOnly
                   />
                   <Select
@@ -216,7 +210,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                     name="profession"
                     id="profession"
                     size="compact"
-                    options={professionDM.options}
+                    options={getDomainById("profession")}
                     isFullWidth
                     value={formik.values.profession || ""}
                     readOnly
@@ -248,7 +242,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                     placeholder=""
                     name="businessActivity"
                     id="businessActivity"
-                    options={economicActivityApproachDM.options}
+                    options={getDomainById("economicSector")}
                     size="compact"
                     isFullWidth
                     value={formik.values.businessActivity || ""}
@@ -257,7 +251,6 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 </Grid>
               </Fieldset>
             </StyledScrollbar>
-          </Stack>
           <Stack gap="s150">
             <Button appearance="gray" onClick={onDelete}>
               Eliminar
