@@ -1,7 +1,6 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
-import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
@@ -32,7 +31,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
     <form>
       <Grid
         templateColumns={isMobile ? "1fr" : "1fr 1fr"}
-        gap={isMobile ? "s150" : `${inube.spacing.s200} ${inube.spacing.s300}`}
+        gap={isMobile ? "s150" : "s300"}
       >
         <TextField
           label="Primer nombre"
