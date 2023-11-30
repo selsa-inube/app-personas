@@ -113,6 +113,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
+  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
     <>
@@ -130,7 +131,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        gap="s600"
+        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap={isMobile ? "s300" : "s500"}>

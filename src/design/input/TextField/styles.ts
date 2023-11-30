@@ -180,6 +180,14 @@ const StyledInput = styled.input<IStyledInput>`
     -webkit-background-clip: text;
     background-clip: text;
   }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  -moz-appearance: textfield;
 `;
 
 interface IStyledMessageContainer {
