@@ -44,7 +44,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.country}
             isDisabled={loading}
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             isFullWidth
             state={getFieldState(formik, "country")}
             onBlur={customHandleBlur}
@@ -62,7 +62,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.stateOrDepartment}
             isDisabled={loading}
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             isFullWidth
             state={getFieldState(formik, "stateOrDepartment")}
             onBlur={customHandleBlur}
@@ -80,7 +80,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.city}
             isDisabled={loading}
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             isFullWidth
             state={getFieldState(formik, "city")}
             onBlur={customHandleBlur}
@@ -98,7 +98,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.address}
             isDisabled={loading}
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             isFullWidth
             state={getFieldState(formik, "address")}
             onBlur={customHandleBlur}
@@ -117,7 +117,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.postalCode}
             isDisabled={loading}
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             isFullWidth
             state={getFieldState(formik, "postalCode")}
             onBlur={customHandleBlur}
@@ -136,7 +136,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.landlinePhone}
             isDisabled={loading}
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             isFullWidth
             state={getFieldState(formik, "landlinePhone")}
             onBlur={customHandleBlur}
@@ -154,7 +154,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.cellPhone}
             isDisabled={loading}
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             isFullWidth
             state={getFieldState(formik, "cellPhone")}
             onBlur={customHandleBlur}
@@ -172,7 +172,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.email}
             isDisabled={loading}
-            size={isMobile ? "compact" : "wide"}
+            size="compact"
             isFullWidth
             state={getFieldState(formik, "email")}
             onBlur={customHandleBlur}
