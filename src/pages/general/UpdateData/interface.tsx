@@ -10,6 +10,7 @@ import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
+import { EconomicActivityForm } from "./forms/EconomicActivityForm";
 import { ExpensesForm } from "./forms/ExpensesForm";
 import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
 import { IncomesForm } from "./forms/IncomesForm";
@@ -18,9 +19,8 @@ import { PersonalDebtsForm } from "./forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "./forms/PersonalInformationForm";
 import { PersonalReferencesForm } from "./forms/PersonalReferencesForm";
 import { PersonalResidenceForm } from "./forms/PersonalResidenceForm";
-import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
-import { EconomicActivityForm } from "./forms/EconomicActivityForm";
 import { RelationshipWithDirectorsForm } from "./forms/RelationshipWithDirectorsForm";
+import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
 import { UpdateDataVerification } from "./forms/Verification";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
 
@@ -159,9 +159,13 @@ function UpdateDataUI(props: UpdateDataUIProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
+  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
-    <Stack direction="column" gap="s600">
+    <Stack
+      direction="column"
+      gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+    >
       <Stack direction="column" gap="s300">
         <Breadcrumbs crumbs={crumbsUpdateData} />
         <Title
