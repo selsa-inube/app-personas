@@ -9,7 +9,7 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { activeDM } from "src/model/domains/general/activedm";
-import { getFieldStateUpdateData } from "src/utils/forms";
+import { getNoValidFieldState } from "src/utils/forms";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikValues;
@@ -46,7 +46,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             onBlur={customHandleBlur}
             errorMessage={formik.errors.hasForeignCurrencyTransactions}
             isDisabled={loading}
-            state={getFieldStateUpdateData(
+            state={getNoValidFieldState(
               formik,
               "hasForeignCurrencyTransactions"
             )}
@@ -65,10 +65,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             onBlur={customHandleBlur}
             errorMessage={formik.errors.hasForeignCurrencyAccounts}
             isDisabled={loading}
-            state={getFieldStateUpdateData(
-              formik,
-              "hasForeignCurrencyAccounts"
-            )}
+            state={getNoValidFieldState(formik, "hasForeignCurrencyAccounts")}
             onChange={formik.handleChange}
             isRequired
           />
@@ -147,7 +144,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 isDisabled={loading}
                 size={isTablet ? "compact" : "wide"}
                 isFullWidth
-                state={getFieldStateUpdateData(formik, "accountNumber")}
+                state={getNoValidFieldState(formik, "accountNumber")}
                 onBlur={customHandleBlur}
                 onChange={formik.handleChange}
                 validMessage="El numero de cuenta es válido"

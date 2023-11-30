@@ -12,7 +12,7 @@ const getFieldState = (formik: FormikValues, fieldName: string) => {
   return "valid";
 };
 
-const getFieldStateUpdateData = (formik: FormikValues, fieldName: string) => {
+const getNoValidFieldState = (formik: FormikValues, fieldName: string) => {
   if (!formik.touched[fieldName]) return "pending";
   if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
 };
@@ -144,6 +144,6 @@ export {
   generateBasicForm,
   generateDynamicForm,
   generateFormFields,
-  getFieldStateUpdateData,
+  getNoValidFieldState,
   getFieldState,
 };
