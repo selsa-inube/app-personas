@@ -42,7 +42,7 @@ function RelationshipWithDirectorsFormUI(
     return !fieldDescription.nullable && !fieldDescription.optional;
   };
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
 
   return (
     <>

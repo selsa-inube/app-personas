@@ -28,7 +28,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
       : "";
   };
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
