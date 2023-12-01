@@ -89,6 +89,7 @@ function SelectUI(props: SelectUIProps) {
             isDisabled={isDisabled}
             isFocused={isFocused}
             isInvalid={state === "invalid"}
+            size="medium"
           >
             {label}
           </Label>
