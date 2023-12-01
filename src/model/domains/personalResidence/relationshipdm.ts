@@ -33,6 +33,14 @@ const relationshipData = {
     id: "daughter",
     value: "Hija",
   },
+  WIFE: {
+    id: "wife",
+    value: "Esposa",
+  },
+  HUSBAND: {
+    id: "husband",
+    value: "Esposo",
+  },
 };
 
 const relationshipDMValueOf = (id: string) =>

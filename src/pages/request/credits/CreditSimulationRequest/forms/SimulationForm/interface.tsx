@@ -72,7 +72,7 @@ function SimulationFormUI(props: SimulationFormUIProps) {
   return (
     <form>
       <Stack direction="column" gap="s400">
-        <Fieldset title="Caracteristicas">
+        <Fieldset title="Caracteristicas" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
           <Stack direction="column" gap="s300">
             <Grid gap="s300" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <Select
@@ -154,7 +154,7 @@ function SimulationFormUI(props: SimulationFormUIProps) {
           </Stack>
         </Fieldset>
 
-        <Fieldset title="Simulador de crédito">
+        <Fieldset title="Simulador de crédito" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
           <Stack direction="column" gap="s250">
             <Stack direction="column" gap="s200">
               <Stack
