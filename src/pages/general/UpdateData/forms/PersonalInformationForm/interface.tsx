@@ -25,7 +25,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
     return "valid";
   };
 
-  const isMobile = useMediaQuery("(max-width: 700px)");
+  const isMobile = useMediaQuery("(max-width: 610px)");
 
   return (
     <form>
