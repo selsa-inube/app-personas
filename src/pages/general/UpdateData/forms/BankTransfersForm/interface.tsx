@@ -16,7 +16,7 @@ interface BankTransfersFormUIProps {
 function BankTransfersFormUI(props: BankTransfersFormUIProps) {
   const { formik, loading, customHandleBlur } = props;
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (

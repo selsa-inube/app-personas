@@ -17,7 +17,7 @@ interface PersonalResidenceFormUIProps {
 function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
   const { formik, loading, customHandleBlur } = props;
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
 
   return (
     <form>
