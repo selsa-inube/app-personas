@@ -63,7 +63,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
         </Stack>
         <StyledScrollbar smallScreen={isMobile}>
           <Divider dashed/>
-          <Fieldset title="Identificación">
+          <Fieldset title="Identificación" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
             <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <Select
                 label="Tipo de documento"
@@ -133,7 +133,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               />
             </Grid>
           </Fieldset>
-          <Fieldset title="Contacto">
+          <Fieldset title="Contacto" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
             <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <TextField
                 label="Celular"
@@ -159,7 +159,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               />
             </Grid>
           </Fieldset>
-          <Fieldset title="Información">
+          <Fieldset title="Información" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
             <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <Select
                 label="Parentesco"

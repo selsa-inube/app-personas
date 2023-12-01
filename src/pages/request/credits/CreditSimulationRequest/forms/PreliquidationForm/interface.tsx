@@ -19,7 +19,7 @@ function PreliquidationFormUI(props: PreliquidationFormUIProps) {
 
   return (
     <form>
-      <Fieldset title="Detalles de amortización">
+      <Fieldset title="Detalles de amortización" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
         <Stack direction="column" gap={isMobile ? "s200" : "s250"}>
           <TextField
             label="Monto"
