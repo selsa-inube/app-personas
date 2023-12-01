@@ -20,7 +20,7 @@ interface PersonalInformationFormUIProps {
 function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
   const { formik, loading, customHandleBlur } = props;
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
 
   return (
     <form>

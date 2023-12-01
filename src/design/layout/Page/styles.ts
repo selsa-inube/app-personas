@@ -9,15 +9,11 @@ const StyledPage = styled.div`
 `;
 
 const StyledMain = styled.main`
-  padding: ${inube.spacing.s400} ${inube.spacing.s800} ${inube.spacing.s800};
+  padding: ${inube.spacing.s400} ${inube.spacing.s800};
   overflow-y: scroll;
 
   @media screen and (max-width: 560px) {
-    padding: ${inube.spacing.s200} ${inube.spacing.s400} ${inube.spacing.s400};
-  }
-
-  @media screen and (max-width: 450px) {
-    padding: ${inube.spacing.s200} ${inube.spacing.s200} ${inube.spacing.s400};
+    padding: ${inube.spacing.s300};
   }
 `;
 
