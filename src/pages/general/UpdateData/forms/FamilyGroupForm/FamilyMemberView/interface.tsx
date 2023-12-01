@@ -18,10 +18,10 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
       <Icon
         appearance="dark"
         icon={<MdOpenInNew />}
-        cursorHover={true}
         size="16px"
         spacing="none"
         onClick={onShowModal}
+        cursorHover
       />
 
       {showModal && (

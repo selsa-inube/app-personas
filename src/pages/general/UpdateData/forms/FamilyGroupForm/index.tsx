@@ -46,9 +46,9 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
         <Icon
           appearance="dark"
           icon={<MdOutlineModeEdit />}
-          cursorHover={true}
           size="16px"
           spacing="none"
+          cursorHover
         />
       ),
       mobilePriority: true,
@@ -60,9 +60,9 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
         <Icon
           appearance="dark"
           icon={<MdDeleteOutline />}
-          cursorHover={true}
           size="16px"
           spacing="none"
+          cursorHover
         />
       ),
       mobilePriority: true,

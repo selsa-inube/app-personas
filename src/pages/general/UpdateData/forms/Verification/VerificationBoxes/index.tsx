@@ -42,7 +42,7 @@ import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationFo
 import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { IFamilyGroupEntries } from "../../FamilyGroupForm/types";
-import { mapFamilyGroupForTable } from "../../FamilyGroupForm/config/mapper";
+import { mapFamilyGroupTable } from "../../FamilyGroupForm/config/mapper";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -109,7 +109,7 @@ const renderFamilyGroupVerification = (
   values: IFamilyGroupEntries,
   isTablet: boolean
 ) => {
-  const transformedEntries = mapFamilyGroupForTable(values.entries);
+  const transformedEntries = mapFamilyGroupTable(values.entries);
   return (
     <Stack direction="column" gap="s250" width="100%">
       <Grid

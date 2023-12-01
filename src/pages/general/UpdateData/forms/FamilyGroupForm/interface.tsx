@@ -8,7 +8,7 @@ import {
   familyGroupTableBreakpoints,
   familyGroupTableTitles,
 } from "./config/table";
-import { mapFamilyGroupForTable } from "./config/mapper";
+import { mapFamilyGroupTable } from "./config/mapper";
 
 interface FamilyGroupFormUIProps {
   formik: FormikValues;
@@ -36,7 +36,7 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           titles={familyGroupTableTitles}
           breakpoints={familyGroupTableBreakpoints}
           actions={familyGroupTableActions}
-          entries={mapFamilyGroupForTable(formik.values.entries)}
+          entries={mapFamilyGroupTable(formik.values.entries)}
           pageLength={formik.values.entries.length}
           hideMobileResume
         />

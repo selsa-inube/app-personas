@@ -2,7 +2,7 @@ import { IEntry } from "@design/data/Table/types";
 import { IFamilyGroupEntry } from "../types";
 import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 
-const mapFamilyGroupForTable = (entries: IFamilyGroupEntry[]): IEntry[] => {
+const mapFamilyGroupTable = (entries: IFamilyGroupEntry[]): IEntry[] => {
   return entries.map((entry) => ({
     ...entry,
     id: entry.id || "",
@@ -14,4 +14,4 @@ const mapFamilyGroupForTable = (entries: IFamilyGroupEntry[]): IEntry[] => {
   }));
 };
 
-export { mapFamilyGroupForTable };
+export { mapFamilyGroupTable };
