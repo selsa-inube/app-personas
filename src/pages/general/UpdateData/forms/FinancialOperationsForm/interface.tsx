@@ -9,6 +9,7 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { activeDM } from "src/model/domains/general/activedm";
+import { getFieldState } from "src/utils/forms";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikValues;
@@ -18,12 +19,6 @@ interface FinancialOperationsFormUIProps {
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
   const { formik, loading, customHandleBlur } = props;
-
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
-    return "valid";
-  }
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
 
@@ -51,7 +46,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             onBlur={customHandleBlur}
             errorMessage={formik.errors.hasForeignCurrencyTransactions}
             isDisabled={loading}
-            state={stateValue("hasForeignCurrencyTransactions")}
+            state={getFieldState(formik, "hasForeignCurrencyTransactions")}
             onChange={formik.handleChange}
             isRequired
           />
@@ -67,7 +62,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             onBlur={customHandleBlur}
             errorMessage={formik.errors.hasForeignCurrencyAccounts}
             isDisabled={loading}
-            state={stateValue("hasForeignCurrencyAccounts")}
+            state={getFieldState(formik, "hasForeignCurrencyAccounts")}
             onChange={formik.handleChange}
             isRequired
           />
@@ -146,7 +141,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 isDisabled={loading}
                 size={isTablet ? "compact" : "wide"}
                 isFullWidth
-                state={stateValue("accountNumber")}
+                state={getFieldState(formik, "accountNumber")}
                 onBlur={customHandleBlur}
                 onChange={formik.handleChange}
                 validMessage="El numero de cuenta es válido"

@@ -7,6 +7,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
 import { vulnerablePopulationTypeDM } from "src/model/domains/socioeconomicInformation/vulnerablePopulationdm";
+import { getFieldState } from "src/utils/forms";
 
 interface SocioeconomicInformationFormUIProps {
   formik: FormikValues;
@@ -18,12 +19,6 @@ function SocioeconomicInformationFormUI(
   props: SocioeconomicInformationFormUIProps
 ) {
   const { formik, loading, customHandleBlur } = props;
-
-  const stateValue = (fieldName: string) => {
-    if (!formik.touched[fieldName]) return "pending";
-    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
-    return "valid";
-  };
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -78,7 +73,7 @@ function SocioeconomicInformationFormUI(
           errorMessage={formik.errors.dependants}
           type="number"
           iconAfter={<MdOutlineModeEdit size={18} />}
-          state={stateValue("dependants")}
+          state={getFieldState(formik, "dependants")}
           isDisabled={loading}
           size="compact"
           onBlur={customHandleBlur}

@@ -36,7 +36,7 @@ const usersMock: IThird[] = [
         country: "Colombia",
         address: "CR 1 No 66 42 AP 202 BL 7",
         department: "Cundinamarca",
-        city: "Bogotá D.C",
+        city: "Bogotá",
         zipCode: "111511",
         landlinePhone: "37670777",
         cellPhone: "3205510052",
