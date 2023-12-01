@@ -94,7 +94,7 @@ const renderContacDataVerification = (
       label="Estado / Departamento:"
       value={values.stateOrDepartment}
     />
-    <BoxAttribute label="Ciudad:" value={cityDM.valueOf(values.city)?.value} />
+    <BoxAttribute label="Ciudad:" value={values.city} />
     <BoxAttribute label="Dirección:" value={values.address} />
     <BoxAttribute label="Código postal:" value={values.postalCode} />
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
