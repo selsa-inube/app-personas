@@ -21,7 +21,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
     return "valid";
   }
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (

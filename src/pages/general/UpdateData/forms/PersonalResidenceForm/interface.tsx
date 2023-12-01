@@ -22,7 +22,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
     return "valid";
   }
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
 
   return (
     <form>
