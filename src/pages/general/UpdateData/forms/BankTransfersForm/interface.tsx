@@ -23,7 +23,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
     <form>
       <Grid
         templateColumns={
-          isMobile ? "1fr" : isTablet ? "1fr" : "1fr 1fr 1fr"
+          isTablet ? "1fr" : "1fr 1fr 1fr"
         }
         gap={isMobile ? "s150" : "s300"}
       >
