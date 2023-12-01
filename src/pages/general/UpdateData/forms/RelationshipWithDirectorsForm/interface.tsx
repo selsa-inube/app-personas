@@ -6,7 +6,7 @@ import { IDirector } from "@mocks/directors/directors.mocks";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { MdSearch } from "react-icons/md";
-import { getNoValidFieldState } from "src/utils/forms";
+import { getModifiedFieldState } from "src/utils/forms";
 import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 import { RelationshipWithDirectorsModal } from "@components/modals/forms/update-data/RelationshipWithDirectorsModal";
@@ -58,7 +58,10 @@ function RelationshipWithDirectorsFormUI(
             value={formik.values.hasRelationshipWithDirectors}
             size="compact"
             options={activeDM.options}
-            state={getNoValidFieldState(formik, "hasRelationshipWithDirectors")}
+            state={getModifiedFieldState(
+              formik,
+              "hasRelationshipWithDirectors"
+            )}
             isRequired={isRequired("hasRelationshipWithDirectors")}
             errorMessage={formik.errors.hasRelationshipWithDirectors}
             onBlur={formik.handleBlur}
@@ -81,7 +84,7 @@ function RelationshipWithDirectorsFormUI(
                 iconAfter={<MdSearch size={18} cursor={"pointer"} />}
                 size="compact"
                 isFullWidth
-                state={getNoValidFieldState(formik, "directorName")}
+                state={getModifiedFieldState(formik, "directorName")}
                 onBlur={customHandleBlur}
                 onChange={formik.handleChange}
                 validMessage="El nombre del directivo es valido"
@@ -95,7 +98,7 @@ function RelationshipWithDirectorsFormUI(
                 value={formik.values.directorRelationship}
                 size="compact"
                 options={relationshipDM.options}
-                state={getNoValidFieldState(formik, "directorRelationship")}
+                state={getModifiedFieldState(formik, "directorRelationship")}
                 isRequired={isRequired("directorRelationship")}
                 errorMessage={formik.errors.directorRelationship}
                 onBlur={formik.handleBlur}

@@ -6,7 +6,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
-import { getNoValidFieldState } from "src/utils/forms";
+import { getModifiedFieldState } from "src/utils/forms";
 
 interface IncomesFormUIProps {
   formik: FormikValues;
@@ -51,7 +51,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getNoValidFieldState(formik, "basicSalary")}
+            state={getModifiedFieldState(formik, "basicSalary")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor del sueldo básico es válido"
@@ -67,7 +67,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getNoValidFieldState(formik, "bonds")}
+            state={getModifiedFieldState(formik, "bonds")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor de los bonos es válido"
@@ -83,7 +83,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getNoValidFieldState(formik, "commissions")}
+            state={getModifiedFieldState(formik, "commissions")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor de las comisiones es válido"
@@ -99,7 +99,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getNoValidFieldState(formik, "overtime")}
+            state={getModifiedFieldState(formik, "overtime")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor de las horas extras es válido"
@@ -115,7 +115,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getNoValidFieldState(formik, "transportationAssistance")}
+            state={getModifiedFieldState(formik, "transportationAssistance")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor del auxilio de transporte es válido"
@@ -131,7 +131,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getNoValidFieldState(formik, "foodAssistance")}
+            state={getModifiedFieldState(formik, "foodAssistance")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor del auxilio de alimentación es válido"
@@ -147,7 +147,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getNoValidFieldState(formik, "others")}
+            state={getModifiedFieldState(formik, "others")}
             onBlur={customHandleBlur}
             onChange={handleChangeWithCurrency}
             validMessage="El valor de otros ingresos es válido"
