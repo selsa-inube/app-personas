@@ -11,14 +11,18 @@ const StyledTableContainer = styled.div`
   width: 100%;
 `;
 
-const StyledTable = styled.table`
+interface IStyledTable {
+  colsSameWidth?: boolean;
+}
+
+const StyledTable = styled.table<IStyledTable>`
   outline: solid 1px
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
   box-sizing: border-box;
   border-collapse: collapse;
-  table-layout: auto;
+  table-layout: ${({ colsSameWidth }) => (colsSameWidth ? "fixed" : "auto")};
   width: 100%;
 `;
 
@@ -52,8 +56,15 @@ const StyledTr = styled.tr<IStyledTr>`
   height: 40px;
 `;
 
-const StyledThTitle = styled.th`
+interface IStyledThTitle {
+  countColumns: number;
+  colsSameWidth?: boolean;
+}
+
+const StyledThTitle = styled.th<IStyledThTitle>`
   padding: 12px 16px;
+  min-width: ${({ countColumns, colsSameWidth }) =>
+    colsSameWidth ? `${100 / countColumns}%` : "auto"};
 `;
 
 const StyledThAction = styled.th`

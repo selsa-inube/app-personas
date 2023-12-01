@@ -112,6 +112,7 @@ interface TableUIProps {
   actionsTitle: string;
   hideMobileResume?: boolean;
   mobileResumeTitle?: string;
+  colsSameWidth?: boolean;
 }
 
 const TableUI = (props: TableUIProps) => {
@@ -126,6 +127,7 @@ const TableUI = (props: TableUIProps) => {
     actionsTitle,
     hideMobileResume,
     mobileResumeTitle,
+    colsSameWidth,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 850px)");
@@ -143,13 +145,15 @@ const TableUI = (props: TableUIProps) => {
   );
 
   return (
-    <StyledTable>
+    <StyledTable colsSameWidth={colsSameWidth}>
       <StyledThead>
         <StyledTr>
           {TitleColumns.map((title) => (
             <StyledThTitle
               key={`title-${title.id}`}
               aria-label={title.titleName}
+              countColumns={TitleColumns.length}
+              colsSameWidth={colsSameWidth}
             >
               <Text type="label" size="medium" appearance="dark">
                 {title.titleName}

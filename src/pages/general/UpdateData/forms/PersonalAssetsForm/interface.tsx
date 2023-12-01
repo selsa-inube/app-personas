@@ -52,6 +52,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
           entries={mapPersonalAssets(formik.values.entries)}
           pageLength={formik.values.entries.length}
           hideMobileResume
+          colsSameWidth
         />
         {showAddAssetModal && (
           <AssetModal
