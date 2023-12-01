@@ -31,6 +31,10 @@ const economicSectorData = [
     id: "education",
     value: "Educación",
   },
+  {
+    id: "services",
+    value: "Servicios",
+  },
 ];
 
 export { economicSectorData };

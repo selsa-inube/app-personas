@@ -59,7 +59,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
     <>
       <form>
         <Stack direction="column" gap="s300">
-          <Fieldset title="Clasificación económica">
+          <Fieldset title="Clasificación económica" type={isMobile ? "label" : "title"}>
             <Grid
               templateColumns={
                 isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
@@ -179,7 +179,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
           </Fieldset>
           {formik.values.economicActivity ===
             economicActivityDM.EMPLOYEE.id && (
-            <Fieldset title="Detalles laborales">
+            <Fieldset title="Detalles laborales"  type={isMobile ? "label" : "title"}>
               <Grid
                 templateColumns={
                   isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"

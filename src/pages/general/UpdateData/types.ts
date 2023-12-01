@@ -1,6 +1,7 @@
 import { FormikProps } from "formik";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
+import { IFamilyGroupEntries } from "./forms/FamilyGroupForm/types";
 import { IExpensesEntry } from "./forms/ExpensesForm/types";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
 import { IIncomesEntry } from "./forms/IncomesForm/types";
@@ -16,6 +17,7 @@ import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirecto
 interface IFormsUpdateData {
   personalInformation: { isValid: boolean; values: IPersonalInformationEntry };
   contactData: { isValid: boolean; values: IContactDataEntry };
+  familyGroup: { isValid: boolean; values: IFamilyGroupEntries };
   bankTransfers: { isValid: boolean; values: IBankTransfersEntry };
   personalAssets: { isValid: boolean; values: IPersonalAssetEntries };
   personalDebts: { isValid: boolean; values: IPersonalDebtEntries };
@@ -38,6 +40,7 @@ interface IFormsUpdateData {
 interface IFormsUpdateDataRefs {
   personalInformation: React.RefObject<FormikProps<IPersonalInformationEntry>>;
   contactData: React.RefObject<FormikProps<IContactDataEntry>>;
+  familyGroup: React.RefObject<FormikProps<IFamilyGroupEntries>>;
   bankTransfers: React.RefObject<FormikProps<IBankTransfersEntry>>;
   personalAssets: React.RefObject<FormikProps<IPersonalAssetEntries>>;
   personalDebts: React.RefObject<FormikProps<IPersonalDebtEntries>>;

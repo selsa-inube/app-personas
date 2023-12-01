@@ -52,6 +52,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
           entries={mapPersonalAssets(formik.values.entries)}
           pageLength={formik.values.entries.length}
           hideMobileResume
+          colsSameWidth
         />
         {showAddAssetModal && (
           <AssetModal
@@ -71,7 +72,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
           description={message.description}
           icon={message.icon}
           appearance={message.appearance}
-          duration={1500}
+          duration={3000}
           onClose={onCloseMessage}
         />
       )}

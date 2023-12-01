@@ -34,14 +34,14 @@ const personalAssetsTableTitles = [
 ];
 
 const personalAssetsTableBreakpoints = [
-  { breakpoint: "(min-width: 1229px)", totalColumns: 6 },
-  { breakpoint: "(max-width: 1180px)", totalColumns: 5 },
-  { breakpoint: "(max-width: 1120px)", totalColumns: 4 },
-  { breakpoint: "(max-width: 1000px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 900px)", totalColumns: 4 },
+  { breakpoint: "(min-width: 1450px)", totalColumns: 6 },
+  { breakpoint: "(max-width: 1405px)", totalColumns: 5 },
+  { breakpoint: "(max-width: 1265px)", totalColumns: 4 },
+  { breakpoint: "(max-width: 1120px)", totalColumns: 3 },
+  { breakpoint: "(max-width: 970px)", totalColumns: 2 },
   { breakpoint: "(max-width: 860px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 600px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 390px)", totalColumns: 1 },
+  { breakpoint: "(max-width: 730px)", totalColumns: 2 },
+  { breakpoint: "(max-width: 585px)", totalColumns: 1 },
 ];
 
 export {

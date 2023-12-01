@@ -71,7 +71,7 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
           description={message.description}
           icon={message.icon}
           appearance={message.appearance}
-          duration={1500}
+          duration={3000}
           onClose={onCloseMessage}
         />
       )}

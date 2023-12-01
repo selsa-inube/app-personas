@@ -41,6 +41,8 @@ import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
 import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
+import { IFamilyGroupEntries } from "../../FamilyGroupForm/types";
+import { mapFamilyGroupTable } from "../../FamilyGroupForm/config/mapper";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -102,6 +104,33 @@ const renderContacDataVerification = (
     <BoxAttribute label="Correo:" value={values.email} />
   </Grid>
 );
+
+const renderFamilyGroupVerification = (
+  values: IFamilyGroupEntries,
+  isTablet: boolean
+) => {
+  const transformedEntries = mapFamilyGroupTable(values.entries);
+  return (
+    <Stack direction="column" gap="s250" width="100%">
+      <Grid
+        templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+        gap="s100"
+        width="100%"
+      >
+        {transformedEntries.map((entry) => {
+          return (
+            <React.Fragment key={entry.id}>
+              <BoxAttribute
+                label={`${entry.fullName} :` || ""}
+                value={entry.relationship}
+              />
+            </React.Fragment>
+          );
+        })}
+      </Grid>
+    </Stack>
+  );
+};
 
 const renderBankTransfersVerification = (
   values: IBankTransfersEntry,
@@ -714,6 +743,9 @@ function VerificationBoxes(props: VerificationBoxesProps) {
 
       {stepKey === "contactData" &&
         renderContacDataVerification(updatedData.contactData.values, isTablet)}
+
+      {stepKey === "familyGroup" &&
+        renderFamilyGroupVerification(updatedData.familyGroup.values, isTablet)}
 
       {stepKey === "bankTransfers" &&
         renderBankTransfersVerification(

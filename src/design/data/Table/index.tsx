@@ -18,6 +18,7 @@ interface TableProps {
   actionsTitle?: string;
   hideMobileResume?: boolean;
   mobileResumeTitle?: string;
+  colsSameWidth?: boolean;
 }
 
 const Table = (props: TableProps) => {
@@ -34,6 +35,7 @@ const Table = (props: TableProps) => {
     actionsTitle,
     hideMobileResume,
     mobileResumeTitle,
+    colsSameWidth,
   } = props;
 
   const filteredEntries = useMemo(() => {
@@ -102,6 +104,7 @@ const Table = (props: TableProps) => {
         actionsTitle={actionsTitle!}
         hideMobileResume={hideMobileResume}
         mobileResumeTitle={mobileResumeTitle}
+        colsSameWidth={colsSameWidth}
       />
       {filteredEntries.length > pageLength && (
         <Pagination
