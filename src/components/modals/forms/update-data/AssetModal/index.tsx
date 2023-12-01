@@ -36,7 +36,7 @@ function AssetModal(props: AssetModalProps) {
     onConfirm,
   } = props;
 
-  const isMobile = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 550px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -65,9 +65,9 @@ function AssetModal(props: AssetModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={isMobile ? "s050" : "s100"}>
           <Stack justifyContent="space-between" alignItems="center">
-            <Text type="title" size="large" appearance="dark">
+            <Text type="title" size="medium" appearance="dark">
               {title}
             </Text>
             <Icon
@@ -79,7 +79,11 @@ function AssetModal(props: AssetModalProps) {
               spacing="none"
             />
           </Stack>
-          <Text type="body" size="medium" appearance="gray">
+          <Text
+            type="body"
+            size={isMobile ? "small" : "medium"}
+            appearance="gray"
+          >
             {description}
           </Text>
         </Stack>

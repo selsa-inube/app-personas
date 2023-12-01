@@ -44,7 +44,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
   const { portalId, onCloseModal, activities, onSelect } = props;
   const [searchTerm, setSearchTerm] = useState("");
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const smallScreen = useMediaQuery("(max-width: 550px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -64,7 +64,11 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
       <StyledModal smallScreen={smallScreen}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
-            <Text type="title" size="large" appearance="dark">
+            <Text
+              type="title"
+              size={smallScreen ? "small" : "medium"}
+              appearance="dark"
+            >
               Búsqueda
             </Text>
 
@@ -77,14 +81,22 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
               cursorHover
             />
           </Stack>
-          <Text type="body" size="medium" appearance="gray">
+          <Text
+            type="body"
+            size={smallScreen ? "small" : "medium"}
+            appearance="gray"
+          >
             Búsqueda actividad económica CIIU
           </Text>
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" gap="s250">
-          <Text type="body" size="medium">
+        <Stack
+          direction="column"
+          gap={smallScreen ? "s200" : "s250"}
+          width="100%"
+        >
+          <Text type="body" size={smallScreen ? "small" : "medium"}>
             Digita una palabra clave o código.
           </Text>
           <TextField
@@ -92,6 +104,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
             id="searchActivity"
             placeholder="Digita la palabra clave"
             onChange={(e) => setSearchTerm(e.target.value)}
+            size="compact"
             isFullWidth
           />
           {searchTerm !== "" && (

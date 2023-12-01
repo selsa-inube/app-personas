@@ -42,7 +42,7 @@ function RelationshipWithDirectorsModal(
   const { portalId, onCloseModal, directors, onSelect } = props;
   const [searchTerm, setSearchTerm] = useState("");
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const smallScreen = useMediaQuery("(max-width: 550px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -60,7 +60,11 @@ function RelationshipWithDirectorsModal(
       <StyledModal smallScreen={smallScreen}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
-            <Text type="title" size="large" appearance="dark">
+            <Text
+              type="title"
+              size={smallScreen ? "small" : "medium"}
+              appearance="dark"
+            >
               Búsqueda
             </Text>
 
@@ -73,14 +77,22 @@ function RelationshipWithDirectorsModal(
               cursorHover
             />
           </Stack>
-          <Text type="body" size="medium" appearance="gray">
+          <Text
+            type="body"
+            size={smallScreen ? "small" : "medium"}
+            appearance="gray"
+          >
             Búsqueda de los directivos de la compañía
           </Text>
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" gap="s250">
-          <Text type="body" size="medium">
+        <Stack
+          direction="column"
+          gap={smallScreen ? "s200" : "s250"}
+          width="100%"
+        >
+          <Text type="body" size={smallScreen ? "small" : "medium"}>
             Busca el funcionario por nombre o apellido
           </Text>
           <TextField
@@ -88,6 +100,7 @@ function RelationshipWithDirectorsModal(
             id="searchdirector"
             placeholder="Digita el nombre o apellido"
             onChange={(e) => setSearchTerm(e.target.value)}
+            size="compact"
             isFullWidth
           />
           {searchTerm !== "" && (
