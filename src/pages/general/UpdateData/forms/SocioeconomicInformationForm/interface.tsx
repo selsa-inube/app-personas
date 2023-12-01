@@ -7,7 +7,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
 import { vulnerablePopulationTypeDM } from "src/model/domains/socioeconomicInformation/vulnerablePopulationdm";
-import { getModifiedFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms";
 
 interface SocioeconomicInformationFormUIProps {
   formik: FormikValues;
@@ -73,7 +73,7 @@ function SocioeconomicInformationFormUI(
           errorMessage={formik.errors.dependants}
           type="number"
           iconAfter={<MdOutlineModeEdit size={18} />}
-          state={getModifiedFieldState(formik, "dependants")}
+          state={getFieldState(formik, "dependants")}
           isDisabled={loading}
           size="compact"
           onBlur={customHandleBlur}

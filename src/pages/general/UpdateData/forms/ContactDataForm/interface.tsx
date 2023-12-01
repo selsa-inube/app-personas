@@ -4,7 +4,7 @@ import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { getModifiedFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms";
 import { ObjectSchema } from "yup";
 interface ContactDataFormUIProps {
   formik: FormikValues;
@@ -46,7 +46,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getModifiedFieldState(formik, "country")}
+            state={getFieldState(formik, "country")}
             onBlur={customHandleBlur}
             onChange={formik.handleChange}
             validMessage="El país es válido"
@@ -64,7 +64,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getModifiedFieldState(formik, "stateOrDepartment")}
+            state={getFieldState(formik, "stateOrDepartment")}
             onBlur={customHandleBlur}
             onChange={formik.handleChange}
             validMessage="El estado / departamento es válido"
@@ -82,7 +82,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getModifiedFieldState(formik, "city")}
+            state={getFieldState(formik, "city")}
             onBlur={customHandleBlur}
             onChange={formik.handleChange}
             validMessage="La ciudad es válida"
@@ -100,7 +100,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getModifiedFieldState(formik, "address")}
+            state={getFieldState(formik, "address")}
             onBlur={customHandleBlur}
             onChange={formik.handleChange}
             validMessage="La dirección es válida"
@@ -119,7 +119,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getModifiedFieldState(formik, "postalCode")}
+            state={getFieldState(formik, "postalCode")}
             onBlur={customHandleBlur}
             onChange={formik.handleChange}
             validMessage="El código postal es válido"
@@ -138,7 +138,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getModifiedFieldState(formik, "landlinePhone")}
+            state={getFieldState(formik, "landlinePhone")}
             onBlur={customHandleBlur}
             onChange={formik.handleChange}
             validMessage="El teléfono es válido"
@@ -156,7 +156,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getModifiedFieldState(formik, "cellPhone")}
+            state={getFieldState(formik, "cellPhone")}
             onBlur={customHandleBlur}
             onChange={formik.handleChange}
             validMessage="El celular es válido"
@@ -174,7 +174,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getModifiedFieldState(formik, "email")}
+            state={getFieldState(formik, "email")}
             onBlur={customHandleBlur}
             onChange={formik.handleChange}
             validMessage="El correo electronico es válido"

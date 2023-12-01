@@ -12,16 +12,6 @@ const getFieldState = (formik: FormikValues, fieldName: string) => {
   return "valid";
 };
 
-const getModifiedFieldState = (formik: FormikValues, fieldName: string) => {
-  if (!formik.touched[fieldName]) return "pending";
-  if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
-  if (
-    formik.touched[fieldName] &&
-    formik.initialValues[fieldName] !== formik.values[fieldName]
-  )
-    return "valid";
-};
-
 const generateBasicForm = (fields: IFormField[]) => {
   let validationSchema = Yup.object({});
 
@@ -149,6 +139,5 @@ export {
   generateBasicForm,
   generateDynamicForm,
   generateFormFields,
-  getModifiedFieldState,
   getFieldState,
 };
