@@ -76,6 +76,7 @@ function TextFieldUI(props: TextFieldProps) {
   } = props;
 
   const [showDropdown, setShowDropdown] = useState(false);
+  const [initialValue] = useState(value);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -204,13 +205,17 @@ function TextFieldUI(props: TextFieldProps) {
           errorMessage={errorMessage}
         />
       )}
-      {state === "valid" && value && value.toString().length > 0 && (
-        <Success
-          isDisabled={isDisabled}
-          state={state}
-          validMessage={validMessage}
-        />
-      )}
+      {state === "valid" &&
+        value &&
+        value.toString().length > 0 &&
+        value !== initialValue &&
+        !isFocused && (
+          <Success
+            isDisabled={isDisabled}
+            state={state}
+            validMessage={validMessage}
+          />
+        )}
     </StyledContainer>
   );
 }

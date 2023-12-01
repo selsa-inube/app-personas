@@ -9,6 +9,7 @@ import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
+import { getFieldState } from "src/utils/forms";
 
 interface PersonalInformationFormUIProps {
   formik: FormikValues;
@@ -18,12 +19,6 @@ interface PersonalInformationFormUIProps {
 
 function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
   const { formik, loading, customHandleBlur } = props;
-
-  const stateValue = (fieldName: string) => {
-    if (!formik.touched[fieldName]) return "pending";
-    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
-    return "valid";
-  };
 
   const isMobile = useMediaQuery("(max-width: 700px)");
 
@@ -111,7 +106,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           onBlur={customHandleBlur}
           errorMessage={formik.errors.expeditionPlace}
           isDisabled={loading}
-          state={stateValue("expeditionPlace")}
+          state={getFieldState(formik, "expeditionPlace")}
           onChange={formik.handleChange}
         />
 
@@ -127,7 +122,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           size="compact"
           isFullWidth
-          state={stateValue("expeditionDate")}
+          state={getFieldState(formik, "expeditionDate")}
           onBlur={customHandleBlur}
           onChange={formik.handleChange}
           validMessage="La fecha de expedición es válida"
@@ -146,7 +141,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           isDisabled={loading}
           size="compact"
           isFullWidth
-          state={stateValue("birthDate")}
+          state={getFieldState(formik, "birthDate")}
           onBlur={customHandleBlur}
           onChange={formik.handleChange}
           validMessage="La fecha de nacimiento es válida"
@@ -164,7 +159,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           onBlur={customHandleBlur}
           errorMessage={formik.errors.city}
           isDisabled={loading}
-          state={stateValue("city")}
+          state={getFieldState(formik, "city")}
           onChange={formik.handleChange}
         />
 
@@ -179,7 +174,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           onBlur={customHandleBlur}
           errorMessage={formik.errors.gender}
           isDisabled={loading}
-          state={stateValue("gender")}
+          state={getFieldState(formik, "gender")}
           onChange={formik.handleChange}
         />
 
@@ -194,7 +189,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           onBlur={customHandleBlur}
           errorMessage={formik.errors.maritalStatus}
           isDisabled={loading}
-          state={stateValue("maritalStatus")}
+          state={getFieldState(formik, "maritalStatus")}
           onChange={formik.handleChange}
         />
 
@@ -209,7 +204,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           onBlur={customHandleBlur}
           errorMessage={formik.errors.bloodType}
           isDisabled={loading}
-          state={stateValue("bloodType")}
+          state={getFieldState(formik, "bloodType")}
           onChange={formik.handleChange}
         />
       </Grid>
