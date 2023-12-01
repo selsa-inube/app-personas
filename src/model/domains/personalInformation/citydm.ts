@@ -7,7 +7,7 @@ const cityData = {
   },
   BOGOTA: {
     id: "bogota",
-    value: "Bogotá",
+    value: "Bogotá D.C",
   },
   BUCARAMANGA: {
     id: "bucaramanga",

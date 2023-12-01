@@ -81,7 +81,7 @@ function Select(props: SelectProps) {
   const handleOptionClick = (id: string) => {
     if (!options) return;
 
-    const optionFound = options.find((option) => option.value === id);
+    const optionFound = options.find((option) => option.id === id);
     if (!optionFound) return;
 
     const event = {

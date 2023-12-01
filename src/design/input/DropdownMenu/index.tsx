@@ -25,7 +25,7 @@ function DropdownMenu(props: DropdownMenuProps) {
             id={dropDownItem.id}
             isDisabled={dropDownItem.isDisabled}
             isFocused={dropDownItem.isFocused}
-            onClick={() => handleOptionClick(dropDownItem.value)}
+            onClick={() => handleOptionClick(dropDownItem.id)}
             value={dropDownItem.value}
           />
         ))}

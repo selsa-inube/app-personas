@@ -44,7 +44,10 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="País"
             name="country"
             id="country"
-            value={formik.values.country}
+            value={
+              countryDM.valueOf(formik.values.country)?.value ||
+              formik.values.country
+            }
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.country}
             isDisabled={loading}
@@ -56,7 +59,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             validMessage="El país es válido"
             isRequired={isRequired("country")}
             suggestions={countryDM.options}
-            autocompleteChars={1}
+            autocompleteChars={2}
             autocomplete
           />
 
@@ -65,7 +68,10 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Estado o Departamento"
             name="stateOrDepartment"
             id="stateOrDepartment"
-            value={formik.values.stateOrDepartment}
+            value={
+              departmentDM.valueOf(formik.values.stateOrDepartment)?.value ||
+              formik.values.stateOrDepartment
+            }
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.stateOrDepartment}
             isDisabled={
@@ -81,7 +87,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             validMessage="El estado / departamento es válido"
             isRequired={isRequired("stateOrDepartment")}
             suggestions={departmentDM.options}
-            autocompleteChars={1}
+            autocompleteChars={2}
             autocomplete
           />
 
@@ -90,7 +96,9 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Ciudad"
             name="city"
             id="city"
-            value={formik.values.city}
+            value={
+              cityDM.valueOf(formik.values.city)?.value || formik.values.city
+            }
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.city}
             isDisabled={
@@ -107,7 +115,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             validMessage="La ciudad es válida"
             isRequired={isRequired("city")}
             suggestions={cityDM.options}
-            autocompleteChars={1}
+            autocompleteChars={2}
             autocomplete
           />
 
