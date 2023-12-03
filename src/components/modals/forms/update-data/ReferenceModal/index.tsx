@@ -56,7 +56,11 @@ function ReferenceModal(props: ReferenceModalProps) {
       <StyledModal smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap={isMobile ? "s050" : "s100"}>
           <Stack justifyContent="space-between" alignItems="center">
-            <Text type="title" size="medium" appearance="dark">
+            <Text
+              type="title"
+              size={isMobile ? "small" : "medium"}
+              appearance="dark"
+            >
               {title}
             </Text>
 

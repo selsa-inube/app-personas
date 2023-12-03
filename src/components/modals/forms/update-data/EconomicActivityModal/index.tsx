@@ -62,7 +62,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal smallScreen={smallScreen}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
@@ -91,11 +91,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
         </Stack>
 
         <Divider dashed />
-        <Stack
-          direction="column"
-          gap={smallScreen ? "s200" : "s250"}
-          width="100%"
-        >
+        <Stack direction="column" gap={smallScreen ? "s200" : "s250"}>
           <Text type="body" size={smallScreen ? "small" : "medium"}>
             Digita una palabra clave o código.
           </Text>
