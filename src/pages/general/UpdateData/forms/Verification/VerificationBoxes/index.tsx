@@ -27,6 +27,7 @@ import { severanceRegimeDM } from "src/model/domains/economicActivity/severancer
 import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
 import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
+import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
@@ -86,17 +87,26 @@ const renderPersonalInfoVerification = (
   </Grid>
 );
 
-const renderContacDataVerification = (
+const renderContactDataVerification = (
   values: IContactDataEntry,
   isTablet: boolean
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
-    <BoxAttribute label="País:" value={values.country} />
+    <BoxAttribute
+      label="País:"
+      value={countryDM.valueOf(values.country)?.value || values.country}
+    />
     <BoxAttribute
       label="Estado / Departamento:"
-      value={values.stateOrDepartment}
+      value={
+        departmentDM.valueOf(values.stateOrDepartment)?.value ||
+        values.stateOrDepartment
+      }
     />
-    <BoxAttribute label="Ciudad:" value={cityDM.valueOf(values.city)?.value} />
+    <BoxAttribute
+      label="Ciudad:"
+      value={cityDM.valueOf(values.city)?.value || values.city}
+    />
     <BoxAttribute label="Dirección:" value={values.address} />
     <BoxAttribute label="Código postal:" value={values.postalCode} />
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
@@ -742,7 +752,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "contactData" &&
-        renderContacDataVerification(updatedData.contactData.values, isTablet)}
+        renderContactDataVerification(updatedData.contactData.values, isTablet)}
 
       {stepKey === "familyGroup" &&
         renderFamilyGroupVerification(updatedData.familyGroup.values, isTablet)}

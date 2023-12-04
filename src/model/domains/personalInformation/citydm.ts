@@ -1,17 +1,41 @@
 import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const cityData = {
+  BARRANQUILLA: {
+    id: "barranquilla",
+    value: "Barranquilla",
+  },
   BOGOTA: {
     id: "bogota",
-    value: "Bogotá - Distrito Capital",
+    value: "Bogotá D.C",
   },
-  MEDELLIN: {
-    id: "medellin",
-    value: "Medellín - Antioquia",
+  BUCARAMANGA: {
+    id: "bucaramanga",
+    value: "Bucaramanga",
   },
-  CALI: {
-    id: "cali",
-    value: "Cali - Valle del Cauca",
+  CARTAGENA: {
+    id: "cartagena",
+    value: "Cartagena",
+  },
+  CUCUTA: {
+    id: "cucuta",
+    value: "Cúcuta",
+  },
+  IBAGUE: {
+    id: "ibague",
+    value: "Ibagué",
+  },
+  PEREIRA: {
+    id: "pereira",
+    value: "Pereira",
+  },
+  SANTAMARTA: {
+    id: "santamarta",
+    value: "Santa Marta",
+  },
+  VILLAVICENCIO: {
+    id: "villavicencio",
+    value: "Villavicencio",
   },
 };
 

@@ -86,7 +86,6 @@ const validationRules = {
 
   country: Yup.string()
     .matches(regex.onlyLetters, validationMessages.country)
-    .min(3, validationMessages.minCharacters(3))
     .max(25, validationMessages.maxCharacters(25)),
 
   stateOrDepartment: Yup.string()

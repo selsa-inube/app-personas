@@ -6,6 +6,10 @@ import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { getFieldState } from "src/utils/forms";
 import { ObjectSchema } from "yup";
+import { countryDM } from "src/model/domains/financialOperations/countrydm";
+import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
+import { cityDM } from "src/model/domains/personalInformation/citydm";
+
 interface ContactDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
@@ -40,7 +44,10 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="País"
             name="country"
             id="country"
-            value={formik.values.country}
+            value={
+              countryDM.valueOf(formik.values.country)?.value ||
+              formik.values.country
+            }
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.country}
             isDisabled={loading}
@@ -51,6 +58,9 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             onChange={formik.handleChange}
             validMessage="El país es válido"
             isRequired={isRequired("country")}
+            suggestions={countryDM.options}
+            autocompleteChars={2}
+            autocomplete
           />
 
           <TextField
@@ -58,10 +68,17 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Estado o Departamento"
             name="stateOrDepartment"
             id="stateOrDepartment"
-            value={formik.values.stateOrDepartment}
+            value={
+              departmentDM.valueOf(formik.values.stateOrDepartment)?.value ||
+              formik.values.stateOrDepartment
+            }
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.stateOrDepartment}
-            isDisabled={loading}
+            isDisabled={
+              formik.values.stateOrDepartment ||
+              !formik.values.country ||
+              loading
+            }
             size="compact"
             isFullWidth
             state={getFieldState(formik, "stateOrDepartment")}
@@ -69,6 +86,9 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             onChange={formik.handleChange}
             validMessage="El estado / departamento es válido"
             isRequired={isRequired("stateOrDepartment")}
+            suggestions={departmentDM.options}
+            autocompleteChars={2}
+            autocomplete
           />
 
           <TextField
@@ -76,10 +96,17 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Ciudad"
             name="city"
             id="city"
-            value={formik.values.city}
+            value={
+              cityDM.valueOf(formik.values.city)?.value || formik.values.city
+            }
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.city}
-            isDisabled={loading}
+            isDisabled={
+              formik.values.city ||
+              !formik.values.country ||
+              !formik.values.stateOrDepartment ||
+              loading
+            }
             size="compact"
             isFullWidth
             state={getFieldState(formik, "city")}
@@ -87,6 +114,9 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             onChange={formik.handleChange}
             validMessage="La ciudad es válida"
             isRequired={isRequired("city")}
+            suggestions={cityDM.options}
+            autocompleteChars={2}
+            autocomplete
           />
 
           <TextField

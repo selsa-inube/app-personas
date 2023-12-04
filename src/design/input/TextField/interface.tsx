@@ -142,7 +142,7 @@ function TextFieldUI(props: TextFieldProps) {
         iconAfter={iconAfter}
         readOnly={readOnly}
       >
-        {iconBefore && (
+        {!isDisabled && iconBefore && (
           <StyledIcon
             isDisabled={isDisabled}
             iconBefore={iconBefore}
@@ -156,7 +156,7 @@ function TextFieldUI(props: TextFieldProps) {
           label={label}
           name={name}
           id={id}
-          placeholder={placeholder}
+          placeholder={isDisabled ? undefined : placeholder}
           isDisabled={isDisabled}
           isFullWidth={isFullWidth}
           type={type}
@@ -171,7 +171,7 @@ function TextFieldUI(props: TextFieldProps) {
           readOnly={readOnly}
           $size={size}
         />
-        {iconAfter && (
+        {!isDisabled && iconAfter && (
           <StyledIcon
             iconAfter={iconAfter}
             isDisabled={isDisabled}
