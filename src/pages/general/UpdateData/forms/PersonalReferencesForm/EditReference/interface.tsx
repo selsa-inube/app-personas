@@ -1,7 +1,7 @@
-import { Icon } from "@design/data/Icon";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { ReferenceModal } from "@components/modals/forms/update-data/ReferenceModal";
+import { Icon } from "@design/data/Icon";
 import { FormikValues } from "formik";
+import { MdOutlineModeEdit } from "react-icons/md";
 
 interface EditReferenceUIProps {
   showModal: boolean;
@@ -40,6 +40,7 @@ function EditReferenceUI(props: EditReferenceUIProps) {
           formik={formik}
           onCloseModal={closeModal}
           onConfirm={handleEditReference}
+          withCustomDirty
         />
       )}
     </>

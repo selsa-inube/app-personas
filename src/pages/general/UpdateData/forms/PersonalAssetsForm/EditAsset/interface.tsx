@@ -1,7 +1,7 @@
-import { Icon } from "@design/data/Icon";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { AssetModal } from "@components/modals/forms/update-data/AssetModal";
+import { Icon } from "@design/data/Icon";
 import { FormikValues } from "formik";
+import { MdOutlineModeEdit } from "react-icons/md";
 
 interface EditAssetUIProps {
   showModal: boolean;
@@ -35,6 +35,7 @@ function EditAssetUI(props: EditAssetUIProps) {
           formik={formik}
           onCloseModal={closeModal}
           onConfirm={handleEditAsset}
+          withCustomDirty
         />
       )}
     </>

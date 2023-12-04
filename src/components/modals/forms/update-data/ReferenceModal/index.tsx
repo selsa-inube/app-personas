@@ -8,6 +8,7 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
@@ -21,6 +22,7 @@ interface ReferenceModalProps {
   confirmButtonText: string;
   portalId: string;
   formik: FormikValues;
+  withCustomDirty?: boolean;
   onCloseModal: () => void;
   onConfirm: () => void;
 }
@@ -32,9 +34,12 @@ function ReferenceModal(props: ReferenceModalProps) {
     title,
     description,
     confirmButtonText,
+    withCustomDirty,
     onCloseModal,
     onConfirm,
   } = props;
+
+  const [customDirty] = useState(formik.values);
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -177,7 +182,11 @@ function ReferenceModal(props: ReferenceModalProps) {
           <Button
             spacing="compact"
             onClick={onConfirm}
-            disabled={!formik.dirty || !formik.isValid}
+            disabled={
+              withCustomDirty
+                ? JSON.stringify(customDirty) == JSON.stringify(formik.values)
+                : !formik.dirty || !formik.isValid
+            }
             appearance="primary"
           >
             {confirmButtonText}
