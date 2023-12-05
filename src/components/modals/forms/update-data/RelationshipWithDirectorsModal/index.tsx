@@ -42,7 +42,7 @@ function RelationshipWithDirectorsModal(
   const { portalId, onCloseModal, directors, onSelect } = props;
   const [searchTerm, setSearchTerm] = useState("");
 
-  const smallScreen = useMediaQuery("(max-width: 550px)");
+  const isMobile = useMediaQuery("(max-width: 550px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -57,12 +57,12 @@ function RelationshipWithDirectorsModal(
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={smallScreen}>
+      <StyledModal smallScreen={isMobile}>
         <Stack direction="column" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
-              size={smallScreen ? "small" : "medium"}
+              size={isMobile ? "small" : "medium"}
               appearance="dark"
             >
               Búsqueda
@@ -79,7 +79,7 @@ function RelationshipWithDirectorsModal(
           </Stack>
           <Text
             type="body"
-            size={smallScreen ? "small" : "medium"}
+            size={isMobile ? "small" : "medium"}
             appearance="gray"
           >
             Búsqueda de los directivos de la compañía
@@ -87,8 +87,8 @@ function RelationshipWithDirectorsModal(
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" gap={smallScreen ? "s200" : "s250"}>
-          <Text type="body" size={smallScreen ? "small" : "medium"}>
+        <Stack direction="column" gap={isMobile ? "s200" : "s250"}>
+          <Text type="body" size={isMobile ? "small" : "medium"}>
             Busca el funcionario por nombre o apellido
           </Text>
           <TextField
