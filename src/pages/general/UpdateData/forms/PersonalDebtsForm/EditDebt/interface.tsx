@@ -1,7 +1,7 @@
-import { Icon } from "@design/data/Icon";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { DebtModal } from "@components/modals/forms/update-data/DebtModal";
+import { Icon } from "@design/data/Icon";
 import { FormikValues } from "formik";
+import { MdOutlineModeEdit } from "react-icons/md";
 
 interface EditDebtUIProps {
   showModal: boolean;
@@ -35,6 +35,7 @@ function EditDebtUI(props: EditDebtUIProps) {
           formik={formik}
           onCloseModal={closeModal}
           onConfirm={handleEditDebt}
+          withCustomDirty
         />
       )}
     </>
