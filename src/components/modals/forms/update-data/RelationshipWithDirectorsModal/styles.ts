@@ -7,10 +7,13 @@ interface IStyledModal {
 
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
-  width: ${({ smallScreen }) => (smallScreen ? "312px" : "450px")};
-  padding: ${inube.spacing.s300};
   flex-direction: column;
-  gap: ${inube.spacing.s250};
+  width: ${({ smallScreen }) => (smallScreen ? "100%" : "450px")};
+  padding: ${({ smallScreen }) =>
+    smallScreen ? inube.spacing.s200 : inube.spacing.s300};
+  margin: ${inube.spacing.s200} ${inube.spacing.s300};
+  gap: ${({ smallScreen }) =>
+    smallScreen ? inube.spacing.s200 : inube.spacing.s250};
   border-radius: ${inube.spacing.s200};
   background-color: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};

@@ -57,7 +57,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
         {showAddAssetModal && (
           <AssetModal
             title="Adicionar bien"
-            description="Agrega un bien a la actualización de datos."
+            description="Agrega un bien a la actualización."
             confirmButtonText="Adicionar"
             portalId="modals"
             formik={formik}

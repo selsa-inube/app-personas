@@ -41,7 +41,8 @@ function ReferenceModal(props: ReferenceModalProps) {
 
   const [customDirty] = useState(formik.values);
 
-  const isMobile = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 550px)");
+
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -59,9 +60,13 @@ function ReferenceModal(props: ReferenceModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={isMobile ? "s050" : "s100"}>
           <Stack justifyContent="space-between" alignItems="center">
-            <Text type="title" size="large" appearance="dark">
+            <Text
+              type="title"
+              size={isMobile ? "small" : "medium"}
+              appearance="dark"
+            >
               {title}
             </Text>
 
@@ -74,7 +79,11 @@ function ReferenceModal(props: ReferenceModalProps) {
               spacing="none"
             />
           </Stack>
-          <Text type="body" size="medium" appearance="gray">
+          <Text
+            type="body"
+            size={isMobile ? "small" : "medium"}
+            appearance="gray"
+          >
             {description}
           </Text>
         </Stack>

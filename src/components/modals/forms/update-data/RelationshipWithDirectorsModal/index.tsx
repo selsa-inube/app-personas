@@ -42,7 +42,7 @@ function RelationshipWithDirectorsModal(
   const { portalId, onCloseModal, directors, onSelect } = props;
   const [searchTerm, setSearchTerm] = useState("");
 
-  const smallScreen = useMediaQuery("(max-width: 580px)");
+  const isMobile = useMediaQuery("(max-width: 550px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -57,10 +57,14 @@ function RelationshipWithDirectorsModal(
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={smallScreen}>
-        <Stack direction="column" width="100%" gap="s100">
+      <StyledModal smallScreen={isMobile}>
+        <Stack direction="column" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
-            <Text type="title" size="large" appearance="dark">
+            <Text
+              type="title"
+              size={isMobile ? "small" : "medium"}
+              appearance="dark"
+            >
               Búsqueda
             </Text>
 
@@ -73,14 +77,18 @@ function RelationshipWithDirectorsModal(
               cursorHover
             />
           </Stack>
-          <Text type="body" size="medium" appearance="gray">
+          <Text
+            type="body"
+            size={isMobile ? "small" : "medium"}
+            appearance="gray"
+          >
             Búsqueda de los directivos de la compañía
           </Text>
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" gap="s250">
-          <Text type="body" size="medium">
+        <Stack direction="column" gap={isMobile ? "s200" : "s250"}>
+          <Text type="body" size={isMobile ? "small" : "medium"}>
             Busca el funcionario por nombre o apellido
           </Text>
           <TextField
@@ -88,6 +96,7 @@ function RelationshipWithDirectorsModal(
             id="searchdirector"
             placeholder="Digita el nombre o apellido"
             onChange={(e) => setSearchTerm(e.target.value)}
+            size="compact"
             isFullWidth
           />
           {searchTerm !== "" && (
