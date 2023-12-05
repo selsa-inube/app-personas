@@ -53,7 +53,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
     });
   };
 
-  const onCloseMessage = () => {
+  const handleCloseMessage = () => {
     setMessage(initialMessageState);
   };
 
@@ -167,11 +167,11 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
     <PersonalAssetsFormUI
       formik={formik}
       showAddAssetModal={showAddAssetModal}
-      handleToggleModal={handleToggleModal}
-      handleAddAsset={handleAddAsset}
       personalAssetsTableActions={personalAssetsTableActions}
       message={message}
-      onCloseMessage={onCloseMessage}
+      onToggleModal={handleToggleModal}
+      onAddAsset={handleAddAsset}
+      onCloseMessage={handleCloseMessage}
     />
   );
 });

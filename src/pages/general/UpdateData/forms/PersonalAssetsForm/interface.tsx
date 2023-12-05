@@ -16,22 +16,22 @@ import {
 interface PersonalAssetsFormUIProps {
   formik: FormikValues;
   showAddAssetModal: boolean;
-  handleToggleModal: () => void;
-  handleAddAsset: () => void;
   personalAssetsTableActions: IAction[];
   message: IMessage;
   onCloseMessage: () => void;
+  onToggleModal: () => void;
+  onAddAsset: () => void;
 }
 
 function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
   const {
     formik,
     showAddAssetModal,
-    handleToggleModal,
-    handleAddAsset,
     personalAssetsTableActions,
     message,
     onCloseMessage,
+    onToggleModal,
+    onAddAsset,
   } = props;
 
   return (
@@ -40,7 +40,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
         <Button
           iconBefore={<MdOutlineAddHome />}
           variant="none"
-          onClick={handleToggleModal}
+          onClick={onToggleModal}
         >
           Adicionar bien
         </Button>
@@ -61,8 +61,8 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
             confirmButtonText="Adicionar"
             portalId="modals"
             formik={formik}
-            onCloseModal={handleToggleModal}
-            onConfirm={handleAddAsset}
+            onCloseModal={onToggleModal}
+            onConfirm={onAddAsset}
           />
         )}
       </Stack>
