@@ -33,7 +33,7 @@ function DecisionModal(props: DecisionModalProps) {
   } = props;
   const [isLoading, setIsLoading] = useState(false);
 
-  const isMobile = useMediaQuery("max-width: 580px");
+  const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -57,7 +57,6 @@ function DecisionModal(props: DecisionModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" gap={isMobile ? "16px" : "24px"}>
           <Stack alignItems="center" justifyContent="space-between">
             <Text
               type="title"
@@ -92,7 +91,6 @@ function DecisionModal(props: DecisionModalProps) {
               {actionText}
             </Button>
           </Stack>
-        </Stack>
       </StyledModal>
     </Blanket>,
     node
