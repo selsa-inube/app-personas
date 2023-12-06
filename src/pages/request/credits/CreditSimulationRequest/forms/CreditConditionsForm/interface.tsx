@@ -17,7 +17,7 @@ import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledList } from "./styles";
 
-interface SimulationFormUIProps {
+interface CreditConditionsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   interestRate: number;
@@ -29,7 +29,7 @@ interface SimulationFormUIProps {
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SimulationFormUI(props: SimulationFormUIProps) {
+function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
   const {
     formik,
     loading,
@@ -300,4 +300,4 @@ function SimulationFormUI(props: SimulationFormUIProps) {
   );
 }
 
-export { SimulationFormUI };
+export { CreditConditionsFormUI };

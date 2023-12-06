@@ -10,7 +10,7 @@ const creditSimulationRequestSteps = {
     name: "Destinación del dinero",
     description: "Cuéntanos cuál es el propósito de tu crédito.",
   },
-  simulation: {
+  creditConditions: {
     id: 2,
     name: "Condiciones del crédito",
     description: "Ingresa los valores para simular tu crédito.",
@@ -68,10 +68,10 @@ const creditSimulationStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentCreditSimulationRequest.destination.values)
       ) {
-        newCreditSimulationRequest.simulation = {
+        newCreditSimulationRequest.creditConditions = {
           isValid: false,
           values: {
-            ...initalValuesCreditSimulation.simulation,
+            ...initalValuesCreditSimulation.creditConditions,
             creditDestination: values?.creditDestination,
             product: values?.product,
           },
@@ -80,19 +80,19 @@ const creditSimulationStepsRules = (
 
       return newCreditSimulationRequest;
     }
-    case creditSimulationRequestSteps.simulation.id: {
-      const values = formReferences.simulation.current?.values;
+    case creditSimulationRequestSteps.creditConditions.id: {
+      const values = formReferences.creditConditions.current?.values;
 
       if (!values) return currentCreditSimulationRequest;
 
-      newCreditSimulationRequest.simulation = {
+      newCreditSimulationRequest.creditConditions = {
         isValid: isCurrentFormValid,
         values,
       };
 
       if (
         JSON.stringify(values) !==
-        JSON.stringify(currentCreditSimulationRequest.simulation.values)
+        JSON.stringify(currentCreditSimulationRequest.creditConditions.values)
       ) {
         const tempChargesAndDiscounts = Math.floor(
           Number(values.amount) * 0.4880866

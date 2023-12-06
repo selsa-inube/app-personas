@@ -3,7 +3,7 @@ import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
-import { MdCheckCircle, MdOutlineError } from "react-icons/md";
+import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { Label } from "../Label";
 import {
   StyledErrorMessageContainer,
@@ -16,13 +16,12 @@ import { CounterAppearence } from "./types";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
-  const transformedErrorMessage = errorMessage && `(${errorMessage})`;
 
   return (
     <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
-      <MdOutlineError />
+      <MdOutlineWarning />
       <Text type="body" size="small" appearance="error" disabled={isDisabled}>
-        {transformedErrorMessage}
+        {errorMessage}
       </Text>
     </StyledErrorMessageContainer>
   );
