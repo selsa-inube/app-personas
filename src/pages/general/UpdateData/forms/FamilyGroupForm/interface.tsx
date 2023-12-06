@@ -1,34 +1,30 @@
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
+import { mapFamilyGroupTable } from "./config/mapper";
 import {
   familyGroupTableBreakpoints,
   familyGroupTableTitles,
 } from "./config/table";
-import { mapFamilyGroupTable } from "./config/mapper";
 
 interface FamilyGroupFormUIProps {
   formik: FormikValues;
-  showFamilyMemberViewModal: boolean;
-  handleToggleViewModal: () => void;
+  message?: IMessage;
   familyGroupTableActions: IAction[];
+  onCloseMessage: () => void;
 }
 
 function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
-  const {
-    formik,
-    familyGroupTableActions,
-  } = props;
+  const { formik, familyGroupTableActions, message, onCloseMessage } = props;
   return (
     <>
       <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
-        <Button
-          iconBefore={<MdOutlinePersonAddAlt />}
-          variant="none"
-        >
+        <Button iconBefore={<MdOutlinePersonAddAlt />} variant="none">
           Adicionar familiar
         </Button>
         <Table
@@ -41,6 +37,16 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           hideMobileResume
         />
       </Stack>
+      {message && message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          icon={message.icon}
+          appearance={message.appearance}
+          duration={3000}
+          onClose={onCloseMessage}
+        />
+      )}
     </>
   );
 }

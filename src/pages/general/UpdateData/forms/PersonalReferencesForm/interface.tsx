@@ -16,22 +16,22 @@ import {
 interface PersonalReferencesFormUIProps {
   formik: FormikValues;
   showAddReferenceModal: boolean;
-  handleToggleModal: () => void;
-  handleAddReference: () => void;
   personalReferencesTableActions: IAction[];
   message: IMessage;
   onCloseMessage: () => void;
+  onToggleModal: () => void;
+  onAddReference: () => void;
 }
 
 function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
   const {
     formik,
     showAddReferenceModal,
-    handleToggleModal,
-    handleAddReference,
     personalReferencesTableActions,
     message,
     onCloseMessage,
+    onToggleModal,
+    onAddReference,
   } = props;
   return (
     <>
@@ -39,7 +39,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
         <Button
           iconBefore={<MdOutlinePersonAddAlt />}
           variant="none"
-          onClick={handleToggleModal}
+          onClick={onToggleModal}
         >
           Adicionar referencia
         </Button>
@@ -60,8 +60,8 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           confirmButtonText="Adicionar"
           portalId="modals"
           formik={formik}
-          onCloseModal={handleToggleModal}
-          onConfirm={handleAddReference}
+          onCloseModal={onToggleModal}
+          onConfirm={onAddReference}
         />
       )}
       {message.show && (

@@ -55,7 +55,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
     });
   };
 
-  const onCloseMessage = () => {
+  const handleCloseMessage = () => {
     setMessage(initialMessageState);
   };
 
@@ -169,11 +169,11 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
     <PersonalDebtsFormUI
       formik={formik}
       showAddDebtModal={showAddDebtModal}
-      handleToggleModal={handleToggleModal}
-      handleAddDebt={handleAddDebt}
       personalDebtsTableActions={personalDebtsTableActions}
       message={message}
-      onCloseMessage={onCloseMessage}
+      onToggleModal={handleToggleModal}
+      onAddDebt={handleAddDebt}
+      onCloseMessage={handleCloseMessage}
     />
   );
 });
