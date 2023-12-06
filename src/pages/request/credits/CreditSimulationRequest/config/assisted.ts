@@ -7,12 +7,12 @@ import { initalValuesCreditSimulation } from "./initialValues";
 const creditSimulationRequestSteps = {
   destination: {
     id: 1,
-    name: "Destinación",
+    name: "Destinación del dinero",
     description: "Cuéntanos cuál es el propósito de tu crédito.",
   },
   simulation: {
     id: 2,
-    name: "Simulación",
+    name: "Condiciones del crédito",
     description: "Ingresa los valores para simular tu crédito.",
   },
   preliquidation: {
@@ -39,9 +39,9 @@ const creditSimulationRequestSteps = {
   },
   verification: {
     id: 7,
-    name: "Confirmación",
+    name: "Verificación",
     description:
-      "Verifica que la información que diligenciaste en tu solicitud de crédito.",
+      "Verifica la información que diligenciaste en tu solicitud de crédito.",
   },
 };
 
