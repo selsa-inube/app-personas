@@ -3,7 +3,7 @@ import { spacing } from "@design/tokens/spacing/spacing";
 import styled from "styled-components";
 
 interface IStyledFieldset {
-  smallScreen: boolean;
+  isMobile: boolean;
 }
 
 const StyledFieldset = styled.fieldset<IStyledFieldset>`
@@ -13,10 +13,10 @@ const StyledFieldset = styled.fieldset<IStyledFieldset>`
   border-color: ${({ theme }) =>
     theme.color?.stroke?.divider?.regular ||
     inube.color.stroke.divider.regular};
-  padding: ${({ smallScreen }) =>
-    !smallScreen
-      ? `${inube.spacing.s150} ${inube.spacing.s250} ${inube.spacing.s300}`
-      : `${inube.spacing.s250} ${inube.spacing.s200}`};
+  padding: ${({ isMobile }) =>
+    isMobile
+      ? `${inube.spacing.s100} ${inube.spacing.s150} ${inube.spacing.s200}`
+      : `${inube.spacing.s150} ${inube.spacing.s250} ${inube.spacing.s300}`};
 `;
 
 export { StyledFieldset };

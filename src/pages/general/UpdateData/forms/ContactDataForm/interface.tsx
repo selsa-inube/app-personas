@@ -32,7 +32,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
 
   return (
     <form>
-      <Fieldset title={`Dirección N° ${formik.values.id}`} size={isMobile ? "small" : "medium"}>
+      <Fieldset title="Dirección de residencia" size={isMobile ? "small" : "medium"}>
         <Grid
           templateColumns={
             isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
