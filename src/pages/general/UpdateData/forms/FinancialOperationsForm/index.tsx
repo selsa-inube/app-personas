@@ -3,41 +3,55 @@ import { forwardRef, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
+import { useState } from "react";
+import { financialOperationsRequiredFields } from "./config/formConfig";
 import { FinancialOperationsFormUI } from "./interface";
 import { IFinancialOperationsEntry } from "./types";
 
-const validationSchema = Yup.object({
-  hasForeignCurrencyTransactions: Yup.string().required(
-    validationMessages.required
-  ),
-  hasForeignCurrencyAccounts: Yup.string().required(
-    validationMessages.required
-  ),
-  accountNumber: validationRules.accountNumber.required(
-    validationMessages.required
-  ),
-  descriptionOperations: Yup.string()
-    .required(validationMessages.required)
-    .min(1)
-    .max(300),
+const validationSchema = Yup.object().shape({
+  hasForeignCurrencyTransactions:
+    financialOperationsRequiredFields.hasForeignCurrencyTransactions
+      ? Yup.string().required(validationMessages.required)
+      : Yup.string(),
+  hasForeignCurrencyAccounts:
+    financialOperationsRequiredFields.hasForeignCurrencyAccounts
+      ? Yup.string().required(validationMessages.required)
+      : Yup.string(),
+  accountNumber: financialOperationsRequiredFields.accountNumber
+    ? validationRules.accountNumber.required(validationMessages.required)
+    : validationRules.accountNumber,
+  descriptionOperations: financialOperationsRequiredFields.descriptionOperations
+    ? Yup.string().required(validationMessages.required).min(1).max(300)
+    : Yup.string(),
+  country: financialOperationsRequiredFields.country
+    ? validationRules.country.required(validationMessages.required)
+    : validationRules.country,
+  bankEntity: financialOperationsRequiredFields.bankEntity
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  currency: financialOperationsRequiredFields.currency
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
 });
 
 interface FinancialOperationsFormProps {
+  loading?: boolean;
   initialValues: IFinancialOperationsEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IFinancialOperationsEntry) => void;
-  loading?: boolean;
 }
 
 const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   props: FinancialOperationsFormProps,
   ref: React.Ref<FormikProps<IFinancialOperationsEntry>>
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { loading, initialValues, onFormValid, onSubmit } = props;
+
+  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
 
   const formik = useFormik({
     initialValues,
-    validationSchema,
+    validationSchema: dynamicSchema,
     validateOnChange: false,
     onSubmit: onSubmit || (() => {}),
   });
@@ -56,6 +70,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
 
   return (
     <FinancialOperationsFormUI
+      validationSchema={dynamicSchema}
       loading={loading}
       formik={formik}
       customHandleBlur={customHandleBlur}
