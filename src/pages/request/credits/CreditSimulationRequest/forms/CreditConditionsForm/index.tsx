@@ -1,6 +1,7 @@
 import {
   interestRatesMock,
   maxDeadlineMock,
+  maximumQuotasAvailableMock,
 } from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
@@ -49,6 +50,12 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     const maxDeadline =
       maxDeadlineMock[formik.values.product as keyof typeof maxDeadlineMock];
 
+    const maximumQuotas =
+      maximumQuotasAvailableMock[
+        formik.values
+          .creditDestination as keyof typeof maximumQuotasAvailableMock
+      ];
+
     const newValidationSchema = validationSchema.concat(
       Yup.object({
         deadline: Yup.number()
@@ -57,6 +64,9 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
             maxDeadline,
             `El plazo máximo para este producto es de ${maxDeadline} meses`
           ),
+        amount: Yup.number()
+          .min(1, validationMessages.minCurrencyNumbers(1))
+          .max(maximumQuotas.noWarranty, "Has superado el cupo máximo"),
       })
     );
     setDynamicValidationSchema(newValidationSchema);

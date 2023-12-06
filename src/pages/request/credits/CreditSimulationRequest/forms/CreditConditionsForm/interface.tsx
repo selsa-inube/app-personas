@@ -72,7 +72,11 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
   return (
     <form>
       <Stack direction="column" gap="s400">
-        <Fieldset title="Caracteristicas" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
+        <Fieldset
+          title="Caracteristicas"
+          type={isMobile ? "label" : "title"}
+          size={isMobile ? "medium" : "small"}
+        >
           <Stack direction="column" gap="s300">
             <Grid gap="s300" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <Select
@@ -154,7 +158,11 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
           </Stack>
         </Fieldset>
 
-        <Fieldset title="Simulador de crédito" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
+        <Fieldset
+          title="Simulador de crédito"
+          type={isMobile ? "label" : "title"}
+          size={isMobile ? "medium" : "small"}
+        >
           <Stack direction="column" gap="s250">
             <Stack direction="column" gap="s200">
               <Stack
