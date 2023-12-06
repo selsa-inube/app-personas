@@ -13,10 +13,10 @@ import { MdArrowBack } from "react-icons/md";
 import { creditSimulationRequestSteps } from "./config/assisted";
 import { crumbsCreditSimulationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
+import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { DisbursementForm } from "./forms/DisbursementForm";
 import { PreliquidationForm } from "./forms/PreliquidationForm";
-import { SimulationForm } from "./forms/SimulationForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CreditSimulationRequestVerification } from "./forms/Verification";
 import {
@@ -40,10 +40,10 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.simulation.id && (
-        <SimulationForm
-          initialValues={creditSimulationRequest.simulation.values}
-          ref={formReferences.simulation}
+      {currentStep === creditSimulationRequestSteps.creditConditions.id && (
+        <CreditConditionsForm
+          initialValues={creditSimulationRequest.creditConditions.values}
+          ref={formReferences.creditConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}

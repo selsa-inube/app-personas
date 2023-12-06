@@ -1,4 +1,4 @@
-interface ISimulationEntry {
+interface ICreditConditionsEntry {
   creditDestination: string;
   product: string;
   simulationWithQuota: boolean;
@@ -11,4 +11,4 @@ interface ISimulationEntry {
   interestRate: string;
 }
 
-export type { ISimulationEntry };
+export type { ICreditConditionsEntry };

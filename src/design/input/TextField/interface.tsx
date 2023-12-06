@@ -1,5 +1,5 @@
 import { Text } from "@design/data/Text";
-import { MdCheckCircle, MdOutlineError } from "react-icons/md";
+import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { TextFieldProps } from ".";
 import { Label } from "../Label";
 import { ITextFieldMessage } from "./types";
@@ -18,13 +18,12 @@ import {
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
-  const transformedErrorMessage = errorMessage && `(${errorMessage})`;
 
   return (
     <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
-      <MdOutlineError />
+      <MdOutlineWarning />
       <Text type="body" size="small" appearance="error" disabled={isDisabled}>
-        {transformedErrorMessage}
+        {errorMessage}
       </Text>
     </StyledErrorMessageContainer>
   );

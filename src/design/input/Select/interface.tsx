@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { MdExpandMore, MdOutlineError } from "react-icons/md";
+import { MdExpandMore, MdOutlineWarning } from "react-icons/md";
 
 import { SelectProps } from ".";
 import { Text } from "../../data/Text";
@@ -18,13 +18,12 @@ import {
 
 function Invalid(props: ISelectMessage) {
   const { isDisabled, state, errorMessage } = props;
-  const transformedErrorMessage = errorMessage && `(${errorMessage})`;
 
   return (
     <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
-      <MdOutlineError />
+      <MdOutlineWarning />
       <Text type="body" size="small" appearance="error" disabled={isDisabled}>
-        {transformedErrorMessage}
+        {errorMessage}
       </Text>
     </StyledErrorMessageContainer>
   );
