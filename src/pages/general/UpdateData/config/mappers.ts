@@ -4,16 +4,19 @@ import { cityDM } from "src/model/domains/personalInformation/citydm";
 import {
   IBankTransfersAccount,
   IContactData,
-  IFinancialOperations,
-  IResidence,
-  IThird,
   IEconomicActivity,
   IFamilyThird,
+  IFinancialOperations,
+  IRelationshipWithDirectors,
+  IResidence,
+  IThird,
 } from "src/model/entity/user";
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
+import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "../forms/ExpensesForm/types";
+import { IFamilyGroupEntry } from "../forms/FamilyGroupForm/types";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IIncomesEntry } from "../forms/IncomesForm/types";
 import {
@@ -30,12 +33,8 @@ import {
   IPersonalReferenceEntry,
 } from "../forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
-import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
-import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirectorsForm/types";
-import { IRelationshipWithDirectors } from "src/model/entity/user";
-import { IFamilyGroupEntry } from "../forms/FamilyGroupForm/types";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
+import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -237,7 +236,7 @@ const mapSocioeconomicInformation = (
     educationLevel: socioeconomicData?.educationLevel || "",
     isResponsibleHome: socioeconomicData?.isResponsibleHome || "",
     isSingleMother: socioeconomicData?.isSingleMother || "",
-    dependants: Number(socioeconomicData?.dependants) || 0,
+    dependants: Number(socioeconomicData?.dependants),
     vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
     isPublicExposed: socioeconomicData?.isPublicExposed || "",
     isDeclaredIncomes: socioeconomicData?.isDeclaredIncomes || "",
@@ -313,9 +312,10 @@ const mapRelationshipWithDirectors = (
 export {
   mapBankTransfers,
   mapContactData,
+  mapEconomicActivity,
+  mapExpenses,
   mapFamilyGroup,
   mapFamilyGroups,
-  mapExpenses,
   mapFinancialOperations,
   mapIncomes,
   mapPersonalAsset,
@@ -326,7 +326,6 @@ export {
   mapPersonalReference,
   mapPersonalReferences,
   mapPersonalResidence,
-  mapSocioeconomicInformation,
-  mapEconomicActivity,
   mapRelationshipWithDirectors,
+  mapSocioeconomicInformation,
 };

@@ -69,7 +69,7 @@ function SocioeconomicInformationFormUI(
           placeholder="Digite el número de personas a cargo"
           name="dependants"
           id="dependants"
-          value={formik.values.dependants}
+          value={formik.values.dependants || ""}
           errorMessage={formik.errors.dependants}
           type="number"
           iconAfter={<MdOutlineModeEdit size={18} />}
@@ -80,7 +80,6 @@ function SocioeconomicInformationFormUI(
           onChange={formik.handleChange}
           validMessage="El número ingresado es correcto"
           isFullWidth
-          isRequired
         />
         <Select
           label="Población vulnerable"
