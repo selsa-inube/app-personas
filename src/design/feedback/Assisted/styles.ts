@@ -28,7 +28,7 @@ const StyledCircleId = styled.div`
   border-radius: 50%;
   width: 17px;
   height: 17px;
-  border: 3px solid
+  border: 2px solid
     ${({ theme }) =>
       theme.color?.stroke?.primary.regular ||
       inube.color.stroke.primary.regular};
@@ -68,10 +68,7 @@ interface IStyledBar {
 }
 
 const StyledBar = styled.div<IStyledBar>`
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-radius: 25px;
   transition: width 0.15s ease-in-out;
   background-color: ${({ theme }) =>
     theme.color?.text?.primary.regular || inube.color.text.primary.regular};
