@@ -2,8 +2,8 @@ import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { StyledFieldset } from "./styles";
 import { TypographySizeType, TypographyType } from "@ptypes/typography.types";
+import { StyledFieldset } from "./styles";
 
 interface FieldsetProps {
   title: string;
@@ -15,10 +15,10 @@ interface FieldsetProps {
 function Fieldset(props: FieldsetProps) {
   const { title, children, type = "title", size = "medium" } = props;
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const isMobile = useMediaQuery("(max-width: 740px)");
 
   return (
-    <StyledFieldset smallScreen={isMobile}>
+    <StyledFieldset isMobile={isMobile}>
       <legend>
         <Stack padding={inube.spacing.s050}>
           <Text type={type} size={size}>

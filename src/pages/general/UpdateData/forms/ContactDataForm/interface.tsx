@@ -4,10 +4,10 @@ import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { getFieldState } from "src/utils/forms";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
+import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
+import { getFieldState } from "src/utils/forms";
 
 interface ContactDataFormUIProps {
   formik: FormikValues;
@@ -25,7 +25,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
   return (
     <form>
       <Fieldset
-        title={`Dirección N° ${formik.values.id}`}
+        title="Dirección de residencia"
         size={isMobile ? "small" : "medium"}
       >
         <Grid
