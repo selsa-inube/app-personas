@@ -1,7 +1,6 @@
 import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
-import { ObjectSchema } from "yup";
 import { IDirector } from "@mocks/directors/directors.mocks";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
@@ -16,7 +15,7 @@ interface RelationshipWithDirectorsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   showDirectorsModal: boolean;
-  validationSchema: ObjectSchema<{}>;
+  isRequired: (fieldName: string) => boolean;
   handleToggleModal: () => void;
   handleModalSelect: (field: string, selectedItem: IDirector) => void;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
@@ -28,19 +27,12 @@ function RelationshipWithDirectorsFormUI(
   const {
     formik,
     loading,
-    validationSchema,
     showDirectorsModal,
+    isRequired,
     customHandleBlur,
     handleToggleModal,
     handleModalSelect,
   } = props;
-
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = validationSchema.describe().fields[
-      fieldName
-    ] as any;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
 
   const isMobile = useMediaQuery("(max-width: 700px)");
 

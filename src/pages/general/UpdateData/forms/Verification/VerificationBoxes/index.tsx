@@ -281,35 +281,52 @@ const renderFinancialOperationsVerification = (
       gap="s100"
       width="100%"
     >
-      <BoxAttribute
-        label="Operaciones en moneda extranjera:"
-        value={activeDM.valueOf(values.hasForeignCurrencyTransactions)?.value}
-      />
-      <BoxAttribute
-        label="Cuentas en moneda extranjera:"
-        value={activeDM.valueOf(values.hasForeignCurrencyAccounts)?.value}
-      />
+      {values.hasForeignCurrencyTransactions && (
+        <BoxAttribute
+          label="Operaciones en moneda extranjera:"
+          value={activeDM.valueOf(values.hasForeignCurrencyTransactions)?.value}
+        />
+      )}
+      {values.hasForeignCurrencyAccounts && (
+        <BoxAttribute
+          label="Cuentas en moneda extranjera:"
+          value={activeDM.valueOf(values.hasForeignCurrencyAccounts)?.value}
+        />
+      )}
     </Grid>
-    <BoxAttribute
-      label="Descripción de las operaciones:"
-      value={values.descriptionOperations}
-      direction="column"
-    />
+    {values.descriptionOperations && (
+      <BoxAttribute
+        label="Descripción de las operaciones:"
+        value={values.descriptionOperations}
+        direction="column"
+      />
+    )}
     <Grid
       templateColumns={isTablet ? "1fr" : "1fr 1fr"}
       gap="s100"
       width="100%"
     >
-      <BoxAttribute label="País:" value={values.country} />
-      <BoxAttribute
-        label="Banco:"
-        value={getValueOfDomain(values.bankEntity, "bankForeign")?.value}
-      />
-      <BoxAttribute
-        label="Moneda:"
-        value={getValueOfDomain(values.currency, "currency")?.value}
-      />
-      <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
+      {values.country && (
+        <BoxAttribute
+          label="País:"
+          value={countryDM.valueOf(values.country)?.value}
+        />
+      )}
+      {values.bankEntity && (
+        <BoxAttribute
+          label="Banco:"
+          value={getValueOfDomain(values.bankEntity, "bankForeign")?.value}
+        />
+      )}
+      {values.currency && (
+        <BoxAttribute
+          label="Moneda:"
+          value={getValueOfDomain(values.currency, "currency")?.value}
+        />
+      )}
+      {values.accountNumber && (
+        <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
+      )}
     </Grid>
   </Stack>
 );

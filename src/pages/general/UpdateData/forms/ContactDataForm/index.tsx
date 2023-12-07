@@ -68,12 +68,17 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     });
   };
 
+  const isRequired = (fieldName: string): boolean => {
+    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
+    return !fieldDescription.nullable && !fieldDescription.optional;
+  };
+
   return (
     <ContactDataFormUI
       loading={loading}
       formik={formik}
+      isRequired={isRequired}
       customHandleBlur={customHandleBlur}
-      validationSchema={dynamicSchema}
     />
   );
 });

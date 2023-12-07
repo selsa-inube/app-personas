@@ -4,35 +4,30 @@ import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { getFieldState } from "src/utils/forms";
-import { ObjectSchema } from "yup";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
+import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
+import { getFieldState } from "src/utils/forms";
 
 interface ContactDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  validationSchema: ObjectSchema<{}>;
+  isRequired: (fieldName: string) => boolean;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, validationSchema, customHandleBlur } = props;
-
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = validationSchema.describe().fields[
-      fieldName
-    ] as any;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
+  const { formik, loading, isRequired, customHandleBlur } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
 
   return (
     <form>
-      <Fieldset title="Dirección de residencia" size={isMobile ? "small" : "medium"}>
+      <Fieldset
+        title="Dirección de residencia"
+        size={isMobile ? "small" : "medium"}
+      >
         <Grid
           templateColumns={
             isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
