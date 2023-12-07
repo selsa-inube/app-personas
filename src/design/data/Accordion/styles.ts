@@ -1,9 +1,16 @@
 import { inube } from "@design/tokens";
 import styled from "styled-components";
 
-const StyledContainer = styled.div`
+interface IStyledContainer {
+  isMobile: boolean;
+}
+
+const StyledContainer = styled.div<IStyledContainer>`
   display: flex;
-  padding: ${inube.spacing.s200} ${inube.spacing.s250};
+  padding: ${({ isMobile }) =>
+    isMobile
+      ? `${inube.spacing.s150} ${inube.spacing.s200}`
+      : `${inube.spacing.s200} ${inube.spacing.s250}`};
   flex-direction: column;
   gap: ${inube.spacing.s200};
   border-radius: 8px;
