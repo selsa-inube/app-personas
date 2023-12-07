@@ -4,16 +4,19 @@ import { cityDM } from "src/model/domains/personalInformation/citydm";
 import {
   IBankTransfersAccount,
   IContactData,
-  IFinancialOperations,
-  IResidence,
-  IThird,
   IEconomicActivity,
   IFamilyThird,
+  IFinancialOperations,
+  IRelationshipWithDirectors,
+  IResidence,
+  IThird,
 } from "src/model/entity/user";
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
+import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "../forms/ExpensesForm/types";
+import { IFamilyGroupEntry } from "../forms/FamilyGroupForm/types";
 import { IFinancialOperationsEntry } from "../forms/FinancialOperationsForm/types";
 import { IIncomesEntry } from "../forms/IncomesForm/types";
 import {
@@ -30,12 +33,8 @@ import {
   IPersonalReferenceEntry,
 } from "../forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
-import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
-import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirectorsForm/types";
-import { IRelationshipWithDirectors } from "src/model/entity/user";
-import { IFamilyGroupEntry } from "../forms/FamilyGroupForm/types";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
+import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
 const mapPersonalInformation = (
   personalInfoData: IThird
@@ -215,18 +214,18 @@ const mapFinancialOperations = (
 };
 
 const mapPersonalResidence = (
-  personalResidence: IResidence
+  personalResidence?: IResidence
 ): IPersonalResidenceEntry => {
   return {
-    type: personalResidence.type,
-    stratum: personalResidence.stratum,
-    bankEntity: personalResidence.bankEntity,
-    dueDate: personalResidence.dueDate,
-    tenant: personalResidence.tenant,
-    tenantCellPhone: personalResidence.tenantCellPhone,
-    ownerName: personalResidence.ownerName,
-    relationship: personalResidence.relationship,
-    ownerCellPhone: personalResidence.ownerCellPhone,
+    type: personalResidence?.type || "",
+    stratum: personalResidence?.stratum || "",
+    bankEntity: personalResidence?.bankEntity || "",
+    dueDate: personalResidence?.dueDate || "",
+    tenant: personalResidence?.tenant || "",
+    tenantCellPhone: personalResidence?.tenantCellPhone || "",
+    ownerName: personalResidence?.ownerName || "",
+    relationship: personalResidence?.relationship || "",
+    ownerCellPhone: personalResidence?.ownerCellPhone || "",
   };
 };
 
@@ -313,9 +312,10 @@ const mapRelationshipWithDirectors = (
 export {
   mapBankTransfers,
   mapContactData,
+  mapEconomicActivity,
+  mapExpenses,
   mapFamilyGroup,
   mapFamilyGroups,
-  mapExpenses,
   mapFinancialOperations,
   mapIncomes,
   mapPersonalAsset,
@@ -326,7 +326,6 @@ export {
   mapPersonalReference,
   mapPersonalReferences,
   mapPersonalResidence,
-  mapSocioeconomicInformation,
-  mapEconomicActivity,
   mapRelationshipWithDirectors,
+  mapSocioeconomicInformation,
 };

@@ -1,18 +1,17 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
-import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalResidenceFormUI } from "./interface";
 import { IPersonalResidenceEntry } from "./types";
 
 const validationSchema = Yup.object({
-  bankEntity: validationRules.name.required(validationMessages.required),
-  dueDate: validationRules.date.required(validationMessages.required),
-  tenant: validationRules.name.required(validationMessages.required),
-  tenantCellPhone: validationRules.phone.required(validationMessages.required),
-  ownerName: validationRules.name.required(validationMessages.required),
-  ownerCellPhone: validationRules.phone.required(validationMessages.required),
+  bankEntity: validationRules.name,
+  dueDate: validationRules.date,
+  tenant: validationRules.name,
+  tenantCellPhone: validationRules.phone,
+  ownerName: validationRules.name,
+  ownerCellPhone: validationRules.phone,
 });
 
 interface PersonalResidenceFormProps {

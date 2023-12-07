@@ -16,7 +16,7 @@ interface IPersonalData {
   gender: string;
   maritalStatus: string;
   bloodType: string;
-  residence: IResidence;
+  residence?: IResidence;
 }
 
 interface IContactData {
@@ -115,12 +115,12 @@ interface IThird {
 export type {
   IBankTransfersAccount,
   IContactData,
+  IEconomicActivity,
   IFamilyThird,
   IFinancialOperations,
   IIdentification,
   IPersonalData,
+  IRelationshipWithDirectors,
   IResidence,
   IThird,
-  IEconomicActivity,
-  IRelationshipWithDirectors,
 };
