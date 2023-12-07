@@ -53,7 +53,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
     });
   };
 
-  const onCloseMessage = () => {
+  const handleCloseMessage = () => {
     setMessage(initialMessageState);
   };
 
@@ -168,11 +168,11 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
     <PersonalReferencesFormUI
       formik={formik}
       showAddReferenceModal={showAddReferenceModal}
-      handleToggleModal={handleToggleModal}
-      handleAddReference={handleAddReference}
       personalReferencesTableActions={personalReferencesTableActions}
       message={message}
-      onCloseMessage={onCloseMessage}
+      onCloseMessage={handleCloseMessage}
+      onToggleModal={handleToggleModal}
+      onAddReference={handleAddReference}
     />
   );
 });

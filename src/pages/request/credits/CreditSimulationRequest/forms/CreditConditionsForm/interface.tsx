@@ -17,7 +17,7 @@ import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledList } from "./styles";
 
-interface SimulationFormUIProps {
+interface CreditConditionsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   interestRate: number;
@@ -29,7 +29,7 @@ interface SimulationFormUIProps {
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SimulationFormUI(props: SimulationFormUIProps) {
+function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
   const {
     formik,
     loading,
@@ -72,7 +72,11 @@ function SimulationFormUI(props: SimulationFormUIProps) {
   return (
     <form>
       <Stack direction="column" gap="s400">
-        <Fieldset title="Caracteristicas" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
+        <Fieldset
+          title="Caracteristicas"
+          type={isMobile ? "label" : "title"}
+          size={isMobile ? "medium" : "small"}
+        >
           <Stack direction="column" gap="s300">
             <Grid gap="s300" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <Select
@@ -154,7 +158,11 @@ function SimulationFormUI(props: SimulationFormUIProps) {
           </Stack>
         </Fieldset>
 
-        <Fieldset title="Simulador de crédito" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
+        <Fieldset
+          title="Simulador de crédito"
+          type={isMobile ? "label" : "title"}
+          size={isMobile ? "medium" : "small"}
+        >
           <Stack direction="column" gap="s250">
             <Stack direction="column" gap="s200">
               <Stack
@@ -300,4 +308,4 @@ function SimulationFormUI(props: SimulationFormUIProps) {
   );
 }
 
-export { SimulationFormUI };
+export { CreditConditionsFormUI };

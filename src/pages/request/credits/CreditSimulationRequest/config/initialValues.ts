@@ -1,9 +1,9 @@
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { ICommentsEntry } from "../forms/CommentsForm/types";
+import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { IPreliquidationEntry } from "../forms/PreliquidationForm/types";
-import { ISimulationEntry } from "../forms/SimulationForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
 const destination: IDestinationEntry = {
@@ -11,7 +11,7 @@ const destination: IDestinationEntry = {
   product: "",
 };
 
-const simulation: ISimulationEntry = {
+const creditConditions: ICreditConditionsEntry = {
   creditDestination: "",
   product: "",
   amount: "",
@@ -60,7 +60,7 @@ const termsAndConditions: ITermsAndConditionsEntry = {
 
 const initalValuesCreditSimulation = {
   destination,
-  simulation,
+  creditConditions,
   preliquidation,
   disbursement,
   comments,

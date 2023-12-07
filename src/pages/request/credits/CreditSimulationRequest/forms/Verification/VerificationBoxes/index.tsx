@@ -13,10 +13,10 @@ import { identificationTypeDM } from "src/model/domains/personalInformation/iden
 import { currencyFormat } from "src/utils/formats";
 import { IFormsCreditSimulationRequest } from "../../../types";
 import { ICommentsEntry } from "../../CommentsForm/types";
+import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IPreliquidationEntry } from "../../PreliquidationForm/types";
-import { ISimulationEntry } from "../../SimulationForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 
 const renderDestinationVerification = (
@@ -37,8 +37,8 @@ const renderDestinationVerification = (
   </Grid>
 );
 
-const renderSimulationVerification = (
-  values: ISimulationEntry,
+const renderCreditConditionsVerification = (
+  values: ICreditConditionsEntry,
   isTablet: boolean
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
@@ -256,8 +256,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "simulation" &&
-        renderSimulationVerification(
-          creditSimulationRequest.simulation.values,
+        renderCreditConditionsVerification(
+          creditSimulationRequest.creditConditions.values,
           isTablet
         )}
 

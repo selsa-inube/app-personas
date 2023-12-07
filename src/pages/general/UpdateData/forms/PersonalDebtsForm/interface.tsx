@@ -16,10 +16,10 @@ import {
 interface PersonalDebtsFormUIProps {
   formik: FormikValues;
   showAddDebtModal: boolean;
-  handleToggleModal: () => void;
-  handleAddDebt: () => void;
   personalDebtsTableActions: IAction[];
   message: IMessage;
+  onAddDebt: () => void;
+  onToggleModal: () => void;
   onCloseMessage: () => void;
 }
 
@@ -27,11 +27,11 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
   const {
     formik,
     showAddDebtModal,
-    handleToggleModal,
-    handleAddDebt,
     personalDebtsTableActions,
     message,
     onCloseMessage,
+    onToggleModal,
+    onAddDebt,
   } = props;
 
   return (
@@ -40,7 +40,7 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
         <Button
           iconBefore={<MdOutlineAccountBalance />}
           variant="none"
-          onClick={handleToggleModal}
+          onClick={onToggleModal}
         >
           Adicionar deuda
         </Button>
@@ -60,8 +60,8 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
             confirmButtonText="Adicionar"
             portalId="modals"
             formik={formik}
-            onCloseModal={handleToggleModal}
-            onConfirm={handleAddDebt}
+            onCloseModal={onToggleModal}
+            onConfirm={onAddDebt}
           />
         )}
       </Stack>

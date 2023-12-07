@@ -58,8 +58,14 @@ const interestRatesMock = {
   study: 2.84,
 };
 
+const maxDeadlineMock = {
+  freeInvestment: 30,
+  vehicleOrMotorcycle: 14,
+};
+
 export {
   destinationProductsMock,
   interestRatesMock,
+  maxDeadlineMock,
   maximumQuotasAvailableMock,
 };

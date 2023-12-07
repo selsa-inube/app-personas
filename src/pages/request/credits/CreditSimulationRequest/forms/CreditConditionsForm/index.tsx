@@ -1,12 +1,16 @@
-import { interestRatesMock } from "@mocks/products/credits/request.mocks";
+import {
+  interestRatesMock,
+  maxDeadlineMock,
+  maximumQuotasAvailableMock,
+} from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { currencyFormat } from "src/utils/formats";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { SimulationFormUI } from "./interface";
-import { ISimulationEntry } from "./types";
+import { CreditConditionsFormUI } from "./interface";
+import { ICreditConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
   amount: validationRules.money,
@@ -16,16 +20,16 @@ const validationSchema = Yup.object({
   quota: validationRules.money,
 });
 
-interface SimulationFormProps {
-  initialValues: ISimulationEntry;
+interface CreditConditionsFormProps {
+  initialValues: ICreditConditionsEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: ISimulationEntry) => void;
+  onSubmit?: (values: ICreditConditionsEntry) => void;
   loading?: boolean;
 }
 
-const SimulationForm = forwardRef(function SimulationForm(
-  props: SimulationFormProps,
-  ref: React.Ref<FormikProps<ISimulationEntry>>
+const CreditConditionsForm = forwardRef(function CreditConditionsForm(
+  props: CreditConditionsFormProps,
+  ref: React.Ref<FormikProps<ICreditConditionsEntry>>
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -41,6 +45,32 @@ const SimulationForm = forwardRef(function SimulationForm(
   });
 
   useImperativeHandle(ref, () => formik);
+
+  useEffect(() => {
+    const maxDeadline =
+      maxDeadlineMock[formik.values.product as keyof typeof maxDeadlineMock];
+
+    const maximumQuotas =
+      maximumQuotasAvailableMock[
+        formik.values
+          .creditDestination as keyof typeof maximumQuotasAvailableMock
+      ];
+
+    const newValidationSchema = validationSchema.concat(
+      Yup.object({
+        deadline: Yup.number()
+          .min(1, validationMessages.minNumbers(10))
+          .max(
+            maxDeadline,
+            `El plazo máximo para este producto es de ${maxDeadline} meses`
+          ),
+        amount: Yup.number()
+          .min(1, validationMessages.minCurrencyNumbers(1))
+          .max(maximumQuotas.noWarranty, "Has superado el cupo máximo"),
+      })
+    );
+    setDynamicValidationSchema(newValidationSchema);
+  }, []);
 
   const interestRate =
     interestRatesMock[
@@ -133,7 +163,7 @@ const SimulationForm = forwardRef(function SimulationForm(
   };
 
   return (
-    <SimulationFormUI
+    <CreditConditionsFormUI
       loading={loading}
       formik={formik}
       interestRate={interestRate}
@@ -145,5 +175,5 @@ const SimulationForm = forwardRef(function SimulationForm(
   );
 });
 
-export { SimulationForm };
-export type { SimulationFormProps };
+export { CreditConditionsForm };
+export type { CreditConditionsFormProps };
