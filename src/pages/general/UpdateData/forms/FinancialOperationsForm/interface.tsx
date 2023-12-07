@@ -10,24 +10,16 @@ import { FormikValues } from "formik";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { activeDM } from "src/model/domains/general/activedm";
 import { getFieldState } from "src/utils/forms";
-import { ObjectSchema } from "yup";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  validationSchema: ObjectSchema<{}>;
+  isRequired: (fieldName: string) => boolean;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
-  const { formik, loading, validationSchema, customHandleBlur } = props;
-
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = validationSchema.describe().fields[
-      fieldName
-    ] as any;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
+  const { formik, loading, isRequired, customHandleBlur } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
 

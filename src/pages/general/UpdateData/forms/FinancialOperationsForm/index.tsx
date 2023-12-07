@@ -68,11 +68,16 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
     });
   };
 
+  const isRequired = (fieldName: string): boolean => {
+    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
+    return !fieldDescription.nullable && !fieldDescription.optional;
+  };
+
   return (
     <FinancialOperationsFormUI
-      validationSchema={dynamicSchema}
       loading={loading}
       formik={formik}
+      isRequired={isRequired}
       customHandleBlur={customHandleBlur}
     />
   );
