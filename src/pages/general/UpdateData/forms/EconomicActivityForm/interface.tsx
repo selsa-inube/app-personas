@@ -20,14 +20,13 @@ import { severanceRegimeDM } from "src/model/domains/economicActivity/severancer
 import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { getFieldState } from "src/utils/forms";
-import { ObjectSchema } from "yup";
 
 interface EconomicActivityFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   showMainActivityModal: boolean;
   showSecondaryActivityModal: boolean;
-  validationSchema: ObjectSchema<{}>;
+  isRequired: (fieldName: string) => boolean;
   handleToggleModal: (field: string) => void;
   handleModalSelect: (field: string, selectedItem: IEconomicActivity) => void;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
@@ -37,20 +36,13 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
   const {
     formik,
     loading,
-    validationSchema,
     showMainActivityModal,
     showSecondaryActivityModal,
+    isRequired,
     customHandleBlur,
     handleToggleModal,
     handleModalSelect,
   } = props;
-
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = validationSchema.describe().fields[
-      fieldName
-    ] as any;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -59,7 +51,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
     <>
       <form>
         <Stack direction="column" gap="s300">
-          <Fieldset title="Clasificación económica" type={isMobile ? "label" : "title"}>
+          <Fieldset
+            title="Clasificación económica"
+            type={isMobile ? "label" : "title"}
+          >
             <Grid
               templateColumns={
                 isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
@@ -179,7 +174,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
           </Fieldset>
           {formik.values.economicActivity ===
             economicActivityDM.EMPLOYEE.id && (
-            <Fieldset title="Detalles laborales"  type={isMobile ? "label" : "title"}>
+            <Fieldset
+              title="Detalles laborales"
+              type={isMobile ? "label" : "title"}
+            >
               <Grid
                 templateColumns={
                   isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"

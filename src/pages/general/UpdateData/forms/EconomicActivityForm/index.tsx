@@ -143,14 +143,19 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
       : setShowSecondaryActivityModal(!showSecondaryActivityModal);
   };
 
+  const isRequired = (fieldName: string): boolean => {
+    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
+    return !fieldDescription.nullable && !fieldDescription.optional;
+  };
+
   return (
     <EconomicActivityFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
-      validationSchema={dynamicSchema}
       showMainActivityModal={showMainActivityModal}
       showSecondaryActivityModal={showSecondaryActivityModal}
+      isRequired={isRequired}
+      customHandleBlur={customHandleBlur}
       handleToggleModal={handleToggleModal}
       handleModalSelect={handleModalSelect}
     />

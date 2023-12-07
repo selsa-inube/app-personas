@@ -70,13 +70,20 @@ const RelationshipWithDirectorsForm = forwardRef(
       handleToggleModal();
     };
 
+    const isRequired = (fieldName: string): boolean => {
+      const fieldDescription = dynamicSchema.describe().fields[
+        fieldName
+      ] as any;
+      return !fieldDescription.nullable && !fieldDescription.optional;
+    };
+
     return (
       <RelationshipWithDirectorsFormUI
         loading={loading}
         formik={formik}
-        customHandleBlur={customHandleBlur}
-        validationSchema={dynamicSchema}
         showDirectorsModal={showDirectorsModal}
+        isRequired={isRequired}
+        customHandleBlur={customHandleBlur}
         handleToggleModal={handleToggleModal}
         handleModalSelect={handleModalSelect}
       />
