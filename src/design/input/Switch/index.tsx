@@ -1,7 +1,7 @@
 import { Stack } from "@design/layout/Stack";
+import { MdClose, MdDone } from "react-icons/md";
 import { Label } from "../Label";
-import { MdDone, MdClose } from "react-icons/md";
-import { StyledContainer, StyledInput, StyledSpan, StyledIcon } from "./styles";
+import { StyledContainer, StyledIcon, StyledInput, StyledSpan } from "./styles";
 import { SwitchSizeType } from "./types";
 
 interface SwitchProps {
@@ -10,11 +10,12 @@ interface SwitchProps {
   value?: string;
   size?: SwitchSizeType;
   checked?: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  label: string;
+  label?: string;
   margin?: string;
   padding?: string;
   disabled?: boolean;
+  customLabel?: React.ReactNode;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Switch = (props: SwitchProps) => {
@@ -25,10 +26,11 @@ const Switch = (props: SwitchProps) => {
     value,
     size = "small",
     checked = false,
-    onChange,
     label,
     margin = "s0",
     padding = "s0",
+    customLabel,
+    onChange,
   } = props;
 
   return (
@@ -63,9 +65,9 @@ const Switch = (props: SwitchProps) => {
           )}
         </StyledSpan>
       </StyledContainer>
-      {label && (
+      {(customLabel || label) && (
         <Label htmlFor={id} isDisabled={disabled}>
-          {label}
+          {customLabel || label}
         </Label>
       )}
     </Stack>

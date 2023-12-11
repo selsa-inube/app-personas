@@ -1,3 +1,4 @@
+import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import {
@@ -5,7 +6,9 @@ import {
   creditSimulationStepsRules,
 } from "./config/assisted";
 import { initalValuesCreditSimulation } from "./config/initialValues";
+import { mapCommunicationChannels } from "./config/mappers";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
+import { ICommunicationChannelsEntry } from "./forms/CommunicationChannelsForm/types";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";
@@ -51,6 +54,10 @@ function CreditSimulationRequest() {
         isValid: false,
         values: initalValuesCreditSimulation.termsAndConditions,
       },
+      communicationChannels: {
+        isValid: false,
+        values: mapCommunicationChannels(usersMock[0].contact[0]),
+      },
     });
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
@@ -60,6 +67,8 @@ function CreditSimulationRequest() {
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
+  const communicationChannelsRef =
+    useRef<FormikProps<ICommunicationChannelsEntry>>(null);
 
   const formReferences: IFormsCreditSimulationRequestRefs = {
     destination: destinationRef,
@@ -68,6 +77,7 @@ function CreditSimulationRequest() {
     disbursement: disbursementRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
+    communicationChannels: communicationChannelsRef,
   };
 
   const handleStepChange = (stepId: number) => {

@@ -37,8 +37,14 @@ const creditSimulationRequestSteps = {
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
   },
-  verification: {
+  communicationChannels: {
     id: 7,
+    name: "Canales de comunicación",
+    description:
+      "Selecciona las opciones que nos permitan enviarte información.",
+  },
+  verification: {
+    id: 8,
     name: "Verificación",
     description:
       "Verifica la información que diligenciaste en tu solicitud de crédito.",
