@@ -35,6 +35,7 @@ function AssistedUI(props: AssistedUIProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 744px)");
+  const isTablet = useMediaQuery("(max-width: 1000px)");
 
   const barWidth = ((currentStepIndex + 1) / steps.length) * 100;
 
@@ -52,7 +53,7 @@ function AssistedUI(props: AssistedUIProps) {
             onClick={handlePreviousStep}
             disabled={currentStepIndex === 0}
           >
-            {!isMobile && "Atrás"}
+            {!isTablet && "Atrás"}
           </Button>
         </StyledButton>
         <Stack
@@ -107,9 +108,8 @@ function AssistedUI(props: AssistedUIProps) {
             onClick={handleNextStep}
             disabled={disableNextStep}
           >
-            {!isMobile && currentStepIndex === steps.length - 1
-              ? "Enviar"
-              : "Siguiente"}
+            {!isTablet &&
+              (currentStepIndex === steps.length - 1 ? "Enviar" : "Siguiente")}
           </Button>
         </StyledButton>
       </Stack>
