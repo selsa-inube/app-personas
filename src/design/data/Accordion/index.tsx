@@ -1,4 +1,5 @@
 import { Divider } from "@design/layout/Divider";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { Icon } from "../Icon";
@@ -17,10 +18,12 @@ function Accordion(props: AccordionProps) {
 
   const handleToggleOpen = () => setIsOpen(!isOpen);
 
+  const isMobile = useMediaQuery("(max-width: 450px)");
+
   return (
-    <StyledContainer>
+    <StyledContainer isMobile={isMobile}>
       <StyledHead onClick={handleToggleOpen}>
-        <Text type="label" size="large">
+        <Text type="label" size={isMobile ? "medium" : "large"}>
           {title}
         </Text>
 
