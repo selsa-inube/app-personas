@@ -5,17 +5,22 @@ import { IEntry } from "@design/data/Table/types";
 import { FormikValues } from "formik";
 import { MdOpenInNew } from "react-icons/md";
 import { deleteFamilyMemberModal } from "../config/deleteMember";
+import { EditFamilyMemberModal } from "@components/modals/forms/update-data/FamilyGroupModals/EditFamilyMemberModal";
 
 interface FamilyMemberViewUIProps {
   showModal: boolean;
   formik: FormikValues;
   member: IEntry;
   showDeleteModal: boolean;
+  showEditModal: boolean;
   onCloseModal: () => void;
   onShowModal: () => void;
   onDeleteModal: () => void;
+  onEditModal: () => void;
   onDeleteMember: () => void;
+  onConfirm: () => void;
   onCloseDeleteModal: () => void;
+  onCloseEditModal: () => void;
 }
 
 function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
@@ -24,11 +29,15 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
     formik,
     member,
     showDeleteModal,
+    showEditModal,
     onCloseModal,
     onShowModal,
     onDeleteModal,
+    onEditModal,
     onDeleteMember,
+    onConfirm,
     onCloseDeleteModal,
+    onCloseEditModal,
   } = props;
 
   const { title, description, actionText, appearance, portalId } =
@@ -51,6 +60,17 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
           formik={formik}
           onCloseModal={onCloseModal}
           onDelete={onDeleteModal}
+          onEdit={onEditModal}
+        />
+      )}
+
+      {showEditModal && (
+        <EditFamilyMemberModal
+          portalId="modals"
+          formik={formik}
+          onCloseModal={onCloseEditModal}
+          onConfirm={onConfirm}
+          withCustomDirty
         />
       )}
 

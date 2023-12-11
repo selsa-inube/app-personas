@@ -1,15 +1,13 @@
-import { Icon } from "@design/data/Icon";
 import { IAction } from "@design/data/Table/types";
 import { EMessageType, IMessage } from "@ptypes/messages.types";
-import { FormikProps, useFormik } from "formik";
+import { FormikProps, FormikValues, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { MdOutlineModeEdit } from "react-icons/md";
-
+import { EditFamilyMember } from "./EditFamilyMember";
 import { DeleteFamilyMember } from "./DeleteFamilyMember";
 import { FamilyMemberView } from "./FamilyMemberView";
 import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { FamilyGroupFormUI } from "./interface";
-import { IFamilyGroupEntries } from "./types";
+import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
 
 interface FamilyGroupFormProps {
   initialValues: IFamilyGroupEntries;
@@ -73,6 +71,50 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     });
   };
 
+  const handleEditMember = async (
+    member: IFamilyGroupEntry,
+    formik: FormikValues
+  ) => {
+    await formik.validateForm();
+
+    if (formik.isValid) {
+      const updatedEntries = formik.values.entries.map(
+        (entry: IFamilyGroupEntry) => {
+          if (entry.id === member.id) {
+            return {
+              id: formik.values.id,
+              firstName: formik.values.firstName,
+              secondName: formik.values.secondName,
+              firstLastName: formik.values.firstLastName,
+              secondLastName: formik.values.secondLastName,
+              type: formik.values.type,
+              number: formik.values.number,
+              city: formik.values.city,
+              date: formik.values.date,
+              country: formik.values.country,
+              address: formik.values.address,
+              department: formik.values.department,
+              zipCode: formik.values.zipCode,
+              landlinePhone: formik.values.landlinePhone,
+              cellPhone: formik.values.cellPhone,
+              email: formik.values.email,
+              birthDate: formik.values.birthDate,
+              gender: formik.values.gender,
+              relationship: formik.values.relationship,
+              isDependent: formik.values.isDependent,
+              educationLevel: formik.values.educationLevel,
+              businessActivity: formik.values.businessActivity,
+              profession: formik.values.profession,
+            };
+          }
+          return entry;
+        }
+      );
+
+      formik.setFieldValue("entries", updatedEntries);
+    }
+  };
+
   const familyGroupTableActions: IAction[] = [
     {
       id: "1",
@@ -82,6 +124,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
           member={member}
           formik={formik}
           onDeleteMember={() => handleDeleteMember(member.id)}
+          onEditMember={handleEditMember}
         />
       ),
       mobilePriority: true,
@@ -90,12 +133,10 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
       id: "2",
       actionName: "Editar",
       content: (member) => (
-        <Icon
-          appearance="dark"
-          icon={<MdOutlineModeEdit />}
-          size="16px"
-          spacing="none"
-          cursorHover
+        <EditFamilyMember
+          formik={formik}
+          member={member}
+          onEditMember={handleEditMember}
         />
       ),
       mobilePriority: true,
