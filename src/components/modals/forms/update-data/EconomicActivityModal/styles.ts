@@ -31,7 +31,7 @@ const StyledItem = styled.div`
 
 const StyledBody = styled.div`
   overflow-y: auto;
-  max-height: 450px;
+  height: calc(58vh - 32px);
   display: flex;
   flex-direction: column;
   gap: ${inube.spacing.s150};
