@@ -1,8 +1,8 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { Text } from "@design/data/Text";
 import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
-import { Text } from "@design/data/Text";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import {
   mapPersonalAsset,
@@ -11,9 +11,16 @@ import {
 } from "@pages/general/UpdateData/config/mappers";
 import { IFormsUpdateData } from "@pages/general/UpdateData/types";
 import React from "react";
+import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
+import { contractTypeDM } from "src/model/domains/economicActivity/contracttypedm";
+import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydm";
+import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedm";
+import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
+import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { activeDM } from "src/model/domains/general/activedm";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
+import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
@@ -21,17 +28,13 @@ import { relationshipDM } from "src/model/domains/personalResidence/relationship
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
-import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydm";
-import { contractTypeDM } from "src/model/domains/economicActivity/contracttypedm";
-import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedm";
-import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
-import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
-import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
 import { currencyFormat } from "src/utils/formats";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
+import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 import { IExpensesEntry } from "../../ExpensesForm/types";
+import { mapFamilyGroupTable } from "../../FamilyGroupForm/config/mapper";
+import { IFamilyGroupEntries } from "../../FamilyGroupForm/types";
 import { IFinancialOperationsEntry } from "../../FinancialOperationsForm/types";
 import { IIncomesEntry } from "../../IncomesForm/types";
 import { IPersonalAssetEntries } from "../../PersonalAssetsForm/types";
@@ -39,11 +42,8 @@ import { IPersonalDebtEntries } from "../../PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "../../PersonalInformationForm/types";
 import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
-import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
-import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
-import { IFamilyGroupEntries } from "../../FamilyGroupForm/types";
-import { mapFamilyGroupTable } from "../../FamilyGroupForm/config/mapper";
+import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -394,10 +394,12 @@ const renderSocioeconomicInfoVerification = (
       />
     )}
 
-    <BoxAttribute
-      label="Numero de personas a cargo:"
-      value={values.dependants}
-    />
+    {!isNaN(values.dependants) && (
+      <BoxAttribute
+        label="Numero de personas a cargo:"
+        value={values.dependants}
+      />
+    )}
 
     {values.isPublicExposed !== "" && (
       <BoxAttribute
