@@ -236,7 +236,7 @@ const mapSocioeconomicInformation = (
     educationLevel: socioeconomicData?.educationLevel || "",
     isResponsibleHome: socioeconomicData?.isResponsibleHome || "",
     isSingleMother: socioeconomicData?.isSingleMother || "",
-    dependants: Number(socioeconomicData?.dependants) || 0,
+    dependants: Number(socioeconomicData?.dependants),
     vulnerablePopulation: socioeconomicData?.vulnerablePopulation || "",
     isPublicExposed: socioeconomicData?.isPublicExposed || "",
     isDeclaredIncomes: socioeconomicData?.isDeclaredIncomes || "",
