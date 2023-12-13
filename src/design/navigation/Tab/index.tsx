@@ -1,7 +1,7 @@
 import { Text } from "@design/data/Text";
 import { StyledTab } from "./styles";
 
-interface ITabProps {
+interface TabProps {
   label: string;
   id: string;
   isDisabled?: boolean;
@@ -9,7 +9,7 @@ interface ITabProps {
   onClick?: () => void;
 }
 
-function Tab(props: ITabProps) {
+function Tab(props: TabProps) {
   const { isDisabled = false, isSelected = false, id, label, onClick } = props;
 
   const handleClick = () => {
@@ -37,5 +37,5 @@ function Tab(props: ITabProps) {
   );
 }
 
-export type { ITabProps };
+export type { TabProps };
 export { Tab };

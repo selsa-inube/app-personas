@@ -1,8 +1,9 @@
-import { Tabs, ITabsProps } from "..";
+import { Tabs, TabsProps } from "..";
 import { TabsController } from "./TabsController";
 import { ThemeProvider } from "styled-components";
 import { props, parameters } from "../props";
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/navigation/Tabs",
@@ -12,19 +13,18 @@ const story = {
   parameters,
 };
 
-const Default = (args: ITabsProps) => <TabsController {...args} />;
+const Default: StoryFn<TabsProps> = (args) => <TabsController {...args} />;
 Default.args = {
   tabs: [
     {
       id: "generalInformation",
-      disabled: false,
       label: "General Information",
     },
-    { id: "branches", disabled: false, label: "Branches" },
-    { id: "projects", disabled: false, label: "Projects" },
-    { id: "events", disabled: true, label: "Events" },
-    { id: "aidBudget", disabled: false, label: "Aid budget units" },
-    { id: "payroll", disabled: false, label: "Payroll" },
+    { id: "branches", label: "Branches" },
+    { id: "projects", label: "Projects" },
+    { id: "events", isDisabled: true, label: "Events" },
+    { id: "aidBudget", label: "Aid budget units" },
+    { id: "payroll", label: "Payroll" },
   ],
   selectedTab: "generalInformation",
 };
@@ -33,7 +33,7 @@ const theme = {
   ...themes["fondecom"],
 };
 
-const Themed = (args: ITabsProps) => (
+const Themed: StoryFn<TabsProps> = (args) => (
   <ThemeProvider theme={theme}>
     <TabsController {...args} />
   </ThemeProvider>

@@ -7,21 +7,21 @@ interface EditFamilyMemberUIProps {
   showModal: boolean;
   formik: FormikValues;
   onEditModal: () => void;
-  closeModal: () => void;
+  onCloseModal: () => void;
   onConfirm: () => void;
 }
 
 function EditFamilyMemberUI(props: EditFamilyMemberUIProps) {
-  const { showModal, formik, onEditModal, closeModal, onConfirm } = props;
+  const { showModal, formik, onEditModal, onCloseModal, onConfirm } = props;
 
   return (
     <>
       <Icon
         appearance="dark"
         icon={<MdOutlineModeEdit />}
-        cursorHover={true}
         size="16px"
         spacing="none"
+        cursorHover
         onClick={onEditModal}
       />
 
@@ -29,7 +29,7 @@ function EditFamilyMemberUI(props: EditFamilyMemberUIProps) {
         <EditFamilyMemberModal
           portalId="modals"
           formik={formik}
-          onCloseModal={closeModal}
+          onCloseModal={onCloseModal}
           onConfirm={onConfirm}
           withCustomDirty
         />

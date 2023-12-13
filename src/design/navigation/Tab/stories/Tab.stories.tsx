@@ -1,8 +1,9 @@
 import { ThemeProvider } from "styled-components";
-import { Tab, ITabProps } from "../index";
+import { Tab, TabProps } from "../index";
 import { TabController } from "./TabController";
 import { props } from "../props";
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/navigation/Tab",
@@ -11,19 +12,19 @@ const story = {
   argTypes: props,
 };
 
-const Default = (args: ITabProps) => <TabController {...args} />;
+const Default: StoryFn<TabProps> = (args) => <TabController {...args} />;
 Default.args = {
   id: "id",
-  disabled: false,
   label: "General Information",
-  selected: { control: null },
+  isDisabled: false,
+  isSelected: true,
 };
 
 const theme = {
   ...themes["fondecom"],
 };
 
-const Themed = (args: ITabProps) => (
+const Themed: StoryFn<TabProps> = (args) => (
   <ThemeProvider theme={theme}>
     <TabController {...args} />
   </ThemeProvider>

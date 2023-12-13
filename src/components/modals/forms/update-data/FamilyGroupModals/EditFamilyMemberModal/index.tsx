@@ -6,6 +6,7 @@ import { TextField } from "@design/input/TextField";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { Tabs } from "@design/navigation/Tabs";
+import { Divider } from "@design/layout/Divider";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { MdOutlineModeEdit } from "react-icons/md";
@@ -13,7 +14,7 @@ import { FormikValues } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { StyledDivider, StyledModal } from "./styles";
+import { StyledModal } from "./styles";
 import { getFieldState } from "src/utils/forms";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
@@ -52,20 +53,16 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
       <StyledModal smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap={isMobile ? "s050" : "s100"}>
           <Stack justifyContent="space-between" alignItems="center">
-            <Text
-              type="title"
-              size={isMobile ? "small" : "medium"}
-              appearance="dark"
-            >
+            <Text type="title" size={isMobile ? "small" : "medium"}>
               Editar familiar
             </Text>
             <Icon
               appearance="dark"
               icon={<MdOutlineClose />}
-              onClick={onCloseModal}
-              cursorHover={true}
               size="20px"
               spacing="none"
+              cursorHover
+              onClick={onCloseModal}
             />
           </Stack>
           <Text
@@ -77,7 +74,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
           </Text>
         </Stack>
 
-        <StyledDivider dashed />
+        <Divider dashed />
 
         <Tabs
           tabs={editFamilyMemberModalTabs}

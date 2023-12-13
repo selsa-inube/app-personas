@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Tabs, ITabsProps } from "..";
+import { Tabs, TabsProps } from "..";
 
-const TabsController = (props: ITabsProps) => {
+const TabsController = (props: TabsProps) => {
   const { tabs } = props;
   const [currentTab, setCurrentTab] = useState(props.selectedTab);
 

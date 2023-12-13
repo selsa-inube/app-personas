@@ -1,7 +1,9 @@
-const editFamilyMemberModalTabs = [
-  { id: "identificationTab", label: "Identificación", isDisabled: false },
-  { id: "contactTab", label: "Contacto", isDisabled: false },
-  { id: "informationTab", label: "Información", isDisabled: false },
+import { ITab } from "@design/navigation/Tabs/types";
+
+const editFamilyMemberModalTabs: ITab[] = [
+  { id: "identificationTab", label: "Identificación" },
+  { id: "contactTab", label: "Contacto" },
+  { id: "informationTab", label: "Información" },
 ];
 
 export { editFamilyMemberModalTabs };

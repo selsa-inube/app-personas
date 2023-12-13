@@ -4,12 +4,6 @@ import { IEntry } from "@design/data/Table/types";
 import { FormikValues } from "formik";
 import { IFamilyGroupEntry } from "../types";
 
-interface EditFamilyMemberProps {
-  member: IEntry;
-  formik: FormikValues;
-  onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
-}
-
 const getEditFamilyMember = (
   member: IFamilyGroupEntry,
   formik: FormikValues
@@ -25,6 +19,12 @@ const getEditFamilyMember = (
     });
   }
 };
+
+interface EditFamilyMemberProps {
+  member: IEntry;
+  formik: FormikValues;
+  onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
+}
 
 function EditFamilyMember(props: EditFamilyMemberProps) {
   const { member, formik, onEditMember } = props;
@@ -51,7 +51,7 @@ function EditFamilyMember(props: EditFamilyMemberProps) {
       showModal={showModal}
       onEditModal={handleEditModal}
       onConfirm={handleConfirm}
-      closeModal={handleToggleModal}
+      onCloseModal={handleToggleModal}
     />
   );
 }

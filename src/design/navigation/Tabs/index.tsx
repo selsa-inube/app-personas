@@ -1,14 +1,14 @@
 import { Stack } from "@design/layout/Stack";
-import { Tab, ITabProps } from "../Tab";
+import { Tab, TabProps } from "../Tab";
 import { StyledTabs } from "./styles";
 
-interface ITabsProps {
-  tabs: ITabProps[];
+interface TabsProps {
+  tabs: TabProps[];
   selectedTab: string;
   onChange: (id: string) => void;
 }
 
-function Tabs(props: ITabsProps) {
+function Tabs(props: TabsProps) {
   const { tabs, selectedTab, onChange } = props;
 
   const handleTabClick = (id: string) => {
@@ -36,5 +36,5 @@ function Tabs(props: ITabsProps) {
   );
 }
 
-export type { ITabsProps };
+export type { TabsProps };
 export { Tabs };
