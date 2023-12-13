@@ -18,17 +18,6 @@ const usersMock: IThird[] = [
       gender: "masculino",
       maritalStatus: "single",
       bloodType: "o_positive",
-      residence: {
-        type: "",
-        stratum: "",
-        bankEntity: "Banco de Bogotá",
-        dueDate: "02/Ago/2030",
-        tenant: "José Alejandro Pérez Gómez",
-        tenantCellPhone: "3123202874",
-        ownerName: "José Alejandro Pérez Gómez",
-        relationship: "father",
-        ownerCellPhone: "3123202874",
-      },
     },
     contact: [
       {

@@ -1,13 +1,16 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle } from "react";
+import { regex } from "src/validations/regularExpressions";
 import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { SocioeconomicInformationFormUI } from "./interface";
 import { ISocioeconomicInformationEntry } from "./types";
 
 const validationSchema = Yup.object({
-  dependants: validationRules.dependants.required(validationMessages.required),
+  dependants: Yup.string()
+    .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
+    .min(1, validationMessages.minNumbers(1))
+    .max(2, validationMessages.maxNumbers(2)),
 });
 
 interface SocioeconomicInformationFormProps {
