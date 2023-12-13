@@ -1,5 +1,6 @@
 import { FormikProps } from "formik";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
+import { ICommunicationChannelsEntry } from "./forms/CommunicationChannelsForm/types";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";
@@ -13,6 +14,10 @@ interface IFormsCreditSimulationRequest {
   disbursement: { isValid: boolean; values: IDisbursementEntry };
   comments: { isValid: boolean; values: ICommentsEntry };
   termsAndConditions: { isValid: boolean; values: ITermsAndConditionsEntry };
+  communicationChannels: {
+    isValid: boolean;
+    values: ICommunicationChannelsEntry;
+  };
 }
 
 interface IFormsCreditSimulationRequestRefs {
@@ -22,6 +27,9 @@ interface IFormsCreditSimulationRequestRefs {
   disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
   comments: React.RefObject<FormikProps<ICommentsEntry>>;
   termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
+  communicationChannels: React.RefObject<
+    FormikProps<ICommunicationChannelsEntry>
+  >;
 }
 
 export type {

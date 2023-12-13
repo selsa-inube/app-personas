@@ -13,6 +13,7 @@ import { identificationTypeDM } from "src/model/domains/personalInformation/iden
 import { currencyFormat } from "src/utils/formats";
 import { IFormsCreditSimulationRequest } from "../../../types";
 import { ICommentsEntry } from "../../CommentsForm/types";
+import { ICommunicationChannelsEntry } from "../../CommunicationChannelsForm/types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
@@ -132,10 +133,7 @@ const getAccountDescription = (accountId: string) => {
   return savingsMock.find((saving) => saving.id === accountId)?.description;
 };
 
-const renderDisbursementVerification = (
-  values: IDisbursementEntry,
-  isTablet: boolean
-) => (
+const renderDisbursementVerification = (values: IDisbursementEntry) => (
   <Stack direction="column" gap="s100" width="100%">
     <BoxAttribute
       label="Forma de desembolso:"
@@ -214,10 +212,7 @@ const renderDisbursementVerification = (
   </Stack>
 );
 
-const renderCommentsVerification = (
-  values: ICommentsEntry,
-  isTablet: boolean
-) => (
+const renderCommentsVerification = (values: ICommentsEntry) => (
   <Stack width="100%" direction="column">
     <BoxAttribute
       label="Comentarios adicionales:"
@@ -228,13 +223,30 @@ const renderCommentsVerification = (
 );
 
 const renderTermsAndConditionsVerification = (
-  values: ITermsAndConditionsEntry,
-  isTablet: boolean
+  values: ITermsAndConditionsEntry
 ) => (
   <Stack width="100%" direction="column">
     <BoxAttribute
       label="Acepta términos y condiciones:"
       value={values.accept ? activeDM.Y.value : activeDM.N.value}
+    />
+  </Stack>
+);
+
+const renderCommunicationChannelsVerification = (
+  values: ICommunicationChannelsEntry
+) => (
+  <Stack width="100%" direction="column" gap="s100">
+    <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
+    <BoxAttribute label="Celular:" value={values.cellPhone} />
+    <BoxAttribute label="Correo:" value={values.email} />
+    <BoxAttribute
+      label="Acepta política de tratamiento de datos:"
+      value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
+    />
+    <BoxAttribute
+      label="Autoriza recibir información:"
+      value={values.acceptNotifications ? activeDM.Y.value : activeDM.N.value}
     />
   </Stack>
 );
@@ -269,20 +281,20 @@ function VerificationBoxes(props: VerificationBoxesProps) {
 
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
-          creditSimulationRequest.disbursement.values,
-          isTablet
+          creditSimulationRequest.disbursement.values
         )}
 
       {stepKey === "comments" &&
-        renderCommentsVerification(
-          creditSimulationRequest.comments.values,
-          isTablet
-        )}
+        renderCommentsVerification(creditSimulationRequest.comments.values)}
 
       {stepKey === "termsAndConditions" &&
         renderTermsAndConditionsVerification(
-          creditSimulationRequest.termsAndConditions.values,
-          isTablet
+          creditSimulationRequest.termsAndConditions.values
+        )}
+
+      {stepKey === "communicationChannels" &&
+        renderCommunicationChannelsVerification(
+          creditSimulationRequest.communicationChannels.values
         )}
     </>
   );
