@@ -16,6 +16,7 @@ import { FormikValues } from "formik";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 import { StyledList } from "./styles";
+import { MdAttachMoney } from "react-icons/md";
 
 interface CreditConditionsFormUIProps {
   formik: FormikValues;
@@ -26,6 +27,7 @@ interface CreditConditionsFormUIProps {
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
+  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -37,6 +39,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     loadingSimulation,
     simulateCredit,
     customHandleChange,
+    customHandleBlur,
     onFormValid,
   } = props;
 
@@ -159,27 +162,33 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
         </Fieldset>
 
         <Fieldset
-          title="Simulador de crédito"
+          title={
+            formik.values.product === "generateRecommendation"
+              ? "Valor de crédito"
+              : "Simulador de crédito"
+          }
           type={isMobile ? "label" : "title"}
           size={isMobile ? "medium" : "small"}
         >
           <Stack direction="column" gap="s250">
             <Stack direction="column" gap="s200">
-              <Stack
-                padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
-                gap="s100"
-              >
-                <Switch
-                  id="simulationWithQuota"
-                  name="simulationWithQuota"
-                  onChange={customHandleChange}
-                  checked={formik.values.simulationWithQuota}
-                  label="Simular con el valor de la cuota"
-                  margin="0"
-                  padding="0"
-                  size="large"
-                />
-              </Stack>
+              {formik.values.product !== "generateRecommendation" && (
+                <Stack
+                  padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
+                  gap="s100"
+                >
+                  <Switch
+                    id="simulationWithQuota"
+                    name="simulationWithQuota"
+                    onChange={customHandleChange}
+                    checked={formik.values.simulationWithQuota}
+                    label="Simular con el valor de la cuota"
+                    margin="0"
+                    padding="0"
+                    size="large"
+                  />
+                </Stack>
+              )}
 
               <Grid gap="s300" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
                 <TextField
@@ -187,6 +196,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                   placeholder="Ingresa el valor del crédito"
                   name="amount"
                   id="amount"
+                  iconAfter={<MdAttachMoney size={18} />}
                   value={validateCurrencyField("amount")}
                   type="text"
                   errorMessage={formik.errors.amount}
@@ -194,78 +204,83 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                   size="compact"
                   isFullWidth
                   state={stateValue("amount")}
-                  onBlur={formik.handleBlur}
+                  onBlur={customHandleBlur}
+                  onFocus={formik.handleFocus}
                   onChange={handleChangeWithCurrency}
                   validMessage="El valor es válido"
                 />
+                {formik.values.product !== "generateRecommendation" && (
+                  <>
+                    <Select
+                      label="Periodicidad"
+                      name="peridiocity"
+                      id="peridiocity"
+                      value={formik.values.peridiocity}
+                      size="compact"
+                      isFullWidth
+                      options={peridiocityDM.options}
+                      onBlur={formik.handleBlur}
+                      errorMessage={formik.errors.peridiocity}
+                      isDisabled={loading}
+                      state={stateValue("peridiocity")}
+                      onChange={customHandleChange}
+                      readOnly
+                    />
 
-                <Select
-                  label="Periodicidad"
-                  name="peridiocity"
-                  id="peridiocity"
-                  value={formik.values.peridiocity}
-                  size="compact"
-                  isFullWidth
-                  options={peridiocityDM.options}
-                  onBlur={formik.handleBlur}
-                  errorMessage={formik.errors.peridiocity}
-                  isDisabled={loading}
-                  state={stateValue("peridiocity")}
-                  onChange={customHandleChange}
-                  readOnly
-                />
-
-                {formik.values.simulationWithQuota ? (
-                  <TextField
-                    label="Cuota"
-                    placeholder="Ingresa el valor de la cuota"
-                    name="quota"
-                    id="quota"
-                    value={validateCurrencyField("quota")}
-                    type="text"
-                    errorMessage={formik.errors.quota}
-                    isDisabled={loading}
-                    size="compact"
-                    isFullWidth
-                    state={stateValue("quota")}
-                    onBlur={formik.handleBlur}
-                    onChange={handleChangeWithCurrency}
-                    validMessage="La cuota es válida"
-                  />
-                ) : (
-                  <TextField
-                    label="Plazo"
-                    placeholder="Ingresa la cantidad de meses"
-                    name="deadline"
-                    id="deadline"
-                    value={formik.values.deadline}
-                    type="number"
-                    errorMessage={formik.errors.deadline}
-                    isDisabled={loading}
-                    size="compact"
-                    isFullWidth
-                    state={stateValue("deadline")}
-                    onBlur={formik.handleBlur}
-                    onChange={customHandleChange}
-                    validMessage="El plazo es válido"
-                  />
+                    {formik.values.simulationWithQuota ? (
+                      <TextField
+                        label="Cuota"
+                        placeholder="Ingresa el valor de la cuota"
+                        name="quota"
+                        id="quota"
+                        value={validateCurrencyField("quota")}
+                        type="text"
+                        errorMessage={formik.errors.quota}
+                        isDisabled={loading}
+                        size="compact"
+                        isFullWidth
+                        state={stateValue("quota")}
+                        onBlur={formik.handleBlur}
+                        onChange={handleChangeWithCurrency}
+                        validMessage="La cuota es válida"
+                      />
+                    ) : (
+                      <TextField
+                        label="Plazo"
+                        placeholder="Ingresa la cantidad de meses"
+                        name="deadline"
+                        id="deadline"
+                        value={formik.values.deadline}
+                        type="number"
+                        errorMessage={formik.errors.deadline}
+                        isDisabled={loading}
+                        size="compact"
+                        isFullWidth
+                        state={stateValue("deadline")}
+                        onBlur={formik.handleBlur}
+                        onChange={customHandleChange}
+                        validMessage="El plazo es válido"
+                      />
+                    )}
+                  </>
                 )}
               </Grid>
-
-              <Stack width="100%" justifyContent="flex-end">
-                <Button
-                  variant="outlined"
-                  onClick={simulateCredit}
-                  load={loadingSimulation}
-                  disabled={
-                    !formik.values.amount ||
-                    !formik.values.peridiocity ||
-                    (!formik.values.deadline && !formik.values.quota)
-                  }
-                >
-                  Simular
-                </Button>
-              </Stack>
+              {formik.values.product !== "generateRecommendation" && (
+                <Stack width="100%" justifyContent="flex-end">
+                  <Button
+                    variant="outlined"
+                    onClick={simulateCredit}
+                    load={loadingSimulation}
+                    disabled={
+                      !formik.values.amount ||
+                      !formik.values.peridiocity ||
+                      (!formik.values.deadline && !formik.values.quota)
+                    }
+                  >
+                    Simular
+                  </Button>
+                </Stack>
+              )}
             </Stack>
 
             {formik.values.hasResult && (

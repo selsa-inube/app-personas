@@ -77,6 +77,18 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       formik.values.creditDestination as keyof typeof interestRatesMock
     ];
 
+  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
+    formik.handleBlur(event);
+
+    if (onSubmit) return;
+
+    if (formik.values.product === "generateRecommendation") {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
+  };
+
   const simulateCredit = () => {
     setLoadingSimulation(true);
     setTimeout(() => {
@@ -170,6 +182,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       loadingSimulation={loadingSimulation}
       simulateCredit={simulateCredit}
       customHandleChange={customHandleChange}
+      customHandleBlur={customHandleBlur}
       onFormValid={onFormValid}
     />
   );
