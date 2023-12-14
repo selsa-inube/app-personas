@@ -23,14 +23,23 @@ function RequestCard(props: RequestCardProps) {
 
         <Stack direction="column" gap="s150">
           {descriptions.map((description, index) => {
+            if (Object.entries(descriptions).length > 1) {
+              return (
+                <Stack gap="s100" key={index}>
+                  <Icon
+                    icon={<MdOutlineStarBorder />}
+                    appearance="primary"
+                    size="12px"
+                    spacing="none"
+                  />
+                  <Text type="body" size="medium" appearance="gray">
+                    {description}
+                  </Text>
+                </Stack>
+              );
+            }
             return (
               <Stack gap="s100" key={index}>
-                <Icon
-                  icon={<MdOutlineStarBorder />}
-                  appearance="primary"
-                  size="12px"
-                  spacing="none"
-                />
                 <Text type="body" size="medium" appearance="gray">
                   {description}
                 </Text>
