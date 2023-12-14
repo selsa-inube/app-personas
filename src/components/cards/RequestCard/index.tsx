@@ -52,7 +52,7 @@ function RequestCard(props: RequestCardProps) {
         </Stack>
       </Stack>
 
-      <Button onClick={onClick}>Solicitar</Button>
+      <Button onClick={onClick} spacing={isMobile  ? "compact" : "wide"} >Solicitar</Button>
     </StyledCardContainer>
   );
 }
