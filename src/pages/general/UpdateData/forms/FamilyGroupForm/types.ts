@@ -18,7 +18,7 @@ interface IFamilyGroupEntry {
   birthDate?: string;
   gender?: string;
   relationship?: string;
-  isDependent?: string;
+  isDependent?: boolean;
   educationLevel?: string;
   businessActivity?: string;
   profession?: string;

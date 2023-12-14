@@ -244,9 +244,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 errorMessage={formik.errors.isDependent}
                 onChange={formik.handleChange}
                 value={
-                  formik.values.isDependent === activeDM.Y.id
-                    ? activeDM.Y.id
-                    : activeDM.N.id
+                  formik.values.isDependent ? activeDM.Y.id : activeDM.N.id
                 }
                 state={getFieldState(formik, "isDependent")}
                 isFullWidth
