@@ -1,9 +1,9 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { MdLogout } from "react-icons/md";
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 
 import { ISection } from "@design/layout/Page/types";
+import { useAuth } from "@inube/auth";
 import {
   StyledContent,
   StyledFooter,
@@ -30,7 +30,7 @@ function Nav(props: NavProps) {
   } = props;
   const year = new Date().getFullYear();
 
-  const { logout } = useAuth0();
+  const { logout } = useAuth();
 
   function handleLogout() {
     logout();
