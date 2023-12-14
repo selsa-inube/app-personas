@@ -2,6 +2,7 @@ import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdOutlineStarBorder } from "react-icons/md";
 import { StyledCardContainer } from "./styles";
 
@@ -14,9 +15,11 @@ interface RequestCardProps {
 function RequestCard(props: RequestCardProps) {
   const { title, descriptions, onClick } = props;
 
+  const isMobile = useMediaQuery("(max-width: 500px)");
+
   return (
     <StyledCardContainer>
-      <Stack direction="column" width="100%" gap="s200">
+      <Stack direction="column" width="100%" gap="s250">
         <Text type="title" size="medium">
           {title}
         </Text>
@@ -32,7 +35,7 @@ function RequestCard(props: RequestCardProps) {
                     size="12px"
                     spacing="none"
                   />
-                  <Text type="body" size="medium" appearance="gray">
+                  <Text type="body" size={isMobile ? "small" : "medium"} appearance="gray">
                     {description}
                   </Text>
                 </Stack>
@@ -40,7 +43,7 @@ function RequestCard(props: RequestCardProps) {
             }
             return (
               <Stack gap="s100" key={index}>
-                <Text type="body" size="medium" appearance="gray">
+                <Text type="body" size={isMobile ? "small" : "medium"} appearance="gray">
                   {description}
                 </Text>
               </Stack>

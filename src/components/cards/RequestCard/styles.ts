@@ -4,10 +4,10 @@ import styled from "styled-components";
 const StyledCardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${inube.spacing.s200};
+  padding: ${inube.spacing.s250};
   justify-content: center;
   align-items: flex-end;
-  gap: ${inube.spacing.s200};
+  gap: ${inube.spacing.s250};
 
   border-radius: ${inube.spacing.s100};
   border: 1px solid
