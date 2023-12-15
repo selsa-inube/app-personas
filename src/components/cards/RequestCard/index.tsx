@@ -17,6 +17,8 @@ function RequestCard(props: RequestCardProps) {
 
   const isMobile = useMediaQuery("(max-width: 500px)");
 
+  let descriptionsLength = Object.entries(descriptions).length > 1;
+
   return (
     <StyledCardContainer>
       <Stack direction="column" width="100%" gap="s250">
@@ -26,33 +28,42 @@ function RequestCard(props: RequestCardProps) {
 
         <Stack direction="column" gap="s150">
           {descriptions.map((description, index) => {
-            if (Object.entries(descriptions).length > 1) {
-              return (
-                <Stack gap="s100" key={index}>
-                  <Icon
-                    icon={<MdOutlineStarBorder />}
-                    appearance="primary"
-                    size="12px"
-                    spacing="none"
-                  />
-                  <Text type="body" size={isMobile ? "small" : "medium"} appearance="gray">
-                    {description}
-                  </Text>
-                </Stack>
-              );
-            }
             return (
               <Stack gap="s100" key={index}>
-                <Text type="body" size={isMobile ? "small" : "medium"} appearance="gray">
-                  {description}
-                </Text>
+                {descriptionsLength ? (
+                  <>
+                    <Icon
+                      icon={<MdOutlineStarBorder />}
+                      appearance="primary"
+                      size="12px"
+                      spacing="none"
+                    />
+                    <Text
+                      type="body"
+                      size={isMobile ? "small" : "medium"}
+                      appearance="gray"
+                    >
+                      {description}
+                    </Text>
+                  </>
+                ) : (
+                  <Text
+                    type="body"
+                    size={isMobile ? "small" : "medium"}
+                    appearance="gray"
+                  >
+                    {description}
+                  </Text>
+                )}
               </Stack>
             );
           })}
         </Stack>
       </Stack>
 
-      <Button onClick={onClick} spacing={isMobile  ? "compact" : "wide"} >Solicitar</Button>
+      <Button onClick={onClick} spacing={isMobile ? "compact" : "wide"}>
+        Solicitar
+      </Button>
     </StyledCardContainer>
   );
 }
