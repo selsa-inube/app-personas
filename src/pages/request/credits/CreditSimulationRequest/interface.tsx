@@ -23,6 +23,7 @@ import {
   IFormsCreditSimulationRequest,
   IFormsCreditSimulationRequestRefs,
 } from "./types";
+import { CommunicationChannelsForm } from "./forms/CommunicationChannelsForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -71,6 +72,13 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={creditSimulationRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditSimulationRequestSteps.communicationChannels.id && (
+        <CommunicationChannelsForm
+          initialValues={creditSimulationRequest.communicationChannels.values}
+          ref={formReferences.communicationChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}

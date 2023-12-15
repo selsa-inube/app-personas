@@ -1,6 +1,6 @@
+import { inube } from "@design/tokens";
 import styled from "styled-components";
 import { SwitchSizeType } from "./types";
-import { inube } from "@design/tokens";
 
 interface IStyledSpan {
   size?: SwitchSizeType;
@@ -62,7 +62,8 @@ interface IStyledContainer {
 const StyledContainer = styled.label<IStyledContainer>`
   position: relative;
   display: inline-block;
-  width: ${({ size }) => (size === "small" ? "32px" : "40px")};
+  min-width: ${({ size }) => (size === "small" ? "32px" : "40px")};
+  max-width: ${({ size }) => (size === "small" ? "32px" : "40px")};
   height: ${({ size }) => (size === "small" ? "16px" : "20px")};
 `;
 
@@ -109,26 +110,26 @@ interface IStyledIcon {
 }
 
 const StyledIcon = styled.div<IStyledIcon>`
-    & svg {
-        position: absolute;
-        color: ${({ theme, disabled }) =>
-          !disabled
-            ? theme.color?.surface?.light?.regular ||
-              inube.color.surface.light.regular
-            : theme.color?.stroke?.gray?.disabled ||
-              inube.color.stroke.gray.disabled};
-        width: ${({ size }) => (size === "small" ? "10px" : "14px")};
-        height: ${({ size }) => (size === "small" ? "10px" : "14px")};
-        padding-left: ${({ size }) =>
-          size === "small" ? inube.spacing.s025 : "none"};
-        top: calc(${inube.spacing.s075} / 2);
-        left: ${({ size, checked }) =>
-          size === "small" && checked
-            ? `calc(${inube.spacing.s075} / 2)`
-            : size === "large" && checked
-            ? `${inube.spacing.s050}`
-            : `${inube.spacing.s250}`};
-    }
+  & svg {
+    position: absolute;
+    color: ${({ theme, disabled }) =>
+      !disabled
+        ? theme.color?.surface?.light?.regular ||
+          inube.color.surface.light.regular
+        : theme.color?.stroke?.gray?.disabled ||
+          inube.color.stroke.gray.disabled};
+    width: ${({ size }) => (size === "small" ? "10px" : "14px")};
+    height: ${({ size }) => (size === "small" ? "10px" : "14px")};
+    padding-left: ${({ size }) =>
+      size === "small" ? inube.spacing.s025 : "none"};
+    top: calc(${inube.spacing.s075} / 2);
+    left: ${({ size, checked }) =>
+      size === "small" && checked
+        ? `calc(${inube.spacing.s075} / 2)`
+        : size === "large" && checked
+        ? `${inube.spacing.s050}`
+        : `${inube.spacing.s250}`};
+  }
 `;
 
-export { StyledContainer, StyledInput, StyledSpan, StyledIcon };
+export { StyledContainer, StyledIcon, StyledInput, StyledSpan };
