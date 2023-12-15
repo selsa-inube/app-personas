@@ -19,6 +19,7 @@ import { Home } from "@pages/admin/home";
 import { UpdateData } from "@pages/general/UpdateData";
 import { useEffect } from "react";
 import { CreditRoutes } from "./routes/credit";
+import { SavingRoutes } from "./routes/saving";
 import { MyCreditsRoutes } from "./routes/myCredits";
 import { MySavingsRoutes } from "./routes/mySavings";
 
@@ -36,6 +37,8 @@ const router = createBrowserRouter(
       <Route path="my-savings/*" element={<MySavingsRoutes />} />
 
       <Route path="credit/*" element={<CreditRoutes />} />
+
+      <Route path="savings/*" element={<SavingRoutes />} />
 
       <Route path="/update-data" element={<UpdateData />} />
     </Route>
