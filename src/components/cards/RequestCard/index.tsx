@@ -17,7 +17,7 @@ function RequestCard(props: RequestCardProps) {
 
   const isMobile = useMediaQuery("(max-width: 500px)");
 
-  let descriptionsLength = Object.entries(descriptions).length > 1;
+  const withListIndicators = Object.entries(descriptions).length > 1;
 
   return (
     <StyledCardContainer>
@@ -30,7 +30,7 @@ function RequestCard(props: RequestCardProps) {
           {descriptions.map((description, index) => {
             return (
               <Stack gap="s100" key={index}>
-                {descriptionsLength ? (
+                {withListIndicators ? (
                   <>
                     <Icon
                       icon={<MdOutlineStarBorder />}
