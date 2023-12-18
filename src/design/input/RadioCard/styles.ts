@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 const StyledCardContainer = styled.div`
   display: flex;
-  padding: ${inube.spacing.s200} ${inube.spacing.s300};
+  padding: ${inube.spacing.s200};
+  height: 52px;
   align-items: center;
-  gap: ${inube.spacing.s200};
+  gap: ${inube.spacing.s150};
   border-radius: ${inube.spacing.s050};
   background: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};

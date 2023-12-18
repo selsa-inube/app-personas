@@ -42,37 +42,54 @@ const renderCreditConditionsVerification = (
   values: ICreditConditionsEntry,
   isTablet: boolean
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
-    <BoxAttribute
-      label="Simular con el valor de la cuota:"
-      value={values.simulationWithQuota ? activeDM.Y.value : activeDM.N.value}
-    />
-    <BoxAttribute
-      label="Valor simulado:"
-      value={currencyFormat(Number(values.amount))}
-    />
-    <BoxAttribute
-      label="Periodicidad:"
-      value={peridiocityDM.valueOf(values.peridiocity)?.value}
-    />
-    <BoxAttribute label="Plazo:" value={`${values.deadline} Meses`} />
-    <BoxAttribute
-      label="Cuota mensual:"
-      value={currencyFormat(Number(values.quota))}
-    />
-    <BoxAttribute
-      label="Tasa de interés:"
-      value={`${values.interestRate} % N.M.V`}
-    />
-    <BoxAttribute
-      label="Intereses de ajuste al ciclo:"
-      value={currencyFormat(Number(values.cycleInterest))}
-    />
-    <BoxAttribute
-      label="Valor neto a recibir:"
-      value={currencyFormat(Number(values.netValue))}
-    />
-  </Grid>
+  <>
+    {values.product === "generateRecommendation" ? (
+      <Grid templateColumns="1fr" gap="s100" width="100%">
+        <BoxAttribute
+          label="¿Cuánto dinero necesitas?"
+          value={currencyFormat(Number(values.amount))}
+        />
+      </Grid>
+    ) : (
+      <Grid
+        templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+        gap="s100"
+        width="100%"
+      >
+        <BoxAttribute
+          label="Simular con el valor de la cuota:"
+          value={
+            values.simulationWithQuota ? activeDM.Y.value : activeDM.N.value
+          }
+        />
+        <BoxAttribute
+          label="Valor simulado:"
+          value={currencyFormat(Number(values.amount))}
+        />
+        <BoxAttribute
+          label="Periodicidad:"
+          value={peridiocityDM.valueOf(values.peridiocity)?.value}
+        />
+        <BoxAttribute label="Plazo:" value={`${values.deadline} Meses`} />
+        <BoxAttribute
+          label="Cuota mensual:"
+          value={currencyFormat(Number(values.quota))}
+        />
+        <BoxAttribute
+          label="Tasa de interés:"
+          value={`${values.interestRate} % N.M.V`}
+        />
+        <BoxAttribute
+          label="Intereses de ajuste al ciclo:"
+          value={currencyFormat(Number(values.cycleInterest))}
+        />
+        <BoxAttribute
+          label="Valor neto a recibir:"
+          value={currencyFormat(Number(values.netValue))}
+        />
+      </Grid>
+    )}
+  </>
 );
 
 const renderPreliquidationVerification = (
@@ -267,7 +284,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet
         )}
 
-      {stepKey === "simulation" &&
+      {stepKey === "creditConditions" &&
         renderCreditConditionsVerification(
           creditDestinationRequest.creditConditions.values,
           isTablet

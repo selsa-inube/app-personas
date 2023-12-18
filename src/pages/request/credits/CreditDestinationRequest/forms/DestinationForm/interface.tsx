@@ -7,6 +7,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { destinationProductsMock } from "@mocks/products/credits/request.mocks";
 import { FormikValues } from "formik";
+import { MdOutlineAutoAwesome } from "react-icons/md";
 
 interface DestinationFormUIProps {
   formik: FormikValues;
@@ -66,13 +67,18 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                       <RadioCard
                         id={formik.values.creditDestination}
                         name={formik.values.creditDestination}
+                        icon={
+                          product.id === "generateRecommendation" ? (
+                            <MdOutlineAutoAwesome />
+                          ) : undefined
+                        }
                         title={product.value}
                         description={product.description || ""}
+                        checked={formik.values.product === product.id}
+                        key={product.id}
                         onClick={() =>
                           customHandleChange("product", product.id)
                         }
-                        checked={formik.values.product === product.id}
-                        key={product.id}
                       />
                     )
                 )}
