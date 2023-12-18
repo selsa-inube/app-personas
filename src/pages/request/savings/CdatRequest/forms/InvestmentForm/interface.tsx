@@ -1,7 +1,5 @@
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { currencyFormat, parseCurrencyString } from "src/utils/formats";
 
@@ -31,11 +29,6 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
       ? currencyFormat(formik.values[fieldName])
       : "";
   };
-
-
-  const isMobile = useMediaQuery("(max-width: 750px)");
-
-  const valueInvestmentDM = getDomainById("valueInvestment");
 
   return (
     <form>
