@@ -33,7 +33,7 @@ const renderStepContent = (
             ref={formReferences.investment}
             onFormValid={setIsCurrentFormValid}
           />
-        )},
+        )}
       </>
     );
   };
