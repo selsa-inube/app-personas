@@ -1,4 +1,3 @@
-import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { cdatRequestSteps, cdatStepsRules } from "./config/assisted";
