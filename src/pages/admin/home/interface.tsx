@@ -9,12 +9,13 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 
 import { quickLinks } from "@config/quickLinks";
 
-import { StyledCommitmentsContainer } from "./styles";
 import { inube } from "@design/tokens";
+import { StyledCommitmentsContainer } from "./styles";
 
 import { Product } from "@components/cards/Product";
 import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
+import { useAuth } from "@inube/auth";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import {
@@ -22,11 +23,17 @@ import {
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
 } from "react-icons/md";
-import { truncateAndObfuscateDescription } from "src/utils/formats";
+import { useNavigate } from "react-router-dom";
+import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
+import {
+  currencyFormat,
+  truncateAndObfuscateDescription,
+} from "src/utils/formats";
 import { extractAttribute } from "src/utils/products";
-import { investmentIcons } from "../savings/SavingsAccount/config/saving";
-import { savingsAccountIcons } from "../savings/SavingsAccount/config/saving";
-import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
+import {
+  investmentIcons,
+  savingsAccountIcons,
+} from "../savings/SavingsAccount/config/saving";
 import { cards, credits, savings } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
@@ -40,9 +47,6 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
-import { useNavigate } from "react-router-dom";
-import { currencyFormat } from "src/utils/formats";
-import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
 
 const renderProductsCommitments = (productsCommitments: ICommitment[]) => {
   return productsCommitments.map((commitment) => {
@@ -297,11 +301,15 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
   } = props;
+
+  const { user } = useAuth();
+
   const isDesktop = useMediaQuery("(min-width: 1440px)");
+
   return (
     <>
       <Title
-        title="Bienvenido, Leonardo"
+        title={`Bienvenido, ${user?.firstName}`}
         subtitle="Aquí tienes un resumen de tus productos "
       />
       {!isDesktop ? (
