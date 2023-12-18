@@ -11,6 +11,11 @@ const creditProductTypeData: IServerDomain[] = [
     value: "Compra de vehículo o moto",
     description: "Compra de vehículo nuevo o usado.",
   },
+  {
+    id: "generateRecommendation",
+    value: "Generar recomendación",
+    description: "El sistema genera la mejor opción de crédito para ti.",
+  },
 ];
 
 export { creditProductTypeData };

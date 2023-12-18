@@ -9,12 +9,25 @@ const productVehicleOrMotorcycle = getValueOfDomain(
   "creditProductType"
 );
 
+const productGenerateRecommendation = getValueOfDomain(
+  "generateRecommendation",
+  "creditProductType"
+);
+
 const destinationProductsMock = {
-  buyVehicle: [productFreeInvestment, productVehicleOrMotorcycle],
-  buyMotorcycle: [productFreeInvestment, productVehicleOrMotorcycle],
-  buyProperty: [productFreeInvestment],
-  travel: [productFreeInvestment],
-  study: [productFreeInvestment],
+  buyVehicle: [
+    productFreeInvestment,
+    productVehicleOrMotorcycle,
+    productGenerateRecommendation,
+  ],
+  buyMotorcycle: [
+    productFreeInvestment,
+    productVehicleOrMotorcycle,
+    productGenerateRecommendation,
+  ],
+  buyProperty: [productFreeInvestment, productGenerateRecommendation],
+  travel: [productFreeInvestment, productGenerateRecommendation],
+  study: [productFreeInvestment, productGenerateRecommendation],
 };
 
 const maximumQuotasAvailableMock = {
