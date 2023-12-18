@@ -24,10 +24,11 @@ interface EditFamilyMemberProps {
   member: IEntry;
   formik: FormikValues;
   onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
+  isRequired: (fieldName: string) => boolean;
 }
 
 function EditFamilyMember(props: EditFamilyMemberProps) {
-  const { member, formik, onEditMember } = props;
+  const { member, formik, onEditMember, isRequired } = props;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -52,6 +53,7 @@ function EditFamilyMember(props: EditFamilyMemberProps) {
       onEditModal={handleEditModal}
       onConfirm={handleConfirm}
       onCloseModal={handleToggleModal}
+      isRequired={isRequired}
     />
   );
 }

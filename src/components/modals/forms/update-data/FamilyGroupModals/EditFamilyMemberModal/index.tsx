@@ -29,10 +29,18 @@ interface EditFamilyMemberModalProps {
   withCustomDirty?: boolean;
   onCloseModal: () => void;
   onConfirm: () => void;
+  isRequired: (fieldName: string) => boolean;
 }
 
 function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
-  const { portalId, formik, withCustomDirty, onCloseModal, onConfirm } = props;
+  const {
+    portalId,
+    formik,
+    withCustomDirty,
+    onCloseModal,
+    onConfirm,
+    isRequired,
+  } = props;
 
   const [customDirty] = useState(formik.values);
   const [selectedTab, setSelectedTab] = useState(
@@ -96,6 +104,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onChange={formik.handleChange}
                 value={formik.values.type || ""}
                 state={getFieldState(formik, "type")}
+                isRequired={isRequired("type")}
                 isFullWidth
               />
               <TextField
@@ -112,6 +121,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 state={getFieldState(formik, "number")}
+                isRequired={isRequired("number")}
                 isFullWidth
               />
               <TextField
@@ -128,6 +138,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 state={getFieldState(formik, "firstName")}
+                isRequired={isRequired("firstName")}
                 isFullWidth
               />
               <TextField
@@ -144,6 +155,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 state={getFieldState(formik, "secondName")}
+                isRequired={isRequired("secondName")}
                 isFullWidth
               />
               <TextField
@@ -160,6 +172,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 state={getFieldState(formik, "firstLastName")}
+                isRequired={isRequired("firstLastName")}
                 isFullWidth
               />
               <TextField
@@ -176,6 +189,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 state={getFieldState(formik, "secondLastName")}
+                isRequired={isRequired("secondLastName")}
                 isFullWidth
               />
             </>
@@ -196,6 +210,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 state={getFieldState(formik, "cellPhone")}
+                isRequired={isRequired("cellPhone")}
                 isFullWidth
               />
               <TextField
@@ -212,6 +227,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 state={getFieldState(formik, "email")}
+                isRequired={isRequired("email")}
                 isFullWidth
               />
             </>
@@ -230,8 +246,8 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onChange={formik.handleChange}
                 value={formik.values.relationship || ""}
                 state={getFieldState(formik, "relationship")}
+                isRequired={isRequired("relationship")}
                 isFullWidth
-                isRequired
               />
               <Select
                 label="Depende económicamente"
@@ -247,8 +263,8 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                   formik.values.isDependent ? activeDM.Y.id : activeDM.N.id
                 }
                 state={getFieldState(formik, "isDependent")}
+                isRequired={isRequired("isDependent")}
                 isFullWidth
-                isRequired
               />
               <Select
                 label="Nivel de escolaridad"
@@ -262,6 +278,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onChange={formik.handleChange}
                 value={formik.values.educationLevel || ""}
                 state={getFieldState(formik, "educationLevel")}
+                isRequired={isRequired("educationLevel")}
                 isFullWidth
               />
               <Select
@@ -276,6 +293,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onChange={formik.handleChange}
                 value={formik.values.profession || ""}
                 state={getFieldState(formik, "profession")}
+                isRequired={isRequired("profession")}
                 isFullWidth
               />
               <Select
@@ -290,6 +308,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onChange={formik.handleChange}
                 value={formik.values.gender || ""}
                 state={getFieldState(formik, "gender")}
+                isRequired={isRequired("gender")}
                 isFullWidth
               />
               <TextField
@@ -306,6 +325,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 state={getFieldState(formik, "birthDate")}
+                isRequired={isRequired("birthDate")}
                 isFullWidth
               />
               <Select
@@ -320,6 +340,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 onChange={formik.handleChange}
                 value={formik.values.businessActivity || ""}
                 state={getFieldState(formik, "businessActivity")}
+                isRequired={isRequired("businessActivity")}
                 isFullWidth
               />
             </>

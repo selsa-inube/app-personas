@@ -21,6 +21,7 @@ interface FamilyMemberViewUIProps {
   onConfirm: () => void;
   onCloseDeleteModal: () => void;
   onCloseEditModal: () => void;
+  isRequired: (fieldName: string) => boolean;
 }
 
 function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
@@ -38,6 +39,7 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
     onConfirm,
     onCloseDeleteModal,
     onCloseEditModal,
+    isRequired,
   } = props;
 
   const { title, description, actionText, appearance, portalId } =
@@ -70,7 +72,7 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
           formik={formik}
           onCloseModal={onCloseEditModal}
           onConfirm={onConfirm}
-          withCustomDirty
+          isRequired={isRequired}
         />
       )}
 

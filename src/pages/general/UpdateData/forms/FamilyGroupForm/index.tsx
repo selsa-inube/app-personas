@@ -3,12 +3,84 @@ import { EMessageType, IMessage } from "@ptypes/messages.types";
 import { FormikProps, FormikValues, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { EditFamilyMember } from "./EditFamilyMember";
+import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
+import { FamilyGroupRequiredFields } from "./config/formConfig";
+import * as Yup from "yup";
 import { DeleteFamilyMember } from "./DeleteFamilyMember";
 import { FamilyMemberView } from "./FamilyMemberView";
 import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
 
+const validationSchema = Yup.object().shape({
+  firstName: FamilyGroupRequiredFields.firstName
+    ? validationRules.name.required(validationMessages.required)
+    : validationRules.name,
+  secondName: FamilyGroupRequiredFields.secondName
+    ? validationRules.name.required(validationMessages.required)
+    : validationRules.name,
+  firstLastName: FamilyGroupRequiredFields.firstLastName
+    ? validationRules.name.required(validationMessages.required)
+    : validationRules.name,
+  secondLastName: FamilyGroupRequiredFields.secondLastName
+    ? validationRules.name.required(validationMessages.required)
+    : validationRules.name,
+  type: FamilyGroupRequiredFields.type
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  number: FamilyGroupRequiredFields.number
+    ? validationRules.identification.required(validationMessages.required)
+    : validationRules.identification,
+  city: FamilyGroupRequiredFields.city
+    ? validationRules.city.required(validationMessages.required)
+    : validationRules.city,
+  date: FamilyGroupRequiredFields.date
+    ? validationRules.date.required(validationMessages.required)
+    : validationRules.date,
+  country: FamilyGroupRequiredFields.country
+    ? validationRules.country.required(validationMessages.required)
+    : validationRules.country,
+  address: FamilyGroupRequiredFields.address
+    ? validationRules.address.required(validationMessages.required)
+    : validationRules.address,
+  department: FamilyGroupRequiredFields.department
+    ? validationRules.stateOrDepartment.required(validationMessages.required)
+    : validationRules.stateOrDepartment,
+  zipCode: FamilyGroupRequiredFields.zipCode
+    ? validationRules.postalCode.required(validationMessages.required)
+    : validationRules.postalCode,
+  landlinePhone: FamilyGroupRequiredFields.landlinePhone
+    ? validationRules.landlinePhone.required(validationMessages.required)
+    : validationRules.landlinePhone,
+  cellPhone: FamilyGroupRequiredFields.cellPhone
+    ? validationRules.phone.required(validationMessages.required)
+    : validationRules.phone,
+  email: FamilyGroupRequiredFields.email
+    ? validationRules.email.required(validationMessages.required)
+    : validationRules.email,
+  birthDate: FamilyGroupRequiredFields.birthDate
+    ? validationRules.date.required(validationMessages.required)
+    : validationRules.date,
+  gender: FamilyGroupRequiredFields.gender
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  relationship: FamilyGroupRequiredFields.relationship
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  isDependent: FamilyGroupRequiredFields.isDependent
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  educationLevel: FamilyGroupRequiredFields.educationLevel
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  businessActivity: FamilyGroupRequiredFields.businessActivity
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  profession: FamilyGroupRequiredFields.profession
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+});
 interface FamilyGroupFormProps {
   initialValues: IFamilyGroupEntries;
   onSubmit?: (values: IFamilyGroupEntries) => void;
@@ -19,12 +91,13 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   ref: React.Ref<FormikProps<IFamilyGroupEntries>>
 ) {
   const { initialValues, onSubmit } = props;
-
+  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
   const [message, setMessage] = useState<IMessage>();
 
   const formik = useFormik({
     initialValues,
     validateOnChange: false,
+    validationSchema: dynamicSchema,
     onSubmit: onSubmit || (() => {}),
   });
 
@@ -115,6 +188,11 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     }
   };
 
+  const isRequired = (fieldName: string): boolean => {
+    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
+    return !fieldDescription.nullable && !fieldDescription.optional;
+  };
+
   const familyGroupTableActions: IAction[] = [
     {
       id: "1",
@@ -125,6 +203,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
           formik={formik}
           onDeleteMember={() => handleDeleteMember(member.id)}
           onEditMember={handleEditMember}
+          isRequired={isRequired}
         />
       ),
       mobilePriority: true,
@@ -137,6 +216,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
           formik={formik}
           member={member}
           onEditMember={handleEditMember}
+          isRequired={isRequired}
         />
       ),
       mobilePriority: true,

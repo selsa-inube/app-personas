@@ -4,13 +4,6 @@ import { useState } from "react";
 import { IFamilyGroupEntry } from "../types";
 import { FamilyMemberViewUI } from "./interface";
 
-interface FamilyMemberViewProps {
-  member: IEntry;
-  formik: FormikValues;
-  onDeleteMember: () => void;
-  onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
-}
-
 const getFamilyMember = (member: IFamilyGroupEntry, formik: FormikValues) => {
   const memberToView: IFamilyGroupEntry = formik.values.entries.find(
     (entry: IFamilyGroupEntry) => entry.id === member.id
@@ -24,8 +17,16 @@ const getFamilyMember = (member: IFamilyGroupEntry, formik: FormikValues) => {
   }
 };
 
+interface FamilyMemberViewProps {
+  member: IEntry;
+  formik: FormikValues;
+  onDeleteMember: () => void;
+  onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
+  isRequired: (fieldName: string) => boolean;
+}
+
 function FamilyMemberView(props: FamilyMemberViewProps) {
-  const { member, formik, onDeleteMember, onEditMember } = props;
+  const { member, formik, onDeleteMember, onEditMember, isRequired } = props;
 
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -80,6 +81,7 @@ function FamilyMemberView(props: FamilyMemberViewProps) {
       onConfirm={handleConfirm}
       onCloseDeleteModal={handleToggleDeleteModal}
       onCloseEditModal={handleToggleEditModal}
+      isRequired={isRequired}
     />
   );
 }

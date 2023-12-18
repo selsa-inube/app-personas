@@ -9,10 +9,18 @@ interface EditFamilyMemberUIProps {
   onEditModal: () => void;
   onCloseModal: () => void;
   onConfirm: () => void;
+  isRequired: (fieldName: string) => boolean;
 }
 
 function EditFamilyMemberUI(props: EditFamilyMemberUIProps) {
-  const { showModal, formik, onEditModal, onCloseModal, onConfirm } = props;
+  const {
+    showModal,
+    formik,
+    onEditModal,
+    onCloseModal,
+    onConfirm,
+    isRequired,
+  } = props;
 
   return (
     <>
@@ -31,7 +39,7 @@ function EditFamilyMemberUI(props: EditFamilyMemberUIProps) {
           formik={formik}
           onCloseModal={onCloseModal}
           onConfirm={onConfirm}
-          withCustomDirty
+          isRequired={isRequired}
         />
       )}
     </>
