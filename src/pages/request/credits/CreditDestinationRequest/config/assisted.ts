@@ -1,10 +1,10 @@
 import {
-  IFormsCreditSimulationRequest,
-  IFormsCreditSimulationRequestRefs,
+  IFormsCreditDestinationRequest,
+  IFormsCreditDestinationRequestRefs,
 } from "../types";
-import { initalValuesCreditSimulation } from "./initialValues";
+import { initalValuesCreditDestination } from "./initialValues";
 
-const creditSimulationRequestSteps = {
+const creditDestinationRequestSteps = {
   destination: {
     id: 1,
     name: "Destinación del dinero",
@@ -51,62 +51,62 @@ const creditSimulationRequestSteps = {
   },
 };
 
-const creditSimulationStepsRules = (
+const creditDestinationStepsRules = (
   currentStep: number,
-  currentCreditSimulationRequest: IFormsCreditSimulationRequest,
-  formReferences: IFormsCreditSimulationRequestRefs,
+  currentCreditDestinationRequest: IFormsCreditDestinationRequest,
+  formReferences: IFormsCreditDestinationRequestRefs,
   isCurrentFormValid: boolean
 ) => {
-  let newCreditSimulationRequest = { ...currentCreditSimulationRequest };
+  let newCreditDestinationRequest = { ...currentCreditDestinationRequest };
 
   switch (currentStep) {
-    case creditSimulationRequestSteps.destination.id: {
+    case creditDestinationRequestSteps.destination.id: {
       const values = formReferences.destination.current?.values;
 
-      if (!values) return currentCreditSimulationRequest;
+      if (!values) return currentCreditDestinationRequest;
 
-      newCreditSimulationRequest.destination = {
+      newCreditDestinationRequest.destination = {
         isValid: isCurrentFormValid,
         values,
       };
 
       if (
         JSON.stringify(values) !==
-        JSON.stringify(currentCreditSimulationRequest.destination.values)
+        JSON.stringify(currentCreditDestinationRequest.destination.values)
       ) {
-        newCreditSimulationRequest.creditConditions = {
+        newCreditDestinationRequest.creditConditions = {
           isValid: false,
           values: {
-            ...initalValuesCreditSimulation.creditConditions,
+            ...initalValuesCreditDestination.creditConditions,
             creditDestination: values?.creditDestination,
             product: values?.product,
           },
         };
       }
 
-      return newCreditSimulationRequest;
+      return newCreditDestinationRequest;
     }
-    case creditSimulationRequestSteps.creditConditions.id: {
+    case creditDestinationRequestSteps.creditConditions.id: {
       const values = formReferences.creditConditions.current?.values;
 
-      if (!values) return currentCreditSimulationRequest;
+      if (!values) return currentCreditDestinationRequest;
 
-      newCreditSimulationRequest.creditConditions = {
+      newCreditDestinationRequest.creditConditions = {
         isValid: isCurrentFormValid,
         values,
       };
 
       if (
         JSON.stringify(values) !==
-        JSON.stringify(currentCreditSimulationRequest.creditConditions.values)
+        JSON.stringify(currentCreditDestinationRequest.creditConditions.values)
       ) {
         const tempChargesAndDiscounts = Math.floor(
           Number(values.amount) * 0.4880866
         );
-        newCreditSimulationRequest.preliquidation = {
+        newCreditDestinationRequest.preliquidation = {
           isValid: true,
           values: {
-            ...initalValuesCreditSimulation.preliquidation,
+            ...initalValuesCreditDestination.preliquidation,
             amount: Number(values.amount),
             interestAdjustmentCycle: 49250,
             chargesAndDiscounts: tempChargesAndDiscounts,
@@ -115,23 +115,24 @@ const creditSimulationStepsRules = (
         };
       }
 
-      return newCreditSimulationRequest;
+      return newCreditDestinationRequest;
     }
   }
 
-  const stepKey = Object.entries(creditSimulationRequestSteps).find(
+  const stepKey = Object.entries(creditDestinationRequestSteps).find(
     ([, config]) => config.id === currentStep
   )?.[0];
 
-  if (!stepKey) return currentCreditSimulationRequest;
+  if (!stepKey) return currentCreditDestinationRequest;
 
   const values =
-    formReferences[stepKey as keyof IFormsCreditSimulationRequest]?.current
+    formReferences[stepKey as keyof IFormsCreditDestinationRequest]?.current
       ?.values;
 
-  return (newCreditSimulationRequest = {
-    ...newCreditSimulationRequest,
+  return (newCreditDestinationRequest = {
+    ...newCreditDestinationRequest,
     [stepKey]: { isValid: isCurrentFormValid, values },
   });
 };
-export { creditSimulationRequestSteps, creditSimulationStepsRules };
+export { creditDestinationRequestSteps, creditDestinationStepsRules };
+

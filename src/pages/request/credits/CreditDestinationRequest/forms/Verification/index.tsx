@@ -3,24 +3,24 @@ import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdOutlineArrowBack } from "react-icons/md";
-import { creditSimulationRequestSteps } from "../../config/assisted";
-import { IFormsCreditSimulationRequest } from "../../types";
+import { creditDestinationRequestSteps } from "../../config/assisted";
+import { IFormsCreditDestinationRequest } from "../../types";
 import { VerificationBoxes } from "./VerificationBoxes";
-import { creditSimulationRequestBoxTitles } from "./config/box";
+import { creditDestinationRequestBoxTitles } from "./config/box";
 
 interface VerificationProps {
-  creditSimulationRequest: IFormsCreditSimulationRequest;
+  creditDestinationRequest: IFormsCreditDestinationRequest;
   handleStepChange: (stepId: number) => void;
 }
 
-function CreditSimulationRequestVerification(props: VerificationProps) {
-  const { creditSimulationRequest, handleStepChange } = props;
+function CreditDestinationRequestVerification(props: VerificationProps) {
+  const { creditDestinationRequest, handleStepChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1224px)");
 
   return (
     <Stack direction="column" gap="s300">
-      {Object.entries(creditSimulationRequestBoxTitles).map(([key, title]) => (
+      {Object.entries(creditDestinationRequestBoxTitles).map(([key, title]) => (
         <Accordion title={title} key={`${key}-box`}>
           <Stack
             direction="column"
@@ -30,7 +30,7 @@ function CreditSimulationRequestVerification(props: VerificationProps) {
           >
             <VerificationBoxes
               isTablet={isTablet}
-              creditSimulationRequest={creditSimulationRequest}
+              creditDestinationRequest={creditDestinationRequest}
               stepKey={key}
             />
 
@@ -38,8 +38,8 @@ function CreditSimulationRequestVerification(props: VerificationProps) {
               iconBefore={<MdOutlineArrowBack />}
               onClick={() =>
                 handleStepChange(
-                  creditSimulationRequestSteps[
-                    key as keyof IFormsCreditSimulationRequest
+                  creditDestinationRequestSteps[
+                    key as keyof IFormsCreditDestinationRequest
                   ].id
                 )
               }
@@ -55,4 +55,4 @@ function CreditSimulationRequestVerification(props: VerificationProps) {
   );
 }
 
-export { CreditSimulationRequestVerification };
+export { CreditDestinationRequestVerification };
