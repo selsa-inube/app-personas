@@ -141,6 +141,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 placeholder="Numero de cuenta"
                 name="accountNumber"
                 id="accountNumber"
+                type="number"
                 value={formik.values.accountNumber}
                 errorMessage={formik.errors.accountNumber}
                 isDisabled={loading}

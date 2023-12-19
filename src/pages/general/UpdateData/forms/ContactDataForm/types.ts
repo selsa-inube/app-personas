@@ -4,7 +4,7 @@ interface IContactDataEntry {
   stateOrDepartment: string;
   city: string;
   address: string;
-  postalCode: string;
+  zipCode: string;
   landlinePhone: string;
   cellPhone: string;
   email: string;

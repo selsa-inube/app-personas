@@ -18,7 +18,7 @@ const validationMessages = {
   password: `Este campo debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número`,
   passwordMatch: "Las contraseñas no coinciden",
   date: "Formato de fecha incorrecto. Ejemplo de formato: 01/Ene/1990.",
-  postalCode: "Este campo debe contener un código postal válido",
+  zipCode: "Este campo debe contener un código postal válido",
   landlinePhone: "Este campo debe tener un número de teléfono fijo válido",
   country: "Este campo debe contener un país válido",
   stateOrDepartment: "Este campo debe contener un estado o departamento válido",

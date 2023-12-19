@@ -3,7 +3,7 @@ const contactDataRequiredFields = {
   stateOrDepartment: false,
   city: false,
   address: false,
-  postalCode: false,
+  zipCode: false,
   landlinePhone: false,
   cellPhone: false,
   email: false,

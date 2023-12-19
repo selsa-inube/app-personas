@@ -58,7 +58,7 @@ const termsAndConditions: ITermsAndConditionsEntry = {
   accept: false,
 };
 
-const initalValuesCreditSimulation = {
+const initalValuesCreditDestination = {
   destination,
   creditConditions,
   preliquidation,
@@ -67,4 +67,4 @@ const initalValuesCreditSimulation = {
   termsAndConditions,
 };
 
-export { initalValuesCreditSimulation };
+export { initalValuesCreditDestination };

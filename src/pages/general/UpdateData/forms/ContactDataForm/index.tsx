@@ -20,9 +20,9 @@ const validationSchema = Yup.object().shape({
   address: contactDataRequiredFields.address
     ? validationRules.address.required(validationMessages.required)
     : validationRules.address,
-  postalCode: contactDataRequiredFields.postalCode
-    ? validationRules.postalCode.required(validationMessages.required)
-    : validationRules.postalCode,
+  zipCode: contactDataRequiredFields.zipCode
+    ? validationRules.zipCode.required(validationMessages.required)
+    : validationRules.zipCode,
   landlinePhone: contactDataRequiredFields.landlinePhone
     ? validationRules.landlinePhone.required(validationMessages.required)
     : validationRules.landlinePhone,

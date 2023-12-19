@@ -2,14 +2,14 @@ import { IAction } from "@design/data/Table/types";
 import { EMessageType, IMessage } from "@ptypes/messages.types";
 import { FormikProps, FormikValues, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { EditFamilyMember } from "./EditFamilyMember";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
-import { FamilyGroupRequiredFields } from "./config/formConfig";
 import * as Yup from "yup";
 import { DeleteFamilyMember } from "./DeleteFamilyMember";
+import { EditFamilyMember } from "./EditFamilyMember";
 import { FamilyMemberView } from "./FamilyMemberView";
 import { deleteFamilyMemberMsgs } from "./config/deleteMember";
+import { FamilyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
 
@@ -48,8 +48,8 @@ const validationSchema = Yup.object().shape({
     ? validationRules.stateOrDepartment.required(validationMessages.required)
     : validationRules.stateOrDepartment,
   zipCode: FamilyGroupRequiredFields.zipCode
-    ? validationRules.postalCode.required(validationMessages.required)
-    : validationRules.postalCode,
+    ? validationRules.zipCode.required(validationMessages.required)
+    : validationRules.zipCode,
   landlinePhone: FamilyGroupRequiredFields.landlinePhone
     ? validationRules.landlinePhone.required(validationMessages.required)
     : validationRules.landlinePhone,
