@@ -59,7 +59,7 @@ const commonFields = {
   },
   identification: {
     name: "identification",
-    type: "text",
+    type: "number",
     label: "Identificación",
     placeholder: "Escribe el numero de identificación",
     size: "compact",
@@ -113,7 +113,7 @@ const commonFields = {
     label: "Numero de cuenta",
     placeholder: "Escribe el numero de cuenta",
     size: "compact",
-    type: "text",
+    type: "number",
     value,
     validMessage: "El número de cuenta ingresado es válido",
     isFullWidth: true,
@@ -215,10 +215,7 @@ const structureDisbursementForm = (formik: FormikValues): IFormStructure => {
       supplierManagerCheck: [commonFields.supplier("span 2")],
       thirdPartManagerCheck: [commonFields.identificationType],
       supplierPayeeCheck: [commonFields.supplier("span 1")],
-      thirdPartPayeeCheck: [
-        commonFields.identificationType,
-        commonFields.identification,
-      ],
+      thirdPartPayeeCheck: [commonFields.identificationType],
       others: [commonFields.observations],
       ownAccountTransfer: [
         {

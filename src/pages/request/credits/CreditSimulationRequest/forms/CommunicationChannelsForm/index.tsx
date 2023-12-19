@@ -39,7 +39,6 @@ const CommunicationChannelsForm = forwardRef(function CommunicationChannelsForm(
 
   useEffect(() => {
     formik.validateForm().then((errors) => {
-      console.log(errors);
       onFormValid(Object.keys(errors).length === 0);
     });
   }, []);

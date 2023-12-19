@@ -22,9 +22,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
   return (
     <form>
       <Grid
-        templateColumns={
-          isTablet ? "1fr" : "1fr 1fr 1fr"
-        }
+        templateColumns={isTablet ? "1fr" : "1fr 1fr 1fr"}
         gap={isMobile ? "s150" : "s300"}
       >
         <Select
@@ -59,6 +57,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           placeholder="Numero de cuenta"
           name="accountNumber"
           id="accountNumber"
+          type="number"
           value={formik.values.accountNumber}
           iconAfter={<MdOutlineModeEdit size={18} />}
           errorMessage={formik.errors.accountNumber}
