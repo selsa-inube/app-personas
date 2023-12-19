@@ -83,6 +83,7 @@ const generateFormFields = (
           </StyledInputForm>
         );
       case "text":
+      case "number":
         return (
           <StyledInputForm
             gridColumn={fullColumns ? "span 2" : field.gridColumn}
@@ -94,7 +95,7 @@ const generateFormFields = (
               label={field.label}
               placeholder={field.placeholder}
               size={field.size}
-              type="text"
+              type={field.type}
               value={field.value || formik.values[field.name]}
               onBlur={customHandleBlur}
               state={getFieldState(formik, field.name)}

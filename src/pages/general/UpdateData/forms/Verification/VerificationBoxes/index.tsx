@@ -108,7 +108,7 @@ const renderContactDataVerification = (
       value={cityDM.valueOf(values.city)?.value || values.city}
     />
     <BoxAttribute label="Dirección:" value={values.address} />
-    <BoxAttribute label="Código postal:" value={values.postalCode} />
+    <BoxAttribute label="Código postal:" value={values.zipCode} />
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
     <BoxAttribute label="Correo:" value={values.email} />
@@ -394,7 +394,7 @@ const renderSocioeconomicInfoVerification = (
       />
     )}
 
-    {!isNaN(values.dependants) && (
+    {values.dependants !== "" && (
       <BoxAttribute
         label="Numero de personas a cargo:"
         value={values.dependants}
