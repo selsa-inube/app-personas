@@ -14,12 +14,6 @@ interface InvestmentFormUIProps {
 function InvestmentFormUI(props: InvestmentFormUIProps) {
         const { formik, loading, customHandleBlur } = props;
 
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
-    return "valid";
-  }
-
   return (
     <form>
       <Stack direction="column" gap="s300">
