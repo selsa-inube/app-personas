@@ -16,7 +16,6 @@ import { Product } from "@components/cards/Product";
 import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
 import { useAuth } from "@inube/auth";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import {
   MdOutlineAccountBalanceWallet,
@@ -34,7 +33,7 @@ import {
   investmentIcons,
   savingsAccountIcons,
 } from "../savings/SavingsAccount/config/saving";
-import { cards, credits, savings } from "./config/boxes";
+import { cardsBox, creditsBox, savingsBox } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
@@ -88,7 +87,8 @@ function renderHomeContent(
   savingsAccountsMock: IProduct[],
   savingsStatutoryContributionsMock: IProduct[],
   cdats: IProduct[],
-  programmedSavings: IProduct[]
+  programmedSavings: IProduct[],
+  credits: IProduct[]
 ) {
   return (
     <>
@@ -96,7 +96,7 @@ function renderHomeContent(
         <Text type="title" size="medium">
           Tus productos
         </Text>
-        <Box {...savings}>
+        <Box {...savingsBox}>
           <Stack direction="column" gap="s250">
             <Stack direction="column" gap="s200">
               {savingsCommitmentsMock.length > 0 && (
@@ -236,12 +236,12 @@ function renderHomeContent(
             )}
           </Stack>
         </Box>
-        <Box {...credits}>
+        <Box {...creditsBox}>
           <Stack direction="column" gap="s100">
-            {creditsMock.length === 0 ? (
+            {credits.length === 0 ? (
               <Product empty={true} icon={<MdOutlineAttachMoney />} />
             ) : (
-              creditsMock.map((credit) => (
+              credits.map((credit) => (
                 <Product
                   id={credit.id}
                   key={credit.id}
@@ -259,7 +259,7 @@ function renderHomeContent(
             )}
           </Stack>
         </Box>
-        <Box {...cards}>
+        <Box {...cardsBox}>
           <Stack direction="column" gap="s100">
             {cardProducts.length === 0 ? (
               <Product icon={<MdOutlineCreditCard />} empty={true} />
@@ -291,6 +291,7 @@ interface HomeUIProps {
   savingsStatutoryContributionsMock: IProduct[];
   cdats: IProduct[];
   programmedSavings: IProduct[];
+  credits: IProduct[];
 }
 
 function HomeUI(props: HomeUIProps) {
@@ -300,6 +301,7 @@ function HomeUI(props: HomeUIProps) {
     savingsStatutoryContributionsMock,
     cdats,
     programmedSavings,
+    credits,
   } = props;
 
   const { user } = useAuth();
@@ -319,7 +321,8 @@ function HomeUI(props: HomeUIProps) {
             savingsAccountsMock,
             savingsStatutoryContributionsMock,
             cdats,
-            programmedSavings
+            programmedSavings,
+            credits
           )}
         </Stack>
       ) : (
@@ -333,7 +336,8 @@ function HomeUI(props: HomeUIProps) {
             savingsAccountsMock,
             savingsStatutoryContributionsMock,
             cdats,
-            programmedSavings
+            programmedSavings,
+            credits
           )}
           <QuickAccess links={quickLinks} />
         </Grid>
