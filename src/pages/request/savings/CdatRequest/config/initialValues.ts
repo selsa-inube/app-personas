@@ -4,9 +4,9 @@ const investment: IInvestmentEntry = {
     valueInvestment: "",
   };
 
-const initalValuesCdat = {
+const initalValuesCDAT = {
     investment,
   };
   
-  export { initalValuesCdat };
+  export { initalValuesCDAT };
   

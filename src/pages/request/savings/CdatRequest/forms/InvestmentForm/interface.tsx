@@ -1,7 +1,7 @@
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
-import { currencyFormat, parseCurrencyString } from "src/utils/formats";
+import { handleChangeWithCurrency, validateCurrencyField } from "src/utils/formats";
 
 interface InvestmentFormUIProps {
   formik: FormikValues;
@@ -19,17 +19,6 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
     return "valid";
   }
 
-  const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const parsedValue = parseCurrencyString(e.target.value);
-    formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);
-  };
-
-  const validateCurrencyField = (fieldName: string) => {
-    return typeof formik.values[fieldName] === "number"
-      ? currencyFormat(formik.values[fieldName])
-      : "";
-  };
-
   return (
     <form>
       <Stack direction="column" gap="s300">
@@ -38,7 +27,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
             placeholder="Ingresa el valor a invertir"
             name="valueInvestment"
             id="valueInvestment"
-            value={validateCurrencyField("valueInvestment")}
+            value={validateCurrencyField("valueInvestment", formik)}
             type="text"
             errorMessage={formik.errors.valueInvestment}
             isDisabled={loading}
@@ -46,7 +35,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
             isFullWidth
             state={stateValue("valueInvestment")}
             onBlur={customHandleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={(e)=>{handleChangeWithCurrency(formik,e)}}
             validMessage="El valor es válido"
             isRequired
           />

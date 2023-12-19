@@ -1,7 +1,7 @@
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { cdatRequestSteps, cdatStepsRules } from "./config/assisted";
-import { initalValuesCdat } from "./config/initialValues";
+import { initalValuesCDAT } from "./config/initialValues";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
@@ -17,7 +17,7 @@ function CdatRequest() {
   const [cdatRequest, setCdatRequest] = useState<IFormsCdatRequest>({
     investment: {
       isValid: false,
-      values: initalValuesCdat.investment,
+      values: initalValuesCDAT.investment,
     },
   });
 

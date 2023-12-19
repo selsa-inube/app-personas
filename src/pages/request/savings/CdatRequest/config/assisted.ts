@@ -2,7 +2,6 @@ import {
     IFormsCdatRequest,
     IFormsCdatRequestRefs,
   } from "../types";
-  import { initalValuesCdat } from "./initialValues";
   
   const cdatRequestSteps = {
     investment: {
@@ -10,33 +9,33 @@ import {
       name: "Inversión",
       description: "¿Cuál es el valor del monto a invertir?",
     },
-    verification: {
+    summary: {
         id: 2,
-        name: "verificación",
-        description: "Verifica que la información diligenciada sea correcta y envía la solicitud.",
+        name: "Resumen",
+        description: "Confirma la información diligencias en pasos anteriores.",
       },
   };
   
   const cdatStepsRules = (
     currentStep: number,
-    currentcdatRequest: IFormsCdatRequest,
+    currentCdatRequest: IFormsCdatRequest,
     formReferences: IFormsCdatRequestRefs,
     isCurrentFormValid: boolean
   ) => {
-    let newcdatRequest = { ...currentcdatRequest };
+    let newCdatRequest = { ...currentCdatRequest };
     
     const stepKey = Object.entries(cdatRequestSteps).find(
       ([, config]) => config.id === currentStep
     )?.[0];
   
-    if (!stepKey) return currentcdatRequest;
+    if (!stepKey) return currentCdatRequest;
   
     const values =
       formReferences[stepKey as keyof IFormsCdatRequest]?.current
         ?.values;
   
-    return (newcdatRequest = {
-      ...newcdatRequest,
+    return (newCdatRequest = {
+      ...newCdatRequest,
       [stepKey]: { isValid: isCurrentFormValid, values },
     });
   };

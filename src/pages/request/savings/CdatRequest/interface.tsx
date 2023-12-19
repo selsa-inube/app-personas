@@ -17,6 +17,7 @@ import {
     IFormsCdatRequestRefs,
 } from "./types";
 import { cdatRequestSteps } from "./config/assisted";
+import { CdatRequestSummary } from "./forms/Summary";
 
 const renderStepContent = (
     currentStep: number,
@@ -34,6 +35,12 @@ const renderStepContent = (
             onFormValid={setIsCurrentFormValid}
           />
         )}
+        {currentStep === cdatRequestSteps.summary.id && (
+        <CdatRequestSummary
+          cdatRequest={cdatRequest}
+          handleStepChange={handleStepChange}
+        />
+      )}
       </>
     );
   };
