@@ -47,7 +47,7 @@ function CommunicationChannelsFormUI(props: CommunicationChannelsFormUIProps) {
               name="landlinePhone"
               id="landlinePhone"
               placeholder="Digita el numero de teléfono"
-              value={formik.values.landlinePhone || ""}
+              value={formik.values.landlinePhone}
               type="number"
               errorMessage={formik.errors.landlinePhone}
               size="compact"
@@ -63,7 +63,7 @@ function CommunicationChannelsFormUI(props: CommunicationChannelsFormUIProps) {
               name="cellPhone"
               id="cellPhone"
               placeholder="Digita el numero de celular"
-              value={formik.values.cellPhone || ""}
+              value={formik.values.cellPhone}
               type="number"
               errorMessage={formik.errors.cellPhone}
               size="compact"
