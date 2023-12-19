@@ -1,5 +1,5 @@
 const cdatRequestBoxTitles: Record<string, string> = {
-    investment: "inversión",
+    investment: "Inversión",
   };
   
   export { cdatRequestBoxTitles };

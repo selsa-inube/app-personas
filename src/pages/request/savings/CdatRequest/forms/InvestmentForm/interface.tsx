@@ -2,6 +2,7 @@ import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { handleChangeWithCurrency, validateCurrencyField } from "src/utils/formats";
+import { getFieldState } from "src/utils/forms";
 
 interface InvestmentFormUIProps {
   formik: FormikValues;
@@ -33,7 +34,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={stateValue("valueInvestment")}
+            state={getFieldState(formik,"valueInvestment")}
             onBlur={customHandleBlur}
             onChange={(e)=>{handleChangeWithCurrency(formik,e)}}
             validMessage="El valor es válido"
