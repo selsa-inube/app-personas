@@ -5,7 +5,7 @@ const creditSimulationRequestBoxTitles: Record<string, string> = {
   disbursement: "Desembolso",
   comments: "Comentarios",
   termsAndConditions: "Términos y condiciones",
-  communicationChannels: "Canales de comunicación",
+  contactChannels: "Canales de contacto",
 };
 
 export { creditSimulationRequestBoxTitles };

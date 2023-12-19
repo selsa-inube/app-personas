@@ -3,8 +3,8 @@ import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { CommunicationChannelsFormUI } from "./interface";
-import { ICommunicationChannelsEntry } from "./types";
+import { ContactChannelsFormUI } from "./interface";
+import { IContactChannelsEntry } from "./types";
 
 const validationSchema = Yup.object({
   landlinePhone: validationRules.landlinePhone.required(
@@ -16,16 +16,16 @@ const validationSchema = Yup.object({
   acceptNotifications: Yup.bool().oneOf([true]),
 });
 
-interface CommunicationChannelsFormProps {
-  initialValues: ICommunicationChannelsEntry;
+interface ContactChannelsFormProps {
+  initialValues: IContactChannelsEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: ICommunicationChannelsEntry) => void;
+  onSubmit?: (values: IContactChannelsEntry) => void;
   loading?: boolean;
 }
 
-const CommunicationChannelsForm = forwardRef(function CommunicationChannelsForm(
-  props: CommunicationChannelsFormProps,
-  ref: React.Ref<FormikProps<ICommunicationChannelsEntry>>
+const ContactChannelsForm = forwardRef(function ContactChannelsForm(
+  props: ContactChannelsFormProps,
+  ref: React.Ref<FormikProps<IContactChannelsEntry>>
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -63,7 +63,7 @@ const CommunicationChannelsForm = forwardRef(function CommunicationChannelsForm(
   };
 
   return (
-    <CommunicationChannelsFormUI
+    <ContactChannelsFormUI
       loading={loading}
       formik={formik}
       customHandleChange={customHandleChange}
@@ -72,5 +72,5 @@ const CommunicationChannelsForm = forwardRef(function CommunicationChannelsForm(
   );
 });
 
-export { CommunicationChannelsForm };
-export type { CommunicationChannelsFormProps };
+export { ContactChannelsForm };
+export type { ContactChannelsFormProps };

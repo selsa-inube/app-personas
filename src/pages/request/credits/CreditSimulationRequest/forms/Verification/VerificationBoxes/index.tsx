@@ -13,7 +13,7 @@ import { identificationTypeDM } from "src/model/domains/personalInformation/iden
 import { currencyFormat } from "src/utils/formats";
 import { IFormsCreditSimulationRequest } from "../../../types";
 import { ICommentsEntry } from "../../CommentsForm/types";
-import { ICommunicationChannelsEntry } from "../../CommunicationChannelsForm/types";
+import { IContactChannelsEntry } from "../../ContactChannelsForm/types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
@@ -250,9 +250,7 @@ const renderTermsAndConditionsVerification = (
   </Stack>
 );
 
-const renderCommunicationChannelsVerification = (
-  values: ICommunicationChannelsEntry
-) => (
+const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
   <Stack width="100%" direction="column" gap="s100">
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
@@ -309,9 +307,9 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           creditSimulationRequest.termsAndConditions.values
         )}
 
-      {stepKey === "communicationChannels" &&
-        renderCommunicationChannelsVerification(
-          creditSimulationRequest.communicationChannels.values
+      {stepKey === "contactChannels" &&
+        renderContactChannelsVerification(
+          creditSimulationRequest.contactChannels.values
         )}
     </>
   );

@@ -20,14 +20,14 @@ function CustomLabelPolicy() {
   );
 }
 
-interface CommunicationChannelsFormUIProps {
+interface ContactChannelsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
-function CommunicationChannelsFormUI(props: CommunicationChannelsFormUIProps) {
+function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
   const { formik, loading, customHandleChange, customHandleBlur } = props;
 
   const isMobile = useMediaQuery("(max-width: 560px)");
@@ -119,4 +119,4 @@ function CommunicationChannelsFormUI(props: CommunicationChannelsFormUIProps) {
   );
 }
 
-export { CommunicationChannelsFormUI };
+export { ContactChannelsFormUI };

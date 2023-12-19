@@ -1,16 +1,16 @@
 import { IContactData } from "src/model/entity/user";
-import { ICommunicationChannelsEntry } from "../forms/CommunicationChannelsForm/types";
+import { IContactChannelsEntry } from "../forms/ContactChannelsForm/types";
 
-const mapCommunicationChannels = (
-  communicationChannelsData: IContactData
-): ICommunicationChannelsEntry => {
+const mapContactChannels = (
+  contactChannelsData: IContactData
+): IContactChannelsEntry => {
   return {
-    landlinePhone: communicationChannelsData.landlinePhone || "",
-    cellPhone: communicationChannelsData.cellPhone || "",
-    email: communicationChannelsData.email || "",
+    landlinePhone: contactChannelsData.landlinePhone || "",
+    cellPhone: contactChannelsData.cellPhone || "",
+    email: contactChannelsData.email || "",
     acceptDataPolicy: true,
     acceptNotifications: true,
   };
 };
 
-export { mapCommunicationChannels };
+export { mapContactChannels };
