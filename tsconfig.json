@@ -26,7 +26,7 @@
       "@mocks/*": ["./src/mocks/*"],
       "@ptypes/*": ["./src/types/*"]
     },
-    "types": ["vite/client", "]
+    "types": ["vite/client"]
   },
 
   "include": ["src", "./manifest.ts"],
