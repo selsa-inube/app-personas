@@ -1,5 +1,6 @@
 const cdatRequestBoxTitles: Record<string, string> = {
-    investment: "Inversión",
-  };
-  
-  export { cdatRequestBoxTitles };
+  investment: "Inversión",
+  contactChannels: "Canales de contacto",
+};
+
+export { cdatRequestBoxTitles };

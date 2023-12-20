@@ -1,5 +1,5 @@
 import { IContactData } from "src/model/entity/user";
-import { IContactChannelsEntry } from "../forms/ContactChannelsForm/types";
+import { IContactChannelsEntry } from "./types";
 
 const mapContactChannels = (
   contactChannelsData: IContactData

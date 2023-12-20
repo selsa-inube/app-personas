@@ -1,3 +1,6 @@
+import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
+import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
+import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { cdatRequestSteps, cdatStepsRules } from "./config/assisted";
@@ -19,12 +22,18 @@ function CdatRequest() {
       isValid: false,
       values: initalValuesCDAT.investment,
     },
+    contactChannels: {
+      isValid: false,
+      values: mapContactChannels(usersMock[0].contact[0]),
+    },
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
+  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
+    contactChannels: contactChannelsRef,
   };
 
   const handleStepChange = (stepId: number) => {
@@ -68,15 +77,15 @@ function CdatRequest() {
 
   return (
     <CdatRequestUI
-      cdatRequest={cdatRequest}
       currentStep={currentStep}
+      steps={steps}
+      isCurrentFormValid={isCurrentFormValid}
+      cdatRequest={cdatRequest}
       formReferences={formReferences}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleStepChange={handleStepChange}
-      steps={steps}
-      isCurrentFormValid={isCurrentFormValid}
       setIsCurrentFormValid={setIsCurrentFormValid}
     />
   );
