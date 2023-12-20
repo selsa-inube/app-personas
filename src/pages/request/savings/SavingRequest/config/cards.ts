@@ -11,7 +11,7 @@ const savingRequestCards = [
       descriptions: [
         "Deposita tus ahorros y recibe el capital e intereses en el plazo que tú decidas.",
       ],
-      navigateTo: "/",
+      navigateTo: "cdat",
     },
     {
         title: "Ahorro programado a término fijo",
