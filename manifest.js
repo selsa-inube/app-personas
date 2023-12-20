@@ -1,9 +1,9 @@
-const manifestForPlugIn = {
+const manifestPWA = {
   registerType: "prompt",
   manifest: {
     name: "Personas",
     short_name: "Personas",
-    description: "Personas Description",
+    description: "Portal de clientes",
     lang: "en-ES",
     theme_color: "#fff",
     background_color: "#fff",
@@ -33,4 +33,4 @@ const manifestForPlugIn = {
   },
 };
 
-export { manifestForPlugIn };
+export { manifestPWA };

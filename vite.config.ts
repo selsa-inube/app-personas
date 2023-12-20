@@ -3,11 +3,11 @@ import path from "path";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import vitesconfigPaths from "vite-tsconfig-paths";
-import { manifestForPlugIn } from "./manifest.js";
+import { manifestPWA } from "./manifest.js";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA(manifestForPlugIn), vitesconfigPaths()],
+  plugins: [react(), VitePWA(manifestPWA), vitesconfigPaths()],
   server: {
     open: true,
     port: 3000,
