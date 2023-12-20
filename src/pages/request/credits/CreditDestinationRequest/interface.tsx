@@ -13,6 +13,7 @@ import { MdArrowBack } from "react-icons/md";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
+import { ContactChannelsForm } from "./forms/ContactChannelsForm";
 import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { DisbursementForm } from "./forms/DisbursementForm";
@@ -23,7 +24,6 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
-import { CommunicationChannelsForm } from "./forms/CommunicationChannelsForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -75,11 +75,10 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep ===
-        creditDestinationRequestSteps.communicationChannels.id && (
-        <CommunicationChannelsForm
-          initialValues={creditDestinationRequest.communicationChannels.values}
-          ref={formReferences.communicationChannels}
+      {currentStep === creditDestinationRequestSteps.contactChannels.id && (
+        <ContactChannelsForm
+          initialValues={creditDestinationRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
