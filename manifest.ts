@@ -1,5 +1,16 @@
-const manifestPWA = {
+import { VitePWAOptions } from "vite-plugin-pwa";
+
+const manifestPWA: VitePWAOptions = {
   registerType: "prompt",
+  injectRegister: "auto",
+  minify: false,
+  workbox: {},
+  injectManifest: {
+    injectionPoint: undefined,
+  },
+  includeAssets: [],
+  includeManifestIcons: true,
+  disable: false,
   manifest: {
     name: "Personas",
     short_name: "Personas",

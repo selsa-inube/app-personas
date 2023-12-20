@@ -3,7 +3,7 @@ import path from "path";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import vitesconfigPaths from "vite-tsconfig-paths";
-import { manifestPWA } from "./manifest.js";
+import { manifestPWA } from "./manifest";
 
 // https://vitejs.dev/config/
 export default defineConfig({
