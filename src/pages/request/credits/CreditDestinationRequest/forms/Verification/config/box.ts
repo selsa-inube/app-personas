@@ -1,4 +1,4 @@
-const creditSimulationRequestBoxTitles: Record<string, string> = {
+const creditDestinationRequestBoxTitles: Record<string, string> = {
   destination: "Destinación del dinero",
   creditConditions: "Condiciones del crédito",
   preliquidation: "Preliquidación",
@@ -8,4 +8,4 @@ const creditSimulationRequestBoxTitles: Record<string, string> = {
   contactChannels: "Canales de contacto",
 };
 
-export { creditSimulationRequestBoxTitles };
+export { creditDestinationRequestBoxTitles };

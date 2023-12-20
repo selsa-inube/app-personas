@@ -7,7 +7,7 @@ import { IDisbursementEntry } from "./forms/DisbursementForm/types";
 import { IPreliquidationEntry } from "./forms/PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 
-interface IFormsCreditSimulationRequest {
+interface IFormsCreditDestinationRequest {
   destination: { isValid: boolean; values: IDestinationEntry };
   creditConditions: { isValid: boolean; values: ICreditConditionsEntry };
   preliquidation: { isValid: boolean; values: IPreliquidationEntry };
@@ -20,7 +20,7 @@ interface IFormsCreditSimulationRequest {
   };
 }
 
-interface IFormsCreditSimulationRequestRefs {
+interface IFormsCreditDestinationRequestRefs {
   destination: React.RefObject<FormikProps<IDestinationEntry>>;
   creditConditions: React.RefObject<FormikProps<ICreditConditionsEntry>>;
   preliquidation: React.RefObject<FormikProps<IPreliquidationEntry>>;
@@ -31,6 +31,6 @@ interface IFormsCreditSimulationRequestRefs {
 }
 
 export type {
-  IFormsCreditSimulationRequest,
-  IFormsCreditSimulationRequestRefs,
+  IFormsCreditDestinationRequest,
+  IFormsCreditDestinationRequestRefs,
 };

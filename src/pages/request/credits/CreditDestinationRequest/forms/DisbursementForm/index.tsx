@@ -4,7 +4,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { generateDynamicForm } from "src/utils/forms";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
-import { initalValuesCreditSimulation } from "../../config/initialValues";
+import { initalValuesCreditDestination } from "../../config/initialValues";
 import { structureDisbursementForm } from "./config/form";
 import { DisbursementFormUI } from "./interface";
 import { IDisbursementEntry } from "./types";
@@ -82,12 +82,12 @@ const DisbursementForm = forwardRef(function DisbursementForm(
 
     if (name === "disbursementType") {
       formik.setValues({
-        ...initalValuesCreditSimulation.disbursement,
+        ...initalValuesCreditDestination.disbursement,
         disbursementType: value,
       });
 
       updatedFormikValues = {
-        ...initalValuesCreditSimulation.disbursement,
+        ...initalValuesCreditDestination.disbursement,
         disbursementType: value,
       };
     } else {

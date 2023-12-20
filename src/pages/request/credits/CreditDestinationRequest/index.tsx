@@ -2,10 +2,10 @@ import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import {
-  creditSimulationRequestSteps,
-  creditSimulationStepsRules,
+  creditDestinationRequestSteps,
+  creditDestinationStepsRules,
 } from "./config/assisted";
-import { initalValuesCreditSimulation } from "./config/initialValues";
+import { initalValuesCreditDestination } from "./config/initialValues";
 import { mapContactChannels } from "./config/mappers";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IContactChannelsEntry } from "./forms/ContactChannelsForm/types";
@@ -14,45 +14,45 @@ import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";
 import { IPreliquidationEntry } from "./forms/PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
-import { CreditSimulationRequestUI } from "./interface";
+import { CreditDestinationRequestUI } from "./interface";
 import {
-  IFormsCreditSimulationRequest,
-  IFormsCreditSimulationRequestRefs,
+  IFormsCreditDestinationRequest,
+  IFormsCreditDestinationRequestRefs,
 } from "./types";
 
-function CreditSimulationRequest() {
+function CreditDestinationRequest() {
   const [currentStep, setCurrentStep] = useState(
-    creditSimulationRequestSteps.destination.id
+    creditDestinationRequestSteps.destination.id
   );
-  const steps = Object.values(creditSimulationRequestSteps);
+  const steps = Object.values(creditDestinationRequestSteps);
 
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
 
-  const [creditSimulationRequest, setCreditSimulationRequest] =
-    useState<IFormsCreditSimulationRequest>({
+  const [creditDestinationRequest, setCreditDestinationRequest] =
+    useState<IFormsCreditDestinationRequest>({
       destination: {
         isValid: false,
-        values: initalValuesCreditSimulation.destination,
+        values: initalValuesCreditDestination.destination,
       },
       creditConditions: {
         isValid: false,
-        values: initalValuesCreditSimulation.creditConditions,
+        values: initalValuesCreditDestination.creditConditions,
       },
       preliquidation: {
         isValid: true,
-        values: initalValuesCreditSimulation.preliquidation,
+        values: initalValuesCreditDestination.preliquidation,
       },
       disbursement: {
         isValid: false,
-        values: initalValuesCreditSimulation.disbursement,
+        values: initalValuesCreditDestination.disbursement,
       },
       comments: {
         isValid: true,
-        values: initalValuesCreditSimulation.comments,
+        values: initalValuesCreditDestination.comments,
       },
       termsAndConditions: {
         isValid: false,
-        values: initalValuesCreditSimulation.termsAndConditions,
+        values: initalValuesCreditDestination.termsAndConditions,
       },
       contactChannels: {
         isValid: false,
@@ -69,7 +69,7 @@ function CreditSimulationRequest() {
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
-  const formReferences: IFormsCreditSimulationRequestRefs = {
+  const formReferences: IFormsCreditDestinationRequestRefs = {
     destination: destinationRef,
     creditConditions: creditConditionsRef,
     preliquidation: preliquidationRef,
@@ -80,15 +80,15 @@ function CreditSimulationRequest() {
   };
 
   const handleStepChange = (stepId: number) => {
-    const newCreditSimulationRequest = creditSimulationStepsRules(
+    const newCreditDestinationRequest = creditDestinationStepsRules(
       currentStep,
-      creditSimulationRequest,
+      creditDestinationRequest,
       formReferences,
       isCurrentFormValid
     );
-    setCreditSimulationRequest(newCreditSimulationRequest);
+    setCreditDestinationRequest(newCreditDestinationRequest);
 
-    const changeStepKey = Object.entries(creditSimulationRequestSteps).find(
+    const changeStepKey = Object.entries(creditDestinationRequestSteps).find(
       ([, config]) => config.id === stepId
     )?.[0];
 
@@ -97,8 +97,8 @@ function CreditSimulationRequest() {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-        newCreditSimulationRequest[
-          changeStepKey as keyof IFormsCreditSimulationRequest
+        newCreditDestinationRequest[
+          changeStepKey as keyof IFormsCreditDestinationRequest
         ]?.isValid ||
         false
     );
@@ -121,8 +121,8 @@ function CreditSimulationRequest() {
   };
 
   return (
-    <CreditSimulationRequestUI
-      creditSimulationRequest={creditSimulationRequest}
+    <CreditDestinationRequestUI
+      creditDestinationRequest={creditDestinationRequest}
       currentStep={currentStep}
       formReferences={formReferences}
       handleFinishAssisted={handleFinishAssisted}
@@ -136,4 +136,4 @@ function CreditSimulationRequest() {
   );
 }
 
-export { CreditSimulationRequest };
+export { CreditDestinationRequest };

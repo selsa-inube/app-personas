@@ -11,7 +11,7 @@ import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { currencyFormat } from "src/utils/formats";
-import { IFormsCreditSimulationRequest } from "../../../types";
+import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICommentsEntry } from "../../CommentsForm/types";
 import { IContactChannelsEntry } from "../../ContactChannelsForm/types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
@@ -267,49 +267,49 @@ const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
 );
 
 interface VerificationBoxesProps {
-  creditSimulationRequest: IFormsCreditSimulationRequest;
+  creditDestinationRequest: IFormsCreditDestinationRequest;
   stepKey: string;
   isTablet: boolean;
 }
 
 function VerificationBoxes(props: VerificationBoxesProps) {
-  const { creditSimulationRequest, stepKey, isTablet } = props;
+  const { creditDestinationRequest, stepKey, isTablet } = props;
   return (
     <>
       {stepKey === "destination" &&
         renderDestinationVerification(
-          creditSimulationRequest.destination.values,
+          creditDestinationRequest.destination.values,
           isTablet
         )}
 
       {stepKey === "creditConditions" &&
         renderCreditConditionsVerification(
-          creditSimulationRequest.creditConditions.values,
+          creditDestinationRequest.creditConditions.values,
           isTablet
         )}
 
       {stepKey === "preliquidation" &&
         renderPreliquidationVerification(
-          creditSimulationRequest.preliquidation.values,
+          creditDestinationRequest.preliquidation.values,
           isTablet
         )}
 
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
-          creditSimulationRequest.disbursement.values
+          creditDestinationRequest.disbursement.values
         )}
 
       {stepKey === "comments" &&
-        renderCommentsVerification(creditSimulationRequest.comments.values)}
+        renderCommentsVerification(creditDestinationRequest.comments.values)}
 
       {stepKey === "termsAndConditions" &&
         renderTermsAndConditionsVerification(
-          creditSimulationRequest.termsAndConditions.values
+          creditDestinationRequest.termsAndConditions.values
         )}
 
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(
-          creditSimulationRequest.contactChannels.values
+          creditDestinationRequest.contactChannels.values
         )}
     </>
   );

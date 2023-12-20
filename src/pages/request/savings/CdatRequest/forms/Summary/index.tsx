@@ -3,24 +3,24 @@ import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdOutlineArrowBack } from "react-icons/md";
-import { creditSimulationRequestSteps } from "../../config/assisted";
-import { IFormsCreditSimulationRequest } from "../../types";
-import { VerificationBoxes } from "./VerificationBoxes";
-import { creditSimulationRequestBoxTitles } from "./config/box";
+import { cdatRequestSteps } from "../../config/assisted";
+import { IFormsCdatRequest } from "../../types";
+import { SummaryBoxes } from "./SummaryBoxes";
+import { cdatRequestBoxTitles } from "./config/box";
 
-interface VerificationProps {
-  creditSimulationRequest: IFormsCreditSimulationRequest;
+interface SummaryProps {
+  cdatRequest: IFormsCdatRequest;
   handleStepChange: (stepId: number) => void;
 }
 
-function CreditSimulationRequestVerification(props: VerificationProps) {
-  const { creditSimulationRequest, handleStepChange } = props;
+function CdatRequestSummary(props: SummaryProps) {
+  const { cdatRequest, handleStepChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1224px)");
 
   return (
     <Stack direction="column" gap="s300">
-      {Object.entries(creditSimulationRequestBoxTitles).map(([key, title]) => (
+      {Object.entries(cdatRequestBoxTitles).map(([key, title]) => (
         <Accordion title={title} key={`${key}-box`}>
           <Stack
             direction="column"
@@ -28,9 +28,9 @@ function CreditSimulationRequestVerification(props: VerificationProps) {
             alignItems="flex-end"
             gap={isTablet ? "s150" : "s200"}
           >
-            <VerificationBoxes
+            <SummaryBoxes
               isTablet={isTablet}
-              creditSimulationRequest={creditSimulationRequest}
+              cdatRequest={cdatRequest}
               stepKey={key}
             />
 
@@ -38,8 +38,8 @@ function CreditSimulationRequestVerification(props: VerificationProps) {
               iconBefore={<MdOutlineArrowBack />}
               onClick={() =>
                 handleStepChange(
-                  creditSimulationRequestSteps[
-                    key as keyof IFormsCreditSimulationRequest
+                  cdatRequestSteps[
+                    key as keyof IFormsCdatRequest
                   ].id
                 )
               }
@@ -55,4 +55,4 @@ function CreditSimulationRequestVerification(props: VerificationProps) {
   );
 }
 
-export { CreditSimulationRequestVerification };
+export { CdatRequestSummary };

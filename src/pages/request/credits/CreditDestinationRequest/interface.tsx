@@ -10,8 +10,8 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
-import { creditSimulationRequestSteps } from "./config/assisted";
-import { crumbsCreditSimulationRequest } from "./config/navigation";
+import { creditDestinationRequestSteps } from "./config/assisted";
+import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
 import { ContactChannelsForm } from "./forms/ContactChannelsForm";
 import { CreditConditionsForm } from "./forms/CreditConditionsForm";
@@ -19,72 +19,72 @@ import { DestinationForm } from "./forms/DestinationForm";
 import { DisbursementForm } from "./forms/DisbursementForm";
 import { PreliquidationForm } from "./forms/PreliquidationForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
-import { CreditSimulationRequestVerification } from "./forms/Verification";
+import { CreditDestinationRequestVerification } from "./forms/Verification";
 import {
-  IFormsCreditSimulationRequest,
-  IFormsCreditSimulationRequestRefs,
+  IFormsCreditDestinationRequest,
+  IFormsCreditDestinationRequestRefs,
 } from "./types";
 
 const renderStepContent = (
   currentStep: number,
-  formReferences: IFormsCreditSimulationRequestRefs,
-  creditSimulationRequest: IFormsCreditSimulationRequest,
+  formReferences: IFormsCreditDestinationRequestRefs,
+  creditDestinationRequest: IFormsCreditDestinationRequest,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
   handleStepChange: (stepId: number) => void
 ) => {
   return (
     <>
-      {currentStep === creditSimulationRequestSteps.destination.id && (
+      {currentStep === creditDestinationRequestSteps.destination.id && (
         <DestinationForm
-          initialValues={creditSimulationRequest.destination.values}
+          initialValues={creditDestinationRequest.destination.values}
           ref={formReferences.destination}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.creditConditions.id && (
+      {currentStep === creditDestinationRequestSteps.creditConditions.id && (
         <CreditConditionsForm
-          initialValues={creditSimulationRequest.creditConditions.values}
+          initialValues={creditDestinationRequest.creditConditions.values}
           ref={formReferences.creditConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.preliquidation.id && (
+      {currentStep === creditDestinationRequestSteps.preliquidation.id && (
         <PreliquidationForm
-          initialValues={creditSimulationRequest.preliquidation.values}
+          initialValues={creditDestinationRequest.preliquidation.values}
           ref={formReferences.preliquidation}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.disbursement.id && (
+      {currentStep === creditDestinationRequestSteps.disbursement.id && (
         <DisbursementForm
-          initialValues={creditSimulationRequest.disbursement.values}
+          initialValues={creditDestinationRequest.disbursement.values}
           ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.comments.id && (
+      {currentStep === creditDestinationRequestSteps.comments.id && (
         <CommentsForm
-          initialValues={creditSimulationRequest.comments.values}
+          initialValues={creditDestinationRequest.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.termsAndConditions.id && (
+      {currentStep === creditDestinationRequestSteps.termsAndConditions.id && (
         <TermsAndConditionsForm
-          initialValues={creditSimulationRequest.termsAndConditions.values}
+          initialValues={creditDestinationRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.contactChannels.id && (
+      {currentStep === creditDestinationRequestSteps.contactChannels.id && (
         <ContactChannelsForm
-          initialValues={creditSimulationRequest.contactChannels.values}
+          initialValues={creditDestinationRequest.contactChannels.values}
           ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditSimulationRequestSteps.verification.id && (
-        <CreditSimulationRequestVerification
-          creditSimulationRequest={creditSimulationRequest}
+      {currentStep === creditDestinationRequestSteps.verification.id && (
+        <CreditDestinationRequestVerification
+          creditDestinationRequest={creditDestinationRequest}
           handleStepChange={handleStepChange}
         />
       )}
@@ -92,7 +92,7 @@ const renderStepContent = (
   );
 };
 
-interface CreditSimulationRequestUIProps {
+interface CreditDestinationRequestUIProps {
   currentStep: number;
   steps: IStep[];
   isCurrentFormValid: boolean;
@@ -101,11 +101,11 @@ interface CreditSimulationRequestUIProps {
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
-  creditSimulationRequest: IFormsCreditSimulationRequest;
-  formReferences: IFormsCreditSimulationRequestRefs;
+  creditDestinationRequest: IFormsCreditDestinationRequest;
+  formReferences: IFormsCreditDestinationRequestRefs;
 }
 
-function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
+function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
   const {
     currentStep,
     steps,
@@ -115,7 +115,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
-    creditSimulationRequest,
+    creditDestinationRequest,
     formReferences,
   } = props;
 
@@ -126,9 +126,9 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsCreditSimulationRequest} />
+        <Breadcrumbs crumbs={crumbsCreditDestinationRequest} />
         <Title
-          title="Solicitud por simulación"
+          title="Solicitud por destinación"
           subtitle="Simula tu solicitud de crédito"
           icon={<MdArrowBack />}
           navigatePage="/credit"
@@ -155,7 +155,7 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
             {renderStepContent(
               currentStep,
               formReferences,
-              creditSimulationRequest,
+              creditDestinationRequest,
               setIsCurrentFormValid,
               handleStepChange
             )}
@@ -187,4 +187,4 @@ function CreditSimulationRequestUI(props: CreditSimulationRequestUIProps) {
   );
 }
 
-export { CreditSimulationRequestUI };
+export { CreditDestinationRequestUI };
