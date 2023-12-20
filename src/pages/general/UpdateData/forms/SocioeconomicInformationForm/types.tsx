@@ -2,7 +2,7 @@ interface ISocioeconomicInformationEntry {
   educationLevel: string;
   isResponsibleHome: string;
   isSingleMother: string;
-  dependants: number;
+  dependants: string;
   vulnerablePopulation: string;
   isPublicExposed: string;
   isDeclaredIncomes: string;
