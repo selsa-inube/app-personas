@@ -48,17 +48,18 @@ interface TextareaProps {
   isDisabled?: boolean;
   isFocused?: boolean;
   value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   maxLength?: number;
   isRequired?: boolean;
   isFullWidth?: boolean;
-  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   readOnly?: boolean;
   lengthThreshold?: number;
   state?: InputState;
   errorMessage?: string;
   validMessage?: string;
+  withCounter?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
 }
 
 const Textarea = (props: TextareaProps) => {
@@ -72,14 +73,15 @@ const Textarea = (props: TextareaProps) => {
     maxLength = Infinity,
     isRequired,
     isFullWidth,
-    onChange,
-    onFocus,
-    onBlur,
     readOnly,
     lengthThreshold = 0,
     state = "pending",
     errorMessage,
     validMessage,
+    withCounter,
+    onChange,
+    onFocus,
+    onBlur,
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
@@ -88,7 +90,7 @@ const Textarea = (props: TextareaProps) => {
 
   const isMobile = useMediaQuery("(max-width: 560px)");
 
-  let appearance: CounterAppearence =
+  const counterAppearence: CounterAppearence =
     maxLength - truncatedValue.length <= lengthThreshold &&
     truncatedValue.length < maxLength
       ? "warning"
@@ -136,10 +138,10 @@ const Textarea = (props: TextareaProps) => {
             )}
           </Stack>
         )}
-        {!isDisabled && (
+        {!isDisabled && withCounter &&  (
           <Stack justifyContent="flex-end" alignItems="center">
             <Counter
-              appearance={appearance}
+              appearance={counterAppearence}
               maxLength={maxLength}
               isDisabled={isDisabled}
               valueLength={truncatedValue!.length}

@@ -1,12 +1,17 @@
 import { IInvestmentEntry } from "../forms/InvestmentForm/types";
+import { IInvestmentNameEntry } from "../forms/InvestmentNameForm/types";
 
 const investment: IInvestmentEntry = {
-    valueInvestment: "",
-  };
+  valueInvestment: "",
+};
+
+const investmentName: IInvestmentNameEntry = {
+  productName: "",
+};
 
 const initalValuesCDAT = {
-    investment,
-  };
-  
-  export { initalValuesCDAT };
-  
+  investment,
+  investmentName,
+};
+
+export { initalValuesCDAT };

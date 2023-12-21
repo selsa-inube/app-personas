@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Textarea, TextareaProps } from "..";
 
 const TextareaController = (props: TextareaProps) => {
-  const { value = "", maxLength = 0 } = props;
+  const { value = "", maxLength = 0, withCounter } = props;
   const [text, setText] = useState(value);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -24,6 +24,7 @@ const TextareaController = (props: TextareaProps) => {
       {...props}
       value={text}
       maxLength={maxLength}
+      withCounter={withCounter}
       onChange={handleChange}
       onFocus={handleFocus}
       onBlur={handleBlur}

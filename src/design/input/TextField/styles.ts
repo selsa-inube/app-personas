@@ -19,17 +19,6 @@ interface IStyledContainerLabel {
   wrap: string;
 }
 
-const StyledContainerLabel = styled.div<IStyledContainerLabel>`
-  display: flex;
-  align-items: center;
-  margin-bottom: ${inube.spacing.s050};
-  padding-left: ${inube.spacing.s200};
-  pointer-events: ${({ isDisabled }) => isDisabled && "none"};
-
-  & label {
-    margin-right: ${inube.spacing.s050};
-  }
-`;
 
 interface IStyledInputContainer {
   isDisabled: boolean;
@@ -262,7 +251,6 @@ const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
 
 export {
   StyledContainer,
-  StyledContainerLabel,
   StyledErrorMessageContainer,
   StyledIcon,
   StyledInput,
