@@ -76,8 +76,8 @@ function renderMySavingsContent(
   productsCommitments: ICommitment[],
   savingsAccountsMock: IProduct[],
   savingsStatutoryContributionsMock: IProduct[],
-  cdats: IProduct[],
-  programmedSavings: IProduct[]
+  cdats?: IProduct[],
+  programmedSavings?: IProduct[]
 ) {
   return (
     <>
@@ -157,7 +157,7 @@ function renderMySavingsContent(
                 )}
               </Stack>
             </Stack>
-            {cdats.length > 0 && (
+            {cdats && cdats.length > 0 && (
               <Stack direction="column" gap="s200">
                 <Text type="label" size="medium">
                   CDAT
@@ -181,7 +181,7 @@ function renderMySavingsContent(
                 </Stack>
               </Stack>
             )}
-            {programmedSavings.length > 0 && (
+            {programmedSavings && programmedSavings.length > 0 && (
               <Stack direction="column" gap="s200">
                 <Text type="label" size="medium">
                   Ahorros programados
@@ -234,8 +234,8 @@ interface MySavingsUIProps {
   productsCommitments: ICommitment[];
   savingsAccountsMock: IProduct[];
   savingsStatutoryContributionsMock: IProduct[];
-  cdats: IProduct[];
-  programmedSavings: IProduct[];
+  cdats?: IProduct[];
+  programmedSavings?: IProduct[];
 }
 
 function MySavingsUI(props: MySavingsUIProps) {
