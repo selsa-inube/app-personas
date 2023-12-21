@@ -87,8 +87,8 @@ function renderHomeContent(
   productsCommitments: ICommitment[],
   savingsAccountsMock: IProduct[],
   savingsStatutoryContributionsMock: IProduct[],
-  cdats: IProduct[],
-  programmedSavings: IProduct[]
+  cdats?: IProduct[],
+  programmedSavings?: IProduct[]
 ) {
   return (
     <>
@@ -168,7 +168,7 @@ function renderHomeContent(
                 )}
               </Stack>
             </Stack>
-            {cdats.length > 0 && (
+            {cdats && cdats.length > 0 && (
               <Stack direction="column" gap="s200">
                 <Text type="label" size="medium">
                   CDAT
@@ -192,7 +192,7 @@ function renderHomeContent(
                 </Stack>
               </Stack>
             )}
-            {programmedSavings.length > 0 && (
+            {programmedSavings && programmedSavings.length > 0 && (
               <Stack direction="column" gap="s200">
                 <Text type="label" size="medium">
                   Ahorros programados
@@ -289,8 +289,8 @@ interface HomeUIProps {
   productsCommitments: ICommitment[];
   savingsAccountsMock: IProduct[];
   savingsStatutoryContributionsMock: IProduct[];
-  cdats: IProduct[];
-  programmedSavings: IProduct[];
+  cdats?: IProduct[];
+  programmedSavings?: IProduct[];
 }
 
 function HomeUI(props: HomeUIProps) {
