@@ -34,6 +34,8 @@ interface TextFieldProps {
   autocomplete?: boolean;
   suggestions?: DropdownItemProps[];
   autocompleteChars?: number;
+  lengthThreshold?: number;
+  withCounter?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -51,7 +53,6 @@ function TextField(props: TextFieldProps) {
     state = "pending",
     size,
     value,
-    onChange,
     iconBefore,
     iconAfter,
     maxLength,
@@ -62,12 +63,15 @@ function TextField(props: TextFieldProps) {
     errorMessage,
     validMessage,
     isFullWidth = false,
-    onFocus,
-    onBlur,
     readOnly = false,
     autocomplete = false,
     suggestions,
     autocompleteChars,
+    lengthThreshold,
+    withCounter,
+    onChange,
+    onFocus,
+    onBlur,
     onIconClick,
   } = props;
 
@@ -107,7 +111,6 @@ function TextField(props: TextFieldProps) {
       isDisabled={transformedIsDisabled}
       type={transformedTypes}
       value={value}
-      onChange={onChange}
       iconBefore={iconBefore}
       iconAfter={iconAfter}
       maxLength={maxLength}
@@ -121,12 +124,15 @@ function TextField(props: TextFieldProps) {
       validMessage={validMessage}
       isFullWidth={transformedIsFullWidth}
       isFocused={isFocused}
-      onFocus={interceptFocus}
-      onBlur={interceptBlur}
       readOnly={readOnly}
       autocomplete={autocomplete}
       suggestions={suggestions}
       autocompleteChars={autocompleteChars}
+      withCounter={withCounter}
+      lengthThreshold={lengthThreshold}
+      onChange={onChange}
+      onFocus={interceptFocus}
+      onBlur={interceptBlur}
       onIconClick={onIconClick}
     />
   );

@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { cdatRequestSteps, cdatStepsRules } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
+import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 
@@ -19,12 +20,18 @@ function CdatRequest() {
       isValid: false,
       values: initalValuesCDAT.investment,
     },
+    investmentName: {
+      isValid: false,
+      values: initalValuesCDAT.investmentName,
+    },
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
+  const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
+    investmentName: investmentNameRef,
   };
 
   const handleStepChange = (stepId: number) => {

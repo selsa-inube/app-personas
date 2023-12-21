@@ -55,6 +55,14 @@ const props = {
     description:
       "defines how many characters maximum are received in the component value",
   },
+  lengthThreshold: {
+    description:
+      "defines the minimum number of characters for the counter to be displayed",
+  },
+  withCounter: {
+    description:
+      "defines if the field will display a counter with the current number of characters",
+  },
   minLength: {
     description:
       "defines how many minimum characters the component receives as a value",
@@ -92,14 +100,17 @@ const props = {
     description: "Controls the identification of the label",
   },
   autocomplete: {
-    description: "Corresponds to a functionality that automatically suggests and completes words or phrases while a user is writing them",
+    description:
+      "Corresponds to a functionality that automatically suggests and completes words or phrases while a user is writing them",
   },
   suggestions: {
-    description: "Corresponds to the options provided by the autocomplete option",
+    description:
+      "Corresponds to the options provided by the autocomplete option",
   },
   autocompleteChars: {
-    description: "Corresponds to the number of characters from which you will start evaluating autocomplete options",
+    description:
+      "Corresponds to the number of characters from which you will start evaluating autocomplete options",
   },
 };
 
-export { props, parameters };
+export { parameters, props };
