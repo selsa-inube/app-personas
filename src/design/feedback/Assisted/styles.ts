@@ -1,10 +1,6 @@
 import { inube } from "@design/tokens";
 import styled from "styled-components";
 
-interface IStyledButton {
-  smallScreen: boolean;
-}
-
 interface IStyledAssistedContainer {
   smallScreen: boolean;
 }
@@ -38,11 +34,10 @@ const StyledCircleId = styled.div`
   }
 `;
 
-const StyledButton = styled.div<IStyledButton>`
+const StyledButton = styled.div`
   & button {
-    min-width: ${({ smallScreen }) => (smallScreen ? "auto" : "100px")};
-    padding: 0
-      ${({ smallScreen }) => (smallScreen ? "0px" : inube.spacing.s200)};
+    min-width: "100px";
+    padding: 0 ${inube.spacing.s200};
   }
 `;
 
