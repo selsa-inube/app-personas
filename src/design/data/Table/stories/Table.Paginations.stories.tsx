@@ -1,5 +1,5 @@
 import { actionsMock, breakPointsMock, titlesMock } from "./mocks";
-
+import { StoryFn } from "@storybook/react";
 import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 import { Table, TableProps } from "..";
@@ -12,7 +12,7 @@ const story = {
   argTypes: props,
 };
 
-export const Default = (args: TableProps) => <Table {...args} />;
+export const Default: StoryFn<TableProps> = (args) => <Table {...args} />;
 Default.args = {
   id: "tableId",
   titles: titlesMock,
@@ -241,7 +241,7 @@ const theme = {
   ...themes["fondecom"],
 };
 
-export const Themed = (args: TableProps) => (
+export const Themed: StoryFn<TableProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Table {...args} />
   </ThemeProvider>

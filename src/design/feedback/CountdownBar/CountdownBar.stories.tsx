@@ -1,9 +1,10 @@
 import { ThemeProvider } from "styled-components";
-import { CountdownBar, ICountdownBarProps } from ".";
+import { CountdownBar, CountdownBarProps } from ".";
 import { action } from "@storybook/addon-actions";
 import { props, parameters } from "./props";
 import { fondecom } from "@mocks/design/themes/fondecom";
 import { inube } from "@design/tokens";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/feedback/CountdownBar",
@@ -15,7 +16,9 @@ const story = {
   },
 };
 
-export const Default = (args: ICountdownBarProps) => <CountdownBar {...args} />;
+export const Default: StoryFn<CountdownBarProps> = (args) => (
+  <CountdownBar {...args} />
+);
 
 Default.args = {
   height: inube.spacing.s050,
@@ -29,7 +32,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args: ICountdownBarProps) => (
+export const Themed: StoryFn<CountdownBarProps> = (args) => (
   <ThemeProvider theme={theme}>
     <CountdownBar {...args} />
   </ThemeProvider>

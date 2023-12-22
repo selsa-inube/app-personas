@@ -18,7 +18,9 @@ const story = {
   ],
 };
 
-export const Desktop = (args: BreadcrumbsProps) => <Breadcrumbs {...args} />;
+export const Desktop: StoryFn<BreadcrumbsProps> = (args) => (
+  <Breadcrumbs {...args} />
+);
 Desktop.args = {
   crumbs: [
     {
@@ -45,7 +47,7 @@ Desktop.args = {
   ],
 };
 
-export const ThemedDesktop = (args: BreadcrumbsProps) => (
+export const ThemedDesktop: StoryFn<BreadcrumbsProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Breadcrumbs {...args} />
   </ThemeProvider>

@@ -42,7 +42,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args: TextFieldProps) => (
+export const Themed: StoryFn<TextFieldProps> = (args) => (
   <ThemeProvider theme={theme}>
     <TextField {...args} />
   </ThemeProvider>

@@ -4,6 +4,7 @@ import { Header, HeaderProps } from ".";
 import { props } from "./props";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
+import { MdAndroid } from "react-icons/md";
 
 const story = {
   title: "design/navigation/Header",
@@ -21,7 +22,7 @@ const story = {
   ],
 };
 
-export const Default = (args: HeaderProps) => <Header {...args} />;
+export const Default: StoryFn<HeaderProps> = (args) => <Header {...args} />;
 Default.args = {
   logoURL: "http://www.sistemasenlinea.com.co/images/selsalogo-small-grey.png",
   username: "Leonardo Garzón",
@@ -29,16 +30,17 @@ Default.args = {
   links: [
     {
       label: "Actualizar datos",
-      path: "/update-data"
+      path: "/update-data",
+      icon: <MdAndroid />,
     },
-  ]
+  ],
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
-export const Themed = (args: HeaderProps) => (
+export const Themed: StoryFn<HeaderProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Header {...args} />
   </ThemeProvider>
@@ -50,9 +52,10 @@ Themed.args = {
   links: [
     {
       label: "Actualizar datos",
-      path: "/update-data"
+      path: "/update-data",
+      icon: <MdAndroid />,
     },
-  ]
+  ],
 };
 
 export default story;

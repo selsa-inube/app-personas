@@ -24,7 +24,7 @@ const story = {
   ],
 };
 
-export const Default = (args: ProductProps) => <Product {...args} />;
+export const Default: StoryFn<ProductProps> = (args) => <Product {...args} />;
 Default.args = {
   id: "09-786238-77",
   title: "Crédito educativo",
@@ -61,10 +61,10 @@ Default.args = {
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
-export const Themed = (args: ProductProps) => (
+export const Themed: StoryFn<ProductProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Product {...args} />
   </ThemeProvider>

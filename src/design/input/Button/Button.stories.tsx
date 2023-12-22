@@ -24,7 +24,7 @@ const story = {
   ],
 };
 
-export const Default = (args: ButtonProps) => <Button {...args} />;
+export const Default: StoryFn<ButtonProps> = (args) => <Button {...args} />;
 Default.args = {
   children: "Button",
   type: "button",
@@ -43,7 +43,7 @@ const theme = {
   ...themes["fondecom"],
 };
 
-export const Themed = (args: ButtonProps) => (
+export const Themed: StoryFn<ButtonProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Button {...args} />
   </ThemeProvider>

@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import { QuickAccess, QuickAccessProps } from ".";
+import { StoryFn } from "@storybook/react";
 
 import { themes } from "@mocks/design/themes";
 
@@ -22,7 +23,7 @@ const story = {
   },
 };
 
-export const Default = (args: QuickAccessProps) => (
+export const Default: StoryFn<QuickAccessProps> = (args) => (
   <BrowserRouter>
     <QuickAccess {...args} />
   </BrowserRouter>
@@ -58,10 +59,10 @@ Default.args = {
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
-export const Themed = (args: QuickAccessProps) => (
+export const Themed: StoryFn<QuickAccessProps> = (args) => (
   <BrowserRouter>
     <ThemeProvider theme={theme}>
       <QuickAccess {...args} />

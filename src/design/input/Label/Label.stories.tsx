@@ -28,7 +28,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args: LabelProps) => (
+export const Themed: StoryFn<LabelProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Label {...args} />
   </ThemeProvider>
