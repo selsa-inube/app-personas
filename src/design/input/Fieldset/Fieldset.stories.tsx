@@ -25,7 +25,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args: FieldsetProps) => (
+export const Themed: StoryFn<FieldsetProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Fieldset {...args} />
   </ThemeProvider>

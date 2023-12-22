@@ -3,7 +3,7 @@ import { StyledCountdownBar } from "./styles";
 import { CountdownBarAppearanceType } from "./types";
 import { inube } from "@design/tokens";
 
-interface ICountdownBarProps {
+interface CountdownBarProps {
   height?: string;
   appearance?: CountdownBarAppearanceType;
   duration?: number;
@@ -17,7 +17,7 @@ const CountdownBar = ({
   duration = 3000,
   paused = false,
   onCountdown,
-}: ICountdownBarProps) => {
+}: CountdownBarProps) => {
   return (
     <StyledCountdownBar
       id="progress-bar"
@@ -31,4 +31,4 @@ const CountdownBar = ({
 };
 
 export { CountdownBar };
-export type { ICountdownBarProps };
+export type { CountdownBarProps };

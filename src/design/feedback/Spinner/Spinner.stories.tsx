@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
-
+import { StoryFn } from "@storybook/react";
 import { themes } from "@mocks/design/themes";
 
 import { Spinner, SpinnerProps } from ".";
@@ -14,7 +14,7 @@ const story = {
   },
 };
 
-export const Default = (args: SpinnerProps) => <Spinner {...args} />;
+export const Default: StoryFn<SpinnerProps> = (args) => <Spinner {...args} />;
 Default.args = {
   appearance: "primary",
   size: "small",
@@ -22,10 +22,10 @@ Default.args = {
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
-export const Themed = (args: SpinnerProps) => (
+export const Themed: StoryFn<SpinnerProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Spinner {...args} />
   </ThemeProvider>

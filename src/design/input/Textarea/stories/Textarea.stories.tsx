@@ -36,7 +36,7 @@ const theme = {
   ...fondecom,
 };
 
-const Themed = (args: TextareaProps) => (
+const Themed: StoryFn<TextareaProps> = (args) => (
   <ThemeProvider theme={theme}>
     <TextareaController {...args} />
   </ThemeProvider>

@@ -46,7 +46,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args: SelectProps) => (
+export const Themed: StoryFn<SelectProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Select {...args} />
   </ThemeProvider>
