@@ -5,6 +5,7 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { currencyFormat } from "src/utils/formats";
 import { IFormsCdatRequest } from "../../../types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
+import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
@@ -15,6 +16,15 @@ const renderInvestmentSummary = (
       label="Valor de la inversión:"
       value={currencyFormat(Number(values.valueInvestment))}
     />
+  </Stack>
+);
+
+const renderInvestmentNameSummary = (
+  values: IInvestmentNameEntry,
+  isTablet: boolean
+) => (
+  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+    <BoxAttribute label="Nombre del producto:" value={values.productName} />
   </Stack>
 );
 
@@ -46,7 +56,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
     <>
       {stepKey === "investment" &&
         renderInvestmentSummary(cdatRequest.investment.values, isTablet)}
-
+      {stepKey === "investmentName" &&
+        renderInvestmentNameSummary(
+          cdatRequest.investmentName.values,
+          isTablet
+        )}
       {stepKey === "contactChannels" &&
         renderContactChannelsSummary(cdatRequest.contactChannels.values)}
     </>

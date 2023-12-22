@@ -8,7 +8,6 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
-import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { cdatRequestSteps } from "./config/assisted";
@@ -33,13 +32,6 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.contactChannels.id && (
-        <ContactChannelsForm
-          initialValues={cdatRequest.contactChannels.values}
-          ref={formReferences.contactChannels}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
       {currentStep === cdatRequestSteps.summary.id && (
         <CdatRequestSummary
           cdatRequest={cdatRequest}
@@ -54,13 +46,13 @@ interface CdatRequestUIProps {
   currentStep: number;
   steps: IStep[];
   isCurrentFormValid: boolean;
-  cdatRequest: IFormsCdatRequest;
-  formReferences: IFormsCdatRequestRefs;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
+  cdatRequest: IFormsCdatRequest;
+  formReferences: IFormsCdatRequestRefs;
 }
 
 function CdatRequestUI(props: CdatRequestUIProps) {
@@ -68,13 +60,13 @@ function CdatRequestUI(props: CdatRequestUIProps) {
     currentStep,
     steps,
     isCurrentFormValid,
-    cdatRequest,
-    formReferences,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
+    cdatRequest,
+    formReferences,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");

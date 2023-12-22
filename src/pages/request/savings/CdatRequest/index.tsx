@@ -6,8 +6,9 @@ import { useRef, useState } from "react";
 import { cdatRequestSteps, cdatStepsRules } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
-import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
+import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
+import { CdatRequestUI } from "./interface";
 
 function CdatRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -22,6 +23,10 @@ function CdatRequest() {
       isValid: false,
       values: initalValuesCDAT.investment,
     },
+    investmentName: {
+      isValid: false,
+      values: initalValuesCDAT.investmentName,
+    },
     contactChannels: {
       isValid: false,
       values: mapContactChannels(usersMock[0].contact[0]),
@@ -29,10 +34,12 @@ function CdatRequest() {
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
+  const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
+    investmentName: investmentNameRef,
     contactChannels: contactChannelsRef,
   };
 

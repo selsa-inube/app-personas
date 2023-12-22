@@ -18,6 +18,7 @@ function CommentsFormUI(props: CommentsFormUIProps) {
         label="Comentarios"
         placeholder="Escribe tus comentarios"
         maxLength={150}
+        withCounter
         isDisabled={loading}
         value={formik.values.comments}
         onBlur={customHandleBlur}

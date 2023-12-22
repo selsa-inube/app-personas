@@ -6,14 +6,19 @@ const cdatRequestSteps = {
     name: "Inversión",
     description: "¿Cuál es el valor del monto a invertir?",
   },
-  contactChannels: {
+  investmentName: {
     id: 2,
+    name: "Nombra tu inversión",
+    description: "¿Cómo te gustaría que se llame tu producto?",
+  },
+  contactChannels: {
+    id: 3,
     name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
   summary: {
-    id: 3,
+    id: 4,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },

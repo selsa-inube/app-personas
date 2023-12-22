@@ -31,10 +31,17 @@ const props = {
   value: {
     description: "component initial value",
   },
-
   maxLength: {
     description:
       "defines how many characters maximum are received in the component value",
+  },
+  withCounter: {
+    description:
+      "defines if the field will display a counter with the current number of characters",
+  },
+  lengthThreshold: {
+    description:
+      "defines the minimum number of characters for the counter to be displayed",
   },
   required: {
     description: "defines if the field is required or not",
@@ -56,4 +63,4 @@ const props = {
   },
 };
 
-export { props, parameters };
+export { parameters, props };
