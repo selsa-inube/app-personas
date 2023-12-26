@@ -18,6 +18,7 @@ import {
 } from "./types";
 import { cdatRequestSteps } from "./config/assisted";
 import { CdatRequestSummary } from "./forms/Summary";
+import { ConditionsForm } from "./forms/ConditionsForm";
 
 const renderStepContent = (
     currentStep: number,
@@ -35,6 +36,13 @@ const renderStepContent = (
             onFormValid={setIsCurrentFormValid}
           />
         )}
+        {currentStep === cdatRequestSteps.conditions.id && (
+        <ConditionsForm
+          initialValues={cdatRequest.conditions.values}
+          ref={formReferences.conditions}
+         onFormValid={setIsCurrentFormValid}
+        />
+      )}
         {currentStep === cdatRequestSteps.summary.id && (
         <CdatRequestSummary
           cdatRequest={cdatRequest}

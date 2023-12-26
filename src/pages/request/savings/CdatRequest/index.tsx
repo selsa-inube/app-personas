@@ -5,6 +5,7 @@ import { initalValuesCDAT } from "./config/initialValues";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
+import { IConditionsEntry } from "./forms/ConditionsForm/types";
 
 function CdatRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -19,12 +20,18 @@ function CdatRequest() {
       isValid: false,
       values: initalValuesCDAT.investment,
     },
+    conditions: {
+      isValid: false,
+      values: initalValuesCDAT.conditions,
+    },
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
+  const conditionsRef = useRef<FormikProps<IConditionsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
+    conditions: conditionsRef,
   };
 
   const handleStepChange = (stepId: number) => {

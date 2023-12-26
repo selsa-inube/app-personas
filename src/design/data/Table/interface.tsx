@@ -113,6 +113,7 @@ interface TableUIProps {
   hideMobileResume?: boolean;
   mobileResumeTitle?: string;
   colsSameWidth?: boolean;
+  columActions: boolean;
 }
 
 const TableUI = (props: TableUIProps) => {
@@ -128,21 +129,25 @@ const TableUI = (props: TableUIProps) => {
     hideMobileResume,
     mobileResumeTitle,
     colsSameWidth,
+    columActions,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 850px)");
 
-  const queriesArray = useMemo(
-    () => breakpoints.map((breakpoint) => breakpoint.breakpoint),
-    [breakpoints]
-  );
+  let TitleColumns = titles;
 
-  const media = useMediaQueries(queriesArray);
+  if (breakpoints) {
+    const queriesArray = useMemo(
+      () => breakpoints.map((breakpoint) => breakpoint.breakpoint),
+      [breakpoints]
+    );
+    const media = useMediaQueries(queriesArray);
 
-  const TitleColumns = useMemo(
-    () => totalTitleColumns(titles, breakpoints, media),
-    [titles, breakpoints, media]
-  );
+    TitleColumns = useMemo(
+      () => totalTitleColumns(titles, breakpoints, media),
+      [titles, breakpoints, media]
+    );
+  }
 
   return (
     <StyledTable colsSameWidth={colsSameWidth}>
@@ -154,18 +159,20 @@ const TableUI = (props: TableUIProps) => {
               aria-label={title.titleName}
               countColumns={TitleColumns.length}
               colsSameWidth={colsSameWidth}
+              columActions={columActions}
             >
               <Text type="label" size="medium" appearance="dark">
                 {title.titleName}
               </Text>
             </StyledThTitle>
           ))}
-          {renderActionsTitles(
-            actions,
-            isTablet,
-            mobileResumeTitle,
-            hideMobileResume
-          )}
+          {actions &&
+            renderActionsTitles(
+              actions,
+              isTablet,
+              mobileResumeTitle,
+              hideMobileResume
+            )}
         </StyledTr>
       </StyledThead>
       <StyledTbody>
@@ -177,23 +184,24 @@ const TableUI = (props: TableUIProps) => {
               isLastTr={index === entries.length - 1}
             >
               {TitleColumns.map((title) => (
-                <StyledTd key={`e-${title.id}`}>
+                <StyledTd key={`e-${title.id}`} columActions={columActions}>
                   <Text type="body" size="small" appearance="dark" ellipsis>
                     {entry[title.id]}
                   </Text>
                 </StyledTd>
               ))}
-              {renderActions(
-                portalId,
-                actions,
-                entry,
-                isTablet,
-                modalTitle,
-                titles,
-                infoTitle,
-                actionsTitle,
-                hideMobileResume
-              )}
+              {actions &&
+                renderActions(
+                  portalId,
+                  actions,
+                  entry,
+                  isTablet,
+                  modalTitle,
+                  titles,
+                  infoTitle,
+                  actionsTitle,
+                  hideMobileResume
+                )}
             </StyledTr>
           ))
         ) : (

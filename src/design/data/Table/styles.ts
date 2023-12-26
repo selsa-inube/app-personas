@@ -59,13 +59,20 @@ const StyledTr = styled.tr<IStyledTr>`
 interface IStyledThTitle {
   countColumns: number;
   colsSameWidth?: boolean;
+  columActions?: boolean;
 }
 
 const StyledThTitle = styled.th<IStyledThTitle>`
   padding: 12px 16px;
   min-width: ${({ countColumns, colsSameWidth }) =>
     colsSameWidth ? `${100 / countColumns}%` : "auto"};
+
+    p {
+      text-align: ${({ columActions }) =>
+      columActions ?  "left" : "center" };
 `;
+
+
 
 const StyledThAction = styled.th`
   background-color: ${({ theme }) =>
@@ -74,10 +81,18 @@ const StyledThAction = styled.th`
   padding: 12px 0px;
 `;
 
-const StyledTd = styled.td`
+interface IStyledTd {
+  columActions?: boolean;
+}
+
+const StyledTd = styled.td<IStyledTd>`
   padding: 0px 16px;
   text-align: center;
   max-width: 310px;
+
+  p {
+    text-align: ${({ columActions }) =>
+    columActions ? "left" : "center" };
 `;
 
 export {
