@@ -37,9 +37,9 @@ const creditDestinationRequestSteps = {
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
   },
-  communicationChannels: {
+  contactChannels: {
     id: 7,
-    name: "Canales de comunicación",
+    name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },

@@ -41,7 +41,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args: DropdownMenuProps) => (
+export const Themed: StoryFn<DropdownMenuProps> = (args) => (
   <ThemeProvider theme={theme}>
     <DropdownMenu {...args} />
   </ThemeProvider>

@@ -33,7 +33,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args: SwitchProps) => (
+export const Themed: StoryFn<SwitchProps> = (args) => (
   <ThemeProvider theme={theme}>
     <SwitchController {...args} onSwitchChange={args.onChange} />
   </ThemeProvider>

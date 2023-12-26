@@ -25,7 +25,7 @@ const story = {
   ],
 };
 
-export const Default = (args: BreadcrumbLinkProps) => (
+export const Default: StoryFn<BreadcrumbLinkProps> = (args) => (
   <BreadcrumbLinkController {...args} />
 );
 Default.args = {
@@ -37,7 +37,7 @@ Default.args = {
   cursorHover: true,
 };
 
-export const Themed = (args: BreadcrumbLinkProps) => (
+export const Themed: StoryFn<BreadcrumbLinkProps> = (args) => (
   <ThemeProvider theme={theme}>
     <BreadcrumbLinkController {...args} />
   </ThemeProvider>

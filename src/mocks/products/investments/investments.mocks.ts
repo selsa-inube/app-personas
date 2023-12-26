@@ -60,7 +60,7 @@ const investmentsMock: IProduct[] = [
         value: "Certificado",
       },
     ],
-    userOwner: "1",
+    userOwner: "12340001",
   },
   {
     id: "2-23110125",
@@ -136,7 +136,7 @@ const investmentsMock: IProduct[] = [
         totalValue: 150000,
       },
     ],
-    userOwner: "1",
+    userOwner: "12340001",
   },
 ];
 

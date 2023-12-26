@@ -23,7 +23,7 @@ const story = {
   ],
 };
 
-export const Default = (args: TitleProps) => <Title {...args} />;
+export const Default: StoryFn<TitleProps> = (args) => <Title {...args} />;
 Default.args = {
   title: "Bienvenido, Leonardo",
   subtitle: "Aquí tienes un resumen de tus productos",
@@ -35,7 +35,7 @@ const theme = {
   ...themes["fondecom"],
 };
 
-export const Themed = (args: TitleProps) => {
+export const Themed: StoryFn<TitleProps> = (args) => {
   return (
     <ThemeProvider theme={theme}>
       <Title {...args} />

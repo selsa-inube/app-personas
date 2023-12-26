@@ -24,7 +24,7 @@ const theme = {
   ...themes["fondecom"],
 };
 
-export const Themed = (args: DividerProps) => (
+export const Themed: StoryFn<DividerProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Divider {...args} />
   </ThemeProvider>

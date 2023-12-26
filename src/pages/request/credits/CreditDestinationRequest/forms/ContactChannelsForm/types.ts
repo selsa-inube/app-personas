@@ -1,4 +1,4 @@
-interface ICommunicationChannelsEntry {
+interface IContactChannelsEntry {
   landlinePhone: string;
   cellPhone: string;
   email: string;
@@ -6,4 +6,4 @@ interface ICommunicationChannelsEntry {
   acceptNotifications: boolean;
 }
 
-export type { ICommunicationChannelsEntry };
+export type { IContactChannelsEntry };

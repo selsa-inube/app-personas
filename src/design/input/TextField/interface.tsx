@@ -4,11 +4,14 @@ import { TextFieldProps } from ".";
 import { Label } from "../Label";
 import { ITextFieldMessage } from "./types";
 
+import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 import { useState } from "react";
 import { DropdownMenu } from "../DropdownMenu";
+import { Counter } from "../Textarea/Counter";
+import { CounterAppearence } from "../Textarea/types";
 import {
   StyledContainer,
-  StyledContainerLabel,
   StyledErrorMessageContainer,
   StyledIcon,
   StyledInput,
@@ -51,7 +54,6 @@ function TextFieldUI(props: TextFieldProps) {
     isDisabled = false,
     type,
     value,
-    onChange,
     iconBefore,
     iconAfter,
     maxLength,
@@ -65,12 +67,15 @@ function TextFieldUI(props: TextFieldProps) {
     size = "compact",
     isFullWidth = false,
     isFocused = false,
-    onFocus,
-    onBlur,
     readOnly,
     autocomplete,
     suggestions,
     autocompleteChars,
+    lengthThreshold = 0,
+    withCounter,
+    onChange,
+    onFocus,
+    onBlur,
     onIconClick,
   } = props;
 
@@ -106,80 +111,109 @@ function TextFieldUI(props: TextFieldProps) {
     onChange && onChange(event);
     setShowDropdown(false);
   };
+  const truncatedValue = String(value).slice(0, maxLength);
+
+  const counterAppearence: CounterAppearence =
+    maxLength &&
+    maxLength - truncatedValue.length <= lengthThreshold &&
+    truncatedValue.length < maxLength
+      ? "warning"
+      : truncatedValue.length === maxLength
+      ? "error"
+      : "gray";
 
   return (
     <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
-      <StyledContainerLabel
-        alignItems="center"
-        wrap="wrap"
-        isDisabled={isDisabled}
-      >
-        {label && (
-          <Label
-            htmlFor={id}
-            isDisabled={isDisabled}
-            isFocused={isFocused && state !== "invalid"}
-            isInvalid={state === "invalid"}
-            size="medium"
-          >
-            {label}
-          </Label>
-        )}
+      <Stack direction="column" gap="s050">
+        <Stack justifyContent="space-between" alignItems="center">
+          {(label || isRequired) && (
+            <Stack
+              width="100%"
+              gap="4px"
+              alignItems="center"
+              padding={`0px 0px 0px ${inube.spacing.s200}`}
+            >
+              {label && (
+                <Label
+                  htmlFor={id}
+                  isDisabled={isDisabled}
+                  isFocused={isFocused && state !== "invalid"}
+                  isInvalid={state === "invalid"}
+                  size="medium"
+                >
+                  {label}
+                </Label>
+              )}
 
-        {isRequired && !isDisabled && (
-          <Text type="body" size="small" appearance="dark">
-            (Requerido)
-          </Text>
-        )}
-      </StyledContainerLabel>
+              {isRequired && !isDisabled && (
+                <Text type="body" size="small" appearance="dark">
+                  (Requerido)
+                </Text>
+              )}
+            </Stack>
+          )}
 
-      <StyledInputContainer
-        isDisabled={isDisabled}
-        isFocused={isFocused}
-        state={state}
-        iconBefore={iconBefore}
-        iconAfter={iconAfter}
-        readOnly={readOnly}
-      >
-        {!isDisabled && iconBefore && (
-          <StyledIcon
-            isDisabled={isDisabled}
-            iconBefore={iconBefore}
-            onClick={onIconClick}
-          >
-            {iconBefore}
-          </StyledIcon>
-        )}
+          {!isDisabled && maxLength && withCounter && (
+            <Stack justifyContent="flex-end" alignItems="center">
+              <Counter
+                appearance={counterAppearence}
+                maxLength={maxLength}
+                isDisabled={isDisabled}
+                valueLength={truncatedValue.length}
+              />
+            </Stack>
+          )}
+        </Stack>
 
-        <StyledInput
-          label={label}
-          name={name}
-          id={id}
-          placeholder={isDisabled ? undefined : placeholder}
+        <StyledInputContainer
           isDisabled={isDisabled}
-          isFullWidth={isFullWidth}
-          type={type}
-          value={value}
-          maxLength={maxLength}
-          minLength={minLength}
-          max={max}
-          min={min}
-          onChange={handleInputChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
+          isFocused={isFocused}
+          state={state}
+          iconBefore={iconBefore}
+          iconAfter={iconAfter}
           readOnly={readOnly}
-          $size={size}
-        />
-        {!isDisabled && iconAfter && (
-          <StyledIcon
-            iconAfter={iconAfter}
+        >
+          {!isDisabled && iconBefore && (
+            <StyledIcon
+              isDisabled={isDisabled}
+              iconBefore={iconBefore}
+              onClick={onIconClick}
+            >
+              {iconBefore}
+            </StyledIcon>
+          )}
+
+          <StyledInput
+            label={label}
+            name={name}
+            id={id}
+            placeholder={isDisabled ? undefined : placeholder}
             isDisabled={isDisabled}
-            onClick={onIconClick}
-          >
-            {iconAfter}
-          </StyledIcon>
-        )}
-      </StyledInputContainer>
+            isFullWidth={isFullWidth}
+            type={type}
+            value={value}
+            maxLength={maxLength}
+            minLength={minLength}
+            max={max}
+            min={min}
+            onChange={handleInputChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            readOnly={readOnly}
+            $size={size}
+          />
+          {!isDisabled && iconAfter && (
+            <StyledIcon
+              iconAfter={iconAfter}
+              isDisabled={isDisabled}
+              onClick={onIconClick}
+            >
+              {iconAfter}
+            </StyledIcon>
+          )}
+        </StyledInputContainer>
+      </Stack>
+
       {showDropdown &&
         suggestions &&
         suggestions.length > 0 &&

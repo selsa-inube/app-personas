@@ -1,6 +1,7 @@
 import { Stack, StackProps } from "..";
 import { props } from "../props";
 import { Square } from "./Square";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/layout/Stack",
@@ -20,7 +21,7 @@ function Squares() {
   return squares;
 }
 
-export const Row = (args: StackProps) => (
+export const Row: StoryFn<StackProps> = (args) => (
   <Stack {...args}>{args.children}</Stack>
 );
 Row.args = {

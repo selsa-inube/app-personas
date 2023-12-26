@@ -21,7 +21,7 @@ const story = {
   ],
 };
 
-export const Default = (args: BreadcrumbEllipsisProps) => (
+export const Default: StoryFn<BreadcrumbEllipsisProps> = (args) => (
   <BreadcrumbEllipsis {...args} />
 );
 Default.args = {
@@ -42,7 +42,7 @@ Default.args = {
   cursorHover: true,
 };
 
-export const Themed = (args: BreadcrumbEllipsisProps) => (
+export const Themed: StoryFn<BreadcrumbEllipsisProps> = (args) => (
   <ThemeProvider theme={theme}>
     <BreadcrumbEllipsis {...args} />
   </ThemeProvider>

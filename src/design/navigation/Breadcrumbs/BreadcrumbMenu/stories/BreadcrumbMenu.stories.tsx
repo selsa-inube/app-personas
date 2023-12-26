@@ -21,7 +21,7 @@ const story = {
   ],
 };
 
-export const Default = (args: BreadcrumbMenuProps) => (
+export const Default: StoryFn<BreadcrumbMenuProps> = (args) => (
   <div style={{ height: "100px", transform: "translateZ(0)" }}>
     <BreadcrumbMenu {...args} />
   </div>
@@ -42,7 +42,7 @@ Default.args = {
   ],
 };
 
-export const Themed = (args: BreadcrumbMenuProps) => (
+export const Themed: StoryFn<BreadcrumbMenuProps> = (args) => (
   <ThemeProvider theme={theme}>
     <BreadcrumbMenu {...args} />
   </ThemeProvider>

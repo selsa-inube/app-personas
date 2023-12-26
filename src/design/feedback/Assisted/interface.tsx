@@ -1,5 +1,6 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
+import { Icon } from "@design/data/Icon";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -45,23 +46,31 @@ function AssistedUI(props: AssistedUIProps) {
         justifyContent="space-between"
         alignItems="center"
         height="inherit"
+        gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
       >
-        <StyledButton smallScreen={isMobile}>
-          <Button
+        {!isTablet ? (
+          <StyledButton>
+            <Button
+              variant="none"
+              iconBefore={<MdArrowBack size={18} />}
+              onClick={handlePreviousStep}
+              disabled={currentStepIndex === 0}
+              spacing="compact"              
+            >
+              {!isTablet && "Atrás"}
+            </Button>
+          </StyledButton>
+        ) : (
+          <Icon
             variant="none"
-            iconBefore={<MdArrowBack size={18} />}
+            icon={<MdArrowBack />}
+            size="20px"
+            spacing="none"
             onClick={handlePreviousStep}
             disabled={currentStepIndex === 0}
-          >
-            {!isTablet && "Atrás"}
-          </Button>
-        </StyledButton>
-        <Stack
-          direction="column"
-          width="100%"
-          gap="s150"
-          padding={`0 ${isMobile ? inube.spacing.s150 : inube.spacing.s200}`}
-        >
+          />
+        )}
+        <Stack direction="column" width="100%" gap="s150">
           <Stack gap="s100" alignItems="center">
             <StyledCircleId>
               <Text
@@ -101,17 +110,31 @@ function AssistedUI(props: AssistedUIProps) {
             </>
           )}
         </Stack>
-        <StyledButton smallScreen={isMobile}>
-          <Button
+        {!isTablet ? (
+          <StyledButton>
+            <Button
+              variant="none"
+              iconAfter={<MdArrowForward size={18} />}
+              onClick={handleNextStep}
+              disabled={disableNextStep}
+              spacing="compact"
+            >
+              {!isTablet &&
+                (currentStepIndex === steps.length - 1
+                  ? "Enviar"
+                  : "Siguiente")}
+            </Button>
+          </StyledButton>
+        ) : (
+          <Icon
             variant="none"
-            iconAfter={<MdArrowForward size={18} />}
+            icon={<MdArrowForward />}
+            size="20px"
+            spacing="none"
             onClick={handleNextStep}
             disabled={disableNextStep}
-          >
-            {!isTablet &&
-              (currentStepIndex === steps.length - 1 ? "Enviar" : "Siguiente")}
-          </Button>
-        </StyledButton>
+          />
+        )}
       </Stack>
       {isMobile && (
         <>

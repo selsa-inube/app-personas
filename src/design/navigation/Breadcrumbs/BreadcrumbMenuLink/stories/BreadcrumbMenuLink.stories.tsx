@@ -21,7 +21,7 @@ const story = {
   ],
 };
 
-export const Default = (args: BreadcrumbMenuLinkProps) => (
+export const Default: StoryFn<BreadcrumbMenuLinkProps> = (args) => (
   <BreadcrumbMenuLink {...args} />
 );
 Default.args = {
@@ -31,7 +31,7 @@ Default.args = {
   typo: "large",
 };
 
-export const Themed = (args: BreadcrumbMenuLinkProps) => (
+export const Themed: StoryFn<BreadcrumbMenuLinkProps> = (args) => (
   <ThemeProvider theme={theme}>
     <BreadcrumbMenuLink {...args} />
   </ThemeProvider>

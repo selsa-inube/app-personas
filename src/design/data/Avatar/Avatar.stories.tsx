@@ -11,7 +11,7 @@ const story = {
 export const Default = () => <Avatar />;
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
 export const Themed = () => {

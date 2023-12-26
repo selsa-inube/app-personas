@@ -19,13 +19,11 @@ import { Home } from "@pages/admin/home";
 import { UpdateData } from "@pages/general/UpdateData";
 import { useEffect } from "react";
 import { CreditRoutes } from "./routes/credit";
-import { SavingRoutes } from "./routes/saving";
 import { MyCreditsRoutes } from "./routes/myCredits";
 import { MySavingsRoutes } from "./routes/mySavings";
+import { SavingRoutes } from "./routes/saving";
 
 import { useAuth } from "@inube/auth";
-
-const USER_ID = "1";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -69,5 +67,4 @@ function App() {
   );
 }
 
-export { USER_ID };
 export default App;

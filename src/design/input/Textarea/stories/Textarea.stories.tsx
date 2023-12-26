@@ -27,6 +27,7 @@ Default.args = {
   isRequired: true,
   maxLength: 220,
   lengthThreshold: 50,
+  withCounter: true,
   value:
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil veniam, reiciendis ipsum itaque unde odio voluptatum ab cumque deleniti dolore magnam quas hic rem, mollitia adipisci. Officiis accusamus aut consectetur",
 };
@@ -35,7 +36,7 @@ const theme = {
   ...fondecom,
 };
 
-const Themed = (args: TextareaProps) => (
+const Themed: StoryFn<TextareaProps> = (args) => (
   <ThemeProvider theme={theme}>
     <TextareaController {...args} />
   </ThemeProvider>

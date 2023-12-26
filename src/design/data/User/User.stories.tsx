@@ -2,6 +2,7 @@ import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 import { User, UserProps } from ".";
 import { props } from "./props";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/data/User",
@@ -12,17 +13,17 @@ const story = {
   },
 };
 
-export const Default = (args: UserProps) => <User {...args} />;
+export const Default: StoryFn<UserProps> = (args) => <User {...args} />;
 Default.args = {
   username: "Leonardo Garzón",
   client: "Fondecom",
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
-export const Themed = (args: UserProps) => (
+export const Themed: StoryFn<UserProps> = (args) => (
   <ThemeProvider theme={theme}>
     <User {...args} />
   </ThemeProvider>

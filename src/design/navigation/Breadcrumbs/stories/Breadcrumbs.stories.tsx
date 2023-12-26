@@ -21,7 +21,9 @@ const story = {
   ],
 };
 
-export const Default = (args: BreadcrumbsProps) => <Breadcrumbs {...args} />;
+export const Default: StoryFn<BreadcrumbsProps> = (args) => (
+  <Breadcrumbs {...args} />
+);
 Default.args = {
   crumbs: [
     {
@@ -43,7 +45,7 @@ Default.args = {
   ],
 };
 
-export const ThemedDefault = (args: BreadcrumbsProps) => (
+export const ThemedDefault: StoryFn<BreadcrumbsProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Breadcrumbs {...args} />
   </ThemeProvider>
