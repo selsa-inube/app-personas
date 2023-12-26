@@ -20,6 +20,20 @@ const renderInvestmentSummary = (
   </Stack>
 );
 
+const renderConditionsSummary = (values: IConditionsEntry,  isTablet: boolean) =>(
+  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+    <BoxAttribute
+      label="Pago de intereses:"
+      value={peridiocityDM.valueOf(values.interestPayment)?.value}
+    />
+    <BoxAttribute
+      label="Número de días:"
+      value={values.deadlineDays}
+    />
+    
+  </Stack>
+);
+
 const renderInvestmentNameSummary = (
   values: IInvestmentNameEntry,
   isTablet: boolean
@@ -41,6 +55,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
     <>
       {stepKey === "investment" &&
         renderInvestmentSummary(cdatRequest.investment.values, isTablet)}
+         {stepKey === "conditions" &&
+          renderConditionsSummary(
+            cdatRequest.conditions.values,
+            isTablet
+          )}  
       {stepKey === "investmentName" &&
         renderInvestmentNameSummary(
           cdatRequest.investmentName.values,

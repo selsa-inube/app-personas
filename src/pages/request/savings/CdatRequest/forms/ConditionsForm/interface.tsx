@@ -159,7 +159,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       gap="s300"
                       templateColumns={isMobile ? "1fr" : "1fr 1fr"}
                     >
-                      <Stack direction="column">
+                      <Stack direction="column" gap="s150">
                         <BoxAttribute
                           label="Tasa efectiva anual:"
                           value={`${formik.values.effectiveAnnualRate} %`}
@@ -171,7 +171,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         />
                       </Stack>
 
-                      <Stack direction="column">
+                      <Stack direction="column" gap="s150">
                         <BoxAttribute
                           label="Plazo en número de días:"
                           value={`${formik.values.deadlineDays}`}
