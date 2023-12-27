@@ -21,6 +21,7 @@ export default defineConfig({
       "@hooks": path.resolve(__dirname, "./src/hooks"),
       "@mocks": path.resolve(__dirname, "./src/mocks"),
       "@ptypes": path.resolve(__dirname, "./src/types"),
+      "@forms": path.resolve(__dirname, "./src/forms"),
     },
   },
 });

@@ -38,9 +38,7 @@ function CdatRequestSummary(props: SummaryProps) {
               iconBefore={<MdOutlineArrowBack />}
               onClick={() =>
                 handleStepChange(
-                  cdatRequestSteps[
-                    key as keyof IFormsCdatRequest
-                  ].id
+                  cdatRequestSteps[key as keyof IFormsCdatRequest].id
                 )
               }
               variant="none"

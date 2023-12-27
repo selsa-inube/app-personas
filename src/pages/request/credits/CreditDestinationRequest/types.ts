@@ -1,6 +1,6 @@
 import { FormikProps } from "formik";
+import { IContactChannelsEntry } from "../../../../forms/ContactChannelsForm/types";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
-import { IContactChannelsEntry } from "./forms/ContactChannelsForm/types";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";

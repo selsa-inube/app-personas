@@ -8,12 +8,12 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
-import { ContactChannelsForm } from "./forms/ContactChannelsForm";
 import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { DisbursementForm } from "./forms/DisbursementForm";
@@ -96,13 +96,13 @@ interface CreditDestinationRequestUIProps {
   currentStep: number;
   steps: IStep[];
   isCurrentFormValid: boolean;
+  creditDestinationRequest: IFormsCreditDestinationRequest;
+  formReferences: IFormsCreditDestinationRequestRefs;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
-  creditDestinationRequest: IFormsCreditDestinationRequest;
-  formReferences: IFormsCreditDestinationRequestRefs;
 }
 
 function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
@@ -110,13 +110,13 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
     currentStep,
     steps,
     isCurrentFormValid,
+    creditDestinationRequest,
+    formReferences,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
-    creditDestinationRequest,
-    formReferences,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
