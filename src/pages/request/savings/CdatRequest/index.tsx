@@ -9,6 +9,8 @@ import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { CdatRequestUI } from "./interface";
+import { IConditionsEntry } from "./forms/ConditionsForm/types";
+
 
 function CdatRequest() {
   const [currentStep, setCurrentStep] = useState(
