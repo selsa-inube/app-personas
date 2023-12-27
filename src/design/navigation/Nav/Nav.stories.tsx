@@ -34,7 +34,7 @@ const story = {
   ],
 };
 
-export const Default = (args: NavProps) => (
+export const Default: StoryFn<NavProps> = (args) => (
   <BrowserRouter>
     <Nav {...args} />
   </BrowserRouter>
@@ -66,15 +66,34 @@ Default.args = {
   currentLocation: "/",
 };
 
-export const MultipleSections = (args: NavProps) => (
+export const MultipleSections: StoryFn<NavProps> = (args) => (
   <BrowserRouter>
     <Nav {...args} />
   </BrowserRouter>
 );
 MultipleSections.args = {
-  title: Default.args.title,
+  title: "Menu",
   sections: [
-    ...Default.args.sections,
+    {
+      title: "Administrate",
+      links: [
+        {
+          label: "Home",
+          path: "/",
+          icon: <MdHouse />,
+        },
+        {
+          label: "Accounts",
+          path: "/accounts",
+          icon: <MdAccountBalanceWallet />,
+        },
+        {
+          label: "Products",
+          path: "/products",
+          icon: <MdFactCheck />,
+        },
+      ],
+    },
     {
       title: "Request",
       links: [
@@ -96,14 +115,14 @@ MultipleSections.args = {
       ],
     },
   ],
-  currentLocation: Default.args.currentLocation,
+  currentLocation: "/",
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
-export const Themed = (args: NavProps) => (
+export const Themed: StoryFn<NavProps> = (args) => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Nav {...args} />

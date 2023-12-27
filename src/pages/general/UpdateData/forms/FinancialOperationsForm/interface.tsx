@@ -76,6 +76,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               label="Descripción de las operaciones en moneda extrajera"
               placeholder="Escribe la descripción de las operaciones en moneda extrajera"
               maxLength={200}
+              withCounter
               isDisabled={loading}
               value={formik.values.descriptionOperations}
               onChange={formik.handleChange}
@@ -141,6 +142,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 placeholder="Numero de cuenta"
                 name="accountNumber"
                 id="accountNumber"
+                type="number"
                 value={formik.values.accountNumber}
                 errorMessage={formik.errors.accountNumber}
                 isDisabled={loading}

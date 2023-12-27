@@ -24,11 +24,12 @@
       "@pages/*": ["./src/pages/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@mocks/*": ["./src/mocks/*"],
-      "@ptypes/*": ["./src/types/*"]
+      "@ptypes/*": ["./src/types/*"],
+      "@forms/*": ["./src/forms/*"]
     },
     "types": ["vite/client"]
   },
 
-  "include": ["src"],
+  "include": ["src", "./manifest.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

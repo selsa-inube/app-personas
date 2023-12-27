@@ -1,5 +1,5 @@
 import { ThemeProvider } from "styled-components";
-
+import { StoryFn } from "@storybook/react";
 import { Tag, TagProps } from ".";
 
 import { themes } from "@mocks/design/themes";
@@ -14,17 +14,17 @@ const story = {
   },
 };
 
-export const Default = (args: TagProps) => <Tag {...args} />;
+export const Default: StoryFn<TagProps> = (args) => <Tag {...args} />;
 Default.args = {
   label: "Pending",
   appearance: "gray",
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
-export const Themed = (args: TagProps) => (
+export const Themed: StoryFn<TagProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Tag {...args} />
   </ThemeProvider>

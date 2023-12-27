@@ -1,12 +1,12 @@
 import { CreditRequest } from "@pages/request/credits/CreditRequest";
-import { CreditSimulationRequest } from "@pages/request/credits/CreditSimulationRequest";
+import { CreditDestinationRequest } from "@pages/request/credits/CreditDestinationRequest";
 import { Route, Routes } from "react-router-dom";
 
 function CreditRoutes() {
   return (
     <Routes>
       <Route path="/" element={<CreditRequest />} />
-      <Route path="simulation" element={<CreditSimulationRequest />} />
+      <Route path="destination" element={<CreditDestinationRequest />} />
     </Routes>
   );
 }

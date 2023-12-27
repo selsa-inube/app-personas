@@ -1,8 +1,8 @@
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
+import { useAuth } from "@inube/auth";
+import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { investmentsMock } from "@mocks/products/investments/investments.mocks";
-import { USER_ID } from "src/App";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { MySavingsUI } from "./interface";
 
 const productsCommitments = [
@@ -17,15 +17,19 @@ const getSavingProducts = (types: string[]) => {
 const savingsAccountsMock = getSavingProducts(["CA"]);
 const savingsStatutoryContributionsMock = getSavingProducts(["APE", "AS"]);
 
-const getInvestmentsProducts = (type: string) => {
+const getInvestmentsProducts = (userId: string, type: string) => {
   return investmentsMock.filter(
-    (investment) => investment.userOwner === USER_ID && investment.type === type
+    (investment) => investment.userOwner === userId && investment.type === type
   );
 };
 
 function MySavings() {
-  const cdats = getInvestmentsProducts("CD");
-  const programmedSavings = getInvestmentsProducts("AP");
+  const { user } = useAuth();
+
+  const cdats = user && getInvestmentsProducts(user.identification, "CD");
+  const programmedSavings =
+    user && getInvestmentsProducts(user.identification, "AP");
+
   return (
     <MySavingsUI
       productsCommitments={productsCommitments}

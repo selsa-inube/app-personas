@@ -16,6 +16,7 @@ interface IFormField {
   isFullWidth?: boolean;
   readOnly?: boolean;
   maxLength?: number;
+  withCounter?: boolean;
   gridColumn: string;
   validation: Yup.StringSchema<string, Yup.AnyObject, undefined, "">;
 }

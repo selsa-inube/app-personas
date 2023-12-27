@@ -1,6 +1,6 @@
 import { ThemeProvider } from "styled-components";
 import { Text, TextProps } from ".";
-
+import { StoryFn } from "@storybook/react";
 import { themes } from "@mocks/design/themes";
 import { props } from "./props";
 
@@ -13,7 +13,7 @@ const story = {
   },
 };
 
-export const Default = (args: TextProps) => (
+export const Default: StoryFn<TextProps> = (args) => (
   <Text {...args}>This is a paragraph</Text>
 );
 Default.args = {
@@ -30,10 +30,10 @@ Default.args = {
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
-export const Themed = (args: TextProps) => {
+export const Themed: StoryFn<TextProps> = (args) => {
   return (
     <ThemeProvider theme={theme}>
       <Text {...args}>This is a paragraph</Text>

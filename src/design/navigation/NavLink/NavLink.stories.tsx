@@ -1,7 +1,7 @@
 import { MdHouse } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
 import { NavLink, NavLinkProps } from ".";
-
+import { StoryFn } from "@storybook/react";
 import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
 import { props } from "./props";
@@ -15,7 +15,7 @@ const story = {
   },
 };
 
-export const Default = (args: NavLinkProps) => (
+export const Default: StoryFn<NavLinkProps> = (args) => (
   <BrowserRouter>
     <NavLink {...args} />
   </BrowserRouter>
@@ -29,10 +29,10 @@ Default.args = {
 };
 
 const theme = {
-  ...themes['fondecom'],
+  ...themes["fondecom"],
 };
 
-export const Themed = (args: NavLinkProps) => (
+export const Themed: StoryFn<NavLinkProps> = (args) => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <NavLink {...args}>{args.children}</NavLink>

@@ -135,20 +135,20 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
           <TextField
             label="Código postal"
             placeholder="Código postal"
-            name="postalCode"
-            id="postalCode"
+            name="zipCode"
+            id="zipCode"
             type="number"
-            value={formik.values.postalCode}
+            value={formik.values.zipCode}
             iconAfter={<MdOutlineModeEdit size={18} />}
-            errorMessage={formik.errors.postalCode}
+            errorMessage={formik.errors.zipCode}
             isDisabled={loading}
             size="compact"
             isFullWidth
-            state={getFieldState(formik, "postalCode")}
+            state={getFieldState(formik, "zipCode")}
             onBlur={customHandleBlur}
             onChange={formik.handleChange}
             validMessage="El código postal es válido"
-            isRequired={isRequired("postalCode")}
+            isRequired={isRequired("zipCode")}
           />
 
           <TextField
@@ -175,6 +175,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             placeholder="Celular"
             name="cellPhone"
             id="cellPhone"
+            type="number"
             value={formik.values.cellPhone}
             iconAfter={<MdOutlineModeEdit size={18} />}
             errorMessage={formik.errors.cellPhone}

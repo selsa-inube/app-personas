@@ -25,7 +25,6 @@ import { SavingRoutes } from "./routes/saving";
 
 import { useAuth } from "@inube/auth";
 
-const USER_ID = "1";
 const TEMP_BUSINESS_UNIT = "test";
 
 const router = createBrowserRouter(
@@ -70,5 +69,5 @@ function App() {
   );
 }
 
-export { TEMP_BUSINESS_UNIT, USER_ID };
+export { TEMP_BUSINESS_UNIT };
 export default App;

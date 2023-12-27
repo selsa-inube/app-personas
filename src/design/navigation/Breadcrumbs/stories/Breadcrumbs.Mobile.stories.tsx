@@ -18,7 +18,9 @@ const story = {
   ],
 };
 
-export const Mobile = (args: BreadcrumbsProps) => <Breadcrumbs {...args} />;
+export const Mobile: StoryFn<BreadcrumbsProps> = (args) => (
+  <Breadcrumbs {...args} />
+);
 Mobile.args = {
   crumbs: [
     {
@@ -55,7 +57,7 @@ Mobile.args = {
   ],
 };
 
-export const ThemedMobile = (args: BreadcrumbsProps) => (
+export const ThemedMobile: StoryFn<BreadcrumbsProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Breadcrumbs {...args} />
   </ThemeProvider>

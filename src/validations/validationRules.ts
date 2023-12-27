@@ -96,8 +96,8 @@ const validationRules = {
     .matches(regex.onlyLetters, validationMessages.city)
     .max(25, validationMessages.maxCharacters(25)),
 
-  postalCode: Yup.string()
-    .matches(regex.onlyNumbers, validationMessages.postalCode)
+  zipCode: Yup.string()
+    .matches(regex.onlyNumbers, validationMessages.zipCode)
     .min(5, validationMessages.minNumbers(5))
     .max(10, validationMessages.maxNumbers(10)),
 

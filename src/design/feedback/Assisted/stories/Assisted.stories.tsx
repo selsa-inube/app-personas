@@ -82,7 +82,7 @@ Default.args = {
   onFinishAssisted: action("Assisted finished"),
 };
 
-export const ConfigStepsFlow = (args: AssistedProps) => (
+export const ConfigStepsFlow: StoryFn<AssistedProps> = (args) => (
   <StepsFlowController {...args} />
 );
 

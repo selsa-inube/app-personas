@@ -5,6 +5,7 @@ import { Nav } from "../../navigation/Nav";
 import { Grid } from "../Grid";
 import { StyledPage, StyledMain } from "./styles";
 import { IHeader, INav } from "./types";
+import { useAuth } from "@inube/auth";
 
 interface PageProps {
   header: IHeader;
@@ -16,12 +17,13 @@ function Page(props: PageProps) {
   const isTablet = useMediaQuery("(min-width: 900px)");
 
   const { header, nav } = props;
+  const { user } = useAuth();
 
   return (
     <StyledPage>
       <Header
         logoURL={header.logoURL}
-        username={header.username}
+        username={`${user?.firstName} ${user?.firstLastName}`}
         client={header.client}
         links={header.links}
         portalId={header.portalId}

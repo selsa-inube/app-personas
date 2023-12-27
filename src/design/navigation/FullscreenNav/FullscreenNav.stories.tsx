@@ -5,6 +5,7 @@ import { FullscreenNav, FullscreenNavProps } from ".";
 import { nav } from "@config/nav";
 import { props, parameters } from "./props";
 import { MdOutlineBadge } from "react-icons/md";
+import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/navigation/FullscreenNav",
@@ -16,7 +17,7 @@ const story = {
   },
 };
 
-export const Default = (args: FullscreenNavProps) => (
+export const Default: StoryFn<FullscreenNavProps> = (args) => (
   <BrowserRouter>
     <FullscreenNav {...args} />
   </BrowserRouter>
@@ -29,7 +30,7 @@ Default.args = {
   navigation: nav,
 };
 
-export const MultipleSections = (args: FullscreenNavProps) => (
+export const MultipleSections: StoryFn<FullscreenNavProps> = (args) => (
   <BrowserRouter>
     <FullscreenNav {...args} />
   </BrowserRouter>
@@ -53,7 +54,7 @@ const theme = {
   ...themes["fondecom"],
 };
 
-export const Themed = (args: FullscreenNavProps) => (
+export const Themed: StoryFn<FullscreenNavProps> = (args) => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <FullscreenNav {...args} />

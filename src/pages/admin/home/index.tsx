@@ -4,7 +4,6 @@ import { investmentsCommitmentsMock } from "@mocks/products/investments/investme
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { useEffect, useState } from "react";
-import { USER_ID } from "src/App";
 import { IProduct } from "src/model/entity/product";
 import { getCreditsForUser } from "src/services/iclient/credits";
 import { HomeUI } from "./interface";
@@ -21,19 +20,19 @@ const getSavingProducts = (types: string[]) => {
 const savingsAccountsMock = getSavingProducts(["CA"]);
 const savingsStatutoryContributionsMock = getSavingProducts(["APE", "AS"]);
 
-const getInvestmentsProducts = (type: string) => {
+const getInvestmentsProducts = (userId: string, type: string) => {
   return investmentsMock.filter(
-    (investment) => investment.userOwner === USER_ID && investment.type === type
+    (investment) => investment.userOwner === userId && investment.type === type
   );
 };
 
 function Home() {
   const [credits, setCredits] = useState<IProduct[]>([]);
-
-  const cdats = getInvestmentsProducts("CD");
-  const programmedSavings = getInvestmentsProducts("AP");
-
   const { user } = useAuth();
+
+  const cdats = user && getInvestmentsProducts(user.identification, "CD");
+  const programmedSavings =
+    user && getInvestmentsProducts(user.identification, "AP");
 
   useEffect(() => {
     if (user) {

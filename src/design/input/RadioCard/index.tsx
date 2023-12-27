@@ -1,5 +1,6 @@
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
+import { Icon } from "@design/data/Icon";
 import { StyledCardContainer, StyledInputRadio } from "./styles";
 
 interface RadioCardProps {
@@ -8,11 +9,12 @@ interface RadioCardProps {
   title: string;
   description: string;
   checked: boolean;
+  icon?: React.JSX.Element;
   onClick: () => void;
 }
 
 function RadioCard(props: RadioCardProps) {
-  const { id, name, title, description, checked, onClick } = props;
+  const { id, name, title, description, checked, icon, onClick } = props;
 
   return (
     <StyledCardContainer onClick={onClick}>
@@ -24,10 +26,13 @@ function RadioCard(props: RadioCardProps) {
         checked={checked}
         readOnly
       />
-      <Stack direction="column" gap="s100">
-        <Text type="label" size="large">
-          {title}
-        </Text>
+      <Stack direction="column" gap="s075" width="100%">
+        <Stack alignItems="center" justifyContent="space-between">
+          <Text type="label" size="medium">
+            {title}
+          </Text>
+          {icon && <Icon icon={icon} spacing="none" size="16px" />}
+        </Stack>
         <Text type="body" size="small" appearance="gray">
           {description}
         </Text>

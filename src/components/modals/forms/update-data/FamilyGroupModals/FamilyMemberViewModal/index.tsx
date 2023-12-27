@@ -62,8 +62,12 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
           </Text>
         </Stack>
         <StyledScrollbar smallScreen={isMobile}>
-          <Divider dashed/>
-          <Fieldset title="Identificación" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
+          <Divider dashed />
+          <Fieldset
+            title="Identificación"
+            type={isMobile ? "label" : "title"}
+            size={isMobile ? "medium" : "small"}
+          >
             <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <Select
                 label="Tipo de documento"
@@ -133,7 +137,11 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               />
             </Grid>
           </Fieldset>
-          <Fieldset title="Contacto" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
+          <Fieldset
+            title="Contacto"
+            type={isMobile ? "label" : "title"}
+            size={isMobile ? "medium" : "small"}
+          >
             <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <TextField
                 label="Celular"
@@ -159,7 +167,11 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               />
             </Grid>
           </Fieldset>
-          <Fieldset title="Información" type={isMobile ? "label" : "title"} size={isMobile ? "medium" : "small"}>
+          <Fieldset
+            title="Información"
+            type={isMobile ? "label" : "title"}
+            size={isMobile ? "medium" : "small"}
+          >
             <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <Select
                 label="Parentesco"
@@ -181,9 +193,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 options={activeDM.options}
                 isFullWidth
                 value={
-                  formik.values.isDependent
-                    ? activeDM.Y.id
-                    : activeDM.N.id
+                  formik.values.isDependent ? activeDM.Y.id : activeDM.N.id
                 }
                 readOnly
               />

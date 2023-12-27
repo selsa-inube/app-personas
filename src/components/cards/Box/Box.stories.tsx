@@ -25,12 +25,13 @@ const story = {
   ],
 };
 
-export const Default = (args: BoxProps) => <Box {...args} />;
+export const Default: StoryFn<BoxProps> = (args) => <Box {...args} />;
 Default.args = {
   title: "Ahorros",
   subtitle: "Consulta tus cuentas",
   button: {
     label: "Solicitar ahorro",
+    path: "/path",
     icon: <MdAdd />,
   },
   collapsing: {
@@ -49,7 +50,7 @@ const theme = {
   ...themes["fondecom"],
 };
 
-export const Themed = (args: BoxProps) => (
+export const Themed: StoryFn<BoxProps> = (args) => (
   <ThemeProvider theme={theme}>
     <Box {...args} />
   </ThemeProvider>

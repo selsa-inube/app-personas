@@ -29,7 +29,7 @@ const theme = {
   ...fondecom,
 };
 
-export const Themed = (args: RadioCardProps) => (
+export const Themed: StoryFn<RadioCardProps> = (args) => (
   <ThemeProvider theme={theme}>
     <RadioCard {...args} />
   </ThemeProvider>
