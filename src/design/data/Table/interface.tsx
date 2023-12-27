@@ -113,7 +113,7 @@ interface TableUIProps {
   hideMobileResume?: boolean;
   mobileResumeTitle?: string;
   colsSameWidth?: boolean;
-  columActions: boolean;
+  columnActions: boolean;
 }
 
 const TableUI = (props: TableUIProps) => {
@@ -129,7 +129,7 @@ const TableUI = (props: TableUIProps) => {
     hideMobileResume,
     mobileResumeTitle,
     colsSameWidth,
-    columActions,
+    columnActions,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 850px)");
@@ -159,7 +159,7 @@ const TableUI = (props: TableUIProps) => {
               aria-label={title.titleName}
               countColumns={TitleColumns.length}
               colsSameWidth={colsSameWidth}
-              columActions={columActions}
+              columnActions={columnActions}
             >
               <Text type="label" size="medium" appearance="dark">
                 {title.titleName}
@@ -184,7 +184,7 @@ const TableUI = (props: TableUIProps) => {
               isLastTr={index === entries.length - 1}
             >
               {TitleColumns.map((title) => (
-                <StyledTd key={`e-${title.id}`} columActions={columActions}>
+                <StyledTd key={`e-${title.id}`} columnActions={columnActions}>
                   <Text type="body" size="small" appearance="dark" ellipsis>
                     {entry[title.id]}
                   </Text>

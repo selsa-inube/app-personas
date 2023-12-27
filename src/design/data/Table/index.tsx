@@ -91,7 +91,7 @@ const Table = (props: TableProps) => {
     }
   }
 
-  const columActions = actions ? true : false;
+  const columnActions = actions ? true : false;
 
   return (
     <StyledTableContainer id={id}>
@@ -107,7 +107,7 @@ const Table = (props: TableProps) => {
         hideMobileResume={hideMobileResume}
         mobileResumeTitle={mobileResumeTitle}
         colsSameWidth={colsSameWidth}
-        columActions={columActions}
+        columnActions={columnActions}
       />
       {filteredEntries.length > pageLength && (
         <Pagination
