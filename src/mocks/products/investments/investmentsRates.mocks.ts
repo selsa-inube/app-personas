@@ -1,6 +1,6 @@
-import { IRates } from "src/model/entity/product";
+import { IRate } from "src/model/entity/product";
 
-const investmentsRatesMocks:IRates[] = [
+const investmentsRatesMocks:IRate[] = [
   {
     id:"1-rate",
     deadlineInitialDay: 30,

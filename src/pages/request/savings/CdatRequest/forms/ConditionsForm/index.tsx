@@ -4,12 +4,12 @@ import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { validationRules } from "src/validations/validationRules";
 import { ConditionsFormUI } from "./interface";
-import { IRates } from "src/model/entity/product";
+import { IRate } from "src/model/entity/product";
 import { IConditionsEntry } from "./types";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 
 const maxDeadlineDays = investmentsRatesMocks.reduce(
-  (previousValue: IRates, currentValue: IRates) => {
+  (previousValue: IRate, currentValue: IRate) => {
     return currentValue.deadlineEndDay > previousValue.deadlineEndDay
       ? currentValue
       : previousValue;
@@ -17,12 +17,19 @@ const maxDeadlineDays = investmentsRatesMocks.reduce(
 );
 
 const minDeadlineDays = investmentsRatesMocks.reduce(
-  (previousValue: IRates, currentValue: IRates) => {
+  (previousValue: IRate, currentValue: IRate) => {
     return currentValue.deadlineInitialDay < previousValue.deadlineInitialDay
       ? currentValue
       : previousValue;
   }
 );
+
+const removeLastCharacters = (
+  wordOfCell: string,
+  numberCharactersRemove: number
+): number => {
+  return Number(wordOfCell.slice(0, -numberCharactersRemove));
+};
 
 const validationSchema = Yup.object({
   deadlineDate: validationRules.notPastDate.required(
@@ -72,13 +79,6 @@ const ConditionsForm = forwardRef(function ConditionsForm(
     });
   };
 
-  const removeLastCharacters = (
-    wordOfCell: string,
-    numberCharactersRemove: number
-  ): number => {
-    return Number(wordOfCell.slice(0, -numberCharactersRemove));
-  };
-
   const simulateCDAT = () => {
     setLoadingSimulation(true);
     setTimeout(() => {
@@ -93,7 +93,7 @@ const ConditionsForm = forwardRef(function ConditionsForm(
       }
 
       const filteredEffectiveAnnualRate = investmentsRatesMocks.find(
-        (investmentsRate: IRates) =>
+        (investmentsRate: IRate) =>
           deadlineDays >= investmentsRate.deadlineInitialDay &&
           deadlineDays <= investmentsRate.deadlineEndDay
       );

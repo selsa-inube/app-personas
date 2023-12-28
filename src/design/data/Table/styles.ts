@@ -59,7 +59,7 @@ const StyledTr = styled.tr<IStyledTr>`
 interface IStyledThTitle {
   countColumns: number;
   colsSameWidth?: boolean;
-  columnActions?: boolean;
+  withActions?: boolean;
 }
 
 const StyledThTitle = styled.th<IStyledThTitle>`
@@ -68,8 +68,8 @@ const StyledThTitle = styled.th<IStyledThTitle>`
     colsSameWidth ? `${100 / countColumns}%` : "auto"};
 
     p {
-      text-align: ${({ columnActions }) =>
-      columnActions ?  "left" : "center" };
+      text-align: ${({ withActions }) =>
+      withActions ?  "left" : "center" };
 `;
 
 
@@ -82,7 +82,7 @@ const StyledThAction = styled.th`
 `;
 
 interface IStyledTd {
-  columnActions?: boolean;
+  withActions?: boolean;
 }
 
 const StyledTd = styled.td<IStyledTd>`
@@ -91,8 +91,8 @@ const StyledTd = styled.td<IStyledTd>`
   max-width: 310px;
 
   p {
-    text-align: ${({ columnActions }) =>
-    columnActions ? "left" : "center" };
+    text-align: ${({ withActions }) =>
+    withActions ? "left" : "center" };
 `;
 
 export {

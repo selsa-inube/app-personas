@@ -24,9 +24,10 @@ const renderTransactionSpecification = (
       {label}
     </Text>
 
-    {values.map((value) =>
+    {values.map((value, index) =>
       typeof value === "number" ? (
         <Text
+          key={index}
           type={value >= 0 ? "body" : "label"}
           size={value >= 0 ? "medium" : "large"}
           appearance={value >= 0 ? "gray" : "error"}
@@ -34,7 +35,7 @@ const renderTransactionSpecification = (
           {currencyFormat(value)}
         </Text>
       ) : (
-        <Text type="body" size="medium" appearance={"gray"}>
+        <Text key={index} type="body" size="medium" appearance={"gray"}>
           {value}
         </Text>
       )

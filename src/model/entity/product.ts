@@ -62,7 +62,7 @@ interface IProduct {
   userOwner?: string;
 }
 
-interface IRates {
+interface IRate {
   id: string;
   deadlineInitialDay: number;
   deadlineEndDay: number;
@@ -77,5 +77,5 @@ export type {
   IMovement,
   IProduct,
   ProductType,
-  IRates,
+  IRate,
 };
