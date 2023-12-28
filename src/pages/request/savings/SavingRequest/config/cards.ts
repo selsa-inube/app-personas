@@ -18,7 +18,7 @@ const savingRequestCards = [
         descriptions: [
           "Deposita dinero periódicamente y recibe tu ahorro más intereses al finalizar el tiempo de ahorro acordado.",
         ],
-        navigateTo: "/",
+        navigateTo: "programmedSavingsFixed",
       },
   ];
   

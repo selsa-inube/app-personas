@@ -1,6 +1,14 @@
 import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const peridiocityData = {
+  WEEKLY: {
+    id: "weekly",
+    value: "Semanal",
+  },
+  BIWEEKLY: {
+    id: "biweekly",
+    value: "Quincenal",
+  },
   MONTHLY: {
     id: "monthly",
     value: "Mensual",
