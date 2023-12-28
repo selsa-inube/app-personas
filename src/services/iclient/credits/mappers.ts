@@ -45,7 +45,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
 };
 
 const mapCreditsApiToEntities = (
-  credits: Record<string, string | number | boolean>[]
+  credits: Record<string, any>[]
 ): IProduct[] => {
   return credits.map((credit) => mapCreditApiToEntity(credit));
 };

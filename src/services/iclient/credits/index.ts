@@ -6,31 +6,39 @@ import { mapCreditsApiToEntities } from "./mappers";
 const getCreditsForUser = async (
   userIdentification: string
 ): Promise<IProduct[]> => {
-  const queryParams = new URLSearchParams();
+  try {
+    const queryParams = new URLSearchParams({
+      customerPublicCode: userIdentification,
+    });
 
-  queryParams.append("customerPublicCode", userIdentification);
+    const options = {
+      method: "GET",
+      headers: {
+        "X-Action": "SearchAllPortfolioObligation",
+        "X-Business-Unit": TEMP_BUSINESS_UNIT,
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    };
 
-  const options = {
-    method: "GET",
-    headers: {
-      "X-Action": "SearchAllPortfolioObligation",
-      "X-Business-Unit": TEMP_BUSINESS_UNIT,
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  };
+    const res = await fetch(
+      `${ICLIENT_API_URL_QUERY}/portfolio-obligations?${queryParams.toString()}`,
+      options
+    );
 
-  const res = await fetch(
-    `${ICLIENT_API_URL_QUERY}/portfolio-obligations?${queryParams.toString()}`,
-    options
-  );
+    const data = await res.json();
 
-  const data = await res.json();
+    if (!res.ok) {
+      throw {
+        message: "Error al obtener los créditos del usuario",
+        status: res.status,
+        data,
+      };
+    }
 
-  if (Array.isArray(data)) {
-    return mapCreditsApiToEntities(data);
+    return Array.isArray(data) ? mapCreditsApiToEntities(data) : [];
+  } catch (error) {
+    console.error("Error al obtener los créditos del usuario:", error);
+    throw new Error("Error al obtener los créditos del usuario");
   }
-
-  return Promise.resolve([]);
 };
-
 export { getCreditsForUser };

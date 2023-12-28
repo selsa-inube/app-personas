@@ -36,9 +36,13 @@ function Home() {
 
   useEffect(() => {
     if (user) {
-      getCreditsForUser(user?.identification).then((credits) => {
-        setCredits(credits);
-      });
+      getCreditsForUser(user?.identification)
+        .then((credits) => {
+          setCredits(credits);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
   }, []);
 
