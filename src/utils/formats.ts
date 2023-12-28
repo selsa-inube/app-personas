@@ -1,4 +1,5 @@
 import { FormikValues } from "formik";
+
 const currencyFormat = (price: number): string => {
   if (price === 0) {
     return "$ 0.00";
@@ -39,18 +40,37 @@ const validateCurrencyField = (fieldName: string, formik: FormikValues) => {
     : "";
 };
 
-const handleChangeWithCurrency = (formik: FormikValues,
+const handleChangeWithCurrency = (
+  formik: FormikValues,
   e: React.ChangeEvent<HTMLInputElement>
-  
 ) => {
   const parsedValue = parseCurrencyString(e.target.value);
   formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);
 };
 
+const capitalizeText = (text: string) => {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
+const formatPrimaryDate = (date: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  };
+  const dateString = date.toLocaleDateString("es-ES", options);
+
+  const [day, month, year] = dateString.split(" ");
+
+  return `${day}/${capitalizeText(month)}/${year}`;
+};
+
 export {
   currencyFormat,
+  formatPrimaryDate,
+  handleChangeWithCurrency,
   parseCurrencyString,
   truncateAndObfuscateDescription,
   validateCurrencyField,
-  handleChangeWithCurrency,
 };
