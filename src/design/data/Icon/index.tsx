@@ -33,6 +33,12 @@ function Icon(props: IconProps) {
     onClick,
   } = props;
 
+  const handleClick = () => {
+    if (!disabled && onClick) {
+      onClick();
+    }
+  };
+
   return (
     <StyledIcon
       appearance={appearance}
@@ -43,7 +49,7 @@ function Icon(props: IconProps) {
       cursorHover={cursorHover}
       parentHover={parentHover}
       disabled={disabled}
-      onClick={onClick}
+      onClick={handleClick}
     >
       {icon}
     </StyledIcon>
