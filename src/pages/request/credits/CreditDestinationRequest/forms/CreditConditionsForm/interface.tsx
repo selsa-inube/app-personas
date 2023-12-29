@@ -13,10 +13,10 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { maximumQuotasAvailableMock } from "@mocks/products/credits/request.mocks";
 import { FormikValues } from "formik";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
-import { currencyFormat, parseCurrencyString } from "src/utils/formats";
-import { StyledList } from "./styles";
 import { MdAttachMoney } from "react-icons/md";
+import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { currencyFormat, parseCurrencyString } from "src/utils/currency";
+import { StyledList } from "./styles";
 
 interface CreditConditionsFormUIProps {
   formik: FormikValues;

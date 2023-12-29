@@ -10,7 +10,7 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 import { IContactChannelsEntry } from "../../../../../../../forms/ContactChannelsForm/types";
 import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICommentsEntry } from "../../CommentsForm/types";

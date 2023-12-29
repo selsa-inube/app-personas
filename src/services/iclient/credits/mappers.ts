@@ -1,6 +1,6 @@
 import { TagProps } from "@design/data/Tag";
 import { IProduct } from "src/model/entity/product";
-import { formatPrimaryDate } from "src/utils/formats";
+import { formatPrimaryDate } from "src/utils/dates";
 
 const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   const nextPaymentDate = new Date(credit.nextPaymentDate);
