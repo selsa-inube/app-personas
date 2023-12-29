@@ -91,14 +91,14 @@ const Table = (props: TableProps) => {
     }
   }
 
-  const withActions = actions ? true : false;
+  const withActions = !!actions;
 
   return (
     <StyledTableContainer id={id}>
       <TableUI
         portalId={id}
         titles={titles}
-        actions={actions!}
+        actions={actions}
         entries={getPageEntries()}
         breakpoints={breakpoints}
         modalTitle={modalTitle}

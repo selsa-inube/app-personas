@@ -106,7 +106,7 @@ function renderActions(
 interface TableUIProps {
   portalId: string;
   titles: ITitle[];
-  actions: IAction[];
+  actions?: IAction[];
   entries: IEntry[];
   breakpoints?: IBreakpoint[];
   modalTitle?: string;
