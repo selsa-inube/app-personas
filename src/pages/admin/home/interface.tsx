@@ -13,7 +13,6 @@ import { inube } from "@design/tokens";
 import { StyledCommitmentsContainer } from "./styles";
 
 import { Product } from "@components/cards/Product";
-import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
 import { useAuth } from "@inube/auth";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
@@ -22,15 +21,13 @@ import {
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
 } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
-import { currencyFormat } from "src/utils/currency";
-import { extractAttribute } from "src/utils/products";
+import { ICommitment, IProduct } from "src/model/entity/product";
 import { truncateAndObfuscateDescription } from "src/utils/texts";
 import {
   investmentIcons,
   savingsAccountIcons,
 } from "../savings/SavingsAccount/config/saving";
+import { ProductsCommitments } from "./ProductsCommitments";
 import { cardsBox, creditsBox, savingsBox } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
@@ -44,41 +41,6 @@ import {
   savingAttributeBreakpoints,
 } from "./config/products";
 import { cardProducts } from "./mocks";
-
-const renderProductsCommitments = (productsCommitments: ICommitment[]) => {
-  return productsCommitments.map((commitment) => {
-    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
-    const nextPayDate = extractAttribute(
-      commitment.attributes,
-      "next_pay_date"
-    );
-    const navigate = useNavigate();
-
-    const currencyValueToPay = valueToPay && {
-      id: valueToPay.id || "",
-      label: valueToPay.label || "",
-      value: currencyFormat(Number(valueToPay.value)),
-    };
-
-    const attributes: IAttribute[] = [];
-    if (currencyValueToPay) attributes.push(currencyValueToPay);
-    if (nextPayDate) attributes.push(nextPayDate);
-
-    const handleNavigateCommitment = () => {
-      navigate(`/my-savings/commitment/${commitment.id}`);
-    };
-
-    return (
-      <SavingsCommitmentCard
-        key={commitment.id}
-        title={commitment.title}
-        tag={commitment.tag}
-        attributes={attributes}
-        onClick={handleNavigateCommitment}
-      />
-    );
-  });
-};
 
 function renderHomeContent(
   productsCommitments: ICommitment[],
@@ -228,7 +190,9 @@ function renderHomeContent(
                   Compromisos
                 </Text>
                 <StyledCommitmentsContainer>
-                  {renderProductsCommitments(productsCommitments)}
+                  <ProductsCommitments
+                    productsCommitments={productsCommitments}
+                  />
                 </StyledCommitmentsContainer>
               </>
             )}

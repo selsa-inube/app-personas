@@ -1,30 +1,14 @@
 import { useAuth } from "@inube/auth";
-import { investmentsMock } from "@mocks/products/investments/investments.mocks";
-import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { useEffect, useState } from "react";
 import { IProduct } from "src/model/entity/product";
 import { getCreditsForUser } from "src/services/iclient/credits";
 import { HomeUI } from "./interface";
-
-const productsCommitments = [
-  ...savingsCommitmentsMock,
-  ...investmentsCommitmentsMock,
-];
-
-const getSavingProducts = (types: string[]) => {
-  return savingsMock.filter((investment) => types.includes(investment.type));
-};
-
-const savingsAccountsMock = getSavingProducts(["CA"]);
-const savingsStatutoryContributionsMock = getSavingProducts(["APE", "AS"]);
-
-const getInvestmentsProducts = (userId: string, type: string) => {
-  return investmentsMock.filter(
-    (investment) => investment.userOwner === userId && investment.type === type
-  );
-};
+import {
+  getInvestmentsProducts,
+  productsCommitments,
+  savingsAccountsMock,
+  savingsStatutoryContributionsMock,
+} from "./utils";
 
 function Home() {
   const [credits, setCredits] = useState<IProduct[]>([]);
