@@ -1,6 +1,6 @@
+import { enviroment } from "@config/enviroment";
 import { TEMP_BUSINESS_UNIT } from "src/App";
 import { IProduct } from "src/model/entity/product";
-import { ICLIENT_API_URL_QUERY } from "../api";
 import { mapCreditsApiToEntities } from "./mappers";
 
 const getCreditsForUser = async (
@@ -21,7 +21,9 @@ const getCreditsForUser = async (
     };
 
     const res = await fetch(
-      `${ICLIENT_API_URL_QUERY}/portfolio-obligations?${queryParams.toString()}`,
+      `${
+        enviroment.ICLIENT_API_URL_QUERY
+      }/portfolio-obligations?${queryParams.toString()}`,
       options
     );
 

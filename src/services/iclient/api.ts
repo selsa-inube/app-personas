@@ -1,3 +1,0 @@
-const ICLIENT_API_URL_QUERY = import.meta.env.VITE_ICLIENT_API_URL_QUERY;
-
-export { ICLIENT_API_URL_QUERY };
