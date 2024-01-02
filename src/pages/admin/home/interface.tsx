@@ -273,7 +273,7 @@ function HomeUI(props: HomeUIProps) {
   return (
     <>
       <Title
-        title={`Bienvenido, ${user?.firstName}`}
+        title={`Bienvenido(a), ${user?.firstName}`}
         subtitle="Aquí tienes un resumen de tus productos "
       />
       {!isDesktop ? (
