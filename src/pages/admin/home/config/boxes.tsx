@@ -5,7 +5,7 @@ import {
   MdOutlineSavings,
 } from "react-icons/md";
 
-const savings = {
+const savingsBox = {
   title: "Ahorros",
   subtitle: "Resumen productos de ahorro",
   icon: <MdOutlineSavings />,
@@ -18,7 +18,7 @@ const savings = {
   },
 };
 
-const credits = {
+const creditsBox = {
   title: "Créditos",
   subtitle: "Resumen productos de crédito",
   icon: <MdOutlineAccountBalance />,
@@ -31,7 +31,7 @@ const credits = {
   },
 };
 
-const cards = {
+const cardsBox = {
   title: "Tarjetas de crédito",
   subtitle: "Resumen tarjetas de crédito",
   icon: <MdOutlineCreditScore />,
@@ -43,4 +43,4 @@ const cards = {
   },
 };
 
-export { cards, credits, savings };
+export { cardsBox, creditsBox, savingsBox };

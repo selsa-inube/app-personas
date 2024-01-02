@@ -20,11 +20,9 @@ import { StyledCommitmentsContainer } from "@pages/admin/home/styles";
 import { MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
-import {
-  currencyFormat,
-  truncateAndObfuscateDescription,
-} from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
+import { truncateAndObfuscateDescription } from "src/utils/texts";
 import {
   investmentIcons,
   savingsAccountIcons,

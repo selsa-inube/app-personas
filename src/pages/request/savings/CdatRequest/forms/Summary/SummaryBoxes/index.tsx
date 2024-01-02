@@ -2,7 +2,7 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
 import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { activeDM } from "src/model/domains/general/activedm";
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 import { IFormsCdatRequest } from "../../../types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
 import { IConditionsEntry } from "../../ConditionsForm/types";

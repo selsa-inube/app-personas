@@ -28,7 +28,7 @@ import { relationshipDM } from "src/model/domains/personalResidence/relationship
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";

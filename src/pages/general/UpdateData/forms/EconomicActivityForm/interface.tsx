@@ -19,7 +19,7 @@ import { economicActivityDM } from "src/model/domains/economicActivity/economica
 import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedm";
 import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { getFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface EconomicActivityFormUIProps {
   formik: FormikValues;

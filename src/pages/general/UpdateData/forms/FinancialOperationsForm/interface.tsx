@@ -9,7 +9,7 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { activeDM } from "src/model/domains/general/activedm";
-import { getFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikValues;
