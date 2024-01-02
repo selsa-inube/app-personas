@@ -4,10 +4,10 @@ import { formatPrimaryDate } from "src/utils/dates";
 
 const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   const nextPaymentDate = new Date(credit.nextPaymentDate);
-  nextPaymentDate.setUTCHours(0, 0, 0, 0);
+  nextPaymentDate.setHours(0, 0, 0, 0);
 
   const today = new Date();
-  today.setUTCHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
 
   const attributes = [
     {
