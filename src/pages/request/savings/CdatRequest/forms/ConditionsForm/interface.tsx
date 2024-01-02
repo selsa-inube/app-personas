@@ -44,7 +44,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap={isMobile ? "s200" :"s300"}>
+      <Stack direction="column" gap={isMobile ? "s200" : "s300"}>
         <Stack direction="column" gap="s200">
           <Fieldset
             title="Simulador"
@@ -73,7 +73,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                   size="compact"
                   isFullWidth
                   options={peridiocityDM.options}
-                  onBlur={formik.handleBlur}
+                  onBlur={customHandleBlur}
                   errorMessage={formik.errors.interestPayment}
                   isDisabled={loading}
                   state={getFieldState(formik, "interestPayment")}
@@ -83,7 +83,13 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
               </Grid>
 
               <Stack direction="column" gap="s250">
-                <Stack padding={ isMobile ? "s0" : `${inube.spacing.s050} ${inube.spacing.s200}`}>
+                <Stack
+                  padding={
+                    isMobile
+                      ? "s0"
+                      : `${inube.spacing.s050} ${inube.spacing.s200}`
+                  }
+                >
                   <Switch
                     label="Prefiero ingresar la fecha"
                     id="simulationWithDate"
@@ -138,9 +144,13 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                     onClick={simulateCDAT}
                     load={loadingSimulation}
                     disabled={
-                      !formik.values.valueInvestment ||
                       !formik.values.interestPayment ||
-                      (!formik.values.deadlineDays && !formik.values.deadlineDate)
+                      (!formik.values.deadlineDays &&
+                        !formik.values.deadlineDate) ||
+                      (formik.errors.deadlineDays &&
+                        !formik.values.deadlineDate) ||
+                      (formik.errors.deadlineDate && 
+                        !formik.values.deadlineDays)
                     }
                   >
                     Simular
@@ -166,8 +176,9 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         />
                         <BoxAttribute
                           label="Intereses totales:"
-                          value={`${currencyFormat(formik.values.totalInterest)
-                          }`}
+                          value={`${currencyFormat(
+                            formik.values.totalInterest
+                          )}`}
                         />
                       </Stack>
 

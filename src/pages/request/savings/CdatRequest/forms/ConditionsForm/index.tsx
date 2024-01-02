@@ -4,32 +4,14 @@ import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { validationRules } from "src/validations/validationRules";
 import { ConditionsFormUI } from "./interface";
-import { IRate } from "src/model/entity/product";
 import { IConditionsEntry } from "./types";
+import {
+  maxDeadlineDays,
+  minDeadlineDays,
+  effectiveAnnualRateRequest,
+  totalInterestRequest,
+} from "./utils";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
-
-const maxDeadlineDays = investmentsRatesMocks.reduce(
-  (previousValue: IRate, currentValue: IRate) => {
-    return currentValue.deadlineEndDay > previousValue.deadlineEndDay
-      ? currentValue
-      : previousValue;
-  }
-);
-
-const minDeadlineDays = investmentsRatesMocks.reduce(
-  (previousValue: IRate, currentValue: IRate) => {
-    return currentValue.deadlineInitialDay < previousValue.deadlineInitialDay
-      ? currentValue
-      : previousValue;
-  }
-);
-
-const removeLastCharacters = (
-  wordOfCell: string,
-  numberCharactersRemove: number
-): number => {
-  return Number(wordOfCell.slice(0, -numberCharactersRemove));
-};
 
 const validationSchema = Yup.object({
   deadlineDate: validationRules.notPastDate.required(
@@ -37,12 +19,16 @@ const validationSchema = Yup.object({
   ),
   deadlineDays: Yup.number()
     .min(
-      minDeadlineDays.deadlineInitialDay,
-      `El plazo minimo en días debe ser de:  ${minDeadlineDays.deadlineInitialDay} días`
+      minDeadlineDays(investmentsRatesMocks),
+      `El plazo minimo en días debe ser de:  ${minDeadlineDays(
+        investmentsRatesMocks
+      )} días`
     )
     .max(
-      maxDeadlineDays.deadlineEndDay,
-      `El plazo máximo en días debe ser de:  ${maxDeadlineDays.deadlineEndDay} días`
+      maxDeadlineDays(investmentsRatesMocks),
+      `El plazo máximo en días debe ser de:  ${maxDeadlineDays(
+        investmentsRatesMocks
+      )} días`
     ),
 });
 
@@ -92,21 +78,15 @@ const ConditionsForm = forwardRef(function ConditionsForm(
         deadlineDays = Number(formik.values.deadlineDays);
       }
 
-      const filteredEffectiveAnnualRate = investmentsRatesMocks.find(
-        (investmentsRate: IRate) =>
-          deadlineDays >= investmentsRate.deadlineInitialDay &&
-          deadlineDays <= investmentsRate.deadlineEndDay
+      const effectiveAnnualRate = effectiveAnnualRateRequest(
+        investmentsRatesMocks,
+        deadlineDays
       );
 
-      const effectiveAnnualRate = filteredEffectiveAnnualRate
-        ? removeLastCharacters(
-            filteredEffectiveAnnualRate.AnnualEffectiveRate,
-            1
-          )
-        : 0;
-
-      const totalInterest = Math.round(
-        valueInvestment * (effectiveAnnualRate / 100) * (deadlineDays / 365)
+      const totalInterest = totalInterestRequest(
+        valueInvestment,
+        investmentsRatesMocks,
+        deadlineDays
       );
 
       formik.setFieldValue("effectiveAnnualRate", effectiveAnnualRate);
