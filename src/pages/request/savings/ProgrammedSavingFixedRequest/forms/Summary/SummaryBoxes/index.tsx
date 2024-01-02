@@ -13,7 +13,7 @@ const renderQuotaSummary = (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
     <BoxAttribute
       label="Valor periódico del ahorro:"
-      value={currencyFormat(Number(values.PeriodicValue))}
+      value={currencyFormat(Number(values.periodicValue))}
     />
     <BoxAttribute
       label="Medio de pago:"
@@ -22,7 +22,7 @@ const renderQuotaSummary = (
     />
     <BoxAttribute
       label="Periodicidad:"
-      value={peridiocityDM.valueOf(values.Periodicity)?.value}
+      value={peridiocityDM.valueOf(values.periodicity)?.value}
     />
   </Stack>
 );

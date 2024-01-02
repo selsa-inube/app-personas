@@ -1,7 +1,6 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
@@ -13,6 +12,7 @@ import {
   validateCurrencyField,
 } from "src/utils/formats";
 
+
 interface QuotaFormUIProps {
   formik: FormikValues;
   loading?: boolean;
@@ -22,9 +22,9 @@ interface QuotaFormUIProps {
     >
   ) => void;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
-  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   renderFields: IFormField[];
 }
+const paymentMethodDM = getDomainById("paymentMethod");
 
 function QuotaFormUI(props: QuotaFormUIProps) {
   const {
@@ -37,28 +37,24 @@ function QuotaFormUI(props: QuotaFormUIProps) {
 
   const isTablet = useMediaQuery("(max-width: 750px)");
 
-  const paymentMethodDM = getDomainById("paymentMethod");
-
-  return (
+   return (
     <form>
       <Grid gap="s300" templateColumns={isTablet ? "1fr" : "1fr 1fr"}>
         <TextField
           label="Valor periódico del ahorro"
           placeholder="Ingresa el valor a ahorrar"
-          name="PeriodicValue"
-          id="PeriodicValue"
-          value={validateCurrencyField("PeriodicValue", formik)}
+          name="periodicValue"
+          id="periodicValue"
+          value={validateCurrencyField("periodicValue", formik)}
           type="text"
           iconAfter={<MdOutlineAttachMoney size={18} />}
-          errorMessage={formik.errors.PeriodicValue}
+          errorMessage={formik.errors.periodicValue}
           isDisabled={loading}
           size="compact"
           isFullWidth
-          state={getFieldState(formik, "PeriodicValue")}
+          state={getFieldState(formik, "periodicValue")}
           onBlur={customHandleBlur}
-          onChange={(e) => {
-            handleChangeWithCurrency(formik, e);
-          }}
+          onChange={(e)=>{handleChangeWithCurrency(formik,e)}}
           validMessage="El valor es válido"
           isRequired
         />
@@ -76,21 +72,19 @@ function QuotaFormUI(props: QuotaFormUIProps) {
           state={getFieldState(formik, "paymentMethod")}
           errorMessage={formik.errors.paymentMethod}
           isFullWidth
-          isRequired
         />
 
         {!formik.values.paymentMethod ? (
           <TextField
             label="Periodicidad"
             placeholder=""
-            name="Periodicity"
-            id="Periodicity"
-            value={formik.values.Periodicity}
+            name="periodicity"
+            id="periodicity"
+            value={formik.values.periodicity}
             isDisabled={loading}
             size="compact"
             isFullWidth
             readOnly
-            isRequired
           />
         ) : (
           generateFormFields(

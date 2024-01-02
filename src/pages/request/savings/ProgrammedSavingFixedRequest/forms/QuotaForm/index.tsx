@@ -10,8 +10,8 @@ import { initalValuesProgrammedSavingFixed } from "../../config/initialValues";
 import { generateDynamicForm } from "src/utils/forms";
 import { structureQuotaForm } from "./config/form";
 
-const validationSchema = Yup.object({
-  PeriodicValue: validationRules.money.required(validationMessages.required),
+const initValidationSchema = Yup.object({
+  periodicValue: validationRules.money.required(validationMessages.required),
 });
 
 interface QuotaFormProps {
@@ -32,7 +32,7 @@ const QuotaForm = forwardRef(function QuotaForm(
     validationSchema: Yup.ObjectSchema<{}, Yup.AnyObject, {}, "">;
   }>({
     renderFields: [],
-    validationSchema: validationSchema,
+    validationSchema: initValidationSchema,
   });
 
   const formik = useFormik({
@@ -51,10 +51,9 @@ const QuotaForm = forwardRef(function QuotaForm(
         formik,
         structureQuotaForm(formik)
       );
-
       setDynamicForm({
         renderFields,
-        validationSchema: validationSchema.concat(validationSchema),
+        validationSchema: initValidationSchema.concat(validationSchema),
       });
     }
   }, []);
@@ -81,12 +80,18 @@ const QuotaForm = forwardRef(function QuotaForm(
       [name]: value,
     };
 
-    if (name === "paymentMethod") {
+     if (name === "paymentMethod") {
       formik.setValues({
         ...initalValuesProgrammedSavingFixed.quota,
-        PeriodicValue: formik.values.PeriodicValue,
+        periodicValue: formik.values.periodicValue,
         paymentMethod: value,
       });
+
+      updatedFormikValues = {
+        ...initalValuesProgrammedSavingFixed.quota,
+        periodicValue: formik.values.periodicValue,
+        paymentMethod: value,
+      };
     } else {
       formik.setFieldValue(name, value);
     }
@@ -110,9 +115,9 @@ const QuotaForm = forwardRef(function QuotaForm(
       loading={loading}
       formik={formik}
       customHandleBlur={customHandleBlur}
-      onFormValid={onFormValid}
       renderFields={dynamicForm.renderFields}
       customHandleChange={customHandleChange}
+
     />
   );
 });

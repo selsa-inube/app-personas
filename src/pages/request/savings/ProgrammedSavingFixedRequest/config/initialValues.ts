@@ -1,9 +1,14 @@
 import { IQuotaEntry } from "../forms/QuotaForm/types";
 
 const quota: IQuotaEntry = {
-    PeriodicValue: "",
+    periodicValue: "",
     paymentMethod: "",
-    Periodicity:"",
+    periodicity:"",
+    weeklyPayDay:"",
+    biweeklyPayDay:"",
+    monthlyPayDay: "",
+    semiannualPayDay: "",
+    annualPayDay: "",
 };
 
 const initalValuesProgrammedSavingFixed = {

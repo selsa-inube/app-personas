@@ -1,7 +1,12 @@
 interface IQuotaEntry {
-    PeriodicValue: string;
+    periodicValue: string;
     paymentMethod:string;
-    Periodicity: string;
+    periodicity: string;
+    weeklyPayDay?:string;
+    biweeklyPayDay?:string;
+    monthlyPayDay?: string;
+    semiannualPayDay?: string;
+    annualPayDay?: string;
   }
   
   export type { IQuotaEntry };
