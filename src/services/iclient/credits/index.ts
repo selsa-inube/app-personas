@@ -14,7 +14,7 @@ const getCreditsForUser = async (
     const options = {
       method: "GET",
       headers: {
-        "X-Action": "SearchAllPortfolioObligationw",
+        "X-Action": "SearchAllPortfolioObligation",
         "X-Business-Unit": TEMP_BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
