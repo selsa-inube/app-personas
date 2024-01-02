@@ -69,14 +69,12 @@ const ConditionsForm = forwardRef(function ConditionsForm(
     setLoadingSimulation(true);
     setTimeout(() => {
       const valueInvestment = Number(formik.values.valueInvestment);
-      let deadlineDays: number;
+      let deadlineDays= Number(formik.values.deadlineDays);
 
       if (formik.values.simulationWithDate) {
         deadlineDays = 360;
         formik.setFieldValue("deadlineDays", deadlineDays);
-      } else {
-        deadlineDays = Number(formik.values.deadlineDays);
-      }
+      } 
 
       const effectiveAnnualRate = effectiveAnnualRateRequest(
         investmentsRatesMocks,

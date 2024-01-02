@@ -11,12 +11,12 @@ import { Text } from "@design/data/Text";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { FormikValues } from "formik";
-import { currencyFormat, validateCurrencyField } from "src/utils/formats";
+import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { Divider } from "@design/layout/Divider";
 import { Table } from "@design/data/Table";
 import { currentIntRateTableTitles } from "./config/table";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
-import { getFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface ConditionsFormUIProps {
   formik: FormikValues;
