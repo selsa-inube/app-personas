@@ -1,7 +1,7 @@
 import { IFormField } from "@ptypes/forms.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { generateDynamicForm } from "src/utils/forms";
+import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { initalValuesCreditDestination } from "../../config/initialValues";

@@ -25,6 +25,8 @@ import { SavingRoutes } from "./routes/saving";
 
 import { useAuth } from "@inube/auth";
 
+const TEMP_BUSINESS_UNIT = "test";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Page header={header} nav={nav} />}>
@@ -67,4 +69,5 @@ function App() {
   );
 }
 
+export { TEMP_BUSINESS_UNIT };
 export default App;

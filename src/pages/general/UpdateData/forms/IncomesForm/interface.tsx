@@ -5,8 +5,8 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
-import { currencyFormat, parseCurrencyString } from "src/utils/formats";
-import { getFieldState } from "src/utils/forms";
+import { currencyFormat, parseCurrencyString } from "src/utils/currency";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface IncomesFormUIProps {
   formik: FormikValues;

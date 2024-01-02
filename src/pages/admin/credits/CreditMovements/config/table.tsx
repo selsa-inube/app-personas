@@ -1,7 +1,7 @@
 import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { IMovement } from "src/model/entity/product";
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 import { ViewMovement } from "../../MyCredits/ViewMovement";
 
 const mapCreditMovement = (movement: IEntry): IMovement => {

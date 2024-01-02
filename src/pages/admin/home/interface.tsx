@@ -13,28 +13,22 @@ import { inube } from "@design/tokens";
 import { StyledCommitmentsContainer } from "./styles";
 
 import { Product } from "@components/cards/Product";
-import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
 import { Title } from "@design/data/Title";
 import { useAuth } from "@inube/auth";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
 } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
-import {
-  currencyFormat,
-  truncateAndObfuscateDescription,
-} from "src/utils/formats";
-import { extractAttribute } from "src/utils/products";
+import { ICommitment, IProduct } from "src/model/entity/product";
+import { truncateAndObfuscateDescription } from "src/utils/texts";
 import {
   investmentIcons,
   savingsAccountIcons,
 } from "../savings/SavingsAccount/config/saving";
-import { cards, credits, savings } from "./config/boxes";
+import { ProductsCommitments } from "./ProductsCommitments";
+import { cardsBox, creditsBox, savingsBox } from "./config/boxes";
 import {
   creditAttributeBreakpoints,
   extractCreditAttributes,
@@ -48,45 +42,11 @@ import {
 } from "./config/products";
 import { cardProducts } from "./mocks";
 
-const renderProductsCommitments = (productsCommitments: ICommitment[]) => {
-  return productsCommitments.map((commitment) => {
-    const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
-    const nextPayDate = extractAttribute(
-      commitment.attributes,
-      "next_pay_date"
-    );
-    const navigate = useNavigate();
-
-    const currencyValueToPay = valueToPay && {
-      id: valueToPay.id || "",
-      label: valueToPay.label || "",
-      value: currencyFormat(Number(valueToPay.value)),
-    };
-
-    const attributes: IAttribute[] = [];
-    if (currencyValueToPay) attributes.push(currencyValueToPay);
-    if (nextPayDate) attributes.push(nextPayDate);
-
-    const handleNavigateCommitment = () => {
-      navigate(`/my-savings/commitment/${commitment.id}`);
-    };
-
-    return (
-      <SavingsCommitmentCard
-        key={commitment.id}
-        title={commitment.title}
-        tag={commitment.tag}
-        attributes={attributes}
-        onClick={handleNavigateCommitment}
-      />
-    );
-  });
-};
-
 function renderHomeContent(
   productsCommitments: ICommitment[],
   savingsAccountsMock: IProduct[],
   savingsStatutoryContributionsMock: IProduct[],
+  credits: IProduct[],
   cdats?: IProduct[],
   programmedSavings?: IProduct[]
 ) {
@@ -96,7 +56,7 @@ function renderHomeContent(
         <Text type="title" size="medium">
           Tus productos
         </Text>
-        <Box {...savings}>
+        <Box {...savingsBox}>
           <Stack direction="column" gap="s250">
             <Stack direction="column" gap="s200">
               {savingsCommitmentsMock.length > 0 && (
@@ -230,18 +190,20 @@ function renderHomeContent(
                   Compromisos
                 </Text>
                 <StyledCommitmentsContainer>
-                  {renderProductsCommitments(productsCommitments)}
+                  <ProductsCommitments
+                    productsCommitments={productsCommitments}
+                  />
                 </StyledCommitmentsContainer>
               </>
             )}
           </Stack>
         </Box>
-        <Box {...credits}>
+        <Box {...creditsBox}>
           <Stack direction="column" gap="s100">
-            {creditsMock.length === 0 ? (
+            {credits.length === 0 ? (
               <Product empty={true} icon={<MdOutlineAttachMoney />} />
             ) : (
-              creditsMock.map((credit) => (
+              credits.map((credit) => (
                 <Product
                   id={credit.id}
                   key={credit.id}
@@ -259,7 +221,7 @@ function renderHomeContent(
             )}
           </Stack>
         </Box>
-        <Box {...cards}>
+        <Box {...cardsBox}>
           <Stack direction="column" gap="s100">
             {cardProducts.length === 0 ? (
               <Product icon={<MdOutlineCreditCard />} empty={true} />
@@ -289,6 +251,7 @@ interface HomeUIProps {
   productsCommitments: ICommitment[];
   savingsAccountsMock: IProduct[];
   savingsStatutoryContributionsMock: IProduct[];
+  credits: IProduct[];
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
 }
@@ -300,6 +263,7 @@ function HomeUI(props: HomeUIProps) {
     savingsStatutoryContributionsMock,
     cdats,
     programmedSavings,
+    credits,
   } = props;
 
   const { user } = useAuth();
@@ -318,6 +282,7 @@ function HomeUI(props: HomeUIProps) {
             productsCommitments,
             savingsAccountsMock,
             savingsStatutoryContributionsMock,
+            credits,
             cdats,
             programmedSavings
           )}
@@ -332,6 +297,7 @@ function HomeUI(props: HomeUIProps) {
             productsCommitments,
             savingsAccountsMock,
             savingsStatutoryContributionsMock,
+            credits,
             cdats,
             programmedSavings
           )}

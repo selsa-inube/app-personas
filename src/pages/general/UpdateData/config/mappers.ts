@@ -11,7 +11,7 @@ import {
   IResidence,
   IThird,
 } from "src/model/entity/user";
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
