@@ -1,15 +1,14 @@
-import { Grid } from "@design/layout/Grid";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { FormikValues } from "formik";
-import { IDirector } from "@mocks/directors/directors.mocks";
+import { RelationshipWithDirectorsModal } from "@components/modals/forms/update-data/RelationshipWithDirectorsModal";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
+import { Grid } from "@design/layout/Grid";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { IDirector, directorsMock } from "@mocks/directors/directors.mocks";
+import { FormikValues } from "formik";
 import { MdSearch } from "react-icons/md";
-import { getFieldState } from "src/utils/forms";
 import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
-import { RelationshipWithDirectorsModal } from "@components/modals/forms/update-data/RelationshipWithDirectorsModal";
-import { directorsMock } from "@mocks/directors/directors.mocks";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface RelationshipWithDirectorsFormUIProps {
   formik: FormikValues;

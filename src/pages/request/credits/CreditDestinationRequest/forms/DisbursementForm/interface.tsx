@@ -5,7 +5,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
-import { generateFormFields, getFieldState } from "src/utils/forms";
+import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 
 interface DisbursementFormUIProps {
   formik: FormikValues;

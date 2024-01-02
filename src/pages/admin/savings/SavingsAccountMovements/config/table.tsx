@@ -1,7 +1,7 @@
 import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { IMovement } from "src/model/entity/product";
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 import { ViewSavingMovement } from "../../MySavings/ViewSavingMovement";
 
 const mapSavingAccountMovement = (movement: IEntry): IMovement => {
@@ -80,8 +80,8 @@ const savingsAccountMovementsTableActions: IAction[] = [
 ];
 
 export {
-  mapSavingAccountMovement,
   mapInvestmentMovement,
+  mapSavingAccountMovement,
   savingsAccountMovementsTableActions,
   savingsAccountMovementsTableBreakpoints,
   savingsAccountMovementsTableTitles,
