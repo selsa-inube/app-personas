@@ -2,6 +2,7 @@ import { ISelectOption } from "@design/input/Select/types";
 import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getMovementsForCredit } from "src/services/iclient/credits";
 import { crumbsMovements } from "./config/navigation";
 import { CreditMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
@@ -18,7 +19,10 @@ function CreditMovements() {
     handleSortProduct();
   }, [credit_id]);
 
-  const handleSortProduct = () => {
+  const handleSortProduct = async () => {
+    if (!credit_id) return;
+
+    await getMovementsForCredit(credit_id, 1);
     const creditsOptions = creditsMock.map((credit) => {
       const productOption = {
         id: credit.id,

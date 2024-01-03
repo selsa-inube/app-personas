@@ -1,6 +1,42 @@
 import { TagProps } from "@design/data/Tag";
-import { IProduct } from "src/model/entity/product";
+import { IMovement, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
+
+const mapCreditMovementApiToEntity = (
+  movement: Record<string, any>
+): IMovement => {
+  const totalPay = movement.capitalCreditPesos
+    ? Number(movement.totalPay)
+    : 0 + movement.creditInterestPesos
+    ? Number(movement.creditInterestPesos)
+    : 0;
+
+  return {
+    id: movement.movementId,
+    date: formatPrimaryDate(new Date(movement.date)),
+    reference: movement.movementNumber,
+    description: movement.movementDescription || "",
+    capitalPayment: movement.capitalCreditPesos ? Number(movement.totalPay) : 0,
+    interest: movement.creditInterestPesos
+      ? Number(movement.creditInterestPesos)
+      : 0,
+    lifeInsurance: movement.lifeInsuranceCreditPesos
+      ? Number(movement.lifeInsuranceCreditPesos)
+      : 0,
+    patrimonialInsurance: 0,
+    capitalization: movement.capitalizationCreditPesos
+      ? Number(movement.capitalizationCreditPesos)
+      : 0,
+    commission: 0,
+    totalValue: totalPay,
+  };
+};
+
+const mapCreditMovementsApiToEntities = (
+  movements: Record<string, any>[]
+): IMovement[] => {
+  return movements.map((movement) => mapCreditMovementApiToEntity(movement));
+};
 
 const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   const nextPaymentDate = new Date(credit.nextPaymentDate);
@@ -50,4 +86,9 @@ const mapCreditsApiToEntities = (
   return credits.map((credit) => mapCreditApiToEntity(credit));
 };
 
-export { mapCreditApiToEntity, mapCreditsApiToEntities };
+export {
+  mapCreditApiToEntity,
+  mapCreditMovementApiToEntity,
+  mapCreditMovementsApiToEntities,
+  mapCreditsApiToEntities,
+};
