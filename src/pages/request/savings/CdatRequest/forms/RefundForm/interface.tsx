@@ -1,7 +1,7 @@
 import { Select } from "@design/input/Select";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
-import { getFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms/forms";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 
