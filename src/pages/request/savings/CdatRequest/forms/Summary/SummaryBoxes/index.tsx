@@ -4,6 +4,8 @@ import { currencyFormat } from "src/utils/formats";
 import { IFormsCdatRequest } from "../../../types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
+import { IRefundEntry } from "../../RefundForm/types";
+import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
@@ -13,6 +15,19 @@ const renderInvestmentSummary = (
     <BoxAttribute
       label="Valor de la inversión:"
       value={currencyFormat(Number(values.valueInvestment))}
+    />
+  </Stack>
+);
+
+const renderRefundSummary = (values: IRefundEntry) => (
+  <Stack direction="column" gap="s100" width="100%">
+    <BoxAttribute
+      label="Forma de reembolso:"
+      value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
+    />
+    <BoxAttribute
+      label="Cuenta:"
+      value={getValueOfDomain(values.account, "refundAccount")?.value}
     />
   </Stack>
 );
@@ -38,6 +53,7 @@ function SummaryBoxes(props: SummaryBoxesProps) {
     <>
       {stepKey === "investment" &&
         renderInvestmentSummary(cdatRequest.investment.values, isTablet)}
+      {stepKey === "refund" && renderRefundSummary(cdatRequest.refund.values)}
       {stepKey === "investmentName" &&
         renderInvestmentNameSummary(
           cdatRequest.investmentName.values,

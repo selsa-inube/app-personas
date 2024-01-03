@@ -6,13 +6,19 @@ const cdatRequestSteps = {
     name: "Inversión",
     description: "¿Cuál es el valor del monto a invertir?",
   },
-  investmentName: {
+  refund: {
     id: 2,
+    name: "Reembolso",
+    description:
+      "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
+  },
+  investmentName: {
+    id: 3,
     name: "Nombra tu inversión",
     description: "¿Cómo te gustaría que se llame tu producto?",
   },
   summary: {
-    id: 3,
+    id: 4,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },
