@@ -48,15 +48,9 @@ const getCreditsForUser = async (
 };
 
 const getMovementsForCredit = async (
-  creditId: string,
-  page: number
+  creditId: string
 ): Promise<IMovement[]> => {
   try {
-    const queryParams = new URLSearchParams({
-      page: page.toString(),
-      per_page: "14",
-    });
-
     const options = {
       method: "GET",
       headers: {
@@ -67,9 +61,7 @@ const getMovementsForCredit = async (
     };
 
     const res = await fetch(
-      `${
-        enviroment.ICLIENT_API_URL_QUERY
-      }/portfolio-obligations/${creditId}/last-movement?${queryParams.toString()}`,
+      `${enviroment.ICLIENT_API_URL_QUERY}/portfolio-obligations/${creditId}/last-movement`,
       options
     );
 

@@ -1,22 +1,29 @@
 import { TagProps } from "@design/data/Tag";
 import { IMovement, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
+import { capitalizeText } from "src/utils/texts";
 
 const mapCreditMovementApiToEntity = (
   movement: Record<string, any>
 ): IMovement => {
   const totalPay = movement.capitalCreditPesos
-    ? Number(movement.totalPay)
+    ? Number(movement.capitalCreditPesos)
     : 0 + movement.creditInterestPesos
     ? Number(movement.creditInterestPesos)
+    : 0 + movement.lifeInsuranceCreditPesos
+    ? Number(movement.lifeInsuranceCreditPesos)
+    : 0 + movement.capitalizationCreditPesos
+    ? Number(movement.capitalizationCreditPesos)
     : 0;
 
   return {
     id: movement.movementId,
-    date: formatPrimaryDate(new Date(movement.date)),
+    date: formatPrimaryDate(new Date(movement.movementDate)),
     reference: movement.movementNumber,
     description: movement.movementDescription || "",
-    capitalPayment: movement.capitalCreditPesos ? Number(movement.totalPay) : 0,
+    capitalPayment: movement.capitalCreditPesos
+      ? Number(movement.capitalCreditPesos)
+      : 0,
     interest: movement.creditInterestPesos
       ? Number(movement.creditInterestPesos)
       : 0,
@@ -68,10 +75,14 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
         ]
       : [];
 
+  const normalizedProductName = capitalizeText(
+    credit.productName.toLowerCase()
+  );
+
   return {
     id: credit.obligationNumber,
-    title: credit.productName,
-    description: `${credit.productName} ${credit.obligationNumber}`,
+    title: normalizedProductName,
+    description: `${normalizedProductName} ${credit.obligationNumber}`,
     type: credit.lineCode,
     attributes,
     movements: [],

@@ -2,6 +2,7 @@ import { IAction } from "@design/data/Table/types";
 import { EMessageType, IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { initialMessageState } from "src/utils/messages";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -10,14 +11,6 @@ import { EditDebt } from "./EditDebt";
 import { deleteDebtMessages } from "./config/deleteDebt.config";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
-
-const initialMessageState: IMessage = {
-  show: false,
-  title: "",
-  description: "",
-  icon: <></>,
-  appearance: "primary",
-};
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),

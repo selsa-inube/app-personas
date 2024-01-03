@@ -14,8 +14,10 @@ import { StyledCommitmentsContainer } from "./styles";
 
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { useAuth } from "@inube/auth";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
+import { IMessage } from "@ptypes/messages.types";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
@@ -254,6 +256,8 @@ interface HomeUIProps {
   credits: IProduct[];
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
+  message: IMessage;
+  onCloseMessage: () => void;
 }
 
 function HomeUI(props: HomeUIProps) {
@@ -264,6 +268,8 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
     credits,
+    message,
+    onCloseMessage,
   } = props;
 
   const { user } = useAuth();
@@ -303,6 +309,17 @@ function HomeUI(props: HomeUIProps) {
           )}
           <QuickAccess links={quickLinks} />
         </Grid>
+      )}
+
+      {message.show && (
+        <SectionMessage
+          appearance={message.appearance}
+          title={message.title}
+          description={message.description}
+          icon={message.icon}
+          duration={3000}
+          onClose={onCloseMessage}
+        />
       )}
     </>
   );
