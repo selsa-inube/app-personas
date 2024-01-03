@@ -23,14 +23,28 @@ const renderInvestmentSummary = (
 
 const renderRefundSummary = (values: IRefundEntry) => (
   <Stack direction="column" gap="s100" width="100%">
-    <BoxAttribute
-      label="Forma de reembolso:"
-      value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
-    />
-    <BoxAttribute
-      label="Cuenta:"
-      value={getValueOfDomain(values.account, "refundAccount")?.value}
-    />
+    {values.refundMethod === "transferToExternalAccount" ? (
+      <>
+        <BoxAttribute
+          label="Forma de reembolso:"
+          value="Transferencia cuenta externa"
+        />
+        <BoxAttribute label="Cuenta:" value="Nueva cuenta externa" />
+        <BoxAttribute label="Entidad:" value="Bancolombia" />
+        <BoxAttribute label="Tipo de cuenta:" value="Ahorros" />
+      </>
+    ) : (
+      <>
+        <BoxAttribute
+          label="Forma de reembolso:"
+          value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
+        />
+        <BoxAttribute
+          label="Cuenta:"
+          value={getValueOfDomain(values.account, "refundAccount")?.value}
+        />
+      </>
+    )}
   </Stack>
 );
 
