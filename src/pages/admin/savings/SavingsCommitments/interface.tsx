@@ -14,7 +14,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdArrowBack, MdSyncAlt } from "react-icons/md";
-import { truncateAndObfuscateDescription } from "src/utils/formats";
+import { truncateAndObfuscateDescription } from "src/utils/texts";
 import {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,

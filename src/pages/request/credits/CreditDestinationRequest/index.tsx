@@ -1,14 +1,14 @@
+import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
+import { mapContactChannels } from "src/forms/ContactChannelsForm/mappers";
 import {
   creditDestinationRequestSteps,
   creditDestinationStepsRules,
 } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
-import { mapContactChannels } from "./config/mappers";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
-import { IContactChannelsEntry } from "./forms/ContactChannelsForm/types";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";
@@ -122,6 +122,8 @@ function CreditDestinationRequest() {
 
   return (
     <CreditDestinationRequestUI
+      steps={steps}
+      isCurrentFormValid={isCurrentFormValid}
       creditDestinationRequest={creditDestinationRequest}
       currentStep={currentStep}
       formReferences={formReferences}
@@ -129,8 +131,6 @@ function CreditDestinationRequest() {
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleStepChange={handleStepChange}
-      steps={steps}
-      isCurrentFormValid={isCurrentFormValid}
       setIsCurrentFormValid={setIsCurrentFormValid}
     />
   );

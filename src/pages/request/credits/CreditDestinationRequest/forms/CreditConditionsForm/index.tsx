@@ -5,7 +5,7 @@ import {
 } from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";

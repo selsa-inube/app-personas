@@ -1,7 +1,7 @@
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
-import { getFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface InvestmentNameFormUIProps {
   formik: FormikValues;

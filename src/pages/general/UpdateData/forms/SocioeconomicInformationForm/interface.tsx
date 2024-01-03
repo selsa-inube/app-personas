@@ -7,7 +7,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
 import { vulnerablePopulationTypeDM } from "src/model/domains/socioeconomicInformation/vulnerablePopulationdm";
-import { getFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface SocioeconomicInformationFormUIProps {
   formik: FormikValues;

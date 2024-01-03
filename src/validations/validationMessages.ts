@@ -1,4 +1,4 @@
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 
 const validationMessages = {
   maxCharacters: (count: number) => `Debe tener máximo ${count} caracteres`,

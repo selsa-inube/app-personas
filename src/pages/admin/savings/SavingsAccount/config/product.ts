@@ -1,5 +1,5 @@
 import { IAttribute, IProduct } from "src/model/entity/product";
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 
 const productsAttributes: Record<string, string[]> = {
   CA: [

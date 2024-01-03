@@ -6,7 +6,7 @@ import { FormikValues } from "formik";
 import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
-import { getFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface PersonalResidenceFormUIProps {
   formik: FormikValues;

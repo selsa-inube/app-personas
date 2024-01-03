@@ -7,7 +7,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IAttribute, ICommitment } from "src/model/entity/product";
-import { currencyFormat } from "src/utils/formats";
+import { currencyFormat } from "src/utils/currency";
 import { StyledDivider, StyledModal } from "./styles";
 
 interface SavingCommitmentsModalProps {

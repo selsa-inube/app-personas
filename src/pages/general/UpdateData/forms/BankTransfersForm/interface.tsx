@@ -5,7 +5,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { getFieldState } from "src/utils/forms";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface BankTransfersFormUIProps {
   formik: FormikValues;
