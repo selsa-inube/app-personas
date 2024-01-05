@@ -15,9 +15,10 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
 import { myCredits } from "./config/boxes";
 import { crumbsMyCredits } from "./config/navigation";
+import { useContext } from "react";
+import { CreditsContext } from "src/context/credits";
 import {
   extractMyCreditAttributes,
   formatMyCreditCurrencyAttrs,
@@ -26,6 +27,7 @@ import {
 
 function MyCredits() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
+  const { credits } = useContext(CreditsContext);
 
   return (
     <>
@@ -52,10 +54,10 @@ function MyCredits() {
           </Text>
           <Box {...myCredits}>
             <Stack direction="column" gap="s075">
-              {creditsMock.length === 0 ? (
+              {credits.length === 0 ? (
                 <Product empty={true} icon={<MdOutlineAttachMoney />} />
               ) : (
-                creditsMock.map((credit) => (
+                credits.map((credit) => (
                   <Product
                     id={credit.id}
                     key={credit.id}
