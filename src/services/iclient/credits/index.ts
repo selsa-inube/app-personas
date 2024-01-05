@@ -43,4 +43,5 @@ const getCreditsForUser = async (
     throw new Error("Error al obtener los créditos del usuario");
   }
 };
-export { getCreditsForUser };
+
+export { getCreditsForUser  };
