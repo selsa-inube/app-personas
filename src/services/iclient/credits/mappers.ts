@@ -1,6 +1,49 @@
 import { TagProps } from "@design/data/Tag";
-import { IProduct } from "src/model/entity/product";
+import { IMovement, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
+import { capitalizeText } from "src/utils/texts";
+
+const mapCreditMovementApiToEntity = (
+  movement: Record<string, any>
+): IMovement => {
+  const totalPay = movement.capitalCreditPesos
+    ? Number(movement.capitalCreditPesos)
+    : 0 + movement.creditInterestPesos
+    ? Number(movement.creditInterestPesos)
+    : 0 + movement.lifeInsuranceCreditPesos
+    ? Number(movement.lifeInsuranceCreditPesos)
+    : 0 + movement.capitalizationCreditPesos
+    ? Number(movement.capitalizationCreditPesos)
+    : 0;
+
+  return {
+    id: movement.movementId,
+    date: formatPrimaryDate(new Date(movement.movementDate)),
+    reference: movement.movementNumber,
+    description: movement.movementDescription || "",
+    capitalPayment: movement.capitalCreditPesos
+      ? Number(movement.capitalCreditPesos)
+      : 0,
+    interest: movement.creditInterestPesos
+      ? Number(movement.creditInterestPesos)
+      : 0,
+    lifeInsurance: movement.lifeInsuranceCreditPesos
+      ? Number(movement.lifeInsuranceCreditPesos)
+      : 0,
+    patrimonialInsurance: 0,
+    capitalization: movement.capitalizationCreditPesos
+      ? Number(movement.capitalizationCreditPesos)
+      : 0,
+    commission: 0,
+    totalValue: totalPay,
+  };
+};
+
+const mapCreditMovementsApiToEntities = (
+  movements: Record<string, any>[]
+): IMovement[] => {
+  return movements.map((movement) => mapCreditMovementApiToEntity(movement));
+};
 
 const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   const nextPaymentDate = new Date(credit.nextPaymentDate);
@@ -32,10 +75,14 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
         ]
       : [];
 
+  const normalizedProductName = capitalizeText(
+    credit.productName.toLowerCase()
+  );
+
   return {
     id: credit.obligationNumber,
-    title: credit.productName,
-    description: `${credit.productName} ${credit.obligationNumber}`,
+    title: normalizedProductName,
+    description: `${normalizedProductName} ${credit.obligationNumber}`,
     type: credit.lineCode,
     attributes,
     movements: [],
@@ -50,4 +97,9 @@ const mapCreditsApiToEntities = (
   return credits.map((credit) => mapCreditApiToEntity(credit));
 };
 
-export { mapCreditApiToEntity, mapCreditsApiToEntities };
+export {
+  mapCreditApiToEntity,
+  mapCreditMovementApiToEntity,
+  mapCreditMovementsApiToEntities,
+  mapCreditsApiToEntities,
+};

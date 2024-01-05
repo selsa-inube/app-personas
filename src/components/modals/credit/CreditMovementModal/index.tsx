@@ -6,7 +6,6 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdAdd, MdOutlineClose } from "react-icons/md";
 import { IMovement } from "src/model/entity/product";
-import { currencyFormat } from "src/utils/currency";
 import {
   StyledBody,
   StyledBodyHead,
@@ -132,7 +131,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
               </Text>
 
               <Text type="title" size="medium" appearance="dark">
-                {currencyFormat(movement.totalValue)}
+                {movement.totalValue}
               </Text>
             </Stack>
           </Stack>

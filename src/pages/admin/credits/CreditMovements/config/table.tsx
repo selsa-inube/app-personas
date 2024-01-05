@@ -20,13 +20,25 @@ const mapCreditMovement = (movement: IEntry): IMovement => {
   };
 };
 
+const creditMovementsCurrencyEntries = (movements: IMovement[]) =>
+  movements.map((entry) => ({
+    ...entry,
+    capitalPayment: currencyFormat(entry.capitalPayment || 0),
+    interest: currencyFormat(entry.interest || 0),
+    lifeInsurance: currencyFormat(entry.lifeInsurance || 0),
+    patrimonialInsurance: currencyFormat(entry.patrimonialInsurance || 0),
+    capitalization: currencyFormat(entry.capitalization || 0),
+    commission: currencyFormat(entry.commission || 0),
+    totalValue: currencyFormat(entry.totalValue),
+  }));
+
 const creditMovementsTableActions: IAction[] = [
   {
     id: "1",
     actionName: "Valor",
     content: (movement) => (
       <Text type="body" size="small" appearance="dark">
-        {currencyFormat(movement.totalValue)}
+        {movement.totalValue}
       </Text>
     ),
     mobilePriority: true,
@@ -41,4 +53,8 @@ const creditMovementsTableActions: IAction[] = [
   },
 ];
 
-export { creditMovementsTableActions, mapCreditMovement };
+export {
+  creditMovementsCurrencyEntries,
+  creditMovementsTableActions,
+  mapCreditMovement,
+};
