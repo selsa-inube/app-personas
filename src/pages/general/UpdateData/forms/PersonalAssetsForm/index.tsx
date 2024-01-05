@@ -10,14 +10,7 @@ import { EditAsset } from "./EditAsset";
 import { deleteAssetMessages } from "./config/deleteAsset.config";
 import { PersonalAssetsFormUI } from "./interface";
 import { IPersonalAssetEntries } from "./types";
-
-const initialMessageState: IMessage = {
-  show: false,
-  title: "",
-  description: "",
-  icon: <></>,
-  appearance: "primary",
-};
+import { initialMessageState } from "src/utils/messages";
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),

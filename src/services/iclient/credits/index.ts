@@ -1,7 +1,10 @@
 import { enviroment } from "@config/enviroment";
 import { TEMP_BUSINESS_UNIT } from "src/App";
-import { IProduct } from "src/model/entity/product";
-import { mapCreditsApiToEntities } from "./mappers";
+import { IMovement, IProduct } from "src/model/entity/product";
+import {
+  mapCreditMovementsApiToEntities,
+  mapCreditsApiToEntities,
+} from "./mappers";
 
 const getCreditsForUser = async (
   userIdentification: string
@@ -38,9 +41,45 @@ const getCreditsForUser = async (
     }
 
     return Array.isArray(data) ? mapCreditsApiToEntities(data) : [];
-  } catch (error) {
-    console.error("Error al obtener los créditos del usuario:", error);
-    throw new Error("Error al obtener los créditos del usuario");
+  } catch (error: any) {
+    console.error(error.message, error);
+    throw new Error(error.message);
   }
 };
-export { getCreditsForUser };
+
+const getMovementsForCredit = async (
+  creditId: string
+): Promise<IMovement[]> => {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        "X-Action": "SearchLastMovementsByObligationNumber",
+        "X-Business-Unit": TEMP_BUSINESS_UNIT,
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    };
+
+    const res = await fetch(
+      `${enviroment.ICLIENT_API_URL_QUERY}/portfolio-obligations/${creditId}/last-movement`,
+      options
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw {
+        message: "Error al obtener los movimentos del crédito",
+        status: res.status,
+        data,
+      };
+    }
+
+    return Array.isArray(data) ? mapCreditMovementsApiToEntities(data) : [];
+  } catch (error: any) {
+    console.error(error.message, error);
+    throw new Error(error.message);
+  }
+};
+
+export { getCreditsForUser, getMovementsForCredit };

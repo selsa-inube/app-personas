@@ -25,7 +25,7 @@ const story = {
 
 export const Default: StoryFn<TitleProps> = (args) => <Title {...args} />;
 Default.args = {
-  title: "Bienvenido, Leonardo",
+  title: "Bienvenido(a), Leonardo",
   subtitle: "Aquí tienes un resumen de tus productos",
   icon: <MdArrowBack />,
   navigatePage: "/",

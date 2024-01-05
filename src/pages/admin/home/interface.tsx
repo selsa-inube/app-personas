@@ -14,14 +14,17 @@ import { StyledCommitmentsContainer } from "./styles";
 
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { useAuth } from "@inube/auth";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
+import { IMessage } from "@ptypes/messages.types";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
 } from "react-icons/md";
 import { ICommitment, IProduct } from "src/model/entity/product";
+import { formatTraceabilityDate } from "src/utils/dates";
 import { truncateAndObfuscateDescription } from "src/utils/texts";
 import {
   investmentIcons,
@@ -254,6 +257,8 @@ interface HomeUIProps {
   credits: IProduct[];
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
+  message: IMessage;
+  onCloseMessage: () => void;
 }
 
 function HomeUI(props: HomeUIProps) {
@@ -264,6 +269,8 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
     credits,
+    message,
+    onCloseMessage,
   } = props;
 
   const { user } = useAuth();
@@ -272,10 +279,20 @@ function HomeUI(props: HomeUIProps) {
 
   return (
     <>
-      <Title
-        title={`Bienvenido, ${user?.firstName}`}
-        subtitle="Aquí tienes un resumen de tus productos "
-      />
+      <Stack direction="column" gap="s200">
+        <Stack gap="s100">
+          <Text type="label" size="medium" appearance="gray">
+            Fecha y hora:
+          </Text>
+          <Text type="body" size="small" appearance="gray">
+            {formatTraceabilityDate(new Date())}
+          </Text>
+        </Stack>
+        <Title
+          title={`Bienvenido(a), ${user?.firstName}`}
+          subtitle="Aquí tienes un resumen de tus productos "
+        />
+      </Stack>
       {!isDesktop ? (
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
           {renderHomeContent(
@@ -303,6 +320,17 @@ function HomeUI(props: HomeUIProps) {
           )}
           <QuickAccess links={quickLinks} />
         </Grid>
+      )}
+
+      {message.show && (
+        <SectionMessage
+          appearance={message.appearance}
+          title={message.title}
+          description={message.description}
+          icon={message.icon}
+          duration={3000}
+          onClose={onCloseMessage}
+        />
       )}
     </>
   );

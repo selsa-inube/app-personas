@@ -15,7 +15,10 @@ import {
   movementsTableBreakpoints,
   movementsTableTitles,
 } from "../MyCredits/config/tables";
-import { creditMovementsTableActions } from "./config/table";
+import {
+  creditMovementsCurrencyEntries,
+  creditMovementsTableActions,
+} from "./config/table";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 
@@ -76,7 +79,9 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
               titles={movementsTableTitles}
               breakpoints={movementsTableBreakpoints}
               actions={creditMovementsTableActions}
-              entries={selectedProduct.movements}
+              entries={creditMovementsCurrencyEntries(
+                selectedProduct.movements
+              )}
               pageLength={selectedProduct.movements.length}
               hideMobileResume
             />
