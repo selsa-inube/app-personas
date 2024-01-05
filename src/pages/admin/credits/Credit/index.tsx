@@ -16,7 +16,7 @@ function Credit() {
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const { credits, setCredits } = useContext(CreditsContext);
-  const { user } = useAuth();
+  const { user, accessToken } = useAuth();
 
   const navigate = useNavigate();
   
@@ -24,17 +24,17 @@ function Credit() {
 
   useEffect(() => {
     handleSortProduct();
-  }, [credit_id, isMobile]);
+  }, [credit_id, user, accessToken, isMobile]);
   
  
   const handleSortProduct = async() => {
-
-    if (!credit_id || !user) return;
+    if (!credit_id || !user || !accessToken) return;
 
     const{ selectedCredit, newCredits } = await validateCredits(
       credits,
       credit_id,
-      user.identification
+      user.identification,
+      accessToken
     );
 
      setCredits(newCredits);
