@@ -5,6 +5,7 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { GoalFormUI } from "./interface";
 import { IGoalEntry } from "./types";
+import { deduceDaysNumber, deduceRefundDate } from "./utils";
 
 const validationSchema = Yup.object({
   daysNumber: Yup.number(),
@@ -38,6 +39,28 @@ const GoalForm = forwardRef(function GoalForm(
 
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
+
+    if (
+      "name" in event.target &&
+      event.target.name === "daysNumber" &&
+      formik.values.daysNumber !== ""
+    ) {
+      formik.setFieldValue(
+        "refundDate",
+        deduceRefundDate(Number(formik.values.daysNumber))
+      );
+    }
+
+    if (
+      "name" in event.target &&
+      event.target.name === "refundDate" &&
+      formik.values.refundDate !== ""
+    ) {
+      formik.setFieldValue(
+        "daysNumber",
+        deduceDaysNumber(formik.values.refundDate)
+      );
+    }
 
     if (onSubmit) return;
 
