@@ -75,7 +75,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
           />
           <StyledMovementsContainer>
             <Table
-              id="modals"
+              portalId="modals"
               titles={movementsTableTitles}
               breakpoints={movementsTableBreakpoints}
               actions={creditMovementsTableActions}

@@ -62,11 +62,20 @@ interface IProduct {
   userOwner?: string;
 }
 
+interface IRate {
+  id: string;
+  deadlineInitialDay: number;
+  deadlineEndDay: number;
+  investmentSquare: string;
+  annualEffectiveRate: string;
+}
+
 export type {
   IAmortization,
   IAttribute,
   ICommitment,
   IMovement,
   IProduct,
+  IRate,
   ProductType,
 };

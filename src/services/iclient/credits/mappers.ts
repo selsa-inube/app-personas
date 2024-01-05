@@ -6,34 +6,22 @@ import { capitalizeText } from "src/utils/texts";
 const mapCreditMovementApiToEntity = (
   movement: Record<string, any>
 ): IMovement => {
-  const totalPay = movement.capitalCreditPesos
-    ? Number(movement.capitalCreditPesos)
-    : 0 + movement.creditInterestPesos
-    ? Number(movement.creditInterestPesos)
-    : 0 + movement.lifeInsuranceCreditPesos
-    ? Number(movement.lifeInsuranceCreditPesos)
-    : 0 + movement.capitalizationCreditPesos
-    ? Number(movement.capitalizationCreditPesos)
-    : 0;
+  const totalPay =
+    Number(movement.capitalCreditPesos || 0) +
+    Number(movement.creditInterestPesos || 0) +
+    Number(movement.lifeInsuranceCreditPesos || 0) +
+    Number(movement.capitalizationCreditPesos || 0);
 
   return {
     id: movement.movementId,
     date: formatPrimaryDate(new Date(movement.movementDate)),
     reference: movement.movementNumber,
     description: movement.movementDescription || "",
-    capitalPayment: movement.capitalCreditPesos
-      ? Number(movement.capitalCreditPesos)
-      : 0,
-    interest: movement.creditInterestPesos
-      ? Number(movement.creditInterestPesos)
-      : 0,
-    lifeInsurance: movement.lifeInsuranceCreditPesos
-      ? Number(movement.lifeInsuranceCreditPesos)
-      : 0,
+    capitalPayment: Number(movement.capitalCreditPesos || 0),
+    interest: Number(movement.creditInterestPesos || 0),
+    lifeInsurance: Number(movement.lifeInsuranceCreditPesos || 0),
     patrimonialInsurance: 0,
-    capitalization: movement.capitalizationCreditPesos
-      ? Number(movement.capitalizationCreditPesos)
-      : 0,
+    capitalization: Number(movement.capitalizationCreditPesos || 0),
     commission: 0,
     totalValue: totalPay,
   };
