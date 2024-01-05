@@ -15,7 +15,9 @@ const StyledNav = styled.nav`
       inube.color.stroke.divider.regular};
 `;
 
-const StyledContent = styled.section``;
+const StyledContent = styled.section`
+  overflow-y: auto;
+`;
 
 const StyledList = styled.ul`
   list-style: none;
@@ -34,9 +36,9 @@ const StyledSeparatorLine = styled.div`
 const StyledFooter = styled.footer``;
 
 export {
-  StyledNav,
-  StyledList,
   StyledContent,
   StyledFooter,
+  StyledList,
+  StyledNav,
   StyledSeparatorLine,
 };
