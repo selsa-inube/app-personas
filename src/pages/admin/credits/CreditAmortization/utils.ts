@@ -33,13 +33,13 @@ const validateCreditsAndAmortization = async (
     });
   }
 
-  const selectedCredit = currentCredits.find(
+  const selectedProduct = currentCredits.find(
     (credit) => credit.id === creditId
   );
 
   return {
     newCredits: currentCredits,
-    selectedCredit,
+    selectedProduct,
   };
 };
 

@@ -32,7 +32,7 @@ function Home() {
           setMessage({
             show: true,
             title: "¡Uy, algo salió mal!",
-            description: "Tuvimos un problema al obtener los creditos.",
+            description: "Tuvimos un problema al obtener los créditos.",
             icon: <MdSentimentNeutral size={18} />,
             appearance: "error",
           });

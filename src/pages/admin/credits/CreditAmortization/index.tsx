@@ -72,23 +72,24 @@ function CreditAmortization() {
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
 
-    const { newCredits, selectedCredit } = await validateCreditsAndAmortization(
-      credits,
-      credit_id,
-      user?.identification,
-      accessToken
-    );
+    const { newCredits, selectedProduct } =
+      await validateCreditsAndAmortization(
+        credits,
+        credit_id,
+        user?.identification,
+        accessToken
+      );
 
     setCredits(newCredits);
 
-    if (!selectedCredit) return;
+    if (!selectedProduct) return;
 
     setSelectedProduct({
-      credit: selectedCredit,
+      credit: selectedProduct,
       option: {
-        id: selectedCredit.id,
-        title: selectedCredit.title,
-        value: selectedCredit.description,
+        id: selectedProduct.id,
+        title: selectedProduct.title,
+        value: selectedProduct.description,
       },
     });
 

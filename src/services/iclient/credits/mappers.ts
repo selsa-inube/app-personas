@@ -20,7 +20,7 @@ const mapCreditMovementApiToEntity = (
     capitalPayment: Number(movement.capitalCreditPesos || 0),
     interest: Number(movement.creditInterestPesos || 0),
     lifeInsurance: Number(movement.lifeInsuranceCreditPesos || 0),
-    patrimonialInsurance: 0,
+    patrimonialInsurance: Number(movement.anotherConceptCreditPesos || 0),
     capitalization: Number(movement.capitalizationCreditPesos || 0),
     commission: 0,
     totalValue: totalPay,
@@ -136,18 +136,23 @@ const mapCreditsApiToEntities = (
 const mapCreditAmortizationApiToEntity = (
   payment: Record<string, any>
 ): IAmortization => {
+  const others =
+    Number(payment.lifeInsuranceValue || 0) +
+    Number(payment.otherConceptValue || 0) +
+    Number(payment.capitalizationValue || 0);
+
   return {
     id: payment.paymentPlanId,
     paymentNumber: payment.quotaNumber,
     date: formatPrimaryDate(new Date(payment.quotaDate)),
-    capitalPayment: payment.capitalValue,
-    interest: payment.fixedInterestValue,
-    lifeInsurance: 0,
-    patrimonialInsurance: 0,
-    capitalization: 0,
-    others: payment.variableInterestValue,
-    totalMonthlyValue: payment.quotaValue,
-    projectedBalance: payment.projectedBalance,
+    capitalPayment: Number(payment.capitalValue || 0),
+    interest: Number(payment.fixedInterestValue || 0),
+    lifeInsurance: Number(payment.lifeInsuranceValue || 0),
+    patrimonialInsurance: Number(payment.otherConceptValue || 0),
+    capitalization: Number(payment.capitalizationValue || 0),
+    others,
+    totalMonthlyValue: Number(payment.quotaValue || 0),
+    projectedBalance: Number(payment.projectedBalance || 0),
   };
 };
 
