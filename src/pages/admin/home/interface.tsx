@@ -22,6 +22,7 @@ import {
   MdOutlineCreditCard,
 } from "react-icons/md";
 import { ICommitment, IProduct } from "src/model/entity/product";
+import { formatTraceabilityDate } from "src/utils/dates";
 import { truncateAndObfuscateDescription } from "src/utils/texts";
 import {
   investmentIcons,
@@ -272,10 +273,20 @@ function HomeUI(props: HomeUIProps) {
 
   return (
     <>
-      <Title
-        title={`Bienvenido(a), ${user?.firstName}`}
-        subtitle="Aquí tienes un resumen de tus productos "
-      />
+      <Stack direction="column" gap="s200">
+        <Stack gap="s100">
+          <Text type="label" size="medium" appearance="gray">
+            Fecha y hora:
+          </Text>
+          <Text type="body" size="small" appearance="gray">
+            {formatTraceabilityDate(new Date())}
+          </Text>
+        </Stack>
+        <Title
+          title={`Bienvenido(a), ${user?.firstName}`}
+          subtitle="Aquí tienes un resumen de tus productos "
+        />
+      </Stack>
       {!isDesktop ? (
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
           {renderHomeContent(
