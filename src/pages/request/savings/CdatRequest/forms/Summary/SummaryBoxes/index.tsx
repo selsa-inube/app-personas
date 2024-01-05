@@ -8,6 +8,8 @@ import { IInvestmentEntry } from "../../InvestmentForm/types";
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { usersMock } from "@mocks/users/users.mocks";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
@@ -21,32 +23,51 @@ const renderInvestmentSummary = (
   </Stack>
 );
 
-const renderRefundSummary = (values: IRefundEntry) => (
-  <Stack direction="column" gap="s100" width="100%">
-    {values.refundMethod === "transferToExternalAccount" ? (
-      <>
-        <BoxAttribute
-          label="Forma de reembolso:"
-          value="Transferencia cuenta externa"
-        />
-        <BoxAttribute label="Cuenta:" value="Nueva cuenta externa" />
-        <BoxAttribute label="Entidad:" value="Bancolombia" />
-        <BoxAttribute label="Tipo de cuenta:" value="Ahorros" />
-      </>
-    ) : (
-      <>
-        <BoxAttribute
-          label="Forma de reembolso:"
-          value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
-        />
-        <BoxAttribute
-          label="Cuenta:"
-          value={getValueOfDomain(values.account, "refundAccount")?.value}
-        />
-      </>
-    )}
-  </Stack>
-);
+const renderRefundSummary = (values: IRefundEntry) => {
+  const savingAccount = savingsMock.find(
+    (saving) => saving.id === values.account
+  );
+
+  return (
+    <Stack direction="column" gap="s100" width="100%">
+      {values.refundMethod === "transferToExternalAccount" ? (
+        <>
+          <BoxAttribute
+            label="Forma de reembolso:"
+            value="Transferencia cuenta externa"
+          />
+          <BoxAttribute label="Cuenta:" value="Nueva cuenta externa" />
+          <BoxAttribute
+            label="Entidad:"
+            value={
+              getValueOfDomain(
+                usersMock[0].bankTransfersAccount.bankEntity,
+                "bank"
+              )?.value
+            }
+          />
+          <BoxAttribute
+            label="Tipo de cuenta:"
+            value={
+              getValueOfDomain(
+                usersMock[0].bankTransfersAccount.accountType,
+                "accountType"
+              )?.value
+            }
+          />
+        </>
+      ) : (
+        <>
+          <BoxAttribute
+            label="Forma de reembolso:"
+            value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
+          />
+          <BoxAttribute label="Cuenta:" value={savingAccount?.description} />
+        </>
+      )}
+    </Stack>
+  );
+};
 
 const renderInvestmentNameSummary = (
   values: IInvestmentNameEntry,

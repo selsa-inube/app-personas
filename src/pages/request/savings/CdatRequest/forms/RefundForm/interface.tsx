@@ -4,17 +4,25 @@ import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { ISelectOption } from "@design/input/Select/types";
 
 interface RefundFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  accountOptions: ISelectOption[];
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onRefundMethodChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 function RefundFormUI(props: RefundFormUIProps) {
-  const { formik, loading, customHandleBlur, onRefundMethodChange } = props;
+  const {
+    formik,
+    loading,
+    accountOptions,
+    customHandleBlur,
+    onRefundMethodChange,
+  } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
 
@@ -42,7 +50,7 @@ function RefundFormUI(props: RefundFormUIProps) {
           name="account"
           id="account"
           size="compact"
-          options={getDomainById("refundAccount")}
+          options={accountOptions}
           value={formik.values.account}
           onChange={formik.handleChange}
           isDisabled={loading}

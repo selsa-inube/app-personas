@@ -3,6 +3,8 @@ import React, { forwardRef, useImperativeHandle } from "react";
 import * as Yup from "yup";
 import { RefundFormUI } from "./interface";
 import { IRefundEntry } from "./types";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { usersMock } from "@mocks/users/users.mocks";
 
 const validationSchema = Yup.object({
   refundMethod: Yup.string(),
@@ -45,11 +47,25 @@ const RefundForm = forwardRef(function RefundForm(
   ) => {
     formik.handleChange(event);
     if (event.target.value === "creditToInternalAccount") {
-      formik.setFieldValue("account", "internalAccount");
+      formik.setFieldValue("account", "013001162025");
     } else if (event.target.value === "transferToExternalAccount") {
-      formik.setFieldValue("account", "externalAccount");
+      formik.setFieldValue("account", "76454473406");
     }
   };
+
+  const savingOptions = savingsMock
+    .filter((saving) => saving.type === "CA")
+    .map((saving) => ({ id: saving.id, value: saving.description }));
+
+  const accountOptions = [
+    ...savingOptions,
+    ...usersMock
+      .filter((user) => user.bankTransfersAccount)
+      .map((user) => ({
+        id: String(user.bankTransfersAccount.accountNumber),
+        value: user.bankTransfersAccount.description,
+      })),
+  ];
 
   return (
     <RefundFormUI
@@ -58,6 +74,7 @@ const RefundForm = forwardRef(function RefundForm(
       customHandleBlur={customHandleBlur}
       onFormValid={onFormValid}
       onRefundMethodChange={handleRefundMethodChange}
+      accountOptions={accountOptions}
     />
   );
 });

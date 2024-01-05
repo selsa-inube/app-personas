@@ -8,7 +8,7 @@ const investment: IInvestmentEntry = {
 
 const refund: IRefundEntry = {
   refundMethod: "creditToInternalAccount",
-  account: "internalAccount",
+  account: "013001162025",
 };
 
 const investmentName: IInvestmentNameEntry = {
