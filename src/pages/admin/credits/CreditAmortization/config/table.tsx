@@ -20,20 +20,18 @@ const mapCreditPayment = (payment: IEntry): IAmortization => {
   };
 };
 
-const formatCurrencyEntries = (amortization: IAmortization[]) =>
-  amortization.map((entry) => {
-    return {
-      ...entry,
-      others: currencyFormat(entry.others),
-      interest: currencyFormat(entry.interest),
-      capitalPayment: currencyFormat(entry.capitalPayment),
-      lifeInsurance: currencyFormat(entry.lifeInsurance),
-      capitalization: currencyFormat(entry.capitalization),
-      totalMonthlyValue: currencyFormat(entry.totalMonthlyValue),
-      projectedBalance: currencyFormat(entry.projectedBalance),
-      patrimonialInsurance: currencyFormat(entry.patrimonialInsurance),
-    };
-  });
+const amortizationCurrencyEntries = (amortization: IAmortization[]) =>
+  amortization.map((entry) => ({
+    ...entry,
+    others: currencyFormat(entry.others),
+    interest: currencyFormat(entry.interest),
+    capitalPayment: currencyFormat(entry.capitalPayment),
+    lifeInsurance: currencyFormat(entry.lifeInsurance),
+    capitalization: currencyFormat(entry.capitalization),
+    totalMonthlyValue: currencyFormat(entry.totalMonthlyValue),
+    projectedBalance: currencyFormat(entry.projectedBalance),
+    patrimonialInsurance: currencyFormat(entry.patrimonialInsurance),
+  }));
 
 const creditAmortizationTableActions: IAction[] = [
   {
@@ -55,7 +53,7 @@ const creditAmortizationTableActions: IAction[] = [
 ];
 
 export {
+  amortizationCurrencyEntries,
   creditAmortizationTableActions,
-  formatCurrencyEntries,
   mapCreditPayment,
 };

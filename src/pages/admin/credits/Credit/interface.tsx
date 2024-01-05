@@ -18,7 +18,10 @@ import {
   MdOutlineAssignment,
   MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
-import { creditMovementsTableActions } from "../CreditMovements/config/table";
+import {
+  creditMovementsCurrencyEntries,
+  creditMovementsTableActions,
+} from "../CreditMovements/config/table";
 import {
   movementsTableBreakpoints,
   movementsTableTitles,
@@ -114,7 +117,9 @@ function CreditUI(props: CreditUIProps) {
                 titles={movementsTableTitles}
                 breakpoints={movementsTableBreakpoints}
                 actions={creditMovementsTableActions}
-                entries={selectedProduct.credit.movements || []}
+                entries={creditMovementsCurrencyEntries(
+                  selectedProduct.credit.movements || []
+                )}
                 pageLength={selectedProduct.credit.movements?.length || 0}
                 hideMobileResume
               />
