@@ -1,10 +1,12 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
-import { useEffect, useState } from "react";
+import { useAuth } from "@inube/auth";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { CreditsContext } from "src/context/credits";
 import { crumbsMovements } from "./config/navigation";
 import { CreditMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
+import { addMovementsToCredit, validateCreditsAndMovements } from "./utils";
 
 function CreditMovements() {
   const { credit_id } = useParams();
@@ -13,30 +15,38 @@ function CreditMovements() {
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { credits, setCredits } = useContext(CreditsContext);
+  const { user } = useAuth();
 
   useEffect(() => {
     handleSortProduct();
   }, [credit_id]);
 
-  const handleSortProduct = () => {
-    const creditsOptions = creditsMock.map((credit) => {
-      const productOption = {
-        id: credit.id,
-        value: credit.description,
-      };
+  const handleSortProduct = async () => {
+    if (!credit_id || !user) return;
 
-      if (credit.id === credit_id) {
-        setSelectedProduct({
-          totalMovements: credit.movements?.length || 0,
-          movements: credit.movements?.slice(0, 14) || [],
-          option: productOption.id,
-        });
-      }
+    const { newCredits, selectedCredit } = await validateCreditsAndMovements(
+      credits,
+      credit_id,
+      user?.identification
+    );
 
-      return productOption;
+    setCredits(newCredits);
+
+    if (!selectedCredit) return;
+
+    setSelectedProduct({
+      totalMovements: selectedCredit.movements?.length || 0,
+      movements: selectedCredit.movements || [],
+      option: selectedCredit.id,
     });
 
-    setProductsOptions(creditsOptions);
+    setProductsOptions(
+      newCredits.map((credit) => ({
+        id: credit.id,
+        value: credit.description,
+      }))
+    );
   };
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -45,21 +55,16 @@ function CreditMovements() {
   };
 
   const handleAddMovements = () => {
+    if (!selectedProduct || !credit_id) return;
+
     setLoading(true);
 
     setTimeout(() => {
       try {
-        if (!selectedProduct?.movements) return;
-
-        const foundProduct = creditsMock.find(
-          (credit) => credit.id === credit_id
-        );
-
-        if (!foundProduct) return;
-
-        const newMovements = foundProduct.movements?.slice(
-          selectedProduct.movements.length,
-          selectedProduct.movements.length + 5
+        const newMovements = addMovementsToCredit(
+          selectedProduct,
+          credits,
+          credit_id
         );
 
         if (newMovements) {

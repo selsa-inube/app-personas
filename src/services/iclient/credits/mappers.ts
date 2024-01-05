@@ -121,8 +121,8 @@ const mapCreditsApiToEntities = (
 };
 
 export {
+  mapCreditApiToEntity,
   mapCreditMovementApiToEntity,
   mapCreditMovementsApiToEntities,
-  mapCreditApiToEntity,
   mapCreditsApiToEntities,
 };

@@ -10,14 +10,7 @@ import { EditReference } from "./EditReference";
 import { deleteReferenceMessages } from "./config/deleteReference.config";
 import { PersonalReferencesFormUI } from "./interface";
 import { IPersonalReferenceEntries } from "./types";
-
-const initialMessageState: IMessage = {
-  show: false,
-  title: "",
-  description: "",
-  icon: <></>,
-  appearance: "primary",
-};
+import { initialMessageState } from "src/utils/messages";
 
 const validationSchema = Yup.object({
   referenceType: Yup.string().required(validationMessages.required),

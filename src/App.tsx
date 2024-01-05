@@ -65,7 +65,7 @@ function App() {
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <CreditsProvider>
-        <RouterProvider router={router} />
+          <RouterProvider router={router} />
         </CreditsProvider>
       </ThemeProvider>
     </>
