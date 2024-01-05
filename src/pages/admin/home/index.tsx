@@ -23,7 +23,6 @@ function Home() {
     user && getInvestmentsProducts(user.identification, "AP");
 
   useEffect(() => {
-    console.log(accessToken);
     if (user && accessToken) {
       getCreditsForUser(user?.identification, accessToken)
         .then((credits) => {
