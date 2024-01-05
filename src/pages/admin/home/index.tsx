@@ -15,7 +15,7 @@ import {
 
 function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
-  const { user } = useAuth();
+  const { user, accessToken } = useAuth();
   const [message, setMessage] = useState<IMessage>(initialMessageState);
 
   const cdats = user && getInvestmentsProducts(user.identification, "CD");
@@ -23,8 +23,9 @@ function Home() {
     user && getInvestmentsProducts(user.identification, "AP");
 
   useEffect(() => {
-    if (user) {
-      getCreditsForUser(user?.identification)
+    console.log(accessToken);
+    if (user && accessToken) {
+      getCreditsForUser(user?.identification, accessToken)
         .then((credits) => {
           setCredits(credits);
         })
@@ -32,13 +33,13 @@ function Home() {
           setMessage({
             show: true,
             title: "¡Uy, algo salió mal!",
-            description: error.message,
+            description: "Tuvimos un problema al obtener los creditos.",
             icon: <MdSentimentNeutral size={18} />,
             appearance: "error",
           });
         });
     }
-  }, []);
+  }, [user, accessToken]);
 
   const handleCloseMessage = () => {
     setMessage(initialMessageState);
