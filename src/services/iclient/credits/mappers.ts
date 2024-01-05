@@ -1,39 +1,27 @@
 import { TagProps } from "@design/data/Tag";
 import { IMovement, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeText, replaceWord, translateWord } from "src/utils/texts";
 
 const mapCreditMovementApiToEntity = (
   movement: Record<string, any>
 ): IMovement => {
-  const totalPay = movement.capitalCreditPesos
-    ? Number(movement.capitalCreditPesos)
-    : 0 + movement.creditInterestPesos
-    ? Number(movement.creditInterestPesos)
-    : 0 + movement.lifeInsuranceCreditPesos
-    ? Number(movement.lifeInsuranceCreditPesos)
-    : 0 + movement.capitalizationCreditPesos
-    ? Number(movement.capitalizationCreditPesos)
-    : 0;
+  const totalPay =
+    Number(movement.capitalCreditPesos || 0) +
+    Number(movement.creditInterestPesos || 0) +
+    Number(movement.lifeInsuranceCreditPesos || 0) +
+    Number(movement.capitalizationCreditPesos || 0);
 
   return {
     id: movement.movementId,
     date: formatPrimaryDate(new Date(movement.movementDate)),
     reference: movement.movementNumber,
     description: movement.movementDescription || "",
-    capitalPayment: movement.capitalCreditPesos
-      ? Number(movement.capitalCreditPesos)
-      : 0,
-    interest: movement.creditInterestPesos
-      ? Number(movement.creditInterestPesos)
-      : 0,
-    lifeInsurance: movement.lifeInsuranceCreditPesos
-      ? Number(movement.lifeInsuranceCreditPesos)
-      : 0,
+    capitalPayment: Number(movement.capitalCreditPesos || 0),
+    interest: Number(movement.creditInterestPesos || 0),
+    lifeInsurance: Number(movement.lifeInsuranceCreditPesos || 0),
     patrimonialInsurance: 0,
-    capitalization: movement.capitalizationCreditPesos
-      ? Number(movement.capitalizationCreditPesos)
-      : 0,
+    capitalization: Number(movement.capitalizationCreditPesos || 0),
     commission: 0,
     totalValue: totalPay,
   };
@@ -51,6 +39,12 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  const replaceWordQuota = replaceWord(credit.heightQuota, "of",translateWord("of"));
+
+  const normalizedPaymentMethodName = capitalizeText(
+    credit.paymentMethodName.toLowerCase()
+  );
 
   const attributes = [
     {
@@ -73,18 +67,18 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
       label: "Próximo vencimiento",
       value: formatPrimaryDate(new Date(credit.nextPaymentDate)),
     },
-    { id: "quote", label: "Cuota", value: credit.heightQuota },
+    { id: "quote", label: "Cuota", value: replaceWordQuota},
 
     {
       id: "payment_means",
       label: "Medio de pago",
-      value: credit.paymentMethodName,
+      value: normalizedPaymentMethodName,
     },
     { id: "loan_value", label: "Valor del préstamo", value: credit.amount },
     {
       id: "peridiocity",
       label: "Periodicidad",
-      value: credit.periodicityOfQuota,
+      value: translateWord(credit.periodicityOfQuota),
     },
   ];
 
