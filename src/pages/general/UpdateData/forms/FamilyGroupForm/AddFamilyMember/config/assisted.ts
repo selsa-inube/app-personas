@@ -59,23 +59,26 @@ const addFamilyMemberStepsRules = (
             values.identificationNumber
         );
 
-        const newAddFamilyMember = { ...currentAddFamilyMember };
-
         if (!selectedReferenceUser) {
-          newAddFamilyMember.identificationData = {
+          newAddFamilyMember.personalData = {
             isValid: true,
             values: {
-              ...newAddFamilyMember.identificationData.values,
-              identificationNumber: values.identificationNumber,
+              ...initalValuesAddFamilyMember.personalData,
+              identificationNumber: values?.identificationNumber,
             },
           };
         } else {
-          newAddFamilyMember.identificationData = {
+          newAddFamilyMember.personalData = {
             isValid: true,
             values: {
-              ...initalValuesAddFamilyMember.identificationData,
-              identificationNumber:
-                selectedReferenceUser.identification.identificationNumber,
+              ...initalValuesAddFamilyMember.personalData,
+              identificationNumber: values?.identificationNumber,
+              type: selectedReferenceUser.identification.type,
+              firstName: selectedReferenceUser.identification.firstName,
+              secondName: selectedReferenceUser.identification.secondName,
+              firstLastName: selectedReferenceUser.identification.firstLastName,
+              secondLastName:
+                selectedReferenceUser.identification.secondLastName,
             },
           };
         }

@@ -5,9 +5,10 @@ import { IFormsAddFamilyMember, IFormsAddFamilyMemberRefs } from "./types";
 import { initalValuesAddFamilyMember } from "./config/initialValues";
 import { FormikProps } from "formik";
 import { AddFamilyMemberUI } from "./interface";
+import { IPersonalDataEntry } from "./forms/PersonalDataForm/types";
 
 interface AddFamilyMemberProps {
-  onAddMember: (identificationData: IIdentificationDataEntry) => void;
+  onAddMember: (identificationData: IIdentificationDataEntry, personalData: IPersonalDataEntry,) => void;
 }
 
 function AddFamilyMember(props: AddFamilyMemberProps) {
@@ -24,12 +25,18 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
       isValid: false,
       values: initalValuesAddFamilyMember.identificationData,
     },
+    personalData: {
+      isValid: true,
+      values: initalValuesAddFamilyMember.personalData,
+    },
   });
 
   const identificationDataRef = useRef<FormikProps<IIdentificationDataEntry>>(null);
+  const personalDataRef = useRef<FormikProps<IPersonalDataEntry>>(null);
 
   const formReferences: IFormsAddFamilyMemberRefs = {
     identificationData: identificationDataRef,
+    personalData: personalDataRef,
   };
 
   const handleStepChange = (stepId: number) => {
@@ -69,6 +76,7 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
     if (currentStep == steps.length) {
       onAddMember(
         familyMember.identificationData.values,
+        familyMember.personalData.values,
       );
     }
   };
