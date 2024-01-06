@@ -31,6 +31,20 @@ interface IContactData {
   email: string;
 }
 
+interface IReferenceThird {
+  identification: IIdentification;
+  contact: IContactData;
+  information: {
+    birthDate: string;
+    gender: string;
+    relationship: string;
+    isDependent?: boolean;
+    educationLevel?: string;
+    businessActivity?: string;
+    profession?: string;
+  };
+}
+
 interface IFamilyThird {
   identification: IIdentification;
   contact: IContactData;
@@ -115,6 +129,7 @@ interface IThird {
 export type {
   IBankTransfersAccount,
   IContactData,
+  IReferenceThird,
   IEconomicActivity,
   IFamilyThird,
   IFinancialOperations,

@@ -12,6 +12,7 @@ import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { FamilyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
+import { IIdentificationDataEntry } from "./AddFamilyMember/forms/IdentificationDataForm/types";
 
 const validationSchema = Yup.object().shape({
   firstName: FamilyGroupRequiredFields.firstName
@@ -29,7 +30,7 @@ const validationSchema = Yup.object().shape({
   type: FamilyGroupRequiredFields.type
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-    identificationNumber: FamilyGroupRequiredFields.identificationNumber
+  identificationNumber: FamilyGroupRequiredFields.identificationNumber
     ? validationRules.identification.required(validationMessages.required)
     : validationRules.identification,
   city: FamilyGroupRequiredFields.city
@@ -81,6 +82,7 @@ const validationSchema = Yup.object().shape({
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
 });
+
 interface FamilyGroupFormProps {
   initialValues: IFamilyGroupEntries;
   onSubmit?: (values: IFamilyGroupEntries) => void;
@@ -93,6 +95,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   const { initialValues, onSubmit } = props;
   const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
   const [message, setMessage] = useState<IMessage>();
+  const [showAddMemberModal, setShowAddMemberModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -188,9 +191,51 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     }
   };
 
+  const handleAddMember = async (
+    identification: IIdentificationDataEntry,
+  ) => {
+    await formik.validateForm();
+
+    formik.setFieldValue("entries", [
+      ...formik.values.entries,
+      {
+        id: formik.values.id,
+        firstName: "",
+        secondName: "",
+        firstLastName: "",
+        secondLastName: "",
+        type: "",
+        identificationNumber: identification.identificationNumber,
+        city: "",
+        date: "",
+        country: "",
+        address: "",
+        department: "",
+        zipCode: "",
+        landlinePhone: "",
+        cellPhone: "",
+        email: "",
+        birthDate: "",
+        gender: "",
+        relationship: "",
+        isDependent: "",
+        educationLevel: "",
+        businessActivity: "",
+        profession: "",
+      },
+    ]);
+
+    setShowAddMemberModal(false);
+    formik.setTouched({});
+  };
+
   const isRequired = (fieldName: string): boolean => {
     const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
     return !fieldDescription.nullable && !fieldDescription.optional;
+  };
+
+  const handleToggleModal = () => {
+    setShowAddMemberModal(!showAddMemberModal);
   };
 
   const familyGroupTableActions: IAction[] = [
@@ -237,9 +282,12 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   return (
     <FamilyGroupFormUI
       formik={formik}
-      familyGroupTableActions={familyGroupTableActions}
       message={message}
+      familyGroupTableActions={familyGroupTableActions}
+      showAddMemberModal={showAddMemberModal}
       onCloseMessage={handleCloseMessage}
+      onToggleModal={handleToggleModal}
+      onAddMember={handleAddMember}
     />
   );
 });

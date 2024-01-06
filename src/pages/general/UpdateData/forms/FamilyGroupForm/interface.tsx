@@ -11,20 +11,27 @@ import {
   familyGroupTableBreakpoints,
   familyGroupTableTitles,
 } from "./config/table";
+import { IIdentificationDataEntry } from "./AddFamilyMember/forms/IdentificationDataForm/types";
+import { FamilyMemberCreateModal } from "@components/modals/forms/update-data/FamilyGroupModals/FamilyMemberCreateModal";
 
 interface FamilyGroupFormUIProps {
   formik: FormikValues;
+  showAddMemberModal: boolean;
   message?: IMessage;
   familyGroupTableActions: IAction[];
   onCloseMessage: () => void;
+  onToggleModal: () => void;
+  onAddMember: (
+    identification: IIdentificationDataEntry
+  ) => void;
 }
 
 function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
-  const { formik, familyGroupTableActions, message, onCloseMessage } = props;
+  const { formik, showAddMemberModal, familyGroupTableActions, message, onToggleModal, onAddMember, onCloseMessage } = props;
   return (
     <>
       <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
-        <Button iconBefore={<MdOutlinePersonAddAlt />} variant="none">
+        <Button iconBefore={<MdOutlinePersonAddAlt />} variant="none" onClick={onToggleModal}>
           Adicionar familiar
         </Button>
         <Table
@@ -37,6 +44,13 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           hideMobileResume
         />
       </Stack>
+      {showAddMemberModal && (
+        <FamilyMemberCreateModal
+          portalId="modals"
+          onCloseModal={onToggleModal}
+          onAddMember={onAddMember}
+        />
+      )}
       {message && message.show && (
         <SectionMessage
           title={message.title}
