@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
   type: FamilyGroupRequiredFields.type
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  number: FamilyGroupRequiredFields.number
+    identificationNumber: FamilyGroupRequiredFields.identificationNumber
     ? validationRules.identification.required(validationMessages.required)
     : validationRules.identification,
   city: FamilyGroupRequiredFields.city
@@ -161,7 +161,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
               firstLastName: formik.values.firstLastName,
               secondLastName: formik.values.secondLastName,
               type: formik.values.type,
-              number: formik.values.number,
+              identificationNumber: formik.values.identificationNumber,
               city: formik.values.city,
               date: formik.values.date,
               country: formik.values.country,

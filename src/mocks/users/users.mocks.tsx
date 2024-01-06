@@ -9,7 +9,7 @@ const usersMock: IThird[] = [
         firstLastName: "Garzón",
         secondLastName: "Páramo",
         type: "cc",
-        number: "1013614213",
+        identificationNumber: 1013614213,
         city: "bogota",
         date: "05/Ago/2008",
       },
@@ -51,7 +51,7 @@ const usersMock: IThird[] = [
           firstLastName: "Ángel",
           secondLastName: "Marín",
           type: "cc",
-          number: "13156778",
+          identificationNumber: 13156778,
           city: "bogota",
         },
         contact: {
@@ -79,7 +79,7 @@ const usersMock: IThird[] = [
           firstName: "Eunice",
           firstLastName: "Páramo",
           type: "cc",
-          number: "41739900",
+          identificationNumber: 41739900,
           city: "bogota",
         },
         contact: {

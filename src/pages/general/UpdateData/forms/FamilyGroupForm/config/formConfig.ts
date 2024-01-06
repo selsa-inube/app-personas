@@ -4,7 +4,7 @@ const FamilyGroupRequiredFields = {
   firstLastName: false,
   secondLastName: false,
   type: false,
-  number: false,
+  identificationNumber: false,
   city: false,
   date: false,
   id: false,
