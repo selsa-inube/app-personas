@@ -10,6 +10,7 @@ import { Button } from "@design/input/Button";
 import { PersonalDataForm } from "./forms/PersonalDataForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { InformationDataForm } from "./forms/InformationDataForm";
+import { UpdateDataVerification } from "./forms/Verification";
 
 const renderStepContent = (
   currentStep: number,
@@ -47,6 +48,9 @@ const renderStepContent = (
           ref={formReferences.informationData}
           onFormValid={setIsCurrentFormValid}
         />
+      )}
+      {currentStep === createMemberSteps.verification.id && (
+        <UpdateDataVerification updatedData={addFamilyMember} />
       )}
     </>
   );
