@@ -9,6 +9,9 @@ import { Divider } from "@design/layout/Divider";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { AddFamilyMember } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember";
 import { IIdentificationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember/forms/IdentificationDataForm/types";
+import { IPersonalDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember/forms/PersonalDataForm/types";
+import { IContactDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember/forms/ContactDataForm/types";
+import { IInformationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember/forms/InformationDataForm/types";
 
 
 interface FamilyMemberCreateModalProps {
@@ -16,6 +19,9 @@ interface FamilyMemberCreateModalProps {
   onCloseModal: () => void;
   onAddMember: (
     identification: IIdentificationDataEntry,
+    personalData: IPersonalDataEntry,
+    contactData: IContactDataEntry,
+    InformationData: IInformationDataEntry
   ) => void;
 }
 

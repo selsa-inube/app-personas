@@ -13,6 +13,9 @@ import {
 } from "./config/table";
 import { IIdentificationDataEntry } from "./AddFamilyMember/forms/IdentificationDataForm/types";
 import { FamilyMemberCreateModal } from "@components/modals/forms/update-data/FamilyGroupModals/FamilyMemberCreateModal";
+import { IPersonalDataEntry } from "./AddFamilyMember/forms/PersonalDataForm/types";
+import { IContactDataEntry } from "./AddFamilyMember/forms/ContactDataForm/types";
+import { IInformationDataEntry } from "./AddFamilyMember/forms/InformationDataForm/types";
 
 interface FamilyGroupFormUIProps {
   formik: FormikValues;
@@ -21,7 +24,12 @@ interface FamilyGroupFormUIProps {
   familyGroupTableActions: IAction[];
   onCloseMessage: () => void;
   onToggleModal: () => void;
-  onAddMember: (identification: IIdentificationDataEntry) => void;
+  onAddMember: (
+    identificationData: IIdentificationDataEntry,
+    personalData: IPersonalDataEntry,
+    contactData: IContactDataEntry,
+    InformationData: IInformationDataEntry
+  ) => void;
 }
 
 function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {

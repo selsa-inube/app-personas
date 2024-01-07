@@ -13,6 +13,9 @@ import { FamilyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
 import { IIdentificationDataEntry } from "./AddFamilyMember/forms/IdentificationDataForm/types";
+import { IPersonalDataEntry } from "./AddFamilyMember/forms/PersonalDataForm/types";
+import { IContactDataEntry } from "./AddFamilyMember/forms/ContactDataForm/types";
+import { IInformationDataEntry } from "./AddFamilyMember/forms/InformationDataForm/types";
 
 const validationSchema = Yup.object().shape({
   firstName: FamilyGroupRequiredFields.firstName
@@ -192,36 +195,32 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   };
 
   const handleAddMember = async (
-    identification: IIdentificationDataEntry,
+    identificationData: IIdentificationDataEntry,
+    personalData: IPersonalDataEntry,
+    contactData: IContactDataEntry,
+    informationData: IInformationDataEntry
   ) => {
     await formik.validateForm();
 
     formik.setFieldValue("entries", [
       ...formik.values.entries,
       {
-        id: formik.values.id,
-        firstName: "",
-        secondName: "",
-        firstLastName: "",
-        secondLastName: "",
-        type: "",
-        identificationNumber: identification.identificationNumber,
-        city: "",
-        date: "",
-        country: "",
-        address: "",
-        department: "",
-        zipCode: "",
-        landlinePhone: "",
-        cellPhone: "",
-        email: "",
-        birthDate: "",
-        gender: "",
-        relationship: "",
-        isDependent: "",
-        educationLevel: "",
-        businessActivity: "",
-        profession: "",
+        id: identificationData.identificationNumber,
+        firstName: personalData.firstName,
+        secondName: personalData.secondName,
+        firstLastName: personalData.firstLastName,
+        secondLastName: personalData.secondLastName,
+        type: personalData.type,
+        identificationNumber: identificationData.identificationNumber,
+        cellPhone: contactData.cellPhone,
+        email: contactData.email,
+        birthDate: informationData.birthDate,
+        gender: informationData.gender,
+        relationship: informationData.relationship,
+        isDependent: informationData.isDependent,
+        educationLevel: informationData.educationLevel,
+        businessActivity: informationData.businessActivity,
+        profession: informationData.profession,
       },
     ]);
 
