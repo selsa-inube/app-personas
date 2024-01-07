@@ -17,6 +17,15 @@ const capitalizeText = (text: string) => {
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
+function capitalizeFirstLetters(text: string) {
+  var words = text.split(" ");
+  var capitalizedWords = words.map(function (word) {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  });
+  var result = capitalizedWords.join(" ");
+  return result;
+}
+
 const translateWord = (word: string) => {
   const normalizedword = capitalizeText(word.toLowerCase());
   for (const [key, value] of Object.entries(dictionary)) {
@@ -35,6 +44,7 @@ const replaceWord = (
 
 export {
   capitalizeText,
+  capitalizeFirstLetters,
   truncateAndObfuscateDescription,
   translateWord,
   replaceWord,
