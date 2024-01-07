@@ -8,6 +8,7 @@ import { Stack } from "@design/layout/Stack";
 import { StyledScroller } from "./styles";
 import { Button } from "@design/input/Button";
 import { PersonalDataForm } from "./forms/PersonalDataForm";
+import { ContactDataForm } from "./forms/ContactDataForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -29,6 +30,13 @@ const renderStepContent = (
         <PersonalDataForm
           initialValues={addFamilyMember.personalData.values}
           ref={formReferences.personalData}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === createMemberSteps.contactData.id && (
+        <ContactDataForm
+          initialValues={addFamilyMember.contactData.values}
+          ref={formReferences.contactData}
           onFormValid={setIsCurrentFormValid}
         />
       )}

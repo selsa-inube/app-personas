@@ -1,14 +1,22 @@
 import { useRef, useState } from "react";
 import { IIdentificationDataEntry } from "./forms/IdentificationDataForm/types";
-import { addFamilyMemberStepsRules, createMemberSteps } from "./config/assisted";
+import {
+  addFamilyMemberStepsRules,
+  createMemberSteps,
+} from "./config/assisted";
 import { IFormsAddFamilyMember, IFormsAddFamilyMemberRefs } from "./types";
 import { initalValuesAddFamilyMember } from "./config/initialValues";
 import { FormikProps } from "formik";
 import { AddFamilyMemberUI } from "./interface";
 import { IPersonalDataEntry } from "./forms/PersonalDataForm/types";
+import { IContactDataEntry } from "./forms/ContactDataForm/types";
 
 interface AddFamilyMemberProps {
-  onAddMember: (identificationData: IIdentificationDataEntry, personalData: IPersonalDataEntry,) => void;
+  onAddMember: (
+    identificationData: IIdentificationDataEntry,
+    personalData: IPersonalDataEntry,
+    contactData: IContactDataEntry
+  ) => void;
 }
 
 function AddFamilyMember(props: AddFamilyMemberProps) {
@@ -29,14 +37,21 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
       isValid: true,
       values: initalValuesAddFamilyMember.personalData,
     },
+    contactData: {
+      isValid: true,
+      values: initalValuesAddFamilyMember.contactData,
+    },
   });
 
-  const identificationDataRef = useRef<FormikProps<IIdentificationDataEntry>>(null);
+  const identificationDataRef =
+    useRef<FormikProps<IIdentificationDataEntry>>(null);
   const personalDataRef = useRef<FormikProps<IPersonalDataEntry>>(null);
+  const contactDataRef = useRef<FormikProps<IContactDataEntry>>(null);
 
   const formReferences: IFormsAddFamilyMemberRefs = {
     identificationData: identificationDataRef,
     personalData: personalDataRef,
+    contactData: contactDataRef,
   };
 
   const handleStepChange = (stepId: number) => {
@@ -77,6 +92,7 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
       onAddMember(
         familyMember.identificationData.values,
         familyMember.personalData.values,
+        familyMember.contactData.values,
       );
     }
   };

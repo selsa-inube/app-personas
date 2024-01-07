@@ -21,17 +21,27 @@ interface FamilyGroupFormUIProps {
   familyGroupTableActions: IAction[];
   onCloseMessage: () => void;
   onToggleModal: () => void;
-  onAddMember: (
-    identification: IIdentificationDataEntry
-  ) => void;
+  onAddMember: (identification: IIdentificationDataEntry) => void;
 }
 
 function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
-  const { formik, showAddMemberModal, familyGroupTableActions, message, onToggleModal, onAddMember, onCloseMessage } = props;
+  const {
+    formik,
+    showAddMemberModal,
+    familyGroupTableActions,
+    message,
+    onToggleModal,
+    onAddMember,
+    onCloseMessage,
+  } = props;
   return (
     <>
       <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
-        <Button iconBefore={<MdOutlinePersonAddAlt />} variant="none" onClick={onToggleModal}>
+        <Button
+          iconBefore={<MdOutlinePersonAddAlt />}
+          variant="none"
+          onClick={onToggleModal}
+        >
           Adicionar familiar
         </Button>
         <Table

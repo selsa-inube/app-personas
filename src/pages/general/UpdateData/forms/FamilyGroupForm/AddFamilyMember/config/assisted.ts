@@ -81,8 +81,77 @@ const addFamilyMemberStepsRules = (
                 selectedReferenceUser.identification.secondLastName,
             },
           };
+
+          newAddFamilyMember.contactData = {
+            isValid: true,
+            values: {
+              ...initalValuesAddFamilyMember.contactData,
+              cellPhone: selectedReferenceUser.contact.cellPhone,
+              email: selectedReferenceUser.contact.email,
+            },
+          };
         }
       }
+      return newAddFamilyMember;
+    }
+
+    case createMemberSteps.personalData.id: {
+      const values = formReferences.personalData.current?.values;
+
+      if (!values) return currentAddFamilyMember;
+
+      newAddFamilyMember.personalData = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentAddFamilyMember.personalData.values)
+      ) {
+        newAddFamilyMember.personalData = {
+          isValid: true,
+          values: {
+            ...initalValuesAddFamilyMember.personalData,
+            identificationNumber: values?.identificationNumber,
+            type: values.type,
+            firstName: values?.firstName,
+            secondName: values?.secondName,
+            firstLastName: values?.firstLastName,
+            secondLastName: values?.secondLastName,
+            relationship: values?.relationship,
+            isDependent: values?.isDependent,
+          },
+        };
+      }
+
+      return newAddFamilyMember;
+    }
+
+    case createMemberSteps.contactData.id: {
+      const values = formReferences.contactData.current?.values;
+
+      if (!values) return currentAddFamilyMember;
+
+      newAddFamilyMember.contactData = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentAddFamilyMember.contactData.values)
+      ) {
+        newAddFamilyMember.contactData = {
+          isValid: true,
+          values: {
+            ...initalValuesAddFamilyMember.personalData,
+            cellPhone: values?.cellPhone,
+            email: values?.email,
+          },
+        };
+      }
+
       return newAddFamilyMember;
     }
   }
