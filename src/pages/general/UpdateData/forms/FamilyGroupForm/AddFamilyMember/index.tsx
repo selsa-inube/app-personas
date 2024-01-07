@@ -10,12 +10,14 @@ import { FormikProps } from "formik";
 import { AddFamilyMemberUI } from "./interface";
 import { IPersonalDataEntry } from "./forms/PersonalDataForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
+import { IInformationDataEntry } from "./forms/InformationDataForm/types";
 
 interface AddFamilyMemberProps {
   onAddMember: (
     identificationData: IIdentificationDataEntry,
     personalData: IPersonalDataEntry,
-    contactData: IContactDataEntry
+    contactData: IContactDataEntry,
+    informationData: IInformationDataEntry
   ) => void;
 }
 
@@ -41,17 +43,23 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
       isValid: true,
       values: initalValuesAddFamilyMember.contactData,
     },
+    informationData: {
+      isValid: true,
+      values: initalValuesAddFamilyMember.informationData,
+    },
   });
 
   const identificationDataRef =
     useRef<FormikProps<IIdentificationDataEntry>>(null);
   const personalDataRef = useRef<FormikProps<IPersonalDataEntry>>(null);
   const contactDataRef = useRef<FormikProps<IContactDataEntry>>(null);
+  const informationDataRef = useRef<FormikProps<IInformationDataEntry>>(null);
 
   const formReferences: IFormsAddFamilyMemberRefs = {
     identificationData: identificationDataRef,
     personalData: personalDataRef,
     contactData: contactDataRef,
+    informationData: informationDataRef,
   };
 
   const handleStepChange = (stepId: number) => {
@@ -93,6 +101,7 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
         familyMember.identificationData.values,
         familyMember.personalData.values,
         familyMember.contactData.values,
+        familyMember.informationData.values
       );
     }
   };

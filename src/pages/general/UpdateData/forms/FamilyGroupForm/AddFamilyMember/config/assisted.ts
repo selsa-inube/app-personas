@@ -18,7 +18,7 @@ const createMemberSteps = {
     name: "Datos de contacto",
     description: "Description",
   },
-  information: {
+  informationData: {
     id: 4,
     name: "Información",
     description: "Description",
@@ -90,6 +90,21 @@ const addFamilyMemberStepsRules = (
               email: selectedReferenceUser.contact.email,
             },
           };
+
+          newAddFamilyMember.informationData = {
+            isValid: true,
+            values: {
+              ...initalValuesAddFamilyMember.personalData,
+              relationship: selectedReferenceUser.information.relationship,
+              isDependent: selectedReferenceUser.information.isDependent,
+              educationLevel: selectedReferenceUser.information.educationLevel,
+              profession: selectedReferenceUser.information.profession,
+              gender: selectedReferenceUser.information.gender,
+              birthDate: selectedReferenceUser.information.birthDate,
+              businessActivity:
+                selectedReferenceUser.information.businessActivity,
+            },
+          };
         }
       }
       return newAddFamilyMember;
@@ -148,6 +163,38 @@ const addFamilyMemberStepsRules = (
             ...initalValuesAddFamilyMember.personalData,
             cellPhone: values?.cellPhone,
             email: values?.email,
+          },
+        };
+      }
+
+      return newAddFamilyMember;
+    }
+
+    case createMemberSteps.informationData.id: {
+      const values = formReferences.informationData.current?.values;
+
+      if (!values) return currentAddFamilyMember;
+
+      newAddFamilyMember.informationData = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentAddFamilyMember.informationData.values)
+      ) {
+        newAddFamilyMember.informationData = {
+          isValid: true,
+          values: {
+            ...initalValuesAddFamilyMember.informationData,
+            relationship: values?.relationship,
+            isDependent: values?.isDependent,
+            educationLevel: values?.educationLevel,
+            profession: values?.profession,
+            gender: values?.gender,
+            birthDate: values?.birthDate,
+            businessActivity: values?.businessActivity,
           },
         };
       }

@@ -1,6 +1,7 @@
 import { IIdentificationDataEntry } from "../forms/IdentificationDataForm/types";
 import { IPersonalDataEntry } from "../forms/PersonalDataForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
+import { IInformationDataEntry } from "../forms/InformationDataForm/types";
 
 const identificationData: IIdentificationDataEntry = {
   identificationNumber: 0,
@@ -22,11 +23,21 @@ const contactData: IContactDataEntry = {
   email: "",
 };
 
+const informationData: IInformationDataEntry = {
+  relationship: "",
+  isDependent: false,
+  educationLevel: "",
+  profession: "",
+  gender: "",
+  birthDate: "",
+  businessActivity: "",
+};
+
 const initalValuesAddFamilyMember = {
   identificationData,
   personalData,
   contactData,
+  informationData,
 };
-
 
 export { initalValuesAddFamilyMember };
