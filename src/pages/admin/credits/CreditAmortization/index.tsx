@@ -11,10 +11,11 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
-import { useEffect, useState } from "react";
+import { useAuth } from "@inube/auth";
+import { useContext, useEffect, useState } from "react";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
+import { CreditsContext } from "src/context/credits";
 import {
   amortizationTableBreakpoints,
   amortizationTableTitles,
@@ -26,6 +27,7 @@ import {
 } from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { validateCreditsAndAmortization } from "./utils";
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -36,6 +38,8 @@ function CreditAmortization() {
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const { credits, setCredits } = useContext(CreditsContext);
+  const { user, accessToken } = useAuth();
 
   const crumbsAmortization = [
     {
@@ -63,27 +67,38 @@ function CreditAmortization() {
 
   useEffect(() => {
     handleSortProduct();
-  }, [credit_id]);
+  }, [credit_id, user, accessToken]);
 
-  const handleSortProduct = () => {
-    const creditsOptions = creditsMock.map((credit) => {
-      const productOption = {
-        id: credit.id,
-        title: credit.title,
-        value: credit.description,
-      };
+  const handleSortProduct = async () => {
+    if (!credit_id || !user || !accessToken) return;
 
-      if (credit.id === credit_id) {
-        setSelectedProduct({
-          credit,
-          option: productOption,
-        });
-      }
+    const { newCredits, selectedProduct } =
+      await validateCreditsAndAmortization(
+        credits,
+        credit_id,
+        user?.identification,
+        accessToken
+      );
 
-      return productOption;
+    setCredits(newCredits);
+
+    if (!selectedProduct) return;
+
+    setSelectedProduct({
+      credit: selectedProduct,
+      option: {
+        id: selectedProduct.id,
+        title: selectedProduct.title,
+        value: selectedProduct.description,
+      },
     });
 
-    setProductsOptions(creditsOptions);
+    setProductsOptions(
+      newCredits.map((credit) => ({
+        id: credit.id,
+        value: credit.description,
+      }))
+    );
   };
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
