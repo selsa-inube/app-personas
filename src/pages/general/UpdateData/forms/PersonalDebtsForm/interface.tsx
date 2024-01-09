@@ -45,7 +45,7 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
           Adicionar deuda
         </Button>
         <Table
-          id="modals"
+          portalId="modals"
           titles={personalDebtsTableTitles}
           breakpoints={personalDebtsTableBreakpoints}
           actions={personalDebtsTableActions}

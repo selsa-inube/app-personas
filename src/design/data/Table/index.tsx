@@ -6,9 +6,9 @@ import { StyledTableContainer } from "./styles";
 import { IAction, IBreakpoint, IEntry, ITitle } from "./types";
 
 interface TableProps {
-  id: string;
+  portalId?: string;
   titles: ITitle[];
-  actions: IAction[];
+  actions?: IAction[];
   entries: IEntry[];
   filter?: string;
   pageLength?: number;
@@ -23,7 +23,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   const {
-    id,
+    portalId,
     titles,
     actions,
     entries,
@@ -91,20 +91,23 @@ const Table = (props: TableProps) => {
     }
   }
 
+  const withActions = !!actions;
+
   return (
-    <StyledTableContainer id={id}>
+    <StyledTableContainer>
       <TableUI
-        portalId={id}
+        portalId={portalId}
         titles={titles}
         actions={actions}
         entries={getPageEntries()}
-        breakpoints={breakpoints!}
-        modalTitle={modalTitle!}
-        infoTitle={infoTitle!}
-        actionsTitle={actionsTitle!}
+        breakpoints={breakpoints}
+        modalTitle={modalTitle}
+        infoTitle={infoTitle}
+        actionsTitle={actionsTitle}
         hideMobileResume={hideMobileResume}
         mobileResumeTitle={mobileResumeTitle}
         colsSameWidth={colsSameWidth}
+        withActions={withActions}
       />
       {filteredEntries.length > pageLength && (
         <Pagination
