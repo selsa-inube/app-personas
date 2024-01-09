@@ -1,3 +1,5 @@
+import { dictionary } from "./dictionary";
+
 const truncateAndObfuscateDescription = (
   description: string,
   type: string,
@@ -15,4 +17,25 @@ const capitalizeText = (text: string) => {
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
-export { capitalizeText, truncateAndObfuscateDescription };
+const translateWord = (word: string) => {
+  const normalizedword = capitalizeText(word.toLowerCase());
+  for (const [key, value] of Object.entries(dictionary)) {
+    if (normalizedword === key) return value;
+  }
+  return "";
+};
+
+const replaceWord = (
+  sentence: string,
+  wordToReplace: string,
+  replacementByWord: string
+) => {
+  return sentence.replace(wordToReplace, replacementByWord);
+};
+
+export {
+  capitalizeText,
+  truncateAndObfuscateDescription,
+  translateWord,
+  replaceWord,
+};

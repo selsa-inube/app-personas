@@ -18,6 +18,7 @@ import { SectionMessage } from "@design/feedback/SectionMessage";
 import { useAuth } from "@inube/auth";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { IMessage } from "@ptypes/messages.types";
+import { useEffect, useState } from "react";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
@@ -274,8 +275,17 @@ function HomeUI(props: HomeUIProps) {
   } = props;
 
   const { user } = useAuth();
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
+
+  useEffect(() => {
+    const currentTimeInterval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(currentTimeInterval);
+  }, []);
 
   return (
     <>
@@ -285,7 +295,7 @@ function HomeUI(props: HomeUIProps) {
             Fecha y hora:
           </Text>
           <Text type="body" size="small" appearance="gray">
-            {formatTraceabilityDate(new Date())}
+            {formatTraceabilityDate(currentTime)}
           </Text>
         </Stack>
         <Title
