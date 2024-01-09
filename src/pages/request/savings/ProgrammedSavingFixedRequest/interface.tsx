@@ -79,7 +79,7 @@ function ProgrammedSavingFixedRequestUI(props: ProgrammedSavingFixedRequestUIPro
         <Breadcrumbs crumbs={crumbsProgrammedSavingFixedRequest} />
         <Title
           title="Ahorro programado"
-          subtitle="Simula tu solicitud de ahorro"
+          subtitle="Simula tu solicitud de ahorro programado."
           icon={<MdArrowBack />}
           navigatePage="/savings"
         />
