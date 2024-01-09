@@ -11,6 +11,9 @@ export default defineConfig({
   server: {
     open: true,
     port: 3000,
+    cors: {
+      origin: ["http://3.15.76.249:8080"],
+    },
   },
   resolve: {
     alias: {
