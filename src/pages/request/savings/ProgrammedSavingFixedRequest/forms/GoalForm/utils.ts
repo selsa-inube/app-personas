@@ -1,4 +1,4 @@
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryDate, parseSpanishDate } from "src/utils/dates";
 
 const deduceRefundDate = (daysNumber: number) => {
   const newRefundDate = new Date();
@@ -10,7 +10,7 @@ const deduceRefundDate = (daysNumber: number) => {
 };
 
 const deduceDaysNumber = (refundDate: string) => {
-  const newRefundDate = new Date(refundDate);
+  const newRefundDate = parseSpanishDate(refundDate);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
