@@ -1,20 +1,18 @@
 import { Fieldset } from "@design/input/Fieldset";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface IdentificationDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  isMobile?: boolean;
   isRequired: (fieldName: string) => boolean;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
-  const { formik, loading, isRequired, customHandleBlur } = props;
-
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const { formik, loading, isMobile, isRequired, customHandleBlur } = props;
 
   return (
     <Fieldset

@@ -16,6 +16,7 @@ const renderStepContent = (
   currentStep: number,
   formReferences: IFormsAddFamilyMemberRefs,
   addFamilyMember: IFormsAddFamilyMember,
+  isMobile: boolean,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
   handleStepChange: (stepId: number) => void
 ) => {
@@ -23,6 +24,7 @@ const renderStepContent = (
     <>
       {currentStep === createMemberSteps.identificationData.id && (
         <IdentificationDataForm
+          isMobile={isMobile}
           initialValues={addFamilyMember.identificationData.values}
           ref={formReferences.identificationData}
           onFormValid={setIsCurrentFormValid}
@@ -102,6 +104,7 @@ function AddFamilyMemberUI(props: AddFamilyMemberUIProps) {
             currentStep,
             formReferences,
             addFamilyMember,
+            isMobile,
             setIsCurrentFormValid,
             handleStepChange
           )}

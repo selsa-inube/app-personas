@@ -15,16 +15,17 @@ const validationSchema = Yup.object().shape({
 
 interface IdentificationDataFormProps {
   initialValues: IIdentificationDataEntry;
+  loading?: boolean;
+  isMobile?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IIdentificationDataEntry) => void;
-  loading?: boolean;
 }
 
 const IdentificationDataForm = forwardRef(function IdentificationDataForm(
   props: IdentificationDataFormProps,
   ref: React.Ref<FormikProps<IIdentificationDataEntry>>
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, loading, isMobile, onFormValid, onSubmit } = props;
   const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
 
   const formik = useFormik({
@@ -53,8 +54,9 @@ const IdentificationDataForm = forwardRef(function IdentificationDataForm(
 
   return (
     <IdentificationDataFormUI
+    formik={formik}
       loading={loading}
-      formik={formik}
+      isMobile={isMobile}
       customHandleBlur={customHandleBlur}
       isRequired={isRequired}
     />
