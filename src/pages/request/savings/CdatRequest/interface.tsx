@@ -17,6 +17,7 @@ import { InvestmentForm } from "./forms/InvestmentForm";
 import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { CdatRequestSummary } from "./forms/Summary";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
+import { ConditionsForm } from "./forms/ConditionsForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -31,6 +32,12 @@ const renderStepContent = (
         <InvestmentForm
           initialValues={cdatRequest.investment.values}
           ref={formReferences.investment}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}{currentStep === cdatRequestSteps.conditions.id && (
+        <ConditionsForm
+          initialValues={cdatRequest.conditions.values}
+          ref={formReferences.conditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}

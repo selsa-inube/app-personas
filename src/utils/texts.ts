@@ -39,10 +39,19 @@ const replaceWord = (
   return sentence.replace(wordToReplace, replacementByWord);
 };
 
+const removeLastCharacters = (
+  wordOfCell: string,
+  numberCharactersRemove: number
+): number => {
+  return Number(wordOfCell.slice(0, -numberCharactersRemove));
+};
+
+
 export {
   capitalizeText,
   capitalizeFirstLetters,
   truncateAndObfuscateDescription,
   translateWord,
   replaceWord,
+  removeLastCharacters,
 };
