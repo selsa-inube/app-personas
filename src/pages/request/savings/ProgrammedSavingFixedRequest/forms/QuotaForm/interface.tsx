@@ -11,7 +11,7 @@ import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/formats";
-
+import { Stack } from "@design/layout/Stack";
 
 interface QuotaFormUIProps {
   formik: FormikValues;
@@ -37,66 +37,72 @@ function QuotaFormUI(props: QuotaFormUIProps) {
 
   const isTablet = useMediaQuery("(max-width: 750px)");
 
-   return (
+  return (
     <form>
-      <Grid gap="s300" templateColumns={isTablet ? "1fr" : "1fr 1fr"}>
-        <TextField
-          label="Valor periódico del ahorro"
-          placeholder="Ingresa el valor a ahorrar"
-          name="periodicValue"
-          id="periodicValue"
-          value={validateCurrencyField("periodicValue", formik)}
-          type="text"
-          iconAfter={<MdOutlineAttachMoney size={18} />}
-          errorMessage={formik.errors.periodicValue}
-          isDisabled={loading}
-          size="compact"
-          isFullWidth
-          state={getFieldState(formik, "periodicValue")}
-          onBlur={customHandleBlur}
-          onChange={(e)=>{handleChangeWithCurrency(formik,e)}}
-          validMessage="El valor es válido"
-          isRequired
-        />
-
-        <Select
-          label="Medio de pago"
-          name="paymentMethod"
-          id="paymentMethod"
-          value={formik.values.paymentMethod}
-          options={paymentMethodDM}
-          isDisabled={loading}
-          size="compact"
-          onChange={customHandleChange}
-          onBlur={customHandleBlur}
-          state={getFieldState(formik, "paymentMethod")}
-          errorMessage={formik.errors.paymentMethod}
-          isFullWidth
-        />
-
-        {!formik.values.paymentMethod ? (
+      <Stack direction="column" gap="s300">
+        <Grid gap="s300" templateColumns={isTablet ? "1fr" : "repeat(2, 1fr)"}>
           <TextField
-            label="Periodicidad"
-            placeholder=""
-            name="periodicity"
-            id="periodicity"
-            value={formik.values.periodicity}
+            label="Valor periódico del ahorro"
+            placeholder="Ingresa el valor a ahorrar"
+            name="periodicValue"
+            id="periodicValue"
+            value={validateCurrencyField("periodicValue", formik)}
+            type="text"
+            iconAfter={<MdOutlineAttachMoney size={18} />}
+            errorMessage={formik.errors.periodicValue}
             isDisabled={loading}
             size="compact"
             isFullWidth
-            readOnly
+            state={getFieldState(formik, "periodicValue")}
+            onBlur={customHandleBlur}
+            onChange={(e) => {
+              handleChangeWithCurrency(formik, e);
+            }}
+            validMessage="El valor es válido"
+            isRequired
           />
-        ) : (
-          generateFormFields(
-            renderFields,
-            formik,
-            customHandleBlur,
-            customHandleChange,
-            isTablet,
-            loading
-          )
-        )}
-      </Grid>
+          <Select
+            label="Medio de pago"
+            name="paymentMethod"
+            id="paymentMethod"
+            value={formik.values.paymentMethod}
+            options={paymentMethodDM}
+            isDisabled={loading}
+            size="compact"
+            onChange={customHandleChange}
+            onBlur={customHandleBlur}
+            state={getFieldState(formik, "paymentMethod")}
+            errorMessage={formik.errors.paymentMethod}
+            isFullWidth
+            isRequired
+          />
+        </Grid>
+
+        <Grid gap="s300" templateColumns={isTablet ? "1fr" : "repeat(2, 1fr)"}>
+          {!formik.values.paymentMethod ? (
+            <TextField
+              label="Periodicidad"
+              placeholder=""
+              name="periodicity"
+              id="periodicity"
+              value={formik.values.periodicity}
+              isDisabled={loading}
+              size="compact"
+              isFullWidth
+              readOnly
+            />
+          ) : (
+            generateFormFields(
+              renderFields,
+              formik,
+              customHandleBlur,
+              customHandleChange,
+              isTablet,
+              loading
+            )
+          )}
+        </Grid>
+      </Stack>
     </form>
   );
 }

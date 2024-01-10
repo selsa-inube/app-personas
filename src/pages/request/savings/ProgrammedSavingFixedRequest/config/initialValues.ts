@@ -4,11 +4,8 @@ const quota: IQuotaEntry = {
     periodicValue: "",
     paymentMethod: "",
     periodicity:"",
-    weeklyPayDay:"",
-    biweeklyPayDay:"",
-    monthlyPayDay: "",
-    semiannualPayDay: "",
-    annualPayDay: "",
+    paydayTypeToSelect:"",
+    paydayByDate: "",
 };
 
 const initalValuesProgrammedSavingFixed = {

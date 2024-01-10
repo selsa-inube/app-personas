@@ -45,29 +45,23 @@ const QuotaForm = forwardRef(function QuotaForm(
 
   useImperativeHandle(ref, () => formik);
 
+  let valuePeriodicity = formik.values.periodicity;
+
   useEffect(() => {
     if (formik.values.paymentMethod) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
-        structureQuotaForm(formik)
+        structureQuotaForm(formik, valuePeriodicity)
       );
       setDynamicForm({
         renderFields,
         validationSchema: initValidationSchema.concat(validationSchema),
       });
     }
+
   }, []);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  };
-
+  
   const customHandleChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -86,7 +80,6 @@ const QuotaForm = forwardRef(function QuotaForm(
         periodicValue: formik.values.periodicValue,
         paymentMethod: value,
       });
-
       updatedFormikValues = {
         ...initalValuesProgrammedSavingFixed.quota,
         periodicValue: formik.values.periodicValue,
@@ -96,17 +89,30 @@ const QuotaForm = forwardRef(function QuotaForm(
       formik.setFieldValue(name, value);
     }
 
+    if (name === "periodicity") {
+      valuePeriodicity = value;
+    }
+
     const { renderFields, validationSchema } = generateDynamicForm(
       {
         ...formik,
         values: updatedFormikValues,
       },
-      structureQuotaForm(formik)
+      structureQuotaForm(formik, valuePeriodicity)
     );
-
     setDynamicForm({
       renderFields,
       validationSchema: validationSchema.concat(validationSchema),
+    });
+  };
+
+  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
+    formik.handleBlur(event);
+
+    if (onSubmit) return;
+
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
     });
   };
 
@@ -117,7 +123,6 @@ const QuotaForm = forwardRef(function QuotaForm(
       customHandleBlur={customHandleBlur}
       renderFields={dynamicForm.renderFields}
       customHandleChange={customHandleChange}
-
     />
   );
 });
