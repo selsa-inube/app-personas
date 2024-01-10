@@ -1,10 +1,10 @@
 import { Table, TableProps } from "../index";
 
-import { actionsMock, breakPointsMock, titlesMock } from "./mocks";
-import { StoryFn } from "@storybook/react";
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import { parameters, props } from "../props";
+import { actionsMock, breakPointsMock, titlesMock } from "./mocks";
 
 const story = {
   title: "design/data/Table",
@@ -16,7 +16,7 @@ const story = {
 
 export const Default: StoryFn<TableProps> = (args) => <Table {...args} />;
 Default.args = {
-  id: "tableId",
+  portalId: "tableId",
   titles: titlesMock,
   actions: actionsMock,
   entries: [

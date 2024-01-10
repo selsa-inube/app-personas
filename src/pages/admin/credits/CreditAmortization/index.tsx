@@ -156,7 +156,7 @@ function CreditAmortization() {
           </Box>
           <StyledAmortizationContainer>
             <Table
-              id="modals"
+              portalId="modals"
               titles={amortizationTableTitles}
               breakpoints={amortizationTableBreakpoints}
               actions={creditAmortizationTableActions}

@@ -113,7 +113,7 @@ function CreditUI(props: CreditUIProps) {
             </Text>
             <StyledMovementsContainer>
               <Table
-                id="modals"
+                portalId="modals"
                 titles={movementsTableTitles}
                 breakpoints={movementsTableBreakpoints}
                 actions={creditMovementsTableActions}
