@@ -13,9 +13,10 @@ import { structureQuotaForm } from "./config/form";
 const initValidationSchema = Yup.object({
   periodicValue: validationRules.money.required(validationMessages.required),
   paymentMethod: Yup.string().required(validationMessages.required),
+  periodicity:Yup.string().required(validationMessages.required),
   paydayTypeToSelect:Yup.string(),
   paydayByDate: validationRules.notPastDate,
-});
+}); 
 
 interface QuotaFormProps {
   initialValues: IQuotaEntry;

@@ -5,6 +5,14 @@ const peridiocityData = {
     id: "single",
     value: "Pago único",
   },
+  WEEKLY: {
+    id: "weekly",
+    value: "Semanal",
+  },
+  BIWEEKLY: {
+    id: "biweekly",
+    value: "Quincenal",
+  },
   MONTHLY: {
     id: "monthly",
     value: "Mensual",

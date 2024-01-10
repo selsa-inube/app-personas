@@ -1,4 +1,3 @@
-
 import { IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import * as Yup from "yup";
@@ -30,13 +29,15 @@ const commonFields = {
     label: "Periodicidad",
     placeholder: "",
     size: "compact",
-    options: peridiocityDM.options,
+    options: peridiocityDM.options.filter(
+      (option) => option.id !== "single" && option.id !== "quarterly"
+    ),
     value,
     isFullWidth: true,
     gridColumn,
     validation: Yup.string().required(validationMessages.required),
   }),
-  paydayTypeToSelect: (options: any, ) => ({
+  paydayTypeToSelect: (options: any) => ({
     name: "payDayType",
     type: "select",
     label: "Día de pago",
@@ -47,23 +48,26 @@ const commonFields = {
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
   }),
-  paydayByDate: (readOnly: boolean)=>(
-    {
-      name: "paydayByDate",
-      type: "text",
-      label: "Día de pago",
-      placeholder: "",
-      size: "compact",
-      isFullWidth: true,
-      gridColumn: "span 1",
-      validMessage: "La fecha es válida",
-      validation: validationRules.notPastDate.required(validationMessages.required),
-      readOnly,
-    }
-  ),
+  paydayByDate: (readOnly: boolean) => ({
+    name: "paydayByDate",
+    type: "text",
+    label: "Día de pago",
+    placeholder: "",
+    size: "compact",
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validMessage: "La fecha es válida",
+    validation: validationRules.notPastDate.required(
+      validationMessages.required
+    ),
+    readOnly,
+  }),
 };
 
-const structureQuotaForm = (formik: FormikValues, periodicityId: string): IFormStructure => {
+const structureQuotaForm = (
+  formik: FormikValues,
+  periodicityId: string
+): IFormStructure => {
   return {
     paymentMethod: {
       physicalCollectionChannels: [
