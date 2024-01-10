@@ -34,6 +34,7 @@ function Nav(props: NavProps) {
 
   function handleLogout() {
     logout();
+    sessionStorage.clear();
   }
 
   return (
