@@ -44,6 +44,7 @@ import {
   investmentAttributeBreakpoints,
   savingAttributeBreakpoints,
 } from "./config/products";
+import { SkeletonLine } from "@inube/design-system";
 import { cardProducts } from "./mocks";
 
 function renderHomeContent(
@@ -51,6 +52,7 @@ function renderHomeContent(
   savingsAccountsMock: IProduct[],
   savingsStatutoryContributionsMock: IProduct[],
   credits: IProduct[],
+  loading: boolean,
   cdats?: IProduct[],
   programmedSavings?: IProduct[]
 ) {
@@ -202,26 +204,33 @@ function renderHomeContent(
             )}
           </Stack>
         </Box>
+
         <Box {...creditsBox}>
           <Stack direction="column" gap="s100">
-            {credits.length === 0 ? (
-              <Product empty={true} icon={<MdOutlineAttachMoney />} />
+            {loading ? (
+              <SkeletonLine animated/>
             ) : (
-              credits.map((credit) => (
-                <Product
-                  id={credit.id}
-                  key={credit.id}
-                  title={credit.title}
-                  description={credit.id}
-                  attributes={formatCreditCurrencyAttrs(
-                    extractCreditAttributes(credit)
-                  )}
-                  breakpoints={creditAttributeBreakpoints}
-                  tags={credit.tags}
-                  icon={<MdOutlineAttachMoney />}
-                  navigateTo={`/my-credits/${credit.id}`}
-                />
-              ))
+              <>
+                {credits.length === 0 ? (
+                  <Product empty={true} icon={<MdOutlineAttachMoney />} />
+                ) : (
+                  credits.map((credit) => (
+                    <Product
+                      id={credit.id}
+                      key={credit.id}
+                      title={credit.title}
+                      description={credit.id}
+                      attributes={formatCreditCurrencyAttrs(
+                        extractCreditAttributes(credit)
+                      )}
+                      breakpoints={creditAttributeBreakpoints}
+                      tags={credit.tags}
+                      icon={<MdOutlineAttachMoney />}
+                      navigateTo={`/my-credits/${credit.id}`}
+                    />
+                  ))
+                )}
+              </>
             )}
           </Stack>
         </Box>
@@ -256,6 +265,7 @@ interface HomeUIProps {
   savingsAccountsMock: IProduct[];
   savingsStatutoryContributionsMock: IProduct[];
   credits: IProduct[];
+  loading: boolean;
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
 }
@@ -268,6 +278,7 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
     credits,
+    loading,
   } = props;
 
   const { user } = useAuth();
@@ -308,6 +319,7 @@ function HomeUI(props: HomeUIProps) {
             savingsAccountsMock,
             savingsStatutoryContributionsMock,
             credits,
+            loading,
             cdats,
             programmedSavings
           )}
@@ -323,6 +335,7 @@ function HomeUI(props: HomeUIProps) {
             savingsAccountsMock,
             savingsStatutoryContributionsMock,
             credits,
+            loading,
             cdats,
             programmedSavings
           )}
