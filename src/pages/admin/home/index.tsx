@@ -1,5 +1,5 @@
 import { useAuth } from "@inube/auth";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
 import { getCreditsForUser } from "src/services/iclient/credits";
 import { HomeUI } from "./interface";
@@ -13,6 +13,7 @@ import {
 function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
   const { user, accessToken } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   const cdats = user && getInvestmentsProducts(user.identification, "CD");
   const programmedSavings =
@@ -26,6 +27,9 @@ function Home() {
         })
         .catch((error) => {
           console.info(error.message);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   }, [user, accessToken]);
@@ -38,6 +42,7 @@ function Home() {
       cdats={cdats}
       programmedSavings={programmedSavings}
       credits={credits}
+      loading={loading}
     />
   );
 }
