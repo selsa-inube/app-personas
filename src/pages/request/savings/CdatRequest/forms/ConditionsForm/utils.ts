@@ -41,7 +41,7 @@ const effectiveAnnualRateRequest = (
     deadlineDays
   );
   return EffectiveAnnualRate
-    ? removeLastCharacters(EffectiveAnnualRate.AnnualEffectiveRate, 1)
+    ? removeLastCharacters(EffectiveAnnualRate.annualEffectiveRate, 1)
     : 0;
 };
 

@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { validationRules } from "src/validations/validationRules";
@@ -20,13 +20,13 @@ const validationSchema = Yup.object({
   deadlineDays: Yup.number()
     .min(
       minDeadlineDays(investmentsRatesMocks),
-      `El plazo minimo en días debe ser de:  ${minDeadlineDays(
+      `El plazo minimo en días debe ser mayor o igual a:  ${minDeadlineDays(
         investmentsRatesMocks
       )} días`
     )
     .max(
       maxDeadlineDays(investmentsRatesMocks),
-      `El plazo máximo en días debe ser de:  ${maxDeadlineDays(
+      `El plazo máximo en días debe ser menor o igual a:  ${maxDeadlineDays(
         investmentsRatesMocks
       )} días`
     ),
@@ -55,15 +55,11 @@ const ConditionsForm = forwardRef(function ConditionsForm(
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, []);
 
   const simulateCDAT = () => {
     setLoadingSimulation(true);
@@ -123,6 +119,16 @@ const ConditionsForm = forwardRef(function ConditionsForm(
 
     formik.setFieldValue("hasResult", false);
     onFormValid(false);
+  };
+
+  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
+    formik.handleBlur(event);
+
+    if (onSubmit) return;
+
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
   };
 
   return (

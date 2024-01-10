@@ -67,7 +67,7 @@ interface IRate {
   deadlineInitialDay: number;
   deadlineEndDay: number;
   investmentSquare: string;
-  AnnualEffectiveRate: string;
+  annualEffectiveRate: string;
 }
 
 export type {
