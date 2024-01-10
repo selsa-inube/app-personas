@@ -11,44 +11,72 @@ const getCreditsForUser = async (
   userIdentification: string,
   accessToken: string
 ): Promise<IProduct[]> => {
-  try {
-    const queryParams = new URLSearchParams({
-      customerPublicCode: userIdentification,
-    });
+  const maxRetries = 5;
+  const fetchTimeout = 3000;
 
-    const options = {
-      method: "GET",
-      headers: {
-        Realm: enviroment.REALM,
-        Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchAllPortfolioObligation",
-        "X-Business-Unit": TEMP_BUSINESS_UNIT,
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    };
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const savedCredits = sessionStorage.getItem("credits");
+      if (savedCredits) {
+        const parsedCredits: IProduct[] = JSON.parse(savedCredits);
+        return parsedCredits;
+      }
 
-    const res = await fetch(
-      `${
-        enviroment.ICLIENT_API_URL_QUERY
-      }/portfolio-obligations?${queryParams.toString()}`,
-      options
-    );
+      const queryParams = new URLSearchParams({
+        customerPublicCode: userIdentification,
+      });
 
-    const data = await res.json();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
 
-    if (!res.ok) {
-      throw {
-        message: "Error al obtener los créditos del usuario",
-        status: res.status,
-        data,
+      const options: RequestInit = {
+        method: "GET",
+        headers: {
+          Realm: enviroment.REALM,
+          Authorization: `Bearer ${accessToken}`,
+          "X-Action": "SearchAllPortfolioObligation",
+          "X-Business-Unit": TEMP_BUSINESS_UNIT,
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        signal: controller.signal,
       };
-    }
 
-    return Array.isArray(data) ? mapCreditsApiToEntities(data) : [];
-  } catch (error: any) {
-    console.error(error.message, error);
-    throw new Error(error.message);
+      const res = await fetch(
+        `${
+          enviroment.ICLIENT_API_URL_QUERY
+        }/portfolio-obligations?${queryParams.toString()}`,
+        options
+      );
+
+      clearTimeout(timeoutId);
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw {
+          message: "Error al obtener los créditos del usuario",
+          status: res.status,
+          data,
+        };
+      }
+
+      const normalizedCredits = Array.isArray(data)
+        ? mapCreditsApiToEntities(data)
+        : [];
+
+      sessionStorage.setItem("credits", JSON.stringify(normalizedCredits));
+
+      return normalizedCredits;
+    } catch (error) {
+      if (attempt === maxRetries) {
+        throw new Error(
+          "Todos los intentos fallaron. No se pudieron obtener los créditos del usuario."
+        );
+      }
+    }
   }
+
+  return [];
 };
 
 const getMovementsForCredit = async (

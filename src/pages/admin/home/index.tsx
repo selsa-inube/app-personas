@@ -26,7 +26,7 @@ function Home() {
           setCredits(credits);
         })
         .catch((error) => {
-          console.error(error);
+          console.info(error.message);
         })
         .finally(() => {
           setLoading(false);
