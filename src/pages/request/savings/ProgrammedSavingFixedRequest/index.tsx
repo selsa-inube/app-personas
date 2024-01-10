@@ -1,3 +1,6 @@
+import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
+import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
+import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import {
@@ -5,12 +8,12 @@ import {
   programmedSavingFixedStepsRules,
 } from "./config/assisted";
 import { initalValuesProgrammedSavingFixed } from "./config/initialValues";
+import { IGoalEntry } from "./forms/GoalForm/types";
+import { ProgrammedSavingFixedRequestUI } from "./interface";
 import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { ProgrammedSavingFixedRequestUI } from "./interface";
-import { IGoalEntry } from "./forms/GoalForm/types";
 
 function ProgrammedSavingFixedRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -26,12 +29,18 @@ function ProgrammedSavingFixedRequest() {
         isValid: false,
         values: initalValuesProgrammedSavingFixed.goal,
       },
+      contactChannels: {
+        isValid: false,
+        values: mapContactChannels(usersMock[0].contact[0]),
+      },
     });
 
   const goalRef = useRef<FormikProps<IGoalEntry>>(null);
+  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
     goal: goalRef,
+    contactChannels: contactChannelsRef,
   };
 
   const handleStepChange = (stepId: number) => {
