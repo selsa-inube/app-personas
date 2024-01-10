@@ -1,4 +1,5 @@
 import { FormikProps } from "formik";
+import { IQuotaEntry } from "./forms/QuotaForm/types";
 import { IGoalEntry } from "./forms/GoalForm/types";
 import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 

@@ -19,6 +19,7 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { ContactChannelsForm } from "@forms/ContactChannelsForm";
+import { QuotaForm } from "./forms/QuotaForm";
 
 const renderStepContent = (
   currentStep: number,

@@ -3,6 +3,7 @@ import { Stack } from "@design/layout/Stack";
 import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { activeDM } from "src/model/domains/general/activedm";
 import { IFormsProgrammedSavingFixedRequest } from "../../../types";
+import { currencyFormat } from "src/utils/currency";
 import { IGoalEntry } from "../../GoalForm/types";
 import { IQuotaEntry } from "../../QuotaForm/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
@@ -70,6 +71,9 @@ function SummaryBoxes(props: SummaryBoxesProps) {
   const { programmedSavingFixedRequest, stepKey, isTablet } = props;
   return (
     <>
+    {stepKey === "quota" &&
+        renderQuotaSummary(programmedSavingFixedRequest.quota.values, isTablet)}
+        
       {stepKey === "goal" &&
         renderGoalSummary(programmedSavingFixedRequest.goal.values, isTablet)}
 
