@@ -4,13 +4,13 @@ import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { generateFormFields, getFieldState } from "src/utils/forms";
+import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 import { IFormField } from "@ptypes/forms.types";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import {
   handleChangeWithCurrency,
   validateCurrencyField,
-} from "src/utils/formats";
+} from "src/utils/currency";
 import { Stack } from "@design/layout/Stack";
 
 interface QuotaFormUIProps {

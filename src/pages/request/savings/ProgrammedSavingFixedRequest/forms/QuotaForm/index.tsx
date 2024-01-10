@@ -7,7 +7,7 @@ import { QuotaFormUI } from "./interface";
 import { IQuotaEntry } from "./types";
 import { IFormField } from "@ptypes/forms.types";
 import { initalValuesProgrammedSavingFixed } from "../../config/initialValues";
-import { generateDynamicForm } from "src/utils/forms";
+import { generateDynamicForm } from "src/utils/forms/forms";
 import { structureQuotaForm } from "./config/form";
 
 const initValidationSchema = Yup.object({
@@ -61,8 +61,7 @@ const QuotaForm = forwardRef(function QuotaForm(
 
   }, []);
 
-  
-  const customHandleChange = (
+    const customHandleChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >

@@ -15,6 +15,7 @@ import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
 import { GoalForm } from "./forms/GoalForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
 import { IFormsProgrammedSavingFixedRequest, IFormsProgrammedSavingFixedRequestRefs } from "./types";
+import { QuotaForm } from "./forms/QuotaForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -24,7 +25,12 @@ const renderStepContent = (
   handleStepChange: (stepId: number) => void
 ) => {
   return (
-    <>
+    <>{currentStep === programmedSavingFixedRequestSteps.quota.id && (
+      <QuotaForm
+        initialValues={programmedSavingFixedRequest.quota.values}
+        ref={formReferences.quota}
+        onFormValid={setIsCurrentFormValid}
+      />)}
       {currentStep === programmedSavingFixedRequestSteps.goal.id && (
         <GoalForm
           initialValues={programmedSavingFixedRequest.goal.values}

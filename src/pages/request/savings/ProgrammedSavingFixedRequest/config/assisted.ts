@@ -4,13 +4,18 @@ import {
 } from "../types";
 
 const programmedSavingFixedRequestSteps = {
-  goal: {
+  quota: {
     id: 1,
+    name: "Cuota",
+    description: "¿Cuál es la cantidad que deseas ahorrar?",
+  },
+  goal: {
+    id: 2,
     name: "Meta",
     description: "Fecha en al que recibirás devuelta tu dinero.",
   },
   summary: {
-    id: 2,
+    id: 3,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },

@@ -10,11 +10,12 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { ProgrammedSavingFixedRequestUI } from "./interface";
+import { IQuotaEntry } from "./forms/QuotaForm/types";
 import { IGoalEntry } from "./forms/GoalForm/types";
 
 function ProgrammedSavingFixedRequest() {
   const [currentStep, setCurrentStep] = useState(
-    programmedSavingFixedRequestSteps.goal.id
+    programmedSavingFixedRequestSteps.quota.id,
   );
   const steps = Object.values(programmedSavingFixedRequestSteps);
 
@@ -22,15 +23,21 @@ function ProgrammedSavingFixedRequest() {
 
   const [programmedSavingFixedRequest, setProgrammedSavingFixedRequest] =
     useState<IFormsProgrammedSavingFixedRequest>({
+      quota: {
+        isValid: false,
+        values: initalValuesProgrammedSavingFixed.quota,
+      },
       goal: {
         isValid: false,
         values: initalValuesProgrammedSavingFixed.goal,
       },
     });
 
+  const quotaRef = useRef<FormikProps<IQuotaEntry>>(null);
   const goalRef = useRef<FormikProps<IGoalEntry>>(null);
 
   const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
+    quota: quotaRef,
     goal: goalRef,
   };
 
