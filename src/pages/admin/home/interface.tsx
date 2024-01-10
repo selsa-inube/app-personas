@@ -1,5 +1,5 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
+import { capitalizeFirstLetters } from "src/utils/texts";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -295,8 +295,10 @@ function HomeUI(props: HomeUIProps) {
           </Text>
         </Stack>
         <Title
-          title={`Bienvenido(a), ${user?.firstName}`}
-          subtitle="Aquí tienes un resumen de tus productos "
+          title={`Bienvenido(a), ${
+            user && capitalizeFirstLetters(user?.firstName)
+          }`}
+          subtitle="Aquí tienes un resumen de tus productos"
         />
       </Stack>
       {!isDesktop ? (
