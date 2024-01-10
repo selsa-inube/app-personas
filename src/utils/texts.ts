@@ -17,14 +17,11 @@ const capitalizeText = (text: string) => {
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
-function capitalizeFirstLetters(text: string) {
-  var words = text.split(" ");
-  var capitalizedWords = words.map(function (word) {
-    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-  });
-  var result = capitalizedWords.join(" ");
-  return result;
-}
+const capitalizeFirstLetters = (text: string) =>
+  text
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
 
 const translateWord = (word: string) => {
   const normalizedword = capitalizeText(word.toLowerCase());
