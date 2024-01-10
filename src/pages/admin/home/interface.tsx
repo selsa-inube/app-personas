@@ -1,5 +1,5 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
+import { capitalizeFirstLetters } from "src/utils/texts";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -18,6 +18,7 @@ import { SectionMessage } from "@design/feedback/SectionMessage";
 import { useAuth } from "@inube/auth";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { IMessage } from "@ptypes/messages.types";
+import { useEffect, useState } from "react";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
@@ -257,8 +258,6 @@ interface HomeUIProps {
   credits: IProduct[];
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
-  message: IMessage;
-  onCloseMessage: () => void;
 }
 
 function HomeUI(props: HomeUIProps) {
@@ -269,13 +268,20 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
     credits,
-    message,
-    onCloseMessage,
   } = props;
 
   const { user } = useAuth();
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
+
+  useEffect(() => {
+    const currentTimeInterval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(currentTimeInterval);
+  }, []);
 
   return (
     <>
@@ -285,12 +291,14 @@ function HomeUI(props: HomeUIProps) {
             Fecha y hora:
           </Text>
           <Text type="body" size="small" appearance="gray">
-            {formatTraceabilityDate(new Date())}
+            {formatTraceabilityDate(currentTime)}
           </Text>
         </Stack>
         <Title
-          title={`Bienvenido(a), ${user?.firstName}`}
-          subtitle="Aquí tienes un resumen de tus productos "
+          title={`Bienvenido(a), ${
+            user && capitalizeFirstLetters(user?.firstName)
+          }`}
+          subtitle="Aquí tienes un resumen de tus productos"
         />
       </Stack>
       {!isDesktop ? (
@@ -320,17 +328,6 @@ function HomeUI(props: HomeUIProps) {
           )}
           <QuickAccess links={quickLinks} />
         </Grid>
-      )}
-
-      {message.show && (
-        <SectionMessage
-          appearance={message.appearance}
-          title={message.title}
-          description={message.description}
-          icon={message.icon}
-          duration={3000}
-          onClose={onCloseMessage}
-        />
       )}
     </>
   );

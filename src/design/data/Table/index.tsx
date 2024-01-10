@@ -6,7 +6,7 @@ import { StyledTableContainer } from "./styles";
 import { IAction, IBreakpoint, IEntry, ITitle } from "./types";
 
 interface TableProps {
-  id: string;
+  portalId?: string;
   titles: ITitle[];
   actions?: IAction[];
   entries: IEntry[];
@@ -23,7 +23,7 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   const {
-    id,
+    portalId,
     titles,
     actions,
     entries,
@@ -94,9 +94,9 @@ const Table = (props: TableProps) => {
   const withActions = !!actions;
 
   return (
-    <StyledTableContainer id={id}>
+    <StyledTableContainer>
       <TableUI
-        portalId={id}
+        portalId={portalId}
         titles={titles}
         actions={actions}
         entries={getPageEntries()}

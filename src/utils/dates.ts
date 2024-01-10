@@ -38,4 +38,28 @@ const formatTraceabilityDate = (date: Date) => {
   )} de ${year} ${time} ${ampm}`;
 };
 
-export { formatPrimaryDate, formatTraceabilityDate };
+// Parse date string in format dd/mm/yyyy to Date object
+const parseSpanishDate = (spanishDate: string) => {
+  const spanishMonths: { [key: string]: string } = {
+    Ene: "Jan",
+    Feb: "Feb",
+    Mar: "Mar",
+    Abr: "Apr",
+    May: "May",
+    Jun: "Jun",
+    Jul: "Jul",
+    Ago: "Aug",
+    Sep: "Sep",
+    Oct: "Oct",
+    Nov: "Nov",
+    Dic: "Dec",
+  };
+
+  const [day, month, year] = spanishDate.split("/");
+
+  const englishMonth = spanishMonths[month];
+
+  return new Date(`${day}/${englishMonth}/${year}`);
+};
+
+export { formatPrimaryDate, formatTraceabilityDate, parseSpanishDate };

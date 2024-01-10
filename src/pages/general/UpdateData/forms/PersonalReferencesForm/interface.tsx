@@ -44,7 +44,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           Adicionar referencia
         </Button>
         <Table
-          id="modals"
+          portalId="modals"
           titles={personalReferencesTableTitles}
           breakpoints={personalReferencesTableBreakpoints}
           actions={personalReferencesTableActions}

@@ -14,7 +14,7 @@
     "auto": "auto"
   },
   "dependencies": {
-    "@inube/auth": "^1.0.11",
+    "@inube/auth": "^1.0.13",
     "formik": "^2.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

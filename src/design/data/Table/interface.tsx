@@ -67,10 +67,10 @@ function renderActionsTitles(
 }
 
 function renderActions(
-  portalId: string,
   actions: IAction[],
   entry: IEntry,
   mediaQuery: boolean,
+  portalId?: string,
   modalTitle?: string,
   titleLabels?: ITitle[],
   infoTitle?: string,
@@ -82,15 +82,15 @@ function renderActions(
       ? actions.filter((action) => action.mobilePriority)
       : actions;
 
-  return mediaQuery && !hideMobileResume ? (
+  return mediaQuery && portalId && !hideMobileResume ? (
     <StyledTd>
       <DisplayEntry
         portalId={portalId}
         entry={entry}
-        title={modalTitle ||""}
+        title={modalTitle || ""}
         actions={actions}
         titleLabels={titleLabels || []}
-        infoTitle={infoTitle ||""}
+        infoTitle={infoTitle || ""}
         actionsTitle={actionsTitle}
       />
     </StyledTd>
@@ -104,7 +104,7 @@ function renderActions(
 }
 
 interface TableUIProps {
-  portalId: string;
+  portalId?: string;
   titles: ITitle[];
   actions?: IAction[];
   entries: IEntry[];
@@ -136,16 +136,18 @@ const TableUI = (props: TableUIProps) => {
 
   const isTablet = useMediaQuery("(max-width: 850px)");
 
-  const queriesArray = breakpoints && useMemo(
-    () => breakpoints.map((breakpoint) => breakpoint.breakpoint),
-    [breakpoints]
-  );
+  const queriesArray =
+    breakpoints &&
+    useMemo(
+      () => breakpoints.map((breakpoint) => breakpoint.breakpoint),
+      [breakpoints]
+    );
   const media = useMediaQueries(queriesArray || []);
 
   const titleColumns = useMemo(
-        () => totalTitleColumns(titles, breakpoints, media),
-        [titles, breakpoints, media]
-      )
+    () => totalTitleColumns(titles, breakpoints, media),
+    [titles, breakpoints, media]
+  );
 
   return (
     <StyledTable colsSameWidth={colsSameWidth}>
@@ -190,10 +192,10 @@ const TableUI = (props: TableUIProps) => {
               ))}
               {actions &&
                 renderActions(
-                  portalId,
                   actions,
                   entry,
                   isTablet,
+                  portalId,
                   modalTitle,
                   titles,
                   infoTitle,

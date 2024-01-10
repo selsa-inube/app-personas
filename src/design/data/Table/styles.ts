@@ -67,9 +67,9 @@ const StyledThTitle = styled.th<IStyledThTitle>`
   min-width: ${({ countColumns, colsSameWidth }) =>
     colsSameWidth ? `${100 / countColumns}%` : "auto"};
 
-    p {
-      text-align: ${({ withActions }) =>
-      withActions ?  "left" : "center" };
+  p {
+    text-align: ${({ withActions }) => (withActions ? "left" : "center")};
+  }
 `;
 
 
@@ -91,8 +91,8 @@ const StyledTd = styled.td<IStyledTd>`
   max-width: 310px;
 
   p {
-    text-align: ${({ withActions }) =>
-    withActions ? "left" : "center" };
+    text-align: ${({ withActions }) => (withActions ? "left" : "center")};
+  }
 `;
 
 export {

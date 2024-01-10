@@ -76,6 +76,7 @@ export type {
   ICommitment,
   IMovement,
   IProduct,
+  IRate,
   ProductType,
   IRate,
 };

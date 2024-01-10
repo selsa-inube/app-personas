@@ -9,14 +9,15 @@ import { ISelectedProductState } from "./types";
 const validateCreditsAndMovements = async (
   credits: IProduct[],
   creditId: string,
-  userIdentification: string
+  userIdentification: string,
+  accessToken: string
 ) => {
-  const allMovements = await getMovementsForCredit(creditId);
+  const allMovements = await getMovementsForCredit(creditId, accessToken);
 
   let currentCredits = [...credits];
 
   if (credits.length === 0) {
-    currentCredits = await getCreditsForUser(userIdentification);
+    currentCredits = await getCreditsForUser(userIdentification, accessToken);
   }
 
   const newCredits = currentCredits.map((credit) => {
