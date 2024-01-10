@@ -4,10 +4,10 @@ import {
 } from "../types";
 
 const programmedSavingFixedRequestSteps = {
-  quota: {
+  goal: {
     id: 1,
-    name: "Cuota",
-    description: "¿Cuál es la cantidad que deseas ahorrar?",
+    name: "Meta",
+    description: "Fecha en al que recibirás devuelta tu dinero.",
   },
   summary: {
     id: 2,
@@ -20,7 +20,7 @@ const programmedSavingFixedStepsRules = (
   currentStep: number,
   currentprogrammedSavingFixedRequest: IFormsProgrammedSavingFixedRequest,
   formReferences: IFormsProgrammedSavingFixedRequestRefs,
-  isCurrentFormValid: boolean,
+  isCurrentFormValid: boolean
 ) => {
   let newprogrammedSavingFixedRequest = {
     ...currentprogrammedSavingFixedRequest,
@@ -41,4 +41,5 @@ const programmedSavingFixedStepsRules = (
     [stepKey]: { isValid: isCurrentFormValid, values },
   });
 };
+
 export { programmedSavingFixedRequestSteps, programmedSavingFixedStepsRules };

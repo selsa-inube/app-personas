@@ -24,6 +24,9 @@ import { MySavingsRoutes } from "./routes/mySavings";
 import { SavingRoutes } from "./routes/saving";
 
 import { useAuth } from "@inube/auth";
+import { CreditsProvider } from "./context/credits";
+
+const TEMP_BUSINESS_UNIT = "test";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,10 +64,13 @@ function App() {
     <>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <RouterProvider router={router} />
+        <CreditsProvider>
+          <RouterProvider router={router} />
+        </CreditsProvider>
       </ThemeProvider>
     </>
   );
 }
 
+export { TEMP_BUSINESS_UNIT };
 export default App;

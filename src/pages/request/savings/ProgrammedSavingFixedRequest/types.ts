@@ -1,15 +1,15 @@
 import { FormikProps } from "formik";
-import { IQuotaEntry } from "./forms/QuotaForm/types";
-
+import { IGoalEntry } from "./forms/GoalForm/types";
 
 interface IFormsProgrammedSavingFixedRequest {
-  quota: { isValid: boolean; values: IQuotaEntry };
-  
+  goal: { isValid: boolean; values: IGoalEntry };
 }
 
 interface IFormsProgrammedSavingFixedRequestRefs {
-    quota: React.RefObject<FormikProps<IQuotaEntry>>;
-  
+  goal: React.RefObject<FormikProps<IGoalEntry>>;
 }
 
-export type { IFormsProgrammedSavingFixedRequest,  IFormsProgrammedSavingFixedRequestRefs };
+export type {
+  IFormsProgrammedSavingFixedRequest,
+  IFormsProgrammedSavingFixedRequestRefs,
+};

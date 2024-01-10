@@ -71,7 +71,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
           />
           <StyledMovementsContainer>
             <Table
-              id="modals"
+              portalId="modals"
               titles={savingsAccountMovementsTableTitles}
               breakpoints={savingsAccountMovementsTableBreakpoints}
               actions={savingsAccountMovementsTableActions}

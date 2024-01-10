@@ -12,7 +12,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
-import { QuotaForm } from "./forms/QuotaForm";
+import { GoalForm } from "./forms/GoalForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
 import { IFormsProgrammedSavingFixedRequest, IFormsProgrammedSavingFixedRequestRefs } from "./types";
 
@@ -25,10 +25,10 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === programmedSavingFixedRequestSteps.quota.id && (
-        <QuotaForm
-          initialValues={programmedSavingFixedRequest.quota.values}
-          ref={formReferences.quota}
+      {currentStep === programmedSavingFixedRequestSteps.goal.id && (
+        <GoalForm
+          initialValues={programmedSavingFixedRequest.goal.values}
+          ref={formReferences.goal}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -79,7 +79,7 @@ function ProgrammedSavingFixedRequestUI(props: ProgrammedSavingFixedRequestUIPro
         <Breadcrumbs crumbs={crumbsProgrammedSavingFixedRequest} />
         <Title
           title="Ahorro programado"
-          subtitle="Simula tu solicitud de ahorro"
+          subtitle="Simula tu solicitud de ahorro programado."
           icon={<MdArrowBack />}
           navigatePage="/savings"
         />

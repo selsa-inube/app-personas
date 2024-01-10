@@ -11,7 +11,7 @@ import { FormikValues } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { currencyFormat, parseCurrencyString } from "src/utils/formats";
+import { currencyFormat, parseCurrencyString } from "src/utils/currency";
 import { StyledDivider, StyledModal } from "./styles";
 
 const assetTypeDM = getDomainById("assetType");
