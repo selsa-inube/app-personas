@@ -211,7 +211,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
             {`  ${currencyFormat(formik.values.valueInvestment)}`}
           </Text>
           <Table
-            id="modals"
+            portalId="modals"
             titles={currentIntRateTableTitles}
             entries={investmentsRatesMocks}
             hideMobileResume

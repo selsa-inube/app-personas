@@ -5,7 +5,7 @@ const currentIntRateTableTitles = [
     priority: 0,
   },
   {
-    id: "AnnualEffectiveRate",
+    id: "annualEffectiveRate",
     titleName: "Tasa efectiva anual",
     priority: 1,
   },

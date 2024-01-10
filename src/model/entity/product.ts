@@ -78,5 +78,4 @@ export type {
   IProduct,
   IRate,
   ProductType,
-  IRate,
 };
