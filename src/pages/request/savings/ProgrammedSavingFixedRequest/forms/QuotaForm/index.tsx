@@ -12,6 +12,9 @@ import { structureQuotaForm } from "./config/form";
 
 const initValidationSchema = Yup.object({
   periodicValue: validationRules.money.required(validationMessages.required),
+  paymentMethod: Yup.string().required(validationMessages.required),
+  paydayTypeToSelect:Yup.string(),
+  paydayByDate: validationRules.notPastDate,
 });
 
 interface QuotaFormProps {
@@ -53,9 +56,19 @@ const QuotaForm = forwardRef(function QuotaForm(
         formik,
         structureQuotaForm(formik, valuePeriodicity)
       );
+
+      const newValidationSchema = initValidationSchema.concat(
+        Yup.object({
+          periodicValue: validationRules.money.required(validationMessages.required),
+          paymentMethod: Yup.string().required(validationMessages.required),
+          periodicity:Yup.string().required(validationMessages.required),
+          paydayTypeToSelect:Yup.string(),
+          paydayByDate: validationRules.notPastDate,
+        }))
+
       setDynamicForm({
         renderFields,
-        validationSchema: initValidationSchema.concat(validationSchema),
+        validationSchema: validationSchema.concat(newValidationSchema),
       });
     }
 
@@ -99,9 +112,18 @@ const QuotaForm = forwardRef(function QuotaForm(
       },
       structureQuotaForm(formik, valuePeriodicity)
     );
+    const newValidationSchema = initValidationSchema.concat(
+      Yup.object({
+        periodicValue: validationRules.money.required(validationMessages.required),
+        paymentMethod: Yup.string().required(validationMessages.required),
+        periodicity:Yup.string().required(validationMessages.required),
+        paydayTypeToSelect:Yup.string(),
+        paydayByDate: validationRules.notPastDate,
+      }))
+
     setDynamicForm({
       renderFields,
-      validationSchema: validationSchema.concat(validationSchema),
+      validationSchema: validationSchema.concat(newValidationSchema),
     });
   };
 
