@@ -14,8 +14,11 @@ import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
 import { GoalForm } from "./forms/GoalForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
-import { IFormsProgrammedSavingFixedRequest, IFormsProgrammedSavingFixedRequestRefs } from "./types";
-import { QuotaForm } from "./forms/QuotaForm";
+import {
+  IFormsProgrammedSavingFixedRequest,
+  IFormsProgrammedSavingFixedRequestRefs,
+} from "./types";
+import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -35,6 +38,13 @@ const renderStepContent = (
         <GoalForm
           initialValues={programmedSavingFixedRequest.goal.values}
           ref={formReferences.goal}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.contactChannels.id && (
+        <ContactChannelsForm
+          initialValues={programmedSavingFixedRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -61,7 +71,9 @@ interface ProgrammedSavingFixedRequestUIProps {
   handlePreviousStep: () => void;
 }
 
-function ProgrammedSavingFixedRequestUI(props: ProgrammedSavingFixedRequestUIProps) {
+function ProgrammedSavingFixedRequestUI(
+  props: ProgrammedSavingFixedRequestUIProps
+) {
   const {
     currentStep,
     steps,
