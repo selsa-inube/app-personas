@@ -42,7 +42,7 @@ const validationRules = {
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 
-    notPastDate: Yup.string()
+  notPastDate: Yup.string()
     .matches(regex.date, validationMessages.date)
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11))
@@ -74,8 +74,7 @@ const validationRules = {
       const today = new Date();
 
       return date >= today;
-    }
-  ),
+    }),
 
   money: Yup.number()
     .min(1, validationMessages.minCurrencyNumbers(1))

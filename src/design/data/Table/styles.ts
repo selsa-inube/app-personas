@@ -72,6 +72,8 @@ const StyledThTitle = styled.th<IStyledThTitle>`
   }
 `;
 
+
+
 const StyledThAction = styled.th`
   background-color: ${({ theme }) =>
     theme.color?.surface?.dark?.clear || inube.color.surface.dark.clear};
