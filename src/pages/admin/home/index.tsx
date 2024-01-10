@@ -1,10 +1,7 @@
 import { useAuth } from "@inube/auth";
-import { IMessage } from "@ptypes/messages.types";
-import { useContext, useEffect, useState } from "react";
-import { MdSentimentNeutral } from "react-icons/md";
+import { useContext, useEffect } from "react";
 import { CreditsContext } from "src/context/credits";
 import { getCreditsForUser } from "src/services/iclient/credits";
-import { initialMessageState } from "src/utils/messages";
 import { HomeUI } from "./interface";
 import {
   getInvestmentsProducts,
@@ -16,7 +13,6 @@ import {
 function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
   const { user, accessToken } = useAuth();
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
 
   const cdats = user && getInvestmentsProducts(user.identification, "CD");
   const programmedSavings =
@@ -29,20 +25,10 @@ function Home() {
           setCredits(credits);
         })
         .catch((error) => {
-          setMessage({
-            show: true,
-            title: "¡Uy, algo salió mal!",
-            description: "Tuvimos un problema al obtener los créditos.",
-            icon: <MdSentimentNeutral size={18} />,
-            appearance: "error",
-          });
+          console.error(error);
         });
     }
   }, [user, accessToken]);
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
-  };
 
   return (
     <HomeUI
@@ -52,8 +38,6 @@ function Home() {
       cdats={cdats}
       programmedSavings={programmedSavings}
       credits={credits}
-      message={message}
-      onCloseMessage={handleCloseMessage}
     />
   );
 }

@@ -6,6 +6,7 @@ import { Grid } from "../Grid";
 import { StyledPage, StyledMain } from "./styles";
 import { IHeader, INav } from "./types";
 import { useAuth } from "@inube/auth";
+import { capitalizeFirstLetters } from "src/utils/texts";
 
 interface PageProps {
   header: IHeader;
@@ -23,7 +24,9 @@ function Page(props: PageProps) {
     <StyledPage>
       <Header
         logoURL={header.logoURL}
-        username={`${user?.firstName} ${user?.firstLastName}`}
+        username={capitalizeFirstLetters(
+          `${user?.firstName} ${user?.firstLastName}`
+        )}
         client={header.client}
         links={header.links}
         portalId={header.portalId}

@@ -1,5 +1,5 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
+import { capitalizeFirstLetters } from "src/utils/texts";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -258,8 +258,6 @@ interface HomeUIProps {
   credits: IProduct[];
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
-  message: IMessage;
-  onCloseMessage: () => void;
 }
 
 function HomeUI(props: HomeUIProps) {
@@ -270,8 +268,6 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
     credits,
-    message,
-    onCloseMessage,
   } = props;
 
   const { user } = useAuth();
@@ -299,8 +295,10 @@ function HomeUI(props: HomeUIProps) {
           </Text>
         </Stack>
         <Title
-          title={`Bienvenido(a), ${user?.firstName}`}
-          subtitle="Aquí tienes un resumen de tus productos "
+          title={`Bienvenido(a), ${
+            user && capitalizeFirstLetters(user?.firstName)
+          }`}
+          subtitle="Aquí tienes un resumen de tus productos"
         />
       </Stack>
       {!isDesktop ? (
@@ -330,17 +328,6 @@ function HomeUI(props: HomeUIProps) {
           )}
           <QuickAccess links={quickLinks} />
         </Grid>
-      )}
-
-      {message.show && (
-        <SectionMessage
-          appearance={message.appearance}
-          title={message.title}
-          description={message.description}
-          icon={message.icon}
-          duration={3000}
-          onClose={onCloseMessage}
-        />
       )}
     </>
   );
