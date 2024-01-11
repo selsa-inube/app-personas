@@ -1,11 +1,12 @@
+import { IPlanNameEntry } from "../forms/PlanNameForm/types";
 import { IGoalEntry } from "../forms/GoalForm/types";
 import { IQuotaEntry } from "../forms/QuotaForm/types";
 
 const quota: IQuotaEntry = {
   periodicValue: "",
   paymentMethod: "",
-  periodicity:"",
-  paydayTypeToSelect:"",
+  periodicity: "",
+  paydayTypeToSelect: "",
   paydayByDate: "",
 };
 
@@ -15,9 +16,14 @@ const goal: IGoalEntry = {
   refundDate: "",
 };
 
+const planName: IPlanNameEntry = {
+  productName: "",
+};
+
 const initalValuesProgrammedSavingFixed = {
   quota,
   goal,
+  planName,
 };
 
 export { initalValuesProgrammedSavingFixed };

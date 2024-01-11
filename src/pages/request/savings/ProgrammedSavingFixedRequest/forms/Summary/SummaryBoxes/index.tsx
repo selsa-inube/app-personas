@@ -1,18 +1,16 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
 import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
-import { activeDM } from "src/model/domains/general/activedm";
-import { IFormsProgrammedSavingFixedRequest } from "../../../types";
-import { currencyFormat } from "src/utils/currency";
-import { IGoalEntry } from "../../GoalForm/types";
-import { IQuotaEntry } from "../../QuotaForm/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { currencyFormat } from "src/utils/currency";
+import { IFormsProgrammedSavingFixedRequest } from "../../../types";
+import { IGoalEntry } from "../../GoalForm/types";
+import { IPlanNameEntry } from "../../PlanNameForm/types";
+import { IQuotaEntry } from "../../QuotaForm/types";
 
-const renderQuotaSummary = (
-  values: IQuotaEntry,
-  isTablet: boolean
-) => (
+const renderQuotaSummary = (values: IQuotaEntry, isTablet: boolean) => (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
     <BoxAttribute
       label="Valor periódico del ahorro:"
@@ -21,7 +19,6 @@ const renderQuotaSummary = (
     <BoxAttribute
       label="Medio de pago:"
       value={getValueOfDomain(values.paymentMethod, "paymentMethod")?.value}
-      
     />
     <BoxAttribute
       label="Periodicidad:"
@@ -42,6 +39,12 @@ const renderGoalSummary = (values: IGoalEntry, isTablet: boolean) => (
     {values.refundDate !== "" && (
       <BoxAttribute label="Reembolso en fecha:" value={values.refundDate} />
     )}
+  </Stack>
+);
+
+const renderPlanNameSummary = (values: IPlanNameEntry, isTablet: boolean) => (
+  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+    <BoxAttribute label="Nombre:" value={values.productName} />
   </Stack>
 );
 
@@ -71,11 +74,17 @@ function SummaryBoxes(props: SummaryBoxesProps) {
   const { programmedSavingFixedRequest, stepKey, isTablet } = props;
   return (
     <>
-    {stepKey === "quota" &&
+      {stepKey === "quota" &&
         renderQuotaSummary(programmedSavingFixedRequest.quota.values, isTablet)}
-        
+
       {stepKey === "goal" &&
         renderGoalSummary(programmedSavingFixedRequest.goal.values, isTablet)}
+
+      {stepKey === "planName" &&
+        renderPlanNameSummary(
+          programmedSavingFixedRequest.planName.values,
+          isTablet
+        )}
 
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(
