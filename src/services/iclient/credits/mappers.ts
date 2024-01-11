@@ -82,7 +82,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     {
       id: "next_due_date",
       label: "Próximo vencimiento",
-      value: formatPrimaryDate(new Date(credit.nextPaymentDate)),
+      value: formatPrimaryDate(nextPaymentDate),
     },
     { id: "quote", label: "Cuota", value: replaceWordQuota },
 
@@ -119,9 +119,9 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     description: `${normalizedProductName} ${credit.obligationNumber}`,
     type: credit.lineCode,
     attributes,
-    movements: mapCreditMovementsApiToEntities(
-      credit.lastMovementTheObligations
-    ),
+    movements: credit.lastMovementTheObligations
+      ? mapCreditMovementsApiToEntities(credit.lastMovementTheObligations)
+      : [],
     amortization: [],
     tags,
   };
