@@ -19,6 +19,7 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { ContactChannelsForm } from "@forms/ContactChannelsForm";
+import { QuotaForm } from "./forms/QuotaForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -28,7 +29,12 @@ const renderStepContent = (
   handleStepChange: (stepId: number) => void
 ) => {
   return (
-    <>
+    <>{currentStep === programmedSavingFixedRequestSteps.quota.id && (
+      <QuotaForm
+        initialValues={programmedSavingFixedRequest.quota.values}
+        ref={formReferences.quota}
+        onFormValid={setIsCurrentFormValid}
+      />)}
       {currentStep === programmedSavingFixedRequestSteps.goal.id && (
         <GoalForm
           initialValues={programmedSavingFixedRequest.goal.values}
