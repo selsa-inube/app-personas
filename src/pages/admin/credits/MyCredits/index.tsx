@@ -1,85 +1,31 @@
-import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
-
-import { useMediaQuery } from "@hooks/useMediaQuery";
-
-import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
-
-import { Box } from "@components/cards/Box";
-import { Product } from "@components/cards/Product";
-import { QuickAccess } from "@components/cards/QuickAccess";
-
-import { quickLinks } from "@config/quickLinks";
-
-import { Title } from "@design/data/Title";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
-import { inube } from "@design/tokens";
-import { myCredits } from "./config/boxes";
-import { crumbsMyCredits } from "./config/navigation";
+import { useAuth } from "@inube/auth";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import { CreditsContext } from "src/context/credits";
-import {
-  extractMyCreditAttributes,
-  formatMyCreditCurrencyAttrs,
-  myCreditAttributeBreakpoints,
-} from "./config/products";
+import { getCreditsForUser } from "src/services/iclient/credits";
+import { MyCreditsUI } from "./interface";
 
 function MyCredits() {
-  const isDesktop = useMediaQuery("(min-width: 1400px)");
-  const { credits } = useContext(CreditsContext);
+  const { credits, setCredits } = useContext(CreditsContext);
+  const [loading, setLoading] = useState(true);
+  const { user, accessToken } = useAuth();
 
-  return (
-    <>
-      <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsMyCredits} />
-        <Title
-          title="Mis créditos"
-          subtitle="Consulta y solicita tus productos"
-          icon={<MdArrowBack />}
-          navigatePage="/"
-        />
-      </Stack>
-
-      <Grid
-        gap="s600"
-        margin={
-          isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
-        }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
-      >
-        <Stack direction="column" gap="s300">
-          <Text type="title" size="medium">
-            Tus productos
-          </Text>
-          <Box {...myCredits}>
-            <Stack direction="column" gap="s075">
-              {credits.length === 0 ? (
-                <Product empty={true} icon={<MdOutlineAttachMoney />} />
-              ) : (
-                credits.map((credit) => (
-                  <Product
-                    id={credit.id}
-                    key={credit.id}
-                    title={credit.title}
-                    description={credit.id}
-                    attributes={formatMyCreditCurrencyAttrs(
-                      extractMyCreditAttributes(credit)
-                    )}
-                    breakpoints={myCreditAttributeBreakpoints}
-                    tags={credit.tags}
-                    icon={<MdOutlineAttachMoney />}
-                    navigateTo={`/my-credits/${credit.id}`}
-                  />
-                ))
-              )}
-            </Stack>
-          </Box>
-        </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
-      </Grid>
-    </>
-  );
+  useEffect(() => {
+    if (user && accessToken) {
+      getCreditsForUser(user?.identification, accessToken)
+        .then((credits) => {
+          setCredits(credits);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [user, accessToken]);
+  return <MyCreditsUI loading={loading} credits={credits} />;
 }
 
 export { MyCredits };
