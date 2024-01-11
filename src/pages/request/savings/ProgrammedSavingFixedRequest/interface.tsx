@@ -15,6 +15,7 @@ import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
 import { GoalForm } from "./forms/GoalForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
 import { IFormsProgrammedSavingFixedRequest, IFormsProgrammedSavingFixedRequestRefs } from "./types";
+import { ReimbursementForm } from "./forms/ReimbursementForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -29,6 +30,13 @@ const renderStepContent = (
         <GoalForm
           initialValues={programmedSavingFixedRequest.goal.values}
           ref={formReferences.goal}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.reimbursement.id && (
+        <ReimbursementForm
+          initialValues={programmedSavingFixedRequest.reimbursement.values}
+          ref={formReferences.reimbursement}
           onFormValid={setIsCurrentFormValid}
         />
       )}

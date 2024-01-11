@@ -11,6 +11,8 @@ import {
 } from "./types";
 import { ProgrammedSavingFixedRequestUI } from "./interface";
 import { IGoalEntry } from "./forms/GoalForm/types";
+import { IReimbursementEntry } from "./forms/ReimbursementForm/types";
+
 
 function ProgrammedSavingFixedRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -26,12 +28,18 @@ function ProgrammedSavingFixedRequest() {
         isValid: false,
         values: initalValuesProgrammedSavingFixed.goal,
       },
+      reimbursement: {
+        isValid: false,
+        values: initalValuesProgrammedSavingFixed.reimbursement,
+      },
     });
 
   const goalRef = useRef<FormikProps<IGoalEntry>>(null);
+  const reimbursementRef = useRef<FormikProps<IReimbursementEntry>>(null);
 
   const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
     goal: goalRef,
+    reimbursement: reimbursementRef,
   };
 
   const handleStepChange = (stepId: number) => {

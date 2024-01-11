@@ -9,8 +9,13 @@ const programmedSavingFixedRequestSteps = {
     name: "Meta",
     description: "Fecha en al que recibirás devuelta tu dinero.",
   },
-  summary: {
+  reimbursement: {
     id: 2,
+    name: "Reembolso",
+    description: "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
+  },
+  summary: {
+    id: 3,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },
