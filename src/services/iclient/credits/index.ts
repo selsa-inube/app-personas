@@ -50,6 +50,10 @@ const getCreditsForUser = async (
 
       clearTimeout(timeoutId);
 
+      if (res.status === 204) {
+        return [];
+      }
+
       const data = await res.json();
 
       if (!res.ok) {
@@ -100,6 +104,10 @@ const getMovementsForCredit = async (
       options
     );
 
+    if (res.status === 204) {
+      return [];
+    }
+
     const data = await res.json();
 
     if (!res.ok) {
@@ -137,6 +145,10 @@ const getAmortizationForCredit = async (
       `${enviroment.ICLIENT_API_URL_QUERY}/portfolio-obligations/${creditId}/payment-plan`,
       options
     );
+
+    if (res.status === 204) {
+      return [];
+    }
 
     const data = await res.json();
 
