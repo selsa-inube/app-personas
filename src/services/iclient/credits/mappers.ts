@@ -57,7 +57,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     credit.paymentMethodName.toLowerCase()
   );
 
-  const nextPayment = today > nextPaymentDate ? "Inmediato": formatPrimaryDate(new Date(nextPaymentDate));
+  const nextPayment = today > nextPaymentDate ? "Inmediato" : formatPrimaryDate(nextPaymentDate) ;
 
   const attributes = [
     {
