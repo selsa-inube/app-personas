@@ -8,11 +8,12 @@ import { MyCreditsUI } from "./interface";
 
 function MyCredits() {
   const { credits, setCredits } = useContext(CreditsContext);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { user, accessToken } = useAuth();
 
   useEffect(() => {
-    if (user && accessToken) {
+    if (user && accessToken && credits.length === 0) {
+      setLoading(true);
       getCreditsForUser(user?.identification, accessToken)
         .then((credits) => {
           setCredits(credits);
@@ -24,7 +25,7 @@ function MyCredits() {
           setLoading(false);
         });
     }
-  }, [user, accessToken]);
+  }, [user, accessToken, credits]);
   return <MyCreditsUI loading={loading} credits={credits} />;
 }
 
