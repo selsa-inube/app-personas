@@ -15,6 +15,7 @@ import { dependenceData } from "./dependence";
 import { economicSectorData } from "./economicSector";
 import { positionData } from "./position";
 import { professionData } from "./profession";
+import { paymentMethodData } from "./paymentMethodData";
 
 const domains: Record<string, IServerDomain[]> = {
   assetType: assetTypeData,
@@ -33,6 +34,7 @@ const domains: Record<string, IServerDomain[]> = {
   economicSector: economicSectorData,
   position: positionData,
   profession: professionData,
+  paymentMethod: paymentMethodData,
 };
 
 function getDomainById(domainId: string) {
