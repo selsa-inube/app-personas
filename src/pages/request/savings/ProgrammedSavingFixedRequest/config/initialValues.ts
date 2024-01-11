@@ -1,6 +1,13 @@
 import { IGoalEntry } from "../forms/GoalForm/types";
-import { IReimbursementEntry } from "../forms/ReimbursementForm/types";
+import { IQuotaEntry } from "../forms/QuotaForm/types";
 
+const quota: IQuotaEntry = {
+  periodicValue: "",
+  paymentMethod: "",
+  periodicity:"",
+  paydayTypeToSelect:"",
+  paydayByDate: "",
+};
 
 const goal: IGoalEntry = {
   goalWithDate: false,
@@ -15,6 +22,7 @@ const reimbursement:IReimbursementEntry={
 }
 
 const initalValuesProgrammedSavingFixed = {
+  quota,
   goal,
   reimbursement,
 };

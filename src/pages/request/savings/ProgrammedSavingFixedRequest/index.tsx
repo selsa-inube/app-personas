@@ -1,3 +1,6 @@
+import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
+import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
+import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import {
@@ -5,18 +8,17 @@ import {
   programmedSavingFixedStepsRules,
 } from "./config/assisted";
 import { initalValuesProgrammedSavingFixed } from "./config/initialValues";
+import { IGoalEntry } from "./forms/GoalForm/types";
+import { ProgrammedSavingFixedRequestUI } from "./interface";
 import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { ProgrammedSavingFixedRequestUI } from "./interface";
-import { IGoalEntry } from "./forms/GoalForm/types";
-import { IReimbursementEntry } from "./forms/ReimbursementForm/types";
-
+import { IQuotaEntry } from "./forms/QuotaForm/types";
 
 function ProgrammedSavingFixedRequest() {
   const [currentStep, setCurrentStep] = useState(
-    programmedSavingFixedRequestSteps.goal.id
+    programmedSavingFixedRequestSteps.quota.id,
   );
   const steps = Object.values(programmedSavingFixedRequestSteps);
 
@@ -24,22 +26,28 @@ function ProgrammedSavingFixedRequest() {
 
   const [programmedSavingFixedRequest, setProgrammedSavingFixedRequest] =
     useState<IFormsProgrammedSavingFixedRequest>({
+      quota: {
+        isValid: false,
+        values: initalValuesProgrammedSavingFixed.quota,
+      },
       goal: {
         isValid: false,
         values: initalValuesProgrammedSavingFixed.goal,
       },
-      reimbursement: {
+      contactChannels: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.reimbursement,
+        values: mapContactChannels(usersMock[0].contact[0]),
       },
     });
 
+  const quotaRef = useRef<FormikProps<IQuotaEntry>>(null);
   const goalRef = useRef<FormikProps<IGoalEntry>>(null);
-  const reimbursementRef = useRef<FormikProps<IReimbursementEntry>>(null);
+  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
+    quota: quotaRef,
     goal: goalRef,
-    reimbursement: reimbursementRef,
+    contactChannels: contactChannelsRef,
   };
 
   const handleStepChange = (stepId: number) => {

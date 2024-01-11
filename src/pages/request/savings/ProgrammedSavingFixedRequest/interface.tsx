@@ -14,7 +14,12 @@ import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
 import { GoalForm } from "./forms/GoalForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
-import { IFormsProgrammedSavingFixedRequest, IFormsProgrammedSavingFixedRequestRefs } from "./types";
+import {
+  IFormsProgrammedSavingFixedRequest,
+  IFormsProgrammedSavingFixedRequestRefs,
+} from "./types";
+import { ContactChannelsForm } from "@forms/ContactChannelsForm";
+import { QuotaForm } from "./forms/QuotaForm";
 import { ReimbursementForm } from "./forms/ReimbursementForm";
 
 const renderStepContent = (
@@ -25,7 +30,12 @@ const renderStepContent = (
   handleStepChange: (stepId: number) => void
 ) => {
   return (
-    <>
+    <>{currentStep === programmedSavingFixedRequestSteps.quota.id && (
+      <QuotaForm
+        initialValues={programmedSavingFixedRequest.quota.values}
+        ref={formReferences.quota}
+        onFormValid={setIsCurrentFormValid}
+      />)}
       {currentStep === programmedSavingFixedRequestSteps.goal.id && (
         <GoalForm
           initialValues={programmedSavingFixedRequest.goal.values}
@@ -33,10 +43,10 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.reimbursement.id && (
-        <ReimbursementForm
-          initialValues={programmedSavingFixedRequest.reimbursement.values}
-          ref={formReferences.reimbursement}
+      {currentStep === programmedSavingFixedRequestSteps.contactChannels.id && (
+        <ContactChannelsForm
+          initialValues={programmedSavingFixedRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -63,7 +73,9 @@ interface ProgrammedSavingFixedRequestUIProps {
   handlePreviousStep: () => void;
 }
 
-function ProgrammedSavingFixedRequestUI(props: ProgrammedSavingFixedRequestUIProps) {
+function ProgrammedSavingFixedRequestUI(
+  props: ProgrammedSavingFixedRequestUIProps
+) {
   const {
     currentStep,
     steps,
