@@ -72,24 +72,23 @@ function CreditAmortization() {
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
 
-    const { newCredits, selectedProduct } =
-      await validateCreditsAndAmortization(
-        credits,
-        credit_id,
-        user?.identification,
-        accessToken
-      );
+    const { newCredits, selectedCredit } = await validateCreditsAndAmortization(
+      credits,
+      credit_id,
+      user?.identification,
+      accessToken
+    );
 
     setCredits(newCredits);
 
-    if (!selectedProduct) return;
+    if (!selectedCredit) return;
 
     setSelectedProduct({
-      credit: selectedProduct,
+      credit: selectedCredit,
       option: {
-        id: selectedProduct.id,
-        title: selectedProduct.title,
-        value: selectedProduct.description,
+        id: selectedCredit.id,
+        title: selectedCredit.title,
+        value: selectedCredit.description,
       },
     });
 
@@ -106,9 +105,8 @@ function CreditAmortization() {
     navigate(`/my-credits/${id}/credit-amortization`);
   };
 
-  if (!selectedProduct || !selectedProduct.credit.amortization) return null;
-
-  const attributes = extractCreditAmortizationAttrs(selectedProduct.credit);
+  const attributes =
+    selectedProduct && extractCreditAmortizationAttrs(selectedProduct.credit);
 
   return (
     <>
@@ -129,44 +127,47 @@ function CreditAmortization() {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
-          <Select
-            id="creditProducts"
-            onChange={handleChangeProduct}
-            label="Selección de producto"
-            options={productsOptions}
-            value={selectedProduct.option.id}
-            isFullWidth
-          />
-          <Box
-            title={selectedProduct.option.title}
-            subtitle={selectedProduct.option.id}
-            icon={<MdOutlineAttachMoney size={34} />}
-            collapsing={{ start: true, allow: false }}
-          >
-            <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-              {attributes.map((attr) => (
-                <BoxAttribute
-                  key={attr.id}
-                  label={`${attr.label}: `}
-                  value={attr.value}
-                />
-              ))}
-            </Grid>
-          </Box>
-          <StyledAmortizationContainer>
-            <Table
-              portalId="modals"
-              titles={amortizationTableTitles}
-              breakpoints={amortizationTableBreakpoints}
-              actions={creditAmortizationTableActions}
-              entries={amortizationCurrencyEntries(
-                selectedProduct.credit.amortization
-              )}
-              hideMobileResume
+        {selectedProduct && selectedProduct.credit.amortization && (
+          <Stack direction="column" gap="s300">
+            <Select
+              id="creditProducts"
+              onChange={handleChangeProduct}
+              label="Selección de producto"
+              options={productsOptions}
+              value={selectedProduct.option.id}
+              isFullWidth
             />
-          </StyledAmortizationContainer>
-        </Stack>
+            <Box
+              title={selectedProduct.option.title}
+              subtitle={selectedProduct.option.id}
+              icon={<MdOutlineAttachMoney size={34} />}
+              collapsing={{ start: true, allow: false }}
+            >
+              <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
+                {attributes?.map((attr) => (
+                  <BoxAttribute
+                    key={attr.id}
+                    label={`${attr.label}: `}
+                    value={attr.value}
+                  />
+                ))}
+              </Grid>
+            </Box>
+            <StyledAmortizationContainer>
+              <Table
+                portalId="modals"
+                titles={amortizationTableTitles}
+                breakpoints={amortizationTableBreakpoints}
+                actions={creditAmortizationTableActions}
+                entries={amortizationCurrencyEntries(
+                  selectedProduct.credit.amortization
+                )}
+                hideMobileResume
+              />
+            </StyledAmortizationContainer>
+          </Stack>
+        )}
+
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
     </>

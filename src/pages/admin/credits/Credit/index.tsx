@@ -5,10 +5,12 @@ import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { getAmortizationForCredit } from "src/services/iclient/credits";
 import { CreditUI } from "./interface";
 import { ISelectedProductState } from "./types";
-import { validateCredits } from "./utils";
+import {
+  validateCredit,
+  validateCreditMovementsAndAmortization,
+} from "./utils";
 
 function Credit() {
   const { credit_id } = useParams();
@@ -29,7 +31,7 @@ function Credit() {
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
 
-    const { selectedCredit, newCredits } = await validateCredits(
+    const { selectedCredit, newCredits } = await validateCredit(
       credits,
       credit_id,
       user.identification,
@@ -52,22 +54,12 @@ function Credit() {
       }))
     );
 
-    const allAmortization = await getAmortizationForCredit(
-      credit_id,
-      accessToken
-    );
-
-    setCredits((prevCredits) => {
-      return prevCredits.map((credit) => {
-        if (credit.id === credit_id) {
-          return {
-            ...credit,
-            amortization: allAmortization,
-          };
-        }
-
-        return credit;
-      });
+    validateCreditMovementsAndAmortization(
+      selectedCredit,
+      newCredits,
+      accessToken,
+    ).then((newCredits) => {
+      setCredits(newCredits);
     });
   };
 
@@ -75,8 +67,6 @@ function Credit() {
     const { value: id } = event.target;
     navigate(`/my-credits/${id}`);
   };
-
-  if (!selectedProduct) return null;
 
   return (
     <CreditUI
