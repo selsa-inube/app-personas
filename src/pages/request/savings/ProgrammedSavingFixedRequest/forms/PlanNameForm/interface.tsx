@@ -33,7 +33,6 @@ function PlanNameFormUI(props: PlanNameFormUIProps) {
           validMessage="El nombre del producto es válido"
           maxLength={30}
           withCounter
-          isRequired
         />
       </Stack>
     </form>
