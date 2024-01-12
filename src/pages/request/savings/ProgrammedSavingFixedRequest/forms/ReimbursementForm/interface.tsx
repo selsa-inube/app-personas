@@ -3,7 +3,7 @@ import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
-import { formReimbursement, reimbursementTypeDM } from "./utils";
+import { buildReimbursementAccount, reimbursementTypeDM } from "./utils";
 
 interface ReimbursementFormUIProps {
   formik: FormikValues;
@@ -38,7 +38,10 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
           id="accountReimbursement"
           label="Cuenta"
           placeholder=""
-          value={formik.values.accountReimbursement = formReimbursement(formik) }
+          value={
+            (formik.values.accountReimbursement =
+              buildReimbursementAccount(formik))
+          }
           type="text"
           errorMessage={formik.errors.accountReimbursement}
           onChange={formik.handleChange}
