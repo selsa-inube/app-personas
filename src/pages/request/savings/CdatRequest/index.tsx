@@ -10,6 +10,7 @@ import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
 import { CdatRequestUI } from "./interface";
+import { IConditionsEntry } from "./forms/ConditionsForm/types";
 
 function CdatRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -23,6 +24,10 @@ function CdatRequest() {
     investment: {
       isValid: false,
       values: initalValuesCDAT.investment,
+    },
+    conditions: {
+      isValid: false,
+      values: initalValuesCDAT.conditions,
     },
     refund: {
       isValid: false,
@@ -39,12 +44,14 @@ function CdatRequest() {
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
+  const conditionsRef = useRef<FormikProps<IConditionsEntry>>(null);
   const refundRef = useRef<FormikProps<IRefundEntry>>(null);
   const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
+    conditions: conditionsRef,
     refund: refundRef,
     investmentName: investmentNameRef,
     contactChannels: contactChannelsRef,

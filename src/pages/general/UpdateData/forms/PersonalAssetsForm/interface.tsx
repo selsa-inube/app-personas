@@ -45,7 +45,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
           Adicionar bien
         </Button>
         <Table
-          id="modals"
+          portalId="modals"
           titles={personalAssetsTableTitles}
           breakpoints={personalAssetsTableBreakpoints}
           actions={personalAssetsTableActions}

@@ -1,9 +1,18 @@
+import { IConditionsEntry } from "../forms/ConditionsForm/types";
 import { IInvestmentEntry } from "../forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "../forms/InvestmentNameForm/types";
 import { IRefundEntry } from "../forms/RefundForm/types";
 
 const investment: IInvestmentEntry = {
   valueInvestment: "",
+};
+
+const conditions: IConditionsEntry = {
+  valueInvestment: "",
+  interestPayment: "",
+  simulationWithDate: false,
+  deadlineDate: "",
+  deadlineDays: "",
 };
 
 const refund: IRefundEntry = {
@@ -17,6 +26,7 @@ const investmentName: IInvestmentNameEntry = {
 
 const initalValuesCDAT = {
   investment,
+  conditions,
   refund,
   investmentName,
 };

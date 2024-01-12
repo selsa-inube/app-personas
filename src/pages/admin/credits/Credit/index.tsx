@@ -1,11 +1,11 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
+import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
-import { useAuth } from "@inube/auth";
 
 import { useNavigate, useParams } from "react-router-dom";
+import { getAmortizationForCredit } from "src/services/iclient/credits";
 import { CreditUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { validateCredits } from "./utils";
@@ -16,29 +16,28 @@ function Credit() {
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const { credits, setCredits } = useContext(CreditsContext);
-  const { user } = useAuth();
+  const { user, accessToken } = useAuth();
 
   const navigate = useNavigate();
-  
+
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   useEffect(() => {
     handleSortProduct();
-  }, [credit_id, isMobile]);
-  
- 
-  const handleSortProduct = async() => {
+  }, [credit_id, user, accessToken, isMobile]);
 
-    if (!credit_id || !user) return;
+  const handleSortProduct = async () => {
+    if (!credit_id || !user || !accessToken) return;
 
-    const{ selectedCredit, newCredits } = await validateCredits(
+    const { selectedCredit, newCredits } = await validateCredits(
       credits,
       credit_id,
-      user.identification
+      user.identification,
+      accessToken
     );
 
-     setCredits(newCredits);
-   
+    setCredits(newCredits);
+
     if (!selectedCredit) return;
 
     setSelectedProduct({
@@ -52,6 +51,24 @@ function Credit() {
         value: credit.description,
       }))
     );
+
+    const allAmortization = await getAmortizationForCredit(
+      credit_id,
+      accessToken
+    );
+
+    setCredits((prevCredits) => {
+      return prevCredits.map((credit) => {
+        if (credit.id === credit_id) {
+          return {
+            ...credit,
+            amortization: allAmortization,
+          };
+        }
+
+        return credit;
+      });
+    });
   };
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
