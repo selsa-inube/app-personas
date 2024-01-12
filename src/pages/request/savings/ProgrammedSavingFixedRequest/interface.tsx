@@ -8,18 +8,19 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
 import { GoalForm } from "./forms/GoalForm";
+import { PlanNameForm } from "./forms/PlanNameForm";
+import { QuotaForm } from "./forms/QuotaForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
 import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { ContactChannelsForm } from "@forms/ContactChannelsForm";
-import { QuotaForm } from "./forms/QuotaForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -29,16 +30,25 @@ const renderStepContent = (
   handleStepChange: (stepId: number) => void
 ) => {
   return (
-    <>{currentStep === programmedSavingFixedRequestSteps.quota.id && (
-      <QuotaForm
-        initialValues={programmedSavingFixedRequest.quota.values}
-        ref={formReferences.quota}
-        onFormValid={setIsCurrentFormValid}
-      />)}
+    <>
+      {currentStep === programmedSavingFixedRequestSteps.quota.id && (
+        <QuotaForm
+          initialValues={programmedSavingFixedRequest.quota.values}
+          ref={formReferences.quota}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep === programmedSavingFixedRequestSteps.goal.id && (
         <GoalForm
           initialValues={programmedSavingFixedRequest.goal.values}
           ref={formReferences.goal}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.planName.id && (
+        <PlanNameForm
+          initialValues={programmedSavingFixedRequest.planName.values}
+          ref={formReferences.planName}
           onFormValid={setIsCurrentFormValid}
         />
       )}

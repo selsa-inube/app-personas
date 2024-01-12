@@ -6,24 +6,22 @@ const investment: IInvestmentEntry = {
   valueInvestment: "",
 };
 
-const conditions: IConditionsEntry= {
+const conditions: IConditionsEntry = {
   valueInvestment: "",
   interestPayment: "",
   simulationWithDate: false,
   deadlineDate: "",
-  deadlineDays: "",    
-}
+  deadlineDays: "",
+};
 
 const investmentName: IInvestmentNameEntry = {
   productName: "",
 };
 
-
 const initalValuesCDAT = {
-    investment,
-    conditions,
-    investmentName,
-  };
-  
-  export { initalValuesCDAT };
-  
+  investment,
+  conditions,
+  investmentName,
+};
+
+export { initalValuesCDAT };

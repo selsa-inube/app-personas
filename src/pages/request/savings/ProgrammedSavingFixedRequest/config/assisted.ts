@@ -14,14 +14,19 @@ const programmedSavingFixedRequestSteps = {
     name: "Meta",
     description: "Fecha en al que recibirás devuelta tu dinero.",
   },
-  contactChannels: {
+  planName: {
     id: 3,
+    name: "Nombra tu plan de ahorro",
+    description: "¿Cómo te gustaría que se llame tu producto?",
+  },
+  contactChannels: {
+    id: 4,
     name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
   summary: {
-    id: 4,
+    id: 5,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },
