@@ -9,6 +9,7 @@ import { IFormsProgrammedSavingFixedRequest } from "../../../types";
 import { IGoalEntry } from "../../GoalForm/types";
 import { IPlanNameEntry } from "../../PlanNameForm/types";
 import { IQuotaEntry } from "../../QuotaForm/types";
+import { IReimbursementEntry } from "../../ReimbursementForm/types";
 
 const renderQuotaSummary = (values: IQuotaEntry, isTablet: boolean) => (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
@@ -39,6 +40,18 @@ const renderGoalSummary = (values: IGoalEntry, isTablet: boolean) => (
     {values.refundDate !== "" && (
       <BoxAttribute label="Reembolso en fecha:" value={values.refundDate} />
     )}
+  </Stack>
+);
+
+const renderReimbursementSummary = (values: IReimbursementEntry) => (
+  <Stack width="100%" direction="column" gap="s100">
+    <BoxAttribute
+      label="Forma de reembolso:"
+      value={
+        getValueOfDomain(values.reimbursementType, "reimbursementType")?.value
+      }
+    />
+    <BoxAttribute label="Cuenta:" value={values.accountReimbursement} />
   </Stack>
 );
 
@@ -79,6 +92,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
 
       {stepKey === "goal" &&
         renderGoalSummary(programmedSavingFixedRequest.goal.values, isTablet)}
+
+      {stepKey === "reimbursement" &&
+        renderReimbursementSummary(
+          programmedSavingFixedRequest.reimbursement.values
+        )}
 
       {stepKey === "planName" &&
         renderPlanNameSummary(

@@ -17,6 +17,12 @@ const goal: IGoalEntry = {
   refundDate: "",
 };
 
+const reimbursement:IReimbursementEntry={
+  reimbursementType:"creditToInternalAccount",
+  accountReimbursement:"",
+
+}
+
 const planName: IPlanNameEntry = {
   productName: "",
 };
@@ -24,6 +30,7 @@ const planName: IPlanNameEntry = {
 const initalValuesProgrammedSavingFixed = {
   quota,
   goal,
+  reimbursement,
   planName,
 };
 
