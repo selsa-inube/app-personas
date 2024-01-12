@@ -144,9 +144,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     description: `${normalizedProductName} ${credit.obligationNumber}`,
     type: credit.lineCode,
     attributes,
-    movements: credit.lastMovementTheObligations
-      ? mapCreditMovementsApiToEntities(credit.lastMovementTheObligations)
-      : [],
+    movements: [],
     amortization: [],
     tags,
   };
