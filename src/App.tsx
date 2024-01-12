@@ -50,15 +50,15 @@ function App() {
   useFonts(theme.typography.fonts);
   const { loginWithRedirect, isAuthenticated, isLoading } = useAuth();
 
-  // useEffect(() => {
-  //   if (!isLoading && !isAuthenticated) {
-  //     loginWithRedirect();
-  //   }
-  // }, [isLoading, isAuthenticated]);
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      loginWithRedirect();
+    }
+  }, [isLoading, isAuthenticated]);
 
-  // if (!isAuthenticated) {
-  //   return null;
-  // }
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <>
