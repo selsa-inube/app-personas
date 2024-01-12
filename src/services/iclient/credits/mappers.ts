@@ -57,7 +57,8 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     credit.paymentMethodName.toLowerCase()
   );
 
-  const nextPayment = today > nextPaymentDate ? "Inmediato" : formatPrimaryDate(nextPaymentDate) ;
+  const nextPayment =
+    today > nextPaymentDate ? "Inmediato" : formatPrimaryDate(nextPaymentDate);
 
   const attributes = [
     {
@@ -121,9 +122,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     description: `${normalizedProductName} ${credit.obligationNumber}`,
     type: credit.lineCode,
     attributes,
-    movements: credit.lastMovementTheObligations
-      ? mapCreditMovementsApiToEntities(credit.lastMovementTheObligations)
-      : [],
+    movements: [],
     amortization: [],
     tags,
   };

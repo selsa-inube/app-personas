@@ -14,32 +14,31 @@ const validateCreditsAndAmortization = async (
   let currentCredits = [...credits];
 
   if (credits.length === 0) {
-    const newCredits = await getCreditsForUser(userIdentification, accessToken);
-
-    const allAmortization = await getAmortizationForCredit(
-      creditId,
-      accessToken
-    );
-
-    currentCredits = newCredits.map((credit) => {
-      if (credit.id === creditId) {
-        return {
-          ...credit,
-          amortization: allAmortization,
-        };
-      }
-
-      return credit;
-    });
+    currentCredits = await getCreditsForUser(userIdentification, accessToken);
   }
 
-  const selectedProduct = currentCredits.find(
-    (credit) => credit.id === creditId
-  );
+  let selectedCredit: IProduct | undefined;
+
+  for (let ix in currentCredits) {
+    if (currentCredits[ix].id === creditId) {
+      if (currentCredits[ix].amortization?.length === 0) {
+        const amortization = await getAmortizationForCredit(
+          creditId,
+          accessToken
+        );
+
+        currentCredits[ix].amortization = amortization;
+      }
+
+      selectedCredit = currentCredits[ix];
+
+      break;
+    }
+  }
 
   return {
     newCredits: currentCredits,
-    selectedProduct,
+    selectedCredit,
   };
 };
 

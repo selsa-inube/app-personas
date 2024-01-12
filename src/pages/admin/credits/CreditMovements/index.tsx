@@ -80,8 +80,6 @@ function CreditMovements() {
     }, 500);
   };
 
-  if (!selectedProduct) return null;
-
   return (
     <CreditMovementsUI
       crumbsMovements={crumbsMovements(credit_id)}
