@@ -1,3 +1,4 @@
+import { IPlanNameEntry } from "../forms/PlanNameForm/types";
 import { IGoalEntry } from "../forms/GoalForm/types";
 import { IQuotaEntry } from "../forms/QuotaForm/types";
 import { IReimbursementEntry } from "../forms/ReimbursementForm/types";
@@ -5,8 +6,8 @@ import { IReimbursementEntry } from "../forms/ReimbursementForm/types";
 const quota: IQuotaEntry = {
   periodicValue: "",
   paymentMethod: "",
-  periodicity:"",
-  paydayTypeToSelect:"",
+  periodicity: "",
+  paydayTypeToSelect: "",
   paydayByDate: "",
 };
 
@@ -16,16 +17,14 @@ const goal: IGoalEntry = {
   refundDate: "",
 };
 
-const reimbursement:IReimbursementEntry={
-  reimbursementType:"creditToInternalAccount",
-  accountReimbursement:"",
-
-}
+const planName: IPlanNameEntry = {
+  productName: "",
+};
 
 const initalValuesProgrammedSavingFixed = {
   quota,
   goal,
-  reimbursement,
+  planName,
 };
 
 export { initalValuesProgrammedSavingFixed };

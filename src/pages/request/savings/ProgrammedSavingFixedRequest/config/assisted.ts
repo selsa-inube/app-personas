@@ -14,10 +14,10 @@ const programmedSavingFixedRequestSteps = {
     name: "Meta",
     description: "Fecha en al que recibirás devuelta tu dinero.",
   },
-  reimbursement: {
+  planName: {
     id: 3,
-    name: "Reembolso",
-    description: "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
+    name: "Nombra tu plan de ahorro",
+    description: "¿Cómo te gustaría que se llame tu producto?",
   },
   contactChannels: {
     id: 4,
