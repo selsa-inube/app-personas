@@ -3,10 +3,10 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import * as Yup from "yup";
 import { IReimbursementEntry } from "./types";
 import { ReimbursementFormUI } from "./interface";
-
+import { validationMessages } from "src/validations/validationMessages";
 
 const validationSchema = Yup.object({
-    reimbursementType: Yup.string(),
+    reimbursementType: Yup.string().required(validationMessages.required),
     accountReimbursement: Yup.string(),
   });
   
@@ -33,20 +33,29 @@ const validationSchema = Yup.object({
     
       useImperativeHandle(ref, () => formik);
 
-      const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-        formik.handleBlur(event);}
 
-        const customHandleChange = (
-            event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-          ) => {
-            formik.handleChange(event);}  
+      const customHandleChange = (fieldName: string, value: string) => {
+        formik.setFieldValue(fieldName, value);
+      };
+
+      const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
+        formik.handleBlur(event);
+    
+        if (onSubmit) return;
+    
+        formik.validateForm().then((errors) => {
+          onFormValid(Object.keys(errors).length === 0);
+        });
+      };
+
+      
 
     return (
         <ReimbursementFormUI
           loading={loading}
           formik={formik}
           customHandleBlur={customHandleBlur}
-          customHandleChange={customHandleChange}
+          // customHandleChange={customHandleChange}
         />
       );
   })

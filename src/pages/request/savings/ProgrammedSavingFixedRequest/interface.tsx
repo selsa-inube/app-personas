@@ -43,6 +43,13 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
+       {currentStep === programmedSavingFixedRequestSteps.reimbursement.id && (
+        <ReimbursementForm
+          initialValues={programmedSavingFixedRequest.reimbursement.values}
+          ref={formReferences.reimbursement}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep === programmedSavingFixedRequestSteps.contactChannels.id && (
         <ContactChannelsForm
           initialValues={programmedSavingFixedRequest.contactChannels.values}

@@ -8,6 +8,7 @@ import { IGoalEntry } from "../../GoalForm/types";
 import { IQuotaEntry } from "../../QuotaForm/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { IReimbursementEntry } from "../../ReimbursementForm/types";
 
 const renderQuotaSummary = (
   values: IQuotaEntry,
@@ -45,6 +46,13 @@ const renderGoalSummary = (values: IGoalEntry, isTablet: boolean) => (
   </Stack>
 );
 
+const renderReimbursementSummary = (values: IReimbursementEntry) => (
+  <Stack width="100%" direction="column" gap="s100">
+    <BoxAttribute label="Forma de reembolso:" value={getValueOfDomain(values.reimbursementType, "reimbursementType")?.value} />
+    <BoxAttribute label="Cuenta:" value={values.accountReimbursement} />
+  </Stack>
+);
+
 const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
   <Stack width="100%" direction="column" gap="s100">
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
@@ -76,6 +84,9 @@ function SummaryBoxes(props: SummaryBoxesProps) {
         
       {stepKey === "goal" &&
         renderGoalSummary(programmedSavingFixedRequest.goal.values, isTablet)}
+
+        {stepKey === "reimbursement" &&
+        renderReimbursementSummary(programmedSavingFixedRequest.reimbursement.values)}
 
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(

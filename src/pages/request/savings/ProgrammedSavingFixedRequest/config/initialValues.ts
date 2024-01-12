@@ -1,5 +1,6 @@
 import { IGoalEntry } from "../forms/GoalForm/types";
 import { IQuotaEntry } from "../forms/QuotaForm/types";
+import { IReimbursementEntry } from "../forms/ReimbursementForm/types";
 
 const quota: IQuotaEntry = {
   periodicValue: "",
@@ -16,7 +17,7 @@ const goal: IGoalEntry = {
 };
 
 const reimbursement:IReimbursementEntry={
-  reimbursementType:"",
+  reimbursementType:"creditToInternalAccount",
   accountReimbursement:"",
 
 }
