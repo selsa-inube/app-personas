@@ -16,8 +16,9 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   MdArrowBack,
+  MdOpenInNew,
   MdOutlineAssignment,
-  MdOutlineAssignmentTurnedIn
+  MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
 import {
   creditMovementsCurrencyEntries,
@@ -35,6 +36,7 @@ import {
 } from "./config/product";
 import { StyledMovementsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedProductState } from "./types";
+import { currencyFormat } from "src/utils/currency";
 
 interface CreditUIProps {
   isMobile?: boolean;
@@ -82,7 +84,7 @@ function CreditUI(props: CreditUIProps) {
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s300">
-        {selectedProduct && attributes && (
+          {selectedProduct && attributes && (
             <>
               <Select
                 id="creditProducts"
@@ -108,13 +110,35 @@ function CreditUI(props: CreditUIProps) {
                     templateColumns={isMobile ? "1fr" : "1fr 1fr"}
                     gap="s100"
                   >
-                    {formatCreditCurrencyAttrs(attributes).map((attr) => (
+                    {formatCreditCurrencyAttrs(attributes)
+                      .slice(0, 3)
+                      .map((attr) => (
+                        <BoxAttribute
+                          key={attr.id}
+                          label={`${attr.label}: `}
+                          value={attr.value}
+                        />
+                      ))}
+                    {nextPaymentModal.data && (
                       <BoxAttribute
-                        key={attr.id}
-                        label={`${attr.label}: `}
-                        value={attr.value}
+                        label="Total próximo pago:"
+                        buttonIcon={<MdOpenInNew />}
+                        buttonValue={currencyFormat(
+                          nextPaymentModal.data.nextPaymentValue
+                        )}
+                        onClickButton={handleToggleNextPaymentModal}
+                        withButton
                       />
-                    ))}
+                    )}
+                    {formatCreditCurrencyAttrs(attributes)
+                      .slice(3)
+                      .map((attr) => (
+                        <BoxAttribute
+                          key={attr.id}
+                          label={`${attr.label}: `}
+                          value={attr.value}
+                        />
+                      ))}
                   </Grid>
                 </Stack>
               </Box>
@@ -153,7 +177,6 @@ function CreditUI(props: CreditUIProps) {
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
-      
       {nextPaymentModal.show && nextPaymentModal.data && (
         <NextPaymentModal
           portalId="modals"
@@ -166,4 +189,3 @@ function CreditUI(props: CreditUIProps) {
 }
 
 export { CreditUI };
-
