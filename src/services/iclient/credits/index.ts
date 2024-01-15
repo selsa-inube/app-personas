@@ -24,6 +24,7 @@ const getCreditsForUser = async (
 
       const queryParams = new URLSearchParams({
         customerPublicCode: userIdentification,
+
       });
 
       const controller = new AbortController();
@@ -34,7 +35,7 @@ const getCreditsForUser = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchAllPortfolioObligation",
+          "X-Action":"SearchGeneralInformationObligation",
           "X-Business-Unit": TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
