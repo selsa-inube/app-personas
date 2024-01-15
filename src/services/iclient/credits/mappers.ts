@@ -109,7 +109,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
       label: "Próximo vencimiento",
       value: formatPrimaryDate(nextPaymentDate),
     },
-    { id: "quote", label: "Cuota", value: replaceWordQuota },
+    { id: "quote", label: "Altura de cuota", value: replaceWordQuota },
 
     {
       id: "payment_means",
