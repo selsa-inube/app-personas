@@ -1,9 +1,9 @@
-const FamilyGroupRequiredFields = {
-  firstName: false,
+const familyGroupRequiredFields = {
+  firstName: true,
   secondName: false,
-  firstLastName: false,
-  secondLastName: false,
-  type: false,
+  firstLastName: true,
+  secondLastName: true,
+  type: true,
   identificationNumber: false,
   city: false,
   date: false,
@@ -13,8 +13,8 @@ const FamilyGroupRequiredFields = {
   department: false,
   zipCode: false,
   landlinePhone: false,
-  cellPhone: false,
-  email: false,
+  cellPhone: true,
+  email: true,
   birthDate: false,
   gender: false,
   relationship: true,
@@ -24,4 +24,4 @@ const FamilyGroupRequiredFields = {
   profession: false,
 };
 
-export { FamilyGroupRequiredFields };
+export { familyGroupRequiredFields };

@@ -37,12 +37,18 @@ const addFamilyMemberStepsRules = (
   isCurrentFormValid: boolean
 ) => {
   let newAddFamilyMember = { ...currentAddFamilyMember };
+  let readonly = false;
 
   switch (currentStep) {
     case createMemberSteps.identificationData.id: {
       const values = formReferences.identificationData.current?.values;
 
-      if (!values) return currentAddFamilyMember;
+      if (!values) {
+        return {
+          readonly,
+          newAddFamilyMember: currentAddFamilyMember,
+        };
+      }
 
       newAddFamilyMember.identificationData = {
         isValid: isCurrentFormValid,
@@ -59,17 +65,10 @@ const addFamilyMemberStepsRules = (
             values.identificationNumber
         );
 
-        if (!selectedReferenceUser) {
+        if (selectedReferenceUser) {
+          readonly = true;
           newAddFamilyMember.personalData = {
-            isValid: true,
-            values: {
-              ...initalValuesAddFamilyMember.personalData,
-              identificationNumber: values?.identificationNumber,
-            },
-          };
-        } else {
-          newAddFamilyMember.personalData = {
-            isValid: true,
+            isValid: false,
             values: {
               ...initalValuesAddFamilyMember.personalData,
               identificationNumber: values?.identificationNumber,
@@ -83,7 +82,7 @@ const addFamilyMemberStepsRules = (
           };
 
           newAddFamilyMember.contactData = {
-            isValid: true,
+            isValid: false,
             values: {
               ...initalValuesAddFamilyMember.contactData,
               cellPhone: selectedReferenceUser.contact.cellPhone,
@@ -92,9 +91,10 @@ const addFamilyMemberStepsRules = (
           };
 
           newAddFamilyMember.informationData = {
-            isValid: true,
+            isValid: false,
             values: {
               ...initalValuesAddFamilyMember.personalData,
+              identificationNumber: values?.identificationNumber,
               relationship: selectedReferenceUser.information.relationship,
               isDependent: selectedReferenceUser.information.isDependent,
               educationLevel: selectedReferenceUser.information.educationLevel,
@@ -105,117 +105,64 @@ const addFamilyMemberStepsRules = (
                 selectedReferenceUser.information.businessActivity,
             },
           };
+        } else {
+          readonly = false;
+          newAddFamilyMember.personalData = {
+            isValid: false,
+            values: {
+              ...initalValuesAddFamilyMember.personalData,
+              identificationNumber: values?.identificationNumber,
+            },
+          };
+          newAddFamilyMember.contactData = {
+            isValid: false,
+            values: {
+              cellPhone: "",
+              email: "",
+            },
+          };
+          newAddFamilyMember.informationData = {
+            isValid: false,
+            values: {
+              isDependent: false,
+              relationship: "",
+              educationLevel: "",
+              profession: "",
+              gender: "",
+              birthDate: "",
+              businessActivity: ""
+            },
+          };
         }
       }
-      return newAddFamilyMember;
-    }
 
-    case createMemberSteps.personalData.id: {
-      const values = formReferences.personalData.current?.values;
-
-      if (!values) return currentAddFamilyMember;
-
-      newAddFamilyMember.personalData = {
-        isValid: isCurrentFormValid,
-        values,
+      return {
+        readonly,
+        newAddFamilyMember,
       };
-
-      if (
-        JSON.stringify(values) !==
-        JSON.stringify(currentAddFamilyMember.personalData.values)
-      ) {
-        newAddFamilyMember.personalData = {
-          isValid: true,
-          values: {
-            ...initalValuesAddFamilyMember.personalData,
-            identificationNumber: values?.identificationNumber,
-            type: values.type,
-            firstName: values?.firstName,
-            secondName: values?.secondName,
-            firstLastName: values?.firstLastName,
-            secondLastName: values?.secondLastName,
-            relationship: values?.relationship,
-            isDependent: values?.isDependent,
-          },
-        };
-      }
-
-      return newAddFamilyMember;
-    }
-
-    case createMemberSteps.contactData.id: {
-      const values = formReferences.contactData.current?.values;
-
-      if (!values) return currentAddFamilyMember;
-
-      newAddFamilyMember.contactData = {
-        isValid: isCurrentFormValid,
-        values,
-      };
-
-      if (
-        JSON.stringify(values) !==
-        JSON.stringify(currentAddFamilyMember.contactData.values)
-      ) {
-        newAddFamilyMember.contactData = {
-          isValid: true,
-          values: {
-            ...initalValuesAddFamilyMember.personalData,
-            cellPhone: values?.cellPhone,
-            email: values?.email,
-          },
-        };
-      }
-
-      return newAddFamilyMember;
-    }
-
-    case createMemberSteps.informationData.id: {
-      const values = formReferences.informationData.current?.values;
-
-      if (!values) return currentAddFamilyMember;
-
-      newAddFamilyMember.informationData = {
-        isValid: isCurrentFormValid,
-        values,
-      };
-
-      if (
-        JSON.stringify(values) !==
-        JSON.stringify(currentAddFamilyMember.informationData.values)
-      ) {
-        newAddFamilyMember.informationData = {
-          isValid: true,
-          values: {
-            ...initalValuesAddFamilyMember.informationData,
-            relationship: values?.relationship,
-            isDependent: values?.isDependent,
-            educationLevel: values?.educationLevel,
-            profession: values?.profession,
-            gender: values?.gender,
-            birthDate: values?.birthDate,
-            businessActivity: values?.businessActivity,
-          },
-        };
-      }
-
-      return newAddFamilyMember;
     }
   }
 
-  const stepKey = Object.entries(addFamilyMemberStepsRules).find(
+  const stepKey = Object.entries(createMemberSteps).find(
     ([, config]) => config.id === currentStep
   )?.[0];
 
-  if (!stepKey) return currentAddFamilyMember;
+  if (!stepKey)
+    return {
+      readonly,
+      newAddFamilyMember: currentAddFamilyMember,
+    };
 
   const values =
     formReferences[stepKey as keyof IFormsAddFamilyMember]?.current?.values;
 
-  return (newAddFamilyMember = {
-    ...newAddFamilyMember,
-    [stepKey]: { isValid: isCurrentFormValid, values },
-  });
+  return {
+    readonly,
+    newAddFamilyMember: {
+      ...newAddFamilyMember,
+      [stepKey]: { isValid: isCurrentFormValid, values },
+    },
+  };
 };
 
 export { createMemberSteps, addFamilyMemberStepsRules };

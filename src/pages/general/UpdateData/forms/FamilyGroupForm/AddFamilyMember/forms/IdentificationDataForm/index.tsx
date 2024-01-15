@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { FamilyGroupRequiredFields } from "../../../config/formConfig";
+import { familyGroupRequiredFields } from "../../../config/formConfig";
 import { validationRules } from "src/validations/validationRules";
 import { validationMessages } from "src/validations/validationMessages";
 import { IIdentificationDataEntry } from "./types";
@@ -8,7 +8,7 @@ import { FormikProps, useFormik } from "formik";
 import { IdentificationDataFormUI } from "./interface";
 
 const validationSchema = Yup.object().shape({
-  identificationNumber: FamilyGroupRequiredFields.identificationNumber
+  identificationNumber: familyGroupRequiredFields.identificationNumber
     ? validationRules.identification.required(validationMessages.required)
     : validationRules.identification,
 });
@@ -54,7 +54,7 @@ const IdentificationDataForm = forwardRef(function IdentificationDataForm(
 
   return (
     <IdentificationDataFormUI
-    formik={formik}
+      formik={formik}
       loading={loading}
       isMobile={isMobile}
       customHandleBlur={customHandleBlur}

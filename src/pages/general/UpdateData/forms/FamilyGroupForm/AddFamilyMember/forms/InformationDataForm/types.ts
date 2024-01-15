@@ -1,4 +1,5 @@
 interface IInformationDataEntry {
+  identificationNumber?: number;
   relationship?: string;
   isDependent?: boolean;
   educationLevel?: string;

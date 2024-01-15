@@ -24,8 +24,6 @@ const referenceUsersMocks: IReferenceThird[] = [
     information: {
       birthDate: "24/Oct/1989",
       gender: "masculino",
-      relationship: "father",
-      isDependent: false,
       educationLevel: "university",
       businessActivity: "services",
       profession: "lawyer",
@@ -54,8 +52,6 @@ const referenceUsersMocks: IReferenceThird[] = [
     information: {
       birthDate: "24/Oct/1989",
       gender: "masculino",
-      relationship: "brother",
-      isDependent: false,
       educationLevel: "university",
       businessActivity: "services",
       profession: "lawyer",
@@ -84,8 +80,6 @@ const referenceUsersMocks: IReferenceThird[] = [
     information: {
       birthDate: "24/Oct/1989",
       gender: "female",
-      relationship: "sister",
-      isDependent: false,
       educationLevel: "university",
       businessActivity: "services",
       profession: "lawyer",

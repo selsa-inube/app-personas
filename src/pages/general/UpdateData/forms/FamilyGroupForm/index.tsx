@@ -9,7 +9,7 @@ import { DeleteFamilyMember } from "./DeleteFamilyMember";
 import { EditFamilyMember } from "./EditFamilyMember";
 import { FamilyMemberView } from "./FamilyMemberView";
 import { deleteFamilyMemberMsgs } from "./config/deleteMember";
-import { FamilyGroupRequiredFields } from "./config/formConfig";
+import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
 import { IIdentificationDataEntry } from "./AddFamilyMember/forms/IdentificationDataForm/types";
@@ -18,70 +18,70 @@ import { IContactDataEntry } from "./AddFamilyMember/forms/ContactDataForm/types
 import { IInformationDataEntry } from "./AddFamilyMember/forms/InformationDataForm/types";
 
 const validationSchema = Yup.object().shape({
-  firstName: FamilyGroupRequiredFields.firstName
+  firstName: familyGroupRequiredFields.firstName
     ? validationRules.name.required(validationMessages.required)
     : validationRules.name,
-  secondName: FamilyGroupRequiredFields.secondName
+  secondName: familyGroupRequiredFields.secondName
     ? validationRules.name.required(validationMessages.required)
     : validationRules.name,
-  firstLastName: FamilyGroupRequiredFields.firstLastName
+  firstLastName: familyGroupRequiredFields.firstLastName
     ? validationRules.name.required(validationMessages.required)
     : validationRules.name,
-  secondLastName: FamilyGroupRequiredFields.secondLastName
+  secondLastName: familyGroupRequiredFields.secondLastName
     ? validationRules.name.required(validationMessages.required)
     : validationRules.name,
-  type: FamilyGroupRequiredFields.type
+  type: familyGroupRequiredFields.type
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  identificationNumber: FamilyGroupRequiredFields.identificationNumber
+  identificationNumber: familyGroupRequiredFields.identificationNumber
     ? validationRules.identification.required(validationMessages.required)
     : validationRules.identification,
-  city: FamilyGroupRequiredFields.city
+  city: familyGroupRequiredFields.city
     ? validationRules.city.required(validationMessages.required)
     : validationRules.city,
-  date: FamilyGroupRequiredFields.date
+  date: familyGroupRequiredFields.date
     ? validationRules.date.required(validationMessages.required)
     : validationRules.date,
-  country: FamilyGroupRequiredFields.country
+  country: familyGroupRequiredFields.country
     ? validationRules.country.required(validationMessages.required)
     : validationRules.country,
-  address: FamilyGroupRequiredFields.address
+  address: familyGroupRequiredFields.address
     ? validationRules.address.required(validationMessages.required)
     : validationRules.address,
-  department: FamilyGroupRequiredFields.department
+  department: familyGroupRequiredFields.department
     ? validationRules.stateOrDepartment.required(validationMessages.required)
     : validationRules.stateOrDepartment,
-  zipCode: FamilyGroupRequiredFields.zipCode
+  zipCode: familyGroupRequiredFields.zipCode
     ? validationRules.zipCode.required(validationMessages.required)
     : validationRules.zipCode,
-  landlinePhone: FamilyGroupRequiredFields.landlinePhone
+  landlinePhone: familyGroupRequiredFields.landlinePhone
     ? validationRules.landlinePhone.required(validationMessages.required)
     : validationRules.landlinePhone,
-  cellPhone: FamilyGroupRequiredFields.cellPhone
+  cellPhone: familyGroupRequiredFields.cellPhone
     ? validationRules.phone.required(validationMessages.required)
     : validationRules.phone,
-  email: FamilyGroupRequiredFields.email
+  email: familyGroupRequiredFields.email
     ? validationRules.email.required(validationMessages.required)
     : validationRules.email,
-  birthDate: FamilyGroupRequiredFields.birthDate
+  birthDate: familyGroupRequiredFields.birthDate
     ? validationRules.date.required(validationMessages.required)
     : validationRules.date,
-  gender: FamilyGroupRequiredFields.gender
+  gender: familyGroupRequiredFields.gender
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  relationship: FamilyGroupRequiredFields.relationship
+  relationship: familyGroupRequiredFields.relationship
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  isDependent: FamilyGroupRequiredFields.isDependent
+  isDependent: familyGroupRequiredFields.isDependent
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  educationLevel: FamilyGroupRequiredFields.educationLevel
+  educationLevel: familyGroupRequiredFields.educationLevel
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  businessActivity: FamilyGroupRequiredFields.businessActivity
+  businessActivity: familyGroupRequiredFields.businessActivity
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  profession: FamilyGroupRequiredFields.profession
+  profession: familyGroupRequiredFields.profession
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
 });
@@ -216,8 +216,8 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
         email: contactData.email,
         birthDate: informationData.birthDate,
         gender: informationData.gender,
-        relationship: informationData.relationship,
-        isDependent: informationData.isDependent,
+        relationship: informationData.relationship ?? personalData.relationship,
+        isDependent: informationData.isDependent ?? personalData.isDependent,
         educationLevel: informationData.educationLevel,
         businessActivity: informationData.businessActivity,
         profession: informationData.profession,

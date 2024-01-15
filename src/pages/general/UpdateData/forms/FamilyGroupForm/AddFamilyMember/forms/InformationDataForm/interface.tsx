@@ -11,16 +11,17 @@ import { getFieldState } from "src/utils/forms/forms";
 interface InformationDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  readonly?: boolean;
   isRequired: (fieldName: string) => boolean;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function InformationDataFormUI(props: InformationDataFormUIProps) {
-  const { formik, loading, isRequired, customHandleBlur } = props;
-
+  const { formik, loading, readonly, isRequired, customHandleBlur } = props;
+  
   return (
     <>
-      {formik.values.type !== "" && (
+       {!readonly && (
         <>
           <Select
             label="Parentesco"
@@ -29,7 +30,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
             id="relationship"
             size="compact"
             options={relationshipDM.options}
-            onBlur={formik.handleBlur}
+            onBlur={customHandleBlur}
             errorMessage={formik.errors.relationship}
             onChange={formik.handleChange}
             value={formik.values.relationship || ""}
@@ -44,6 +45,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
             id="isDependent"
             size="compact"
             options={activeDM.options}
+            onBlur={customHandleBlur}
             onChange={formik.handleChange}
             value={formik.values.isDependent || ""}
             state={getFieldState(formik, "isDependent")}
@@ -59,12 +61,13 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         id="educationLevel"
         size="compact"
         options={educationLevelTypeDM.options}
-        onBlur={formik.handleBlur}
+        onBlur={customHandleBlur}
         errorMessage={formik.errors.educationLevel}
         onChange={formik.handleChange}
         value={formik.values.educationLevel || ""}
         state={getFieldState(formik, "educationLevel")}
         isRequired={isRequired("educationLevel")}
+        readOnly={readonly}
         isFullWidth
       />
       <Select
@@ -74,12 +77,13 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         id="profession"
         size="compact"
         options={getDomainById("profession")}
-        onBlur={formik.handleBlur}
+        onBlur={customHandleBlur}
         errorMessage={formik.errors.profession}
         onChange={formik.handleChange}
         value={formik.values.profession || ""}
         state={getFieldState(formik, "profession")}
         isRequired={isRequired("profession")}
+        readOnly={readonly}
         isFullWidth
       />
       <Select
@@ -89,12 +93,13 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         id="gender"
         size="compact"
         options={genderDM.options}
-        onBlur={formik.handleBlur}
+        onBlur={customHandleBlur}
         errorMessage={formik.errors.gender}
         onChange={formik.handleChange}
         value={formik.values.gender || ""}
         state={getFieldState(formik, "gender")}
         isRequired={isRequired("gender")}
+        readOnly={readonly}
         isFullWidth
       />
       <TextField
@@ -107,10 +112,11 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         validMessage="La fecha de nacimiento es válida"
         value={formik.values.birthDate || ""}
         errorMessage={formik.errors.birthDate}
-        onBlur={formik.handleBlur}
+        onBlur={customHandleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "birthDate")}
         isRequired={isRequired("birthDate")}
+        readOnly={readonly}
         isFullWidth
       />
       <Select
@@ -120,12 +126,13 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         id="businessActivity"
         size="compact"
         options={getDomainById("economicSector")}
-        onBlur={formik.handleBlur}
+        onBlur={customHandleBlur}
         errorMessage={formik.errors.businessActivity}
         onChange={formik.handleChange}
         value={formik.values.businessActivity || ""}
         state={getFieldState(formik, "businessActivity")}
         isRequired={isRequired("businessActivity")}
+        readOnly={readonly}
         isFullWidth
       />
     </>

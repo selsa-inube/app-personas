@@ -15,7 +15,6 @@ const personalData: IPersonalDataEntry = {
   firstLastName: "",
   secondLastName: "",
   relationship: "",
-  isDependent: true,
 };
 
 const contactData: IContactDataEntry = {
@@ -25,7 +24,6 @@ const contactData: IContactDataEntry = {
 
 const informationData: IInformationDataEntry = {
   relationship: "",
-  isDependent: false,
   educationLevel: "",
   profession: "",
   gender: "",

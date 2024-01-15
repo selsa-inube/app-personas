@@ -112,7 +112,8 @@ const renderContactDataInfoVerification = (values: IContactDataEntry) => (
 );
 
 const renderInformationDataInfoVerification = (
-  values: IInformationDataEntry
+  informatioValues: IInformationDataEntry,
+  personalValues: IPersonalDataEntry
 ) => (
   <>
     <Select
@@ -122,7 +123,7 @@ const renderInformationDataInfoVerification = (
       id="relationship"
       size="compact"
       options={relationshipDM.options}
-      value={values.relationship}
+      value={informatioValues.relationship ?? personalValues.relationship}
       isFullWidth
       readOnly
     />
@@ -133,7 +134,9 @@ const renderInformationDataInfoVerification = (
       id="isDependent"
       size="compact"
       options={activeDM.options}
-      value={values.isDependent ? "Y" : "N"}
+      value={
+        (informatioValues.isDependent ?? personalValues.isDependent) ? "Y" : "N"
+      }
       isFullWidth
       readOnly
     />
@@ -144,7 +147,7 @@ const renderInformationDataInfoVerification = (
       id="educationLevel"
       size="compact"
       options={educationLevelTypeDM.options}
-      value={values.educationLevel}
+      value={informatioValues.educationLevel}
       isFullWidth
       readOnly
     />
@@ -155,7 +158,7 @@ const renderInformationDataInfoVerification = (
       id="profession"
       size="compact"
       options={getDomainById("profession")}
-      value={values.profession}
+      value={informatioValues.profession}
       isFullWidth
       readOnly
     />
@@ -166,7 +169,7 @@ const renderInformationDataInfoVerification = (
       id="gender"
       size="compact"
       options={genderDM.options}
-      value={values.gender}
+      value={informatioValues.gender}
       isFullWidth
       readOnly
     />
@@ -177,7 +180,7 @@ const renderInformationDataInfoVerification = (
       id="birthDate"
       type="text"
       size="compact"
-      value={values.birthDate}
+      value={informatioValues.birthDate}
       isFullWidth
       readOnly
     />
@@ -188,7 +191,7 @@ const renderInformationDataInfoVerification = (
       id="businessActivity"
       size="compact"
       options={getDomainById("economicSector")}
-      value={values.businessActivity}
+      value={informatioValues.businessActivity}
       isFullWidth
       readOnly
     />
@@ -212,7 +215,8 @@ function VerificationFieldsets(props: VerificationFieldsetsProps) {
         renderContactDataInfoVerification(updatedData.contactData.values)}
       {stepKey === "informationData" &&
         renderInformationDataInfoVerification(
-          updatedData.informationData.values
+          updatedData.informationData.values,
+          updatedData.personalData.values
         )}
     </>
   );

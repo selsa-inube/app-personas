@@ -30,6 +30,9 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
 
   const steps = Object.values(createMemberSteps);
 
+  const [readOnly, setReadOnly] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [familyMember, setFamilyMember] = useState<IFormsAddFamilyMember>({
     identificationData: {
       isValid: false,
@@ -63,12 +66,13 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
   };
 
   const handleStepChange = (stepId: number) => {
-    const newAddFamilyMember = addFamilyMemberStepsRules(
+    const { readonly, newAddFamilyMember } = addFamilyMemberStepsRules(
       currentStep,
       familyMember,
       formReferences,
       isCurrentFormValid
     );
+    setReadOnly(readonly);
     setFamilyMember(newAddFamilyMember);
 
     const changeStepKey = Object.entries(createMemberSteps).find(
@@ -93,10 +97,16 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
   const handleFinishAssisted = () => {};
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
-      handleStepChange(currentStep + 1);
+    if (currentStep === 1) {
+      setIsLoading(true);
+      setTimeout(() => {
+        handleStepChange(currentStep + 1);
+        setIsLoading(false);
+      }, 1000);
+      return;
     }
-    if (currentStep == steps.length) {
+  
+    if (currentStep === steps.length) {
       onAddMember(
         familyMember.identificationData.values,
         familyMember.personalData.values,
@@ -104,6 +114,8 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
         familyMember.informationData.values
       );
     }
+    
+    handleStepChange(currentStep + 1);
   };
 
   const handlePreviousStep = () => {
@@ -117,6 +129,8 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
       addFamilyMember={familyMember}
       currentStep={currentStep}
       formReferences={formReferences}
+      readOnly={readOnly}
+      loading={isLoading}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}

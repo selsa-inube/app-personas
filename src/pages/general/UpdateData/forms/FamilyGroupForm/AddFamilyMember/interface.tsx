@@ -17,6 +17,7 @@ const renderStepContent = (
   formReferences: IFormsAddFamilyMemberRefs,
   addFamilyMember: IFormsAddFamilyMember,
   isMobile: boolean,
+  readOnly: boolean,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
   handleStepChange: (stepId: number) => void
 ) => {
@@ -35,6 +36,7 @@ const renderStepContent = (
           initialValues={addFamilyMember.personalData.values}
           ref={formReferences.personalData}
           onFormValid={setIsCurrentFormValid}
+          readonly={readOnly}
         />
       )}
       {currentStep === createMemberSteps.contactData.id && (
@@ -42,6 +44,7 @@ const renderStepContent = (
           initialValues={addFamilyMember.contactData.values}
           ref={formReferences.contactData}
           onFormValid={setIsCurrentFormValid}
+          readOnly={readOnly}
         />
       )}
       {currentStep === createMemberSteps.informationData.id && (
@@ -49,6 +52,7 @@ const renderStepContent = (
           initialValues={addFamilyMember.informationData.values}
           ref={formReferences.informationData}
           onFormValid={setIsCurrentFormValid}
+          readonly={readOnly}
         />
       )}
       {currentStep === createMemberSteps.verification.id && (
@@ -64,6 +68,8 @@ interface AddFamilyMemberUIProps {
   isCurrentFormValid: boolean;
   addFamilyMember: IFormsAddFamilyMember;
   formReferences: IFormsAddFamilyMemberRefs;
+  readOnly: boolean;
+  loading: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
@@ -78,6 +84,8 @@ function AddFamilyMemberUI(props: AddFamilyMemberUIProps) {
     isCurrentFormValid,
     addFamilyMember,
     formReferences,
+    readOnly,
+    loading,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
@@ -105,6 +113,7 @@ function AddFamilyMemberUI(props: AddFamilyMemberUIProps) {
             formReferences,
             addFamilyMember,
             isMobile,
+            readOnly,
             setIsCurrentFormValid,
             handleStepChange
           )}
@@ -125,6 +134,7 @@ function AddFamilyMemberUI(props: AddFamilyMemberUIProps) {
             onClick={handleNextStep}
             spacing={isMobile ? "compact" : "wide"}
             disabled={!isCurrentFormValid}
+            load={loading}
           >
             {currentStep === steps.length ? "Adicionar" : "Siguiente"}
           </Button>

@@ -1,35 +1,32 @@
 import * as Yup from "yup";
-import { FamilyGroupRequiredFields } from "../../../config/formConfig";
+import { familyGroupRequiredFields } from "../../../config/formConfig";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import { IContactDataEntry } from "./types";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { FormikProps, useFormik } from "formik";
 import { ContactDataFormUI } from "./interface";
 
-const validationSchema = Yup.object().shape({
-  cellPhone: FamilyGroupRequiredFields.cellPhone
-    ? validationRules.phone.required(validationMessages.required)
-    : validationRules.phone,
-  email: FamilyGroupRequiredFields.email
-    ? validationRules.email.required(validationMessages.required)
-    : validationRules.email,
+const validationSchema = Yup.object({
+  cellPhone: validationRules.phone.required(validationMessages.required),
+  email: validationRules.email.required(validationMessages.required),
 });
 
 interface ContactDataFormProps {
   initialValues: IContactDataEntry;
+  loading?: boolean;
+  readOnly?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IContactDataEntry) => void;
-  loading?: boolean;
 }
 
 const ContactDataForm = forwardRef(function ContactDataForm(
   props: ContactDataFormProps,
   ref: React.Ref<FormikProps<IContactDataEntry>>
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, loading, readOnly, onFormValid, onSubmit } = props;
 
-  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
+  const [dynamicSchema, setDynamicSchema] = useState<Yup.ObjectSchema<IContactDataEntry>>(validationSchema);
 
   const formik = useFormik({
     initialValues,
@@ -39,6 +36,19 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   });
 
   useImperativeHandle(ref, () => formik);
+
+  useEffect(() => {
+    if (readOnly) {
+      const newValidationSchema = validationSchema.concat(
+        Yup.object({
+          cellPhone: validationRules.phone,
+          email: validationRules.email,
+        })
+      );
+
+      setDynamicSchema(newValidationSchema);
+    }
+  }, []);
 
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
@@ -52,13 +62,19 @@ const ContactDataForm = forwardRef(function ContactDataForm(
 
   const isRequired = (fieldName: string): boolean => {
     const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
-    return !fieldDescription.nullable && !fieldDescription.optional;
+
+    if (fieldDescription && typeof fieldDescription === "object") {
+      return !fieldDescription.nullable && !fieldDescription.optional;
+    }
+
+    return false;
   };
 
   return (
     <ContactDataFormUI
       loading={loading}
       formik={formik}
+      readOnly={readOnly}
       customHandleBlur={customHandleBlur}
       isRequired={isRequired}
     />

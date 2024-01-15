@@ -37,7 +37,7 @@ interface IReferenceThird {
   information: {
     birthDate: string;
     gender: string;
-    relationship: string;
+    relationship?: string;
     isDependent?: boolean;
     educationLevel?: string;
     businessActivity?: string;
