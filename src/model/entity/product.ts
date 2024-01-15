@@ -26,12 +26,12 @@ interface IAmortization {
   id: string;
   paymentNumber: number;
   date: string;
-  capitalPayment: number;
-  interest: number;
-  lifeInsurance: number;
-  patrimonialInsurance: number;
-  capitalization: number;
-  others: number;
+  capitalPayment?: number;
+  interest?: number;
+  lifeInsurance?: number;
+  patrimonialInsurance?: number;
+  capitalization?: number;
+  others?: number;
   totalMonthlyValue: number;
   projectedBalance: number;
 }

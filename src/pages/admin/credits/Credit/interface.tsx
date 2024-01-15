@@ -16,11 +16,9 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   MdArrowBack,
-  MdOpenInNew,
   MdOutlineAssignment,
-  MdOutlineAssignmentTurnedIn,
+  MdOutlineAssignmentTurnedIn
 } from "react-icons/md";
-import { currencyFormat } from "src/utils/currency";
 import {
   creditMovementsCurrencyEntries,
   creditMovementsTableActions,
@@ -40,7 +38,7 @@ import { INextPaymentModalState, ISelectedProductState } from "./types";
 
 interface CreditUIProps {
   isMobile?: boolean;
-  selectedProduct: ISelectedProductState;
+  selectedProduct?: ISelectedProductState;
   productsOptions: ISelectOption[];
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;
@@ -58,7 +56,9 @@ function CreditUI(props: CreditUIProps) {
     handleToggleNextPaymentModal,
     handleChangeProduct,
   } = props;
-  const attributes = extractCreditAttributes(selectedProduct.credit);
+
+  const attributes =
+    selectedProduct && extractCreditAttributes(selectedProduct.credit);
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
@@ -82,90 +82,78 @@ function CreditUI(props: CreditUIProps) {
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s300">
-          <Select
-            id="creditProducts"
-            onChange={handleChangeProduct}
-            label="Selección de producto"
-            options={productsOptions}
-            value={selectedProduct.option}
-            isFullWidth
-          />
-          <Box
-            title={selectedProduct.credit.title}
-            subtitle={selectedProduct.credit.id}
-            tags={selectedProduct.credit.tags}
-            button={{
-              label: "Plan de pagos",
-              icon: <MdOutlineAssignment />,
-              path: `/my-credits/${credit_id}/credit-amortization`,
-            }}
-            {...creditBox}
-          >
-            <Stack direction="column" gap="s100">
-              <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-                {formatCreditCurrencyAttrs(attributes)
-                  .slice(0, 3)
-                  .map((attr) => (
-                    <BoxAttribute
-                      key={attr.id}
-                      label={`${attr.label}: `}
-                      value={attr.value}
-                    />
-                  ))}
-                {nextPaymentModal.data && (
-                  <BoxAttribute
-                    label="Total próximo pago:"
-                    buttonIcon={<MdOpenInNew />}
-                    buttonValue={currencyFormat(
-                      nextPaymentModal.data.nextPaymentValue
-                    )}
-                    onClickButton={handleToggleNextPaymentModal}
-                    withButton
-                  />
-                )}
-                {formatCreditCurrencyAttrs(attributes)
-                  .slice(3)
-                  .map((attr) => (
-                    <BoxAttribute
-                      key={attr.id}
-                      label={`${attr.label}: `}
-                      value={attr.value}
-                    />
-                  ))}
-              </Grid>
-            </Stack>
-          </Box>
-
-          <Stack direction="column" gap="s200" alignItems="flex-start">
-            <Text type="title" size="medium">
-              Últimos movimientos
-            </Text>
-            <StyledMovementsContainer>
-              <Table
-                portalId="modals"
-                titles={movementsTableTitles}
-                breakpoints={movementsTableBreakpoints}
-                actions={creditMovementsTableActions}
-                entries={creditMovementsCurrencyEntries(
-                  selectedProduct.credit.movements || []
-                )}
-                pageLength={selectedProduct.credit.movements?.length || 0}
-                hideMobileResume
+        {selectedProduct && attributes && (
+            <>
+              <Select
+                id="creditProducts"
+                onChange={handleChangeProduct}
+                label="Selección de producto"
+                options={productsOptions}
+                value={selectedProduct.option}
+                isFullWidth
               />
-              <Button
-                type="link"
-                appearance="dark"
-                variant="none"
-                iconBefore={<MdOutlineAssignmentTurnedIn />}
-                path={`/my-credits/${credit_id}/credit-movements`}
+              <Box
+                title={selectedProduct.credit.title}
+                subtitle={selectedProduct.credit.id}
+                tags={selectedProduct.credit.tags}
+                button={{
+                  label: "Plan de pagos",
+                  icon: <MdOutlineAssignment />,
+                  path: `/my-credits/${credit_id}/credit-amortization`,
+                }}
+                {...creditBox}
               >
-                Movimientos
-              </Button>
-            </StyledMovementsContainer>
-          </Stack>
+                <Stack direction="column" gap="s100">
+                  <Grid
+                    templateColumns={isMobile ? "1fr" : "1fr 1fr"}
+                    gap="s100"
+                  >
+                    {formatCreditCurrencyAttrs(attributes).map((attr) => (
+                      <BoxAttribute
+                        key={attr.id}
+                        label={`${attr.label}: `}
+                        value={attr.value}
+                      />
+                    ))}
+                  </Grid>
+                </Stack>
+              </Box>
+            </>
+          )}
+
+          {selectedProduct && selectedProduct.credit.movements && (
+            <Stack direction="column" gap="s200" alignItems="flex-start">
+              <Text type="title" size="medium">
+                Últimos movimientos
+              </Text>
+              <StyledMovementsContainer>
+                <Table
+                  portalId="modals"
+                  titles={movementsTableTitles}
+                  breakpoints={movementsTableBreakpoints}
+                  actions={creditMovementsTableActions}
+                  entries={creditMovementsCurrencyEntries(
+                    selectedProduct.credit.movements || []
+                  )}
+                  pageLength={selectedProduct.credit.movements?.length || 0}
+                  hideMobileResume
+                />
+                <Button
+                  type="link"
+                  appearance="dark"
+                  variant="none"
+                  iconBefore={<MdOutlineAssignmentTurnedIn />}
+                  path={`/my-credits/${credit_id}/credit-movements`}
+                >
+                  Movimientos
+                </Button>
+              </StyledMovementsContainer>
+            </Stack>
+          )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
+      
       {nextPaymentModal.show && nextPaymentModal.data && (
         <NextPaymentModal
           portalId="modals"
@@ -178,3 +166,4 @@ function CreditUI(props: CreditUIProps) {
 }
 
 export { CreditUI };
+

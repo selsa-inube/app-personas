@@ -23,13 +23,16 @@ const mapCreditMovement = (movement: IEntry): IMovement => {
 const creditMovementsCurrencyEntries = (movements: IMovement[]) =>
   movements.map((entry) => ({
     ...entry,
-    capitalPayment: currencyFormat(entry.capitalPayment || 0),
-    interest: currencyFormat(entry.interest || 0),
-    lifeInsurance: currencyFormat(entry.lifeInsurance || 0),
-    patrimonialInsurance: currencyFormat(entry.patrimonialInsurance || 0),
-    capitalization: currencyFormat(entry.capitalization || 0),
-    commission: currencyFormat(entry.commission || 0),
-    totalValue: currencyFormat(entry.totalValue),
+    capitalPayment:
+      entry.capitalPayment && currencyFormat(entry.capitalPayment),
+    interest: entry.interest && currencyFormat(entry.interest),
+    lifeInsurance: entry.lifeInsurance && currencyFormat(entry.lifeInsurance),
+    patrimonialInsurance:
+      entry.patrimonialInsurance && currencyFormat(entry.patrimonialInsurance),
+    capitalization:
+      entry.capitalization && currencyFormat(entry.capitalization),
+    commission: entry.commission && currencyFormat(entry.commission),
+    totalValue: entry.totalValue && currencyFormat(entry.totalValue),
   }));
 
 const creditMovementsTableActions: IAction[] = [

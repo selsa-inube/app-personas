@@ -1,7 +1,11 @@
 import { IProduct } from "src/model/entity/product";
-import { getCreditsForUser } from "src/services/iclient/credits";
+import {
+  getAmortizationForCredit,
+  getCreditsForUser,
+  getMovementsForCredit,
+} from "src/services/iclient/credits";
 
-const validateCredits = async (
+const validateCredit = async (
   credits: IProduct[],
   creditId: string,
   userIdentification: string,
@@ -9,18 +13,51 @@ const validateCredits = async (
 ) => {
   let currentCredits = [...credits];
 
-  if (credits.length === 0) {
+  if (currentCredits.length === 0) {
     currentCredits = await getCreditsForUser(userIdentification, accessToken);
   }
 
-  const selectedCredit = currentCredits.find(
-    (credit) => credit.id === creditId
-  );
+  const selectedCredit = currentCredits.find((credit) => {
+    return credit.id === creditId;
+  });
 
   return {
     selectedCredit,
     newCredits: currentCredits,
   };
+};
+
+const validateCreditMovementsAndAmortization = async (
+  selectedCredit: IProduct,
+  credits: IProduct[],
+  accessToken: string
+) => {
+  let currentCredits = [...credits];
+
+  for (let ix in currentCredits) {
+    if (currentCredits[ix].id === selectedCredit.id) {
+      if (currentCredits[ix].movements?.length === 0) {
+        const movements = await getMovementsForCredit(
+          selectedCredit.id,
+          accessToken
+        );
+        currentCredits[ix].movements = movements;
+      }
+
+      if (currentCredits[ix].amortization?.length === 0) {
+        const amortization = await getAmortizationForCredit(
+          selectedCredit.id,
+          accessToken
+        );
+
+        currentCredits[ix].amortization = amortization;
+      }
+
+      break;
+    }
+  }
+
+  return currentCredits;
 };
 
 const getNextPaymentData = (selectedProduct: IProduct) => {
@@ -43,4 +80,8 @@ const getNextPaymentData = (selectedProduct: IProduct) => {
   };
 };
 
-export { getNextPaymentData, validateCredits };
+export {
+  getNextPaymentData,
+  validateCredit,
+  validateCreditMovementsAndAmortization,
+};

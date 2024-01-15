@@ -12,19 +12,41 @@ const mapCreditMovementApiToEntity = (
     Number(movement.lifeInsuranceCreditPesos || 0) +
     Number(movement.capitalizationCreditPesos || 0);
 
-  return {
+  const buildMovement: IMovement = {
     id: movement.movementId,
     date: formatPrimaryDate(new Date(movement.movementDate)),
     reference: movement.movementNumber,
     description: movement.movementDescription || "",
-    capitalPayment: Number(movement.capitalCreditPesos || 0),
-    interest: Number(movement.creditInterestPesos || 0),
-    lifeInsurance: Number(movement.lifeInsuranceCreditPesos || 0),
-    patrimonialInsurance: Number(movement.anotherConceptCreditPesos || 0),
-    capitalization: Number(movement.capitalizationCreditPesos || 0),
-    commission: 0,
     totalValue: totalPay,
   };
+
+  if (movement.capitalCreditPesos) {
+    buildMovement.capitalPayment = Number(movement.capitalCreditPesos);
+  }
+
+  if (movement.creditInterestPesos) {
+    buildMovement.interest = Number(movement.creditInterestPesos);
+  }
+
+  if (movement.lifeInsuranceCreditPesos) {
+    buildMovement.lifeInsurance = Number(movement.lifeInsuranceCreditPesos);
+  }
+
+  if (movement.anotherConceptCreditPesos) {
+    buildMovement.patrimonialInsurance = Number(
+      movement.anotherConceptCreditPesos
+    );
+  }
+
+  if (movement.capitalizationCreditPesos) {
+    buildMovement.capitalization = Number(movement.capitalizationCreditPesos);
+  }
+
+  if (movement.commissionCreditPesos) {
+    buildMovement.commission = Number(movement.commissionCreditPesos);
+  }
+
+  return buildMovement;
 };
 
 const mapCreditMovementsApiToEntities = (
@@ -104,7 +126,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
       label: "Próximo vencimiento",
       value: formatPrimaryDate(nextPaymentDate),
     },
-    { id: "quote", label: "Cuota", value: replaceWordQuota },
+    { id: "quote", label: "Altura de cuota", value: replaceWordQuota },
 
     {
       id: "payment_means",
@@ -139,9 +161,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     description: `${normalizedProductName} ${credit.obligationNumber}`,
     type: credit.lineCode,
     attributes,
-    movements: credit.lastMovementTheObligations
-      ? mapCreditMovementsApiToEntities(credit.lastMovementTheObligations)
-      : [],
+    movements: [],
     amortization: [],
     tags,
   };
@@ -161,19 +181,36 @@ const mapCreditAmortizationApiToEntity = (
     Number(payment.otherConceptValue || 0) +
     Number(payment.capitalizationValue || 0);
 
-  return {
+  const buildPayment: IAmortization = {
     id: payment.paymentPlanId,
     paymentNumber: payment.quotaNumber,
     date: formatPrimaryDate(new Date(payment.quotaDate)),
-    capitalPayment: Number(payment.capitalValue || 0),
-    interest: Number(payment.fixedInterestValue || 0),
-    lifeInsurance: Number(payment.lifeInsuranceValue || 0),
-    patrimonialInsurance: Number(payment.otherConceptValue || 0),
-    capitalization: Number(payment.capitalizationValue || 0),
     others,
-    totalMonthlyValue: Number(payment.quotaValue || 0),
-    projectedBalance: Number(payment.projectedBalance || 0),
+    totalMonthlyValue: Number(payment.quotaValue),
+    projectedBalance: Number(payment.projectedBalance),
   };
+
+  if (payment.capitalValue) {
+    buildPayment.capitalPayment = Number(payment.capitalValue);
+  }
+
+  if (payment.fixedInterestValue) {
+    buildPayment.interest = Number(payment.fixedInterestValue);
+  }
+
+  if (payment.lifeInsuranceValue) {
+    buildPayment.lifeInsurance = Number(payment.lifeInsuranceValue);
+  }
+
+  if (payment.otherConceptValue) {
+    buildPayment.patrimonialInsurance = Number(payment.otherConceptValue);
+  }
+
+  if (payment.capitalizationValue) {
+    buildPayment.capitalization = Number(payment.capitalizationValue);
+  }
+
+  return buildPayment;
 };
 
 const mapCreditAmortizationApiToEntities = (
