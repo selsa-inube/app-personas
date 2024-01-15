@@ -53,7 +53,7 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           Adicionar familiar
         </Button>
         <Table
-          id="modals"
+          portalId="modals"
           titles={familyGroupTableTitles}
           breakpoints={familyGroupTableBreakpoints}
           actions={familyGroupTableActions}

@@ -27,6 +27,7 @@ function FullscreenMenu(props: FullscreenMenuProps) {
 
   function handleLogout() {
     logout();
+    sessionStorage.clear();
   }
 
   const totalSections = Object.keys(navigation.sections).length;

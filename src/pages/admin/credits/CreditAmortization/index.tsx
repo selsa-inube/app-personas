@@ -11,10 +11,11 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { creditsMock } from "@mocks/products/credits/credits.mocks";
-import { useEffect, useState } from "react";
+import { useAuth } from "@inube/auth";
+import { useContext, useEffect, useState } from "react";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
+import { CreditsContext } from "src/context/credits";
 import {
   amortizationTableBreakpoints,
   amortizationTableTitles,
@@ -26,6 +27,7 @@ import {
 } from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { validateCreditsAndAmortization } from "./utils";
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -36,6 +38,8 @@ function CreditAmortization() {
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const { credits, setCredits } = useContext(CreditsContext);
+  const { user, accessToken } = useAuth();
 
   const crumbsAmortization = [
     {
@@ -63,27 +67,37 @@ function CreditAmortization() {
 
   useEffect(() => {
     handleSortProduct();
-  }, [credit_id]);
+  }, [credit_id, user, accessToken]);
 
-  const handleSortProduct = () => {
-    const creditsOptions = creditsMock.map((credit) => {
-      const productOption = {
-        id: credit.id,
-        title: credit.title,
-        value: credit.description,
-      };
+  const handleSortProduct = async () => {
+    if (!credit_id || !user || !accessToken) return;
 
-      if (credit.id === credit_id) {
-        setSelectedProduct({
-          credit,
-          option: productOption,
-        });
-      }
+    const { newCredits, selectedCredit } = await validateCreditsAndAmortization(
+      credits,
+      credit_id,
+      user?.identification,
+      accessToken
+    );
 
-      return productOption;
+    setCredits(newCredits);
+
+    if (!selectedCredit) return;
+
+    setSelectedProduct({
+      credit: selectedCredit,
+      option: {
+        id: selectedCredit.id,
+        title: selectedCredit.title,
+        value: selectedCredit.description,
+      },
     });
 
-    setProductsOptions(creditsOptions);
+    setProductsOptions(
+      newCredits.map((credit) => ({
+        id: credit.id,
+        value: credit.description,
+      }))
+    );
   };
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -91,9 +105,8 @@ function CreditAmortization() {
     navigate(`/my-credits/${id}/credit-amortization`);
   };
 
-  if (!selectedProduct || !selectedProduct.credit.amortization) return null;
-
-  const attributes = extractCreditAmortizationAttrs(selectedProduct.credit);
+  const attributes =
+    selectedProduct && extractCreditAmortizationAttrs(selectedProduct.credit);
 
   return (
     <>
@@ -114,44 +127,47 @@ function CreditAmortization() {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
-          <Select
-            id="creditProducts"
-            onChange={handleChangeProduct}
-            label="Selección de producto"
-            options={productsOptions}
-            value={selectedProduct.option.id}
-            isFullWidth
-          />
-          <Box
-            title={selectedProduct.option.title}
-            subtitle={selectedProduct.option.id}
-            icon={<MdOutlineAttachMoney size={34} />}
-            collapsing={{ start: true, allow: false }}
-          >
-            <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-              {attributes.map((attr) => (
-                <BoxAttribute
-                  key={attr.id}
-                  label={`${attr.label}: `}
-                  value={attr.value}
-                />
-              ))}
-            </Grid>
-          </Box>
-          <StyledAmortizationContainer>
-            <Table
-              id="modals"
-              titles={amortizationTableTitles}
-              breakpoints={amortizationTableBreakpoints}
-              actions={creditAmortizationTableActions}
-              entries={amortizationCurrencyEntries(
-                selectedProduct.credit.amortization
-              )}
-              hideMobileResume
+        {selectedProduct && selectedProduct.credit.amortization && (
+          <Stack direction="column" gap="s300">
+            <Select
+              id="creditProducts"
+              onChange={handleChangeProduct}
+              label="Selección de producto"
+              options={productsOptions}
+              value={selectedProduct.option.id}
+              isFullWidth
             />
-          </StyledAmortizationContainer>
-        </Stack>
+            <Box
+              title={selectedProduct.option.title}
+              subtitle={selectedProduct.option.id}
+              icon={<MdOutlineAttachMoney size={34} />}
+              collapsing={{ start: true, allow: false }}
+            >
+              <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
+                {attributes?.map((attr) => (
+                  <BoxAttribute
+                    key={attr.id}
+                    label={`${attr.label}: `}
+                    value={attr.value}
+                  />
+                ))}
+              </Grid>
+            </Box>
+            <StyledAmortizationContainer>
+              <Table
+                portalId="modals"
+                titles={amortizationTableTitles}
+                breakpoints={amortizationTableBreakpoints}
+                actions={creditAmortizationTableActions}
+                entries={amortizationCurrencyEntries(
+                  selectedProduct.credit.amortization
+                )}
+                hideMobileResume
+              />
+            </StyledAmortizationContainer>
+          </Stack>
+        )}
+
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
     </>

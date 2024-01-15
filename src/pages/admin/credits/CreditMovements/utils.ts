@@ -3,53 +3,37 @@ import {
   getCreditsForUser,
   getMovementsForCredit,
 } from "src/services/iclient/credits";
-import { compareArraysByProperty } from "src/utils/arrays";
 import { ISelectedProductState } from "./types";
 
 const validateCreditsAndMovements = async (
   credits: IProduct[],
   creditId: string,
-  userIdentification: string
+  userIdentification: string,
+  accessToken: string
 ) => {
-  const allMovements = await getMovementsForCredit(creditId);
-
   let currentCredits = [...credits];
 
   if (credits.length === 0) {
-    currentCredits = await getCreditsForUser(userIdentification);
+    currentCredits = await getCreditsForUser(userIdentification, accessToken);
   }
 
-  const newCredits = currentCredits.map((credit) => {
-    if (credit.id === creditId) {
-      return {
-        ...credit,
-        movements: allMovements,
-      };
+  let selectedCredit: IProduct | undefined;
+
+  for (let ix in currentCredits) {
+    if (currentCredits[ix].id === creditId) {
+      if (currentCredits[ix].movements?.length === 0) {
+        const movements = await getMovementsForCredit(creditId, accessToken);
+        currentCredits[ix].movements = movements;
+      }
+
+      selectedCredit = currentCredits[ix];
+
+      break;
     }
-
-    return credit;
-  });
-
-  const selectedCredit = newCredits.find((credit) => credit.id === creditId);
-
-  const lastMovements = allMovements.slice(0, 10);
-  const previousLastMovements = selectedCredit?.movements?.slice(0, 10) || [];
-
-  const equalFirstMovements = compareArraysByProperty(
-    lastMovements,
-    previousLastMovements,
-    "id"
-  );
-
-  if (!equalFirstMovements) {
-    console.error("Los movimientos no son iguales", {
-      lastMovements,
-      previousLastMovements,
-    });
   }
 
   return {
-    newCredits,
+    newCredits: currentCredits,
     selectedCredit,
   };
 };

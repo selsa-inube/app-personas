@@ -26,12 +26,12 @@ interface IAmortization {
   id: string;
   paymentNumber: number;
   date: string;
-  capitalPayment: number;
-  interest: number;
-  lifeInsurance: number;
-  patrimonialInsurance: number;
-  capitalization: number;
-  others: number;
+  capitalPayment?: number;
+  interest?: number;
+  lifeInsurance?: number;
+  patrimonialInsurance?: number;
+  capitalization?: number;
+  others?: number;
   totalMonthlyValue: number;
   projectedBalance: number;
 }
@@ -62,11 +62,20 @@ interface IProduct {
   userOwner?: string;
 }
 
+interface IRate {
+  id: string;
+  deadlineInitialDay: number;
+  deadlineEndDay: number;
+  investmentSquare: string;
+  annualEffectiveRate: string;
+}
+
 export type {
   IAmortization,
   IAttribute,
   ICommitment,
   IMovement,
   IProduct,
+  IRate,
   ProductType,
 };

@@ -16,19 +16,20 @@ function CreditMovements() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { credits, setCredits } = useContext(CreditsContext);
-  const { user } = useAuth();
+  const { user, accessToken } = useAuth();
 
   useEffect(() => {
     handleSortProduct();
-  }, [credit_id]);
+  }, [credit_id, user, accessToken]);
 
   const handleSortProduct = async () => {
-    if (!credit_id || !user) return;
+    if (!credit_id || !user || !accessToken) return;
 
     const { newCredits, selectedCredit } = await validateCreditsAndMovements(
       credits,
       credit_id,
-      user?.identification
+      user?.identification,
+      accessToken
     );
 
     setCredits(newCredits);
@@ -78,8 +79,6 @@ function CreditMovements() {
       }
     }, 500);
   };
-
-  if (!selectedProduct) return null;
 
   return (
     <CreditMovementsUI

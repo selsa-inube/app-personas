@@ -5,6 +5,9 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsCdatRequest } from "../../../types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
+import { IConditionsEntry } from "../../ConditionsForm/types";
+import { peridiocityDM } from "src/model/domains/general/peridiocity";
+
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
 
 const renderInvestmentSummary = (
@@ -16,6 +19,20 @@ const renderInvestmentSummary = (
       label="Valor de la inversión:"
       value={currencyFormat(Number(values.valueInvestment))}
     />
+  </Stack>
+);
+
+const renderConditionsSummary = (values: IConditionsEntry,  isTablet: boolean) =>(
+  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+    <BoxAttribute
+      label="Pago de intereses:"
+      value={peridiocityDM.valueOf(values.interestPayment)?.value}
+    />
+    <BoxAttribute
+      label="Número de días:"
+      value={values.deadlineDays}
+    />
+    
   </Stack>
 );
 
@@ -56,6 +73,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
     <>
       {stepKey === "investment" &&
         renderInvestmentSummary(cdatRequest.investment.values, isTablet)}
+         {stepKey === "conditions" &&
+          renderConditionsSummary(
+            cdatRequest.conditions.values,
+            isTablet
+          )}  
       {stepKey === "investmentName" &&
         renderInvestmentNameSummary(
           cdatRequest.investmentName.values,

@@ -26,7 +26,7 @@ interface CreditMovementsUIProps {
   crumbsMovements: IBreadcrumbItem[];
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleAddMovements: () => void;
-  selectedProduct: ISelectedProductState;
+  selectedProduct?: ISelectedProductState;
   productsOptions: ISelectOption[];
   loading: boolean;
   credit_id?: string;
@@ -70,35 +70,37 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
             onChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct.option}
+            value={selectedProduct?.option}
             isFullWidth
           />
-          <StyledMovementsContainer>
-            <Table
-              id="modals"
-              titles={movementsTableTitles}
-              breakpoints={movementsTableBreakpoints}
-              actions={creditMovementsTableActions}
-              entries={creditMovementsCurrencyEntries(
-                selectedProduct.movements
-              )}
-              pageLength={selectedProduct.movements.length}
-              hideMobileResume
-            />
-            <Button
-              appearance="primary"
-              variant="none"
-              iconBefore={<MdAdd />}
-              onClick={handleAddMovements}
-              load={loading}
-              disabled={
-                selectedProduct.movements.length ===
-                selectedProduct.totalMovements
-              }
-            >
-              Ver más movimientos
-            </Button>
-          </StyledMovementsContainer>
+          {selectedProduct && (
+            <StyledMovementsContainer>
+              <Table
+                portalId="modals"
+                titles={movementsTableTitles}
+                breakpoints={movementsTableBreakpoints}
+                actions={creditMovementsTableActions}
+                entries={creditMovementsCurrencyEntries(
+                  selectedProduct.movements
+                )}
+                pageLength={selectedProduct.movements.length}
+                hideMobileResume
+              />
+              <Button
+                appearance="primary"
+                variant="none"
+                iconBefore={<MdAdd />}
+                onClick={handleAddMovements}
+                load={loading}
+                disabled={
+                  selectedProduct.movements.length ===
+                  selectedProduct.totalMovements
+                }
+              >
+                Ver más movimientos
+              </Button>
+            </StyledMovementsContainer>
+          )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>

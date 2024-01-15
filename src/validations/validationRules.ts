@@ -42,10 +42,11 @@ const validationRules = {
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 
-  notPastDate: Yup.string().test(
-    "is-not-past-date",
-    validationMessages.notPastDate,
-    (value) => {
+  notPastDate: Yup.string()
+    .matches(regex.date, validationMessages.date)
+    .min(11, validationMessages.minCharacters(11))
+    .max(11, validationMessages.maxCharacters(11))
+    .test("is-not-past-date", validationMessages.notPastDate, (value) => {
       if (!value) return true;
 
       const months: { [key: string]: number } = {
@@ -73,8 +74,7 @@ const validationRules = {
       const today = new Date();
 
       return date >= today;
-    }
-  ),
+    }),
 
   money: Yup.number()
     .min(1, validationMessages.minCurrencyNumbers(1))

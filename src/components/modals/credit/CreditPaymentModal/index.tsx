@@ -92,23 +92,23 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
           </Text>
 
           <Stack direction="column" gap="s200">
-            {renderTransactionSpecification(
+            {payment.capitalPayment && renderTransactionSpecification(
               "Abono capital:",
               payment.capitalPayment
             )}
-            {renderTransactionSpecification(
+            {payment.interest && renderTransactionSpecification(
               "Interés de mora:",
               payment.interest
             )}
-            {renderTransactionSpecification(
+            {payment.lifeInsurance && renderTransactionSpecification(
               "Seguro de vida:",
               payment.lifeInsurance
             )}
-            {renderTransactionSpecification(
+            {payment.patrimonialInsurance && renderTransactionSpecification(
               "Seguro patrimonial:",
               payment.patrimonialInsurance
             )}
-            {renderTransactionSpecification(
+            {payment.capitalization && renderTransactionSpecification(
               "Capitalización:",
               payment.capitalization
             )}
