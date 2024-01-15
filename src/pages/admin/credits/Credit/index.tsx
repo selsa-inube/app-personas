@@ -7,14 +7,18 @@ import { CreditsContext } from "src/context/credits";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAmortizationForCredit } from "src/services/iclient/credits";
 import { CreditUI } from "./interface";
-import { ISelectedProductState } from "./types";
-import { validateCredits } from "./utils";
+import { INextPaymentModalState, ISelectedProductState } from "./types";
+import { getNextPaymentData, validateCredits } from "./utils";
 
 function Credit() {
   const { credit_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [nextPaymentModal, setNextPaymentModal] =
+    useState<INextPaymentModalState>({
+      show: false,
+    });
   const { credits, setCredits } = useContext(CreditsContext);
   const { user, accessToken } = useAuth();
 
@@ -25,6 +29,24 @@ function Credit() {
   useEffect(() => {
     handleSortProduct();
   }, [credit_id, user, accessToken, isMobile]);
+
+  useEffect(() => {
+    if (!selectedProduct) return;
+
+    const { nextPaymentCapital, nextPaymentInterest, nextPaymentValue } =
+      getNextPaymentData(selectedProduct.credit);
+
+    if (!nextPaymentCapital || !nextPaymentValue) return;
+
+    setNextPaymentModal({
+      ...nextPaymentModal,
+      data: {
+        nextPaymentCapital,
+        nextPaymentInterest,
+        nextPaymentValue,
+      },
+    });
+  }, [selectedProduct]);
 
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
@@ -76,15 +98,24 @@ function Credit() {
     navigate(`/my-credits/${id}`);
   };
 
+  const handleToggleNextPaymentModal = () => {
+    setNextPaymentModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
   if (!selectedProduct) return null;
 
   return (
     <CreditUI
-      handleChangeProduct={handleChangeProduct}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
       isMobile={isMobile}
       credit_id={credit_id}
+      nextPaymentModal={nextPaymentModal}
+      handleToggleNextPaymentModal={handleToggleNextPaymentModal}
+      handleChangeProduct={handleChangeProduct}
     />
   );
 }
