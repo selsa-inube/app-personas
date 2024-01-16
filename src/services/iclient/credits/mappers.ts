@@ -73,9 +73,17 @@ const mapCreditApiToEntity = (
   const currentQuota = heightQuota.length > 0 ? heightQuota[0] : 0;
   const maxQuota = heightQuota.length > 2 ? heightQuota[2] : 0;
 
-  const nextPaymentValue = Object(credit.valueExpired)?.totalPending
-    ? Object(credit.valueExpired)?.totalPending
-    : Object(credit.nextPaymentValue).totalPending;
+  const nextPaymentCapital =
+    Object(credit.valueExpired)?.capitalValuePending ||
+    Object(credit.nextPaymentValue).capitalValuePending;
+
+  const nextPaymentInterest =
+    Object(credit.valueExpired)?.interestValuePending ||
+    Object(credit.nextPaymentValue).interestValuePending;
+
+  const nextPaymentValue =
+    Object(credit.valueExpired)?.totalPending ||
+    Object(credit.nextPaymentValue).totalPending;
 
   const normalizedPaymentMethodName = capitalizeText(
     String(credit.paymentMethodName).toLowerCase(),
@@ -103,8 +111,18 @@ const mapCreditApiToEntity = (
       value: nextPayment,
     },
     {
+      id: "next_payment_capital",
+      label: "Capital próximo pago",
+      value: nextPaymentCapital,
+    },
+    {
+      id: "next_payment_interest",
+      label: "Interes próximo pago",
+      value: nextPaymentInterest,
+    },
+    {
       id: "next_payment_value",
-      label: "Próximo pago",
+      label: "Valor próximo pago",
       value: nextPaymentValue,
     },
     { id: "terms", label: "Plazo", value: `${maxQuota} Meses` },

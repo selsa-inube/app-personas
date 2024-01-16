@@ -6,10 +6,10 @@ import { CreditsContext } from "src/context/credits";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditUI } from "./interface";
-import { ISelectedProductState } from "./types";
+import { INextPaymentModalState, ISelectedProductState } from "./types";
 import {
-  validateCredit,
-  validateCreditMovementsAndAmortization,
+  getNextPaymentData, validateCredit,
+  validateCreditMovementsAndAmortization
 } from "./utils";
 
 function Credit() {
@@ -17,12 +17,38 @@ function Credit() {
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [nextPaymentModal, setNextPaymentModal] =
+    useState<INextPaymentModalState>({
+      show: false,
+    });
   const { credits, setCredits } = useContext(CreditsContext);
   const { user, accessToken } = useAuth();
 
   const navigate = useNavigate();
 
   const isMobile = useMediaQuery("(max-width: 750px)");
+
+  useEffect(() => {
+    handleSortProduct();
+  }, [credit_id, user, accessToken, isMobile]);
+
+  useEffect(() => {
+    if (!selectedProduct) return;
+
+    const { nextPaymentCapital, nextPaymentInterest, nextPaymentValue } =
+      getNextPaymentData(selectedProduct.credit);
+
+    if (!nextPaymentCapital || !nextPaymentValue) return;
+
+    setNextPaymentModal({
+      ...nextPaymentModal,
+      data: {
+        nextPaymentCapital,
+        nextPaymentInterest,
+        nextPaymentValue,
+      },
+    });
+  }, [selectedProduct]);
 
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
@@ -59,24 +85,30 @@ function Credit() {
     });
   };
 
-  useEffect(() => {
-    handleSortProduct();
-  }, [credit_id, user, accessToken, isMobile]);
-
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
     navigate(`/my-credits/${id}`);
   };
 
+  const handleToggleNextPaymentModal = () => {
+    setNextPaymentModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
   return (
     <CreditUI
-      handleChangeProduct={handleChangeProduct}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
       isMobile={isMobile}
       credit_id={credit_id}
+      nextPaymentModal={nextPaymentModal}
+      handleToggleNextPaymentModal={handleToggleNextPaymentModal}
+      handleChangeProduct={handleChangeProduct}
     />
   );
 }
 
 export { Credit };
+
