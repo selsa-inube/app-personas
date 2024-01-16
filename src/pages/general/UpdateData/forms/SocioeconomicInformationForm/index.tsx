@@ -23,7 +23,7 @@ interface SocioeconomicInformationFormProps {
 const SocioeconomicInformationForm = forwardRef(
   function SocioeconomicInformationForm(
     props: SocioeconomicInformationFormProps,
-    ref: React.Ref<FormikProps<ISocioeconomicInformationEntry>>
+    ref: React.Ref<FormikProps<ISocioeconomicInformationEntry>>,
   ) {
     const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -31,13 +31,13 @@ const SocioeconomicInformationForm = forwardRef(
       initialValues,
       validationSchema,
       validateOnChange: false,
-      onSubmit: onSubmit || (() => {}),
+      onSubmit: onSubmit || (() => true),
     });
 
     useImperativeHandle(ref, () => formik);
 
     const customHandleBlur = (
-      event: React.FocusEvent<HTMLElement, Element>
+      event: React.FocusEvent<HTMLElement, Element>,
     ) => {
       formik.handleBlur(event);
 
@@ -55,7 +55,7 @@ const SocioeconomicInformationForm = forwardRef(
         customHandleBlur={customHandleBlur}
       />
     );
-  }
+  },
 );
 
 export { SocioeconomicInformationForm };

@@ -49,7 +49,6 @@ Default.args = {
   description: "Text description modal",
   actionText: "Text Action select",
   onCloseModal: closeDecisionModal,
-  onClick: () => {},
   portalId: "modals",
 };
 

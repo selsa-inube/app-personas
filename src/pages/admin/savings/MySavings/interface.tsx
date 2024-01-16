@@ -40,7 +40,7 @@ const renderSavingCommitments = (productsCommitments: ICommitment[]) => {
     const valueToPay = extractAttribute(commitment.attributes, "value_to_pay");
     const nextPayDate = extractAttribute(
       commitment.attributes,
-      "next_pay_date"
+      "next_pay_date",
     );
     const navigate = useNavigate();
 
@@ -75,7 +75,7 @@ function renderMySavingsContent(
   savingsAccountsMock: IProduct[],
   savingsStatutoryContributionsMock: IProduct[],
   cdats?: IProduct[],
-  programmedSavings?: IProduct[]
+  programmedSavings?: IProduct[],
 ) {
   return (
     <>
@@ -100,16 +100,15 @@ function renderMySavingsContent(
                 ) : (
                   savingsAccountsMock.map((saving) => (
                     <Product
-                      id={saving.id}
                       key={saving.id}
                       title={saving.title}
                       description={truncateAndObfuscateDescription(
                         saving.id,
                         saving.type,
-                        4
+                        4,
                       )}
                       attributes={formatMySavingsCurrencyAttrs(
-                        extractMySavingsAttributes(saving)
+                        extractMySavingsAttributes(saving),
                       )}
                       tags={saving.tags}
                       icon={savingsAccountIcons[saving.type]}
@@ -135,16 +134,15 @@ function renderMySavingsContent(
                 ) : (
                   savingsStatutoryContributionsMock.map((saving) => (
                     <Product
-                      id={saving.id}
                       key={saving.id}
                       title={saving.title}
                       description={truncateAndObfuscateDescription(
                         saving.id,
                         saving.type,
-                        4
+                        4,
                       )}
                       attributes={formatMySavingsCurrencyAttrs(
-                        extractMySavingsAttributes(saving)
+                        extractMySavingsAttributes(saving),
                       )}
                       tags={saving.tags}
                       icon={savingsAccountIcons[saving.type]}
@@ -163,12 +161,11 @@ function renderMySavingsContent(
                 <Stack direction="column" gap="s100">
                   {cdats.map((investment) => (
                     <Product
-                      id={investment.id}
                       key={investment.id}
                       title={investment.title}
                       description={investment.id}
                       attributes={formatInvestmentCurrencyAttrs(
-                        extractInvestmentAttributes(investment)
+                        extractInvestmentAttributes(investment),
                       )}
                       tags={investment.tags}
                       icon={investmentIcons[investment.type]}
@@ -187,12 +184,11 @@ function renderMySavingsContent(
                 <Stack direction="column" gap="s100">
                   {programmedSavings.map((investment) => (
                     <Product
-                      id={investment.id}
                       key={investment.id}
                       title={investment.title}
                       description={investment.id}
                       attributes={formatInvestmentCurrencyAttrs(
-                        extractInvestmentAttributes(investment)
+                        extractInvestmentAttributes(investment),
                       )}
                       tags={investment.tags}
                       icon={investmentIcons[investment.type]}
@@ -264,7 +260,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             savingsAccountsMock,
             savingsStatutoryContributionsMock,
             cdats,
-            programmedSavings
+            programmedSavings,
           )}
         </Stack>
       ) : (
@@ -278,7 +274,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             savingsAccountsMock,
             savingsStatutoryContributionsMock,
             cdats,
-            programmedSavings
+            programmedSavings,
           )}
           <QuickAccess links={quickLinks} />
         </Grid>

@@ -17,14 +17,14 @@ interface TermsAndConditionsFormProps {
 
 const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
   props: TermsAndConditionsFormProps,
-  ref: React.Ref<FormikProps<ITermsAndConditionsEntry>>
+  ref: React.Ref<FormikProps<ITermsAndConditionsEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);

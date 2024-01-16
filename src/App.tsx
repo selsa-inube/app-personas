@@ -26,8 +26,6 @@ import { SavingRoutes } from "./routes/saving";
 import { useAuth } from "@inube/auth";
 import { CreditsProvider } from "./context/credits";
 
-const TEMP_BUSINESS_UNIT = "test";
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Page header={header} nav={nav} />}>
@@ -42,8 +40,8 @@ const router = createBrowserRouter(
       <Route path="savings/*" element={<SavingRoutes />} />
 
       <Route path="/update-data" element={<UpdateData />} />
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 function App() {
@@ -54,7 +52,7 @@ function App() {
     if (!isLoading && !isAuthenticated) {
       loginWithRedirect();
     }
-  }, [isLoading, isAuthenticated]);
+  }, [isLoading, isAuthenticated, loginWithRedirect]);
 
   if (!isAuthenticated) {
     return null;
@@ -72,5 +70,4 @@ function App() {
   );
 }
 
-export { TEMP_BUSINESS_UNIT };
 export default App;

@@ -39,7 +39,6 @@ WithButton.args = {
   label: "Label",
   value: "Value",
   withButton: true,
-  onClickButton: () => {},
   buttonValue: 2,
   buttonIcon: <MdAndroid />,
 };

@@ -1,6 +1,6 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsAccountMovementsUI } from "./interface";
@@ -13,10 +13,6 @@ function SavingsAccountMovements() {
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    handleSortProduct();
-  }, [product_id]);
 
   const handleSortProduct = () => {
     const products = [
@@ -44,6 +40,10 @@ function SavingsAccountMovements() {
     setProductsOptions(savingsOptions);
   };
 
+  useEffect(() => {
+    handleSortProduct();
+  }, [product_id]);
+
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
     navigate(`/my-savings/account/${id}/movements`);
@@ -62,14 +62,14 @@ function SavingsAccountMovements() {
         ];
 
         const foundProduct = products.find(
-          (saving) => saving.id === product_id
+          (saving) => saving.id === product_id,
         );
 
         if (!foundProduct) return;
 
         const newMovements = foundProduct.movements?.slice(
           selectedProduct.movements.length,
-          selectedProduct.movements.length + 5
+          selectedProduct.movements.length + 5,
         );
 
         if (newMovements) {

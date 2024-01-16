@@ -136,12 +136,11 @@ const TableUI = (props: TableUIProps) => {
 
   const isTablet = useMediaQuery("(max-width: 850px)");
 
-  const queriesArray =
-    breakpoints &&
-    useMemo(
-      () => breakpoints.map((breakpoint) => breakpoint.breakpoint),
-      [breakpoints]
-    );
+  const queriesArray = useMemo(
+    () => breakpoints && breakpoints.map((breakpoint) => breakpoint.breakpoint),
+    [breakpoints]
+  );
+
   const media = useMediaQueries(queriesArray || []);
 
   const titleColumns = useMemo(

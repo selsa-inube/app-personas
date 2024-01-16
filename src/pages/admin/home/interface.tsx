@@ -1,8 +1,8 @@
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { capitalizeFirstLetters } from "src/utils/texts";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { capitalizeFirstLetters } from "src/utils/texts";
 
 import { Box } from "@components/cards/Box";
 import { QuickAccess } from "@components/cards/QuickAccess";
@@ -14,10 +14,9 @@ import { StyledCommitmentsContainer } from "./styles";
 
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { useAuth } from "@inube/auth";
+import { SkeletonLine } from "@inube/design-system";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
-import { IMessage } from "@ptypes/messages.types";
 import { useEffect, useState } from "react";
 import {
   MdOutlineAccountBalanceWallet,
@@ -44,7 +43,6 @@ import {
   investmentAttributeBreakpoints,
   savingAttributeBreakpoints,
 } from "./config/products";
-import { SkeletonLine } from "@inube/design-system";
 import { cardProducts } from "./mocks";
 
 function renderHomeContent(
@@ -54,7 +52,7 @@ function renderHomeContent(
   credits: IProduct[],
   loading: boolean,
   cdats?: IProduct[],
-  programmedSavings?: IProduct[]
+  programmedSavings?: IProduct[],
 ) {
   return (
     <>
@@ -79,16 +77,15 @@ function renderHomeContent(
                 ) : (
                   savingsAccountsMock.map((saving) => (
                     <Product
-                      id={saving.id}
                       key={saving.id}
                       title={saving.title}
                       description={truncateAndObfuscateDescription(
                         saving.id,
                         saving.type,
-                        4
+                        4,
                       )}
                       attributes={formatSavingCurrencyAttrs(
-                        extractSavingAttributes(saving)
+                        extractSavingAttributes(saving),
                       )}
                       tags={saving.tags}
                       icon={savingsAccountIcons[saving.type]}
@@ -114,16 +111,15 @@ function renderHomeContent(
                 ) : (
                   savingsStatutoryContributionsMock.map((saving) => (
                     <Product
-                      id={saving.id}
                       key={saving.id}
                       title={saving.title}
                       description={truncateAndObfuscateDescription(
                         saving.id,
                         saving.type,
-                        4
+                        4,
                       )}
                       attributes={formatSavingCurrencyAttrs(
-                        extractSavingAttributes(saving)
+                        extractSavingAttributes(saving),
                       )}
                       tags={saving.tags}
                       icon={savingsAccountIcons[saving.type]}
@@ -142,12 +138,11 @@ function renderHomeContent(
                 <Stack direction="column" gap="s100">
                   {cdats.map((investment) => (
                     <Product
-                      id={investment.id}
                       key={investment.id}
                       title={investment.title}
                       description={investment.id}
                       attributes={formatInvestmentCurrencyAttrs(
-                        extractInvestmentAttributes(investment)
+                        extractInvestmentAttributes(investment),
                       )}
                       tags={investment.tags}
                       icon={investmentIcons[investment.type]}
@@ -166,12 +161,11 @@ function renderHomeContent(
                 <Stack direction="column" gap="s100">
                   {programmedSavings.map((investment) => (
                     <Product
-                      id={investment.id}
                       key={investment.id}
                       title={investment.title}
                       description={investment.id}
                       attributes={formatInvestmentCurrencyAttrs(
-                        extractInvestmentAttributes(investment)
+                        extractInvestmentAttributes(investment),
                       )}
                       tags={investment.tags}
                       icon={investmentIcons[investment.type]}
@@ -208,7 +202,7 @@ function renderHomeContent(
         <Box {...creditsBox}>
           <Stack direction="column" gap="s100">
             {loading ? (
-              <SkeletonLine animated/>
+              <SkeletonLine animated />
             ) : (
               <>
                 {credits.length === 0 ? (
@@ -216,12 +210,11 @@ function renderHomeContent(
                 ) : (
                   credits.map((credit) => (
                     <Product
-                      id={credit.id}
                       key={credit.id}
                       title={credit.title}
                       description={credit.id}
                       attributes={formatCreditCurrencyAttrs(
-                        extractCreditAttributes(credit)
+                        extractCreditAttributes(credit),
                       )}
                       breakpoints={creditAttributeBreakpoints}
                       tags={credit.tags}
@@ -242,7 +235,6 @@ function renderHomeContent(
               cardProducts.map(
                 ({ title, id, attributes, tags, description }) => (
                   <Product
-                    id={id}
                     key={id}
                     title={title}
                     description={description}
@@ -250,7 +242,7 @@ function renderHomeContent(
                     tags={tags}
                     icon={<MdOutlineCreditCard />}
                   />
-                )
+                ),
               )
             )}
           </Stack>
@@ -321,7 +313,7 @@ function HomeUI(props: HomeUIProps) {
             credits,
             loading,
             cdats,
-            programmedSavings
+            programmedSavings,
           )}
         </Stack>
       ) : (
@@ -337,7 +329,7 @@ function HomeUI(props: HomeUIProps) {
             credits,
             loading,
             cdats,
-            programmedSavings
+            programmedSavings,
           )}
           <QuickAccess links={quickLinks} />
         </Grid>

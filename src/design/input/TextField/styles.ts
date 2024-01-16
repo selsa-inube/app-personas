@@ -13,13 +13,6 @@ const StyledContainer = styled.div<IStyledContainer>`
   position: relative;
 `;
 
-interface IStyledContainerLabel {
-  alignItems: string;
-  isDisabled: boolean;
-  wrap: string;
-}
-
-
 interface IStyledInputContainer {
   isDisabled: boolean;
   isFocused: boolean;

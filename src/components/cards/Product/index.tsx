@@ -10,7 +10,6 @@ import { IAttribute } from "src/model/entity/product";
 import { StyledProduct } from "./styles";
 
 interface ProductProps {
-  id?: string;
   title?: string;
   description?: string;
   icon?: React.JSX.Element;
@@ -23,7 +22,6 @@ interface ProductProps {
 
 function Product(props: ProductProps) {
   const {
-    id = "",
     title = "",
     description = "",
     icon,

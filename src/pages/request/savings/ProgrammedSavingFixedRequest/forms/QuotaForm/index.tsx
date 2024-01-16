@@ -1,22 +1,22 @@
+import { IFormField } from "@ptypes/forms.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
-import * as Yup from "yup";
 import { validationRules } from "src/validations/validationRules";
+import * as Yup from "yup";
+import { initalValuesProgrammedSavingFixed } from "../../config/initialValues";
+import { structureQuotaForm } from "./config/form";
 import { QuotaFormUI } from "./interface";
 import { IQuotaEntry } from "./types";
-import { IFormField } from "@ptypes/forms.types";
-import { initalValuesProgrammedSavingFixed } from "../../config/initialValues";
-import { generateDynamicForm } from "src/utils/forms/forms";
-import { structureQuotaForm } from "./config/form";
 
 const initValidationSchema = Yup.object({
   periodicValue: validationRules.money.required(validationMessages.required),
   paymentMethod: Yup.string().required(validationMessages.required),
-  periodicity:Yup.string().required(validationMessages.required),
-  paydayTypeToSelect:Yup.string(),
+  periodicity: Yup.string().required(validationMessages.required),
+  paydayTypeToSelect: Yup.string(),
   paydayByDate: validationRules.notPastDate,
-}); 
+});
 
 interface QuotaFormProps {
   initialValues: IQuotaEntry;
@@ -27,13 +27,13 @@ interface QuotaFormProps {
 
 const QuotaForm = forwardRef(function QuotaForm(
   props: QuotaFormProps,
-  ref: React.Ref<FormikProps<IQuotaEntry>>
+  ref: React.Ref<FormikProps<IQuotaEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const [dynamicForm, setDynamicForm] = useState<{
     renderFields: IFormField[];
-    validationSchema: Yup.ObjectSchema<{}, Yup.AnyObject, {}, "">;
+    validationSchema: Yup.ObjectSchema<object, Yup.AnyObject, object, "">;
   }>({
     renderFields: [],
     validationSchema: initValidationSchema,
@@ -43,7 +43,7 @@ const QuotaForm = forwardRef(function QuotaForm(
     initialValues,
     validationSchema: dynamicForm.validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
   });
 
@@ -55,30 +55,32 @@ const QuotaForm = forwardRef(function QuotaForm(
     if (formik.values.paymentMethod) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
-        structureQuotaForm(formik, valuePeriodicity)
+        structureQuotaForm(formik, valuePeriodicity),
       );
 
       const newValidationSchema = initValidationSchema.concat(
         Yup.object({
-          periodicValue: validationRules.money.required(validationMessages.required),
+          periodicValue: validationRules.money.required(
+            validationMessages.required,
+          ),
           paymentMethod: Yup.string().required(validationMessages.required),
-          periodicity:Yup.string().required(validationMessages.required),
-          paydayTypeToSelect:Yup.string(),
+          periodicity: Yup.string().required(validationMessages.required),
+          paydayTypeToSelect: Yup.string(),
           paydayByDate: validationRules.notPastDate,
-        }))
+        }),
+      );
 
       setDynamicForm({
         renderFields,
         validationSchema: validationSchema.concat(newValidationSchema),
       });
     }
+  }, [formik, valuePeriodicity]);
 
-  }, []);
-
-    const customHandleChange = (
+  const customHandleChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => {
     const { name, value } = event.target;
 
@@ -87,7 +89,7 @@ const QuotaForm = forwardRef(function QuotaForm(
       [name]: value,
     };
 
-     if (name === "paymentMethod") {
+    if (name === "paymentMethod") {
       formik.setValues({
         ...initalValuesProgrammedSavingFixed.quota,
         periodicValue: formik.values.periodicValue,
@@ -111,16 +113,19 @@ const QuotaForm = forwardRef(function QuotaForm(
         ...formik,
         values: updatedFormikValues,
       },
-      structureQuotaForm(formik, valuePeriodicity)
+      structureQuotaForm(formik, valuePeriodicity),
     );
     const newValidationSchema = initValidationSchema.concat(
       Yup.object({
-        periodicValue: validationRules.money.required(validationMessages.required),
+        periodicValue: validationRules.money.required(
+          validationMessages.required,
+        ),
         paymentMethod: Yup.string().required(validationMessages.required),
-        periodicity:Yup.string().required(validationMessages.required),
-        paydayTypeToSelect:Yup.string(),
+        periodicity: Yup.string().required(validationMessages.required),
+        paydayTypeToSelect: Yup.string(),
         paydayByDate: validationRules.notPastDate,
-      }))
+      }),
+    );
 
     setDynamicForm({
       renderFields,

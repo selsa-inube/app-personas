@@ -1,14 +1,13 @@
+import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
+import { regex } from "src/validations/regularExpressions";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { useState } from "react";
+import { EconomicActivityRequiredFields } from "./config/formConfig";
 import { EconomicActivityFormUI } from "./interface";
 import { IEconomicActivityEntry } from "./types";
-import { EconomicActivityRequiredFields } from "./config/formConfig";
-import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
-import { regex } from "src/validations/regularExpressions";
 
 const validationSchema = Yup.object().shape({
   economicActivity: EconomicActivityRequiredFields.economicActivity
@@ -101,11 +100,11 @@ interface EconomicActivityFormProps {
 
 const EconomicActivityForm = forwardRef(function EconomicActivityForm(
   props: EconomicActivityFormProps,
-  ref: React.Ref<FormikProps<IEconomicActivityEntry>>
+  ref: React.Ref<FormikProps<IEconomicActivityEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
-  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
+  const [dynamicSchema] = useState(validationSchema);
   const [showMainActivityModal, setShowMainActivityModal] = useState(false);
   const [showSecondaryActivityModal, setShowSecondaryActivityModal] =
     useState(false);
@@ -114,7 +113,7 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
     initialValues,
     validationSchema: dynamicSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -131,7 +130,7 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
 
   const handleModalSelect = (
     field: string,
-    selectedItem: IEconomicActivity
+    selectedItem: IEconomicActivity,
   ) => {
     formik.setFieldValue(field, selectedItem.id);
     handleToggleModal(field);
@@ -144,7 +143,8 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
   };
 
   const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
+    const fieldDescription = dynamicSchema.describe().fields[fieldName];
+    if (!("nullable" in fieldDescription)) return false;
     return !fieldDescription.nullable && !fieldDescription.optional;
   };
 

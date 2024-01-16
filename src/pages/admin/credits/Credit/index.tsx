@@ -24,10 +24,6 @@ function Credit() {
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
-  useEffect(() => {
-    handleSortProduct();
-  }, [credit_id, user, accessToken, isMobile]);
-
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
 
@@ -35,7 +31,7 @@ function Credit() {
       credits,
       credit_id,
       user.identification,
-      accessToken
+      accessToken,
     );
 
     setCredits(newCredits);
@@ -51,7 +47,7 @@ function Credit() {
       newCredits.map((credit) => ({
         id: credit.id,
         value: credit.description,
-      }))
+      })),
     );
 
     validateCreditMovementsAndAmortization(
@@ -62,6 +58,10 @@ function Credit() {
       setCredits(newCredits);
     });
   };
+
+  useEffect(() => {
+    handleSortProduct();
+  }, [credit_id, user, accessToken, isMobile]);
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;

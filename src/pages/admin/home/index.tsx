@@ -32,7 +32,7 @@ function Home() {
           setLoading(false);
         });
     }
-  }, [user, accessToken]);
+  }, [user, accessToken, setCredits]);
 
   return (
     <HomeUI

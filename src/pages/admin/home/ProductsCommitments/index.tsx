@@ -9,9 +9,9 @@ interface ProductsCommitmentsProps {
 function ProductsCommitments(props: ProductsCommitmentsProps) {
   const { productsCommitments } = props;
 
-  return productsCommitments.map((commitment) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
+  return productsCommitments.map((commitment) => {
     const handleNavigateCommitment = () => {
       navigate(`/my-savings/commitment/${commitment.id}`);
     };

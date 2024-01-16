@@ -1,11 +1,7 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import styled from "styled-components";
 
 interface IStyledTermsAndConditionsContainer {
-  isMobile: boolean;
-}
-
-interface StyledTermsAndConditionsInfo {
   isMobile: boolean;
 }
 
@@ -28,7 +24,11 @@ const StyledTermsAndConditionsContainer = styled.div<IStyledTermsAndConditionsCo
   }
 `;
 
-const StyledTermsAndConditionsInfo = styled.div<StyledTermsAndConditionsInfo>`
+interface IStyledTermsAndConditionsInfo {
+  isMobile: boolean;
+}
+
+const StyledTermsAndConditionsInfo = styled.div<IStyledTermsAndConditionsInfo>`
   display: flex;
   flex-direction: column;
   border-width: 1px;
@@ -45,4 +45,4 @@ const StyledTermsAndConditionsInfo = styled.div<StyledTermsAndConditionsInfo>`
     isMobile ? inube.spacing.s150 : inube.spacing.s200};
 `;
 
-export { StyledTermsAndConditionsInfo, StyledTermsAndConditionsContainer };
+export { StyledTermsAndConditionsContainer, StyledTermsAndConditionsInfo };

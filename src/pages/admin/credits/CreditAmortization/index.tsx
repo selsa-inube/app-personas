@@ -65,10 +65,6 @@ function CreditAmortization() {
     },
   ];
 
-  useEffect(() => {
-    handleSortProduct();
-  }, [credit_id, user, accessToken]);
-
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
 
@@ -76,7 +72,7 @@ function CreditAmortization() {
       credits,
       credit_id,
       user?.identification,
-      accessToken
+      accessToken,
     );
 
     setCredits(newCredits);
@@ -96,9 +92,13 @@ function CreditAmortization() {
       newCredits.map((credit) => ({
         id: credit.id,
         value: credit.description,
-      }))
+      })),
     );
   };
+
+  useEffect(() => {
+    handleSortProduct();
+  }, [credit_id, user, accessToken]);
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
@@ -160,7 +160,7 @@ function CreditAmortization() {
                 breakpoints={amortizationTableBreakpoints}
                 actions={creditAmortizationTableActions}
                 entries={amortizationCurrencyEntries(
-                  selectedProduct.credit.amortization
+                  selectedProduct.credit.amortization,
                 )}
                 hideMobileResume
               />

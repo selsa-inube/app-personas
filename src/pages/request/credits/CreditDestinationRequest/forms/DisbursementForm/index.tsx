@@ -22,13 +22,13 @@ interface DisbursementFormProps {
 
 const DisbursementForm = forwardRef(function DisbursementForm(
   props: DisbursementFormProps,
-  ref: React.Ref<FormikProps<IDisbursementEntry>>
+  ref: React.Ref<FormikProps<IDisbursementEntry>>,
 ) {
   const { initialValues, onSubmit, onFormValid, loading } = props;
 
   const [dynamicForm, setDynamicForm] = useState<{
     renderFields: IFormField[];
-    validationSchema: Yup.ObjectSchema<{}, Yup.AnyObject, {}, "">;
+    validationSchema: Yup.ObjectSchema<object, Yup.AnyObject, object, "">;
   }>({
     renderFields: [],
     validationSchema: initValidationSchema,
@@ -38,7 +38,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     initialValues,
     validationSchema: dynamicForm.validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
   });
 
@@ -48,7 +48,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     if (formik.values.disbursementType) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
-        structureDisbursementForm(formik)
+        structureDisbursementForm(formik),
       );
 
       setDynamicForm({
@@ -56,7 +56,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
         validationSchema: initValidationSchema.concat(validationSchema),
       });
     }
-  }, []);
+  }, [formik]);
 
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
@@ -71,7 +71,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   const customHandleChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => {
     const { name, value } = event.target;
 
@@ -99,7 +99,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
         ...formik,
         values: updatedFormikValues,
       },
-      structureDisbursementForm(formik)
+      structureDisbursementForm(formik),
     );
 
     setDynamicForm({

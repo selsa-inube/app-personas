@@ -26,8 +26,8 @@ const StyledCountdownBar = styled.div<IStyledCountdownBar>`
   animation: ${CountdownBarAnimation} ${(props) => props.duration}ms linear;
   background-color: ${({ theme, appearance }) => {
     return (
-      theme?.color?.stroke?.[appearance!]?.regular ||
-      inube.color.stroke[appearance!].regular
+      theme?.color?.stroke?.[appearance]?.regular ||
+      inube.color.stroke[appearance].regular
     );
   }};
   animation-fill-mode: forwards;

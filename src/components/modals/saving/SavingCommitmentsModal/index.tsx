@@ -19,7 +19,7 @@ interface SavingCommitmentsModalProps {
 
 function formatValueToPayAttribute(attributes: IAttribute[]) {
   const valueToPayAttribute = attributes.find(
-    (attribute) => attribute.id === "value_to_pay"
+    (attribute) => attribute.id === "value_to_pay",
   );
 
   if (valueToPayAttribute) {
@@ -43,7 +43,7 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -76,7 +76,6 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
         <Stack direction="column" gap="s150">
           {limitedCommitments.map((commitment) => (
             <Product
-              id={commitment.id}
               key={commitment.id}
               title={commitment.title}
               description={commitment.description}
@@ -88,7 +87,7 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

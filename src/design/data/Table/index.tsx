@@ -64,7 +64,7 @@ const Table = (props: TableProps) => {
 
   const lastEntryInPage = Math.min(
     firstEntryInPage + pageLength,
-    filteredEntries.length
+    filteredEntries.length,
   );
 
   function getPageEntries() {

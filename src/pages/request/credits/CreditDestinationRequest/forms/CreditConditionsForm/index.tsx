@@ -29,7 +29,7 @@ interface CreditConditionsFormProps {
 
 const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   props: CreditConditionsFormProps,
-  ref: React.Ref<FormikProps<ICreditConditionsEntry>>
+  ref: React.Ref<FormikProps<ICreditConditionsEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -41,7 +41,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     initialValues,
     validationSchema: dynamicValidationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -62,15 +62,15 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
           .min(1, validationMessages.minNumbers(10))
           .max(
             maxDeadline,
-            `El plazo máximo para este producto es de ${maxDeadline} meses`
+            `El plazo máximo para este producto es de ${maxDeadline} meses`,
           ),
         amount: Yup.number()
           .min(1, validationMessages.minCurrencyNumbers(1))
           .max(maximumQuotas.noWarranty, "Has superado el cupo máximo"),
-      })
+      }),
     );
     setDynamicValidationSchema(newValidationSchema);
-  }, []);
+  }, [formik.values.creditDestination, formik.values.product]);
 
   const interestRate =
     interestRatesMock[
@@ -129,7 +129,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   };
 
   const customHandleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     formik.handleChange(event);
 
@@ -161,11 +161,11 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
             .test(
               "valid-quota",
               `La cuota debe ser mayor a: ${currencyFormat(
-                amount * interestRateDecimal
+                amount * interestRateDecimal,
               )}`,
-              (value) => Number(value) > amount * interestRateDecimal
+              (value) => Number(value) > amount * interestRateDecimal,
             ),
-        })
+        }),
       );
       setDynamicValidationSchema(newValidationSchema);
     }

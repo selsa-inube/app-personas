@@ -31,10 +31,10 @@ const formatTraceabilityDate = (date: Date) => {
     .replaceAll(",", "")
     .replaceAll(".", "");
 
-  const [weekday, day, of1, month, of2, year, time] = dateString.split(" ");
+  const [weekday, day, , month, , year, time] = dateString.split(" ");
 
   return `${capitalizeText(weekday)} ${day} de ${capitalizeText(
-    month
+    month,
   )} de ${year} ${time} ${ampm}`;
 };
 

@@ -9,7 +9,7 @@ const validateCredit = async (
   credits: IProduct[],
   creditId: string,
   userIdentification: string,
-  accessToken: string
+  accessToken: string,
 ) => {
   let currentCredits = [...credits];
 
@@ -30,16 +30,16 @@ const validateCredit = async (
 const validateCreditMovementsAndAmortization = async (
   selectedCredit: IProduct,
   credits: IProduct[],
-  accessToken: string
+  accessToken: string,
 ) => {
-  let currentCredits = [...credits];
+  const currentCredits = [...credits];
 
-  for (let ix in currentCredits) {
+  for (const ix in currentCredits) {
     if (currentCredits[ix].id === selectedCredit.id) {
       if (currentCredits[ix].movements?.length === 0) {
         const movements = await getMovementsForCredit(
           selectedCredit.id,
-          accessToken
+          accessToken,
         );
         currentCredits[ix].movements = movements;
       }
@@ -47,7 +47,7 @@ const validateCreditMovementsAndAmortization = async (
       if (currentCredits[ix].amortization?.length === 0) {
         const amortization = await getAmortizationForCredit(
           selectedCredit.id,
-          accessToken
+          accessToken,
         );
 
         currentCredits[ix].amortization = amortization;

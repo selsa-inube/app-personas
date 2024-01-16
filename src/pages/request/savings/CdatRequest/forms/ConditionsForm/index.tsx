@@ -1,34 +1,34 @@
+import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
-import * as Yup from "yup";
 import { validationRules } from "src/validations/validationRules";
+import * as Yup from "yup";
 import { ConditionsFormUI } from "./interface";
 import { IConditionsEntry } from "./types";
 import {
+  effectiveAnnualRateRequest,
   maxDeadlineDays,
   minDeadlineDays,
-  effectiveAnnualRateRequest,
   totalInterestRequest,
 } from "./utils";
-import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 
 const validationSchema = Yup.object({
   deadlineDate: validationRules.notPastDate.required(
-    validationMessages.required
+    validationMessages.required,
   ),
   deadlineDays: Yup.number()
     .min(
       minDeadlineDays(investmentsRatesMocks),
       `El plazo minimo en días debe ser mayor o igual a:  ${minDeadlineDays(
-        investmentsRatesMocks
-      )} días`
+        investmentsRatesMocks,
+      )} días`,
     )
     .max(
       maxDeadlineDays(investmentsRatesMocks),
       `El plazo máximo en días debe ser menor o igual a:  ${maxDeadlineDays(
-        investmentsRatesMocks
-      )} días`
+        investmentsRatesMocks,
+      )} días`,
     ),
 });
 
@@ -41,7 +41,7 @@ interface ConditionsFormProps {
 
 const ConditionsForm = forwardRef(function ConditionsForm(
   props: ConditionsFormProps,
-  ref: React.Ref<FormikProps<IConditionsEntry>>
+  ref: React.Ref<FormikProps<IConditionsEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -50,7 +50,7 @@ const ConditionsForm = forwardRef(function ConditionsForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -59,28 +59,28 @@ const ConditionsForm = forwardRef(function ConditionsForm(
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, []);
+  }, [formik, onFormValid]);
 
   const simulateCDAT = () => {
     setLoadingSimulation(true);
     setTimeout(() => {
       const valueInvestment = Number(formik.values.valueInvestment);
-      let deadlineDays= Number(formik.values.deadlineDays);
+      let deadlineDays = Number(formik.values.deadlineDays);
 
       if (formik.values.simulationWithDate) {
         deadlineDays = 360;
         formik.setFieldValue("deadlineDays", deadlineDays);
-      } 
+      }
 
       const effectiveAnnualRate = effectiveAnnualRateRequest(
         investmentsRatesMocks,
-        deadlineDays
+        deadlineDays,
       );
 
       const totalInterest = totalInterestRequest(
         valueInvestment,
         investmentsRatesMocks,
-        deadlineDays
+        deadlineDays,
       );
 
       formik.setFieldValue("effectiveAnnualRate", effectiveAnnualRate);
@@ -94,7 +94,7 @@ const ConditionsForm = forwardRef(function ConditionsForm(
   };
 
   const customHandleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     formik.handleChange(event);
 

@@ -19,7 +19,7 @@ import {
 
 function ProgrammedSavingFixedRequest() {
   const [currentStep, setCurrentStep] = useState(
-    programmedSavingFixedRequestSteps.quota.id
+    programmedSavingFixedRequestSteps.quota.id,
   );
   const steps = Object.values(programmedSavingFixedRequestSteps);
 
@@ -62,12 +62,12 @@ function ProgrammedSavingFixedRequest() {
       currentStep,
       programmedSavingFixedRequest,
       formReferences,
-      isCurrentFormValid
+      isCurrentFormValid,
     );
     setProgrammedSavingFixedRequest(newProgrammedSavingFixedRequest);
 
     const changeStepKey = Object.entries(
-      programmedSavingFixedRequestSteps
+      programmedSavingFixedRequestSteps,
     ).find(([, config]) => config.id === stepId)?.[0];
 
     if (!changeStepKey) return;
@@ -78,7 +78,7 @@ function ProgrammedSavingFixedRequest() {
         newProgrammedSavingFixedRequest[
           changeStepKey as keyof IFormsProgrammedSavingFixedRequest
         ]?.isValid ||
-        false
+        false,
     );
 
     setCurrentStep(stepId);
@@ -86,7 +86,9 @@ function ProgrammedSavingFixedRequest() {
     document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
-  const handleFinishAssisted = () => {};
+  const handleFinishAssisted = () => {
+    return true;
+  };
 
   const handleNextStep = () => {
     if (currentStep + 1 <= steps.length) {

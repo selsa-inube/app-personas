@@ -30,7 +30,7 @@ interface PersonalDebtsFormProps {
 
 const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
   props: PersonalDebtsFormProps,
-  ref: React.Ref<FormikProps<IPersonalDebtEntries>>
+  ref: React.Ref<FormikProps<IPersonalDebtEntries>>,
 ) {
   const { initialValues, onSubmit } = props;
 
@@ -56,7 +56,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -118,7 +118,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
     const debt = formik.values.entries.find((entry) => entry.id === debtId);
 
     const updatedDebts = formik.values.entries.filter(
-      (debt) => debt.id !== debtId
+      (debt) => debt.id !== debtId,
     );
 
     if (updatedDebts.length === formik.values.entries.length) {
