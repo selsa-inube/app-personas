@@ -52,7 +52,7 @@ function App() {
     if (!isLoading && !isAuthenticated) {
       loginWithRedirect();
     }
-  }, [isLoading, isAuthenticated, loginWithRedirect]);
+  }, [isLoading, isAuthenticated]);
 
   if (!isAuthenticated) {
     return null;

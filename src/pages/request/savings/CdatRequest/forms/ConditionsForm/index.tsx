@@ -59,7 +59,7 @@ const ConditionsForm = forwardRef(function ConditionsForm(
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, [formik, onFormValid]);
+  }, []);
 
   const simulateCDAT = () => {
     setLoadingSimulation(true);

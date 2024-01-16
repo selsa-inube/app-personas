@@ -41,7 +41,7 @@ const ContactChannelsForm = forwardRef(function ContactChannelsForm(
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, [formik, onFormValid]);
+  }, []);
 
   const customHandleChange = async (
     event: React.ChangeEvent<HTMLInputElement>,

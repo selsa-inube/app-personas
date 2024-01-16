@@ -23,7 +23,8 @@ function MyCredits() {
           setLoading(false);
         });
     }
-  }, [user, accessToken, credits, setCredits]);
+  }, [user, accessToken, credits]);
+  
   return <MyCreditsUI loading={loading} credits={credits} />;
 }
 

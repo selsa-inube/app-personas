@@ -33,7 +33,7 @@ const PlanNameForm = forwardRef(function PlanNameForm(
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, [formik, onFormValid]);
+  }, []);
 
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);

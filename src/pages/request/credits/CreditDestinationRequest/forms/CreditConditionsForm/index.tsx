@@ -70,7 +70,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       }),
     );
     setDynamicValidationSchema(newValidationSchema);
-  }, [formik.values.creditDestination, formik.values.product]);
+  }, []);
 
   const interestRate =
     interestRatesMock[

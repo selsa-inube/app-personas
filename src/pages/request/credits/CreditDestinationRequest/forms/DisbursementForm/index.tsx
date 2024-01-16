@@ -56,7 +56,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
         validationSchema: initValidationSchema.concat(validationSchema),
       });
     }
-  }, [formik]);
+  }, []);
 
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);

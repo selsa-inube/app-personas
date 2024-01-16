@@ -75,7 +75,7 @@ const QuotaForm = forwardRef(function QuotaForm(
         validationSchema: validationSchema.concat(newValidationSchema),
       });
     }
-  }, [formik, valuePeriodicity]);
+  }, []);
 
   const customHandleChange = (
     event: React.ChangeEvent<
