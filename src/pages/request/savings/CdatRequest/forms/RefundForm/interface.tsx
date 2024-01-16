@@ -10,9 +10,13 @@ interface RefundFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   accountOptions: ISelectOption[];
+  savingOptions: ISelectOption[];
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onRefundMethodChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  customHandleRefundMethod: (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => void;
+  customHandleAccount: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 function RefundFormUI(props: RefundFormUIProps) {
@@ -20,8 +24,10 @@ function RefundFormUI(props: RefundFormUIProps) {
     formik,
     loading,
     accountOptions,
+    savingOptions,
     customHandleBlur,
-    onRefundMethodChange,
+    customHandleRefundMethod,
+    customHandleAccount,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -41,7 +47,8 @@ function RefundFormUI(props: RefundFormUIProps) {
           onBlur={customHandleBlur}
           onClick={formik.handleClick}
           onFocus={formik.handleFocus}
-          onChange={onRefundMethodChange}
+          onChange={customHandleRefundMethod}
+          readOnly={savingOptions.length < 1}
           isDisabled={loading}
           isFullWidth
         />
@@ -49,12 +56,17 @@ function RefundFormUI(props: RefundFormUIProps) {
           label="Cuenta"
           name="account"
           id="account"
+          value={formik.values.account}
           size="compact"
           options={accountOptions}
-          value={formik.values.account}
-          onChange={formik.handleChange}
+          state={getFieldState(formik, "account")}
+          errorMessage={formik.errors.account}
+          onBlur={customHandleBlur}
+          onClick={formik.handleClick}
+          onFocus={formik.handleFocus}
+          onChange={customHandleAccount}
+          readOnly={savingOptions.length === 1 || accountOptions.length === 1}
           isDisabled={loading}
-          readOnly
           isFullWidth
         />
       </Stack>

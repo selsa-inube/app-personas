@@ -37,47 +37,13 @@ const renderConditionsSummary = (values: IConditionsEntry) => (
 );
 
 const renderRefundSummary = (values: IRefundEntry) => {
-  const savingAccount = savingsMock.find(
-    (saving) => saving.id === values.account
-  );
-
   return (
     <Stack direction="column" gap="s100" width="100%">
-      {values.refundMethod === "transferToExternalAccount" ? (
-        <>
-          <BoxAttribute
-            label="Forma de reembolso:"
-            value="Transferencia cuenta externa"
-          />
-          <BoxAttribute label="Cuenta:" value="Nueva cuenta externa" />
-          <BoxAttribute
-            label="Entidad:"
-            value={
-              getValueOfDomain(
-                usersMock[0].bankTransfersAccount.bankEntity,
-                "bank"
-              )?.value
-            }
-          />
-          <BoxAttribute
-            label="Tipo de cuenta:"
-            value={
-              getValueOfDomain(
-                usersMock[0].bankTransfersAccount.accountType,
-                "accountType"
-              )?.value
-            }
-          />
-        </>
-      ) : (
-        <>
-          <BoxAttribute
-            label="Forma de reembolso:"
-            value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
-          />
-          <BoxAttribute label="Cuenta:" value={savingAccount?.description} />
-        </>
-      )}
+      <BoxAttribute
+        label="Forma de reembolso:"
+        value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
+      />
+      <BoxAttribute label="Cuenta:" value={values.accountDescription} />
     </Stack>
   );
 };
