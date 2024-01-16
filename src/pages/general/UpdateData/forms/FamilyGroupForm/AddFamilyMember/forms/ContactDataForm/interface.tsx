@@ -5,13 +5,13 @@ import { getFieldState } from "src/utils/forms/forms";
 interface ContactDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  readOnly?: boolean;
+  readonly?: boolean;
   isRequired: (fieldName: string) => boolean;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, readOnly, isRequired, customHandleBlur } = props;
+  const { formik, loading, readonly, isRequired, customHandleBlur } = props;
 
   return (
     <>
@@ -29,7 +29,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         onChange={formik.handleChange}
         state={getFieldState(formik, "cellPhone")}
         isRequired={isRequired("cellPhone")}
-        readOnly={readOnly}
+        readOnly={readonly}
         isFullWidth
       />
       <TextField
@@ -46,7 +46,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         onChange={formik.handleChange}
         state={getFieldState(formik, "email")}
         isRequired={isRequired("email")}
-        readOnly={readOnly}
+        readOnly={readonly}
         isFullWidth
       />
     </>

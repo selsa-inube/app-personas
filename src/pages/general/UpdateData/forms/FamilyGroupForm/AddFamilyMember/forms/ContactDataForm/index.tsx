@@ -8,14 +8,18 @@ import { FormikProps, useFormik } from "formik";
 import { ContactDataFormUI } from "./interface";
 
 const validationSchema = Yup.object({
-  cellPhone: validationRules.phone.required(validationMessages.required),
-  email: validationRules.email.required(validationMessages.required),
+  cellPhone: familyGroupRequiredFields.cellPhone
+    ? validationRules.phone.required(validationMessages.required)
+    : validationRules.phone,
+  email: familyGroupRequiredFields.email
+    ? validationRules.email.required(validationMessages.required)
+    : validationRules.email,
 });
 
 interface ContactDataFormProps {
   initialValues: IContactDataEntry;
   loading?: boolean;
-  readOnly?: boolean;
+  readonly?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IContactDataEntry) => void;
 }
@@ -24,7 +28,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   props: ContactDataFormProps,
   ref: React.Ref<FormikProps<IContactDataEntry>>
 ) {
-  const { initialValues, loading, readOnly, onFormValid, onSubmit } = props;
+  const { initialValues, loading, readonly, onFormValid, onSubmit } = props;
 
   const [dynamicSchema, setDynamicSchema] = useState<Yup.ObjectSchema<IContactDataEntry>>(validationSchema);
 
@@ -38,7 +42,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (readOnly) {
+    if (readonly) {
       const newValidationSchema = validationSchema.concat(
         Yup.object({
           cellPhone: validationRules.phone,
@@ -74,7 +78,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     <ContactDataFormUI
       loading={loading}
       formik={formik}
-      readOnly={readOnly}
+      readonly={readonly}
       customHandleBlur={customHandleBlur}
       isRequired={isRequired}
     />

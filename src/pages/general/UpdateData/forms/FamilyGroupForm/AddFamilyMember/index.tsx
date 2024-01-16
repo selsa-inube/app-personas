@@ -72,8 +72,8 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
       formReferences,
       isCurrentFormValid
     );
-    setReadOnly(readonly);
     setFamilyMember(newAddFamilyMember);
+    setReadOnly(readonly);
 
     const changeStepKey = Object.entries(createMemberSteps).find(
       ([, config]) => config.id === stepId

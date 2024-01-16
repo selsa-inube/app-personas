@@ -44,7 +44,7 @@ const renderStepContent = (
           initialValues={addFamilyMember.contactData.values}
           ref={formReferences.contactData}
           onFormValid={setIsCurrentFormValid}
-          readOnly={readOnly}
+          readonly={readOnly}
         />
       )}
       {currentStep === createMemberSteps.informationData.id && (
