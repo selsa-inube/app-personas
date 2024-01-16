@@ -8,10 +8,12 @@ const creditAttributes = [
   "quote",
   "peridiocity",
   "payment_means",
+  "days_past_due",
   "interest_rate",
+  "net_value",
 ];
 
-const creditCurrencyAttributes = ["loan_value"];
+const creditCurrencyAttributes = ["loan_value", "net_value"];
 
 function extractCreditAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>
