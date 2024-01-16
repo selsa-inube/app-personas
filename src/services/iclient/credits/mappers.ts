@@ -88,7 +88,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     credit.paymentMethodName.toLowerCase()
   );
 
-  let attributes = [
+  const attributes = [
     {
       id: "net_value",
       label: "Saldo total",
@@ -137,7 +137,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   if (inArrears) {
     attributes.push({
       id: "days_past_due",
-      label: "días de mora",
+      label: "Días de mora",
       value: differenceDays,
     });
   }
