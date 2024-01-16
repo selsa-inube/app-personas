@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Stack } from "@design/layout/Stack";
-import { NavLink } from "@design/navigation/NavLink";
-import { Text } from "@design/data/Text";
-import { MdOutlineChevronRight } from "react-icons/md";
 import { Icon } from "@design/data/Icon";
-import { StyledCollapseIcon, StyledSectionContainer } from "./styles";
+import { Text } from "@design/data/Text";
 import { INav } from "@design/layout/Page/types";
+import { Stack } from "@design/layout/Stack";
 import { IHeaderLink } from "@design/navigation/Header/types";
+import { NavLink } from "@design/navigation/NavLink";
+import { useState } from "react";
+import { MdOutlineChevronRight } from "react-icons/md";
+import { StyledCollapseIcon, StyledSectionContainer } from "./styles";
 
 interface MultiSectionsProps {
   navigation: INav;
@@ -35,15 +35,15 @@ function MultiSections(props: MultiSectionsProps) {
         ...section,
         [sectionValue.title]: false,
       }),
-      {}
+      {},
     ),
   }));
 
   const handleCollapse = (sectionName: string) => {
     setSectionCollapse((prev) =>
       Object.fromEntries(
-        Object.entries(prev).map(([key]) => [key, key === sectionName])
-      )
+        Object.entries(prev).map(([key]) => [key, key === sectionName]),
+      ),
     );
   };
 
@@ -79,11 +79,12 @@ function MultiSections(props: MultiSectionsProps) {
               {Object.values(sectionValue.links).map((linkValue) => (
                 <NavLink
                   key={linkValue.label}
-                  children={linkValue.label}
                   icon={linkValue.icon}
                   path={linkValue.path}
                   onClick={onClose}
-                />
+                >
+                  {linkValue.label}
+                </NavLink>
               ))}
             </Stack>
           )}

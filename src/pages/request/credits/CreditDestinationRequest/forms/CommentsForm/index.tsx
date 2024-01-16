@@ -12,14 +12,14 @@ interface CommentsFormProps {
 
 const CommentsForm = forwardRef(function CommentsForm(
   props: CommentsFormProps,
-  ref: React.Ref<FormikProps<ICommentsEntry>>
+  ref: React.Ref<FormikProps<ICommentsEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);

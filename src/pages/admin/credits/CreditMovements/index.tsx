@@ -18,10 +18,6 @@ function CreditMovements() {
   const { credits, setCredits } = useContext(CreditsContext);
   const { user, accessToken } = useAuth();
 
-  useEffect(() => {
-    handleSortProduct();
-  }, [credit_id, user, accessToken]);
-
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
 
@@ -29,7 +25,7 @@ function CreditMovements() {
       credits,
       credit_id,
       user?.identification,
-      accessToken
+      accessToken,
     );
 
     setCredits(newCredits);
@@ -46,9 +42,13 @@ function CreditMovements() {
       newCredits.map((credit) => ({
         id: credit.id,
         value: credit.description,
-      }))
+      })),
     );
   };
+
+  useEffect(() => {
+    handleSortProduct();
+  }, [credit_id, user, accessToken]);
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
@@ -65,7 +65,7 @@ function CreditMovements() {
         const newMovements = addMovementsToCredit(
           selectedProduct,
           credits,
-          credit_id
+          credit_id,
         );
 
         if (newMovements) {

@@ -49,14 +49,14 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
   const filteredActivities = activities.filter(
     (activity: IEconomicActivity) =>
       activity.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      activity.description.toLowerCase().includes(searchTerm.toLowerCase())
+      activity.description.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return createPortal(
@@ -116,7 +116,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
                 ))
               ) : (
                 <Text type="body" size="small" appearance="gray">
-                  No se han encontrado actividades para "{searchTerm}"
+                  No se han encontrado actividades para &quot;{searchTerm}&quot;
                 </Text>
               )}
             </StyledBody>
@@ -124,7 +124,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

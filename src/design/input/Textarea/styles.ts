@@ -1,17 +1,9 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import styled from "styled-components";
 
 interface IStyledContainer {
   isDisabled?: boolean;
   isFullwidth?: boolean;
-}
-
-interface StyledTextarea {
-  isFullwidth?: boolean;
-  isFocused?: boolean;
-  isMobile?: boolean;
-  isDisabled?: boolean;
-  isRequired?: boolean;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
@@ -19,7 +11,15 @@ const StyledContainer = styled.div<IStyledContainer>`
   width: ${({ isFullwidth }) => (isFullwidth ? "100%" : "fit-content")};
 `;
 
-const StyledTextarea = styled.textarea<StyledTextarea>`
+interface IStyledTextarea {
+  isFullwidth?: boolean;
+  isFocused?: boolean;
+  isMobile?: boolean;
+  isDisabled?: boolean;
+  isRequired?: boolean;
+}
+
+const StyledTextarea = styled.textarea<IStyledTextarea>`
   border-radius: ${`${inube.spacing.s100}`};
   padding: ${() => `${inube.spacing.s100} ${inube.spacing.s150} ${inube.spacing.s100}
     ${inube.spacing.s200}`};

@@ -1,10 +1,15 @@
 import { TagProps } from "@design/data/Tag";
-import { IAmortization, IMovement, IProduct } from "src/model/entity/product";
+import {
+  IAmortization,
+  IMovement,
+  IProduct,
+  ProductType,
+} from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText, replaceWord, translateWord } from "src/utils/texts";
+import { capitalizeText } from "src/utils/texts";
 
 const mapCreditMovementApiToEntity = (
-  movement: Record<string, any>
+  movement: Record<string, string | number | object>,
 ): IMovement => {
   const totalPay =
     Number(movement.capitalCreditPesos || 0) +
@@ -13,10 +18,10 @@ const mapCreditMovementApiToEntity = (
     Number(movement.capitalizationCreditPesos || 0);
 
   const buildMovement: IMovement = {
-    id: movement.movementId,
-    date: formatPrimaryDate(new Date(movement.movementDate)),
-    reference: movement.movementNumber,
-    description: movement.movementDescription || "",
+    id: String(movement.movementId),
+    date: formatPrimaryDate(new Date(String(movement.movementDate))),
+    reference: String(movement.movementNumber),
+    description: String(movement.movementDescription || ""),
     totalValue: totalPay,
   };
 
@@ -34,7 +39,7 @@ const mapCreditMovementApiToEntity = (
 
   if (movement.anotherConceptCreditPesos) {
     buildMovement.patrimonialInsurance = Number(
-      movement.anotherConceptCreditPesos
+      movement.anotherConceptCreditPesos,
     );
   }
 
@@ -50,17 +55,23 @@ const mapCreditMovementApiToEntity = (
 };
 
 const mapCreditMovementsApiToEntities = (
-  movements: Record<string, any>[]
+  movements: Record<string, string | number | object>[],
 ): IMovement[] => {
   return movements.map((movement) => mapCreditMovementApiToEntity(movement));
 };
 
-const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
-  const nextPaymentDate = new Date(credit.nextPaymentDate);
+const mapCreditApiToEntity = (
+  credit: Record<string, string | number | object>,
+): IProduct => {
+  const nextPaymentDate = new Date(String(credit.nextPaymentDate));
   nextPaymentDate.setHours(0, 0, 0, 0);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  const heightQuota = String(credit.heightQuota).split(" ");
+  const currentQuota = heightQuota.length > 0 ? heightQuota[0] : 0;
+  const maxQuota = heightQuota.length > 2 ? heightQuota[2] : 0;
 
   const inArrears = today > nextPaymentDate;
 
@@ -71,35 +82,35 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   const differenceDays =
     (today.getTime() - nextPaymentDate.getTime()) / (1000 * 60 * 60 * 24);
 
-  const heightQuota = credit.heightQuota.split(" ");
-  const maxQuota = heightQuota.length > 2 ? heightQuota[2] : 0;
 
   const nextPaymentCapital =
-    credit.valueExpired?.capitalValuePending ||
-    credit.nextPaymentValue.capitalValuePending;
+    Object(credit.valueExpired)?.capitalValuePending ||
+    Object(credit.nextPaymentValue).capitalValuePending;
 
   const nextPaymentInterest =
-    credit.valueExpired?.interestValuePending ||
-    credit.nextPaymentValue.interestValuePending;
+    Object(credit.valueExpired)?.interestValuePending ||
+    Object(credit.nextPaymentValue).interestValuePending;
 
   const nextPaymentValue =
-    credit.valueExpired?.totalPending || credit.nextPaymentValue.totalPending;
-
-  const replaceWordQuota = replaceWord(
-    credit.heightQuota,
-    "of",
-    translateWord("of")
-  );
+    Object(credit.valueExpired)?.totalPending ||
+    Object(credit.nextPaymentValue).totalPending;
 
   const normalizedPaymentMethodName = capitalizeText(
-    credit.paymentMethodName.toLowerCase()
+    String(credit.paymentMethodName).toLowerCase(),
   );
+
+  const peridiocityValues: Record<string, string> = {
+    Annual: "Anual",
+    Biweekly: "Quincenal",
+    Monthly: "Mensual",
+    Semiannual: "Semestral",
+  };
 
   const attributes = [
     {
       id: "net_value",
       label: "Saldo de capital",
-      value: credit.balanceObligation.capitalBalanceInPesos,
+      value: Number(Object(credit.balanceObligation).capitalBalanceInPesos),
     },
     {
       id: "next_payment_date",
@@ -125,15 +136,18 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     {
       id: "loan_date",
       label: "Fecha de préstamo",
-      value: formatPrimaryDate(new Date(credit.obligationDate)),
+      value: formatPrimaryDate(new Date(String(credit.obligationDate))),
     },
     {
       id: "next_due_date",
       label: "Próximo vencimiento",
       value: formatPrimaryDate(nextPaymentDate),
     },
-    { id: "quote", label: "Altura de cuota", value: replaceWordQuota },
-
+    {
+      id: "quote",
+      label: "Altura de cuota",
+      value: `${currentQuota} de ${maxQuota}`,
+    },
     {
       id: "payment_means",
       label: "Medio de pago",
@@ -147,7 +161,7 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     {
       id: "peridiocity",
       label: "Periodicidad",
-      value: translateWord(credit.periodicityOfQuota),
+      value: peridiocityValues[String(credit.periodicityOfQuota)],
     },
   ];
 
@@ -169,14 +183,14 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     : [];
 
   const normalizedProductName = capitalizeText(
-    credit.productName.toLowerCase()
+    String(credit.productName).toLowerCase(),
   );
 
   return {
-    id: credit.obligationNumber,
+    id: String(credit.obligationNumber),
     title: normalizedProductName,
     description: `${normalizedProductName} ${credit.obligationNumber}`,
-    type: credit.lineCode,
+    type: String(credit.lineCode) as ProductType,
     attributes,
     movements: [],
     amortization: [],
@@ -185,13 +199,13 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
 };
 
 const mapCreditsApiToEntities = (
-  credits: Record<string, any>[]
+  credits: Record<string, string | number | object>[],
 ): IProduct[] => {
   return credits.map((credit) => mapCreditApiToEntity(credit));
 };
 
 const mapCreditAmortizationApiToEntity = (
-  payment: Record<string, any>
+  payment: Record<string, string | number | object>,
 ): IAmortization => {
   const others =
     Number(payment.lifeInsuranceValue || 0) +
@@ -199,9 +213,9 @@ const mapCreditAmortizationApiToEntity = (
     Number(payment.capitalizationValue || 0);
 
   const buildPayment: IAmortization = {
-    id: payment.paymentPlanId,
-    paymentNumber: payment.quotaNumber,
-    date: formatPrimaryDate(new Date(payment.quotaDate)),
+    id: String(payment.paymentPlanId),
+    paymentNumber: Number(payment.quotaNumber),
+    date: formatPrimaryDate(new Date(String(payment.quotaDate))),
     others,
     totalMonthlyValue: Number(payment.quotaValue),
     projectedBalance: Number(payment.projectedBalance),
@@ -231,7 +245,7 @@ const mapCreditAmortizationApiToEntity = (
 };
 
 const mapCreditAmortizationApiToEntities = (
-  payments: Record<string, any>[]
+  payments: Record<string, string | number | object>[],
 ): IAmortization[] => {
   return payments.map((payment) => mapCreditAmortizationApiToEntity(payment));
 };

@@ -23,7 +23,7 @@ interface PersonalResidenceFormProps {
 
 const PersonalResidenceForm = forwardRef(function BankTransfersForm(
   props: PersonalResidenceFormProps,
-  ref: React.Ref<FormikProps<IPersonalResidenceEntry>>
+  ref: React.Ref<FormikProps<IPersonalResidenceEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -31,7 +31,7 @@ const PersonalResidenceForm = forwardRef(function BankTransfersForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);

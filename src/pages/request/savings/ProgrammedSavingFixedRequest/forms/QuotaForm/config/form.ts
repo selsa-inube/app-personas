@@ -1,12 +1,13 @@
+import { ISelectOption } from "@design/input/Select/types";
 import { IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
-import * as Yup from "yup";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
-import { validationMessages } from "src/validations/validationMessages";
-import { weeklyPayDayDM } from "src/model/domains/general/weeklyPayDay";
-import { monthlyPayDayDM } from "src/model/domains/general/monthlyPayDay";
-import { validationRules } from "src/validations/validationRules";
 import { biweeklyPayDayDM } from "src/model/domains/general/biweeklyPayDay";
+import { monthlyPayDayDM } from "src/model/domains/general/monthlyPayDay";
+import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { weeklyPayDayDM } from "src/model/domains/general/weeklyPayDay";
+import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
+import * as Yup from "yup";
 
 const payDay = (periodicityId: string) => {
   if (periodicityId === "weekly")
@@ -15,10 +16,8 @@ const payDay = (periodicityId: string) => {
     return commonFields.paydayTypeToSelect(biweeklyPayDayDM.options);
   if (periodicityId === "monthly")
     return commonFields.paydayTypeToSelect(monthlyPayDayDM.options);
-  if (periodicityId === "semiannual") 
-    return commonFields.paydayByDate(false);
-  if (periodicityId === "annual") 
-    return commonFields.paydayByDate(false);
+  if (periodicityId === "semiannual") return commonFields.paydayByDate(false);
+  if (periodicityId === "annual") return commonFields.paydayByDate(false);
   return commonFields.paydayByDate(true);
 };
 
@@ -30,14 +29,14 @@ const commonFields = {
     placeholder: "",
     size: "compact",
     options: peridiocityDM.options.filter(
-      (option) => option.id !== "single" && option.id !== "quarterly"
+      (option) => option.id !== "single" && option.id !== "quarterly",
     ),
     value,
     isFullWidth: true,
     gridColumn,
     validation: Yup.string().required(validationMessages.required),
   }),
-  paydayTypeToSelect: (options: any) => ({
+  paydayTypeToSelect: (options: ISelectOption[]) => ({
     name: "payDayType",
     type: "select",
     label: "Día de pago",
@@ -58,7 +57,7 @@ const commonFields = {
     gridColumn: "span 1",
     validMessage: "La fecha es válida",
     validation: validationRules.notPastDate.required(
-      validationMessages.required
+      validationMessages.required,
     ),
     readOnly,
   }),
@@ -66,7 +65,7 @@ const commonFields = {
 
 const structureQuotaForm = (
   formik: FormikValues,
-  periodicityId: string
+  periodicityId: string,
 ): IFormStructure => {
   return {
     paymentMethod: {

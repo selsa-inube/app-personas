@@ -57,7 +57,7 @@ function Credit() {
       credits,
       credit_id,
       user.identification,
-      accessToken
+      accessToken,
     );
 
     setCredits(newCredits);
@@ -73,7 +73,7 @@ function Credit() {
       newCredits.map((credit) => ({
         id: credit.id,
         value: credit.description,
-      }))
+      })),
     );
 
     validateCreditMovementsAndAmortization(

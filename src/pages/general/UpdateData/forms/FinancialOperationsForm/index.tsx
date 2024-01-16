@@ -1,9 +1,8 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { useState } from "react";
 import { financialOperationsRequiredFields } from "./config/formConfig";
 import { FinancialOperationsFormUI } from "./interface";
 import { IFinancialOperationsEntry } from "./types";
@@ -43,17 +42,17 @@ interface FinancialOperationsFormProps {
 
 const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   props: FinancialOperationsFormProps,
-  ref: React.Ref<FormikProps<IFinancialOperationsEntry>>
+  ref: React.Ref<FormikProps<IFinancialOperationsEntry>>,
 ) {
   const { loading, initialValues, onFormValid, onSubmit } = props;
 
-  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
+  const [dynamicSchema] = useState(validationSchema);
 
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -69,7 +68,8 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   };
 
   const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
+    const fieldDescription = dynamicSchema.describe().fields[fieldName];
+    if (!("nullable" in fieldDescription)) return false;
     return !fieldDescription.nullable && !fieldDescription.optional;
   };
 

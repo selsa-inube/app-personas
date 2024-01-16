@@ -25,7 +25,7 @@ interface ExpensesFormProps {
 
 const ExpensesForm = forwardRef(function ExpensesForm(
   props: ExpensesFormProps,
-  ref: React.Ref<FormikProps<IExpensesEntry>>
+  ref: React.Ref<FormikProps<IExpensesEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -33,7 +33,7 @@ const ExpensesForm = forwardRef(function ExpensesForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -58,7 +58,7 @@ const ExpensesForm = forwardRef(function ExpensesForm(
 
         return acc;
       },
-      0
+      0,
     );
 
     formik.setFieldValue("totalExpenses", totalExpenses);

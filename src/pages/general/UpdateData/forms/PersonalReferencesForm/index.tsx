@@ -2,6 +2,7 @@ import { IAction } from "@design/data/Table/types";
 import { EMessageType, IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { initialMessageState } from "src/utils/messages";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -10,7 +11,6 @@ import { EditReference } from "./EditReference";
 import { deleteReferenceMessages } from "./config/deleteReference.config";
 import { PersonalReferencesFormUI } from "./interface";
 import { IPersonalReferenceEntries } from "./types";
-import { initialMessageState } from "src/utils/messages";
 
 const validationSchema = Yup.object({
   referenceType: Yup.string().required(validationMessages.required),
@@ -28,7 +28,7 @@ interface PersonalReferencesFormProps {
 
 const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
   props: PersonalReferencesFormProps,
-  ref: React.Ref<FormikProps<IPersonalReferenceEntries>>
+  ref: React.Ref<FormikProps<IPersonalReferenceEntries>>,
 ) {
   const { initialValues, onSubmit } = props;
 
@@ -54,7 +54,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -111,11 +111,11 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
     let MessageType = EMessageType.SUCCESS;
 
     const reference = formik.values.entries.find(
-      (entry) => entry.id === referenceId
+      (entry) => entry.id === referenceId,
     );
 
     const updatedReferences = formik.values.entries.filter(
-      (reference) => reference.id !== referenceId
+      (reference) => reference.id !== referenceId,
     );
 
     if (updatedReferences.length === formik.values.entries.length) {

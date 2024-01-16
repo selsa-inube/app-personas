@@ -69,7 +69,6 @@ function MyCreditsUI(props: MyCreditsUIProps) {
                   ) : (
                     credits.map((credit) => (
                       <Product
-                        id={credit.id}
                         key={credit.id}
                         title={credit.title}
                         description={credit.id}

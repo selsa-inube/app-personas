@@ -5,19 +5,21 @@ import { updateDataSteps } from "./config/assisted";
 import {
   mapBankTransfers,
   mapContactData,
+  mapEconomicActivity,
   mapExpenses,
+  mapFamilyGroups,
   mapFinancialOperations,
   mapIncomes,
   mapPersonalInformation,
   mapPersonalResidence,
-  mapSocioeconomicInformation,
-  mapEconomicActivity,
   mapRelationshipWithDirectors,
-  mapFamilyGroups,
+  mapSocioeconomicInformation,
 } from "./config/mappers";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
+import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "./forms/ExpensesForm/types";
+import { IFamilyGroupEntries } from "./forms/FamilyGroupForm/types";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
 import { IIncomesEntry } from "./forms/IncomesForm/types";
 import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
@@ -25,16 +27,14 @@ import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "./forms/PersonalResidenceForm/types";
-import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
-import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
 import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirectorsForm/types";
+import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
-import { IFamilyGroupEntries } from "./forms/FamilyGroupForm/types";
 
 function UpdateData() {
   const [currentStep, setCurrentStep] = useState(
-    updateDataSteps.personalInformation.id
+    updateDataSteps.personalInformation.id,
   );
   const steps = Object.values(updateDataSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
@@ -83,7 +83,7 @@ function UpdateData() {
     relationshipWithDirectors: {
       isValid: true,
       values: mapRelationshipWithDirectors(
-        usersMock[0].relationshipWithDirectors
+        usersMock[0].relationshipWithDirectors,
       ),
     },
   });
@@ -127,7 +127,7 @@ function UpdateData() {
 
   const handleStepChange = (stepId: number) => {
     const stepKey = Object.entries(updateDataSteps).find(
-      ([, config]) => config.id === currentStep
+      ([, config]) => config.id === currentStep,
     )?.[0];
 
     if (stepKey) {
@@ -141,7 +141,7 @@ function UpdateData() {
     }
 
     const changeStepKey = Object.entries(updateDataSteps).find(
-      ([, config]) => config.id === stepId
+      ([, config]) => config.id === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
@@ -151,7 +151,7 @@ function UpdateData() {
     setIsCurrentFormValid(
       changeIsVerification ||
         updateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
-        false
+        false,
     );
 
     setCurrentStep(stepId);
@@ -159,7 +159,9 @@ function UpdateData() {
     document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
-  const handleFinishAssisted = () => {};
+  const handleFinishAssisted = () => {
+    return true;
+  };
 
   const handleNextStep = () => {
     if (currentStep + 1 <= steps.length) {

@@ -8,7 +8,7 @@ import { IBankTransfersEntry } from "./types";
 
 const validationSchema = Yup.object({
   accountNumber: validationRules.accountNumber.required(
-    validationMessages.required
+    validationMessages.required,
   ),
 });
 
@@ -21,7 +21,7 @@ interface BankTransfersFormProps {
 
 const BankTransfersForm = forwardRef(function BankTransfersForm(
   props: BankTransfersFormProps,
-  ref: React.Ref<FormikProps<IBankTransfersEntry>>
+  ref: React.Ref<FormikProps<IBankTransfersEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -29,7 +29,7 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);

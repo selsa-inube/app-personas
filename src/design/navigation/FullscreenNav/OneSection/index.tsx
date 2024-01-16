@@ -18,11 +18,12 @@ function OneSection(props: OneSectionProps) {
       {Object.values(sectionValue.links).map((linkValue) => (
         <NavLink
           key={linkValue.label}
-          children={linkValue.label}
           icon={linkValue.icon}
           path={linkValue.path}
           onClick={onClose}
-        />
+        >
+          {linkValue.label}
+        </NavLink>
       ))}
     </Stack>
   );
