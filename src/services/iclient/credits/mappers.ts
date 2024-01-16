@@ -62,6 +62,15 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  const inArrears = today > nextPaymentDate;
+
+  const nextPayment = inArrears
+    ? "Inmediato"
+    : formatPrimaryDate(nextPaymentDate);
+
+  const differenceDays =
+    (today.getTime() - nextPaymentDate.getTime()) / (1000 * 60 * 60 * 24);
+
   const heightQuota = credit.heightQuota.split(" ");
   const maxQuota = heightQuota.length > 2 ? heightQuota[2] : 0;
 
@@ -85,9 +94,6 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   const normalizedPaymentMethodName = capitalizeText(
     credit.paymentMethodName.toLowerCase()
   );
-
-  const nextPayment =
-    today > nextPaymentDate ? "Inmediato" : formatPrimaryDate(nextPaymentDate);
 
   const attributes = [
     {
@@ -133,7 +139,11 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
       label: "Medio de pago",
       value: normalizedPaymentMethodName,
     },
-    { id: "loan_value", label: "Valor del préstamo", value: credit.amount },
+    {
+      id: "loan_value",
+      label: "Valor del préstamo",
+      value: credit.amount,
+    },
     {
       id: "peridiocity",
       label: "Periodicidad",
@@ -141,15 +151,22 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
     },
   ];
 
-  const tags: TagProps[] =
-    today > nextPaymentDate
-      ? [
-          {
-            label: "En mora",
-            appearance: "error",
-          },
-        ]
-      : [];
+  if (inArrears) {
+    attributes.push({
+      id: "days_past_due",
+      label: "Días de mora",
+      value: differenceDays,
+    });
+  }
+
+  const tags: TagProps[] = inArrears
+    ? [
+        {
+          label: "En mora",
+          appearance: "error",
+        },
+      ]
+    : [];
 
   const normalizedProductName = capitalizeText(
     credit.productName.toLowerCase()
