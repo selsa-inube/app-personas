@@ -65,9 +65,16 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   const heightQuota = credit.heightQuota.split(" ");
   const maxQuota = heightQuota.length > 2 ? heightQuota[2] : 0;
 
-  const nextPaymentValue = credit.valueExpired?.totalPending
-    ? credit.valueExpired?.totalPending
-    : credit.nextPaymentValue.totalPending;
+  const nextPaymentCapital =
+    credit.valueExpired?.capitalValuePending ||
+    credit.nextPaymentValue.capitalValuePending;
+
+  const nextPaymentInterest =
+    credit.valueExpired?.interestValuePending ||
+    credit.nextPaymentValue.interestValuePending;
+
+  const nextPaymentValue =
+    credit.valueExpired?.totalPending || credit.nextPaymentValue.totalPending;
 
   const replaceWordQuota = replaceWord(
     credit.heightQuota,
@@ -94,8 +101,18 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
       value: nextPayment,
     },
     {
+      id: "next_payment_capital",
+      label: "Capital próximo pago",
+      value: nextPaymentCapital,
+    },
+    {
+      id: "next_payment_interest",
+      label: "Interes próximo pago",
+      value: nextPaymentInterest,
+    },
+    {
       id: "next_payment_value",
-      label: "Próximo pago",
+      label: "Valor próximo pago",
       value: nextPaymentValue,
     },
     { id: "terms", label: "Plazo", value: `${maxQuota} Meses` },
