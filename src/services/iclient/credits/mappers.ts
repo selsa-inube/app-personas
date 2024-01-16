@@ -98,8 +98,8 @@ const mapCreditApiToEntity = (credit: Record<string, any>): IProduct => {
   const attributes = [
     {
       id: "net_value",
-      label: "Saldo total",
-      value: Number(credit.balanceObligation.totalPending),
+      label: "Saldo de capital",
+      value: credit.balanceObligation.capitalBalanceInPesos,
     },
     {
       id: "next_payment_date",
