@@ -1,6 +1,6 @@
 const typesofMovementMock: Record<string, string> = {
   CB: "Consignación bancaria",
-  DN: "Descuento de nomina ",
+  DN: "Descuento de nómina",
 };
 
 const movementDescriptionMock = (reference: string) => {
