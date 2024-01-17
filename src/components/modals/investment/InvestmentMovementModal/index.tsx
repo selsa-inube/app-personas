@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import { StyledBodyItem, StyledDivider, StyledModal } from "./styles";
 
 interface InvestmentMovementModalProps {
@@ -17,7 +18,7 @@ interface InvestmentMovementModalProps {
 
 const renderTransactionSpecification = (
   label: string,
-  values: string[] | number[]
+  values: string[] | number[],
 ) => (
   <StyledBodyItem>
     <Text type="label" size="large" appearance="dark">
@@ -38,7 +39,7 @@ const renderTransactionSpecification = (
         <Text type="body" size="medium" appearance={"gray"} key={index}>
           {value}
         </Text>
-      )
+      ),
     )}
   </StyledBodyItem>
 );
@@ -51,7 +52,7 @@ function InvestmentMovementModal(props: InvestmentMovementModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -90,7 +91,9 @@ function InvestmentMovementModal(props: InvestmentMovementModalProps) {
         <StyledDivider />
         <Stack direction="column" alignItems="flex-start" gap="s075">
           {renderTransactionSpecification("Valor", [movement.totalValue])}
-          {renderTransactionSpecification("Fecha", [movement.date])}
+          {renderTransactionSpecification("Fecha", [
+            formatPrimaryDate(movement.date),
+          ])}
           {renderTransactionSpecification("Descripción", [
             movement.description,
             buildSecondDescription(),
@@ -99,7 +102,7 @@ function InvestmentMovementModal(props: InvestmentMovementModalProps) {
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 
