@@ -139,11 +139,6 @@ const mapCreditApiToEntity = (
       value: formatPrimaryDate(new Date(String(credit.obligationDate))),
     },
     {
-      id: "next_due_date",
-      label: "Próximo vencimiento",
-      value: formatPrimaryDate(nextPaymentDate),
-    },
-    {
       id: "quote",
       label: "Altura de cuota",
       value: `${currentQuota} de ${maxQuota}`,
