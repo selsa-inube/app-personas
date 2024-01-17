@@ -102,6 +102,12 @@ const mapCreditApiToEntity = (
     String(credit.paymentMethodName).toLowerCase(),
   );
 
+  const interesRate =
+    Object(credit.accumulatedByObligations)[0].spreadCurrentRate +
+    Object(credit.accumulatedByObligations)[0].currentFixedPoints;
+
+  const roundInteresRate = interesRate.toFixed(2);
+
   const peridiocityValues: Record<string, string> = {
     Annual: "Anual",
     Biweekly: "Quincenal",
@@ -160,6 +166,12 @@ const mapCreditApiToEntity = (
       id: "peridiocity",
       label: "Periodicidad",
       value: peridiocityValues[String(credit.periodicityOfQuota)],
+    },
+
+    {
+      id: "interest_rate",
+      label: "Tasa de interés",
+      value: `${roundInteresRate} % NAMV`,
     },
   ];
 

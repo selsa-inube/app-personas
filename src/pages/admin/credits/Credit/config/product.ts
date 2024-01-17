@@ -17,11 +17,11 @@ const creditCurrencyAttributes = ["loan_value", "net_value"];
 
 function extractCreditAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>
-    creditAttributes.includes(attribute.id)
+    creditAttributes.includes(attribute.id),
   );
 
   return foundAttributes.sort(
-    (a, b) => creditAttributes.indexOf(a.id) - creditAttributes.indexOf(b.id)
+    (a, b) => creditAttributes.indexOf(a.id) - creditAttributes.indexOf(b.id),
   );
 }
 
