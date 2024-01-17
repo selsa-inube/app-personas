@@ -10,6 +10,7 @@ interface TableProps {
   titles: ITitle[];
   actions?: IAction[];
   entries: IEntry[];
+  loading: boolean;
   filter?: string;
   pageLength?: number;
   breakpoints?: IBreakpoint[];
@@ -27,6 +28,7 @@ const Table = (props: TableProps) => {
     titles,
     actions,
     entries,
+    loading,
     filter = "",
     pageLength = 10,
     breakpoints,
@@ -99,6 +101,7 @@ const Table = (props: TableProps) => {
         portalId={portalId}
         titles={titles}
         actions={actions}
+        loading={loading}
         entries={getPageEntries()}
         breakpoints={breakpoints}
         modalTitle={modalTitle}

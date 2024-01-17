@@ -41,6 +41,7 @@ import { INextPaymentModalState, ISelectedProductState } from "./types";
 interface CreditUIProps {
   isMobile?: boolean;
   selectedProduct?: ISelectedProductState;
+  loading:boolean;
   productsOptions: ISelectOption[];
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;
@@ -52,6 +53,7 @@ function CreditUI(props: CreditUIProps) {
   const {
     isMobile,
     selectedProduct,
+    loading,
     productsOptions,
     credit_id,
     nextPaymentModal,
@@ -158,6 +160,7 @@ function CreditUI(props: CreditUIProps) {
                   entries={creditMovementsCurrencyEntries(
                     selectedProduct.credit.movements || []
                   )}
+                  loading={loading}
                   pageLength={selectedProduct.credit.movements?.length || 0}
                   hideMobileResume
                 />
