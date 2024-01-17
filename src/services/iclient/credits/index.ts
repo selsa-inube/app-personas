@@ -15,11 +15,11 @@ const getCreditsForUser = async (
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const savedCredits = sessionStorage.getItem("credits");
+      /* const savedCredits = sessionStorage.getItem("credits");
       if (savedCredits) {
         const parsedCredits: IProduct[] = JSON.parse(savedCredits);
         return parsedCredits;
-      }
+      } */
 
       const queryParams = new URLSearchParams({
         customerPublicCode: userIdentification,
@@ -67,7 +67,7 @@ const getCreditsForUser = async (
         ? mapCreditsApiToEntities(data)
         : [];
 
-      sessionStorage.setItem("credits", JSON.stringify(normalizedCredits));
+      /* sessionStorage.setItem("credits", JSON.stringify(normalizedCredits)); */
 
       return normalizedCredits;
     } catch (error) {
