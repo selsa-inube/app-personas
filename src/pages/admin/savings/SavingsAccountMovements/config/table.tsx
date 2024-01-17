@@ -6,7 +6,6 @@ import { formatPrimaryDate } from "src/utils/dates";
 import { ViewSavingMovement } from "../../MySavings/ViewSavingMovement";
 
 const mapSavingAccountMovement = (movement: IEntry): IMovement => {
-  console.log(movement.date);
   return {
     id: movement?.id,
     date: movement?.date,
