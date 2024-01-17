@@ -129,7 +129,7 @@ const investmentsMock: IProduct[] = [
     movements: [
       {
         id: "movement-1",
-        date: "05/May/2023",
+        date: new Date("05/May/2023"),
         reference: "NI1000076",
         description:
           "Traslado excedentes Mayo 05 de 2023 - 1543342 Aplicar abono proceso 1543342",

@@ -22,7 +22,7 @@ import {
 } from "../MyCredits/config/tables";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import {
-  amortizationCurrencyEntries,
+  amortizationNormalizeEntries,
   creditAmortizationTableActions,
 } from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
@@ -159,7 +159,7 @@ function CreditAmortization() {
                 titles={amortizationTableTitles}
                 breakpoints={amortizationTableBreakpoints}
                 actions={creditAmortizationTableActions}
-                entries={amortizationCurrencyEntries(
+                entries={amortizationNormalizeEntries(
                   selectedProduct.credit.amortization,
                 )}
                 hideMobileResume

@@ -1,5 +1,3 @@
-import { mapInvestmentMovement } from "@pages/admin/savings/SavingsAccountMovements/config/table";
-
 const personalReferencesTableTitles = [
   {
     id: "referenceType",
@@ -46,7 +44,6 @@ const personalReferencesTableBreakpoints = [
 ];
 
 export {
-  mapInvestmentMovement,
   personalReferencesTableBreakpoints,
   personalReferencesTableTitles,
 };

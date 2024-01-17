@@ -5,19 +5,19 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBodyItem, StyledDivider, StyledModal } from "./styles";
+import { IEntry } from "@design/data/Table/types";
 
 interface SavingMovementModalProps {
   portalId: string;
   onCloseModal: () => void;
-  movement: IMovement;
+  movement: IEntry;
 }
 
 const renderTransactionSpecification = (
   label: string,
-  values: string[] | number[]
+  values: string[] | number[],
 ) => (
   <StyledBodyItem>
     <Text type="label" size="large" appearance="dark">
@@ -38,7 +38,7 @@ const renderTransactionSpecification = (
         <Text key={index} type="body" size="medium" appearance={"gray"}>
           {value}
         </Text>
-      )
+      ),
     )}
   </StyledBodyItem>
 );
@@ -51,7 +51,7 @@ function SavingMovementModal(props: SavingMovementModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -99,7 +99,7 @@ function SavingMovementModal(props: SavingMovementModalProps) {
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

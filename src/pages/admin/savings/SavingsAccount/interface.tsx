@@ -22,6 +22,7 @@ import {
   MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
 import {
+  savingAccountMovementsNormalizeEntries,
   savingsAccountMovementsTableActions,
   savingsAccountMovementsTableBreakpoints,
   savingsAccountMovementsTableTitles,
@@ -130,7 +131,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
                 {formatSavingCurrencyAttrs(
                   attributes,
-                  selectedProduct.saving.type
+                  selectedProduct.saving.type,
                 ).map((attr) => (
                   <BoxAttribute
                     key={attr.id}
@@ -177,7 +178,9 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   titles={savingsAccountMovementsTableTitles}
                   breakpoints={savingsAccountMovementsTableBreakpoints}
                   actions={savingsAccountMovementsTableActions}
-                  entries={selectedProduct.saving.movements || []}
+                  entries={savingAccountMovementsNormalizeEntries(
+                    selectedProduct.saving.movements || [],
+                  )}
                   pageLength={selectedProduct.saving.movements?.length || 0}
                   hideMobileResume
                 />
