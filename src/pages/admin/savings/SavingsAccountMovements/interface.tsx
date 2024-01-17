@@ -1,6 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
-import { Table } from "@design/data/Table";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -12,13 +11,15 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
-import {
-  savingsAccountMovementsTableActions,
-  savingsAccountMovementsTableBreakpoints,
-  savingsAccountMovementsTableTitles,
-} from "./config/table";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { Table } from "@design/data/Table";
+import {
+  savingsAccountMovementsTableTitles,
+  savingsAccountMovementsTableBreakpoints,
+  savingsAccountMovementsTableActions,
+  savingAccountMovementsNormalizeEntries,
+} from "./config/table";
 
 interface SavingsAccountMovementsUIProps {
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -75,7 +76,9 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
               titles={savingsAccountMovementsTableTitles}
               breakpoints={savingsAccountMovementsTableBreakpoints}
               actions={savingsAccountMovementsTableActions}
-              entries={selectedProduct.movements}
+              entries={savingAccountMovementsNormalizeEntries(
+                selectedProduct.movements,
+              )}
               pageLength={selectedProduct.movements.length}
               hideMobileResume
             />

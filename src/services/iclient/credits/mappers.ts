@@ -20,7 +20,7 @@ const mapCreditMovementApiToEntity = (
 
   const buildMovement: IMovement = {
     id: String(movement.movementId),
-    date: formatPrimaryDate(new Date(String(movement.movementDate))),
+    date: new Date(String(movement.movementDate)),
     reference: String(movement.movementNumber),
     description: String(
       movement.movementDescription ||
@@ -61,7 +61,9 @@ const mapCreditMovementApiToEntity = (
 const mapCreditMovementsApiToEntities = (
   movements: Record<string, string | number | object>[],
 ): IMovement[] => {
-  return movements.map((movement) => mapCreditMovementApiToEntity(movement));
+  return movements
+    .map((movement) => mapCreditMovementApiToEntity(movement))
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
 const mapCreditApiToEntity = (
@@ -132,11 +134,6 @@ const mapCreditApiToEntity = (
       value: nextPaymentCapital,
     },
     {
-      id: "next_payment_interest",
-      label: "Interes próximo pago",
-      value: nextPaymentInterest,
-    },
-    {
       id: "next_payment_value",
       label: "Valor próximo pago",
       value: nextPaymentValue,
@@ -183,6 +180,14 @@ const mapCreditApiToEntity = (
     });
   }
 
+  if (nextPaymentInterest) {
+    attributes.push({
+      id: "next_payment_interest",
+      label: "Interes próximo pago",
+      value: nextPaymentInterest,
+    });
+  }
+
   const tags: TagProps[] = inArrears
     ? [
         {
@@ -225,7 +230,7 @@ const mapCreditAmortizationApiToEntity = (
   const buildPayment: IAmortization = {
     id: String(payment.paymentPlanId),
     paymentNumber: Number(payment.quotaNumber),
-    date: formatPrimaryDate(new Date(String(payment.quotaDate))),
+    date: new Date(String(payment.quotaDate)),
     others,
     totalMonthlyValue: Number(payment.quotaValue),
     projectedBalance: Number(payment.projectedBalance),
@@ -257,7 +262,9 @@ const mapCreditAmortizationApiToEntity = (
 const mapCreditAmortizationApiToEntities = (
   payments: Record<string, string | number | object>[],
 ): IAmortization[] => {
-  return payments.map((payment) => mapCreditAmortizationApiToEntity(payment));
+  return payments
+    .map((payment) => mapCreditAmortizationApiToEntity(payment))
+    .sort((a, b) => a.paymentNumber - b.paymentNumber);
 };
 
 export {
