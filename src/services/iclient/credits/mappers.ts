@@ -128,11 +128,6 @@ const mapCreditApiToEntity = (
       value: nextPaymentCapital,
     },
     {
-      id: "next_payment_interest",
-      label: "Interes próximo pago",
-      value: nextPaymentInterest,
-    },
-    {
       id: "next_payment_value",
       label: "Valor próximo pago",
       value: nextPaymentValue,
@@ -170,6 +165,14 @@ const mapCreditApiToEntity = (
       id: "days_past_due",
       label: "Días de mora",
       value: differenceDays,
+    });
+  }
+
+  if (nextPaymentInterest) {
+    attributes.push({
+      id: "next_payment_interest",
+      label: "Interes próximo pago",
+      value: nextPaymentInterest,
     });
   }
 
