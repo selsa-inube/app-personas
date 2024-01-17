@@ -10,7 +10,7 @@ interface TableProps {
   titles: ITitle[];
   actions?: IAction[];
   entries: IEntry[];
-  loading: boolean;
+  loading?: boolean;
   filter?: string;
   pageLength?: number;
   breakpoints?: IBreakpoint[];

@@ -138,7 +138,7 @@ interface TableUIProps {
   titles: ITitle[];
   actions?: IAction[];
   entries: IEntry[];
-  loading: boolean;
+  loading?: boolean;
   breakpoints?: IBreakpoint[];
   modalTitle?: string;
   infoTitle?: string;
@@ -155,7 +155,7 @@ const TableUI = (props: TableUIProps) => {
     titles,
     actions,
     entries,
-    loading = false,
+    loading,
     breakpoints,
     modalTitle,
     infoTitle,
