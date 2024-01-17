@@ -34,7 +34,7 @@ function CreditMovements() {
 
     setSelectedProduct({
       totalMovements: selectedCredit.movements?.length || 0,
-      movements: selectedCredit.movements || [],
+      movements: selectedCredit.movements?.slice(0, 10) || [],
       option: selectedCredit.id,
     });
 
