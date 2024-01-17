@@ -1,4 +1,5 @@
 import { TagProps } from "@design/data/Tag";
+import { movementDescriptionMock } from "@mocks/products/credits/utils.mocks";
 import {
   IAmortization,
   IMovement,
@@ -21,7 +22,10 @@ const mapCreditMovementApiToEntity = (
     id: String(movement.movementId),
     date: formatPrimaryDate(new Date(String(movement.movementDate))),
     reference: String(movement.movementNumber),
-    description: String(movement.movementDescription || ""),
+    description: String(
+      movement.movementDescription ||
+        movementDescriptionMock(String(movement.movementNumber)),
+    ),
     totalValue: totalPay,
   };
 
@@ -82,7 +86,6 @@ const mapCreditApiToEntity = (
   const differenceDays =
     (today.getTime() - nextPaymentDate.getTime()) / (1000 * 60 * 60 * 24);
 
-
   const nextPaymentCapital =
     Object(credit.valueExpired)?.capitalValuePending ||
     Object(credit.nextPaymentValue).capitalValuePending;
@@ -137,11 +140,6 @@ const mapCreditApiToEntity = (
       id: "loan_date",
       label: "Fecha de préstamo",
       value: formatPrimaryDate(new Date(String(credit.obligationDate))),
-    },
-    {
-      id: "next_due_date",
-      label: "Próximo vencimiento",
-      value: formatPrimaryDate(nextPaymentDate),
     },
     {
       id: "quote",
