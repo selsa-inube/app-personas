@@ -33,6 +33,7 @@ const validateCreditMovementsAndAmortization = async (
   accessToken: string,
 ) => {
   const currentCredits = [...credits];
+  const newSelectedCredit = { ...selectedCredit };
 
   for (const ix in currentCredits) {
     if (currentCredits[ix].id === selectedCredit.id) {
@@ -43,6 +44,8 @@ const validateCreditMovementsAndAmortization = async (
         );
         currentCredits[ix].movements = movements;
       }
+
+      newSelectedCredit.movements = currentCredits[ix].movements?.slice(0, 5);
 
       if (currentCredits[ix].amortization?.length === 0) {
         const amortization = await getAmortizationForCredit(
@@ -57,7 +60,10 @@ const validateCreditMovementsAndAmortization = async (
     }
   }
 
-  return currentCredits;
+  return {
+    newSelectedCredit,
+    newCredits: currentCredits,
+  };
 };
 
 const getNextPaymentData = (selectedProduct: IProduct) => {
