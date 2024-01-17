@@ -8,6 +8,7 @@ const creditAttributes = [
   "quote",
   "peridiocity",
   "payment_means",
+  "amortization_type",
   "days_past_due",
   "interest_rate",
   "net_value",

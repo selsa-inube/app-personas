@@ -17,6 +17,7 @@ function Credit() {
   const { credit_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
+  const [loading, setLoading] = useState(true);
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const [nextPaymentModal, setNextPaymentModal] =
     useState<INextPaymentModalState>({
@@ -82,6 +83,7 @@ function Credit() {
       newCredits,
       accessToken,
     ).then((newCredits) => {
+      setLoading(false);
       setCredits(newCredits);
     });
   };
@@ -102,6 +104,7 @@ function Credit() {
     <CreditUI
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
+      loading={loading}
       isMobile={isMobile}
       credit_id={credit_id}
       nextPaymentModal={nextPaymentModal}

@@ -106,7 +106,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
               )}
             {movement.interest &&
               renderTransactionSpecification(
-                "Interés de mora:",
+                "Interés corriente:",
                 movement.interest,
               )}
             {movement.lifeInsurance &&
