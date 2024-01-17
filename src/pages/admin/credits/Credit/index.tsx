@@ -8,8 +8,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CreditUI } from "./interface";
 import { INextPaymentModalState, ISelectedProductState } from "./types";
 import {
-  getNextPaymentData, validateCredit,
-  validateCreditMovementsAndAmortization
+  getNextPaymentData,
+  validateCredit,
+  validateCreditMovementsAndAmortization,
 } from "./utils";
 
 function Credit() {
@@ -111,4 +112,3 @@ function Credit() {
 }
 
 export { Credit };
-

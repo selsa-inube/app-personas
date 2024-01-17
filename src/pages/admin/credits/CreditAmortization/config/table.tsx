@@ -2,6 +2,7 @@ import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { IAmortization } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import { ViewPayment } from "../../MyCredits/ViewPayment";
 
 const mapCreditPayment = (payment: IEntry): IAmortization => {
@@ -20,17 +21,23 @@ const mapCreditPayment = (payment: IEntry): IAmortization => {
   };
 };
 
-const amortizationCurrencyEntries = (amortization: IAmortization[]) =>
+const amortizationNormalizeEntries = (amortization: IAmortization[]) =>
   amortization.map((entry) => ({
     ...entry,
+    date: entry.date && formatPrimaryDate(entry.date),
     others: entry.others && currencyFormat(entry.others),
     interest: entry.interest && currencyFormat(entry.interest),
-    capitalPayment: entry.capitalPayment && currencyFormat(entry.capitalPayment),
+    capitalPayment:
+      entry.capitalPayment && currencyFormat(entry.capitalPayment),
     lifeInsurance: entry.lifeInsurance && currencyFormat(entry.lifeInsurance),
-    capitalization: entry.capitalization && currencyFormat(entry.capitalization),
-    totalMonthlyValue: entry.totalMonthlyValue && currencyFormat(entry.totalMonthlyValue),
-    projectedBalance: entry.projectedBalance && currencyFormat(entry.projectedBalance),
-    patrimonialInsurance: entry.patrimonialInsurance && currencyFormat(entry.patrimonialInsurance),
+    capitalization:
+      entry.capitalization && currencyFormat(entry.capitalization),
+    totalMonthlyValue:
+      entry.totalMonthlyValue && currencyFormat(entry.totalMonthlyValue),
+    projectedBalance:
+      entry.projectedBalance && currencyFormat(entry.projectedBalance),
+    patrimonialInsurance:
+      entry.patrimonialInsurance && currencyFormat(entry.patrimonialInsurance),
   }));
 
 const creditAmortizationTableActions: IAction[] = [
@@ -53,7 +60,7 @@ const creditAmortizationTableActions: IAction[] = [
 ];
 
 export {
-  amortizationCurrencyEntries,
+  amortizationNormalizeEntries,
   creditAmortizationTableActions,
   mapCreditPayment,
 };

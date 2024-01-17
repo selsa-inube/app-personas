@@ -34,7 +34,7 @@ const creditsMock: IProduct[] = [
     movements: [
       {
         id: "movement-1",
-        date: "15/Ago/2023",
+        date: new Date("15/Aug/2023"),
         reference: "DN1001210",
         description: "Pago crédito educativo",
         capitalPayment: 270386,
@@ -47,7 +47,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-2",
-        date: "15/Sep/2023",
+        date: new Date("15/Sep/2023"),
         reference: "DN1001211",
         description: "Abono extraordinario",
         capitalPayment: 278386,
@@ -60,7 +60,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-3",
-        date: "15/Oct/2023",
+        date: new Date("15/Oct/2023"),
         reference: "DN1001212",
         description: "Pago crédito educativo",
         capitalPayment: 281386,
@@ -73,7 +73,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-4",
-        date: "15/Nov/2023",
+        date: new Date("15/Nov/2023"),
         reference: "DN1001213",
         description: "Abono extraordinario",
         capitalPayment: 289386,
@@ -86,7 +86,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-5",
-        date: "15/Dic/2023",
+        date: new Date("15/Dec/2023"),
         reference: "DN1001214",
         description: "Pago crédito educativo",
         capitalPayment: 294386,
@@ -99,7 +99,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-6",
-        date: "15/Ene/2024",
+        date: new Date("15/Jan/2024"),
         reference: "DN1001215",
         description: "Abono extraordinario",
         capitalPayment: 302386,
@@ -112,7 +112,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-7",
-        date: "15/Feb/2024",
+        date: new Date("15/Feb/2024"),
         reference: "DN1001216",
         description: "Pago crédito educativo",
         capitalPayment: 310386,
@@ -125,7 +125,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-8",
-        date: "15/Mar/2024",
+        date: new Date("15/Mar/2024"),
         reference: "DN1001217",
         description: "Abono extraordinario",
         capitalPayment: 318386,
@@ -138,7 +138,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-9",
-        date: "15/Abr/2024",
+        date: new Date("15/Apr/2024"),
         reference: "DN1001218",
         description: "Pago crédito educativo",
         capitalPayment: 326386,
@@ -151,7 +151,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-10",
-        date: "15/May/2024",
+        date: new Date("15/May/2024"),
         reference: "DN1001219",
         description: "Abono extraordinario",
         capitalPayment: 334386,
@@ -164,7 +164,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-11",
-        date: "15/Jun/2024",
+        date: new Date("15/Jun/2024"),
         reference: "DN1001220",
         description: "Pago crédito educativo",
         capitalPayment: 342386,
@@ -177,7 +177,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-12",
-        date: "15/Jul/2024",
+        date: new Date("15/Jul/2024"),
         reference: "DN1001221",
         description: "Abono extraordinario",
         capitalPayment: 350386,
@@ -190,7 +190,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-13",
-        date: "15/Ago/2024",
+        date: new Date("15/Aug/2024"),
         reference: "DN1001222",
         description: "Pago crédito educativo",
         capitalPayment: 358386,
@@ -203,7 +203,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-14",
-        date: "15/Sep/2024",
+        date: new Date("15/Sep/2024"),
         reference: "DN1001223",
         description: "Abono extraordinario",
         capitalPayment: 366386,
@@ -216,7 +216,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-15",
-        date: "15/Oct/2024",
+        date: new Date("15/Oct/2024"),
         reference: "DN1001224",
         description: "Pago crédito educativo",
         capitalPayment: 374386,
@@ -229,7 +229,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-16",
-        date: "15/Nov/2024",
+        date: new Date("15/Nov/2024"),
         reference: "DN1001225",
         description: "Abono extraordinario",
         capitalPayment: 382386,
@@ -242,7 +242,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-17",
-        date: "15/Dic/2024",
+        date: new Date("15/Dec/2024"),
         reference: "DN1001226",
         description: "Pago crédito educativo",
         capitalPayment: 390386,
@@ -255,7 +255,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-18",
-        date: "15/Ene/2025",
+        date: new Date("15/Jan/2025"),
         reference: "DN1001227",
         description: "Abono extraordinario",
         capitalPayment: 398386,
@@ -268,7 +268,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-19",
-        date: "15/Feb/2025",
+        date: new Date("15/Feb/2025"),
         reference: "DN1001228",
         description: "Pago crédito educativo",
         capitalPayment: 406386,
@@ -281,7 +281,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-20",
-        date: "15/Mar/2025",
+        date: new Date("15/Mar/2025"),
         reference: "DN1001229",
         description: "Abono extraordinario",
         capitalPayment: 414386,
@@ -294,7 +294,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-21",
-        date: "15/Abr/2025",
+        date: new Date("15/Apr/2025"),
         reference: "DN1001230",
         description: "Pago crédito educativo",
         capitalPayment: 422386,
@@ -307,7 +307,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-22",
-        date: "15/May/2025",
+        date: new Date("15/May/2025"),
         reference: "DN1001231",
         description: "Abono extraordinario",
         capitalPayment: 430386,
@@ -320,7 +320,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-23",
-        date: "15/Jun/2025",
+        date: new Date("15/Jun/2025"),
         reference: "DN1001232",
         description: "Pago crédito educativo",
         capitalPayment: 438386,
@@ -333,7 +333,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-24",
-        date: "15/Jul/2025",
+        date: new Date("15/Jul/2025"),
         reference: "DN1001233",
         description: "Abono extraordinario",
         capitalPayment: 446386,
@@ -346,7 +346,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-25",
-        date: "15/Ago/2025",
+        date: new Date("15/Aug/2025"),
         reference: "DN1001234",
         description: "Pago crédito educativo",
         capitalPayment: 454386,
@@ -359,7 +359,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-26",
-        date: "15/Sep/2025",
+        date: new Date("15/Sep/2025"),
         reference: "DN1001235",
         description: "Abono extraordinario",
         capitalPayment: 462386,
@@ -372,7 +372,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-27",
-        date: "15/Oct/2025",
+        date: new Date("15/Oct/2025"),
         reference: "DN1001236",
         description: "Pago crédito educativo",
         capitalPayment: 470386,
@@ -385,7 +385,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-28",
-        date: "15/Nov/2025",
+        date: new Date("15/Nov/2025"),
         reference: "DN1001237",
         description: "Abono extraordinario",
         capitalPayment: 478386,
@@ -398,7 +398,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-29",
-        date: "15/Dic/2025",
+        date: new Date("15/Dec/2025"),
         reference: "DN1001238",
         description: "Pago crédito educativo",
         capitalPayment: 486386,
@@ -411,7 +411,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-30",
-        date: "15/Ene/2026",
+        date: new Date("15/Jan/2026"),
         reference: "DN1001239",
         description: "Abono extraordinario",
         capitalPayment: 494386,
@@ -427,7 +427,7 @@ const creditsMock: IProduct[] = [
       {
         id: "8",
         paymentNumber: 8,
-        date: "15/Nov/2023",
+        date: new Date("15/Nov/2023"),
         capitalPayment: 324386,
         interest: 141875,
         lifeInsurance: 4315,
@@ -440,7 +440,7 @@ const creditsMock: IProduct[] = [
       {
         id: "9",
         paymentNumber: 9,
-        date: "15/Dec/2023",
+        date: new Date("15/Dec/2023"),
         capitalPayment: 332386,
         interest: 133875,
         lifeInsurance: 4052,
@@ -453,7 +453,7 @@ const creditsMock: IProduct[] = [
       {
         id: "10",
         paymentNumber: 10,
-        date: "15/Jan/2024",
+        date: new Date("15/Jan/2024"),
         capitalPayment: 340386,
         interest: 125875,
         lifeInsurance: 3788,
@@ -466,7 +466,7 @@ const creditsMock: IProduct[] = [
       {
         id: "11",
         paymentNumber: 11,
-        date: "15/Feb/2024",
+        date: new Date("15/Feb/2024"),
         capitalPayment: 349386,
         interest: 117875,
         lifeInsurance: 3525,
@@ -479,7 +479,7 @@ const creditsMock: IProduct[] = [
       {
         id: "12",
         paymentNumber: 12,
-        date: "15/Mar/2024",
+        date: new Date("15/Mar/2024"),
         capitalPayment: 358386,
         interest: 109875,
         lifeInsurance: 3261,
@@ -492,7 +492,7 @@ const creditsMock: IProduct[] = [
       {
         id: "13",
         paymentNumber: 13,
-        date: "15/Apr/2024",
+        date: new Date("15/Apr/2024"),
         capitalPayment: 368386,
         interest: 101875,
         lifeInsurance: 2998,
@@ -505,7 +505,7 @@ const creditsMock: IProduct[] = [
       {
         id: "14",
         paymentNumber: 14,
-        date: "15/May/2024",
+        date: new Date("15/May/2024"),
         capitalPayment: 378386,
         interest: 93875,
         lifeInsurance: 2734,
@@ -518,7 +518,7 @@ const creditsMock: IProduct[] = [
       {
         id: "15",
         paymentNumber: 15,
-        date: "15/Jun/2024",
+        date: new Date("15/Jun/2024"),
         capitalPayment: 389386,
         interest: 85875,
         lifeInsurance: 2471,
@@ -531,7 +531,7 @@ const creditsMock: IProduct[] = [
       {
         id: "16",
         paymentNumber: 16,
-        date: "15/Jul/2024",
+        date: new Date("15/Jul/2024"),
         capitalPayment: 401386,
         interest: 77875,
         lifeInsurance: 2207,
@@ -544,7 +544,7 @@ const creditsMock: IProduct[] = [
       {
         id: "17",
         paymentNumber: 17,
-        date: "15/Aug/2024",
+        date: new Date("15/Aug/2024"),
         capitalPayment: 414386,
         interest: 69875,
         lifeInsurance: 1944,
@@ -557,7 +557,7 @@ const creditsMock: IProduct[] = [
       {
         id: "18",
         paymentNumber: 18,
-        date: "15/Sep/2024",
+        date: new Date("15/Sep/2024"),
         capitalPayment: 428386,
         interest: 61875,
         lifeInsurance: 1680,
@@ -570,7 +570,7 @@ const creditsMock: IProduct[] = [
       {
         id: "19",
         paymentNumber: 19,
-        date: "15/Oct/2024",
+        date: new Date("15/Oct/2024"),
         capitalPayment: 443386,
         interest: 53875,
         lifeInsurance: 1417,
@@ -583,7 +583,7 @@ const creditsMock: IProduct[] = [
       {
         id: "20",
         paymentNumber: 20,
-        date: "15/Nov/2024",
+        date: new Date("15/Nov/2024"),
         capitalPayment: 459386,
         interest: 45875,
         lifeInsurance: 1153,
@@ -596,7 +596,7 @@ const creditsMock: IProduct[] = [
       {
         id: "21",
         paymentNumber: 21,
-        date: "15/Dec/2024",
+        date: new Date("15/Dec/2024"),
         capitalPayment: 476386,
         interest: 37875,
         lifeInsurance: 889,
@@ -609,7 +609,7 @@ const creditsMock: IProduct[] = [
       {
         id: "22",
         paymentNumber: 22,
-        date: "15/Jan/2025",
+        date: new Date("15/Jan/2025"),
         capitalPayment: 491200,
         interest: 29500,
         lifeInsurance: 765,
@@ -622,7 +622,7 @@ const creditsMock: IProduct[] = [
       {
         id: "23",
         paymentNumber: 23,
-        date: "15/Feb/2025",
+        date: new Date("15/Feb/2025"),
         capitalPayment: 506300,
         interest: 21750,
         lifeInsurance: 632,
@@ -635,7 +635,7 @@ const creditsMock: IProduct[] = [
       {
         id: "24",
         paymentNumber: 24,
-        date: "15/Mar/2025",
+        date: new Date("15/Mar/2025"),
         capitalPayment: 521700,
         interest: 13925,
         lifeInsurance: 497,
@@ -681,7 +681,7 @@ const creditsMock: IProduct[] = [
     movements: [
       {
         id: "movement-1",
-        date: "15/Sep/2023",
+        date: new Date("15/Sep/2023"),
         reference: "DN1001211",
         description: "Pago mensual",
         capitalPayment: 255000,
@@ -694,7 +694,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-2",
-        date: "15/Oct/2023",
+        date: new Date("15/Oct/2023"),
         reference: "DN1001212",
         description: "Abono extraordinario",
         capitalPayment: 280000,
@@ -707,7 +707,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-3",
-        date: "15/Nov/2023",
+        date: new Date("15/Nov/2023"),
         reference: "DN1001213",
         description: "Pago mensual",
         capitalPayment: 265000,
@@ -720,7 +720,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-4",
-        date: "15/Dic/2023",
+        date: new Date("15/Dec/2023"),
         reference: "DN1001214",
         description: "Abono extraordinario",
         capitalPayment: 290000,
@@ -733,7 +733,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-5",
-        date: "15/Ene/2024",
+        date: new Date("15/Jan/2024"),
         reference: "DN1001215",
         description: "Pago mensual",
         capitalPayment: 280000,
@@ -746,7 +746,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-6",
-        date: "15/Feb/2024",
+        date: new Date("15/Feb/2024"),
         reference: "DN1001216",
         description: "Abono adicional",
         capitalPayment: 310000,
@@ -759,7 +759,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-7",
-        date: "15/Mar/2024",
+        date: new Date("15/Mar/2024"),
         reference: "DN1001217",
         description: "Pago mensual",
         capitalPayment: 270000,
@@ -772,7 +772,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-8",
-        date: "15/Abr/2024",
+        date: new Date("15/Apr/2024"),
         reference: "DN1001218",
         description: "Abono extraordinario",
         capitalPayment: 320000,
@@ -785,7 +785,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-9",
-        date: "15/May/2024",
+        date: new Date("15/May/2024"),
         reference: "DN1001219",
         description: "Pago adelantado",
         capitalPayment: 340000,
@@ -798,7 +798,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-10",
-        date: "15/Jun/2024",
+        date: new Date("15/Jun/2024"),
         reference: "DN1001220",
         description: "Pago mensual",
         capitalPayment: 300000,
@@ -811,7 +811,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-11",
-        date: "15/Jul/2024",
+        date: new Date("15/Jul/2024"),
         reference: "DN1001221",
         description: "Abono adicional",
         capitalPayment: 330000,
@@ -824,7 +824,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-12",
-        date: "15/Ago/2024",
+        date: new Date("15/Aug/2024"),
         reference: "DN1001222",
         description: "Pago adelantado",
         capitalPayment: 320000,
@@ -837,7 +837,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-13",
-        date: "15/Sep/2024",
+        date: new Date("15/Sep/2024"),
         reference: "DN1001223",
         description: "Pago mensual",
         capitalPayment: 310000,
@@ -850,7 +850,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-14",
-        date: "15/Oct/2024",
+        date: new Date("15/Oct/2024"),
         reference: "DN1001224",
         description: "Abono adicional",
         capitalPayment: 340000,
@@ -863,7 +863,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-15",
-        date: "15/Nov/2024",
+        date: new Date("15/Nov/2024"),
         reference: "DN1001225",
         description: "Pago adelantado",
         capitalPayment: 330000,
@@ -876,7 +876,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-16",
-        date: "15/Dic/2024",
+        date: new Date("15/Dec/2024"),
         reference: "DN1001226",
         description: "Pago mensual",
         capitalPayment: 320000,
@@ -889,7 +889,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-17",
-        date: "15/Ene/2025",
+        date: new Date("15/Jan/2025"),
         reference: "DN1001227",
         description: "Abono adicional",
         capitalPayment: 350000,
@@ -902,7 +902,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-18",
-        date: "15/Feb/2025",
+        date: new Date("15/Feb/2025"),
         reference: "DN1001228",
         description: "Pago adelantado",
         capitalPayment: 340000,
@@ -915,7 +915,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-19",
-        date: "15/Mar/2025",
+        date: new Date("15/Mar/2025"),
         reference: "DN1001229",
         description: "Pago mensual",
         capitalPayment: 300000,
@@ -928,7 +928,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-20",
-        date: "15/Abr/2025",
+        date: new Date("15/Apr/2025"),
         reference: "DN1001230",
         description: "Abono adicional",
         capitalPayment: 330000,
@@ -941,7 +941,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-21",
-        date: "15/May/2025",
+        date: new Date("15/May/2025"),
         reference: "DN1001231",
         description: "Pago adelantado",
         capitalPayment: 320000,
@@ -954,7 +954,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-22",
-        date: "15/Jun/2025",
+        date: new Date("15/Jun/2025"),
         reference: "DN1001232",
         description: "Pago mensual",
         capitalPayment: 310000,
@@ -967,7 +967,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-23",
-        date: "15/Jul/2025",
+        date: new Date("15/Jul/2025"),
         reference: "DN1001233",
         description: "Abono adicional",
         capitalPayment: 340000,
@@ -980,7 +980,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-24",
-        date: "15/Ago/2025",
+        date: new Date("15/Aug/2025"),
         reference: "DN1001234",
         description: "Pago adelantado",
         capitalPayment: 330000,
@@ -993,7 +993,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-25",
-        date: "15/Sep/2025",
+        date: new Date("15/Sep/2025"),
         reference: "DN1001235",
         description: "Pago mensual",
         capitalPayment: 320000,
@@ -1006,7 +1006,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-26",
-        date: "15/Oct/2025",
+        date: new Date("15/Oct/2025"),
         reference: "DN1001236",
         description: "Abono adicional",
         capitalPayment: 350000,
@@ -1019,7 +1019,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-27",
-        date: "15/Nov/2025",
+        date: new Date("15/Nov/2025"),
         reference: "DN1001237",
         description: "Pago adelantado",
         capitalPayment: 340000,
@@ -1032,7 +1032,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-28",
-        date: "15/Dic/2025",
+        date: new Date("15/Dec/2025"),
         reference: "DN1001238",
         description: "Pago adelantado",
         capitalPayment: 320000,
@@ -1045,7 +1045,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-29",
-        date: "15/Ene/2026",
+        date: new Date("15/Jan/2026"),
         reference: "DN1001239",
         description: "Pago adelantado",
         capitalPayment: 340000,
@@ -1058,7 +1058,7 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "movement-30",
-        date: "15/Feb/2026",
+        date: new Date("15/Feb/2026"),
         reference: "DN1001240",
         description: "Abono adicional",
         capitalPayment: 350000,
@@ -1074,7 +1074,7 @@ const creditsMock: IProduct[] = [
       {
         id: "10",
         paymentNumber: 10,
-        date: "10/Nov/2023",
+        date: new Date("10/Nov/2023"),
         capitalPayment: 295000,
         interest: 110000,
         lifeInsurance: 3200,
@@ -1087,7 +1087,7 @@ const creditsMock: IProduct[] = [
       {
         id: "11",
         paymentNumber: 11,
-        date: "10/Dec/2023",
+        date: new Date("10/Dec/2023"),
         capitalPayment: 300000,
         interest: 100000,
         lifeInsurance: 3000,
@@ -1100,7 +1100,7 @@ const creditsMock: IProduct[] = [
       {
         id: "12",
         paymentNumber: 12,
-        date: "10/Jan/2024",
+        date: new Date("10/Jan/2024"),
         capitalPayment: 305000,
         interest: 90000,
         lifeInsurance: 2800,
@@ -1113,7 +1113,7 @@ const creditsMock: IProduct[] = [
       {
         id: "13",
         paymentNumber: 13,
-        date: "10/Feb/2024",
+        date: new Date("10/Feb/2024"),
         capitalPayment: 310000,
         interest: 80000,
         lifeInsurance: 2600,
@@ -1126,7 +1126,7 @@ const creditsMock: IProduct[] = [
       {
         id: "14",
         paymentNumber: 14,
-        date: "10/Mar/2024",
+        date: new Date("10/Mar/2024"),
         capitalPayment: 315000,
         interest: 70000,
         lifeInsurance: 2400,
@@ -1139,7 +1139,7 @@ const creditsMock: IProduct[] = [
       {
         id: "15",
         paymentNumber: 15,
-        date: "10/Apr/2024",
+        date: new Date("10/Apr/2024"),
         capitalPayment: 320000,
         interest: 60000,
         lifeInsurance: 2200,
@@ -1152,7 +1152,7 @@ const creditsMock: IProduct[] = [
       {
         id: "16",
         paymentNumber: 16,
-        date: "10/May/2024",
+        date: new Date("10/May/2024"),
         capitalPayment: 325000,
         interest: 50000,
         lifeInsurance: 2000,
@@ -1165,7 +1165,7 @@ const creditsMock: IProduct[] = [
       {
         id: "17",
         paymentNumber: 17,
-        date: "10/Jun/2024",
+        date: new Date("10/Jun/2024"),
         capitalPayment: 330000,
         interest: 40000,
         lifeInsurance: 1800,
@@ -1178,7 +1178,7 @@ const creditsMock: IProduct[] = [
       {
         id: "18",
         paymentNumber: 18,
-        date: "10/Jul/2024",
+        date: new Date("10/Jul/2024"),
         capitalPayment: 335000,
         interest: 30000,
         lifeInsurance: 1600,
@@ -1191,7 +1191,7 @@ const creditsMock: IProduct[] = [
       {
         id: "19",
         paymentNumber: 19,
-        date: "10/Aug/2024",
+        date: new Date("10/Aug/2024"),
         capitalPayment: 340000,
         interest: 20000,
         lifeInsurance: 1400,
@@ -1204,7 +1204,7 @@ const creditsMock: IProduct[] = [
       {
         id: "20",
         paymentNumber: 20,
-        date: "10/Sep/2024",
+        date: new Date("10/Sep/2024"),
         capitalPayment: 345000,
         interest: 10000,
         lifeInsurance: 1200,
@@ -1217,7 +1217,7 @@ const creditsMock: IProduct[] = [
       {
         id: "21",
         paymentNumber: 21,
-        date: "10/Oct/2024",
+        date: new Date("10/Oct/2024"),
         capitalPayment: 350000,
         interest: 0,
         lifeInsurance: 1000,
@@ -1230,7 +1230,7 @@ const creditsMock: IProduct[] = [
       {
         id: "22",
         paymentNumber: 22,
-        date: "10/Nov/2024",
+        date: new Date("10/Nov/2024"),
         capitalPayment: 355000,
         interest: 0,
         lifeInsurance: 800,
@@ -1243,7 +1243,7 @@ const creditsMock: IProduct[] = [
       {
         id: "23",
         paymentNumber: 23,
-        date: "10/Dec/2024",
+        date: new Date("10/Dec/2024"),
         capitalPayment: 360000,
         interest: 0,
         lifeInsurance: 600,
@@ -1256,7 +1256,7 @@ const creditsMock: IProduct[] = [
       {
         id: "24",
         paymentNumber: 24,
-        date: "10/Jan/2025",
+        date: new Date("10/Jan/2025"),
         capitalPayment: 365000,
         interest: 0,
         lifeInsurance: 400,
@@ -1269,7 +1269,7 @@ const creditsMock: IProduct[] = [
       {
         id: "25",
         paymentNumber: 25,
-        date: "10/Feb/2025",
+        date: new Date("10/Feb/2025"),
         capitalPayment: 370000,
         interest: 0,
         lifeInsurance: 200,
@@ -1282,7 +1282,7 @@ const creditsMock: IProduct[] = [
       {
         id: "26",
         paymentNumber: 26,
-        date: "10/Mar/2025",
+        date: new Date("10/Mar/2025"),
         capitalPayment: 375000,
         interest: 0,
         lifeInsurance: 0,
@@ -1295,7 +1295,7 @@ const creditsMock: IProduct[] = [
       {
         id: "27",
         paymentNumber: 27,
-        date: "10/Apr/2025",
+        date: new Date("10/Apr/2025"),
         capitalPayment: 380000,
         interest: 0,
         lifeInsurance: 0,
@@ -1308,7 +1308,7 @@ const creditsMock: IProduct[] = [
       {
         id: "28",
         paymentNumber: 28,
-        date: "10/May/2025",
+        date: new Date("10/May/2025"),
         capitalPayment: 385000,
         interest: 0,
         lifeInsurance: 0,
@@ -1321,7 +1321,7 @@ const creditsMock: IProduct[] = [
       {
         id: "29",
         paymentNumber: 29,
-        date: "10/Jun/2025",
+        date: new Date("10/Jun/2025"),
         capitalPayment: 390000,
         interest: 0,
         lifeInsurance: 0,
@@ -1334,7 +1334,7 @@ const creditsMock: IProduct[] = [
       {
         id: "30",
         paymentNumber: 30,
-        date: "10/Jul/2025",
+        date: new Date("10/Jul/2025"),
         capitalPayment: 395000,
         interest: 0,
         lifeInsurance: 0,

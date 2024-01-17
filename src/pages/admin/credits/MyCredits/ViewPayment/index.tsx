@@ -1,11 +1,11 @@
 import { CreditPaymentModal } from "@components/modals/credit/CreditPaymentModal";
 import { Icon } from "@design/data/Icon";
+import { IEntry } from "@design/data/Table/types";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
-import { IAmortization } from "src/model/entity/product";
 
 interface ViewPaymentProps {
-  payment: IAmortization;
+  payment: IEntry;
 }
 
 function ViewPayment(props: ViewPaymentProps) {

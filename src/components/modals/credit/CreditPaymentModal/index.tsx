@@ -5,17 +5,17 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdAdd, MdOutlineClose } from "react-icons/md";
-import { IAmortization } from "src/model/entity/product";
 import {
   StyledBody,
   StyledBodyHead,
   StyledDivider,
   StyledModal,
 } from "./styles";
+import { IEntry } from "@design/data/Table/types";
 
 const renderTransactionSpecification = (
   label: string,
-  value: string | number
+  value: string | number,
 ) => (
   <Stack gap="s100" alignItems="center">
     <Icon
@@ -40,7 +40,7 @@ const renderTransactionSpecification = (
 interface CreditPaymentModalProps {
   portalId: string;
   onCloseModal: () => void;
-  payment: IAmortization;
+  payment: IEntry;
 }
 
 function CreditPaymentModal(props: CreditPaymentModalProps) {
@@ -51,7 +51,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -92,26 +92,31 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
           </Text>
 
           <Stack direction="column" gap="s200">
-            {payment.capitalPayment && renderTransactionSpecification(
-              "Abono capital:",
-              payment.capitalPayment
-            )}
-            {payment.interest && renderTransactionSpecification(
-              "Interés de mora:",
-              payment.interest
-            )}
-            {payment.lifeInsurance && renderTransactionSpecification(
-              "Seguro de vida:",
-              payment.lifeInsurance
-            )}
-            {payment.patrimonialInsurance && renderTransactionSpecification(
-              "Seguro patrimonial:",
-              payment.patrimonialInsurance
-            )}
-            {payment.capitalization && renderTransactionSpecification(
-              "Capitalización:",
-              payment.capitalization
-            )}
+            {payment.capitalPayment &&
+              renderTransactionSpecification(
+                "Abono capital:",
+                payment.capitalPayment,
+              )}
+            {payment.interest &&
+              renderTransactionSpecification(
+                "Interés de mora:",
+                payment.interest,
+              )}
+            {payment.lifeInsurance &&
+              renderTransactionSpecification(
+                "Seguro de vida:",
+                payment.lifeInsurance,
+              )}
+            {payment.patrimonialInsurance &&
+              renderTransactionSpecification(
+                "Seguro patrimonial:",
+                payment.patrimonialInsurance,
+              )}
+            {payment.capitalization &&
+              renderTransactionSpecification(
+                "Capitalización:",
+                payment.capitalization,
+              )}
           </Stack>
 
           <Stack direction="column" gap="s150">
@@ -139,7 +144,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
         </StyledBody>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

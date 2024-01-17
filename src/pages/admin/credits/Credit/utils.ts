@@ -62,20 +62,21 @@ const validateCreditMovementsAndAmortization = async (
 
 const getNextPaymentData = (selectedProduct: IProduct) => {
   const nextPaymentCapital = selectedProduct.attributes.find(
-    (attr) => attr.id === "next_payment_capital"
+    (attr) => attr.id === "next_payment_capital",
   );
 
   const nextPaymentInterest = selectedProduct.attributes.find(
-    (attr) => attr.id === "next_payment_interest"
+    (attr) => attr.id === "next_payment_interest",
   );
 
   const nextPaymentValue = selectedProduct.attributes.find(
-    (attr) => attr.id === "next_payment_value"
+    (attr) => attr.id === "next_payment_value",
   );
 
   return {
     nextPaymentCapital: Number(nextPaymentCapital?.value),
-    nextPaymentInterest: Number(nextPaymentInterest?.value),
+    nextPaymentInterest:
+      nextPaymentInterest && Number(nextPaymentInterest?.value),
     nextPaymentValue: Number(nextPaymentValue?.value),
   };
 };
