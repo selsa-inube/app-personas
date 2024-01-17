@@ -4,6 +4,7 @@ import { DisplayEntry } from "./DisplayEntry";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
+import { SkeletonLine } from "@inube/design-system";
 import { Text } from "../Text";
 import {
   StyledTable,
@@ -29,7 +30,7 @@ function priorityColumns(titles: ITitle[], numColumns: number) {
 function totalTitleColumns(
   titles: ITitle[],
   breakpoints?: IBreakpoint[],
-  media?: Record<string, boolean>
+  media?: Record<string, boolean>,
 ) {
   const numColumns = breakpoints
     ? breakpoints[findCurrentMediaQuery(media ? media : {})].totalColumns
@@ -52,7 +53,7 @@ function renderActionsTitles(
   actions: IAction[],
   mediaQuery: boolean,
   mobileResumeTitle?: string,
-  hideMobileResume?: boolean
+  hideMobileResume?: boolean,
 ) {
   const actionsList =
     hideMobileResume && mediaQuery
@@ -62,7 +63,7 @@ function renderActionsTitles(
   return mediaQuery && !hideMobileResume
     ? renderActionTitle(mobileResumeTitle ? mobileResumeTitle : "Abrir")
     : actionsList.map((action) =>
-        renderActionTitle(action.actionName, `action-${action.id}`)
+        renderActionTitle(action.actionName, `action-${action.id}`),
       );
 }
 
@@ -75,7 +76,7 @@ function renderActions(
   titleLabels?: ITitle[],
   infoTitle?: string,
   actionsTitle?: string,
-  hideMobileResume?: boolean
+  hideMobileResume?: boolean,
 ) {
   const actionsList =
     hideMobileResume && mediaQuery
@@ -103,11 +104,41 @@ function renderActions(
   );
 }
 
+const actionsLoading = (numberActions: number) => {
+  const cellsOfActionsLoading = [];
+  for (let cellAction = 0; cellAction < numberActions; cellAction++) {
+    cellsOfActionsLoading.push(
+      <StyledTd key={cellAction}>
+        <SkeletonLine animated />
+      </StyledTd>,
+    );
+  }
+  return cellsOfActionsLoading;
+};
+
+const dataLoading = (titleColumns: ITitle[], numberActions: number) => {
+  const rowsLoading = [];
+  for (let rows = 0; rows < 4; rows++) {
+    rowsLoading.push(
+      <StyledTr key={rows}>
+        {titleColumns.map((title) => (
+          <StyledTd key={`e-${title.id}`}>
+            <SkeletonLine animated />
+          </StyledTd>
+        ))}
+        {actionsLoading(numberActions)}
+      </StyledTr>,
+    );
+  }
+  return rowsLoading;
+};
+
 interface TableUIProps {
   portalId?: string;
   titles: ITitle[];
   actions?: IAction[];
   entries: IEntry[];
+  loading?: boolean;
   breakpoints?: IBreakpoint[];
   modalTitle?: string;
   infoTitle?: string;
@@ -124,6 +155,7 @@ const TableUI = (props: TableUIProps) => {
     titles,
     actions,
     entries,
+    loading,
     breakpoints,
     modalTitle,
     infoTitle,
@@ -138,15 +170,17 @@ const TableUI = (props: TableUIProps) => {
 
   const queriesArray = useMemo(
     () => breakpoints && breakpoints.map((breakpoint) => breakpoint.breakpoint),
-    [breakpoints]
+    [breakpoints],
   );
 
   const media = useMediaQueries(queriesArray || []);
 
   const titleColumns = useMemo(
     () => totalTitleColumns(titles, breakpoints, media),
-    [titles, breakpoints, media]
+    [titles, breakpoints, media],
   );
+
+  const numberActions = actions ? actions.length : 0;
 
   return (
     <StyledTable colsSameWidth={colsSameWidth}>
@@ -170,47 +204,53 @@ const TableUI = (props: TableUIProps) => {
               actions,
               isTablet,
               mobileResumeTitle,
-              hideMobileResume
+              hideMobileResume,
             )}
         </StyledTr>
       </StyledThead>
       <StyledTbody>
-        {entries.length > 0 ? (
-          entries.map((entry, index) => (
-            <StyledTr
-              key={`entry-${entry.id}`}
-              aria-labelledby={`entry-${entry.id}`}
-              isLastTr={index === entries.length - 1}
-            >
-              {titleColumns.map((title) => (
-                <StyledTd key={`e-${title.id}`} withActions={withActions}>
+        {loading ? (
+          dataLoading(titleColumns, numberActions)
+        ) : (
+          <>
+            {entries.length > 0 ? (
+              entries.map((entry, index) => (
+                <StyledTr
+                  key={`entry-${entry.id}`}
+                  aria-labelledby={`entry-${entry.id}`}
+                  isLastTr={index === entries.length - 1}
+                >
+                  {titleColumns.map((title) => (
+                    <StyledTd key={`e-${title.id}`} withActions={withActions}>
+                      <Text type="body" size="small" appearance="dark" ellipsis>
+                        {entry[title.id]}
+                      </Text>
+                    </StyledTd>
+                  ))}
+                  {actions &&
+                    renderActions(
+                      actions,
+                      entry,
+                      isTablet,
+                      portalId,
+                      modalTitle,
+                      titles,
+                      infoTitle,
+                      actionsTitle,
+                      hideMobileResume,
+                    )}
+                </StyledTr>
+              ))
+            ) : (
+              <StyledTr aria-labelledby={`no-data`} isLastTr>
+                <StyledTd colSpan={titleColumns.length + 1}>
                   <Text type="body" size="small" appearance="dark" ellipsis>
-                    {entry[title.id]}
+                    No se encontró información
                   </Text>
                 </StyledTd>
-              ))}
-              {actions &&
-                renderActions(
-                  actions,
-                  entry,
-                  isTablet,
-                  portalId,
-                  modalTitle,
-                  titles,
-                  infoTitle,
-                  actionsTitle,
-                  hideMobileResume
-                )}
-            </StyledTr>
-          ))
-        ) : (
-          <StyledTr aria-labelledby={`no-data`} isLastTr>
-            <StyledTd colSpan={titleColumns.length + 1}>
-              <Text type="body" size="small" appearance="dark" ellipsis>
-                No se encontró información
-              </Text>
-            </StyledTd>
-          </StyledTr>
+              </StyledTr>
+            )}
+          </>
         )}
       </StyledTbody>
     </StyledTable>
