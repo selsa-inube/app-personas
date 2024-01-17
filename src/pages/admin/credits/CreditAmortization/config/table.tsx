@@ -25,17 +25,15 @@ const amortizationNormalizeEntries = (amortization: IAmortization[]) =>
   amortization.map((entry) => ({
     ...entry,
     date: entry.date && formatPrimaryDate(entry.date),
-    others: entry.others && currencyFormat(entry.others),
-    interest: entry.interest && currencyFormat(entry.interest),
+    others: currencyFormat(entry.others),
+    interest: currencyFormat(entry.interest),
     capitalPayment:
       entry.capitalPayment && currencyFormat(entry.capitalPayment),
     lifeInsurance: entry.lifeInsurance && currencyFormat(entry.lifeInsurance),
     capitalization:
       entry.capitalization && currencyFormat(entry.capitalization),
-    totalMonthlyValue:
-      entry.totalMonthlyValue && currencyFormat(entry.totalMonthlyValue),
-    projectedBalance:
-      entry.projectedBalance && currencyFormat(entry.projectedBalance),
+    totalMonthlyValue: currencyFormat(entry.totalMonthlyValue),
+    projectedBalance: currencyFormat(entry.projectedBalance),
     patrimonialInsurance:
       entry.patrimonialInsurance && currencyFormat(entry.patrimonialInsurance),
   }));

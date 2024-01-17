@@ -34,7 +34,7 @@ const creditMovementsNormalizeEntries = (movements: IMovement[]) =>
     capitalization:
       entry.capitalization && currencyFormat(entry.capitalization),
     commission: entry.commission && currencyFormat(entry.commission),
-    totalValue: entry.totalValue && currencyFormat(entry.totalValue),
+    totalValue: currencyFormat(entry.totalValue),
   }));
 
 const creditMovementsTableActions: IAction[] = [

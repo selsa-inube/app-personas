@@ -27,11 +27,11 @@ interface IAmortization {
   paymentNumber: number;
   date: Date;
   capitalPayment?: number;
-  interest?: number;
+  interest: number;
   lifeInsurance?: number;
   patrimonialInsurance?: number;
   capitalization?: number;
-  others?: number;
+  others: number;
   totalMonthlyValue: number;
   projectedBalance: number;
 }
