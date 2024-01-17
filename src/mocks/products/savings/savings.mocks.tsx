@@ -636,14 +636,14 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-25",
-        date: new Date("31/Dic/2022"),
+        date: new Date("31/Dec/2022"),
         reference: "CA1001746",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 78948,
       },
       {
         id: "movement-26",
-        date: new Date("31/Dic/2022"),
+        date: new Date("31/Dec/2022"),
         reference: "IN1000598",
         description: "Abono rendimientos por el periodo 11/Nov/2022",
         totalValue: 130225,
@@ -671,7 +671,7 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-30",
-        date: new Date("30/Ago/2022"),
+        date: new Date("30/Aug/2022"),
         reference: "CA1001322",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 78948,
@@ -734,16 +734,16 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-39",
-        date: new Date("31/Dic/2021"),
+        date: new Date("31/Dec/2021"),
         reference: "CA1000852",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 78948,
       },
       {
         id: "movement-40",
-        date: new Date("31/Dic/2021"),
+        date: new Date("31/Dec/2021"),
         reference: "IN1001568",
-        description: "Abono rendimientos por el periodo 09/Dic/2021",
+        description: "Abono rendimientos por el periodo 09/Dec/2021",
         totalValue: 130211,
       },
       {
@@ -769,7 +769,7 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-44",
-        date: new Date("30/Ago/2021"),
+        date: new Date("30/Aug/2021"),
         reference: "CA1000748",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 78948,
@@ -832,16 +832,16 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-53",
-        date: new Date("31/Dic/2020"),
+        date: new Date("31/Dec/2020"),
         reference: "CA1000578",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 78948,
       },
       {
         id: "movement-54",
-        date: new Date("31/Dic/2020"),
+        date: new Date("31/Dec/2020"),
         reference: "IN1001535",
-        description: "Abono rendimientos por el periodo 11/Dic/2021",
+        description: "Abono rendimientos por el periodo 11/Dec/2021",
         totalValue: 130402,
       },
       {
@@ -867,7 +867,7 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-58",
-        date: new Date("30/Ago/2020"),
+        date: new Date("30/Aug/2020"),
         reference: "CA1000457",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 78948,
@@ -1005,14 +1005,14 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-5",
-        date: new Date("31/Dic/2022"),
+        date: new Date("31/Dec/2022"),
         reference: "CA1001746",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 8772,
       },
       {
         id: "movement-6",
-        date: new Date("31/Dic/2022"),
+        date: new Date("31/Dec/2022"),
         reference: "IN1000598",
         description: "Abono rendimientos por el periodo 11/Nov/2022",
         totalValue: 130225,
@@ -1040,7 +1040,7 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-10",
-        date: new Date("30/Ago/2022"),
+        date: new Date("30/Aug/2022"),
         reference: "CA1001322",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 8772,
@@ -1096,7 +1096,7 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-18",
-        date: new Date("31/Dic/2021"),
+        date: new Date("31/Dec/2021"),
         reference: "CA1000723",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 8772,
@@ -1124,7 +1124,7 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-22",
-        date: new Date("31/Ago/2021"),
+        date: new Date("31/Aug/2021"),
         reference: "CA1000482",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 8772,
@@ -1180,7 +1180,7 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "movement-30",
-        date: new Date("31/Dic/2020"),
+        date: new Date("31/Dec/2020"),
         reference: "CA1000026",
         description: "Traslado de cuota 200-66861642-66861642",
         totalValue: 8772,
