@@ -41,7 +41,7 @@ import { INextPaymentModalState, ISelectedProductState } from "./types";
 interface CreditUIProps {
   isMobile?: boolean;
   selectedProduct?: ISelectedProductState;
-  loading:boolean;
+  loading: boolean;
   productsOptions: ISelectOption[];
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;

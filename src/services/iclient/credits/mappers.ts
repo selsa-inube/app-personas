@@ -1,5 +1,9 @@
 import { TagProps } from "@design/data/Tag";
-import { movementDescriptionMock } from "@mocks/products/credits/utils.mocks";
+import {
+  amortizationTypeValuesMock,
+  movementDescriptionMock,
+  peridiocityValuesMock,
+} from "@mocks/products/credits/utils.mocks";
 import {
   IAmortization,
   IMovement,
@@ -70,10 +74,10 @@ const mapCreditApiToEntity = (
   credit: Record<string, string | number | object>,
 ): IProduct => {
   const nextPaymentDate = new Date(String(credit.nextPaymentDate));
-  nextPaymentDate.setHours(0, 0, 0, 0);
+  nextPaymentDate.setUTCHours(0, 0, 0, 0);
 
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  today.setUTCHours(0, 0, 0, 0);
 
   const heightQuota = String(credit.heightQuota).split(" ");
   const currentQuota = heightQuota.length > 0 ? heightQuota[0] : 0;
@@ -107,18 +111,16 @@ const mapCreditApiToEntity = (
     String(credit.paymentMethodName).toLowerCase(),
   );
 
-  const peridiocityValues: Record<string, string> = {
-    Annual: "Anual",
-    Biweekly: "Quincenal",
-    Monthly: "Mensual",
-    Semiannual: "Semestral",
-  };
-
   const attributes = [
     {
-      id: "net_value",
-      label: "Saldo de capital",
-      value: Number(Object(credit.balanceObligation).capitalBalanceInPesos),
+      id: "loan_date",
+      label: "Fecha de préstamo",
+      value: formatPrimaryDate(new Date(String(credit.obligationDate))),
+    },
+    {
+      id: "loan_value",
+      label: "Valor del préstamo",
+      value: credit.amount,
     },
     {
       id: "next_payment_date",
@@ -135,16 +137,15 @@ const mapCreditApiToEntity = (
       label: "Valor próximo pago",
       value: nextPaymentValue,
     },
-    { id: "terms", label: "Plazo", value: `${maxQuota} Meses` },
-    {
-      id: "loan_date",
-      label: "Fecha de préstamo",
-      value: formatPrimaryDate(new Date(String(credit.obligationDate))),
-    },
     {
       id: "quote",
       label: "Altura de cuota",
       value: `${currentQuota} de ${maxQuota}`,
+    },
+    {
+      id: "peridiocity",
+      label: "Periodicidad",
+      value: peridiocityValuesMock[String(credit.periodicityOfQuota)],
     },
     {
       id: "payment_means",
@@ -152,15 +153,16 @@ const mapCreditApiToEntity = (
       value: normalizedPaymentMethodName,
     },
     {
-      id: "loan_value",
-      label: "Valor del préstamo",
-      value: credit.amount,
+      id: "net_value",
+      label: "Saldo de capital",
+      value: Number(Object(credit.balanceObligation).capitalBalanceInPesos),
     },
     {
-      id: "peridiocity",
-      label: "Periodicidad",
-      value: peridiocityValues[String(credit.periodicityOfQuota)],
+      id: "amortization_type",
+      label: "Tipo de amortización",
+      value: amortizationTypeValuesMock[String(credit.amortization)],
     },
+    { id: "terms", label: "Plazo", value: `${maxQuota} Meses` },
   ];
 
   if (inArrears) {
@@ -230,16 +232,13 @@ const mapCreditAmortizationApiToEntity = (
     paymentNumber: Number(payment.quotaNumber),
     date: new Date(String(payment.quotaDate)),
     others,
+    interest: Number(payment.fixedInterestValue || 0),
     totalMonthlyValue: Number(payment.quotaValue),
     projectedBalance: Number(payment.projectedBalance),
   };
 
   if (payment.capitalValue) {
     buildPayment.capitalPayment = Number(payment.capitalValue);
-  }
-
-  if (payment.fixedInterestValue) {
-    buildPayment.interest = Number(payment.fixedInterestValue);
   }
 
   if (payment.lifeInsuranceValue) {

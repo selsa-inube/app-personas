@@ -1,4 +1,5 @@
 import { Icon } from "@design/data/Icon";
+import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
@@ -11,7 +12,7 @@ import {
   StyledDivider,
   StyledModal,
 } from "./styles";
-import { IEntry } from "@design/data/Table/types";
+import { parseCurrencyString } from "src/utils/currency";
 
 const renderTransactionSpecification = (
   label: string,
@@ -97,7 +98,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
                 "Abono capital:",
                 payment.capitalPayment,
               )}
-            {payment.interest &&
+            {parseCurrencyString(payment.interest) !== 0 &&
               renderTransactionSpecification(
                 "Interés de mora:",
                 payment.interest,
