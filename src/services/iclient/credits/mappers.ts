@@ -74,10 +74,10 @@ const mapCreditApiToEntity = (
   credit: Record<string, string | number | object>,
 ): IProduct => {
   const nextPaymentDate = new Date(String(credit.nextPaymentDate));
-  nextPaymentDate.setHours(0, 0, 0, 0);
+  nextPaymentDate.setUTCHours(0, 0, 0, 0);
 
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  today.setUTCHours(0, 0, 0, 0);
 
   const heightQuota = String(credit.heightQuota).split(" ");
   const currentQuota = heightQuota.length > 0 ? heightQuota[0] : 0;
@@ -222,16 +222,13 @@ const mapCreditAmortizationApiToEntity = (
     paymentNumber: Number(payment.quotaNumber),
     date: new Date(String(payment.quotaDate)),
     others,
+    interest: Number(payment.fixedInterestValue || 0),
     totalMonthlyValue: Number(payment.quotaValue),
     projectedBalance: Number(payment.projectedBalance),
   };
 
   if (payment.capitalValue) {
     buildPayment.capitalPayment = Number(payment.capitalValue);
-  }
-
-  if (payment.fixedInterestValue) {
-    buildPayment.interest = Number(payment.fixedInterestValue);
   }
 
   if (payment.lifeInsuranceValue) {

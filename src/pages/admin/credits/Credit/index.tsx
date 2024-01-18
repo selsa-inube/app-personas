@@ -82,9 +82,13 @@ function Credit() {
       selectedCredit,
       newCredits,
       accessToken,
-    ).then((newCredits) => {
+    ).then(({ newCredits, newSelectedCredit }) => {
       setLoading(false);
       setCredits(newCredits);
+      setSelectedProduct({
+        option: newSelectedCredit.id,
+        credit: newSelectedCredit,
+      });
     });
   };
 
