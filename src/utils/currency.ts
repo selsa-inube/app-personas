@@ -17,8 +17,7 @@ const parseCurrencyString = (currencyString: string): number => {
     return NaN;
   }
 
-  let num = parseInt(currencyString.replace(/\$|\./g, ""));
-  return num;
+  return parseInt(currencyString.replace(/\$|\./g, ""));
 };
 
 const validateCurrencyField = (fieldName: string, formik: FormikValues) => {
@@ -29,7 +28,7 @@ const validateCurrencyField = (fieldName: string, formik: FormikValues) => {
 
 const handleChangeWithCurrency = (
   formik: FormikValues,
-  e: React.ChangeEvent<HTMLInputElement>
+  e: React.ChangeEvent<HTMLInputElement>,
 ) => {
   const parsedValue = parseCurrencyString(e.target.value);
   formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);

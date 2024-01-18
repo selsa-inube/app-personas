@@ -1,19 +1,15 @@
 import { Icon } from "@design/data/Icon";
-import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
+import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdAdd, MdOutlineClose } from "react-icons/md";
-import {
-  StyledBody,
-  StyledBodyHead,
-  StyledDivider,
-  StyledModal,
-} from "./styles";
+import { currencyFormat } from "src/utils/currency";
+import { StyledBody, StyledModal } from "./styles";
 
-const renderTransactionSpecification = (label: string, value?: number) => (
+const renderTransactionSpecification = (label: string, value: number) => (
   <Stack gap="s100" alignItems="center">
     <Icon
       appearance="dark"
@@ -28,20 +24,25 @@ const renderTransactionSpecification = (label: string, value?: number) => (
       </Text>
 
       <Text type="body" size="small" appearance="gray">
-        {value}
+        {currencyFormat(value)}
       </Text>
     </Stack>
   </Stack>
 );
 
-interface CreditMovementModalProps {
+interface NextPaymentModalProps {
   portalId: string;
+  nextPaymentData: {
+    nextPaymentCapital: number;
+    nextPaymentInterest?: number;
+    nextPaymentArrearsInterest?: number;
+    nextPaymentValue: number;
+  };
   onCloseModal: () => void;
-  movement: IEntry;
 }
 
-function CreditMovementModal(props: CreditMovementModalProps) {
-  const { portalId, onCloseModal, movement } = props;
+function NextPaymentModal(props: NextPaymentModalProps) {
+  const { portalId, nextPaymentData, onCloseModal } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -55,10 +56,10 @@ function CreditMovementModal(props: CreditMovementModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%">
+        <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
-              Movimiento
+              Total próximo pago
             </Text>
 
             <Icon
@@ -71,65 +72,38 @@ function CreditMovementModal(props: CreditMovementModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Detalles de la transacción
+            Conceptos detallados del próximo pago.
           </Text>
         </Stack>
 
-        <StyledDivider dashed />
-
-        <StyledBodyHead>
-          <Text type="title" size="medium" appearance="dark">
-            {movement.reference} - {movement.date}
-          </Text>
-
-          <Stack gap="s100" alignItems="center">
-            <Text type="label" size="medium" appearance="dark">
-              Descripción:
-            </Text>
-
-            <Text type="body" size="small" appearance="gray">
-              {movement.description}
-            </Text>
-          </Stack>
-        </StyledBodyHead>
+        <Divider dashed />
 
         <StyledBody>
           <Text type="title" size="medium" appearance="dark">
-            Especificación de la transacción
+            Especificación del pago
           </Text>
 
           <Stack direction="column" gap="s200">
-            {movement.capitalPayment &&
-              renderTransactionSpecification(
-                "Abono capital:",
-                movement.capitalPayment,
-              )}
-            {movement.interest &&
+            {renderTransactionSpecification(
+              "Abono capital:",
+              nextPaymentData.nextPaymentCapital,
+            )}
+
+            {nextPaymentData.nextPaymentInterest &&
               renderTransactionSpecification(
                 "Interés corriente:",
-                movement.interest,
+                nextPaymentData.nextPaymentInterest,
               )}
-            {movement.lifeInsurance &&
+
+            {nextPaymentData.nextPaymentArrearsInterest &&
               renderTransactionSpecification(
-                "Seguro de vida:",
-                movement.lifeInsurance,
+                "Interés de mora:",
+                nextPaymentData.nextPaymentArrearsInterest,
               )}
-            {movement.patrimonialInsurance &&
-              renderTransactionSpecification(
-                "Seguro patrimonial:",
-                movement.patrimonialInsurance,
-              )}
-            {movement.capitalization &&
-              renderTransactionSpecification(
-                "Capitalización:",
-                movement.capitalization,
-              )}
-            {movement.commission &&
-              renderTransactionSpecification("Comisión:", movement.commission)}
           </Stack>
 
           <Stack direction="column" gap="s150">
-            <StyledDivider />
+            <Divider />
 
             <Stack justifyContent="space-between" alignItems="center">
               <Text type="title" size="medium" appearance="gray">
@@ -137,7 +111,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
               </Text>
 
               <Text type="title" size="medium" appearance="dark">
-                {movement.totalValue}
+                {currencyFormat(nextPaymentData.nextPaymentValue)}
               </Text>
             </Stack>
           </Stack>
@@ -148,4 +122,4 @@ function CreditMovementModal(props: CreditMovementModalProps) {
   );
 }
 
-export { CreditMovementModal };
+export { NextPaymentModal };

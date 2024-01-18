@@ -1,6 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { NextPaymentModal } from "@components/modals/credit/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
@@ -15,11 +16,13 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   MdArrowBack,
+  MdOpenInNew,
   MdOutlineAssignment,
   MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
+import { currencyFormat } from "src/utils/currency";
 import {
-  creditMovementsCurrencyEntries,
+  creditMovementsNormalizeEntries,
   creditMovementsTableActions,
 } from "../CreditMovements/config/table";
 import {
@@ -33,13 +36,16 @@ import {
   formatCreditCurrencyAttrs,
 } from "./config/product";
 import { StyledMovementsContainer } from "./styles";
-import { ISelectedProductState } from "./types";
+import { INextPaymentModalState, ISelectedProductState } from "./types";
 
 interface CreditUIProps {
   isMobile?: boolean;
   selectedProduct?: ISelectedProductState;
+  loading: boolean;
   productsOptions: ISelectOption[];
   credit_id?: string;
+  nextPaymentModal: INextPaymentModalState;
+  handleToggleNextPaymentModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -47,8 +53,11 @@ function CreditUI(props: CreditUIProps) {
   const {
     isMobile,
     selectedProduct,
+    loading,
     productsOptions,
     credit_id,
+    nextPaymentModal,
+    handleToggleNextPaymentModal,
     handleChangeProduct,
   } = props;
 
@@ -56,6 +65,9 @@ function CreditUI(props: CreditUIProps) {
     selectedProduct && extractCreditAttributes(selectedProduct.credit);
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
+
+  const formatedAttributes =
+    attributes && formatCreditCurrencyAttrs(attributes);
 
   return (
     <>
@@ -77,7 +89,7 @@ function CreditUI(props: CreditUIProps) {
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s300">
-          {selectedProduct && attributes && (
+          {selectedProduct && formatedAttributes && (
             <>
               <Select
                 id="creditProducts"
@@ -103,7 +115,25 @@ function CreditUI(props: CreditUIProps) {
                     templateColumns={isMobile ? "1fr" : "1fr 1fr"}
                     gap="s100"
                   >
-                    {formatCreditCurrencyAttrs(attributes).map((attr) => (
+                    {formatedAttributes.slice(0, 3).map((attr) => (
+                      <BoxAttribute
+                        key={attr.id}
+                        label={`${attr.label}: `}
+                        value={attr.value}
+                      />
+                    ))}
+                    {nextPaymentModal.data && (
+                      <BoxAttribute
+                        label="Total próximo pago:"
+                        buttonIcon={<MdOpenInNew />}
+                        buttonValue={currencyFormat(
+                          nextPaymentModal.data.nextPaymentValue,
+                        )}
+                        onClickButton={handleToggleNextPaymentModal}
+                        withButton
+                      />
+                    )}
+                    {formatedAttributes.slice(3).map((attr) => (
                       <BoxAttribute
                         key={attr.id}
                         label={`${attr.label}: `}
@@ -127,9 +157,10 @@ function CreditUI(props: CreditUIProps) {
                   titles={movementsTableTitles}
                   breakpoints={movementsTableBreakpoints}
                   actions={creditMovementsTableActions}
-                  entries={creditMovementsCurrencyEntries(
-                    selectedProduct.credit.movements || []
+                  entries={creditMovementsNormalizeEntries(
+                    selectedProduct.credit.movements || [],
                   )}
+                  loading={loading}
                   pageLength={selectedProduct.credit.movements?.length || 0}
                   hideMobileResume
                 />
@@ -148,6 +179,13 @@ function CreditUI(props: CreditUIProps) {
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
+      {nextPaymentModal.show && nextPaymentModal.data && (
+        <NextPaymentModal
+          portalId="modals"
+          onCloseModal={handleToggleNextPaymentModal}
+          nextPaymentData={nextPaymentModal.data}
+        />
+      )}
     </>
   );
 }

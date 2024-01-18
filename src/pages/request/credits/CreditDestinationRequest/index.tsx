@@ -22,7 +22,7 @@ import {
 
 function CreditDestinationRequest() {
   const [currentStep, setCurrentStep] = useState(
-    creditDestinationRequestSteps.destination.id
+    creditDestinationRequestSteps.destination.id,
   );
   const steps = Object.values(creditDestinationRequestSteps);
 
@@ -84,12 +84,12 @@ function CreditDestinationRequest() {
       currentStep,
       creditDestinationRequest,
       formReferences,
-      isCurrentFormValid
+      isCurrentFormValid,
     );
     setCreditDestinationRequest(newCreditDestinationRequest);
 
     const changeStepKey = Object.entries(creditDestinationRequestSteps).find(
-      ([, config]) => config.id === stepId
+      ([, config]) => config.id === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
@@ -100,7 +100,7 @@ function CreditDestinationRequest() {
         newCreditDestinationRequest[
           changeStepKey as keyof IFormsCreditDestinationRequest
         ]?.isValid ||
-        false
+        false,
     );
 
     setCurrentStep(stepId);
@@ -108,7 +108,9 @@ function CreditDestinationRequest() {
     document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
-  const handleFinishAssisted = () => {};
+  const handleFinishAssisted = () => {
+    return true;
+  };
 
   const handleNextStep = () => {
     if (currentStep + 1 <= steps.length) {

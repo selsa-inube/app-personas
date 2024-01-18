@@ -18,14 +18,14 @@ interface InvestmentNameFormProps {
 
 const InvestmentNameForm = forwardRef(function InvestmentNameForm(
   props: InvestmentNameFormProps,
-  ref: React.Ref<FormikProps<IInvestmentNameEntry>>
+  ref: React.Ref<FormikProps<IInvestmentNameEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);

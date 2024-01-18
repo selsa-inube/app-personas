@@ -8,7 +8,7 @@ import { IContactChannelsEntry } from "./types";
 
 const validationSchema = Yup.object({
   landlinePhone: validationRules.landlinePhone.required(
-    validationMessages.required
+    validationMessages.required,
   ),
   cellPhone: validationRules.phone.required(validationMessages.required),
   email: validationRules.email.required(validationMessages.required),
@@ -25,14 +25,14 @@ interface ContactChannelsFormProps {
 
 const ContactChannelsForm = forwardRef(function ContactChannelsForm(
   props: ContactChannelsFormProps,
-  ref: React.Ref<FormikProps<IContactChannelsEntry>>
+  ref: React.Ref<FormikProps<IContactChannelsEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -44,7 +44,7 @@ const ContactChannelsForm = forwardRef(function ContactChannelsForm(
   }, []);
 
   const customHandleChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     await formik.setFieldValue(event.target.name, event.target.checked);
 

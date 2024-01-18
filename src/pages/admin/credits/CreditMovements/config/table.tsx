@@ -2,6 +2,7 @@ import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import { ViewMovement } from "../../MyCredits/ViewMovement";
 
 const mapCreditMovement = (movement: IEntry): IMovement => {
@@ -20,9 +21,10 @@ const mapCreditMovement = (movement: IEntry): IMovement => {
   };
 };
 
-const creditMovementsCurrencyEntries = (movements: IMovement[]) =>
+const creditMovementsNormalizeEntries = (movements: IMovement[]) =>
   movements.map((entry) => ({
     ...entry,
+    date: entry.date && formatPrimaryDate(entry.date),
     capitalPayment:
       entry.capitalPayment && currencyFormat(entry.capitalPayment),
     interest: entry.interest && currencyFormat(entry.interest),
@@ -32,7 +34,7 @@ const creditMovementsCurrencyEntries = (movements: IMovement[]) =>
     capitalization:
       entry.capitalization && currencyFormat(entry.capitalization),
     commission: entry.commission && currencyFormat(entry.commission),
-    totalValue: entry.totalValue && currencyFormat(entry.totalValue),
+    totalValue: currencyFormat(entry.totalValue),
   }));
 
 const creditMovementsTableActions: IAction[] = [
@@ -57,7 +59,7 @@ const creditMovementsTableActions: IAction[] = [
 ];
 
 export {
-  creditMovementsCurrencyEntries,
+  creditMovementsNormalizeEntries,
   creditMovementsTableActions,
   mapCreditMovement,
 };

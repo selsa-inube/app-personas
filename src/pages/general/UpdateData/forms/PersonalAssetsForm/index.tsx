@@ -2,6 +2,7 @@ import { IAction } from "@design/data/Table/types";
 import { EMessageType, IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { initialMessageState } from "src/utils/messages";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -10,7 +11,6 @@ import { EditAsset } from "./EditAsset";
 import { deleteAssetMessages } from "./config/deleteAsset.config";
 import { PersonalAssetsFormUI } from "./interface";
 import { IPersonalAssetEntries } from "./types";
-import { initialMessageState } from "src/utils/messages";
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),
@@ -28,7 +28,7 @@ interface PersonalAssetsFormProps {
 
 const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   props: PersonalAssetsFormProps,
-  ref: React.Ref<FormikProps<IPersonalAssetEntries>>
+  ref: React.Ref<FormikProps<IPersonalAssetEntries>>,
 ) {
   const { initialValues, onSubmit } = props;
 
@@ -54,7 +54,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -116,7 +116,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
     const asset = formik.values.entries.find((entry) => entry.id === assetId);
 
     const updatedAssets = formik.values.entries.filter(
-      (asset) => asset.id !== assetId
+      (asset) => asset.id !== assetId,
     );
 
     if (updatedAssets.length === formik.values.entries.length) {

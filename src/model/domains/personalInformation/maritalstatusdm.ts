@@ -1,4 +1,3 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const maritalStatusData = {

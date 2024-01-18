@@ -10,12 +10,12 @@ const AutocompleteController = (props: TextFieldProps) => {
     return;
   };
 
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = () => {
     setText(text);
     action("onFocus event");
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = () => {
     setText(text);
     action("onBlur event");
   };

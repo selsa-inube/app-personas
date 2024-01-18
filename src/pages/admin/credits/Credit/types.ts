@@ -5,4 +5,14 @@ interface ISelectedProductState {
   option: string;
 }
 
-export type { ISelectedProductState };
+interface INextPaymentModalState {
+  show: boolean;
+  data?: {
+    nextPaymentCapital: number;
+    nextPaymentInterest?: number;
+    nextPaymentArrearsInterest?: number;
+    nextPaymentValue: number;
+  };
+}
+
+export type { INextPaymentModalState, ISelectedProductState };

@@ -9,7 +9,7 @@ const validateCreditsAndMovements = async (
   credits: IProduct[],
   creditId: string,
   userIdentification: string,
-  accessToken: string
+  accessToken: string,
 ) => {
   let currentCredits = [...credits];
 
@@ -19,7 +19,7 @@ const validateCreditsAndMovements = async (
 
   let selectedCredit: IProduct | undefined;
 
-  for (let ix in currentCredits) {
+  for (const ix in currentCredits) {
     if (currentCredits[ix].id === creditId) {
       if (currentCredits[ix].movements?.length === 0) {
         const movements = await getMovementsForCredit(creditId, accessToken);
@@ -41,7 +41,7 @@ const validateCreditsAndMovements = async (
 const addMovementsToCredit = (
   selectedProduct: ISelectedProductState,
   credits: IProduct[],
-  creditId: string
+  creditId: string,
 ) => {
   if (!selectedProduct.movements) return;
 
@@ -51,7 +51,7 @@ const addMovementsToCredit = (
 
   return foundProduct.movements?.slice(
     selectedProduct.movements.length,
-    selectedProduct.movements.length + 5
+    selectedProduct.movements.length + 5,
   );
 };
 

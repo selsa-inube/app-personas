@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { TEMP_BUSINESS_UNIT } from "src/App";
 import { IAmortization, IMovement, IProduct } from "src/model/entity/product";
 import {
   mapCreditAmortizationApiToEntities,
@@ -9,18 +8,18 @@ import {
 
 const getCreditsForUser = async (
   userIdentification: string,
-  accessToken: string
+  accessToken: string,
 ): Promise<IProduct[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const savedCredits = sessionStorage.getItem("credits");
+      /* const savedCredits = sessionStorage.getItem("credits");
       if (savedCredits) {
         const parsedCredits: IProduct[] = JSON.parse(savedCredits);
         return parsedCredits;
-      }
+      } */
 
       const queryParams = new URLSearchParams({
         customerPublicCode: userIdentification,
@@ -34,8 +33,8 @@ const getCreditsForUser = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchAllPortfolioObligation",
-          "X-Business-Unit": TEMP_BUSINESS_UNIT,
+          "X-Action": "SearchGeneralInformationObligation",
+          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,
@@ -45,7 +44,7 @@ const getCreditsForUser = async (
         `${
           enviroment.ICLIENT_API_URL_QUERY
         }/portfolio-obligations?${queryParams.toString()}`,
-        options
+        options,
       );
 
       clearTimeout(timeoutId);
@@ -68,13 +67,13 @@ const getCreditsForUser = async (
         ? mapCreditsApiToEntities(data)
         : [];
 
-      sessionStorage.setItem("credits", JSON.stringify(normalizedCredits));
+      /* sessionStorage.setItem("credits", JSON.stringify(normalizedCredits)); */
 
       return normalizedCredits;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
-          "Todos los intentos fallaron. No se pudieron obtener los créditos del usuario."
+          "Todos los intentos fallaron. No se pudieron obtener los créditos del usuario.",
         );
       }
     }
@@ -85,7 +84,7 @@ const getCreditsForUser = async (
 
 const getMovementsForCredit = async (
   creditId: string,
-  accessToken: string
+  accessToken: string,
 ): Promise<IMovement[]> => {
   try {
     const options = {
@@ -94,14 +93,14 @@ const getMovementsForCredit = async (
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchLastMovementsByObligationNumber",
-        "X-Business-Unit": TEMP_BUSINESS_UNIT,
+        "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
     };
 
     const res = await fetch(
       `${enviroment.ICLIENT_API_URL_QUERY}/portfolio-obligations/${creditId}/last-movement`,
-      options
+      options,
     );
 
     if (res.status === 204) {
@@ -119,15 +118,15 @@ const getMovementsForCredit = async (
     }
 
     return Array.isArray(data) ? mapCreditMovementsApiToEntities(data) : [];
-  } catch (error: any) {
-    console.error(error.message, error);
-    throw new Error(error.message);
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };
 
 const getAmortizationForCredit = async (
   creditId: string,
-  accessToken: string
+  accessToken: string,
 ): Promise<IAmortization[]> => {
   try {
     const options = {
@@ -136,14 +135,14 @@ const getAmortizationForCredit = async (
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchPaymentPlanByObligationNumber",
-        "X-Business-Unit": TEMP_BUSINESS_UNIT,
+        "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
     };
 
     const res = await fetch(
       `${enviroment.ICLIENT_API_URL_QUERY}/portfolio-obligations/${creditId}/payment-plan`,
-      options
+      options,
     );
 
     if (res.status === 204) {
@@ -161,9 +160,9 @@ const getAmortizationForCredit = async (
     }
 
     return Array.isArray(data) ? mapCreditAmortizationApiToEntities(data) : [];
-  } catch (error: any) {
-    console.error(error.message, error);
-    throw new Error(error.message);
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };
 
