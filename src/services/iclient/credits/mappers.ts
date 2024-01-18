@@ -234,7 +234,9 @@ const mapCreditApiToEntity = (
 const mapCreditsApiToEntities = (
   credits: Record<string, string | number | object>[],
 ): IProduct[] => {
-  return credits.map((credit) => mapCreditApiToEntity(credit));
+  return credits
+    .filter((credit) => credit.lineCode !== "CE")
+    .map((credit) => mapCreditApiToEntity(credit));
 };
 
 const mapCreditAmortizationApiToEntity = (
