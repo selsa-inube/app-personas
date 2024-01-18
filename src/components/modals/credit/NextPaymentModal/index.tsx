@@ -35,6 +35,7 @@ interface NextPaymentModalProps {
   nextPaymentData: {
     nextPaymentCapital: number;
     nextPaymentInterest?: number;
+    nextPaymentArrearsInterest?: number;
     nextPaymentValue: number;
   };
   onCloseModal: () => void;
@@ -48,7 +49,7 @@ function NextPaymentModal(props: NextPaymentModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -85,13 +86,19 @@ function NextPaymentModal(props: NextPaymentModalProps) {
           <Stack direction="column" gap="s200">
             {renderTransactionSpecification(
               "Abono capital:",
-              nextPaymentData.nextPaymentCapital
+              nextPaymentData.nextPaymentCapital,
             )}
 
             {nextPaymentData.nextPaymentInterest &&
               renderTransactionSpecification(
                 "Interés corriente:",
-                nextPaymentData.nextPaymentInterest
+                nextPaymentData.nextPaymentInterest,
+              )}
+
+            {nextPaymentData.nextPaymentArrearsInterest &&
+              renderTransactionSpecification(
+                "Interés de mora:",
+                nextPaymentData.nextPaymentArrearsInterest,
               )}
           </Stack>
 
@@ -111,7 +118,7 @@ function NextPaymentModal(props: NextPaymentModalProps) {
         </StyledBody>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

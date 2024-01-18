@@ -37,8 +37,12 @@ function Credit() {
   useEffect(() => {
     if (!selectedProduct) return;
 
-    const { nextPaymentCapital, nextPaymentInterest, nextPaymentValue } =
-      getNextPaymentData(selectedProduct.credit);
+    const {
+      nextPaymentCapital,
+      nextPaymentInterest,
+      nextPaymentArrearsInterest,
+      nextPaymentValue,
+    } = getNextPaymentData(selectedProduct.credit);
 
     if (!nextPaymentCapital || !nextPaymentValue) return;
 
@@ -47,6 +51,7 @@ function Credit() {
       data: {
         nextPaymentCapital,
         nextPaymentInterest,
+        nextPaymentArrearsInterest,
         nextPaymentValue,
       },
     });

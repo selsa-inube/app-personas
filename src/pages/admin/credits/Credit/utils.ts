@@ -75,6 +75,10 @@ const getNextPaymentData = (selectedProduct: IProduct) => {
     (attr) => attr.id === "next_payment_interest",
   );
 
+  const nextPaymentArrearsInterest = selectedProduct.attributes.find(
+    (attr) => attr.id === "next_payment_arrears_interest",
+  );
+
   const nextPaymentValue = selectedProduct.attributes.find(
     (attr) => attr.id === "next_payment_value",
   );
@@ -83,6 +87,8 @@ const getNextPaymentData = (selectedProduct: IProduct) => {
     nextPaymentCapital: Number(nextPaymentCapital?.value),
     nextPaymentInterest:
       nextPaymentInterest && Number(nextPaymentInterest?.value),
+    nextPaymentArrearsInterest:
+      nextPaymentArrearsInterest && Number(nextPaymentArrearsInterest?.value),
     nextPaymentValue: Number(nextPaymentValue?.value),
   };
 };
