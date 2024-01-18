@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { ReimbursementFormUI } from "./interface";
@@ -33,6 +33,23 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
 
   useImperativeHandle(ref, () => formik);
 
+  useEffect(() => {
+   
+  });
+
+  const customHandleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+
+    
+
+    let updatedFormikValues = {
+      ...formik.values,
+      [name]: value,
+    };
+  };
+
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
 
@@ -48,6 +65,7 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
       loading={loading}
       formik={formik}
       customHandleBlur={customHandleBlur}
+      customHandleChange={customHandleChange}
     />
   );
 });

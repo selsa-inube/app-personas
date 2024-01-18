@@ -2,6 +2,7 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
 import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { reimbursementTypeDM } from "src/model/domains/economicActivity/reimbursementType";
 import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { currencyFormat } from "src/utils/currency";
@@ -47,9 +48,7 @@ const renderReimbursementSummary = (values: IReimbursementEntry) => (
   <Stack width="100%" direction="column" gap="s100">
     <BoxAttribute
       label="Forma de reembolso:"
-      value={
-        getValueOfDomain(values.reimbursementType, "reimbursementType")?.value
-      }
+      value={reimbursementTypeDM.valueOf(values.reimbursementType)?.value}
     />
     <BoxAttribute label="Cuenta:" value={values.accountReimbursement} />
   </Stack>

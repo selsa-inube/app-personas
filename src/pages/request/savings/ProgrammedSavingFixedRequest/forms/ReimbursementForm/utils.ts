@@ -1,19 +1,39 @@
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikValues } from "formik";
-
-const reimbursementTypeDM = getDomainById("reimbursementType");
+import { reimbursementTypeDM } from "src/model/domains/economicActivity/reimbursementType";
+import { IFormReimbursement } from "./types";
 
 const buildReimbursementAccount = (formik: FormikValues) => {
   const valueReimbursement = formik.values.reimbursementType;
-  if (valueReimbursement === "transferToExternalAccount") {
-    return usersMock[0].bankTransfersAccount.description;
-  }
-  if (valueReimbursement === "creditToInternalAccount") {
-    return savingsMock[1].description;
-  }
-  return "";
+  return Object(formReimbursement())[valueReimbursement];
 };
 
-export { buildReimbursementAccount, reimbursementTypeDM };
+const formReimbursement = () => {
+  const optionsFormReimbursement: IFormReimbursement = {
+    transferToExternalAccount: usersMock.map((dataUser) => {
+      return {
+        id: dataUser.bankTransfersAccount.description,
+        value: dataUser.bankTransfersAccount.description,
+      };
+    }),
+    creditToInternalAccount: savingsMock
+      .filter((product) => product.type === "CA")
+      .map((product) => ({
+        id: product.description,
+        value: product.description,
+      })),
+  };
+  return optionsFormReimbursement;
+};
+
+const filteredFormReimbursement = () => {
+  const detailReimbursement = Object(formReimbursement());
+  return reimbursementTypeDM.options.filter(
+    (reimbursementType) =>
+      detailReimbursement[reimbursementType.id] &&
+      detailReimbursement[reimbursementType.id].length > 0
+  );
+};
+
+export { buildReimbursementAccount, filteredFormReimbursement };

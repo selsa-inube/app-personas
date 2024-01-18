@@ -1,18 +1,20 @@
 import { Select } from "@design/input/Select";
-import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
-import { buildReimbursementAccount, reimbursementTypeDM } from "./utils";
+import { buildReimbursementAccount, filteredFormReimbursement } from "./utils";
 
 interface ReimbursementFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
+  customHandleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
 }
 
 function ReimbursementFormUI(props: ReimbursementFormUIProps) {
-  const { formik, loading, customHandleBlur } = props;
+  const { formik, loading, customHandleBlur, customHandleChange } = props;
 
   return (
     <form>
@@ -25,7 +27,7 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
           value={formik.values.reimbursementType}
           size="compact"
           isDisabled={loading}
-          options={reimbursementTypeDM}
+          options={filteredFormReimbursement()}
           onChange={formik.handleChange}
           onBlur={customHandleBlur}
           state={getFieldState(formik, "reimbursementType")}
@@ -33,23 +35,19 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
           isFullWidth
         />
 
-        <TextField
+        <Select
           name="accountReimbursement"
           id="accountReimbursement"
           label="Cuenta"
-          placeholder=""
-          value={
-            (formik.values.accountReimbursement =
-              buildReimbursementAccount(formik))
-          }
-          type="text"
+          placeholder="Selecciona una opción"
+          value={formik.values.accountReimbursement}
+          options={buildReimbursementAccount(formik)}
           errorMessage={formik.errors.accountReimbursement}
           onChange={formik.handleChange}
           size="compact"
           isFullWidth
           state={getFieldState(formik, "accountReimbursement")}
-          validMessage="El valor comercial es válido"
-          readOnly
+          readOnly={buildReimbursementAccount(formik).length == 1}
         />
       </Stack>
     </form>
