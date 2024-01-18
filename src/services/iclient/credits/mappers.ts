@@ -96,6 +96,9 @@ const mapCreditApiToEntity = (
     Object(credit.valueExpired)?.interestValuePending ||
     Object(credit.nextPaymentValue).interestValuePending;
 
+  const nextPaymentArrearsInterest = Object(credit.accumulatedByObligations)[0]
+    .PenalityInterestBalance;
+
   const nextPaymentValue =
     Object(credit.valueExpired)?.totalPending ||
     Object(credit.nextPaymentValue).totalPending;
@@ -161,11 +164,18 @@ const mapCreditApiToEntity = (
   ];
 
   if (inArrears) {
-    attributes.push({
-      id: "days_past_due",
-      label: "Días de mora",
-      value: differenceDays,
-    });
+    attributes.push(
+      {
+        id: "days_past_due",
+        label: "Días de mora",
+        value: differenceDays,
+      },
+      {
+        id: "next_payment_arrears_interest",
+        label: "interés de mora",
+        value: nextPaymentArrearsInterest,
+      },
+    );
   }
 
   if (nextPaymentInterest) {
