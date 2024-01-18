@@ -102,7 +102,7 @@ const mapCreditApiToEntity = (
     Object(credit.nextPaymentValue).interestValuePending;
 
   const nextPaymentArrearsInterest = Object(credit.accumulatedByObligations)[0]
-    .penalityInterestBalance;
+    .PenalityInterestBalance;
 
   const nextPaymentValue =
     Object(credit.valueExpired)?.totalPending ||
