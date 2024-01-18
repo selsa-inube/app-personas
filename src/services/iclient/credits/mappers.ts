@@ -67,6 +67,7 @@ const mapCreditMovementsApiToEntities = (
 ): IMovement[] => {
   return movements
     .map((movement) => mapCreditMovementApiToEntity(movement))
+    .filter((movement) => movement.totalValue > 0)
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
