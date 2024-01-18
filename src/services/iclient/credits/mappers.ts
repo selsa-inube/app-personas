@@ -2,6 +2,7 @@ import { TagProps } from "@design/data/Tag";
 import {
   amortizationTypeValuesMock,
   movementDescriptionMock,
+  guaranteeTypeValuesMock,
   peridiocityValuesMock,
 } from "@mocks/products/credits/utils.mocks";
 import {
@@ -159,6 +160,11 @@ const mapCreditApiToEntity = (
       id: "amortization_type",
       label: "Tipo de amortización",
       value: amortizationTypeValuesMock[String(credit.amortization)],
+    },
+    {
+      id: "guarantee_type",
+      label: "Tipo de garantía",
+      value: guaranteeTypeValuesMock[String(credit.typeOfGuarantee)],
     },
     { id: "terms", label: "Plazo", value: `${maxQuota} Meses` },
   ];

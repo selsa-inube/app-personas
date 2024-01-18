@@ -25,8 +25,16 @@ const amortizationTypeValuesMock: Record<string, string> = {
   FixedCapitalQuota: "Abonos fijos a capital",
 };
 
+const guaranteeTypeValuesMock: Record<string, string> = {
+  PersonalWithDiscountAuthorization: "Personal con libranza",
+  PersonalWithoutDiscountAuthorization: "Personal sin libranza",
+  RealWithDiscountAuthorization: "Real con libranza",
+  RealWithoutDiscountAuthorization: "Real sin libranza",
+};
+
 export {
   amortizationTypeValuesMock,
-  movementDescriptionMock,
+  guaranteeTypeValuesMock,
   peridiocityValuesMock,
+  movementDescriptionMock,
 };

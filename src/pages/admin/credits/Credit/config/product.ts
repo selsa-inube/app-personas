@@ -8,10 +8,11 @@ const creditAttributes = [
   "quote",
   "peridiocity",
   "payment_means",
-  "amortization_type",
   "days_past_due",
   "interest_rate",
   "net_value",
+  "guarantee_type",
+  "amortization_type",
 ];
 
 const creditCurrencyAttributes = ["loan_value", "net_value"];
