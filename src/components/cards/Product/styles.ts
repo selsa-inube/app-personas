@@ -26,4 +26,13 @@ const StyledProduct = styled(Link)<IStyledProduct>`
   }
 `;
 
-export { StyledProduct };
+const StyledSkeletonContainer = styled.div`
+  width: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  direction: rtl;
+  gap: ${inube.spacing.s300};
+`;
+
+export { StyledProduct, StyledSkeletonContainer };

@@ -15,7 +15,6 @@ import { StyledCommitmentsContainer } from "./styles";
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
 import { useAuth } from "@inube/auth";
-import { SkeletonLine } from "@inube/design-system";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { useEffect, useState } from "react";
 import {
@@ -202,7 +201,10 @@ function renderHomeContent(
         <Box {...creditsBox}>
           <Stack direction="column" gap="s100">
             {loading ? (
-              <SkeletonLine animated />
+              <>
+                <Product loading />
+                <Product loading />
+              </>
             ) : (
               <>
                 {credits.length === 0 ? (
