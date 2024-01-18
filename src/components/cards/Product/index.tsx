@@ -3,11 +3,13 @@ import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
+import { SkeletonIcon } from "@inube/design-system";
+import { SkeletonLine } from "@inube/design-system";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "src/model/entity/product";
-import { StyledProduct } from "./styles";
+import { StyledProduct, StyledSkeletonContainer } from "./styles";
 
 interface ProductProps {
   title?: string;
@@ -18,6 +20,7 @@ interface ProductProps {
   tags?: TagProps[];
   empty?: boolean;
   navigateTo?: string;
+  loading?: boolean;
 }
 
 function Product(props: ProductProps) {
@@ -30,6 +33,7 @@ function Product(props: ProductProps) {
     tags = [],
     empty,
     navigateTo = "",
+    loading,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -37,69 +41,104 @@ function Product(props: ProductProps) {
   const attributeQueries = Object.keys(breakpoints);
   const attributeMediaQueries = useMediaQueries(attributeQueries);
   const index = attributeQueries.findIndex(
-    (query) => attributeMediaQueries[query] === true
+    (query) => attributeMediaQueries[query] === true,
   );
   const visibleAttributes = attributes.slice(
-    -breakpoints[attributeQueries[index]]
+    -breakpoints[attributeQueries[index]],
   );
 
   return (
     <StyledProduct $empty={empty} to={navigateTo}>
       <Grid templateColumns="auto 1fr" gap="s100">
         <Stack gap="s100" alignItems="center">
-          {icon && (
-            <Icon
-              icon={icon}
-              variant="filled"
-              spacing="compact"
-              appearance={empty ? "gray" : "primary"}
-            />
+          {loading ? (
+            <SkeletonIcon animated size="32px" />
+          ) : (
+            <>
+              {icon && (
+                <Icon
+                  icon={icon}
+                  variant="filled"
+                  spacing="compact"
+                  appearance={empty ? "gray" : "primary"}
+                />
+              )}
+            </>
           )}
+
           <Stack direction="column" gap="s025">
-            <Text
-              type={isMobile ? "label" : "title"}
-              size={isMobile ? "medium" : "small"}
-              appearance={empty ? "gray" : "dark"}
-            >
-              {!empty ? title : "No tienes productos"}
-            </Text>
-            {!empty && (
-              <Stack gap={!isMobile ? "s100" : "0px"} alignItems="center">
-                <Text size="small" appearance="gray">
-                  {!isMobile && description}
-                </Text>
-                <Stack gap="s050">
-                  {tags.length > 0 &&
-                    tags.map((tag) => <Tag {...tag} key={tag.label} />)}
-                </Stack>
+            {loading ? (
+              <Stack direction="column" gap="s050" width="100px">
+                <SkeletonLine animated />
+                <SkeletonLine animated />
               </Stack>
+            ) : (
+              <>
+                <Text
+                  type={isMobile ? "label" : "title"}
+                  size={isMobile ? "medium" : "small"}
+                  appearance={empty ? "gray" : "dark"}
+                >
+                  {!empty ? title : "No tienes productos"}
+                </Text>
+                {!empty && (
+                  <Stack gap={!isMobile ? "s100" : "0px"} alignItems="center">
+                    <Text size="small" appearance="gray">
+                      {!isMobile && description}
+                    </Text>
+                    <Stack gap="s050">
+                      {tags.length > 0 &&
+                        tags.map((tag) => <Tag {...tag} key={tag.label} />)}
+                    </Stack>
+                  </Stack>
+                )}
+              </>
             )}
           </Stack>
         </Stack>
-        {!empty && (
-          <Grid
-            autoFlow="column"
-            templateColumns={`repeat(${visibleAttributes.length}, minmax(100px, max-content))`}
-            gap="s300"
-            justifyContent="end"
-            alignItems="center"
-            alignContent="center"
-          >
-            {visibleAttributes.map((attribute) => (
-              <Stack key={attribute.label} direction="column" gap="s025">
-                <Text
-                  type="label"
-                  size={isMobile ? "small" : "medium"}
-                  textAlign="center"
-                >
-                  {attribute.label}
-                </Text>
-                <Text size="small" textAlign="center" appearance="gray">
-                  {String(attribute.value)}
-                </Text>
-              </Stack>
-            ))}
-          </Grid>
+        {loading ? (
+          <StyledSkeletonContainer>
+            <Stack direction="column" gap="s050">
+              <SkeletonLine animated />
+              <SkeletonLine animated />
+            </Stack>
+            <Stack direction="column" gap="s050">
+              <SkeletonLine animated />
+              <SkeletonLine animated />
+            </Stack>
+            <Stack direction="column" gap="s050">
+              <SkeletonLine animated />
+              <SkeletonLine animated />
+            </Stack>
+          </StyledSkeletonContainer>
+        ) : (
+          <>
+            {!empty && (
+              <Grid
+                autoFlow="column"
+                templateColumns={`repeat(${visibleAttributes.length}, minmax(100px, max-content))`}
+                gap="s300"
+                justifyContent="end"
+                alignItems="center"
+                alignContent="center"
+              >
+                {visibleAttributes.map((attribute) => (
+                  <Stack key={attribute.label} direction="column" gap="s025">
+                    <Text
+                      type="label"
+                      size={isMobile ? "small" : "medium"}
+                      textAlign="center"
+                    >
+                      {attribute.label}
+                    </Text>
+                    <Text size="small" textAlign="center" appearance="gray">
+                      {String(attribute.value)}
+                    </Text>
+                  </Stack>
+                ))}
+              </Grid>
+            )}
+          </>
         )}
       </Grid>
     </StyledProduct>

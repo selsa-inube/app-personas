@@ -109,6 +109,11 @@ const mapCreditApiToEntity = (
   const normalizedPaymentMethodName = capitalizeText(
     String(credit.paymentMethodName).toLowerCase(),
   );
+  const interesRate =
+    Object(credit.accumulatedByObligations)[0].spreadCurrentRate +
+    Object(credit.accumulatedByObligations)[0].currentFixedPoints;
+
+  const roundInteresRate = interesRate.toFixed(2);
 
   const attributes = [
     {
@@ -167,6 +172,12 @@ const mapCreditApiToEntity = (
       value: guaranteeTypeValuesMock[String(credit.typeOfGuarantee)],
     },
     { id: "terms", label: "Plazo", value: `${maxQuota} Meses` },
+
+    {
+      id: "interest_rate",
+      label: "Tasa de interés",
+      value: `${roundInteresRate} % NAMV`,
+    },
   ];
 
   if (inArrears) {
