@@ -90,27 +90,21 @@ const QuotaForm = forwardRef(function QuotaForm(
     };
 
     if (name === "paymentMethod") {
-      formik.setValues({
-        ...initalValuesProgrammedSavingFixed.quota,
-        periodicValue: formik.values.periodicValue,
-        paymentMethod: value,
-      });
       updatedFormikValues = {
         ...initalValuesProgrammedSavingFixed.quota,
         periodicValue: formik.values.periodicValue,
         paymentMethod: value,
       };
+    
+      const filteredOptions = filterPeriodicityOptions(value);
+    
+      if (filteredOptions.length === 1) {
+        updatedFormikValues.periodicity = filteredOptions[0].id;
+      }
+    
+      formik.setValues(updatedFormikValues);
     } else {
       formik.setFieldValue(name, value);
-    }
-
-    if (name === "paymentMethod" && value === "southCranes") {
-      valuePeriodicity = value;
-
-      const filteredOptions = filterPeriodicityOptions(valuePeriodicity);
-      if (filteredOptions.length === 1) {
-        formik.setFieldValue("periodicity", filteredOptions[0].id);
-      }
     }
 
     if (name === "periodicity") {
