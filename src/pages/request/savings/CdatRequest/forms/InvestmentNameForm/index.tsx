@@ -1,12 +1,11 @@
 import { FormikProps, useFormik } from "formik";
-import React, { forwardRef, useImperativeHandle } from "react";
-import { validationMessages } from "src/validations/validationMessages";
+import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import * as Yup from "yup";
 import { InvestmentNameFormUI } from "./interface";
 import { IInvestmentNameEntry } from "./types";
 
 const validationSchema = Yup.object({
-  productName: Yup.string().required(validationMessages.required),
+  productName: Yup.string(),
 });
 
 interface InvestmentNameFormProps {
@@ -29,6 +28,12 @@ const InvestmentNameForm = forwardRef(function InvestmentNameForm(
   });
 
   useImperativeHandle(ref, () => formik);
+
+  useEffect(() => {
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
+  }, []);
 
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
     formik.handleBlur(event);
