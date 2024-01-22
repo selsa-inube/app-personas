@@ -15,6 +15,7 @@ import { cdatRequestSteps } from "./config/assisted";
 import { crumbsCdatRequest } from "./config/navigation";
 import { InvestmentForm } from "./forms/InvestmentForm";
 import { InvestmentNameForm } from "./forms/InvestmentNameForm";
+import { RefundForm } from "./forms/RefundForm";
 import { CdatRequestSummary } from "./forms/Summary";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { ConditionsForm } from "./forms/ConditionsForm";
@@ -38,6 +39,13 @@ const renderStepContent = (
         <ConditionsForm
           initialValues={cdatRequest.conditions.values}
           ref={formReferences.conditions}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.refund.id && (
+        <RefundForm
+          initialValues={cdatRequest.refund.values}
+          ref={formReferences.refund}
           onFormValid={setIsCurrentFormValid}
         />
       )}
