@@ -14,7 +14,7 @@ function ButtonAttribute(props: ButtonAttributeProps) {
     <StyledContainer onClick={onClick}>
       {icon && (
         <StyledIcon>
-          <Icon icon={icon} appearance="dark" size="16px" spacing="none" />
+          <Icon icon={icon} appearance="primary" size="16px" spacing="none" />
         </StyledIcon>
       )}
 
