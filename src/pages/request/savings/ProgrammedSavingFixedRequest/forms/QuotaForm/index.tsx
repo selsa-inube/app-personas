@@ -6,7 +6,7 @@ import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { initalValuesProgrammedSavingFixed } from "../../config/initialValues";
-import { structureQuotaForm } from "./config/form";
+import { filterPeriodicityOptions, structureQuotaForm } from "./config/form";
 import { QuotaFormUI } from "./interface";
 import { IQuotaEntry } from "./types";
 
@@ -102,6 +102,15 @@ const QuotaForm = forwardRef(function QuotaForm(
       };
     } else {
       formik.setFieldValue(name, value);
+    }
+
+    if (name === "paymentMethod" && value === "southCranes") {
+      valuePeriodicity = value;
+
+      const filteredOptions = filterPeriodicityOptions(valuePeriodicity);
+      if (filteredOptions.length === 1) {
+        formik.setFieldValue("periodicity", filteredOptions[0].id);
+      }
     }
 
     if (name === "periodicity") {
