@@ -15,6 +15,7 @@ import { paymentMethodData } from "./paymentMethodData";
 import { positionData } from "./position";
 import { professionData } from "./profession";
 import { referenceTypeData } from "./referenceType";
+import { refundMethodData } from "./refundMethod";
 import { suppliersTypeData } from "./suppliersType";
 
 const domains: Record<string, IServerDomain[]> = {
@@ -34,6 +35,7 @@ const domains: Record<string, IServerDomain[]> = {
   economicSector: economicSectorData,
   position: positionData,
   profession: professionData,
+  refundMethod: refundMethodData,
   paymentMethod: paymentMethodData,
 };
 
