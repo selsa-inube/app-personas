@@ -16,9 +16,8 @@ const conditions: IConditionsEntry = {
 };
 
 const refund: IRefundEntry = {
-  refundMethod: "creditToInternalAccount",
-  account: "013001162025",
-  accountDescription: "Cuenta de ahorros - **2025",
+  refundMethod: "",
+  account: "",
 };
 
 const investmentName: IInvestmentNameEntry = {

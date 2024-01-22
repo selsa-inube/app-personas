@@ -99,8 +99,12 @@ const RefundForm = forwardRef(function RefundForm(
         "account",
         String(usersMock[0].bankTransfersAccount.accountNumber),
       );
+      formik.setFieldValue(
+        "accountDescription",
+        usersMock[0].bankTransfersAccount.description,
+      );
     }
-  }, [savingOptions, formik.values.refundMethod]);
+  }, []);
 
   return (
     <RefundFormUI

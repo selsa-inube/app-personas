@@ -11,10 +11,6 @@ const accountTypeData = [
     id: "payrollAccount",
     value: "Cuenta de Nómina",
   },
-  {
-    id: "externalAccount",
-    value: "Cuenta externa",
-  },
 ];
 
 export { accountTypeData };

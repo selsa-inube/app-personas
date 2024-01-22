@@ -1,5 +1,6 @@
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "../types";
 import { initalValuesCDAT } from "./initialValues";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
 
 const cdatRequestSteps = {
   investment: {
@@ -40,7 +41,7 @@ const cdatStepsRules = (
   currentStep: number,
   currentCdatRequest: IFormsCdatRequest,
   formReferences: IFormsCdatRequestRefs,
-  isCurrentFormValid: boolean
+  isCurrentFormValid: boolean,
 ) => {
   let newCdatRequest = { ...currentCdatRequest };
 
@@ -69,10 +70,36 @@ const cdatStepsRules = (
       }
       return newCdatRequest;
     }
+    case cdatRequestSteps.conditions.id: {
+      const values = formReferences.conditions.current?.values;
+
+      if (!values) return currentCdatRequest;
+
+      newCdatRequest.conditions = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentCdatRequest.conditions.values)
+      ) {
+        newCdatRequest.refund = {
+          isValid: false,
+          values: {
+            ...initalValuesCDAT.refund,
+            refundMethod: "creditToInternalAccount",
+            account: savingsMock[0].id,
+            accountDescription: savingsMock[0].description,
+          },
+        };
+      }
+      return newCdatRequest;
+    }
   }
 
   const stepKey = Object.entries(cdatRequestSteps).find(
-    ([, config]) => config.id === currentStep
+    ([, config]) => config.id === currentStep,
   )?.[0];
 
   if (!stepKey) return currentCdatRequest;
