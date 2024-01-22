@@ -54,9 +54,8 @@ const programmedSavingFixedStepsRules = (
     case programmedSavingFixedRequestSteps.goal.id: {
       const values = formReferences.goal.current?.values;
 
-      const defaultValueReimbursementType = Object(
-        filteredOptionsFormReimbursement(),
-      )[0].id;
+      const defaultValueReimbursementType =
+        filteredOptionsFormReimbursement()[0].id;
 
       if (!values) return currentprogrammedSavingFixedRequest;
 
