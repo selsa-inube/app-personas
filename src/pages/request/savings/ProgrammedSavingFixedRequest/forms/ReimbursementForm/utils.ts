@@ -6,12 +6,12 @@ import { IFormReimbursement } from "./types";
 
 const optionsFormReimbursement = () => {
   const formReimbursementData: IFormReimbursement = {
-    transferToExternalAccount: usersMock.map((dataUser) => {
-      return {
-        id: dataUser.bankTransfersAccount.description,
-        value: dataUser.bankTransfersAccount.description,
-      };
-    }),
+    transferToExternalAccount: [
+      {
+        id: usersMock[0].bankTransfersAccount.description,
+        value: usersMock[0].bankTransfersAccount.description,
+      },
+    ],
     creditToInternalAccount: savingsMock
       .filter((product) => product.type === "CA")
       .map((product) => ({
@@ -23,11 +23,12 @@ const optionsFormReimbursement = () => {
 };
 
 const filteredOptionsFormReimbursement = () => {
-  const detailReimbursement = Object(optionsFormReimbursement());
+  const detailReimbursement = optionsFormReimbursement();
   return reimbursementTypeDM.options.filter(
     (reimbursementType) =>
-      detailReimbursement[reimbursementType.id] &&
-      detailReimbursement[reimbursementType.id].length > 0,
+      detailReimbursement[reimbursementType.id as keyof IFormReimbursement] &&
+      detailReimbursement[reimbursementType.id as keyof IFormReimbursement]
+        .length > 0,
   );
 };
 
@@ -37,7 +38,7 @@ const buildReimbursementAccount = (formik: FormikValues) => {
 };
 
 const valuesOptionsReimbursement = (valor: string) => {
-  return Object(optionsFormReimbursement())[valor];
+  return optionsFormReimbursement()[valor as keyof IFormReimbursement];
 };
 
 export {

@@ -44,7 +44,7 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
     if (valuesReimbursement && valuesReimbursement.length == 1) {
       formik.setFieldValue("accountReimbursement", valuesReimbursement[0].id);
     }
-  }, [initialValues]);
+  }, []);
 
   const customHandleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -81,4 +81,3 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
 
 export { ReimbursementForm };
 export type { ReimbursementFormProps };
-
