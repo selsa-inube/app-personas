@@ -64,13 +64,18 @@ const programmedSavingFixedStepsRules = (
         values,
       };
 
-      newprogrammedSavingFixedRequest.reimbursement = {
-        isValid: false,
-        values: {
-          ...initalValuesProgrammedSavingFixed.reimbursement,
-          reimbursementType: defaultValueReimbursementType,
-        },
-      };
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentprogrammedSavingFixedRequest.goal.values)
+      ) {
+        newprogrammedSavingFixedRequest.reimbursement = {
+          isValid: false,
+          values: {
+            ...initalValuesProgrammedSavingFixed.reimbursement,
+            reimbursementType: defaultValueReimbursementType,
+          },
+        };
+      }
       return newprogrammedSavingFixedRequest;
     }
   }
