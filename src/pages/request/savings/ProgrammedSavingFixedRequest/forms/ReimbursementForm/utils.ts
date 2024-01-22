@@ -4,13 +4,8 @@ import { FormikValues } from "formik";
 import { reimbursementTypeDM } from "src/model/domains/economicActivity/reimbursementType";
 import { IFormReimbursement } from "./types";
 
-const buildReimbursementAccount = (formik: FormikValues) => {
-  const valueReimbursement = formik.values.reimbursementType;
-  return Object(formReimbursement())[valueReimbursement];
-};
-
-const formReimbursement = () => {
-  const optionsFormReimbursement: IFormReimbursement = {
+const optionsFormReimbursement = () => {
+  const formReimbursementData: IFormReimbursement = {
     transferToExternalAccount: usersMock.map((dataUser) => {
       return {
         id: dataUser.bankTransfersAccount.description,
@@ -24,16 +19,29 @@ const formReimbursement = () => {
         value: product.description,
       })),
   };
-  return optionsFormReimbursement;
+  return formReimbursementData;
 };
 
-const filteredFormReimbursement = () => {
-  const detailReimbursement = Object(formReimbursement());
+const filteredOptionsFormReimbursement = () => {
+  const detailReimbursement = Object(optionsFormReimbursement());
   return reimbursementTypeDM.options.filter(
     (reimbursementType) =>
       detailReimbursement[reimbursementType.id] &&
-      detailReimbursement[reimbursementType.id].length > 0
+      detailReimbursement[reimbursementType.id].length > 0,
   );
 };
 
-export { buildReimbursementAccount, filteredFormReimbursement };
+const buildReimbursementAccount = (formik: FormikValues) => {
+  const valueReimbursement = formik.values.reimbursementType;
+  return valuesOptionsReimbursement(valueReimbursement);
+};
+
+const valuesOptionsReimbursement = (valor: string) => {
+  return Object(optionsFormReimbursement())[valor];
+};
+
+export {
+  buildReimbursementAccount,
+  filteredOptionsFormReimbursement,
+  valuesOptionsReimbursement,
+};

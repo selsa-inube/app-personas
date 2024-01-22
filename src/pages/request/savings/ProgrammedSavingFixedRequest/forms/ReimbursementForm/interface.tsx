@@ -2,14 +2,17 @@ import { Select } from "@design/input/Select";
 import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
-import { buildReimbursementAccount, filteredFormReimbursement } from "./utils";
+import {
+  buildReimbursementAccount,
+  filteredOptionsFormReimbursement,
+} from "./utils";
 
 interface ReimbursementFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   customHandleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
 }
 
@@ -27,8 +30,8 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
           value={formik.values.reimbursementType}
           size="compact"
           isDisabled={loading}
-          options={filteredFormReimbursement()}
-          onChange={formik.handleChange}
+          options={filteredOptionsFormReimbursement()}
+          onChange={customHandleChange}
           onBlur={customHandleBlur}
           state={getFieldState(formik, "reimbursementType")}
           errorMessage={formik.errors.reimbursementType}
@@ -43,11 +46,13 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
           value={formik.values.accountReimbursement}
           options={buildReimbursementAccount(formik)}
           errorMessage={formik.errors.accountReimbursement}
-          onChange={formik.handleChange}
+          onChange={customHandleChange}
           size="compact"
           isFullWidth
           state={getFieldState(formik, "accountReimbursement")}
-          readOnly={buildReimbursementAccount(formik).length == 1}
+          readOnly={
+            buildReimbursementAccount(formik).length == 1 ? true : false
+          }
         />
       </Stack>
     </form>

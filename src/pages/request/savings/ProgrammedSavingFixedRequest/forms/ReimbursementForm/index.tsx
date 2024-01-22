@@ -4,10 +4,11 @@ import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { ReimbursementFormUI } from "./interface";
 import { IReimbursementEntry } from "./types";
+import { valuesOptionsReimbursement } from "./utils";
 
 const validationSchema = Yup.object({
   reimbursementType: Yup.string().required(validationMessages.required),
-  accountReimbursement: Yup.string(),
+  accountReimbursement: Yup.string().required(validationMessages.required),
 });
 
 interface ReimbursementFormProps {
@@ -19,7 +20,7 @@ interface ReimbursementFormProps {
 
 const ReimbursementForm = forwardRef(function ReimbursementForm(
   props: ReimbursementFormProps,
-  ref: React.Ref<FormikProps<IReimbursementEntry>>
+  ref: React.Ref<FormikProps<IReimbursementEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -27,27 +28,35 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
     initialValues,
     validationSchema: validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
   });
 
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-   
-  });
+    const valueReimbursementType = formik.values.reimbursementType;
+
+    const valuesReimbursement = valuesOptionsReimbursement(
+      valueReimbursementType,
+    );
+
+    if (valuesReimbursement && valuesReimbursement.length == 1) {
+      formik.setFieldValue("accountReimbursement", valuesReimbursement[0].id);
+    }
+  }, [initialValues]);
 
   const customHandleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    const { name, value } = event.target;
+    formik.handleChange(event);
+    const { value } = event.target;
 
-    
+    const valuesReimbursement = valuesOptionsReimbursement(value);
 
-    let updatedFormikValues = {
-      ...formik.values,
-      [name]: value,
-    };
+    if (valuesReimbursement && valuesReimbursement.length == 1) {
+      formik.setFieldValue("accountReimbursement", valuesReimbursement[0].id);
+    }
   };
 
   const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
@@ -56,7 +65,7 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
     if (onSubmit) return;
 
     formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
+      return onFormValid(Object.keys(errors).length === 0);
     });
   };
 
@@ -72,3 +81,4 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
 
 export { ReimbursementForm };
 export type { ReimbursementFormProps };
+
