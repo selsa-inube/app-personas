@@ -27,8 +27,8 @@ interface IFormStructure {
   };
 }
 
-interface IFormOption {
+interface IDynamicFormOptions {
   [key: string]: string[];
 }
 
-export type { IFormField, IFormStructure,IFormOption };
+export type { IFormField, IFormStructure, IDynamicFormOptions };

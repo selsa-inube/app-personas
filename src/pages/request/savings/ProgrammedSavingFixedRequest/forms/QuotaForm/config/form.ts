@@ -1,5 +1,5 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IFormOption, IFormStructure } from "@ptypes/forms.types";
+import { IDynamicFormOptions, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { biweeklyPayDayDM } from "src/model/domains/general/biweeklyPayDay";
 import { monthlyPayDayDM } from "src/model/domains/general/monthlyPayDay";
@@ -21,28 +21,50 @@ const payDay = (periodicityId: string) => {
   return commonFields.paydayByDate(true);
 };
 
-const forbiddenOptionsMap: IFormOption = {
-  physicalCollectionChannels: ["single", "quarterly"],
-  northCranes: ["single", "quarterly", "annual", "semiannual"],
-  westernCranes: ["single", "quarterly", "annual", "semiannual", "weekly"],
-  easternCranes: ["single", "quarterly", "annual", "semiannual", "biweekly"],
-  southCranes: ["single", "quarterly", "annual", "semiannual", "biweekly", "weekly"],
+const forbiddenOptionsMap: IDynamicFormOptions = {
+  physicalCollectionChannels: [
+    peridiocityDM.options[0].id,
+    peridiocityDM.options[4].id,
+  ],
+  northCranes: [
+    peridiocityDM.options[0].id,
+    peridiocityDM.options[1].id,
+    peridiocityDM.options[4].id,
+  ],
+  westernCranes: [
+    peridiocityDM.options[0].id,
+    peridiocityDM.options[1].id,
+    peridiocityDM.options[4].id,
+    peridiocityDM.options[6].id,
+  ],
+  easternCranes: [
+    peridiocityDM.options[0].id,
+    peridiocityDM.options[1].id,
+    peridiocityDM.options[4].id,
+    peridiocityDM.options[5].id,
+    peridiocityDM.options[6].id,
+  ],
+  southCranes: [
+    peridiocityDM.options[0].id,
+    peridiocityDM.options[1].id,
+    peridiocityDM.options[2].id,
+    peridiocityDM.options[4].id,
+    peridiocityDM.options[5].id,
+    peridiocityDM.options[6].id,
+  ],
 };
 
 const filterPeriodicityOptions = (paymentMethod: string) => {
   const forbiddenOptions = forbiddenOptionsMap[paymentMethod] || [];
-  return peridiocityDM.options.filter((option) => !forbiddenOptions.includes(option.id));
-};
-
-const hasSingleOption = (paymentMethod: string): boolean => {
-  const filteredOptions = filterPeriodicityOptions(paymentMethod);
-  return filteredOptions.length === 1;
+  return peridiocityDM.options.filter(
+    (option) => !forbiddenOptions.includes(option.id),
+  );
 };
 
 const commonFields = {
-  periodicity: (gridColumn: string, paymentMethod: string, value?: string, ) => {
+  periodicity: (gridColumn: string, paymentMethod: string, value?: string) => {
     const filteredOptions = filterPeriodicityOptions(paymentMethod);
-    const isSingleOption = hasSingleOption(paymentMethod);
+    const isSingleOption = filteredOptions.length === 1;
 
     return {
       name: "periodicity",
@@ -96,7 +118,7 @@ const structureQuotaForm = (
         payDay(periodicityId),
       ],
       automaticDebit: [],
-      northCranes: [commonFields.periodicity("span 1", "northCranes"),],
+      northCranes: [commonFields.periodicity("span 1", "northCranes")],
       westernCranes: [commonFields.periodicity("span 1", "westernCranes")],
       easternCranes: [commonFields.periodicity("span 1", "easternCranes")],
       southCranes: [commonFields.periodicity("span 1", "southCranes")],
