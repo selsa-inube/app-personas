@@ -26,7 +26,6 @@ Default.args = {
   label: "Switch",
   checked: false,
   size: "small",
-  onChange: () => {},
 };
 
 const theme = {

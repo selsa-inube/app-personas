@@ -1,11 +1,11 @@
 import { Icon } from "@design/data/Icon";
+import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdAdd, MdOutlineClose } from "react-icons/md";
-import { IMovement } from "src/model/entity/product";
 import {
   StyledBody,
   StyledBodyHead,
@@ -37,7 +37,7 @@ const renderTransactionSpecification = (label: string, value?: number) => (
 interface CreditMovementModalProps {
   portalId: string;
   onCloseModal: () => void;
-  movement: IMovement;
+  movement: IEntry;
 }
 
 function CreditMovementModal(props: CreditMovementModalProps) {
@@ -48,7 +48,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -102,27 +102,27 @@ function CreditMovementModal(props: CreditMovementModalProps) {
             {movement.capitalPayment &&
               renderTransactionSpecification(
                 "Abono capital:",
-                movement.capitalPayment
+                movement.capitalPayment,
               )}
             {movement.interest &&
               renderTransactionSpecification(
-                "Interés de mora:",
-                movement.interest
+                "Interés corriente:",
+                movement.interest,
               )}
             {movement.lifeInsurance &&
               renderTransactionSpecification(
                 "Seguro de vida:",
-                movement.lifeInsurance
+                movement.lifeInsurance,
               )}
             {movement.patrimonialInsurance &&
               renderTransactionSpecification(
                 "Seguro patrimonial:",
-                movement.patrimonialInsurance
+                movement.patrimonialInsurance,
               )}
             {movement.capitalization &&
               renderTransactionSpecification(
                 "Capitalización:",
-                movement.capitalization
+                movement.capitalization,
               )}
             {movement.commission &&
               renderTransactionSpecification("Comisión:", movement.commission)}
@@ -144,7 +144,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
         </StyledBody>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

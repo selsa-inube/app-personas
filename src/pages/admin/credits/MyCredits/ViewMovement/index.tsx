@@ -1,11 +1,11 @@
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
 import { Icon } from "@design/data/Icon";
+import { IEntry } from "@design/data/Table/types";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
-import { IMovement } from "src/model/entity/product";
 
 interface ViewMovementProps {
-  movement: IMovement;
+  movement: IEntry;
 }
 
 function ViewMovement(props: ViewMovementProps) {

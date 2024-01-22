@@ -4,23 +4,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SavingsCommitmentsUI } from "./interface";
 
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
+import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { ISelectedCommitmentState } from "./types";
 
 function SavingsCommitments() {
   const { commitment_id } = useParams();
   const [commitmentsOptions, setCommitmentsOptions] = useState<ISelectOption[]>(
-    []
+    [],
   );
   const [selectedCommitment, setSelectedCommitment] =
     useState<ISelectedCommitmentState>();
   const isMobile = useMediaQuery("(max-width: 750px)");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    handleSortCommitment();
-  }, [commitment_id, isMobile]);
 
   const handleSortCommitment = () => {
     const productsCommitments = [
@@ -49,8 +45,12 @@ function SavingsCommitments() {
     setCommitmentsOptions(commitmentsOptions);
   };
 
+  useEffect(() => {
+    handleSortCommitment();
+  }, [commitment_id, isMobile]);
+
   const handleChangeCommitment = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const { value: id } = event.target;
     navigate(`/my-savings/commitment/${id}`);

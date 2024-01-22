@@ -20,14 +20,14 @@ interface RefundFormProps {
 
 const RefundForm = forwardRef(function RefundForm(
   props: RefundFormProps,
-  ref: React.Ref<FormikProps<IRefundEntry>>
+  ref: React.Ref<FormikProps<IRefundEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -43,26 +43,26 @@ const RefundForm = forwardRef(function RefundForm(
   };
 
   const customHandleRefundMethod = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     formik.handleChange(event);
     if (event.target.value === "creditToInternalAccount") {
       const internalAccounts = savingsMock.filter(
-        (saving) => saving.type === "CA"
+        (saving) => saving.type === "CA",
       );
       formik.setFieldValue("account", internalAccounts[0].id);
       formik.setFieldValue(
         "accountDescription",
-        internalAccounts[0].description
+        internalAccounts[0].description,
       );
     } else if (event.target.value === "transferToExternalAccount") {
       formik.setFieldValue(
         "account",
-        String(usersMock[0].bankTransfersAccount.accountNumber)
+        String(usersMock[0].bankTransfersAccount.accountNumber),
       );
       formik.setFieldValue(
         "accountDescription",
-        usersMock[0].bankTransfersAccount.description
+        usersMock[0].bankTransfersAccount.description,
       );
     }
   };
@@ -70,7 +70,7 @@ const RefundForm = forwardRef(function RefundForm(
   const customHandleAccount = (event: React.ChangeEvent<HTMLSelectElement>) => {
     formik.handleChange(event);
     const internalAccounts = savingsMock.filter(
-      (saving) => saving.id === event.target.value
+      (saving) => saving.id === event.target.value,
     );
     formik.setFieldValue("accountDescription", internalAccounts[0].description);
   };
@@ -97,7 +97,7 @@ const RefundForm = forwardRef(function RefundForm(
       formik.setFieldValue("refundMethod", "transferToExternalAccount");
       formik.setFieldValue(
         "account",
-        String(usersMock[0].bankTransfersAccount.accountNumber)
+        String(usersMock[0].bankTransfersAccount.accountNumber),
       );
     }
   }, [savingOptions, formik.values.refundMethod]);

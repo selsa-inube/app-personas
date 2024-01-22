@@ -5,6 +5,7 @@ const formatPrimaryDate = (date: Date) => {
     day: "2-digit",
     month: "short",
     year: "numeric",
+    timeZone: "UTC",
   };
   const dateString = date.toLocaleDateString("es-ES", options);
 
@@ -31,10 +32,10 @@ const formatTraceabilityDate = (date: Date) => {
     .replaceAll(",", "")
     .replaceAll(".", "");
 
-  const [weekday, day, of1, month, of2, year, time] = dateString.split(" ");
+  const [weekday, day, , month, , year, time] = dateString.split(" ");
 
   return `${capitalizeText(weekday)} ${day} de ${capitalizeText(
-    month
+    month,
   )} de ${year} ${time} ${ampm}`;
 };
 

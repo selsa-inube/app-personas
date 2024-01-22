@@ -95,8 +95,8 @@ const Textarea = (props: TextareaProps) => {
     truncatedValue.length < maxLength
       ? "warning"
       : truncatedValue.length === maxLength
-      ? "error"
-      : "gray";
+        ? "error"
+        : "gray";
 
   const interceptFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (!readOnly) {
@@ -138,13 +138,13 @@ const Textarea = (props: TextareaProps) => {
             )}
           </Stack>
         )}
-        {!isDisabled && withCounter &&  (
+        {!isDisabled && withCounter && (
           <Stack justifyContent="flex-end" alignItems="center">
             <Counter
               appearance={counterAppearence}
               maxLength={maxLength}
               isDisabled={isDisabled}
-              valueLength={truncatedValue!.length}
+              valueLength={truncatedValue.length}
             />
           </Stack>
         )}

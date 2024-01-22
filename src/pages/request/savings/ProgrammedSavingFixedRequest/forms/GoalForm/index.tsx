@@ -21,7 +21,7 @@ interface GoalFormProps {
 
 const GoalForm = forwardRef(function GoalForm(
   props: GoalFormProps,
-  ref: React.Ref<FormikProps<IGoalEntry>>
+  ref: React.Ref<FormikProps<IGoalEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
   const [dynamicValidationSchema, setDynamicValidationSchema] =
@@ -31,7 +31,7 @@ const GoalForm = forwardRef(function GoalForm(
     initialValues,
     validationSchema: dynamicValidationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
   });
 
@@ -47,7 +47,7 @@ const GoalForm = forwardRef(function GoalForm(
     ) {
       formik.setFieldValue(
         "refundDate",
-        deduceRefundDate(Number(formik.values.daysNumber))
+        deduceRefundDate(Number(formik.values.daysNumber)),
       );
     }
 
@@ -58,7 +58,7 @@ const GoalForm = forwardRef(function GoalForm(
     ) {
       formik.setFieldValue(
         "daysNumber",
-        deduceDaysNumber(formik.values.refundDate)
+        deduceDaysNumber(formik.values.refundDate),
       );
     }
 
@@ -70,7 +70,7 @@ const GoalForm = forwardRef(function GoalForm(
   };
 
   const customHandleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     formik.handleChange(event);
 
@@ -96,7 +96,7 @@ const GoalForm = forwardRef(function GoalForm(
             refundDate: validationRules.date
               .concat(validationRules.notPastDate)
               .required(validationMessages.required),
-          })
+          }),
         );
 
         setDynamicValidationSchema(newValidationSchema);
@@ -104,7 +104,7 @@ const GoalForm = forwardRef(function GoalForm(
         const newValidationSchema = validationSchema.concat(
           Yup.object({
             daysNumber: Yup.number().required(validationMessages.required),
-          })
+          }),
         );
 
         setDynamicValidationSchema(newValidationSchema);

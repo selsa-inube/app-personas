@@ -11,12 +11,10 @@ import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { usersMock } from "@mocks/users/users.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
     <BoxAttribute
@@ -50,7 +48,7 @@ const renderRefundSummary = (values: IRefundEntry) => {
 
 const renderInvestmentNameSummary = (
   values: IInvestmentNameEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
     <BoxAttribute label="Nombre del producto:" value={values.productName} />
@@ -91,7 +89,7 @@ function SummaryBoxes(props: SummaryBoxesProps) {
       {stepKey === "investmentName" &&
         renderInvestmentNameSummary(
           cdatRequest.investmentName.values,
-          isTablet
+          isTablet,
         )}
       {stepKey === "contactChannels" &&
         renderContactChannelsSummary(cdatRequest.contactChannels.values)}

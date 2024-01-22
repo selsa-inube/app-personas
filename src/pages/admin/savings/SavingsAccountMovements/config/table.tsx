@@ -2,6 +2,7 @@ import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import { ViewSavingMovement } from "../../MySavings/ViewSavingMovement";
 
 const mapSavingAccountMovement = (movement: IEntry): IMovement => {
@@ -16,15 +17,11 @@ const mapSavingAccountMovement = (movement: IEntry): IMovement => {
   };
 };
 
-const mapInvestmentMovement = (movement: IEntry): IMovement => {
-  return {
-    id: movement?.id,
-    date: movement?.date,
-    reference: movement?.reference,
-    description: movement?.description,
-    totalValue: movement?.totalValue,
-  };
-};
+const savingAccountMovementsNormalizeEntries = (movements: IMovement[]) =>
+  movements.map((entry) => ({
+    ...entry,
+    date: entry.date && formatPrimaryDate(entry.date),
+  }));
 
 const savingsAccountMovementsTableTitles = [
   {
@@ -80,8 +77,7 @@ const savingsAccountMovementsTableActions: IAction[] = [
 ];
 
 export {
-  mapInvestmentMovement,
-  mapSavingAccountMovement,
+  savingAccountMovementsNormalizeEntries,
   savingsAccountMovementsTableActions,
   savingsAccountMovementsTableBreakpoints,
   savingsAccountMovementsTableTitles,

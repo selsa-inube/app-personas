@@ -11,7 +11,7 @@ import { Icon } from "@design/data/Icon";
 import { MessageAppearanceType } from "./types";
 
 interface SectionMessageProps {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   title: string;
   description: string;
   appearance: MessageAppearanceType;

@@ -22,7 +22,7 @@ import {
 } from "../MyCredits/config/tables";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import {
-  amortizationCurrencyEntries,
+  amortizationNormalizeEntries,
   creditAmortizationTableActions,
 } from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
@@ -65,10 +65,6 @@ function CreditAmortization() {
     },
   ];
 
-  useEffect(() => {
-    handleSortProduct();
-  }, [credit_id, user, accessToken]);
-
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
 
@@ -76,7 +72,7 @@ function CreditAmortization() {
       credits,
       credit_id,
       user?.identification,
-      accessToken
+      accessToken,
     );
 
     setCredits(newCredits);
@@ -96,9 +92,13 @@ function CreditAmortization() {
       newCredits.map((credit) => ({
         id: credit.id,
         value: credit.description,
-      }))
+      })),
     );
   };
+
+  useEffect(() => {
+    handleSortProduct();
+  }, [credit_id, user, accessToken]);
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
@@ -159,8 +159,8 @@ function CreditAmortization() {
                 titles={amortizationTableTitles}
                 breakpoints={amortizationTableBreakpoints}
                 actions={creditAmortizationTableActions}
-                entries={amortizationCurrencyEntries(
-                  selectedProduct.credit.amortization
+                entries={amortizationNormalizeEntries(
+                  selectedProduct.credit.amortization,
                 )}
                 hideMobileResume
               />

@@ -22,9 +22,9 @@ function SavingRequest() {
     navigate(`/savings/${path}`);
   };
 
-  return(
+  return (
     <>
-    <Stack direction="column" gap="s300">
+      <Stack direction="column" gap="s300">
         <Breadcrumbs crumbs={crumbsSavingRequest} />
         <Title
           title="Solicitud de ahorro"
@@ -61,8 +61,7 @@ function SavingRequest() {
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
     </>
-
-  )
+  );
 }
 
 export { SavingRequest };

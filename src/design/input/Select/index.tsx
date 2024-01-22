@@ -47,6 +47,28 @@ function Select(props: SelectProps) {
   const [open, setOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement | null>(null);
 
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as Node | null;
+    if (selectRef.current && target && !selectRef.current.contains(target)) {
+      setOpen(false);
+    }
+    if (onBlur) {
+      const event = {
+        target: selectRef.current,
+      } as React.FocusEvent<HTMLDivElement>;
+
+      onBlur(event);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [selectRef]);
+
   const interceptFocus = (e: React.FocusEvent<HTMLDivElement>) => {
     if (!readOnly) {
       setIsFocused(true);
@@ -62,20 +84,6 @@ function Select(props: SelectProps) {
 
   const handleCloseOptions = () => {
     setOpen(!open);
-  };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    const target = event.target as Node | null;
-    if (selectRef.current && target && !selectRef.current.contains(target)) {
-      setOpen(false);
-    }
-    if (onBlur) {
-      const event = {
-        target: selectRef.current,
-      } as React.FocusEvent<HTMLDivElement>;
-
-      onBlur(event);
-    }
   };
 
   const handleOptionClick = (id: string) => {
@@ -97,14 +105,6 @@ function Select(props: SelectProps) {
     handleCloseOptions();
   };
 
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [selectRef]);
-
   const transformedIsDisabled =
     typeof isDisabled === "boolean" ? isDisabled : false;
 
@@ -118,7 +118,7 @@ function Select(props: SelectProps) {
 
   if (!isDisabled && !options) {
     console.warn(
-      'The "options" prop is required if the select is not disabled.'
+      'The "options" prop is required if the select is not disabled.',
     );
   }
 

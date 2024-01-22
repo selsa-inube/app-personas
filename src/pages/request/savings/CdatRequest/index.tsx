@@ -5,16 +5,16 @@ import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { cdatRequestSteps, cdatStepsRules } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
+import { IConditionsEntry } from "./forms/ConditionsForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
-import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
 import { CdatRequestUI } from "./interface";
-import { IConditionsEntry } from "./forms/ConditionsForm/types";
+import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 
 function CdatRequest() {
   const [currentStep, setCurrentStep] = useState(
-    cdatRequestSteps.investment.id
+    cdatRequestSteps.investment.id,
   );
   const steps = Object.values(cdatRequestSteps);
 
@@ -62,12 +62,12 @@ function CdatRequest() {
       currentStep,
       cdatRequest,
       formReferences,
-      isCurrentFormValid
+      isCurrentFormValid,
     );
     setCdatRequest(newCdatRequest);
 
     const changeStepKey = Object.entries(cdatRequestSteps).find(
-      ([, config]) => config.id === stepId
+      ([, config]) => config.id === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
@@ -76,7 +76,7 @@ function CdatRequest() {
     setIsCurrentFormValid(
       changeIsVerification ||
         newCdatRequest[changeStepKey as keyof IFormsCdatRequest]?.isValid ||
-        false
+        false,
     );
 
     setCurrentStep(stepId);
@@ -84,7 +84,9 @@ function CdatRequest() {
     document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
-  const handleFinishAssisted = () => {};
+  const handleFinishAssisted = () => {
+    return true;
+  };
 
   const handleNextStep = () => {
     if (currentStep + 1 <= steps.length) {

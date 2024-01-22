@@ -19,7 +19,7 @@ const validateCreditsAndAmortization = async (
 
   let selectedCredit: IProduct | undefined;
 
-  for (let ix in currentCredits) {
+  for (const ix in currentCredits) {
     if (currentCredits[ix].id === creditId) {
       if (currentCredits[ix].amortization?.length === 0) {
         const amortization = await getAmortizationForCredit(

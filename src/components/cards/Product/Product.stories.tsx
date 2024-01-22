@@ -26,7 +26,6 @@ const story = {
 
 export const Default: StoryFn<ProductProps> = (args) => <Product {...args} />;
 Default.args = {
-  id: "09-786238-77",
   title: "Crédito educativo",
   description: "09-786238-77",
   attributes: [

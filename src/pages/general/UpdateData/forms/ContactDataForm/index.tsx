@@ -43,17 +43,17 @@ interface ContactDataFormProps {
 
 const ContactDataForm = forwardRef(function ContactDataForm(
   props: ContactDataFormProps,
-  ref: React.Ref<FormikProps<IContactDataEntry>>
+  ref: React.Ref<FormikProps<IContactDataEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
-  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
+  const [dynamicSchema] = useState(validationSchema);
 
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -69,7 +69,8 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   };
 
   const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
+    const fieldDescription = dynamicSchema.describe().fields[fieldName];
+    if (!("nullable" in fieldDescription)) return false;
     return !fieldDescription.nullable && !fieldDescription.optional;
   };
 

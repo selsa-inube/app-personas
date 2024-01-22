@@ -22,7 +22,7 @@ import {
 } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import {
-  creditMovementsCurrencyEntries,
+  creditMovementsNormalizeEntries,
   creditMovementsTableActions,
 } from "../CreditMovements/config/table";
 import {
@@ -41,6 +41,7 @@ import { INextPaymentModalState, ISelectedProductState } from "./types";
 interface CreditUIProps {
   isMobile?: boolean;
   selectedProduct?: ISelectedProductState;
+  loading: boolean;
   productsOptions: ISelectOption[];
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;
@@ -52,6 +53,7 @@ function CreditUI(props: CreditUIProps) {
   const {
     isMobile,
     selectedProduct,
+    loading,
     productsOptions,
     credit_id,
     nextPaymentModal,
@@ -125,7 +127,7 @@ function CreditUI(props: CreditUIProps) {
                         label="Total próximo pago:"
                         buttonIcon={<MdOpenInNew />}
                         buttonValue={currencyFormat(
-                          nextPaymentModal.data.nextPaymentValue
+                          nextPaymentModal.data.nextPaymentValue,
                         )}
                         onClickButton={handleToggleNextPaymentModal}
                         withButton
@@ -155,9 +157,10 @@ function CreditUI(props: CreditUIProps) {
                   titles={movementsTableTitles}
                   breakpoints={movementsTableBreakpoints}
                   actions={creditMovementsTableActions}
-                  entries={creditMovementsCurrencyEntries(
-                    selectedProduct.credit.movements || []
+                  entries={creditMovementsNormalizeEntries(
+                    selectedProduct.credit.movements || [],
                   )}
+                  loading={loading}
                   pageLength={selectedProduct.credit.movements?.length || 0}
                   hideMobileResume
                 />

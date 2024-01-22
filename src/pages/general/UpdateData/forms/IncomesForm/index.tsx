@@ -25,7 +25,7 @@ interface IncomesFormProps {
 
 const IncomesForm = forwardRef(function IncomesForm(
   props: IncomesFormProps,
-  ref: React.Ref<FormikProps<IIncomesEntry>>
+  ref: React.Ref<FormikProps<IIncomesEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -33,7 +33,7 @@ const IncomesForm = forwardRef(function IncomesForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -58,7 +58,7 @@ const IncomesForm = forwardRef(function IncomesForm(
 
         return acc;
       },
-      0
+      0,
     );
 
     formik.setFieldValue("totalIncomes", totalIncomes);

@@ -46,7 +46,6 @@ function renderProducts(
       const productsIcons = { ...savingsAccountIcons, ...investmentIcons };
       return (
         <Product
-          id={product.id}
           key={product.id}
           title={product.title}
           description={truncateAndObfuscateDescription(

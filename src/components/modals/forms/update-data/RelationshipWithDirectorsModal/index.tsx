@@ -1,15 +1,15 @@
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
+import { TextField } from "@design/input/TextField";
 import { Blanket } from "@design/layout/Blanket";
+import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { IDirector } from "@mocks/directors/directors.mocks";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { StyledModal, StyledItem, StyledBody } from "./styles";
-import { Divider } from "@design/layout/Divider";
-import { TextField } from "@design/input/TextField";
-import { useState } from "react";
-import { IDirector } from "@mocks/directors/directors.mocks";
+import { StyledBody, StyledItem, StyledModal } from "./styles";
 
 interface ItemProps {
   description: string;
@@ -37,7 +37,7 @@ interface RelationshipWithDirectorsModalProps {
 }
 
 function RelationshipWithDirectorsModal(
-  props: RelationshipWithDirectorsModalProps
+  props: RelationshipWithDirectorsModalProps,
 ) {
   const { portalId, onCloseModal, directors, onSelect } = props;
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,12 +47,12 @@ function RelationshipWithDirectorsModal(
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
   const filteredDirectors = directors.filter((director: IDirector) =>
-    director.name.toLowerCase().includes(searchTerm.toLowerCase())
+    director.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return createPortal(
@@ -111,8 +111,9 @@ function RelationshipWithDirectorsModal(
                 ))
               ) : (
                 <Text type="body" size="small" appearance="gray">
-                  No se han encontrado funcionarios con el nombre o apellido: "
-                  {searchTerm}"
+                  No se han encontrado funcionarios con el nombre o apellido:
+                  &quot;
+                  {searchTerm}&quot;
                 </Text>
               )}
             </StyledBody>
@@ -120,7 +121,7 @@ function RelationshipWithDirectorsModal(
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

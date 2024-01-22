@@ -2,7 +2,7 @@ import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
-import { IAttribute, ICommitment } from "src/model/entity/product";
+import { IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
 
@@ -42,9 +42,9 @@ const getSavingsAttributes = (commitmentAttributes: IAttribute[]) => {
 };
 
 export {
+  getInvestmentsProducts,
+  getSavingsAttributes,
   productsCommitments,
   savingsAccountsMock,
   savingsStatutoryContributionsMock,
-  getSavingsAttributes,
-  getInvestmentsProducts,
 };

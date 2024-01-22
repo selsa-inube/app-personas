@@ -13,7 +13,7 @@ interface IMessage {
   show?: boolean;
   title: string;
   description: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   appearance: MessageAppearanceType;
 }
 
