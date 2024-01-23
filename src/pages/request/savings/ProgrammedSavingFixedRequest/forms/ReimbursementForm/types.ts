@@ -5,9 +5,9 @@ interface IReimbursementEntry {
   accountReimbursement: string;
 }
 
-interface IFormReimbursement {
+interface IReimbursementOptions {
   transferToExternalAccount: ISelectOption[];
   creditToInternalAccount: ISelectOption[];
 }
 
-export type { IFormReimbursement, IReimbursementEntry };
+export type { IReimbursementEntry, IReimbursementOptions };

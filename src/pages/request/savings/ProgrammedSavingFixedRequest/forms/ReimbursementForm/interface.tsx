@@ -51,7 +51,10 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
           isFullWidth
           state={getFieldState(formik, "accountReimbursement")}
           readOnly={
-            buildReimbursementAccount(formik).length == 1 ? true : false
+            buildReimbursementAccount(formik) &&
+            buildReimbursementAccount(formik).length == 1
+              ? true
+              : false
           }
         />
       </Stack>

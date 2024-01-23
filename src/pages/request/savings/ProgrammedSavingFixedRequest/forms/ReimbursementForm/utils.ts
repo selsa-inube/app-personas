@@ -1,17 +1,21 @@
+import { ISelectOption } from "@design/input/Select/types";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikValues } from "formik";
 import { reimbursementTypeDM } from "src/model/domains/economicActivity/reimbursementType";
-import { IFormReimbursement } from "./types";
+import { IReimbursementOptions } from "./types";
 
 const optionsFormReimbursement = () => {
-  const formReimbursementData: IFormReimbursement = {
-    transferToExternalAccount: [
-      {
-        id: usersMock[0].bankTransfersAccount.description,
-        value: usersMock[0].bankTransfersAccount.description,
-      },
-    ],
+  let valuesUserMock: ISelectOption = { id: "", value: "" };
+
+  if (usersMock[0]) {
+    valuesUserMock = {
+      id: usersMock[0].bankTransfersAccount.description,
+      value: usersMock[0].bankTransfersAccount.description,
+    };
+  }
+  const formReimbursementData: IReimbursementOptions = {
+    transferToExternalAccount: [valuesUserMock],
     creditToInternalAccount: savingsMock
       .filter((product) => product.type === "CA")
       .map((product) => ({
@@ -26,8 +30,10 @@ const filteredOptionsFormReimbursement = () => {
   const detailReimbursement = optionsFormReimbursement();
   return reimbursementTypeDM.options.filter(
     (reimbursementType) =>
-      detailReimbursement[reimbursementType.id as keyof IFormReimbursement] &&
-      detailReimbursement[reimbursementType.id as keyof IFormReimbursement]
+      detailReimbursement[
+        reimbursementType.id as keyof IReimbursementOptions
+      ] &&
+      detailReimbursement[reimbursementType.id as keyof IReimbursementOptions]
         .length > 0,
   );
 };
@@ -38,7 +44,7 @@ const buildReimbursementAccount = (formik: FormikValues) => {
 };
 
 const valuesOptionsReimbursement = (valor: string) => {
-  return optionsFormReimbursement()[valor as keyof IFormReimbursement];
+  return optionsFormReimbursement()[valor as keyof IReimbursementOptions];
 };
 
 export {
