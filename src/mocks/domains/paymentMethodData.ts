@@ -8,6 +8,10 @@ const paymentMethodData = [
     value: "Débito automático",
   },
   {
+    id: "payrollDiscount",
+    value: "Descuento de nómina",
+  },
+  {
     id: "northCranes",
     value: "Grúas de norte",
   },

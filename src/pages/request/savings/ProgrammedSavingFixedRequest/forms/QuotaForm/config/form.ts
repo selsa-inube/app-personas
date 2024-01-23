@@ -26,6 +26,12 @@ const forbiddenOptionsMap: IDynamicFormOptions = {
     peridiocityDM.SINGLE.id,
     peridiocityDM.QUARTERLY.id,
   ],
+  payrollDiscount:[
+    peridiocityDM.SINGLE.id,
+    peridiocityDM.QUARTERLY.id,
+    peridiocityDM.SEMIANNUAL.id,
+    peridiocityDM.ANNUAL.id,
+  ],
   northCranes: [
     peridiocityDM.SINGLE.id,
     peridiocityDM.WEEKLY.id,
@@ -118,6 +124,7 @@ const structureQuotaForm = (
         payDay(periodicityId),
       ],
       automaticDebit: [],
+      payrollDiscount: [commonFields.periodicity("span 1", "payrollDiscount")],
       northCranes: [commonFields.periodicity("span 1", "northCranes")],
       westernCranes: [commonFields.periodicity("span 1", "westernCranes")],
       easternCranes: [commonFields.periodicity("span 1", "easternCranes")],
