@@ -6,13 +6,13 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdAdd, MdOutlineClose } from "react-icons/md";
+import { parseCurrencyString } from "src/utils/currency";
 import {
   StyledBody,
   StyledBodyHead,
   StyledDivider,
   StyledModal,
 } from "./styles";
-import { parseCurrencyString } from "src/utils/currency";
 
 const renderTransactionSpecification = (
   label: string,
@@ -100,7 +100,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
               )}
             {parseCurrencyString(payment.interest) !== 0 &&
               renderTransactionSpecification(
-                "Interés de mora:",
+                "Interés corriente:",
                 payment.interest,
               )}
             {payment.lifeInsurance &&
