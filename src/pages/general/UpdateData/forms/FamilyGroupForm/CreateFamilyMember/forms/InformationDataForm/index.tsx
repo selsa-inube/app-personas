@@ -8,12 +8,8 @@ import { FormikProps, useFormik } from "formik";
 import { InformationDataFormUI } from "./interface";
 
 const validationSchema = Yup.object().shape({
-  relationship: familyGroupRequiredFields.relationship
-    ? Yup.string().required(validationMessages.required)
-    : Yup.string(),
-  isDependent: familyGroupRequiredFields.isDependent
-    ? Yup.string().required(validationMessages.required)
-    : Yup.string(),
+  relationship: Yup.string(),
+  isDependent: Yup.string(),
   educationLevel: familyGroupRequiredFields.educationLevel
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
@@ -57,11 +53,15 @@ const InformationDataForm = forwardRef(function InformationDataForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (readonly) {
+    if (!readonly) {
       const newValidationSchema = validationSchema.concat(
         Yup.object({
-          relationship: Yup.string(),
-          isDependent: Yup.string(),
+          relationship: familyGroupRequiredFields.relationship
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
+          isDependent: familyGroupRequiredFields.isDependent
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
         })
       );
 

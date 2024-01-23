@@ -7,11 +7,11 @@ import { Stack } from "@design/layout/Stack";
 import { Icon } from "@design/data/Icon";
 import { Divider } from "@design/layout/Divider";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { AddFamilyMember } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember";
-import { IIdentificationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember/forms/IdentificationDataForm/types";
-import { IPersonalDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember/forms/PersonalDataForm/types";
-import { IContactDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember/forms/ContactDataForm/types";
-import { IInformationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/AddFamilyMember/forms/InformationDataForm/types";
+import { CreateFamilyMember } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember";
+import { IIdentificationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/IdentificationDataForm/types";
+import { IPersonalDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/PersonalDataForm/types";
+import { IContactDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/ContactDataForm/types";
+import { IInformationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/InformationDataForm/types";
 
 
 interface FamilyMemberCreateModalProps {
@@ -74,7 +74,7 @@ function FamilyMemberCreateModal(props: FamilyMemberCreateModalProps) {
           <Divider dashed />
         </Stack>
         <Stack direction="column" width="100%" gap="s150">
-          <AddFamilyMember onAddMember={onAddMember} />
+          <CreateFamilyMember onAddMember={onAddMember} />
         </Stack>
       </StyledModal>
     </Blanket>,

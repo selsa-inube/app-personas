@@ -30,7 +30,8 @@ const ContactDataForm = forwardRef(function ContactDataForm(
 ) {
   const { initialValues, loading, readonly, onFormValid, onSubmit } = props;
 
-  const [dynamicSchema, setDynamicSchema] = useState<Yup.ObjectSchema<IContactDataEntry>>(validationSchema);
+  const [dynamicSchema, setDynamicSchema] =
+    useState<Yup.ObjectSchema<IContactDataEntry>>(validationSchema);
 
   const formik = useFormik({
     initialValues,

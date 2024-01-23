@@ -2,7 +2,7 @@ import { TextField } from "@design/input/TextField";
 import { IPersonalDataEntry } from "../../PersonalDataForm/types";
 import { Select } from "@design/input/Select";
 import { IContactDataEntry } from "../../ContactDataForm/types";
-import { IFormsAddFamilyMember } from "../../../types";
+import { IFormsCreateFamilyMember } from "../../../types";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 import { activeDM } from "src/model/domains/general/activedm";
@@ -199,7 +199,7 @@ const renderInformationDataInfoVerification = (
 );
 
 interface VerificationFieldsetsProps {
-  updatedData: IFormsAddFamilyMember;
+  updatedData: IFormsCreateFamilyMember;
   stepKey: string;
 }
 

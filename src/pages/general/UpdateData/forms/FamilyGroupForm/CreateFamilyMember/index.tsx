@@ -1,18 +1,19 @@
 import { useRef, useState } from "react";
-import { IIdentificationDataEntry } from "./forms/IdentificationDataForm/types";
-import {
-  addFamilyMemberStepsRules,
-  createMemberSteps,
-} from "./config/assisted";
-import { IFormsAddFamilyMember, IFormsAddFamilyMemberRefs } from "./types";
-import { initalValuesAddFamilyMember } from "./config/initialValues";
 import { FormikProps } from "formik";
-import { AddFamilyMemberUI } from "./interface";
+import { initalValuesCreateFamilyMember } from "./config/initialValues";
+import { IIdentificationDataEntry } from "./forms/IdentificationDataForm/types";
 import { IPersonalDataEntry } from "./forms/PersonalDataForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IInformationDataEntry } from "./forms/InformationDataForm/types";
+import { createFamilyMemberSteps } from "./config/assisted";
+import { CreateFamilyMemberUI } from "./interface";
+import { createFamilyMemberStepsRules } from "./utils";
+import {
+  IFormsCreateFamilyMember,
+  IFormsCreateFamilyMemberRefs,
+} from "./types";
 
-interface AddFamilyMemberProps {
+interface CreateFamilyMemberProps {
   onAddMember: (
     identificationData: IIdentificationDataEntry,
     personalData: IPersonalDataEntry,
@@ -21,34 +22,34 @@ interface AddFamilyMemberProps {
   ) => void;
 }
 
-function AddFamilyMember(props: AddFamilyMemberProps) {
+function CreateFamilyMember(props: CreateFamilyMemberProps) {
   const { onAddMember } = props;
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
   const [currentStep, setCurrentStep] = useState(
-    createMemberSteps.identificationData.id
+    createFamilyMemberSteps.identificationData.id
   );
 
-  const steps = Object.values(createMemberSteps);
+  const steps = Object.values(createFamilyMemberSteps);
 
   const [readOnly, setReadOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [familyMember, setFamilyMember] = useState<IFormsAddFamilyMember>({
+  const [familyMember, setFamilyMember] = useState<IFormsCreateFamilyMember>({
     identificationData: {
       isValid: false,
-      values: initalValuesAddFamilyMember.identificationData,
+      values: initalValuesCreateFamilyMember.identificationData,
     },
     personalData: {
       isValid: true,
-      values: initalValuesAddFamilyMember.personalData,
+      values: initalValuesCreateFamilyMember.personalData,
     },
     contactData: {
       isValid: true,
-      values: initalValuesAddFamilyMember.contactData,
+      values: initalValuesCreateFamilyMember.contactData,
     },
     informationData: {
       isValid: true,
-      values: initalValuesAddFamilyMember.informationData,
+      values: initalValuesCreateFamilyMember.informationData,
     },
   });
 
@@ -58,7 +59,7 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
   const contactDataRef = useRef<FormikProps<IContactDataEntry>>(null);
   const informationDataRef = useRef<FormikProps<IInformationDataEntry>>(null);
 
-  const formReferences: IFormsAddFamilyMemberRefs = {
+  const formReferences: IFormsCreateFamilyMemberRefs = {
     identificationData: identificationDataRef,
     personalData: personalDataRef,
     contactData: contactDataRef,
@@ -66,16 +67,19 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
   };
 
   const handleStepChange = (stepId: number) => {
-    const { readonly, newAddFamilyMember } = addFamilyMemberStepsRules(
+    const { readonly, newCreateFamilyMember } = createFamilyMemberStepsRules(
       currentStep,
       familyMember,
       formReferences,
       isCurrentFormValid
     );
-    setFamilyMember(newAddFamilyMember);
-    setReadOnly(readonly);
+    setFamilyMember(newCreateFamilyMember);
 
-    const changeStepKey = Object.entries(createMemberSteps).find(
+    if (stepId === createFamilyMemberSteps.personalData.id) {
+      setReadOnly(readonly);
+    }
+
+    const changeStepKey = Object.entries(createFamilyMemberSteps).find(
       ([, config]) => config.id === stepId
     )?.[0];
 
@@ -84,7 +88,7 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-        newAddFamilyMember[changeStepKey as keyof IFormsAddFamilyMember]
+        newCreateFamilyMember[changeStepKey as keyof IFormsCreateFamilyMember]
           ?.isValid ||
         false
     );
@@ -105,7 +109,7 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
       }, 1000);
       return;
     }
-  
+
     if (currentStep === steps.length) {
       onAddMember(
         familyMember.identificationData.values,
@@ -114,7 +118,7 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
         familyMember.informationData.values
       );
     }
-    
+
     handleStepChange(currentStep + 1);
   };
 
@@ -123,10 +127,10 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
   };
 
   return (
-    <AddFamilyMemberUI
+    <CreateFamilyMemberUI
       steps={steps}
       isCurrentFormValid={isCurrentFormValid}
-      addFamilyMember={familyMember}
+      createFamilyMember={familyMember}
       currentStep={currentStep}
       formReferences={formReferences}
       readOnly={readOnly}
@@ -140,4 +144,4 @@ function AddFamilyMember(props: AddFamilyMemberProps) {
   );
 }
 
-export { AddFamilyMember };
+export { CreateFamilyMember };

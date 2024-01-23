@@ -11,11 +11,11 @@ import {
   familyGroupTableBreakpoints,
   familyGroupTableTitles,
 } from "./config/table";
-import { IIdentificationDataEntry } from "./AddFamilyMember/forms/IdentificationDataForm/types";
+import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/IdentificationDataForm/types";
 import { FamilyMemberCreateModal } from "@components/modals/forms/update-data/FamilyGroupModals/FamilyMemberCreateModal";
-import { IPersonalDataEntry } from "./AddFamilyMember/forms/PersonalDataForm/types";
-import { IContactDataEntry } from "./AddFamilyMember/forms/ContactDataForm/types";
-import { IInformationDataEntry } from "./AddFamilyMember/forms/InformationDataForm/types";
+import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
+import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
+import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
 
 interface FamilyGroupFormUIProps {
   formik: FormikValues;

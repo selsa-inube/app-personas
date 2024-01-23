@@ -12,10 +12,10 @@ import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
-import { IIdentificationDataEntry } from "./AddFamilyMember/forms/IdentificationDataForm/types";
-import { IPersonalDataEntry } from "./AddFamilyMember/forms/PersonalDataForm/types";
-import { IContactDataEntry } from "./AddFamilyMember/forms/ContactDataForm/types";
-import { IInformationDataEntry } from "./AddFamilyMember/forms/InformationDataForm/types";
+import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/IdentificationDataForm/types";
+import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
+import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
+import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
 
 const validationSchema = Yup.object().shape({
   firstName: familyGroupRequiredFields.firstName

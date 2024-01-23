@@ -1,7 +1,10 @@
 import { IStep } from "@design/feedback/Assisted/types";
-import { createMemberSteps } from "./config/assisted";
+import { createFamilyMemberSteps } from "./config/assisted";
 import { IdentificationDataForm } from "./forms/IdentificationDataForm";
-import { IFormsAddFamilyMember, IFormsAddFamilyMemberRefs } from "./types";
+import {
+  IFormsCreateFamilyMember,
+  IFormsCreateFamilyMemberRefs,
+} from "./types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Assisted } from "@design/feedback/Assisted";
 import { Stack } from "@design/layout/Stack";
@@ -14,8 +17,8 @@ import { UpdateDataVerification } from "./forms/Verification";
 
 const renderStepContent = (
   currentStep: number,
-  formReferences: IFormsAddFamilyMemberRefs,
-  addFamilyMember: IFormsAddFamilyMember,
+  formReferences: IFormsCreateFamilyMemberRefs,
+  createFamilyMember: IFormsCreateFamilyMember,
   isMobile: boolean,
   readOnly: boolean,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
@@ -23,51 +26,51 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === createMemberSteps.identificationData.id && (
+      {currentStep === createFamilyMemberSteps.identificationData.id && (
         <IdentificationDataForm
           isMobile={isMobile}
-          initialValues={addFamilyMember.identificationData.values}
+          initialValues={createFamilyMember.identificationData.values}
           ref={formReferences.identificationData}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === createMemberSteps.personalData.id && (
+      {currentStep === createFamilyMemberSteps.personalData.id && (
         <PersonalDataForm
-          initialValues={addFamilyMember.personalData.values}
+          initialValues={createFamilyMember.personalData.values}
           ref={formReferences.personalData}
           onFormValid={setIsCurrentFormValid}
           readonly={readOnly}
         />
       )}
-      {currentStep === createMemberSteps.contactData.id && (
+      {currentStep === createFamilyMemberSteps.contactData.id && (
         <ContactDataForm
-          initialValues={addFamilyMember.contactData.values}
+          initialValues={createFamilyMember.contactData.values}
           ref={formReferences.contactData}
           onFormValid={setIsCurrentFormValid}
           readonly={readOnly}
         />
       )}
-      {currentStep === createMemberSteps.informationData.id && (
+      {currentStep === createFamilyMemberSteps.informationData.id && (
         <InformationDataForm
-          initialValues={addFamilyMember.informationData.values}
+          initialValues={createFamilyMember.informationData.values}
           ref={formReferences.informationData}
           onFormValid={setIsCurrentFormValid}
           readonly={readOnly}
         />
       )}
-      {currentStep === createMemberSteps.verification.id && (
-        <UpdateDataVerification updatedData={addFamilyMember} />
+      {currentStep === createFamilyMemberSteps.verification.id && (
+        <UpdateDataVerification updatedData={createFamilyMember} />
       )}
     </>
   );
 };
 
-interface AddFamilyMemberUIProps {
+interface CreateFamilyMemberUIProps {
   currentStep: number;
   steps: IStep[];
   isCurrentFormValid: boolean;
-  addFamilyMember: IFormsAddFamilyMember;
-  formReferences: IFormsAddFamilyMemberRefs;
+  createFamilyMember: IFormsCreateFamilyMember;
+  formReferences: IFormsCreateFamilyMemberRefs;
   readOnly: boolean;
   loading: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
@@ -77,12 +80,12 @@ interface AddFamilyMemberUIProps {
   handlePreviousStep: () => void;
 }
 
-function AddFamilyMemberUI(props: AddFamilyMemberUIProps) {
+function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
   const {
     currentStep,
     steps,
     isCurrentFormValid,
-    addFamilyMember,
+    createFamilyMember,
     formReferences,
     readOnly,
     loading,
@@ -111,7 +114,7 @@ function AddFamilyMemberUI(props: AddFamilyMemberUIProps) {
           {renderStepContent(
             currentStep,
             formReferences,
-            addFamilyMember,
+            createFamilyMember,
             isMobile,
             readOnly,
             setIsCurrentFormValid,
@@ -144,4 +147,4 @@ function AddFamilyMemberUI(props: AddFamilyMemberUIProps) {
   );
 }
 
-export { AddFamilyMemberUI };
+export { CreateFamilyMemberUI };

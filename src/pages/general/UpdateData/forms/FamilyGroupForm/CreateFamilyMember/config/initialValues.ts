@@ -31,11 +31,11 @@ const informationData: IInformationDataEntry = {
   businessActivity: "",
 };
 
-const initalValuesAddFamilyMember = {
+const initalValuesCreateFamilyMember = {
   identificationData,
   personalData,
   contactData,
   informationData,
 };
 
-export { initalValuesAddFamilyMember };
+export { initalValuesCreateFamilyMember };

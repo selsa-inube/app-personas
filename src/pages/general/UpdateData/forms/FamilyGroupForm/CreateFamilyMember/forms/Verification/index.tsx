@@ -1,12 +1,12 @@
 import { Fieldset } from "@design/input/Fieldset";
-import { IFormsAddFamilyMember } from "../../types";
+import { IFormsCreateFamilyMember } from "../../types";
 import { VerificationFieldsets } from "./VerificationFieldsets";
 import { updateDataFieldsetTitles } from "./config/fieldset";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 
 interface VerificationProps {
-  updatedData: IFormsAddFamilyMember;
+  updatedData: IFormsCreateFamilyMember;
 }
 
 function UpdateDataVerification(props: VerificationProps) {
