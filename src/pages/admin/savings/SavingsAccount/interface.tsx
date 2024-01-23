@@ -185,9 +185,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   hideMobileResume
                 />
                 <Button
-                  type="link"
-                  appearance="dark"
-                  variant="none"
+                  spacing="compact"
                   iconBefore={<MdOutlineAssignmentTurnedIn />}
                   path={`/my-savings/account/${productId}/movements`}
                 >
