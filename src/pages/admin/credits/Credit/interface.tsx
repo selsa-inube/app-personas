@@ -168,9 +168,7 @@ function CreditUI(props: CreditUIProps) {
                 />
                 <Button
                   type="link"
-                  appearance="primary"
                   spacing="compact"
-                  variant="filled"
                   iconBefore={<MdOutlineAssignmentTurnedIn />}
                   path={`/my-credits/${credit_id}/credit-movements`}
                 >
