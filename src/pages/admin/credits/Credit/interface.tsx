@@ -107,6 +107,8 @@ function CreditUI(props: CreditUIProps) {
                   label: "Plan de pagos",
                   icon: <MdOutlineAssignment />,
                   path: `/my-credits/${credit_id}/credit-amortization`,
+                  appearance: "primary",
+                  variant: "filled",
                 }}
                 {...creditBox}
               >
@@ -166,8 +168,9 @@ function CreditUI(props: CreditUIProps) {
                 />
                 <Button
                   type="link"
-                  appearance="dark"
-                  variant="none"
+                  appearance="primary"
+                  spacing="compact"
+                  variant="filled"
                   iconBefore={<MdOutlineAssignmentTurnedIn />}
                   path={`/my-credits/${credit_id}/credit-movements`}
                 >
