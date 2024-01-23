@@ -9,7 +9,6 @@ import { Stack } from "@design/layout/Stack";
 import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { SkeletonLine } from "@inube/design-system";
 
 import { quickLinks } from "@config/quickLinks";
 
@@ -61,7 +60,10 @@ function MyCreditsUI(props: MyCreditsUIProps) {
           <Box {...myCredits}>
             <Stack direction="column" gap="s075">
               {loading ? (
-                <SkeletonLine animated />
+                <>
+                  <Product loading />
+                  <Product loading />
+                </>
               ) : (
                 <>
                   {credits.length === 0 ? (
@@ -69,12 +71,11 @@ function MyCreditsUI(props: MyCreditsUIProps) {
                   ) : (
                     credits.map((credit) => (
                       <Product
-                        id={credit.id}
                         key={credit.id}
                         title={credit.title}
                         description={credit.id}
                         attributes={formatMyCreditCurrencyAttrs(
-                          extractMyCreditAttributes(credit)
+                          extractMyCreditAttributes(credit),
                         )}
                         breakpoints={myCreditAttributeBreakpoints}
                         tags={credit.tags}

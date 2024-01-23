@@ -9,10 +9,12 @@ import { IConditionsEntry } from "../../ConditionsForm/types";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
+import { IRefundEntry } from "../../RefundForm/types";
+import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
     <BoxAttribute
@@ -22,23 +24,31 @@ const renderInvestmentSummary = (
   </Stack>
 );
 
-const renderConditionsSummary = (values: IConditionsEntry,  isTablet: boolean) =>(
-  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+const renderConditionsSummary = (values: IConditionsEntry) => (
+  <Stack direction="column" gap="s100" width="100%">
     <BoxAttribute
       label="Pago de intereses:"
       value={peridiocityDM.valueOf(values.interestPayment)?.value}
     />
-    <BoxAttribute
-      label="Número de días:"
-      value={values.deadlineDays}
-    />
-    
+    <BoxAttribute label="Número de días:" value={values.deadlineDays} />
   </Stack>
 );
 
+const renderRefundSummary = (values: IRefundEntry) => {
+  return (
+    <Stack direction="column" gap="s100" width="100%">
+      <BoxAttribute
+        label="Forma de reembolso:"
+        value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
+      />
+      <BoxAttribute label="Cuenta:" value={values.accountDescription} />
+    </Stack>
+  );
+};
+
 const renderInvestmentNameSummary = (
   values: IInvestmentNameEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
     <BoxAttribute label="Nombre del producto:" value={values.productName} />
@@ -73,15 +83,13 @@ function SummaryBoxes(props: SummaryBoxesProps) {
     <>
       {stepKey === "investment" &&
         renderInvestmentSummary(cdatRequest.investment.values, isTablet)}
-         {stepKey === "conditions" &&
-          renderConditionsSummary(
-            cdatRequest.conditions.values,
-            isTablet
-          )}  
+      {stepKey === "conditions" &&
+        renderConditionsSummary(cdatRequest.conditions.values)}
+      {stepKey === "refund" && renderRefundSummary(cdatRequest.refund.values)}
       {stepKey === "investmentName" &&
         renderInvestmentNameSummary(
           cdatRequest.investmentName.values,
-          isTablet
+          isTablet,
         )}
       {stepKey === "contactChannels" &&
         renderContactChannelsSummary(cdatRequest.contactChannels.values)}

@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import styled from "styled-components";
 import { MessageAppearanceType } from "./types";
 
 interface IStyledSectionMessage {
@@ -16,8 +16,8 @@ const StyledSectionMessage = styled.div<IStyledSectionMessage>`
     props.isMessageResponsive ? inube.spacing.s300 : inube.spacing.s400};
   background-color: ${({ theme, appearance }) => {
     return (
-      theme?.color?.surface?.[appearance!]?.clear ||
-      inube.color.surface[appearance!].clear
+      theme?.color?.surface?.[appearance]?.clear ||
+      inube.color.surface[appearance].clear
     );
   }};
   width: ${(props) => (props.isMessageResponsive ? "auto" : "400px")};

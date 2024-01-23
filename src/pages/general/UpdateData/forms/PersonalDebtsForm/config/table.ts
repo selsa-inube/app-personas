@@ -1,5 +1,3 @@
-import { mapInvestmentMovement } from "@pages/admin/savings/SavingsAccountMovements/config/table";
-
 const personalDebtsTableTitles = [
   {
     id: "liabilityType",
@@ -45,7 +43,6 @@ const personalDebtsTableBreakpoints = [
 ];
 
 export {
-  mapInvestmentMovement,
   personalDebtsTableBreakpoints,
   personalDebtsTableTitles,
 };

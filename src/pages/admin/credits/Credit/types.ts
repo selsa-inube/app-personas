@@ -10,6 +10,7 @@ interface INextPaymentModalState {
   data?: {
     nextPaymentCapital: number;
     nextPaymentInterest?: number;
+    nextPaymentArrearsInterest?: number;
     nextPaymentValue: number;
   };
 }

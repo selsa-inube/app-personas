@@ -37,7 +37,7 @@ import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirect
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
 
 const mapPersonalInformation = (
-  personalInfoData: IThird
+  personalInfoData: IThird,
 ): IPersonalInformationEntry => {
   return {
     firstName: personalInfoData.personalData.identification.firstName,
@@ -73,7 +73,7 @@ const mapContactData = (contactInfoData: IContactData): IContactDataEntry => {
 
 const mapFamilyGroup = (
   familyGroupData: IFamilyThird,
-  index: number
+  index: number,
 ): IFamilyGroupEntry => {
   return {
     firstName: familyGroupData.identification.firstName,
@@ -104,12 +104,12 @@ const mapFamilyGroup = (
 
 const mapFamilyGroups = (familyGroups: IFamilyThird[]): IFamilyGroupEntry[] => {
   return familyGroups.map((familyGroup, index) =>
-    mapFamilyGroup(familyGroup, index)
+    mapFamilyGroup(familyGroup, index),
   );
 };
 
 const mapBankTransfers = (
-  bankTransfersAccount: IBankTransfersAccount
+  bankTransfersAccount: IBankTransfersAccount,
 ): IBankTransfersEntry => {
   return {
     bankEntity: bankTransfersAccount.bankEntity,
@@ -120,7 +120,7 @@ const mapBankTransfers = (
 
 const mapPersonalAsset = (
   personalAsset: IPersonalAssetEntry,
-  index: number
+  index: number,
 ): IEntry | IPersonalAssetEntry => {
   return {
     id: personalAsset.id || String(index),
@@ -136,22 +136,22 @@ const mapPersonalAsset = (
 };
 
 const mapPersonalAssets = (
-  personalAssets: IPersonalAssetEntries["entries"]
+  personalAssets: IPersonalAssetEntries["entries"],
 ): IEntry[] => {
   return personalAssets.map(
-    (personalAsset, index) => mapPersonalAsset(personalAsset, index) as IEntry
+    (personalAsset, index) => mapPersonalAsset(personalAsset, index) as IEntry,
   );
 };
 
 const mapPersonalDebt = (
   personalDebt: IPersonalDebtEntry,
-  index: number
+  index: number,
 ): IEntry | IPersonalDebtEntry => {
   return {
     id: personalDebt.id || String(index),
     liabilityType: getValueOfDomain(
       personalDebt.liabilityType || "",
-      "liabilityType"
+      "liabilityType",
     )?.value,
     debtName: personalDebt.debtName,
     terminationDate: personalDebt.terminationDate,
@@ -163,22 +163,22 @@ const mapPersonalDebt = (
 };
 
 const mapPersonalDebts = (
-  personalDebts: IPersonalDebtEntries["entries"]
+  personalDebts: IPersonalDebtEntries["entries"],
 ): IEntry[] => {
   return personalDebts.map(
-    (personalDebt, index) => mapPersonalDebt(personalDebt, index) as IEntry
+    (personalDebt, index) => mapPersonalDebt(personalDebt, index) as IEntry,
   );
 };
 
 const mapPersonalReference = (
   personalReference: IPersonalReferenceEntry,
-  index: number
+  index: number,
 ): IEntry | IPersonalReferenceEntry => {
   return {
     id: personalReference.id || String(index),
     referenceType: getValueOfDomain(
       personalReference.referenceType || "",
-      "referenceType"
+      "referenceType",
     )?.value,
     name: personalReference.name,
     address: personalReference.address,
@@ -189,16 +189,16 @@ const mapPersonalReference = (
 };
 
 const mapPersonalReferences = (
-  personalReferences: IPersonalReferenceEntries["entries"]
+  personalReferences: IPersonalReferenceEntries["entries"],
 ): IEntry[] => {
   return personalReferences.map(
     (personalReference, index) =>
-      mapPersonalReference(personalReference, index) as IEntry
+      mapPersonalReference(personalReference, index) as IEntry,
   );
 };
 
 const mapFinancialOperations = (
-  financialOperationsData?: IFinancialOperations
+  financialOperationsData?: IFinancialOperations,
 ): IFinancialOperationsEntry => {
   return {
     hasForeignCurrencyAccounts:
@@ -214,7 +214,7 @@ const mapFinancialOperations = (
 };
 
 const mapPersonalResidence = (
-  personalResidence?: IResidence
+  personalResidence?: IResidence,
 ): IPersonalResidenceEntry => {
   return {
     type: personalResidence?.type || "",
@@ -230,7 +230,7 @@ const mapPersonalResidence = (
 };
 
 const mapSocioeconomicInformation = (
-  socioeconomicData?: Record<string, string>
+  socioeconomicData?: Record<string, string>,
 ): ISocioeconomicInformationEntry => {
   return {
     educationLevel: socioeconomicData?.educationLevel || "",
@@ -245,7 +245,7 @@ const mapSocioeconomicInformation = (
 };
 
 const mapEconomicActivity = (
-  economicActivityData?: IEconomicActivity
+  economicActivityData?: IEconomicActivity,
 ): IEconomicActivityEntry => {
   return {
     economicActivity: economicActivityData?.economicActivity || "",
@@ -272,7 +272,7 @@ const mapEconomicActivity = (
   };
 };
 
-const mapIncomes = (incomeData?: Record<string, string>): IIncomesEntry => {
+const mapIncomes = (): IIncomesEntry => {
   return {
     basicSalary: "",
     bonds: "",
@@ -285,7 +285,7 @@ const mapIncomes = (incomeData?: Record<string, string>): IIncomesEntry => {
   };
 };
 
-const mapExpenses = (expensesData?: Record<string, string>): IExpensesEntry => {
+const mapExpenses = (): IExpensesEntry => {
   return {
     personalExpenses: "",
     familyExpenses: "",
@@ -298,7 +298,7 @@ const mapExpenses = (expensesData?: Record<string, string>): IExpensesEntry => {
 };
 
 const mapRelationshipWithDirectors = (
-  relationshipWithDirectorsData?: IRelationshipWithDirectors
+  relationshipWithDirectorsData?: IRelationshipWithDirectors,
 ): IRelationshipWithDirectorsEntry => {
   return {
     hasRelationshipWithDirectors:

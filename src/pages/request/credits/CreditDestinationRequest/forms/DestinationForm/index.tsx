@@ -19,7 +19,7 @@ interface DestinationFormProps {
 
 const DestinationForm = forwardRef(function DestinationForm(
   props: DestinationFormProps,
-  ref: React.Ref<FormikProps<IDestinationEntry>>
+  ref: React.Ref<FormikProps<IDestinationEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -27,7 +27,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);

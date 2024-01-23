@@ -96,7 +96,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   ref: React.Ref<FormikProps<IFamilyGroupEntries>>
 ) {
   const { initialValues, onSubmit } = props;
-  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
+  const [dynamicSchema] = useState(validationSchema);
   const [message, setMessage] = useState<IMessage>();
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
 
@@ -104,7 +104,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     initialValues,
     validateOnChange: false,
     validationSchema: dynamicSchema,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -229,7 +229,8 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   };
 
   const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
+    const fieldDescription = dynamicSchema.describe().fields[fieldName];
+    if (!("nullable" in fieldDescription)) return false;
     return !fieldDescription.nullable && !fieldDescription.optional;
   };
 

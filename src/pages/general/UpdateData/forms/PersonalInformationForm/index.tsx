@@ -20,7 +20,7 @@ interface PersonalInformationFormProps {
 
 const PersonalInformationForm = forwardRef(function PersonalInformationForm(
   props: PersonalInformationFormProps,
-  ref: React.Ref<FormikProps<IPersonalInformationEntry>>
+  ref: React.Ref<FormikProps<IPersonalInformationEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
@@ -28,7 +28,7 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
     initialValues,
     validationSchema,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);

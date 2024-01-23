@@ -1,9 +1,7 @@
-import { dictionary } from "./dictionary";
-
 const truncateAndObfuscateDescription = (
   description: string,
   type: string,
-  lengthToShow: number
+  lengthToShow: number,
 ) => {
   if (type === "CA") {
     const truncatedText = description.slice(-lengthToShow);
@@ -23,35 +21,16 @@ const capitalizeFirstLetters = (text: string) =>
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 
-const translateWord = (word: string) => {
-  const normalizedword = capitalizeText(word.toLowerCase());
-  for (const [key, value] of Object.entries(dictionary)) {
-    if (normalizedword === key) return value;
-  }
-  return "";
-};
-
-const replaceWord = (
-  sentence: string,
-  wordToReplace: string,
-  replacementByWord: string
-) => {
-  return sentence.replace(wordToReplace, replacementByWord);
-};
-
 const removeLastCharacters = (
   wordOfCell: string,
-  numberCharactersRemove: number
+  numberCharactersRemove: number,
 ): number => {
   return Number(wordOfCell.slice(0, -numberCharactersRemove));
 };
 
-
 export {
-  capitalizeText,
   capitalizeFirstLetters,
-  truncateAndObfuscateDescription,
-  translateWord,
-  replaceWord,
+  capitalizeText,
   removeLastCharacters,
+  truncateAndObfuscateDescription,
 };

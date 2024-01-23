@@ -1,9 +1,10 @@
 {
   "env": {
     "browser": true,
-    "es2020": true
+    "es2021": true
   },
   "extends": [
+    "plugin:@typescript-eslint/recommended",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
@@ -11,6 +12,7 @@
     "plugin:storybook/recommended",
     "prettier"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
@@ -20,8 +22,15 @@
       "version": "18.2"
     }
   },
-  "plugins": ["react-refresh"],
+  "plugins": ["react-refresh", "@typescript-eslint", "prettier"],
   "rules": {
-    "react-refresh/only-export-components": "warn"
+    "react-refresh/only-export-components": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "react-hooks/exhaustive-deps": "off"
+  },
+  "globals": {
+    "React": true,
+    "RequestInit": true
   }
 }

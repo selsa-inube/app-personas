@@ -33,7 +33,6 @@ function InvestmentNameFormUI(props: InvestmentNameFormUIProps) {
           validMessage="El nombre es válido"
           maxLength={30}
           withCounter
-          isRequired
         />
       </Stack>
     </form>

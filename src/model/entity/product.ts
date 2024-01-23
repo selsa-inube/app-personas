@@ -8,7 +8,7 @@ interface IAttribute {
 
 interface IMovement {
   id: string;
-  date: string;
+  date: Date;
   reference: string;
   description: string;
   capitalPayment?: number;
@@ -25,13 +25,13 @@ interface IMovement {
 interface IAmortization {
   id: string;
   paymentNumber: number;
-  date: string;
+  date: Date;
   capitalPayment?: number;
-  interest?: number;
+  interest: number;
   lifeInsurance?: number;
   patrimonialInsurance?: number;
   capitalization?: number;
-  others?: number;
+  others: number;
   totalMonthlyValue: number;
   projectedBalance: number;
 }

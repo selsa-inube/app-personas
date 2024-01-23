@@ -8,6 +8,10 @@ import { Stack } from "@design/layout/Stack";
 
 import { Tag, TagProps } from "@design/data/Tag";
 import {
+  ButtonAppearanceType,
+  ButtonVariantType,
+} from "@design/input/Button/types";
+import {
   StyledBox,
   StyledCollapseIcon,
   StyledDivider,
@@ -23,6 +27,8 @@ interface BoxProps {
     label: string;
     icon: React.JSX.Element;
     path: string;
+    appearance?: ButtonAppearanceType;
+    variant?: ButtonVariantType;
   };
   navigateTo?: string;
   collapsing: {
@@ -102,9 +108,9 @@ function Box(props: BoxProps) {
               type={button.path ? "link" : "button"}
               path={button.path}
               iconBefore={button.icon}
-              variant="none"
+              variant={button.variant || "none"}
               spacing="compact"
-              appearance="dark"
+              appearance={button.appearance || "dark"}
               fullwidth={false}
             >
               {button.label}

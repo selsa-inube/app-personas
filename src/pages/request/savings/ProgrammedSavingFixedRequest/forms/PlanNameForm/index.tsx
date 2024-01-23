@@ -17,14 +17,14 @@ interface PlanNameFormProps {
 
 const PlanNameForm = forwardRef(function PlanNameForm(
   props: PlanNameFormProps,
-  ref: React.Ref<FormikProps<IPlanNameEntry>>
+  ref: React.Ref<FormikProps<IPlanNameEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);

@@ -63,6 +63,7 @@ interface IBankTransfersAccount {
   bankEntity: string;
   accountType: string;
   accountNumber: number;
+  description: string;
 }
 
 interface IResidence {

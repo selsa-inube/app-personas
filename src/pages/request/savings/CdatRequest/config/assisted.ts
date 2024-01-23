@@ -1,5 +1,6 @@
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "../types";
 import { initalValuesCDAT } from "./initialValues";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
 
 const cdatRequestSteps = {
   investment: {
@@ -10,22 +11,27 @@ const cdatRequestSteps = {
   conditions: {
     id: 2,
     name: "Condiciones",
+    description: "Define las características de tu solicitud.",
+  },
+  refund: {
+    id: 3,
+    name: "Reembolso",
     description:
-      "Define las características de tu solicitud.",
+      "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
   },
   investmentName: {
-    id: 3,
+    id: 4,
     name: "Nombra tu inversión",
     description: "¿Cómo te gustaría que se llame tu producto?",
   },
   contactChannels: {
-    id: 4,
+    id: 5,
     name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
   summary: {
-    id: 5,
+    id: 6,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },
@@ -35,7 +41,7 @@ const cdatStepsRules = (
   currentStep: number,
   currentCdatRequest: IFormsCdatRequest,
   formReferences: IFormsCdatRequestRefs,
-  isCurrentFormValid: boolean
+  isCurrentFormValid: boolean,
 ) => {
   let newCdatRequest = { ...currentCdatRequest };
 
@@ -64,11 +70,36 @@ const cdatStepsRules = (
       }
       return newCdatRequest;
     }
-    
+    case cdatRequestSteps.conditions.id: {
+      const values = formReferences.conditions.current?.values;
+
+      if (!values) return currentCdatRequest;
+
+      newCdatRequest.conditions = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentCdatRequest.conditions.values)
+      ) {
+        newCdatRequest.refund = {
+          isValid: false,
+          values: {
+            ...initalValuesCDAT.refund,
+            refundMethod: "creditToInternalAccount",
+            account: savingsMock[0].id,
+            accountDescription: savingsMock[0].description,
+          },
+        };
+      }
+      return newCdatRequest;
+    }
   }
 
   const stepKey = Object.entries(cdatRequestSteps).find(
-    ([, config]) => config.id === currentStep
+    ([, config]) => config.id === currentStep,
   )?.[0];
 
   if (!stepKey) return currentCdatRequest;

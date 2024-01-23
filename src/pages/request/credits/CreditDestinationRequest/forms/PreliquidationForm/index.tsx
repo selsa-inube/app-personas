@@ -11,14 +11,14 @@ interface PreliquidationFormProps {
 
 const PreliquidationForm = forwardRef(function PreliquidationForm(
   props: PreliquidationFormProps,
-  ref: React.Ref<FormikProps<IPreliquidationEntry>>
+  ref: React.Ref<FormikProps<IPreliquidationEntry>>,
 ) {
   const { initialValues, onSubmit, loading } = props;
 
   const formik = useFormik({
     initialValues,
     validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);

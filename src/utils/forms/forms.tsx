@@ -15,9 +15,9 @@ const getFieldState = (formik: FormikValues, fieldName: string) => {
 const generateBasicForm = (fields: IFormField[]) => {
   let validationSchema = Yup.object({});
 
-  for (let field of fields) {
+  for (const field of fields) {
     validationSchema = validationSchema.concat(
-      Yup.object({ [field.name]: field.validation })
+      Yup.object({ [field.name]: field.validation }),
     );
   }
 
@@ -33,11 +33,12 @@ const generateDynamicForm = (formik: FormikValues, form: IFormStructure) => {
 
   listenFields.forEach((listenField) => {
     if (
-      form?.[listenField] &&
-      formik.values?.[listenField] &&
-      form?.[listenField]?.[formik.values?.[listenField]]
+      form &&
+      form[listenField] &&
+      formik.values[listenField] &&
+      form[listenField][formik.values[listenField]]
     ) {
-      fields.push(...form?.[listenField]?.[formik.values?.[listenField]]);
+      fields.push(...form[listenField][formik.values[listenField]]);
     }
   });
 
@@ -51,11 +52,11 @@ const generateFormFields = (
   customHandleChange?: (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => void,
   fullColumns?: boolean,
 
-  disabled?: boolean
+  disabled?: boolean,
 ) => {
   return renderFields.map((field) => {
     switch (field.type) {

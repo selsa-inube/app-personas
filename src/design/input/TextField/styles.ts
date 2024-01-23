@@ -13,13 +13,6 @@ const StyledContainer = styled.div<IStyledContainer>`
   position: relative;
 `;
 
-interface IStyledContainerLabel {
-  alignItems: string;
-  isDisabled: boolean;
-  wrap: string;
-}
-
-
 interface IStyledInputContainer {
   isDisabled: boolean;
   isFocused: boolean;
@@ -110,7 +103,6 @@ interface IStyledInput {
 
 const StyledInput = styled.input<IStyledInput>`
   outline: none;
-  border-radius: ${inube.spacing.s100};
   cursor: ${({ readOnly }) => readOnly && "not-allowed"};
   font-family: ${({ theme }) =>
     theme.typography?.body?.large?.font || inube.typography.body.large.font};

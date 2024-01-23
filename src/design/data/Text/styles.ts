@@ -20,11 +20,11 @@ interface IStyledText {
 
 const StyledText = styled.p<IStyledText>`
   margin: ${({ margin, theme }) =>
-    theme.spacing?.[margin] ||
+    theme.spacing?.[margin as keyof typeof inube.spacing] ||
     inube.spacing[margin as keyof typeof inube.spacing] ||
     margin};
   padding: ${({ padding, theme }) =>
-    theme.spacing?.[padding] ||
+    theme.spacing?.[padding as keyof typeof inube.spacing] ||
     inube.spacing[padding as keyof typeof inube.spacing] ||
     padding};
   text-align: ${({ textAlign }) => textAlign};

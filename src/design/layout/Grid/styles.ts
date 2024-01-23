@@ -2,11 +2,11 @@ import { inube } from "@design/tokens";
 import { SpacingTokensType } from "@ptypes/spacing.types";
 import styled from "styled-components";
 import {
-  GridJustifyItemsType,
-  GridAlignItemsType,
-  GridJustifyContentType,
   GridAlignContentType,
+  GridAlignItemsType,
   GridAutoFlowType,
+  GridJustifyContentType,
+  GridJustifyItemsType,
 } from "./types";
 
 interface IStyledGrid {
@@ -40,15 +40,15 @@ const StyledGrid = styled.div<IStyledGrid>`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
   margin: ${({ margin, theme }) =>
-    theme.spacing?.[margin] ||
+    theme.spacing?.[margin as keyof typeof inube.spacing] ||
     inube.spacing[margin as keyof typeof inube.spacing] ||
     margin};
   padding: ${({ padding, theme }) =>
-    theme.spacing?.[padding] ||
+    theme.spacing?.[padding as keyof typeof inube.spacing] ||
     inube.spacing[padding as keyof typeof inube.spacing] ||
     padding};
   gap: ${({ gap, theme }) =>
-    theme.spacing?.[gap] ||
+    theme.spacing?.[gap as keyof typeof inube.spacing] ||
     inube.spacing[gap as keyof typeof inube.spacing] ||
     gap};
 `;

@@ -1,13 +1,12 @@
+import { IDirector } from "@mocks/directors/directors.mocks";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
-import * as Yup from "yup";
-import { useState } from "react";
-import { RelationshipWithDirectorsFormUI } from "./interface";
-import { IRelationshipWithDirectorsEntry } from "./types";
-import { RelationshipWithDirectorsRequiredFields } from "./config/formConfig";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
-import { IDirector } from "@mocks/directors/directors.mocks";
+import * as Yup from "yup";
+import { RelationshipWithDirectorsRequiredFields } from "./config/formConfig";
+import { RelationshipWithDirectorsFormUI } from "./interface";
+import { IRelationshipWithDirectorsEntry } from "./types";
 
 const validationSchema = Yup.object().shape({
   hasRelationshipWithDirectors:
@@ -33,24 +32,24 @@ interface RelationshipWithDirectorsFormProps {
 const RelationshipWithDirectorsForm = forwardRef(
   function RelationshipWithDirectorsForm(
     props: RelationshipWithDirectorsFormProps,
-    ref: React.Ref<FormikProps<IRelationshipWithDirectorsEntry>>
+    ref: React.Ref<FormikProps<IRelationshipWithDirectorsEntry>>,
   ) {
     const { initialValues, onFormValid, onSubmit, loading } = props;
 
-    const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
+    const [dynamicSchema] = useState(validationSchema);
     const [showDirectorsModal, setShowDirectorsModal] = useState(false);
 
     const formik = useFormik({
       initialValues,
       validationSchema: dynamicSchema,
       validateOnChange: false,
-      onSubmit: onSubmit || (() => {}),
+      onSubmit: onSubmit || (() => true),
     });
 
     useImperativeHandle(ref, () => formik);
 
     const customHandleBlur = (
-      event: React.FocusEvent<HTMLElement, Element>
+      event: React.FocusEvent<HTMLElement, Element>,
     ) => {
       formik.handleBlur(event);
 
@@ -71,9 +70,8 @@ const RelationshipWithDirectorsForm = forwardRef(
     };
 
     const isRequired = (fieldName: string): boolean => {
-      const fieldDescription = dynamicSchema.describe().fields[
-        fieldName
-      ] as any;
+      const fieldDescription = dynamicSchema.describe().fields[fieldName];
+      if (!("nullable" in fieldDescription)) return false;
       return !fieldDescription.nullable && !fieldDescription.optional;
     };
 
@@ -88,7 +86,7 @@ const RelationshipWithDirectorsForm = forwardRef(
         handleModalSelect={handleModalSelect}
       />
     );
-  }
+  },
 );
 
 export { RelationshipWithDirectorsForm };
