@@ -27,19 +27,24 @@ const amortizationTableTitles = [
     priority: 1,
   },
   {
+    id: "type",
+    titleName: "Tipo",
+    priority: 2,
+  },
+  {
     id: "capitalPayment",
     titleName: "Abono",
-    priority: 2,
+    priority: 3,
   },
   {
     id: "interest",
     titleName: "Interés",
-    priority: 3,
+    priority: 4,
   },
   {
     id: "others",
     titleName: "Otros",
-    priority: 4,
+    priority: 5,
   },
 ];
 

@@ -26,6 +26,7 @@ interface IAmortization {
   id: string;
   paymentNumber: number;
   date: Date;
+  type:string;
   capitalPayment?: number;
   interest: number;
   lifeInsurance?: number;

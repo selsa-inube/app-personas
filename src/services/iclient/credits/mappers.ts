@@ -1,8 +1,9 @@
 import { TagProps } from "@design/data/Tag";
 import {
+  amortizationTableValuesMock,
   amortizationTypeValuesMock,
-  movementDescriptionMock,
   guaranteeTypeValuesMock,
+  movementDescriptionMock,
   peridiocityValuesMock,
 } from "@mocks/products/credits/utils.mocks";
 import {
@@ -251,6 +252,7 @@ const mapCreditAmortizationApiToEntity = (
     id: String(payment.paymentPlanId),
     paymentNumber: Number(payment.quotaNumber),
     date: new Date(String(payment.quotaDate)),
+    type: amortizationTableValuesMock[String(payment.quotaType)],
     others,
     interest: Number(payment.fixedInterestValue || 0),
     totalMonthlyValue: Number(payment.quotaValue),
