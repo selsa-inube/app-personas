@@ -49,13 +49,13 @@ const amortizationTableTitles = [
 ];
 
 const amortizationTableBreakpoints = [
-  { breakpoint: "(min-width: 1200px)", totalColumns: 5 },
-  { breakpoint: "(max-width: 1000px)", totalColumns: 4 },
-  { breakpoint: "(max-width: 900px)", totalColumns: 5 },
-  { breakpoint: "(max-width: 800px)", totalColumns: 4 },
-  { breakpoint: "(max-width: 650px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 500px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 390px)", totalColumns: 2 },
+  { breakpoint: "(min-width: 1200px)", totalColumns: 6 },
+  { breakpoint: "(max-width: 1100px)", totalColumns: 5 },
+  { breakpoint: "(max-width: 900px)", totalColumns: 6 },
+  { breakpoint: "(max-width: 800px)", totalColumns: 5 },
+  { breakpoint: "(max-width: 680px)", totalColumns: 4 },
+  { breakpoint: "(max-width: 550px)", totalColumns: 3 },
+  { breakpoint: "(max-width: 430px)", totalColumns: 2 },
 ];
 
 const movementsTableBreakpoints = [
