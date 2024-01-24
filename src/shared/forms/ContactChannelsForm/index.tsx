@@ -32,6 +32,7 @@ const ContactChannelsForm = forwardRef(function ContactChannelsForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
@@ -43,33 +44,7 @@ const ContactChannelsForm = forwardRef(function ContactChannelsForm(
     });
   }, []);
 
-  const customHandleChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    await formik.setFieldValue(event.target.name, event.target.checked);
-
-    const errors = await formik.validateForm();
-    onFormValid(Object.keys(errors).length === 0);
-  };
-
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  };
-
-  return (
-    <ContactChannelsFormUI
-      loading={loading}
-      formik={formik}
-      customHandleChange={customHandleChange}
-      customHandleBlur={customHandleBlur}
-    />
-  );
+  return <ContactChannelsFormUI loading={loading} formik={formik} />;
 });
 
 export { ContactChannelsForm };

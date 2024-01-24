@@ -13,11 +13,15 @@ import { CreditConditionsFormUI } from "./interface";
 import { ICreditConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
-  amount: validationRules.money,
+  amount: validationRules.money.required(validationMessages.required),
   deadline: Yup.number()
     .min(1, validationMessages.minNumbers(10))
     .max(1000, validationMessages.maxNumbers(1000)),
   quota: validationRules.money,
+  interestRate: Yup.number().required(validationMessages.required),
+  cycleInterest: Yup.number().required(validationMessages.required),
+  netValue: Yup.number().required(validationMessages.required),
+  hasResult: Yup.boolean().required(validationMessages.required),
 });
 
 interface CreditConditionsFormProps {
@@ -40,11 +44,17 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicValidationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
+
+  useEffect(() => {
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
+  }, [formik.values]);
 
   useEffect(() => {
     const maxDeadline =
@@ -66,7 +76,8 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
           ),
         amount: Yup.number()
           .min(1, validationMessages.minCurrencyNumbers(1))
-          .max(maximumQuotas.noWarranty, "Has superado el cupo máximo"),
+          .max(maximumQuotas.noWarranty, "Has superado el cupo máximo")
+          .required(validationMessages.required),
       }),
     );
     setDynamicValidationSchema(newValidationSchema);
@@ -76,18 +87,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     interestRatesMock[
       formik.values.creditDestination as keyof typeof interestRatesMock
     ];
-
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    if (formik.values.product === "generateRecommendation") {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
-    }
-  };
 
   const simulateCredit = () => {
     setLoadingSimulation(true);
@@ -182,7 +181,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       loadingSimulation={loadingSimulation}
       simulateCredit={simulateCredit}
       customHandleChange={customHandleChange}
-      customHandleBlur={customHandleBlur}
       onFormValid={onFormValid}
     />
   );

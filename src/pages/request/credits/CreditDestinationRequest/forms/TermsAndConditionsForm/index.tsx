@@ -1,11 +1,11 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import * as Yup from "yup";
 import { TermsAndConditionsFormUI } from "./interface";
 import { ITermsAndConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
-  accept: Yup.boolean().test((value) => value === false),
+  accept: Yup.boolean().test((value) => value === true),
 });
 
 interface TermsAndConditionsFormProps {
@@ -29,21 +29,13 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    formik.handleChange(event);
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, [formik.values]);
 
-  return (
-    <TermsAndConditionsFormUI
-      loading={loading}
-      formik={formik}
-      customHandleChange={customHandleChange}
-    />
-  );
+  return <TermsAndConditionsFormUI loading={loading} formik={formik} />;
 });
 
 export { TermsAndConditionsForm };

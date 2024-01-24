@@ -15,9 +15,16 @@ import { maximumQuotasAvailableMock } from "@mocks/products/credits/request.mock
 import { FormikValues } from "formik";
 import { MdAttachMoney } from "react-icons/md";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
-import { currencyFormat, parseCurrencyString } from "src/utils/currency";
+import {
+  currencyFormat,
+  parseCurrencyString,
+  validateCurrencyField,
+} from "src/utils/currency";
+import { getFieldState } from "src/utils/forms/forms";
 import { StyledList } from "./styles";
 
+const creditDestinationDM = getDomainById("creditDestination");
+const creditProductTypeDM = getDomainById("creditProductType");
 interface CreditConditionsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
@@ -25,9 +32,8 @@ interface CreditConditionsFormUIProps {
   loadingSimulation?: boolean;
   simulateCredit: () => void;
   customHandleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -39,20 +45,10 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     loadingSimulation,
     simulateCredit,
     customHandleChange,
-    customHandleBlur,
     onFormValid,
   } = props;
 
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
-    return "valid";
-  }
-
   const isMobile = useMediaQuery("(max-width: 750px)");
-
-  const creditDestinationDM = getDomainById("creditDestination");
-  const creditProductTypeDM = getDomainById("creditProductType");
 
   const maximumQuotas =
     maximumQuotasAvailableMock[
@@ -64,12 +60,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);
     formik.setFieldValue("hasResult", false);
     onFormValid(false);
-  };
-
-  const validateCurrencyField = (fieldName: string) => {
-    return typeof formik.values[fieldName] === "number"
-      ? currencyFormat(formik.values[fieldName])
-      : "";
   };
 
   return (
@@ -197,17 +187,18 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                   name="amount"
                   id="amount"
                   iconAfter={<MdAttachMoney size={18} />}
-                  value={validateCurrencyField("amount")}
+                  value={validateCurrencyField("amount", formik)}
                   type="text"
                   errorMessage={formik.errors.amount}
                   isDisabled={loading}
                   size="compact"
                   isFullWidth
-                  state={stateValue("amount")}
-                  onBlur={customHandleBlur}
+                  state={getFieldState(formik, "amount")}
+                  onBlur={formik.handleBlur}
                   onFocus={formik.handleFocus}
                   onChange={handleChangeWithCurrency}
                   validMessage="El valor es válido"
+                  isRequired
                 />
                 {formik.values.product !== "generateRecommendation" && (
                   <>
@@ -222,7 +213,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       onBlur={formik.handleBlur}
                       errorMessage={formik.errors.peridiocity}
                       isDisabled={loading}
-                      state={stateValue("peridiocity")}
+                      state={getFieldState(formik, "peridiocity")}
                       onChange={customHandleChange}
                       readOnly
                     />
@@ -233,13 +224,13 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         placeholder="Ingresa el valor de la cuota"
                         name="quota"
                         id="quota"
-                        value={validateCurrencyField("quota")}
+                        value={validateCurrencyField("quota", formik)}
                         type="text"
                         errorMessage={formik.errors.quota}
                         isDisabled={loading}
                         size="compact"
                         isFullWidth
-                        state={stateValue("quota")}
+                        state={getFieldState(formik, "quota")}
                         onBlur={formik.handleBlur}
                         onChange={handleChangeWithCurrency}
                         validMessage="La cuota es válida"
@@ -256,7 +247,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         isDisabled={loading}
                         size="compact"
                         isFullWidth
-                        state={stateValue("deadline")}
+                        state={getFieldState(formik, "deadline")}
                         onBlur={formik.handleBlur}
                         onChange={customHandleChange}
                         validMessage="El plazo es válido"

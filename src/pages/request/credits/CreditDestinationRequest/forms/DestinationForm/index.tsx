@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { DestinationFormUI } from "./interface";
@@ -26,32 +26,27 @@ const DestinationForm = forwardRef(function DestinationForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleChange = (fieldName: string, value: string) => {
-    formik.setFieldValue(fieldName, value);
-  };
-
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
+  }, [formik.values]);
+
+  const radioHandleChange = (fieldName: string, value: string) => {
+    formik.setFieldValue(fieldName, value);
   };
 
   return (
     <DestinationFormUI
       loading={loading}
       formik={formik}
-      customHandleChange={customHandleChange}
-      customHandleBlur={customHandleBlur}
+      radioHandleChange={radioHandleChange}
     />
   );
 });

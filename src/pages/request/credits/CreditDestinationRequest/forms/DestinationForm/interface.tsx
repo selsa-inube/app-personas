@@ -8,26 +8,20 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { destinationProductsMock } from "@mocks/products/credits/request.mocks";
 import { FormikValues } from "formik";
 import { MdOutlineAutoAwesome } from "react-icons/md";
+import { getFieldState } from "src/utils/forms/forms";
+
+const creditDestinationDM = getDomainById("creditDestination");
 
 interface DestinationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleChange: (fieldName: string, value: string) => void;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
+  radioHandleChange: (fieldName: string, value: string) => void;
 }
 
 function DestinationFormUI(props: DestinationFormUIProps) {
-  const { formik, loading, customHandleChange, customHandleBlur } = props;
-
-  function stateValue(attribute: string) {
-    if (!formik.touched[attribute]) return "pending";
-    if (formik.touched[attribute] && formik.errors[attribute]) return "invalid";
-    return "valid";
-  }
+  const { formik, loading, radioHandleChange } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
-
-  const creditDestinationDM = getDomainById("creditDestination");
 
   return (
     <form>
@@ -43,10 +37,10 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             size="compact"
             isFullWidth
             options={creditDestinationDM}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
             errorMessage={formik.errors.creditDestination}
             isDisabled={loading}
-            state={stateValue("creditDestination")}
+            state={getFieldState(formik, "creditDestination")}
             onChange={formik.handleChange}
           />
         </Stack>
@@ -76,11 +70,9 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                         description={product.description || ""}
                         checked={formik.values.product === product.id}
                         key={product.id}
-                        onClick={() =>
-                          customHandleChange("product", product.id)
-                        }
+                        onClick={() => radioHandleChange("product", product.id)}
                       />
-                    )
+                    ),
                 )}
               </Grid>
             </>

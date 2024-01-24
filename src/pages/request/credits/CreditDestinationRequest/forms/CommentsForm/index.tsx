@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { CommentsFormUI } from "./interface";
 import { ICommentsEntry } from "./types";
 
@@ -18,29 +18,19 @@ const CommentsForm = forwardRef(function CommentsForm(
 
   const formik = useFormik({
     initialValues,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, [formik.values]);
 
-  return (
-    <CommentsFormUI
-      loading={loading}
-      formik={formik}
-      customHandleBlur={customHandleBlur}
-    />
-  );
+  return <CommentsFormUI loading={loading} formik={formik} />;
 });
 
 export { CommentsForm };

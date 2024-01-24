@@ -37,12 +37,18 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicForm.validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
   });
 
   useImperativeHandle(ref, () => formik);
+
+  useEffect(() => {
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
+  }, [formik.values]);
 
   useEffect(() => {
     if (formik.values.disbursementType) {
@@ -57,16 +63,6 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       });
     }
   }, []);
-
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  };
 
   const customHandleChange = (
     event: React.ChangeEvent<
@@ -112,7 +108,6 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     <DisbursementFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
       customHandleChange={customHandleChange}
       renderFields={dynamicForm.renderFields}
     />

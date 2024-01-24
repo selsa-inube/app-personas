@@ -55,7 +55,6 @@ const generateFormFields = (
     >,
   ) => void,
   fullColumns?: boolean,
-
   disabled?: boolean,
 ) => {
   return renderFields.map((field) => {
