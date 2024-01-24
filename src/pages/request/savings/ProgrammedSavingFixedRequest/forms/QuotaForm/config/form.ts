@@ -1,5 +1,5 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IFormStructure } from "@ptypes/forms.types";
+import { IDynamicFormOptions, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { biweeklyPayDayDM } from "src/model/domains/general/biweeklyPayDay";
 import { monthlyPayDayDM } from "src/model/domains/general/monthlyPayDay";
@@ -21,21 +21,71 @@ const payDay = (periodicityId: string) => {
   return commonFields.paydayByDate(true);
 };
 
+const forbiddenOptionsMap: IDynamicFormOptions = {
+  physicalCollectionChannels: [
+    peridiocityDM.SINGLE.id,
+    peridiocityDM.QUARTERLY.id,
+  ],
+  payrollDiscount:[
+    peridiocityDM.SINGLE.id,
+    peridiocityDM.QUARTERLY.id,
+    peridiocityDM.SEMIANNUAL.id,
+    peridiocityDM.ANNUAL.id,
+  ],
+  northCranes: [
+    peridiocityDM.SINGLE.id,
+    peridiocityDM.WEEKLY.id,
+    peridiocityDM.QUARTERLY.id,
+  ],
+  westernCranes: [
+    peridiocityDM.SINGLE.id,
+    peridiocityDM.WEEKLY.id,
+    peridiocityDM.QUARTERLY.id,
+    peridiocityDM.ANNUAL.id,
+  ],
+  easternCranes: [
+    peridiocityDM.SINGLE.id,
+    peridiocityDM.WEEKLY.id,
+    peridiocityDM.QUARTERLY.id,
+    peridiocityDM.SEMIANNUAL.id,
+    peridiocityDM.ANNUAL.id,
+  ],
+  southCranes: [
+    peridiocityDM.SINGLE.id,
+    peridiocityDM.WEEKLY.id,
+    peridiocityDM.BIWEEKLY.id,
+    peridiocityDM.QUARTERLY.id,
+    peridiocityDM.SEMIANNUAL.id,
+    peridiocityDM.ANNUAL.id,
+  ],
+};
+
+const filterPeriodicityOptions = (paymentMethod: string) => {
+  const forbiddenOptions = forbiddenOptionsMap[paymentMethod] || [];
+  return peridiocityDM.options.filter(
+    (option) => !forbiddenOptions.includes(option.id),
+  );
+};
+
 const commonFields = {
-  periodicity: (gridColumn: string, value?: string) => ({
-    name: "periodicity",
-    type: "select",
-    label: "Periodicidad",
-    placeholder: "",
-    size: "compact",
-    options: peridiocityDM.options.filter(
-      (option) => option.id !== "single" && option.id !== "quarterly",
-    ),
-    value,
-    isFullWidth: true,
-    gridColumn,
-    validation: Yup.string().required(validationMessages.required),
-  }),
+  periodicity: (gridColumn: string, paymentMethod: string, value?: string) => {
+    const filteredOptions = filterPeriodicityOptions(paymentMethod);
+    const isSingleOption = filteredOptions.length === 1;
+
+    return {
+      name: "periodicity",
+      type: "select",
+      label: "Periodicidad",
+      placeholder: "",
+      size: "compact",
+      options: filteredOptions,
+      readOnly: isSingleOption,
+      value,
+      isFullWidth: true,
+      gridColumn,
+      validation: Yup.string().required(validationMessages.required),
+    };
+  },
   paydayTypeToSelect: (options: ISelectOption[]) => ({
     name: "payDayType",
     type: "select",
@@ -70,16 +120,17 @@ const structureQuotaForm = (
   return {
     paymentMethod: {
       physicalCollectionChannels: [
-        commonFields.periodicity("span 1"),
+        commonFields.periodicity("span 1", "physicalCollectionChannels"),
         payDay(periodicityId),
       ],
       automaticDebit: [],
-      northCranes: [],
-      westernCranes: [],
-      easternCranes: [],
-      southCranes: [],
+      payrollDiscount: [commonFields.periodicity("span 1", "payrollDiscount")],
+      northCranes: [commonFields.periodicity("span 1", "northCranes")],
+      westernCranes: [commonFields.periodicity("span 1", "westernCranes")],
+      easternCranes: [commonFields.periodicity("span 1", "easternCranes")],
+      southCranes: [commonFields.periodicity("span 1", "southCranes")],
     },
   };
 };
 
-export { structureQuotaForm };
+export { structureQuotaForm, filterPeriodicityOptions };
