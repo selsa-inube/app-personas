@@ -89,7 +89,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
 
         <StyledBody>
           <Text type="title" size="medium" appearance="dark">
-            Especificación pago mínimo (cuota)
+            Detalle
           </Text>
 
           <Stack direction="column" gap="s200">
