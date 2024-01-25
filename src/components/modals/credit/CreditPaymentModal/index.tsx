@@ -82,9 +82,19 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
         <StyledDivider dashed />
 
         <StyledBodyHead>
-          <Text type="title" size="medium" appearance="dark">
-            Cuota {payment.paymentNumber} - {payment.date}
-          </Text>
+          <Stack direction="column" gap="s050">
+            <Text type="title" size="medium" appearance="dark">
+              Cuota {payment.paymentNumber} - {payment.date}
+            </Text>
+            <Stack gap="s100">
+              <Text type="label" size={isMobile ? "small" : "medium"}>
+                Tipo:
+              </Text>
+              <Text type="body" size="small" appearance="gray">
+                {payment.type}
+              </Text>
+            </Stack>
+          </Stack>
         </StyledBodyHead>
 
         <StyledBody>
