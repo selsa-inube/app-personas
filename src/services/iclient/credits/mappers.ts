@@ -114,10 +114,11 @@ const mapCreditApiToEntity = (
     String(credit.paymentMethodName).toLowerCase(),
   );
   const interesRate =
-    Object(credit.accumulatedByObligations)[0].spreadCurrentRate +
-    Object(credit.accumulatedByObligations)[0].currentFixedPoints;
+    (Object(credit.accumulatedByObligations)[0].spreadCurrentRate || 0) +
+    (Object(credit.accumulatedByObligations)[0].currentFixedPoints || 0);
 
-  const roundInteresRate = interesRate.toFixed(2);
+  const roundInteresRate =
+    interesRate == 0 ? interesRate : interesRate.toFixed(2);
 
   const attributes = [
     {
