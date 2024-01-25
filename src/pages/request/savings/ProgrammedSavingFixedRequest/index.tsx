@@ -3,10 +3,8 @@ import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
-import {
-  programmedSavingFixedRequestSteps,
-  programmedSavingFixedStepsRules,
-} from "./config/assisted";
+import { programmedSavingFixedRequestSteps } from "./config/assisted";
+
 import { initalValuesProgrammedSavingFixed } from "./config/initialValues";
 import { IGoalEntry } from "./forms/GoalForm/types";
 import { IPlanNameEntry } from "./forms/PlanNameForm/types";
@@ -17,6 +15,7 @@ import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
+import { programmedSavingFixedStepsRules } from "./utils";
 
 function ProgrammedSavingFixedRequest() {
   const [currentStep, setCurrentStep] = useState(
