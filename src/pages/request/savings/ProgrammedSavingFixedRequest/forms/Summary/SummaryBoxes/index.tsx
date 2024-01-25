@@ -1,10 +1,10 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
-import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { reimbursementTypeDM } from "src/model/domains/economicActivity/reimbursementType";
 import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsProgrammedSavingFixedRequest } from "../../../types";
 import { IGoalEntry } from "../../GoalForm/types";
@@ -94,18 +94,18 @@ function SummaryBoxes(props: SummaryBoxesProps) {
 
       {stepKey === "reimbursement" &&
         renderReimbursementSummary(
-          programmedSavingFixedRequest.reimbursement.values
+          programmedSavingFixedRequest.reimbursement.values,
         )}
 
       {stepKey === "planName" &&
         renderPlanNameSummary(
           programmedSavingFixedRequest.planName.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(
-          programmedSavingFixedRequest.contactChannels.values
+          programmedSavingFixedRequest.contactChannels.values,
         )}
     </>
   );

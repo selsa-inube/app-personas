@@ -97,7 +97,7 @@ function Product(props: ProductProps) {
           </Stack>
         </Stack>
         {loading ? (
-          <StyledSkeletonContainer>
+          <StyledSkeletonContainer isMobile={isMobile}>
             <Stack direction="column" gap="s050">
               <SkeletonLine animated />
               <SkeletonLine animated />

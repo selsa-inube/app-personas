@@ -1,5 +1,3 @@
-import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
-import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
@@ -11,6 +9,8 @@ import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
+import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 
 function CdatRequest() {
   const [currentStep, setCurrentStep] = useState(
