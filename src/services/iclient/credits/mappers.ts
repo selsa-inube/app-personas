@@ -247,12 +247,16 @@ const mapCreditAmortizationApiToEntity = (
     Number(payment.otherConceptValue || 0) +
     Number(payment.capitalizationValue || 0);
 
+  const totalInterest =
+    Number(payment.fixedInterestValue || 0) +
+    Number(payment.variableInterestValue || 0);
+
   const buildPayment: IAmortization = {
     id: String(payment.paymentPlanId),
     paymentNumber: Number(payment.quotaNumber),
     date: new Date(String(payment.quotaDate)),
     others,
-    interest: Number(payment.fixedInterestValue || 0),
+    interest: totalInterest,
     totalMonthlyValue: Number(payment.quotaValue),
     projectedBalance: Number(payment.projectedBalance),
   };
