@@ -1,6 +1,6 @@
 import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { regex } from "src/validations/regularExpressions";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
@@ -112,21 +112,17 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, [formik.values]);
 
   const handleModalSelect = (
     field: string,
@@ -155,7 +151,6 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
       showMainActivityModal={showMainActivityModal}
       showSecondaryActivityModal={showSecondaryActivityModal}
       isRequired={isRequired}
-      customHandleBlur={customHandleBlur}
       handleToggleModal={handleToggleModal}
       handleModalSelect={handleModalSelect}
     />

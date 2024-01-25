@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { regex } from "src/validations/regularExpressions";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
@@ -30,31 +30,19 @@ const SocioeconomicInformationForm = forwardRef(
     const formik = useFormik({
       initialValues,
       validationSchema,
-      validateOnChange: false,
+      validateOnBlur: false,
       onSubmit: onSubmit || (() => true),
     });
 
     useImperativeHandle(ref, () => formik);
 
-    const customHandleBlur = (
-      event: React.FocusEvent<HTMLElement, Element>,
-    ) => {
-      formik.handleBlur(event);
-
-      if (onSubmit) return;
-
+    useEffect(() => {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });
-    };
+    }, [formik.values]);
 
-    return (
-      <SocioeconomicInformationFormUI
-        loading={loading}
-        formik={formik}
-        customHandleBlur={customHandleBlur}
-      />
-    );
+    return <SocioeconomicInformationFormUI loading={loading} formik={formik} />;
   },
 );
 

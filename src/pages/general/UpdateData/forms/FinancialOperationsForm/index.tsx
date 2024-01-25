@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -51,21 +51,17 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, [formik.values]);
 
   const isRequired = (fieldName: string): boolean => {
     const fieldDescription = dynamicSchema.describe().fields[fieldName];
@@ -78,7 +74,6 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
       loading={loading}
       formik={formik}
       isRequired={isRequired}
-      customHandleBlur={customHandleBlur}
     />
   );
 });

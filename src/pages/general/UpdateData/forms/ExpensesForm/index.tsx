@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { ExpensesFormUI } from "./interface";
@@ -38,16 +38,15 @@ const ExpensesForm = forwardRef(function ExpensesForm(
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
+  useEffect(() => {
     getTotalExpenses();
+  }, [formik.values]);
 
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, []);
 
   const getTotalExpenses = () => {
     const totalExpenses = Object.entries(formik.values).reduce(
@@ -68,7 +67,6 @@ const ExpensesForm = forwardRef(function ExpensesForm(
     <ExpensesFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
     />
   );
 });

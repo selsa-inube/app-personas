@@ -1,6 +1,6 @@
 import { IDirector } from "@mocks/directors/directors.mocks";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -42,23 +42,17 @@ const RelationshipWithDirectorsForm = forwardRef(
     const formik = useFormik({
       initialValues,
       validationSchema: dynamicSchema,
-      validateOnChange: false,
+      validateOnBlur: false,
       onSubmit: onSubmit || (() => true),
     });
 
     useImperativeHandle(ref, () => formik);
 
-    const customHandleBlur = (
-      event: React.FocusEvent<HTMLElement, Element>,
-    ) => {
-      formik.handleBlur(event);
-
-      if (onSubmit) return;
-
+    useEffect(() => {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });
-    };
+    }, [formik.values]);
 
     const handleToggleModal = () => {
       setShowDirectorsModal(!showDirectorsModal);
@@ -81,7 +75,6 @@ const RelationshipWithDirectorsForm = forwardRef(
         formik={formik}
         showDirectorsModal={showDirectorsModal}
         isRequired={isRequired}
-        customHandleBlur={customHandleBlur}
         handleToggleModal={handleToggleModal}
         handleModalSelect={handleModalSelect}
       />

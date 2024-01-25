@@ -15,11 +15,10 @@ interface FinancialOperationsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   isRequired: (fieldName: string) => boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
-  const { formik, loading, isRequired, customHandleBlur } = props;
+  const { formik, loading, isRequired } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
 
@@ -49,7 +48,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             onChange={formik.handleChange}
             state={getFieldState(formik, "hasForeignCurrencyTransactions")}
             isRequired={isRequired("hasForeignCurrencyTransactions")}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
           />
 
           <Select
@@ -65,7 +64,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             onChange={formik.handleChange}
             state={getFieldState(formik, "hasForeignCurrencyAccounts")}
             isRequired={isRequired("hasForeignCurrencyAccounts")}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
           />
         </Grid>
         {showForeignCurrencyFields && (
@@ -84,7 +83,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               lengthThreshold={20}
               isFullWidth
               isRequired={isRequired("descriptionOperations")}
-              onBlur={customHandleBlur}
+              onBlur={formik.handleBlur}
             />
 
             <Grid
@@ -107,7 +106,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 isDisabled={loading}
                 onChange={formik.handleChange}
                 isRequired={isRequired("country")}
-                onBlur={customHandleBlur}
+                onBlur={formik.handleBlur}
               />
               <Select
                 label="Banco"
@@ -121,7 +120,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 onChange={formik.handleChange}
                 options={getDomainById("bankForeign")}
                 isRequired={isRequired("bankEntity")}
-                onBlur={customHandleBlur}
+                onBlur={formik.handleBlur}
               />
               <Select
                 label="Moneda"
@@ -135,7 +134,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 onChange={formik.handleChange}
                 options={getDomainById("currency")}
                 isRequired={isRequired("currency")}
-                onBlur={customHandleBlur}
+                onBlur={formik.handleBlur}
               />
               <TextField
                 label="Numero de cuenta"
@@ -152,7 +151,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 validMessage="El numero de cuenta es válido"
                 state={getFieldState(formik, "accountNumber")}
                 isRequired={isRequired("accountNumber")}
-                onBlur={customHandleBlur}
+                onBlur={formik.handleBlur}
               />
             </Grid>
           </>

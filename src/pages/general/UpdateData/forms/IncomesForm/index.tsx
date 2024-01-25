@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { IncomesFormUI } from "./interface";
@@ -32,22 +32,21 @@ const IncomesForm = forwardRef(function IncomesForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
+  useEffect(() => {
     getTotalIncomes();
+  }, [formik.values]);
 
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, []);
 
   const getTotalIncomes = () => {
     const totalIncomes = Object.entries(formik.values).reduce(
@@ -64,13 +63,7 @@ const IncomesForm = forwardRef(function IncomesForm(
     formik.setFieldValue("totalIncomes", totalIncomes);
   };
 
-  return (
-    <IncomesFormUI
-      loading={loading}
-      formik={formik}
-      customHandleBlur={customHandleBlur}
-    />
-  );
+  return <IncomesFormUI loading={loading} formik={formik} />;
 });
 
 export { IncomesForm };
