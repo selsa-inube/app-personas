@@ -10,23 +10,16 @@ import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 interface DisbursementFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   customHandleChange: (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => void;
   renderFields: IFormField[];
 }
 
 function DisbursementFormUI(props: DisbursementFormUIProps) {
-  const {
-    formik,
-    loading,
-    customHandleBlur,
-    customHandleChange,
-    renderFields,
-  } = props;
+  const { formik, loading, customHandleChange, renderFields } = props;
 
   const isTablet = useMediaQuery("(max-width: 900px)");
 
@@ -44,7 +37,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
           isDisabled={loading}
           options={disbursementTypeDM}
           onChange={customHandleChange}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           state={getFieldState(formik, "disbursementType")}
           errorMessage={formik.errors.disbursementType}
           isFullWidth
@@ -53,10 +46,10 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
           {generateFormFields(
             renderFields,
             formik,
-            customHandleBlur,
+            formik.handleBlur,
             customHandleChange,
             isTablet,
-            loading
+            loading,
           )}
         </Grid>
       </Stack>

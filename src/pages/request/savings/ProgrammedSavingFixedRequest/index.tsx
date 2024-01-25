@@ -1,8 +1,8 @@
-import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
-import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
+import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import {
   programmedSavingFixedRequestSteps,
   programmedSavingFixedStepsRules,

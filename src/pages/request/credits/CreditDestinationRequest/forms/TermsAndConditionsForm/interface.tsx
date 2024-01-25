@@ -20,11 +20,10 @@ function generateTermsAndConditionsParagraphs(texts: string[]) {
 interface TermsAndConditionsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
-  const { formik, loading, customHandleChange } = props;
+  const { formik, loading } = props;
 
   const isMobile = useMediaQuery("(max-width: 560px)");
 
@@ -45,7 +44,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
           name="accept"
           label="Acepto los términos y condiciones"
           size={isMobile ? "small" : "large"}
-          onChange={customHandleChange}
+          onChange={formik.handleChange}
           checked={formik.values.accept}
           disabled={loading}
         />

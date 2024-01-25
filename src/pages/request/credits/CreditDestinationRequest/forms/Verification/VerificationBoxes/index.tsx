@@ -10,8 +10,8 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
-import { IContactChannelsEntry } from "../../../../../../../forms/ContactChannelsForm/types";
 import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICommentsEntry } from "../../CommentsForm/types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
@@ -19,10 +19,11 @@ import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IPreliquidationEntry } from "../../PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
+import { productGenerateRecommendation } from "../../../utils";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     <BoxAttribute
@@ -40,10 +41,10 @@ const renderDestinationVerification = (
 
 const renderCreditConditionsVerification = (
   values: ICreditConditionsEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <>
-    {values.product === "generateRecommendation" ? (
+    {values.product === productGenerateRecommendation?.id ? (
       <Grid templateColumns="1fr" gap="s100" width="100%">
         <BoxAttribute
           label="¿Cuánto dinero necesitas?"
@@ -94,7 +95,7 @@ const renderCreditConditionsVerification = (
 
 const renderPreliquidationVerification = (
   values: IPreliquidationEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
     <TextField
@@ -240,7 +241,7 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
 );
 
 const renderTermsAndConditionsVerification = (
-  values: ITermsAndConditionsEntry
+  values: ITermsAndConditionsEntry,
 ) => (
   <Stack width="100%" direction="column">
     <BoxAttribute
@@ -279,24 +280,24 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "destination" &&
         renderDestinationVerification(
           creditDestinationRequest.destination.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "creditConditions" &&
         renderCreditConditionsVerification(
           creditDestinationRequest.creditConditions.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "preliquidation" &&
         renderPreliquidationVerification(
           creditDestinationRequest.preliquidation.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
-          creditDestinationRequest.disbursement.values
+          creditDestinationRequest.disbursement.values,
         )}
 
       {stepKey === "comments" &&
@@ -304,12 +305,12 @@ function VerificationBoxes(props: VerificationBoxesProps) {
 
       {stepKey === "termsAndConditions" &&
         renderTermsAndConditionsVerification(
-          creditDestinationRequest.termsAndConditions.values
+          creditDestinationRequest.termsAndConditions.values,
         )}
 
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(
-          creditDestinationRequest.contactChannels.values
+          creditDestinationRequest.contactChannels.values,
         )}
     </>
   );
