@@ -260,7 +260,7 @@ const mapCreditAmortizationApiToEntity = (
     others,
     interest: totalInterest,
     totalMonthlyValue: Number(payment.quotaValue),
-    projectedBalance: Number(payment.projectedBalance),
+    projectedBalance: Number(payment.projectedBalance || 0),
   };
 
   if (payment.capitalValue) {
