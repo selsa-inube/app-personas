@@ -6,7 +6,7 @@ interface IReimbursementEntry {
 }
 
 interface IReimbursementOptions {
-  transferToExternalAccount: ISelectOption[];
+  transferToExternalAccount?: ISelectOption[];
   creditToInternalAccount: ISelectOption[];
 }
 

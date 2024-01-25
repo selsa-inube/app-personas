@@ -52,7 +52,7 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
           state={getFieldState(formik, "accountReimbursement")}
           readOnly={
             buildReimbursementAccount(formik) &&
-            buildReimbursementAccount(formik).length == 1
+            buildReimbursementAccount(formik)?.length == 1
               ? true
               : false
           }
