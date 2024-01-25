@@ -27,30 +27,36 @@ const amortizationTableTitles = [
     priority: 1,
   },
   {
+    id: "type",
+    titleName: "Tipo",
+    priority: 2,
+  },
+  {
     id: "capitalPayment",
     titleName: "Abono",
-    priority: 2,
+    priority: 3,
   },
   {
     id: "interest",
     titleName: "Interés",
-    priority: 3,
+    priority: 4,
   },
   {
     id: "others",
     titleName: "Otros",
-    priority: 4,
+    priority: 5,
   },
 ];
 
 const amortizationTableBreakpoints = [
-  { breakpoint: "(min-width: 1200px)", totalColumns: 5 },
-  { breakpoint: "(max-width: 1000px)", totalColumns: 4 },
-  { breakpoint: "(max-width: 900px)", totalColumns: 5 },
-  { breakpoint: "(max-width: 800px)", totalColumns: 4 },
+  { breakpoint: "(min-width: 1200px)", totalColumns: 6 },
+  { breakpoint: "(max-width: 1130px)", totalColumns: 5 },
+  { breakpoint: "(max-width: 970px)", totalColumns: 4 },
+  { breakpoint: "(max-width: 900px)", totalColumns: 6 },
+  { breakpoint: "(max-width: 850px)", totalColumns: 5 },
+  { breakpoint: "(max-width: 750px)", totalColumns: 4 },
   { breakpoint: "(max-width: 650px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 500px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 390px)", totalColumns: 2 },
+  { breakpoint: "(max-width: 430px)", totalColumns: 2 },
 ];
 
 const movementsTableBreakpoints = [

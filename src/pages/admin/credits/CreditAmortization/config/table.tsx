@@ -9,6 +9,7 @@ const mapCreditPayment = (payment: IEntry): IAmortization => {
   return {
     id: payment?.id,
     date: payment?.date,
+    type: payment?.type,
     paymentNumber: payment?.paymentNumber,
     capitalPayment: payment?.capitalPayment,
     interest: payment?.interest,
@@ -25,6 +26,7 @@ const amortizationNormalizeEntries = (amortization: IAmortization[]) =>
   amortization.map((entry) => ({
     ...entry,
     date: entry.date && formatPrimaryDate(entry.date),
+    type: entry.type,
     others: currencyFormat(entry.others),
     interest: currencyFormat(entry.interest),
     capitalPayment:
