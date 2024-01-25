@@ -38,7 +38,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     });
   }, [formik.values]);
 
-  const radioHandleChange = (fieldName: string, value: string) => {
+  const handleChangeRadio = (fieldName: string, value: string) => {
     formik.setFieldValue(fieldName, value);
   };
 
@@ -46,7 +46,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     <DestinationFormUI
       loading={loading}
       formik={formik}
-      radioHandleChange={radioHandleChange}
+      handleChangeRadio={handleChangeRadio}
     />
   );
 });

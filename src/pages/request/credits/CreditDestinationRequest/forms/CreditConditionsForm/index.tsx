@@ -1,8 +1,4 @@
-import {
-  interestRatesMock,
-  maxDeadlineMock,
-  maximumQuotasAvailableMock,
-} from "@mocks/products/credits/request.mocks";
+import { interestRatesMock } from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { currencyFormat } from "src/utils/currency";
@@ -11,18 +7,10 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { CreditConditionsFormUI } from "./interface";
 import { ICreditConditionsEntry } from "./types";
-
-const validationSchema = Yup.object({
-  amount: validationRules.money.required(validationMessages.required),
-  deadline: Yup.number()
-    .min(1, validationMessages.minNumbers(10))
-    .max(1000, validationMessages.maxNumbers(1000)),
-  quota: validationRules.money,
-  interestRate: Yup.number().required(validationMessages.required),
-  cycleInterest: Yup.number().required(validationMessages.required),
-  netValue: Yup.number().required(validationMessages.required),
-  hasResult: Yup.boolean().required(validationMessages.required),
-});
+import {
+  getInitialCreditContidionValidations,
+  validationSchema,
+} from "./utils";
 
 interface CreditConditionsFormProps {
   initialValues: ICreditConditionsEntry;
@@ -57,30 +45,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   }, [formik.values]);
 
   useEffect(() => {
-    const maxDeadline =
-      maxDeadlineMock[formik.values.product as keyof typeof maxDeadlineMock];
-
-    const maximumQuotas =
-      maximumQuotasAvailableMock[
-        formik.values
-          .creditDestination as keyof typeof maximumQuotasAvailableMock
-      ];
-
-    const newValidationSchema = validationSchema.concat(
-      Yup.object({
-        deadline: Yup.number()
-          .min(1, validationMessages.minNumbers(10))
-          .max(
-            maxDeadline,
-            `El plazo máximo para este producto es de ${maxDeadline} meses`,
-          ),
-        amount: Yup.number()
-          .min(1, validationMessages.minCurrencyNumbers(1))
-          .max(maximumQuotas.noWarranty, "Has superado el cupo máximo")
-          .required(validationMessages.required),
-      }),
-    );
-    setDynamicValidationSchema(newValidationSchema);
+    setDynamicValidationSchema(getInitialCreditContidionValidations(formik));
   }, []);
 
   const interestRate =

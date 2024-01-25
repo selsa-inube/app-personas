@@ -10,6 +10,7 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICommentsEntry } from "../../CommentsForm/types";
@@ -18,7 +19,7 @@ import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IPreliquidationEntry } from "../../PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
-import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
+import { productGenerateRecommendation } from "../../../utils";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -43,7 +44,7 @@ const renderCreditConditionsVerification = (
   isTablet: boolean,
 ) => (
   <>
-    {values.product === "generateRecommendation" ? (
+    {values.product === productGenerateRecommendation?.id ? (
       <Grid templateColumns="1fr" gap="s100" width="100%">
         <BoxAttribute
           label="¿Cuánto dinero necesitas?"
