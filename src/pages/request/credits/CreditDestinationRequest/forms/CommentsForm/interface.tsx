@@ -4,11 +4,10 @@ import { FormikValues } from "formik";
 interface CommentsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function CommentsFormUI(props: CommentsFormUIProps) {
-  const { formik, loading, customHandleBlur } = props;
+  const { formik, loading } = props;
 
   return (
     <form>
@@ -21,7 +20,7 @@ function CommentsFormUI(props: CommentsFormUIProps) {
         withCounter
         isDisabled={loading}
         value={formik.values.comments}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         onFocus={formik.isFocused}
         isFullWidth

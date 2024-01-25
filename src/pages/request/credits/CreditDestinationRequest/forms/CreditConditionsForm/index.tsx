@@ -1,8 +1,4 @@
-import {
-  interestRatesMock,
-  maxDeadlineMock,
-  maximumQuotasAvailableMock,
-} from "@mocks/products/credits/request.mocks";
+import { interestRatesMock } from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { currencyFormat } from "src/utils/currency";
@@ -11,14 +7,10 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { CreditConditionsFormUI } from "./interface";
 import { ICreditConditionsEntry } from "./types";
-
-const validationSchema = Yup.object({
-  amount: validationRules.money,
-  deadline: Yup.number()
-    .min(1, validationMessages.minNumbers(10))
-    .max(1000, validationMessages.maxNumbers(1000)),
-  quota: validationRules.money,
-});
+import {
+  getInitialCreditContidionValidations,
+  validationSchema,
+} from "./utils";
 
 interface CreditConditionsFormProps {
   initialValues: ICreditConditionsEntry;
@@ -40,54 +32,26 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicValidationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    const maxDeadline =
-      maxDeadlineMock[formik.values.product as keyof typeof maxDeadlineMock];
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
+  }, [formik.values]);
 
-    const maximumQuotas =
-      maximumQuotasAvailableMock[
-        formik.values
-          .creditDestination as keyof typeof maximumQuotasAvailableMock
-      ];
-
-    const newValidationSchema = validationSchema.concat(
-      Yup.object({
-        deadline: Yup.number()
-          .min(1, validationMessages.minNumbers(10))
-          .max(
-            maxDeadline,
-            `El plazo máximo para este producto es de ${maxDeadline} meses`,
-          ),
-        amount: Yup.number()
-          .min(1, validationMessages.minCurrencyNumbers(1))
-          .max(maximumQuotas.noWarranty, "Has superado el cupo máximo"),
-      }),
-    );
-    setDynamicValidationSchema(newValidationSchema);
+  useEffect(() => {
+    setDynamicValidationSchema(getInitialCreditContidionValidations(formik));
   }, []);
 
   const interestRate =
     interestRatesMock[
       formik.values.creditDestination as keyof typeof interestRatesMock
     ];
-
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    if (formik.values.product === "generateRecommendation") {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
-    }
-  };
 
   const simulateCredit = () => {
     setLoadingSimulation(true);
@@ -182,7 +146,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       loadingSimulation={loadingSimulation}
       simulateCredit={simulateCredit}
       customHandleChange={customHandleChange}
-      customHandleBlur={customHandleBlur}
       onFormValid={onFormValid}
     />
   );

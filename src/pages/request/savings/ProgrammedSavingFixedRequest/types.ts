@@ -1,8 +1,8 @@
-import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { FormikProps } from "formik";
 import { IGoalEntry } from "./forms/GoalForm/types";
 import { IPlanNameEntry } from "./forms/PlanNameForm/types";
 import { IQuotaEntry } from "./forms/QuotaForm/types";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 
 interface IFormsProgrammedSavingFixedRequest {
   quota: { isValid: boolean; values: IQuotaEntry };

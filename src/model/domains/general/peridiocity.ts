@@ -25,7 +25,7 @@ const peridiocityData = {
     id: "semiannual",
     value: "Semestral",
   },
-  ANNUAK: {
+  ANNUAL: {
     id: "annual",
     value: "Anual",
   },

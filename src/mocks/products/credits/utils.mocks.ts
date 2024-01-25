@@ -25,6 +25,11 @@ const amortizationTypeValuesMock: Record<string, string> = {
   FixedCapitalQuota: "Abonos fijos a capital",
 };
 
+const amortizationTableValuesMock: Record<string, string> = {
+  Ordinary: "Ordinaria",
+  Extraordinary: "Extraordinaria",
+};
+
 const guaranteeTypeValuesMock: Record<string, string> = {
   PersonalWithDiscountAuthorization: "Personal con libranza",
   PersonalWithoutDiscountAuthorization: "Personal sin libranza",
@@ -33,8 +38,9 @@ const guaranteeTypeValuesMock: Record<string, string> = {
 };
 
 export {
+  amortizationTableValuesMock,
   amortizationTypeValuesMock,
   guaranteeTypeValuesMock,
-  peridiocityValuesMock,
   movementDescriptionMock,
+  peridiocityValuesMock,
 };

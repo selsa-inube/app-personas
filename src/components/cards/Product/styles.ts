@@ -26,11 +26,18 @@ const StyledProduct = styled(Link)<IStyledProduct>`
   }
 `;
 
-const StyledSkeletonContainer = styled.div`
+interface IStyledSkeletonContainer {
+  isMobile: boolean;
+}
+
+const StyledSkeletonContainer = styled.div<IStyledSkeletonContainer>`
   width: 100%;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: ${({ isMobile }) =>
+    isMobile
+      ? "repeat(auto-fill, minmax(100%, 1fr))"
+      : "repeat(auto-fill, minmax(100px, 1fr))"};
   direction: rtl;
   gap: ${inube.spacing.s300};
 `;

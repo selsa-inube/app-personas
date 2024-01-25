@@ -17,7 +17,7 @@ const PreliquidationForm = forwardRef(function PreliquidationForm(
 
   const formik = useFormik({
     initialValues,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 

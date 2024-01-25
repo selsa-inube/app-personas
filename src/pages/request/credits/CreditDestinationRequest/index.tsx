@@ -1,12 +1,9 @@
-import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
-import { mapContactChannels } from "src/forms/ContactChannelsForm/mappers";
-import {
-  creditDestinationRequestSteps,
-  creditDestinationStepsRules,
-} from "./config/assisted";
+import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
+import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
 import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
@@ -19,6 +16,7 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
+import { creditDestinationStepsRules } from "./utils";
 
 function CreditDestinationRequest() {
   const [currentStep, setCurrentStep] = useState(
