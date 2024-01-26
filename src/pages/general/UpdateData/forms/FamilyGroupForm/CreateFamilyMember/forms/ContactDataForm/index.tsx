@@ -56,9 +56,17 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   }, []);
 
   useEffect(() => {
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
+    if (!readonly) {
+      if (formik.dirty) {
+        formik.validateForm().then((errors) => {
+          onFormValid(Object.keys(errors).length === 0);
+        });
+      }
+    } else {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
   }, [formik.values]);
 
   const isRequired = (fieldName: string): boolean => {
