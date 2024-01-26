@@ -84,7 +84,7 @@ const getNextPaymentData = (selectedProduct: IProduct) => {
   );
 
   return {
-    nextPaymentCapital: Number(nextPaymentCapital?.value),
+    nextPaymentCapital: nextPaymentCapital && Number(nextPaymentCapital?.value),
     nextPaymentInterest:
       nextPaymentInterest && Number(nextPaymentInterest?.value),
     nextPaymentArrearsInterest:

@@ -137,11 +137,6 @@ const mapCreditApiToEntity = (
       value: nextPayment,
     },
     {
-      id: "next_payment_capital",
-      label: "Capital próximo pago",
-      value: nextPaymentCapital,
-    },
-    {
       id: "next_payment_value",
       label: "Valor próximo pago",
       value: nextPaymentValue,
@@ -200,6 +195,13 @@ const mapCreditApiToEntity = (
     );
   }
 
+  if (nextPaymentCapital) {
+    attributes.push({
+      id: "next_payment_capital",
+      label: "Capital próximo pago",
+      value: nextPaymentCapital,
+    });
+  }
   if (nextPaymentInterest) {
     attributes.push({
       id: "next_payment_interest",
