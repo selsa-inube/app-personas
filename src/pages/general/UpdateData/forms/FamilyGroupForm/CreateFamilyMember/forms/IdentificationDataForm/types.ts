@@ -1,5 +1,5 @@
 interface IIdentificationDataEntry {
-  identificationNumber: number;
+  identificationNumber: string;
 }
 
 export type { IIdentificationDataEntry };

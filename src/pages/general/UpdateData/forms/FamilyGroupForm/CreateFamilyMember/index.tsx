@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { FormikProps } from "formik";
-import { initalValuesCreateFamilyMember } from "./config/initialValues";
+import { initialValuesCreateFamilyMember } from "./config/initialValues";
 import { IIdentificationDataEntry } from "./forms/IdentificationDataForm/types";
 import { IPersonalDataEntry } from "./forms/PersonalDataForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
@@ -37,19 +37,19 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
   const [familyMember, setFamilyMember] = useState<IFormsCreateFamilyMember>({
     identificationData: {
       isValid: false,
-      values: initalValuesCreateFamilyMember.identificationData,
+      values: initialValuesCreateFamilyMember.identificationData,
     },
     personalData: {
       isValid: true,
-      values: initalValuesCreateFamilyMember.personalData,
+      values: initialValuesCreateFamilyMember.personalData,
     },
     contactData: {
       isValid: true,
-      values: initalValuesCreateFamilyMember.contactData,
+      values: initialValuesCreateFamilyMember.contactData,
     },
     informationData: {
       isValid: true,
-      values: initalValuesCreateFamilyMember.informationData,
+      values: initialValuesCreateFamilyMember.informationData,
     },
   });
 
@@ -98,7 +98,14 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
     document.getElementsByTagName("main")[0].scrollTo(0, 0);
   };
 
-  const handleFinishAssisted = () => {};
+  const handleFinishAssisted = () => {
+    onAddMember(
+      familyMember.identificationData.values,
+      familyMember.personalData.values,
+      familyMember.contactData.values,
+      familyMember.informationData.values
+    );
+  };
 
   const handleNextStep = () => {
     if (currentStep === 1) {
@@ -111,12 +118,7 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
     }
 
     if (currentStep === steps.length) {
-      onAddMember(
-        familyMember.identificationData.values,
-        familyMember.personalData.values,
-        familyMember.contactData.values,
-        familyMember.informationData.values
-      );
+      handleFinishAssisted();
     }
 
     handleStepChange(currentStep + 1);

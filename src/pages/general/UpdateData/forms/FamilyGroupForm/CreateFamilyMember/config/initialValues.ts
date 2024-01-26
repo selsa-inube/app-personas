@@ -4,11 +4,11 @@ import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IInformationDataEntry } from "../forms/InformationDataForm/types";
 
 const identificationData: IIdentificationDataEntry = {
-  identificationNumber: 0,
+  identificationNumber: "",
 };
 
 const personalData: IPersonalDataEntry = {
-  identificationNumber: 0,
+  identificationNumber: "",
   type: "",
   firstName: "",
   secondName: "",
@@ -31,11 +31,11 @@ const informationData: IInformationDataEntry = {
   businessActivity: "",
 };
 
-const initalValuesCreateFamilyMember = {
+const initialValuesCreateFamilyMember = {
   identificationData,
   personalData,
   contactData,
   informationData,
 };
 
-export { initalValuesCreateFamilyMember };
+export { initialValuesCreateFamilyMember };

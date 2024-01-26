@@ -11,11 +11,10 @@ interface PersonalDataFormUIProps {
   loading?: boolean;
   readonly?: boolean;
   isRequired: (fieldName: string) => boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function PersonalDataFormUI(props: PersonalDataFormUIProps) {
-  const { formik, loading, readonly, isRequired, customHandleBlur } = props;
+  const { formik, readonly, isRequired } = props;
 
   return (
     <>
@@ -28,7 +27,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         size="compact"
         value={formik.values.identificationNumber || ""}
         errorMessage={formik.errors.identificationNumber}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "identificationNumber")}
         isRequired={isRequired("identificationNumber")}
@@ -42,7 +41,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         id="type"
         size="compact"
         options={identificationTypeDM.options}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         errorMessage={formik.errors.type}
         onChange={formik.handleChange}
         value={formik.values.type || ""}
@@ -61,7 +60,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         validMessage="El primer nombre es válido"
         value={formik.values.firstName || ""}
         errorMessage={formik.errors.firstName}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "firstName")}
         isRequired={isRequired("firstName")}
@@ -78,7 +77,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         validMessage="El segundo nombre es válido"
         value={formik.values.secondName || ""}
         errorMessage={formik.errors.secondName}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "secondName")}
         isRequired={isRequired("secondName")}
@@ -95,7 +94,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         validMessage="El primer apellido es válido"
         value={formik.values.firstLastName || ""}
         errorMessage={formik.errors.firstLastName}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "firstLastName")}
         isRequired={isRequired("firstLastName")}
@@ -112,7 +111,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         validMessage="El segundo apellido es válido"
         value={formik.values.secondLastName || ""}
         errorMessage={formik.errors.secondLastName}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "secondLastName")}
         isRequired={isRequired("secondLastName")}
@@ -128,7 +127,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
             id="relationship"
             size="compact"
             options={relationshipDM.options}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
             errorMessage={formik.errors.relationship}
             onChange={formik.handleChange}
             value={formik.values.relationship || ""}
@@ -143,7 +142,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
             id="isDependent"
             size="compact"
             options={activeDM.options}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             value={formik.values.isDependent || ""}
             state={getFieldState(formik, "isDependent")}

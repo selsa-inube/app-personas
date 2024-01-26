@@ -1,5 +1,5 @@
 interface IPersonalDataEntry {
-  identificationNumber?: number;
+  identificationNumber?: string;
   type?: string;
   firstName?: string;
   secondName?: string;

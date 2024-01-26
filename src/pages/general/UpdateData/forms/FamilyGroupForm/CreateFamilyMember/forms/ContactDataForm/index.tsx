@@ -36,8 +36,8 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
-    validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    validateOnBlur: false,
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
@@ -55,24 +55,16 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     }
   }, []);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, [formik.values]);
 
   const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
-
-    if (fieldDescription && typeof fieldDescription === "object") {
-      return !fieldDescription.nullable && !fieldDescription.optional;
-    }
-
-    return false;
+    const fieldDescription = dynamicSchema.describe().fields[fieldName];
+    if (!("nullable" in fieldDescription)) return false;
+    return !fieldDescription.nullable && !fieldDescription.optional;
   };
 
   return (
@@ -80,7 +72,6 @@ const ContactDataForm = forwardRef(function ContactDataForm(
       loading={loading}
       formik={formik}
       readonly={readonly}
-      customHandleBlur={customHandleBlur}
       isRequired={isRequired}
     />
   );

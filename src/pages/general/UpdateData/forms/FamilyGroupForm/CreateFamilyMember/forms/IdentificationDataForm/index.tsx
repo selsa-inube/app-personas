@@ -3,7 +3,7 @@ import { familyGroupRequiredFields } from "../../../config/formConfig";
 import { validationRules } from "src/validations/validationRules";
 import { validationMessages } from "src/validations/validationMessages";
 import { IIdentificationDataEntry } from "./types";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { FormikProps, useFormik } from "formik";
 import { IdentificationDataFormUI } from "./interface";
 
@@ -26,29 +26,26 @@ const IdentificationDataForm = forwardRef(function IdentificationDataForm(
   ref: React.Ref<FormikProps<IIdentificationDataEntry>>
 ) {
   const { initialValues, loading, isMobile, onFormValid, onSubmit } = props;
-  const [dynamicSchema, setDynamicSchema] = useState(validationSchema);
+  const [dynamicSchema] = useState(validationSchema);
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    validateOnBlur: false,
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, [formik.values]);
 
   const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
+    const fieldDescription = dynamicSchema.describe().fields[fieldName];
+    if (!("nullable" in fieldDescription)) return false;
     return !fieldDescription.nullable && !fieldDescription.optional;
   };
 
@@ -57,7 +54,6 @@ const IdentificationDataForm = forwardRef(function IdentificationDataForm(
       formik={formik}
       loading={loading}
       isMobile={isMobile}
-      customHandleBlur={customHandleBlur}
       isRequired={isRequired}
     />
   );

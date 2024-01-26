@@ -1,6 +1,6 @@
 import { referenceUsersMocks } from "@mocks/users/referenceUsersMocks";
 import { createFamilyMemberSteps } from "./config/assisted";
-import { initalValuesCreateFamilyMember } from "./config/initialValues";
+import { initialValuesCreateFamilyMember } from "./config/initialValues";
 import {
   IFormsCreateFamilyMember,
   IFormsCreateFamilyMemberRefs,
@@ -12,7 +12,7 @@ const createFamilyMemberStepsRules = (
   formReferences: IFormsCreateFamilyMemberRefs,
   isCurrentFormValid: boolean
 ) => {
-  let newCreateFamilyMember = { ...currentCreateFamilyMember };
+  const newCreateFamilyMember = { ...currentCreateFamilyMember };
   let readonly = false;
 
   switch (currentStep) {
@@ -38,7 +38,7 @@ const createFamilyMemberStepsRules = (
         const selectedReferenceUser = referenceUsersMocks.find(
           (user) =>
             user.identification.identificationNumber ===
-            values.identificationNumber
+            Number(values.identificationNumber)
         );
 
         if (selectedReferenceUser) {
@@ -46,7 +46,7 @@ const createFamilyMemberStepsRules = (
           newCreateFamilyMember.personalData = {
             isValid: false,
             values: {
-              ...initalValuesCreateFamilyMember.personalData,
+              ...initialValuesCreateFamilyMember.personalData,
               identificationNumber: values?.identificationNumber,
               type: selectedReferenceUser.identification.type,
               firstName: selectedReferenceUser.identification.firstName,
@@ -60,7 +60,7 @@ const createFamilyMemberStepsRules = (
           newCreateFamilyMember.contactData = {
             isValid: false,
             values: {
-              ...initalValuesCreateFamilyMember.contactData,
+              ...initialValuesCreateFamilyMember.contactData,
               cellPhone: selectedReferenceUser.contact.cellPhone,
               email: selectedReferenceUser.contact.email,
             },
@@ -69,7 +69,7 @@ const createFamilyMemberStepsRules = (
           newCreateFamilyMember.informationData = {
             isValid: false,
             values: {
-              ...initalValuesCreateFamilyMember.personalData,
+              ...initialValuesCreateFamilyMember.personalData,
               identificationNumber: values?.identificationNumber,
               relationship: selectedReferenceUser.information.relationship,
               isDependent: selectedReferenceUser.information.isDependent,
@@ -86,7 +86,7 @@ const createFamilyMemberStepsRules = (
           newCreateFamilyMember.personalData = {
             isValid: false,
             values: {
-              ...initalValuesCreateFamilyMember.personalData,
+              ...initialValuesCreateFamilyMember.personalData,
               identificationNumber: values?.identificationNumber,
             },
           };

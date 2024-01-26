@@ -21,8 +21,7 @@ const renderStepContent = (
   createFamilyMember: IFormsCreateFamilyMember,
   isMobile: boolean,
   readOnly: boolean,
-  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   return (
     <>
@@ -106,7 +105,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
         onFinishAssisted={handleFinishAssisted}
         onStepChange={handleStepChange}
         disableNextStep={!isCurrentFormValid}
-        showTexts={false}
+        showButtonsLabels={false}
       />
 
       <Stack direction="column" gap="s300">
@@ -117,8 +116,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
             createFamilyMember,
             isMobile,
             readOnly,
-            setIsCurrentFormValid,
-            handleStepChange
+            setIsCurrentFormValid
           )}
         </StyledScroller>
 

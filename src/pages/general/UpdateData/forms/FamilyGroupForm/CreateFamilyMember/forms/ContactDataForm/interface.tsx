@@ -7,11 +7,10 @@ interface ContactDataFormUIProps {
   loading?: boolean;
   readonly?: boolean;
   isRequired: (fieldName: string) => boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, readonly, isRequired, customHandleBlur } = props;
+  const { formik, readonly, isRequired } = props;
 
   return (
     <>
@@ -25,7 +24,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         validMessage="El numero de celular es válido"
         value={formik.values.cellPhone || ""}
         errorMessage={formik.errors.cellPhone}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "cellPhone")}
         isRequired={isRequired("cellPhone")}
@@ -42,7 +41,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         validMessage="El correo electrónico es válido"
         value={formik.values.email || ""}
         errorMessage={formik.errors.email}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "email")}
         isRequired={isRequired("email")}

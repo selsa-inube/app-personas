@@ -20,7 +20,7 @@ interface AssistedUIProps {
   lastStepIndex: number;
   currentStepInfo?: IStep;
   disableNextStep?: boolean;
-  showTexts?: boolean;
+  showButtonsLabels?: boolean;
   handlePreviousStep: () => void;
   handleNextStep: () => void;
 }
@@ -32,7 +32,7 @@ function AssistedUI(props: AssistedUIProps) {
     lastStepIndex,
     currentStepInfo,
     disableNextStep,
-    showTexts = true,
+    showButtonsLabels = true,
     handlePreviousStep,
     handleNextStep,
   } = props;
@@ -43,14 +43,14 @@ function AssistedUI(props: AssistedUIProps) {
   const barWidth = ((currentStepIndex + 1) / steps.length) * 100;
 
   return (
-    <StyledAssistedContainer smallScreen={isMobile} showTexts={showTexts}>
+    <StyledAssistedContainer smallScreen={isMobile} showButtonsLabels={showButtonsLabels}>
       <Stack
         justifyContent="space-between"
         alignItems="center"
         height="inherit"
         gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
       >
-        {!isTablet && showTexts ? (
+        {!isTablet && showButtonsLabels ? (
           <StyledButton>
             <Button
               variant="none"
@@ -90,12 +90,12 @@ function AssistedUI(props: AssistedUIProps) {
             </StyledCircleId>
             <Text
               type="title"
-              size={!showTexts ? "small" : isMobile ? "small" : "medium"}
+              size={!showButtonsLabels ? "small" : isMobile ? "small" : "medium"}
             >
               {currentStepInfo?.name}
             </Text>
           </Stack>
-          {showTexts && !isMobile && (
+          {showButtonsLabels && !isMobile && (
             <>
               <Stack
                 justifyContent="space-between"
@@ -104,12 +104,12 @@ function AssistedUI(props: AssistedUIProps) {
               >
                 <StyledBarContainer
                   smallScreen={isMobile}
-                  showTexts={showTexts}
+                  showButtonsLabels={showButtonsLabels}
                 >
                   <StyledBar
                     smallScreen={isMobile}
                     width={barWidth}
-                    showTexts={showTexts}
+                    showButtonsLabels={showButtonsLabels}
                   />
                 </StyledBarContainer>
                 <Text type="label" size="small">
@@ -122,7 +122,7 @@ function AssistedUI(props: AssistedUIProps) {
             </>
           )}
         </Stack>
-        {!isTablet && showTexts ? (
+        {!isTablet && showButtonsLabels ? (
           <StyledButton>
             <Button
               variant="none"
@@ -145,13 +145,13 @@ function AssistedUI(props: AssistedUIProps) {
           />
         )}
       </Stack>
-      {(!showTexts || (isMobile && showTexts)) && (
+      {(!showButtonsLabels || (isMobile && showButtonsLabels)) && (
         <>
-          <StyledBarContainer smallScreen={isMobile} showTexts={showTexts}>
+          <StyledBarContainer smallScreen={isMobile} showButtonsLabels={showButtonsLabels}>
             <StyledBar
               smallScreen={isMobile}
               width={barWidth}
-              showTexts={showTexts}
+              showButtonsLabels={showButtonsLabels}
             />
           </StyledBarContainer>
           <Text type="label" size="small" appearance="gray">

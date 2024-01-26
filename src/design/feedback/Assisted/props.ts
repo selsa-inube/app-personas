@@ -23,7 +23,7 @@ const props = {
   disableNextStep: {
     description: "is an indicator to disable the next step button",
   },
-  showTexts: {
+  showButtonsLabels: {
     control: { type: "boolean" },
     description: "Corresponds to if you want to have the text on the assisted buttons",
   },

@@ -13,11 +13,10 @@ interface InformationDataFormUIProps {
   loading?: boolean;
   readonly?: boolean;
   isRequired: (fieldName: string) => boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function InformationDataFormUI(props: InformationDataFormUIProps) {
-  const { formik, loading, readonly, isRequired, customHandleBlur } = props;
+  const { formik, readonly, isRequired } = props;
   
   return (
     <>
@@ -30,7 +29,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
             id="relationship"
             size="compact"
             options={relationshipDM.options}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
             errorMessage={formik.errors.relationship}
             onChange={formik.handleChange}
             value={formik.values.relationship || ""}
@@ -45,7 +44,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
             id="isDependent"
             size="compact"
             options={activeDM.options}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             value={formik.values.isDependent || ""}
             state={getFieldState(formik, "isDependent")}
@@ -61,7 +60,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         id="educationLevel"
         size="compact"
         options={educationLevelTypeDM.options}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         errorMessage={formik.errors.educationLevel}
         onChange={formik.handleChange}
         value={formik.values.educationLevel || ""}
@@ -77,7 +76,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         id="profession"
         size="compact"
         options={getDomainById("profession")}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         errorMessage={formik.errors.profession}
         onChange={formik.handleChange}
         value={formik.values.profession || ""}
@@ -93,7 +92,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         id="gender"
         size="compact"
         options={genderDM.options}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         errorMessage={formik.errors.gender}
         onChange={formik.handleChange}
         value={formik.values.gender || ""}
@@ -112,7 +111,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         validMessage="La fecha de nacimiento es válida"
         value={formik.values.birthDate || ""}
         errorMessage={formik.errors.birthDate}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "birthDate")}
         isRequired={isRequired("birthDate")}
@@ -126,7 +125,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         id="businessActivity"
         size="compact"
         options={getDomainById("economicSector")}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         errorMessage={formik.errors.businessActivity}
         onChange={formik.handleChange}
         value={formik.values.businessActivity || ""}

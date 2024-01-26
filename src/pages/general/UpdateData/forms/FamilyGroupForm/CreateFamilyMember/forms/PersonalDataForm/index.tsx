@@ -7,7 +7,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { FormikProps, useFormik } from "formik";
 import { PersonalDataFormUI } from "./interface";
 
-const validationSchema = Yup.object().shape({  
+const validationSchema = Yup.object().shape({
   identificationNumber: familyGroupRequiredFields.identificationNumber
     ? validationRules.identification.required(validationMessages.required)
     : validationRules.identification,
@@ -26,8 +26,12 @@ const validationSchema = Yup.object().shape({
   secondLastName: familyGroupRequiredFields.secondLastName
     ? validationRules.name.required(validationMessages.required)
     : validationRules.name,
-  relationship: Yup.string(),
-  isDependent: Yup.string(),
+  relationship: familyGroupRequiredFields.relationship
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
+  isDependent: familyGroupRequiredFields.isDependent
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
 });
 
 interface PersonalDataFormProps {
@@ -40,7 +44,7 @@ interface PersonalDataFormProps {
 
 const PersonalDataForm = forwardRef(function IdentificationForm(
   props: PersonalDataFormProps,
-  ref: React.Ref<FormikProps<IPersonalDataEntry>>
+  ref: React.Ref<FormikProps<IPersonalDataEntry>>,
 ) {
   const { initialValues, loading, readonly, onFormValid, onSubmit } = props;
 
@@ -49,47 +53,35 @@ const PersonalDataForm = forwardRef(function IdentificationForm(
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicSchema,
-    validateOnChange: false,
-    onSubmit: onSubmit || (() => {}),
+    validateOnBlur: false,
+    onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (readonly) {
+    if (!readonly) {
       const newValidationSchema = validationSchema.concat(
         Yup.object({
-          relationship: familyGroupRequiredFields.relationship
-            ? Yup.string().required(validationMessages.required)
-            : Yup.string(),
-          isDependent: familyGroupRequiredFields.isDependent
-            ? Yup.string().required(validationMessages.required)
-            : Yup.string(),
-        })
+          relationship: Yup.string(),
+          isDependent: Yup.string(),
+        }),
       );
 
       setDynamicSchema(newValidationSchema);
     }
   }, []);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, [formik.values]);
 
   const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName] as any;
-
-    if (fieldDescription && typeof fieldDescription === "object") {
-      return !fieldDescription.nullable && !fieldDescription.optional;
-    }
-
-    return false;
+    const fieldDescription = dynamicSchema.describe().fields[fieldName];
+    if (!("nullable" in fieldDescription)) return false;
+    return !fieldDescription.nullable && !fieldDescription.optional;
   };
 
   return (
@@ -97,7 +89,6 @@ const PersonalDataForm = forwardRef(function IdentificationForm(
       loading={loading}
       formik={formik}
       readonly={readonly}
-      customHandleBlur={customHandleBlur}
       isRequired={isRequired}
     />
   );

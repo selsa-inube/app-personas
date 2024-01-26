@@ -8,11 +8,10 @@ interface IdentificationDataFormUIProps {
   loading?: boolean;
   isMobile?: boolean;
   isRequired: (fieldName: string) => boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
-  const { formik, loading, isMobile, isRequired, customHandleBlur } = props;
+  const { formik, loading, isMobile, isRequired } = props;
 
   return (
     <Fieldset
@@ -29,7 +28,7 @@ function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
         validMessage="El documento es válido"
         value={formik.values.identificationNumber || ""}
         errorMessage={formik.errors.identificationNumber}
-        onBlur={customHandleBlur}
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "identificationNumber")}
         isDisabled={loading}
