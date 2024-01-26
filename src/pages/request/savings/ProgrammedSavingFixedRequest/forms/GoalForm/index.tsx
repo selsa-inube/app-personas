@@ -50,51 +50,56 @@ const GoalForm = forwardRef(function GoalForm(
   ) => {
     formik.handleChange(event);
 
-    if (event.target.name === "goalWithDate") {
-      formik.setFieldValue("daysNumber", "");
-      formik.setFieldValue("refundDate", "");
-      formik.setFormikState((state) => {
-        return {
-          ...state,
-          touched: {
-            ...state.touched,
-            daysNumber: false,
-            refundDate: false,
-          },
-        };
-      });
+    const { name, value } = event.target;
 
-      const checked = "checked" in event.target && event.target.checked;
+    switch (name) {
+      case "goalWithDate": {
+        formik.setFieldValue("daysNumber", "");
+        formik.setFieldValue("refundDate", "");
+        formik.setFormikState((state) => {
+          return {
+            ...state,
+            touched: {
+              ...state.touched,
+              daysNumber: false,
+              refundDate: false,
+            },
+          };
+        });
 
-      if (checked) {
-        const newValidationSchema = validationSchema.concat(
-          Yup.object({
-            refundDate: validationRules.date
-              .concat(validationRules.notPastDate)
-              .required(validationMessages.required),
-          }),
-        );
+        const checked = "checked" in event.target && event.target.checked;
 
-        setDynamicValidationSchema(newValidationSchema);
-      } else {
-        const newValidationSchema = validationSchema.concat(
-          Yup.object({
-            daysNumber: Yup.number().required(validationMessages.required),
-          }),
-        );
+        if (checked) {
+          const newValidationSchema = validationSchema.concat(
+            Yup.object({
+              refundDate: validationRules.date
+                .concat(validationRules.notPastDate)
+                .required(validationMessages.required),
+            }),
+          );
 
-        setDynamicValidationSchema(newValidationSchema);
+          setDynamicValidationSchema(newValidationSchema);
+        } else {
+          const newValidationSchema = validationSchema.concat(
+            Yup.object({
+              daysNumber: Yup.number().required(validationMessages.required),
+            }),
+          );
+
+          setDynamicValidationSchema(newValidationSchema);
+        }
+        break;
       }
-    }
-    if (event.target.name === "daysNumber") {
-      formik.setFieldValue(
-        "refundDate",
-        deduceRefundDate(Number(event.target.value)),
-      );
-    }
 
-    if (event.target.name === "refundDate") {
-      formik.setFieldValue("daysNumber", deduceDaysNumber(event.target.value));
+      case "daysNumber": {
+        formik.setFieldValue("refundDate", deduceRefundDate(Number(value)));
+        break;
+      }
+
+      case "refundDate": {
+        formik.setFieldValue("daysNumber", deduceDaysNumber(value));
+        break;
+      }
     }
 
     onFormValid(false);
