@@ -294,6 +294,7 @@ const mapExpenses = (): IExpensesEntry => {
     health: "",
     pension: "",
     others: "",
+    totalExpenses: "",
   };
 };
 
