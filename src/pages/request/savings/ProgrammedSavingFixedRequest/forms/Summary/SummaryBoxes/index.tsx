@@ -1,14 +1,16 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { reimbursementTypeDM } from "src/model/domains/economicActivity/reimbursementType";
 import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsProgrammedSavingFixedRequest } from "../../../types";
 import { IGoalEntry } from "../../GoalForm/types";
 import { IPlanNameEntry } from "../../PlanNameForm/types";
 import { IQuotaEntry } from "../../QuotaForm/types";
-import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
+import { IReimbursementEntry } from "../../ReimbursementForm/types";
 
 const renderQuotaSummary = (values: IQuotaEntry, isTablet: boolean) => (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
@@ -39,6 +41,16 @@ const renderGoalSummary = (values: IGoalEntry, isTablet: boolean) => (
     {values.refundDate !== "" && (
       <BoxAttribute label="Reembolso en fecha:" value={values.refundDate} />
     )}
+  </Stack>
+);
+
+const renderReimbursementSummary = (values: IReimbursementEntry) => (
+  <Stack width="100%" direction="column" gap="s100">
+    <BoxAttribute
+      label="Forma de reembolso:"
+      value={reimbursementTypeDM.valueOf(values.reimbursementType)?.value}
+    />
+    <BoxAttribute label="Cuenta:" value={values.accountReimbursement} />
   </Stack>
 );
 
@@ -79,6 +91,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
 
       {stepKey === "goal" &&
         renderGoalSummary(programmedSavingFixedRequest.goal.values, isTablet)}
+
+      {stepKey === "reimbursement" &&
+        renderReimbursementSummary(
+          programmedSavingFixedRequest.reimbursement.values,
+        )}
 
       {stepKey === "planName" &&
         renderPlanNameSummary(

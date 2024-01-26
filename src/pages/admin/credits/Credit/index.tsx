@@ -44,7 +44,7 @@ function Credit() {
       nextPaymentValue,
     } = getNextPaymentData(selectedProduct.credit);
 
-    if (!nextPaymentCapital || !nextPaymentValue) return;
+    if (!nextPaymentValue) return;
 
     setNextPaymentModal({
       ...nextPaymentModal,

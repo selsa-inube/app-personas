@@ -8,7 +8,7 @@ interface ISelectedProductState {
 interface INextPaymentModalState {
   show: boolean;
   data?: {
-    nextPaymentCapital: number;
+    nextPaymentCapital?: number;
     nextPaymentInterest?: number;
     nextPaymentArrearsInterest?: number;
     nextPaymentValue: number;
