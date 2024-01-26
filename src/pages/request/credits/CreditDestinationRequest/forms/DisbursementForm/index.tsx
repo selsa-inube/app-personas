@@ -45,9 +45,11 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
   }, [formik.values]);
 
   useEffect(() => {

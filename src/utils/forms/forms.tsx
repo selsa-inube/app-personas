@@ -7,8 +7,7 @@ import * as Yup from "yup";
 import { StyledInputForm } from "./forms.styles";
 
 const getFieldState = (formik: FormikValues, fieldName: string) => {
-  if (!formik.touched[fieldName]) return "pending";
-  if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
+  if (formik.errors[fieldName]) return "invalid";
   return "valid";
 };
 

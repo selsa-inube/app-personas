@@ -27,7 +27,7 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
   const formik = useFormik({
     initialValues,
     validationSchema: validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
   });
@@ -46,6 +46,14 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
     }
   }, []);
 
+  useEffect(() => {
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
+  }, [formik.values]);
+
   const customHandleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -59,21 +67,10 @@ const ReimbursementForm = forwardRef(function ReimbursementForm(
     }
   };
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      return onFormValid(Object.keys(errors).length === 0);
-    });
-  };
-
   return (
     <ReimbursementFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
       customHandleChange={customHandleChange}
     />
   );

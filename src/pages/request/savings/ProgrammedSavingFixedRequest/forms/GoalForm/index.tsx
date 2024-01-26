@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -30,44 +30,20 @@ const GoalForm = forwardRef(function GoalForm(
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicValidationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (
-      "name" in event.target &&
-      event.target.name === "daysNumber" &&
-      formik.values.daysNumber !== ""
-    ) {
-      formik.setFieldValue(
-        "refundDate",
-        deduceRefundDate(Number(formik.values.daysNumber)),
-      );
+  useEffect(() => {
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
     }
-
-    if (
-      "name" in event.target &&
-      event.target.name === "refundDate" &&
-      formik.values.refundDate !== ""
-    ) {
-      formik.setFieldValue(
-        "daysNumber",
-        deduceDaysNumber(formik.values.refundDate),
-      );
-    }
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  };
+  }, [formik.values]);
 
   const customHandleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -110,6 +86,16 @@ const GoalForm = forwardRef(function GoalForm(
         setDynamicValidationSchema(newValidationSchema);
       }
     }
+    if (event.target.name === "daysNumber") {
+      formik.setFieldValue(
+        "refundDate",
+        deduceRefundDate(Number(event.target.value)),
+      );
+    }
+
+    if (event.target.name === "refundDate") {
+      formik.setFieldValue("daysNumber", deduceDaysNumber(event.target.value));
+    }
 
     onFormValid(false);
   };
@@ -118,7 +104,6 @@ const GoalForm = forwardRef(function GoalForm(
     <GoalFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
       customHandleChange={customHandleChange}
     />
   );
