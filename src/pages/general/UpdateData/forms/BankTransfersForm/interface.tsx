@@ -10,11 +10,10 @@ import { getFieldState } from "src/utils/forms/forms";
 interface BankTransfersFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function BankTransfersFormUI(props: BankTransfersFormUIProps) {
-  const { formik, loading, customHandleBlur } = props;
+  const { formik, loading } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -33,7 +32,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           size="compact"
           isFullWidth
           options={getDomainById("bank")}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           isDisabled={loading}
           state={getFieldState(formik, "bankEntity")}
           onChange={formik.handleChange}
@@ -46,7 +45,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           size="compact"
           isFullWidth
           options={getDomainById("accountType")}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           isDisabled={loading}
           state={getFieldState(formik, "accountType")}
           onChange={formik.handleChange}
@@ -65,7 +64,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
           size="compact"
           isFullWidth
           state={getFieldState(formik, "accountNumber")}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           validMessage="El numero de cuenta es válido"
         />
