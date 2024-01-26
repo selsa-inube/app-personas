@@ -8,9 +8,9 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
-import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
+import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CommentsForm } from "./forms/CommentsForm";
@@ -30,7 +30,7 @@ const renderStepContent = (
   formReferences: IFormsCreditDestinationRequestRefs,
   creditDestinationRequest: IFormsCreditDestinationRequest,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void
+  handleStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -157,7 +157,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
               formReferences,
               creditDestinationRequest,
               setIsCurrentFormValid,
-              handleStepChange
+              handleStepChange,
             )}
 
             <Stack gap="s150" justifyContent="flex-end">

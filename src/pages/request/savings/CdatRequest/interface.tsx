@@ -8,24 +8,24 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
-import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { cdatRequestSteps } from "./config/assisted";
 import { crumbsCdatRequest } from "./config/navigation";
+import { ConditionsForm } from "./forms/ConditionsForm";
 import { InvestmentForm } from "./forms/InvestmentForm";
 import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { RefundForm } from "./forms/RefundForm";
 import { CdatRequestSummary } from "./forms/Summary";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { ConditionsForm } from "./forms/ConditionsForm";
+import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 
 const renderStepContent = (
   currentStep: number,
   formReferences: IFormsCdatRequestRefs,
   cdatRequest: IFormsCdatRequest,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void
+  handleStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -35,7 +35,8 @@ const renderStepContent = (
           ref={formReferences.investment}
           onFormValid={setIsCurrentFormValid}
         />
-      )}{currentStep === cdatRequestSteps.conditions.id && (
+      )}
+      {currentStep === cdatRequestSteps.conditions.id && (
         <ConditionsForm
           initialValues={cdatRequest.conditions.values}
           ref={formReferences.conditions}
@@ -138,7 +139,7 @@ function CdatRequestUI(props: CdatRequestUIProps) {
               formReferences,
               cdatRequest,
               setIsCurrentFormValid,
-              handleStepChange
+              handleStepChange,
             )}
 
             <Stack gap="s150" justifyContent="flex-end">

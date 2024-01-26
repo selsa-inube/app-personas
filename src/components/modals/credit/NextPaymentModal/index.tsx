@@ -33,7 +33,7 @@ const renderTransactionSpecification = (label: string, value: number) => (
 interface NextPaymentModalProps {
   portalId: string;
   nextPaymentData: {
-    nextPaymentCapital: number;
+    nextPaymentCapital?: number;
     nextPaymentInterest?: number;
     nextPaymentArrearsInterest?: number;
     nextPaymentValue: number;
@@ -84,10 +84,11 @@ function NextPaymentModal(props: NextPaymentModalProps) {
           </Text>
 
           <Stack direction="column" gap="s200">
-            {renderTransactionSpecification(
-              "Abono capital:",
-              nextPaymentData.nextPaymentCapital,
-            )}
+            {nextPaymentData.nextPaymentCapital &&
+              renderTransactionSpecification(
+                "Abono capital:",
+                nextPaymentData.nextPaymentCapital,
+              )}
 
             {nextPaymentData.nextPaymentInterest &&
               renderTransactionSpecification(

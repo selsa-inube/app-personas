@@ -8,14 +8,15 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
-import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
+import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
 import { GoalForm } from "./forms/GoalForm";
 import { PlanNameForm } from "./forms/PlanNameForm";
 import { QuotaForm } from "./forms/QuotaForm";
+import { ReimbursementForm } from "./forms/ReimbursementForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
 import {
   IFormsProgrammedSavingFixedRequest,
@@ -27,7 +28,7 @@ const renderStepContent = (
   formReferences: IFormsProgrammedSavingFixedRequestRefs,
   programmedSavingFixedRequest: IFormsProgrammedSavingFixedRequest,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void
+  handleStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -42,6 +43,13 @@ const renderStepContent = (
         <GoalForm
           initialValues={programmedSavingFixedRequest.goal.values}
           ref={formReferences.goal}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.reimbursement.id && (
+        <ReimbursementForm
+          initialValues={programmedSavingFixedRequest.reimbursement.values}
+          ref={formReferences.reimbursement}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -83,7 +91,7 @@ interface ProgrammedSavingFixedRequestUIProps {
 }
 
 function ProgrammedSavingFixedRequestUI(
-  props: ProgrammedSavingFixedRequestUIProps
+  props: ProgrammedSavingFixedRequestUIProps,
 ) {
   const {
     currentStep,
@@ -136,7 +144,7 @@ function ProgrammedSavingFixedRequestUI(
               formReferences,
               programmedSavingFixedRequest,
               setIsCurrentFormValid,
-              handleStepChange
+              handleStepChange,
             )}
 
             <Stack gap="s150" justifyContent="flex-end">

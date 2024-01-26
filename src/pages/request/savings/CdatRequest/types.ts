@@ -1,9 +1,9 @@
 import { FormikProps } from "formik";
-import { IContactChannelsEntry } from "src/forms/ContactChannelsForm/types";
-import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IConditionsEntry } from "./forms/ConditionsForm/types";
+import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 
 interface IFormsCdatRequest {
   investment: { isValid: boolean; values: IInvestmentEntry };

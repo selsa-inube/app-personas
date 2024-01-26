@@ -2,16 +2,16 @@ import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 
 const productFreeInvestment = getValueOfDomain(
   "freeInvestment",
-  "creditProductType"
+  "creditProductType",
 );
 const productVehicleOrMotorcycle = getValueOfDomain(
   "vehicleOrMotorcycle",
-  "creditProductType"
+  "creditProductType",
 );
 
 const productGenerateRecommendation = getValueOfDomain(
   "generateRecommendation",
-  "creditProductType"
+  "creditProductType",
 );
 
 const destinationProductsMock = {

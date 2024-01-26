@@ -39,7 +39,8 @@ const router = createBrowserRouter(
 
       <Route path="savings/*" element={<SavingRoutes />} />
 
-      <Route path="/update-data" element={<UpdateData />} />
+      <Route path="/update-data-assisted" element={<UpdateData />} />
+      <Route path="/update-data-no-assisted" element={<UpdateData />} />
     </Route>,
   ),
 );

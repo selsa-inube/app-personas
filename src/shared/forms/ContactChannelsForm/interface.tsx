@@ -23,12 +23,10 @@ function CustomLabelPolicy() {
 interface ContactChannelsFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
-  const { formik, loading, customHandleChange, customHandleBlur } = props;
+  const { formik, loading } = props;
 
   const isMobile = useMediaQuery("(max-width: 560px)");
 
@@ -53,7 +51,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               size="compact"
               isFullWidth
               state={getFieldState(formik, "landlinePhone")}
-              onBlur={customHandleBlur}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               validMessage="El teléfono es válido"
               isRequired
@@ -69,7 +67,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               size="compact"
               isFullWidth
               state={getFieldState(formik, "cellPhone")}
-              onBlur={customHandleBlur}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               validMessage="El celular es válido"
               isRequired
@@ -85,7 +83,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               size="compact"
               isFullWidth
               state={getFieldState(formik, "email")}
-              onBlur={customHandleBlur}
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               validMessage="El correo electrónico es válido"
               isRequired
@@ -100,7 +98,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
             customLabel={<CustomLabelPolicy />}
             label="Acepto la Política de tratamiento de datos"
             size={isMobile ? "small" : "large"}
-            onChange={customHandleChange}
+            onChange={formik.handleChange}
             checked={formik.values.acceptDataPolicy}
             disabled={loading}
           />
@@ -109,7 +107,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
             name="acceptNotifications"
             label="Acepto recibir información mediante WhatsApp, llamadas, mensajes de texto y correo electrónico."
             size={isMobile ? "small" : "large"}
-            onChange={customHandleChange}
+            onChange={formik.handleChange}
             checked={formik.values.acceptNotifications}
             disabled={loading}
           />

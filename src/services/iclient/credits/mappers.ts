@@ -1,8 +1,9 @@
 import { TagProps } from "@design/data/Tag";
 import {
+  amortizationTableValuesMock,
   amortizationTypeValuesMock,
-  movementDescriptionMock,
   guaranteeTypeValuesMock,
+  movementDescriptionMock,
   peridiocityValuesMock,
 } from "@mocks/products/credits/utils.mocks";
 import {
@@ -113,10 +114,11 @@ const mapCreditApiToEntity = (
     String(credit.paymentMethodName).toLowerCase(),
   );
   const interesRate =
-    Object(credit.accumulatedByObligations)[0].spreadCurrentRate +
-    Object(credit.accumulatedByObligations)[0].currentFixedPoints;
+    (Object(credit.accumulatedByObligations)[0].spreadCurrentRate || 0) +
+    (Object(credit.accumulatedByObligations)[0].currentFixedPoints || 0);
 
-  const roundInteresRate = interesRate.toFixed(2);
+  const roundInteresRate =
+    interesRate == 0 ? interesRate : interesRate.toFixed(2);
 
   const attributes = [
     {
@@ -133,11 +135,6 @@ const mapCreditApiToEntity = (
       id: "next_payment_date",
       label: "Fecha próximo pago",
       value: nextPayment,
-    },
-    {
-      id: "next_payment_capital",
-      label: "Capital próximo pago",
-      value: nextPaymentCapital,
     },
     {
       id: "next_payment_value",
@@ -198,6 +195,13 @@ const mapCreditApiToEntity = (
     );
   }
 
+  if (nextPaymentCapital) {
+    attributes.push({
+      id: "next_payment_capital",
+      label: "Capital próximo pago",
+      value: nextPaymentCapital,
+    });
+  }
   if (nextPaymentInterest) {
     attributes.push({
       id: "next_payment_interest",
@@ -247,14 +251,19 @@ const mapCreditAmortizationApiToEntity = (
     Number(payment.otherConceptValue || 0) +
     Number(payment.capitalizationValue || 0);
 
+  const totalInterest =
+    Number(payment.fixedInterestValue || 0) +
+    Number(payment.variableInterestValue || 0);
+
   const buildPayment: IAmortization = {
     id: String(payment.paymentPlanId),
     paymentNumber: Number(payment.quotaNumber),
     date: new Date(String(payment.quotaDate)),
+    type: amortizationTableValuesMock[String(payment.quotaType)],
     others,
-    interest: Number(payment.fixedInterestValue || 0),
+    interest: totalInterest,
     totalMonthlyValue: Number(payment.quotaValue),
-    projectedBalance: Number(payment.projectedBalance),
+    projectedBalance: Number(payment.projectedBalance || 0),
   };
 
   if (payment.capitalValue) {

@@ -1,16 +1,16 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
-import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { activeDM } from "src/model/domains/general/activedm";
+import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsCdatRequest } from "../../../types";
-import { IInvestmentEntry } from "../../InvestmentForm/types";
 import { IConditionsEntry } from "../../ConditionsForm/types";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { IInvestmentEntry } from "../../InvestmentForm/types";
 
+import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
