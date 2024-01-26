@@ -17,18 +17,16 @@ interface RelationshipWithDirectorsFormUIProps {
   isRequired: (fieldName: string) => boolean;
   handleToggleModal: () => void;
   handleModalSelect: (field: string, selectedItem: IDirector) => void;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function RelationshipWithDirectorsFormUI(
-  props: RelationshipWithDirectorsFormUIProps
+  props: RelationshipWithDirectorsFormUIProps,
 ) {
   const {
     formik,
     loading,
     showDirectorsModal,
     isRequired,
-    customHandleBlur,
     handleToggleModal,
     handleModalSelect,
   } = props;
@@ -73,7 +71,7 @@ function RelationshipWithDirectorsFormUI(
                 size="compact"
                 isFullWidth
                 state={getFieldState(formik, "directorName")}
-                onBlur={customHandleBlur}
+                onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 validMessage="El nombre del directivo es valido"
                 isRequired={isRequired("directorName")}

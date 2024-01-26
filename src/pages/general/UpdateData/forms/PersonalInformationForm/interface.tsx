@@ -14,11 +14,10 @@ import { getFieldState } from "src/utils/forms/forms";
 interface PersonalInformationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
-  const { formik, loading, customHandleBlur } = props;
+  const { formik, loading } = props;
 
   const isMobile = useMediaQuery("(max-width: 610px)");
 
@@ -103,7 +102,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={cityDM.options}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           errorMessage={formik.errors.expeditionPlace}
           isDisabled={loading}
           state={getFieldState(formik, "expeditionPlace")}
@@ -123,7 +122,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           state={getFieldState(formik, "expeditionDate")}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           validMessage="La fecha de expedición es válida"
           isRequired
@@ -142,7 +141,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           state={getFieldState(formik, "birthDate")}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           validMessage="La fecha de nacimiento es válida"
           isRequired
@@ -156,7 +155,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={cityDM.options}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           errorMessage={formik.errors.city}
           isDisabled={loading}
           state={getFieldState(formik, "city")}
@@ -171,7 +170,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={genderDM.options}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           errorMessage={formik.errors.gender}
           isDisabled={loading}
           state={getFieldState(formik, "gender")}
@@ -186,7 +185,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={maritalStatusDM.options}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           errorMessage={formik.errors.maritalStatus}
           isDisabled={loading}
           state={getFieldState(formik, "maritalStatus")}
@@ -201,7 +200,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size="compact"
           isFullWidth
           options={bloodTypeDM.options}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           errorMessage={formik.errors.bloodType}
           isDisabled={loading}
           state={getFieldState(formik, "bloodType")}

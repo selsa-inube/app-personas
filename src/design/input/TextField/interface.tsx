@@ -119,8 +119,8 @@ function TextFieldUI(props: TextFieldProps) {
     truncatedValue.length < maxLength
       ? "warning"
       : truncatedValue.length === maxLength
-      ? "error"
-      : "gray";
+        ? "error"
+        : "gray";
 
   return (
     <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
@@ -218,14 +218,14 @@ function TextFieldUI(props: TextFieldProps) {
         suggestions &&
         suggestions.length > 0 &&
         suggestions.some((suggestion) =>
-          suggestion.value.toLowerCase().includes(String(value).toLowerCase())
+          suggestion.value.toLowerCase().includes(String(value).toLowerCase()),
         ) && (
           <DropdownMenu
             options={suggestions
               .filter((suggestion) =>
                 suggestion.value
                   .toLowerCase()
-                  .includes(String(value).toLowerCase())
+                  .includes(String(value).toLowerCase()),
               )
               .flat()}
             onClick={handleSuggestionSelect}
@@ -242,8 +242,7 @@ function TextFieldUI(props: TextFieldProps) {
       {state === "valid" &&
         value &&
         value.toString().length > 0 &&
-        value !== initialValue &&
-        !isFocused && (
+        value !== initialValue && (
           <Success
             isDisabled={isDisabled}
             state={state}
