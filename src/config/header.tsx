@@ -7,8 +7,13 @@ const header = {
   username: "Leonardo Garzón",
   links: [
     {
-      label: "Actualizar datos",
-      path: "/update-data",
+      label: "Actualiza tus datos (Con)",
+      path: "/update-data-assisted",
+      icon: <MdOutlineBadge />,
+    },
+    {
+      label: "Actualiza tus datos (Sin)",
+      path: "/update-data-no-assisted",
       icon: <MdOutlineBadge />,
     },
   ],

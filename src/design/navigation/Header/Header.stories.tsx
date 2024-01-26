@@ -1,10 +1,10 @@
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
+import { MdAndroid } from "react-icons/md";
+import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Header, HeaderProps } from ".";
 import { props } from "./props";
-import { StoryFn } from "@storybook/react";
-import { BrowserRouter } from "react-router-dom";
-import { MdAndroid } from "react-icons/md";
 
 const story = {
   title: "design/navigation/Header",
@@ -30,7 +30,7 @@ Default.args = {
   links: [
     {
       label: "Actualizar datos",
-      path: "/update-data",
+      path: "/update-data-assisted",
       icon: <MdAndroid />,
     },
   ],
@@ -52,7 +52,7 @@ Themed.args = {
   links: [
     {
       label: "Actualizar datos",
-      path: "/update-data",
+      path: "/update-data-assisted",
       icon: <MdAndroid />,
     },
   ],
