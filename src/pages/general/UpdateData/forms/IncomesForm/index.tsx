@@ -43,9 +43,11 @@ const IncomesForm = forwardRef(function IncomesForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
   }, [formik.values]);
 
   const customHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

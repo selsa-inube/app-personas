@@ -37,9 +37,11 @@ const SocioeconomicInformationForm = forwardRef(
     useImperativeHandle(ref, () => formik);
 
     useEffect(() => {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
+      if (formik.dirty) {
+        formik.validateForm().then((errors) => {
+          onFormValid(Object.keys(errors).length === 0);
+        });
+      }
     }, [formik.values]);
 
     return <SocioeconomicInformationFormUI loading={loading} formik={formik} />;
