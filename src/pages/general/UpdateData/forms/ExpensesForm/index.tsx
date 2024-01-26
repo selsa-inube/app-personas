@@ -1,5 +1,9 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
+import {
+  handleChangeWithCurrency,
+  parseCurrencyString,
+} from "src/utils/currency";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { ExpensesFormUI } from "./interface";
@@ -39,26 +43,28 @@ const ExpensesForm = forwardRef(function ExpensesForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    getTotalExpenses();
-  }, [formik.values]);
-
-  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, []);
+  }, [formik.values]);
 
-  const getTotalExpenses = () => {
-    const totalExpenses = Object.entries(formik.values).reduce(
-      (acc, [key, value]) => {
-        if (key !== "totalExpenses") {
-          return acc + (typeof value === "number" ? value : 0);
-        }
+  const customHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleChangeWithCurrency(formik, event);
+    const updatedValues = {
+      ...formik.values,
+      [event.target.name]: parseCurrencyString(event.target.value),
+    };
+    getTotalExpenses(updatedValues);
+  };
 
-        return acc;
-      },
-      0,
-    );
+  const getTotalExpenses = (values: IExpensesEntry) => {
+    const totalExpenses = Object.entries(values).reduce((acc, [key, value]) => {
+      if (key !== "totalExpenses") {
+        return acc + (typeof value === "number" ? value : 0);
+      }
+
+      return acc;
+    }, 0);
 
     formik.setFieldValue("totalExpenses", totalExpenses);
   };
@@ -67,6 +73,7 @@ const ExpensesForm = forwardRef(function ExpensesForm(
     <ExpensesFormUI
       loading={loading}
       formik={formik}
+      customHandleChange={customHandleChange}
     />
   );
 });

@@ -1,5 +1,9 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
+import {
+  handleChangeWithCurrency,
+  parseCurrencyString,
+} from "src/utils/currency";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { IncomesFormUI } from "./interface";
@@ -39,31 +43,37 @@ const IncomesForm = forwardRef(function IncomesForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    getTotalIncomes();
-  }, [formik.values]);
-
-  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, []);
+  }, [formik.values]);
 
-  const getTotalIncomes = () => {
-    const totalIncomes = Object.entries(formik.values).reduce(
-      (acc, [key, value]) => {
-        if (key !== "totalIncomes") {
-          return acc + (typeof value === "number" ? value : 0);
-        }
+  const customHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleChangeWithCurrency(formik, event);
+    const updatedValues = {
+      ...formik.values,
+      [event.target.name]: parseCurrencyString(event.target.value),
+    };
+    getTotalIncomes(updatedValues);
+  };
 
-        return acc;
-      },
-      0,
-    );
-
+  const getTotalIncomes = (values: IIncomesEntry) => {
+    const totalIncomes = Object.entries(values).reduce((acc, [key, value]) => {
+      if (key !== "totalIncomes") {
+        return acc + (typeof value === "number" ? value : 0);
+      }
+      return acc;
+    }, 0);
     formik.setFieldValue("totalIncomes", totalIncomes);
   };
 
-  return <IncomesFormUI loading={loading} formik={formik} />;
+  return (
+    <IncomesFormUI
+      loading={loading}
+      formik={formik}
+      customHandleChange={customHandleChange}
+    />
+  );
 });
 
 export { IncomesForm };

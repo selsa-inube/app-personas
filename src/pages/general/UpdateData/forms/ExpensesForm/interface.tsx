@@ -5,27 +5,17 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
-import { currencyFormat, parseCurrencyString } from "src/utils/currency";
+import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface ExpensesFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function ExpensesFormUI(props: ExpensesFormUIProps) {
-  const { formik, loading } = props;
-
-  const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const parsedValue = parseCurrencyString(e.target.value);
-    formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);
-  };
-
-  const validateCurrencyField = (fieldName: string) => {
-    return typeof formik.values[fieldName] === "number"
-      ? currencyFormat(formik.values[fieldName])
-      : "";
-  };
+  const { formik, loading, customHandleChange } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -44,7 +34,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             placeholder="Digita el valor de los gastos personales"
             name="personalExpenses"
             id="personalExpenses"
-            value={validateCurrencyField("personalExpenses")}
+            value={validateCurrencyField("personalExpenses", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.personalExpenses}
             isDisabled={loading}
@@ -52,7 +42,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "personalExpenses")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor de los gastos personales es válido"
           />
           <TextField
@@ -60,7 +50,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             placeholder="Digita el valor de los gastos familiares"
             name="familyExpenses"
             id="familyExpenses"
-            value={validateCurrencyField("familyExpenses")}
+            value={validateCurrencyField("familyExpenses", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.familyExpenses}
             isDisabled={loading}
@@ -68,7 +58,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "familyExpenses")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor de los gastos familiares es válido"
           />
           <TextField
@@ -76,7 +66,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             placeholder="Digita el valor de los créditos"
             name="credits"
             id="credits"
-            value={validateCurrencyField("credits")}
+            value={validateCurrencyField("credits", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.credits}
             isDisabled={loading}
@@ -84,7 +74,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "credits")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor de los créditos es válido"
           />
           <TextField
@@ -92,7 +82,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             placeholder="Digita el valor de las tarjetas de crédito"
             name="creditCards"
             id="creditCards"
-            value={validateCurrencyField("creditCards")}
+            value={validateCurrencyField("creditCards", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.creditCards}
             isDisabled={loading}
@@ -100,7 +90,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "creditCards")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor de las tarjetas de crédito es válido"
           />
           <TextField
@@ -108,14 +98,14 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             placeholder=""
             name="health"
             id="health"
-            value={validateCurrencyField("health")}
+            value={validateCurrencyField("health", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.health}
             isDisabled={loading}
             size="compact"
             isFullWidth
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             readOnly
           />
           <TextField
@@ -123,14 +113,14 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             placeholder=""
             name="pension"
             id="pension"
-            value={validateCurrencyField("pension")}
+            value={validateCurrencyField("pension", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.pension}
             isDisabled={loading}
             size="compact"
             isFullWidth
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             readOnly
           />
           <TextField
@@ -138,7 +128,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             placeholder="Digita el valor de otros gastos"
             name="others"
             id="others"
-            value={validateCurrencyField("others")}
+            value={validateCurrencyField("others", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.others}
             isDisabled={loading}
@@ -146,7 +136,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "others")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor de otros gastos es válido"
           />
         </Grid>

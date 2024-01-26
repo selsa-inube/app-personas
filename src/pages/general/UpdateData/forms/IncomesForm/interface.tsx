@@ -5,27 +5,17 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
-import { currencyFormat, parseCurrencyString } from "src/utils/currency";
+import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface IncomesFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function IncomesFormUI(props: IncomesFormUIProps) {
-  const { formik, loading } = props;
-
-  const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const parsedValue = parseCurrencyString(e.target.value);
-    formik.setFieldValue(e.target.name, isNaN(parsedValue) ? "" : parsedValue);
-  };
-
-  const validateCurrencyField = (fieldName: string) => {
-    return typeof formik.values[fieldName] === "number"
-      ? currencyFormat(formik.values[fieldName])
-      : "";
-  };
+  const { formik, loading, customHandleChange } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -44,7 +34,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             placeholder="Digita el valor del sueldo básico"
             name="basicSalary"
             id="basicSalary"
-            value={validateCurrencyField("basicSalary")}
+            value={validateCurrencyField("basicSalary", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.basicSalary}
             isDisabled={loading}
@@ -52,7 +42,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "basicSalary")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor del sueldo básico es válido"
           />
           <TextField
@@ -60,7 +50,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             placeholder="Digita el valor del bono"
             name="bonds"
             id="bonds"
-            value={validateCurrencyField("bonds")}
+            value={validateCurrencyField("bonds", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.bonds}
             isDisabled={loading}
@@ -68,7 +58,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "bonds")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor de los bonos es válido"
           />
           <TextField
@@ -76,7 +66,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             placeholder="Digita el valor de las comisiones"
             name="commissions"
             id="commissions"
-            value={validateCurrencyField("commissions")}
+            value={validateCurrencyField("commissions", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.commissions}
             isDisabled={loading}
@@ -84,7 +74,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "commissions")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor de las comisiones es válido"
           />
           <TextField
@@ -92,7 +82,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             placeholder="Digita el valor de las horas extras"
             name="overtime"
             id="overtime"
-            value={validateCurrencyField("overtime")}
+            value={validateCurrencyField("overtime", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.overtime}
             isDisabled={loading}
@@ -100,7 +90,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "overtime")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor de las horas extras es válido"
           />
           <TextField
@@ -108,7 +98,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             placeholder="Digita el valor del auxilio de transporte"
             name="transportationAssistance"
             id="transportationAssistance"
-            value={validateCurrencyField("transportationAssistance")}
+            value={validateCurrencyField("transportationAssistance", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.transportationAssistance}
             isDisabled={loading}
@@ -116,7 +106,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "transportationAssistance")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor del auxilio de transporte es válido"
           />
           <TextField
@@ -124,7 +114,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             placeholder="Digita el valor del auxilio de alimentación"
             name="foodAssistance"
             id="foodAssistance"
-            value={validateCurrencyField("foodAssistance")}
+            value={validateCurrencyField("foodAssistance", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.foodAssistance}
             isDisabled={loading}
@@ -132,7 +122,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "foodAssistance")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor del auxilio de alimentación es válido"
           />
           <TextField
@@ -140,7 +130,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             placeholder="Digita el valor de otros ingresos"
             name="others"
             id="others"
-            value={validateCurrencyField("others")}
+            value={validateCurrencyField("others", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
             errorMessage={formik.errors.others}
             isDisabled={loading}
@@ -148,7 +138,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             isFullWidth
             state={getFieldState(formik, "others")}
             onBlur={formik.handleBlur}
-            onChange={handleChangeWithCurrency}
+            onChange={customHandleChange}
             validMessage="El valor de otros ingresos es válido"
           />
         </Grid>
