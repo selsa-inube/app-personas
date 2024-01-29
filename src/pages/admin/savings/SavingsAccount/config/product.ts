@@ -13,7 +13,7 @@ const productsAttributes: Record<string, string[]> = {
   ],
   AP: ["saved_value", "interest_rate"],
   APE: ["saved_value", "withdrawal_balance", "pending_payment"],
-  AS: ["saved_value", "withdrawal_balance"],
+  AS: ["saved_value"],
   CD: [
     "title",
     "net_value",
