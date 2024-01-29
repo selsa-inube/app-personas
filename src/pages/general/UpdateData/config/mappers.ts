@@ -46,7 +46,7 @@ const mapPersonalInformation = (
     secondLastName:
       personalInfoData.personalData.identification.secondLastName || "",
     identificationType: personalInfoData.personalData.identification.type,
-    identification: Number(personalInfoData.personalData.identification.number),
+    identification: personalInfoData.personalData.identification.identificationNumber,
     expeditionPlace: personalInfoData.personalData.identification.city,
     expeditionDate: personalInfoData.personalData.identification.date || "",
     birthDate: personalInfoData.personalData.birthDate,
@@ -81,7 +81,7 @@ const mapFamilyGroup = (
     firstLastName: familyGroupData.identification.firstLastName,
     secondLastName: familyGroupData.identification.secondLastName || "",
     type: familyGroupData.identification.type,
-    number: familyGroupData.identification.number,
+    identificationNumber: familyGroupData.identification.identificationNumber,
     city: familyGroupData.identification.city,
     date: familyGroupData.identification.date || "",
     id: String(index),
