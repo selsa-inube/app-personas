@@ -1,6 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { AttributesModal } from "@components/modals/AttributesModal";
 import { ReimbursementModal } from "@components/modals/investment/ReimbursementModal";
 import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { quickLinks } from "@config/quickLinks";
@@ -51,6 +52,7 @@ interface SavingsAccountUIProps {
   beneficiariesModal: IBeneficiariesModalState;
   reimbursementModal: IReimbursementModalState;
   productId?: string;
+  handleToggleBeneficiariesModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   commitmentsModal: ICommitmentsModalState;
   handleToggleCommitmentsModal: () => void;
@@ -62,8 +64,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     isMobile,
     selectedProduct,
     productsOptions,
+    beneficiariesModal,
     reimbursementModal,
     productId,
+    handleToggleBeneficiariesModal,
     handleChangeProduct,
     commitmentsModal,
     handleToggleCommitmentsModal,
@@ -144,6 +148,15 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                     withButton
                   />
                 )}
+                {selectedProduct.saving.type !== "CA" && (
+                  <BoxAttribute
+                    label="Beneficiarios:"
+                    buttonIcon={<MdOpenInNew />}
+                    buttonValue={beneficiariesModal.data.length}
+                    onClickButton={handleToggleBeneficiariesModal}
+                    withButton
+                  />
+                )}
                 {selectedProduct.saving.type !== "CD" && (
                   <BoxAttribute
                     label="Compromisos de ahorro:"
@@ -191,6 +204,15 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           portalId="modals"
           reimbursement={reimbursementModal.data}
           onCloseModal={handleToggleReimbursementModal}
+        />
+      )}
+      {beneficiariesModal.show && (
+        <AttributesModal
+          portalId="modals"
+          title="Beneficiarios"
+          description="Porcentaje de participación"
+          onCloseModal={handleToggleBeneficiariesModal}
+          attributes={beneficiariesModal.data}
         />
       )}
       {commitmentsModal.show && (

@@ -125,6 +125,13 @@ function SavingsAccount() {
     navigate(`/my-savings/account/${id}`);
   };
 
+  const handleToggleBeneficiariesModal = () => {
+    setBeneficiariesModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
   const handleToggleReimbursementModal = () => {
     setReimbursementModal((prevState) => ({
       ...prevState,
@@ -143,6 +150,7 @@ function SavingsAccount() {
 
   return (
     <SavingsAccountUI
+      handleToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       handleChangeProduct={handleChangeProduct}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
