@@ -16,8 +16,10 @@ const payDay = (periodicityId: string) => {
     return commonFields.paydayTypeToSelect(biweeklyPayDayDM.options);
   if (periodicityId === "monthly")
     return commonFields.paydayTypeToSelect(monthlyPayDayDM.options);
-  if (periodicityId === "semiannual") return commonFields.paydayByDate(false);
-  if (periodicityId === "annual") return commonFields.paydayByDate(false);
+  if (periodicityId === "semiannual")
+    return commonFields.paydayTypeToSelect(monthlyPayDayDM.options);
+  if (periodicityId === "annual")
+    return commonFields.paydayTypeToSelect(monthlyPayDayDM.options);
   return commonFields.paydayByDate(true);
 };
 
@@ -26,7 +28,7 @@ const forbiddenOptionsMap: IDynamicFormOptions = {
     peridiocityDM.SINGLE.id,
     peridiocityDM.QUARTERLY.id,
   ],
-  payrollDiscount:[
+  payrollDiscount: [
     peridiocityDM.SINGLE.id,
     peridiocityDM.QUARTERLY.id,
     peridiocityDM.SEMIANNUAL.id,
@@ -123,7 +125,10 @@ const structureQuotaForm = (
         commonFields.periodicity("span 1", "physicalCollectionChannels"),
         payDay(periodicityId),
       ],
-      automaticDebit: [],
+      automaticDebit: [
+        commonFields.periodicity("span 1", "automaticDebit"),
+        payDay(periodicityId),
+      ],
       payrollDiscount: [commonFields.periodicity("span 1", "payrollDiscount")],
       northCranes: [commonFields.periodicity("span 1", "northCranes")],
       westernCranes: [commonFields.periodicity("span 1", "westernCranes")],

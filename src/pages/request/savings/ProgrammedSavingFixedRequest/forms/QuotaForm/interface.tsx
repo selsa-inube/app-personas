@@ -7,6 +7,7 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 import { IFormField } from "@ptypes/forms.types";
 import { MdOutlineAttachMoney } from "react-icons/md";
+import { ISelectOption } from "@design/input/Select/types";
 import {
   handleChangeWithCurrency,
   validateCurrencyField,
@@ -16,13 +17,19 @@ import { Stack } from "@design/layout/Stack";
 interface QuotaFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  renderFields: IFormField[];
+  accountOptions: ISelectOption[];
+  savingOptions: ISelectOption[];
+  customHandleAccountToDebit: (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => void;
+  customHandleAccount: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   customHandleChange: (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => void;
   customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
-  renderFields: IFormField[];
 }
 const paymentMethodDM = getDomainById("paymentMethod");
 
@@ -30,9 +37,13 @@ function QuotaFormUI(props: QuotaFormUIProps) {
   const {
     formik,
     loading,
+    renderFields,
+    accountOptions,
+    savingOptions,
+    customHandleAccountToDebit,
+    customHandleAccount,
     customHandleChange,
     customHandleBlur,
-    renderFields,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 750px)");
@@ -98,8 +109,49 @@ function QuotaFormUI(props: QuotaFormUIProps) {
               customHandleBlur,
               customHandleChange,
               isTablet,
-              loading
+              loading,
             )
+          )}
+          {formik.values.paymentMethod === "automaticDebit" && (
+            <>
+              <Select
+                label="Cuenta a debitar"
+                name="accountToDebit"
+                id="accountToDebit"
+                value={formik.values.accountToDebit}
+                size="compact"
+                options={getDomainById("accountDebitType")}
+                state={getFieldState(formik, "accountToDebit")}
+                errorMessage={formik.errors.accountToDebit}
+                onBlur={customHandleBlur}
+                onClick={formik.handleClick}
+                onFocus={formik.handleFocus}
+                onChange={customHandleAccountToDebit}
+                readOnly={savingOptions.length < 1}
+                isDisabled={loading}
+                isFullWidth
+              />
+              <Select
+                label="Numero de cuenta"
+                name="accountNumber"
+                id="accountNumber"
+                value={formik.values.accountNumber}
+                size="compact"
+                options={accountOptions}
+                state={getFieldState(formik, "accountNumber")}
+                errorMessage={formik.errors.accountNumber}
+                onBlur={customHandleBlur}
+                onClick={formik.handleClick}
+                onFocus={formik.handleFocus}
+                onChange={customHandleAccount}
+                readOnly={
+                  savingOptions.length === 1 || accountOptions.length === 1
+                }
+                isDisabled={loading}
+                isFullWidth
+                isRequired
+              />
+            </>
           )}
         </Grid>
       </Stack>

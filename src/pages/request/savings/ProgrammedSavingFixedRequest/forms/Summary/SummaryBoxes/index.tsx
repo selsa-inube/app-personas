@@ -26,6 +26,9 @@ const renderQuotaSummary = (values: IQuotaEntry, isTablet: boolean) => (
       label="Periodicidad:"
       value={peridiocityDM.valueOf(values.periodicity)?.value}
     />
+    {values.periodicity !== peridiocityDM.SINGLE.id && (
+      <BoxAttribute label="Día de pago:" value={values.periodicValue} />
+    )}
   </Stack>
 );
 
