@@ -14,7 +14,7 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "min_value",
-        label: "Valor mínimo",
+        label: "Saldo mínimo",
         value: 0,
       },
       {
@@ -295,7 +295,7 @@ const savingsMock: IProduct[] = [
       },
       {
         id: "min_value",
-        label: "Valor mínimo",
+        label: "Saldo mínimo",
         value: 5000,
       },
       {
