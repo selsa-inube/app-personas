@@ -22,7 +22,7 @@ function ReimbursementModal(props: ReimbursementModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -32,7 +32,7 @@ function ReimbursementModal(props: ReimbursementModalProps) {
         <Stack direction="column" width="100%" gap="s050">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
-              Reembolso
+              Cuenta para reembolso
             </Text>
 
             <Icon
@@ -65,7 +65,7 @@ function ReimbursementModal(props: ReimbursementModalProps) {
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 
