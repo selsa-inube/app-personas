@@ -141,7 +141,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 ))}
                 {selectedProduct.saving.type === "AP" && (
                   <BoxAttribute
-                    label="Reembolso:"
+                    label="Cuenta para reembolso:"
                     buttonIcon={<MdOpenInNew />}
                     buttonValue="Ver"
                     onClickButton={handleToggleReimbursementModal}
