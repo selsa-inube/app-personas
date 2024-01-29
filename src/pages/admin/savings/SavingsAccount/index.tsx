@@ -98,7 +98,7 @@ function SavingsAccount() {
         setSelectedProduct({
           saving: {
             ...saving,
-            movements: saving.movements?.slice(0, isMobile ? 5 : 10),
+            movements: saving.movements?.slice(0, 5),
           },
           option: productOption.id,
         });
