@@ -37,7 +37,7 @@ interface InformationDataFormProps {
 
 const InformationDataForm = forwardRef(function InformationDataForm(
   props: InformationDataFormProps,
-  ref: React.Ref<FormikProps<IInformationDataEntry>>
+  ref: React.Ref<FormikProps<IInformationDataEntry>>,
 ) {
   const { initialValues, loading, readonly, onFormValid, onSubmit } = props;
 
@@ -45,7 +45,7 @@ const InformationDataForm = forwardRef(function InformationDataForm(
 
   const formik = useFormik({
     initialValues,
-    validationSchema,
+    validationSchema: dynamicSchema,
     validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
@@ -62,10 +62,9 @@ const InformationDataForm = forwardRef(function InformationDataForm(
           isDependent: familyGroupRequiredFields.isDependent
             ? Yup.string().required(validationMessages.required)
             : Yup.string(),
-            
-        })
+        }),
       );
-
+  
       setDynamicSchema(newValidationSchema);
     }
   }, []);

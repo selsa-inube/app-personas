@@ -143,6 +143,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
             size="compact"
             options={activeDM.options}
             onBlur={formik.handleBlur}
+            errorMessage={formik.errors.isDependent}
             onChange={formik.handleChange}
             value={formik.values.isDependent || ""}
             state={getFieldState(formik, "isDependent")}

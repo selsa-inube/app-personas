@@ -100,7 +100,6 @@ const createFamilyMemberStepsRules = (
           newCreateFamilyMember.informationData = {
             isValid: false,
             values: {
-              isDependent: false,
               relationship: "",
               educationLevel: "",
               profession: "",

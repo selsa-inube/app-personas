@@ -17,10 +17,10 @@ interface InformationDataFormUIProps {
 
 function InformationDataFormUI(props: InformationDataFormUIProps) {
   const { formik, readonly, isRequired } = props;
-  
+
   return (
     <>
-       {!readonly && (
+      {!readonly && (
         <>
           <Select
             label="Parentesco"
@@ -45,6 +45,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
             size="compact"
             options={activeDM.options}
             onBlur={formik.handleBlur}
+            errorMessage={formik.errors.isDependent}
             onChange={formik.handleChange}
             value={formik.values.isDependent || ""}
             state={getFieldState(formik, "isDependent")}
