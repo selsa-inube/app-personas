@@ -78,11 +78,7 @@ function renderHomeContent(
                     <Product
                       key={saving.id}
                       title={saving.title}
-                      description={truncateAndObfuscateDescription(
-                        saving.id,
-                        saving.type,
-                        4,
-                      )}
+                      description={saving.id}
                       attributes={formatSavingCurrencyAttrs(
                         extractSavingAttributes(saving),
                       )}
