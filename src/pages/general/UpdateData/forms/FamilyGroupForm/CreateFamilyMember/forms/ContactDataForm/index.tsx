@@ -26,7 +26,7 @@ interface ContactDataFormProps {
 
 const ContactDataForm = forwardRef(function ContactDataForm(
   props: ContactDataFormProps,
-  ref: React.Ref<FormikProps<IContactDataEntry>>
+  ref: React.Ref<FormikProps<IContactDataEntry>>,
 ) {
   const { initialValues, loading, readonly, onFormValid, onSubmit } = props;
 
@@ -48,7 +48,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
         Yup.object({
           cellPhone: validationRules.phone,
           email: validationRules.email,
-        })
+        }),
       );
 
       setDynamicSchema(newValidationSchema);
@@ -56,13 +56,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   }, []);
 
   useEffect(() => {
-    if (!readonly) {
-      if (formik.dirty) {
-        formik.validateForm().then((errors) => {
-          onFormValid(Object.keys(errors).length === 0);
-        });
-      }
-    } else {
+    if ((!readonly && formik.dirty) || readonly) {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });

@@ -71,13 +71,7 @@ const InformationDataForm = forwardRef(function InformationDataForm(
   }, []);
 
   useEffect(() => {
-    if (!readonly) {
-      if (formik.dirty) {
-        formik.validateForm().then((errors) => {
-          onFormValid(Object.keys(errors).length === 0);
-        });
-      }
-    } else {
+    if ((!readonly && formik.dirty) || readonly) {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });
