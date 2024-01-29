@@ -9,78 +9,83 @@ import { DeleteFamilyMember } from "./DeleteFamilyMember";
 import { EditFamilyMember } from "./EditFamilyMember";
 import { FamilyMemberView } from "./FamilyMemberView";
 import { deleteFamilyMemberMsgs } from "./config/deleteMember";
-import { FamilyGroupRequiredFields } from "./config/formConfig";
+import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
+import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/IdentificationDataForm/types";
+import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
+import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
+import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
 
 const validationSchema = Yup.object().shape({
-  firstName: FamilyGroupRequiredFields.firstName
+  firstName: familyGroupRequiredFields.firstName
     ? validationRules.name.required(validationMessages.required)
     : validationRules.name,
-  secondName: FamilyGroupRequiredFields.secondName
+  secondName: familyGroupRequiredFields.secondName
     ? validationRules.name.required(validationMessages.required)
     : validationRules.name,
-  firstLastName: FamilyGroupRequiredFields.firstLastName
+  firstLastName: familyGroupRequiredFields.firstLastName
     ? validationRules.name.required(validationMessages.required)
     : validationRules.name,
-  secondLastName: FamilyGroupRequiredFields.secondLastName
+  secondLastName: familyGroupRequiredFields.secondLastName
     ? validationRules.name.required(validationMessages.required)
     : validationRules.name,
-  type: FamilyGroupRequiredFields.type
+  type: familyGroupRequiredFields.type
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  number: FamilyGroupRequiredFields.number
+  identificationNumber: familyGroupRequiredFields.identificationNumber
     ? validationRules.identification.required(validationMessages.required)
     : validationRules.identification,
-  city: FamilyGroupRequiredFields.city
+  city: familyGroupRequiredFields.city
     ? validationRules.city.required(validationMessages.required)
     : validationRules.city,
-  date: FamilyGroupRequiredFields.date
+  date: familyGroupRequiredFields.date
     ? validationRules.date.required(validationMessages.required)
     : validationRules.date,
-  country: FamilyGroupRequiredFields.country
+  country: familyGroupRequiredFields.country
     ? validationRules.country.required(validationMessages.required)
     : validationRules.country,
-  address: FamilyGroupRequiredFields.address
+  address: familyGroupRequiredFields.address
     ? validationRules.address.required(validationMessages.required)
     : validationRules.address,
-  department: FamilyGroupRequiredFields.department
+  department: familyGroupRequiredFields.department
     ? validationRules.stateOrDepartment.required(validationMessages.required)
     : validationRules.stateOrDepartment,
-  zipCode: FamilyGroupRequiredFields.zipCode
+  zipCode: familyGroupRequiredFields.zipCode
     ? validationRules.zipCode.required(validationMessages.required)
     : validationRules.zipCode,
-  landlinePhone: FamilyGroupRequiredFields.landlinePhone
+  landlinePhone: familyGroupRequiredFields.landlinePhone
     ? validationRules.landlinePhone.required(validationMessages.required)
     : validationRules.landlinePhone,
-  cellPhone: FamilyGroupRequiredFields.cellPhone
+  cellPhone: familyGroupRequiredFields.cellPhone
     ? validationRules.phone.required(validationMessages.required)
     : validationRules.phone,
-  email: FamilyGroupRequiredFields.email
+  email: familyGroupRequiredFields.email
     ? validationRules.email.required(validationMessages.required)
     : validationRules.email,
-  birthDate: FamilyGroupRequiredFields.birthDate
+  birthDate: familyGroupRequiredFields.birthDate
     ? validationRules.date.required(validationMessages.required)
     : validationRules.date,
-  gender: FamilyGroupRequiredFields.gender
+  gender: familyGroupRequiredFields.gender
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  relationship: FamilyGroupRequiredFields.relationship
+  relationship: familyGroupRequiredFields.relationship
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  isDependent: FamilyGroupRequiredFields.isDependent
+  isDependent: familyGroupRequiredFields.isDependent
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  educationLevel: FamilyGroupRequiredFields.educationLevel
+  educationLevel: familyGroupRequiredFields.educationLevel
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  businessActivity: FamilyGroupRequiredFields.businessActivity
+  businessActivity: familyGroupRequiredFields.businessActivity
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
-  profession: FamilyGroupRequiredFields.profession
+  profession: familyGroupRequiredFields.profession
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
 });
+
 interface FamilyGroupFormProps {
   initialValues: IFamilyGroupEntries;
   onSubmit?: (values: IFamilyGroupEntries) => void;
@@ -93,6 +98,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   const { initialValues, onSubmit } = props;
   const [dynamicSchema] = useState(validationSchema);
   const [message, setMessage] = useState<IMessage>();
+  const [showAddMemberModal, setShowAddMemberModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -161,7 +167,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
               firstLastName: formik.values.firstLastName,
               secondLastName: formik.values.secondLastName,
               type: formik.values.type,
-              number: formik.values.number,
+              identificationNumber: formik.values.identificationNumber,
               city: formik.values.city,
               date: formik.values.date,
               country: formik.values.country,
@@ -188,10 +194,48 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     }
   };
 
+  const handleAddMember = async (
+    identificationData: IIdentificationDataEntry,
+    personalData: IPersonalDataEntry,
+    contactData: IContactDataEntry,
+    informationData: IInformationDataEntry
+  ) => {
+    await formik.validateForm();
+
+    formik.setFieldValue("entries", [
+      ...formik.values.entries,
+      {
+        id: identificationData.identificationNumber,
+        firstName: personalData.firstName,
+        secondName: personalData.secondName,
+        firstLastName: personalData.firstLastName,
+        secondLastName: personalData.secondLastName,
+        type: personalData.type,
+        identificationNumber: identificationData.identificationNumber,
+        cellPhone: contactData.cellPhone,
+        email: contactData.email,
+        birthDate: informationData.birthDate,
+        gender: informationData.gender,
+        relationship: informationData.relationship ?? personalData.relationship,
+        isDependent: informationData.isDependent ?? personalData.isDependent,
+        educationLevel: informationData.educationLevel,
+        businessActivity: informationData.businessActivity,
+        profession: informationData.profession,
+      },
+    ]);
+
+    setShowAddMemberModal(false);
+    formik.setTouched({});
+  };
+
   const isRequired = (fieldName: string): boolean => {
     const fieldDescription = dynamicSchema.describe().fields[fieldName];
     if (!("nullable" in fieldDescription)) return false;
     return !fieldDescription.nullable && !fieldDescription.optional;
+  };
+
+  const handleToggleModal = () => {
+    setShowAddMemberModal(!showAddMemberModal);
   };
 
   const familyGroupTableActions: IAction[] = [
@@ -238,9 +282,12 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   return (
     <FamilyGroupFormUI
       formik={formik}
-      familyGroupTableActions={familyGroupTableActions}
       message={message}
+      familyGroupTableActions={familyGroupTableActions}
+      showAddMemberModal={showAddMemberModal}
       onCloseMessage={handleCloseMessage}
+      onToggleModal={handleToggleModal}
+      onAddMember={handleAddMember}
     />
   );
 });

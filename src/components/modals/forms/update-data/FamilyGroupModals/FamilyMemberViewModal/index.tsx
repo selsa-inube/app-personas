@@ -82,11 +82,11 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               />
               <TextField
                 label="Identificación"
-                name="number"
-                id="number"
+                name="identificationNumber"
+                id="identificationNumber"
                 placeholder=""
-                value={formik.values.number}
-                type="text"
+                value={formik.values.identificationNumber}
+                type="number"
                 size="compact"
                 isFullWidth
                 readOnly

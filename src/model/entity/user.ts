@@ -4,7 +4,7 @@ interface IIdentification {
   firstLastName: string;
   secondLastName?: string;
   type: string;
-  number: string;
+  identificationNumber: number;
   city: string;
   date?: string;
 }
@@ -29,6 +29,20 @@ interface IContactData {
   landlinePhone?: string;
   cellPhone: string;
   email: string;
+}
+
+interface IReferenceThird {
+  identification: IIdentification;
+  contact: IContactData;
+  information: {
+    birthDate: string;
+    gender: string;
+    relationship?: string;
+    isDependent?: boolean;
+    educationLevel?: string;
+    businessActivity?: string;
+    profession?: string;
+  };
 }
 
 interface IFamilyThird {
@@ -116,6 +130,7 @@ interface IThird {
 export type {
   IBankTransfersAccount,
   IContactData,
+  IReferenceThird,
   IEconomicActivity,
   IFamilyThird,
   IFinancialOperations,

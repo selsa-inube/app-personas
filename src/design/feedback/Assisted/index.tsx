@@ -6,6 +6,7 @@ interface AssistedProps {
   currentStep: number;
   stepsFlow?: number[];
   disableNextStep?: boolean;
+  showButtonsLabels?: boolean;
   onStepChange: (stepId: number) => void;
   onFinishAssisted: () => void;
 }
@@ -16,6 +17,7 @@ function Assisted(props: AssistedProps) {
     currentStep,
     stepsFlow,
     disableNextStep,
+    showButtonsLabels,
     onStepChange,
     onFinishAssisted,
   } = props;
@@ -54,6 +56,7 @@ function Assisted(props: AssistedProps) {
       currentStepInfo={currentStepInfo}
       lastStepIndex={lastStepIndex}
       disableNextStep={disableNextStep}
+      showButtonsLabels={showButtonsLabels}
     />
   );
 }
