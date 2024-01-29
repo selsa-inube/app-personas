@@ -9,7 +9,7 @@ const savingsMock: IProduct[] = [
     attributes: [
       {
         id: "net_value",
-        label: "Total ahorrado",
+        label: "Saldo total",
         value: 785923,
       },
       {
@@ -290,7 +290,7 @@ const savingsMock: IProduct[] = [
     attributes: [
       {
         id: "net_value",
-        label: "Total ahorrado",
+        label: "Saldo total",
         value: 592381,
       },
       {
@@ -570,7 +570,7 @@ const savingsMock: IProduct[] = [
     attributes: [
       {
         id: "saved_value",
-        label: "Total ahorrado",
+        label: "Saldo total",
         value: 7642790,
       },
       {
@@ -939,7 +939,7 @@ const savingsMock: IProduct[] = [
     attributes: [
       {
         id: "saved_value",
-        label: "Total ahorrado",
+        label: "Saldo total",
         value: 1980656,
       },
       {
