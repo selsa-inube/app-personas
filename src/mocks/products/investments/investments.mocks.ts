@@ -25,8 +25,8 @@ const investmentsMock: IProduct[] = [
 
       {
         id: "interest_rate",
-        label: "Tasa (%)",
-        value: "0,5 % NAMV",
+        label: "Tasa de interés",
+        value: "9,40 % EA",
       },
       {
         id: "deadline_days",
