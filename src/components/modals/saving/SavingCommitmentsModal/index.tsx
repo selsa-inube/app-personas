@@ -68,7 +68,7 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Compromisos ligados a la cuenta
+            Compromisos ligados al producto
           </Text>
         </Stack>
 
