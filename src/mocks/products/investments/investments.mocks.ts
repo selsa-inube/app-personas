@@ -54,11 +54,6 @@ const investmentsMock: IProduct[] = [
         label: "Fecha de solicitud",
         value: "01/Ene/2023",
       },
-      {
-        id: "description",
-        label: "Descripción",
-        value: "Certificado",
-      },
     ],
     userOwner: "12340001",
   },
