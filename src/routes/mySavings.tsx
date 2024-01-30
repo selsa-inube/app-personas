@@ -18,6 +18,10 @@ function MySavingsRoutes() {
         path="commitment/:commitment_id"
         element={<SavingsCommitments />}
       />
+      <Route
+        path="commitment"
+        element={<Navigate to="/my-savings" replace />}
+      />
     </Routes>
   );
 }
