@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { updateDataSteps } from "./config/assisted";
 import {
   mapBankTransfers,
+  mapComments,
   mapContactData,
   mapEconomicActivity,
   mapExpenses,
@@ -16,6 +17,7 @@ import {
   mapSocioeconomicInformation,
 } from "./config/mappers";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
+import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "./forms/ExpensesForm/types";
@@ -86,6 +88,7 @@ function UpdateData() {
         usersMock[0].relationshipWithDirectors,
       ),
     },
+    comments: { isValid: true, values: mapComments() },
   });
 
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
@@ -107,6 +110,7 @@ function UpdateData() {
   const expensesRef = useRef<FormikProps<IExpensesEntry>>(null);
   const relationshipWithDirectorsRef =
     useRef<FormikProps<IRelationshipWithDirectorsEntry>>(null);
+  const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
 
   const formReferences: IFormsUpdateDataRefs = {
     personalInformation: personalInfoRef,
@@ -123,6 +127,7 @@ function UpdateData() {
     income: incomeRef,
     expenses: expensesRef,
     relationshipWithDirectors: relationshipWithDirectorsRef,
+    comments: commentsRef,
   };
 
   const handleStepChange = (stepId: number) => {
