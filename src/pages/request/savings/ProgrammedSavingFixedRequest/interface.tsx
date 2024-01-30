@@ -17,6 +17,7 @@ import { GoalForm } from "./forms/GoalForm";
 import { PlanNameForm } from "./forms/PlanNameForm";
 import { QuotaForm } from "./forms/QuotaForm";
 import { ReimbursementForm } from "./forms/ReimbursementForm";
+import { CommentsForm } from "./forms/CommentsForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
 import {
   IFormsProgrammedSavingFixedRequest,
@@ -64,6 +65,13 @@ const renderStepContent = (
         <ContactChannelsForm
           initialValues={programmedSavingFixedRequest.contactChannels.values}
           ref={formReferences.contactChannels}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.comments.id && (
+        <CommentsForm
+          initialValues={programmedSavingFixedRequest.comments.values}
+          ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
