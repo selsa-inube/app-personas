@@ -1,10 +1,11 @@
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { usersMock } from "@mocks/users/users.mocks";
+import { savingAccountCode } from "@pages/admin/savings/MySavings/config/products";
 import { FormikProps, useFormik } from "formik";
-import React, { forwardRef, useImperativeHandle, useEffect } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import * as Yup from "yup";
 import { RefundFormUI } from "./interface";
 import { IRefundEntry } from "./types";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { usersMock } from "@mocks/users/users.mocks";
 
 const validationSchema = Yup.object({
   refundMethod: Yup.string(),
@@ -48,7 +49,7 @@ const RefundForm = forwardRef(function RefundForm(
     formik.handleChange(event);
     if (event.target.value === "creditToInternalAccount") {
       const internalAccounts = savingsMock.filter(
-        (saving) => saving.type === "CA",
+        (saving) => saving.type === savingAccountCode,
       );
       formik.setFieldValue("account", internalAccounts[0].id);
       formik.setFieldValue(
@@ -76,7 +77,7 @@ const RefundForm = forwardRef(function RefundForm(
   };
 
   const savingOptions = savingsMock
-    .filter((saving) => saving.type === "CA")
+    .filter((saving) => saving.type === savingAccountCode)
     .map((saving) => ({ id: saving.id, value: saving.description }));
 
   const accountOptions =

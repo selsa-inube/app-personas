@@ -1,9 +1,11 @@
+import { savingAccountCode } from "@pages/admin/savings/MySavings/config/products";
+
 const truncateAndObfuscateDescription = (
   description: string,
   type: string,
   lengthToShow: number,
 ) => {
-  if (type === "CA") {
+  if (type === savingAccountCode) {
     const truncatedText = description.slice(-lengthToShow);
     return "**" + truncatedText;
   } else {
