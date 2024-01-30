@@ -5,7 +5,7 @@ const savingsMock: IProduct[] = [
     title: "Cuenta familiar",
     id: "013001157292",
     type: "CA",
-    description: "Cuenta familiar - **7292",
+    description: "Cuenta familiar - 013001157292",
     attributes: [
       {
         id: "net_value",
@@ -28,14 +28,9 @@ const savingsMock: IProduct[] = [
         value: "Todas las transacciones",
       },
       {
-        id: "account_ADA",
-        label: "Débito automático autorizado",
+        id: "account_to_salary",
+        label: "Cuenta para abonar la nómina",
         value: "No",
-      },
-      {
-        id: "interest_rate",
-        label: "Tasa de interés",
-        value: "0,04 % NAMV",
       },
       {
         id: "beneficiaries",
@@ -281,7 +276,7 @@ const savingsMock: IProduct[] = [
     title: "Cuenta de ahorros",
     id: "013001162025",
     type: "CA",
-    description: "Cuenta de ahorros - **2025",
+    description: "Cuenta de ahorros - 013001162025",
     attributes: [
       {
         id: "net_value",
@@ -304,14 +299,9 @@ const savingsMock: IProduct[] = [
         value: "Todas las transacciones",
       },
       {
-        id: "account_ADA",
-        label: "Débito automático autorizado",
-        value: "Si",
-      },
-      {
-        id: "interest_rate",
-        label: "Tasa de interés",
-        value: "0,07 % NAMV",
+        id: "account_to_salary",
+        label: "Cuenta para abonar la nómina",
+        value: "No",
       },
       {
         id: "beneficiaries",

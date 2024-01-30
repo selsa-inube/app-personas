@@ -1,6 +1,6 @@
 const familyGroupTableTitles = [
   {
-    id: "number",
+    id: "identificationNumber",
     titleName: "Documento",
     priority: 1,
   },

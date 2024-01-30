@@ -7,8 +7,7 @@ const productsAttributes: Record<string, string[]> = {
     "min_value",
     "account_state",
     "account_gmf",
-    "account_ADA",
-    "interest_rate",
+    "account_to_salary",
   ],
   AP: ["saved_value", "interest_rate"],
   APE: ["saved_value", "withdrawal_balance", "pending_payment"],
@@ -20,7 +19,6 @@ const productsAttributes: Record<string, string[]> = {
     "interest_rate",
     "request_date",
     "deadline_days",
-    "description",
   ],
 };
 

@@ -20,6 +20,7 @@ interface AssistedUIProps {
   lastStepIndex: number;
   currentStepInfo?: IStep;
   disableNextStep?: boolean;
+  showButtonsLabels?: boolean;
   handlePreviousStep: () => void;
   handleNextStep: () => void;
 }
@@ -31,6 +32,7 @@ function AssistedUI(props: AssistedUIProps) {
     lastStepIndex,
     currentStepInfo,
     disableNextStep,
+    showButtonsLabels = true,
     handlePreviousStep,
     handleNextStep,
   } = props;
@@ -41,23 +43,23 @@ function AssistedUI(props: AssistedUIProps) {
   const barWidth = ((currentStepIndex + 1) / steps.length) * 100;
 
   return (
-    <StyledAssistedContainer smallScreen={isMobile}>
+    <StyledAssistedContainer smallScreen={isMobile} showButtonsLabels={showButtonsLabels}>
       <Stack
         justifyContent="space-between"
         alignItems="center"
         height="inherit"
         gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
       >
-        {!isTablet ? (
+        {!isTablet && showButtonsLabels ? (
           <StyledButton>
             <Button
               variant="none"
               iconBefore={<MdArrowBack size={18} />}
               onClick={handlePreviousStep}
               disabled={currentStepIndex === 0}
-              spacing="compact"              
+              spacing="compact"
             >
-              {!isTablet && "Atrás"}
+              Atrás
             </Button>
           </StyledButton>
         ) : (
@@ -86,19 +88,29 @@ function AssistedUI(props: AssistedUIProps) {
                 )}
               </Text>
             </StyledCircleId>
-            <Text type="title" size={isMobile ? "small" : "medium"}>
+            <Text
+              type="title"
+              size={!showButtonsLabels ? "small" : isMobile ? "small" : "medium"}
+            >
               {currentStepInfo?.name}
             </Text>
           </Stack>
-          {!isMobile && (
+          {showButtonsLabels && !isMobile && (
             <>
               <Stack
                 justifyContent="space-between"
                 alignItems="center"
                 gap="s100"
               >
-                <StyledBarContainer smallScreen={isMobile}>
-                  <StyledBar smallScreen={isMobile} width={barWidth} />
+                <StyledBarContainer
+                  smallScreen={isMobile}
+                  showButtonsLabels={showButtonsLabels}
+                >
+                  <StyledBar
+                    smallScreen={isMobile}
+                    width={barWidth}
+                    showButtonsLabels={showButtonsLabels}
+                  />
                 </StyledBarContainer>
                 <Text type="label" size="small">
                   {currentStepIndex + 1}/{steps.length}
@@ -110,7 +122,7 @@ function AssistedUI(props: AssistedUIProps) {
             </>
           )}
         </Stack>
-        {!isTablet ? (
+        {!isTablet && showButtonsLabels ? (
           <StyledButton>
             <Button
               variant="none"
@@ -119,10 +131,7 @@ function AssistedUI(props: AssistedUIProps) {
               disabled={disableNextStep}
               spacing="compact"
             >
-              {!isTablet &&
-                (currentStepIndex === steps.length - 1
-                  ? "Enviar"
-                  : "Siguiente")}
+              {currentStepIndex === steps.length - 1 ? "Enviar" : "Siguiente"}
             </Button>
           </StyledButton>
         ) : (
@@ -136,10 +145,14 @@ function AssistedUI(props: AssistedUIProps) {
           />
         )}
       </Stack>
-      {isMobile && (
+      {(!showButtonsLabels || (isMobile && showButtonsLabels)) && (
         <>
-          <StyledBarContainer smallScreen={isMobile}>
-            <StyledBar smallScreen={isMobile} width={barWidth} />
+          <StyledBarContainer smallScreen={isMobile} showButtonsLabels={showButtonsLabels}>
+            <StyledBar
+              smallScreen={isMobile}
+              width={barWidth}
+              showButtonsLabels={showButtonsLabels}
+            />
           </StyledBarContainer>
           <Text type="label" size="small" appearance="gray">
             {currentStepInfo?.description}
