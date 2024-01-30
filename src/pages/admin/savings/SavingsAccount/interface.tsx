@@ -45,6 +45,12 @@ import {
   ISelectedProductState,
 } from "./types";
 
+import {
+  cdatCode,
+  programmedSavingCode,
+  savingAccountCode,
+} from "../MySavings/config/products";
+
 interface SavingsAccountUIProps {
   isMobile?: boolean;
   selectedProduct: ISelectedProductState;
@@ -84,8 +90,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
   };
 
   const isInvestment =
-    selectedProduct.saving.type === "CD" ||
-    selectedProduct.saving.type === "AP";
+    selectedProduct.saving.type === cdatCode ||
+    selectedProduct.saving.type === programmedSavingCode;
 
   return (
     <>
@@ -139,7 +145,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                     value={attr.value}
                   />
                 ))}
-                {selectedProduct.saving.type === "AP" && (
+                {selectedProduct.saving.type === programmedSavingCode && (
                   <BoxAttribute
                     label="Cuenta para reembolso:"
                     buttonIcon={<MdOpenInNew />}
@@ -148,7 +154,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                     withButton
                   />
                 )}
-                {selectedProduct.saving.type !== "CA" && (
+                {selectedProduct.saving.type !== savingAccountCode && (
                   <BoxAttribute
                     label="Beneficiarios:"
                     buttonIcon={<MdOpenInNew />}
@@ -157,7 +163,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                     withButton
                   />
                 )}
-                {selectedProduct.saving.type !== "CD" && (
+                {selectedProduct.saving.type !== cdatCode && (
                   <BoxAttribute
                     label="Compromisos de ahorro:"
                     buttonIcon={<MdOpenInNew />}
@@ -169,7 +175,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               </Grid>
             </Stack>
           </Box>
-          {selectedProduct.saving.type !== "CD" && (
+          {selectedProduct.saving.type !== cdatCode && (
             <Stack direction="column" gap="s200" alignItems="flex-start">
               <Text type="title" size="medium">
                 Últimos movimientos

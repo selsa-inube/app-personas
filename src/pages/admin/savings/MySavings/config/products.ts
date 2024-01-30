@@ -1,18 +1,24 @@
 import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
+const savingAccountCode = "CA";
+const programmedSavingCode = "AP";
+const permanentSavingsCode = "APE";
+const socialContributionsCode = "AS";
+const cdatCode = "CD";
+
 const mySavingsAttributes = ["net_value"];
 
 const mySavingsCurrencyAttributes = ["net_value"];
 
 function extractMySavingsAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>
-    mySavingsAttributes.includes(attribute.id)
+    mySavingsAttributes.includes(attribute.id),
   );
 
   return foundAttributes.sort(
     (a, b) =>
-      mySavingsAttributes.indexOf(a.id) - mySavingsAttributes.indexOf(b.id)
+      mySavingsAttributes.indexOf(a.id) - mySavingsAttributes.indexOf(b.id),
   );
 }
 
@@ -38,7 +44,12 @@ const mySavingsAttributeBreakpoints = {
 };
 
 export {
+  cdatCode,
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
   mySavingsAttributeBreakpoints,
+  permanentSavingsCode,
+  programmedSavingCode,
+  savingAccountCode,
+  socialContributionsCode,
 };
