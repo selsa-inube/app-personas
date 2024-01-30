@@ -8,7 +8,6 @@ const productsAttributes: Record<string, string[]> = {
     "account_state",
     "account_gmf",
     "account_ADA",
-    "account_to_salary",
     "interest_rate",
   ],
   AP: ["saved_value", "interest_rate"],
