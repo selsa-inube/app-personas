@@ -14,7 +14,7 @@ const savingsCommitmentsMock: ICommitment[] = [
       },
       {
         id: "value_to_pay",
-        label: "Valor de pago",
+        label: "Valor próximo pago",
         value: 160000,
       },
       {
@@ -52,7 +52,7 @@ const savingsCommitmentsMock: ICommitment[] = [
       },
       {
         id: "value_to_pay",
-        label: "Valor de pago",
+        label: "Valor próximo pago",
         value: 65000,
       },
       {

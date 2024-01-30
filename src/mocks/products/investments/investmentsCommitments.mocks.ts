@@ -14,7 +14,7 @@ const investmentsCommitmentsMock: ICommitment[] = [
       },
       {
         id: "value_to_pay",
-        label: "Valor de pago",
+        label: "Valor próximo pago",
         value: 150000,
       },
       {
