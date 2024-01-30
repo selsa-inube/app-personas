@@ -34,6 +34,11 @@ const investmentsMock: IProduct[] = [
         value: "180 Dias",
       },
       {
+        id: "payment_interest",
+        label: "Pago de intereses",
+        value: "Periódico",
+      },
+      {
         id: "beneficiaries",
         label: "Beneficiarios",
         value: [
