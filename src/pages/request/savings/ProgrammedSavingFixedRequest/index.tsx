@@ -10,6 +10,7 @@ import { IGoalEntry } from "./forms/GoalForm/types";
 import { IPlanNameEntry } from "./forms/PlanNameForm/types";
 import { IQuotaEntry } from "./forms/QuotaForm/types";
 import { IReimbursementEntry } from "./forms/ReimbursementForm/types";
+import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { ProgrammedSavingFixedRequestUI } from "./interface";
 import {
   IFormsProgrammedSavingFixedRequest,
@@ -47,6 +48,10 @@ function ProgrammedSavingFixedRequest() {
         isValid: false,
         values: mapContactChannels(usersMock[0].contact[0]),
       },
+      comments: {
+        isValid: false,
+        values: initalValuesProgrammedSavingFixed.comments,
+      },
     });
 
   const quotaRef = useRef<FormikProps<IQuotaEntry>>(null);
@@ -54,6 +59,7 @@ function ProgrammedSavingFixedRequest() {
   const reimbursementRef = useRef<FormikProps<IReimbursementEntry>>(null);
   const planNameRef = useRef<FormikProps<IPlanNameEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
+  const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
 
   const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
     quota: quotaRef,
@@ -61,6 +67,7 @@ function ProgrammedSavingFixedRequest() {
     reimbursement: reimbursementRef,
     planName: planNameRef,
     contactChannels: contactChannelsRef,
+    comments: commentsRef,
   };
 
   const handleStepChange = (stepId: number) => {
