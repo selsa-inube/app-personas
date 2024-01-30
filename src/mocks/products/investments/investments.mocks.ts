@@ -51,7 +51,7 @@ const investmentsMock: IProduct[] = [
       },
       {
         id: "request_date",
-        label: "Fecha de solicitud",
+        label: "Fecha de apertura",
         value: "01/Ene/2023",
       },
     ],
