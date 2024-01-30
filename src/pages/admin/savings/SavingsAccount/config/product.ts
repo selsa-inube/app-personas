@@ -13,6 +13,7 @@ const productsAttributes: Record<string, string[]> = {
     "interest_rate",
     "request_date",
     "deadline_days",
+    "payment_interest",
   ],
 };
 
