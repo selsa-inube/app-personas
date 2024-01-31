@@ -1,5 +1,9 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
+import {
+  handleChangeWithCurrency,
+  parseCurrencyString,
+} from "src/utils/currency";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { IncomesFormUI } from "./interface";
@@ -32,35 +36,36 @@ const IncomesForm = forwardRef(function IncomesForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-    getTotalIncomes();
+  useEffect(() => {
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
+  }, [formik.values]);
 
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
+  const customHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    handleChangeWithCurrency(formik, event);
+    const updatedValues = {
+      ...formik.values,
+      [event.target.name]: parseCurrencyString(event.target.value),
+    };
+    getTotalIncomes(updatedValues);
   };
 
-  const getTotalIncomes = () => {
-    const totalIncomes = Object.entries(formik.values).reduce(
-      (acc, [key, value]) => {
-        if (key !== "totalIncomes") {
-          return acc + (typeof value === "number" ? value : 0);
-        }
-
-        return acc;
-      },
-      0,
-    );
-
+  const getTotalIncomes = (values: IIncomesEntry) => {
+    const totalIncomes = Object.entries(values).reduce((acc, [key, value]) => {
+      if (key !== "totalIncomes") {
+        return acc + (typeof value === "number" ? value : 0);
+      }
+      return acc;
+    }, 0);
     formik.setFieldValue("totalIncomes", totalIncomes);
   };
 
@@ -68,7 +73,7 @@ const IncomesForm = forwardRef(function IncomesForm(
     <IncomesFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
+      customHandleChange={customHandleChange}
     />
   );
 });

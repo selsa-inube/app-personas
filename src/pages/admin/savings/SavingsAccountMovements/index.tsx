@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsAccountMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
+import { cdatCode } from "../MySavings/config/products";
 
 function SavingsAccountMovements() {
   const { product_id } = useParams();
@@ -17,7 +18,7 @@ function SavingsAccountMovements() {
   const handleSortProduct = () => {
     const products = [
       ...savingsMock,
-      ...investmentsMock.filter((item) => item.type !== "CD"),
+      ...investmentsMock.filter((item) => item.type !== cdatCode),
     ];
 
     const savingsOptions = products.map((saving) => {
@@ -58,7 +59,7 @@ function SavingsAccountMovements() {
 
         const products = [
           ...savingsMock,
-          ...investmentsMock.filter((item) => item.type !== "CD"),
+          ...investmentsMock.filter((item) => item.type !== cdatCode),
         ];
 
         const foundProduct = products.find(

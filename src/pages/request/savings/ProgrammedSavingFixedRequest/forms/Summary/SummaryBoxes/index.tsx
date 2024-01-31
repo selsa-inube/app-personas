@@ -11,6 +11,7 @@ import { IGoalEntry } from "../../GoalForm/types";
 import { IPlanNameEntry } from "../../PlanNameForm/types";
 import { IQuotaEntry } from "../../QuotaForm/types";
 import { IReimbursementEntry } from "../../ReimbursementForm/types";
+import { ICommentsEntry } from "../../CommentsForm/types";
 
 const renderQuotaSummary = (values: IQuotaEntry, isTablet: boolean) => (
   <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
@@ -76,6 +77,18 @@ const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
   </Stack>
 );
 
+const renderCommentsVerification = (values: ICommentsEntry) => (
+  <Stack width="100%" direction="column">
+    {values.comments !== "" && (
+      <BoxAttribute
+        label="Comentarios adicionales:"
+        value={values.comments}
+        direction="column"
+      />
+    )}
+  </Stack>
+);
+
 interface SummaryBoxesProps {
   programmedSavingFixedRequest: IFormsProgrammedSavingFixedRequest;
   stepKey: string;
@@ -106,6 +119,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(
           programmedSavingFixedRequest.contactChannels.values,
+        )}
+
+      {stepKey === "comments" &&
+        renderCommentsVerification(
+          programmedSavingFixedRequest.comments.values,
         )}
     </>
   );

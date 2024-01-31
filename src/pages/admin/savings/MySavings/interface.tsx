@@ -201,7 +201,7 @@ function renderMySavingsContent(
             )}
             <Stack justifyContent="flex-end" gap="s100">
               <Text type="label" size="large">
-                Total ahorrado :
+                Saldo total:
               </Text>
               <Text type="body" size="medium" appearance="gray">
                 $ 14.734.650

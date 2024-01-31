@@ -4,7 +4,7 @@ interface IFamilyGroupEntry {
   firstLastName?: string;
   secondLastName?: string;
   type?: string;
-  number?: string;
+  identificationNumber?: number;
   city?: string;
   date?: string;
   id?: string;

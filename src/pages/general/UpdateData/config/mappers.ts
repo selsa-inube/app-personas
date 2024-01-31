@@ -13,6 +13,7 @@ import {
 } from "src/model/entity/user";
 import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
+import { ICommentsEntry } from "../forms/CommentsForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "../forms/ExpensesForm/types";
@@ -46,7 +47,8 @@ const mapPersonalInformation = (
     secondLastName:
       personalInfoData.personalData.identification.secondLastName || "",
     identificationType: personalInfoData.personalData.identification.type,
-    identification: Number(personalInfoData.personalData.identification.number),
+    identification:
+      personalInfoData.personalData.identification.identificationNumber,
     expeditionPlace: personalInfoData.personalData.identification.city,
     expeditionDate: personalInfoData.personalData.identification.date || "",
     birthDate: personalInfoData.personalData.birthDate,
@@ -81,7 +83,7 @@ const mapFamilyGroup = (
     firstLastName: familyGroupData.identification.firstLastName,
     secondLastName: familyGroupData.identification.secondLastName || "",
     type: familyGroupData.identification.type,
-    number: familyGroupData.identification.number,
+    identificationNumber: familyGroupData.identification.identificationNumber,
     city: familyGroupData.identification.city,
     date: familyGroupData.identification.date || "",
     id: String(index),
@@ -294,6 +296,7 @@ const mapExpenses = (): IExpensesEntry => {
     health: "",
     pension: "",
     others: "",
+    totalExpenses: "",
   };
 };
 
@@ -309,8 +312,15 @@ const mapRelationshipWithDirectors = (
   };
 };
 
+const mapComments = (): ICommentsEntry => {
+  return {
+    commentsUpdateData: "",
+  };
+};
+
 export {
   mapBankTransfers,
+  mapComments,
   mapContactData,
   mapEconomicActivity,
   mapExpenses,

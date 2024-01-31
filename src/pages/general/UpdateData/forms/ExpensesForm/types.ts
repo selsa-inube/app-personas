@@ -6,6 +6,7 @@ interface IExpensesEntry {
   health: string;
   pension: string;
   others: string;
+  totalExpenses: string;
 }
 
 export type { IExpensesEntry };

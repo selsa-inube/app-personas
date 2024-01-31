@@ -3,6 +3,7 @@ import { bankData } from "@mocks/domains/bank";
 import { suppliersTypeData } from "@mocks/domains/suppliersType";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
+import { savingAccountCode } from "@pages/admin/savings/MySavings/config/products";
 import { IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { statusDM } from "src/model/domains/general/statusdm";
@@ -51,7 +52,7 @@ const commonFields = {
     options: identificationTypeDM.options.filter(
       (option) =>
         option.id !== identificationTypeDM.RC.id &&
-        option.id !== identificationTypeDM.TI.id
+        option.id !== identificationTypeDM.TI.id,
     ),
     isFullWidth: true,
     gridColumn: "span 1",
@@ -67,7 +68,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.identification.required(
-      validationMessages.required
+      validationMessages.required,
     ),
   },
   accountType: (gridColumn: string, value?: string, readOnly?: boolean) => ({
@@ -93,7 +94,7 @@ const commonFields = {
     size: "compact",
     placeholder: "",
     options: savingsMock
-      .filter((product) => product.type === "CA")
+      .filter((product) => product.type === savingAccountCode)
       .map((product) => ({
         value: product.description,
         id: product.id,
@@ -107,7 +108,7 @@ const commonFields = {
   writeAccountNumber: (
     gridColumn: string,
     value?: string,
-    readOnly?: boolean
+    readOnly?: boolean,
   ) => ({
     name: "writeAccountNumber",
     label: "Numero de cuenta",
@@ -323,17 +324,17 @@ const structureDisbursementForm = (formik: FormikValues): IFormStructure => {
         commonFields.entity(
           "span 1",
           usersMock[0].bankTransfersAccount.bankEntity,
-          true
+          true,
         ),
         commonFields.accountType(
           "span 1",
           usersMock[0].bankTransfersAccount.accountType,
-          true
+          true,
         ),
         commonFields.writeAccountNumber(
           "span 1",
           String(usersMock[0].bankTransfersAccount.accountNumber),
-          true
+          true,
         ),
       ],
     },

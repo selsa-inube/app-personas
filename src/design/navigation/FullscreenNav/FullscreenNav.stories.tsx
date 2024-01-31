@@ -43,7 +43,7 @@ MultipleSections.args = {
   links: [
     {
       label: "Actualizar datos",
-      path: "/update-data",
+      path: "/update-data-assisted",
       icon: <MdOutlineBadge />,
     },
   ],

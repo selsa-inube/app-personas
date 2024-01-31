@@ -25,13 +25,18 @@ const investmentsMock: IProduct[] = [
 
       {
         id: "interest_rate",
-        label: "Tasa (%)",
-        value: "0,5 % NAMV",
+        label: "Tasa de interés",
+        value: "9,40 % EA",
       },
       {
         id: "deadline_days",
         label: "Plazo en días",
         value: "180 Dias",
+      },
+      {
+        id: "payment_interest",
+        label: "Pago de intereses",
+        value: "Periódico",
       },
       {
         id: "beneficiaries",
@@ -51,13 +56,8 @@ const investmentsMock: IProduct[] = [
       },
       {
         id: "request_date",
-        label: "Fecha de solicitud",
+        label: "Fecha de apertura",
         value: "01/Ene/2023",
-      },
-      {
-        id: "description",
-        label: "Descripción",
-        value: "Certificado",
       },
     ],
     userOwner: "12340001",
@@ -86,7 +86,7 @@ const investmentsMock: IProduct[] = [
       {
         id: "interest_rate",
         label: "Tasa de interés",
-        value: "6,05 % NAMV",
+        value: "6,05 % EA",
       },
       {
         id: "refund_value",

@@ -12,13 +12,12 @@ import { getFieldState } from "src/utils/forms/forms";
 interface SocioeconomicInformationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 
 function SocioeconomicInformationFormUI(
-  props: SocioeconomicInformationFormUIProps
+  props: SocioeconomicInformationFormUIProps,
 ) {
-  const { formik, loading, customHandleBlur } = props;
+  const { formik, loading } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -76,7 +75,7 @@ function SocioeconomicInformationFormUI(
           state={getFieldState(formik, "dependants")}
           isDisabled={loading}
           size="compact"
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           validMessage="El número ingresado es correcto"
           isFullWidth

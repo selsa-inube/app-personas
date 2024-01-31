@@ -78,11 +78,7 @@ function renderHomeContent(
                     <Product
                       key={saving.id}
                       title={saving.title}
-                      description={truncateAndObfuscateDescription(
-                        saving.id,
-                        saving.type,
-                        4,
-                      )}
+                      description={saving.id}
                       attributes={formatSavingCurrencyAttrs(
                         extractSavingAttributes(saving),
                       )}
@@ -177,7 +173,7 @@ function renderHomeContent(
             )}
             <Stack justifyContent="flex-end" gap="s100">
               <Text type="label" size="large">
-                Total ahorrado :
+                Saldo total :
               </Text>
               <Text type="body" size="medium" appearance="gray">
                 $ 14.734.650

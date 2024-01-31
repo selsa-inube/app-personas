@@ -9,10 +9,11 @@ import { MdArrowBack } from "react-icons/md";
 import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
+import { CommentsForm } from "./forms/CommentsForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
-import { FamilyGroupForm } from "./forms/FamilyGroupForm";
 import { EconomicActivityForm } from "./forms/EconomicActivityForm";
 import { ExpensesForm } from "./forms/ExpensesForm";
+import { FamilyGroupForm } from "./forms/FamilyGroupForm";
 import { FinancialOperationsForm } from "./forms/FinancialOperationsForm";
 import { IncomesForm } from "./forms/IncomesForm";
 import { PersonalAssetsForm } from "./forms/PersonalAssetsForm";
@@ -30,7 +31,7 @@ const renderStepContent = (
   formReferences: IFormsUpdateDataRefs,
   updateData: IFormsUpdateData,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void
+  handleStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -48,7 +49,7 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-       {currentStep === updateDataSteps.familyGroup.id && (
+      {currentStep === updateDataSteps.familyGroup.id && (
         <FamilyGroupForm
           initialValues={updateData.familyGroup.values}
           ref={formReferences.familyGroup}
@@ -128,6 +129,13 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
+      {currentStep === updateDataSteps.comments.id && (
+        <CommentsForm
+          initialValues={updateData.comments.values}
+          ref={formReferences.comments}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep === updateDataSteps.verification.id && (
         <UpdateDataVerification
           updatedData={updateData}
@@ -197,7 +205,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
           formReferences,
           updateData,
           setIsCurrentFormValid,
-          handleStepChange
+          handleStepChange,
         )}
 
         <Stack gap="s150" justifyContent="flex-end">

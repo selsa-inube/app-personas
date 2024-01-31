@@ -2,6 +2,10 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
 import { getCreditsForUser } from "src/services/iclient/credits";
+import {
+  cdatCode,
+  programmedSavingCode,
+} from "../savings/MySavings/config/products";
 import { HomeUI } from "./interface";
 import {
   getInvestmentsProducts,
@@ -15,9 +19,9 @@ function Home() {
   const { user, accessToken } = useAuth();
   const [loading, setLoading] = useState(true);
 
-  const cdats = user && getInvestmentsProducts(user.identification, "CD");
+  const cdats = user && getInvestmentsProducts(user.identification, cdatCode);
   const programmedSavings =
-    user && getInvestmentsProducts(user.identification, "AP");
+    user && getInvestmentsProducts(user.identification, programmedSavingCode);
 
   useEffect(() => {
     if (user && accessToken) {
