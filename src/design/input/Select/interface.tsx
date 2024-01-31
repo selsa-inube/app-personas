@@ -33,7 +33,7 @@ interface SelectUIProps extends SelectProps {
   isFocused?: boolean;
   openOptions: boolean;
   selectRef?: RefObject<HTMLDivElement> | null;
-  onCloseOptions: () => void;
+  onToggleOptions: () => void;
   onOptionClick: (id: string) => void;
 }
 
@@ -50,34 +50,29 @@ function SelectUI(props: SelectUIProps) {
     state = "pending",
     size = "compact",
     errorMessage,
-    onFocus,
-    onBlur,
-    onClick,
     options,
     openOptions,
     value,
-    onCloseOptions,
     selectRef,
-    onOptionClick,
     readOnly = false,
+    isTouched,
+    onFocus,
+    onBlur,
+    onClick,
+    onToggleOptions,
+    onOptionClick,
   } = props;
-
-  const interceptorOnClick = (e: React.MouseEvent) => {
-    if (onClick) onClick(e);
-
-    onCloseOptions();
-  };
 
   const currentOption = options?.find((option) => option.id === value);
 
   return (
     <StyledContainer
-      id="selectComponent"
+      id={id}
       tabIndex={0}
       isFullWidth={isFullWidth}
       isDisabled={isDisabled}
       ref={selectRef}
-      onClick={interceptorOnClick}
+      onClick={onClick}
       onFocus={onFocus}
       onBlur={onBlur}
     >
@@ -125,7 +120,7 @@ function SelectUI(props: SelectUIProps) {
 
         {!readOnly && (
           <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
-            <MdExpandMore onClick={onCloseOptions} />
+            <MdExpandMore onClick={onToggleOptions} />
           </StyledIcon>
         )}
       </StyledInputContainer>
@@ -134,11 +129,11 @@ function SelectUI(props: SelectUIProps) {
         <DropdownMenu
           options={options}
           onClick={onOptionClick}
-          onCloseOptions={onCloseOptions}
+          onCloseOptions={onToggleOptions}
         />
       )}
 
-      {state === "invalid" && (
+      {state === "invalid" && isTouched && !openOptions && (
         <Invalid
           isDisabled={isDisabled}
           state={state}

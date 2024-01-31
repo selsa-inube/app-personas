@@ -274,7 +274,9 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     disabled={
                       !formik.values.amount ||
                       !formik.values.peridiocity ||
-                      (!formik.values.deadline && !formik.values.quota)
+                      (!formik.values.deadline && !formik.values.quota) ||
+                      formik.errors.amount ||
+                      formik.errors.deadline
                     }
                   >
                     Simular
