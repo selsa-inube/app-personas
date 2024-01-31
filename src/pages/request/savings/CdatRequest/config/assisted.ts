@@ -30,8 +30,14 @@ const cdatRequestSteps = {
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
-  summary: {
+  comments: {
     id: 6,
+    name: "Comentarios",
+    description:
+      "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
+  },
+  summary: {
+    id: 7,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },

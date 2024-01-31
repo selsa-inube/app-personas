@@ -9,7 +9,6 @@ import { MdArrowBack } from "react-icons/md";
 import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
-import { CommentsForm } from "./forms/CommentsForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { EconomicActivityForm } from "./forms/EconomicActivityForm";
 import { ExpensesForm } from "./forms/ExpensesForm";
@@ -25,6 +24,7 @@ import { RelationshipWithDirectorsForm } from "./forms/RelationshipWithDirectors
 import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
 import { UpdateDataVerification } from "./forms/Verification";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
+import { CommentsForm } from "src/shared/forms/CommentsForm";
 
 const renderStepContent = (
   currentStep: number,

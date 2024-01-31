@@ -1,6 +1,9 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
+import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { cdatRequestSteps, cdatStepsRules } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
 import { IConditionsEntry } from "./forms/ConditionsForm/types";
@@ -9,8 +12,6 @@ import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
-import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 
 function CdatRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -41,6 +42,10 @@ function CdatRequest() {
       isValid: false,
       values: mapContactChannels(usersMock[0].contact[0]),
     },
+    comments: {
+      isValid: true,
+      values: initalValuesCDAT.comments,
+    },
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
@@ -48,6 +53,7 @@ function CdatRequest() {
   const refundRef = useRef<FormikProps<IRefundEntry>>(null);
   const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
+  const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
@@ -55,6 +61,7 @@ function CdatRequest() {
     refund: refundRef,
     investmentName: investmentNameRef,
     contactChannels: contactChannelsRef,
+    comments: commentsRef,
   };
 
   const handleStepChange = (stepId: number) => {

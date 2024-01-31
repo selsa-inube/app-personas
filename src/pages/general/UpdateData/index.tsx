@@ -17,7 +17,6 @@ import {
   mapSocioeconomicInformation,
 } from "./config/mappers";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
-import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "./forms/ExpensesForm/types";
@@ -33,6 +32,7 @@ import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirecto
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 
 function UpdateData() {
   const [currentStep, setCurrentStep] = useState(
