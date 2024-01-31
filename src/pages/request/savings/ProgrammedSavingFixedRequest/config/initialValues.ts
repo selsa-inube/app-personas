@@ -1,4 +1,4 @@
-import { ICommentsEntry } from "../forms/CommentsForm/types";
+import { ICommentsEntry } from "../../../../../shared/forms/CommentsForm/types";
 import { IGoalEntry } from "../forms/GoalForm/types";
 import { IPlanNameEntry } from "../forms/PlanNameForm/types";
 import { IQuotaEntry } from "../forms/QuotaForm/types";
@@ -26,6 +26,7 @@ const reimbursement: IReimbursementEntry = {
 const planName: IPlanNameEntry = {
   productName: "",
 };
+
 const comments: ICommentsEntry = {
   comments: "",
 };

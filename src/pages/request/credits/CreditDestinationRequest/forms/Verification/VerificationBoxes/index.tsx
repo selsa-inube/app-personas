@@ -10,16 +10,16 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsCreditDestinationRequest } from "../../../types";
-import { ICommentsEntry } from "../../CommentsForm/types";
+import { productGenerateRecommendation } from "../../../utils";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IPreliquidationEntry } from "../../PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
-import { productGenerateRecommendation } from "../../../utils";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,

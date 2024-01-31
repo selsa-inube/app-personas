@@ -11,9 +11,9 @@ import {
   IResidence,
   IThird,
 } from "src/model/entity/user";
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
-import { ICommentsEntry } from "../forms/CommentsForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "../forms/ExpensesForm/types";
@@ -314,7 +314,7 @@ const mapRelationshipWithDirectors = (
 
 const mapComments = (): ICommentsEntry => {
   return {
-    commentsUpdateData: "",
+    comments: "",
   };
 };
 

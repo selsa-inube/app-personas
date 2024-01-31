@@ -1,10 +1,10 @@
 import { FormikProps } from "formik";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
+import { ICommentsEntry } from "../../../../shared/forms/CommentsForm/types";
 import { IGoalEntry } from "./forms/GoalForm/types";
-import { IReimbursementEntry } from "./forms/ReimbursementForm/types";
 import { IPlanNameEntry } from "./forms/PlanNameForm/types";
 import { IQuotaEntry } from "./forms/QuotaForm/types";
-import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
-import { ICommentsEntry } from "./forms/CommentsForm/types";
+import { IReimbursementEntry } from "./forms/ReimbursementForm/types";
 
 interface IFormsProgrammedSavingFixedRequest {
   quota: { isValid: boolean; values: IQuotaEntry };

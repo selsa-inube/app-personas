@@ -1,3 +1,4 @@
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IConditionsEntry } from "../forms/ConditionsForm/types";
 import { IInvestmentEntry } from "../forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "../forms/InvestmentNameForm/types";
@@ -24,11 +25,16 @@ const investmentName: IInvestmentNameEntry = {
   productName: "",
 };
 
+const comments: ICommentsEntry = {
+  comments: "",
+};
+
 const initalValuesCDAT = {
   investment,
   conditions,
   refund,
   investmentName,
+  comments,
 };
 
 export { initalValuesCDAT };

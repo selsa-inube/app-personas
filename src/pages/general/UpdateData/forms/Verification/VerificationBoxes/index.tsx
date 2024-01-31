@@ -28,9 +28,9 @@ import { relationshipDM } from "src/model/domains/personalResidence/relationship
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
-import { ICommentsEntry } from "../../CommentsForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 import { IExpensesEntry } from "../../ExpensesForm/types";
@@ -757,10 +757,10 @@ const renderRelationshipWithDirectorsVerification = (
 
 const renderCommentsVerification = (values: ICommentsEntry) => (
   <Stack width="100%" direction="column">
-    {values.commentsUpdateData !== "" && (
+    {values.comments !== "" && (
       <BoxAttribute
         label="Comentarios adicionales:"
-        value={values.commentsUpdateData}
+        value={values.comments}
         direction="column"
       />
     )}

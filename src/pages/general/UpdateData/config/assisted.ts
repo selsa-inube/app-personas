@@ -80,7 +80,7 @@ const updateDataSteps = {
   },
   comments: {
     id: 15,
-    name: "comentarios",
+    name: "Comentarios",
     description:
       "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
   },
