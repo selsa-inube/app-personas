@@ -102,6 +102,11 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     if (event.target.name === "simulationWithQuota") {
       formik.setFieldValue("quota", "");
       formik.setFieldValue("deadline", "");
+      formik.setFieldValue("interestRate", "");
+      formik.setFieldValue("cycleInterest", "");
+      formik.setFieldValue("netValue", "");
+      formik.setFieldValue("hasResult", false);
+      
       formik.setFormikState((state) => {
         return {
           ...state,
