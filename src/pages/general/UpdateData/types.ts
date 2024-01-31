@@ -1,8 +1,10 @@
 import { FormikProps } from "formik";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
+import { ICommentsEntry } from "./forms/CommentsForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
-import { IFamilyGroupEntries } from "./forms/FamilyGroupForm/types";
+import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "./forms/ExpensesForm/types";
+import { IFamilyGroupEntries } from "./forms/FamilyGroupForm/types";
 import { IFinancialOperationsEntry } from "./forms/FinancialOperationsForm/types";
 import { IIncomesEntry } from "./forms/IncomesForm/types";
 import { IPersonalAssetEntries } from "./forms/PersonalAssetsForm/types";
@@ -10,9 +12,8 @@ import { IPersonalDebtEntries } from "./forms/PersonalDebtsForm/types";
 import { IPersonalInformationEntry } from "./forms/PersonalInformationForm/types";
 import { IPersonalReferenceEntries } from "./forms/PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "./forms/PersonalResidenceForm/types";
-import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
-import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
 import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirectorsForm/types";
+import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 
 interface IFormsUpdateData {
   personalInformation: { isValid: boolean; values: IPersonalInformationEntry };
@@ -35,6 +36,7 @@ interface IFormsUpdateData {
     isValid: boolean;
     values: IRelationshipWithDirectorsEntry;
   };
+  comments: { isValid: boolean; values: ICommentsEntry };
 }
 
 interface IFormsUpdateDataRefs {
@@ -56,6 +58,7 @@ interface IFormsUpdateDataRefs {
   relationshipWithDirectors: React.RefObject<
     FormikProps<IRelationshipWithDirectorsEntry>
   >;
+  comments: React.RefObject<FormikProps<ICommentsEntry>>;
 }
 
 export type { IFormsUpdateData, IFormsUpdateDataRefs };

@@ -12,7 +12,8 @@ const updateDataSteps = {
   familyGroup: {
     id: 3,
     name: "Grupo familiar",
-    description: "Diligencia la información que nos permita identificar tu núcleo familiar.",
+    description:
+      "Diligencia la información que nos permita identificar tu núcleo familiar.",
   },
   bankTransfers: {
     id: 4,
@@ -77,8 +78,14 @@ const updateDataSteps = {
     description:
       "Diligencia la información si posees alguna relación con nuestros directivos.",
   },
-  verification: {
+  comments: {
     id: 15,
+    name: "comentarios",
+    description:
+      "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
+  },
+  verification: {
+    id: 16,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",
