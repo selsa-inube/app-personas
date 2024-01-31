@@ -10,7 +10,6 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import {
   extractInvestmentAttributes,
   formatInvestmentCurrencyAttrs,
@@ -73,6 +72,7 @@ const renderSavingCommitments = (productsCommitments: ICommitment[]) => {
 function renderMySavingsContent(
   productsCommitments: ICommitment[],
   savingsAccountsMock: IProduct[],
+  savingsCommitmentsMock: ICommitment[],
   savingsStatutoryContributionsMock: IProduct[],
   cdats?: IProduct[],
   programmedSavings?: IProduct[],
@@ -84,7 +84,7 @@ function renderMySavingsContent(
           Tus productos
         </Text>
         <Box {...mySavingsBox}>
-          <Stack direction="column" gap="s250">
+          <Stack direction="column">
             <Stack direction="column" gap="s200">
               {savingsCommitmentsMock.length > 0 && (
                 <Text type="label" size="medium">
@@ -92,12 +92,7 @@ function renderMySavingsContent(
                 </Text>
               )}
               <Stack direction="column" gap="s100">
-                {savingsAccountsMock.length === 0 ? (
-                  <Product
-                    empty={true}
-                    icon={<MdOutlineAccountBalanceWallet />}
-                  />
-                ) : (
+                {savingsAccountsMock.length > 0 &&
                   savingsAccountsMock.map((saving) => (
                     <Product
                       key={saving.id}
@@ -115,8 +110,7 @@ function renderMySavingsContent(
                       breakpoints={mySavingsAttributeBreakpoints}
                       navigateTo={`/my-savings/account/${saving.id}`}
                     />
-                  ))
-                )}
+                  ))}
               </Stack>
             </Stack>
             <Stack direction="column" gap="s200">
@@ -199,14 +193,20 @@ function renderMySavingsContent(
                 </Stack>
               </Stack>
             )}
-            <Stack justifyContent="flex-end" gap="s100">
-              <Text type="label" size="large">
-                Saldo total:
-              </Text>
-              <Text type="body" size="medium" appearance="gray">
-                $ 14.734.650
-              </Text>
-            </Stack>
+            {(savingsAccountsMock.length > 0 ||
+              savingsStatutoryContributionsMock.length > 0 ||
+              (cdats && cdats.length > 0) ||
+              (programmedSavings && programmedSavings.length > 0) ||
+              productsCommitments.length > 0) && (
+              <Stack justifyContent="flex-end" gap="s100">
+                <Text type="label" size="large">
+                  Saldo total :
+                </Text>
+                <Text type="body" size="medium" appearance="gray">
+                  $ 0
+                </Text>
+              </Stack>
+            )}
             {productsCommitments.length > 0 && (
               <>
                 <Text type="label" size="medium">
@@ -227,6 +227,7 @@ function renderMySavingsContent(
 interface MySavingsUIProps {
   productsCommitments: ICommitment[];
   savingsAccountsMock: IProduct[];
+  savingsCommitmentsMock: ICommitment[];
   savingsStatutoryContributionsMock: IProduct[];
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
@@ -236,6 +237,7 @@ function MySavingsUI(props: MySavingsUIProps) {
   const {
     productsCommitments,
     savingsAccountsMock,
+    savingsCommitmentsMock,
     savingsStatutoryContributionsMock,
     cdats,
     programmedSavings,
@@ -258,6 +260,7 @@ function MySavingsUI(props: MySavingsUIProps) {
           {renderMySavingsContent(
             productsCommitments,
             savingsAccountsMock,
+            savingsCommitmentsMock,
             savingsStatutoryContributionsMock,
             cdats,
             programmedSavings,
@@ -272,6 +275,7 @@ function MySavingsUI(props: MySavingsUIProps) {
           {renderMySavingsContent(
             productsCommitments,
             savingsAccountsMock,
+            savingsCommitmentsMock,
             savingsStatutoryContributionsMock,
             cdats,
             programmedSavings,
