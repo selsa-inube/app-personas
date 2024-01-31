@@ -1,77 +1,12 @@
 import { TagProps } from "@design/data/Tag";
 import {
-  amortizationTableValuesMock,
   amortizationTypeValuesMock,
   guaranteeTypeValuesMock,
-  movementDescriptionMock,
   peridiocityValuesMock,
 } from "@mocks/products/credits/utils.mocks";
-import {
-  IAmortization,
-  IMovement,
-  IProduct,
-  ProductType,
-} from "src/model/entity/product";
+import { IProduct, ProductType } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
-
-const mapCreditMovementApiToEntity = (
-  movement: Record<string, string | number | object>,
-): IMovement => {
-  const totalPay =
-    Number(movement.capitalCreditPesos || 0) +
-    Number(movement.creditInterestPesos || 0) +
-    Number(movement.lifeInsuranceCreditPesos || 0) +
-    Number(movement.capitalizationCreditPesos || 0);
-
-  const buildMovement: IMovement = {
-    id: String(movement.movementId),
-    date: new Date(String(movement.movementDate)),
-    reference: String(movement.movementNumber),
-    description: String(
-      movement.movementDescription ||
-        movementDescriptionMock(String(movement.movementNumber)),
-    ),
-    totalValue: totalPay,
-  };
-
-  if (movement.capitalCreditPesos) {
-    buildMovement.capitalPayment = Number(movement.capitalCreditPesos);
-  }
-
-  if (movement.creditInterestPesos) {
-    buildMovement.interest = Number(movement.creditInterestPesos);
-  }
-
-  if (movement.lifeInsuranceCreditPesos) {
-    buildMovement.lifeInsurance = Number(movement.lifeInsuranceCreditPesos);
-  }
-
-  if (movement.anotherConceptCreditPesos) {
-    buildMovement.patrimonialInsurance = Number(
-      movement.anotherConceptCreditPesos,
-    );
-  }
-
-  if (movement.capitalizationCreditPesos) {
-    buildMovement.capitalization = Number(movement.capitalizationCreditPesos);
-  }
-
-  if (movement.commissionCreditPesos) {
-    buildMovement.commission = Number(movement.commissionCreditPesos);
-  }
-
-  return buildMovement;
-};
-
-const mapCreditMovementsApiToEntities = (
-  movements: Record<string, string | number | object>[],
-): IMovement[] => {
-  return movements
-    .map((movement) => mapCreditMovementApiToEntity(movement))
-    .filter((movement) => movement.totalValue > 0)
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
-};
 
 const mapCreditApiToEntity = (
   credit: Record<string, string | number | object>,
@@ -149,7 +84,7 @@ const mapCreditApiToEntity = (
     {
       id: "peridiocity",
       label: "Periodicidad",
-      value: peridiocityValuesMock[String(credit.periodicityOfQuota)],
+      value: peridiocityValuesMock[Object(credit.periodicityOfQuota).code],
     },
     {
       id: "payment_means",
@@ -164,12 +99,12 @@ const mapCreditApiToEntity = (
     {
       id: "amortization_type",
       label: "Tipo de amortización",
-      value: amortizationTypeValuesMock[String(credit.amortization)],
+      value: amortizationTypeValuesMock[Object(credit.amortization).code],
     },
     {
       id: "guarantee_type",
       label: "Tipo de garantía",
-      value: guaranteeTypeValuesMock[String(credit.typeOfGuarantee)],
+      value: guaranteeTypeValuesMock[Object(credit.typeOfGuarantee).code],
     },
     { id: "terms", label: "Plazo", value: `${maxQuota} Meses` },
 
@@ -243,61 +178,4 @@ const mapCreditsApiToEntities = (
     .map((credit) => mapCreditApiToEntity(credit));
 };
 
-const mapCreditAmortizationApiToEntity = (
-  payment: Record<string, string | number | object>,
-): IAmortization => {
-  const others =
-    Number(payment.lifeInsuranceValue || 0) +
-    Number(payment.otherConceptValue || 0) +
-    Number(payment.capitalizationValue || 0);
-
-  const totalInterest =
-    Number(payment.fixedInterestValue || 0) +
-    Number(payment.variableInterestValue || 0);
-
-  const buildPayment: IAmortization = {
-    id: String(payment.paymentPlanId),
-    paymentNumber: Number(payment.quotaNumber),
-    date: new Date(String(payment.quotaDate)),
-    type: amortizationTableValuesMock[String(payment.quotaType)],
-    others,
-    interest: totalInterest,
-    totalMonthlyValue: Number(payment.quotaValue),
-    projectedBalance: Number(payment.projectedBalance || 0),
-  };
-
-  if (payment.capitalValue) {
-    buildPayment.capitalPayment = Number(payment.capitalValue);
-  }
-
-  if (payment.lifeInsuranceValue) {
-    buildPayment.lifeInsurance = Number(payment.lifeInsuranceValue);
-  }
-
-  if (payment.otherConceptValue) {
-    buildPayment.patrimonialInsurance = Number(payment.otherConceptValue);
-  }
-
-  if (payment.capitalizationValue) {
-    buildPayment.capitalization = Number(payment.capitalizationValue);
-  }
-
-  return buildPayment;
-};
-
-const mapCreditAmortizationApiToEntities = (
-  payments: Record<string, string | number | object>[],
-): IAmortization[] => {
-  return payments
-    .map((payment) => mapCreditAmortizationApiToEntity(payment))
-    .sort((a, b) => a.paymentNumber - b.paymentNumber);
-};
-
-export {
-  mapCreditAmortizationApiToEntities,
-  mapCreditAmortizationApiToEntity,
-  mapCreditApiToEntity,
-  mapCreditMovementApiToEntity,
-  mapCreditMovementsApiToEntities,
-  mapCreditsApiToEntities,
-};
+export { mapCreditApiToEntity, mapCreditsApiToEntities };
