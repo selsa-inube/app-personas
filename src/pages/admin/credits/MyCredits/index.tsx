@@ -1,8 +1,9 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
-import { getCreditsForUser } from "src/services/iclient/credits";
+
 import { MyCreditsUI } from "./interface";
+import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 
 function MyCredits() {
   const { credits, setCredits } = useContext(CreditsContext);
@@ -24,7 +25,7 @@ function MyCredits() {
         });
     }
   }, [user, accessToken, credits]);
-  
+
   return <MyCreditsUI loading={loading} credits={credits} />;
 }
 

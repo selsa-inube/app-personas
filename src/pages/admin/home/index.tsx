@@ -1,7 +1,8 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
-import { getCreditsForUser } from "src/services/iclient/credits";
+
+import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { HomeUI } from "./interface";
 
 function Home() {
