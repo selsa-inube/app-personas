@@ -28,11 +28,6 @@ const savingsMock: IProduct[] = [
         value: "Todas las transacciones",
       },
       {
-        id: "account_to_salary",
-        label: "Cuenta para abonar la nómina",
-        value: "No",
-      },
-      {
         id: "beneficiaries",
         label: "Beneficiarios",
         value: [
