@@ -120,7 +120,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       const amount = Number(formik.values.amount);
       const interestRateDecimal = interestRate / 100;
 
-      const newValidationSchema = validationSchema.concat(
+      const newValidationSchema = dynamicValidationSchema.concat(
         Yup.object({
           quota: validationRules.money
             .required(validationMessages.required)

@@ -276,7 +276,8 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       !formik.values.peridiocity ||
                       (!formik.values.deadline && !formik.values.quota) ||
                       formik.errors.amount ||
-                      formik.errors.deadline
+                      formik.errors.deadline ||
+                      formik.errors.quota
                     }
                   >
                     Simular
