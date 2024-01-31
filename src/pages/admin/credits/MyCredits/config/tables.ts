@@ -61,11 +61,11 @@ const amortizationTableBreakpoints = [
 
 const movementsTableBreakpoints = [
   { breakpoint: "(min-width: 1229px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 1000px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 910px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 890px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 650px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 390px)", totalColumns: 1 },
+  { breakpoint: "(max-width: 1070px)", totalColumns: 2 },
+  { breakpoint: "(max-width: 920px)", totalColumns: 1 },
+  { breakpoint: "(max-width: 895px)", totalColumns: 3 },
+  { breakpoint: "(max-width: 820px)", totalColumns: 2 },
+  { breakpoint: "(max-width: 670px)", totalColumns: 1 },
 ];
 
 export {
