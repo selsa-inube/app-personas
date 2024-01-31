@@ -84,7 +84,7 @@ const mapCreditApiToEntity = (
     {
       id: "peridiocity",
       label: "Periodicidad",
-      value: peridiocityValuesMock[Object(credit.periodicityOfQuota).code],
+      value: peridiocityValuesMock[String(credit.periodicityOfQuota)],
     },
     {
       id: "payment_means",
