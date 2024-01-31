@@ -14,14 +14,13 @@ import { goalRatesTableTitles } from "./config/table";
 interface GoalFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   customHandleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
 }
 
 function GoalFormUI(props: GoalFormUIProps) {
-  const { formik, loading, customHandleBlur, customHandleChange } = props;
+  const { formik, loading, customHandleChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 750px)");
 
@@ -60,8 +59,8 @@ function GoalFormUI(props: GoalFormUIProps) {
               size="compact"
               isFullWidth
               state={getFieldState(formik, "daysNumber")}
-              onBlur={customHandleBlur}
-              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              onChange={customHandleChange}
               validMessage="El número de días es válido"
               isRequired
             />
@@ -81,8 +80,8 @@ function GoalFormUI(props: GoalFormUIProps) {
               size="compact"
               isFullWidth
               state={getFieldState(formik, "refundDate")}
-              onBlur={customHandleBlur}
-              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              onChange={customHandleChange}
               validMessage="La fecha de reembolso es valida"
               isRequired
             />

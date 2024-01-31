@@ -6,12 +6,11 @@ import { getFieldState } from "src/utils/forms/forms";
 interface PlanNameFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function PlanNameFormUI(props: PlanNameFormUIProps) {
-  const { formik, loading, customHandleBlur } = props;
+  const { formik, loading } = props;
 
   return (
     <form>
@@ -28,7 +27,7 @@ function PlanNameFormUI(props: PlanNameFormUIProps) {
           size="compact"
           isFullWidth
           state={getFieldState(formik, "productName")}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           validMessage="El nombre del producto es válido"
           maxLength={30}

@@ -42,7 +42,7 @@ const QuotaForm = forwardRef(function QuotaForm(
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicForm.validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
   });
@@ -77,6 +77,14 @@ const QuotaForm = forwardRef(function QuotaForm(
     }
   }, []);
 
+  useEffect(() => {
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
+  }, [formik.values]);
+
   const customHandleChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -95,13 +103,13 @@ const QuotaForm = forwardRef(function QuotaForm(
         periodicValue: formik.values.periodicValue,
         paymentMethod: value,
       };
-    
+
       const filteredOptions = filterPeriodicityOptions(value);
-    
+
       if (filteredOptions.length === 1) {
         updatedFormikValues.periodicity = filteredOptions[0].id;
       }
-    
+
       formik.setValues(updatedFormikValues);
     } else {
       formik.setFieldValue(name, value);
@@ -136,21 +144,10 @@ const QuotaForm = forwardRef(function QuotaForm(
     });
   };
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  };
-
   return (
     <QuotaFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
       renderFields={dynamicForm.renderFields}
       customHandleChange={customHandleChange}
     />
