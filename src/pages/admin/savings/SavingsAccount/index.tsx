@@ -1,18 +1,20 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsAccountUI } from "./interface";
+import { SavingsContext } from "src/context/savings";
+import { useContext } from "react";
+import { validateSaving } from "./utils";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
+import { useAuth } from "@inube/auth";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -20,6 +22,8 @@ function SavingsAccount() {
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
+  const { user, accessToken } = useAuth();
+  const { savings, setSavings } = useContext(SavingsContext);
   const [beneficiariesModal, setBeneficiariesModal] =
     useState<IBeneficiariesModalState>({
       show: false,
@@ -86,28 +90,33 @@ function SavingsAccount() {
     });
   };
 
-  const handleSortProduct = () => {
-    const products = [...savingsMock, ...investmentsMock];
-    const savingsOptions = products.map((saving) => {
-      const productOption = {
-        id: saving.id,
-        value: saving.description,
-      };
+  const handleSortProduct = async () => {
+    if (!product_id || !user || !accessToken) return;
 
-      if (saving.id === product_id) {
-        setSelectedProduct({
-          saving: {
-            ...saving,
-            movements: saving.movements?.slice(0, 5),
-          },
-          option: productOption.id,
-        });
-      }
+    const { selectedSavings, newSavings } = await validateSaving(
+      savings,
+      product_id,
+      user.identification,
+      accessToken,
+    );
 
-      return productOption;
+    setSavings(newSavings);
+
+    if (!selectedSavings) return;
+
+    setSelectedProduct({
+      saving: selectedSavings || [],
+      option: selectedSavings.id,
     });
 
-    setProductsOptions(savingsOptions);
+    setProductsOptions(
+      newSavings
+        .filter((saving) => saving.type === "AS")
+        .map((saving) => ({
+          id: saving.id,
+          value: saving.description,
+        })),
+    );
   };
 
   useEffect(() => {
@@ -150,8 +159,6 @@ function SavingsAccount() {
 
   return (
     <SavingsAccountUI
-      handleToggleBeneficiariesModal={handleToggleBeneficiariesModal}
-      handleChangeProduct={handleChangeProduct}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
       isMobile={isMobile}
@@ -159,6 +166,8 @@ function SavingsAccount() {
       beneficiariesModal={beneficiariesModal}
       commitmentsModal={commitmentsModal}
       reimbursementModal={reimbursementModal}
+      handleToggleBeneficiariesModal={handleToggleBeneficiariesModal}
+      handleChangeProduct={handleChangeProduct}
       handleToggleCommitmentsModal={handleToggleCommitmentsModal}
       handleToggleReimbursementModal={handleToggleReimbursementModal}
     />

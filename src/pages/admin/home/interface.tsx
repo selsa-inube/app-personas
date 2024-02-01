@@ -2,10 +2,7 @@ import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import {
-  capitalizeFirstLetters,
-  truncateAndObfuscateDescription,
-} from "src/utils/texts";
+import { capitalizeFirstLetters } from "src/utils/texts";
 
 import { Box } from "@components/cards/Box";
 import { QuickAccess } from "@components/cards/QuickAccess";
@@ -42,6 +39,7 @@ import {
   formatSavingCurrencyAttrs,
   investmentAttributeBreakpoints,
   savingAttributeBreakpoints,
+  sumNetValue,
 } from "./config/products";
 import { cardProducts } from "./mocks";
 
@@ -51,7 +49,8 @@ function renderHomeContent(
   savingsCommitmentsMock: ICommitment[],
   savingsStatutoryContributionsMock: IProduct[],
   credits: IProduct[],
-  loading: boolean,
+  loadingCredits: boolean,
+  loadingSavings: boolean,
   cdats?: IProduct[],
   programmedSavings?: IProduct[],
 ) {
@@ -64,18 +63,28 @@ function renderHomeContent(
         <Box {...savingsBox}>
           <Stack direction="column">
             <Stack direction="column" gap="s200">
+              {!loadingSavings &&
+                !loadingCredits &&
+                savingsAccountsMock &&
+                savingsAccountsMock.length === 0 &&
+                savingsStatutoryContributionsMock.length === 0 &&
+                cdats &&
+                cdats.length === 0 &&
+                programmedSavings &&
+                programmedSavings.length === 0 && (
+                  <Product
+                    empty={true}
+                    icon={<MdOutlineAccountBalanceWallet />}
+                  />
+                )}
               {savingsCommitmentsMock && savingsCommitmentsMock.length > 0 && (
                 <Text type="label" size="medium">
                   Cuentas
                 </Text>
               )}
               <Stack direction="column" gap="s100">
-                {savingsAccountsMock && savingsAccountsMock.length === 0 ? (
-                  <Product
-                    empty={true}
-                    icon={<MdOutlineAccountBalanceWallet />}
-                  />
-                ) : (
+                {savingsAccountsMock &&
+                  savingsAccountsMock.length !== 0 &&
                   savingsAccountsMock.map((saving) => (
                     <Product
                       key={saving.id}
@@ -89,8 +98,7 @@ function renderHomeContent(
                       breakpoints={savingAttributeBreakpoints}
                       navigateTo={`/my-savings/account/${saving.id}`}
                     />
-                  ))
-                )}
+                  ))}
               </Stack>
             </Stack>
             <Stack direction="column" gap="s200">
@@ -100,25 +108,30 @@ function renderHomeContent(
                 </Text>
               )}
               <Stack direction="column" gap="s100">
-                {savingsStatutoryContributionsMock.length > 0 &&
-                  savingsStatutoryContributionsMock.map((saving) => (
-                    <Product
-                      key={saving.id}
-                      title={saving.title}
-                      description={truncateAndObfuscateDescription(
-                        saving.id,
-                        saving.type,
-                        4,
-                      )}
-                      attributes={formatSavingCurrencyAttrs(
-                        extractSavingAttributes(saving),
-                      )}
-                      tags={saving.tags}
-                      icon={savingsAccountIcons[saving.type]}
-                      breakpoints={savingAttributeBreakpoints}
-                      navigateTo={`/my-savings/account/${saving.id}`}
-                    />
-                  ))}
+                {loadingSavings ? (
+                  <>
+                    <Product loading />
+                    <Product loading />
+                  </>
+                ) : (
+                  <>
+                    {savingsStatutoryContributionsMock.length !== 0 &&
+                      savingsStatutoryContributionsMock.map((saving) => (
+                        <Product
+                          key={saving.id}
+                          title={saving.title}
+                          description={saving.id}
+                          attributes={formatSavingCurrencyAttrs(
+                            extractSavingAttributes(saving),
+                          )}
+                          tags={saving.tags}
+                          icon={savingsAccountIcons[saving.type]}
+                          breakpoints={savingAttributeBreakpoints}
+                          navigateTo={`/my-savings/account/${saving.id}`}
+                        />
+                      ))}
+                  </>
+                )}
               </Stack>
             </Stack>
             {cdats && cdats.length > 0 && (
@@ -172,12 +185,12 @@ function renderHomeContent(
               (cdats && cdats.length > 0) ||
               (programmedSavings && programmedSavings.length > 0) ||
               productsCommitments.length > 0) && (
-              <Stack justifyContent="flex-end" gap="s100">
+              <Stack justifyContent="flex-end" gap="s100" padding="s100">
                 <Text type="label" size="large">
-                  Saldo total :
+                  Total Ahorrado :
                 </Text>
                 <Text type="body" size="medium" appearance="gray">
-                  $ 0
+                  {sumNetValue(savingsStatutoryContributionsMock)}
                 </Text>
               </Stack>
             )}
@@ -199,7 +212,7 @@ function renderHomeContent(
 
         <Box {...creditsBox}>
           <Stack direction="column" gap="s100">
-            {loading ? (
+            {loadingCredits ? (
               <>
                 <Product loading />
                 <Product loading />
@@ -259,7 +272,8 @@ interface HomeUIProps {
   savingsCommitmentsMock: ICommitment[];
   savingsStatutoryContributionsMock: IProduct[];
   credits: IProduct[];
-  loading: boolean;
+  loadingCredits: boolean;
+  loadingSavings: boolean;
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
 }
@@ -273,7 +287,8 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
     credits,
-    loading,
+    loadingCredits,
+    loadingSavings,
   } = props;
 
   const { user } = useAuth();
@@ -315,7 +330,8 @@ function HomeUI(props: HomeUIProps) {
             savingsCommitmentsMock,
             savingsStatutoryContributionsMock,
             credits,
-            loading,
+            loadingCredits,
+            loadingSavings,
             cdats,
             programmedSavings,
           )}
@@ -332,7 +348,8 @@ function HomeUI(props: HomeUIProps) {
             savingsCommitmentsMock,
             savingsStatutoryContributionsMock,
             credits,
-            loading,
+            loadingCredits,
+            loadingSavings,
             cdats,
             programmedSavings,
           )}
