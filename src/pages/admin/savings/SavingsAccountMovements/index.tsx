@@ -1,11 +1,13 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { investmentsMock } from "@mocks/products/investments/investments.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsAccountMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
-import { cdatCode } from "../MySavings/config/products";
+import { SavingsContext } from "src/context/savings";
+import { useContext } from "react";
+import { validateSaving } from "../SavingsAccount/utils";
+import { useAuth } from "@inube/auth";
+import { addMovementsToSaving } from "./utils";
 
 function SavingsAccountMovements() {
   const { product_id } = useParams();
@@ -14,36 +16,42 @@ function SavingsAccountMovements() {
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { user, accessToken } = useAuth();
+  const { savings, setSavings } = useContext(SavingsContext);
 
-  const handleSortProduct = () => {
-    const products = [
-      ...savingsMock,
-      ...investmentsMock.filter((item) => item.type !== cdatCode),
-    ];
+  const handleSortProduct = async () => {
+    if (!product_id || !user || !accessToken) return;
 
-    const savingsOptions = products.map((saving) => {
-      const productOption = {
-        id: saving.id,
-        value: saving.description,
-      };
+    const { selectedSavings, newSavings } = await validateSaving(
+      savings,
+      product_id,
+      user.identification,
+      accessToken,
+    );
 
-      if (saving.id === product_id) {
-        setSelectedProduct({
-          totalMovements: saving.movements?.length || 0,
-          movements: saving.movements?.slice(0, 14) || [],
-          option: productOption.id,
-        });
-      }
+    setSavings(newSavings);
 
-      return productOption;
+    if (!selectedSavings) return;
+
+    setSelectedProduct({
+      totalMovements: selectedSavings.movements?.length || 0,
+      movements: selectedSavings.movements?.slice(0, 10) || [],
+      option: selectedSavings.id,
     });
 
-    setProductsOptions(savingsOptions);
+    setProductsOptions(
+      newSavings
+        .filter((saving) => saving.id.startsWith("200"))
+        .map((saving) => ({
+          id: saving.id,
+          value: saving.description,
+        })),
+    );
   };
 
   useEffect(() => {
     handleSortProduct();
-  }, [product_id]);
+  }, [product_id, user, accessToken]);
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
@@ -51,26 +59,16 @@ function SavingsAccountMovements() {
   };
 
   const handleAddMovements = () => {
+    if (!selectedProduct || !product_id) return;
+
     setLoading(true);
 
     setTimeout(() => {
       try {
-        if (!selectedProduct?.movements) return;
-
-        const products = [
-          ...savingsMock,
-          ...investmentsMock.filter((item) => item.type !== cdatCode),
-        ];
-
-        const foundProduct = products.find(
-          (saving) => saving.id === product_id,
-        );
-
-        if (!foundProduct) return;
-
-        const newMovements = foundProduct.movements?.slice(
-          selectedProduct.movements.length,
-          selectedProduct.movements.length + 5,
+        const newMovements = addMovementsToSaving(
+          selectedProduct,
+          savings,
+          product_id,
         );
 
         if (newMovements) {

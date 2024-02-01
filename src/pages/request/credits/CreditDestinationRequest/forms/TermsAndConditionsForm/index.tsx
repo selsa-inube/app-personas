@@ -30,9 +30,11 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
   }, [formik.values]);
 
   return <TermsAndConditionsFormUI loading={loading} formik={formik} />;

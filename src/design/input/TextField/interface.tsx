@@ -1,12 +1,11 @@
 import { Text } from "@design/data/Text";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
-import { TextFieldProps } from ".";
 import { Label } from "../Label";
 import { ITextFieldMessage } from "./types";
 
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
-import { useState } from "react";
+import { TextFieldProps } from ".";
 import { DropdownMenu } from "../DropdownMenu";
 import { Counter } from "../Textarea/Counter";
 import { CounterAppearence } from "../Textarea/types";
@@ -45,7 +44,13 @@ function Success(props: ITextFieldMessage) {
   );
 }
 
-function TextFieldUI(props: TextFieldProps) {
+interface TextFieldUIProps extends TextFieldProps {
+  showDropdown?: boolean;
+  initialValue?: string | number;
+  onSuggestionSelect: (selectedValue: string) => void;
+}
+
+function TextFieldUI(props: TextFieldUIProps) {
   const {
     label = "",
     name,
@@ -68,49 +73,19 @@ function TextFieldUI(props: TextFieldProps) {
     isFullWidth = false,
     isFocused = false,
     readOnly,
-    autocomplete,
     suggestions,
-    autocompleteChars,
     lengthThreshold = 0,
     withCounter,
+    isTouched,
+    showDropdown,
+    initialValue,
     onChange,
     onFocus,
     onBlur,
     onIconClick,
+    onSuggestionSelect,
   } = props;
 
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [initialValue] = useState(value);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-
-    if (
-      autocomplete && autocompleteChars
-        ? newValue.length >= autocompleteChars
-        : true
-    ) {
-      setShowDropdown(true);
-    } else {
-      setShowDropdown(false);
-    }
-
-    if (!onIconClick) {
-      onChange && onChange(event);
-    }
-  };
-
-  const handleSuggestionSelect = (selectedValue: string) => {
-    const event = {
-      target: {
-        name,
-        value: selectedValue,
-      },
-    } as React.ChangeEvent<HTMLInputElement>;
-
-    onChange && onChange(event);
-    setShowDropdown(false);
-  };
   const truncatedValue = String(value).slice(0, maxLength);
 
   const counterAppearence: CounterAppearence =
@@ -196,7 +171,7 @@ function TextFieldUI(props: TextFieldProps) {
             minLength={minLength}
             max={max}
             min={min}
-            onChange={handleInputChange}
+            onChange={onChange}
             onFocus={onFocus}
             onBlur={onBlur}
             readOnly={readOnly}
@@ -228,11 +203,11 @@ function TextFieldUI(props: TextFieldProps) {
                   .includes(String(value).toLowerCase()),
               )
               .flat()}
-            onClick={handleSuggestionSelect}
+            onClick={onSuggestionSelect}
           />
         )}
 
-      {state === "invalid" && (
+      {state === "invalid" && isTouched && (
         <Invalid
           isDisabled={isDisabled}
           state={state}
@@ -242,7 +217,8 @@ function TextFieldUI(props: TextFieldProps) {
       {state === "valid" &&
         value &&
         value.toString().length > 0 &&
-        value !== initialValue && (
+        value !== initialValue &&
+        isTouched && (
           <Success
             isDisabled={isDisabled}
             state={state}
