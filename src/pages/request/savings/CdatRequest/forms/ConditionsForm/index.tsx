@@ -1,36 +1,13 @@
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
-import * as Yup from "yup";
 import { ConditionsFormUI } from "./interface";
 import { IConditionsEntry } from "./types";
 import {
   effectiveAnnualRateRequest,
-  maxDeadlineDays,
-  minDeadlineDays,
   totalInterestRequest,
+  validationSchema,
 } from "./utils";
-
-const validationSchema = Yup.object({
-  deadlineDate: validationRules.notPastDate.required(
-    validationMessages.required,
-  ),
-  deadlineDays: Yup.number()
-    .min(
-      minDeadlineDays(investmentsRatesMocks),
-      `El plazo minimo en días debe ser mayor o igual a:  ${minDeadlineDays(
-        investmentsRatesMocks,
-      )} días`,
-    )
-    .max(
-      maxDeadlineDays(investmentsRatesMocks),
-      `El plazo máximo en días debe ser menor o igual a:  ${maxDeadlineDays(
-        investmentsRatesMocks,
-      )} días`,
-    ),
-});
 
 interface ConditionsFormProps {
   initialValues: IConditionsEntry;
@@ -46,10 +23,12 @@ const ConditionsForm = forwardRef(function ConditionsForm(
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const [loadingSimulation, setLoadingSimulation] = useState(false);
+  const [dynamicValidationSchema] = useState(validationSchema);
 
   const formik = useFormik({
     initialValues,
-    validationSchema,
+    validationSchema: dynamicValidationSchema,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
@@ -59,7 +38,7 @@ const ConditionsForm = forwardRef(function ConditionsForm(
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, []);
+  }, [formik.values]);
 
   const simulateCDAT = () => {
     setLoadingSimulation(true);
@@ -121,23 +100,12 @@ const ConditionsForm = forwardRef(function ConditionsForm(
     onFormValid(false);
   };
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  };
-
   return (
     <ConditionsFormUI
       loading={loading}
       formik={formik}
       loadingSimulation={loadingSimulation}
       simulateCDAT={simulateCDAT}
-      customHandleBlur={customHandleBlur}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}
     />

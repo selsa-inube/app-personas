@@ -10,12 +10,11 @@ import { getFieldState } from "src/utils/forms/forms";
 interface InvestmentFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function InvestmentFormUI(props: InvestmentFormUIProps) {
-  const { formik, loading, customHandleBlur } = props;
+  const { formik, loading } = props;
 
   return (
     <form>
@@ -32,7 +31,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
           size="compact"
           isFullWidth
           state={getFieldState(formik, "valueInvestment")}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           onChange={(e) => {
             handleChangeWithCurrency(formik, e);
           }}

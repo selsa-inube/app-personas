@@ -28,20 +28,17 @@ const RefundForm = forwardRef(function RefundForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
+  useEffect(() => {
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  };
+  }, [formik.values]);
 
   const customHandleRefundMethod = (
     event: React.ChangeEvent<HTMLSelectElement>,
@@ -113,7 +110,6 @@ const RefundForm = forwardRef(function RefundForm(
       formik={formik}
       accountOptions={accountOptions}
       savingOptions={savingOptions}
-      customHandleBlur={customHandleBlur}
       onFormValid={onFormValid}
       customHandleRefundMethod={customHandleRefundMethod}
       customHandleAccount={customHandleAccount}
