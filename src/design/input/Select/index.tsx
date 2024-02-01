@@ -15,6 +15,7 @@ interface SelectProps {
   size?: InputSize;
   isFullWidth?: boolean;
   readOnly?: boolean;
+  isTouched?: boolean;
   options?: ISelectOption[];
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void;
@@ -44,20 +45,19 @@ function Select(props: SelectProps) {
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
   const [open, setOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement | null>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
-    const target = event.target as Node | null;
-    if (selectRef.current && target && !selectRef.current.contains(target)) {
+    const target = event.target as Node;
+    if (
+      open &&
+      selectRef.current &&
+      target &&
+      !selectRef.current.contains(target)
+    ) {
       setOpen(false);
-    }
-    if (onBlur) {
-      const event = {
-        target: selectRef.current,
-      } as React.FocusEvent<HTMLDivElement>;
-
-      onBlur(event);
     }
   };
 
@@ -67,23 +67,25 @@ function Select(props: SelectProps) {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [selectRef]);
+  }, [selectRef, open]);
 
-  const interceptFocus = (e: React.FocusEvent<HTMLDivElement>) => {
+  const handleFocus = (e: React.FocusEvent<HTMLDivElement>) => {
     if (!readOnly) {
       setIsFocused(true);
+      setIsTouched(true);
+      setOpen(true);
     }
     if (onFocus) onFocus(e);
   };
 
-  const interceptBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     setIsFocused(false);
 
     if (onBlur) onBlur(e);
   };
 
-  const handleCloseOptions = () => {
-    setOpen(!open);
+  const handleToggleOptions = () => {
+    setOpen(false);
   };
 
   const handleOptionClick = (id: string) => {
@@ -102,19 +104,11 @@ function Select(props: SelectProps) {
     if (onChange) onChange(event);
 
     setIsFocused(false);
-    handleCloseOptions();
+    handleToggleOptions();
   };
 
-  const transformedIsDisabled =
-    typeof isDisabled === "boolean" ? isDisabled : false;
-
-  const transformedState = inputStates.includes(state) ? state : "pending";
-
-  const transformedIsRequired =
-    typeof isRequired === "boolean" ? isRequired : false;
-
-  const transformedIsFullWidth =
-    typeof isFullWidth === "boolean" ? isFullWidth : false;
+  const transformedState =
+    (isFocused || isTouched) && inputStates.includes(state) ? state : "pending";
 
   if (!isDisabled && !options) {
     console.warn(
@@ -128,24 +122,25 @@ function Select(props: SelectProps) {
       name={name}
       id={id}
       placeholder={placeholder}
-      isDisabled={transformedIsDisabled}
+      isDisabled={isDisabled}
       value={value}
-      onChange={onChange}
-      isRequired={transformedIsRequired}
+      isRequired={isRequired}
       size={size}
       state={transformedState}
       errorMessage={errorMessage}
-      isFullWidth={transformedIsFullWidth}
+      isFullWidth={isFullWidth}
       isFocused={isFocused}
-      onFocus={interceptFocus}
-      onBlur={interceptBlur}
       options={options}
       openOptions={open}
-      onClick={onClick}
-      onCloseOptions={handleCloseOptions}
       selectRef={selectRef}
-      onOptionClick={handleOptionClick}
       readOnly={readOnly}
+      isTouched={isTouched}
+      onClick={onClick}
+      onChange={onChange}
+      onOptionClick={handleOptionClick}
+      onToggleOptions={handleToggleOptions}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
     />
   );
 }

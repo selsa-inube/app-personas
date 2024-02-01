@@ -21,13 +21,13 @@ import { useNavigate } from "react-router-dom";
 import { IAttribute, ICommitment, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
-import { truncateAndObfuscateDescription } from "src/utils/texts";
 import {
   investmentIcons,
   savingsAccountIcons,
 } from "../SavingsAccount/config/saving";
 import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
+import { sumNetValue } from "@pages/admin/home/config/products";
 import {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
@@ -74,6 +74,7 @@ function renderMySavingsContent(
   savingsAccountsMock: IProduct[],
   savingsCommitmentsMock: ICommitment[],
   savingsStatutoryContributionsMock: IProduct[],
+  loading: boolean,
   cdats?: IProduct[],
   programmedSavings?: IProduct[],
 ) {
@@ -86,22 +87,32 @@ function renderMySavingsContent(
         <Box {...mySavingsBox}>
           <Stack direction="column">
             <Stack direction="column" gap="s200">
-              {savingsCommitmentsMock.length > 0 && (
+              {!loading &&
+                savingsAccountsMock &&
+                savingsAccountsMock.length === 0 &&
+                savingsStatutoryContributionsMock.length === 0 &&
+                cdats &&
+                cdats.length === 0 &&
+                programmedSavings &&
+                programmedSavings.length === 0 && (
+                  <Product
+                    empty={true}
+                    icon={<MdOutlineAccountBalanceWallet />}
+                  />
+                )}
+              {savingsCommitmentsMock && savingsCommitmentsMock.length > 0 && (
                 <Text type="label" size="medium">
                   Cuentas
                 </Text>
               )}
               <Stack direction="column" gap="s100">
-                {savingsAccountsMock.length > 0 &&
+                {savingsAccountsMock &&
+                  savingsAccountsMock.length !== 0 &&
                   savingsAccountsMock.map((saving) => (
                     <Product
                       key={saving.id}
                       title={saving.title}
-                      description={truncateAndObfuscateDescription(
-                        saving.id,
-                        saving.type,
-                        4,
-                      )}
+                      description={saving.id}
                       attributes={formatMySavingsCurrencyAttrs(
                         extractMySavingsAttributes(saving),
                       )}
@@ -120,30 +131,29 @@ function renderMySavingsContent(
                 </Text>
               )}
               <Stack direction="column" gap="s100">
-                {savingsStatutoryContributionsMock.length === 0 ? (
-                  <Product
-                    empty={true}
-                    icon={<MdOutlineAccountBalanceWallet />}
-                  />
+                {loading ? (
+                  <>
+                    <Product loading />
+                    <Product loading />
+                  </>
                 ) : (
-                  savingsStatutoryContributionsMock.map((saving) => (
-                    <Product
-                      key={saving.id}
-                      title={saving.title}
-                      description={truncateAndObfuscateDescription(
-                        saving.id,
-                        saving.type,
-                        4,
-                      )}
-                      attributes={formatMySavingsCurrencyAttrs(
-                        extractMySavingsAttributes(saving),
-                      )}
-                      tags={saving.tags}
-                      icon={savingsAccountIcons[saving.type]}
-                      breakpoints={mySavingsAttributeBreakpoints}
-                      navigateTo={`/my-savings/account/${saving.id}`}
-                    />
-                  ))
+                  <>
+                    {savingsStatutoryContributionsMock.length !== 0 &&
+                      savingsStatutoryContributionsMock.map((saving) => (
+                        <Product
+                          key={saving.id}
+                          title={saving.title}
+                          description={saving.id}
+                          attributes={formatMySavingsCurrencyAttrs(
+                            extractMySavingsAttributes(saving),
+                          )}
+                          tags={saving.tags}
+                          icon={savingsAccountIcons[saving.type]}
+                          breakpoints={mySavingsAttributeBreakpoints}
+                          navigateTo={`/my-savings/account/${saving.id}`}
+                        />
+                      ))}
+                  </>
                 )}
               </Stack>
             </Stack>
@@ -198,15 +208,16 @@ function renderMySavingsContent(
               (cdats && cdats.length > 0) ||
               (programmedSavings && programmedSavings.length > 0) ||
               productsCommitments.length > 0) && (
-              <Stack justifyContent="flex-end" gap="s100">
+              <Stack justifyContent="flex-end" gap="s100" padding="s100">
                 <Text type="label" size="large">
-                  Saldo total :
+                  Total Ahorrado :
                 </Text>
                 <Text type="body" size="medium" appearance="gray">
-                  $ 0
+                  {sumNetValue(savingsStatutoryContributionsMock)}
                 </Text>
               </Stack>
             )}
+
             {productsCommitments.length > 0 && (
               <>
                 <Text type="label" size="medium">
@@ -231,6 +242,7 @@ interface MySavingsUIProps {
   savingsStatutoryContributionsMock: IProduct[];
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
+  loading: boolean;
 }
 
 function MySavingsUI(props: MySavingsUIProps) {
@@ -241,6 +253,7 @@ function MySavingsUI(props: MySavingsUIProps) {
     savingsStatutoryContributionsMock,
     cdats,
     programmedSavings,
+    loading,
   } = props;
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   return (
@@ -262,6 +275,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             savingsAccountsMock,
             savingsCommitmentsMock,
             savingsStatutoryContributionsMock,
+            loading,
             cdats,
             programmedSavings,
           )}
@@ -277,6 +291,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             savingsAccountsMock,
             savingsCommitmentsMock,
             savingsStatutoryContributionsMock,
+            loading,
             cdats,
             programmedSavings,
           )}

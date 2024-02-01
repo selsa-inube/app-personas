@@ -47,7 +47,7 @@ const savingsAccountMovementsTableBreakpoints = [
   { breakpoint: "(max-width: 1000px)", totalColumns: 2 },
   { breakpoint: "(max-width: 890px)", totalColumns: 3 },
   { breakpoint: "(max-width: 860px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 390px)", totalColumns: 1 },
+  { breakpoint: "(max-width: 450px)", totalColumns: 1 },
 ];
 
 const savingsAccountMovementsTableActions: IAction[] = [

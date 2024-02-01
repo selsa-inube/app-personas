@@ -10,14 +10,13 @@ import {
 interface ReimbursementFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
 }
 
 function ReimbursementFormUI(props: ReimbursementFormUIProps) {
-  const { formik, loading, customHandleBlur, customHandleChange } = props;
+  const { formik, loading, customHandleChange } = props;
 
   return (
     <form>
@@ -32,7 +31,7 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
           isDisabled={loading}
           options={filteredOptionsFormReimbursement()}
           onChange={customHandleChange}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           state={getFieldState(formik, "reimbursementType")}
           errorMessage={formik.errors.reimbursementType}
           isFullWidth

@@ -12,7 +12,7 @@ const validationRules = {
     .test(
       "valid-identification",
       validationMessages.identification,
-      (value) => typeof value !== "undefined"
+      (value) => typeof value !== "undefined",
     )
     .min(5, validationMessages.minNumbers(5))
     .max(15, validationMessages.maxNumbers(15)),

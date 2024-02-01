@@ -25,6 +25,7 @@ import { SavingRoutes } from "./routes/saving";
 
 import { useAuth } from "@inube/auth";
 import { CreditsProvider } from "./context/credits";
+import { SavingsProvider } from "./context/savings";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -63,9 +64,11 @@ function App() {
     <>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <CreditsProvider>
-          <RouterProvider router={router} />
-        </CreditsProvider>
+        <SavingsProvider>
+          <CreditsProvider>
+            <RouterProvider router={router} />
+          </CreditsProvider>
+        </SavingsProvider>
       </ThemeProvider>
     </>
   );

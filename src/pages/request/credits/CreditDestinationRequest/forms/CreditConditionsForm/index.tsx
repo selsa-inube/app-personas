@@ -39,9 +39,11 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
   }, [formik.values]);
 
   useEffect(() => {
@@ -100,6 +102,11 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     if (event.target.name === "simulationWithQuota") {
       formik.setFieldValue("quota", "");
       formik.setFieldValue("deadline", "");
+      formik.setFieldValue("interestRate", "");
+      formik.setFieldValue("cycleInterest", "");
+      formik.setFieldValue("netValue", "");
+      formik.setFieldValue("hasResult", false);
+      
       formik.setFormikState((state) => {
         return {
           ...state,
@@ -118,7 +125,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       const amount = Number(formik.values.amount);
       const interestRateDecimal = interestRate / 100;
 
-      const newValidationSchema = validationSchema.concat(
+      const newValidationSchema = dynamicValidationSchema.concat(
         Yup.object({
           quota: validationRules.money
             .required(validationMessages.required)

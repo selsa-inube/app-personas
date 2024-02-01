@@ -1,17 +1,17 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { FormikValues } from "formik";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 import { IFormField } from "@ptypes/forms.types";
+import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
-import { Stack } from "@design/layout/Stack";
+import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 
 interface QuotaFormUIProps {
   formik: FormikValues;
@@ -19,21 +19,14 @@ interface QuotaFormUIProps {
   customHandleChange: (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => void;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   renderFields: IFormField[];
 }
 const paymentMethodDM = getDomainById("paymentMethod");
 
 function QuotaFormUI(props: QuotaFormUIProps) {
-  const {
-    formik,
-    loading,
-    customHandleChange,
-    customHandleBlur,
-    renderFields,
-  } = props;
+  const { formik, loading, customHandleChange, renderFields } = props;
 
   const isTablet = useMediaQuery("(max-width: 750px)");
 
@@ -54,7 +47,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
             size="compact"
             isFullWidth
             state={getFieldState(formik, "periodicValue")}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
             onChange={(e) => {
               handleChangeWithCurrency(formik, e);
             }}
@@ -70,7 +63,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
             isDisabled={loading}
             size="compact"
             onChange={customHandleChange}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
             state={getFieldState(formik, "paymentMethod")}
             errorMessage={formik.errors.paymentMethod}
             isFullWidth
@@ -95,10 +88,10 @@ function QuotaFormUI(props: QuotaFormUIProps) {
             generateFormFields(
               renderFields,
               formik,
-              customHandleBlur,
+              formik.handleBlur,
               customHandleChange,
               isTablet,
-              loading
+              loading,
             )
           )}
         </Grid>

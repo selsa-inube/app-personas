@@ -29,10 +29,6 @@ import {
 } from "../SavingsAccountMovements/config/table";
 import { crumbsSaving } from "./config/navigation";
 import {
-  extractSavingAttributes,
-  formatSavingCurrencyAttrs,
-} from "./config/product";
-import {
   investmentCommitmentsIcons,
   savingCommitmentsIcons,
   savingsAccountBox,
@@ -49,6 +45,8 @@ import {
   cdatCode,
   programmedSavingCode,
   savingAccountCode,
+  formatMySavingsCurrencyAttrs,
+  extractMySavingsAttributes,
 } from "../MySavings/config/products";
 
 interface SavingsAccountUIProps {
@@ -82,7 +80,11 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
-  const attributes = extractSavingAttributes(selectedProduct.saving);
+  const attributes =
+    selectedProduct && extractMySavingsAttributes(selectedProduct.saving);
+
+  const formatedAttributes =
+    attributes && formatMySavingsCurrencyAttrs(attributes);
 
   const productsIcons = {
     ...savingCommitmentsIcons,
@@ -135,10 +137,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-                {formatSavingCurrencyAttrs(
-                  attributes,
-                  selectedProduct.saving.type,
-                ).map((attr) => (
+                {formatedAttributes.map((attr) => (
                   <BoxAttribute
                     key={attr.id}
                     label={`${attr.label}: `}
@@ -188,7 +187,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   actions={savingsAccountMovementsTableActions}
                   entries={savingAccountMovementsNormalizeEntries(
                     selectedProduct.saving.movements || [],
-                  )}
+                  ).slice(0, 5)}
                   pageLength={selectedProduct.saving.movements?.length || 0}
                   hideMobileResume
                 />
