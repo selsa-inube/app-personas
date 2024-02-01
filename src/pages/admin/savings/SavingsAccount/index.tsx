@@ -8,6 +8,7 @@ import { SavingsAccountUI } from "./interface";
 import { SavingsContext } from "src/context/savings";
 import { useContext } from "react";
 import { validateSaving } from "./utils";
+import { socialContributionsCode } from "../MySavings/config/products";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
@@ -111,7 +112,7 @@ function SavingsAccount() {
 
     setProductsOptions(
       newSavings
-        .filter((saving) => saving.type === "AS")
+        .filter((saving) => saving.type === socialContributionsCode)
         .map((saving) => ({
           id: saving.id,
           value: saving.description,

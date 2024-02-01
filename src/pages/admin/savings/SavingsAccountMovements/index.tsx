@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { validateSaving } from "../SavingsAccount/utils";
 import { useAuth } from "@inube/auth";
 import { addMovementsToSaving } from "./utils";
+import { socialContributionsCode } from "../MySavings/config/products";
 
 function SavingsAccountMovements() {
   const { product_id } = useParams();
@@ -41,7 +42,7 @@ function SavingsAccountMovements() {
 
     setProductsOptions(
       newSavings
-        .filter((saving) => saving.type === "AS")
+        .filter((saving) => saving.type === socialContributionsCode)
         .map((saving) => ({
           id: saving.id,
           value: saving.description,

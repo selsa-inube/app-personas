@@ -47,7 +47,7 @@ const getSavingsForUser = async (
 
       if (!res.ok) {
         throw {
-          message: "Error al obtener los aportes del usuario",
+          message: "Error al obtener los productos de ahorro del usuario",
           status: res.status,
           data,
         };
@@ -61,7 +61,7 @@ const getSavingsForUser = async (
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
-          "Todos los intentos fallaron. No se pudieron obtener los aportes del usuario.",
+          "Todos los intentos fallaron. No se pudieron obtener los productos de ahorro del usuario.",
         );
       }
     }
