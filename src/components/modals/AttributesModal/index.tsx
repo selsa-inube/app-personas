@@ -25,7 +25,7 @@ function AttributesModal(props: AttributesModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -56,17 +56,19 @@ function AttributesModal(props: AttributesModalProps) {
 
         <StyledDivider dashed />
         <Stack direction="column" gap="s150">
-          {limitedAttributes.map((attribute, index) => (
-            <BoxAttribute
-              key={index}
-              label={attribute.label}
-              value={attribute.value}
-            />
-          ))}
+          {attributes.length === 0
+            ? "No se han encontrado resultados"
+            : limitedAttributes.map((attribute, index) => (
+                <BoxAttribute
+                  key={index}
+                  label={attribute.label}
+                  value={attribute.value}
+                />
+              ))}
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

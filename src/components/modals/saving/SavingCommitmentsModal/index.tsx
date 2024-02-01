@@ -74,16 +74,18 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
 
         <StyledDivider dashed />
         <Stack direction="column" gap="s150">
-          {limitedCommitments.map((commitment) => (
-            <Product
-              key={commitment.id}
-              title={commitment.title}
-              description={commitment.description}
-              icon={commitmentsIcons[commitment.type]}
-              attributes={formatValueToPayAttribute(commitment.attributes)}
-              navigateTo={`/my-savings/commitment/${commitment.id}`}
-            />
-          ))}
+          {commitments.length === 0
+            ? "No se han encontrado resultados"
+            : limitedCommitments.map((commitment) => (
+                <Product
+                  key={commitment.id}
+                  title={commitment.title}
+                  description={commitment.description}
+                  icon={commitmentsIcons[commitment.type]}
+                  attributes={formatValueToPayAttribute(commitment.attributes)}
+                  navigateTo={`/my-savings/commitment/${commitment.id}`}
+                />
+              ))}
         </Stack>
       </StyledModal>
     </Blanket>,
