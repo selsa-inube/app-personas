@@ -106,7 +106,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       formik.setFieldValue("cycleInterest", "");
       formik.setFieldValue("netValue", "");
       formik.setFieldValue("hasResult", false);
-      
+
       formik.setFormikState((state) => {
         return {
           ...state,
