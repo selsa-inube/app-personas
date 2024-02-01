@@ -53,7 +53,7 @@ const mapSavingsApiToEntity = (
 
   return {
     id: String(savings.productNumber),
-    title: normalizedProductName,
+    title: "Aportes sociales",
     description: `${normalizedProductName} ${savings.productNumber}`,
     type: productType,
     attributes: attributes,

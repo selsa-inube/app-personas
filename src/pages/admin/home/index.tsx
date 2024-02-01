@@ -2,7 +2,6 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
-import { socialContributionsCode } from "../savings/MySavings/config/products";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { HomeUI } from "./interface";
@@ -44,8 +43,8 @@ function Home() {
       productsCommitments={[]}
       savingsAccountsMock={[]}
       savingsCommitmentsMock={[]}
-      savingsStatutoryContributionsMock={savings.filter(
-        (saving) => saving.type === socialContributionsCode,
+      savingsStatutoryContributionsMock={savings.filter((saving) =>
+        saving.id.startsWith("200"),
       )}
       cdats={[]}
       programmedSavings={[]}
