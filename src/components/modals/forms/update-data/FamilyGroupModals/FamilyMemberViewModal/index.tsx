@@ -209,7 +209,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 readOnly
               />
               <Select
-                label="Profesión u oficio"
+                label="Profesión"
                 placeholder=""
                 name="profession"
                 id="profession"
