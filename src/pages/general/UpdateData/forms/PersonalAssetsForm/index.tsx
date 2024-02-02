@@ -145,7 +145,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
     },
     {
       id: "2",
-      actionName: "Borrar",
+      actionName: "Eliminar",
       content: (asset) => (
         <DeleteAsset
           asset={asset}

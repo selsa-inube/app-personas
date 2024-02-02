@@ -147,7 +147,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
     },
     {
       id: "2",
-      actionName: "Borrar",
+      actionName: "Eliminar",
       content: (debt) => (
         <DeleteDebt
           debt={debt}
