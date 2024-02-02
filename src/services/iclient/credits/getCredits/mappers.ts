@@ -17,9 +17,8 @@ const mapCreditApiToEntity = (
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
 
-  const heightQuota = String(credit.heightQuota).split(" ");
-  const currentQuota = heightQuota.length > 0 ? heightQuota[0] : 0;
-  const maxQuota = heightQuota.length > 2 ? heightQuota[2] : 0;
+  const currentQuota = credit.duesPaid;
+  const maxQuota = credit.outstandingDues;
 
   const inArrears = today > nextPaymentDate;
 
