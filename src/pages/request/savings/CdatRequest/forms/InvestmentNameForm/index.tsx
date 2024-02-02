@@ -31,11 +31,9 @@ const InvestmentNameForm = forwardRef(function InvestmentNameForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty) {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });
-    }
   }, [formik.values]);
 
   return (
