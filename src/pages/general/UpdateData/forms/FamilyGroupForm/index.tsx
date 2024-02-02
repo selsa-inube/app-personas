@@ -102,7 +102,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
 
   const formik = useFormik({
     initialValues,
-    validateOnChange: false,
+    validateOnBlur: false,
     validationSchema: dynamicSchema,
     onSubmit: onSubmit || (() => true),
   });

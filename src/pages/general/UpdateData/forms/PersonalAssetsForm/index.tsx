@@ -53,7 +53,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
