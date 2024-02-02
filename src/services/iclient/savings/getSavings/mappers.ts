@@ -1,15 +1,10 @@
 import { IProduct, ProductType } from "src/model/entity/product";
-import { capitalizeText } from "src/utils/texts";
 import { socialContributionsCode } from "@pages/admin/savings/MySavings/config/products";
 import { capitalizeFirstLetters } from "src/utils/texts";
 
 const mapSavingsApiToEntity = (
   savings: Record<string, string | number | object>,
 ): IProduct => {
-  const normalizedProductName = capitalizeText(
-    String(savings.productDescription).toLowerCase(),
-  );
-
   const beneficiaries = Array.isArray(savings.savingBeneficiaries)
     ? savings.savingBeneficiaries.map((beneficiary) => ({
         id: beneficiary.beneficiaryId,
@@ -53,8 +48,8 @@ const mapSavingsApiToEntity = (
 
   return {
     id: String(savings.productNumber),
-    title: normalizedProductName,
-    description: `${normalizedProductName} ${savings.productNumber}`,
+    title: "Aportes sociales",
+    description: `Aportes sociales ${savings.productNumber}`,
     type: productType,
     attributes: attributes,
     movements: movements,
