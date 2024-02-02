@@ -3,12 +3,15 @@ import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { ConditionsFormUI } from "./interface";
 import { IConditionsEntry } from "./types";
+import * as Yup from "yup";
 import {
   effectiveAnnualRateRequest,
   getInitialCdatContidionValidations,
   totalInterestRequest,
   validationSchema,
 } from "./utils";
+import { validationRules } from "src/validations/validationRules";
+import { validationMessages } from "src/validations/validationMessages";
 
 interface ConditionsFormProps {
   initialValues: IConditionsEntry;
@@ -102,6 +105,15 @@ const ConditionsForm = forwardRef(function ConditionsForm(
       const checked = "checked" in event.target && event.target.checked;
 
       if (!checked) return;
+
+      const newValidationSchema = dynamicValidationSchema.concat(
+        Yup.object({
+          deadlineDate: validationRules.notPastDate.required(
+            validationMessages.required,
+          ),
+        }),
+      );
+      setDynamicValidationSchema(newValidationSchema);
     }
 
     formik.setFieldValue("hasResult", false);
