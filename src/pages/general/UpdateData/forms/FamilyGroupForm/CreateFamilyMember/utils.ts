@@ -10,10 +10,17 @@ const createFamilyMemberStepsRules = (
   currentStep: number,
   currentCreateFamilyMember: IFormsCreateFamilyMember,
   formReferences: IFormsCreateFamilyMemberRefs,
-  isCurrentFormValid: boolean
+  isCurrentFormValid: boolean,
 ) => {
   const newCreateFamilyMember = { ...currentCreateFamilyMember };
-  let readonly = false;
+
+  const selectedReferenceUser = referenceUsersMocks.find(
+    (user) =>
+      user.identification.identificationNumber ===
+      Number(
+        formReferences.identificationData.current?.values.identificationNumber,
+      ),
+  );
 
   switch (currentStep) {
     case createFamilyMemberSteps.identificationData.id: {
@@ -21,7 +28,6 @@ const createFamilyMemberStepsRules = (
 
       if (!values) {
         return {
-          readonly,
           newCreateFamilyMember: currentCreateFamilyMember,
         };
       }
@@ -35,14 +41,7 @@ const createFamilyMemberStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentCreateFamilyMember.identificationData.values)
       ) {
-        const selectedReferenceUser = referenceUsersMocks.find(
-          (user) =>
-            user.identification.identificationNumber ===
-            Number(values.identificationNumber)
-        );
-
         if (selectedReferenceUser) {
-          readonly = true;
           newCreateFamilyMember.personalData = {
             isValid: false,
             values: {
@@ -82,7 +81,6 @@ const createFamilyMemberStepsRules = (
             },
           };
         } else {
-          readonly = false;
           newCreateFamilyMember.personalData = {
             isValid: false,
             values: {
@@ -112,19 +110,19 @@ const createFamilyMemberStepsRules = (
       }
 
       return {
-        readonly,
+        selectedReferenceUser,
         newCreateFamilyMember,
       };
     }
   }
 
   const stepKey = Object.entries(createFamilyMemberSteps).find(
-    ([, config]) => config.id === currentStep
+    ([, config]) => config.id === currentStep,
   )?.[0];
 
   if (!stepKey)
     return {
-      readonly,
+      selectedReferenceUser,
       newCreateFamilyMember: currentCreateFamilyMember,
     };
 
@@ -132,7 +130,7 @@ const createFamilyMemberStepsRules = (
     formReferences[stepKey as keyof IFormsCreateFamilyMember]?.current?.values;
 
   return {
-    readonly,
+    selectedReferenceUser,
     newCreateFamilyMember: {
       ...newCreateFamilyMember,
       [stepKey]: { isValid: isCurrentFormValid, values },
