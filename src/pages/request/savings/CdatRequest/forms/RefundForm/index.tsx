@@ -14,16 +14,16 @@ const validationSchema = Yup.object({
 
 interface RefundFormProps {
   initialValues: IRefundEntry;
+  loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IRefundEntry) => void;
-  loading?: boolean;
 }
 
 const RefundForm = forwardRef(function RefundForm(
   props: RefundFormProps,
   ref: React.Ref<FormikProps<IRefundEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, loading, onFormValid, onSubmit } = props;
 
   const formik = useFormik({
     initialValues,

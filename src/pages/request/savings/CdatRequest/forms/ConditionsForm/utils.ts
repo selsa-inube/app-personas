@@ -5,6 +5,44 @@ import { validationRules } from "src/validations/validationRules";
 import { validationMessages } from "src/validations/validationMessages";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 
+const validationSchema = Yup.object({
+  deadlineDate: validationRules.notPastDate,
+  deadlineDays: Yup.number()
+    .min(1, validationMessages.minNumbers(10))
+    .max(1000, validationMessages.maxNumbers(1000)),
+  effectiveAnnualRate: Yup.number(),
+  totalInterest: Yup.number(),
+  withholdingTax: Yup.number(),
+  netValue: Yup.number(),
+  hasResult: Yup.boolean(),
+});
+
+const getInitialCdatContidionValidations = () => {
+  return validationSchema.concat(
+    Yup.object({
+      deadlineDate: validationRules.notPastDate,
+      deadlineDays: Yup.number()
+        .min(
+          minDeadlineDays(investmentsRatesMocks),
+          `El plazo minimo en días debe ser mayor o igual a:  ${minDeadlineDays(
+            investmentsRatesMocks,
+          )} días`,
+        )
+        .max(
+          maxDeadlineDays(investmentsRatesMocks),
+          `El plazo máximo en días debe ser menor o igual a:  ${maxDeadlineDays(
+            investmentsRatesMocks,
+          )} días`,
+        ),
+      effectiveAnnualRate: Yup.number().required(validationMessages.required),
+      totalInterest: Yup.number().required(validationMessages.required),
+      withholdingTax: Yup.number().required(validationMessages.required),
+      netValue: Yup.number().required(validationMessages.required),
+      hasResult: Yup.boolean().required(validationMessages.required),
+    }),
+  );
+};
+
 const maxDeadlineDays = (investmentsRates: IRate[]) => {
   return investmentsRates.reduce(
     (previousValue: IRate, currentValue: IRate) => {
@@ -24,25 +62,6 @@ const minDeadlineDays = (investmentsRates: IRate[]) => {
     },
   ).deadlineInitialDay;
 };
-
-const validationSchema = Yup.object({
-  deadlineDate: validationRules.notPastDate.required(
-    validationMessages.required,
-  ),
-  deadlineDays: Yup.number()
-    .min(
-      minDeadlineDays(investmentsRatesMocks),
-      `El plazo minimo en días debe ser mayor o igual a:  ${minDeadlineDays(
-        investmentsRatesMocks,
-      )} días`,
-    )
-    .max(
-      maxDeadlineDays(investmentsRatesMocks),
-      `El plazo máximo en días debe ser menor o igual a:  ${maxDeadlineDays(
-        investmentsRatesMocks,
-      )} días`,
-    ),
-});
 
 const filteredEffectiveAnnualRate = (
   investmentsRates: IRate[],
@@ -86,4 +105,5 @@ export {
   maxDeadlineDays,
   minDeadlineDays,
   totalInterestRequest,
+  getInitialCdatContidionValidations,
 };

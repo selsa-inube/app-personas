@@ -5,25 +5,27 @@ import { ConditionsFormUI } from "./interface";
 import { IConditionsEntry } from "./types";
 import {
   effectiveAnnualRateRequest,
+  getInitialCdatContidionValidations,
   totalInterestRequest,
   validationSchema,
 } from "./utils";
 
 interface ConditionsFormProps {
   initialValues: IConditionsEntry;
+  loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IConditionsEntry) => void;
-  loading?: boolean;
 }
 
 const ConditionsForm = forwardRef(function ConditionsForm(
   props: ConditionsFormProps,
   ref: React.Ref<FormikProps<IConditionsEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, loading, onFormValid, onSubmit } = props;
 
   const [loadingSimulation, setLoadingSimulation] = useState(false);
-  const [dynamicValidationSchema] = useState(validationSchema);
+  const [dynamicValidationSchema, setDynamicValidationSchema] =
+    useState(validationSchema);
 
   const formik = useFormik({
     initialValues,
@@ -35,10 +37,16 @@ const ConditionsForm = forwardRef(function ConditionsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
   }, [formik.values]);
+
+  useEffect(() => {
+    setDynamicValidationSchema(getInitialCdatContidionValidations());
+  }, []);
 
   const simulateCDAT = () => {
     setLoadingSimulation(true);
