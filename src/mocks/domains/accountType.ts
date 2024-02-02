@@ -7,10 +7,6 @@ const accountTypeData = [
     id: "currentAccount",
     value: "Cuenta corriente",
   },
-  {
-    id: "payrollAccount",
-    value: "Cuenta de Nómina",
-  },
 ];
 
 export { accountTypeData };
