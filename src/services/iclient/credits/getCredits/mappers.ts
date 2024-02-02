@@ -17,9 +17,8 @@ const mapCreditApiToEntity = (
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
 
-  const heightQuota = String(credit.heightQuota).split(" ");
-  const currentQuota = heightQuota.length > 0 ? heightQuota[0] : 0;
-  const maxQuota = heightQuota.length > 2 ? heightQuota[2] : 0;
+  const currentQuota = credit.duesPaid;
+  const maxQuota = credit.outstandingDues;
 
   const inArrears = today > nextPaymentDate;
 
@@ -38,8 +37,9 @@ const mapCreditApiToEntity = (
     Object(credit.valueExpired)?.interestValuePending ||
     Object(credit.nextPaymentValue).interestValuePending;
 
-  const nextPaymentArrearsInterest = Object(credit.accumulatedByObligations)[0]
-    .PenalityInterestBalance;
+  const nextPaymentArrearsInterest =
+    Object(credit.accumulatedByObligations).length > 0 &&
+    Object(credit.accumulatedByObligations)[0].PenalityInterestBalance;
 
   const nextPaymentValue =
     Object(credit.valueExpired)?.totalPending ||
@@ -116,18 +116,11 @@ const mapCreditApiToEntity = (
   ];
 
   if (inArrears) {
-    attributes.push(
-      {
-        id: "days_past_due",
-        label: "Días de mora",
-        value: differenceDays,
-      },
-      {
-        id: "next_payment_arrears_interest",
-        label: "interés de mora",
-        value: nextPaymentArrearsInterest,
-      },
-    );
+    attributes.push({
+      id: "days_past_due",
+      label: "Días de mora",
+      value: differenceDays,
+    });
   }
 
   if (nextPaymentCapital) {
@@ -142,6 +135,13 @@ const mapCreditApiToEntity = (
       id: "next_payment_interest",
       label: "Interes próximo pago",
       value: nextPaymentInterest,
+    });
+  }
+  if (nextPaymentArrearsInterest) {
+    attributes.push({
+      id: "next_payment_arrears_interest",
+      label: "interés de mora",
+      value: nextPaymentArrearsInterest,
     });
   }
 
