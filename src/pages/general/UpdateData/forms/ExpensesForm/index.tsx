@@ -36,7 +36,7 @@ const ExpensesForm = forwardRef(function ExpensesForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
