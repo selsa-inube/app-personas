@@ -71,8 +71,8 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         isFullWidth
       />
       <Select
-        label="Profesión u oficio"
-        placeholder="Profesión u oficio"
+        label="Profesión"
+        placeholder="Profesión"
         name="profession"
         id="profession"
         size="compact"
