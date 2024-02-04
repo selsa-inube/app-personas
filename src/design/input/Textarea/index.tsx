@@ -9,7 +9,7 @@ import {
   StyledErrorMessageContainer,
   StyledValidMessageContainer,
 } from "../TextField/styles";
-import { ITextFieldMessage, InputState } from "../TextField/types";
+import { ITextFieldMessage, InputState, inputStates } from "../TextField/types";
 import { Counter } from "./Counter";
 import { StyledContainer, StyledTextarea } from "./styles";
 import { CounterAppearence } from "./types";
@@ -85,6 +85,7 @@ const Textarea = (props: TextareaProps) => {
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
 
   const truncatedValue = value.slice(0, maxLength);
 
@@ -98,17 +99,21 @@ const Textarea = (props: TextareaProps) => {
         ? "error"
         : "gray";
 
-  const interceptFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (!readOnly) {
+      setIsTouched(true);
       setIsFocused(true);
     }
     onFocus && onFocus(e);
   };
 
-  const interceptBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     setIsFocused(false);
     onBlur && onBlur(e);
   };
+
+  const transformedState =
+    (isFocused || isTouched) && inputStates.includes(state) ? state : "pending";
 
   return (
     <StyledContainer isFullwidth={isFullWidth} isDisabled={isDisabled}>
@@ -162,21 +167,21 @@ const Textarea = (props: TextareaProps) => {
         value={truncatedValue}
         isMobile={isMobile}
         onChange={onChange}
-        onFocus={interceptFocus}
-        onBlur={interceptBlur}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
 
-      {state === "invalid" && (
+      {transformedState === "invalid" && isTouched && (
         <Invalid
           isDisabled={isDisabled}
-          state={state}
+          state={transformedState}
           errorMessage={errorMessage}
         />
       )}
-      {state === "valid" && (
+      {transformedState === "valid" && isTouched && (
         <Success
           isDisabled={isDisabled}
-          state={state}
+          state={transformedState}
           validMessage={validMessage}
         />
       )}

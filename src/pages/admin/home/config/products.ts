@@ -11,11 +11,11 @@ const creditCurrencyAttributes = ["net_value", "next_payment_value"];
 
 function extractCreditAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>
-    creditAttributes.includes(attribute.id)
+    creditAttributes.includes(attribute.id),
   );
 
   return foundAttributes.sort(
-    (a, b) => creditAttributes.indexOf(a.id) - creditAttributes.indexOf(b.id)
+    (a, b) => creditAttributes.indexOf(a.id) - creditAttributes.indexOf(b.id),
   );
 }
 
@@ -36,12 +36,12 @@ const investmentCurrencyAttributes = ["net_value"];
 
 function extractInvestmentAttributes(investment: IProduct) {
   const foundAttributes = investment.attributes.filter((attribute) =>
-    investmentAttributes.includes(attribute.id)
+    investmentAttributes.includes(attribute.id),
   );
 
   return foundAttributes.sort(
     (a, b) =>
-      investmentAttributes.indexOf(a.id) - investmentAttributes.indexOf(b.id)
+      investmentAttributes.indexOf(a.id) - investmentAttributes.indexOf(b.id),
   );
 }
 
@@ -63,11 +63,11 @@ const savingCurrencyAttributes = ["net_value"];
 
 function extractSavingAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>
-    savingAttributes.includes(attribute.id)
+    savingAttributes.includes(attribute.id),
   );
 
   return foundAttributes.sort(
-    (a, b) => savingAttributes.indexOf(a.id) - savingAttributes.indexOf(b.id)
+    (a, b) => savingAttributes.indexOf(a.id) - savingAttributes.indexOf(b.id),
   );
 }
 
@@ -81,6 +81,18 @@ function formatSavingCurrencyAttrs(attributes: IAttribute[]) {
     }
     return attribute;
   });
+}
+
+function sumNetValue(savingsStatutoryContributionsMock: IProduct[]) {
+  let total = 0;
+  for (const product of savingsStatutoryContributionsMock) {
+    for (const attribute of product.attributes) {
+      if (attribute.id === "net_value") {
+        total += Number(attribute.value);
+      }
+    }
+  }
+  return currencyFormat(total);
 }
 
 const creditAttributeBreakpoints = {
@@ -112,12 +124,13 @@ const savingAttributeBreakpoints = {
 
 export {
   creditAttributeBreakpoints,
+  investmentAttributeBreakpoints,
+  savingAttributeBreakpoints,
   extractCreditAttributes,
   extractInvestmentAttributes,
   extractSavingAttributes,
   formatCreditCurrencyAttrs,
   formatInvestmentCurrencyAttrs,
   formatSavingCurrencyAttrs,
-  investmentAttributeBreakpoints,
-  savingAttributeBreakpoints,
+  sumNetValue,
 };

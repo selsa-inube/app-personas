@@ -1,3 +1,4 @@
+import { ICommentsEntry } from "../../../../../shared/forms/CommentsForm/types";
 import { IGoalEntry } from "../forms/GoalForm/types";
 import { IPlanNameEntry } from "../forms/PlanNameForm/types";
 import { IQuotaEntry } from "../forms/QuotaForm/types";
@@ -26,11 +27,16 @@ const planName: IPlanNameEntry = {
   productName: "",
 };
 
+const comments: ICommentsEntry = {
+  comments: "",
+};
+
 const initalValuesProgrammedSavingFixed = {
   quota,
   goal,
   reimbursement,
   planName,
+  comments,
 };
 
 export { initalValuesProgrammedSavingFixed };

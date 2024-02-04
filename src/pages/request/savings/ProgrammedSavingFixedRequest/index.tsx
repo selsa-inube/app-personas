@@ -5,6 +5,7 @@ import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 
+import { ICommentsEntry } from "../../../../shared/forms/CommentsForm/types";
 import { initalValuesProgrammedSavingFixed } from "./config/initialValues";
 import { IGoalEntry } from "./forms/GoalForm/types";
 import { IPlanNameEntry } from "./forms/PlanNameForm/types";
@@ -47,6 +48,10 @@ function ProgrammedSavingFixedRequest() {
         isValid: false,
         values: mapContactChannels(usersMock[0].contact[0]),
       },
+      comments: {
+        isValid: false,
+        values: initalValuesProgrammedSavingFixed.comments,
+      },
     });
 
   const quotaRef = useRef<FormikProps<IQuotaEntry>>(null);
@@ -54,6 +59,7 @@ function ProgrammedSavingFixedRequest() {
   const reimbursementRef = useRef<FormikProps<IReimbursementEntry>>(null);
   const planNameRef = useRef<FormikProps<IPlanNameEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
+  const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
 
   const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
     quota: quotaRef,
@@ -61,6 +67,7 @@ function ProgrammedSavingFixedRequest() {
     reimbursement: reimbursementRef,
     planName: planNameRef,
     contactChannels: contactChannelsRef,
+    comments: commentsRef,
   };
 
   const handleStepChange = (stepId: number) => {

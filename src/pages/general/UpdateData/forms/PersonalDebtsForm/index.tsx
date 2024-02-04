@@ -55,7 +55,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 

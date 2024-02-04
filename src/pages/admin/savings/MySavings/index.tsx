@@ -1,42 +1,40 @@
-import { useAuth } from "@inube/auth";
-import { investmentsMock } from "@mocks/products/investments/investments.mocks";
-import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { MySavingsUI } from "./interface";
-
-const productsCommitments = [
-  ...savingsCommitmentsMock,
-  ...investmentsCommitmentsMock,
-];
-
-const getSavingProducts = (types: string[]) => {
-  return savingsMock.filter((investment) => types.includes(investment.type));
-};
-
-const savingsAccountsMock = getSavingProducts(["CA"]);
-const savingsStatutoryContributionsMock = getSavingProducts(["APE", "AS"]);
-
-const getInvestmentsProducts = (userId: string, type: string) => {
-  return investmentsMock.filter(
-    (investment) => investment.userOwner === userId && investment.type === type
-  );
-};
+import { useAuth } from "@inube/auth";
+import { useContext, useEffect, useState } from "react";
+import { SavingsContext } from "src/context/savings";
+import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 
 function MySavings() {
-  const { user } = useAuth();
+  const { savings, setSavings } = useContext(SavingsContext);
+  const [loading, setLoading] = useState(false);
+  const { user, accessToken } = useAuth();
 
-  const cdats = user && getInvestmentsProducts(user.identification, "CD");
-  const programmedSavings =
-    user && getInvestmentsProducts(user.identification, "AP");
-
+  useEffect(() => {
+    if (user && accessToken && savings.length === 0) {
+      setLoading(true);
+      getSavingsForUser(user?.identification, accessToken)
+        .then((savings) => {
+          setSavings(savings);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [user, accessToken, savings]);
   return (
     <MySavingsUI
-      productsCommitments={productsCommitments}
-      savingsAccountsMock={savingsAccountsMock}
-      savingsStatutoryContributionsMock={savingsStatutoryContributionsMock}
-      cdats={cdats}
-      programmedSavings={programmedSavings}
+      productsCommitments={[]}
+      savingsAccountsMock={[]}
+      savingsCommitmentsMock={[]}
+      savingsStatutoryContributionsMock={savings.filter((saving) =>
+        saving.id.startsWith("200"),
+      )}
+      cdats={[]}
+      programmedSavings={[]}
+      loading={loading}
     />
   );
 }

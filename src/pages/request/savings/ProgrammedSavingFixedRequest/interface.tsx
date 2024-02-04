@@ -11,6 +11,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
+import { CommentsForm } from "../../../../shared/forms/CommentsForm";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
 import { GoalForm } from "./forms/GoalForm";
@@ -64,6 +65,13 @@ const renderStepContent = (
         <ContactChannelsForm
           initialValues={programmedSavingFixedRequest.contactChannels.values}
           ref={formReferences.contactChannels}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.comments.id && (
+        <CommentsForm
+          initialValues={programmedSavingFixedRequest.comments.values}
+          ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}

@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { DropdownItemProps } from "../DropdownItem";
 import { TextFieldUI } from "./interface";
-import {
-  InputSize,
-  InputState,
-  InputType,
-  inputStates,
-  inputTypes,
-} from "./types";
+import { InputSize, InputState, InputType, inputStates } from "./types";
 
 interface TextFieldProps {
   label?: string;
@@ -28,6 +22,7 @@ interface TextFieldProps {
   isFullWidth?: boolean;
   readOnly?: boolean;
   isFocused?: boolean;
+  isTouched?: boolean;
   type?: InputType;
   state?: InputState;
   size?: InputSize;
@@ -76,31 +71,56 @@ function TextField(props: TextFieldProps) {
   } = props;
 
   const [isFocused, setIsFocused] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [initialValue] = useState(value);
 
-  const interceptFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+
+    if (
+      autocomplete && autocompleteChars
+        ? newValue.length >= autocompleteChars
+        : true
+    ) {
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+
+    if (!onIconClick) {
+      onChange && onChange(event);
+    }
+  };
+
+  const handleSuggestionSelect = (selectedValue: string) => {
+    const event = {
+      target: {
+        name,
+        value: selectedValue,
+      },
+    } as React.ChangeEvent<HTMLInputElement>;
+
+    onChange && onChange(event);
+    setShowDropdown(false);
+  };
+  
+
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!readOnly) {
+      setIsTouched(true);
       setIsFocused(true);
     }
     if (onFocus) onFocus(e);
   };
 
-  const interceptBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(false);
     if (onBlur) onBlur(e);
   };
 
-  const transformedIsDisabled =
-    typeof isDisabled === "boolean" ? isDisabled : false;
-
-  const transformedState = inputStates.includes(state) ? state : "pending";
-
-  const transformedTypes = inputTypes.includes(type) ? type : "text";
-
-  const transformedIsRequired =
-    typeof isRequired === "boolean" ? isRequired : false;
-
-  const transformedIsFullWidth =
-    typeof isFullWidth === "boolean" ? isFullWidth : false;
+  const transformedState =
+    (isFocused || isTouched) && inputStates.includes(state) ? state : "pending";
 
   return (
     <TextFieldUI
@@ -108,8 +128,8 @@ function TextField(props: TextFieldProps) {
       name={name}
       id={id}
       placeholder={placeholder}
-      isDisabled={transformedIsDisabled}
-      type={transformedTypes}
+      isDisabled={isDisabled}
+      type={type}
       value={value}
       iconBefore={iconBefore}
       iconAfter={iconAfter}
@@ -117,22 +137,26 @@ function TextField(props: TextFieldProps) {
       minLength={minLength}
       max={max}
       min={min}
-      isRequired={transformedIsRequired}
+      isRequired={isRequired}
       size={size}
       state={transformedState}
       errorMessage={errorMessage}
       validMessage={validMessage}
-      isFullWidth={transformedIsFullWidth}
+      isFullWidth={isFullWidth}
       isFocused={isFocused}
+      isTouched={isTouched}
       readOnly={readOnly}
       autocomplete={autocomplete}
       suggestions={suggestions}
       autocompleteChars={autocompleteChars}
       withCounter={withCounter}
       lengthThreshold={lengthThreshold}
-      onChange={onChange}
-      onFocus={interceptFocus}
-      onBlur={interceptBlur}
+      showDropdown={showDropdown}
+      initialValue={initialValue}
+      onSuggestionSelect={handleSuggestionSelect}
+      onChange={handleChange}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       onIconClick={onIconClick}
     />
   );

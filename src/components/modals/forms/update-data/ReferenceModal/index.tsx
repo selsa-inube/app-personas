@@ -12,6 +12,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
+import { getFieldState } from "src/utils/forms/forms";
 import { StyledDivider, StyledModal } from "./styles";
 
 const referenceTypeDM = getDomainById("referenceType");
@@ -47,15 +48,9 @@ function ReferenceModal(props: ReferenceModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
-
-  const stateValue = (fieldName: string) => {
-    if (!formik.touched[fieldName]) return "pending";
-    if (formik.touched[fieldName] && formik.errors[fieldName]) return "invalid";
-    return "valid";
-  };
 
   return createPortal(
     <Blanket>
@@ -99,8 +94,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             options={referenceTypeDM}
             onBlur={formik.handleBlur}
             errorMessage={formik.errors.referenceType}
-            state={stateValue("referenceType")}
-            onChange={(e) => formik.handleChange(e)}
+            state={getFieldState(formik, "referenceType")}
+            onChange={formik.handleChange}
             value={formik.values.referenceType || ""}
             isRequired
           />
@@ -114,7 +109,7 @@ function ReferenceModal(props: ReferenceModalProps) {
             errorMessage={formik.errors.name}
             size="compact"
             isFullWidth
-            state={stateValue("name")}
+            state={getFieldState(formik, "name")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="El nombre de la referencia es válido"
@@ -130,7 +125,7 @@ function ReferenceModal(props: ReferenceModalProps) {
             errorMessage={formik.errors.address}
             size="compact"
             isFullWidth
-            state={stateValue("address")}
+            state={getFieldState(formik, "address")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="La dirección es válida"
@@ -146,7 +141,7 @@ function ReferenceModal(props: ReferenceModalProps) {
             errorMessage={formik.errors.email}
             size="compact"
             isFullWidth
-            state={stateValue("email")}
+            state={getFieldState(formik, "email")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="El correo electrónico es válido"
@@ -162,7 +157,7 @@ function ReferenceModal(props: ReferenceModalProps) {
             errorMessage={formik.errors.phone}
             size="compact"
             isFullWidth
-            state={stateValue("phone")}
+            state={getFieldState(formik, "phone")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="El número de celular es válido"
@@ -177,14 +172,14 @@ function ReferenceModal(props: ReferenceModalProps) {
             options={cityDM.options}
             onBlur={formik.handleBlur}
             errorMessage={formik.errors.city}
-            state={stateValue("city")}
+            state={getFieldState(formik, "city")}
             onChange={formik.handleChange}
             value={formik.values.city || ""}
             isRequired
           />
         </Stack>
 
-        <Stack gap="s100">
+        <Stack gap="s100" justifyContent="flex-end">
           <Button spacing="compact" appearance="gray" onClick={onCloseModal}>
             Cancelar
           </Button>
@@ -203,7 +198,7 @@ function ReferenceModal(props: ReferenceModalProps) {
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

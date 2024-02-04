@@ -1,9 +1,8 @@
 import { IProduct } from "src/model/entity/product";
-import {
-  getCreditsForUser,
-  getMovementsForCredit,
-} from "src/services/iclient/credits";
+
 import { ISelectedProductState } from "./types";
+import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
+import { getMovementsForCredit } from "src/services/iclient/credits/getMovements";
 
 const validateCreditsAndMovements = async (
   credits: IProduct[],

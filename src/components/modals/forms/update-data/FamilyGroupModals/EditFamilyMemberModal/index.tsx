@@ -109,18 +109,18 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
               <TextField
                 label="Documento"
                 placeholder="Documento"
-                name="number"
-                id="number"
+                name="identificationNumber"
+                id="identificationNumber"
                 type="number"
                 size="compact"
                 validMessage="El documento es válido"
                 iconAfter={<MdOutlineModeEdit size={18} />}
-                value={formik.values.number || ""}
-                errorMessage={formik.errors.number}
+                value={formik.values.identificationNumber || ""}
+                errorMessage={formik.errors.identificationNumber}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                state={getFieldState(formik, "number")}
-                isRequired={isRequired("number")}
+                state={getFieldState(formik, "identificationNumber")}
+                isRequired={isRequired("identificationNumber")}
                 isFullWidth
               />
               <TextField
@@ -281,8 +281,8 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
                 isFullWidth
               />
               <Select
-                label="Profesión u oficio"
-                placeholder="Profesión u oficio"
+                label="Profesión"
+                placeholder="Profesión"
                 name="profession"
                 id="profession"
                 size="compact"

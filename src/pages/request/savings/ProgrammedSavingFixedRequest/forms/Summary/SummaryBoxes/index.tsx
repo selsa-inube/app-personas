@@ -6,6 +6,7 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
+import { ICommentsEntry } from "../../../../../../../shared/forms/CommentsForm/types";
 import { IFormsProgrammedSavingFixedRequest } from "../../../types";
 import { IGoalEntry } from "../../GoalForm/types";
 import { IPlanNameEntry } from "../../PlanNameForm/types";
@@ -79,6 +80,18 @@ const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
   </Stack>
 );
 
+const renderCommentsVerification = (values: ICommentsEntry) => (
+  <Stack width="100%" direction="column">
+    {values.comments !== "" && (
+      <BoxAttribute
+        label="Comentarios adicionales:"
+        value={values.comments}
+        direction="column"
+      />
+    )}
+  </Stack>
+);
+
 interface SummaryBoxesProps {
   programmedSavingFixedRequest: IFormsProgrammedSavingFixedRequest;
   stepKey: string;
@@ -109,6 +122,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(
           programmedSavingFixedRequest.contactChannels.values,
+        )}
+
+      {stepKey === "comments" &&
+        renderCommentsVerification(
+          programmedSavingFixedRequest.comments.values,
         )}
     </>
   );

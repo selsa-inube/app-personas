@@ -1,18 +1,18 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { FormikValues } from "formik";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 import { IFormField } from "@ptypes/forms.types";
+import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { ISelectOption } from "@design/input/Select/types";
 import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
-import { Stack } from "@design/layout/Stack";
+import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 
 interface QuotaFormUIProps {
   formik: FormikValues;
@@ -29,7 +29,6 @@ interface QuotaFormUIProps {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => void;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
 }
 const paymentMethodDM = getDomainById("paymentMethod");
 
@@ -43,7 +42,6 @@ function QuotaFormUI(props: QuotaFormUIProps) {
     customHandleAccountToDebit,
     customHandleAccount,
     customHandleChange,
-    customHandleBlur,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 750px)");
@@ -65,7 +63,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
             size="compact"
             isFullWidth
             state={getFieldState(formik, "periodicValue")}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
             onChange={(e) => {
               handleChangeWithCurrency(formik, e);
             }}
@@ -81,7 +79,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
             isDisabled={loading}
             size="compact"
             onChange={customHandleChange}
-            onBlur={customHandleBlur}
+            onBlur={formik.handleBlur}
             state={getFieldState(formik, "paymentMethod")}
             errorMessage={formik.errors.paymentMethod}
             isFullWidth
@@ -106,7 +104,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
             generateFormFields(
               renderFields,
               formik,
-              customHandleBlur,
+              formik.handleBlur,
               customHandleChange,
               isTablet,
               loading,
@@ -123,7 +121,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
                 options={getDomainById("accountDebitType")}
                 state={getFieldState(formik, "accountToDebit")}
                 errorMessage={formik.errors.accountToDebit}
-                onBlur={customHandleBlur}
+                onBlur={formik.handleBlur}
                 onClick={formik.handleClick}
                 onFocus={formik.handleFocus}
                 onChange={customHandleAccountToDebit}
@@ -140,7 +138,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
                 options={accountOptions}
                 state={getFieldState(formik, "accountNumber")}
                 errorMessage={formik.errors.accountNumber}
-                onBlur={customHandleBlur}
+                onBlur={formik.handleBlur}
                 onClick={formik.handleClick}
                 onFocus={formik.handleFocus}
                 onChange={customHandleAccount}

@@ -1,26 +1,30 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
-import { getCreditsForUser } from "src/services/iclient/credits";
+import { SavingsContext } from "src/context/savings";
+import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
+import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { HomeUI } from "./interface";
-import {
-  getInvestmentsProducts,
-  productsCommitments,
-  savingsAccountsMock,
-  savingsStatutoryContributionsMock,
-} from "./utils";
 
 function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
+  const { savings, setSavings } = useContext(SavingsContext);
   const { user, accessToken } = useAuth();
-  const [loading, setLoading] = useState(true);
-
-  const cdats = user && getInvestmentsProducts(user.identification, "CD");
-  const programmedSavings =
-    user && getInvestmentsProducts(user.identification, "AP");
+  const [loadingCredits, setLoadingCredits] = useState(true);
+  const [loadingSavings, setLoadingSavings] = useState(true);
 
   useEffect(() => {
     if (user && accessToken) {
+      getSavingsForUser(user?.identification, accessToken)
+        .then((savings) => {
+          setSavings(savings);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        })
+        .finally(() => {
+          setLoadingSavings(false);
+        });
       getCreditsForUser(user?.identification, accessToken)
         .then((credits) => {
           setCredits(credits);
@@ -29,20 +33,24 @@ function Home() {
           console.info(error.message);
         })
         .finally(() => {
-          setLoading(false);
+          setLoadingCredits(false);
         });
     }
   }, [user, accessToken]);
 
   return (
     <HomeUI
-      productsCommitments={productsCommitments}
-      savingsAccountsMock={savingsAccountsMock}
-      savingsStatutoryContributionsMock={savingsStatutoryContributionsMock}
-      cdats={cdats}
-      programmedSavings={programmedSavings}
+      productsCommitments={[]}
+      savingsAccountsMock={[]}
+      savingsCommitmentsMock={[]}
+      savingsStatutoryContributionsMock={savings.filter((saving) =>
+        saving.id.startsWith("200"),
+      )}
+      cdats={[]}
+      programmedSavings={[]}
       credits={credits}
-      loading={loading}
+      loadingCredits={loadingCredits}
+      loadingSavings={loadingSavings}
     />
   );
 }

@@ -5,16 +5,16 @@ import { ICommentsEntry } from "./types";
 
 interface CommentsFormProps {
   initialValues: ICommentsEntry;
+  loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: ICommentsEntry) => void;
-  loading?: boolean;
 }
 
 const CommentsForm = forwardRef(function CommentsForm(
   props: CommentsFormProps,
   ref: React.Ref<FormikProps<ICommentsEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, loading, onFormValid, onSubmit } = props;
 
   const formik = useFormik({
     initialValues,

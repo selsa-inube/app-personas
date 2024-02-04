@@ -44,7 +44,7 @@ const QuotaForm = forwardRef(function QuotaForm(
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicForm.validationSchema,
-    validateOnChange: false,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
   });
@@ -141,6 +141,14 @@ const QuotaForm = forwardRef(function QuotaForm(
     }
   }, []);
 
+  useEffect(() => {
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
+  }, [formik.values]);
+
   const customHandleChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -197,16 +205,6 @@ const QuotaForm = forwardRef(function QuotaForm(
     setDynamicForm({
       renderFields,
       validationSchema: validationSchema.concat(newValidationSchema),
-    });
-  };
-
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
     });
   };
 

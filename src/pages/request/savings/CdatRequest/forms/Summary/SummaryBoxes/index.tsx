@@ -8,9 +8,10 @@ import { IConditionsEntry } from "../../ConditionsForm/types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
 
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
+import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
-import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
@@ -71,6 +72,18 @@ const renderContactChannelsSummary = (values: IContactChannelsEntry) => (
   </Stack>
 );
 
+const renderCommentsVerification = (values: ICommentsEntry) => (
+  <Stack width="100%" direction="column">
+    {values.comments !== "" && (
+      <BoxAttribute
+        label="Comentarios adicionales:"
+        value={values.comments}
+        direction="column"
+      />
+    )}
+  </Stack>
+);
+
 interface SummaryBoxesProps {
   cdatRequest: IFormsCdatRequest;
   stepKey: string;
@@ -93,6 +106,8 @@ function SummaryBoxes(props: SummaryBoxesProps) {
         )}
       {stepKey === "contactChannels" &&
         renderContactChannelsSummary(cdatRequest.contactChannels.values)}
+      {stepKey === "comments" &&
+        renderCommentsVerification(cdatRequest.comments.values)}
     </>
   );
 }

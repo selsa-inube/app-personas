@@ -1,15 +1,14 @@
 import { IProduct } from "src/model/entity/product";
-import {
-  getAmortizationForCredit,
-  getCreditsForUser,
-} from "src/services/iclient/credits";
+
 import { addMovementsToCredit } from "../CreditMovements/utils";
+import { getAmortizationForCredit } from "src/services/iclient/credits/getAmortization";
+import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 
 const validateCreditsAndAmortization = async (
   credits: IProduct[],
   creditId: string,
   userIdentification: string,
-  accessToken: string
+  accessToken: string,
 ) => {
   let currentCredits = [...credits];
 
@@ -24,7 +23,7 @@ const validateCreditsAndAmortization = async (
       if (currentCredits[ix].amortization?.length === 0) {
         const amortization = await getAmortizationForCredit(
           creditId,
-          accessToken
+          accessToken,
         );
 
         currentCredits[ix].amortization = amortization;

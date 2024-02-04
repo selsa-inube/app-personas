@@ -5,6 +5,11 @@ import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitmen
 import { IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
+import {
+  permanentSavingsCode,
+  savingAccountCode,
+  socialContributionsCode,
+} from "../savings/MySavings/config/products";
 
 const productsCommitments = [
   ...savingsCommitmentsMock,
@@ -15,12 +20,15 @@ const getSavingProducts = (types: string[]) => {
   return savingsMock.filter((investment) => types.includes(investment.type));
 };
 
-const savingsAccountsMock = getSavingProducts(["CA"]);
-const savingsStatutoryContributionsMock = getSavingProducts(["APE", "AS"]);
+const savingsAccountsMock = getSavingProducts([savingAccountCode]);
+const savingsStatutoryContributionsMock = getSavingProducts([
+  permanentSavingsCode,
+  socialContributionsCode,
+]);
 
 const getInvestmentsProducts = (userId: string, type: string) => {
   return investmentsMock.filter(
-    (investment) => investment.userOwner === userId && investment.type === type
+    (investment) => investment.userOwner === userId && investment.type === type,
   );
 };
 

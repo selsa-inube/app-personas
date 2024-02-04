@@ -24,6 +24,7 @@ const PlanNameForm = forwardRef(function PlanNameForm(
   const formik = useFormik({
     initialValues,
     validationSchema,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
@@ -33,23 +34,12 @@ const PlanNameForm = forwardRef(function PlanNameForm(
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, []);
-
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  };
+  }, [formik.values]);
 
   return (
     <PlanNameFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
       onFormValid={onFormValid}
     />
   );

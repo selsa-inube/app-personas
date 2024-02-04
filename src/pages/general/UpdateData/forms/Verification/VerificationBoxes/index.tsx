@@ -28,6 +28,7 @@ import { relationshipDM } from "src/model/domains/personalResidence/relationship
 import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
 import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
@@ -47,7 +48,7 @@ import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationFo
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     <BoxAttribute label="Primer nombre:" value={values.firstName} />
@@ -89,7 +90,7 @@ const renderPersonalInfoVerification = (
 
 const renderContactDataVerification = (
   values: IContactDataEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     <BoxAttribute
@@ -117,7 +118,7 @@ const renderContactDataVerification = (
 
 const renderFamilyGroupVerification = (
   values: IFamilyGroupEntries,
-  isTablet: boolean
+  isTablet: boolean,
 ) => {
   const transformedEntries = mapFamilyGroupTable(values.entries);
   return (
@@ -144,7 +145,7 @@ const renderFamilyGroupVerification = (
 
 const renderBankTransfersVerification = (
   values: IBankTransfersEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     <BoxAttribute
@@ -161,7 +162,7 @@ const renderBankTransfersVerification = (
 
 const renderPersonalAssetsVerification = (
   values: IPersonalAssetEntries,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack direction="column" gap="s250" width="100%">
     {values.entries.map((entry, index) => {
@@ -197,7 +198,7 @@ const renderPersonalAssetsVerification = (
 
 const renderPersonalDebtVerification = (
   values: IPersonalDebtEntries,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack direction="column" gap="s250" width="100%">
     {values.entries.map((entry, index) => {
@@ -236,7 +237,7 @@ const renderPersonalDebtVerification = (
 
 const renderPersonalReferencesVerification = (
   values: IPersonalReferenceEntries,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack direction="column" gap="s250" width="100%">
     {values.entries.map((entry, index) => {
@@ -273,7 +274,7 @@ const renderPersonalReferencesVerification = (
 
 const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack direction="column" gap="s100" width="100%">
     <Grid
@@ -333,7 +334,7 @@ const renderFinancialOperationsVerification = (
 
 const renderPersonalResidenceVerification = (
   values: IPersonalResidenceEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     {values.type && (
@@ -370,7 +371,7 @@ const renderPersonalResidenceVerification = (
 
 const renderSocioeconomicInfoVerification = (
   values: ISocioeconomicInformationEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     {values.educationLevel !== "" && (
@@ -426,7 +427,7 @@ const renderSocioeconomicInfoVerification = (
 
 const renderEconomicActivityVerification = (
   values: IEconomicActivityEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Stack width="100%" direction="column" gap="s250">
     {values.economicActivity !== "" && (
@@ -614,7 +615,7 @@ const renderEconomicActivityVerification = (
 
 const renderIncomesVerification = (
   values: IIncomesEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     {values.basicSalary !== "" && (
@@ -670,7 +671,7 @@ const renderIncomesVerification = (
 
 const renderExpensesVerification = (
   values: IExpensesEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     {values.personalExpenses !== "" && (
@@ -726,7 +727,7 @@ const renderExpensesVerification = (
 
 const renderRelationshipWithDirectorsVerification = (
   values: IRelationshipWithDirectorsEntry,
-  isTablet: boolean
+  isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     {values.hasRelationshipWithDirectors !== "" && (
@@ -754,6 +755,18 @@ const renderRelationshipWithDirectorsVerification = (
   </Grid>
 );
 
+const renderCommentsVerification = (values: ICommentsEntry) => (
+  <Stack width="100%" direction="column">
+    {values.comments !== "" && (
+      <BoxAttribute
+        label="Comentarios adicionales:"
+        value={values.comments}
+        direction="column"
+      />
+    )}
+  </Stack>
+);
+
 interface VerificationBoxesProps {
   updatedData: IFormsUpdateData;
   stepKey: string;
@@ -767,7 +780,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "personalInformation" &&
         renderPersonalInfoVerification(
           updatedData.personalInformation.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "contactData" &&
@@ -779,49 +792,49 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "bankTransfers" &&
         renderBankTransfersVerification(
           updatedData.bankTransfers.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "personalAssets" &&
         renderPersonalAssetsVerification(
           updatedData.personalAssets.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "personalDebts" &&
         renderPersonalDebtVerification(
           updatedData.personalDebts.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "personalReferences" &&
         renderPersonalReferencesVerification(
           updatedData.personalReferences.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "financialOperations" &&
         renderFinancialOperationsVerification(
           updatedData.financialOperations.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "personalResidence" &&
         renderPersonalResidenceVerification(
           updatedData.personalResidence.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "socioeconomicInformation" &&
         renderSocioeconomicInfoVerification(
           updatedData.socioeconomicInformation.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "economicActivity" &&
         renderEconomicActivityVerification(
           updatedData.economicActivity.values,
-          isTablet
+          isTablet,
         )}
 
       {stepKey === "income" &&
@@ -832,8 +845,11 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "relationshipWithDirectors" &&
         renderRelationshipWithDirectorsVerification(
           updatedData.relationshipWithDirectors.values,
-          isTablet
+          isTablet,
         )}
+
+      {stepKey === "comments" &&
+        renderCommentsVerification(updatedData.comments.values)}
     </>
   );
 }

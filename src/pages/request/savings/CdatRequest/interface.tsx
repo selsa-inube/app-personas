@@ -10,6 +10,8 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
+import { CommentsForm } from "src/shared/forms/CommentsForm";
+import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { cdatRequestSteps } from "./config/assisted";
 import { crumbsCdatRequest } from "./config/navigation";
 import { ConditionsForm } from "./forms/ConditionsForm";
@@ -18,7 +20,6 @@ import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { RefundForm } from "./forms/RefundForm";
 import { CdatRequestSummary } from "./forms/Summary";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -61,6 +62,13 @@ const renderStepContent = (
         <ContactChannelsForm
           initialValues={cdatRequest.contactChannels.values}
           ref={formReferences.contactChannels}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.comments.id && (
+        <CommentsForm
+          initialValues={cdatRequest.comments.values}
+          ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}

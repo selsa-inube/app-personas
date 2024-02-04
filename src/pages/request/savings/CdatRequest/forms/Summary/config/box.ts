@@ -4,6 +4,7 @@ const cdatRequestBoxTitles: Record<string, string> = {
   refund: "Reembolso",
   investmentName: "Nombra tu inversión",
   contactChannels: "Canales de contacto",
+  comments: "Comentarios",
 };
 
 export { cdatRequestBoxTitles };
