@@ -9,6 +9,8 @@ const referenceUsersMocks: IReferenceThird[] = [
       secondLastName: "Galeano",
       type: "cc",
       identificationNumber: 17128249,
+      country: "Colombia",
+      departament: "Cundinamarca",
       city: "bogota",
     },
     contact: {
@@ -37,6 +39,8 @@ const referenceUsersMocks: IReferenceThird[] = [
       secondLastName: "Páramo",
       type: "cc",
       identificationNumber: 31253228,
+      country: "Colombia",
+      departament: "Cundinamarca",
       city: "bogota",
     },
     contact: {
@@ -65,6 +69,8 @@ const referenceUsersMocks: IReferenceThird[] = [
       secondLastName: "Páramo",
       type: "cc",
       identificationNumber: 10134879,
+      country: "Colombia",
+      departament: "Cundinamarca",
       city: "bogota",
     },
     contact: {

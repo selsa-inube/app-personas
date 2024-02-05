@@ -5,10 +5,13 @@ interface IPersonalInformationEntry {
   secondLastName: string;
   identificationType: string;
   identification: number;
-  expeditionPlace: string;
+  expeditionCountry: string;
+  expeditionDepartment: string;
+  expeditionCity: string;
   expeditionDate: string;
-  birthDate: string;
   city: string;
+  birthDate: string;
+  country: string;
   gender: string;
   maritalStatus: string;
   bloodType: string;
