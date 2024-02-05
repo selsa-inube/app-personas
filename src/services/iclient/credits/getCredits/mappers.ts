@@ -12,10 +12,10 @@ const mapCreditApiToEntity = (
   credit: Record<string, string | number | object>,
 ): IProduct => {
   const nextPaymentDate = new Date(String(credit.nextPaymentDate));
-  nextPaymentDate.setUTCHours(0, 0, 0, 0);
+  nextPaymentDate.setUTCHours(5, 5, 5, 5);
 
   const today = new Date();
-  today.setUTCHours(0, 0, 0, 0);
+  today.setUTCHours(5, 5, 5, 5);
 
   const heightQuota = String(credit.heightQuota).split(" ");
   const currentQuota = heightQuota.length > 0 ? heightQuota[0] : 0;
