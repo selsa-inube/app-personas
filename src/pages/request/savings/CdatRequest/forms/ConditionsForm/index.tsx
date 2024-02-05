@@ -91,6 +91,10 @@ const ConditionsForm = forwardRef(function ConditionsForm(
     if (event.target.name === "simulationWithDate") {
       formik.setFieldValue("deadlineDate", "");
       formik.setFieldValue("deadlineDays", "");
+      formik.setFieldValue("totalInterest", "");
+      formik.setFieldValue("withholdingTax", "");
+      formik.setFieldValue("netValue", "");
+      formik.setFieldValue("hasResult", "");
       formik.setFormikState((state) => {
         return {
           ...state,
