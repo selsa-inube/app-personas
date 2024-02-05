@@ -146,7 +146,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
     },
     {
       id: "2",
-      actionName: "Borrar",
+      actionName: "Eliminar",
       content: (reference) => (
         <DeleteReference
           reference={reference}

@@ -23,10 +23,12 @@ const StyledSectionMessage = styled.div<IStyledSectionMessage>`
   width: ${(props) => (props.isMessageResponsive ? "auto" : "400px")};
   height: auto;
   border-radius: ${inube.spacing.s050};
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3),
+  box-shadow:
+    0px 1px 2px rgba(0, 0, 0, 0.3),
     0px 1px 3px 1px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   overflow-wrap: anywhere;
+  z-index: 2;
 `;
 
 export { StyledSectionMessage };
