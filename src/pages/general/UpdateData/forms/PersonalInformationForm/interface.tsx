@@ -21,6 +21,7 @@ interface PersonalInformationFormUIProps {
 function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
   const { formik, loading } = props;
 
+  const isTablet = useMediaQuery("(max-width: 850px)");
   const isMobile = useMediaQuery("(max-width: 610px)");
 
   return (
@@ -32,7 +33,9 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size={isMobile ? "medium" : "small"}
         >
           <Grid
-            templateColumns={isMobile ? "1fr" : "1fr 1fr 1fr"}
+            templateColumns={
+              isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
+            }
             gap={isMobile ? "s150" : "s300"}
           >
             <TextField
@@ -87,7 +90,9 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size={isMobile ? "medium" : "small"}
         >
           <Grid
-            templateColumns={isMobile ? "1fr" : "1fr 1fr 1fr"}
+            templateColumns={
+              isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
+            }
             gap={isMobile ? "s150" : "s300"}
           >
             <Select
@@ -164,11 +169,13 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         </Fieldset>
         <Fieldset
           title="Complementarios"
-          type={isMobile ? "label" : "title"}
-          size={isMobile ? "medium" : "small"}
+          type={isTablet ? "label" : "title"}
+          size={isTablet ? "medium" : "small"}
         >
           <Grid
-            templateColumns={isMobile ? "1fr" : "1fr 1fr 1fr"}
+            templateColumns={
+              isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
+            }
             gap={isMobile ? "s150" : "s300"}
           >
             <Select
