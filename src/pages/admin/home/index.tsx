@@ -5,6 +5,10 @@ import { SavingsContext } from "src/context/savings";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { HomeUI } from "./interface";
+import {
+  permanentSavingsCode,
+  socialContributionsCode,
+} from "../savings/MySavings/config/products";
 
 function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
@@ -44,7 +48,9 @@ function Home() {
       savingsAccountsMock={[]}
       savingsCommitmentsMock={[]}
       savingsStatutoryContributionsMock={savings.filter(
-        (saving) => saving.type === "APE" || saving.type === "AS",
+        (saving) =>
+          saving.type === permanentSavingsCode ||
+          saving.type === socialContributionsCode,
       )}
       cdats={[]}
       programmedSavings={[]}
