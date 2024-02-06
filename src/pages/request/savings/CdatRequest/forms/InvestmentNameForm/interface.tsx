@@ -6,12 +6,11 @@ import { getFieldState } from "src/utils/forms/forms";
 interface InvestmentNameFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function InvestmentNameFormUI(props: InvestmentNameFormUIProps) {
-  const { formik, loading, customHandleBlur } = props;
+  const { formik, loading } = props;
 
   return (
     <form>
@@ -28,7 +27,7 @@ function InvestmentNameFormUI(props: InvestmentNameFormUIProps) {
           size="compact"
           isFullWidth
           state={getFieldState(formik, "productName")}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           validMessage="El nombre es válido"
           maxLength={30}

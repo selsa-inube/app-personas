@@ -10,46 +10,36 @@ const validationSchema = Yup.object({
 
 interface InvestmentNameFormProps {
   initialValues: IInvestmentNameEntry;
+  loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IInvestmentNameEntry) => void;
-  loading?: boolean;
 }
 
 const InvestmentNameForm = forwardRef(function InvestmentNameForm(
   props: InvestmentNameFormProps,
   ref: React.Ref<FormikProps<IInvestmentNameEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, loading, onFormValid, onSubmit } = props;
 
   const formik = useFormik({
     initialValues,
     validationSchema,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  }, []);
-
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  };
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+  }, [formik.values]);
 
   return (
     <InvestmentNameFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
       onFormValid={onFormValid}
     />
   );
