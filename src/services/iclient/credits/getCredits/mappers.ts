@@ -79,12 +79,12 @@ const mapCreditApiToEntity = (
     {
       id: "dues_paid",
       label: "Cuotas pagadas",
-      value: duesPaid,
+      value: duesPaid || 0,
     },
     {
       id: "outstanding_dues",
       label: "Cuotas pendientes",
-      value: outstandingDues,
+      value: outstandingDues || 0,
     },
     {
       id: "peridiocity",
@@ -114,9 +114,8 @@ const mapCreditApiToEntity = (
     {
       id: "terms",
       label: "Plazo",
-      value: `${Number(duesPaid) + Number(outstandingDues)} Meses`,
+      value: `${Number(duesPaid || 0) + Number(outstandingDues || 0)} Meses`,
     },
-
     {
       id: "interest_rate",
       label: "Tasa de interés",
