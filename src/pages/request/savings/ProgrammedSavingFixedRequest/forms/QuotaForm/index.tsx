@@ -215,7 +215,6 @@ const QuotaForm = forwardRef(function QuotaForm(
       renderFields={dynamicForm.renderFields}
       savingOptions={savingOptions}
       accountOptions={accountOptions}
-      customHandleBlur={customHandleBlur}
       customHandleChange={customHandleChange}
       customHandleAccountToDebit={customHandleAccountToDebit}
       customHandleAccount={customHandleAccount}
