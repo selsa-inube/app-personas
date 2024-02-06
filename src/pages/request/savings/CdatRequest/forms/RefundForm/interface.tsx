@@ -11,7 +11,6 @@ interface RefundFormUIProps {
   loading?: boolean;
   accountOptions: ISelectOption[];
   savingOptions: ISelectOption[];
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   customHandleRefundMethod: (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -25,7 +24,6 @@ function RefundFormUI(props: RefundFormUIProps) {
     loading,
     accountOptions,
     savingOptions,
-    customHandleBlur,
     customHandleRefundMethod,
     customHandleAccount,
   } = props;
@@ -44,7 +42,7 @@ function RefundFormUI(props: RefundFormUIProps) {
           options={getDomainById("refundMethod")}
           state={getFieldState(formik, "refundMethod")}
           errorMessage={formik.errors.refundMethod}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           onClick={formik.handleClick}
           onFocus={formik.handleFocus}
           onChange={customHandleRefundMethod}
@@ -61,7 +59,7 @@ function RefundFormUI(props: RefundFormUIProps) {
           options={accountOptions}
           state={getFieldState(formik, "account")}
           errorMessage={formik.errors.account}
-          onBlur={customHandleBlur}
+          onBlur={formik.handleBlur}
           onClick={formik.handleClick}
           onFocus={formik.handleFocus}
           onChange={customHandleAccount}

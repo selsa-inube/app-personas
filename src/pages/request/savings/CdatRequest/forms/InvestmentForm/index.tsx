@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -12,40 +12,38 @@ const validationSchema = Yup.object({
 
 interface InvestmentFormProps {
   initialValues: IInvestmentEntry;
+  loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IInvestmentEntry) => void;
-  loading?: boolean;
 }
 
 const InvestmentForm = forwardRef(function InvestmentForm(
   props: InvestmentFormProps,
   ref: React.Ref<FormikProps<IInvestmentEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, loading, onFormValid, onSubmit } = props;
 
   const formik = useFormik({
     initialValues,
     validationSchema,
+    validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
 
-  const customHandleBlur = (event: React.FocusEvent<HTMLElement, Element>) => {
-    formik.handleBlur(event);
-
-    if (onSubmit) return;
-
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
-  };
+  useEffect(() => {
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
+  }, [formik.values]);
 
   return (
     <InvestmentFormUI
       loading={loading}
       formik={formik}
-      customHandleBlur={customHandleBlur}
       onFormValid={onFormValid}
     />
   );
