@@ -43,8 +43,8 @@ function Home() {
       productsCommitments={[]}
       savingsAccountsMock={[]}
       savingsCommitmentsMock={[]}
-      savingsStatutoryContributionsMock={savings.filter((saving) =>
-        saving.id.startsWith("200"),
+      savingsStatutoryContributionsMock={savings.filter(
+        (saving) => saving.type === "APE" || saving.type === "AS",
       )}
       cdats={[]}
       programmedSavings={[]}
