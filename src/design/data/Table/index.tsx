@@ -4,6 +4,7 @@ import { Pagination } from "./Pagination";
 import { TableUI } from "./interface";
 import { StyledTableContainer } from "./styles";
 import { IAction, IBreakpoint, IEntry, ITitle } from "./types";
+import { TextAppearanceType } from "@ptypes/color.types";
 
 interface TableProps {
   portalId?: string;
@@ -20,6 +21,7 @@ interface TableProps {
   hideMobileResume?: boolean;
   mobileResumeTitle?: string;
   colsSameWidth?: boolean;
+  customAppearance?: (titleId: string, entry: IEntry) => TextAppearanceType;
 }
 
 const Table = (props: TableProps) => {
@@ -38,6 +40,7 @@ const Table = (props: TableProps) => {
     hideMobileResume,
     mobileResumeTitle,
     colsSameWidth,
+    customAppearance,
   } = props;
 
   const filteredEntries = useMemo(() => {
@@ -111,6 +114,7 @@ const Table = (props: TableProps) => {
         mobileResumeTitle={mobileResumeTitle}
         colsSameWidth={colsSameWidth}
         withActions={withActions}
+        customAppearance={customAppearance}
       />
       {filteredEntries.length > pageLength && (
         <Pagination

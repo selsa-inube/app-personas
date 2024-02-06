@@ -24,6 +24,7 @@ import { extractCreditAmortizationAttrs } from "./config/product";
 import {
   amortizationNormalizeEntries,
   creditAmortizationTableActions,
+  customAppearanceCallback,
 } from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
@@ -162,6 +163,7 @@ function CreditAmortization() {
                 entries={amortizationNormalizeEntries(
                   selectedProduct.credit.amortization,
                 )}
+                customAppearance={customAppearanceCallback}
                 hideMobileResume
               />
             </StyledAmortizationContainer>
