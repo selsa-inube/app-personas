@@ -142,6 +142,7 @@ function CreditAmortization() {
               subtitle={selectedProduct.option.id}
               icon={<MdOutlineAttachMoney size={34} />}
               collapsing={{ start: true, allow: false }}
+              tags={selectedProduct.credit.tags}
             >
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
                 {attributes?.map((attr) => (
