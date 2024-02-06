@@ -209,7 +209,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               validMessage="La fecha de nacimiento es válida"
-              isRequired
             />
 
             <Select
