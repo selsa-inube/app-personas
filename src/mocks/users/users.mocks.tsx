@@ -11,7 +11,7 @@ const usersMock: IThird[] = [
         type: "cc",
         identificationNumber: 1013614213,
         country: "COL",
-        departament: "Cundinamarca",
+        departament: "cundinamarca",
         city: "bogota",
         date: "05/Ago/2008",
       },
@@ -56,7 +56,7 @@ const usersMock: IThird[] = [
           type: "cc",
           identificationNumber: 13156778,
           country: "COL",
-          departament: "Cundinamarca",
+          departament: "cundinamarca",
           city: "bogota",
         },
         contact: {
@@ -86,7 +86,7 @@ const usersMock: IThird[] = [
           type: "cc",
           identificationNumber: 41739900,
           country: "COL",
-          departament: "Cundinamarca",
+          departament: "cundinamarca",
           city: "bogota",
         },
         contact: {

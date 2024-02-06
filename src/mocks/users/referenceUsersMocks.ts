@@ -10,7 +10,7 @@ const referenceUsersMocks: IReferenceThird[] = [
       type: "cc",
       identificationNumber: 17128249,
       country: "COL",
-      departament: "Cundinamarca",
+      departament: "cundinamarca",
       city: "bogota",
     },
     contact: {
@@ -40,7 +40,7 @@ const referenceUsersMocks: IReferenceThird[] = [
       type: "cc",
       identificationNumber: 31253228,
       country: "COL",
-      departament: "Cundinamarca",
+      departament: "cundinamarca",
       city: "bogota",
     },
     contact: {
@@ -70,7 +70,7 @@ const referenceUsersMocks: IReferenceThird[] = [
       type: "cc",
       identificationNumber: 10134879,
       country: "COL",
-      departament: "Cundinamarca",
+      departament: "cundinamarca",
       city: "bogota",
     },
     contact: {
