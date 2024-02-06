@@ -5,6 +5,10 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
+import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
+import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/IdentificationDataForm/types";
+import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
+import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
 import { DeleteFamilyMember } from "./DeleteFamilyMember";
 import { EditFamilyMember } from "./EditFamilyMember";
 import { FamilyMemberView } from "./FamilyMemberView";
@@ -12,10 +16,6 @@ import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
-import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/IdentificationDataForm/types";
-import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
-import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
-import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
 
 const validationSchema = Yup.object().shape({
   firstName: familyGroupRequiredFields.firstName
@@ -93,7 +93,7 @@ interface FamilyGroupFormProps {
 
 const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   props: FamilyGroupFormProps,
-  ref: React.Ref<FormikProps<IFamilyGroupEntries>>
+  ref: React.Ref<FormikProps<IFamilyGroupEntries>>,
 ) {
   const { initialValues, onSubmit } = props;
   const [dynamicSchema] = useState(validationSchema);
@@ -130,7 +130,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     const member = formik.values.entries.find((entry) => entry.id === memberId);
 
     const updatedMembers = formik.values.entries.filter(
-      (member) => member.id !== memberId
+      (member) => member.id !== memberId,
     );
 
     if (updatedMembers.length === formik.values.entries.length) {
@@ -152,7 +152,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
 
   const handleEditMember = async (
     member: IFamilyGroupEntry,
-    formik: FormikValues
+    formik: FormikValues,
   ) => {
     await formik.validateForm();
 
@@ -187,7 +187,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
             };
           }
           return entry;
-        }
+        },
       );
 
       formik.setFieldValue("entries", updatedEntries);
@@ -198,7 +198,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     identificationData: IIdentificationDataEntry,
     personalData: IPersonalDataEntry,
     contactData: IContactDataEntry,
-    informationData: IInformationDataEntry
+    informationData: IInformationDataEntry,
   ) => {
     await formik.validateForm();
 
@@ -268,7 +268,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     },
     {
       id: "3",
-      actionName: "Borrar",
+      actionName: "Eliminar",
       content: (member) => (
         <DeleteFamilyMember
           member={member}

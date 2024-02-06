@@ -12,13 +12,13 @@ const mapCreditApiToEntity = (
   credit: Record<string, string | number | object>,
 ): IProduct => {
   const nextPaymentDate = new Date(String(credit.nextPaymentDate));
-  nextPaymentDate.setUTCHours(0, 0, 0, 0);
+  nextPaymentDate.setUTCHours(5, 5, 5, 5);
 
   const today = new Date();
-  today.setUTCHours(0, 0, 0, 0);
+  today.setUTCHours(5, 5, 5, 5);
 
-  const currentQuota = credit.duesPaid;
-  const maxQuota = credit.outstandingDues;
+  const duesPaid = credit.duesPaid;
+  const outstandingDues = credit.outstandingDues;
 
   const inArrears = today > nextPaymentDate;
 
@@ -77,9 +77,14 @@ const mapCreditApiToEntity = (
       value: nextPaymentValue,
     },
     {
-      id: "quote",
-      label: "Altura de cuota",
-      value: `${currentQuota} de ${maxQuota}`,
+      id: "dues_paid",
+      label: "Cuotas pagadas",
+      value: duesPaid || 0,
+    },
+    {
+      id: "outstanding_dues",
+      label: "Cuotas pendientes",
+      value: outstandingDues || 0,
     },
     {
       id: "peridiocity",
@@ -106,8 +111,11 @@ const mapCreditApiToEntity = (
       label: "Tipo de garantía",
       value: guaranteeTypeValuesMock[Object(credit.typeOfGuarantee).code],
     },
-    { id: "terms", label: "Plazo", value: `${maxQuota} Meses` },
-
+    {
+      id: "terms",
+      label: "Plazo",
+      value: `${Number(duesPaid || 0) + Number(outstandingDues || 0)} Meses`,
+    },
     {
       id: "interest_rate",
       label: "Tasa de interés",
