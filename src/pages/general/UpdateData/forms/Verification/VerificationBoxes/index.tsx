@@ -64,22 +64,30 @@ const renderPersonalInfoVerification = (
       value={values.identification}
     />
     <BoxAttribute
-      label="Lugar de expedición:"
-      value={cityDM.valueOf(values.expeditionPlace)?.value}
+      label="Pais de expedición:"
+      value={countryDM.valueOf(values.expeditionCountry)?.value}
+    />
+    <BoxAttribute
+      label="Estado / Departamento de expedición:"
+      value={departmentDM.valueOf(values.expeditionDepartment)?.value}
+    />
+    <BoxAttribute
+      label="Ciudad de expedición:"
+      value={cityDM.valueOf(values.expeditionCity)?.value}
     />
     <BoxAttribute label="Fecha de expedición:" value={values.expeditionDate} />
+    <BoxAttribute
+      label="País de nacimiento:"
+      value={countryDM.valueOf(values.country)?.value}
+    />
     <BoxAttribute label="Fecha de nacimiento:" value={values.birthDate} />
     <BoxAttribute
-      label="Ciudad de nacimiento:"
-      value={cityDM.valueOf(values.city)?.value}
+      label="Estado civil:"
+      value={maritalStatusDM.valueOf(values.maritalStatus)?.value}
     />
     <BoxAttribute
       label="Genero:"
       value={genderDM.valueOf(values.gender)?.value}
-    />
-    <BoxAttribute
-      label="Estado civil:"
-      value={maritalStatusDM.valueOf(values.maritalStatus)?.value}
     />
     <BoxAttribute
       label="Factor RH:"

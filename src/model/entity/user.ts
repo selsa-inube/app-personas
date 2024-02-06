@@ -5,6 +5,8 @@ interface IIdentification {
   secondLastName?: string;
   type: string;
   identificationNumber: number;
+  country: string;
+  departament: string;
   city: string;
   date?: string;
 }
@@ -13,6 +15,7 @@ interface IPersonalData {
   identification: IIdentification;
   birthDate: string;
   birthCity: string;
+  birthCountry: string;
   gender: string;
   maritalStatus: string;
   bloodType: string;
@@ -130,12 +133,12 @@ interface IThird {
 export type {
   IBankTransfersAccount,
   IContactData,
-  IReferenceThird,
   IEconomicActivity,
   IFamilyThird,
   IFinancialOperations,
   IIdentification,
   IPersonalData,
+  IReferenceThird,
   IRelationshipWithDirectors,
   IResidence,
   IThird,

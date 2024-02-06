@@ -49,10 +49,14 @@ const mapPersonalInformation = (
     identificationType: personalInfoData.personalData.identification.type,
     identification:
       personalInfoData.personalData.identification.identificationNumber,
-    expeditionPlace: personalInfoData.personalData.identification.city,
+    expeditionCountry: personalInfoData.personalData.identification.country,
+    expeditionCity: personalInfoData.personalData.identification.city,
+    expeditionDepartment:
+      personalInfoData.personalData.identification.departament,
     expeditionDate: personalInfoData.personalData.identification.date || "",
     birthDate: personalInfoData.personalData.birthDate,
     city: personalInfoData.personalData.birthCity,
+    country: personalInfoData.personalData.birthCountry,
     gender: personalInfoData.personalData.gender,
     maritalStatus: personalInfoData.personalData.maritalStatus,
     bloodType: personalInfoData.personalData.bloodType,

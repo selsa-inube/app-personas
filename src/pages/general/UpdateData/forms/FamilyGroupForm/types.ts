@@ -5,6 +5,7 @@ interface IFamilyGroupEntry {
   secondLastName?: string;
   type?: string;
   identificationNumber?: number;
+  expeditionCountry?: string;
   city?: string;
   date?: string;
   id?: string;
