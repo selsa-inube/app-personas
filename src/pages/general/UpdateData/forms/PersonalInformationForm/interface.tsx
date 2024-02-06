@@ -8,6 +8,8 @@ import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
+import { cityDM } from "src/model/domains/personalInformation/citydm";
+import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
 import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
@@ -118,39 +120,51 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               readOnly
             />
 
-            <TextField
+            <Select
               label="Pais de expedición"
-              placeholder="Pais de expedición"
               name="expeditionCountry"
               id="expeditionCountry"
               value={formik.values.expeditionCountry}
-              type="text"
               size="compact"
               isFullWidth
+              options={countryDM.options}
+              onBlur={formik.handleBlur}
+              errorMessage={formik.errors.expeditionCountry}
+              isDisabled={loading}
+              state={getFieldState(formik, "expeditionCountry")}
+              onChange={formik.handleChange}
               readOnly
             />
 
-            <TextField
+            <Select
               label="Estado / Departamento de expedición"
-              placeholder="Estado / Departamento de expedición"
               name="expeditionDepartment"
               id="expeditionDepartment"
               value={formik.values.expeditionDepartment}
-              type="text"
               size="compact"
               isFullWidth
+              options={departmentDM.options}
+              onBlur={formik.handleBlur}
+              errorMessage={formik.errors.country}
+              isDisabled={loading}
+              state={getFieldState(formik, "expeditionDepartment")}
+              onChange={formik.handleChange}
               readOnly
             />
 
-            <TextField
+            <Select
               label="Ciudad de expedición"
-              placeholder="Ciudad de expedición"
               name="expeditionCity"
               id="expeditionCity"
               value={formik.values.expeditionCity}
-              type="text"
               size="compact"
               isFullWidth
+              options={cityDM.options}
+              onBlur={formik.handleBlur}
+              errorMessage={formik.errors.country}
+              isDisabled={loading}
+              state={getFieldState(formik, "expeditionCity")}
+              onChange={formik.handleChange}
               readOnly
             />
 
