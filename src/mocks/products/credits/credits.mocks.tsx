@@ -426,7 +426,6 @@ const creditsMock: IProduct[] = [
     amortization: [
       {
         id: "8",
-        paymentNumber: 8,
         date: new Date("15/Nov/2023"),
         type: "Ordinaria",
         capitalPayment: 324386,
@@ -440,7 +439,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "9",
-        paymentNumber: 9,
         date: new Date("15/Dec/2023"),
         type: "Ordinaria",
         capitalPayment: 332386,
@@ -454,7 +452,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "10",
-        paymentNumber: 10,
         date: new Date("15/Jan/2024"),
         type: "Ordinaria",
         capitalPayment: 340386,
@@ -468,7 +465,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "11",
-        paymentNumber: 11,
         date: new Date("15/Feb/2024"),
         type: "Ordinaria",
         capitalPayment: 349386,
@@ -482,7 +478,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "12",
-        paymentNumber: 12,
         date: new Date("15/Mar/2024"),
         type: "Ordinaria",
         capitalPayment: 358386,
@@ -496,7 +491,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "13",
-        paymentNumber: 13,
         date: new Date("15/Apr/2024"),
         type: "Ordinaria",
         capitalPayment: 368386,
@@ -510,7 +504,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "14",
-        paymentNumber: 14,
         date: new Date("15/May/2024"),
         type: "Ordinaria",
         capitalPayment: 378386,
@@ -524,7 +517,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "15",
-        paymentNumber: 15,
         date: new Date("15/Jun/2024"),
         type: "Ordinaria",
         capitalPayment: 389386,
@@ -538,7 +530,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "16",
-        paymentNumber: 16,
         date: new Date("15/Jul/2024"),
         type: "Ordinaria",
         capitalPayment: 401386,
@@ -552,7 +543,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "17",
-        paymentNumber: 17,
         date: new Date("15/Aug/2024"),
         type: "Ordinaria",
         capitalPayment: 414386,
@@ -566,7 +556,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "18",
-        paymentNumber: 18,
         date: new Date("15/Sep/2024"),
         type: "Ordinaria",
         capitalPayment: 428386,
@@ -580,7 +569,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "19",
-        paymentNumber: 19,
         date: new Date("15/Oct/2024"),
         type: "Ordinaria",
         capitalPayment: 443386,
@@ -594,7 +582,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "20",
-        paymentNumber: 20,
         date: new Date("15/Nov/2024"),
         type: "Ordinaria",
         capitalPayment: 459386,
@@ -608,7 +595,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "21",
-        paymentNumber: 21,
         date: new Date("15/Dec/2024"),
         type: "Ordinaria",
         capitalPayment: 476386,
@@ -622,7 +608,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "22",
-        paymentNumber: 22,
         date: new Date("15/Jan/2025"),
         type: "Ordinaria",
         capitalPayment: 491200,
@@ -636,7 +621,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "23",
-        paymentNumber: 23,
         date: new Date("15/Feb/2025"),
         type: "Ordinaria",
         capitalPayment: 506300,
@@ -650,7 +634,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "24",
-        paymentNumber: 24,
         date: new Date("15/Mar/2025"),
         type: "Ordinaria",
         capitalPayment: 521700,
@@ -1090,7 +1073,6 @@ const creditsMock: IProduct[] = [
     amortization: [
       {
         id: "10",
-        paymentNumber: 10,
         date: new Date("10/Nov/2023"),
         type: "Extraordinaria",
         capitalPayment: 295000,
@@ -1104,7 +1086,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "11",
-        paymentNumber: 11,
         date: new Date("10/Dec/2023"),
         type: "Extraordinaria",
         capitalPayment: 300000,
@@ -1118,7 +1099,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "12",
-        paymentNumber: 12,
         date: new Date("10/Jan/2024"),
         type: "Extraordinaria",
         capitalPayment: 305000,
@@ -1132,7 +1112,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "13",
-        paymentNumber: 13,
         date: new Date("10/Feb/2024"),
         type: "Extraordinaria",
         capitalPayment: 310000,
@@ -1146,7 +1125,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "14",
-        paymentNumber: 14,
         date: new Date("10/Mar/2024"),
         type: "Ordinaria",
         capitalPayment: 315000,
@@ -1160,7 +1138,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "15",
-        paymentNumber: 15,
         date: new Date("10/Apr/2024"),
         type: "Ordinaria",
         capitalPayment: 320000,
@@ -1174,7 +1151,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "16",
-        paymentNumber: 16,
         date: new Date("10/May/2024"),
         type: "Extraordinaria",
         capitalPayment: 325000,
@@ -1188,7 +1164,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "17",
-        paymentNumber: 17,
         date: new Date("10/Jun/2024"),
         type: "Ordinaria",
         capitalPayment: 330000,
@@ -1202,7 +1177,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "18",
-        paymentNumber: 18,
         date: new Date("10/Jul/2024"),
         type: "Ordinaria",
         capitalPayment: 335000,
@@ -1216,7 +1190,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "19",
-        paymentNumber: 19,
         date: new Date("10/Aug/2024"),
         type: "Extraordinaria",
         capitalPayment: 340000,
@@ -1230,7 +1203,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "20",
-        paymentNumber: 20,
         date: new Date("10/Sep/2024"),
         type: "Ordinaria",
         capitalPayment: 345000,
@@ -1244,7 +1216,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "21",
-        paymentNumber: 21,
         date: new Date("10/Oct/2024"),
         type: "Ordinaria",
         capitalPayment: 350000,
@@ -1258,7 +1229,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "22",
-        paymentNumber: 22,
         date: new Date("10/Nov/2024"),
         type: "Extraordinaria",
         capitalPayment: 355000,
@@ -1272,7 +1242,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "23",
-        paymentNumber: 23,
         date: new Date("10/Dec/2024"),
         type: "Ordinaria",
         capitalPayment: 360000,
@@ -1286,7 +1255,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "24",
-        paymentNumber: 24,
         date: new Date("10/Jan/2025"),
         type: "Extraordinaria",
         capitalPayment: 365000,
@@ -1300,7 +1268,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "25",
-        paymentNumber: 25,
         date: new Date("10/Feb/2025"),
         type: "Ordinaria",
         capitalPayment: 370000,
@@ -1314,7 +1281,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "26",
-        paymentNumber: 26,
         date: new Date("10/Mar/2025"),
         type: "Extraordinaria",
         capitalPayment: 375000,
@@ -1328,7 +1294,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "27",
-        paymentNumber: 27,
         date: new Date("10/Apr/2025"),
         type: "Extraordinaria",
         capitalPayment: 380000,
@@ -1342,7 +1307,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "28",
-        paymentNumber: 28,
         date: new Date("10/May/2025"),
         type: "Ordinaria",
         capitalPayment: 385000,
@@ -1356,7 +1320,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "29",
-        paymentNumber: 29,
         date: new Date("10/Jun/2025"),
         type: "Extraordinaria",
         capitalPayment: 390000,
@@ -1370,7 +1333,6 @@ const creditsMock: IProduct[] = [
       },
       {
         id: "30",
-        paymentNumber: 30,
         date: new Date("10/Jul/2025"),
         type: "Ordinaria",
         capitalPayment: 395000,
