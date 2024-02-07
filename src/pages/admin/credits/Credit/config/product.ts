@@ -9,7 +9,6 @@ const creditAttributes = [
   "outstanding_dues",
   "peridiocity",
   "payment_means",
-  "days_past_due",
   "interest_rate",
   "net_value",
   "guarantee_type",
