@@ -91,7 +91,23 @@ const getNextPaymentData = (selectedProduct: IProduct) => {
   };
 };
 
+const getInArrearsData = (selectedProduct: IProduct) => {
+  const daysPastDue = selectedProduct.attributes.find(
+    (attr) => attr.id === "days_past_due",
+  );
+
+  const inArrearsValue = selectedProduct.attributes.find(
+    (attr) => attr.id === "in_Arrears_Value",
+  );
+
+  return {
+    daysPastDue: Number(daysPastDue?.value),
+    inArrearsValue: Number(inArrearsValue?.value),
+  };
+};
+
 export {
+  getInArrearsData,
   getNextPaymentData,
   validateCredit,
   validateCreditMovementsAndAmortization,

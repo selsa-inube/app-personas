@@ -1,6 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { DetailsInArrearsModal } from "@components/modals/credit/DetailsInArrearsModal";
 import { NextPaymentModal } from "@components/modals/credit/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
@@ -36,7 +37,11 @@ import {
   formatCreditCurrencyAttrs,
 } from "./config/product";
 import { StyledMovementsContainer } from "./styles";
-import { INextPaymentModalState, ISelectedProductState } from "./types";
+import {
+  IDetailsInArrearsModalState,
+  INextPaymentModalState,
+  ISelectedProductState,
+} from "./types";
 
 interface CreditUIProps {
   isMobile?: boolean;
@@ -45,7 +50,9 @@ interface CreditUIProps {
   productsOptions: ISelectOption[];
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;
+  detailsInArrearsModal: IDetailsInArrearsModalState;
   handleToggleNextPaymentModal: () => void;
+  handleToggleDetailsInArrearsModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -57,7 +64,9 @@ function CreditUI(props: CreditUIProps) {
     productsOptions,
     credit_id,
     nextPaymentModal,
+    detailsInArrearsModal,
     handleToggleNextPaymentModal,
+    handleToggleDetailsInArrearsModal,
     handleChangeProduct,
   } = props;
 
@@ -68,6 +77,12 @@ function CreditUI(props: CreditUIProps) {
 
   const formatedAttributes =
     attributes && formatCreditCurrencyAttrs(attributes);
+
+  const nextPaymentDate =
+    selectedProduct &&
+    extractCreditAttributes(selectedProduct.credit).find(
+      (attr) => attr.id === "next_payment_date" && attr.value,
+    );
 
   return (
     <>
@@ -135,7 +150,26 @@ function CreditUI(props: CreditUIProps) {
                         withButton
                       />
                     )}
-                    {formatedAttributes.slice(3).map((attr) => (
+
+                    {formatedAttributes.slice(3, 9).map((attr) => (
+                      <BoxAttribute
+                        key={attr.id}
+                        label={`${attr.label}: `}
+                        value={attr.value}
+                      />
+                    ))}
+
+                    {nextPaymentDate?.value === "Inmediato" &&
+                      detailsInArrearsModal.data && (
+                        <BoxAttribute
+                          label="Detalle de mora:"
+                          buttonIcon={<MdOpenInNew />}
+                          buttonValue="Ver"
+                          onClickButton={handleToggleDetailsInArrearsModal}
+                          withButton
+                        />
+                      )}
+                    {formatedAttributes.slice(9).map((attr) => (
                       <BoxAttribute
                         key={attr.id}
                         label={`${attr.label}: `}
@@ -185,6 +219,13 @@ function CreditUI(props: CreditUIProps) {
           portalId="modals"
           onCloseModal={handleToggleNextPaymentModal}
           nextPaymentData={nextPaymentModal.data}
+        />
+      )}
+      {detailsInArrearsModal.show && detailsInArrearsModal.data && (
+        <DetailsInArrearsModal
+          portalId="modals"
+          onCloseModal={handleToggleDetailsInArrearsModal}
+          detailsInArrearsData={detailsInArrearsModal.data}
         />
       )}
     </>

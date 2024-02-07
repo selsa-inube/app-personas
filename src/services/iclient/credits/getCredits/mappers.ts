@@ -15,9 +15,11 @@ const mapCreditApiToEntity = (
   nextPaymentDate.setUTCHours(5, 5, 5, 5);
 
   const today = new Date();
+
   today.setUTCHours(5, 5, 5, 5);
 
   const duesPaid = credit.duesPaid;
+
   const outstandingDues = credit.outstandingDues;
 
   const inArrears = today > nextPaymentDate;
@@ -123,10 +125,10 @@ const mapCreditApiToEntity = (
     },
   ];
 
-  if (inArrears) {
+  if (differenceDays) {
     attributes.push({
       id: "days_past_due",
-      label: "Días de mora",
+      label: "Días vencidos",
       value: differenceDays,
     });
   }
@@ -146,11 +148,18 @@ const mapCreditApiToEntity = (
     });
   }
   if (nextPaymentArrearsInterest) {
-    attributes.push({
-      id: "next_payment_arrears_interest",
-      label: "interés de mora",
-      value: nextPaymentArrearsInterest,
-    });
+    attributes.push(
+      {
+        id: "next_payment_arrears_interest",
+        label: "interés de mora",
+        value: nextPaymentArrearsInterest,
+      },
+      {
+        id: "in_Arrears_Value",
+        label: "Valor mora",
+        value: nextPaymentArrearsInterest,
+      },
+    );
   }
 
   const tags: TagProps[] = inArrears
