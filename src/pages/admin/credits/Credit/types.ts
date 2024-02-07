@@ -15,4 +15,16 @@ interface INextPaymentModalState {
   };
 }
 
-export type { INextPaymentModalState, ISelectedProductState };
+interface IArrearsDetailModalState {
+  show: boolean;
+  data?: {
+    daysPastDue: number;
+    inArrearsValue: number;
+  };
+}
+
+export type {
+  IArrearsDetailModalState,
+  INextPaymentModalState,
+  ISelectedProductState,
+};

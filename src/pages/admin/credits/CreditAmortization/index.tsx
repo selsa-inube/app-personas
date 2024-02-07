@@ -24,6 +24,7 @@ import { extractCreditAmortizationAttrs } from "./config/product";
 import {
   amortizationNormalizeEntries,
   creditAmortizationTableActions,
+  customAppearanceCallback,
 } from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
@@ -142,6 +143,7 @@ function CreditAmortization() {
               subtitle={selectedProduct.option.id}
               icon={<MdOutlineAttachMoney size={34} />}
               collapsing={{ start: true, allow: false }}
+              tags={selectedProduct.credit.tags}
             >
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
                 {attributes?.map((attr) => (
@@ -162,6 +164,7 @@ function CreditAmortization() {
                 entries={amortizationNormalizeEntries(
                   selectedProduct.credit.amortization,
                 )}
+                customAppearance={customAppearanceCallback}
                 hideMobileResume
               />
             </StyledAmortizationContainer>
