@@ -8,9 +8,9 @@ import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBodyItem, StyledDivider, StyledModal } from "./styles";
 
-interface DetailsInArrearsModalProps {
+interface ArrearsDetailModalProps {
   portalId: string;
-  detailsInArrearsData: {
+  arrearsData: {
     daysPastDue: number;
     inArrearsValue: number;
   };
@@ -45,8 +45,8 @@ const renderTransactionSpecification = (
   </StyledBodyItem>
 );
 
-function DetailsInArrearsModal(props: DetailsInArrearsModalProps) {
-  const { portalId, onCloseModal, detailsInArrearsData } = props;
+function ArrearsDetailModal(props: ArrearsDetailModalProps) {
+  const { portalId, onCloseModal, arrearsData } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -83,10 +83,10 @@ function DetailsInArrearsModal(props: DetailsInArrearsModalProps) {
         <StyledDivider />
         <Stack direction="column" alignItems="flex-start" gap="s150">
           {renderTransactionSpecification("Dias vencidos:", [
-            detailsInArrearsData.daysPastDue,
+            arrearsData.daysPastDue,
           ])}
           {renderTransactionSpecification("Valor de mora:", [
-            currencyFormat(detailsInArrearsData.inArrearsValue),
+            currencyFormat(arrearsData.inArrearsValue),
           ])}
         </Stack>
       </StyledModal>
@@ -95,4 +95,4 @@ function DetailsInArrearsModal(props: DetailsInArrearsModalProps) {
   );
 }
 
-export { DetailsInArrearsModal };
+export { ArrearsDetailModal };

@@ -168,7 +168,7 @@ const mapCreditApiToEntity = (
         value: nextPaymentArrearsInterest,
       },
       {
-        id: "in_Arrears_Value",
+        id: "in_arrears_value",
         label: "Valor mora",
         value: nextPaymentArrearsInterest,
       },

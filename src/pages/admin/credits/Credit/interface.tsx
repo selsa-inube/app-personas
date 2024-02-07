@@ -1,7 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { DetailsInArrearsModal } from "@components/modals/credit/DetailsInArrearsModal";
+import { ArrearsDetailModal } from "@components/modals/credit/ArrearsDetailModal";
 import { NextPaymentModal } from "@components/modals/credit/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
@@ -38,7 +38,7 @@ import {
 } from "./config/product";
 import { StyledMovementsContainer } from "./styles";
 import {
-  IDetailsInArrearsModalState,
+  IArrearsDetailModalState,
   INextPaymentModalState,
   ISelectedProductState,
 } from "./types";
@@ -50,9 +50,9 @@ interface CreditUIProps {
   productsOptions: ISelectOption[];
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;
-  detailsInArrearsModal: IDetailsInArrearsModalState;
+  arrearsDetailModal: IArrearsDetailModalState;
   handleToggleNextPaymentModal: () => void;
-  handleToggleDetailsInArrearsModal: () => void;
+  handleToggleArrearsDetailModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -64,9 +64,9 @@ function CreditUI(props: CreditUIProps) {
     productsOptions,
     credit_id,
     nextPaymentModal,
-    detailsInArrearsModal,
+    arrearsDetailModal,
     handleToggleNextPaymentModal,
-    handleToggleDetailsInArrearsModal,
+    handleToggleArrearsDetailModal,
     handleChangeProduct,
   } = props;
 
@@ -160,12 +160,12 @@ function CreditUI(props: CreditUIProps) {
                     ))}
 
                     {nextPaymentDate?.value === "Inmediato" &&
-                      detailsInArrearsModal.data && (
+                      arrearsDetailModal.data && (
                         <BoxAttribute
                           label="Detalle de mora:"
                           buttonIcon={<MdOpenInNew />}
                           buttonValue="Ver"
-                          onClickButton={handleToggleDetailsInArrearsModal}
+                          onClickButton={handleToggleArrearsDetailModal}
                           withButton
                         />
                       )}
@@ -221,11 +221,11 @@ function CreditUI(props: CreditUIProps) {
           nextPaymentData={nextPaymentModal.data}
         />
       )}
-      {detailsInArrearsModal.show && detailsInArrearsModal.data && (
-        <DetailsInArrearsModal
+      {arrearsDetailModal.show && arrearsDetailModal.data && (
+        <ArrearsDetailModal
           portalId="modals"
-          onCloseModal={handleToggleDetailsInArrearsModal}
-          detailsInArrearsData={detailsInArrearsModal.data}
+          onCloseModal={handleToggleArrearsDetailModal}
+          arrearsData={arrearsDetailModal.data}
         />
       )}
     </>

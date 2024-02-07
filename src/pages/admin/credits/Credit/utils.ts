@@ -97,7 +97,7 @@ const getInArrearsData = (selectedProduct: IProduct) => {
   );
 
   const inArrearsValue = selectedProduct.attributes.find(
-    (attr) => attr.id === "in_Arrears_Value",
+    (attr) => attr.id === "in_arrears_value",
   );
 
   return {

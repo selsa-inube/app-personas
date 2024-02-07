@@ -7,7 +7,7 @@ import { CreditsContext } from "src/context/credits";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditUI } from "./interface";
 import {
-  IDetailsInArrearsModalState,
+  IArrearsDetailModalState,
   INextPaymentModalState,
   ISelectedProductState,
 } from "./types";
@@ -28,8 +28,8 @@ function Credit() {
     useState<INextPaymentModalState>({
       show: false,
     });
-  const [detailsInArrearsModal, setDetailsInArrearsModal] =
-    useState<IDetailsInArrearsModalState>({
+  const [arrearsDetailModal, setArrearsDetailModal] =
+    useState<IArrearsDetailModalState>({
       show: false,
     });
   const { credits, setCredits } = useContext(CreditsContext);
@@ -69,8 +69,8 @@ function Credit() {
       selectedProduct.credit,
     );
 
-    setDetailsInArrearsModal({
-      ...detailsInArrearsModal,
+    setArrearsDetailModal({
+      ...arrearsDetailModal,
       data: {
         daysPastDue,
         inArrearsValue,
@@ -130,8 +130,8 @@ function Credit() {
     }));
   };
 
-  const handleToggleDetailsInArrearsModal = () => {
-    setDetailsInArrearsModal((prevState) => ({
+  const handleToggleArrearsDetailModal = () => {
+    setArrearsDetailModal((prevState) => ({
       ...prevState,
       show: !prevState.show,
     }));
@@ -145,9 +145,9 @@ function Credit() {
       isMobile={isMobile}
       credit_id={credit_id}
       nextPaymentModal={nextPaymentModal}
-      detailsInArrearsModal={detailsInArrearsModal}
+      arrearsDetailModal={arrearsDetailModal}
       handleToggleNextPaymentModal={handleToggleNextPaymentModal}
-      handleToggleDetailsInArrearsModal={handleToggleDetailsInArrearsModal}
+      handleToggleArrearsDetailModal={handleToggleArrearsDetailModal}
       handleChangeProduct={handleChangeProduct}
     />
   );
