@@ -1,7 +1,7 @@
 import { VitePWAOptions } from "vite-plugin-pwa";
 
 const manifestPWA: VitePWAOptions = {
-  registerType: "prompt",
+  registerType: "autoUpdate",
   injectRegister: "auto",
   minify: false,
   workbox: {},
