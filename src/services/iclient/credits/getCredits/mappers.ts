@@ -4,7 +4,7 @@ import {
   guaranteeTypeValuesMock,
   peridiocityValuesMock,
 } from "@mocks/products/credits/utils.mocks";
-import { IProduct, ProductType } from "src/model/entity/product";
+import { IAttribute, IProduct, ProductType } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
 
@@ -44,8 +44,21 @@ const mapCreditApiToEntity = (
     Object(credit.accumulatedByObligations)[0].PenalityInterestBalance;
 
   const nextPaymentValue =
-    Object(credit.valueExpired)?.totalPending ||
-    Object(credit.nextPaymentValue).totalPending;
+    Number(
+      Object(credit.valueExpired)?.capitalValuePending ||
+        Object(credit.nextPaymentValue).capitalValuePending ||
+        0,
+    ) +
+    Number(
+      Object(credit.valueExpired)?.interestValuePending ||
+        Object(credit.nextPaymentValue).interestValuePending ||
+        0,
+    ) +
+    Number(
+      (Object(credit.accumulatedByObligations).length > 0 &&
+        Object(credit.accumulatedByObligations)[0].PenalityInterestBalance) ||
+        0,
+    );
 
   const normalizedPaymentMethodName = capitalizeText(
     String(credit.paymentMethodName).toLowerCase(),
@@ -57,7 +70,7 @@ const mapCreditApiToEntity = (
   const roundInteresRate =
     interesRate == 0 ? interesRate : interesRate.toFixed(2);
 
-  const attributes = [
+  const attributes: IAttribute[] = [
     {
       id: "loan_date",
       label: "Fecha de préstamo",
@@ -66,7 +79,7 @@ const mapCreditApiToEntity = (
     {
       id: "loan_value",
       label: "Valor del préstamo",
-      value: credit.amount,
+      value: String(credit.amount),
     },
     {
       id: "next_payment_date",
@@ -81,12 +94,12 @@ const mapCreditApiToEntity = (
     {
       id: "dues_paid",
       label: "Cuotas pagadas",
-      value: duesPaid || 0,
+      value: Number(duesPaid || 0),
     },
     {
       id: "outstanding_dues",
       label: "Cuotas pendientes",
-      value: outstandingDues || 0,
+      value: Number(outstandingDues || 0),
     },
     {
       id: "peridiocity",

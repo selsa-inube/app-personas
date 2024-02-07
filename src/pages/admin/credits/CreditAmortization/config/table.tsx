@@ -2,7 +2,7 @@ import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { IAmortization } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
+import { formatPrimaryDate, parseSpanishDate } from "src/utils/dates";
 import { ViewPayment } from "../../MyCredits/ViewPayment";
 
 const mapCreditPayment = (payment: IEntry): IAmortization => {
@@ -59,8 +59,25 @@ const creditAmortizationTableActions: IAction[] = [
   },
 ];
 
+const customAppearanceCallback = (columnId: string, entry: IEntry) => {
+  if (columnId === "date") {
+    const today = new Date();
+    today.setUTCHours(5, 5, 5, 5);
+
+    const entryDate = new Date(parseSpanishDate(entry.date));
+    entryDate.setUTCHours(5, 5, 5, 5);
+
+    if (today > entryDate) {
+      return "error";
+    }
+  }
+
+  return "dark";
+};
+
 export {
   amortizationNormalizeEntries,
   creditAmortizationTableActions,
+  customAppearanceCallback,
   mapCreditPayment,
 };
