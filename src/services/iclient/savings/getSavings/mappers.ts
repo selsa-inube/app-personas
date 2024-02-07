@@ -29,13 +29,14 @@ const mapSavingsApiToEntity = (
         .sort((a, b) => b.date.getTime() - a.date.getTime())
     : [];
 
+  const creditMovementPesos =
+    Object(savings.accumulatedSavingProducts)[0]?.creditMovementPesos || 0;
+
   const attributes = [
     {
       id: "net_value",
       label: "Saldo total",
-      value: Number(
-        Object(savings.accumulatedSavingProducts)[0].creditMovementPesos,
-      ),
+      value: Number(creditMovementPesos),
     },
     {
       id: "beneficiaries",

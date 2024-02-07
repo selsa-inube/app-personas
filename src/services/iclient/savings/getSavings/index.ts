@@ -59,6 +59,7 @@ const getSavingsForUser = async (
 
       return normalizedSavings;
     } catch (error) {
+      console.error(error);
       if (attempt === maxRetries) {
         throw new Error(
           "Todos los intentos fallaron. No se pudieron obtener los productos de ahorro del usuario.",
