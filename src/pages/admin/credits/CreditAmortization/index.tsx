@@ -16,13 +16,11 @@ import { useContext, useEffect, useState } from "react";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditsContext } from "src/context/credits";
-import {
-  amortizationTableBreakpoints,
-  amortizationTableTitles,
-} from "../MyCredits/config/tables";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import {
   amortizationNormalizeEntries,
+  amortizationTableBreakpoints,
+  amortizationTableTitles,
   creditAmortizationTableActions,
   customAppearanceCallback,
 } from "./config/table";

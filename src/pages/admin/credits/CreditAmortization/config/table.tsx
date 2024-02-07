@@ -10,7 +10,6 @@ const mapCreditPayment = (payment: IEntry): IAmortization => {
     id: payment?.id,
     date: payment?.date,
     type: payment?.type,
-    paymentNumber: payment?.paymentNumber,
     capitalPayment: payment?.capitalPayment,
     interest: payment?.interest,
     lifeInsurance: payment?.lifeInsurance,
@@ -59,6 +58,45 @@ const creditAmortizationTableActions: IAction[] = [
   },
 ];
 
+const amortizationTableTitles = [
+  {
+    id: "date",
+    titleName: "Fecha",
+    priority: 1,
+  },
+  {
+    id: "type",
+    titleName: "Tipo",
+    priority: 2,
+  },
+  {
+    id: "capitalPayment",
+    titleName: "Abono",
+    priority: 3,
+  },
+  {
+    id: "interest",
+    titleName: "Interés",
+    priority: 4,
+  },
+  {
+    id: "others",
+    titleName: "Otros",
+    priority: 5,
+  },
+];
+
+const amortizationTableBreakpoints = [
+  { breakpoint: "(min-width: 1200px)", totalColumns: 6 },
+  { breakpoint: "(max-width: 1130px)", totalColumns: 5 },
+  { breakpoint: "(max-width: 970px)", totalColumns: 4 },
+  { breakpoint: "(max-width: 900px)", totalColumns: 6 },
+  { breakpoint: "(max-width: 850px)", totalColumns: 5 },
+  { breakpoint: "(max-width: 750px)", totalColumns: 4 },
+  { breakpoint: "(max-width: 650px)", totalColumns: 3 },
+  { breakpoint: "(max-width: 430px)", totalColumns: 2 },
+];
+
 const customAppearanceCallback = (columnId: string, entry: IEntry) => {
   if (columnId === "date") {
     const today = new Date();
@@ -77,6 +115,8 @@ const customAppearanceCallback = (columnId: string, entry: IEntry) => {
 
 export {
   amortizationNormalizeEntries,
+  amortizationTableBreakpoints,
+  amortizationTableTitles,
   creditAmortizationTableActions,
   customAppearanceCallback,
   mapCreditPayment,

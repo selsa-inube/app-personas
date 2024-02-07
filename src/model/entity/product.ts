@@ -24,9 +24,8 @@ interface IMovement {
 
 interface IAmortization {
   id: string;
-  paymentNumber: number;
   date: Date;
-  type:string;
+  type: string;
   capitalPayment?: number;
   interest: number;
   lifeInsurance?: number;
@@ -50,6 +49,13 @@ interface ICommitment {
 }
 
 type ProductType = "CA" | "CD" | "AP" | "CL" | "CE" | "APE" | "AS";
+
+enum pollo {
+  dsds,
+  aaa,
+}
+
+pollo.aaa;
 
 interface IProduct {
   id: string;
