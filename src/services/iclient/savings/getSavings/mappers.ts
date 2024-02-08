@@ -69,7 +69,7 @@ const getProductDetails = (
 const mapSavingsApiToEntity = (
   savings: Record<string, string | number | object>,
 ): IProduct => {
-  const productType = Object(savings.productType).code;
+  const productType: ProductType = Object(savings.productType).code;
 
   const beneficiaries = Array.isArray(savings.savingBeneficiaries)
     ? savings.savingBeneficiaries.map((beneficiary) => ({
@@ -109,7 +109,7 @@ const mapSavingsApiToEntity = (
     },
   ];
 
-  const { title, description, productTypeValue } = getProductDetails(
+  const { title, description } = getProductDetails(
     productType,
     String(savings.productNumber),
   );
@@ -118,7 +118,7 @@ const mapSavingsApiToEntity = (
     id: String(savings.productNumber),
     title,
     description,
-    type: productTypeValue as ProductType,
+    type: productType,
     attributes: attributes,
     movements: movements,
     amortization: [],
@@ -133,7 +133,9 @@ const mapSavingsApiToEntities = (
     .map((savings) => mapSavingsApiToEntity(savings))
     .filter(
       (savings) =>
-        savings.type === "PERMANENTSAVINGS" || savings.type === "CONTRIBUTIONS",
+        (savings.type === permanentSavingsCode &&
+          savings.id.startsWith("201")) ||
+        savings.type === socialContributionsCode,
     )
     .sort((a, b) => a.id.localeCompare(b.id));
 };

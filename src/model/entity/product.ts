@@ -53,17 +53,10 @@ type ProductType =
   | "PERMANENTSAVINGS"
   | "CONTRIBUTIONS"
   // | "CL"
-  // | "CE"
+  //| "CE"
   | "CA"
   | "CD";
   ;
-
-enum pollo {
-  dsds,
-  aaa,
-}
-
-pollo.aaa;
 
 interface IProduct {
   id: string;
