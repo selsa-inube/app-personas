@@ -43,9 +43,7 @@ function Home() {
       productsCommitments={[]}
       savingsAccountsMock={[]}
       savingsCommitmentsMock={[]}
-      savingsStatutoryContributionsMock={savings.filter((saving) =>
-        saving.id.startsWith("200"),
-      )}
+      savingsStatutoryContributions={savings}
       cdats={[]}
       programmedSavings={[]}
       credits={credits}

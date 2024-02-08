@@ -73,7 +73,7 @@ function renderMySavingsContent(
   productsCommitments: ICommitment[],
   savingsAccountsMock: IProduct[],
   savingsCommitmentsMock: ICommitment[],
-  savingsStatutoryContributionsMock: IProduct[],
+  savingsStatutoryContributions: IProduct[],
   loading: boolean,
   cdats?: IProduct[],
   programmedSavings?: IProduct[],
@@ -90,7 +90,7 @@ function renderMySavingsContent(
               {!loading &&
                 savingsAccountsMock &&
                 savingsAccountsMock.length === 0 &&
-                savingsStatutoryContributionsMock.length === 0 &&
+                savingsStatutoryContributions.length === 0 &&
                 cdats &&
                 cdats.length === 0 &&
                 programmedSavings &&
@@ -125,7 +125,7 @@ function renderMySavingsContent(
               </Stack>
             </Stack>
             <Stack direction="column" gap="s200">
-              {savingsStatutoryContributionsMock.length > 0 && (
+              {savingsStatutoryContributions.length > 0 && (
                 <Text type="label" size="medium">
                   Aportes estatutarios
                 </Text>
@@ -138,8 +138,8 @@ function renderMySavingsContent(
                   </>
                 ) : (
                   <>
-                    {savingsStatutoryContributionsMock.length !== 0 &&
-                      savingsStatutoryContributionsMock.map((saving) => (
+                    {savingsStatutoryContributions.length !== 0 &&
+                      savingsStatutoryContributions.map((saving) => (
                         <Product
                           key={saving.id}
                           title={saving.title}
@@ -204,7 +204,7 @@ function renderMySavingsContent(
               </Stack>
             )}
             {(savingsAccountsMock.length > 0 ||
-              savingsStatutoryContributionsMock.length > 0 ||
+              savingsStatutoryContributions.length > 0 ||
               (cdats && cdats.length > 0) ||
               (programmedSavings && programmedSavings.length > 0) ||
               productsCommitments.length > 0) && (
@@ -213,7 +213,7 @@ function renderMySavingsContent(
                   Total Ahorrado :
                 </Text>
                 <Text type="body" size="medium" appearance="gray">
-                  {sumNetValue(savingsStatutoryContributionsMock)}
+                  {sumNetValue(savingsStatutoryContributions)}
                 </Text>
               </Stack>
             )}
@@ -239,7 +239,7 @@ interface MySavingsUIProps {
   productsCommitments: ICommitment[];
   savingsAccountsMock: IProduct[];
   savingsCommitmentsMock: ICommitment[];
-  savingsStatutoryContributionsMock: IProduct[];
+  savingsStatutoryContributions: IProduct[];
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
   loading: boolean;
@@ -250,7 +250,7 @@ function MySavingsUI(props: MySavingsUIProps) {
     productsCommitments,
     savingsAccountsMock,
     savingsCommitmentsMock,
-    savingsStatutoryContributionsMock,
+    savingsStatutoryContributions,
     cdats,
     programmedSavings,
     loading,
@@ -274,7 +274,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             productsCommitments,
             savingsAccountsMock,
             savingsCommitmentsMock,
-            savingsStatutoryContributionsMock,
+            savingsStatutoryContributions,
             loading,
             cdats,
             programmedSavings,
@@ -290,7 +290,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             productsCommitments,
             savingsAccountsMock,
             savingsCommitmentsMock,
-            savingsStatutoryContributionsMock,
+            savingsStatutoryContributions,
             loading,
             cdats,
             programmedSavings,

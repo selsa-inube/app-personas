@@ -8,10 +8,10 @@ import {
 
 const savingsAccountIcons: Record<string, React.JSX.Element> = {
   CA: <MdOutlineAccountBalanceWallet />,
-  APE: <MdOutlineHandshake />,
-  AS: <MdOutlineHandshake />,
+  PERMANENTSAVINGS: <MdOutlineHandshake />,
+  CONTRIBUTIONS: <MdOutlineHandshake />,
   CD: <MdOutlineRealEstateAgent />,
-  AP: <MdOutlineTimer />,
+  PROGRAMMEDSAVINGS: <MdOutlineTimer />,
 };
 
 const savingsAccountBox = (type: string) => ({
@@ -25,12 +25,12 @@ const savingCommitmentsIcons: Record<string, React.JSX.Element> = {
 };
 
 const investmentCommitmentsIcons: Record<string, React.JSX.Element> = {
-  AP: <MdCalendarMonth />,
+  PROGRAMMEDSAVINGS: <MdCalendarMonth />,
 };
 
 const investmentIcons: Record<string, React.JSX.Element> = {
   CD: <MdOutlineRealEstateAgent />,
-  AP: <MdOutlineTimer />,
+  PROGRAMMEDSAVINGS: <MdOutlineTimer />,
 };
 
 const investmentBox = (type: string) => ({

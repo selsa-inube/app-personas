@@ -36,7 +36,7 @@ interface IAmortization {
   projectedBalance: number;
 }
 
-type CommitmentType = "AP" | "0S" | "SC";
+type CommitmentType = "PROGRAMMEDSAVINGS" | "0S" | "SC";
 
 interface ICommitment {
   id: string;
@@ -48,14 +48,15 @@ interface ICommitment {
   tag?: TagProps;
 }
 
-type ProductType = "CA" | "CD" | "AP" | "CL" | "CE" | "APE" | "AS";
-
-enum pollo {
-  dsds,
-  aaa,
-}
-
-pollo.aaa;
+type ProductType =
+  | "PROGRAMMEDSAVINGS"
+  | "PERMANENTSAVINGS"
+  | "CONTRIBUTIONS"
+  // | "CL"
+  //| "CE"
+  | "CA"
+  | "CD";
+  ;
 
 interface IProduct {
   id: string;
