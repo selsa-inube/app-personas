@@ -1,13 +1,61 @@
-import { IProduct, ProductType } from "src/model/entity/product";
 import {
   permanentSavingsCode,
   socialContributionsCode,
 } from "@pages/admin/savings/MySavings/config/products";
+import { IMovement, IProduct, ProductType } from "src/model/entity/product";
 import { capitalizeFirstLetters } from "src/utils/texts";
+
+const mapSavingProductMovementsApiToEntity = (
+  movement: Record<string, string | number | object>,
+): IMovement => {
+  const buildMovement: IMovement = {
+    id: String(movement.movementId),
+    date: new Date(String(movement.movementDate)),
+    reference: String(movement.movementNumber),
+    description: capitalizeFirstLetters(String(movement.movementDescription)),
+    totalValue: Number(
+      movement.creditMovementPesos || movement.debitMovementPesos,
+    ),
+  };
+  return buildMovement;
+};
+
+const mapSavingProductMovementsApiToEntities = (
+  movements: Record<string, string | number | object>[],
+): IMovement[] => {
+  return movements
+    .map(mapSavingProductMovementsApiToEntity)
+    .filter((movement) => movement.totalValue > 0)
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+};
+
+const getProductDetails = (
+  productTypeCode: ProductType,
+  productNumber: string,
+) => {
+  let title = "";
+  let description = "";
+  let productTypeValue: ProductType = "" as ProductType;
+
+  if (productTypeCode === "PERMANENTSAVINGS") {
+    title = "Ahorros permanentes";
+    description = `Ahorros permanentes ${productNumber}`;
+    productTypeValue = permanentSavingsCode;
+  }
+  if (productTypeCode === "CONTRIBUTIONS") {
+    title = "Aportes sociales";
+    description = `Aportes sociales ${productNumber}`;
+    productTypeValue = socialContributionsCode;
+  }
+
+  return { title, description, productTypeValue };
+};
 
 const mapSavingsApiToEntity = (
   savings: Record<string, string | number | object>,
 ): IProduct => {
+  const productType = Object(savings.productType).code;
+
   const beneficiaries = Array.isArray(savings.savingBeneficiaries)
     ? savings.savingBeneficiaries.map((beneficiary) => ({
         id: beneficiary.beneficiaryId,
@@ -17,20 +65,21 @@ const mapSavingsApiToEntity = (
     : [];
 
   const movements = Array.isArray(savings.lastMovementTheSavingProducts)
-    ? savings.lastMovementTheSavingProducts
-        .map((movement) => ({
-          id: movement.movementId,
-          date: new Date(String(movement.movementDate)),
-          reference: movement.movementNumber,
-          description: capitalizeFirstLetters(movement.movementDescription),
-          totalValue:
-            movement.creditMovementPesos || movement.debitMovementPesos,
-        }))
-        .sort((a, b) => b.date.getTime() - a.date.getTime())
+    ? mapSavingProductMovementsApiToEntities(
+        savings.lastMovementTheSavingProducts,
+      )
+    : [];
+
+  const accumulatedSavingProducts = Array.isArray(
+    savings.accumulatedSavingProducts,
+  )
+    ? savings.accumulatedSavingProducts
     : [];
 
   const creditMovementPesos =
-    Object(savings.accumulatedSavingProducts)[0]?.creditMovementPesos || 0;
+    accumulatedSavingProducts.length > 0
+      ? Object(accumulatedSavingProducts[0]).creditMovementPesos
+      : 0;
 
   const attributes = [
     {
@@ -45,37 +94,16 @@ const mapSavingsApiToEntity = (
     },
   ];
 
-  const permanentSavings =
-    typeof savings.productType === "object" &&
-    "code" in savings.productType &&
-    savings.productType.code === "PERMANENTSAVINGS";
-
-  const contributions =
-    typeof savings.productType === "object" &&
-    "code" in savings.productType &&
-    savings.productType.code === "CONTRIBUTIONS";
-
-  let productType: ProductType = String() as ProductType;
-  let title = "";
-  let description = "";
-
-  if (contributions) {
-    title = "Aportes sociales";
-    description = `Aportes sociales ${savings.productNumber}`;
-    productType = socialContributionsCode as ProductType;
-  }
-
-  if (savings.productCatalogCode === "1" && permanentSavings) {
-    title = "Ahorros permanentes";
-    description = `Ahorros permanentes ${savings.productNumber}`;
-    productType = permanentSavingsCode as ProductType;
-  }
+  const { title, description, productTypeValue } = getProductDetails(
+    productType,
+    String(savings.productNumber),
+  );
 
   return {
     id: String(savings.productNumber),
     title,
     description,
-    type: productType,
+    type: productTypeValue,
     attributes: attributes,
     movements: movements,
     amortization: [],
@@ -86,7 +114,18 @@ const mapSavingsApiToEntity = (
 const mapSavingsApiToEntities = (
   savings: Record<string, string | number | object>[],
 ): IProduct[] => {
-  return savings.map((savings) => mapSavingsApiToEntity(savings));
+  return savings
+    .map((savings) => mapSavingsApiToEntity(savings))
+    .filter(
+      (savings) =>
+        savings.type === "PERMANENTSAVINGS" || savings.type === "CONTRIBUTIONS",
+    )
+    .sort((a, b) => a.id.localeCompare(b.id));
 };
 
-export { mapSavingsApiToEntity, mapSavingsApiToEntities };
+export {
+  mapSavingProductMovementsApiToEntities,
+  mapSavingProductMovementsApiToEntity,
+  mapSavingsApiToEntities,
+  mapSavingsApiToEntity,
+};

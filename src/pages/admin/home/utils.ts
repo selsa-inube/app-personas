@@ -21,7 +21,7 @@ const getSavingProducts = (types: string[]) => {
 };
 
 const savingsAccountsMock = getSavingProducts([savingAccountCode]);
-const savingsStatutoryContributionsMock = getSavingProducts([
+const savingsStatutoryContributions = getSavingProducts([
   permanentSavingsCode,
   socialContributionsCode,
 ]);
@@ -54,5 +54,5 @@ export {
   getSavingsAttributes,
   productsCommitments,
   savingsAccountsMock,
-  savingsStatutoryContributionsMock,
+  savingsStatutoryContributions,
 };

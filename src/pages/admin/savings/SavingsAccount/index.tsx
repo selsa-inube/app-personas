@@ -15,10 +15,6 @@ import {
   ISelectedProductState,
 } from "./types";
 import { useAuth } from "@inube/auth";
-import {
-  permanentSavingsCode,
-  socialContributionsCode,
-} from "../MySavings/config/products";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -115,11 +111,6 @@ function SavingsAccount() {
 
     setProductsOptions(
       newSavings
-        .filter(
-          (saving) =>
-            saving.type === permanentSavingsCode ||
-            saving.type === socialContributionsCode,
-        )
         .map((saving) => ({
           id: saving.id,
           value: saving.description,

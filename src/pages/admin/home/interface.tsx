@@ -47,7 +47,7 @@ function renderHomeContent(
   productsCommitments: ICommitment[],
   savingsAccountsMock: IProduct[],
   savingsCommitmentsMock: ICommitment[],
-  savingsStatutoryContributionsMock: IProduct[],
+  savingsStatutoryContributions: IProduct[],
   credits: IProduct[],
   loadingCredits: boolean,
   loadingSavings: boolean,
@@ -67,7 +67,7 @@ function renderHomeContent(
                 !loadingCredits &&
                 savingsAccountsMock &&
                 savingsAccountsMock.length === 0 &&
-                savingsStatutoryContributionsMock.length === 0 &&
+                savingsStatutoryContributions.length === 0 &&
                 cdats &&
                 cdats.length === 0 &&
                 programmedSavings &&
@@ -102,7 +102,7 @@ function renderHomeContent(
               </Stack>
             </Stack>
             <Stack direction="column" gap="s200">
-              {savingsStatutoryContributionsMock.length > 0 && (
+              {savingsStatutoryContributions.length > 0 && (
                 <Text type="label" size="medium">
                   Aportes estatutarios
                 </Text>
@@ -115,8 +115,8 @@ function renderHomeContent(
                   </>
                 ) : (
                   <>
-                    {savingsStatutoryContributionsMock.length !== 0 &&
-                      savingsStatutoryContributionsMock.map((saving) => (
+                    {savingsStatutoryContributions.length !== 0 &&
+                      savingsStatutoryContributions.map((saving) => (
                         <Product
                           key={saving.id}
                           title={saving.title}
@@ -181,7 +181,7 @@ function renderHomeContent(
               </Stack>
             )}
             {(savingsAccountsMock.length > 0 ||
-              savingsStatutoryContributionsMock.length > 0 ||
+              savingsStatutoryContributions.length > 0 ||
               (cdats && cdats.length > 0) ||
               (programmedSavings && programmedSavings.length > 0) ||
               productsCommitments.length > 0) && (
@@ -190,7 +190,7 @@ function renderHomeContent(
                   Total Ahorrado :
                 </Text>
                 <Text type="body" size="medium" appearance="gray">
-                  {sumNetValue(savingsStatutoryContributionsMock)}
+                  {sumNetValue(savingsStatutoryContributions)}
                 </Text>
               </Stack>
             )}
@@ -270,7 +270,7 @@ interface HomeUIProps {
   productsCommitments: ICommitment[];
   savingsAccountsMock: IProduct[];
   savingsCommitmentsMock: ICommitment[];
-  savingsStatutoryContributionsMock: IProduct[];
+  savingsStatutoryContributions: IProduct[];
   credits: IProduct[];
   loadingCredits: boolean;
   loadingSavings: boolean;
@@ -283,7 +283,7 @@ function HomeUI(props: HomeUIProps) {
     productsCommitments,
     savingsAccountsMock,
     savingsCommitmentsMock,
-    savingsStatutoryContributionsMock,
+    savingsStatutoryContributions,
     cdats,
     programmedSavings,
     credits,
@@ -328,7 +328,7 @@ function HomeUI(props: HomeUIProps) {
             productsCommitments,
             savingsAccountsMock,
             savingsCommitmentsMock,
-            savingsStatutoryContributionsMock,
+            savingsStatutoryContributions,
             credits,
             loadingCredits,
             loadingSavings,
@@ -346,7 +346,7 @@ function HomeUI(props: HomeUIProps) {
             productsCommitments,
             savingsAccountsMock,
             savingsCommitmentsMock,
-            savingsStatutoryContributionsMock,
+            savingsStatutoryContributions,
             credits,
             loadingCredits,
             loadingSavings,

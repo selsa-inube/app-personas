@@ -3,10 +3,6 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
-import {
-  permanentSavingsCode,
-  socialContributionsCode,
-} from "./config/products";
 
 function MySavings() {
   const { savings, setSavings } = useContext(SavingsContext);
@@ -33,11 +29,7 @@ function MySavings() {
       productsCommitments={[]}
       savingsAccountsMock={[]}
       savingsCommitmentsMock={[]}
-      savingsStatutoryContributionsMock={savings.filter(
-        (saving) =>
-          saving.type === permanentSavingsCode ||
-          saving.type === socialContributionsCode,
-      )}
+      savingsStatutoryContributions={savings}
       cdats={[]}
       programmedSavings={[]}
       loading={loading}
