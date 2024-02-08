@@ -1,5 +1,8 @@
 import {
+  cdatCode,
   permanentSavingsCode,
+  programmedSavingCode,
+  savingAccountCode,
   socialContributionsCode,
 } from "@pages/admin/savings/MySavings/config/products";
 import { IMovement, IProduct, ProductType } from "src/model/entity/product";
@@ -33,22 +36,34 @@ const getProductDetails = (
   productTypeCode: ProductType,
   productNumber: string,
 ) => {
-  let title = "";
-  let description = "";
-  let productTypeValue: ProductType = "" as ProductType;
-
-  if (productTypeCode === "PERMANENTSAVINGS") {
-    title = "Ahorros permanentes";
-    description = `Ahorros permanentes ${productNumber}`;
-    productTypeValue = permanentSavingsCode;
-  }
-  if (productTypeCode === "CONTRIBUTIONS") {
-    title = "Aportes sociales";
-    description = `Aportes sociales ${productNumber}`;
-    productTypeValue = socialContributionsCode;
-  }
-
-  return { title, description, productTypeValue };
+  const details = {
+    PERMANENTSAVINGS: {
+      title: "Ahorros permanentes",
+      description: `Ahorros permanentes ${productNumber}`,
+      productTypeValue: permanentSavingsCode,
+    },
+    CONTRIBUTIONS: {
+      title: "Aportes sociales",
+      description: `Aportes sociales ${productNumber}`,
+      productTypeValue: socialContributionsCode,
+    },
+    PROGRAMMEDSAVINGS: {
+      title: "",
+      description: "",
+      productTypeValue: programmedSavingCode,
+    },
+    CA: {
+      title: "",
+      description: "",
+      productTypeValue: savingAccountCode,
+    },
+    CD: {
+      title: "",
+      description: "",
+      productTypeValue: cdatCode,
+    },
+  };
+  return details[productTypeCode] || {};
 };
 
 const mapSavingsApiToEntity = (
@@ -103,7 +118,7 @@ const mapSavingsApiToEntity = (
     id: String(savings.productNumber),
     title,
     description,
-    type: productTypeValue,
+    type: productTypeValue as ProductType,
     attributes: attributes,
     movements: movements,
     amortization: [],

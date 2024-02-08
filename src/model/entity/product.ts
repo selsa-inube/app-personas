@@ -52,10 +52,11 @@ type ProductType =
   | "PROGRAMMEDSAVINGS"
   | "PERMANENTSAVINGS"
   | "CONTRIBUTIONS"
-  | "CL"
-  | "CE"
+  // | "CL"
+  // | "CE"
   | "CA"
   | "CD";
+  ;
 
 enum pollo {
   dsds,
