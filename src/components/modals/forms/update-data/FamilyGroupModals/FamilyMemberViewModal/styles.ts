@@ -3,12 +3,14 @@ import styled from "styled-components";
 
 interface IStyledModal {
   smallScreen: boolean;
+  midScreen: boolean;
 }
 
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
-  width: ${({ smallScreen }) => (smallScreen ? "312px" : "616px")};
-  height: ${({ smallScreen }) => (smallScreen ? "592px" : "auto")};
+  width: ${({ smallScreen, midScreen }) =>
+    smallScreen ? "280px" : midScreen ? "568px" : "952px"};
+  height: ${({ smallScreen }) => (smallScreen ? "560px" : "auto")};
   padding: ${inube.spacing.s300};
   flex-direction: column;
   gap: ${inube.spacing.s250};

@@ -32,17 +32,19 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
   const { portalId, formik, onCloseModal, onEdit, onDelete } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
+  const isTablet = useMediaQuery("(max-width: 1100px)");
+
   const node = document.getElementById(portalId);
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal smallScreen={isMobile} midScreen={isTablet}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">
@@ -68,7 +70,12 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
-            <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+            <Grid
+              gap="s200"
+              templateColumns={
+                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
+              }
+            >
               <Select
                 label="Tipo de documento"
                 placeholder=""
@@ -142,7 +149,12 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
-            <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+            <Grid
+              gap="s200"
+              templateColumns={
+                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
+              }
+            >
               <TextField
                 label="Celular"
                 name="cellPhone"
@@ -172,7 +184,12 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
-            <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+            <Grid
+              gap="s200"
+              templateColumns={
+                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
+              }
+            >
               <Select
                 label="Parentesco"
                 placeholder=""
@@ -256,16 +273,21 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
           </Fieldset>
         </StyledScrollbar>
         <Stack gap="s150">
-          <Button appearance="gray" onClick={onDelete}>
+          <Button
+            appearance="error"
+            variant="outlined"
+            spacing={"compact"}
+            onClick={onDelete}
+          >
             Eliminar
           </Button>
-          <Button appearance="primary" onClick={onEdit}>
+          <Button appearance="primary" spacing={"compact"} onClick={onEdit}>
             Editar
           </Button>
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 
