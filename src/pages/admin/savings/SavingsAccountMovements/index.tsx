@@ -1,12 +1,11 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { useEffect, useState } from "react";
+import { useAuth } from "@inube/auth";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { SavingsContext } from "src/context/savings";
+import { validateSaving } from "../SavingsAccount/utils";
 import { SavingsAccountMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
-import { SavingsContext } from "src/context/savings";
-import { useContext } from "react";
-import { validateSaving } from "../SavingsAccount/utils";
-import { useAuth } from "@inube/auth";
 import { addMovementsToSaving } from "./utils";
 
 function SavingsAccountMovements() {
@@ -22,12 +21,13 @@ function SavingsAccountMovements() {
   const handleSortProduct = async () => {
     if (!product_id || !user || !accessToken) return;
 
-    const { selectedSavings, newSavings } = await validateSaving(
-      savings,
-      product_id,
-      user.identification,
-      accessToken,
-    );
+    const { selectedSavings, newSavings, combinedSavings } =
+      await validateSaving(
+        savings,
+        product_id,
+        user.identification,
+        accessToken,
+      );
 
     setSavings(newSavings);
 
@@ -40,11 +40,10 @@ function SavingsAccountMovements() {
     });
 
     setProductsOptions(
-      newSavings
-        .map((saving) => ({
-          id: saving.id,
-          value: saving.description,
-        })),
+      combinedSavings.map((saving) => ({
+        id: saving.id,
+        value: saving.description,
+      })),
     );
   };
 

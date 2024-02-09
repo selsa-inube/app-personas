@@ -3,12 +3,12 @@ import { bankData } from "@mocks/domains/bank";
 import { suppliersTypeData } from "@mocks/domains/suppliersType";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
-import { savingAccountCode } from "@pages/admin/savings/MySavings/config/products";
 import { IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { statusDM } from "src/model/domains/general/statusdm";
 import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
+import { EProductType } from "src/model/entity/product";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -94,7 +94,7 @@ const commonFields = {
     size: "compact",
     placeholder: "",
     options: savingsMock
-      .filter((product) => product.type === savingAccountCode)
+      .filter((product) => product.type === EProductType.VIEWSAVINGS)
       .map((product) => ({
         value: product.description,
         id: product.id,

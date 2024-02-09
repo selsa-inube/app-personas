@@ -83,9 +83,9 @@ function formatSavingCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function sumNetValue(savingsStatutoryContributions: IProduct[]) {
+function sumNetValue(savingsContributions: IProduct[]) {
   let total = 0;
-  for (const product of savingsStatutoryContributions) {
+  for (const product of savingsContributions) {
     for (const attribute of product.attributes) {
       if (attribute.id === "net_value") {
         total += Number(attribute.value);
@@ -124,13 +124,13 @@ const savingAttributeBreakpoints = {
 
 export {
   creditAttributeBreakpoints,
-  investmentAttributeBreakpoints,
-  savingAttributeBreakpoints,
   extractCreditAttributes,
   extractInvestmentAttributes,
   extractSavingAttributes,
   formatCreditCurrencyAttrs,
   formatInvestmentCurrencyAttrs,
   formatSavingCurrencyAttrs,
+  investmentAttributeBreakpoints,
+  savingAttributeBreakpoints,
   sumNetValue,
 };
