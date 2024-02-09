@@ -37,8 +37,29 @@ const renderQuotaSummary = (values: IQuotaEntry) => (
         />
         <BoxAttribute
           label="Numero de cuenta:"
-          value={values.accountDescription}
+          value={
+            values.accountToDebit === "internalOwnAccountDebit"
+              ? values.accountDescription
+              : values.accountNumber
+          }
         />
+
+        {values.accountToDebit === "externalOwnAccountDebit" &&
+          values.accountType &&
+          values.bankEntity && (
+            <>
+              <BoxAttribute
+                label="Tipo de cuenta:"
+                value={
+                  getValueOfDomain(values.accountType, "accountType")?.value
+                }
+              />
+              <BoxAttribute
+                label="Entidad bancaria:"
+                value={getValueOfDomain(values.bankEntity, "bank")?.value}
+              />
+            </>
+          )}
       </>
     )}
   </Stack>

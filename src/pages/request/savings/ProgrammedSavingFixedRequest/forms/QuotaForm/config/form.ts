@@ -28,6 +28,7 @@ const forbiddenOptionsMap: IDynamicFormOptions = {
     peridiocityDM.SINGLE.id,
     peridiocityDM.QUARTERLY.id,
   ],
+  automaticDebit: [peridiocityDM.SINGLE.id, peridiocityDM.QUARTERLY.id],
   payrollDiscount: [
     peridiocityDM.SINGLE.id,
     peridiocityDM.QUARTERLY.id,

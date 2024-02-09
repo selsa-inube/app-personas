@@ -7,6 +7,8 @@ interface IQuotaEntry {
   accountToDebit?: string;
   accountNumber?: string;
   accountDescription?: string;
+  accountType?: string;
+  bankEntity?: string;
 }
 
 export type { IQuotaEntry };

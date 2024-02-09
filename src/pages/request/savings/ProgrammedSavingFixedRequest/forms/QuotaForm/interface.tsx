@@ -18,11 +18,7 @@ interface QuotaFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   renderFields: IFormField[];
-  accountOptions: ISelectOption[];
   savingOptions: ISelectOption[];
-  customHandleAccountToDebit: (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => void;
   customHandleAccount: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   customHandleChange: (
     event: React.ChangeEvent<
@@ -37,9 +33,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
     formik,
     loading,
     renderFields,
-    accountOptions,
     savingOptions,
-    customHandleAccountToDebit,
     customHandleAccount,
     customHandleChange,
   } = props;
@@ -124,31 +118,100 @@ function QuotaFormUI(props: QuotaFormUIProps) {
                 onBlur={formik.handleBlur}
                 onClick={formik.handleClick}
                 onFocus={formik.handleFocus}
-                onChange={customHandleAccountToDebit}
+                onChange={formik.handleChange}
                 readOnly={savingOptions.length < 1}
                 isDisabled={loading}
                 isFullWidth
               />
-              <Select
-                label="Numero de cuenta"
-                name="accountNumber"
-                id="accountNumber"
-                value={formik.values.accountNumber}
-                size="compact"
-                options={accountOptions}
-                state={getFieldState(formik, "accountNumber")}
-                errorMessage={formik.errors.accountNumber}
-                onBlur={formik.handleBlur}
-                onClick={formik.handleClick}
-                onFocus={formik.handleFocus}
-                onChange={customHandleAccount}
-                readOnly={
-                  savingOptions.length === 1 || accountOptions.length === 1
-                }
-                isDisabled={loading}
-                isFullWidth
-                isRequired
-              />
+
+              {formik.values.accountToDebit === "externalOwnAccountDebit" ? (
+                <>
+                  <Select
+                    label="Tipo de cuenta"
+                    name="accountType"
+                    id="accountType"
+                    value={formik.values.accountType}
+                    size="compact"
+                    options={getDomainById("accountType")}
+                    state={getFieldState(formik, "accountType")}
+                    errorMessage={formik.errors.accountType}
+                    onBlur={formik.handleBlur}
+                    onClick={formik.handleClick}
+                    onFocus={formik.handleFocus}
+                    onChange={formik.handleChange}
+                    isDisabled={loading}
+                    isFullWidth
+                  />
+                  <Select
+                    label="Entidad bancaria"
+                    name="bankEntity"
+                    id="bankEntity"
+                    value={formik.values.bankEntity}
+                    size="compact"
+                    options={getDomainById("bank")}
+                    state={getFieldState(formik, "bankEntity")}
+                    errorMessage={formik.errors.bankEntity}
+                    onBlur={formik.handleBlur}
+                    onClick={formik.handleClick}
+                    onFocus={formik.handleFocus}
+                    onChange={formik.handleChange}
+                    isDisabled={loading}
+                    isFullWidth
+                  />
+                  <TextField
+                    label="Numero de cuenta"
+                    placeholder={
+                      savingOptions.length === 1 ||
+                      !formik.values.accountToDebit
+                        ? ""
+                        : "Digita el número de cuenta"
+                    }
+                    name="accountNumber"
+                    id="accountNumber"
+                    type="number"
+                    value={formik.values.accountNumber}
+                    errorMessage={formik.errors.accountNumber}
+                    isDisabled={loading}
+                    size="compact"
+                    isFullWidth
+                    state={getFieldState(formik, "accountNumber")}
+                    onBlur={formik.handleBlur}
+                    onFocus={formik.handleFocus}
+                    onChange={formik.handleChange}
+                    validMessage="El numero de cuenta es válido"
+                    readOnly={
+                      savingOptions.length === 1 ||
+                      !formik.values.accountToDebit
+                    }
+                  />
+                </>
+              ) : (
+                <Select
+                  label="Numero de cuenta"
+                  name="accountNumber"
+                  id="accountNumber"
+                  placeholder={
+                    savingOptions.length === 1 || !formik.values.accountToDebit
+                      ? ""
+                      : "Digita el número de cuenta"
+                  }
+                  value={formik.values.accountNumber}
+                  size="compact"
+                  options={savingOptions}
+                  state={getFieldState(formik, "accountNumber")}
+                  errorMessage={formik.errors.accountNumber}
+                  onBlur={formik.handleBlur}
+                  onClick={formik.handleClick}
+                  onFocus={formik.handleFocus}
+                  onChange={customHandleAccount}
+                  readOnly={
+                    savingOptions.length === 1 || !formik.values.accountToDebit
+                  }
+                  isDisabled={loading}
+                  isFullWidth
+                  isRequired
+                />
+              )}
             </>
           )}
         </Grid>

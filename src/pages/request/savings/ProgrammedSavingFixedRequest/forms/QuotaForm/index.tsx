@@ -10,13 +10,14 @@ import { filterPeriodicityOptions, structureQuotaForm } from "./config/form";
 import { QuotaFormUI } from "./interface";
 import { IQuotaEntry } from "./types";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { usersMock } from "@mocks/users/users.mocks";
 
 const initValidationSchema = Yup.object({
   periodicValue: validationRules.money.required(validationMessages.required),
   paymentMethod: Yup.string().required(validationMessages.required),
   periodicity: Yup.string().required(validationMessages.required),
   paydayTypeToSelect: Yup.string(),
+  accountType: Yup.string(),
+  bankEntity: Yup.string(),
   paydayByDate: validationRules.notPastDate,
 });
 
@@ -53,31 +54,6 @@ const QuotaForm = forwardRef(function QuotaForm(
 
   let valuePeriodicity = formik.values.periodicity;
 
-  const customHandleAccountToDebit = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    formik.handleChange(event);
-    if (event.target.value === "internalOwnAccountDebit") {
-      const internalAccounts = savingsMock.filter(
-        (saving) => saving.type === "CA",
-      );
-      formik.setFieldValue("accountNumber", internalAccounts[0].id);
-      formik.setFieldValue(
-        "accountDescription",
-        internalAccounts[0].description,
-      );
-    } else if (event.target.value === "externalOwnAccountDebit") {
-      formik.setFieldValue(
-        "accountNumber",
-        String(usersMock[0].bankTransfersAccount.accountNumber),
-      );
-      formik.setFieldValue(
-        "accountDescription",
-        usersMock[0].bankTransfersAccount.description,
-      );
-    }
-  };
-
   const customHandleAccount = (event: React.ChangeEvent<HTMLSelectElement>) => {
     formik.handleChange(event);
     const internalAccounts = savingsMock.filter(
@@ -89,16 +65,6 @@ const QuotaForm = forwardRef(function QuotaForm(
   const savingOptions = savingsMock
     .filter((saving) => saving.type === "CA")
     .map((saving) => ({ id: saving.id, value: saving.description }));
-
-  const accountOptions =
-    formik.values.accountToDebit === "internalOwnAccountDebit"
-      ? savingOptions
-      : usersMock
-          .filter((user) => user.bankTransfersAccount)
-          .map((user) => ({
-            id: String(user.bankTransfersAccount.accountNumber),
-            value: user.bankTransfersAccount.description,
-          }));
 
   useEffect(() => {
     if (formik.values.paymentMethod) {
@@ -124,22 +90,26 @@ const QuotaForm = forwardRef(function QuotaForm(
         validationSchema: validationSchema.concat(newValidationSchema),
       });
     }
+  }, []);
 
+  useEffect(() => {
     if (
-      savingOptions.length < 1 &&
-      formik.values.accountToDebit !== "externalOwnAccountDebit"
+      savingOptions.length === 1 &&
+      formik.values.accountToDebit === "internalOwnAccountDebit"
     ) {
-      formik.setFieldValue("refundMethod", "externalOwnAccountDebit");
-      formik.setFieldValue(
-        "accountNumber",
-        String(usersMock[0].bankTransfersAccount.accountNumber),
+      const internalAccounts = savingsMock.filter(
+        (saving) => saving.type === "CA",
       );
+      formik.setFieldValue("accountNumber", internalAccounts[0].id);
       formik.setFieldValue(
         "accountDescription",
-        usersMock[0].bankTransfersAccount.description,
+        internalAccounts[0].description,
       );
     }
-  }, []);
+    if (formik.values.accountToDebit !== initialValues.accountToDebit) {
+      formik.setFieldValue("accountNumber", "");
+    }
+  }, [formik.values.accountToDebit]);
 
   useEffect(() => {
     if (formik.dirty) {
@@ -214,9 +184,7 @@ const QuotaForm = forwardRef(function QuotaForm(
       formik={formik}
       renderFields={dynamicForm.renderFields}
       savingOptions={savingOptions}
-      accountOptions={accountOptions}
       customHandleChange={customHandleChange}
-      customHandleAccountToDebit={customHandleAccountToDebit}
       customHandleAccount={customHandleAccount}
     />
   );
