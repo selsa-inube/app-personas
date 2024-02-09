@@ -2,13 +2,15 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledModal {
-  smallScreen: boolean;
+  isMobile: boolean;
+  isTablet: boolean;
 }
 
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
-  width: ${({ smallScreen }) => (smallScreen ? "312px" : "616px")};
-  height: ${({ smallScreen }) => (smallScreen ? "592px" : "auto")};
+  width: ${({ isMobile, isTablet }) =>
+    isMobile ? "280px" : isTablet ? "568px" : "952px"};
+  height: ${({ isMobile }) => (isMobile ? "560px" : "auto")};
   padding: ${inube.spacing.s300};
   flex-direction: column;
   gap: ${inube.spacing.s250};
@@ -19,19 +21,19 @@ const StyledModal = styled.div<IStyledModal>`
 `;
 
 interface IStyledScrollbar {
-  smallScreen: boolean;
+  isMobile: boolean;
 }
 
 const StyledScrollbar = styled.div<IStyledScrollbar>`
-  height: ${({ smallScreen }) => (smallScreen ? "446px" : "auto")};
+  height: ${({ isMobile }) => (isMobile ? "446px" : "auto")};
   width: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s150 : inube.spacing.s100};
-  padding: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s050 : inube.spacing.s0};
+  gap: ${({ isMobile }) =>
+    isMobile ? inube.spacing.s150 : inube.spacing.s100};
+  padding: ${({ isMobile }) =>
+    isMobile ? inube.spacing.s050 : inube.spacing.s0};
 
   ::-webkit-scrollbar {
     width: 4px;

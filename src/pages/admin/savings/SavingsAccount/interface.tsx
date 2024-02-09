@@ -27,7 +27,7 @@ import {
   savingsAccountMovementsTableBreakpoints,
   savingsAccountMovementsTableTitles,
 } from "../SavingsAccountMovements/config/table";
-import { crumbsSaving } from "./config/navigation";
+import { crumbsSaving, crumbsSaving } from "./config/navigation";
 import {
   investmentCommitmentsIcons,
   savingCommitmentsIcons,
@@ -41,15 +41,8 @@ import {
   ISelectedProductState,
 } from "./types";
 
-import {
-  cdatCode,
-  programmedSavingCode,
-  savingAccountCode,
-} from "../MySavings/config/products";
-import {
-  extractSavingAttributes,
-  formatSavingCurrencyAttrs,
-} from "./config/product";
+import { EProductType } from "src/model/entity/product";
+import { extractSavingAttributes } from "./config/product";
 
 interface SavingsAccountUIProps {
   isMobile?: boolean;
@@ -95,8 +88,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
   };
 
   const isInvestment =
-    selectedProduct.saving.type === cdatCode ||
-    selectedProduct.saving.type === programmedSavingCode;
+    selectedProduct.saving.type === EProductType.CDAT ||
+    selectedProduct.saving.type === EProductType.PROGRAMMEDSAVINGS;
 
   return (
     <>
@@ -147,7 +140,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                     value={attr.value}
                   />
                 ))}
-                {selectedProduct.saving.type === programmedSavingCode && (
+                {selectedProduct.saving.type ===
+                  EProductType.PROGRAMMEDSAVINGS && (
                   <BoxAttribute
                     label="Cuenta para reembolso:"
                     buttonIcon={<MdOpenInNew />}
@@ -156,7 +150,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                     withButton
                   />
                 )}
-                {selectedProduct.saving.type !== savingAccountCode && (
+                {selectedProduct.saving.type !== EProductType.VIEWSAVINGS && (
                   <BoxAttribute
                     label="Beneficiarios:"
                     buttonIcon={<MdOpenInNew />}
@@ -165,7 +159,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                     withButton
                   />
                 )}
-                {selectedProduct.saving.type !== cdatCode && (
+                {selectedProduct.saving.type !== EProductType.CDAT && (
                   <BoxAttribute
                     label="Compromisos de ahorro:"
                     buttonIcon={<MdOpenInNew />}
@@ -177,34 +171,34 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               </Grid>
             </Stack>
           </Box>
-          {selectedProduct.saving.type !== cdatCode && (
-            <Stack direction="column" gap="s200" alignItems="flex-start">
-              <Text type="title" size="medium">
-                Últimos movimientos
-              </Text>
-              <StyledMovementsContainer>
-                <Table
-                  portalId="modals"
-                  titles={savingsAccountMovementsTableTitles}
-                  breakpoints={savingsAccountMovementsTableBreakpoints}
-                  actions={savingsAccountMovementsTableActions}
-                  entries={savingAccountMovementsNormalizeEntries(
-                    selectedProduct.saving.movements || [],
-                  ).slice(0, 5)}
-                  pageLength={selectedProduct.saving.movements?.length || 0}
-                  hideMobileResume
-                />
-                <Button
-                  spacing="compact"
-                  iconBefore={<MdOutlineAssignmentTurnedIn />}
-                  path={`/my-savings/account/${productId}/movements`}
-                  type="link"
-                >
-                  Movimientos
-                </Button>
-              </StyledMovementsContainer>
-            </Stack>
-          )}
+          <Stack direction="column" gap="s200" alignItems="flex-start">
+            <Text type="label" size="large">
+              {selectedProduct.saving.type === EProductType.CDAT
+                ? "Pago de intereses"
+                : "Últimos movimientos"}
+            </Text>
+            <StyledMovementsContainer>
+              <Table
+                portalId="modals"
+                titles={savingsAccountMovementsTableTitles}
+                breakpoints={savingsAccountMovementsTableBreakpoints}
+                actions={savingsAccountMovementsTableActions}
+                entries={savingAccountMovementsNormalizeEntries(
+                  selectedProduct.saving.movements || [],
+                ).slice(0, 5)}
+                pageLength={selectedProduct.saving.movements?.length || 0}
+                hideMobileResume
+              />
+              <Button
+                spacing="compact"
+                iconBefore={<MdOutlineAssignmentTurnedIn />}
+                path={`/my-savings/account/${productId}/movements`}
+                type="link"
+              >
+                Movimientos
+              </Button>
+            </StyledMovementsContainer>
+          </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>

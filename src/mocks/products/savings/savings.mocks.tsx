@@ -1,10 +1,10 @@
-import { IProduct } from "src/model/entity/product";
+import { EProductType, IProduct } from "src/model/entity/product";
 
 const savingsMock: IProduct[] = [
   {
     title: "Cuenta familiar",
     id: "013001157292",
-    type: "VIEWSAVINGS",
+    type: EProductType.VIEWSAVINGS,
     description: "Cuenta familiar - 013001157292",
     attributes: [
       {
@@ -270,7 +270,7 @@ const savingsMock: IProduct[] = [
   {
     title: "Cuenta de ahorros",
     id: "013001162025",
-    type: "VIEWSAVINGS",
+    type: EProductType.VIEWSAVINGS,
     description: "Cuenta de ahorros - 013001162025",
     attributes: [
       {
@@ -540,14 +540,9 @@ const savingsMock: IProduct[] = [
   {
     title: "Aportes sociales",
     id: "200-91214069",
-    type: "CONTRIBUTIONS",
+    type: EProductType.CONTRIBUTIONS,
     description: "Aportes sociales 200 - 91214069",
     attributes: [
-      {
-        id: "saved_value",
-        label: "Saldo total",
-        value: 7642790,
-      },
       {
         id: "net_value",
         label: "Saldo total",
@@ -909,14 +904,9 @@ const savingsMock: IProduct[] = [
   {
     title: "Ahorro permanente",
     id: "201-91214069",
-    type: "PERMANENTSAVINGS",
+    type: EProductType.PERMANENTSAVINGS,
     description: "Ahorro permanente 201 - 91214069",
     attributes: [
-      {
-        id: "saved_value",
-        label: "Saldo total",
-        value: 1980656,
-      },
       {
         id: "net_value",
         label: "Saldo total",

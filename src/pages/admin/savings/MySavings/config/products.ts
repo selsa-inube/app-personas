@@ -1,18 +1,12 @@
 import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
-const programmedSavingCode = "PROGRAMMEDSAVINGS";
-const permanentSavingsCode = "PERMANENTSAVINGS";
-const socialContributionsCode = "CONTRIBUTIONS";
-const savingAccountCode = "VIEWSAVINGS";
-const cdatCode = "CD";
-
 const mySavingsAttributes = ["net_value"];
 
 const mySavingsCurrencyAttributes = ["net_value"];
 
-function extractMySavingsAttributes(credit: IProduct) {
-  const foundAttributes = credit.attributes.filter((attribute) =>
+function extractMySavingsAttributes(saving: IProduct) {
+  const foundAttributes = saving.attributes.filter((attribute) =>
     mySavingsAttributes.includes(attribute.id),
   );
 
@@ -44,12 +38,7 @@ const mySavingsAttributeBreakpoints = {
 };
 
 export {
-  cdatCode,
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
   mySavingsAttributeBreakpoints,
-  permanentSavingsCode,
-  programmedSavingCode,
-  savingAccountCode,
-  socialContributionsCode,
 };

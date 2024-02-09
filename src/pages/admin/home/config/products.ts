@@ -83,9 +83,9 @@ function formatSavingCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function sumNetValue(savings: IProduct[]) {
+function sumNetValue(savingsContributions: IProduct[]) {
   let total = 0;
-  for (const product of savings) {
+  for (const product of savingsContributions) {
     for (const attribute of product.attributes) {
       if (attribute.id === "net_value") {
         total += Number(attribute.value);

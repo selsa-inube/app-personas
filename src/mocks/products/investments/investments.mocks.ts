@@ -1,11 +1,11 @@
-import { IProduct } from "src/model/entity/product";
+import { EProductType, IProduct } from "src/model/entity/product";
 
 const investmentsMock: IProduct[] = [
   {
     id: "2-22100619",
     title: "CDAT",
     description: "CDAT 2 - 22100619",
-    type: "CD",
+    type: EProductType.CDAT,
     attributes: [
       {
         id: "title",
@@ -66,7 +66,7 @@ const investmentsMock: IProduct[] = [
     id: "2-23110125",
     title: "Ahorro programado",
     description: "Ahorro programado 2 - 23110125",
-    type: "PROGRAMMEDSAVINGS",
+    type: EProductType.PROGRAMMEDSAVINGS,
     attributes: [
       {
         id: "saved_value",

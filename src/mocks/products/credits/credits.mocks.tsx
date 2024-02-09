@@ -1,11 +1,11 @@
-import { IProduct } from "src/model/entity/product";
+import { EProductType, IProduct } from "src/model/entity/product";
 
 const creditsMock: IProduct[] = [
   {
     id: "10-231016759",
     title: "Fanáticos viajeros",
     description: "Fanáticos viajeros 10 - 2310167593",
-    type: "CD", // "CE",
+    type: EProductType.CDAT,
     attributes: [
       { id: "net_value", label: "Saldo total", value: 7025550 },
       {
@@ -652,7 +652,7 @@ const creditsMock: IProduct[] = [
     id: "10-220102710",
     title: "Crediaportes",
     description: "Crediaportes 10 - 220102710",
-    type: "CD", //"CL"
+    type: EProductType.CDAT,
     attributes: [
       { id: "net_value", label: "Saldo total", value: 1500000 },
       {

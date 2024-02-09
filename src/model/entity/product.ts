@@ -48,19 +48,18 @@ interface ICommitment {
   tag?: TagProps;
 }
 
-type ProductType =
-  | "PROGRAMMEDSAVINGS"
-  | "PERMANENTSAVINGS"
-  | "CONTRIBUTIONS"
-  // | "CL"
-  //| "CE"
-  | "VIEWSAVINGS"
-  | "CD";
+enum EProductType {
+  PROGRAMMEDSAVINGS = "PROGRAMMEDSAVINGS",
+  PERMANENTSAVINGS = "PERMANENTSAVINGS",
+  CONTRIBUTIONS = "CONTRIBUTIONS",
+  CDAT = "CDAT",
+  VIEWSAVINGS = "VIEWSAVINGS",
+}
 interface IProduct {
   id: string;
   title: string;
   description: string;
-  type: ProductType;
+  type: EProductType;
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
@@ -76,6 +75,8 @@ interface IRate {
   annualEffectiveRate: string;
 }
 
+export { EProductType };
+
 export type {
   IAmortization,
   IAttribute,
@@ -83,5 +84,4 @@ export type {
   IMovement,
   IProduct,
   IRate,
-  ProductType,
 };

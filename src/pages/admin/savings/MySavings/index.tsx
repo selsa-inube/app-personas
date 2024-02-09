@@ -10,7 +10,13 @@ function MySavings() {
   const { user, accessToken } = useAuth();
 
   useEffect(() => {
-    if (user && accessToken && savings.length === 0) {
+    const combinedSavings = [
+      ...savings.savingsAccounts,
+      ...savings.savingsContributions,
+      ...savings.cdats,
+      ...savings.programmedSavings,
+    ];
+    if (user && accessToken && combinedSavings.length === 0) {
       setLoading(true);
       getSavingsForUser(user?.identification, accessToken)
         .then((savings) => {
@@ -37,10 +43,9 @@ function MySavings() {
   return (
     <MySavingsUI
       productsCommitments={[]}
-      savingsAccounts={savingsAccounts}
-      savingsCommitments={savingsAccounts}
-      savingsStatutoryContributions={savingsStatutoryContributions}
-      cdats={[]}
+      savingsAccounts={[]}
+      savingsContributions={savings.savingsContributions}
+      cdats={savings.cdats}
       programmedSavings={[]}
       loading={loading}
     />
