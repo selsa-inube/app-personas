@@ -24,9 +24,8 @@ interface IMovement {
 
 interface IAmortization {
   id: string;
-  paymentNumber: number;
   date: Date;
-  type:string;
+  type: string;
   capitalPayment?: number;
   interest: number;
   lifeInsurance?: number;
@@ -37,7 +36,7 @@ interface IAmortization {
   projectedBalance: number;
 }
 
-type CommitmentType = "AP" | "0S" | "SC";
+type CommitmentType = "PROGRAMMEDSAVINGS" | "0S" | "SC";
 
 interface ICommitment {
   id: string;
@@ -49,7 +48,15 @@ interface ICommitment {
   tag?: TagProps;
 }
 
-type ProductType = "CA" | "CD" | "AP" | "CL" | "CE" | "APE" | "AS";
+type ProductType =
+  | "PROGRAMMEDSAVINGS"
+  | "PERMANENTSAVINGS"
+  | "CONTRIBUTIONS"
+  // | "CL"
+  //| "CE"
+  | "CA"
+  | "CD";
+  ;
 
 interface IProduct {
   id: string;

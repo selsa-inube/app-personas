@@ -16,14 +16,13 @@ import { useContext, useEffect, useState } from "react";
 import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditsContext } from "src/context/credits";
-import {
-  amortizationTableBreakpoints,
-  amortizationTableTitles,
-} from "../MyCredits/config/tables";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import {
   amortizationNormalizeEntries,
+  amortizationTableBreakpoints,
+  amortizationTableTitles,
   creditAmortizationTableActions,
+  customAppearanceCallback,
 } from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
@@ -142,6 +141,7 @@ function CreditAmortization() {
               subtitle={selectedProduct.option.id}
               icon={<MdOutlineAttachMoney size={34} />}
               collapsing={{ start: true, allow: false }}
+              tags={selectedProduct.credit.tags}
             >
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
                 {attributes?.map((attr) => (
@@ -162,6 +162,7 @@ function CreditAmortization() {
                 entries={amortizationNormalizeEntries(
                   selectedProduct.credit.amortization,
                 )}
+                customAppearance={customAppearanceCallback}
                 hideMobileResume
               />
             </StyledAmortizationContainer>

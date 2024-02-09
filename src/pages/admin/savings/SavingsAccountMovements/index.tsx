@@ -41,7 +41,6 @@ function SavingsAccountMovements() {
 
     setProductsOptions(
       newSavings
-        .filter((saving) => saving.id.startsWith("200"))
         .map((saving) => ({
           id: saving.id,
           value: saving.description,

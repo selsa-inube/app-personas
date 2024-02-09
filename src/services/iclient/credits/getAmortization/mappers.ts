@@ -15,7 +15,6 @@ const mapCreditAmortizationApiToEntity = (
 
   const buildPayment: IAmortization = {
     id: String(payment.paymentPlanId),
-    paymentNumber: Number(payment.quotaNumber),
     date: new Date(String(payment.quotaDate)),
     type: amortizationTableValuesMock[Object(payment.quotaType).code],
     others,
@@ -48,7 +47,7 @@ const mapCreditAmortizationApiToEntities = (
 ): IAmortization[] => {
   return payments
     .map((payment) => mapCreditAmortizationApiToEntity(payment))
-    .sort((a, b) => a.paymentNumber - b.paymentNumber);
+    .sort((a, b) => b.date.getTime() - a.date.getTime())
 };
 
 export { mapCreditAmortizationApiToEntities, mapCreditAmortizationApiToEntity };

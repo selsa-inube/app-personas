@@ -1,10 +1,76 @@
-import { IProduct, ProductType } from "src/model/entity/product";
-import { socialContributionsCode } from "@pages/admin/savings/MySavings/config/products";
+import {
+  cdatCode,
+  permanentSavingsCode,
+  programmedSavingCode,
+  savingAccountCode,
+  socialContributionsCode,
+} from "@pages/admin/savings/MySavings/config/products";
+import { IMovement, IProduct, ProductType } from "src/model/entity/product";
 import { capitalizeFirstLetters } from "src/utils/texts";
+
+const mapSavingProductMovementsApiToEntity = (
+  movement: Record<string, string | number | object>,
+): IMovement => {
+  const buildMovement: IMovement = {
+    id: String(movement.movementId),
+    date: new Date(String(movement.movementDate)),
+    reference: String(movement.movementNumber),
+    description: capitalizeFirstLetters(String(movement.movementDescription)),
+    totalValue: Number(
+      movement.creditMovementPesos || movement.debitMovementPesos,
+    ),
+  };
+  return buildMovement;
+};
+
+const mapSavingProductMovementsApiToEntities = (
+  movements: Record<string, string | number | object>[],
+): IMovement[] => {
+  return movements
+    .map(mapSavingProductMovementsApiToEntity)
+    .filter((movement) => movement.totalValue > 0)
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+};
+
+const getProductDetails = (
+  productTypeCode: ProductType,
+  productNumber: string,
+) => {
+  const details = {
+    PERMANENTSAVINGS: {
+      title: "Ahorros permanentes",
+      description: `Ahorros permanentes ${productNumber}`,
+      productTypeValue: permanentSavingsCode,
+    },
+    CONTRIBUTIONS: {
+      title: "Aportes sociales",
+      description: `Aportes sociales ${productNumber}`,
+      productTypeValue: socialContributionsCode,
+    },
+    PROGRAMMEDSAVINGS: {
+      title: "",
+      description: "",
+      productTypeValue: programmedSavingCode,
+    },
+    CA: {
+      title: "",
+      description: "",
+      productTypeValue: savingAccountCode,
+    },
+    CD: {
+      title: "",
+      description: "",
+      productTypeValue: cdatCode,
+    },
+  };
+  return details[productTypeCode] || {};
+};
 
 const mapSavingsApiToEntity = (
   savings: Record<string, string | number | object>,
 ): IProduct => {
+  const productType: ProductType = Object(savings.productType).code;
+
   const beneficiaries = Array.isArray(savings.savingBeneficiaries)
     ? savings.savingBeneficiaries.map((beneficiary) => ({
         id: beneficiary.beneficiaryId,
@@ -14,22 +80,27 @@ const mapSavingsApiToEntity = (
     : [];
 
   const movements = Array.isArray(savings.lastMovementTheSavingProducts)
-    ? savings.lastMovementTheSavingProducts.map((movement) => ({
-        id: movement.movementId,
-        date: new Date(String(movement.movementDate)),
-        reference: movement.movementNumber,
-        description: capitalizeFirstLetters(movement.movementDescription),
-        totalValue: movement.creditMovementPesos || movement.debitMovementPesos,
-      }))
+    ? mapSavingProductMovementsApiToEntities(
+        savings.lastMovementTheSavingProducts,
+      )
     : [];
+
+  const accumulatedSavingProducts = Array.isArray(
+    savings.accumulatedSavingProducts,
+  )
+    ? savings.accumulatedSavingProducts
+    : [];
+
+  const creditMovementPesos =
+    accumulatedSavingProducts.length > 0
+      ? Object(accumulatedSavingProducts[0]).creditMovementPesos
+      : 0;
 
   const attributes = [
     {
       id: "net_value",
       label: "Saldo total",
-      value: Number(
-        Object(savings.accumulatedSavingProducts)[0].creditMovementPesos,
-      ),
+      value: Number(creditMovementPesos),
     },
     {
       id: "beneficiaries",
@@ -38,18 +109,15 @@ const mapSavingsApiToEntity = (
     },
   ];
 
-  let productType: ProductType = String() as ProductType;
-  if (
-    savings.productCatalogCode === "1" ||
-    savings.productCatalogCode === "1A"
-  ) {
-    productType = socialContributionsCode as ProductType;
-  }
+  const { title, description } = getProductDetails(
+    productType,
+    String(savings.productNumber),
+  );
 
   return {
     id: String(savings.productNumber),
-    title: "Aportes sociales",
-    description: `Aportes sociales ${savings.productNumber}`,
+    title,
+    description,
     type: productType,
     attributes: attributes,
     movements: movements,
@@ -61,7 +129,20 @@ const mapSavingsApiToEntity = (
 const mapSavingsApiToEntities = (
   savings: Record<string, string | number | object>[],
 ): IProduct[] => {
-  return savings.map((savings) => mapSavingsApiToEntity(savings));
+  return savings
+    .map((savings) => mapSavingsApiToEntity(savings))
+    .filter(
+      (savings) =>
+        (savings.type === permanentSavingsCode &&
+          savings.id.startsWith("201")) ||
+        savings.type === socialContributionsCode,
+    )
+    .sort((a, b) => a.id.localeCompare(b.id));
 };
 
-export { mapSavingsApiToEntity, mapSavingsApiToEntities };
+export {
+  mapSavingProductMovementsApiToEntities,
+  mapSavingProductMovementsApiToEntity,
+  mapSavingsApiToEntities,
+  mapSavingsApiToEntity,
+};

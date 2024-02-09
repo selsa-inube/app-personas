@@ -84,7 +84,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
         <StyledBodyHead>
           <Stack direction="column" gap="s050">
             <Text type="title" size="medium" appearance="dark">
-              Cuota {payment.paymentNumber} - {payment.date}
+              Cuota {payment.date}
             </Text>
             <Stack gap="s100">
               <Text type="label" size={isMobile ? "small" : "medium"}>

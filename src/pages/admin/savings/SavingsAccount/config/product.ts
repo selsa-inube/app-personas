@@ -2,10 +2,10 @@ import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
 const productsAttributes: Record<string, string[]> = {
+  PROGRAMMEDSAVINGS: ["saved_value", "interest_rate"],
+  PERMANENTSAVINGS: ["saved_value", "withdrawal_balance", "pending_payment"],
+  CONTRIBUTIONS: ["saved_value"],
   CA: ["net_value", "min_value", "account_state", "account_gmf"],
-  AP: ["saved_value", "interest_rate"],
-  APE: ["saved_value", "withdrawal_balance", "pending_payment"],
-  AS: ["saved_value"],
   CD: [
     "title",
     "net_value",
@@ -18,10 +18,10 @@ const productsAttributes: Record<string, string[]> = {
 };
 
 const savingCurrencyAttributes: Record<string, string[]> = {
+  PROGRAMMEDSAVINGS: ["saved_value"],
+  PERMANENTSAVINGS: ["saved_value", "pending_payment", "withdrawal_balance"],
+  CONTRIBUTIONS: ["saved_value", "pending_payment", "withdrawal_balance"],
   CA: ["net_value", "min_value"],
-  AP: ["saved_value"],
-  APE: ["saved_value", "pending_payment", "withdrawal_balance"],
-  AS: ["saved_value", "pending_payment", "withdrawal_balance"],
   CD: ["net_value"],
 };
 

@@ -26,7 +26,6 @@ interface ConditionsFormUIProps {
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
-  customHandleBlur: (event: React.FocusEvent<HTMLElement, Element>) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -36,7 +35,6 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
     loading,
     loadingSimulation,
     simulateCDAT,
-    customHandleBlur,
     customHandleChange,
   } = props;
 
@@ -73,7 +71,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                   size="compact"
                   isFullWidth
                   options={peridiocityDM.options}
-                  onBlur={customHandleBlur}
+                  onBlur={formik.handleBlur}
                   errorMessage={formik.errors.interestPayment}
                   isDisabled={loading}
                   state={getFieldState(formik, "interestPayment")}
@@ -115,7 +113,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       size="compact"
                       isFullWidth
                       state={getFieldState(formik, "deadlineDate")}
-                      onBlur={customHandleBlur}
+                      onBlur={formik.handleBlur}
                       onChange={customHandleChange}
                       validMessage="La fecha de expedición es válida"
                     />
@@ -132,7 +130,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       size="compact"
                       isFullWidth
                       state={getFieldState(formik, "deadlineDays")}
-                      onBlur={customHandleBlur}
+                      onBlur={formik.handleBlur}
                       onChange={customHandleChange}
                       validMessage="El número de días es valido"
                     />

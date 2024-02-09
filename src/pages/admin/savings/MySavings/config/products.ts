@@ -1,10 +1,10 @@
 import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
+const programmedSavingCode = "PROGRAMMEDSAVINGS";
+const permanentSavingsCode = "PERMANENTSAVINGS";
+const socialContributionsCode = "CONTRIBUTIONS";
 const savingAccountCode = "CA";
-const programmedSavingCode = "AP";
-const permanentSavingsCode = "APE";
-const socialContributionsCode = "AS";
 const cdatCode = "CD";
 
 const mySavingsAttributes = ["net_value"];

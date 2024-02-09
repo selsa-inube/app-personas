@@ -5,6 +5,7 @@ import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
 import { SkeletonLine } from "@inube/design-system";
+import { TextAppearanceType } from "@ptypes/color.types";
 import { Text } from "../Text";
 import {
   StyledTable,
@@ -147,6 +148,7 @@ interface TableUIProps {
   mobileResumeTitle?: string;
   colsSameWidth?: boolean;
   withActions: boolean;
+  customAppearance?: (titleId: string, entry: IEntry) => TextAppearanceType;
 }
 
 const TableUI = (props: TableUIProps) => {
@@ -164,6 +166,7 @@ const TableUI = (props: TableUIProps) => {
     mobileResumeTitle,
     colsSameWidth,
     withActions,
+    customAppearance,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 850px)");
@@ -222,7 +225,16 @@ const TableUI = (props: TableUIProps) => {
                 >
                   {titleColumns.map((title) => (
                     <StyledTd key={`e-${title.id}`} withActions={withActions}>
-                      <Text type="body" size="small" appearance="dark" ellipsis>
+                      <Text
+                        type="body"
+                        size="small"
+                        appearance={
+                          customAppearance
+                            ? customAppearance(title.id, entry)
+                            : "dark"
+                        }
+                        ellipsis
+                      >
                         {entry[title.id]}
                       </Text>
                     </StyledTd>
