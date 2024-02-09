@@ -141,7 +141,7 @@ const mapCreditApiToEntity = (
   if (differenceDays) {
     attributes.push({
       id: "days_past_due",
-      label: "Días vencidos",
+      label: "Días de mora",
       value: differenceDays,
     });
   }
@@ -161,18 +161,11 @@ const mapCreditApiToEntity = (
     });
   }
   if (nextPaymentArrearsInterest) {
-    attributes.push(
-      {
-        id: "next_payment_arrears_interest",
-        label: "interés de mora",
-        value: nextPaymentArrearsInterest,
-      },
-      {
-        id: "in_arrears_value",
-        label: "Valor mora",
-        value: nextPaymentArrearsInterest,
-      },
-    );
+    attributes.push({
+      id: "next_payment_arrears_interest",
+      label: "Interés de mora",
+      value: nextPaymentArrearsInterest,
+    });
   }
 
   const tags: TagProps[] = inArrears
