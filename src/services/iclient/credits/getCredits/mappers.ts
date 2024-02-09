@@ -4,7 +4,7 @@ import {
   guaranteeTypeValuesMock,
   peridiocityValuesMock,
 } from "@mocks/products/credits/utils.mocks";
-import { IAttribute, IProduct, ProductType } from "src/model/entity/product";
+import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
 
@@ -192,7 +192,7 @@ const mapCreditApiToEntity = (
     id: String(credit.obligationNumber),
     title: normalizedProductName,
     description: `${normalizedProductName} ${credit.obligationNumber}`,
-    type: String(credit.lineCode) as ProductType,
+    type: String(credit.lineCode) as EProductType,
     attributes,
     movements: [],
     amortization: [],

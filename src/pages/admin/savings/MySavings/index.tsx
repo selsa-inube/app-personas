@@ -1,8 +1,8 @@
-import { MySavingsUI } from "./interface";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
+import { MySavingsUI } from "./interface";
 
 function MySavings() {
   const { savings, setSavings } = useContext(SavingsContext);
@@ -10,7 +10,13 @@ function MySavings() {
   const { user, accessToken } = useAuth();
 
   useEffect(() => {
-    if (user && accessToken && savings.length === 0) {
+    const combinedSavings = [
+      ...savings.savingsAccounts,
+      ...savings.savingsContributions,
+      ...savings.cdats,
+      ...savings.programmedSavings,
+    ];
+    if (user && accessToken && combinedSavings.length === 0) {
       setLoading(true);
       getSavingsForUser(user?.identification, accessToken)
         .then((savings) => {
@@ -27,10 +33,9 @@ function MySavings() {
   return (
     <MySavingsUI
       productsCommitments={[]}
-      savingsAccountsMock={[]}
-      savingsCommitmentsMock={[]}
-      savingsStatutoryContributions={savings}
-      cdats={[]}
+      savingsAccounts={[]}
+      savingsContributions={savings.savingsContributions}
+      cdats={savings.cdats}
       programmedSavings={[]}
       loading={loading}
     />

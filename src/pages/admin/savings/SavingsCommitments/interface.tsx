@@ -14,7 +14,6 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdArrowBack, MdSyncAlt } from "react-icons/md";
-import { truncateAndObfuscateDescription } from "src/utils/texts";
 import {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
@@ -37,7 +36,7 @@ interface SavingsCommitmentsUIProps {
 }
 
 function renderProducts(
-  selectedCommitment: ISelectedCommitmentState["commitment"]["products"]
+  selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
 ) {
   return selectedCommitment.map((commitment) => {
     const products = [...savingsMock, ...investmentsMock];
@@ -48,13 +47,9 @@ function renderProducts(
         <Product
           key={product.id}
           title={product.title}
-          description={truncateAndObfuscateDescription(
-            product.id,
-            product.type,
-            4
-          )}
+          description={product.id}
           attributes={formatMySavingsCurrencyAttrs(
-            extractMySavingsAttributes(product)
+            extractMySavingsAttributes(product),
           )}
           breakpoints={mySavingsAttributeBreakpoints}
           tags={product.tags}
@@ -118,7 +113,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               <Stack direction="column" gap="s100">
                 <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
                   {formatSavingCommitmentsCurrencyAttrs(
-                    selectedCommitment.commitment.attributes
+                    selectedCommitment.commitment.attributes,
                   ).map((attr) => (
                     <BoxAttribute
                       key={attr.id}

@@ -1,25 +1,40 @@
-import { IProduct } from "src/model/entity/product";
+import { ISavingsState } from "src/context/savings/types";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 
 const validateSaving = async (
-  saving: IProduct[],
+  savings: ISavingsState,
   savingId: string,
   userIdentification: string,
   accessToken: string,
 ) => {
-  let currentSaving = [...saving];
+  let currentSaving = { ...savings };
 
-  if (currentSaving.length === 0) {
+  const currentCombinedSavings = [
+    ...currentSaving.savingsAccounts,
+    ...currentSaving.programmedSavings,
+    ...currentSaving.savingsContributions,
+    ...currentSaving.cdats,
+  ];
+
+  if (currentCombinedSavings.length === 0) {
     currentSaving = await getSavingsForUser(userIdentification, accessToken);
   }
 
-  const selectedSavings = currentSaving.find((saving) => {
+  const combinedSavings = [
+    ...currentSaving.savingsAccounts,
+    ...currentSaving.programmedSavings,
+    ...currentSaving.savingsContributions,
+    ...currentSaving.cdats,
+  ];
+
+  const selectedSavings = combinedSavings.find((saving) => {
     return saving.id === savingId;
   });
 
   return {
     selectedSavings,
     newSavings: currentSaving,
+    combinedSavings,
   };
 };
 

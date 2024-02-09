@@ -1,8 +1,8 @@
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
-import { savingAccountCode } from "@pages/admin/savings/MySavings/config/products";
 import { FormikValues } from "formik";
 import { reimbursementTypeDM } from "src/model/domains/economicActivity/reimbursementType";
+import { EProductType } from "src/model/entity/product";
 import { IReimbursementOptions } from "./types";
 
 const optionsFormReimbursement = () => {
@@ -14,7 +14,7 @@ const optionsFormReimbursement = () => {
       },
     ],
     creditToInternalAccount: savingsMock
-      .filter((product) => product.type === savingAccountCode)
+      .filter((product) => product.type === EProductType.VIEWSAVINGS)
       .map((product) => ({
         id: product.description,
         value: product.description,

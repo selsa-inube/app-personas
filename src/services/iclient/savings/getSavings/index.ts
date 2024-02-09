@@ -1,13 +1,19 @@
 import { enviroment } from "@config/enviroment";
-import { IProduct } from "src/model/entity/product";
+import { ISavingsState } from "src/context/savings/types";
 import { mapSavingsApiToEntities } from "./mappers";
 
 const getSavingsForUser = async (
   userIdentification: string,
   accessToken: string,
-): Promise<IProduct[]> => {
+): Promise<ISavingsState> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
+  const emptyResponse = {
+    savingsAccounts: [],
+    programmedSavings: [],
+    savingsContributions: [],
+    cdats: [],
+  };
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -40,7 +46,7 @@ const getSavingsForUser = async (
       clearTimeout(timeoutId);
 
       if (res.status === 204) {
-        return [];
+        return emptyResponse;
       }
 
       const data = await res.json();
@@ -55,7 +61,7 @@ const getSavingsForUser = async (
 
       const normalizedSavings = Array.isArray(data)
         ? mapSavingsApiToEntities(data)
-        : [];
+        : emptyResponse;
 
       return normalizedSavings;
     } catch (error) {
@@ -67,7 +73,7 @@ const getSavingsForUser = async (
     }
   }
 
-  return [];
+  return emptyResponse;
 };
 
 export { getSavingsForUser };

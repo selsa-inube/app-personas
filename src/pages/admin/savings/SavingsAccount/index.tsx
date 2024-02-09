@@ -1,20 +1,19 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useAuth } from "@inube/auth";
 import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { SavingsAccountUI } from "./interface";
 import { SavingsContext } from "src/context/savings";
-import { useContext } from "react";
-import { validateSaving } from "./utils";
+import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
-import { useAuth } from "@inube/auth";
+import { validateSaving } from "./utils";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -93,12 +92,13 @@ function SavingsAccount() {
   const handleSortProduct = async () => {
     if (!product_id || !user || !accessToken) return;
 
-    const { selectedSavings, newSavings } = await validateSaving(
-      savings,
-      product_id,
-      user.identification,
-      accessToken,
-    );
+    const { selectedSavings, newSavings, combinedSavings } =
+      await validateSaving(
+        savings,
+        product_id,
+        user.identification,
+        accessToken,
+      );
 
     setSavings(newSavings);
 
@@ -110,11 +110,10 @@ function SavingsAccount() {
     });
 
     setProductsOptions(
-      newSavings
-        .map((saving) => ({
-          id: saving.id,
-          value: saving.description,
-        })),
+      combinedSavings.map((saving) => ({
+        id: saving.id,
+        value: saving.description,
+      })),
     );
   };
 
