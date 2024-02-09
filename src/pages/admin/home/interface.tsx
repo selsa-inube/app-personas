@@ -180,17 +180,23 @@ function renderHomeContent(
                 </Stack>
               </Stack>
             )}
-            <Stack justifyContent="flex-end" gap="s100" padding="s100">
-              <Text type="label" size="large">
-                Total Ahorrado :
-              </Text>
-              <Text type="body" size="medium" appearance="gray">
-                {sumNetValue([
-                  ...savingsStatutoryContributions,
-                  ...savingsAccounts,
-                ])}
-              </Text>
-            </Stack>
+            {(savingsAccounts.length > 0 ||
+              savingsStatutoryContributions.length > 0 ||
+              (cdats && cdats.length > 0) ||
+              (programmedSavings && programmedSavings.length > 0) ||
+              productsCommitments.length > 0) && (
+              <Stack justifyContent="flex-end" gap="s100" padding="s100">
+                <Text type="label" size="large">
+                  Total Ahorrado :
+                </Text>
+                <Text type="body" size="medium" appearance="gray">
+                  {sumNetValue([
+                    ...savingsStatutoryContributions,
+                    ...savingsAccounts,
+                  ])}
+                </Text>
+              </Stack>
+            )}
             {productsCommitments.length > 0 && (
               <>
                 <Text type="label" size="medium">
