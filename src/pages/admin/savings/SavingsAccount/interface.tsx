@@ -45,9 +45,11 @@ import {
   cdatCode,
   programmedSavingCode,
   savingAccountCode,
-  formatMySavingsCurrencyAttrs,
-  extractMySavingsAttributes,
 } from "../MySavings/config/products";
+import {
+  extractSavingAttributes,
+  formatSavingCurrencyAttrs,
+} from "./config/product";
 
 interface SavingsAccountUIProps {
   isMobile?: boolean;
@@ -81,10 +83,11 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   const attributes =
-    selectedProduct && extractMySavingsAttributes(selectedProduct.saving);
+    selectedProduct && extractSavingAttributes(selectedProduct.saving);
 
   const formatedAttributes =
-    attributes && formatMySavingsCurrencyAttrs(attributes);
+    attributes &&
+    formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type);
 
   const productsIcons = {
     ...savingCommitmentsIcons,

@@ -5,7 +5,7 @@ const productsAttributes: Record<string, string[]> = {
   PROGRAMMEDSAVINGS: ["saved_value", "interest_rate"],
   PERMANENTSAVINGS: ["saved_value", "withdrawal_balance", "pending_payment"],
   CONTRIBUTIONS: ["saved_value"],
-  CA: ["net_value", "min_value", "account_state", "account_gmf"],
+  VIEWSAVINGS: ["net_value", "min_value", "account_state", "account_gmf"],
   CD: [
     "title",
     "net_value",
@@ -21,7 +21,7 @@ const savingCurrencyAttributes: Record<string, string[]> = {
   PROGRAMMEDSAVINGS: ["saved_value"],
   PERMANENTSAVINGS: ["saved_value", "pending_payment", "withdrawal_balance"],
   CONTRIBUTIONS: ["saved_value", "pending_payment", "withdrawal_balance"],
-  CA: ["net_value", "min_value"],
+  VIEWSAVINGS: ["net_value", "min_value"],
   CD: ["net_value"],
 };
 

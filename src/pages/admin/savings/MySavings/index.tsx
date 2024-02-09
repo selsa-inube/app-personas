@@ -1,8 +1,8 @@
-import { MySavingsUI } from "./interface";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
+import { MySavingsUI } from "./interface";
 
 function MySavings() {
   const { savings, setSavings } = useContext(SavingsContext);
@@ -24,12 +24,22 @@ function MySavings() {
         });
     }
   }, [user, accessToken, savings]);
+
+  const savingsAccounts = savings.filter(
+    (savings) => savings.type === "VIEWSAVINGS",
+  );
+
+  const savingsStatutoryContributions = savings.filter(
+    (savings) =>
+      savings.type === "PERMANENTSAVINGS" || savings.type === "CONTRIBUTIONS",
+  );
+
   return (
     <MySavingsUI
       productsCommitments={[]}
-      savingsAccountsMock={[]}
-      savingsCommitmentsMock={[]}
-      savingsStatutoryContributions={savings}
+      savingsAccounts={savingsAccounts}
+      savingsCommitments={savingsAccounts}
+      savingsStatutoryContributions={savingsStatutoryContributions}
       cdats={[]}
       programmedSavings={[]}
       loading={loading}

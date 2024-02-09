@@ -1,13 +1,13 @@
 import {
+  MdCalendarMonth,
   MdOutlineAccountBalanceWallet,
   MdOutlineHandshake,
   MdOutlineRealEstateAgent,
   MdOutlineTimer,
-  MdCalendarMonth,
 } from "react-icons/md";
 
 const savingsAccountIcons: Record<string, React.JSX.Element> = {
-  CA: <MdOutlineAccountBalanceWallet />,
+  VIEWSAVINGS: <MdOutlineAccountBalanceWallet />,
   PERMANENTSAVINGS: <MdOutlineHandshake />,
   CONTRIBUTIONS: <MdOutlineHandshake />,
   CD: <MdOutlineRealEstateAgent />,
@@ -39,10 +39,10 @@ const investmentBox = (type: string) => ({
 });
 
 export {
-  investmentCommitmentsIcons,
-  savingCommitmentsIcons,
-  savingsAccountIcons,
-  investmentIcons,
-  savingsAccountBox,
   investmentBox,
+  investmentCommitmentsIcons,
+  investmentIcons,
+  savingCommitmentsIcons,
+  savingsAccountBox,
+  savingsAccountIcons,
 };

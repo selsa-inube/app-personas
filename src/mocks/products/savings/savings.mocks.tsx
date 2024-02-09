@@ -4,7 +4,7 @@ const savingsMock: IProduct[] = [
   {
     title: "Cuenta familiar",
     id: "013001157292",
-    type: "CA",
+    type: "VIEWSAVINGS",
     description: "Cuenta familiar - 013001157292",
     attributes: [
       {
@@ -270,7 +270,7 @@ const savingsMock: IProduct[] = [
   {
     title: "Cuenta de ahorros",
     id: "013001162025",
-    type: "CA",
+    type: "VIEWSAVINGS",
     description: "Cuenta de ahorros - 013001162025",
     attributes: [
       {

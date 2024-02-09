@@ -4,7 +4,7 @@ import { currencyFormat } from "src/utils/currency";
 const programmedSavingCode = "PROGRAMMEDSAVINGS";
 const permanentSavingsCode = "PERMANENTSAVINGS";
 const socialContributionsCode = "CONTRIBUTIONS";
-const savingAccountCode = "CA";
+const savingAccountCode = "VIEWSAVINGS";
 const cdatCode = "CD";
 
 const mySavingsAttributes = ["net_value"];

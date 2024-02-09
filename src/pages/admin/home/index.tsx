@@ -38,12 +38,21 @@ function Home() {
     }
   }, [user, accessToken]);
 
+  const savingsAccounts = savings.filter(
+    (savings) => savings.type === "VIEWSAVINGS",
+  );
+
+  const savingsStatutoryContributions = savings.filter(
+    (savings) =>
+      savings.type === "PERMANENTSAVINGS" || savings.type === "CONTRIBUTIONS",
+  );
+
   return (
     <HomeUI
       productsCommitments={[]}
-      savingsAccountsMock={[]}
-      savingsCommitmentsMock={[]}
-      savingsStatutoryContributions={savings}
+      savingsAccounts={savingsAccounts}
+      savingsCommitments={savingsAccounts}
+      savingsStatutoryContributions={savingsStatutoryContributions}
       cdats={[]}
       programmedSavings={[]}
       credits={credits}

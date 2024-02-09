@@ -14,6 +14,7 @@ import {
   extractInvestmentAttributes,
   formatInvestmentCurrencyAttrs,
   investmentAttributeBreakpoints,
+  sumNetValue,
 } from "@pages/admin/home/config/products";
 import { StyledCommitmentsContainer } from "@pages/admin/home/styles";
 import { MdArrowBack, MdOutlineAccountBalanceWallet } from "react-icons/md";
@@ -27,7 +28,6 @@ import {
 } from "../SavingsAccount/config/saving";
 import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
-import { sumNetValue } from "@pages/admin/home/config/products";
 import {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
@@ -71,8 +71,8 @@ const renderSavingCommitments = (productsCommitments: ICommitment[]) => {
 
 function renderMySavingsContent(
   productsCommitments: ICommitment[],
-  savingsAccountsMock: IProduct[],
-  savingsCommitmentsMock: ICommitment[],
+  savingsAccounts: IProduct[],
+  savingsCommitments: IProduct[],
   savingsStatutoryContributions: IProduct[],
   loading: boolean,
   cdats?: IProduct[],
@@ -88,8 +88,8 @@ function renderMySavingsContent(
           <Stack direction="column">
             <Stack direction="column" gap="s200">
               {!loading &&
-                savingsAccountsMock &&
-                savingsAccountsMock.length === 0 &&
+                savingsAccounts &&
+                savingsAccounts.length === 0 &&
                 savingsStatutoryContributions.length === 0 &&
                 cdats &&
                 cdats.length === 0 &&
@@ -100,15 +100,15 @@ function renderMySavingsContent(
                     icon={<MdOutlineAccountBalanceWallet />}
                   />
                 )}
-              {savingsCommitmentsMock && savingsCommitmentsMock.length > 0 && (
+              {savingsCommitments && savingsCommitments.length > 0 && (
                 <Text type="label" size="medium">
                   Cuentas
                 </Text>
               )}
               <Stack direction="column" gap="s100">
-                {savingsAccountsMock &&
-                  savingsAccountsMock.length !== 0 &&
-                  savingsAccountsMock.map((saving) => (
+                {savingsAccounts &&
+                  savingsAccounts.length !== 0 &&
+                  savingsAccounts.map((saving) => (
                     <Product
                       key={saving.id}
                       title={saving.title}
@@ -203,7 +203,7 @@ function renderMySavingsContent(
                 </Stack>
               </Stack>
             )}
-            {(savingsAccountsMock.length > 0 ||
+            {(savingsAccounts.length > 0 ||
               savingsStatutoryContributions.length > 0 ||
               (cdats && cdats.length > 0) ||
               (programmedSavings && programmedSavings.length > 0) ||
@@ -237,8 +237,8 @@ function renderMySavingsContent(
 
 interface MySavingsUIProps {
   productsCommitments: ICommitment[];
-  savingsAccountsMock: IProduct[];
-  savingsCommitmentsMock: ICommitment[];
+  savingsAccounts: IProduct[];
+  savingsCommitments: IProduct[];
   savingsStatutoryContributions: IProduct[];
   cdats?: IProduct[];
   programmedSavings?: IProduct[];
@@ -248,8 +248,8 @@ interface MySavingsUIProps {
 function MySavingsUI(props: MySavingsUIProps) {
   const {
     productsCommitments,
-    savingsAccountsMock,
-    savingsCommitmentsMock,
+    savingsAccounts,
+    savingsCommitments,
     savingsStatutoryContributions,
     cdats,
     programmedSavings,
@@ -272,8 +272,8 @@ function MySavingsUI(props: MySavingsUIProps) {
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
           {renderMySavingsContent(
             productsCommitments,
-            savingsAccountsMock,
-            savingsCommitmentsMock,
+            savingsAccounts,
+            savingsCommitments,
             savingsStatutoryContributions,
             loading,
             cdats,
@@ -288,8 +288,8 @@ function MySavingsUI(props: MySavingsUIProps) {
         >
           {renderMySavingsContent(
             productsCommitments,
-            savingsAccountsMock,
-            savingsCommitmentsMock,
+            savingsAccounts,
+            savingsCommitments,
             savingsStatutoryContributions,
             loading,
             cdats,

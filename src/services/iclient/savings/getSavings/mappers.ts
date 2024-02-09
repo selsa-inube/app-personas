@@ -1,4 +1,8 @@
 import {
+  estateTypeValuesMock,
+  gmfTypeValuesMock,
+} from "@mocks/products/savings/utils.mocks";
+import {
   cdatCode,
   permanentSavingsCode,
   programmedSavingCode,
@@ -6,7 +10,7 @@ import {
   socialContributionsCode,
 } from "@pages/admin/savings/MySavings/config/products";
 import { IMovement, IProduct, ProductType } from "src/model/entity/product";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
 
 const mapSavingProductMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
@@ -35,6 +39,7 @@ const mapSavingProductMovementsApiToEntities = (
 const getProductDetails = (
   productTypeCode: ProductType,
   productNumber: string,
+  productTitle?: string,
 ) => {
   const details = {
     PERMANENTSAVINGS: {
@@ -52,9 +57,9 @@ const getProductDetails = (
       description: "",
       productTypeValue: programmedSavingCode,
     },
-    CA: {
-      title: "",
-      description: "",
+    VIEWSAVINGS: {
+      title: String(productTitle),
+      description: `${productTitle} ${productNumber}`,
       productTypeValue: savingAccountCode,
     },
     CD: {
@@ -96,6 +101,12 @@ const mapSavingsApiToEntity = (
       ? Object(accumulatedSavingProducts[0]).creditMovementPesos
       : 0;
 
+  const minimumBalance =
+    Object(savings.minimumSavingsBalanceView) &&
+    Object(savings.minimumSavingsBalanceView).length > 0
+      ? Object(savings.minimumSavingsBalanceView)
+      : 0;
+
   const attributes = [
     {
       id: "net_value",
@@ -107,11 +118,31 @@ const mapSavingsApiToEntity = (
       label: "Beneficiarios",
       value: beneficiaries,
     },
+    {
+      id: "min_value",
+      label: "Saldo mínimo",
+      value: minimumBalance,
+    },
+    {
+      id: "account_state",
+      label: "Estado",
+      value: estateTypeValuesMock[Object(savings.savingsStatus).code],
+    },
+    {
+      id: "account_gmf",
+      label: "GMF",
+      value: gmfTypeValuesMock[Object(savings.hasSubsidyBenefitInGMF).code],
+    },
   ];
+
+  const normalizedProductDescription = capitalizeText(
+    String(savings.productDescription).toLowerCase(),
+  );
 
   const { title, description } = getProductDetails(
     productType,
     String(savings.productNumber),
+    normalizedProductDescription,
   );
 
   return {
@@ -135,7 +166,8 @@ const mapSavingsApiToEntities = (
       (savings) =>
         (savings.type === permanentSavingsCode &&
           savings.id.startsWith("201")) ||
-        savings.type === socialContributionsCode,
+        savings.type === socialContributionsCode ||
+        savings.type === savingAccountCode,
     )
     .sort((a, b) => a.id.localeCompare(b.id));
 };

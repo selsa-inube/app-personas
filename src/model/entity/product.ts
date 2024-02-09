@@ -54,10 +54,8 @@ type ProductType =
   | "CONTRIBUTIONS"
   // | "CL"
   //| "CE"
-  | "CA"
+  | "VIEWSAVINGS"
   | "CD";
-  ;
-
 interface IProduct {
   id: string;
   title: string;

@@ -45,8 +45,8 @@ import { cardProducts } from "./mocks";
 
 function renderHomeContent(
   productsCommitments: ICommitment[],
-  savingsAccountsMock: IProduct[],
-  savingsCommitmentsMock: ICommitment[],
+  savingsAccounts: IProduct[],
+  savingsCommitments: IProduct[],
   savingsStatutoryContributions: IProduct[],
   credits: IProduct[],
   loadingCredits: boolean,
@@ -61,12 +61,12 @@ function renderHomeContent(
           Tus productos
         </Text>
         <Box {...savingsBox}>
-          <Stack direction="column">
+          <Stack direction="column" gap="s200">
             <Stack direction="column" gap="s200">
               {!loadingSavings &&
                 !loadingCredits &&
-                savingsAccountsMock &&
-                savingsAccountsMock.length === 0 &&
+                savingsAccounts &&
+                savingsAccounts.length === 0 &&
                 savingsStatutoryContributions.length === 0 &&
                 cdats &&
                 cdats.length === 0 &&
@@ -77,15 +77,15 @@ function renderHomeContent(
                     icon={<MdOutlineAccountBalanceWallet />}
                   />
                 )}
-              {savingsCommitmentsMock && savingsCommitmentsMock.length > 0 && (
+              {savingsCommitments && savingsCommitments.length > 0 && (
                 <Text type="label" size="medium">
                   Cuentas
                 </Text>
               )}
               <Stack direction="column" gap="s100">
-                {savingsAccountsMock &&
-                  savingsAccountsMock.length !== 0 &&
-                  savingsAccountsMock.map((saving) => (
+                {savingsAccounts &&
+                  savingsAccounts.length !== 0 &&
+                  savingsAccounts.map((saving) => (
                     <Product
                       key={saving.id}
                       title={saving.title}
@@ -180,21 +180,17 @@ function renderHomeContent(
                 </Stack>
               </Stack>
             )}
-            {(savingsAccountsMock.length > 0 ||
-              savingsStatutoryContributions.length > 0 ||
-              (cdats && cdats.length > 0) ||
-              (programmedSavings && programmedSavings.length > 0) ||
-              productsCommitments.length > 0) && (
-              <Stack justifyContent="flex-end" gap="s100" padding="s100">
-                <Text type="label" size="large">
-                  Total Ahorrado :
-                </Text>
-                <Text type="body" size="medium" appearance="gray">
-                  {sumNetValue(savingsStatutoryContributions)}
-                </Text>
-              </Stack>
-            )}
-
+            <Stack justifyContent="flex-end" gap="s100" padding="s100">
+              <Text type="label" size="large">
+                Total Ahorrado :
+              </Text>
+              <Text type="body" size="medium" appearance="gray">
+                {sumNetValue([
+                  ...savingsStatutoryContributions,
+                  ...savingsAccounts,
+                ])}
+              </Text>
+            </Stack>
             {productsCommitments.length > 0 && (
               <>
                 <Text type="label" size="medium">
@@ -268,8 +264,8 @@ function renderHomeContent(
 
 interface HomeUIProps {
   productsCommitments: ICommitment[];
-  savingsAccountsMock: IProduct[];
-  savingsCommitmentsMock: ICommitment[];
+  savingsAccounts: IProduct[];
+  savingsCommitments: IProduct[];
   savingsStatutoryContributions: IProduct[];
   credits: IProduct[];
   loadingCredits: boolean;
@@ -281,8 +277,8 @@ interface HomeUIProps {
 function HomeUI(props: HomeUIProps) {
   const {
     productsCommitments,
-    savingsAccountsMock,
-    savingsCommitmentsMock,
+    savingsAccounts,
+    savingsCommitments,
     savingsStatutoryContributions,
     cdats,
     programmedSavings,
@@ -326,8 +322,8 @@ function HomeUI(props: HomeUIProps) {
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
           {renderHomeContent(
             productsCommitments,
-            savingsAccountsMock,
-            savingsCommitmentsMock,
+            savingsAccounts,
+            savingsCommitments,
             savingsStatutoryContributions,
             credits,
             loadingCredits,
@@ -344,8 +340,8 @@ function HomeUI(props: HomeUIProps) {
         >
           {renderHomeContent(
             productsCommitments,
-            savingsAccountsMock,
-            savingsCommitmentsMock,
+            savingsAccounts,
+            savingsCommitments,
             savingsStatutoryContributions,
             credits,
             loadingCredits,
