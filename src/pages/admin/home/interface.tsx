@@ -44,7 +44,6 @@ import {
   sumNetValue,
 } from "./config/products";
 import { cardProducts } from "./mocks";
-import { title } from "@design/tokens/typography/title";
 
 function renderHomeContent(
   savingsAccounts: IProduct[],
@@ -93,20 +92,22 @@ function renderHomeContent(
                       <Text type="label" size="medium">
                         Cuentas
                       </Text>
-                      {savingsAccounts.map((saving) => (
-                        <Product
-                          key={saving.id}
-                          title={saving.title}
-                          description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
-                          )}
-                          tags={saving.tags}
-                          icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
-                          navigateTo={`/my-savings/account/${saving.id}`}
-                        />
-                      ))}
+                      <Stack direction="column" gap="s100">
+                        {savingsAccounts.map((saving) => (
+                          <Product
+                            key={saving.id}
+                            title={saving.title}
+                            description={saving.id}
+                            attributes={formatMySavingsCurrencyAttrs(
+                              extractMySavingsAttributes(saving),
+                            )}
+                            tags={saving.tags}
+                            icon={savingsAccountIcons[saving.type]}
+                            breakpoints={mySavingsAttributeBreakpoints}
+                            navigateTo={`/my-savings/account/${saving.id}`}
+                          />
+                        ))}
+                      </Stack>
                     </Stack>
                   )}
 
@@ -115,20 +116,22 @@ function renderHomeContent(
                       <Text type="label" size="medium">
                         Aportes estatutarios
                       </Text>
-                      {savingsContributions.map((saving) => (
-                        <Product
-                          key={saving.id}
-                          title={saving.title}
-                          description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
-                          )}
-                          tags={saving.tags}
-                          icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
-                          navigateTo={`/my-savings/account/${saving.id}`}
-                        />
-                      ))}
+                      <Stack direction="column" gap="s100">
+                        {savingsContributions.map((saving) => (
+                          <Product
+                            key={saving.id}
+                            title={saving.title}
+                            description={saving.id}
+                            attributes={formatMySavingsCurrencyAttrs(
+                              extractMySavingsAttributes(saving),
+                            )}
+                            tags={saving.tags}
+                            icon={savingsAccountIcons[saving.type]}
+                            breakpoints={mySavingsAttributeBreakpoints}
+                            navigateTo={`/my-savings/account/${saving.id}`}
+                          />
+                        ))}
+                      </Stack>
                     </Stack>
                   )}
 
@@ -194,7 +197,10 @@ function renderHomeContent(
                         Total Ahorrado :
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        {sumNetValue(savingsContributions)}
+                        {sumNetValue([
+                          ...savingsContributions,
+                          ...savingsAccounts,
+                        ])}
                       </Text>
                     </Stack>
                   )}

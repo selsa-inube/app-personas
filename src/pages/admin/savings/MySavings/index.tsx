@@ -31,19 +31,10 @@ function MySavings() {
     }
   }, [user, accessToken, savings]);
 
-  const savingsAccounts = savings.filter(
-    (savings) => savings.type === "VIEWSAVINGS",
-  );
-
-  const savingsStatutoryContributions = savings.filter(
-    (savings) =>
-      savings.type === "PERMANENTSAVINGS" || savings.type === "CONTRIBUTIONS",
-  );
-
   return (
     <MySavingsUI
       productsCommitments={[]}
-      savingsAccounts={[]}
+      savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}
       programmedSavings={[]}

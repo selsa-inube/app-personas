@@ -59,7 +59,7 @@ function formatInvestmentCurrencyAttrs(investment: IAttribute[]) {
 
 const savingAttributes = ["net_value"];
 
-const savingCurrencyAttributes = ["net_value"];
+const savingCurrencyAttributes = ["net_value", "min_value"];
 
 function extractSavingAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>
@@ -83,9 +83,9 @@ function formatSavingCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function sumNetValue(savingsContributions: IProduct[]) {
+function sumNetValue(savingsProducts: IProduct[]) {
   let total = 0;
-  for (const product of savingsContributions) {
+  for (const product of savingsProducts) {
     for (const attribute of product.attributes) {
       if (attribute.id === "net_value") {
         total += Number(attribute.value);

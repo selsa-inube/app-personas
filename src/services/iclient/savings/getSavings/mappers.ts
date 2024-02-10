@@ -44,7 +44,6 @@ const mapSavingsApiToEntity = (
     productType,
     capitalizeText(String(savings.productDescription).toLowerCase()),
     String(savings.productNumber),
-    normalizedProductDescription,
   );
 
   return {

@@ -27,7 +27,7 @@ import {
   savingsAccountMovementsTableBreakpoints,
   savingsAccountMovementsTableTitles,
 } from "../SavingsAccountMovements/config/table";
-import { crumbsSaving, crumbsSaving } from "./config/navigation";
+import { crumbsSaving } from "./config/navigation";
 import {
   investmentCommitmentsIcons,
   savingCommitmentsIcons,
@@ -42,7 +42,10 @@ import {
 } from "./types";
 
 import { EProductType } from "src/model/entity/product";
-import { extractSavingAttributes } from "./config/product";
+import {
+  extractSavingAttributes,
+  formatSavingCurrencyAttrs,
+} from "./config/product";
 
 interface SavingsAccountUIProps {
   isMobile?: boolean;

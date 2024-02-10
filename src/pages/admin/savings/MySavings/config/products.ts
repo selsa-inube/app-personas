@@ -3,7 +3,7 @@ import { currencyFormat } from "src/utils/currency";
 
 const mySavingsAttributes = ["net_value"];
 
-const mySavingsCurrencyAttributes = ["net_value"];
+const mySavingsCurrencyAttributes = ["net_value", "min_value"];
 
 function extractMySavingsAttributes(saving: IProduct) {
   const foundAttributes = saving.attributes.filter((attribute) =>

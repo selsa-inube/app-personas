@@ -114,20 +114,22 @@ function renderMySavingsContent(
                       <Text type="label" size="medium">
                         Cuentas
                       </Text>
-                      {savingsAccounts.map((saving) => (
-                        <Product
-                          key={saving.id}
-                          title={saving.title}
-                          description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
-                          )}
-                          tags={saving.tags}
-                          icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
-                          navigateTo={`/my-savings/account/${saving.id}`}
-                        />
-                      ))}
+                      <Stack direction="column" gap="s100">
+                        {savingsAccounts.map((saving) => (
+                          <Product
+                            key={saving.id}
+                            title={saving.title}
+                            description={saving.id}
+                            attributes={formatMySavingsCurrencyAttrs(
+                              extractMySavingsAttributes(saving),
+                            )}
+                            tags={saving.tags}
+                            icon={savingsAccountIcons[saving.type]}
+                            breakpoints={mySavingsAttributeBreakpoints}
+                            navigateTo={`/my-savings/account/${saving.id}`}
+                          />
+                        ))}
+                      </Stack>
                     </Stack>
                   )}
 
@@ -136,20 +138,22 @@ function renderMySavingsContent(
                       <Text type="label" size="medium">
                         Aportes estatutarios
                       </Text>
-                      {savingsContributions.map((saving) => (
-                        <Product
-                          key={saving.id}
-                          title={saving.title}
-                          description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
-                          )}
-                          tags={saving.tags}
-                          icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
-                          navigateTo={`/my-savings/account/${saving.id}`}
-                        />
-                      ))}
+                      <Stack direction="column" gap="s100">
+                        {savingsContributions.map((saving) => (
+                          <Product
+                            key={saving.id}
+                            title={saving.title}
+                            description={saving.id}
+                            attributes={formatMySavingsCurrencyAttrs(
+                              extractMySavingsAttributes(saving),
+                            )}
+                            tags={saving.tags}
+                            icon={savingsAccountIcons[saving.type]}
+                            breakpoints={mySavingsAttributeBreakpoints}
+                            navigateTo={`/my-savings/account/${saving.id}`}
+                          />
+                        ))}
+                      </Stack>
                     </Stack>
                   )}
 
