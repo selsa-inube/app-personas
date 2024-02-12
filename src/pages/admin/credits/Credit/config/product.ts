@@ -11,6 +11,7 @@ const creditAttributes = [
   "payment_means",
   "interest_rate",
   "net_value",
+  "days_past_due",
   "guarantee_type",
   "amortization_type",
 ];

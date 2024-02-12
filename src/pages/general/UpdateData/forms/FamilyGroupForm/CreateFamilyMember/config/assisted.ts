@@ -2,27 +2,28 @@ const createFamilyMemberSteps = {
   identificationData: {
     id: 1,
     name: "Identificación",
-    description: "Description",
+    description:
+      "Ingresa el numero de identificación para iniciar la búsqueda.",
   },
   personalData: {
     id: 2,
     name: "Datos personales",
-    description: "Description",
+    description: "Datos principales para identificar al usuario.",
   },
   contactData: {
     id: 3,
     name: "Datos de contacto",
-    description: "Description",
+    description: "Datos que permiten contactar con el usuario.",
   },
   informationData: {
     id: 4,
     name: "Información",
-    description: "Description",
+    description: "Información adicional acerca del usuario.",
   },
   verification: {
     id: 5,
     name: "Verificación",
-    description: "Description",
+    description: "Información adicional acerca del usuario.",
   },
 };
 
