@@ -44,7 +44,6 @@ function Page(props: PageProps) {
             sections={nav.sections}
             currentLocation={currentLocation}
             logoutTitle="Cerrar sesión"
-            logoutPath=""
           />
         )}
         <StyledMain>
