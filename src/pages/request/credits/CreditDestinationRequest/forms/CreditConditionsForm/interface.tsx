@@ -269,6 +269,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                 <Stack width="100%" justifyContent="flex-end">
                   <Button
                     variant="outlined"
+                    spacing="compact"
                     onClick={simulateCredit}
                     load={loadingSimulation}
                     disabled={
