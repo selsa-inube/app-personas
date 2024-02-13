@@ -22,7 +22,6 @@ interface HeaderProps {
   client?: string;
   links?: IHeaderLink[];
   portalId: string;
-  logoutPath: string;
   logoutTitle: string;
   navigation: INav;
 }
@@ -34,7 +33,6 @@ function Header(props: HeaderProps) {
     client,
     links,
     portalId,
-    logoutPath,
     logoutTitle,
     navigation,
   } = props;
@@ -48,7 +46,6 @@ function Header(props: HeaderProps) {
         <Stack gap="s200" justifyContent="center" alignItems="center">
           <FullscreenNav
             portalId={portalId}
-            logoutPath={logoutPath}
             logoutTitle={logoutTitle}
             navigation={navigation}
             links={links}

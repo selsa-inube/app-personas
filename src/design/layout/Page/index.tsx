@@ -30,7 +30,6 @@ function Page(props: PageProps) {
         client={header.client}
         links={header.links}
         portalId={header.portalId}
-        logoutPath={header.logoutPath}
         logoutTitle={header.logoutTitle}
         navigation={header.navigation}
       />
