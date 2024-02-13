@@ -9,6 +9,7 @@ const manifestPWA: VitePWAOptions = {
     clientsClaim: true,
     cleanupOutdatedCaches: true,
     globPatterns: [],
+    navigateFallback: null,
   },
   injectManifest: {
     injectionPoint: undefined,
