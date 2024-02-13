@@ -41,26 +41,26 @@ const formatTraceabilityDate = (date: Date) => {
 
 // Parse date string in format dd/mm/yyyy to Date object
 const parseSpanishDate = (spanishDate: string) => {
-  const spanishMonths: { [key: string]: string } = {
-    Ene: "Jan",
-    Feb: "Feb",
-    Mar: "Mar",
-    Abr: "Apr",
-    May: "May",
-    Jun: "Jun",
-    Jul: "Jul",
-    Ago: "Aug",
-    Sep: "Sep",
-    Oct: "Oct",
-    Nov: "Nov",
-    Dic: "Dec",
+  const spanishMonths: { [key: string]: number } = {
+    Ene: 0,
+    Feb: 1,
+    Mar: 2,
+    Abr: 3,
+    May: 4,
+    Jun: 5,
+    Jul: 6,
+    Ago: 7,
+    Sep: 8,
+    Oct: 9,
+    Nov: 10,
+    Dic: 11,
   };
 
   const [day, month, year] = spanishDate.split("/");
 
-  const englishMonth = spanishMonths[month];
+  const numberMonth = spanishMonths[month];
 
-  return new Date(`${day}/${englishMonth}/${year}`);
+  return new Date(parseInt(year), numberMonth, parseInt(day));
 };
 
 export { formatPrimaryDate, formatTraceabilityDate, parseSpanishDate };
