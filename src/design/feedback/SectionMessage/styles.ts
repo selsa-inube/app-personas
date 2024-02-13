@@ -28,7 +28,7 @@ const StyledSectionMessage = styled.div<IStyledSectionMessage>`
     0px 1px 3px 1px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   overflow-wrap: anywhere;
-  z-index: 2;
+  z-index: 4;
 `;
 
 export { StyledSectionMessage };

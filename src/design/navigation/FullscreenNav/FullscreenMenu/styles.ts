@@ -50,8 +50,8 @@ const StyledFooter = styled.footer`
 `;
 
 export {
-  StyledFullscreenNav,
   StyledCloseMenu,
-  StyledSeparatorLine,
   StyledFooter,
+  StyledFullscreenNav,
+  StyledSeparatorLine,
 };
