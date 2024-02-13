@@ -58,7 +58,7 @@ function Home() {
   return (
     <HomeUI
       productsCommitments={[]}
-      savingsAccounts={[]}
+      savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}
       programmedSavings={[]}

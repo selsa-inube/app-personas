@@ -1,3 +1,7 @@
+import {
+  estateTypeValuesMock,
+  gmfTypeValuesMock,
+} from "@mocks/products/savings/utils.mocks";
 import { EProductType, IAttribute } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
 
@@ -118,7 +122,33 @@ const getProductAttributes = (
         value: formatPrimaryDate(new Date(String(saving.creationDate))),
       },
     ],
-    [EProductType.VIEWSAVINGS]: [],
+    [EProductType.VIEWSAVINGS]: [
+      {
+        id: "net_value",
+        label: "Saldo total",
+        value: Number(saving.balanceSavings || 0),
+      },
+      {
+        id: "beneficiaries",
+        label: "Beneficiarios",
+        value: beneficiaries,
+      },
+      {
+        id: "min_value",
+        label: "Saldo mínimo",
+        value: Number(saving.minimumSavingsBalanceView || 0),
+      },
+      {
+        id: "account_state",
+        label: "Estado",
+        value: estateTypeValuesMock[Object(saving.savingsStatus).code],
+      },
+      {
+        id: "account_gmf",
+        label: "GMF",
+        value: gmfTypeValuesMock[Object(saving.hasSubsidyBenefitInGMF).code],
+      },
+    ],
     [EProductType.PROGRAMMEDSAVINGS]: [],
   };
 

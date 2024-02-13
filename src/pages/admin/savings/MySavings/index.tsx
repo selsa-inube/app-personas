@@ -30,10 +30,11 @@ function MySavings() {
         });
     }
   }, [user, accessToken, savings]);
+
   return (
     <MySavingsUI
       productsCommitments={[]}
-      savingsAccounts={[]}
+      savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}
       programmedSavings={[]}

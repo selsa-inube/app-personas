@@ -42,8 +42,10 @@ import {
 } from "./types";
 
 import { EProductType } from "src/model/entity/product";
-import { formatMySavingsCurrencyAttrs } from "../MySavings/config/products";
-import { extractSavingAttributes } from "./config/product";
+import {
+  extractSavingAttributes,
+  formatSavingCurrencyAttrs,
+} from "./config/product";
 
 interface SavingsAccountUIProps {
   isMobile?: boolean;
@@ -80,7 +82,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     selectedProduct && extractSavingAttributes(selectedProduct.saving);
 
   const formatedAttributes =
-    attributes && formatMySavingsCurrencyAttrs(attributes);
+    attributes &&
+    formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type);
 
   const productsIcons = {
     ...savingCommitmentsIcons,
