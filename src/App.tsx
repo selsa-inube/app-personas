@@ -17,6 +17,7 @@ import { Page } from "@design/layout/Page";
 
 import { Home } from "@pages/admin/home";
 import { UpdateData } from "@pages/general/UpdateData";
+import { UpdateDataUnassisted } from "@pages/general/UpdateDataUnassisted";
 import { useEffect } from "react";
 import { CreditRoutes } from "./routes/credit";
 import { MyCreditsRoutes } from "./routes/myCredits";
@@ -41,7 +42,10 @@ const router = createBrowserRouter(
       <Route path="savings/*" element={<SavingRoutes />} />
 
       <Route path="/update-data-assisted" element={<UpdateData />} />
-      <Route path="/update-data-no-assisted" element={<UpdateData />} />
+      <Route
+        path="/update-data-no-assisted"
+        element={<UpdateDataUnassisted />}
+      />
     </Route>,
   ),
 );
