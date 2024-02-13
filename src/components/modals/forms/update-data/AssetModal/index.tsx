@@ -195,7 +195,12 @@ function AssetModal(props: AssetModalProps) {
         </Stack>
 
         <Stack gap="s100" justifyContent="flex-end">
-          <Button spacing="compact" appearance="gray" onClick={onCloseModal}>
+          <Button
+            spacing="compact"
+            variant="outlined"
+            appearance="gray"
+            onClick={onCloseModal}
+          >
             Cancelar
           </Button>
           <Button

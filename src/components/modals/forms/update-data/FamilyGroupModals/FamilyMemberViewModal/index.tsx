@@ -276,12 +276,12 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
           <Button
             appearance="error"
             variant="outlined"
-            spacing={"compact"}
+            spacing="compact"
             onClick={onDelete}
           >
             Eliminar
           </Button>
-          <Button appearance="primary" spacing={"compact"} onClick={onEdit}>
+          <Button appearance="primary" spacing="compact" onClick={onEdit}>
             Editar
           </Button>
         </Stack>
