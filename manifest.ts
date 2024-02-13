@@ -26,7 +26,7 @@ const manifestPWA: VitePWAOptions = {
     display: "standalone",
     display_override: ["window-controls-overlay"],
     scope: "/",
-    start_url: "",
+    start_url: "/",
     icons: [
       {
         src: "fondecom-64x64.png",
