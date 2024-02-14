@@ -102,7 +102,7 @@ const customAppearanceCallback = (columnId: string, entry: IEntry) => {
     const today = new Date();
     today.setUTCHours(5, 5, 5, 5);
 
-    const entryDate = new Date(parseSpanishDate(entry.date));
+    const entryDate = parseSpanishDate(entry.date);
     entryDate.setUTCHours(5, 5, 5, 5);
 
     if (today > entryDate) {

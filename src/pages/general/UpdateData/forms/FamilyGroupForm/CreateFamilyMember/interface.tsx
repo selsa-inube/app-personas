@@ -21,7 +21,7 @@ const renderStepContent = (
   createFamilyMember: IFormsCreateFamilyMember,
   isMobile: boolean,
   readOnly: boolean,
-  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>
+  setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   return (
     <>
@@ -116,7 +116,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
             createFamilyMember,
             isMobile,
             readOnly,
-            setIsCurrentFormValid
+            setIsCurrentFormValid,
           )}
         </StyledScroller>
 
@@ -125,7 +125,8 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
             onClick={handlePreviousStep}
             type="button"
             disabled={currentStep === steps[0].id}
-            spacing={isMobile ? "compact" : "wide"}
+            spacing="compact"
+            variant="outlined"
             appearance="gray"
           >
             Atrás
@@ -133,7 +134,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
 
           <Button
             onClick={handleNextStep}
-            spacing={isMobile ? "compact" : "wide"}
+            spacing="compact"
             disabled={!isCurrentFormValid}
             load={loading}
           >

@@ -10,12 +10,22 @@ function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
   const { savings, setSavings } = useContext(SavingsContext);
   const { user, accessToken } = useAuth();
-  const [loadingCredits, setLoadingCredits] = useState(true);
-  const [loadingSavings, setLoadingSavings] = useState(true);
+  const [loadingCredits, setLoadingCredits] = useState(false);
+  const [loadingSavings, setLoadingSavings] = useState(false);
 
-  useEffect(() => {
-    if (user && accessToken) {
-      getSavingsForUser(user?.identification, accessToken)
+  const validateProducts = () => {
+    if (!user || !accessToken) return;
+
+    const combinedSavings = [
+      ...savings.savingsAccounts,
+      ...savings.savingsContributions,
+      ...savings.cdats,
+      ...savings.programmedSavings,
+    ];
+
+    if (combinedSavings.length === 0) {
+      setLoadingSavings(true);
+      getSavingsForUser(user.identification, accessToken)
         .then((savings) => {
           setSavings(savings);
         })
@@ -25,6 +35,9 @@ function Home() {
         .finally(() => {
           setLoadingSavings(false);
         });
+    }
+    if (credits.length === 0) {
+      setLoadingCredits(true);
       getCreditsForUser(user?.identification, accessToken)
         .then((credits) => {
           setCredits(credits);
@@ -36,15 +49,18 @@ function Home() {
           setLoadingCredits(false);
         });
     }
+  };
+
+  useEffect(() => {
+    validateProducts();
   }, [user, accessToken]);
 
   return (
     <HomeUI
       productsCommitments={[]}
-      savingsAccountsMock={[]}
-      savingsCommitmentsMock={[]}
-      savingsStatutoryContributions={savings}
-      cdats={[]}
+      savingsAccounts={savings.savingsAccounts}
+      savingsContributions={savings.savingsContributions}
+      cdats={savings.cdats}
       programmedSavings={[]}
       credits={credits}
       loadingCredits={loadingCredits}

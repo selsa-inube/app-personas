@@ -1,17 +1,18 @@
 import {
+  MdCalendarMonth,
   MdOutlineAccountBalanceWallet,
   MdOutlineHandshake,
   MdOutlineRealEstateAgent,
   MdOutlineTimer,
-  MdCalendarMonth,
 } from "react-icons/md";
+import { EProductType } from "src/model/entity/product";
 
 const savingsAccountIcons: Record<string, React.JSX.Element> = {
-  CA: <MdOutlineAccountBalanceWallet />,
-  PERMANENTSAVINGS: <MdOutlineHandshake />,
-  CONTRIBUTIONS: <MdOutlineHandshake />,
-  CD: <MdOutlineRealEstateAgent />,
-  PROGRAMMEDSAVINGS: <MdOutlineTimer />,
+  [EProductType.VIEWSAVINGS]: <MdOutlineAccountBalanceWallet />,
+  [EProductType.PERMANENTSAVINGS]: <MdOutlineHandshake />,
+  [EProductType.CONTRIBUTIONS]: <MdOutlineHandshake />,
+  [EProductType.CDAT]: <MdOutlineRealEstateAgent />,
+  [EProductType.PROGRAMMEDSAVINGS]: <MdOutlineTimer />,
 };
 
 const savingsAccountBox = (type: string) => ({
@@ -25,12 +26,12 @@ const savingCommitmentsIcons: Record<string, React.JSX.Element> = {
 };
 
 const investmentCommitmentsIcons: Record<string, React.JSX.Element> = {
-  PROGRAMMEDSAVINGS: <MdCalendarMonth />,
+  [EProductType.PROGRAMMEDSAVINGS]: <MdCalendarMonth />,
 };
 
 const investmentIcons: Record<string, React.JSX.Element> = {
-  CD: <MdOutlineRealEstateAgent />,
-  PROGRAMMEDSAVINGS: <MdOutlineTimer />,
+  [EProductType.CDAT]: <MdOutlineRealEstateAgent />,
+  [EProductType.PROGRAMMEDSAVINGS]: <MdOutlineTimer />,
 };
 
 const investmentBox = (type: string) => ({
@@ -39,10 +40,10 @@ const investmentBox = (type: string) => ({
 });
 
 export {
-  investmentCommitmentsIcons,
-  savingCommitmentsIcons,
-  savingsAccountIcons,
-  investmentIcons,
-  savingsAccountBox,
   investmentBox,
+  investmentCommitmentsIcons,
+  investmentIcons,
+  savingCommitmentsIcons,
+  savingsAccountBox,
+  savingsAccountIcons,
 };

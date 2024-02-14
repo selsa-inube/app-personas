@@ -213,7 +213,8 @@ function UpdateDataUI(props: UpdateDataUIProps) {
             onClick={handlePreviousStep}
             type="button"
             disabled={currentStep === steps[0].id}
-            spacing={isMobile ? "compact" : "wide"}
+            spacing="compact"
+            variant="outlined"
             appearance="gray"
           >
             Atrás
@@ -221,7 +222,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
 
           <Button
             onClick={handleNextStep}
-            spacing={isMobile ? "compact" : "wide"}
+            spacing="compact"
             disabled={!isCurrentFormValid}
           >
             {currentStep === steps.length ? "Enviar" : "Siguiente"}

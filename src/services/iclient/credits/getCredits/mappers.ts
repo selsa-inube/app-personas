@@ -4,7 +4,7 @@ import {
   guaranteeTypeValuesMock,
   peridiocityValuesMock,
 } from "@mocks/products/credits/utils.mocks";
-import { IAttribute, IProduct, ProductType } from "src/model/entity/product";
+import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
 
@@ -141,7 +141,7 @@ const mapCreditApiToEntity = (
   if (differenceDays) {
     attributes.push({
       id: "days_past_due",
-      label: "Días vencidos",
+      label: "Días de mora",
       value: differenceDays,
     });
   }
@@ -161,18 +161,11 @@ const mapCreditApiToEntity = (
     });
   }
   if (nextPaymentArrearsInterest) {
-    attributes.push(
-      {
-        id: "next_payment_arrears_interest",
-        label: "interés de mora",
-        value: nextPaymentArrearsInterest,
-      },
-      {
-        id: "in_arrears_value",
-        label: "Valor mora",
-        value: nextPaymentArrearsInterest,
-      },
-    );
+    attributes.push({
+      id: "next_payment_arrears_interest",
+      label: "Interés de mora",
+      value: nextPaymentArrearsInterest,
+    });
   }
 
   const tags: TagProps[] = inArrears
@@ -192,7 +185,7 @@ const mapCreditApiToEntity = (
     id: String(credit.obligationNumber),
     title: normalizedProductName,
     description: `${normalizedProductName} ${credit.obligationNumber}`,
-    type: String(credit.lineCode) as ProductType,
+    type: String(credit.lineCode) as EProductType,
     attributes,
     movements: [],
     amortization: [],

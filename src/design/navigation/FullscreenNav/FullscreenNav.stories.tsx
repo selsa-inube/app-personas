@@ -1,11 +1,11 @@
-import { BrowserRouter } from "react-router-dom";
+import { nav } from "@config/nav";
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
+import { MdOutlineBadge } from "react-icons/md";
+import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { FullscreenNav, FullscreenNavProps } from ".";
-import { nav } from "@config/nav";
-import { props, parameters } from "./props";
-import { MdOutlineBadge } from "react-icons/md";
-import { StoryFn } from "@storybook/react";
+import { parameters, props } from "./props";
 
 const story = {
   title: "design/navigation/FullscreenNav",
@@ -24,7 +24,6 @@ export const Default: StoryFn<FullscreenNavProps> = (args) => (
 );
 
 Default.args = {
-  logoutPath: "/",
   logoutTitle: "Logout",
   portalId: "portal",
   navigation: nav,
@@ -37,7 +36,6 @@ export const MultipleSections: StoryFn<FullscreenNavProps> = (args) => (
 );
 
 MultipleSections.args = {
-  logoutPath: "/",
   logoutTitle: "Logout",
   portalId: "portal",
   links: [

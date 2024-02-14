@@ -43,7 +43,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
 
   const [customDirty] = useState(formik.values);
   const [selectedTab, setSelectedTab] = useState(
-    editFamilyMemberModalTabs[0].id
+    editFamilyMemberModalTabs[0].id,
   );
 
   const isMobile = useMediaQuery("(max-width: 550px)");
@@ -51,7 +51,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -347,7 +347,12 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
         </Stack>
 
         <Stack gap="s100">
-          <Button spacing="compact" appearance="gray" onClick={onCloseModal}>
+          <Button
+            spacing="compact"
+            appearance="gray"
+            variant="outlined"
+            onClick={onCloseModal}
+          >
             Cancelar
           </Button>
           <Button
@@ -365,7 +370,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

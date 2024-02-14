@@ -47,7 +47,7 @@ const mapCreditAmortizationApiToEntities = (
 ): IAmortization[] => {
   return payments
     .map((payment) => mapCreditAmortizationApiToEntity(payment))
-    .sort((a, b) => b.date.getTime() - a.date.getTime())
+    .sort((a, b) => a.date.getTime() - b.date.getTime());
 };
 
 export { mapCreditAmortizationApiToEntities, mapCreditAmortizationApiToEntity };

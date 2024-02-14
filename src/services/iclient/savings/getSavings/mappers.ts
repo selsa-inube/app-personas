@@ -1,12 +1,7 @@
-import {
-  cdatCode,
-  permanentSavingsCode,
-  programmedSavingCode,
-  savingAccountCode,
-  socialContributionsCode,
-} from "@pages/admin/savings/MySavings/config/products";
-import { IMovement, IProduct, ProductType } from "src/model/entity/product";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import { ISavingsState } from "src/context/savings/types";
+import { EProductType, IMovement, IProduct } from "src/model/entity/product";
+import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
+import { getProductAttributes, getProductDetails } from "./utils";
 
 const mapSavingProductMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
@@ -32,52 +27,10 @@ const mapSavingProductMovementsApiToEntities = (
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
-const getProductDetails = (
-  productTypeCode: ProductType,
-  productNumber: string,
-) => {
-  const details = {
-    PERMANENTSAVINGS: {
-      title: "Ahorros permanentes",
-      description: `Ahorros permanentes ${productNumber}`,
-      productTypeValue: permanentSavingsCode,
-    },
-    CONTRIBUTIONS: {
-      title: "Aportes sociales",
-      description: `Aportes sociales ${productNumber}`,
-      productTypeValue: socialContributionsCode,
-    },
-    PROGRAMMEDSAVINGS: {
-      title: "",
-      description: "",
-      productTypeValue: programmedSavingCode,
-    },
-    CA: {
-      title: "",
-      description: "",
-      productTypeValue: savingAccountCode,
-    },
-    CD: {
-      title: "",
-      description: "",
-      productTypeValue: cdatCode,
-    },
-  };
-  return details[productTypeCode] || {};
-};
-
 const mapSavingsApiToEntity = (
   savings: Record<string, string | number | object>,
 ): IProduct => {
-  const productType: ProductType = Object(savings.productType).code;
-
-  const beneficiaries = Array.isArray(savings.savingBeneficiaries)
-    ? savings.savingBeneficiaries.map((beneficiary) => ({
-        id: beneficiary.beneficiaryId,
-        label: beneficiary.beneficiaryName,
-        value: beneficiary.benefitPercentage + " %",
-      }))
-    : [];
+  const productType: EProductType = Object(savings.productType).code;
 
   const movements = Array.isArray(savings.lastMovementTheSavingProducts)
     ? mapSavingProductMovementsApiToEntities(
@@ -85,32 +38,11 @@ const mapSavingsApiToEntity = (
       )
     : [];
 
-  const accumulatedSavingProducts = Array.isArray(
-    savings.accumulatedSavingProducts,
-  )
-    ? savings.accumulatedSavingProducts
-    : [];
-
-  const creditMovementPesos =
-    accumulatedSavingProducts.length > 0
-      ? Object(accumulatedSavingProducts[0]).creditMovementPesos
-      : 0;
-
-  const attributes = [
-    {
-      id: "net_value",
-      label: "Saldo total",
-      value: Number(creditMovementPesos),
-    },
-    {
-      id: "beneficiaries",
-      label: "Beneficiarios",
-      value: beneficiaries,
-    },
-  ];
+  const attributes = getProductAttributes(productType, savings);
 
   const { title, description } = getProductDetails(
     productType,
+    capitalizeText(String(savings.productDescription).toLowerCase()),
     String(savings.productNumber),
   );
 
@@ -119,7 +51,7 @@ const mapSavingsApiToEntity = (
     title,
     description,
     type: productType,
-    attributes: attributes,
+    attributes,
     movements: movements,
     amortization: [],
     tags: [],
@@ -128,16 +60,47 @@ const mapSavingsApiToEntity = (
 
 const mapSavingsApiToEntities = (
   savings: Record<string, string | number | object>[],
-): IProduct[] => {
-  return savings
+): ISavingsState => {
+  const savingsAccounts: IProduct[] = [];
+  const programmedSavings: IProduct[] = [];
+  const savingsContributions: IProduct[] = [];
+  const cdats: IProduct[] = [];
+
+  savings
     .map((savings) => mapSavingsApiToEntity(savings))
-    .filter(
-      (savings) =>
-        (savings.type === permanentSavingsCode &&
-          savings.id.startsWith("201")) ||
-        savings.type === socialContributionsCode,
-    )
-    .sort((a, b) => a.id.localeCompare(b.id));
+    .map((savings) => {
+      switch (savings.type) {
+        case EProductType.VIEWSAVINGS:
+          savingsAccounts.push(savings);
+          break;
+        case EProductType.PROGRAMMEDSAVINGS:
+          programmedSavings.push(savings);
+          break;
+        case EProductType.PERMANENTSAVINGS: {
+          if (savings.id.startsWith("201")) {
+            savingsContributions.push(savings);
+          }
+          break;
+        }
+        case EProductType.CONTRIBUTIONS:
+          savingsContributions.push(savings);
+          break;
+        case EProductType.CDAT:
+          cdats.push(savings);
+          break;
+      }
+    });
+
+  return {
+    savingsAccounts: savingsAccounts.sort((a, b) => a.id.localeCompare(b.id)),
+    programmedSavings: programmedSavings.sort((a, b) =>
+      a.id.localeCompare(b.id),
+    ),
+    savingsContributions: savingsContributions.sort((a, b) =>
+      a.id.localeCompare(b.id),
+    ),
+    cdats: cdats.sort((a, b) => a.id.localeCompare(b.id)),
+  };
 };
 
 export {

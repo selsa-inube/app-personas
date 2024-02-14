@@ -3,6 +3,7 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
+import { Textarea } from "@design/input/Textarea";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -181,16 +182,16 @@ function DebtModal(props: DebtModalProps) {
             validMessage="El valor de la cuota es válido"
             isRequired
           />
-          <TextField
+          <Textarea
             label="Observaciones"
             name="observations"
             id="observations"
             placeholder="Digite las observaciones"
             value={formik.values.observations || ""}
-            type="text"
             errorMessage={formik.errors.observations}
-            size="compact"
             isFullWidth
+            maxLength={120}
+            withCounter
             state={getFieldState(formik, "observations")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -199,7 +200,12 @@ function DebtModal(props: DebtModalProps) {
         </Stack>
 
         <Stack gap="s100" justifyContent="flex-end">
-          <Button spacing="compact" appearance="gray" onClick={onCloseModal}>
+          <Button
+            spacing="compact"
+            variant="outlined"
+            appearance="gray"
+            onClick={onCloseModal}
+          >
             Cancelar
           </Button>
           <Button

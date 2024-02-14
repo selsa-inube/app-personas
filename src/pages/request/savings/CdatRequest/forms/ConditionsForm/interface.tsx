@@ -139,6 +139,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                 <Stack width="100%" justifyContent="flex-end">
                   <Button
                     variant="outlined"
+                    spacing="compact"
                     onClick={simulateCDAT}
                     load={loadingSimulation}
                     disabled={

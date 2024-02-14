@@ -78,15 +78,16 @@ function DecisionModal(props: DecisionModalProps) {
             <Button
               appearance="gray"
               onClick={onCloseModal}
-              spacing={isMobile ? "compact" : "wide"}
+              spacing="compact"
+              variant="outlined"
             >
-              Cancel
+              Cancelar
             </Button>
             <Button
               appearance={appearance}
               load={isLoading}
               onClick={handleActionClick}
-              spacing={isMobile ? "compact" : "wide"}
+              spacing="compact"
             >
               {actionText}
             </Button>

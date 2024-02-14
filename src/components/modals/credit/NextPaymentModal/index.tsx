@@ -5,19 +5,12 @@ import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
-import { MdAdd, MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledModal } from "./styles";
 
 const renderTransactionSpecification = (label: string, value: number) => (
   <Stack gap="s100" alignItems="center">
-    <Icon
-      appearance="dark"
-      icon={<MdAdd />}
-      cursorHover={true}
-      size="16px"
-      spacing="none"
-    />
     <Stack justifyContent="space-between" width="100%">
       <Text type="label" size="medium" appearance="dark">
         {label}

@@ -1,6 +1,5 @@
 import { createContext, useMemo, useState } from "react";
-import { IProduct } from "src/model/entity/product";
-import { ISavingsContext } from "./types";
+import { ISavingsContext, ISavingsState } from "./types";
 
 const SavingsContext = createContext<ISavingsContext>({} as ISavingsContext);
 
@@ -10,7 +9,12 @@ interface SavingsProviderProps {
 
 function SavingsProvider(props: SavingsProviderProps) {
   const { children } = props;
-  const [savings, setSavings] = useState<IProduct[]>([]);
+  const [savings, setSavings] = useState<ISavingsState>({
+    savingsAccounts: [],
+    programmedSavings: [],
+    savingsContributions: [],
+    cdats: [],
+  });
 
   const authContext = useMemo(
     () => ({

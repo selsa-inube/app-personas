@@ -1,11 +1,11 @@
+import { FormikProps, useFormik } from "formik";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { familyGroupRequiredFields } from "../../../config/formConfig";
-import { validationRules } from "src/validations/validationRules";
-import { validationMessages } from "src/validations/validationMessages";
-import { IIdentificationDataEntry } from "./types";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { FormikProps, useFormik } from "formik";
 import { IdentificationDataFormUI } from "./interface";
+import { IIdentificationDataEntry } from "./types";
 
 const validationSchema = Yup.object().shape({
   identificationNumber: familyGroupRequiredFields.identificationNumber
@@ -23,7 +23,7 @@ interface IdentificationDataFormProps {
 
 const IdentificationDataForm = forwardRef(function IdentificationDataForm(
   props: IdentificationDataFormProps,
-  ref: React.Ref<FormikProps<IIdentificationDataEntry>>
+  ref: React.Ref<FormikProps<IIdentificationDataEntry>>,
 ) {
   const { initialValues, loading, isMobile, onFormValid, onSubmit } = props;
   const [dynamicSchema] = useState(validationSchema);
@@ -38,11 +38,9 @@ const IdentificationDataForm = forwardRef(function IdentificationDataForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty) {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
-    }
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
   }, [formik.values]);
 
   const isRequired = (fieldName: string): boolean => {
