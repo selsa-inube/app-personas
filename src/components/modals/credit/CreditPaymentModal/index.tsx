@@ -5,7 +5,7 @@ import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
-import { MdAdd, MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose } from "react-icons/md";
 import { parseCurrencyString } from "src/utils/currency";
 import {
   StyledBody,
@@ -19,13 +19,6 @@ const renderTransactionSpecification = (
   value: string | number,
 ) => (
   <Stack gap="s100" alignItems="center">
-    <Icon
-      appearance="dark"
-      icon={<MdAdd />}
-      cursorHover={true}
-      size="16px"
-      spacing="none"
-    />
     <Stack justifyContent="space-between" width="100%">
       <Text type="label" size="medium" appearance="dark">
         {label}
