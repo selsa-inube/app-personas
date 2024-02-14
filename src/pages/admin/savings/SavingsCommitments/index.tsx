@@ -2,10 +2,11 @@ import { ISelectOption } from "@design/input/Select/types";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsCommitmentsUI } from "./interface";
-
+import { CommitmentsContext } from "src/context/commitments";
+import { useContext } from "react";
+import { validateCommitment } from "./utils";
+import { useAuth } from "@inube/auth";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
 import { ISelectedCommitmentState } from "./types";
 
 function SavingsCommitments() {
@@ -17,32 +18,33 @@ function SavingsCommitments() {
     useState<ISelectedCommitmentState>();
   const isMobile = useMediaQuery("(max-width: 750px)");
   const navigate = useNavigate();
+  const { user, accessToken } = useAuth();
+  const { commitments, setCommitments } = useContext(CommitmentsContext);
 
-  const handleSortCommitment = () => {
-    const productsCommitments = [
-      ...savingsCommitmentsMock,
-      ...investmentsCommitmentsMock,
-    ];
-    const commitmentsOptions = productsCommitments.map((commitment) => {
-      const commitmentOption = {
-        id: commitment.id,
-        value: commitment.title,
-      };
+  const handleSortCommitment = async () => {
+    if (!commitment_id || !user || !accessToken) return;
 
-      if (commitment.id === commitment_id) {
-        setSelectedCommitment({
-          commitment: {
-            ...commitment,
-            attributes: commitment.attributes,
-          },
-          option: commitmentOption,
-        });
-      }
+    const { selectedCommitments, newCommitments } = await validateCommitment(
+      commitments,
+      commitment_id,
+      user.identification,
+      accessToken,
+    );
 
-      return commitmentOption;
+    setCommitments(newCommitments);
+
+    if (!selectedCommitments) return;
+
+    setSelectedCommitment({
+      commitment: selectedCommitments || [],
+      option: selectedCommitments.id,
     });
-
-    setCommitmentsOptions(commitmentsOptions);
+    setCommitmentsOptions(
+      newCommitments.map((commitments) => ({
+        id: commitments.id,
+        value: commitments.title,
+      })),
+    );
   };
 
   useEffect(() => {

@@ -96,13 +96,13 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             onChange={handleChangeCommitment}
             label="Selección del compromiso"
             options={commitmentsOptions}
-            value={selectedCommitment.option.id}
+            value={selectedCommitment.option}
             isFullWidth
           />
           <Stack direction="column" gap={isMobile ? "s250" : "s400"}>
             <Box
               title={selectedCommitment.commitment.title}
-              subtitle={selectedCommitment.commitment.description}
+              subtitle="Compromiso de ahorro"
               collapsing={{ start: true, allow: false }}
               tags={
                 selectedCommitment.commitment.tag && [
