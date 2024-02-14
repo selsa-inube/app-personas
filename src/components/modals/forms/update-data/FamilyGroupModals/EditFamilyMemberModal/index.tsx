@@ -100,7 +100,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
               errorMessage={formik.errors.isDependent}
               onChange={formik.handleChange}
               value={
-                formik.values.isDependent === "Y"
+                formik.values.isDependent === activeDM.Y.id
                   ? activeDM.Y.id
                   : activeDM.N.id
               }
