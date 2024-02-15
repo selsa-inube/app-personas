@@ -16,12 +16,12 @@ const validateCommitment = async (
     );
   }
 
-  const selectedCommitments = currentCommitment.find((commitment) => {
+  const selectedCommitment = currentCommitment.find((commitment) => {
     return commitment.id === commitmentId;
   });
 
   return {
-    selectedCommitments,
+    selectedCommitment,
     newCommitments: currentCommitment,
   };
 };
@@ -36,4 +36,4 @@ const getNextPaymentData = (selectedProduct: ICommitment) => {
   };
 };
 
-export { validateCommitment, getNextPaymentData };
+export { getNextPaymentData, validateCommitment };
