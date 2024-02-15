@@ -27,7 +27,6 @@ import { SavingRoutes } from "./routes/saving";
 import { useAuth } from "@inube/auth";
 import { CreditsProvider } from "./context/credits";
 import { SavingsProvider } from "./context/savings";
-import { CommitmentsProvider } from "./context/commitments";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -70,11 +69,9 @@ function App() {
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <SavingsProvider>
-          <CommitmentsProvider>
-            <CreditsProvider>
-              <RouterProvider router={router} />
-            </CreditsProvider>
-          </CommitmentsProvider>
+          <CreditsProvider>
+            <RouterProvider router={router} />
+          </CreditsProvider>
         </SavingsProvider>
       </ThemeProvider>
     </>

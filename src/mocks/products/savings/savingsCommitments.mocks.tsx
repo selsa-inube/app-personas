@@ -1,11 +1,12 @@
 import { ICommitment } from "src/model/entity/product";
+import { ECommitmentType } from "src/model/entity/product";
 
 const savingsCommitmentsMock: ICommitment[] = [
   {
     id: "2 - 236607895",
     title: "Obligaciones estatutarias",
     description: "Compromiso de ahorro",
-    type: "0S",
+    type: ECommitmentType.OS,
     attributes: [
       {
         id: "next_pay_date",
@@ -43,7 +44,7 @@ const savingsCommitmentsMock: ICommitment[] = [
     id: "2 - 236607896",
     title: "Abono a cuenta",
     description: "Compromiso de ahorro",
-    type: "SC",
+    type: ECommitmentType.SC,
     attributes: [
       {
         id: "next_pay_date",

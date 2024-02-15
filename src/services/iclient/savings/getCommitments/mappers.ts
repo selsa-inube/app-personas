@@ -1,8 +1,33 @@
-import { ICommitment } from "src/model/entity/product";
+import { IAttribute, ICommitment, IMovement } from "src/model/entity/product";
 import { TagProps } from "@design/data/Tag";
 import { capitalizeText } from "src/utils/texts";
 import { capitalizeFirstLetters } from "src/utils/texts";
 import { formatPrimaryDate } from "src/utils/dates";
+import { ECommitmentType } from "src/model/entity/product";
+
+const mapSavingCommitmentsMovementsApiToEntity = (
+  movement: Record<string, string | number | object>,
+): IMovement => {
+  const buildMovement: IMovement = {
+    id: String(movement.movementId),
+    date: new Date(String(movement.movementDate)),
+    reference: String(movement.movementNumber),
+    description: capitalizeFirstLetters(String(movement.movementDescription)),
+    totalValue: Number(
+      movement.creditMovementPesos || movement.debitMovementPesos,
+    ),
+  };
+  return buildMovement;
+};
+
+const mapSavingProductMovementsApiToEntities = (
+  movements: Record<string, string | number | object>[],
+): IMovement[] => {
+  return movements
+    .map(mapSavingCommitmentsMovementsApiToEntity)
+    .filter((movement) => movement.totalValue > 0)
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+};
 
 const mapSavingsCommitmentsApiToEntity = (
   commitment: Record<string, string | number | object>,
@@ -10,9 +35,19 @@ const mapSavingsCommitmentsApiToEntity = (
   const normalizedCommitmentName = capitalizeText(
     String(commitment.commitmentDescription).toLowerCase(),
   );
-  let inArrears;
-  let attributes;
+  let inArrears = false;
+  let attributes: IAttribute[] = [];
   const today = new Date();
+
+  const commitmentType: ECommitmentType = Object(
+    commitment.commitmentType,
+  ).code;
+
+  const movements = Array.isArray(commitment.lastMovementTheSavingPlans)
+    ? mapSavingProductMovementsApiToEntities(
+        commitment.lastMovementTheSavingPlans,
+      )
+    : [];
 
   if (Array.isArray(commitment.savingPaymentPlans)) {
     const lastObject =
@@ -53,8 +88,9 @@ const mapSavingsCommitmentsApiToEntity = (
     id: String(commitment.commitmentId),
     title: normalizedCommitmentName,
     tag: tag,
-    type: "PROGRAMMEDSAVINGS",
-    attributes: attributes || [],
+    type: commitmentType,
+    attributes,
+    movements,
     products: [],
   };
 };

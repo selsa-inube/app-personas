@@ -14,6 +14,7 @@ function SavingsProvider(props: SavingsProviderProps) {
     programmedSavings: [],
     savingsContributions: [],
     cdats: [],
+    commitments: [],
   });
 
   const authContext = useMemo(

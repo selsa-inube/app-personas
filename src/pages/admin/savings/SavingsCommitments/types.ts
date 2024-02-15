@@ -5,4 +5,11 @@ interface ISelectedCommitmentState {
   option: string;
 }
 
-export type { ISelectedCommitmentState };
+interface INextPaymentModalState {
+  show: boolean;
+  data?: {
+    nextPaymentValue: number;
+  };
+}
+
+export type { ISelectedCommitmentState, INextPaymentModalState };

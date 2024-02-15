@@ -1,11 +1,12 @@
 import { ICommitment } from "src/model/entity/product";
+import { ECommitmentType } from "src/model/entity/product";
 
 const investmentsCommitmentsMock: ICommitment[] = [
   {
     id: "2 - 23110125",
     title: "Ahorro programado",
     description: "Compromiso de inversión",
-    type: "PROGRAMMEDSAVINGS",
+    type: ECommitmentType.SAVINGSPROGRAMMED,
     attributes: [
       {
         id: "next_pay_date",

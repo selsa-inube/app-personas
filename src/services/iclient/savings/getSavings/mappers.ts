@@ -100,6 +100,7 @@ const mapSavingsApiToEntities = (
       a.id.localeCompare(b.id),
     ),
     cdats: cdats.sort((a, b) => a.id.localeCompare(b.id)),
+    commitments: [],
   };
 };
 

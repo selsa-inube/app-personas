@@ -1,14 +1,12 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { SavingsContext } from "src/context/savings";
-import { CommitmentsContext } from "src/context/commitments";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { MySavingsUI } from "./interface";
 
 function MySavings() {
   const { savings, setSavings } = useContext(SavingsContext);
-  const { commitments, setCommitments } = useContext(CommitmentsContext);
   const [loading, setLoading] = useState(false);
   const { user, accessToken } = useAuth();
 
@@ -33,25 +31,24 @@ function MySavings() {
             setLoading(false);
           });
       }
-      if (commitments.length === 0) {
-        setLoading(true);
+      if (savings.commitments.length === 0) {
         getSavingsCommitmentsForUser(user?.identification, accessToken)
           .then((commitments) => {
-            setCommitments(commitments);
+            setSavings((prevState) => ({
+              ...prevState,
+              commitments: commitments,
+            }));
           })
           .catch((error) => {
             console.info(error.message);
-          })
-          .finally(() => {
-            setLoading(false);
           });
       }
     }
-  }, [user, accessToken, savings, commitments]);
+  }, [user, accessToken, savings]);
 
   return (
     <MySavingsUI
-      productsCommitments={commitments}
+      productsCommitments={savings.commitments}
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}

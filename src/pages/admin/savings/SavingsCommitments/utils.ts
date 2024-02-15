@@ -26,4 +26,14 @@ const validateCommitment = async (
   };
 };
 
-export { validateCommitment };
+const getNextPaymentData = (selectedProduct: ICommitment) => {
+  const nextPaymentValue = selectedProduct.attributes.find(
+    (attr) => attr.id === "value_to_pay",
+  );
+
+  return {
+    nextPaymentValue: Number(nextPaymentValue?.value),
+  };
+};
+
+export { validateCommitment, getNextPaymentData };

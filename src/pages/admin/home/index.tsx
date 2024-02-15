@@ -2,7 +2,6 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
-import { CommitmentsContext } from "src/context/commitments";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
@@ -11,10 +10,25 @@ import { HomeUI } from "./interface";
 function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
   const { savings, setSavings } = useContext(SavingsContext);
-  const { commitments, setCommitments } = useContext(CommitmentsContext);
   const { user, accessToken } = useAuth();
   const [loadingCredits, setLoadingCredits] = useState(false);
   const [loadingSavings, setLoadingSavings] = useState(false);
+
+  const validateCommitments = () => {
+    if (!user || !accessToken) return;
+    if (savings.commitments.length === 0) {
+      getSavingsCommitmentsForUser(user?.identification, accessToken)
+        .then((commitments) => {
+          setSavings((prevState) => ({
+            ...prevState,
+            commitments: commitments,
+          }));
+        })
+        .catch((error) => {
+          console.info(error.message);
+        });
+    }
+  };
 
   const validateProducts = () => {
     if (!user || !accessToken) return;
@@ -52,16 +66,11 @@ function Home() {
           setLoadingCredits(false);
         });
     }
-    if (commitments.length === 0) {
-      getSavingsCommitmentsForUser(user?.identification, accessToken)
-        .then((commitments) => {
-          setCommitments(commitments);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        });
-    }
   };
+
+  useEffect(() => {
+    validateCommitments();
+  }, [savings]);
 
   useEffect(() => {
     validateProducts();
@@ -69,7 +78,7 @@ function Home() {
 
   return (
     <HomeUI
-      productsCommitments={commitments}
+      productsCommitments={savings.commitments}
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}
