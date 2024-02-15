@@ -38,7 +38,7 @@ interface IAmortization {
 
 enum ECommitmentType {
   SAVINGSPROGRAMMED = "SAVINGSPROGRAMMED",
-  QUOTAESTATUTORY = "QUOTAESTATUTARY",
+  QUOTAESTATUTORY = "QUOTAESTATUTORY",
 }
 
 interface ICommitment {
@@ -50,6 +50,7 @@ interface ICommitment {
   products: string[];
   movements?: IMovement[];
   tag?: TagProps;
+  savingNumber?: string;
 }
 
 enum EProductType {
@@ -79,7 +80,7 @@ interface IRate {
   annualEffectiveRate: string;
 }
 
-export { EProductType, ECommitmentType };
+export { ECommitmentType, EProductType };
 
 export type {
   IAmortization,
