@@ -1,12 +1,8 @@
+import { IAttribute, ICommitment, IMovement } from "src/model/entity/product";
 import { TagProps } from "@design/data/Tag";
-import {
-  ECommitmentType,
-  IAttribute,
-  ICommitment,
-  IMovement,
-} from "src/model/entity/product";
-import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeFirstLetters } from "src/utils/texts";
+import { formatPrimaryDate } from "src/utils/dates";
+import { ECommitmentType } from "src/model/entity/product";
 
 const mapSavingCommitmentsMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
@@ -94,7 +90,6 @@ const mapSavingsCommitmentsApiToEntity = (
     attributes,
     movements,
     products: [],
-    savingNumber: String(commitment.numberCommitmentSavings),
   };
 };
 
@@ -108,4 +103,4 @@ const mapSavingsApiToEntities = (
     );
 };
 
-export { mapSavingsApiToEntities, mapSavingsCommitmentsApiToEntity };
+export { mapSavingsCommitmentsApiToEntity, mapSavingsApiToEntities };
