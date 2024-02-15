@@ -7,7 +7,6 @@ import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { Text } from "@design/data/Text";
 import { Table } from "@design/data/Table";
-import { Button } from "@design/input/Button";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -16,12 +15,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import {
-  MdArrowBack,
-  MdSyncAlt,
-  MdOpenInNew,
-  MdOutlinePaid,
-} from "react-icons/md";
+import { MdArrowBack, MdSyncAlt, MdOpenInNew } from "react-icons/md";
 import {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
@@ -185,14 +179,6 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               pageLength={selectedCommitment.commitment.movements?.length || 0}
               hideMobileResume
             />
-            <Button
-              spacing="compact"
-              iconBefore={<MdOutlinePaid />}
-              appearance="dark"
-              variant="none"
-            >
-              Pagos
-            </Button>
           </StyledPaymentsContainer>
         </Stack>
       </Grid>

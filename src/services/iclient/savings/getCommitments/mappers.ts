@@ -41,7 +41,7 @@ const mapSavingsCommitmentsApiToEntity = (
 
   const commitmentType: ECommitmentType = Object(
     commitment.commitmentType,
-  ).code;
+  ).code.toUpperCase();
 
   const movements = Array.isArray(commitment.lastMovementTheSavingPlans)
     ? mapSavingProductMovementsApiToEntities(
@@ -98,9 +98,11 @@ const mapSavingsCommitmentsApiToEntity = (
 const mapSavingsApiToEntities = (
   commitments: Record<string, string | number | object>[],
 ): ICommitment[] => {
-  return commitments.map((commitment) =>
-    mapSavingsCommitmentsApiToEntity(commitment),
-  );
+  return commitments
+    .map((commitment) => mapSavingsCommitmentsApiToEntity(commitment))
+    .filter(
+      (commitment) => commitment.type !== ECommitmentType.SAVINGSPROGRAMMED,
+    );
 };
 
 export { mapSavingsCommitmentsApiToEntity, mapSavingsApiToEntities };
