@@ -1,5 +1,6 @@
 import { createContext, useMemo, useState } from "react";
 import { ISavingsContext, ISavingsState } from "./types";
+import { ICommitment } from "src/model/entity/product";
 
 const SavingsContext = createContext<ISavingsContext>({} as ISavingsContext);
 
@@ -14,15 +15,18 @@ function SavingsProvider(props: SavingsProviderProps) {
     programmedSavings: [],
     savingsContributions: [],
     cdats: [],
-    commitments: [],
   });
+
+  const [commitments, setCommitments] = useState<ICommitment[]>([]);
 
   const authContext = useMemo(
     () => ({
       savings,
       setSavings,
+      commitments,
+      setCommitments,
     }),
-    [savings, setSavings],
+    [savings, setSavings, commitments, setCommitments],
   );
 
   return (

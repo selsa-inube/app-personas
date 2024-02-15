@@ -9,20 +9,18 @@ import { HomeUI } from "./interface";
 
 function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
-  const { savings, setSavings } = useContext(SavingsContext);
+  const { commitments, savings, setCommitments, setSavings } =
+    useContext(SavingsContext);
   const { user, accessToken } = useAuth();
   const [loadingCredits, setLoadingCredits] = useState(false);
   const [loadingSavings, setLoadingSavings] = useState(false);
 
   const validateCommitments = () => {
     if (!user || !accessToken) return;
-    if (savings.commitments.length === 0) {
+    if (commitments.length === 0) {
       getSavingsCommitmentsForUser(user?.identification, accessToken)
         .then((commitments) => {
-          setSavings((prevState) => ({
-            ...prevState,
-            commitments: commitments,
-          }));
+          setCommitments(commitments);
         })
         .catch((error) => {
           console.info(error.message);
@@ -78,7 +76,7 @@ function Home() {
 
   return (
     <HomeUI
-      productsCommitments={savings.commitments}
+      productsCommitments={commitments}
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}

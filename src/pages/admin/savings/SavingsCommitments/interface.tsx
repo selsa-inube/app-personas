@@ -34,7 +34,7 @@ import {
 import { crumbsSavingsCommitments } from "./config/navigation";
 import { ISelectedCommitmentState } from "./types";
 import { currencyFormat } from "src/utils/currency";
-import { NextPaymentModal } from "@components/modals/credit/NextPaymentModal";
+import { NextPaymentModal } from "@components/modals/NextPaymentModal";
 import { INextPaymentModalState } from "./types";
 import { StyledPaymentsContainer } from "./styles";
 import {

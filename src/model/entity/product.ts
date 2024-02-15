@@ -39,8 +39,6 @@ interface IAmortization {
 enum ECommitmentType {
   SAVINGSPROGRAMMED = "SAVINGSPROGRAMMED",
   QUOTAESTATUTORY = "QUOTAESTATUTARY",
-  OS = "0S",
-  SC = "SC",
 }
 
 interface ICommitment {

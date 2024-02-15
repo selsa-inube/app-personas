@@ -6,7 +6,8 @@ import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { MySavingsUI } from "./interface";
 
 function MySavings() {
-  const { savings, setSavings } = useContext(SavingsContext);
+  const { commitments, savings, setCommitments, setSavings } =
+    useContext(SavingsContext);
   const [loading, setLoading] = useState(false);
   const { user, accessToken } = useAuth();
 
@@ -31,13 +32,10 @@ function MySavings() {
             setLoading(false);
           });
       }
-      if (savings.commitments.length === 0) {
+      if (commitments.length === 0) {
         getSavingsCommitmentsForUser(user?.identification, accessToken)
           .then((commitments) => {
-            setSavings((prevState) => ({
-              ...prevState,
-              commitments: commitments,
-            }));
+            setCommitments(commitments);
           })
           .catch((error) => {
             console.info(error.message);
@@ -48,7 +46,7 @@ function MySavings() {
 
   return (
     <MySavingsUI
-      productsCommitments={savings.commitments}
+      productsCommitments={commitments}
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}

@@ -25,22 +25,19 @@ function SavingsCommitments() {
   const isMobile = useMediaQuery("(max-width: 750px)");
   const navigate = useNavigate();
   const { user, accessToken } = useAuth();
-  const { savings, setSavings } = useContext(SavingsContext);
+  const { commitments, setCommitments } = useContext(SavingsContext);
 
   const handleSortCommitment = async () => {
     if (!commitment_id || !user || !accessToken) return;
 
     const { selectedCommitments, newCommitments } = await validateCommitment(
-      savings.commitments,
+      commitments,
       commitment_id,
       user.identification,
       accessToken,
     );
 
-    setSavings((prevState) => ({
-      ...prevState,
-      commitments: newCommitments,
-    }));
+    setCommitments(newCommitments);
 
     if (!selectedCommitments) return;
 

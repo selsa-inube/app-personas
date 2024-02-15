@@ -5,11 +5,12 @@ interface ISavingsState {
   programmedSavings: IProduct[];
   savingsContributions: IProduct[];
   cdats: IProduct[];
-  commitments: ICommitment[];
 }
 
 interface ISavingsContext {
   savings: ISavingsState;
+  commitments: ICommitment[];
+  setCommitments: React.Dispatch<React.SetStateAction<ICommitment[]>>;
   setSavings: React.Dispatch<React.SetStateAction<ISavingsState>>;
 }
 

@@ -6,7 +6,7 @@ const savingsCommitmentsMock: ICommitment[] = [
     id: "2 - 236607895",
     title: "Obligaciones estatutarias",
     description: "Compromiso de ahorro",
-    type: ECommitmentType.OS,
+    type: ECommitmentType.SAVINGSPROGRAMMED,
     attributes: [
       {
         id: "next_pay_date",
@@ -44,7 +44,7 @@ const savingsCommitmentsMock: ICommitment[] = [
     id: "2 - 236607896",
     title: "Abono a cuenta",
     description: "Compromiso de ahorro",
-    type: ECommitmentType.SC,
+    type: ECommitmentType.QUOTAESTATUTORY,
     attributes: [
       {
         id: "next_pay_date",
