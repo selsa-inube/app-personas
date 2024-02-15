@@ -1,8 +1,12 @@
-import { IAttribute, ICommitment, IMovement } from "src/model/entity/product";
 import { TagProps } from "@design/data/Tag";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import {
+  ECommitmentType,
+  IAttribute,
+  ICommitment,
+  IMovement,
+} from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { ECommitmentType } from "src/model/entity/product";
+import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
 
 const mapSavingCommitmentsMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
@@ -31,6 +35,9 @@ const mapSavingProductMovementsApiToEntities = (
 const mapSavingsCommitmentsApiToEntity = (
   commitment: Record<string, string | number | object>,
 ): ICommitment => {
+  const normalizedCommitmentName = capitalizeText(
+    String(commitment.commitmentDescription).toLowerCase(),
+  );
   let inArrears = false;
   let attributes: IAttribute[] = [];
   const today = new Date();
@@ -82,25 +89,22 @@ const mapSavingsCommitmentsApiToEntity = (
 
   return {
     id: String(commitment.commitmentId),
-    title: String(commitment.numberCommitmentSavings).startsWith("205")
-      ? "Cuota aportes sociales"
-      : "Cuota ahorro permanente",
+    title: normalizedCommitmentName,
     tag: tag,
     type: commitmentType,
     attributes,
     movements,
     products: [],
+    savingNumber: String(commitment.numberCommitmentSavings),
   };
 };
 
 const mapSavingsApiToEntities = (
   commitments: Record<string, string | number | object>[],
 ): ICommitment[] => {
-  return commitments
-    .map((commitment) => mapSavingsCommitmentsApiToEntity(commitment))
-    .filter(
-      (commitment) => commitment.type !== ECommitmentType.SAVINGSPROGRAMMED,
-    );
+  return commitments.map((commitment) =>
+    mapSavingsCommitmentsApiToEntity(commitment),
+  );
 };
 
-export { mapSavingsCommitmentsApiToEntity, mapSavingsApiToEntities };
+export { mapSavingsApiToEntities, mapSavingsCommitmentsApiToEntity };
