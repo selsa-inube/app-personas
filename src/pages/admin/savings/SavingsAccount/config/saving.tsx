@@ -5,7 +5,7 @@ import {
   MdOutlineRealEstateAgent,
   MdOutlineTimer,
 } from "react-icons/md";
-import { ECommitmentType, EProductType } from "src/model/entity/product";
+import { EProductType } from "src/model/entity/product";
 
 const savingsAccountIcons: Record<string, React.JSX.Element> = {
   [EProductType.VIEWSAVINGS]: <MdOutlineAccountBalanceWallet />,
@@ -21,8 +21,8 @@ const savingsAccountBox = (type: string) => ({
 });
 
 const savingCommitmentsIcons: Record<string, React.JSX.Element> = {
-  [ECommitmentType.SAVINGSPROGRAMMED]: <MdOutlineTimer />,
-  [ECommitmentType.QUOTAESTATUTORY]: <MdOutlineRealEstateAgent />,
+  "0S": <MdOutlineRealEstateAgent />,
+  SC: <MdOutlineTimer />,
 };
 
 const investmentCommitmentsIcons: Record<string, React.JSX.Element> = {

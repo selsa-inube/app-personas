@@ -50,7 +50,6 @@ interface ICommitment {
   products: string[];
   movements?: IMovement[];
   tag?: TagProps;
-  savingNumber?: string;
 }
 
 enum EProductType {
@@ -80,7 +79,7 @@ interface IRate {
   annualEffectiveRate: string;
 }
 
-export { ECommitmentType, EProductType };
+export { EProductType, ECommitmentType };
 
 export type {
   IAmortization,

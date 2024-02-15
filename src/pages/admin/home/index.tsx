@@ -2,8 +2,8 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
-import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
+import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { HomeUI } from "./interface";
 

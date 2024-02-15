@@ -80,7 +80,7 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
                 <Product
                   key={commitment.id}
                   title={commitment.title}
-                  description={commitment.id}
+                  description={commitment.description}
                   icon={commitmentsIcons[commitment.type]}
                   attributes={formatValueToPayAttribute(commitment.attributes)}
                   navigateTo={`/my-savings/commitment/${commitment.id}`}
