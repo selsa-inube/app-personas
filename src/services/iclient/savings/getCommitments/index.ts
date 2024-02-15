@@ -1,20 +1,14 @@
 import { enviroment } from "@config/enviroment";
-import { ISavingsState } from "src/context/savings/types";
+import { ICommitment } from "src/model/entity/product";
 import { mapSavingsApiToEntities } from "./mappers";
 
-const getSavingsForUser = async (
+const getSavingsCommitmentsForUser = async (
   userIdentification: string,
   accessToken: string,
-): Promise<ISavingsState> => {
+): Promise<ICommitment[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
-  const emptyResponse = {
-    savingsAccounts: [],
-    programmedSavings: [],
-    savingsContributions: [],
-    cdats: [],
-    commitments: [],
-  };
+  const emptyResponse: ICommitment[] = [];
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -30,7 +24,7 @@ const getSavingsForUser = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchAllSavingProductCatalogs",
+          "X-Action": "SearchAllSavingPlan",
           "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -40,7 +34,7 @@ const getSavingsForUser = async (
       const res = await fetch(
         `${
           enviroment.ICLIENT_API_URL_QUERY
-        }/saving-products?${queryParams.toString()}`,
+        }/saving-plans?${queryParams.toString()}`,
         options,
       );
 
@@ -54,21 +48,21 @@ const getSavingsForUser = async (
 
       if (!res.ok) {
         throw {
-          message: "Error al obtener los productos de ahorro del usuario",
+          message: "Error al obtener los compromisos de ahorro del usuario",
           status: res.status,
           data,
         };
       }
 
-      const normalizedSavings = Array.isArray(data)
+      const normalizedSavingsCommitments = Array.isArray(data)
         ? mapSavingsApiToEntities(data)
         : emptyResponse;
 
-      return normalizedSavings;
+      return normalizedSavingsCommitments;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
-          "Todos los intentos fallaron. No se pudieron obtener los productos de ahorro del usuario.",
+          "Todos los intentos fallaron. No se pudieron obtener los compromisos de ahorro del usuario.",
         );
       }
     }
@@ -77,4 +71,4 @@ const getSavingsForUser = async (
   return emptyResponse;
 };
 
-export { getSavingsForUser };
+export { getSavingsCommitmentsForUser };

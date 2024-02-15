@@ -36,15 +36,19 @@ interface IAmortization {
   projectedBalance: number;
 }
 
-type CommitmentType = "PROGRAMMEDSAVINGS" | "0S" | "SC";
+enum ECommitmentType {
+  SAVINGSPROGRAMMED = "SAVINGSPROGRAMMED",
+  QUOTAESTATUTORY = "QUOTAESTATUTARY",
+}
 
 interface ICommitment {
   id: string;
   title: string;
-  type: CommitmentType;
+  type: ECommitmentType;
   description?: string;
   attributes: IAttribute[];
   products: string[];
+  movements?: IMovement[];
   tag?: TagProps;
 }
 
@@ -75,7 +79,7 @@ interface IRate {
   annualEffectiveRate: string;
 }
 
-export { EProductType };
+export { EProductType, ECommitmentType };
 
 export type {
   IAmortization,
