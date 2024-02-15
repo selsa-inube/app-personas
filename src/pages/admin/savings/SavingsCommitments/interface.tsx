@@ -2,26 +2,21 @@ import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { NextPaymentModal } from "@components/modals/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
+import { Table } from "@design/data/Table";
+import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
-import { Text } from "@design/data/Text";
-import { Table } from "@design/data/Table";
-import { Button } from "@design/input/Button";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { investmentsMock } from "@mocks/products/investments/investments.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import {
-  MdArrowBack,
-  MdSyncAlt,
-  MdOpenInNew,
-  MdOutlinePaid,
-} from "react-icons/md";
+import { MdArrowBack, MdOpenInNew, MdSyncAlt } from "react-icons/md";
+import { IProduct } from "src/model/entity/product";
+import { currencyFormat } from "src/utils/currency";
 import {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
@@ -32,24 +27,21 @@ import {
   savingsAccountIcons,
 } from "../SavingsAccount/config/saving";
 import { crumbsSavingsCommitments } from "./config/navigation";
-import { ISelectedCommitmentState } from "./types";
-import { currencyFormat } from "src/utils/currency";
-import { NextPaymentModal } from "@components/modals/NextPaymentModal";
-import { INextPaymentModalState } from "./types";
-import { StyledPaymentsContainer } from "./styles";
 import {
-  savingsAccountPaymentsTableTitles,
   savingAccountPaymentsNormalizeEntries,
   savingsAccountPaymentsTableActions,
   savingsAccountPaymentsTableBreakpoints,
+  savingsAccountPaymentsTableTitles,
 } from "./config/table";
+import { StyledPaymentsContainer } from "./styles";
+import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
+  savingProducts: IProduct[],
 ) {
   return selectedCommitment.map((commitment) => {
-    const products = [...savingsMock, ...investmentsMock];
-    const product = products.find((savings) => savings.id === commitment);
+    const product = savingProducts.find((savings) => savings.id === commitment);
     if (product) {
       const productsIcons = { ...savingsAccountIcons, ...investmentIcons };
       return (
@@ -76,6 +68,7 @@ interface SavingsCommitmentsUIProps {
   nextPaymentModal: INextPaymentModalState;
   selectedCommitment: ISelectedCommitmentState;
   isMobile: boolean;
+  savingProducts: IProduct[];
   handleChangeCommitment: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleToggleNextPaymentModal: () => void;
 }
@@ -87,6 +80,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
     nextPaymentModal,
     selectedCommitment,
     isMobile,
+    savingProducts,
     handleChangeCommitment,
     handleToggleNextPaymentModal,
   } = props;
@@ -163,7 +157,10 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               collapsing={{ start: true, allow: false }}
             >
               <Stack direction="column" gap="s100">
-                {renderProducts(selectedCommitment.commitment.products)}
+                {renderProducts(
+                  selectedCommitment.commitment.products,
+                  savingProducts,
+                )}
               </Stack>
             </Box>
           </Stack>
@@ -185,14 +182,6 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               pageLength={selectedCommitment.commitment.movements?.length || 0}
               hideMobileResume
             />
-            <Button
-              spacing="compact"
-              iconBefore={<MdOutlinePaid />}
-              appearance="dark"
-              variant="none"
-            >
-              Pagos
-            </Button>
           </StyledPaymentsContainer>
         </Stack>
       </Grid>

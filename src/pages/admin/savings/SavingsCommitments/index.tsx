@@ -1,15 +1,12 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { SavingsCommitmentsUI } from "./interface";
-import { SavingsContext } from "src/context/savings";
-import { useContext } from "react";
-import { validateCommitment } from "./utils";
-import { useAuth } from "@inube/auth";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { ISelectedCommitmentState } from "./types";
-import { INextPaymentModalState } from "./types";
-import { getNextPaymentData } from "./utils";
+import { useAuth } from "@inube/auth";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { SavingsContext } from "src/context/savings";
+import { SavingsCommitmentsUI } from "./interface";
+import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
+import { getNextPaymentData, validateCommitment } from "./utils";
 
 function SavingsCommitments() {
   const { commitment_id } = useParams();
@@ -25,12 +22,19 @@ function SavingsCommitments() {
   const isMobile = useMediaQuery("(max-width: 750px)");
   const navigate = useNavigate();
   const { user, accessToken } = useAuth();
-  const { commitments, setCommitments } = useContext(SavingsContext);
+  const { commitments, savings, setCommitments } = useContext(SavingsContext);
+
+  const combinedSavings = [
+    ...savings.savingsAccounts,
+    ...savings.savingsContributions,
+    ...savings.cdats,
+    ...savings.programmedSavings,
+  ];
 
   const handleSortCommitment = async () => {
     if (!commitment_id || !user || !accessToken) return;
 
-    const { selectedCommitments, newCommitments } = await validateCommitment(
+    const { selectedCommitment, newCommitments } = await validateCommitment(
       commitments,
       commitment_id,
       user.identification,
@@ -39,16 +43,41 @@ function SavingsCommitments() {
 
     setCommitments(newCommitments);
 
-    if (!selectedCommitments) return;
+    if (!selectedCommitment) return;
+
+    const productsForCommitment: string[] = [];
+
+    const separateProduct =
+      selectedCommitment.savingNumber &&
+      selectedCommitment.savingNumber.split("-");
+
+    const productNumber =
+      separateProduct && separateProduct.length > 1 && separateProduct[1];
+
+    const combinedSavings = [
+      ...savings.savingsAccounts,
+      ...savings.savingsContributions,
+      ...savings.cdats,
+      ...savings.programmedSavings,
+    ];
+
+    combinedSavings.forEach((product) => {
+      if (productNumber && product.id.includes(productNumber)) {
+        productsForCommitment.push(product.id);
+      }
+    });
+
+    selectedCommitment.products = productsForCommitment;
 
     setSelectedCommitment({
-      commitment: selectedCommitments || [],
-      option: selectedCommitments.id,
+      commitment: selectedCommitment,
+      option: selectedCommitment.id,
     });
+
     setCommitmentsOptions(
-      newCommitments.map((commitments) => ({
-        id: commitments.id,
-        value: commitments.title,
+      newCommitments.map((commitment) => ({
+        id: commitment.id,
+        value: commitment.title,
       })),
     );
   };
@@ -97,6 +126,7 @@ function SavingsCommitments() {
       selectedCommitment={selectedCommitment}
       nextPaymentModal={nextPaymentModal}
       isMobile={isMobile}
+      savingProducts={combinedSavings}
       handleChangeCommitment={handleChangeCommitment}
       handleToggleNextPaymentModal={handleToggleNextPaymentModal}
     />

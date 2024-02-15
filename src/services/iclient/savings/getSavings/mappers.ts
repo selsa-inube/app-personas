@@ -28,26 +28,26 @@ const mapSavingProductMovementsApiToEntities = (
 };
 
 const mapSavingsApiToEntity = (
-  savings: Record<string, string | number | object>,
+  saving: Record<string, string | number | object>,
 ): IProduct => {
-  const productType: EProductType = Object(savings.productType).code;
+  const productType: EProductType = Object(saving.productType).code;
 
-  const movements = Array.isArray(savings.lastMovementTheSavingProducts)
+  const movements = Array.isArray(saving.lastMovementTheSavingProducts)
     ? mapSavingProductMovementsApiToEntities(
-        savings.lastMovementTheSavingProducts,
+        saving.lastMovementTheSavingProducts,
       )
     : [];
 
-  const attributes = getProductAttributes(productType, savings);
+  const attributes = getProductAttributes(productType, saving);
 
   const { title, description } = getProductDetails(
     productType,
-    capitalizeText(String(savings.productDescription).toLowerCase()),
-    String(savings.productNumber),
+    capitalizeText(String(saving.productDescription).toLowerCase()),
+    String(saving.productNumber),
   );
 
   return {
-    id: String(savings.productNumber),
+    id: String(saving.productNumber),
     title,
     description,
     type: productType,
@@ -67,26 +67,26 @@ const mapSavingsApiToEntities = (
   const cdats: IProduct[] = [];
 
   savings
-    .map((savings) => mapSavingsApiToEntity(savings))
-    .map((savings) => {
-      switch (savings.type) {
+    .map((saving) => mapSavingsApiToEntity(saving))
+    .map((saving) => {
+      switch (saving.type) {
         case EProductType.VIEWSAVINGS:
-          savingsAccounts.push(savings);
+          savingsAccounts.push(saving);
           break;
         case EProductType.PROGRAMMEDSAVINGS:
-          programmedSavings.push(savings);
+          programmedSavings.push(saving);
           break;
         case EProductType.PERMANENTSAVINGS: {
-          if (savings.id.startsWith("201")) {
-            savingsContributions.push(savings);
+          if (saving.id.startsWith("201")) {
+            savingsContributions.push(saving);
           }
           break;
         }
         case EProductType.CONTRIBUTIONS:
-          savingsContributions.push(savings);
+          savingsContributions.push(saving);
           break;
         case EProductType.CDAT:
-          cdats.push(savings);
+          cdats.push(saving);
           break;
       }
     });
