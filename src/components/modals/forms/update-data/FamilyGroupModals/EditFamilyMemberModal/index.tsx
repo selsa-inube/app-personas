@@ -99,11 +99,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
               onBlur={formik.handleBlur}
               errorMessage={formik.errors.isDependent}
               onChange={formik.handleChange}
-              value={
-                formik.values.isDependent === activeDM.Y.id
-                  ? activeDM.Y.id
-                  : activeDM.N.id
-              }
+              value={formik.values.isDependent || ""}
               state={getFieldState(formik, "isDependent")}
               isRequired={isRequired("isDependent")}
               isFullWidth

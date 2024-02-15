@@ -41,7 +41,7 @@ interface IReferenceThird {
     birthDate: string;
     gender: string;
     relationship?: string;
-    isDependent?: boolean;
+    isDependent?: string;
     educationLevel?: string;
     businessActivity?: string;
     profession?: string;
@@ -55,7 +55,7 @@ interface IFamilyThird {
     birthDate: string;
     gender: string;
     relationship: string;
-    isDependent?: boolean;
+    isDependent?: string;
     educationLevel?: string;
     businessActivity?: string;
     profession?: string;

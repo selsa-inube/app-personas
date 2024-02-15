@@ -209,11 +209,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 size="compact"
                 options={activeDM.options}
                 isFullWidth
-                value={
-                  formik.values.isDependent === activeDM.Y.id
-                    ? activeDM.Y.id
-                    : activeDM.N.id
-                }
+                value={formik.values.isDependent || ""}
                 readOnly
               />
               <Select
