@@ -15,77 +15,83 @@ const updateDataSteps = {
     description:
       "Diligencia la información que nos permita identificar tu núcleo familiar.",
   },
-  bankTransfers: {
+  beneficiaries: {
     id: 4,
+    name: "Beneficiarios",
+    description:
+      "Diligencia como se beneficiaran tus familiares asignando un porcentaje.",
+  },
+  bankTransfers: {
+    id: 5,
     name: "Transferencias bancarias",
     description:
       "Diligencia la información donde podemos realizarte transferencias de dinero.",
   },
   personalAssets: {
-    id: 5,
+    id: 6,
     name: "Activos personales",
     description: "Diligencia la información para registrar tus bienes.",
   },
   personalDebts: {
-    id: 6,
+    id: 7,
     name: "Deudas personales",
     description:
       "Diligencia la información acerca de las deudas que posees actualmente.",
   },
   personalReferences: {
-    id: 7,
+    id: 8,
     name: "Referencias personales",
     description:
       "Diligencia la información de aquellas personas que te conocen.",
   },
   financialOperations: {
-    id: 8,
+    id: 9,
     name: "Operaciones financieras",
     description:
       "Diligencia la información si realizas operaciones financieras en el exterior.",
   },
   personalResidence: {
-    id: 9,
+    id: 10,
     name: "Residencia personal",
     description: "Diligencia la información del inmueble donde vives.",
   },
   socioeconomicInformation: {
-    id: 10,
+    id: 11,
     name: "Información socioeconómica",
     description:
       "Diligencia la información relacionada a tu educación, ingresos y tipo de trabajo.",
   },
   economicActivity: {
-    id: 11,
+    id: 12,
     name: "Actividad económica",
     description: "Diligencia la información acerca tu actividad económica.",
   },
   income: {
-    id: 12,
+    id: 13,
     name: "Ingresos",
     description:
       "Diligencia la información de ingresos relativos a tu actividad económica.",
   },
   expenses: {
-    id: 13,
+    id: 14,
     name: "Egresos",
     description:
       "Diligencia la información de la cantidad de dinero que usas mensualmente.",
   },
   relationshipWithDirectors: {
-    id: 14,
+    id: 15,
     name: "Relación con directivos",
     description:
       "Diligencia la información si posees alguna relación con nuestros directivos.",
   },
   comments: {
-    id: 15,
+    id: 16,
     name: "Comentarios",
     description:
       "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
   },
   verification: {
-    id: 16,
+    id: 17,
     name: "Verificación",
     description:
       "Verifica que la información diligenciada sea correcta y envía la solicitud.",
