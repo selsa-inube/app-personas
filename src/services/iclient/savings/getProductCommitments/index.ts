@@ -1,25 +1,17 @@
 import { enviroment } from "@config/enviroment";
-import { ISavingsState } from "src/context/savings/types";
-import { mapSavingsApiToEntities } from "./mappers";
+import { mapCommitmentsForProductApiToEntities } from "./mappers";
 
-const getSavingsForUser = async (
-  userIdentification: string,
+const getCommitmentsForProduct = async (
+  productId: string,
   accessToken: string,
-): Promise<ISavingsState> => {
+) => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
-  const emptyResponse = {
-    savingsAccounts: [],
-    programmedSavings: [],
-    savingsContributions: [],
-    cdats: [],
-    commitments: [],
-  };
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        customerCode: userIdentification,
+        productNumber: productId,
       });
 
       const controller = new AbortController();
@@ -30,7 +22,7 @@ const getSavingsForUser = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchAllSavingProductCatalogs",
+          "X-Action": "SearchAllProductsCommitmentRelationship",
           "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -40,41 +32,41 @@ const getSavingsForUser = async (
       const res = await fetch(
         `${
           enviroment.ICLIENT_API_URL_QUERY
-        }/saving-products?${queryParams.toString()}`,
+        }/saving-plans?${queryParams.toString()}`,
         options,
       );
 
       clearTimeout(timeoutId);
 
       if (res.status === 204) {
-        return emptyResponse;
+        return [];
       }
 
       const data = await res.json();
 
       if (!res.ok) {
         throw {
-          message: "Error al obtener los productos de ahorro del usuario",
+          message: "Error al obtener los compromisos del producto",
           status: res.status,
           data,
         };
       }
 
-      const normalizedSavings = Array.isArray(data)
-        ? mapSavingsApiToEntities(data)
-        : emptyResponse;
+      const normalizedCommitmentsForProduct = Array.isArray(data)
+        ? mapCommitmentsForProductApiToEntities(data)
+        : [];
 
-      return normalizedSavings;
+      return normalizedCommitmentsForProduct;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
-          "Todos los intentos fallaron. No se pudieron obtener los productos de ahorro del usuario.",
+          "Todos los intentos fallaron. No se pudieron obtener los compromisos del producto",
         );
       }
     }
   }
 
-  return emptyResponse;
+  return [];
 };
 
-export { getSavingsForUser };
+export { getCommitmentsForProduct };
