@@ -18,11 +18,9 @@ const StyledContainer = styled.div<IStyledContainer>`
 
 interface IStyledInputContainer {
   isDisabled: boolean;
-  isFocused: boolean;
+  isFocused?: boolean;
   state: string;
   readOnly?: boolean;
-  isFullWidth: boolean;
-  $size: InputSize;
 }
 
 const StyledInputContainer = styled.div<IStyledInputContainer>`
@@ -62,76 +60,87 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
         theme.color?.palette?.neutral?.N40 || inube.color.palette.neutral.N40
       );
     }};
+  /* 
+  input[type="date"]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+  } */
+`;
 
-  input {
-    outline: none;
-    cursor: ${({ readOnly }) => readOnly && "not-allowed"};
-    font-family: ${({ theme }) =>
-      theme.typography?.body?.large?.font || inube.typography.body.large.font};
-    font-size: ${({ theme }) =>
-      theme.typography?.body?.large?.size || inube.typography.body.large.size};
-    font-weight: ${({ theme }) =>
-      theme.typography?.body?.large?.weight ||
-      inube.typography.body.large.weight};
-    letter-spacing: ${({ theme }) =>
-      theme.typography?.body?.large?.tracking ||
-      inube.typography.body.large.tracking};
-    line-height: ${({ theme }) =>
-      theme.typography?.body?.large?.lineHeight ||
-      inube.typography.body.large.lineHeight};
+interface IStyledInput {
+  isDisabled: boolean;
+  readOnly?: boolean;
+  isFullWidth: boolean;
+  $size: InputSize;
+}
 
-    color: ${({ theme, isDisabled, readOnly }) => {
-      if (isDisabled) {
-        return (
-          theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
-        );
-      }
-      if (readOnly) {
-        return theme.color?.text?.gray?.hover || inube.color.text.gray.hover;
-      }
-      return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
-    }};
-    background: ${({ theme, isDisabled, readOnly }) =>
-      (isDisabled || readOnly) &&
-      (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
+const StyledInput = styled.input<IStyledInput>`
+  outline: none;
+  cursor: ${({ readOnly }) => readOnly && "not-allowed"};
+  font-family: ${({ theme }) =>
+    theme.typography?.body?.large?.font || inube.typography.body.large.font};
+  font-size: ${({ theme }) =>
+    theme.typography?.body?.large?.size || inube.typography.body.large.size};
+  font-weight: ${({ theme }) =>
+    theme.typography?.body?.large?.weight ||
+    inube.typography.body.large.weight};
+  letter-spacing: ${({ theme }) =>
+    theme.typography?.body?.large?.tracking ||
+    inube.typography.body.large.tracking};
+  line-height: ${({ theme }) =>
+    theme.typography?.body?.large?.lineHeight ||
+    inube.typography.body.large.lineHeight};
 
-    border: none;
-
-    width: ${({ isFullWidth }) => (isFullWidth ? "100%" : "calc(100% - 32px)")};
-    height: ${({ $size }) =>
-      $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s400}`};
-
-    ::placeholder {
-      color: ${({ theme }) =>
-        theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled};
+  color: ${({ theme, isDisabled, readOnly }) => {
+    if (isDisabled) {
+      return (
+        theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
+      );
     }
-
-    &:focus {
-      outline: none;
-      border-width: ${inube.spacing.s025};
+    if (readOnly) {
+      return theme.color?.text?.gray?.hover || inube.color.text.gray.hover;
     }
+    return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
+  }};
+  background: ${({ theme, isDisabled, readOnly }) =>
+    (isDisabled || readOnly) &&
+    (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
-    &::-webkit-search-cancel-button {
-      display: none;
-    }
+  border: none;
 
-    &::-moz-search-cancel-button {
-      display: none;
-    }
+  width: ${({ isFullWidth }) => (isFullWidth ? "calc(100%)" : "252px")};
+  height: ${({ $size }) =>
+    $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s400}`};
 
-    &:-webkit-autofill {
-      -webkit-background-clip: text;
-      background-clip: text;
-    }
-
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    -moz-appearance: textfield;
+  ::placeholder {
+    color: ${({ theme }) =>
+      theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled};
   }
+
+  &:focus {
+    outline: none;
+    border-width: ${inube.spacing.s025};
+  }
+
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  &::-moz-search-cancel-button {
+    display: none;
+  }
+
+  &:-webkit-autofill {
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  -moz-appearance: textfield;
 `;
 
 interface IStyledMessageContainer {
@@ -207,6 +216,7 @@ const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
 export {
   StyledContainer,
   StyledErrorMessageContainer,
+  StyledInput,
   StyledInputContainer,
   StyledValidMessageContainer,
 };
