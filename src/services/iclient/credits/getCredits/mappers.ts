@@ -181,11 +181,15 @@ const mapCreditApiToEntity = (
     String(credit.productName).toLowerCase(),
   );
 
+  const creditType: EProductType = Object(
+    credit.originationModel,
+  ).code.toUpperCase();
+
   return {
     id: String(credit.obligationNumber),
     title: normalizedProductName,
     description: `${normalizedProductName} ${credit.obligationNumber}`,
-    type: String(credit.lineCode) as EProductType,
+    type: creditType,
     attributes,
     movements: [],
     amortization: [],
@@ -197,8 +201,8 @@ const mapCreditsApiToEntities = (
   credits: Record<string, string | number | object>[],
 ): IProduct[] => {
   return credits
-    .filter((credit) => credit.lineCode !== "CE")
-    .map((credit) => mapCreditApiToEntity(credit));
+    .map((credit) => mapCreditApiToEntity(credit))
+    .filter((credit) => credit.type !== EProductType.CREDITCARD);
 };
 
 export { mapCreditApiToEntity, mapCreditsApiToEntities };
