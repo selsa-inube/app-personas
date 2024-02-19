@@ -112,7 +112,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 name="bankEntity"
                 id="bankEntity"
                 type="text"
-                placeholder="Entidad bancaria"
+                placeholder="Digita la entidad bancaria"
                 value={formik.values.bankEntity}
                 size={isTablet ? "compact" : "wide"}
                 isFullWidth
@@ -128,7 +128,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 label="Moneda"
                 name="currency"
                 id="currency"
-                placeholder="Moneda"
+                placeholder="Digita la moneda"
                 type="text"
                 value={formik.values.currency}
                 size={isTablet ? "compact" : "wide"}
