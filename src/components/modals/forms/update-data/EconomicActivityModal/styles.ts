@@ -8,7 +8,7 @@ interface IStyledModal {
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
   flex-direction: column;
-  width: ${({ smallScreen }) => (smallScreen ? "100%" : "450px")};
+  width: ${({ smallScreen }) => (smallScreen ? "100%" : "402px")};
   padding: ${({ smallScreen }) =>
     smallScreen ? inube.spacing.s200 : inube.spacing.s300};
   margin: ${inube.spacing.s200} ${inube.spacing.s300};
@@ -21,17 +21,17 @@ const StyledModal = styled.div<IStyledModal>`
 
 const StyledItem = styled.div`
   cursor: pointer;
+  height: 104px;
   padding: ${inube.spacing.s150};
   background-color: ${({ theme }) =>
     theme.color?.surface?.light?.regular || inube.color.surface.light.regular};
   border-radius: ${inube.spacing.s100};
-  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
+  box-shadow:
+    0px 1px 3px 1px rgba(0, 0, 0, 0.15),
     0px 1px 2px 0px rgba(0, 0, 0, 0.3);
 `;
 
 const StyledBody = styled.div`
-  overflow-y: auto;
-  height: calc(58vh - 32px);
   display: flex;
   flex-direction: column;
   gap: ${inube.spacing.s150};
@@ -47,4 +47,4 @@ const StyledBody = styled.div`
   }
 `;
 
-export { StyledModal, StyledItem, StyledBody };
+export { StyledBody, StyledItem, StyledModal };
