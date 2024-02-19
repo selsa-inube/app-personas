@@ -284,35 +284,37 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   isDisabled={loading}
                   isFullWidth
                 />
-                <Select
+                <TextField
                   label="Cargo"
                   name="position"
                   id="position"
+                  placeholder="Digita el cargo"
+                  type="text"
                   value={formik.values.position}
                   size="compact"
-                  options={getDomainById("position")}
                   state={getFieldState(formik, "position")}
                   isRequired={isRequired("position")}
                   errorMessage={formik.errors.position}
+                  validMessage="El cargo es válido"
                   onBlur={formik.handleBlur}
-                  onClick={formik.handleClick}
                   onFocus={formik.handleFocus}
                   onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
                 />
-                <Select
+                <TextField
                   label="Dependencia"
                   name="dependence"
                   id="dependence"
+                  placeholder="Digita la dependencia"
+                  type="text"
                   value={formik.values.dependence}
                   size="compact"
-                  options={getDomainById("dependence")}
                   state={getFieldState(formik, "dependence")}
                   isRequired={isRequired("dependence")}
                   errorMessage={formik.errors.dependence}
+                  validMessage="La dependencia es válida"
                   onBlur={formik.handleBlur}
-                  onClick={formik.handleClick}
                   onFocus={formik.handleFocus}
                   onChange={formik.handleChange}
                   isDisabled={loading}
