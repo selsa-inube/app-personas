@@ -17,7 +17,7 @@ const props = {
     description: "Name of the dateField",
   },
   id: {
-    description: "Corresponds to the identifier of the textfield",
+    description: "Corresponds to the identifier of the datefield",
   },
   max: {
     description: "Sets the maximum date that can be selected",

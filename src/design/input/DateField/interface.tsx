@@ -2,8 +2,8 @@ import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
+import { IDateFieldMessage } from "../DateField/types";
 import { Label } from "../Label";
-import { ITextFieldMessage } from "../TextField/types";
 import {
   StyledContainer,
   StyledErrorMessageContainer,
@@ -14,7 +14,7 @@ import {
 
 import { DateFieldProps } from ".";
 
-function Invalid(props: ITextFieldMessage) {
+function Invalid(props: IDateFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
 
   return (
@@ -27,7 +27,7 @@ function Invalid(props: ITextFieldMessage) {
   );
 }
 
-function Success(props: ITextFieldMessage) {
+function Success(props: IDateFieldMessage) {
   const { isDisabled, state, validMessage } = props;
 
   return (

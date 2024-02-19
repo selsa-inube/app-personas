@@ -60,10 +60,6 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
         theme.color?.palette?.neutral?.N40 || inube.color.palette.neutral.N40
       );
     }};
-  /* 
-  input[type="date"]:required:invalid::-webkit-datetime-edit {
-    color: transparent;
-  } */
 `;
 
 interface IStyledInput {
