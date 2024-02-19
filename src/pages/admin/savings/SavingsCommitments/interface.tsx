@@ -2,7 +2,10 @@ import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { NextPaymentModal } from "@components/modals/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
+import { Table } from "@design/data/Table";
+import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
@@ -11,10 +14,9 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { investmentsMock } from "@mocks/products/investments/investments.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { MdArrowBack, MdSyncAlt } from "react-icons/md";
-import { truncateAndObfuscateDescription } from "src/utils/texts";
+import { MdArrowBack, MdOpenInNew, MdSyncAlt } from "react-icons/md";
+import { IProduct } from "src/model/entity/product";
+import { currencyFormat } from "src/utils/currency";
 import {
   extractMySavingsAttributes,
   formatMySavingsCurrencyAttrs,
@@ -24,37 +26,31 @@ import {
   investmentIcons,
   savingsAccountIcons,
 } from "../SavingsAccount/config/saving";
-import { formatSavingCommitmentsCurrencyAttrs } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
-import { ISelectedCommitmentState } from "./types";
-
-interface SavingsCommitmentsUIProps {
-  commitmentId?: string;
-  commitmentsOptions: ISelectOption[];
-  handleChangeCommitment: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  selectedCommitment: ISelectedCommitmentState;
-  isMobile: boolean;
-}
+import {
+  savingAccountPaymentsNormalizeEntries,
+  savingsAccountPaymentsTableActions,
+  savingsAccountPaymentsTableBreakpoints,
+  savingsAccountPaymentsTableTitles,
+} from "./config/table";
+import { StyledPaymentsContainer } from "./styles";
+import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
 
 function renderProducts(
-  selectedCommitment: ISelectedCommitmentState["commitment"]["products"]
+  selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
+  savingProducts: IProduct[],
 ) {
   return selectedCommitment.map((commitment) => {
-    const products = [...savingsMock, ...investmentsMock];
-    const product = products.find((savings) => savings.id === commitment);
+    const product = savingProducts.find((savings) => savings.id === commitment);
     if (product) {
       const productsIcons = { ...savingsAccountIcons, ...investmentIcons };
       return (
         <Product
           key={product.id}
           title={product.title}
-          description={truncateAndObfuscateDescription(
-            product.id,
-            product.type,
-            4
-          )}
+          description={product.id}
           attributes={formatMySavingsCurrencyAttrs(
-            extractMySavingsAttributes(product)
+            extractMySavingsAttributes(product),
           )}
           breakpoints={mySavingsAttributeBreakpoints}
           tags={product.tags}
@@ -66,13 +62,27 @@ function renderProducts(
   });
 }
 
+interface SavingsCommitmentsUIProps {
+  commitmentId?: string;
+  commitmentsOptions: ISelectOption[];
+  nextPaymentModal: INextPaymentModalState;
+  selectedCommitment: ISelectedCommitmentState;
+  isMobile: boolean;
+  savingProducts: IProduct[];
+  handleChangeCommitment: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleToggleNextPaymentModal: () => void;
+}
+
 function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
   const {
     commitmentId,
     commitmentsOptions,
-    handleChangeCommitment,
+    nextPaymentModal,
     selectedCommitment,
     isMobile,
+    savingProducts,
+    handleChangeCommitment,
+    handleToggleNextPaymentModal,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -89,7 +99,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
         />
       </Stack>
       <Grid
-        gap="s600"
+        gap="s300"
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
@@ -101,13 +111,13 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             onChange={handleChangeCommitment}
             label="Selección del compromiso"
             options={commitmentsOptions}
-            value={selectedCommitment.option.id}
+            value={selectedCommitment.option}
             isFullWidth
           />
           <Stack direction="column" gap={isMobile ? "s250" : "s400"}>
             <Box
               title={selectedCommitment.commitment.title}
-              subtitle={selectedCommitment.commitment.description}
+              subtitle="Compromiso de ahorro"
               collapsing={{ start: true, allow: false }}
               tags={
                 selectedCommitment.commitment.tag && [
@@ -117,15 +127,26 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             >
               <Stack direction="column" gap="s100">
                 <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
-                  {formatSavingCommitmentsCurrencyAttrs(
-                    selectedCommitment.commitment.attributes
-                  ).map((attr) => (
+                  {nextPaymentModal.data && (
                     <BoxAttribute
-                      key={attr.id}
-                      label={`${attr.label}: `}
-                      value={attr.value}
+                      label="Valor próximo pago:"
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue={currencyFormat(
+                        nextPaymentModal.data.nextPaymentValue,
+                      )}
+                      onClickButton={handleToggleNextPaymentModal}
+                      withButton
                     />
-                  ))}
+                  )}
+                  {selectedCommitment.commitment.attributes
+                    .filter((attr) => attr.id !== "value_to_pay")
+                    .map((attr) => (
+                      <BoxAttribute
+                        key={attr.id}
+                        label={`${attr.label}: `}
+                        value={attr.value}
+                      />
+                    ))}
                 </Grid>
               </Stack>
             </Box>
@@ -136,13 +157,41 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               collapsing={{ start: true, allow: false }}
             >
               <Stack direction="column" gap="s100">
-                {renderProducts(selectedCommitment.commitment.products)}
+                {renderProducts(
+                  selectedCommitment.commitment.products,
+                  savingProducts,
+                )}
               </Stack>
             </Box>
           </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
+        <Stack direction="column" gap="s200" alignItems="flex-start">
+          <Text type="label" size="large">
+            Pagos recientes
+          </Text>
+          <StyledPaymentsContainer>
+            <Table
+              portalId="modals"
+              titles={savingsAccountPaymentsTableTitles}
+              breakpoints={savingsAccountPaymentsTableBreakpoints}
+              actions={savingsAccountPaymentsTableActions}
+              entries={savingAccountPaymentsNormalizeEntries(
+                selectedCommitment.commitment.movements || [],
+              ).slice(0, 5)}
+              pageLength={selectedCommitment.commitment.movements?.length || 0}
+              hideMobileResume
+            />
+          </StyledPaymentsContainer>
+        </Stack>
       </Grid>
+      {nextPaymentModal.show && nextPaymentModal.data && (
+        <NextPaymentModal
+          portalId="modals"
+          onCloseModal={handleToggleNextPaymentModal}
+          nextPaymentData={nextPaymentModal.data}
+        />
+      )}
     </>
   );
 }

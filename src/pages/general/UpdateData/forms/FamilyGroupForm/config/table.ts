@@ -31,8 +31,8 @@ const familyGroupTableBreakpoints = [
   { breakpoint: "(max-width: 1120px)", totalColumns: 3 },
   { breakpoint: "(max-width: 1020px)", totalColumns: 2 },
   { breakpoint: "(max-width: 899px)", totalColumns: 3 },
-  { breakpoint: "(max-width: 690px)", totalColumns: 2 },
-  { breakpoint: "(max-width: 560px)", totalColumns: 1 },
+  { breakpoint: "(max-width: 590px)", totalColumns: 2 },
+  { breakpoint: "(max-width: 460px)", totalColumns: 1 },
 ];
 
 export { familyGroupTableBreakpoints, familyGroupTableTitles };

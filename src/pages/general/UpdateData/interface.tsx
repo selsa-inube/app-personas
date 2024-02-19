@@ -6,9 +6,11 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
+import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { updateDataSteps } from "./config/assisted";
 import { crumbsUpdateData } from "./config/navigation";
 import { BankTransfersForm } from "./forms/BankTransfersForm";
+import { BeneficiariesForm } from "./forms/BeneficiariesForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { EconomicActivityForm } from "./forms/EconomicActivityForm";
 import { ExpensesForm } from "./forms/ExpensesForm";
@@ -24,7 +26,6 @@ import { RelationshipWithDirectorsForm } from "./forms/RelationshipWithDirectors
 import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
 import { UpdateDataVerification } from "./forms/Verification";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
-import { CommentsForm } from "src/shared/forms/CommentsForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -53,6 +54,13 @@ const renderStepContent = (
         <FamilyGroupForm
           initialValues={updateData.familyGroup.values}
           ref={formReferences.familyGroup}
+        />
+      )}
+      {currentStep === updateDataSteps.beneficiaries.id && (
+        <BeneficiariesForm
+          initialValues={updateData.beneficiaries.values}
+          ref={formReferences.beneficiaries}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === updateDataSteps.bankTransfers.id && (
@@ -213,7 +221,8 @@ function UpdateDataUI(props: UpdateDataUIProps) {
             onClick={handlePreviousStep}
             type="button"
             disabled={currentStep === steps[0].id}
-            spacing={isMobile ? "compact" : "wide"}
+            spacing="compact"
+            variant="outlined"
             appearance="gray"
           >
             Atrás
@@ -221,7 +230,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
 
           <Button
             onClick={handleNextStep}
-            spacing={isMobile ? "compact" : "wide"}
+            spacing="compact"
             disabled={!isCurrentFormValid}
           >
             {currentStep === steps.length ? "Enviar" : "Siguiente"}

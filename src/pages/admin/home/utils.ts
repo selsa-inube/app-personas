@@ -1,29 +1,17 @@
 import { investmentsMock } from "@mocks/products/investments/investments.mocks";
-import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
-import { IAttribute } from "src/model/entity/product";
+import { EProductType, IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
-import {
-  permanentSavingsCode,
-  savingAccountCode,
-  socialContributionsCode,
-} from "../savings/MySavings/config/products";
-
-const productsCommitments = [
-  ...savingsCommitmentsMock,
-  ...investmentsCommitmentsMock,
-];
 
 const getSavingProducts = (types: string[]) => {
   return savingsMock.filter((investment) => types.includes(investment.type));
 };
 
-const savingsAccountsMock = getSavingProducts([savingAccountCode]);
-const savingsStatutoryContributions = getSavingProducts([
-  permanentSavingsCode,
-  socialContributionsCode,
+const savingsAccountsMock = getSavingProducts([EProductType.VIEWSAVINGS]);
+const savingsContributions = getSavingProducts([
+  EProductType.VIEWSAVINGS,
+  EProductType.CONTRIBUTIONS,
 ]);
 
 const getInvestmentsProducts = (userId: string, type: string) => {
@@ -52,7 +40,6 @@ const getSavingsAttributes = (commitmentAttributes: IAttribute[]) => {
 export {
   getInvestmentsProducts,
   getSavingsAttributes,
-  productsCommitments,
   savingsAccountsMock,
-  savingsStatutoryContributions,
+  savingsContributions,
 };

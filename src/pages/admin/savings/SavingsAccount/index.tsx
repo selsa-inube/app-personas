@@ -1,20 +1,18 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { investmentsCommitmentsMock } from "@mocks/products/investments/investmentsCommitments.mocks";
-import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
-import { useEffect, useState } from "react";
+import { useAuth } from "@inube/auth";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { SavingsAccountUI } from "./interface";
 import { SavingsContext } from "src/context/savings";
-import { useContext } from "react";
-import { validateSaving } from "./utils";
+import { EProductType } from "src/model/entity/product";
+import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
-import { useAuth } from "@inube/auth";
+import { validateSaving } from "./utils";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -23,7 +21,7 @@ function SavingsAccount() {
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
   const { user, accessToken } = useAuth();
-  const { savings, setSavings } = useContext(SavingsContext);
+  const { savings, commitments, setSavings } = useContext(SavingsContext);
   const [beneficiariesModal, setBeneficiariesModal] =
     useState<IBeneficiariesModalState>({
       show: false,
@@ -72,16 +70,25 @@ function SavingsAccount() {
     }
   };
 
-  const getCommitments = () => {
-    if (!selectedProduct) return;
+  const getCommitments = async () => {
+    if (!selectedProduct || !accessToken) return;
 
-    const productsCommitments = [
-      ...savingsCommitmentsMock,
-      ...investmentsCommitmentsMock,
-    ];
+    const productNumber =
+      selectedProduct.option.split("-").length > 1 &&
+      selectedProduct.option.split("-")[1];
 
-    const foundCommitments = productsCommitments.filter((commitment) =>
-      commitment.products.includes(selectedProduct.saving.id),
+    const tempDocumentNumberCodes: Record<string, number> = {
+      [EProductType.PERMANENTSAVINGS]: 206,
+      [EProductType.CONTRIBUTIONS]: 205,
+    };
+
+    const foundCommitments = commitments.filter(
+      (commitment) =>
+        productNumber &&
+        commitment.savingNumber?.includes(productNumber) &&
+        commitment.savingNumber?.includes(
+          String(tempDocumentNumberCodes[selectedProduct.saving.type]),
+        ),
     );
 
     setCommitmentsModal({
@@ -93,12 +100,13 @@ function SavingsAccount() {
   const handleSortProduct = async () => {
     if (!product_id || !user || !accessToken) return;
 
-    const { selectedSavings, newSavings } = await validateSaving(
-      savings,
-      product_id,
-      user.identification,
-      accessToken,
-    );
+    const { selectedSavings, newSavings, combinedSavings } =
+      await validateSaving(
+        savings,
+        product_id,
+        user.identification,
+        accessToken,
+      );
 
     setSavings(newSavings);
 
@@ -110,23 +118,22 @@ function SavingsAccount() {
     });
 
     setProductsOptions(
-      newSavings
-        .map((saving) => ({
-          id: saving.id,
-          value: saving.description,
-        })),
+      combinedSavings.map((saving) => ({
+        id: saving.id,
+        value: saving.description,
+      })),
     );
   };
 
   useEffect(() => {
     getBeneficiaries();
-    getCommitments();
     getReimbursement();
+    getCommitments();
   }, [selectedProduct]);
 
   useEffect(() => {
     handleSortProduct();
-  }, [product_id, isMobile]);
+  }, [user, accessToken, product_id]);
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;

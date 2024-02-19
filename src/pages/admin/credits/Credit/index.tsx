@@ -6,13 +6,8 @@ import { CreditsContext } from "src/context/credits";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditUI } from "./interface";
+import { INextPaymentModalState, ISelectedProductState } from "./types";
 import {
-  IArrearsDetailModalState,
-  INextPaymentModalState,
-  ISelectedProductState,
-} from "./types";
-import {
-  getInArrearsData,
   getNextPaymentData,
   validateCredit,
   validateCreditMovementsAndAmortization,
@@ -26,10 +21,6 @@ function Credit() {
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const [nextPaymentModal, setNextPaymentModal] =
     useState<INextPaymentModalState>({
-      show: false,
-    });
-  const [arrearsDetailModal, setArrearsDetailModal] =
-    useState<IArrearsDetailModalState>({
       show: false,
     });
   const { credits, setCredits } = useContext(CreditsContext);
@@ -62,18 +53,6 @@ function Credit() {
         nextPaymentInterest,
         nextPaymentArrearsInterest,
         nextPaymentValue,
-      },
-    });
-
-    const { daysPastDue, inArrearsValue } = getInArrearsData(
-      selectedProduct.credit,
-    );
-
-    setArrearsDetailModal({
-      ...arrearsDetailModal,
-      data: {
-        daysPastDue,
-        inArrearsValue,
       },
     });
   }, [selectedProduct]);
@@ -130,12 +109,6 @@ function Credit() {
     }));
   };
 
-  const handleToggleArrearsDetailModal = () => {
-    setArrearsDetailModal((prevState) => ({
-      ...prevState,
-      show: !prevState.show,
-    }));
-  };
 
   return (
     <CreditUI
@@ -145,9 +118,7 @@ function Credit() {
       isMobile={isMobile}
       credit_id={credit_id}
       nextPaymentModal={nextPaymentModal}
-      arrearsDetailModal={arrearsDetailModal}
       handleToggleNextPaymentModal={handleToggleNextPaymentModal}
-      handleToggleArrearsDetailModal={handleToggleArrearsDetailModal}
       handleChangeProduct={handleChangeProduct}
     />
   );

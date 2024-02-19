@@ -14,7 +14,7 @@ const StyledBlanket = styled.div<IStyledBlanket>`
     theme.color?.surface?.blanket?.regular ||
     inube.color.surface.blanket.regular};
   border: none;
-  z-index: 1;
+  z-index: 3;
   overflow-y: auto;
 `;
 

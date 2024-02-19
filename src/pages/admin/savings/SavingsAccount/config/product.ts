@@ -1,12 +1,21 @@
-import { IAttribute, IProduct } from "src/model/entity/product";
+import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
 const productsAttributes: Record<string, string[]> = {
-  PROGRAMMEDSAVINGS: ["saved_value", "interest_rate"],
-  PERMANENTSAVINGS: ["saved_value", "withdrawal_balance", "pending_payment"],
-  CONTRIBUTIONS: ["saved_value"],
-  CA: ["net_value", "min_value", "account_state", "account_gmf"],
-  CD: [
+  [EProductType.PROGRAMMEDSAVINGS]: ["net_value", "interest_rate"],
+  [EProductType.PERMANENTSAVINGS]: [
+    "net_value",
+    "withdrawal_balance",
+    "pending_payment",
+  ],
+  [EProductType.CONTRIBUTIONS]: ["net_value"],
+  [EProductType.VIEWSAVINGS]: [
+    "net_value",
+    "min_value",
+    "account_state",
+    "account_gmf",
+  ],
+  [EProductType.CDAT]: [
     "title",
     "net_value",
     "expiration_date",
@@ -18,11 +27,19 @@ const productsAttributes: Record<string, string[]> = {
 };
 
 const savingCurrencyAttributes: Record<string, string[]> = {
-  PROGRAMMEDSAVINGS: ["saved_value"],
-  PERMANENTSAVINGS: ["saved_value", "pending_payment", "withdrawal_balance"],
-  CONTRIBUTIONS: ["saved_value", "pending_payment", "withdrawal_balance"],
-  CA: ["net_value", "min_value"],
-  CD: ["net_value"],
+  [EProductType.PROGRAMMEDSAVINGS]: ["net_value"],
+  [EProductType.PERMANENTSAVINGS]: [
+    "net_value",
+    "pending_payment",
+    "withdrawal_balance",
+  ],
+  [EProductType.CONTRIBUTIONS]: [
+    "net_value",
+    "pending_payment",
+    "withdrawal_balance",
+  ],
+  [EProductType.VIEWSAVINGS]: ["net_value", "min_value"],
+  [EProductType.CDAT]: ["net_value"],
 };
 
 function extractSavingAttributes(saving: IProduct) {

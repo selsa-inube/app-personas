@@ -36,33 +36,38 @@ interface IAmortization {
   projectedBalance: number;
 }
 
-type CommitmentType = "PROGRAMMEDSAVINGS" | "0S" | "SC";
+enum ECommitmentType {
+  SAVINGSPROGRAMMED = "SAVINGSPROGRAMMED",
+  QUOTAESTATUTORY = "QUOTAESTATUTORY",
+}
 
 interface ICommitment {
   id: string;
   title: string;
-  type: CommitmentType;
+  type: ECommitmentType;
   description?: string;
   attributes: IAttribute[];
   products: string[];
+  movements?: IMovement[];
   tag?: TagProps;
+  savingNumber?: string;
 }
 
-type ProductType =
-  | "PROGRAMMEDSAVINGS"
-  | "PERMANENTSAVINGS"
-  | "CONTRIBUTIONS"
-  // | "CL"
-  //| "CE"
-  | "CA"
-  | "CD";
-  ;
+enum EProductType {
+  PROGRAMMEDSAVINGS = "PROGRAMMEDSAVINGS",
+  PERMANENTSAVINGS = "PERMANENTSAVINGS",
+  CONTRIBUTIONS = "CONTRIBUTIONS",
+  CDAT = "CDAT",
+  VIEWSAVINGS = "VIEWSAVINGS",
+  CREDIT = "TRADITIONALINDIVIDUALDISBURSEMENT",
+  CREDITCARD = "CREDITCARDREVOLVINGCREDIT",
+}
 
 interface IProduct {
   id: string;
   title: string;
   description: string;
-  type: ProductType;
+  type: EProductType;
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
@@ -78,6 +83,8 @@ interface IRate {
   annualEffectiveRate: string;
 }
 
+export { ECommitmentType, EProductType };
+
 export type {
   IAmortization,
   IAttribute,
@@ -85,5 +92,4 @@ export type {
   IMovement,
   IProduct,
   IRate,
-  ProductType,
 };

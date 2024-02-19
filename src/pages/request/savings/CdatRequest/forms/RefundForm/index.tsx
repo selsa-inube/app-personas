@@ -1,8 +1,8 @@
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
-import { savingAccountCode } from "@pages/admin/savings/MySavings/config/products";
 import { FormikProps, useFormik } from "formik";
 import React, { forwardRef, useEffect, useImperativeHandle } from "react";
+import { EProductType } from "src/model/entity/product";
 import * as Yup from "yup";
 import { RefundFormUI } from "./interface";
 import { IRefundEntry } from "./types";
@@ -46,7 +46,7 @@ const RefundForm = forwardRef(function RefundForm(
     formik.handleChange(event);
     if (event.target.value === "creditToInternalAccount") {
       const internalAccounts = savingsMock.filter(
-        (saving) => saving.type === savingAccountCode,
+        (saving) => saving.type === EProductType.VIEWSAVINGS,
       );
       formik.setFieldValue("account", internalAccounts[0].id);
       formik.setFieldValue(
@@ -74,7 +74,7 @@ const RefundForm = forwardRef(function RefundForm(
   };
 
   const savingOptions = savingsMock
-    .filter((saving) => saving.type === savingAccountCode)
+    .filter((saving) => saving.type === EProductType.VIEWSAVINGS)
     .map((saving) => ({ id: saving.id, value: saving.description }));
 
   const accountOptions =

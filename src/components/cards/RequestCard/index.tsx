@@ -61,7 +61,7 @@ function RequestCard(props: RequestCardProps) {
         </Stack>
       </Stack>
 
-      <Button onClick={onClick} spacing={isMobile ? "compact" : "wide"}>
+      <Button onClick={onClick} spacing="compact">
         Solicitar
       </Button>
     </StyledCardContainer>

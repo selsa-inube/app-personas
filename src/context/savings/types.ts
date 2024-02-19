@@ -1,8 +1,17 @@
-import { IProduct } from "src/model/entity/product";
+import { ICommitment, IProduct } from "src/model/entity/product";
 
-interface ISavingsContext {
-  savings: IProduct[];
-  setSavings: React.Dispatch<React.SetStateAction<IProduct[]>>;
+interface ISavingsState {
+  savingsAccounts: IProduct[];
+  programmedSavings: IProduct[];
+  savingsContributions: IProduct[];
+  cdats: IProduct[];
 }
 
-export type { ISavingsContext };
+interface ISavingsContext {
+  savings: ISavingsState;
+  commitments: ICommitment[];
+  setCommitments: React.Dispatch<React.SetStateAction<ICommitment[]>>;
+  setSavings: React.Dispatch<React.SetStateAction<ISavingsState>>;
+}
+
+export type { ISavingsContext, ISavingsState };
