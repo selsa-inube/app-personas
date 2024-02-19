@@ -10,7 +10,7 @@ const getProductDetails = (
   productDescription: string,
   productNumber: string,
 ) => {
-  const details = {
+  const details: Record<string, { title: string; description: string }> = {
     [EProductType.PERMANENTSAVINGS]: {
       title: productDescription,
       description: `${productDescription} ${productNumber}`,
@@ -53,7 +53,7 @@ const getProductAttributes = (
       ? Object(saving.accumulatedSavingProducts[0]).creditMovementPesos
       : 0;
 
-  const attributes = {
+  const attributes: Record<string, IAttribute[]> = {
     [EProductType.PERMANENTSAVINGS]: [
       {
         id: "net_value",
