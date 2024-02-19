@@ -5,7 +5,6 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { activeDM } from "src/model/domains/general/activedm";
@@ -108,33 +107,41 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 isRequired={isRequired("country")}
                 onBlur={formik.handleBlur}
               />
-              <Select
-                label="Banco"
+              <TextField
+                label="Entidad bancaria"
                 name="bankEntity"
                 id="bankEntity"
+                type="text"
+                placeholder="Entidad bancaria"
                 value={formik.values.bankEntity}
                 size={isTablet ? "compact" : "wide"}
                 isFullWidth
                 errorMessage={formik.errors.bankEntity}
+                validMessage="La entidad bancaria es válida"
                 isDisabled={loading}
                 onChange={formik.handleChange}
-                options={getDomainById("bankForeign")}
                 isRequired={isRequired("bankEntity")}
                 onBlur={formik.handleBlur}
+                state={getFieldState(formik, "bankEntity")}
               />
-              <Select
+              <TextField
                 label="Moneda"
                 name="currency"
                 id="currency"
+                placeholder="Moneda"
+                type="text"
                 value={formik.values.currency}
                 size={isTablet ? "compact" : "wide"}
                 isFullWidth
                 errorMessage={formik.errors.currency}
+                validMessage="La moneda es válida"
+                max={3}
+                maxLength={3}
                 isDisabled={loading}
                 onChange={formik.handleChange}
-                options={getDomainById("currency")}
                 isRequired={isRequired("currency")}
                 onBlur={formik.handleBlur}
+                state={getFieldState(formik, "currency")}
               />
               <TextField
                 label="Numero de cuenta"

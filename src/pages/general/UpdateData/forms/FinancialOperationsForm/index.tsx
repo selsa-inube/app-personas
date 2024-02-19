@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -26,11 +26,13 @@ const validationSchema = Yup.object().shape({
     ? validationRules.country.required(validationMessages.required)
     : validationRules.country,
   bankEntity: financialOperationsRequiredFields.bankEntity
-    ? Yup.string().required(validationMessages.required)
-    : Yup.string(),
+    ? Yup.string()
+        .min(3, validationMessages.minCharacters(3))
+        .required(validationMessages.required)
+    : Yup.string().min(3, validationMessages.minCharacters(3)),
   currency: financialOperationsRequiredFields.currency
-    ? Yup.string().required(validationMessages.required)
-    : Yup.string(),
+    ? validationRules.currency.required(validationMessages.required)
+    : validationRules.currency,
 });
 
 interface FinancialOperationsFormProps {
@@ -46,11 +48,9 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
 ) {
   const { loading, initialValues, onFormValid, onSubmit } = props;
 
-  const [dynamicSchema] = useState(validationSchema);
-
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicSchema,
+    validationSchema,
     validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
@@ -59,12 +59,13 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
 
   useEffect(() => {
     formik.validateForm().then((errors) => {
+      console.log(errors);
       onFormValid(Object.keys(errors).length === 0);
     });
   }, [formik.values]);
 
   const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName];
+    const fieldDescription = validationSchema.describe().fields[fieldName];
     if (!("nullable" in fieldDescription)) return false;
     return !fieldDescription.nullable && !fieldDescription.optional;
   };
