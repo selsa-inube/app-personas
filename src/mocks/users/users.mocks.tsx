@@ -117,8 +117,8 @@ const usersMock: IThird[] = [
       descriptionOperations:
         "Importación de materia prima, importación auto partes, importación de repuestos, importación de equipos celulares, importación de equipos médicos, importación de piezas electrónicas.",
       country: "USA",
-      bankEntity: "bankOfAmerica",
-      currency: "dollars",
+      bankEntity: "Banco de Bogotá",
+      currency: "USD",
       accountNumber: 76454473409,
     },
   },
