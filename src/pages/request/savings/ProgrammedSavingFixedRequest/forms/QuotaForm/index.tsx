@@ -15,10 +15,12 @@ const initValidationSchema = Yup.object({
   periodicValue: validationRules.money.required(validationMessages.required),
   paymentMethod: Yup.string().required(validationMessages.required),
   periodicity: Yup.string().required(validationMessages.required),
-  paydayTypeToSelect: Yup.string(),
+  paydayTypeToSelect: Yup.string().required(validationMessages.required),
+  paydayByDate: validationRules.notPastDate,
+  accountToDebit: Yup.string(),
   accountType: Yup.string(),
   bankEntity: Yup.string(),
-  paydayByDate: validationRules.notPastDate,
+  accountNumber: Yup.string(),
 });
 
 interface QuotaFormProps {
@@ -63,34 +65,8 @@ const QuotaForm = forwardRef(function QuotaForm(
   };
 
   const savingOptions = savingsMock
-    .filter((saving) => saving.type === "CA")
+    .filter((saving) => saving.type === "VIEWSAVINGS")
     .map((saving) => ({ id: saving.id, value: saving.description }));
-
-  useEffect(() => {
-    if (formik.values.paymentMethod) {
-      const { renderFields, validationSchema } = generateDynamicForm(
-        formik,
-        structureQuotaForm(formik, valuePeriodicity),
-      );
-
-      const newValidationSchema = initValidationSchema.concat(
-        Yup.object({
-          periodicValue: validationRules.money.required(
-            validationMessages.required,
-          ),
-          paymentMethod: Yup.string().required(validationMessages.required),
-          periodicity: Yup.string().required(validationMessages.required),
-          paydayTypeToSelect: Yup.string(),
-          paydayByDate: validationRules.notPastDate,
-        }),
-      );
-
-      setDynamicForm({
-        renderFields,
-        validationSchema: validationSchema.concat(newValidationSchema),
-      });
-    }
-  }, []);
 
   useEffect(() => {
     if (
@@ -98,7 +74,7 @@ const QuotaForm = forwardRef(function QuotaForm(
       formik.values.accountToDebit === "internalOwnAccountDebit"
     ) {
       const internalAccounts = savingsMock.filter(
-        (saving) => saving.type === "CA",
+        (saving) => saving.type === "VIEWSAVINGS",
       );
       formik.setFieldValue("accountNumber", internalAccounts[0].id);
       formik.setFieldValue(
@@ -112,6 +88,32 @@ const QuotaForm = forwardRef(function QuotaForm(
   }, [formik.values.accountToDebit]);
 
   useEffect(() => {
+    const { renderFields, validationSchema } = generateDynamicForm(
+      formik,
+      structureQuotaForm(formik, valuePeriodicity),
+    );
+
+    const newValidationSchema = initValidationSchema.concat(
+      Yup.object({
+        periodicValue: validationRules.money.required(
+          validationMessages.required,
+        ),
+        paymentMethod: Yup.string().required(validationMessages.required),
+        periodicity: Yup.string().required(validationMessages.required),
+        paydayTypeToSelect: Yup.string(),
+        paydayByDate: validationRules.notPastDate,
+        accountNumber:
+          formik.values.paymentMethod === "automaticDebit"
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
+      }),
+    );
+
+    setDynamicForm({
+      renderFields,
+      validationSchema: validationSchema.concat(newValidationSchema),
+    });
+
     if (formik.dirty) {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
@@ -152,30 +154,6 @@ const QuotaForm = forwardRef(function QuotaForm(
     if (name === "periodicity") {
       valuePeriodicity = value;
     }
-
-    const { renderFields, validationSchema } = generateDynamicForm(
-      {
-        ...formik,
-        values: updatedFormikValues,
-      },
-      structureQuotaForm(formik, valuePeriodicity),
-    );
-    const newValidationSchema = initValidationSchema.concat(
-      Yup.object({
-        periodicValue: validationRules.money.required(
-          validationMessages.required,
-        ),
-        paymentMethod: Yup.string().required(validationMessages.required),
-        periodicity: Yup.string().required(validationMessages.required),
-        paydayTypeToSelect: Yup.string(),
-        paydayByDate: validationRules.notPastDate,
-      }),
-    );
-
-    setDynamicForm({
-      renderFields,
-      validationSchema: validationSchema.concat(newValidationSchema),
-    });
   };
 
   return (
