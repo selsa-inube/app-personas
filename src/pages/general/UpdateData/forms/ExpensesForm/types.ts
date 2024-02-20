@@ -3,8 +3,6 @@ interface IExpensesEntry {
   familyExpenses: string;
   credits: string;
   creditCards: string;
-  health: string;
-  pension: string;
   others: string;
   totalExpenses: string;
 }

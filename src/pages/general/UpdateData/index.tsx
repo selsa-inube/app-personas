@@ -1,6 +1,7 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { updateDataSteps } from "./config/assisted";
 import {
   mapBankTransfers,
@@ -17,6 +18,7 @@ import {
   mapSocioeconomicInformation,
 } from "./config/mappers";
 import { IBankTransfersEntry } from "./forms/BankTransfersForm/types";
+import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IContactDataEntry } from "./forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "./forms/EconomicActivityForm/types";
 import { IExpensesEntry } from "./forms/ExpensesForm/types";
@@ -32,7 +34,6 @@ import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirecto
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
-import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 
 function UpdateData() {
   const [currentStep, setCurrentStep] = useState(
@@ -54,6 +55,7 @@ function UpdateData() {
       isValid: true,
       values: { entries: mapFamilyGroups(usersMock[0].familyGroup || []) },
     },
+    beneficiaries: { isValid: true, values: {} },
     bankTransfers: {
       isValid: true,
       values: mapBankTransfers(usersMock[0].bankTransfersAccount),
@@ -94,6 +96,7 @@ function UpdateData() {
   const personalInfoRef = useRef<FormikProps<IPersonalInformationEntry>>(null);
   const contactDataRef = useRef<FormikProps<IContactDataEntry>>(null);
   const familyGroupRef = useRef<FormikProps<IFamilyGroupEntries>>(null);
+  const beneficiariesRef = useRef<FormikProps<IBeneficiariesEntry>>(null);
   const bankTransfersRef = useRef<FormikProps<IBankTransfersEntry>>(null);
   const personalAssetsRef = useRef<FormikProps<IPersonalAssetEntries>>(null);
   const personalDebtsRef = useRef<FormikProps<IPersonalDebtEntries>>(null);
@@ -116,6 +119,7 @@ function UpdateData() {
     personalInformation: personalInfoRef,
     contactData: contactDataRef,
     familyGroup: familyGroupRef,
+    beneficiaries: beneficiariesRef,
     bankTransfers: bankTransfersRef,
     personalAssets: personalAssetsRef,
     personalDebts: personalDebtsRef,

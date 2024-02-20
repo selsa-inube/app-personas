@@ -4,6 +4,7 @@ import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { usersMock } from "@mocks/users/users.mocks";
 import {
   mapPersonalAsset,
   mapPersonalDebt,
@@ -31,6 +32,7 @@ import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
+import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IEconomicActivityEntry } from "../../EconomicActivityForm/types";
 import { IExpensesEntry } from "../../ExpensesForm/types";
@@ -138,16 +140,43 @@ const renderFamilyGroupVerification = (
       >
         {transformedEntries.map((entry) => {
           return (
-            <React.Fragment key={entry.id}>
-              <BoxAttribute
-                label={`${entry.fullName} :` || ""}
-                value={entry.relationship}
-              />
-            </React.Fragment>
+            <BoxAttribute
+              label={`${entry.fullName} :` || ""}
+              value={entry.relationship}
+              key={entry.id}
+            />
           );
         })}
       </Grid>
     </Stack>
+  );
+};
+
+const renderBeneficiariesVerification = (
+  values: IBeneficiariesEntry,
+  isTablet: boolean,
+) => {
+  return (
+    <Grid
+      templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+      gap="s250"
+      width="100%"
+    >
+      {usersMock.length > 0 &&
+        usersMock[0].familyGroup?.map((familyMember) =>
+          Object.entries(values).map(
+            ([key, value]) =>
+              key ===
+                familyMember.identification.identificationNumber.toString() && (
+                <BoxAttribute
+                  key={familyMember.identification.identificationNumber}
+                  label={`${familyMember.identification.firstName} ${familyMember.identification.secondName || ""} ${familyMember.identification.firstLastName} ${familyMember.identification.secondLastName || ""}`}
+                  value={`${value} %`}
+                />
+              ),
+          ),
+        )}
+    </Grid>
   );
 };
 
@@ -710,20 +739,6 @@ const renderExpensesVerification = (
       />
     )}
 
-    {values.health !== "" && (
-      <BoxAttribute
-        label="Salud:"
-        value={currencyFormat(Number(values.health))}
-      />
-    )}
-
-    {values.pension !== "" && (
-      <BoxAttribute
-        label="Pensión:"
-        value={currencyFormat(Number(values.pension))}
-      />
-    )}
-
     {values.others !== "" && (
       <BoxAttribute
         label="Otros gastos:"
@@ -796,6 +811,12 @@ function VerificationBoxes(props: VerificationBoxesProps) {
 
       {stepKey === "familyGroup" &&
         renderFamilyGroupVerification(updatedData.familyGroup.values, isTablet)}
+
+      {stepKey === "beneficiaries" &&
+        renderBeneficiariesVerification(
+          updatedData.beneficiaries.values,
+          isTablet,
+        )}
 
       {stepKey === "bankTransfers" &&
         renderBankTransfersVerification(

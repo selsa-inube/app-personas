@@ -13,6 +13,7 @@ const getSavingsForUser = async (
     programmedSavings: [],
     savingsContributions: [],
     cdats: [],
+    commitments: [],
   };
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {

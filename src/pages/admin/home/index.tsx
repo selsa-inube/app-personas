@@ -3,15 +3,30 @@ import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
+import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { HomeUI } from "./interface";
 
 function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
-  const { savings, setSavings } = useContext(SavingsContext);
+  const { commitments, savings, setCommitments, setSavings } =
+    useContext(SavingsContext);
   const { user, accessToken } = useAuth();
   const [loadingCredits, setLoadingCredits] = useState(false);
   const [loadingSavings, setLoadingSavings] = useState(false);
+
+  const validateCommitments = () => {
+    if (!user || !accessToken) return;
+    if (commitments.length === 0) {
+      getSavingsCommitmentsForUser(user?.identification, accessToken)
+        .then((commitments) => {
+          setCommitments(commitments);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        });
+    }
+  };
 
   const validateProducts = () => {
     if (!user || !accessToken) return;
@@ -52,12 +67,16 @@ function Home() {
   };
 
   useEffect(() => {
+    validateCommitments();
+  }, [savings]);
+
+  useEffect(() => {
     validateProducts();
   }, [user, accessToken]);
 
   return (
     <HomeUI
-      productsCommitments={[]}
+      productsCommitments={commitments}
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}

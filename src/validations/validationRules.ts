@@ -79,6 +79,11 @@ const validationRules = {
   money: Yup.number()
     .min(1, validationMessages.minCurrencyNumbers(1))
     .max(1000000000, validationMessages.maxCurrencyNumbers(1000000000)),
+
+  currency: Yup.string()
+    .min(3, validationMessages.minCharacters(3))
+    .max(3, validationMessages.maxCharacters(3)),
+
   expeditionDate: Yup.string()
     .matches(regex.date, validationMessages.date)
     .min(11, validationMessages.minCharacters(11))

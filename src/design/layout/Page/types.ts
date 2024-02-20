@@ -7,7 +7,6 @@ interface IHeader {
   client?: string;
   links?: IHeaderLink[];
   portalId: string;
-  logoutPath: string;
   logoutTitle: string;
   navigation: INav;
 }

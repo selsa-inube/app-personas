@@ -191,7 +191,7 @@ function renderHomeContent(
                     <Stack
                       justifyContent="flex-end"
                       gap="s100"
-                      padding={`0 ${inube.spacing.s100}`}
+                      padding={`0 ${inube.spacing.s100} ${inube.spacing.s200} 0`}
                     >
                       <Text type="label" size="large">
                         Total Ahorrado :
@@ -208,7 +208,7 @@ function renderHomeContent(
                 </Stack>
 
                 {productsCommitments.length > 0 && (
-                  <>
+                  <Stack direction="column" gap="s200">
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
@@ -217,7 +217,7 @@ function renderHomeContent(
                         productsCommitments={productsCommitments}
                       />
                     </StyledCommitmentsContainer>
-                  </>
+                  </Stack>
                 )}
               </>
             )}

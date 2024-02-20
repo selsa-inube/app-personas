@@ -4,7 +4,13 @@ const manifestPWA: VitePWAOptions = {
   registerType: "autoUpdate",
   injectRegister: "auto", 
   minify: false,
-  workbox: {},
+  workbox: {
+    skipWaiting: true,
+    clientsClaim: true,
+    cleanupOutdatedCaches: true,
+    globPatterns: [],
+    navigateFallback: null,
+  },
   injectManifest: {
     injectionPoint: undefined,
   },
