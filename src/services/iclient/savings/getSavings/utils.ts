@@ -149,7 +149,28 @@ const getProductAttributes = (
         value: gmfTypeValuesMock[Object(saving.hasSubsidyBenefitInGMF).code],
       },
     ],
-    [EProductType.PROGRAMMEDSAVINGS]: [],
+    [EProductType.PROGRAMMEDSAVINGS]: [
+      {
+        id: "net_value",
+        label: "Saldo total",
+        value: Number(creditMovementPesos),
+      },
+      {
+        id: "interest_rate",
+        label: "Tasa de interés",
+        value: `${saving.annualEffectiveRate} % EA`,
+      },
+      {
+        id: "expiration_date",
+        label: "Fecha de vencimiento",
+        value: formatPrimaryDate(new Date(String(saving.expirationDate))),
+      },
+      {
+        id: "beneficiaries",
+        label: "Beneficiarios",
+        value: beneficiaries,
+      },
+    ],
   };
 
   return attributes[productTypeCode] || {};

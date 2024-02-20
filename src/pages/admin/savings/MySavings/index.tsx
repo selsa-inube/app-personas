@@ -37,7 +37,7 @@ function MySavings() {
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}
-      programmedSavings={[]}
+      programmedSavings={savings.programmedSavings}
       loading={loading}
     />
   );

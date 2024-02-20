@@ -74,8 +74,8 @@ function renderMySavingsContent(
   savingsAccounts: IProduct[],
   savingsContributions: IProduct[],
   loading: boolean,
-  cdats?: IProduct[],
-  programmedSavings?: IProduct[],
+  cdats: IProduct[],
+  programmedSavings: IProduct[],
 ) {
   return (
     <>
@@ -219,7 +219,11 @@ function renderMySavingsContent(
                         Total Ahorrado :
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        {sumNetValue(savingsContributions)}
+                        {sumNetValue([
+                          ...savingsContributions,
+                          ...savingsAccounts,
+                          ...programmedSavings,
+                        ])}
                       </Text>
                     </Stack>
                   )}
@@ -248,8 +252,8 @@ interface MySavingsUIProps {
   productsCommitments: ICommitment[];
   savingsAccounts: IProduct[];
   savingsContributions: IProduct[];
-  cdats?: IProduct[];
-  programmedSavings?: IProduct[];
+  cdats: IProduct[];
+  programmedSavings: IProduct[];
   loading: boolean;
 }
 
