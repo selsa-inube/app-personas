@@ -200,6 +200,7 @@ function renderHomeContent(
                         {sumNetValue([
                           ...savingsContributions,
                           ...savingsAccounts,
+                          ...cdats,
                           ...programmedSavings,
                         ])}
                       </Text>

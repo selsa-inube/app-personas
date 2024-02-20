@@ -184,6 +184,7 @@ function renderMySavingsContent(
                         {sumNetValue([
                           ...savingsContributions,
                           ...savingsAccounts,
+                          ...cdats,
                           ...programmedSavings,
                         ])}
                       </Text>
