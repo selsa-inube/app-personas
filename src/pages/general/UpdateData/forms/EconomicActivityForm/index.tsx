@@ -112,6 +112,8 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
   const [showMainActivityModal, setShowMainActivityModal] = useState(false);
   const [showSecondaryActivityModal, setShowSecondaryActivityModal] =
     useState(false);
+  const [selectedMainActivityId, setSelectedMainActivityId] = useState("");
+  const [selectedSecondActivityId, setSelectedSecondActivityId] = useState("");
 
   const formik = useFormik({
     initialValues,
@@ -136,6 +138,12 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
   ) => {
     formik.setFieldValue(field, selectedItem.id);
     handleToggleModal(field);
+
+    if (field === "mainCiiuActivity") {
+      setSelectedMainActivityId(selectedItem.id);
+    } else {
+      setSelectedSecondActivityId(selectedItem.id);
+    }
   };
 
   const handleToggleModal = (field: string) => {
@@ -154,6 +162,8 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
     <EconomicActivityFormUI
       loading={loading}
       formik={formik}
+      selectedMainActivityId={selectedMainActivityId}
+      selectedSecondActivityId={selectedSecondActivityId}
       showMainActivityModal={showMainActivityModal}
       showSecondaryActivityModal={showSecondaryActivityModal}
       isRequired={isRequired}
