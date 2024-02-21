@@ -94,36 +94,6 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             validMessage="El valor de las tarjetas de crédito es válido"
           />
           <TextField
-            label="Salud"
-            placeholder=""
-            name="health"
-            id="health"
-            value={validateCurrencyField("health", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
-            errorMessage={formik.errors.health}
-            isDisabled={loading}
-            size="compact"
-            isFullWidth
-            onBlur={formik.handleBlur}
-            onChange={customHandleChange}
-            readOnly
-          />
-          <TextField
-            label="Pensión"
-            placeholder=""
-            name="pension"
-            id="pension"
-            value={validateCurrencyField("pension", formik)}
-            iconAfter={<MdOutlineAttachMoney size={18} />}
-            errorMessage={formik.errors.pension}
-            isDisabled={loading}
-            size="compact"
-            isFullWidth
-            onBlur={formik.handleBlur}
-            onChange={customHandleChange}
-            readOnly
-          />
-          <TextField
             label="Otros gastos"
             placeholder="Digita el valor de otros gastos"
             name="others"

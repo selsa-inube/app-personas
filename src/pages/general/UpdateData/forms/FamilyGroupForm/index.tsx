@@ -16,6 +16,7 @@ import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 
 const validationSchema = Yup.object().shape({
   firstName: familyGroupRequiredFields.firstName
@@ -238,6 +239,8 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     setShowAddMemberModal(!showAddMemberModal);
   };
 
+  const isMobile = useMediaQuery("(max-width: 740px)");
+
   const familyGroupTableActions: IAction[] = [
     {
       id: "1",
@@ -253,31 +256,36 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
       ),
       mobilePriority: true,
     },
-    {
-      id: "2",
-      actionName: "Editar",
-      content: (member) => (
-        <EditFamilyMember
-          formik={formik}
-          member={member}
-          onEditMember={handleEditMember}
-          isRequired={isRequired}
-        />
-      ),
-      mobilePriority: true,
-    },
-    {
-      id: "3",
-      actionName: "Eliminar",
-      content: (member) => (
-        <DeleteFamilyMember
-          member={member}
-          onDeleteMember={() => handleDeleteMember(member.id)}
-        />
-      ),
-      mobilePriority: true,
-    },
   ];
+  
+  if (!isMobile) {
+    familyGroupTableActions.push(
+      {
+        id: "2",
+        actionName: "Editar",
+        content: (member) => (
+          <EditFamilyMember
+            formik={formik}
+            member={member}
+            onEditMember={handleEditMember}
+            isRequired={isRequired}
+          />
+        ),
+        mobilePriority: true,
+      },
+      {
+        id: "3",
+        actionName: "Eliminar",
+        content: (member) => (
+          <DeleteFamilyMember
+            member={member}
+            onDeleteMember={() => handleDeleteMember(member.id)}
+          />
+        ),
+        mobilePriority: true,
+      },
+    );
+  }
 
   return (
     <FamilyGroupFormUI

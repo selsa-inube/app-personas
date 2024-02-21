@@ -1,3 +1,4 @@
+import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
@@ -5,7 +6,6 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { activeDM } from "src/model/domains/general/activedm";
@@ -21,9 +21,12 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
   const { formik, loading, isRequired } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
+  const isMobile = useMediaQuery("(max-width: 610px)");
 
-  const showForeignCurrencyFields =
-    formik.values.hasForeignCurrencyTransactions === activeDM.Y.id ||
+  const showForeignCurrencyTransactions =
+    formik.values.hasForeignCurrencyTransactions === activeDM.Y.id;
+
+  const showForeignCurrencyAccounts =
     formik.values.hasForeignCurrencyAccounts === activeDM.Y.id;
 
   return (
@@ -32,7 +35,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         <Grid
           templateColumns={isTablet ? "1fr" : "1fr 1fr"}
           gap={
-            isTablet ? "s150" : `${inube.spacing.s200} ${inube.spacing.s300}`
+            isTablet ? "s200" : `${inube.spacing.s200} ${inube.spacing.s300}`
           }
         >
           <Select
@@ -67,93 +70,117 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             onBlur={formik.handleBlur}
           />
         </Grid>
-        {showForeignCurrencyFields && (
+        {showForeignCurrencyTransactions && (
           <>
-            <Textarea
-              id="descriptionOperations"
-              name="descriptionOperations"
-              label="Descripción de las operaciones en moneda extrajera"
-              placeholder="Escribe la descripción de las operaciones en moneda extrajera"
-              maxLength={200}
-              withCounter
-              isDisabled={loading}
-              value={formik.values.descriptionOperations}
-              onChange={formik.handleChange}
-              onFocus={formik.isFocused}
-              lengthThreshold={20}
-              isFullWidth
-              isRequired={isRequired("descriptionOperations")}
-              onBlur={formik.handleBlur}
-            />
-
-            <Grid
-              templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-              gap={
-                isTablet
-                  ? "s150"
-                  : `${inube.spacing.s200} ${inube.spacing.s300}`
-              }
+            <Fieldset
+              title="Operaciones"
+              type={isMobile ? "label" : "title"}
+              size="medium"
             >
-              <Select
-                label="País"
-                name="country"
-                id="country"
-                value={formik.values.country}
-                size={isTablet ? "compact" : "wide"}
-                isFullWidth
-                options={countryDM.options}
-                errorMessage={formik.errors.country}
+              <Textarea
+                id="descriptionOperations"
+                name="descriptionOperations"
+                label="Descripción de las operaciones en moneda extrajera"
+                placeholder="Escribe la descripción de las operaciones en moneda extrajera"
+                maxLength={200}
+                withCounter
                 isDisabled={loading}
+                value={formik.values.descriptionOperations}
                 onChange={formik.handleChange}
-                isRequired={isRequired("country")}
+                onFocus={formik.isFocused}
+                lengthThreshold={20}
+                isFullWidth
+                isRequired={isRequired("descriptionOperations")}
                 onBlur={formik.handleBlur}
               />
-              <Select
-                label="Banco"
-                name="bankEntity"
-                id="bankEntity"
-                value={formik.values.bankEntity}
-                size={isTablet ? "compact" : "wide"}
-                isFullWidth
-                errorMessage={formik.errors.bankEntity}
-                isDisabled={loading}
-                onChange={formik.handleChange}
-                options={getDomainById("bankForeign")}
-                isRequired={isRequired("bankEntity")}
-                onBlur={formik.handleBlur}
-              />
-              <Select
-                label="Moneda"
-                name="currency"
-                id="currency"
-                value={formik.values.currency}
-                size={isTablet ? "compact" : "wide"}
-                isFullWidth
-                errorMessage={formik.errors.currency}
-                isDisabled={loading}
-                onChange={formik.handleChange}
-                options={getDomainById("currency")}
-                isRequired={isRequired("currency")}
-                onBlur={formik.handleBlur}
-              />
-              <TextField
-                label="Numero de cuenta"
-                placeholder="Numero de cuenta"
-                name="accountNumber"
-                id="accountNumber"
-                type="number"
-                value={formik.values.accountNumber}
-                errorMessage={formik.errors.accountNumber}
-                isDisabled={loading}
-                size={isTablet ? "compact" : "wide"}
-                isFullWidth
-                onChange={formik.handleChange}
-                validMessage="El numero de cuenta es válido"
-                state={getFieldState(formik, "accountNumber")}
-                isRequired={isRequired("accountNumber")}
-                onBlur={formik.handleBlur}
-              />
-            </Grid>
+            </Fieldset>
+          </>
+        )}
+
+        {showForeignCurrencyAccounts && (
+          <>
+            <Fieldset
+              title="Cuentas"
+              type={isMobile ? "label" : "title"}
+              size="medium"
+            >
+              <Grid
+                templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+                gap={
+                  isTablet
+                    ? "s150"
+                    : `${inube.spacing.s200} ${inube.spacing.s300}`
+                }
+              >
+                <Select
+                  label="País"
+                  name="country"
+                  id="country"
+                  value={formik.values.country}
+                  size={isTablet ? "compact" : "wide"}
+                  isFullWidth
+                  options={countryDM.options}
+                  errorMessage={formik.errors.country}
+                  isDisabled={loading}
+                  onChange={formik.handleChange}
+                  isRequired={isRequired("country")}
+                  onBlur={formik.handleBlur}
+                />
+                <TextField
+                  label="Entidad bancaria"
+                  name="bankEntity"
+                  id="bankEntity"
+                  type="text"
+                  placeholder="Digita la entidad bancaria"
+                  value={formik.values.bankEntity}
+                  size={isTablet ? "compact" : "wide"}
+                  isFullWidth
+                  errorMessage={formik.errors.bankEntity}
+                  validMessage="La entidad bancaria es válida"
+                  isDisabled={loading}
+                  onChange={formik.handleChange}
+                  isRequired={isRequired("bankEntity")}
+                  onBlur={formik.handleBlur}
+                  state={getFieldState(formik, "bankEntity")}
+                />
+                <TextField
+                  label="Moneda"
+                  name="currency"
+                  id="currency"
+                  placeholder="Digita la moneda"
+                  type="text"
+                  value={formik.values.currency}
+                  size={isTablet ? "compact" : "wide"}
+                  isFullWidth
+                  errorMessage={formik.errors.currency}
+                  validMessage="La moneda es válida"
+                  max={3}
+                  maxLength={3}
+                  isDisabled={loading}
+                  onChange={formik.handleChange}
+                  isRequired={isRequired("currency")}
+                  onBlur={formik.handleBlur}
+                  state={getFieldState(formik, "currency")}
+                />
+                <TextField
+                  label="Número de cuenta"
+                  placeholder="Numero de cuenta"
+                  name="accountNumber"
+                  id="accountNumber"
+                  type="number"
+                  value={formik.values.accountNumber}
+                  errorMessage={formik.errors.accountNumber}
+                  isDisabled={loading}
+                  size={isTablet ? "compact" : "wide"}
+                  isFullWidth
+                  onChange={formik.handleChange}
+                  validMessage="El numero de cuenta es válido"
+                  state={getFieldState(formik, "accountNumber")}
+                  isRequired={isRequired("accountNumber")}
+                  onBlur={formik.handleBlur}
+                />
+              </Grid>
+            </Fieldset>
           </>
         )}
       </Stack>
