@@ -84,11 +84,21 @@ const mapSavingsCommitmentsApiToEntity = (
       }
     : undefined;
 
+  const tempNames: Record<number, string> = {
+    //Temp
+    4: "Cuota ahorro programado",
+    206: "Cuota ahorro permanente",
+    205: "Cuota aportes sociales",
+  };
+
+  const documentTypeCommitment = Number(
+    // Temp
+    String(commitment.numberCommitmentSavings).split("-")[0] || 0,
+  );
+
   return {
     id: String(commitment.commitmentId),
-    title: String(commitment.numberCommitmentSavings).startsWith("205")
-      ? "Cuota aportes sociales"
-      : "Cuota ahorro permanente",
+    title: tempNames[documentTypeCommitment], // Temp
     tag: tag,
     type: commitmentType,
     attributes,
@@ -101,11 +111,9 @@ const mapSavingsCommitmentsApiToEntity = (
 const mapSavingsApiToEntities = (
   commitments: Record<string, string | number | object>[],
 ): ICommitment[] => {
-  return commitments
-    .map((commitment) => mapSavingsCommitmentsApiToEntity(commitment))
-    .filter(
-      (commitment) => commitment.type !== ECommitmentType.SAVINGSPROGRAMMED,
-    );
+  return commitments.map((commitment) =>
+    mapSavingsCommitmentsApiToEntity(commitment),
+  );
 };
 
 export { mapSavingsApiToEntities, mapSavingsCommitmentsApiToEntity };
