@@ -78,6 +78,7 @@ const mapSavingsApiToEntities = (
           break;
         case EProductType.PERMANENTSAVINGS: {
           if (saving.id.startsWith("201")) {
+            // Temp
             savingsContributions.push(saving);
           }
           break;

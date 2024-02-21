@@ -104,7 +104,7 @@ const mapSavingsApiToEntities = (
   return commitments
     .map((commitment) => mapSavingsCommitmentsApiToEntity(commitment))
     .filter(
-      (commitment) => commitment.type !== ECommitmentType.SAVINGSPROGRAMMED,
+      (commitment) => commitment.type !== ECommitmentType.SAVINGSPROGRAMMED, // Temp
     );
 };
 
