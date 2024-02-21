@@ -85,7 +85,7 @@ const mapSavingsCommitmentsApiToEntity = (
     : undefined;
 
   return {
-    id: String(commitment.commitmentId),
+    id: String(commitment.numberCommitmentSavings),
     title: String(commitment.numberCommitmentSavings).startsWith("205")
       ? "Cuota aportes sociales"
       : "Cuota ahorro permanente",
