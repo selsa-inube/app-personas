@@ -98,7 +98,7 @@ const mapSavingsCommitmentsApiToEntity = (
 
   return {
     id: String(commitment.commitmentId),
-    title: tempNames[documentTypeCommitment], // Temp
+    title: tempNames[documentTypeCommitment],
     tag: tag,
     type: commitmentType,
     attributes,
@@ -111,9 +111,11 @@ const mapSavingsCommitmentsApiToEntity = (
 const mapSavingsApiToEntities = (
   commitments: Record<string, string | number | object>[],
 ): ICommitment[] => {
-  return commitments.map((commitment) =>
-    mapSavingsCommitmentsApiToEntity(commitment),
-  );
+  return commitments
+    .map((commitment) => mapSavingsCommitmentsApiToEntity(commitment))
+    .filter(
+      (commitment) => commitment.type !== ECommitmentType.SAVINGSPROGRAMMED,
+    );
 };
 
 export { mapSavingsApiToEntities, mapSavingsCommitmentsApiToEntity };
