@@ -1,7 +1,7 @@
 interface IInformationDataEntry {
   identificationNumber?: string;
   relationship?: string;
-  isDependent?: boolean;
+  isDependent?: string;
   educationLevel?: string;
   profession?: string;
   gender?: string;
