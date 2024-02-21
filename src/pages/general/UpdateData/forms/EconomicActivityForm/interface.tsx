@@ -452,6 +452,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
           portalId="modals"
           onCloseModal={() => handleToggleModal("mainCiiuActivity")}
           activities={economicActivitiesMock}
+          selectedActivityId={formik.values.mainCiiuActivity}
           onSelect={(item) => handleModalSelect("mainCiiuActivity", item)}
         />
       )}
@@ -460,6 +461,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
           portalId="modals"
           onCloseModal={() => handleToggleModal("secondaryCiiuActivity")}
           activities={economicActivitiesMock}
+          selectedActivityId={formik.values.secondaryCiiuActivity}
           onSelect={(item) => handleModalSelect("secondaryCiiuActivity", item)}
         />
       )}
