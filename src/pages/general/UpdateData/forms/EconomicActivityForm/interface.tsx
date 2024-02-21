@@ -24,8 +24,6 @@ import { getFieldState } from "src/utils/forms/forms";
 interface EconomicActivityFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  selectedMainActivityId: string;
-  selectedSecondActivityId: string;
   showMainActivityModal: boolean;
   showSecondaryActivityModal: boolean;
   isRequired: (fieldName: string) => boolean;
@@ -37,8 +35,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
   const {
     formik,
     loading,
-    selectedMainActivityId,
-    selectedSecondActivityId,
     showMainActivityModal,
     showSecondaryActivityModal,
     isRequired,
@@ -456,7 +452,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
           portalId="modals"
           onCloseModal={() => handleToggleModal("mainCiiuActivity")}
           activities={economicActivitiesMock}
-          selectedActivityId={selectedMainActivityId}
+          selectedActivityId={formik.values.mainCiiuActivity}
           onSelect={(item) => handleModalSelect("mainCiiuActivity", item)}
         />
       )}
@@ -465,7 +461,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
           portalId="modals"
           onCloseModal={() => handleToggleModal("secondaryCiiuActivity")}
           activities={economicActivitiesMock}
-          selectedActivityId={selectedSecondActivityId}
+          selectedActivityId={formik.values.secondaryCiiuActivity}
           onSelect={(item) => handleModalSelect("secondaryCiiuActivity", item)}
         />
       )}

@@ -37,7 +37,7 @@ interface EconomicActivityModalProps {
   portalId: string;
   onCloseModal: () => void;
   activities: IEconomicActivity[];
-  selectedActivityId: string;
+  selectedActivityId?: string;
   onSelect: (selectedItem: IEconomicActivity) => void;
 }
 
@@ -92,7 +92,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
           </Text>
         </Stack>
 
-        {selectedActivityId.length > 0 &&
+        {selectedActivityId &&
           activities.map(
             (activity: IEconomicActivity) =>
               activity.id === selectedActivityId && (
