@@ -45,30 +45,6 @@ function SavingsCommitments() {
 
     if (!selectedCommitment) return;
 
-    const productsForCommitment: string[] = [];
-
-    const separateProduct =
-      selectedCommitment.savingNumber &&
-      selectedCommitment.savingNumber.split("-");
-
-    const productNumber =
-      separateProduct && separateProduct.length > 1 && separateProduct[1];
-
-    const combinedSavings = [
-      ...savings.savingsAccounts,
-      ...savings.savingsContributions,
-      ...savings.cdats,
-      ...savings.programmedSavings,
-    ];
-
-    combinedSavings.forEach((product) => {
-      if (productNumber && product.id.includes(productNumber)) {
-        productsForCommitment.push(product.id);
-      }
-    });
-
-    selectedCommitment.products = productsForCommitment;
-
     setSelectedCommitment({
       commitment: selectedCommitment,
       option: selectedCommitment.id,
