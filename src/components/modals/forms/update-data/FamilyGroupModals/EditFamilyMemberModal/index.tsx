@@ -84,7 +84,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
               onBlur={formik.handleBlur}
               errorMessage={formik.errors.relationship}
               onChange={formik.handleChange}
-              value={formik.values.relationship || ""}
+              value={formik.values.relationship}
               state={getFieldState(formik, "relationship")}
               isRequired={isRequired("relationship")}
               isFullWidth
