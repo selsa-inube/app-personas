@@ -164,15 +164,16 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       withButton
                     />
                   )}
-                {selectedProduct.saving.type !== EProductType.CDAT && (
-                  <BoxAttribute
-                    label="Compromisos de ahorro:"
-                    buttonIcon={<MdOpenInNew />}
-                    buttonValue={commitmentsModal.data.length}
-                    onClickButton={handleToggleCommitmentsModal}
-                    withButton
-                  />
-                )}
+                {selectedProduct.saving.type !== EProductType.CDAT &&
+                  commitmentsModal.data.length > 0 && (
+                    <BoxAttribute
+                      label="Compromisos de ahorro:"
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue={commitmentsModal.data.length}
+                      onClickButton={handleToggleCommitmentsModal}
+                      withButton
+                    />
+                  )}
               </Grid>
             </Stack>
           </Box>
