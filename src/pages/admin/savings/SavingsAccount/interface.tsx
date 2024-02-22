@@ -153,15 +153,16 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                     withButton
                   />
                 )}
-                {selectedProduct.saving.type !== EProductType.VIEWSAVINGS && (
-                  <BoxAttribute
-                    label="Beneficiarios:"
-                    buttonIcon={<MdOpenInNew />}
-                    buttonValue={beneficiariesModal.data.length}
-                    onClickButton={handleToggleBeneficiariesModal}
-                    withButton
-                  />
-                )}
+                {selectedProduct.saving.type !== EProductType.VIEWSAVINGS &&
+                  beneficiariesModal.data.length > 0 && (
+                    <BoxAttribute
+                      label="Beneficiarios:"
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue={beneficiariesModal.data.length}
+                      onClickButton={handleToggleBeneficiariesModal}
+                      withButton
+                    />
+                  )}
                 {selectedProduct.saving.type !== EProductType.CDAT && (
                   <BoxAttribute
                     label="Compromisos de ahorro:"
