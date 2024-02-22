@@ -74,9 +74,9 @@ function SavingsAccount() {
 
     const foundCommitments = commitments.filter(
       (commitment) =>
-        commitment.id ===
+        commitment.realId === // Temp realId
         selectedProduct.saving.commitments?.find(
-          (commitmentId) => commitmentId === commitment.id,
+          (commitmentId) => commitmentId === commitment.realId,
         ),
     );
 
