@@ -16,7 +16,7 @@ const initValidationSchema = Yup.object({
   periodicValue: validationRules.money.required(validationMessages.required),
   paymentMethod: Yup.string().required(validationMessages.required),
   periodicity: Yup.string().required(validationMessages.required),
-  paydayTypeToSelect: Yup.string().required(validationMessages.required),
+  payDayType: Yup.string(),
   paydayByDate: validationRules.notPastDate,
   accountToDebit: Yup.string(),
   accountType: Yup.string(),
@@ -101,7 +101,10 @@ const QuotaForm = forwardRef(function QuotaForm(
         ),
         paymentMethod: Yup.string().required(validationMessages.required),
         periodicity: Yup.string().required(validationMessages.required),
-        paydayTypeToSelect: Yup.string(),
+        payDayType:
+          formik.values.paymentMethod === "physicalCollectionChannels"
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
         paydayByDate: validationRules.notPastDate,
         accountNumber:
           formik.values.paymentMethod === "automaticDebit"
