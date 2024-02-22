@@ -126,11 +126,9 @@ const mapSavingsCommitmentsApiToEntity = (
 const mapSavingsApiToEntities = (
   commitments: Record<string, string | number | object>[],
 ): ICommitment[] => {
-  return commitments
-    .map((commitment) => mapSavingsCommitmentsApiToEntity(commitment))
-    .filter(
-      (commitment) => commitment.type !== ECommitmentType.SAVINGSPROGRAMMED,
-    );
+  return commitments.map((commitment) =>
+    mapSavingsCommitmentsApiToEntity(commitment),
+  );
 };
 
 export { mapSavingsApiToEntities, mapSavingsCommitmentsApiToEntity };
