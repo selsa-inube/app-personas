@@ -3,6 +3,6 @@ const estateTypeValuesMock: Record<string, string> = {
 };
 
 const gmfTypeValuesMock: Record<string, string> = {
-  WithoutBenefit: "Sin beneficio",
+  AllTransactionsAreTaxed: "Todas las transacciones",
 };
 export { estateTypeValuesMock, gmfTypeValuesMock };
