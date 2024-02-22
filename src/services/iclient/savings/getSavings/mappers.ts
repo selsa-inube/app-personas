@@ -3,6 +3,18 @@ import { EProductType, IMovement, IProduct } from "src/model/entity/product";
 import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
 import { getProductAttributes, getProductDetails } from "./utils";
 
+const mapSavingProductCommitmentApiToEntity = (
+  commitment: Record<string, string>,
+): string => {
+  return commitment.commitmentId;
+};
+
+const mapSavingProductsCommitmentsApiToEntities = (
+  commitments: Record<string, string>[],
+): string[] => {
+  return commitments.map(mapSavingProductCommitmentApiToEntity);
+};
+
 const mapSavingProductMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
@@ -55,6 +67,11 @@ const mapSavingsApiToEntity = (
     movements: movements,
     amortization: [],
     tags: [],
+    commitments: mapSavingProductsCommitmentsApiToEntities(
+      Array.isArray(saving.productsCommitmentRelationship)
+        ? saving.productsCommitmentRelationship
+        : [],
+    ),
   };
 };
 
@@ -78,6 +95,7 @@ const mapSavingsApiToEntities = (
           break;
         case EProductType.PERMANENTSAVINGS: {
           if (saving.id.startsWith("201")) {
+            // Temp
             savingsContributions.push(saving);
           }
           break;

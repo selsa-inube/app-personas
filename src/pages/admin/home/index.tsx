@@ -80,7 +80,7 @@ function Home() {
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}
-      programmedSavings={[]}
+      programmedSavings={savings.programmedSavings}
       credits={credits}
       loadingCredits={loadingCredits}
       loadingSavings={loadingSavings}

@@ -101,7 +101,7 @@ const mapFamilyGroup = (
     birthDate: familyGroupData.information.birthDate || "",
     gender: familyGroupData.information.gender,
     relationship: familyGroupData.information.relationship,
-    isDependent: familyGroupData.information.isDependent,
+    isDependent: familyGroupData.information.isDependent || "",
     educationLevel: familyGroupData?.information.educationLevel || "",
     businessActivity: familyGroupData?.information.businessActivity || "",
     profession: familyGroupData?.information.profession || "",
@@ -297,8 +297,6 @@ const mapExpenses = (): IExpensesEntry => {
     familyExpenses: "",
     credits: "",
     creditCards: "",
-    health: "",
-    pension: "",
     others: "",
     totalExpenses: "",
   };

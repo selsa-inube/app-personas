@@ -47,10 +47,9 @@ interface ICommitment {
   type: ECommitmentType;
   description?: string;
   attributes: IAttribute[];
-  products: string[];
   movements?: IMovement[];
   tag?: TagProps;
-  savingNumber?: string;
+  products: string[];
 }
 
 enum EProductType {
@@ -73,6 +72,7 @@ interface IProduct {
   amortization?: IAmortization[];
   tags?: TagProps[];
   userOwner?: string;
+  commitments?: string[];
 }
 
 interface IRate {

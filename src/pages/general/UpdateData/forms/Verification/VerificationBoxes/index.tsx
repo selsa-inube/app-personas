@@ -739,20 +739,6 @@ const renderExpensesVerification = (
       />
     )}
 
-    {values.health !== "" && (
-      <BoxAttribute
-        label="Salud:"
-        value={currencyFormat(Number(values.health))}
-      />
-    )}
-
-    {values.pension !== "" && (
-      <BoxAttribute
-        label="Pensión:"
-        value={currencyFormat(Number(values.pension))}
-      />
-    )}
-
     {values.others !== "" && (
       <BoxAttribute
         label="Otros gastos:"

@@ -1,7 +1,6 @@
 import { TagProps } from "@design/data/Tag";
 import {
   amortizationTypeValuesMock,
-  guaranteeTypeValuesMock,
   peridiocityValuesMock,
 } from "@mocks/products/credits/utils.mocks";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
@@ -124,7 +123,7 @@ const mapCreditApiToEntity = (
     {
       id: "guarantee_type",
       label: "Tipo de garantía",
-      value: guaranteeTypeValuesMock[Object(credit.typeOfGuarantee).code],
+      value: capitalizeText(String(credit.warrantyClass).toLowerCase()),
     },
     {
       id: "terms",

@@ -37,11 +37,13 @@ interface EconomicActivityModalProps {
   portalId: string;
   onCloseModal: () => void;
   activities: IEconomicActivity[];
+  selectedActivityId?: string;
   onSelect: (selectedItem: IEconomicActivity) => void;
 }
 
 function EconomicActivityModal(props: EconomicActivityModalProps) {
-  const { portalId, onCloseModal, activities, onSelect } = props;
+  const { portalId, onCloseModal, activities, selectedActivityId, onSelect } =
+    props;
   const [searchTerm, setSearchTerm] = useState("");
 
   const isMobile = useMediaQuery("(max-width: 550px)");
@@ -89,6 +91,19 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
             Búsqueda actividad económica CIIU
           </Text>
         </Stack>
+
+        {selectedActivityId &&
+          activities.map(
+            (activity: IEconomicActivity) =>
+              activity.id === selectedActivityId && (
+                <Item
+                  key={activity.id}
+                  id={activity.id}
+                  description={activity.description}
+                  onClick={() => onSelect(activity)}
+                />
+              ),
+          )}
 
         <Divider dashed />
         <Stack direction="column" gap={isMobile ? "s200" : "s250"}>
