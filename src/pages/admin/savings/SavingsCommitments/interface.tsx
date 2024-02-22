@@ -87,6 +87,8 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
+  console.log("selectedCommitment", selectedCommitment);
+
   return (
     <>
       <Stack direction="column" gap="s300">
@@ -117,7 +119,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
           <Stack direction="column" gap={isMobile ? "s250" : "s400"}>
             <Box
               title={selectedCommitment.commitment.title}
-              subtitle="Compromiso de ahorro"
+              subtitle={selectedCommitment.commitment.id}
               collapsing={{ start: true, allow: false }}
               tags={
                 selectedCommitment.commitment.tag && [
