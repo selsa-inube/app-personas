@@ -4,7 +4,6 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { SavingsContext } from "src/context/savings";
-import { EProductType } from "src/model/entity/product";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -73,21 +72,11 @@ function SavingsAccount() {
   const getCommitments = async () => {
     if (!selectedProduct || !accessToken) return;
 
-    const productNumber =
-      selectedProduct.option.split("-").length > 1 &&
-      selectedProduct.option.split("-")[1];
-
-    const tempDocumentNumberCodes: Record<string, number> = {
-      [EProductType.PERMANENTSAVINGS]: 206,
-      [EProductType.CONTRIBUTIONS]: 205,
-    };
-
     const foundCommitments = commitments.filter(
       (commitment) =>
-        productNumber &&
-        commitment.savingNumber?.includes(productNumber) &&
-        commitment.savingNumber?.includes(
-          String(tempDocumentNumberCodes[selectedProduct.saving.type]),
+        commitment.realId === // Temp realId
+        selectedProduct.saving.commitments?.find(
+          (commitmentId) => commitmentId === commitment.realId,
         ),
     );
 
