@@ -153,11 +153,7 @@ const renderInformationDataInfoVerification = (
         id="isDependent"
         size="compact"
         options={activeDM.options}
-        value={
-          informationValues.isDependent ?? personalValues.isDependent
-            ? "Y"
-            : "N"
-        }
+        value={informationValues.isDependent ?? personalValues.isDependent}
         isFullWidth
         readOnly
       />

@@ -6,7 +6,7 @@ interface IPersonalDataEntry {
   firstLastName?: string;
   secondLastName?: string;
   relationship?: string;
-  isDependent?: boolean;
+  isDependent?: string;
 }
 
 export type { IPersonalDataEntry };

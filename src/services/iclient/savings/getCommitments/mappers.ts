@@ -8,7 +8,19 @@ import {
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeFirstLetters } from "src/utils/texts";
 
-const mapSavingCommitmentsMovementsApiToEntity = (
+const mapSavingProductCommitmentApiToEntity = (
+  product: Record<string, string>,
+): string => {
+  return product.productNumber;
+};
+
+const mapSavingProductsCommitmentsApiToEntities = (
+  products: Record<string, string>[],
+): string[] => {
+  return products.map(mapSavingProductCommitmentApiToEntity);
+};
+
+const mapSavingCommitmentMovementApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
   const buildMovement: IMovement = {
@@ -27,7 +39,7 @@ const mapSavingProductMovementsApiToEntities = (
   movements: Record<string, string | number | object>[],
 ): IMovement[] => {
   return movements
-    .map(mapSavingCommitmentsMovementsApiToEntity)
+    .map(mapSavingCommitmentMovementApiToEntity)
     .filter((movement) => movement.totalValue > 0)
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 };
@@ -103,8 +115,11 @@ const mapSavingsCommitmentsApiToEntity = (
     type: commitmentType,
     attributes,
     movements,
-    products: [],
-    savingNumber: String(commitment.numberCommitmentSavings),
+    products: mapSavingProductsCommitmentsApiToEntities(
+      Array.isArray(commitment.productsCommitmentRelationship)
+        ? commitment.productsCommitmentRelationship
+        : [],
+    ),
   };
 };
 
