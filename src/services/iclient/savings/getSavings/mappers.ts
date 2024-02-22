@@ -93,13 +93,9 @@ const mapSavingsApiToEntities = (
         case EProductType.PROGRAMMEDSAVINGS:
           programmedSavings.push(saving);
           break;
-        case EProductType.PERMANENTSAVINGS: {
-          if (saving.id.startsWith("201")) {
-            // Temp
-            savingsContributions.push(saving);
-          }
+        case EProductType.PERMANENTSAVINGS:
+          savingsContributions.push(saving);
           break;
-        }
         case EProductType.CONTRIBUTIONS:
           savingsContributions.push(saving);
           break;
