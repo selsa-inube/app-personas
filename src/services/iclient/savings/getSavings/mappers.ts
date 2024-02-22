@@ -94,6 +94,7 @@ const mapSavingsApiToEntities = (
           programmedSavings.push(saving);
           break;
         case EProductType.PERMANENTSAVINGS:
+          savingsContributions.push(saving);
           break;
         case EProductType.CONTRIBUTIONS:
           savingsContributions.push(saving);
