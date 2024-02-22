@@ -1,7 +1,6 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { IDynamicFormOptions, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
-import { biweeklyPayDayDM } from "src/model/domains/general/biweeklyPayDay";
 import { monthlyPayDayDM } from "src/model/domains/general/monthlyPayDay";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { weeklyPayDayDM } from "src/model/domains/general/weeklyPayDay";
@@ -13,7 +12,7 @@ const payDay = (periodicityId: string) => {
   if (periodicityId === "weekly")
     return commonFields.paydayTypeToSelect(weeklyPayDayDM.options);
   if (periodicityId === "biweekly")
-    return commonFields.paydayTypeToSelect(biweeklyPayDayDM.options);
+    return commonFields.paydayTypeToSelect(monthlyPayDayDM.options);
   if (periodicityId === "monthly")
     return commonFields.paydayTypeToSelect(monthlyPayDayDM.options);
   if (periodicityId === "semiannual")

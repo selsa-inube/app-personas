@@ -10,6 +10,7 @@ import { filterPeriodicityOptions, structureQuotaForm } from "./config/form";
 import { QuotaFormUI } from "./interface";
 import { IQuotaEntry } from "./types";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { EProductType } from "src/model/entity/product";
 
 const initValidationSchema = Yup.object({
   periodicValue: validationRules.money.required(validationMessages.required),
@@ -65,7 +66,7 @@ const QuotaForm = forwardRef(function QuotaForm(
   };
 
   const savingOptions = savingsMock
-    .filter((saving) => saving.type === "VIEWSAVINGS")
+    .filter((saving) => saving.type === EProductType.VIEWSAVINGS)
     .map((saving) => ({ id: saving.id, value: saving.description }));
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const QuotaForm = forwardRef(function QuotaForm(
       formik.values.accountToDebit === "internalOwnAccountDebit"
     ) {
       const internalAccounts = savingsMock.filter(
-        (saving) => saving.type === "VIEWSAVINGS",
+        (saving) => saving.type === EProductType.VIEWSAVINGS,
       );
       formik.setFieldValue("accountNumber", internalAccounts[0].id);
       formik.setFieldValue(
