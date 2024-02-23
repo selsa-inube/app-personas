@@ -146,7 +146,7 @@ const getProductAttributes = (
       {
         id: "account_gmf",
         label: "GMF",
-        value: gmfTypeValuesMock[Object(saving.hasSubsidyBenefitInGMF).code],
+        value: gmfTypeValuesMock[Object(saving.engravedWithGmf).code],
       },
     ],
     [EProductType.PROGRAMMEDSAVINGS]: [
