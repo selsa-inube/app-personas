@@ -104,7 +104,7 @@ const getProductAttributes = (
       {
         id: "deadline_days",
         label: "Plazo en días",
-        value: `${saving.savingsTerm} Dias`,
+        value: `${saving.savingsTerm} Meses`,
       },
       {
         id: "payment_interest",
