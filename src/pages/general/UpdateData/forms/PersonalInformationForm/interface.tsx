@@ -1,11 +1,11 @@
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
+import { DateField } from "@design/input/DateField";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
@@ -168,14 +168,11 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               readOnly
             />
 
-            <TextField
+            <DateField
               label="Fecha de expedición"
-              placeholder="Ejemplo: 01/Ene/1990"
               name="expeditionDate"
               id="expeditionDate"
               value={formik.values.expeditionDate}
-              type="text"
-              size="compact"
               isFullWidth
               readOnly
             />
@@ -207,22 +204,18 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               onChange={formik.handleChange}
             />
 
-            <TextField
+            <DateField
               label="Fecha de nacimiento"
-              placeholder="Ejemplo: 01/Ene/1990"
               name="birthDate"
               id="birthDate"
               value={formik.values.birthDate}
-              type="text"
-              iconAfter={<MdOutlineModeEdit size={18} />}
               errorMessage={formik.errors.birthDate}
               isDisabled={loading}
-              size="compact"
-              isFullWidth
               state={getFieldState(formik, "birthDate")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               validMessage="La fecha de nacimiento es válida"
+              isFullWidth
             />
 
             <Select

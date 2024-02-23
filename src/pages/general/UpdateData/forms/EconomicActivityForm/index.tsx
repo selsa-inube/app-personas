@@ -43,11 +43,11 @@ const validationSchema = Yup.object().shape({
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
   admissionDate: EconomicActivityRequiredFields.admissionDate
-    ? validationRules.date.required(validationMessages.required)
-    : validationRules.date,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   contractExpiration: EconomicActivityRequiredFields.contractExpiration
-    ? validationRules.date.required(validationMessages.required)
-    : validationRules.date,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   severanceRegime: EconomicActivityRequiredFields.severanceRegime
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),

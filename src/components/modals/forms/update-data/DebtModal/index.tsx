@@ -4,6 +4,7 @@ import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
+import { DateField } from "@design/input/DateField";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -118,21 +119,21 @@ function DebtModal(props: DebtModalProps) {
             validMessage="El nombre del pasivo es válido"
             isRequired
           />
-          <TextField
+          <DateField
             label="Fecha de terminación"
             name="terminationDate"
             id="terminationDate"
-            placeholder="Ejemplo: 01/Ene/1990"
-            value={formik.values.terminationDate || ""}
-            type="text"
+            value={formik.values.terminationDate}
             errorMessage={formik.errors.terminationDate}
-            size="compact"
-            isFullWidth
-            state={getFieldState(formik, "terminationDate")}
+            state={
+              formik.values.terminationDate
+                ? getFieldState(formik, "terminationDate")
+                : undefined
+            }
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="La fecha de terminación es válida"
-            isRequired
+            isFullWidth
           />
           <TextField
             label="Saldo de la deuda"

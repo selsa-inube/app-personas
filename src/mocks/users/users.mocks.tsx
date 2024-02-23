@@ -13,9 +13,9 @@ const usersMock: IThird[] = [
         country: "COL",
         departament: "cundinamarca",
         city: "bogota",
-        date: "05/Ago/2008",
+        date: "2008-08-05",
       },
-      birthDate: "02/Ago/1990",
+      birthDate: "1990-08-02",
       birthCity: "bogota",
       birthCountry: "COL",
       gender: "masculino",
@@ -70,7 +70,7 @@ const usersMock: IThird[] = [
           email: "leidy.angel@litigando.com.co",
         },
         information: {
-          birthDate: "24/Oct/1989",
+          birthDate: "1989-10-24",
           gender: "female",
           relationship: "wife",
           isDependent: "N",
@@ -102,7 +102,7 @@ const usersMock: IThird[] = [
           email: "eunice.paramo@outlook.com",
         },
         information: {
-          birthDate: "10/Oct/1966",
+          birthDate: "1966-10-10",
           gender: "female",
           relationship: "mother",
           isDependent: "N",
@@ -130,6 +130,5 @@ const usersMock: IThird[] = [
     },
   },
 ];
-
 
 export { usersMock };

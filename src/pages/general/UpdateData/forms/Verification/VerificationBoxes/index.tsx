@@ -4,6 +4,7 @@ import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { formatDate } from "src/utils/dates";
 import { usersMock } from "@mocks/users/users.mocks";
 import {
   mapPersonalAsset,
@@ -77,12 +78,18 @@ const renderPersonalInfoVerification = (
       label="Ciudad de expedición:"
       value={cityDM.valueOf(values.expeditionCity)?.value}
     />
-    <BoxAttribute label="Fecha de expedición:" value={values.expeditionDate} />
+    <BoxAttribute
+      label="Fecha de expedición:"
+      value={formatDate(values.expeditionDate)}
+    />
     <BoxAttribute
       label="País de nacimiento:"
       value={countryDM.valueOf(values.country)?.value}
     />
-    <BoxAttribute label="Fecha de nacimiento:" value={values.birthDate} />
+    <BoxAttribute
+      label="Fecha de nacimiento:"
+      value={formatDate(values.birthDate)}
+    />
     <BoxAttribute
       label="Estado civil:"
       value={maritalStatusDM.valueOf(values.maritalStatus)?.value}
@@ -557,14 +564,14 @@ const renderEconomicActivityVerification = (
           {values.admissionDate && (
             <BoxAttribute
               label="Fecha de ingreso:"
-              value={values.admissionDate}
+              value={formatDate(values.admissionDate)}
             />
           )}
 
           {values.contractExpiration && (
             <BoxAttribute
               label="Vencimiento del contrato:"
-              value={values.contractExpiration}
+              value={formatDate(values.contractExpiration)}
             />
           )}
 

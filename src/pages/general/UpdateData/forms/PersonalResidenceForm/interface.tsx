@@ -1,3 +1,4 @@
+import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
@@ -67,20 +68,19 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
               onChange={formik.handleChange}
               validMessage="La entidad bancaria es válida"
             />
-            <TextField
+            <DateField
               label="Fecha de vencimiento"
-              placeholder="Ejemplo: 01/Ene/1990"
               name="dueDate"
               id="dueDate"
               value={formik.values.dueDate}
               errorMessage={formik.errors.dueDate}
               isDisabled={loading}
-              isFullWidth
               size={isMobile ? "compact" : "wide"}
               state={getFieldState(formik, "dueDate")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               validMessage="La fecha de vencimiento es válida"
+              isFullWidth
             />
           </>
         )}

@@ -7,7 +7,7 @@ import { IPersonalResidenceEntry } from "./types";
 
 const validationSchema = Yup.object({
   bankEntity: validationRules.name,
-  dueDate: validationRules.date,
+  dueDate: Yup.string(),
   tenant: validationRules.name,
   tenantCellPhone: validationRules.phone,
   ownerName: validationRules.name,

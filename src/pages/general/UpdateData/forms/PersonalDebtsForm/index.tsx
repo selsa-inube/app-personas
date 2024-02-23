@@ -15,8 +15,8 @@ import { IPersonalDebtEntries } from "./types";
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
   debtName: Yup.string().required(validationMessages.required),
-  terminationDate: validationRules.date
-    .concat(validationRules.notPastDate)
+  terminationDate: Yup.string()
+    .concat(validationRules.notPastNewDate)
     .required(validationMessages.required),
   debtBalance: validationRules.money.required(validationMessages.required),
   financialEntity: validationRules.name.required(validationMessages.required),

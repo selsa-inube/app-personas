@@ -65,8 +65,8 @@ const validationSchema = Yup.object().shape({
     ? validationRules.email.required(validationMessages.required)
     : validationRules.email,
   birthDate: familyGroupRequiredFields.birthDate
-    ? validationRules.date.required(validationMessages.required)
-    : validationRules.date,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   gender: familyGroupRequiredFields.gender
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
@@ -257,7 +257,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
       mobilePriority: true,
     },
   ];
-  
+
   if (!isMobile) {
     familyGroupTableActions.push(
       {
