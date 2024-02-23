@@ -117,7 +117,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
           <Stack direction="column" gap={isMobile ? "s250" : "s400"}>
             <Box
               title={selectedCommitment.commitment.title}
-              subtitle="Compromiso de ahorro"
+              subtitle={selectedCommitment.commitment.id}
               collapsing={{ start: true, allow: false }}
               tags={
                 selectedCommitment.commitment.tag && [
