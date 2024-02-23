@@ -87,8 +87,6 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
-  console.log("selectedCommitment", selectedCommitment);
-
   return (
     <>
       <Stack direction="column" gap="s300">
