@@ -13,23 +13,23 @@ const getProductDetails = (
   const details: Record<string, { title: string; description: string }> = {
     [EProductType.PERMANENTSAVINGS]: {
       title: productDescription,
-      description: `${productDescription} ${productNumber}`,
+      description: `${productDescription} - ${productNumber}`,
     },
     [EProductType.CONTRIBUTIONS]: {
       title: productDescription,
-      description: `${productDescription} ${productNumber}`,
+      description: `${productDescription} - ${productNumber}`,
     },
     [EProductType.CDAT]: {
       title: productDescription.replace(/\bCdat\b/g, "CDAT"),
-      description: `CDAT ${productNumber}`,
+      description: `CDAT - ${productNumber}`,
     },
     [EProductType.VIEWSAVINGS]: {
       title: productDescription,
-      description: `${productDescription} ${productNumber}`,
+      description: `${productDescription} - ${productNumber}`,
     },
     [EProductType.PROGRAMMEDSAVINGS]: {
       title: "Ahorro programado", // Temp
-      description: `Ahorro programado ${productNumber}`,
+      description: `Ahorro programado - ${productNumber}`,
     },
   };
   return details[productTypeCode] || {};
@@ -104,7 +104,7 @@ const getProductAttributes = (
       {
         id: "deadline_days",
         label: "Plazo en días",
-        value: `${saving.savingsTerm} Dias`,
+        value: `${saving.savingsTerm} Meses`,
       },
       {
         id: "payment_interest",

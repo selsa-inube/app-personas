@@ -1,5 +1,7 @@
 const estateTypeValuesMock: Record<string, string> = {
   Active: "Activo",
+  Inactive: "Inactivo",
+  Cancelled: "Cancelado",
 };
 
 const gmfTypeValuesMock: Record<string, string> = {
