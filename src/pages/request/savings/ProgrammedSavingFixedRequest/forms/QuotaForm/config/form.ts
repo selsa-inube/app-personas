@@ -5,6 +5,7 @@ import { monthlyPayDayDM } from "src/model/domains/general/monthlyPayDay";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { weeklyPayDayDM } from "src/model/domains/general/weeklyPayDay";
 import { validationMessages } from "src/validations/validationMessages";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 
@@ -113,12 +114,102 @@ const commonFields = {
     ),
     readOnly,
   }),
+  accountToDebit: (
+    options: ISelectOption[],
+    savingOptions: ISelectOption[],
+  ) => ({
+    name: "accountToDebit",
+    type: "select",
+    label: "Cuenta a debitar",
+    placeholder: "",
+    size: "compact",
+    options: options,
+    readOnly: savingOptions.length < 1,
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: Yup.string().required(validationMessages.required),
+  }),
+  accountType: (options: ISelectOption[]) => ({
+    name: "accountType",
+    type: "select",
+    label: "Tipo de cuenta",
+    placeholder: "",
+    size: "compact",
+    options: options,
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: Yup.string().required(validationMessages.required),
+  }),
+  bankEntity: (options: ISelectOption[]) => ({
+    name: "bankEntity",
+    type: "select",
+    label: "Entidad bancaria",
+    placeholder: "",
+    size: "compact",
+    options: options,
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: Yup.string().required(validationMessages.required),
+  }),
+  accountNumberSelect: (
+    formik: FormikValues,
+    savingOptions: ISelectOption[],
+    customHandleAccount: (event: React.ChangeEvent<HTMLSelectElement>) => void,
+  ) => ({
+    name: "accountNumber",
+    type: "select",
+    label: "Numero de cuenta",
+    placeholder:
+      savingOptions.length === 1 || !formik.values.accountToDebit
+        ? " "
+        : "Selecciona el número de cuenta",
+    size: "compact",
+    options: savingOptions,
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validation: Yup.string().required(validationMessages.required),
+    readOnly: savingOptions.length === 1 || !formik.values.accountToDebit,
+    isRequired: true,
+    onChange: customHandleAccount,
+  }),
+  accountNumberTextField: () => ({
+    name: "accountNumber",
+    type: "text",
+    label: "Numero de cuenta",
+    placeholder: "Digita el número de cuenta",
+    size: "compact",
+    isFullWidth: true,
+    gridColumn: "span 1",
+    validMessage: "El Numero de cuenta es válido",
+    validation: validationRules.notPastDate.required(
+      validationMessages.required,
+    ),
+  }),
 };
 
 const structureQuotaForm = (
   formik: FormikValues,
   periodicityId: string,
+  savingOptions: ISelectOption[],
+  customHandleAccount: (event: React.ChangeEvent<HTMLSelectElement>) => void,
 ): IFormStructure => {
+  let accountToDebitFields;
+  if (formik.values.accountToDebit === "externalOwnAccountDebit") {
+    accountToDebitFields = [
+      commonFields.accountType(getDomainById("accountType")),
+      commonFields.bankEntity(getDomainById("bank")),
+      commonFields.accountNumberTextField(),
+    ];
+  } else {
+    accountToDebitFields = [
+      commonFields.accountNumberSelect(
+        formik,
+        savingOptions,
+        customHandleAccount,
+      ),
+    ];
+  }
+
   return {
     paymentMethod: {
       physicalCollectionChannels: [
@@ -128,6 +219,11 @@ const structureQuotaForm = (
       automaticDebit: [
         commonFields.periodicity("span 1", "automaticDebit"),
         payDay(periodicityId),
+        commonFields.accountToDebit(
+          getDomainById("accountDebitType"),
+          savingOptions,
+        ),
+        ...accountToDebitFields,
       ],
       payrollDiscount: [commonFields.periodicity("span 1", "payrollDiscount")],
       northCranes: [commonFields.periodicity("span 1", "northCranes")],

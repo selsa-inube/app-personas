@@ -7,7 +7,6 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
-import { ISelectOption } from "@design/input/Select/types";
 import {
   handleChangeWithCurrency,
   validateCurrencyField,
@@ -18,8 +17,6 @@ interface QuotaFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   renderFields: IFormField[];
-  savingOptions: ISelectOption[];
-  customHandleAccount: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   customHandleChange: (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -29,14 +26,7 @@ interface QuotaFormUIProps {
 const paymentMethodDM = getDomainById("paymentMethod");
 
 function QuotaFormUI(props: QuotaFormUIProps) {
-  const {
-    formik,
-    loading,
-    renderFields,
-    savingOptions,
-    customHandleAccount,
-    customHandleChange,
-  } = props;
+  const { formik, loading, renderFields, customHandleChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 750px)");
 
@@ -103,116 +93,6 @@ function QuotaFormUI(props: QuotaFormUIProps) {
               isTablet,
               loading,
             )
-          )}
-          {formik.values.paymentMethod === "automaticDebit" && (
-            <>
-              <Select
-                label="Cuenta a debitar"
-                name="accountToDebit"
-                id="accountToDebit"
-                value={formik.values.accountToDebit}
-                size="compact"
-                options={getDomainById("accountDebitType")}
-                state={getFieldState(formik, "accountToDebit")}
-                errorMessage={formik.errors.accountToDebit}
-                onBlur={formik.handleBlur}
-                onClick={formik.handleClick}
-                onFocus={formik.handleFocus}
-                onChange={formik.handleChange}
-                readOnly={savingOptions.length < 1}
-                isDisabled={loading}
-                isFullWidth
-              />
-
-              {formik.values.accountToDebit === "externalOwnAccountDebit" ? (
-                <>
-                  <Select
-                    label="Tipo de cuenta"
-                    name="accountType"
-                    id="accountType"
-                    value={formik.values.accountType}
-                    size="compact"
-                    options={getDomainById("accountType")}
-                    state={getFieldState(formik, "accountType")}
-                    errorMessage={formik.errors.accountType}
-                    onBlur={formik.handleBlur}
-                    onClick={formik.handleClick}
-                    onFocus={formik.handleFocus}
-                    onChange={formik.handleChange}
-                    isDisabled={loading}
-                    isFullWidth
-                  />
-                  <Select
-                    label="Entidad bancaria"
-                    name="bankEntity"
-                    id="bankEntity"
-                    value={formik.values.bankEntity}
-                    size="compact"
-                    options={getDomainById("bank")}
-                    state={getFieldState(formik, "bankEntity")}
-                    errorMessage={formik.errors.bankEntity}
-                    onBlur={formik.handleBlur}
-                    onClick={formik.handleClick}
-                    onFocus={formik.handleFocus}
-                    onChange={formik.handleChange}
-                    isDisabled={loading}
-                    isFullWidth
-                  />
-                  <TextField
-                    label="Numero de cuenta"
-                    placeholder={
-                      savingOptions.length === 1 ||
-                      !formik.values.accountToDebit
-                        ? ""
-                        : "Digita el número de cuenta"
-                    }
-                    name="accountNumber"
-                    id="accountNumber"
-                    type="number"
-                    value={formik.values.accountNumber}
-                    errorMessage={formik.errors.accountNumber}
-                    isDisabled={loading}
-                    size="compact"
-                    isFullWidth
-                    state={getFieldState(formik, "accountNumber")}
-                    onBlur={formik.handleBlur}
-                    onFocus={formik.handleFocus}
-                    onChange={formik.handleChange}
-                    validMessage="El numero de cuenta es válido"
-                    readOnly={
-                      savingOptions.length === 1 ||
-                      !formik.values.accountToDebit
-                    }
-                  />
-                </>
-              ) : (
-                <Select
-                  label="Numero de cuenta"
-                  name="accountNumber"
-                  id="accountNumber"
-                  placeholder={
-                    savingOptions.length === 1 || !formik.values.accountToDebit
-                      ? ""
-                      : "Digita el número de cuenta"
-                  }
-                  value={formik.values.accountNumber}
-                  size="compact"
-                  options={savingOptions}
-                  state={getFieldState(formik, "accountNumber")}
-                  errorMessage={formik.errors.accountNumber}
-                  onBlur={formik.handleBlur}
-                  onClick={formik.handleClick}
-                  onFocus={formik.handleFocus}
-                  onChange={customHandleAccount}
-                  readOnly={
-                    savingOptions.length === 1 || !formik.values.accountToDebit
-                  }
-                  isDisabled={loading}
-                  isFullWidth
-                  isRequired
-                />
-              )}
-            </>
           )}
         </Grid>
       </Stack>

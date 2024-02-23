@@ -19,6 +19,7 @@ interface IFormField {
   withCounter?: boolean;
   gridColumn: string;
   validation: Yup.StringSchema<string, Yup.AnyObject, undefined, "">;
+  onChange?: () => void;
 }
 
 interface IFormStructure {

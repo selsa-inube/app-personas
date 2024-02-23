@@ -91,7 +91,12 @@ const QuotaForm = forwardRef(function QuotaForm(
   useEffect(() => {
     const { renderFields, validationSchema } = generateDynamicForm(
       formik,
-      structureQuotaForm(formik, valuePeriodicity),
+      structureQuotaForm(
+        formik,
+        valuePeriodicity,
+        savingOptions,
+        customHandleAccount,
+      ),
     );
 
     const newValidationSchema = initValidationSchema.concat(
@@ -102,10 +107,21 @@ const QuotaForm = forwardRef(function QuotaForm(
         paymentMethod: Yup.string().required(validationMessages.required),
         periodicity: Yup.string().required(validationMessages.required),
         payDayType:
-          formik.values.paymentMethod === "physicalCollectionChannels"
+          formik.values.paymentMethod === "physicalCollectionChannels" ||
+          formik.values.paymentMethod === "automaticDebit"
             ? Yup.string().required(validationMessages.required)
             : Yup.string(),
         paydayByDate: validationRules.notPastDate,
+        accountType:
+          formik.values.paymentMethod === "automaticDebit" &&
+          formik.values.accountToDebit === "externalOwnAccountDebit"
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
+        bankEntity:
+          formik.values.paymentMethod === "automaticDebit" &&
+          formik.values.accountToDebit === "externalOwnAccountDebit"
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
         accountNumber:
           formik.values.paymentMethod === "automaticDebit"
             ? Yup.string().required(validationMessages.required)
@@ -165,9 +181,7 @@ const QuotaForm = forwardRef(function QuotaForm(
       loading={loading}
       formik={formik}
       renderFields={dynamicForm.renderFields}
-      savingOptions={savingOptions}
       customHandleChange={customHandleChange}
-      customHandleAccount={customHandleAccount}
     />
   );
 });
