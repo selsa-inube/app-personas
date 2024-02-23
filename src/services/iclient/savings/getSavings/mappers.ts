@@ -23,9 +23,9 @@ const mapSavingProductMovementsApiToEntity = (
     date: new Date(String(movement.movementDate)),
     reference: String(movement.movementNumber),
     description: capitalizeFirstLetters(String(movement.movementDescription)),
-    totalValue: Number(
-      movement.creditMovementPesos || movement.debitMovementPesos,
-    ),
+    totalValue: movement.creditMovementPesos
+      ? Number(movement.creditMovementPesos)
+      : -Number(movement.debitMovementPesos),
   };
   return buildMovement;
 };
@@ -35,7 +35,6 @@ const mapSavingProductMovementsApiToEntities = (
 ): IMovement[] => {
   return movements
     .map(mapSavingProductMovementsApiToEntity)
-    .filter((movement) => movement.totalValue > 0)
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
