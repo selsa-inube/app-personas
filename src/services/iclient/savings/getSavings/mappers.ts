@@ -23,12 +23,9 @@ const mapSavingProductMovementsApiToEntity = (
     date: new Date(String(movement.movementDate)),
     reference: String(movement.movementNumber),
     description: capitalizeFirstLetters(String(movement.movementDescription)),
-    totalValue:
-      Number(
-        movement.creditMovementPesos
-          ? movement.creditMovementPesos
-          : -movement.debitMovementPesos,
-      ) || 0,
+    totalValue: Number(
+      movement.creditMovementPesos || -movement.debitMovementPesos || 0
+    ),
   };
   return buildMovement;
 };
