@@ -185,14 +185,14 @@ function UpdateData() {
   return (
     <UpdateDataUI
       currentStep={currentStep}
-      handleFinishAssisted={handleFinishAssisted}
-      handleStepChange={handleStepChange}
       formReferences={formReferences}
       updateData={updateData}
-      handleNextStep={handleNextStep}
-      handlePreviousStep={handlePreviousStep}
       steps={steps}
       isCurrentFormValid={isCurrentFormValid}
+      handleNextStep={handleNextStep}
+      handlePreviousStep={handlePreviousStep}
+      handleFinishAssisted={handleFinishAssisted}
+      handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
     />
   );
