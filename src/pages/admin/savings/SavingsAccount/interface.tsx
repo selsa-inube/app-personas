@@ -97,10 +97,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsSaving(isInvestment, productId)} />
+        <Breadcrumbs crumbs={crumbsSaving(productId)} />
         <Title
           title={
-            isInvestment ? "Consulta de inversiones" : "Consulta de ahorros"
+            "Consulta de ahorros"
           }
           subtitle={
             isInvestment
