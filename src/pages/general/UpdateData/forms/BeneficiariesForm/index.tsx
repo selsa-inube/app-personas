@@ -5,16 +5,17 @@ import { IBeneficiariesEntry } from "./types";
 
 interface BeneficiariesFormProps {
   initialValues: IBeneficiariesEntry;
-  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: IBeneficiariesEntry) => void;
   loading?: boolean;
+  withSubmit?: boolean;
+  onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
+  onSubmit?: (values: IBeneficiariesEntry) => void;
 }
 
 const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   props: BeneficiariesFormProps,
   ref: React.Ref<FormikProps<IBeneficiariesEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
   const [percentage, setPercentage] = useState(0);
 
   const formik = useFormik({
@@ -39,7 +40,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
     }
     setPercentage(total);
 
-    onFormValid(!(total > 100));
+    onFormValid && onFormValid(!(total > 100));
   };
 
   return (
@@ -47,6 +48,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
       loading={loading}
       formik={formik}
       percentage={percentage}
+      withSubmit={withSubmit}
       customHandleChange={customHandleChange}
     />
   );

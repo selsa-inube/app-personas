@@ -13,6 +13,10 @@ const updateDataTabs: Record<string, TabProps> = {
     id: "familyGroup",
     label: "Grupo familiar",
   },
+  beneficiaries: {
+    id: "beneficiaries",
+    label: "Beneficiarios",
+  },
   bankTransfers: {
     id: "bankTransfers",
     label: "Transferencias bancarias",
