@@ -110,7 +110,6 @@ const mapSavingsCommitmentsApiToEntity = (
 
   return {
     id: String(commitment.numberCommitmentSavings),
-    realId: String(commitment.commitmentId),
     title: tempNames[documentTypeCommitment],
     tag: tag,
     type: commitmentType,
