@@ -16,10 +16,14 @@ import { FamilyMemberCreateModal } from "@components/modals/forms/update-data/Fa
 import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
 import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
 import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
+import { usersMock } from "@mocks/users/users.mocks";
+import { mapFamilyGroups } from "../../config/mappers";
 
 interface FamilyGroupFormUIProps {
   formik: FormikValues;
   showAddMemberModal: boolean;
+  loading?: boolean;
+  withSubmit?: boolean;
   message?: IMessage;
   familyGroupTableActions: IAction[];
   onCloseMessage: () => void;
@@ -28,7 +32,7 @@ interface FamilyGroupFormUIProps {
     identificationData: IIdentificationDataEntry,
     personalData: IPersonalDataEntry,
     contactData: IContactDataEntry,
-    InformationData: IInformationDataEntry
+    InformationData: IInformationDataEntry,
   ) => void;
 }
 
@@ -37,11 +41,18 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
     formik,
     showAddMemberModal,
     familyGroupTableActions,
+    loading,
+    withSubmit,
     message,
     onToggleModal,
     onAddMember,
     onCloseMessage,
   } = props;
+
+  const validateButtonActivation =
+    JSON.stringify(mapFamilyGroups(usersMock[0].familyGroup || [])) ===
+    JSON.stringify(formik.values.entries);
+
   return (
     <>
       <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
@@ -61,6 +72,28 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           pageLength={formik.values.entries.length}
           hideMobileResume
         />
+        {withSubmit && (
+          <Stack gap="s150" justifyContent="flex-end">
+            <Button
+              onClick={formik.handleReset}
+              type="button"
+              disabled={loading || !formik.dirty}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Cancelar
+            </Button>
+
+            <Button
+              type="submit"
+              spacing="compact"
+              disabled={loading || validateButtonActivation}
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
       </Stack>
       {showAddMemberModal && (
         <FamilyMemberCreateModal
