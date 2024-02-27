@@ -72,8 +72,6 @@ const StyledThTitle = styled.th<IStyledThTitle>`
   }
 `;
 
-
-
 const StyledThAction = styled.th`
   background-color: ${({ theme }) =>
     theme.color?.surface?.dark?.clear || inube.color.surface.dark.clear};
@@ -89,6 +87,7 @@ const StyledTd = styled.td<IStyledTd>`
   padding: 0px 16px;
   text-align: center;
   max-width: 310px;
+  white-space: nowrap;
 
   p {
     text-align: ${({ withActions }) => (withActions ? "left" : "center")};
