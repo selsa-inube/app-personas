@@ -23,7 +23,7 @@ function UpdateDataUnassisted() {
     updateDataTabs.personalInformation.id,
   );
 
-  const [updateData /* setUpdateData */] = useState<IFormsUpdateData>({
+  const [updateData] = useState<IFormsUpdateData>({
     personalInformation: {
       isValid: true,
       values: mapPersonalInformation(usersMock[0]),

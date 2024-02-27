@@ -36,16 +36,17 @@ const validationSchema = Yup.object().shape({
 
 interface ContactDataFormProps {
   initialValues: IContactDataEntry;
-  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
+  onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IContactDataEntry) => void;
   loading?: boolean;
+  withSubmit?: boolean;
 }
 
 const ContactDataForm = forwardRef(function ContactDataForm(
   props: ContactDataFormProps,
   ref: React.Ref<FormikProps<IContactDataEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, onFormValid, onSubmit, loading, withSubmit } = props;
 
   const [dynamicSchema] = useState(validationSchema);
 
@@ -59,7 +60,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty) {
+    if (onFormValid) {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });
@@ -77,6 +78,7 @@ const ContactDataForm = forwardRef(function ContactDataForm(
       loading={loading}
       formik={formik}
       isRequired={isRequired}
+      withSubmit={withSubmit}
     />
   );
 });
