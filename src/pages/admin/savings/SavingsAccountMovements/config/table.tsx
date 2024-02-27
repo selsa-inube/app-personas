@@ -59,7 +59,6 @@ const savingsAccountMovementsTableActions: IAction[] = [
         type="body"
         size="small"
         appearance={movement.totalValue >= 0 ? "dark" : "error"}
-        cursorHover
       >
         {currencyFormat(movement.totalValue)}
       </Text>
