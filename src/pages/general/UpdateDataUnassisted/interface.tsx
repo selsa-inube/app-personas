@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { Tabs } from "@design/navigation/Tabs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
-import { ContactDataForm } from "../UpdateData/forms/ContactDataForm";
+import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
@@ -22,9 +22,9 @@ const renderTabContent = (
           withSubmit
         />
       )}
-      {selectedTab === updateDataTabs.contactData.id && (
-        <ContactDataForm
-          initialValues={updateData.contactData.values}
+      {selectedTab === updateDataTabs.beneficiaries.id && (
+        <BeneficiariesForm
+          initialValues={updateData.beneficiaries.values}
           withSubmit
         />
       )}
