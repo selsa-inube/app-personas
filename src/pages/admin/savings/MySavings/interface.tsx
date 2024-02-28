@@ -7,9 +7,9 @@ import { Title } from "@design/data/Title";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
-import { ProductsCommitments } from "@pages/admin/home/ProductsCommitments";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { ProductsCommitments } from "@pages/admin/home/ProductsCommitments";
 import {
   extractInvestmentAttributes,
   formatInvestmentCurrencyAttrs,
@@ -46,7 +46,7 @@ function renderMySavingsContent(
           Tus productos
         </Text>
         <Box {...mySavingsBox}>
-          <Stack direction="column">
+          <Stack direction="column" gap="s100">
             {loading ? (
               <Stack direction="column" gap="s200">
                 <Product loading />
@@ -167,29 +167,28 @@ function renderMySavingsContent(
                     </Stack>
                   )}
 
-                  {(savingsAccounts.length > 0 ||
-                    savingsContributions.length > 0 ||
+                  {(savingsAccounts && savingsAccounts.length > 0) ||
+                    (savingsContributions && savingsContributions.length > 0) ||
                     (cdats && cdats.length > 0) ||
-                    (programmedSavings && programmedSavings.length > 0) ||
-                    productsCommitments.length > 0) && (
-                    <Stack
-                      justifyContent="flex-end"
-                      gap="s100"
-                      padding={`0 ${inube.spacing.s100} ${inube.spacing.s200} 0`}
-                    >
-                      <Text type="label" size="large">
-                        Total Ahorrado :
-                      </Text>
-                      <Text type="body" size="medium" appearance="gray">
-                        {sumNetValue([
-                          ...savingsContributions,
-                          ...savingsAccounts,
-                          ...cdats,
-                          ...programmedSavings,
-                        ])}
-                      </Text>
-                    </Stack>
-                  )}
+                    (programmedSavings && programmedSavings.length > 0 && (
+                      <Stack
+                        justifyContent="flex-end"
+                        gap="s100"
+                        padding={`0 ${inube.spacing.s100} ${inube.spacing.s200} 0`}
+                      >
+                        <Text type="label" size="large">
+                          Total Ahorrado :
+                        </Text>
+                        <Text type="body" size="medium" appearance="gray">
+                          {sumNetValue([
+                            ...savingsContributions,
+                            ...savingsAccounts,
+                            ...cdats,
+                            ...programmedSavings,
+                          ])}
+                        </Text>
+                      </Stack>
+                    ))}
                 </Stack>
 
                 {productsCommitments.length > 0 && (
