@@ -187,6 +187,11 @@ const getProductAttributes = (
         label: "Beneficiarios",
         value: beneficiaries,
       },
+      {
+        id: "request_date",
+        label: "Fecha de apertura",
+        value: formatPrimaryDate(new Date(String(saving.creationDate))),
+      },
     ],
   };
 
