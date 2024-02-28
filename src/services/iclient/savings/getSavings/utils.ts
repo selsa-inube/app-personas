@@ -143,11 +143,15 @@ const getProductAttributes = (
         label: "Estado",
         value: estateTypeValuesMock[Object(saving.savingsStatus).code],
       },
-      {
-        id: "account_gmf",
-        label: "GMF",
-        value: gmfTypeValuesMock[Object(saving.engravedWithGmf).code],
-      },
+      ...(saving.engravedWithGmf
+        ? [
+            {
+              id: "account_gmf",
+              label: "GMF",
+              value: gmfTypeValuesMock[Object(saving.engravedWithGmf).code],
+            },
+          ]
+        : []),
     ],
     [EProductType.PROGRAMMEDSAVINGS]: [
       {
