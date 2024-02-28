@@ -3,8 +3,7 @@ import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
-import { SkeletonIcon } from "@inube/design-system";
-import { SkeletonLine } from "@inube/design-system";
+import { SkeletonIcon, SkeletonLine } from "@inube/design-system";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -54,16 +53,14 @@ function Product(props: ProductProps) {
           {loading ? (
             <SkeletonIcon animated size="32px" />
           ) : (
-            <>
-              {icon && (
-                <Icon
-                  icon={icon}
-                  variant="filled"
-                  spacing="compact"
-                  appearance={empty ? "gray" : "primary"}
-                />
-              )}
-            </>
+            icon && (
+              <Icon
+                icon={icon}
+                variant="filled"
+                spacing="compact"
+                appearance={empty ? "gray" : "primary"}
+              />
+            )
           )}
 
           <Stack direction="column" gap="s025">
