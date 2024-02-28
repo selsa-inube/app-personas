@@ -46,7 +46,7 @@ function renderMySavingsContent(
           Tus productos
         </Text>
         <Box {...mySavingsBox}>
-          <Stack direction="column">
+          <Stack direction="column" gap="s100">
             {loading ? (
               <Stack direction="column" gap="s200">
                 <Product loading />

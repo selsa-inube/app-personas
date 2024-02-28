@@ -62,7 +62,7 @@ function renderHomeContent(
           Tus productos
         </Text>
         <Box {...savingsBox}>
-          <Stack direction="column">
+          <Stack direction="column" gap="s100">
             {loadingSavings ? (
               <Stack direction="column" gap="s200">
                 <Product loading />
@@ -189,7 +189,7 @@ function renderHomeContent(
                     (programmedSavings && programmedSavings.length > 0)) && (
                     <Stack
                       justifyContent="flex-end"
-                      gap="s200"
+                      gap="s100"
                       padding={`0 ${inube.spacing.s100} ${inube.spacing.s200} 0`}
                     >
                       <Text type="label" size="large">
