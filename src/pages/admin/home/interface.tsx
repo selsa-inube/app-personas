@@ -183,14 +183,13 @@ function renderHomeContent(
                     </Stack>
                   )}
 
-                  {(savingsAccounts.length > 0 ||
-                    savingsContributions.length > 0 ||
+                  {((savingsAccounts && savingsAccounts.length > 0) ||
+                    (savingsContributions && savingsContributions.length > 0) ||
                     (cdats && cdats.length > 0) ||
-                    (programmedSavings && programmedSavings.length > 0) ||
-                    productsCommitments.length > 0) && (
+                    (programmedSavings && programmedSavings.length > 0)) && (
                     <Stack
                       justifyContent="flex-end"
-                      gap="s100"
+                      gap="s200"
                       padding={`0 ${inube.spacing.s100} ${inube.spacing.s200} 0`}
                     >
                       <Text type="label" size="large">
