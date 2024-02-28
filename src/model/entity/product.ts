@@ -43,7 +43,6 @@ enum ECommitmentType {
 
 interface ICommitment {
   id: string;
-  realId?: string; // Temp
   title: string;
   type: ECommitmentType;
   description?: string;

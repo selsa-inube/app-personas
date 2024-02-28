@@ -6,7 +6,7 @@ import { getProductAttributes, getProductDetails } from "./utils";
 const mapSavingProductCommitmentApiToEntity = (
   commitment: Record<string, string>,
 ): string => {
-  return commitment.commitmentId;
+  return commitment.commitmentNumber;
 };
 
 const mapSavingProductsCommitmentsApiToEntities = (

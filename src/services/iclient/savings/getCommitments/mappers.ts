@@ -98,7 +98,6 @@ const mapSavingsCommitmentsApiToEntity = (
 
   return {
     id: String(commitment.numberCommitmentSavings),
-    realId: String(commitment.commitmentId),
     title: capitalizeText(
       String(commitment.commitmentDescription).toLowerCase(),
     ),
