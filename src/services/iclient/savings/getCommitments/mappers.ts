@@ -6,7 +6,7 @@ import {
   IMovement,
 } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
 
 const mapSavingProductCommitmentApiToEntity = (
   product: Record<string, string>,
@@ -96,21 +96,11 @@ const mapSavingsCommitmentsApiToEntity = (
       }
     : undefined;
 
-  const tempNames: Record<number, string> = {
-    //Temp
-    4: "Cuota ahorro programado",
-    206: "Cuota ahorro permanente",
-    205: "Cuota aportes sociales",
-  };
-
-  const documentTypeCommitment = Number(
-    // Temp
-    String(commitment.numberCommitmentSavings).split("-")[0] || 0,
-  );
-
   return {
     id: String(commitment.numberCommitmentSavings),
-    title: tempNames[documentTypeCommitment],
+    title: capitalizeText(
+      String(commitment.commitmentDescription).toLowerCase(),
+    ),
     tag: tag,
     type: commitmentType,
     attributes,
