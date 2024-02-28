@@ -13,6 +13,7 @@ const productsAttributes: Record<string, string[]> = {
     "net_value",
     "min_value",
     "account_state",
+    "request_date",
     "account_gmf",
   ],
   [EProductType.CDAT]: [
