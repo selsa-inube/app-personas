@@ -79,7 +79,6 @@ const commonFields = {
       name: "periodicity",
       type: "select",
       label: "Periodicidad",
-      placeholder: "",
       size: "compact",
       options: filteredOptions,
       readOnly: isSingleOption,
@@ -93,7 +92,6 @@ const commonFields = {
     name: "payDayType",
     type: "select",
     label: "Día de pago",
-    placeholder: "",
     size: "compact",
     options: options,
     isFullWidth: true,
@@ -104,7 +102,6 @@ const commonFields = {
     name: "paydayByDate",
     type: "text",
     label: "Día de pago",
-    placeholder: "",
     size: "compact",
     isFullWidth: true,
     gridColumn: "span 1",
@@ -121,7 +118,6 @@ const commonFields = {
     name: "accountToDebit",
     type: "select",
     label: "Cuenta a debitar",
-    placeholder: "",
     size: "compact",
     options: options,
     readOnly: savingOptions.length < 1,
@@ -133,7 +129,6 @@ const commonFields = {
     name: "accountType",
     type: "select",
     label: "Tipo de cuenta",
-    placeholder: "",
     size: "compact",
     options: options,
     isFullWidth: true,
@@ -144,7 +139,6 @@ const commonFields = {
     name: "bankEntity",
     type: "select",
     label: "Entidad bancaria",
-    placeholder: "",
     size: "compact",
     options: options,
     isFullWidth: true,
@@ -161,7 +155,7 @@ const commonFields = {
     label: "Numero de cuenta",
     placeholder:
       savingOptions.length === 1 || !formik.values.accountToDebit
-        ? " "
+        ? ""
         : "Selecciona el número de cuenta",
     size: "compact",
     options: savingOptions,
