@@ -28,8 +28,8 @@ const getProductDetails = (
       description: `${productDescription} - ${productNumber}`,
     },
     [EProductType.PROGRAMMEDSAVINGS]: {
-      title: "Ahorro programado", // Temp
-      description: `Ahorro programado - ${productNumber}`,
+      title: productDescription,
+      description: `${productDescription} - ${productNumber}`,
     },
   };
   return details[productTypeCode] || {};
