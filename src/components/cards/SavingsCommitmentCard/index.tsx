@@ -1,10 +1,10 @@
-import { MdCalendarMonth } from "react-icons/md";
-import { StyledCardContainer } from "./styles";
-import { Stack } from "@design/layout/Stack";
-import { Text } from "@design/data/Text";
-import { Tag, TagProps } from "@design/data/Tag";
 import { Icon } from "@design/data/Icon";
+import { Tag, TagProps } from "@design/data/Tag";
+import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
+import { MdCalendarMonth } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
+import { StyledCardContainer } from "./styles";
 
 interface SavingsCommitmentCardProps {
   onClick: () => void;
@@ -21,7 +21,7 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
   return (
     <StyledCardContainer onClick={onClick}>
       <Stack direction="column" alignItems="flex-start" gap="s075">
-        <Stack alignItems="center" gap="s075">
+        <Stack alignItems="flex-start" gap="s075">
           <Icon size="16px" icon={<MdCalendarMonth />} spacing="none" />
           <Text type="label" size="medium">
             {title}
@@ -45,5 +45,5 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
   );
 }
 
-export type { SavingsCommitmentCardProps };
 export { SavingsCommitmentCard };
+export type { SavingsCommitmentCardProps };
