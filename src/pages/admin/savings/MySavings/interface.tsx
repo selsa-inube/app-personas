@@ -167,42 +167,42 @@ function renderMySavingsContent(
                   </Stack>
                 )}
 
-                {(savingsAccounts && savingsAccounts.length > 0) ||
+                {((savingsAccounts && savingsAccounts.length > 0) ||
                   (savingsContributions && savingsContributions.length > 0) ||
                   (cdats && cdats.length > 0) ||
-                  (programmedSavings && programmedSavings.length > 0 && (
-                    <Stack
-                      justifyContent="flex-end"
-                      gap="s100"
-                      padding={`0 ${inube.spacing.s100} ${inube.spacing.s200} 0`}
-                    >
-                      <Text type="label" size="large">
-                        Total Ahorrado :
-                      </Text>
-                      <Text type="body" size="medium" appearance="gray">
-                        {sumNetValue([
-                          ...savingsContributions,
-                          ...savingsAccounts,
-                          ...cdats,
-                          ...programmedSavings,
-                        ])}
-                      </Text>
-                    </Stack>
-                  ))}
-              </Stack>
+                  (programmedSavings && programmedSavings.length > 0)) && (
+                  <Stack
+                    justifyContent="flex-end"
+                    gap="s100"
+                    padding={`0 ${inube.spacing.s100} 0`}
+                  >
+                    <Text type="label" size="large">
+                      Total Ahorrado :
+                    </Text>
+                    <Text type="body" size="medium" appearance="gray">
+                      {sumNetValue([
+                        ...savingsContributions,
+                        ...savingsAccounts,
+                        ...cdats,
+                        ...programmedSavings,
+                      ])}
+                    </Text>
+                  </Stack>
+                )}
 
-              {productsCommitments.length > 0 && (
-                <Stack direction="column" gap="s200">
-                  <Text type="label" size="medium">
-                    Compromisos
-                  </Text>
-                  <StyledCommitmentsContainer isTablet={isTablet}>
-                    <ProductsCommitments
-                      productsCommitments={productsCommitments}
-                    />
-                  </StyledCommitmentsContainer>
-                </Stack>
-              )}
+                {productsCommitments.length > 0 && (
+                  <Stack direction="column" gap="s200">
+                    <Text type="label" size="medium">
+                      Compromisos
+                    </Text>
+                    <StyledCommitmentsContainer isTablet={isTablet}>
+                      <ProductsCommitments
+                        productsCommitments={productsCommitments}
+                      />
+                    </StyledCommitmentsContainer>
+                  </Stack>
+                )}
+              </Stack>
             </>
           )}
         </Stack>

@@ -62,7 +62,7 @@ function renderHomeContent(
         Tus productos
       </Text>
       <Box {...savingsBox}>
-        <Stack direction="column" gap="s100">
+        <Stack direction="column">
           {loadingSavings ? (
             <Stack direction="column" gap="s200">
               <Product loading />
@@ -190,7 +190,7 @@ function renderHomeContent(
                   <Stack
                     justifyContent="flex-end"
                     gap="s100"
-                    padding={`0 ${inube.spacing.s100} ${inube.spacing.s200} 0`}
+                    padding={`0 ${inube.spacing.s100} 0`}
                   >
                     <Text type="label" size="large">
                       Total Ahorrado :
@@ -205,20 +205,20 @@ function renderHomeContent(
                     </Text>
                   </Stack>
                 )}
-              </Stack>
 
-              {productsCommitments.length > 0 && (
-                <Stack direction="column" gap="s200">
-                  <Text type="label" size="medium">
-                    Compromisos
-                  </Text>
-                  <StyledCommitmentsContainer isTablet={isTablet}>
-                    <ProductsCommitments
-                      productsCommitments={productsCommitments}
-                    />
-                  </StyledCommitmentsContainer>
-                </Stack>
-              )}
+                {productsCommitments.length > 0 && (
+                  <Stack direction="column" gap="s200">
+                    <Text type="label" size="medium">
+                      Compromisos
+                    </Text>
+                    <StyledCommitmentsContainer isTablet={isTablet}>
+                      <ProductsCommitments
+                        productsCommitments={productsCommitments}
+                      />
+                    </StyledCommitmentsContainer>
+                  </Stack>
+                )}
+              </Stack>
             </>
           )}
         </Stack>
