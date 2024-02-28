@@ -91,12 +91,7 @@ const QuotaForm = forwardRef(function QuotaForm(
   useEffect(() => {
     const { renderFields, validationSchema } = generateDynamicForm(
       formik,
-      structureQuotaForm(
-        formik,
-        valuePeriodicity,
-        savingOptions,
-        customHandleAccount,
-      ),
+      structureQuotaForm(formik, valuePeriodicity, savingOptions),
     );
 
     const newValidationSchema = initValidationSchema.concat(
@@ -152,6 +147,10 @@ const QuotaForm = forwardRef(function QuotaForm(
       ...formik.values,
       [name]: value,
     };
+
+    if (name === "accountNumber") {
+      customHandleAccount(event as React.ChangeEvent<HTMLSelectElement>);
+    }
 
     if (name === "paymentMethod") {
       updatedFormikValues = {

@@ -148,7 +148,6 @@ const commonFields = {
   accountNumberSelect: (
     formik: FormikValues,
     savingOptions: ISelectOption[],
-    customHandleAccount: (event: React.ChangeEvent<HTMLSelectElement>) => void,
   ) => ({
     name: "accountNumber",
     type: "select",
@@ -164,7 +163,6 @@ const commonFields = {
     validation: Yup.string().required(validationMessages.required),
     readOnly: savingOptions.length === 1 || !formik.values.accountToDebit,
     isRequired: true,
-    onChange: customHandleAccount,
   }),
   accountNumberTextField: () => ({
     name: "accountNumber",
@@ -185,25 +183,7 @@ const structureQuotaForm = (
   formik: FormikValues,
   periodicityId: string,
   savingOptions: ISelectOption[],
-  customHandleAccount: (event: React.ChangeEvent<HTMLSelectElement>) => void,
 ): IFormStructure => {
-  let accountToDebitFields;
-  if (formik.values.accountToDebit === "externalOwnAccountDebit") {
-    accountToDebitFields = [
-      commonFields.accountType(getDomainById("accountType")),
-      commonFields.bankEntity(getDomainById("bank")),
-      commonFields.accountNumberTextField(),
-    ];
-  } else {
-    accountToDebitFields = [
-      commonFields.accountNumberSelect(
-        formik,
-        savingOptions,
-        customHandleAccount,
-      ),
-    ];
-  }
-
   return {
     paymentMethod: {
       physicalCollectionChannels: [
@@ -217,13 +197,22 @@ const structureQuotaForm = (
           getDomainById("accountDebitType"),
           savingOptions,
         ),
-        ...accountToDebitFields,
       ],
       payrollDiscount: [commonFields.periodicity("span 1", "payrollDiscount")],
       northCranes: [commonFields.periodicity("span 1", "northCranes")],
       westernCranes: [commonFields.periodicity("span 1", "westernCranes")],
       easternCranes: [commonFields.periodicity("span 1", "easternCranes")],
       southCranes: [commonFields.periodicity("span 1", "southCranes")],
+    },
+    accountToDebit: {
+      externalOwnAccountDebit: [
+        commonFields.accountType(getDomainById("accountType")),
+        commonFields.bankEntity(getDomainById("bank")),
+        commonFields.accountNumberTextField(),
+      ],
+      internalOwnAccountDebit: [
+        commonFields.accountNumberSelect(formik, savingOptions),
+      ],
     },
   };
 };
