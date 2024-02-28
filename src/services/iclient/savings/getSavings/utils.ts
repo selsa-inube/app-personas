@@ -28,8 +28,8 @@ const getProductDetails = (
       description: `${productDescription} - ${productNumber}`,
     },
     [EProductType.PROGRAMMEDSAVINGS]: {
-      title: "Ahorro programado", // Temp
-      description: `Ahorro programado - ${productNumber}`,
+      title: productDescription,
+      description: `${productDescription} - ${productNumber}`,
     },
   };
   return details[productTypeCode] || {};
@@ -143,6 +143,11 @@ const getProductAttributes = (
         label: "Estado",
         value: estateTypeValuesMock[Object(saving.savingsStatus).code],
       },
+      {
+        id: "request_date",
+        label: "Fecha de apertura",
+        value: formatPrimaryDate(new Date(String(saving.creationDate))),
+      },
       ...(saving.engravedWithGmf
         ? [
             {
@@ -181,6 +186,11 @@ const getProductAttributes = (
         id: "beneficiaries",
         label: "Beneficiarios",
         value: beneficiaries,
+      },
+      {
+        id: "request_date",
+        label: "Fecha de apertura",
+        value: formatPrimaryDate(new Date(String(saving.creationDate))),
       },
     ],
   };
