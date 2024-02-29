@@ -17,6 +17,8 @@ interface PersonalAssetsFormUIProps {
   formik: FormikValues;
   showAddAssetModal: boolean;
   personalAssetsTableActions: IAction[];
+  loading?: boolean;
+  withSubmit?: boolean;
   message: IMessage;
   onCloseMessage: () => void;
   onToggleModal: () => void;
@@ -28,11 +30,16 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
     formik,
     showAddAssetModal,
     personalAssetsTableActions,
+    loading,
+    withSubmit,
     message,
     onCloseMessage,
     onToggleModal,
     onAddAsset,
   } = props;
+
+  const validateButtonActivation =
+    JSON.stringify([]) === JSON.stringify(formik.values.entries);
 
   return (
     <>
@@ -54,6 +61,33 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
           hideMobileResume
           colsSameWidth
         />
+        {withSubmit && (
+          <Stack gap="s150" justifyContent="flex-end">
+            <Button
+              onClick={formik.handleReset}
+              type="button"
+              disabled={loading || !formik.dirty}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Cancelar
+            </Button>
+
+            <Button
+              type="submit"
+              spacing="compact"
+              disabled={
+                loading ||
+                !formik.dirty ||
+                !formik.isValid ||
+                validateButtonActivation
+              }
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
         {showAddAssetModal && (
           <AssetModal
             title="Adicionar bien"
