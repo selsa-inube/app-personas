@@ -47,8 +47,6 @@ const mapSavingProductMovementsApiToEntities = (
 const mapSavingsCommitmentsApiToEntity = (
   commitment: Record<string, string | number | object>,
 ): ICommitment => {
-  let inArrears = false;
-  let attributes: IAttribute[] = [];
   const today = new Date();
   today.setUTCHours(5, 5, 5, 5);
 
@@ -66,9 +64,9 @@ const mapSavingsCommitmentsApiToEntity = (
   nextPaymentDate.setUTCHours(5, 5, 5, 5);
   const nextPaymentValue = commitment.quotaValue;
 
-  inArrears = today > nextPaymentDate;
+  const inArrears = today > nextPaymentDate;
 
-  attributes = [
+  const attributes: IAttribute[] = [
     {
       id: "value_to_pay",
       label: "Valor próximo pago",
