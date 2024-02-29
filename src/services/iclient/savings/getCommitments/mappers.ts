@@ -62,7 +62,12 @@ const mapSavingsCommitmentsApiToEntity = (
 
   const nextPaymentDate = new Date(String(commitment.closePaymentDate));
   nextPaymentDate.setUTCHours(5, 5, 5, 5);
-  const nextPaymentValue = commitment.quotaValue;
+
+  const nextPaymentValue =
+    Array.isArray(commitment.savingPaymentPlans) &&
+    commitment.savingPaymentPlans[commitment.savingPaymentPlans.length - 1] &&
+    commitment.savingPaymentPlans[commitment.savingPaymentPlans.length - 1]
+      .valuePendingPayment;
 
   const inArrears = today > nextPaymentDate;
 
