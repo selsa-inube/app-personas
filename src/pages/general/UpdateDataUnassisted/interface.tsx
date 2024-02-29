@@ -5,6 +5,7 @@ import { Tabs } from "@design/navigation/Tabs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
+import { ContactDataForm } from "../UpdateData/forms/ContactDataForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { IFormsUpdateData } from "../UpdateData/types";
@@ -20,6 +21,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.personalInformation.id && (
         <PersonalInformationForm
           initialValues={updateData.personalInformation.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.contactData.id && (
+        <ContactDataForm
+          initialValues={updateData.contactData.values}
           withSubmit
         />
       )}
