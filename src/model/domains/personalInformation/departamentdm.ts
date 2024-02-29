@@ -2,39 +2,39 @@ import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const departmentData = {
   AMAZONAS: {
-    id: "amazonas",
+    id: "AMAZONAS",
     value: "Amazonas",
   },
   ANTIOQUIA: {
-    id: "antioquia",
+    id: "ANTIOQUIA",
     value: "Antioquia",
   },
   ARAUCA: {
-    id: "arauca",
+    id: "ARAUCA",
     value: "Arauca",
   },
   ATLANTICO: {
-    id: "atlantico",
+    id: "ATLANTICO",
     value: "Atlántico",
   },
   BOLIVAR: {
-    id: "bolivar",
+    id: "BOLIVAR",
     value: "Bolívar",
   },
   BOYACA: {
-    id: "boyaca",
+    id: "BOYACA",
     value: "Boyacá",
   },
   CALDAS: {
-    id: "caldas",
+    id: "CALDAS",
     value: "Caldas",
   },
   CAQUETA: {
-    id: "caqueta",
+    id: "CAQUETA",
     value: "Caquetá",
   },
   CUNDINAMARCA: {
-    id: "cundinamarca",
+    id: "CUNDINAMARCA",
     value: "Cundinamarca",
   },
 };
