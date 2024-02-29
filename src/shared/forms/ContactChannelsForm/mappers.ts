@@ -2,11 +2,11 @@ import { IContactData } from "src/model/entity/user";
 import { IContactChannelsEntry } from "./types";
 
 const mapContactChannels = (
-  contactChannelsData: IContactData
+  contactChannelsData: IContactData,
 ): IContactChannelsEntry => {
   return {
-    landlinePhone: contactChannelsData.landlinePhone || "",
-    cellPhone: contactChannelsData.cellPhone || "",
+    landlinePhone: contactChannelsData.landlinePhone || 0,
+    cellPhone: contactChannelsData.cellPhone,
     email: contactChannelsData.email || "",
     acceptDataPolicy: true,
     acceptNotifications: true,

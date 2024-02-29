@@ -91,7 +91,7 @@ const createFamilyMemberStepsRules = (
           newCreateFamilyMember.contactData = {
             isValid: false,
             values: {
-              cellPhone: "",
+              cellPhone: 0,
               email: "",
             },
           };

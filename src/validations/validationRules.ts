@@ -17,10 +17,10 @@ const validationRules = {
     .min(5, validationMessages.minNumbers(5))
     .max(15, validationMessages.maxNumbers(15)),
 
-  phone: Yup.string()
-    .matches(regex.onlyNumbers, validationMessages.phone)
-    .min(10, validationMessages.minNumbers(10))
-    .max(10, validationMessages.maxNumbers(10)),
+  phone: Yup.number()
+    .positive(validationMessages.phone)
+    .min(1000000000, validationMessages.minNumbers(10))
+    .max(9999999999, validationMessages.maxNumbers(10)),
 
   email: Yup.string()
     .matches(regex.emailFormat, validationMessages.email)

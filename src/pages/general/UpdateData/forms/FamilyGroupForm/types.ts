@@ -12,9 +12,9 @@ interface IFamilyGroupEntry {
   country?: string;
   address?: string;
   department?: string;
-  zipCode?: string;
-  landlinePhone?: string;
-  cellPhone?: string;
+  zipCode?: number;
+  landlinePhone?: number;
+  cellPhone?: number;
   email?: string;
   birthDate?: string;
   gender?: string;
@@ -29,4 +29,4 @@ interface IFamilyGroupEntries extends IFamilyGroupEntry {
   entries: IFamilyGroupEntry[];
 }
 
-export type { IFamilyGroupEntry, IFamilyGroupEntries };
+export type { IFamilyGroupEntries, IFamilyGroupEntry };
