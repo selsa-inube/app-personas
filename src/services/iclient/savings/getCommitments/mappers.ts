@@ -50,6 +50,7 @@ const mapSavingsCommitmentsApiToEntity = (
   let inArrears = false;
   let attributes: IAttribute[] = [];
   const today = new Date();
+  today.setUTCHours(5, 5, 5, 5);
 
   const commitmentType: ECommitmentType = Object(
     commitment.commitmentType,
@@ -61,33 +62,29 @@ const mapSavingsCommitmentsApiToEntity = (
       )
     : [];
 
-  if (Array.isArray(commitment.savingPaymentPlans)) {
-    const lastObject =
-      commitment.savingPaymentPlans[commitment.savingPaymentPlans.length - 1];
+  const nextPaymentDate = new Date(String(commitment.closePaymentDate));
+  nextPaymentDate.setUTCHours(5, 5, 5, 5);
+  const nextPaymentValue = commitment.quotaValue;
 
-    const nextQuotaDate = new Date(String(lastObject.quotaDate));
-    const valuePendingPayment = lastObject.valuePendingPayment;
+  inArrears = today > nextPaymentDate;
 
-    inArrears = today > nextQuotaDate;
-
-    attributes = [
-      {
-        id: "value_to_pay",
-        label: "Valor próximo pago",
-        value: Number(valuePendingPayment),
-      },
-      {
-        id: "next_pay_date",
-        label: "Fecha próximo pago",
-        value: inArrears ? "Inmediato" : formatPrimaryDate(nextQuotaDate),
-      },
-      {
-        id: "pay_method",
-        label: "Medio de pago",
-        value: capitalizeFirstLetters(String(commitment.paymentMediumName)),
-      },
-    ];
-  }
+  attributes = [
+    {
+      id: "value_to_pay",
+      label: "Valor próximo pago",
+      value: Number(nextPaymentValue),
+    },
+    {
+      id: "next_pay_date",
+      label: "Fecha próximo pago",
+      value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
+    },
+    {
+      id: "pay_method",
+      label: "Medio de pago",
+      value: capitalizeFirstLetters(String(commitment.paymentMediumName)),
+    },
+  ];
 
   const tag: TagProps | undefined = inArrears
     ? {
