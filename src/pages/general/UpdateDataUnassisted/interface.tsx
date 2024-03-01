@@ -7,6 +7,7 @@ import { MdArrowBack } from "react-icons/md";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
+import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
@@ -32,6 +33,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.beneficiaries.id && (
         <BeneficiariesForm
           initialValues={updateData.beneficiaries.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalReferences.id && (
+        <PersonalReferencesForm
+          initialValues={updateData.personalReferences.values}
           withSubmit
         />
       )}
