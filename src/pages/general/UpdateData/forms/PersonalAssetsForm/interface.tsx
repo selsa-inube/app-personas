@@ -38,8 +38,6 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
     onAddAsset,
   } = props;
 
-  const validateButtonActivation = formik.values.entries.length === 0;
-
   return (
     <>
       <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
@@ -80,7 +78,8 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
                 loading ||
                 !formik.dirty ||
                 !formik.isValid ||
-                validateButtonActivation
+                formik.values.entries.length ===
+                  formik.initialValues.entries.length
               }
             >
               Guardar
