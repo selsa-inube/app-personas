@@ -46,6 +46,7 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.financialOperations.id && (
         <FinancialOperationsForm
           initialValues={updateData.financialOperations.values}
+          withSubmit
         />
       )}
     </>
