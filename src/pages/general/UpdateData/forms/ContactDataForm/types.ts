@@ -4,8 +4,8 @@ interface IContactDataEntry {
   stateOrDepartment: string;
   city: string;
   address: string;
-  zipCode: number;
-  landlinePhone: number;
+  zipCode: number | "";
+  landlinePhone: number | "";
   cellPhone: number;
   email: string;
 }

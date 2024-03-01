@@ -12,8 +12,8 @@ interface IFamilyGroupEntry {
   country?: string;
   address?: string;
   department?: string;
-  zipCode?: number;
-  landlinePhone?: number;
+  zipCode?: number | "";
+  landlinePhone?: number | "";
   cellPhone?: number;
   email?: string;
   birthDate?: string;
