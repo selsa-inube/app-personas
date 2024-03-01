@@ -7,6 +7,7 @@ import { MdArrowBack } from "react-icons/md";
 import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
+import { PersonalDebtsForm } from "../UpdateData/forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
@@ -39,6 +40,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.bankTransfers.id && (
         <BankTransfersForm
           initialValues={updateData.bankTransfers.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalDebts.id && (
+        <PersonalDebtsForm
+          initialValues={updateData.personalAssets.values}
           withSubmit
         />
       )}
