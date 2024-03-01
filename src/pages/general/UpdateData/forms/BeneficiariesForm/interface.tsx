@@ -24,7 +24,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" alignItems="flex-end" width="100%" gap="s300">
+      <Stack direction="column" alignItems="flex-end" gap="s300">
         <Grid
           templateColumns={isTablet ? "1fr" : "1fr 1fr"}
           gap={isMobile ? "s150" : "s300"}
