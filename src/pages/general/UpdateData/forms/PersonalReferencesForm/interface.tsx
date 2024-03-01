@@ -38,8 +38,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
     onAddReference,
   } = props;
 
-  const validateButtonActivation =
-    JSON.stringify([]) === JSON.stringify(formik.values.entries);
+  const validateButtonActivation = formik.values.entries.length === 0;
 
   return (
     <>
@@ -76,7 +75,11 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
             <Button
               type="submit"
               spacing="compact"
-              disabled={loading || validateButtonActivation}
+              disabled={
+                loading ||
+                !formik.dirty ||
+                validateButtonActivation
+              }
             >
               Guardar
             </Button>
