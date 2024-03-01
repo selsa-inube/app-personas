@@ -5,7 +5,7 @@ const mapContactChannels = (
   contactChannelsData: IContactData,
 ): IContactChannelsEntry => {
   return {
-    landlinePhone: contactChannelsData.landlinePhone || 0,
+    landlinePhone: contactChannelsData.landlinePhone || "",
     cellPhone: contactChannelsData.cellPhone,
     email: contactChannelsData.email || "",
     acceptDataPolicy: true,
