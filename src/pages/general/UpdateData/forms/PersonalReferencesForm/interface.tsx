@@ -38,8 +38,6 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
     onAddReference,
   } = props;
 
-  const validateButtonActivation = formik.values.entries.length === 0;
-
   return (
     <>
       <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
@@ -76,9 +74,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
               type="submit"
               spacing="compact"
               disabled={
-                loading ||
-                !formik.dirty ||
-                validateButtonActivation
+                loading || !formik.dirty || formik.values.entries.length === 0
               }
             >
               Guardar
