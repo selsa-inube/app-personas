@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { Tabs } from "@design/navigation/Tabs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
+import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
@@ -32,6 +33,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.beneficiaries.id && (
         <BeneficiariesForm
           initialValues={updateData.beneficiaries.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.bankTransfers.id && (
+        <BankTransfersForm
+          initialValues={updateData.bankTransfers.values}
           withSubmit
         />
       )}
