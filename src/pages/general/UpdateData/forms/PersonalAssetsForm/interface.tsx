@@ -38,8 +38,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
     onAddAsset,
   } = props;
 
-  const validateButtonActivation =
-    JSON.stringify([]) === JSON.stringify(formik.values.entries);
+  const validateButtonActivation = formik.values.entries.length === 0;
 
   return (
     <>
