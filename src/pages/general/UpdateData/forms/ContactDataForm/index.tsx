@@ -36,10 +36,10 @@ const validationSchema = Yup.object().shape({
 
 interface ContactDataFormProps {
   initialValues: IContactDataEntry;
-  onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: IContactDataEntry) => void;
   loading?: boolean;
   withSubmit?: boolean;
+  onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
+  onSubmit?: (values: IContactDataEntry) => void;
 }
 
 const ContactDataForm = forwardRef(function ContactDataForm(
