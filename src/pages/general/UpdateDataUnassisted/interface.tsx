@@ -12,6 +12,7 @@ import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformation
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
+import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
 
 const renderTabContent = (
   selectedTab: string,
@@ -46,6 +47,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.bankTransfers.id && (
         <BankTransfersForm
           initialValues={updateData.bankTransfers.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalResidence.id && (
+        <PersonalResidenceForm
+          initialValues={updateData.personalResidence.values}
           withSubmit
         />
       )}
