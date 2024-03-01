@@ -6,6 +6,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
+import { PersonalDebtsForm } from "../UpdateData/forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
@@ -32,6 +33,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.beneficiaries.id && (
         <BeneficiariesForm
           initialValues={updateData.beneficiaries.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalDebts.id && (
+        <PersonalDebtsForm
+          initialValues={updateData.personalAssets.values}
           withSubmit
         />
       )}
