@@ -4,9 +4,14 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { Tabs } from "@design/navigation/Tabs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
+import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
+import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
+import { PersonalAssetsForm } from "../UpdateData/forms/PersonalAssetsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
+import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
+import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
@@ -32,6 +37,36 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.beneficiaries.id && (
         <BeneficiariesForm
           initialValues={updateData.beneficiaries.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.bankTransfers.id && (
+        <BankTransfersForm
+          initialValues={updateData.bankTransfers.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalAssets.id && (
+        <PersonalAssetsForm
+          initialValues={updateData.personalAssets.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalReferences.id && (
+        <PersonalReferencesForm
+          initialValues={updateData.personalReferences.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.financialOperations.id && (
+        <FinancialOperationsForm
+          initialValues={updateData.financialOperations.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalResidence.id && (
+        <PersonalResidenceForm
+          initialValues={updateData.personalResidence.values}
           withSubmit
         />
       )}
