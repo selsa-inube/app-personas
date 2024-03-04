@@ -18,6 +18,8 @@ const validationSchema = Yup.object({
   address: validationRules.address.required(validationMessages.required),
   email: validationRules.email.required(validationMessages.required),
   phone: validationRules.phone.required(validationMessages.required),
+  country: Yup.string().required(validationMessages.required),
+  stateOrDepartment: Yup.string().required(validationMessages.required),
   city: Yup.string().required(validationMessages.required),
 });
 
@@ -69,6 +71,8 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
       "address",
       "email",
       "phone",
+      "country",
+      "stateOrDepartment",
       "city",
     ];
 
@@ -90,6 +94,8 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
           address: formik.values.address,
           email: formik.values.email,
           phone: formik.values.phone,
+          country: formik.values.country,
+          stateOrDepartment: formik.values.stateOrDepartment,
           city: formik.values.city,
         },
       ]);
@@ -100,6 +106,8 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
         "address",
         "email",
         "phone",
+        "country",
+        "stateOrDepartment",
         "city",
       ];
 
