@@ -17,6 +17,8 @@ interface PersonalReferencesFormUIProps {
   formik: FormikValues;
   showAddReferenceModal: boolean;
   personalReferencesTableActions: IAction[];
+  loading?: boolean;
+  withSubmit?: boolean;
   message: IMessage;
   onCloseMessage: () => void;
   onToggleModal: () => void;
@@ -28,11 +30,14 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
     formik,
     showAddReferenceModal,
     personalReferencesTableActions,
+    loading,
+    withSubmit,
     message,
     onCloseMessage,
     onToggleModal,
     onAddReference,
   } = props;
+
   return (
     <>
       <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
@@ -52,6 +57,33 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           pageLength={formik.values.entries.length}
           hideMobileResume
         />
+        {withSubmit && (
+          <Stack gap="s150" justifyContent="flex-end">
+            <Button
+              onClick={formik.handleReset}
+              type="button"
+              disabled={loading || !formik.dirty}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Cancelar
+            </Button>
+
+            <Button
+              type="submit"
+              spacing="compact"
+              disabled={
+                loading ||
+                !formik.dirty ||
+                formik.values.entries.length ===
+                  formik.initialValues.entries.length
+              }
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
       </Stack>
       {showAddReferenceModal && (
         <ReferenceModal

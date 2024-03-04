@@ -18,11 +18,15 @@ const validationSchema = Yup.object({
   address: validationRules.address.required(validationMessages.required),
   email: validationRules.email.required(validationMessages.required),
   phone: validationRules.phone.required(validationMessages.required),
+  country: Yup.string().required(validationMessages.required),
+  stateOrDepartment: Yup.string().required(validationMessages.required),
   city: Yup.string().required(validationMessages.required),
 });
 
 interface PersonalReferencesFormProps {
   initialValues: IPersonalReferenceEntries;
+  loading?: boolean;
+  withSubmit?: boolean;
   onSubmit?: (values: IPersonalReferenceEntries) => void;
 }
 
@@ -30,7 +34,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
   props: PersonalReferencesFormProps,
   ref: React.Ref<FormikProps<IPersonalReferenceEntries>>,
 ) {
-  const { initialValues, onSubmit } = props;
+  const { initialValues, loading, withSubmit, onSubmit } = props;
 
   const [showAddReferenceModal, setShowAddReferenceModal] = useState(false);
   const [message, setMessage] = useState(initialMessageState);
@@ -67,6 +71,8 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
       "address",
       "email",
       "phone",
+      "country",
+      "stateOrDepartment",
       "city",
     ];
 
@@ -88,6 +94,8 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
           address: formik.values.address,
           email: formik.values.email,
           phone: formik.values.phone,
+          country: formik.values.country,
+          stateOrDepartment: formik.values.stateOrDepartment,
           city: formik.values.city,
         },
       ]);
@@ -98,6 +106,8 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
         "address",
         "email",
         "phone",
+        "country",
+        "stateOrDepartment",
         "city",
       ];
 
@@ -162,6 +172,8 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
       formik={formik}
       showAddReferenceModal={showAddReferenceModal}
       personalReferencesTableActions={personalReferencesTableActions}
+      loading={loading}
+      withSubmit={withSubmit}
       message={message}
       onCloseMessage={handleCloseMessage}
       onToggleModal={handleToggleModal}
