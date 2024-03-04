@@ -197,7 +197,8 @@ const structureQuotaForm = (
           getDomainById("accountDebitType"),
           savingOptions,
         ),
-        ...(formik.values.accountToDebit !== "externalOwnAccountDebit"
+        ...(formik.values.accountToDebit === "internalOwnAccountDebit" ||
+        !formik.values.accountToDebit
           ? [commonFields.accountNumberSelect(formik, savingOptions)]
           : []),
       ],
