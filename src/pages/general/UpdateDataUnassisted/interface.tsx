@@ -8,6 +8,7 @@ import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
+import { PersonalAssetsForm } from "../UpdateData/forms/PersonalAssetsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
 import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
@@ -42,6 +43,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.bankTransfers.id && (
         <BankTransfersForm
           initialValues={updateData.bankTransfers.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalAssets.id && (
+        <PersonalAssetsForm
+          initialValues={updateData.personalAssets.values}
           withSubmit
         />
       )}
