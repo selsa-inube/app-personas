@@ -74,7 +74,10 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
               type="submit"
               spacing="compact"
               disabled={
-                loading || !formik.dirty || formik.values.entries.length === 0
+                loading ||
+                !formik.dirty ||
+                formik.values.entries.length ===
+                  formik.initialValues.entries.length
               }
             >
               Guardar
