@@ -19,8 +19,11 @@ const validationRules = {
 
   phone: Yup.number()
     .positive(validationMessages.phone)
-    .min(1000000000, validationMessages.minNumbers(10))
-    .max(9999999999, validationMessages.maxNumbers(10)),
+    .test(
+      "valid-phone",
+      `${validationMessages.numbers(10)}`,
+      (value) => String(value).length === 10,
+    ),
 
   email: Yup.string()
     .matches(regex.emailFormat, validationMessages.email)
