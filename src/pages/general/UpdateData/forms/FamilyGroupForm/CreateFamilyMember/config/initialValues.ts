@@ -18,7 +18,7 @@ const personalData: IPersonalDataEntry = {
 };
 
 const contactData: IContactDataEntry = {
-  cellPhone: 0,
+  cellPhone: "" || 0,
   email: "",
 };
 
