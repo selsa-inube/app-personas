@@ -38,7 +38,8 @@ const validationSchema = Yup.object().shape({
 interface FinancialOperationsFormProps {
   loading?: boolean;
   initialValues: IFinancialOperationsEntry;
-  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
+  withSubmit?: boolean;
+  onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IFinancialOperationsEntry) => void;
 }
 
@@ -46,7 +47,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   props: FinancialOperationsFormProps,
   ref: React.Ref<FormikProps<IFinancialOperationsEntry>>,
 ) {
-  const { loading, initialValues, onFormValid, onSubmit } = props;
+  const { loading, initialValues, withSubmit, onFormValid, onSubmit } = props;
 
   const formik = useFormik({
     initialValues,
@@ -58,9 +59,11 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
+    if (onFormValid) {
+      formik.validateForm().then((errors) => {
+        onFormValid(Object.keys(errors).length === 0);
+      });
+    }
   }, [formik.values]);
 
   const isRequired = (fieldName: string): boolean => {
@@ -73,6 +76,7 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
     <FinancialOperationsFormUI
       loading={loading}
       formik={formik}
+      withSubmit={withSubmit}
       isRequired={isRequired}
     />
   );
