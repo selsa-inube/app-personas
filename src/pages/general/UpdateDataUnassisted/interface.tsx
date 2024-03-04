@@ -9,6 +9,7 @@ import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
+import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
@@ -46,6 +47,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.financialOperations.id && (
         <FinancialOperationsForm
           initialValues={updateData.financialOperations.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalResidence.id && (
+        <PersonalResidenceForm
+          initialValues={updateData.personalResidence.values}
           withSubmit
         />
       )}
