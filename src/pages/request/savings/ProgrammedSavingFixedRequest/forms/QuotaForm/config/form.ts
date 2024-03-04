@@ -197,6 +197,9 @@ const structureQuotaForm = (
           getDomainById("accountDebitType"),
           savingOptions,
         ),
+        ...(formik.values.accountToDebit === "externalOwnAccountDebit"
+          ? []
+          : [commonFields.accountNumberSelect(formik, savingOptions)]),
       ],
       payrollDiscount: [commonFields.periodicity("span 1", "payrollDiscount")],
       northCranes: [commonFields.periodicity("span 1", "northCranes")],
@@ -209,9 +212,6 @@ const structureQuotaForm = (
         commonFields.accountType(getDomainById("accountType")),
         commonFields.bankEntity(getDomainById("bank")),
         commonFields.accountNumberTextField(),
-      ],
-      internalOwnAccountDebit: [
-        commonFields.accountNumberSelect(formik, savingOptions),
       ],
     },
   };
