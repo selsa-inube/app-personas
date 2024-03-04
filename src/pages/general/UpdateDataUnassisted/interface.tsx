@@ -7,11 +7,12 @@ import { MdArrowBack } from "react-icons/md";
 import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
+import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
+import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
-import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
 
 const renderTabContent = (
   selectedTab: string,
@@ -40,6 +41,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.bankTransfers.id && (
         <BankTransfersForm
           initialValues={updateData.bankTransfers.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.financialOperations.id && (
+        <FinancialOperationsForm
+          initialValues={updateData.financialOperations.values}
           withSubmit
         />
       )}
