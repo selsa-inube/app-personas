@@ -16,6 +16,7 @@ import { SocioeconomicInformationForm } from "../UpdateData/forms/SocioeconomicI
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
+import { EconomicActivityForm } from "../UpdateData/forms/EconomicActivityForm";
 
 const renderTabContent = (
   selectedTab: string,
@@ -74,6 +75,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.socioeconomicInformation.id && (
         <SocioeconomicInformationForm
           initialValues={updateData.socioeconomicInformation.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.economicActivity.id && (
+        <EconomicActivityForm
+          initialValues={updateData.economicActivity.values}
           withSubmit
         />
       )}
