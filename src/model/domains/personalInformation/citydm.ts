@@ -2,39 +2,39 @@ import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const cityData = {
   BARRANQUILLA: {
-    id: "BARRANQUILLA",
+    id: "barranquilla",
     value: "Barranquilla",
   },
   BOGOTA: {
-    id: "BOGOTA",
+    id: "bogota",
     value: "Bogotá D.C",
   },
   BUCARAMANGA: {
-    id: "BUCARAMANGA",
+    id: "bucaramanga",
     value: "Bucaramanga",
   },
   CARTAGENA: {
-    id: "CARTAGENA",
+    id: "cartagena",
     value: "Cartagena",
   },
   CUCUTA: {
-    id: "CUCUTA",
+    id: "cucuta",
     value: "Cúcuta",
   },
   IBAGUE: {
-    id: "IBAGUE",
+    id: "ibague",
     value: "Ibagué",
   },
   PEREIRA: {
-    id: "PEREIRA",
+    id: "pereira",
     value: "Pereira",
   },
   SANTAMARTA: {
-    id: "SANTAMARTA",
+    id: "santamarta",
     value: "Santa Marta",
   },
   VILLAVICENCIO: {
-    id: "VILLAVICENCIO",
+    id: "villavicencio",
     value: "Villavicencio",
   },
 };

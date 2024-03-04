@@ -231,8 +231,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             }
             isDisabled={
               !formik.values.stateOrDepartment ||
-              !Object.keys(departmentDM).includes(
-                formik.values.stateOrDepartment,
+              !Object.values(departmentDM.options).some(
+                (option) => option.id === formik.values.stateOrDepartment,
               )
             }
             iconAfter={<MdOutlineModeEdit size={18} />}
@@ -263,9 +263,11 @@ function ReferenceModal(props: ReferenceModalProps) {
             onClick={onConfirm}
             disabled={
               (withCustomDirty
-                ? JSON.stringify(customDirty) == JSON.stringify(formik.values)
+                ? JSON.stringify(customDirty) === JSON.stringify(formik.values)
                 : !formik.dirty || !formik.isValid) ||
-              !Object.keys(cityDM).includes(formik.values.city)
+              !Object.values(cityDM.options).some(
+                (option) => option.id === formik.values.city,
+              )
             }
             appearance="primary"
           >
