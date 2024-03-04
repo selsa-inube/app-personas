@@ -12,6 +12,7 @@ import { PersonalAssetsForm } from "../UpdateData/forms/PersonalAssetsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
 import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
+import { SocioeconomicInformationForm } from "../UpdateData/forms/SocioeconomicInformationForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
@@ -67,6 +68,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.personalResidence.id && (
         <PersonalResidenceForm
           initialValues={updateData.personalResidence.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.socioeconomicInformation.id && (
+        <SocioeconomicInformationForm
+          initialValues={updateData.socioeconomicInformation.values}
           withSubmit
         />
       )}
