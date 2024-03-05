@@ -61,6 +61,10 @@ const updateDataTabs: Record<string, TabProps> = {
     id: "relationshipWithDirectors",
     label: "Relación con directivos",
   },
+  comments: {
+    id: "comments",
+    label: "Comentarios",
+  },
 };
 
 export { updateDataTabs };

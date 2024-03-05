@@ -21,6 +21,7 @@ import { ExpensesForm } from "../UpdateData/forms/ExpensesForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
+import { CommentsForm } from "src/shared/forms/CommentsForm";
 
 const renderTabContent = (
   selectedTab: string,
@@ -108,6 +109,9 @@ const renderTabContent = (
           initialValues={updateData.expenses.values}
           withSubmit
         />
+      )}
+      {selectedTab === updateDataTabs.comments.id && (
+        <CommentsForm initialValues={updateData.comments.values} withSubmit />
       )}
     </>
   );
