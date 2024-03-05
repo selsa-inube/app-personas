@@ -27,6 +27,7 @@ import { SavingRoutes } from "./routes/saving";
 import { useAuth } from "@inube/auth";
 import { CreditsProvider } from "./context/credits";
 import { SavingsProvider } from "./context/savings";
+import { MyCardsRoutes } from "./routes/myCards";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,6 +37,8 @@ const router = createBrowserRouter(
       <Route path="my-credits/*" element={<MyCreditsRoutes />} />
 
       <Route path="my-savings/*" element={<MySavingsRoutes />} />
+
+      <Route path="my-cards/*" element={<MyCardsRoutes />} />
 
       <Route path="credit/*" element={<CreditRoutes />} />
 
