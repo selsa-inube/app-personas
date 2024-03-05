@@ -17,6 +17,8 @@ interface PersonalDebtsFormUIProps {
   formik: FormikValues;
   showAddDebtModal: boolean;
   personalDebtsTableActions: IAction[];
+  loading?: boolean;
+  withSubmit?: boolean;
   message: IMessage;
   onAddDebt: () => void;
   onToggleModal: () => void;
@@ -28,6 +30,8 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
     formik,
     showAddDebtModal,
     personalDebtsTableActions,
+    loading,
+    withSubmit,
     message,
     onCloseMessage,
     onToggleModal,
@@ -53,6 +57,34 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
           pageLength={formik.values.entries.length}
           hideMobileResume
         />
+        {withSubmit && (
+          <Stack gap="s150" justifyContent="flex-end">
+            <Button
+              onClick={formik.handleReset}
+              type="button"
+              disabled={loading || !formik.dirty}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Cancelar
+            </Button>
+
+            <Button
+              type="submit"
+              spacing="compact"
+              disabled={
+                loading ||
+                !formik.dirty ||
+                !formik.isValid ||
+                formik.values.entries.length ===
+                  formik.initialValues.entries.length
+              }
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
         {showAddDebtModal && (
           <DebtModal
             title="Adicionar deuda"

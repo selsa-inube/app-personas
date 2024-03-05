@@ -29,9 +29,9 @@ const usersMock: IThird[] = [
         address: "CR 1 No 66 42 AP 202 BL  7",
         department: "Cundinamarca",
         city: "bogota",
-        zipCode: "111511",
-        landlinePhone: "37670777",
-        cellPhone: "3205510052",
+        zipCode: 111511,
+        landlinePhone: 37670777,
+        cellPhone: 3205510052,
         email: "dgarzon@sistemasenlinea.com.co",
       },
       {
@@ -40,9 +40,9 @@ const usersMock: IThird[] = [
         address: "CR 2 No 88 23 AP 009 BL 5",
         department: "Antioquia",
         city: "medellin",
-        zipCode: "112375",
-        landlinePhone: "35689034",
-        cellPhone: "3124573839",
+        zipCode: 112375,
+        landlinePhone: 35689034,
+        cellPhone: 3124573839,
         email: "jgarcia@sistemasenlinea.com.co",
       },
     ],
@@ -65,8 +65,8 @@ const usersMock: IThird[] = [
           address: "CR 1 No 66 42 AP 202 BL 7",
           department: "Cundinamarca",
           city: "bogota",
-          landlinePhone: "37670777",
-          cellPhone: "3142881128",
+          landlinePhone: 37670777,
+          cellPhone: 3142881128,
           email: "leidy.angel@litigando.com.co",
         },
         information: {
@@ -97,8 +97,8 @@ const usersMock: IThird[] = [
           address: "CR 1 No 66 42 AP 501 BL 4",
           department: "Cundinamarca",
           city: "bogota",
-          landlinePhone: "37670777",
-          cellPhone: "3205510052",
+          landlinePhone: 37670777,
+          cellPhone: 3205510052,
           email: "eunice.paramo@outlook.com",
         },
         information: {
@@ -130,6 +130,5 @@ const usersMock: IThird[] = [
     },
   },
 ];
-
 
 export { usersMock };

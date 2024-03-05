@@ -1,7 +1,7 @@
-import { IIdentificationDataEntry } from "../forms/IdentificationDataForm/types";
-import { IPersonalDataEntry } from "../forms/PersonalDataForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
+import { IIdentificationDataEntry } from "../forms/IdentificationDataForm/types";
 import { IInformationDataEntry } from "../forms/InformationDataForm/types";
+import { IPersonalDataEntry } from "../forms/PersonalDataForm/types";
 
 const identificationData: IIdentificationDataEntry = {
   identificationNumber: "",
