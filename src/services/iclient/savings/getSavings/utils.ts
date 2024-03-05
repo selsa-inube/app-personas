@@ -10,26 +10,26 @@ const getProductDetails = (
   productDescription: string,
   productNumber: string,
 ) => {
-  const details = {
+  const details: Record<string, { title: string; description: string }> = {
     [EProductType.PERMANENTSAVINGS]: {
       title: productDescription,
-      description: `${productDescription} ${productNumber}`,
+      description: `${productDescription} - ${productNumber}`,
     },
     [EProductType.CONTRIBUTIONS]: {
       title: productDescription,
-      description: `${productDescription} ${productNumber}`,
+      description: `${productDescription} - ${productNumber}`,
     },
     [EProductType.CDAT]: {
       title: productDescription.replace(/\bCdat\b/g, "CDAT"),
-      description: `CDAT ${productNumber}`,
+      description: `CDAT - ${productNumber}`,
     },
     [EProductType.VIEWSAVINGS]: {
       title: productDescription,
-      description: `${productDescription} ${productNumber}`,
+      description: `${productDescription} - ${productNumber}`,
     },
     [EProductType.PROGRAMMEDSAVINGS]: {
       title: productDescription,
-      description: `${productDescription} ${productNumber}`,
+      description: `${productDescription} - ${productNumber}`,
     },
   };
   return details[productTypeCode] || {};
@@ -53,7 +53,7 @@ const getProductAttributes = (
       ? Object(saving.accumulatedSavingProducts[0]).creditMovementPesos
       : 0;
 
-  const attributes = {
+  const attributes: Record<string, IAttribute[]> = {
     [EProductType.PERMANENTSAVINGS]: [
       {
         id: "net_value",
@@ -104,7 +104,7 @@ const getProductAttributes = (
       {
         id: "deadline_days",
         label: "Plazo en días",
-        value: `${saving.savingsTerm} Dias`,
+        value: `${saving.savingsTerm} Meses`,
       },
       {
         id: "payment_interest",
@@ -144,12 +144,55 @@ const getProductAttributes = (
         value: estateTypeValuesMock[Object(saving.savingsStatus).code],
       },
       {
-        id: "account_gmf",
-        label: "GMF",
-        value: gmfTypeValuesMock[Object(saving.hasSubsidyBenefitInGMF).code],
+        id: "request_date",
+        label: "Fecha de apertura",
+        value: formatPrimaryDate(new Date(String(saving.creationDate))),
+      },
+      ...(saving.engravedWithGmf
+        ? [
+            {
+              id: "account_gmf",
+              label: "GMF",
+              value: gmfTypeValuesMock[Object(saving.engravedWithGmf).code],
+            },
+          ]
+        : []),
+    ],
+    [EProductType.PROGRAMMEDSAVINGS]: [
+      {
+        id: "net_value",
+        label: "Saldo total",
+        value: Number(creditMovementPesos),
+      },
+      ...(saving.annualEffectiveRate
+        ? [
+            {
+              id: "interest_rate",
+              label: "Tasa de interés",
+              value: `${saving.annualEffectiveRate} % EA`,
+            },
+          ]
+        : []),
+      ...(saving.expirationDate
+        ? [
+            {
+              id: "expiration_date",
+              label: "Fecha de vencimiento",
+              value: formatPrimaryDate(new Date(String(saving.expirationDate))),
+            },
+          ]
+        : []),
+      {
+        id: "beneficiaries",
+        label: "Beneficiarios",
+        value: beneficiaries,
+      },
+      {
+        id: "request_date",
+        label: "Fecha de apertura",
+        value: formatPrimaryDate(new Date(String(saving.creationDate))),
       },
     ],
-    [EProductType.PROGRAMMEDSAVINGS]: [],
   };
 
   return attributes[productTypeCode] || {};

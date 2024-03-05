@@ -30,17 +30,9 @@ const amortizationTableValuesMock: Record<string, string> = {
   Extraordinary: "Extraordinaria",
 };
 
-const guaranteeTypeValuesMock: Record<string, string> = {
-  PersonalWithDiscountAuthorization: "Personal con libranza",
-  PersonalWithoutDiscountAuthorization: "Personal sin libranza",
-  RealWithDiscountAuthorization: "Real con libranza",
-  RealWithoutDiscountAuthorization: "Real sin libranza",
-};
-
 export {
   amortizationTableValuesMock,
   amortizationTypeValuesMock,
-  guaranteeTypeValuesMock,
   movementDescriptionMock,
   peridiocityValuesMock,
 };

@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
@@ -14,6 +15,8 @@ function Home() {
   const { user, accessToken } = useAuth();
   const [loadingCredits, setLoadingCredits] = useState(false);
   const [loadingSavings, setLoadingSavings] = useState(false);
+
+  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   const validateCommitments = () => {
     if (!user || !accessToken) return;
@@ -80,10 +83,11 @@ function Home() {
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}
-      programmedSavings={[]}
+      programmedSavings={savings.programmedSavings}
       credits={credits}
       loadingCredits={loadingCredits}
       loadingSavings={loadingSavings}
+      isTablet={isTablet}
     />
   );
 }

@@ -1,19 +1,94 @@
 import { Title } from "@design/data/Title";
 import { Stack } from "@design/layout/Stack";
-import { Tabs } from "@design/navigation/Tabs";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
+import { Tabs } from "@design/navigation/Tabs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
+import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
+import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
+import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
+import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
+import { PersonalAssetsForm } from "../UpdateData/forms/PersonalAssetsForm";
+import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
+import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
+import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
+import { SocioeconomicInformationForm } from "../UpdateData/forms/SocioeconomicInformationForm";
+import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
-import { tabsConfig } from "./config/navigation";
+import { updateDataTabs } from "./config/tabs";
+
+const renderTabContent = (
+  selectedTab: string,
+  updateData: IFormsUpdateData,
+) => {
+  return (
+    <>
+      {selectedTab === updateDataTabs.personalInformation.id && (
+        <PersonalInformationForm
+          initialValues={updateData.personalInformation.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.familyGroup.id && (
+        <FamilyGroupForm
+          initialValues={updateData.familyGroup.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.beneficiaries.id && (
+        <BeneficiariesForm
+          initialValues={updateData.beneficiaries.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.bankTransfers.id && (
+        <BankTransfersForm
+          initialValues={updateData.bankTransfers.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalAssets.id && (
+        <PersonalAssetsForm
+          initialValues={updateData.personalAssets.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalReferences.id && (
+        <PersonalReferencesForm
+          initialValues={updateData.personalReferences.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.financialOperations.id && (
+        <FinancialOperationsForm
+          initialValues={updateData.financialOperations.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.personalResidence.id && (
+        <PersonalResidenceForm
+          initialValues={updateData.personalResidence.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.socioeconomicInformation.id && (
+        <SocioeconomicInformationForm
+          initialValues={updateData.socioeconomicInformation.values}
+          withSubmit
+        />
+      )}
+    </>
+  );
+};
 
 interface UpdateDataUnassistedUIProps {
   selectedTab: string;
+  updateData: IFormsUpdateData;
   onTabChange: (id: string) => void;
 }
 
 function UpdateDataUnassistedUI(props: UpdateDataUnassistedUIProps) {
-  const { selectedTab, onTabChange } = props;
+  const { selectedTab, updateData, onTabChange } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -35,8 +110,11 @@ function UpdateDataUnassistedUI(props: UpdateDataUnassistedUIProps) {
       <Tabs
         onChange={onTabChange}
         selectedTab={selectedTab}
-        tabs={Object.values(tabsConfig)}
+        tabs={Object.values(updateDataTabs)}
       />
+      <Stack direction="column" gap="s300">
+        {renderTabContent(selectedTab, updateData)}
+      </Stack>
     </Stack>
   );
 }

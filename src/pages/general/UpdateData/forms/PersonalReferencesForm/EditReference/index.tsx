@@ -11,10 +11,10 @@ interface EditReferenceProps {
 
 const getEditReference = (
   reference: IPersonalReferenceEntry,
-  formik: FormikValues
+  formik: FormikValues,
 ) => {
   const referenceToEdit: IPersonalReferenceEntry = formik.values.entries.find(
-    (entry: IPersonalReferenceEntry) => entry.id === reference.id
+    (entry: IPersonalReferenceEntry) => entry.id === reference.id,
   );
 
   if (referenceToEdit) {
@@ -45,11 +45,13 @@ function EditReference(props: EditReferenceProps) {
               address: formik.values.address,
               email: formik.values.email,
               phone: formik.values.phone,
+              country: formik.values.country,
+              stateOrDepartment: formik.values.stateOrDepartment,
               city: formik.values.city,
             };
           }
           return entry;
-        }
+        },
       );
 
       formik.setFieldValue("entries", updatedEntries);
@@ -64,6 +66,8 @@ function EditReference(props: EditReferenceProps) {
       "address",
       "email",
       "phone",
+      "country",
+      "stateOrDepartment",
       "city",
     ];
 

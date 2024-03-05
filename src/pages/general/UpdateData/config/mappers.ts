@@ -1,5 +1,7 @@
 import { IEntry } from "@design/data/Table/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { countryDM } from "src/model/domains/financialOperations/countrydm";
+import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
 import { cityDM } from "src/model/domains/personalInformation/citydm";
 import {
   IBankTransfersAccount,
@@ -101,7 +103,7 @@ const mapFamilyGroup = (
     birthDate: familyGroupData.information.birthDate || "",
     gender: familyGroupData.information.gender,
     relationship: familyGroupData.information.relationship,
-    isDependent: familyGroupData.information.isDependent,
+    isDependent: familyGroupData.information.isDependent || "",
     educationLevel: familyGroupData?.information.educationLevel || "",
     businessActivity: familyGroupData?.information.businessActivity || "",
     profession: familyGroupData?.information.profession || "",
@@ -190,6 +192,10 @@ const mapPersonalReference = (
     address: personalReference.address,
     email: personalReference.email,
     phone: personalReference.phone,
+    country: countryDM.valueOf(personalReference.country || "")?.value,
+    stateOrDepartment: departmentDM.valueOf(
+      personalReference.stateOrDepartment || "",
+    )?.value,
     city: cityDM.valueOf(personalReference.city || "")?.value,
   };
 };
@@ -297,8 +303,6 @@ const mapExpenses = (): IExpensesEntry => {
     familyExpenses: "",
     credits: "",
     creditCards: "",
-    health: "",
-    pension: "",
     others: "",
     totalExpenses: "",
   };

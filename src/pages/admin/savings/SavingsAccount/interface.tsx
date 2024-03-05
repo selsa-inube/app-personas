@@ -105,10 +105,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsSaving(isInvestment, productId)} />
+        <Breadcrumbs crumbs={crumbsSaving(productId)} />
         <Title
           title={
-            isInvestment ? "Consulta de inversiones" : "Consulta de ahorros"
+            "Consulta de ahorros"
           }
           subtitle={
             isInvestment
@@ -152,33 +152,36 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   />
                 ))}
                 {selectedProduct.saving.type ===
-                  EProductType.PROGRAMMEDSAVINGS && (
-                  <BoxAttribute
-                    label="Cuenta para reembolso:"
-                    buttonIcon={<MdOpenInNew />}
-                    buttonValue="Ver"
-                    onClickButton={handleToggleReimbursementModal}
-                    withButton
-                  />
-                )}
-                {selectedProduct.saving.type !== EProductType.VIEWSAVINGS && (
-                  <BoxAttribute
-                    label="Beneficiarios:"
-                    buttonIcon={<MdOpenInNew />}
-                    buttonValue={beneficiariesModal.data.length}
-                    onClickButton={handleToggleBeneficiariesModal}
-                    withButton
-                  />
-                )}
-                {selectedProduct.saving.type !== EProductType.CDAT && (
-                  <BoxAttribute
-                    label="Compromisos de ahorro:"
-                    buttonIcon={<MdOpenInNew />}
-                    buttonValue={commitmentsModal.data.length}
-                    onClickButton={handleToggleCommitmentsModal}
-                    withButton
-                  />
-                )}
+                  EProductType.PROGRAMMEDSAVINGS &&
+                  reimbursementModal.data.length > 0 && (
+                    <BoxAttribute
+                      label="Cuenta para reembolso:"
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue="Ver"
+                      onClickButton={handleToggleReimbursementModal}
+                      withButton
+                    />
+                  )}
+                {selectedProduct.saving.type !== EProductType.VIEWSAVINGS &&
+                  beneficiariesModal.data.length > 0 && (
+                    <BoxAttribute
+                      label="Beneficiarios:"
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue={beneficiariesModal.data.length}
+                      onClickButton={handleToggleBeneficiariesModal}
+                      withButton
+                    />
+                  )}
+                {selectedProduct.saving.type !== EProductType.CDAT &&
+                  commitmentsModal.data.length > 0 && (
+                    <BoxAttribute
+                      label="Compromisos de ahorro:"
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue={commitmentsModal.data.length}
+                      onClickButton={handleToggleCommitmentsModal}
+                      withButton
+                    />
+                  )}
               </Grid>
             </Stack>
           </Box>

@@ -3,6 +3,18 @@ import { EProductType, IMovement, IProduct } from "src/model/entity/product";
 import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
 import { getProductAttributes, getProductDetails } from "./utils";
 
+const mapSavingProductCommitmentApiToEntity = (
+  commitment: Record<string, string>,
+): string => {
+  return commitment.commitmentNumber;
+};
+
+const mapSavingProductsCommitmentsApiToEntities = (
+  commitments: Record<string, string>[],
+): string[] => {
+  return commitments.map(mapSavingProductCommitmentApiToEntity);
+};
+
 const mapSavingProductMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
@@ -12,7 +24,7 @@ const mapSavingProductMovementsApiToEntity = (
     reference: String(movement.movementNumber),
     description: capitalizeFirstLetters(String(movement.movementDescription)),
     totalValue: Number(
-      movement.creditMovementPesos || movement.debitMovementPesos,
+      movement.creditMovementPesos || -movement.debitMovementPesos || 0
     ),
   };
   return buildMovement;
@@ -23,7 +35,6 @@ const mapSavingProductMovementsApiToEntities = (
 ): IMovement[] => {
   return movements
     .map(mapSavingProductMovementsApiToEntity)
-    .filter((movement) => movement.totalValue > 0)
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
@@ -55,6 +66,11 @@ const mapSavingsApiToEntity = (
     movements: movements,
     amortization: [],
     tags: [],
+    commitments: mapSavingProductsCommitmentsApiToEntities(
+      Array.isArray(saving.productsCommitmentRelationship)
+        ? saving.productsCommitmentRelationship
+        : [],
+    ),
   };
 };
 
@@ -76,12 +92,9 @@ const mapSavingsApiToEntities = (
         case EProductType.PROGRAMMEDSAVINGS:
           programmedSavings.push(saving);
           break;
-        case EProductType.PERMANENTSAVINGS: {
-          if (saving.id.startsWith("201")) {
-            savingsContributions.push(saving);
-          }
+        case EProductType.PERMANENTSAVINGS:
+          savingsContributions.push(saving);
           break;
-        }
         case EProductType.CONTRIBUTIONS:
           savingsContributions.push(saving);
           break;

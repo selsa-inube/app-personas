@@ -73,7 +73,7 @@ const usersMock: IThird[] = [
           birthDate: "24/Oct/1989",
           gender: "female",
           relationship: "wife",
-          isDependent: false,
+          isDependent: "N",
           educationLevel: "university",
           businessActivity: "services",
           profession: "lawyer",
@@ -82,7 +82,9 @@ const usersMock: IThird[] = [
       {
         identification: {
           firstName: "Eunice",
+          secondName: "",
           firstLastName: "Páramo",
+          secondLastName: "de Garzón",
           type: "cc",
           identificationNumber: 41739900,
           country: "COL",
@@ -95,13 +97,18 @@ const usersMock: IThird[] = [
           address: "CR 1 No 66 42 AP 501 BL 4",
           department: "Cundinamarca",
           city: "bogota",
+          landlinePhone: "37670777",
           cellPhone: "3205510052",
           email: "eunice.paramo@outlook.com",
         },
         information: {
-          birthDate: "10/10/1966",
+          birthDate: "10/Oct/1966",
           gender: "female",
           relationship: "mother",
+          isDependent: "N",
+          educationLevel: "",
+          businessActivity: "",
+          profession: "",
         },
       },
     ],
@@ -117,11 +124,12 @@ const usersMock: IThird[] = [
       descriptionOperations:
         "Importación de materia prima, importación auto partes, importación de repuestos, importación de equipos celulares, importación de equipos médicos, importación de piezas electrónicas.",
       country: "USA",
-      bankEntity: "bankOfAmerica",
-      currency: "dollars",
+      bankEntity: "Banco de Bogotá",
+      currency: "USD",
       accountNumber: 76454473409,
     },
   },
 ];
+
 
 export { usersMock };

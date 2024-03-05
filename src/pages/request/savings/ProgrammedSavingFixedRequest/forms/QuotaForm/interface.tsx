@@ -16,17 +16,17 @@ import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 interface QuotaFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  renderFields: IFormField[];
   customHandleChange: (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => void;
-  renderFields: IFormField[];
 }
 const paymentMethodDM = getDomainById("paymentMethod");
 
 function QuotaFormUI(props: QuotaFormUIProps) {
-  const { formik, loading, customHandleChange, renderFields } = props;
+  const { formik, loading, renderFields, customHandleChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 750px)");
 

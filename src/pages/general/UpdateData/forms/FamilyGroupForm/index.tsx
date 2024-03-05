@@ -88,6 +88,8 @@ const validationSchema = Yup.object().shape({
 });
 
 interface FamilyGroupFormProps {
+  loading?: boolean;
+  withSubmit?: boolean;
   initialValues: IFamilyGroupEntries;
   onSubmit?: (values: IFamilyGroupEntries) => void;
 }
@@ -96,7 +98,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   props: FamilyGroupFormProps,
   ref: React.Ref<FormikProps<IFamilyGroupEntries>>,
 ) {
-  const { initialValues, onSubmit } = props;
+  const { initialValues, loading, withSubmit, onSubmit } = props;
   const [dynamicSchema] = useState(validationSchema);
   const [message, setMessage] = useState<IMessage>();
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
@@ -293,6 +295,8 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
       message={message}
       familyGroupTableActions={familyGroupTableActions}
       showAddMemberModal={showAddMemberModal}
+      loading={loading}
+      withSubmit={withSubmit}
       onCloseMessage={handleCloseMessage}
       onToggleModal={handleToggleModal}
       onAddMember={handleAddMember}

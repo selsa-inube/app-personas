@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { SavingsContext } from "src/context/savings";
@@ -10,6 +11,8 @@ function MySavings() {
     useContext(SavingsContext);
   const [loading, setLoading] = useState(false);
   const { user, accessToken } = useAuth();
+
+  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   useEffect(() => {
     const combinedSavings = [
@@ -50,8 +53,9 @@ function MySavings() {
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}
-      programmedSavings={[]}
+      programmedSavings={savings.programmedSavings}
       loading={loading}
+      isTablet={isTablet}
     />
   );
 }

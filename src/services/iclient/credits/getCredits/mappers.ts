@@ -1,7 +1,6 @@
 import { TagProps } from "@design/data/Tag";
 import {
   amortizationTypeValuesMock,
-  guaranteeTypeValuesMock,
   peridiocityValuesMock,
 } from "@mocks/products/credits/utils.mocks";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
@@ -124,7 +123,7 @@ const mapCreditApiToEntity = (
     {
       id: "guarantee_type",
       label: "Tipo de garantía",
-      value: guaranteeTypeValuesMock[Object(credit.typeOfGuarantee).code],
+      value: capitalizeText(String(credit.warrantyClass).toLowerCase()),
     },
     {
       id: "terms",
@@ -181,11 +180,15 @@ const mapCreditApiToEntity = (
     String(credit.productName).toLowerCase(),
   );
 
+  const creditType: EProductType = Object(
+    credit.originationModel,
+  ).code.toUpperCase();
+
   return {
     id: String(credit.obligationNumber),
     title: normalizedProductName,
     description: `${normalizedProductName} ${credit.obligationNumber}`,
-    type: String(credit.lineCode) as EProductType,
+    type: creditType,
     attributes,
     movements: [],
     amortization: [],
@@ -197,8 +200,8 @@ const mapCreditsApiToEntities = (
   credits: Record<string, string | number | object>[],
 ): IProduct[] => {
   return credits
-    .filter((credit) => credit.lineCode !== "CE")
-    .map((credit) => mapCreditApiToEntity(credit));
+    .map((credit) => mapCreditApiToEntity(credit))
+    .filter((credit) => credit.type !== EProductType.CREDITCARD);
 };
 
 export { mapCreditApiToEntity, mapCreditsApiToEntities };

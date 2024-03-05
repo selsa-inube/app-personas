@@ -54,229 +54,227 @@ function renderHomeContent(
   credits: IProduct[],
   loadingSavings: boolean,
   loadingCredits: boolean,
+  isTablet: boolean,
 ) {
   return (
-    <>
-      <Stack direction="column" gap="s300">
-        <Text type="title" size="medium">
-          Tus productos
-        </Text>
-        <Box {...savingsBox}>
-          <Stack direction="column">
-            {loadingSavings ? (
+    <Stack direction="column" gap="s300">
+      <Text type="title" size="medium">
+        Tus productos
+      </Text>
+      <Box {...savingsBox}>
+        <Stack direction="column">
+          {loadingSavings ? (
+            <Stack direction="column" gap="s200">
+              <Product loading />
+              <Product loading />
+            </Stack>
+          ) : (
+            <>
               <Stack direction="column" gap="s200">
-                <Product loading />
-                <Product loading />
+                {!loadingSavings &&
+                  savingsAccounts &&
+                  savingsAccounts.length === 0 &&
+                  savingsContributions.length === 0 &&
+                  cdats &&
+                  cdats.length === 0 &&
+                  programmedSavings &&
+                  programmedSavings.length === 0 && (
+                    <Product
+                      empty={true}
+                      icon={<MdOutlineAccountBalanceWallet />}
+                    />
+                  )}
               </Stack>
-            ) : (
-              <>
-                <Stack direction="column" gap="s200">
-                  {!loadingSavings &&
-                    savingsAccounts &&
-                    savingsAccounts.length === 0 &&
-                    savingsContributions.length === 0 &&
-                    cdats &&
-                    cdats.length === 0 &&
-                    programmedSavings &&
-                    programmedSavings.length === 0 && (
-                      <Product
-                        empty={true}
-                        icon={<MdOutlineAccountBalanceWallet />}
-                      />
-                    )}
-                </Stack>
 
-                <Stack direction="column" gap="s250">
-                  {savingsAccounts && savingsAccounts.length > 0 && (
-                    <Stack direction="column" gap="s200">
-                      <Text type="label" size="medium">
-                        Cuentas
-                      </Text>
-                      <Stack direction="column" gap="s100">
-                        {savingsAccounts.map((saving) => (
-                          <Product
-                            key={saving.id}
-                            title={saving.title}
-                            description={saving.id}
-                            attributes={formatMySavingsCurrencyAttrs(
-                              extractMySavingsAttributes(saving),
-                            )}
-                            tags={saving.tags}
-                            icon={savingsAccountIcons[saving.type]}
-                            breakpoints={mySavingsAttributeBreakpoints}
-                            navigateTo={`/my-savings/account/${saving.id}`}
-                          />
-                        ))}
-                      </Stack>
+              <Stack direction="column" gap="s250">
+                {savingsAccounts && savingsAccounts.length > 0 && (
+                  <Stack direction="column" gap="s200">
+                    <Text type="label" size="medium">
+                      Cuentas
+                    </Text>
+                    <Stack direction="column" gap="s100">
+                      {savingsAccounts.map((saving) => (
+                        <Product
+                          key={saving.id}
+                          title={saving.title}
+                          description={saving.id}
+                          attributes={formatMySavingsCurrencyAttrs(
+                            extractMySavingsAttributes(saving),
+                          )}
+                          tags={saving.tags}
+                          icon={savingsAccountIcons[saving.type]}
+                          breakpoints={mySavingsAttributeBreakpoints}
+                          navigateTo={`/my-savings/account/${saving.id}`}
+                        />
+                      ))}
                     </Stack>
-                  )}
+                  </Stack>
+                )}
 
-                  {savingsContributions && savingsContributions.length > 0 && (
-                    <Stack direction="column" gap="s200">
-                      <Text type="label" size="medium">
-                        Aportes estatutarios
-                      </Text>
-                      <Stack direction="column" gap="s100">
-                        {savingsContributions.map((saving) => (
-                          <Product
-                            key={saving.id}
-                            title={saving.title}
-                            description={saving.id}
-                            attributes={formatMySavingsCurrencyAttrs(
-                              extractMySavingsAttributes(saving),
-                            )}
-                            tags={saving.tags}
-                            icon={savingsAccountIcons[saving.type]}
-                            breakpoints={mySavingsAttributeBreakpoints}
-                            navigateTo={`/my-savings/account/${saving.id}`}
-                          />
-                        ))}
-                      </Stack>
+                {savingsContributions && savingsContributions.length > 0 && (
+                  <Stack direction="column" gap="s200">
+                    <Text type="label" size="medium">
+                      Aportes estatutarios
+                    </Text>
+                    <Stack direction="column" gap="s100">
+                      {savingsContributions.map((saving) => (
+                        <Product
+                          key={saving.id}
+                          title={saving.title}
+                          description={saving.id}
+                          attributes={formatMySavingsCurrencyAttrs(
+                            extractMySavingsAttributes(saving),
+                          )}
+                          tags={saving.tags}
+                          icon={savingsAccountIcons[saving.type]}
+                          breakpoints={mySavingsAttributeBreakpoints}
+                          navigateTo={`/my-savings/account/${saving.id}`}
+                        />
+                      ))}
                     </Stack>
-                  )}
+                  </Stack>
+                )}
 
-                  {cdats && cdats.length > 0 && (
-                    <Stack direction="column" gap="s200">
-                      <Text type="label" size="medium">
-                        CDAT
-                      </Text>
-                      <Stack direction="column" gap="s100">
-                        {cdats.map((investment) => (
-                          <Product
-                            key={investment.id}
-                            title={investment.title}
-                            description={investment.id}
-                            attributes={formatInvestmentCurrencyAttrs(
-                              extractInvestmentAttributes(investment),
-                            )}
-                            tags={investment.tags}
-                            icon={investmentIcons[investment.type]}
-                            navigateTo={`/my-savings/account/${investment.id}`}
-                            breakpoints={investmentAttributeBreakpoints}
-                          />
-                        ))}
-                      </Stack>
+                {cdats && cdats.length > 0 && (
+                  <Stack direction="column" gap="s200">
+                    <Text type="label" size="medium">
+                      CDAT
+                    </Text>
+                    <Stack direction="column" gap="s100">
+                      {cdats.map((investment) => (
+                        <Product
+                          key={investment.id}
+                          title={investment.title}
+                          description={investment.id}
+                          attributes={formatInvestmentCurrencyAttrs(
+                            extractInvestmentAttributes(investment),
+                          )}
+                          tags={investment.tags}
+                          icon={investmentIcons[investment.type]}
+                          navigateTo={`/my-savings/account/${investment.id}`}
+                          breakpoints={investmentAttributeBreakpoints}
+                        />
+                      ))}
                     </Stack>
-                  )}
+                  </Stack>
+                )}
 
-                  {programmedSavings && programmedSavings.length > 0 && (
-                    <Stack direction="column" gap="s200">
-                      <Text type="label" size="medium">
-                        Ahorros programados
-                      </Text>
-                      <Stack direction="column" gap="s100">
-                        {programmedSavings.map((investment) => (
-                          <Product
-                            key={investment.id}
-                            title={investment.title}
-                            description={investment.id}
-                            attributes={formatInvestmentCurrencyAttrs(
-                              extractInvestmentAttributes(investment),
-                            )}
-                            tags={investment.tags}
-                            icon={investmentIcons[investment.type]}
-                            navigateTo={`/my-savings/account/${investment.id}`}
-                            breakpoints={investmentAttributeBreakpoints}
-                          />
-                        ))}
-                      </Stack>
+                {programmedSavings && programmedSavings.length > 0 && (
+                  <Stack direction="column" gap="s200">
+                    <Text type="label" size="medium">
+                      Ahorros programados
+                    </Text>
+                    <Stack direction="column" gap="s100">
+                      {programmedSavings.map((investment) => (
+                        <Product
+                          key={investment.id}
+                          title={investment.title}
+                          description={investment.id}
+                          attributes={formatInvestmentCurrencyAttrs(
+                            extractInvestmentAttributes(investment),
+                          )}
+                          tags={investment.tags}
+                          icon={investmentIcons[investment.type]}
+                          navigateTo={`/my-savings/account/${investment.id}`}
+                          breakpoints={investmentAttributeBreakpoints}
+                        />
+                      ))}
                     </Stack>
-                  )}
+                  </Stack>
+                )}
 
-                  {(savingsAccounts.length > 0 ||
-                    savingsContributions.length > 0 ||
-                    (cdats && cdats.length > 0) ||
-                    (programmedSavings && programmedSavings.length > 0) ||
-                    productsCommitments.length > 0) && (
-                    <Stack
-                      justifyContent="flex-end"
-                      gap="s100"
-                      padding={`0 ${inube.spacing.s100} ${inube.spacing.s200} 0`}
-                    >
-                      <Text type="label" size="large">
-                        Total Ahorrado :
-                      </Text>
-                      <Text type="body" size="medium" appearance="gray">
-                        {sumNetValue([
-                          ...savingsContributions,
-                          ...savingsAccounts,
-                        ])}
-                      </Text>
-                    </Stack>
-                  )}
-                </Stack>
+                {((savingsAccounts && savingsAccounts.length > 0) ||
+                  (savingsContributions && savingsContributions.length > 0) ||
+                  (cdats && cdats.length > 0) ||
+                  (programmedSavings && programmedSavings.length > 0)) && (
+                  <Stack
+                    justifyContent="flex-end"
+                    gap="s100"
+                    padding={`0 ${inube.spacing.s100} 0`}
+                  >
+                    <Text type="label" size="large">
+                      Total Ahorrado :
+                    </Text>
+                    <Text type="body" size="medium" appearance="gray">
+                      {sumNetValue([
+                        ...savingsContributions,
+                        ...savingsAccounts,
+                        ...cdats,
+                        ...programmedSavings,
+                      ])}
+                    </Text>
+                  </Stack>
+                )}
 
                 {productsCommitments.length > 0 && (
                   <Stack direction="column" gap="s200">
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
-                    <StyledCommitmentsContainer>
+                    <StyledCommitmentsContainer isTablet={isTablet}>
                       <ProductsCommitments
                         productsCommitments={productsCommitments}
                       />
                     </StyledCommitmentsContainer>
                   </Stack>
                 )}
-              </>
-            )}
-          </Stack>
-        </Box>
+              </Stack>
+            </>
+          )}
+        </Stack>
+      </Box>
 
-        <Box {...creditsBox}>
-          <Stack direction="column" gap="s100">
-            {loadingCredits ? (
-              <>
-                <Product loading />
-                <Product loading />
-              </>
-            ) : (
-              <>
-                {credits.length === 0 ? (
-                  <Product empty={true} icon={<MdOutlineAttachMoney />} />
-                ) : (
-                  credits.map((credit) => (
-                    <Product
-                      key={credit.id}
-                      title={credit.title}
-                      description={credit.id}
-                      attributes={formatCreditCurrencyAttrs(
-                        extractCreditAttributes(credit),
-                      )}
-                      breakpoints={creditAttributeBreakpoints}
-                      tags={credit.tags}
-                      icon={<MdOutlineAttachMoney />}
-                      navigateTo={`/my-credits/${credit.id}`}
-                    />
-                  ))
-                )}
-              </>
-            )}
-          </Stack>
-        </Box>
-
-        <Box {...cardsBox}>
-          <Stack direction="column" gap="s100">
-            {cardProducts.length === 0 ? (
-              <Product icon={<MdOutlineCreditCard />} empty={true} />
-            ) : (
-              cardProducts.map(
-                ({ title, id, attributes, tags, description }) => (
+      <Box {...creditsBox}>
+        <Stack direction="column" gap="s100">
+          {loadingCredits ? (
+            <>
+              <Product loading />
+              <Product loading />
+            </>
+          ) : (
+            <>
+              {credits.length === 0 ? (
+                <Product empty={true} icon={<MdOutlineAttachMoney />} />
+              ) : (
+                credits.map((credit) => (
                   <Product
-                    key={id}
-                    title={title}
-                    description={description}
-                    attributes={attributes}
-                    tags={tags}
-                    icon={<MdOutlineCreditCard />}
+                    key={credit.id}
+                    title={credit.title}
+                    description={credit.id}
+                    attributes={formatCreditCurrencyAttrs(
+                      extractCreditAttributes(credit),
+                    )}
+                    breakpoints={creditAttributeBreakpoints}
+                    tags={credit.tags}
+                    icon={<MdOutlineAttachMoney />}
+                    navigateTo={`/my-credits/${credit.id}`}
                   />
-                ),
-              )
-            )}
-          </Stack>
-        </Box>
-      </Stack>
-    </>
+                ))
+              )}
+            </>
+          )}
+        </Stack>
+      </Box>
+
+      <Box {...cardsBox}>
+        <Stack direction="column" gap="s100">
+          {cardProducts.length === 0 ? (
+            <Product icon={<MdOutlineCreditCard />} empty={true} />
+          ) : (
+            cardProducts.map(({ title, id, attributes, tags, description }) => (
+              <Product
+                key={id}
+                title={title}
+                description={description}
+                attributes={attributes}
+                tags={tags}
+                icon={<MdOutlineCreditCard />}
+              />
+            ))
+          )}
+        </Stack>
+      </Box>
+    </Stack>
   );
 }
 
@@ -289,6 +287,7 @@ interface HomeUIProps {
   credits: IProduct[];
   loadingCredits: boolean;
   loadingSavings: boolean;
+  isTablet: boolean;
 }
 
 function HomeUI(props: HomeUIProps) {
@@ -301,6 +300,7 @@ function HomeUI(props: HomeUIProps) {
     credits,
     loadingCredits,
     loadingSavings,
+    isTablet,
   } = props;
 
   const { user } = useAuth();
@@ -345,6 +345,7 @@ function HomeUI(props: HomeUIProps) {
             credits,
             loadingSavings,
             loadingCredits,
+            isTablet,
           )}
         </Stack>
       ) : (
@@ -362,6 +363,7 @@ function HomeUI(props: HomeUIProps) {
             credits,
             loadingSavings,
             loadingCredits,
+            isTablet,
           )}
           <QuickAccess links={quickLinks} />
         </Grid>

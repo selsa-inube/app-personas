@@ -55,11 +55,15 @@ const validationSchema = Yup.object().shape({
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
   position: EconomicActivityRequiredFields.position
-    ? Yup.string().required(validationMessages.required)
-    : Yup.string(),
+    ? Yup.string()
+        .min(3, validationMessages.minCharacters(3))
+        .required(validationMessages.required)
+    : Yup.string().min(3, validationMessages.minCharacters(3)),
   dependence: EconomicActivityRequiredFields.dependence
-    ? Yup.string().required(validationMessages.required)
-    : Yup.string(),
+    ? Yup.string()
+        .min(3, validationMessages.minCharacters(3))
+        .required(validationMessages.required)
+    : Yup.string().min(3, validationMessages.minCharacters(3)),
   employeeCode: EconomicActivityRequiredFields.employeeCode
     ? Yup.string()
         .matches(regex.onlyNumbers, validationMessages.onlyNumbers)
