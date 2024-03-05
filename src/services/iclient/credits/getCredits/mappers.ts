@@ -39,25 +39,13 @@ const mapCreditApiToEntity = (
     Object(credit.nextPaymentValue).interestValuePending;
 
   const nextPaymentArrearsInterest =
-    Object(credit.accumulatedByObligations).length > 0 &&
-    Object(credit.accumulatedByObligations)[0].PenalityInterestBalance;
+    Object(credit.valueExpired)?.penalityInterestPending ||
+    Object(credit.nextPaymentValue)?.penalityInterestPending;
 
   const nextPaymentValue =
-    Number(
-      Object(credit.valueExpired)?.capitalValuePending ||
-        Object(credit.nextPaymentValue).capitalValuePending ||
-        0,
-    ) +
-    Number(
-      Object(credit.valueExpired)?.interestValuePending ||
-        Object(credit.nextPaymentValue).interestValuePending ||
-        0,
-    ) +
-    Number(
-      (Object(credit.accumulatedByObligations).length > 0 &&
-        Object(credit.accumulatedByObligations)[0].PenalityInterestBalance) ||
-        0,
-    );
+    Number(nextPaymentCapital || 0) +
+    Number(nextPaymentInterest || 0) +
+    Number(nextPaymentArrearsInterest || 0);
 
   const normalizedPaymentMethodName = capitalizeText(
     String(credit.paymentMethodName).toLowerCase(),
