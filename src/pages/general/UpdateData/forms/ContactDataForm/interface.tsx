@@ -1,3 +1,4 @@
+import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
@@ -14,10 +15,11 @@ interface ContactDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   isRequired: (fieldName: string) => boolean;
+  withSubmit?: boolean;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, isRequired } = props;
+  const { formik, loading, isRequired, withSubmit } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -225,6 +227,29 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             />
           </Grid>
         </Fieldset>
+
+        {withSubmit && (
+          <Stack gap="s150" justifyContent="flex-end">
+            <Button
+              onClick={formik.handleReset}
+              type="button"
+              disabled={loading || !formik.dirty}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Cancelar
+            </Button>
+
+            <Button
+              type="submit"
+              spacing="compact"
+              disabled={loading || !formik.dirty || !formik.isValid}
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
       </Stack>
     </form>
   );

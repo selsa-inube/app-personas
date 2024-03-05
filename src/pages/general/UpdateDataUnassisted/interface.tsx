@@ -6,6 +6,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
+import { ContactDataForm } from "../UpdateData/forms/ContactDataForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
 import { PersonalAssetsForm } from "../UpdateData/forms/PersonalAssetsForm";
@@ -28,6 +29,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.personalInformation.id && (
         <PersonalInformationForm
           initialValues={updateData.personalInformation.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.contactData.id && (
+        <ContactDataForm
+          initialValues={updateData.contactData.values}
           withSubmit
         />
       )}

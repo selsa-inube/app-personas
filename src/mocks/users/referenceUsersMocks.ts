@@ -19,8 +19,8 @@ const referenceUsersMocks: IReferenceThird[] = [
       address: "CR 1 No 66 42 AP 202 BL 7",
       department: "Cundinamarca",
       city: "bogota",
-      landlinePhone: "37670777",
-      cellPhone: "3205510052",
+      landlinePhone: 37670777,
+      cellPhone: 3205510052,
       email: "jose.garzon@gmail.com",
     },
     information: {
@@ -49,8 +49,8 @@ const referenceUsersMocks: IReferenceThird[] = [
       address: "CR 1 No 66 42 AP 202 BL 7",
       department: "Cundinamarca",
       city: "bogota",
-      landlinePhone: "37670777",
-      cellPhone: "3205510052",
+      landlinePhone: 37670777,
+      cellPhone: 3205510052,
       email: "john.mozo@yahooo.com.mx",
     },
     information: {
@@ -79,8 +79,8 @@ const referenceUsersMocks: IReferenceThird[] = [
       address: "CR 1 No 66 42 AP 202 BL 7",
       department: "Cundinamarca",
       city: "bogota",
-      landlinePhone: "37670777",
-      cellPhone: "3205510052",
+      landlinePhone: 37670777,
+      cellPhone: 3205510052,
       email: "john.mozo@yahooo.com.mx",
     },
     information: {
