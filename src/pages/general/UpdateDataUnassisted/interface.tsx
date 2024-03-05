@@ -8,6 +8,7 @@ import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
+import { IncomesForm } from "../UpdateData/forms/IncomesForm";
 import { PersonalAssetsForm } from "../UpdateData/forms/PersonalAssetsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
@@ -76,6 +77,9 @@ const renderTabContent = (
           initialValues={updateData.socioeconomicInformation.values}
           withSubmit
         />
+      )}
+      {selectedTab === updateDataTabs.income.id && (
+        <IncomesForm initialValues={updateData.income.values} withSubmit />
       )}
     </>
   );
