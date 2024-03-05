@@ -17,10 +17,12 @@ import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformation
 import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
 import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
 import { SocioeconomicInformationForm } from "../UpdateData/forms/SocioeconomicInformationForm";
+import { ExpensesForm } from "../UpdateData/forms/ExpensesForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
 import { RelationshipWithDirectorsForm } from "../UpdateData/forms/RelationshipWithDirectorsForm";
+import { CommentsForm } from "src/shared/forms/CommentsForm";
 
 const renderTabContent = (
   selectedTab: string,
@@ -108,6 +110,15 @@ const renderTabContent = (
           initialValues={updateData.relationshipWithDirectors.values}
           withSubmit
         />
+      )}
+      {selectedTab === updateDataTabs.expenses.id && (
+        <ExpensesForm
+          initialValues={updateData.expenses.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.comments.id && (
+        <CommentsForm initialValues={updateData.comments.values} withSubmit />
       )}
     </>
   );
