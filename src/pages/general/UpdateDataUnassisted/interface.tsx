@@ -6,9 +6,13 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
+import { ContactDataForm } from "../UpdateData/forms/ContactDataForm";
+import { EconomicActivityForm } from "../UpdateData/forms/EconomicActivityForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
+import { IncomesForm } from "../UpdateData/forms/IncomesForm";
 import { PersonalAssetsForm } from "../UpdateData/forms/PersonalAssetsForm";
+import { PersonalDebtsForm } from "../UpdateData/forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
 import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
@@ -27,6 +31,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.personalInformation.id && (
         <PersonalInformationForm
           initialValues={updateData.personalInformation.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.contactData.id && (
+        <ContactDataForm
+          initialValues={updateData.contactData.values}
           withSubmit
         />
       )}
@@ -54,6 +64,12 @@ const renderTabContent = (
           withSubmit
         />
       )}
+      {selectedTab === updateDataTabs.personalDebts.id && (
+        <PersonalDebtsForm
+          initialValues={updateData.personalAssets.values}
+          withSubmit
+        />
+      )}
       {selectedTab === updateDataTabs.personalReferences.id && (
         <PersonalReferencesForm
           initialValues={updateData.personalReferences.values}
@@ -77,6 +93,15 @@ const renderTabContent = (
           initialValues={updateData.socioeconomicInformation.values}
           withSubmit
         />
+      )}
+      {selectedTab === updateDataTabs.economicActivity.id && (
+        <EconomicActivityForm
+          initialValues={updateData.economicActivity.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.income.id && (
+        <IncomesForm initialValues={updateData.income.values} withSubmit />
       )}
       {selectedTab === updateDataTabs.expenses.id && (
         <ExpensesForm

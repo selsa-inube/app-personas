@@ -6,6 +6,7 @@ const productsAttributes: Record<string, string[]> = {
     "net_value",
     "interest_rate",
     "request_date",
+    "expiration_date",
   ],
   [EProductType.PERMANENTSAVINGS]: [
     "net_value",

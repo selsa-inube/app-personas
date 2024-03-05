@@ -97,16 +97,17 @@ const validationSchema = Yup.object().shape({
 
 interface EconomicActivityFormProps {
   initialValues: IEconomicActivityEntry;
-  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: IEconomicActivityEntry) => void;
   loading?: boolean;
+  withSubmit?: boolean;
+  onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
+  onSubmit?: (values: IEconomicActivityEntry) => void;
 }
 
 const EconomicActivityForm = forwardRef(function EconomicActivityForm(
   props: EconomicActivityFormProps,
   ref: React.Ref<FormikProps<IEconomicActivityEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
 
   const [dynamicSchema] = useState(validationSchema);
   const [showMainActivityModal, setShowMainActivityModal] = useState(false);
@@ -123,7 +124,7 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty) {
+    if (formik.dirty && onFormValid) {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
       });
@@ -156,6 +157,7 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
       formik={formik}
       showMainActivityModal={showMainActivityModal}
       showSecondaryActivityModal={showSecondaryActivityModal}
+      withSubmit={withSubmit}
       isRequired={isRequired}
       handleToggleModal={handleToggleModal}
       handleModalSelect={handleModalSelect}
