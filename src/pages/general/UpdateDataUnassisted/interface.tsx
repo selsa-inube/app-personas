@@ -10,6 +10,7 @@ import { ContactDataForm } from "../UpdateData/forms/ContactDataForm";
 import { EconomicActivityForm } from "../UpdateData/forms/EconomicActivityForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
+import { IncomesForm } from "../UpdateData/forms/IncomesForm";
 import { PersonalAssetsForm } from "../UpdateData/forms/PersonalAssetsForm";
 import { PersonalDebtsForm } from "../UpdateData/forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
@@ -97,6 +98,9 @@ const renderTabContent = (
           initialValues={updateData.economicActivity.values}
           withSubmit
         />
+      )}
+      {selectedTab === updateDataTabs.income.id && (
+        <IncomesForm initialValues={updateData.income.values} withSubmit />
       )}
     </>
   );
