@@ -18,10 +18,10 @@ import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesFo
 import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
 import { SocioeconomicInformationForm } from "../UpdateData/forms/SocioeconomicInformationForm";
 import { ExpensesForm } from "../UpdateData/forms/ExpensesForm";
+import { RelationshipWithDirectorsForm } from "../UpdateData/forms/RelationshipWithDirectorsForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
-import { RelationshipWithDirectorsForm } from "../UpdateData/forms/RelationshipWithDirectorsForm";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 
 const renderTabContent = (
@@ -105,15 +105,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.income.id && (
         <IncomesForm initialValues={updateData.income.values} withSubmit />
       )}
+      {selectedTab === updateDataTabs.expenses.id && (
+        <ExpensesForm initialValues={updateData.expenses.values} withSubmit />
+      )}
       {selectedTab === updateDataTabs.relationshipWithDirectors.id && (
         <RelationshipWithDirectorsForm
           initialValues={updateData.relationshipWithDirectors.values}
-          withSubmit
-        />
-      )}
-      {selectedTab === updateDataTabs.expenses.id && (
-        <ExpensesForm
-          initialValues={updateData.expenses.values}
           withSubmit
         />
       )}
