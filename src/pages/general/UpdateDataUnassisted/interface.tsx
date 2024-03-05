@@ -20,6 +20,7 @@ import { SocioeconomicInformationForm } from "../UpdateData/forms/SocioeconomicI
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
+import { RelationshipWithDirectorsForm } from "../UpdateData/forms/RelationshipWithDirectorsForm";
 
 const renderTabContent = (
   selectedTab: string,
@@ -101,6 +102,12 @@ const renderTabContent = (
       )}
       {selectedTab === updateDataTabs.income.id && (
         <IncomesForm initialValues={updateData.income.values} withSubmit />
+      )}
+      {selectedTab === updateDataTabs.relationshipWithDirectors.id && (
+        <RelationshipWithDirectorsForm
+          initialValues={updateData.relationshipWithDirectors.values}
+          withSubmit
+        />
       )}
     </>
   );
