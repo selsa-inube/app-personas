@@ -13,8 +13,8 @@ import { IPlanNameEntry } from "../../PlanNameForm/types";
 import { IQuotaEntry } from "../../QuotaForm/types";
 import { IReimbursementEntry } from "../../ReimbursementForm/types";
 
-const renderQuotaSummary = (values: IQuotaEntry, isTablet: boolean) => (
-  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+const renderQuotaSummary = (values: IQuotaEntry) => (
+  <Stack direction="column" gap="s100" width="100%">
     <BoxAttribute
       label="Valor periódico del ahorro:"
       value={currencyFormat(Number(values.periodicValue))}
@@ -27,11 +27,46 @@ const renderQuotaSummary = (values: IQuotaEntry, isTablet: boolean) => (
       label="Periodicidad:"
       value={peridiocityDM.valueOf(values.periodicity)?.value}
     />
+    {values.paymentMethod === "automaticDebit" && values.accountToDebit && (
+      <>
+        <BoxAttribute
+          label="Cuenta a debitar:"
+          value={
+            getValueOfDomain(values.accountToDebit, "accountDebitType")?.value
+          }
+        />
+        <BoxAttribute
+          label="Numero de cuenta:"
+          value={
+            values.accountToDebit === "internalOwnAccountDebit"
+              ? values.accountDescription
+              : values.accountNumber
+          }
+        />
+
+        {values.accountToDebit === "externalOwnAccountDebit" &&
+          values.accountType &&
+          values.bankEntity && (
+            <>
+              <BoxAttribute
+                label="Tipo de cuenta:"
+                value={
+                  getValueOfDomain(values.accountType, "accountType")?.value
+                }
+              />
+              <BoxAttribute
+                label="Entidad bancaria:"
+                value={getValueOfDomain(values.bankEntity, "bank")?.value}
+              />
+            </>
+          )}
+      </>
+    )}
   </Stack>
 );
 
-const renderGoalSummary = (values: IGoalEntry, isTablet: boolean) => (
-  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+const renderGoalSummary = (values: IGoalEntry) => (
+  <Stack direction="column" gap="s100" width="100%">
     {values.daysNumber !== "" && (
       <BoxAttribute
         label="Reembolso en número de días:"
@@ -100,10 +135,10 @@ function SummaryBoxes(props: SummaryBoxesProps) {
   return (
     <>
       {stepKey === "quota" &&
-        renderQuotaSummary(programmedSavingFixedRequest.quota.values, isTablet)}
+        renderQuotaSummary(programmedSavingFixedRequest.quota.values)}
 
       {stepKey === "goal" &&
-        renderGoalSummary(programmedSavingFixedRequest.goal.values, isTablet)}
+        renderGoalSummary(programmedSavingFixedRequest.goal.values)}
 
       {stepKey === "reimbursement" &&
         renderReimbursementSummary(

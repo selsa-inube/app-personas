@@ -8,7 +8,7 @@ interface IFormField {
   name: string;
   type: InputType;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   size: InputSize;
   options?: ISelectOption[];
   value?: string;

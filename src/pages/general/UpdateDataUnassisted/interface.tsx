@@ -10,6 +10,7 @@ import { ContactDataForm } from "../UpdateData/forms/ContactDataForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
 import { PersonalAssetsForm } from "../UpdateData/forms/PersonalAssetsForm";
+import { PersonalDebtsForm } from "../UpdateData/forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
 import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
@@ -17,6 +18,7 @@ import { SocioeconomicInformationForm } from "../UpdateData/forms/SocioeconomicI
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
+import { EconomicActivityForm } from "../UpdateData/forms/EconomicActivityForm";
 
 const renderTabContent = (
   selectedTab: string,
@@ -60,6 +62,12 @@ const renderTabContent = (
           withSubmit
         />
       )}
+      {selectedTab === updateDataTabs.personalDebts.id && (
+        <PersonalDebtsForm
+          initialValues={updateData.personalAssets.values}
+          withSubmit
+        />
+      )}
       {selectedTab === updateDataTabs.personalReferences.id && (
         <PersonalReferencesForm
           initialValues={updateData.personalReferences.values}
@@ -81,6 +89,12 @@ const renderTabContent = (
       {selectedTab === updateDataTabs.socioeconomicInformation.id && (
         <SocioeconomicInformationForm
           initialValues={updateData.socioeconomicInformation.values}
+          withSubmit
+        />
+      )}
+      {selectedTab === updateDataTabs.economicActivity.id && (
+        <EconomicActivityForm
+          initialValues={updateData.economicActivity.values}
           withSubmit
         />
       )}
