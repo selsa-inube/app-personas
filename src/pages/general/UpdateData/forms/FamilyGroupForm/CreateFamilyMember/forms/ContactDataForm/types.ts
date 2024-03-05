@@ -1,5 +1,5 @@
 interface IContactDataEntry {
-  cellPhone?: number;
+  cellPhone?: number | "";
   email?: string;
 }
 
