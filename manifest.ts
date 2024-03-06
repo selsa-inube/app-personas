@@ -31,24 +31,22 @@ const manifestPWA: VitePWAOptions = {
     icons: [
       {
         src: "fondecom-33x33.png",
-        sizes: "33x33",
+        sizes: "16x16",
         type: "image/png",
       },
       {
-        src: "fondecom-133x133.png",
-        sizes: "133x133",
+        src: "fondecom-64x64.png",
+        sizes: "64x64",
         type: "image/png",
-        purpose: "any",
       },
       {
-        src: "fondecom-1067x1067.png",
+        src: "fondecom-192x192.png",
         sizes: "192x192",
         type: "image/png",
-        purpose: "any",
       },
       {
-        src: "fondecom-400x400.png",
-        sizes: "400x400",
+        src: "fondecom-512x512.png",
+        sizes: "512x512",
         type: "image/png",
         purpose: "maskable",
       },
