@@ -1,7 +1,12 @@
-import { Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { MyCards } from "@pages/admin/cards/MyCards";
 
 function MyCardsRoutes() {
-  return <Routes></Routes>;
+  return (
+    <Routes>
+      <Route path="/" element={<MyCards />} />
+    </Routes>
+  );
 }
 
 export { MyCardsRoutes };

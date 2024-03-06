@@ -32,10 +32,9 @@ const nav = {
         },
         {
           label: "Mis tarjetas",
-          path: "/products",
+          path: "/my-cards",
           icon: <MdOutlineCreditCard />,
         },
-
         {
           label: "Mis solicitudes",
           path: "/products",
