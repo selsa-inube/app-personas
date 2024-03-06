@@ -30,7 +30,7 @@ const manifestPWA: VitePWAOptions = {
     start_url: "/",
     icons: [
       {
-        src: "fondecom-33x33.png",
+        src: "fondecom-16x16.png",
         sizes: "16x16",
         type: "image/png",
       },
