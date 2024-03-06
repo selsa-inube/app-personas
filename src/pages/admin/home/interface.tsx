@@ -15,6 +15,7 @@ import { StyledCommitmentsContainer } from "./styles";
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
 import { useAuth } from "@inube/auth";
+import { cardsMock } from "@mocks/products/cards/cards.mock";
 import { useEffect, useState } from "react";
 import {
   MdOutlineAccountBalanceWallet,
@@ -23,11 +24,7 @@ import {
 } from "react-icons/md";
 import { ICommitment, IProduct } from "src/model/entity/product";
 import { formatTraceabilityDate } from "src/utils/dates";
-import {
-  extractMySavingsAttributes,
-  formatMySavingsCurrencyAttrs,
-  mySavingsAttributeBreakpoints,
-} from "../savings/MySavings/config/products";
+
 import {
   investmentIcons,
   savingsAccountIcons,
@@ -35,15 +32,19 @@ import {
 import { ProductsCommitments } from "./ProductsCommitments";
 import { cardsBox, creditsBox, savingsBox } from "./config/boxes";
 import {
+  cardAttributeBreakpoints,
   creditAttributeBreakpoints,
+  extractCardAttributes,
   extractCreditAttributes,
   extractInvestmentAttributes,
+  extractSavingsAttributes,
   formatCreditCurrencyAttrs,
   formatInvestmentCurrencyAttrs,
+  formatSavingsCurrencyAttrs,
   investmentAttributeBreakpoints,
+  savingAttributeBreakpoints,
   sumNetValue,
 } from "./config/products";
-import { cardProducts } from "./mocks";
 
 function renderHomeContent(
   savingsAccounts: IProduct[],
@@ -98,12 +99,12 @@ function renderHomeContent(
                           key={saving.id}
                           title={saving.title}
                           description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
+                          attributes={formatSavingsCurrencyAttrs(
+                            extractSavingsAttributes(saving),
                           )}
                           tags={saving.tags}
                           icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
+                          breakpoints={savingAttributeBreakpoints}
                           navigateTo={`/my-savings/account/${saving.id}`}
                         />
                       ))}
@@ -122,12 +123,12 @@ function renderHomeContent(
                           key={saving.id}
                           title={saving.title}
                           description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
+                          attributes={formatSavingsCurrencyAttrs(
+                            extractSavingsAttributes(saving),
                           )}
                           tags={saving.tags}
                           icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
+                          breakpoints={savingAttributeBreakpoints}
                           navigateTo={`/my-savings/account/${saving.id}`}
                         />
                       ))}
@@ -258,17 +259,18 @@ function renderHomeContent(
 
       <Box {...cardsBox}>
         <Stack direction="column" gap="s100">
-          {cardProducts.length === 0 ? (
+          {cardsMock.length === 0 ? (
             <Product icon={<MdOutlineCreditCard />} empty={true} />
           ) : (
-            cardProducts.map(({ title, id, attributes, tags, description }) => (
+            cardsMock.map((card) => (
               <Product
-                key={id}
-                title={title}
-                description={description}
-                attributes={attributes}
-                tags={tags}
+                key={card.id}
+                title={card.title}
+                description={card.description}
+                attributes={extractCardAttributes(card)}
+                tags={card.tags}
                 icon={<MdOutlineCreditCard />}
+                breakpoints={cardAttributeBreakpoints}
               />
             ))
           )}

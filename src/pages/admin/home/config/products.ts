@@ -31,6 +31,33 @@ function formatCreditCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
+const mySavingsAttributes = ["net_value"];
+
+const mySavingsCurrencyAttributes = ["net_value", "min_value"];
+
+function extractSavingsAttributes(saving: IProduct) {
+  const foundAttributes = saving.attributes.filter((attribute) =>
+    mySavingsAttributes.includes(attribute.id),
+  );
+
+  return foundAttributes.sort(
+    (a, b) =>
+      mySavingsAttributes.indexOf(a.id) - mySavingsAttributes.indexOf(b.id),
+  );
+}
+
+function formatSavingsCurrencyAttrs(attributes: IAttribute[]) {
+  return attributes.map((attribute) => {
+    if (mySavingsCurrencyAttributes.includes(attribute.id)) {
+      return {
+        ...attribute,
+        value: currencyFormat(Number(attribute.value)),
+      };
+    }
+    return attribute;
+  });
+}
+
 const investmentAttributes = ["expiration_date", "net_value"];
 const investmentCurrencyAttributes = ["net_value"];
 
@@ -57,30 +84,16 @@ function formatInvestmentCurrencyAttrs(investment: IAttribute[]) {
   });
 }
 
-const savingAttributes = ["net_value"];
+const cardAttributes = ["status"];
 
-const savingCurrencyAttributes = ["net_value", "min_value"];
-
-function extractSavingAttributes(credit: IProduct) {
-  const foundAttributes = credit.attributes.filter((attribute) =>
-    savingAttributes.includes(attribute.id),
+function extractCardAttributes(card: IProduct) {
+  const foundAttributes = card.attributes.filter((attribute) =>
+    cardAttributes.includes(attribute.id),
   );
 
   return foundAttributes.sort(
-    (a, b) => savingAttributes.indexOf(a.id) - savingAttributes.indexOf(b.id),
+    (a, b) => cardAttributes.indexOf(a.id) - cardAttributes.indexOf(b.id),
   );
-}
-
-function formatSavingCurrencyAttrs(attributes: IAttribute[]) {
-  return attributes.map((attribute) => {
-    if (savingCurrencyAttributes.includes(attribute.id)) {
-      return {
-        ...attribute,
-        value: currencyFormat(Number(attribute.value)),
-      };
-    }
-    return attribute;
-  });
 }
 
 function sumNetValue(savingsProducts: IProduct[]) {
@@ -104,15 +117,6 @@ const creditAttributeBreakpoints = {
   "(max-width: 660px)": 1,
 };
 
-const investmentAttributeBreakpoints = {
-  "(min-width: 1100px)": 3,
-  "(min-width: 950px)": 2,
-  "(min-width: 895px)": 1,
-  "(min-width: 750px)": 3,
-  "(min-width: 650px)": 2,
-  "(max-width: 660px)": 1,
-};
-
 const savingAttributeBreakpoints = {
   "(min-width: 1100px)": 3,
   "(min-width: 950px)": 2,
@@ -122,14 +126,34 @@ const savingAttributeBreakpoints = {
   "(max-width: 660px)": 1,
 };
 
+const investmentAttributeBreakpoints = {
+  "(min-width: 1100px)": 3,
+  "(min-width: 950px)": 2,
+  "(min-width: 895px)": 1,
+  "(min-width: 750px)": 3,
+  "(min-width: 650px)": 2,
+  "(max-width: 660px)": 1,
+};
+
+const cardAttributeBreakpoints = {
+  "(min-width: 1100px)": 3,
+  "(min-width: 950px)": 2,
+  "(min-width: 895px)": 1,
+  "(min-width: 750px)": 3,
+  "(min-width: 650px)": 2,
+  "(max-width: 660px)": 1,
+};
+
 export {
+  cardAttributeBreakpoints,
   creditAttributeBreakpoints,
+  extractCardAttributes,
   extractCreditAttributes,
   extractInvestmentAttributes,
-  extractSavingAttributes,
+  extractSavingsAttributes,
   formatCreditCurrencyAttrs,
   formatInvestmentCurrencyAttrs,
-  formatSavingCurrencyAttrs,
+  formatSavingsCurrencyAttrs,
   investmentAttributeBreakpoints,
   savingAttributeBreakpoints,
   sumNetValue,
