@@ -1,10 +1,12 @@
-import { ICard } from "src/model/entity/product";
+import { IProduct } from "src/model/entity/product";
+import { EProductType } from "src/model/entity/product";
 
-const cardsMock: ICard[] = [
+const cardsMock: IProduct[] = [
   {
     id: "5240 5217 8304 1087",
     title: "Tarjeta - Banco Coopcentral",
     description: "Tarjeta - Banco Coopcentral 5240 5217 8304 1087",
+    type: EProductType.CREDITCARD,
     attributes: [
       {
         id: "card_number",
@@ -43,6 +45,7 @@ const cardsMock: ICard[] = [
     id: "2252 0231 6598 2291",
     title: "Tarjeta - Banco Coopcentral",
     description: "Tarjeta - Banco Coopcentral 2252 0231 6598 2291",
+    type: EProductType.CREDITCARD,
     attributes: [
       {
         id: "card_number",
