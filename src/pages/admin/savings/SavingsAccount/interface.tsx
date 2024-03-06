@@ -94,14 +94,20 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     selectedProduct.saving.type === EProductType.CDAT ||
     selectedProduct.saving.type === EProductType.PROGRAMMEDSAVINGS;
 
+  const interestPaymentValue = formatedAttributes.find(
+    (attr) => attr.id === "payment_interest",
+  );
+
+  const showMovementsTable =
+    selectedProduct.saving.type !== EProductType.CDAT ||
+    interestPaymentValue?.value === "Periódico";
+
   return (
     <>
       <Stack direction="column" gap="s300">
         <Breadcrumbs crumbs={crumbsSaving(productId)} />
         <Title
-          title={
-            "Consulta de ahorros"
-          }
+          title="Consulta de ahorros"
           subtitle={
             isInvestment
               ? "Información detallada de tus productos de inversión"
@@ -177,34 +183,36 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               </Grid>
             </Stack>
           </Box>
-          <Stack direction="column" gap="s200" alignItems="flex-start">
-            <Text type="label" size="large">
-              {selectedProduct.saving.type === EProductType.CDAT
-                ? "Pago de intereses"
-                : "Últimos movimientos"}
-            </Text>
-            <StyledMovementsContainer>
-              <Table
-                portalId="modals"
-                titles={savingsAccountMovementsTableTitles}
-                breakpoints={savingsAccountMovementsTableBreakpoints}
-                actions={savingsAccountMovementsTableActions}
-                entries={savingAccountMovementsNormalizeEntries(
-                  selectedProduct.saving.movements || [],
-                ).slice(0, 5)}
-                pageLength={selectedProduct.saving.movements?.length || 0}
-                hideMobileResume
-              />
-              <Button
-                spacing="compact"
-                iconBefore={<MdOutlineAssignmentTurnedIn />}
-                path={`/my-savings/account/${productId}/movements`}
-                type="link"
-              >
-                Movimientos
-              </Button>
-            </StyledMovementsContainer>
-          </Stack>
+          {showMovementsTable && (
+            <Stack direction="column" gap="s200" alignItems="flex-start">
+              <Text type="label" size="large">
+                {selectedProduct.saving.type === EProductType.CDAT
+                  ? "Pago de intereses"
+                  : "Últimos movimientos"}
+              </Text>
+              <StyledMovementsContainer>
+                <Table
+                  portalId="modals"
+                  titles={savingsAccountMovementsTableTitles}
+                  breakpoints={savingsAccountMovementsTableBreakpoints}
+                  actions={savingsAccountMovementsTableActions}
+                  entries={savingAccountMovementsNormalizeEntries(
+                    selectedProduct.saving.movements || [],
+                  ).slice(0, 5)}
+                  pageLength={selectedProduct.saving.movements?.length || 0}
+                  hideMobileResume
+                />
+                <Button
+                  spacing="compact"
+                  iconBefore={<MdOutlineAssignmentTurnedIn />}
+                  path={`/my-savings/account/${productId}/movements`}
+                  type="link"
+                >
+                  Movimientos
+                </Button>
+              </StyledMovementsContainer>
+            </Stack>
+          )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
