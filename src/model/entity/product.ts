@@ -83,6 +83,13 @@ interface IRate {
   annualEffectiveRate: string;
 }
 
+interface ICard {
+  id: string;
+  title: string;
+  description: string;
+  attributes: IAttribute[];
+}
+
 export { ECommitmentType, EProductType };
 
 export type {
@@ -91,5 +98,6 @@ export type {
   ICommitment,
   IMovement,
   IProduct,
+  ICard,
   IRate,
 };
