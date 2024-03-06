@@ -2,7 +2,7 @@ import { VitePWAOptions } from "vite-plugin-pwa";
 
 const manifestPWA: VitePWAOptions = {
   registerType: "autoUpdate",
-  injectRegister: "auto", 
+  injectRegister: "auto",
   minify: false,
   workbox: {
     skipWaiting: true,
@@ -30,6 +30,11 @@ const manifestPWA: VitePWAOptions = {
     start_url: "/",
     icons: [
       {
+        src: "fondecom-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+      {
         src: "fondecom-64x64.png",
         sizes: "64x64",
         type: "image/png",
@@ -38,7 +43,6 @@ const manifestPWA: VitePWAOptions = {
         src: "fondecom-192x192.png",
         sizes: "192x192",
         type: "image/png",
-        purpose: "any",
       },
       {
         src: "fondecom-512x512.png",

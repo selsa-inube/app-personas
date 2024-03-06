@@ -35,6 +35,7 @@ const cardsBox = {
   title: "Tarjetas",
   subtitle: "Resumen tarjetas de crédito",
   icon: <MdOutlineCreditScore />,
+  navigateTo: "/my-cards",
   collapsing: { start: false, allow: true },
   button: {
     label: "Solicitar tarjeta",
