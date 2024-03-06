@@ -15,7 +15,6 @@ import { StyledCommitmentsContainer } from "./styles";
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
 import { useAuth } from "@inube/auth";
-import { cardsMock } from "@mocks/products/cards/cards.mock";
 import { useEffect, useState } from "react";
 import {
   MdOutlineAccountBalanceWallet,
@@ -53,8 +52,10 @@ function renderHomeContent(
   cdats: IProduct[],
   productsCommitments: ICommitment[],
   credits: IProduct[],
+  cards: IProduct[],
   loadingSavings: boolean,
   loadingCredits: boolean,
+  loadingCards: boolean,
   isTablet: boolean,
 ) {
   return (
@@ -259,10 +260,10 @@ function renderHomeContent(
 
       <Box {...cardsBox}>
         <Stack direction="column" gap="s100">
-          {cardsMock.length === 0 ? (
+          {cards.length === 0 ? (
             <Product icon={<MdOutlineCreditCard />} empty={true} />
           ) : (
-            cardsMock.map((card) => (
+            cards.map((card) => (
               <Product
                 key={card.id}
                 title={card.title}
@@ -288,8 +289,10 @@ interface HomeUIProps {
   cdats: IProduct[];
   programmedSavings: IProduct[];
   credits: IProduct[];
-  loadingCredits: boolean;
+  cards: IProduct[];
   loadingSavings: boolean;
+  loadingCredits: boolean;
+  loadingCards: boolean;
   isTablet: boolean;
 }
 
@@ -301,8 +304,10 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
     credits,
-    loadingCredits,
+    cards,
     loadingSavings,
+    loadingCredits,
+    loadingCards,
     isTablet,
   } = props;
 
@@ -346,8 +351,10 @@ function HomeUI(props: HomeUIProps) {
             cdats,
             productsCommitments,
             credits,
+            cards,
             loadingSavings,
             loadingCredits,
+            loadingCards,
             isTablet,
           )}
         </Stack>
@@ -364,8 +371,10 @@ function HomeUI(props: HomeUIProps) {
             cdats,
             productsCommitments,
             credits,
+            cards,
             loadingSavings,
             loadingCredits,
+            loadingCards,
             isTablet,
           )}
           <QuickAccess links={quickLinks} />
