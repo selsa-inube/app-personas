@@ -271,6 +271,7 @@ function renderHomeContent(
                 tags={card.tags}
                 icon={<MdOutlineCreditCard />}
                 breakpoints={cardAttributeBreakpoints}
+                navigateTo={`/my-cards/${card.id}`}
               />
             ))
           )}

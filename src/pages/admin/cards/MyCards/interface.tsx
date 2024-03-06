@@ -1,4 +1,8 @@
-import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
+import {
+  MdArrowBack,
+  MdOutlineAttachMoney,
+  MdOutlineCreditCard,
+} from "react-icons/md";
 
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
@@ -15,31 +19,31 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
-import { IProduct } from "src/model/entity/product";
-import { myCredits } from "./config/boxes";
-import { crumbsMyCredits } from "./config/navigation";
-import { creditAttributeBreakpoints } from "@pages/admin/home/config/products";
-import {
-  formatCreditCurrencyAttrs,
-  extractCreditAttributes,
-} from "../Credit/config/product";
+import { myCards } from "./config/boxes";
+import { crumbsMyCards } from "./config/navigation";
 
-interface MyCreditsUIProps {
+import {
+  cardAttributeBreakpoints,
+  extractCardAttributes,
+} from "@pages/admin/home/config/products";
+import { IProduct } from "src/model/entity/product";
+
+interface MyCardsUIProps {
   loading: boolean;
-  credits: IProduct[];
+  cards: IProduct[];
 }
 
-function MyCreditsUI(props: MyCreditsUIProps) {
-  const { loading, credits } = props;
+function MyCardsUI(props: MyCardsUIProps) {
+  const { loading, cards } = props;
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsMyCredits} />
+        <Breadcrumbs crumbs={crumbsMyCards} />
         <Title
-          title="Mis créditos"
-          subtitle="Consulta y solicita tus productos"
+          title="Mis tarjetas"
+          subtitle="Consulta y solicita tus tarjetas"
           icon={<MdArrowBack />}
           navigatePage="/"
         />
@@ -56,7 +60,7 @@ function MyCreditsUI(props: MyCreditsUIProps) {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <Box {...myCredits}>
+          <Box {...myCards}>
             <Stack direction="column" gap="s075">
               {loading ? (
                 <>
@@ -65,21 +69,19 @@ function MyCreditsUI(props: MyCreditsUIProps) {
                 </>
               ) : (
                 <>
-                  {credits.length === 0 ? (
+                  {cards.length === 0 ? (
                     <Product empty={true} icon={<MdOutlineAttachMoney />} />
                   ) : (
-                    credits.map((credit) => (
+                    cards.map((card) => (
                       <Product
-                        key={credit.id}
-                        title={credit.title}
-                        description={credit.id}
-                        attributes={formatCreditCurrencyAttrs(
-                          extractCreditAttributes(credit),
-                        )}
-                        breakpoints={creditAttributeBreakpoints}
-                        tags={credit.tags}
-                        icon={<MdOutlineAttachMoney />}
-                        navigateTo={`/my-credits/${credit.id}`}
+                        key={card.id}
+                        title={card.title}
+                        description={card.id}
+                        attributes={extractCardAttributes(card)}
+                        breakpoints={cardAttributeBreakpoints}
+                        tags={card.tags}
+                        icon={<MdOutlineCreditCard />}
+                        navigateTo={`/my-cards/${card.id}`}
                       />
                     ))
                   )}
@@ -94,4 +96,4 @@ function MyCreditsUI(props: MyCreditsUIProps) {
   );
 }
 
-export { MyCreditsUI };
+export { MyCardsUI };
