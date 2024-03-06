@@ -109,7 +109,7 @@ const getProductAttributes = (
       {
         id: "payment_interest",
         label: "Pago de intereses",
-        value: `${saving.interestPaymentRate}`,
+        value: String(saving.interestPaymentRate),
       },
       {
         id: "beneficiaries",

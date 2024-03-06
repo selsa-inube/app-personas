@@ -94,22 +94,20 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     selectedProduct.saving.type === EProductType.CDAT ||
     selectedProduct.saving.type === EProductType.PROGRAMMEDSAVINGS;
 
-  const attributesWithInterestPayment = formatedAttributes.filter(
-    (attr) => attr.id === "payment_interest" && attr.value === "Periódico",
+  const interestPaymentValue = formatedAttributes.find(
+    (attr) => attr.id === "payment_interest",
   );
 
-  const showTable =
+  const showMovementsTable =
     selectedProduct.saving.type !== EProductType.CDAT ||
-    attributesWithInterestPayment.length > 0;
+    interestPaymentValue?.value === "Periódico";
 
   return (
     <>
       <Stack direction="column" gap="s300">
         <Breadcrumbs crumbs={crumbsSaving(productId)} />
         <Title
-          title={
-            "Consulta de ahorros"
-          }
+          title="Consulta de ahorros"
           subtitle={
             isInvestment
               ? "Información detallada de tus productos de inversión"
@@ -185,7 +183,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               </Grid>
             </Stack>
           </Box>
-          {showTable && (
+          {showMovementsTable && (
             <Stack direction="column" gap="s200" alignItems="flex-start">
               <Text type="label" size="large">
                 {selectedProduct.saving.type === EProductType.CDAT
