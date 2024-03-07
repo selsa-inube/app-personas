@@ -9,7 +9,7 @@ interface IAttribute {
 interface IMovement {
   id: string;
   date: Date;
-  reference: string;
+  reference?: string;
   description: string;
   capitalPayment?: number;
   interest?: number;
@@ -20,6 +20,7 @@ interface IMovement {
   totalValue: number;
   cardNumber?: string;
   sequence?: string;
+  quotas?: string;
 }
 
 interface IAmortization {
@@ -34,6 +35,20 @@ interface IAmortization {
   others: number;
   totalMonthlyValue: number;
   projectedBalance: number;
+}
+
+interface ICurrentConsumption {
+  title: string;
+  description: string;
+  attributes: IAttribute[];
+  movements: IMovement[];
+}
+
+interface IQuotaDetails {
+  title: string;
+  description?: string;
+  attributes: IAttribute[];
+  currentConsumption: ICurrentConsumption[];
 }
 
 enum ECommitmentType {
@@ -70,6 +85,7 @@ interface IProduct {
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
+  quotaDetails?: IQuotaDetails[];
   tags?: TagProps[];
   userOwner?: string;
   commitments?: string[];
@@ -91,5 +107,6 @@ export type {
   ICommitment,
   IMovement,
   IProduct,
+  IQuotaDetails,
   IRate,
 };
