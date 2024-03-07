@@ -87,7 +87,6 @@ interface IProduct {
   amortization?: IAmortization[];
   quotaDetails?: IQuotaDetails[];
   tags?: TagProps[];
-  userOwner?: string;
   commitments?: string[];
 }
 

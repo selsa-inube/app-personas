@@ -1,4 +1,4 @@
-import { tagAppearance } from "./types";
+import { tagAppearance, tagModifier } from "./types";
 
 const props = {
   label: {
@@ -8,6 +8,16 @@ const props = {
     control: "select",
     options: tagAppearance,
     description: "Controls the background color of the tag",
+  },
+  textAppearance: {
+    control: "select",
+    options: tagAppearance,
+    description: "Controls the text color of the tag",
+  },
+  modifier: {
+    control: "select",
+    options: tagModifier,
+    description: "Controls the appearance of the tag",
   },
 };
 

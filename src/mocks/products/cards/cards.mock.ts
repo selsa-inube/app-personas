@@ -1,5 +1,4 @@
-import { IProduct } from "src/model/entity/product";
-import { EProductType } from "src/model/entity/product";
+import { EProductType, IProduct } from "src/model/entity/product";
 
 const cardsMock: IProduct[] = [
   {
@@ -38,6 +37,14 @@ const cardsMock: IProduct[] = [
             value: "013001157292",
           },
         ],
+      },
+    ],
+    tags: [
+      {
+        label: "Cupo en mora",
+        appearance: "error",
+        textAppearance: "error",
+        modifier: "clear",
       },
     ],
   },

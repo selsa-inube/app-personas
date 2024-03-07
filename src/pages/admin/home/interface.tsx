@@ -23,11 +23,7 @@ import {
 } from "react-icons/md";
 import { ICommitment, IProduct } from "src/model/entity/product";
 import { formatTraceabilityDate } from "src/utils/dates";
-import {
-  extractMySavingsAttributes,
-  formatMySavingsCurrencyAttrs,
-  mySavingsAttributeBreakpoints,
-} from "../savings/MySavings/config/products";
+
 import {
   investmentIcons,
   savingsAccountIcons,
@@ -35,15 +31,19 @@ import {
 import { ProductsCommitments } from "./ProductsCommitments";
 import { cardsBox, creditsBox, savingsBox } from "./config/boxes";
 import {
+  cardAttributeBreakpoints,
   creditAttributeBreakpoints,
+  extractCardAttributes,
   extractCreditAttributes,
   extractInvestmentAttributes,
+  extractSavingsAttributes,
   formatCreditCurrencyAttrs,
   formatInvestmentCurrencyAttrs,
+  formatSavingsCurrencyAttrs,
   investmentAttributeBreakpoints,
+  savingAttributeBreakpoints,
   sumNetValue,
 } from "./config/products";
-import { cardProducts } from "./mocks";
 
 function renderHomeContent(
   savingsAccounts: IProduct[],
@@ -52,8 +52,10 @@ function renderHomeContent(
   cdats: IProduct[],
   productsCommitments: ICommitment[],
   credits: IProduct[],
+  cards: IProduct[],
   loadingSavings: boolean,
   loadingCredits: boolean,
+  loadingCards: boolean,
   isTablet: boolean,
 ) {
   return (
@@ -98,12 +100,12 @@ function renderHomeContent(
                           key={saving.id}
                           title={saving.title}
                           description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
+                          attributes={formatSavingsCurrencyAttrs(
+                            extractSavingsAttributes(saving),
                           )}
                           tags={saving.tags}
                           icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
+                          breakpoints={savingAttributeBreakpoints}
                           navigateTo={`/my-savings/account/${saving.id}`}
                         />
                       ))}
@@ -122,12 +124,12 @@ function renderHomeContent(
                           key={saving.id}
                           title={saving.title}
                           description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
+                          attributes={formatSavingsCurrencyAttrs(
+                            extractSavingsAttributes(saving),
                           )}
                           tags={saving.tags}
                           icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
+                          breakpoints={savingAttributeBreakpoints}
                           navigateTo={`/my-savings/account/${saving.id}`}
                         />
                       ))}
@@ -258,17 +260,19 @@ function renderHomeContent(
 
       <Box {...cardsBox}>
         <Stack direction="column" gap="s100">
-          {cardProducts.length === 0 ? (
+          {cards.length === 0 ? (
             <Product icon={<MdOutlineCreditCard />} empty={true} />
           ) : (
-            cardProducts.map(({ title, id, attributes, tags, description }) => (
+            cards.map((card) => (
               <Product
-                key={id}
-                title={title}
-                description={description}
-                attributes={attributes}
-                tags={tags}
+                key={card.id}
+                title={card.title}
+                description={card.description}
+                attributes={extractCardAttributes(card)}
+                tags={card.tags}
                 icon={<MdOutlineCreditCard />}
+                breakpoints={cardAttributeBreakpoints}
+                navigateTo={`/my-cards/${card.id}`}
               />
             ))
           )}
@@ -285,8 +289,10 @@ interface HomeUIProps {
   cdats: IProduct[];
   programmedSavings: IProduct[];
   credits: IProduct[];
-  loadingCredits: boolean;
+  cards: IProduct[];
   loadingSavings: boolean;
+  loadingCredits: boolean;
+  loadingCards: boolean;
   isTablet: boolean;
 }
 
@@ -298,8 +304,10 @@ function HomeUI(props: HomeUIProps) {
     cdats,
     programmedSavings,
     credits,
-    loadingCredits,
+    cards,
     loadingSavings,
+    loadingCredits,
+    loadingCards,
     isTablet,
   } = props;
 
@@ -343,8 +351,10 @@ function HomeUI(props: HomeUIProps) {
             cdats,
             productsCommitments,
             credits,
+            cards,
             loadingSavings,
             loadingCredits,
+            loadingCards,
             isTablet,
           )}
         </Stack>
@@ -361,8 +371,10 @@ function HomeUI(props: HomeUIProps) {
             cdats,
             productsCommitments,
             credits,
+            cards,
             loadingSavings,
             loadingCredits,
+            loadingCards,
             isTablet,
           )}
           <QuickAccess links={quickLinks} />
