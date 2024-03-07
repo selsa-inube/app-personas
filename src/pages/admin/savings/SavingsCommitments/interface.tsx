@@ -17,11 +17,12 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack, MdOpenInNew, MdSyncAlt } from "react-icons/md";
 import { IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+
 import {
-  extractMySavingsAttributes,
-  formatMySavingsCurrencyAttrs,
-  mySavingsAttributeBreakpoints,
-} from "../MySavings/config/products";
+  extractSavingsAttributes,
+  formatSavingsCurrencyAttrs,
+  savingAttributeBreakpoints,
+} from "@pages/admin/home/config/products";
 import {
   investmentIcons,
   savingsAccountIcons,
@@ -49,10 +50,10 @@ function renderProducts(
           key={product.id}
           title={product.title}
           description={product.id}
-          attributes={formatMySavingsCurrencyAttrs(
-            extractMySavingsAttributes(product),
+          attributes={formatSavingsCurrencyAttrs(
+            extractSavingsAttributes(product),
           )}
-          breakpoints={mySavingsAttributeBreakpoints}
+          breakpoints={savingAttributeBreakpoints}
           tags={product.tags}
           icon={productsIcons[product.type]}
           navigateTo={`/my-savings/account/${product.id}`}

@@ -71,7 +71,6 @@ interface IProduct {
   movements?: IMovement[];
   amortization?: IAmortization[];
   tags?: TagProps[];
-  userOwner?: string;
   commitments?: string[];
 }
 

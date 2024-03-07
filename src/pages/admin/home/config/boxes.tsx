@@ -32,7 +32,7 @@ const creditsBox = {
 };
 
 const cardsBox = {
-  title: "Tarjetas de crédito",
+  title: "Tarjetas",
   subtitle: "Resumen tarjetas de crédito",
   icon: <MdOutlineCreditScore />,
   navigateTo: "/my-cards",

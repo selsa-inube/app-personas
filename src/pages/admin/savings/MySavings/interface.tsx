@@ -12,8 +12,11 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { ProductsCommitments } from "@pages/admin/home/ProductsCommitments";
 import {
   extractInvestmentAttributes,
+  extractSavingsAttributes,
   formatInvestmentCurrencyAttrs,
+  formatSavingsCurrencyAttrs,
   investmentAttributeBreakpoints,
+  savingAttributeBreakpoints,
   sumNetValue,
 } from "@pages/admin/home/config/products";
 import { StyledCommitmentsContainer } from "@pages/admin/home/styles";
@@ -25,11 +28,6 @@ import {
 } from "../SavingsAccount/config/saving";
 import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
-import {
-  extractMySavingsAttributes,
-  formatMySavingsCurrencyAttrs,
-  mySavingsAttributeBreakpoints,
-} from "./config/products";
 
 function renderMySavingsContent(
   productsCommitments: ICommitment[],
@@ -82,12 +80,12 @@ function renderMySavingsContent(
                           key={saving.id}
                           title={saving.title}
                           description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
+                          attributes={formatSavingsCurrencyAttrs(
+                            extractSavingsAttributes(saving),
                           )}
                           tags={saving.tags}
                           icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
+                          breakpoints={savingAttributeBreakpoints}
                           navigateTo={`/my-savings/account/${saving.id}`}
                         />
                       ))}
@@ -106,12 +104,12 @@ function renderMySavingsContent(
                           key={saving.id}
                           title={saving.title}
                           description={saving.id}
-                          attributes={formatMySavingsCurrencyAttrs(
-                            extractMySavingsAttributes(saving),
+                          attributes={formatSavingsCurrencyAttrs(
+                            extractSavingsAttributes(saving),
                           )}
                           tags={saving.tags}
                           icon={savingsAccountIcons[saving.type]}
-                          breakpoints={mySavingsAttributeBreakpoints}
+                          breakpoints={savingAttributeBreakpoints}
                           navigateTo={`/my-savings/account/${saving.id}`}
                         />
                       ))}
