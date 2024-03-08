@@ -36,18 +36,42 @@ interface IAmortization {
   totalMonthlyValue: number;
   projectedBalance: number;
 }
+interface IDetails {
+  capitalPayment: number;
+  currentInterest: number;
+  arrearsInterest: number;
+  totalValue: number;
+}
 
 interface ICurrentConsumption {
+  id: string;
   title: string;
   description: string;
-  attributes: IAttribute[];
+  consumptionDate: Date;
+  consumptionValue: number;
+  duesPaid: number;
+  duesEarring: number;
+  balanceCapital: number;
+  currenInterest: string;
+  minPaymentQuotAvailable: number;
+  totalPaymentQuotaAvailable: number;
+  capitalPayment: string;
+  minCapitalPayment: number;
+  totalCapitalPayment: number;
+  arrearsInterest: number;
   movements: IMovement[];
 }
 
 interface IQuotaDetails {
+  id: string;
   title: string;
   description?: string;
-  attributes: IAttribute[];
+  assignedQuota: number;
+  fullPayment: number;
+  nextPaymentDate: Date | string;
+  quotaAvailable: number;
+  minPaymentDetails: IDetails;
+  totalPaymentDetails: IDetails;
   currentConsumption: ICurrentConsumption[];
 }
 
@@ -85,9 +109,18 @@ interface IProduct {
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
-  quotaDetails?: IQuotaDetails[];
   tags?: TagProps[];
   commitments?: string[];
+}
+
+interface ICreditQuota {
+  id: string;
+  title: string;
+  description: string;
+  attributes: IAttribute[];
+  movements?: IMovement[];
+  quotaDetails?: IQuotaDetails[];
+  tags?: TagProps[];
 }
 
 interface IRate {
@@ -104,6 +137,7 @@ export type {
   IAmortization,
   IAttribute,
   ICommitment,
+  ICreditQuota,
   IMovement,
   IProduct,
   IQuotaDetails,

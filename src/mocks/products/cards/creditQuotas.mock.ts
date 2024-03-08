@@ -1,11 +1,10 @@
-import { EProductType, IProduct } from "src/model/entity/product";
+import { ICreditQuota } from "src/model/entity/product";
 
-const creditQuotasMock: IProduct[] = [
+const creditQuotasMock: ICreditQuota[] = [
   {
     id: "590030780132",
     title: "Crediexpress",
     description: "Crediexpress 590030780132",
-    type: EProductType.CREDITCARD,
     attributes: [
       {
         id: "available_space",
@@ -40,96 +39,43 @@ const creditQuotasMock: IProduct[] = [
     ],
     quotaDetails: [
       {
+        id: "credit-quota-1",
         title: "Crediexpress",
         description: "Informe de movimientos",
-        attributes: [
-          {
-            id: "assigned_quota",
-            label: "Pago minimo",
-            value: 275000,
-          },
-          {
-            id: "full_payment",
-            label: "Pago total",
-            value: 2775000,
-          },
-          {
-            id: "next_payment_date",
-            label: "Fecha próximo pago",
-            value: "15/Mar/2024",
-          },
-          {
-            id: "quota_available",
-            label: "Cupo disponible",
-            value: 5800000,
-          },
-        ],
+        assignedQuota: 275000,
+        fullPayment: 2775000,
+        nextPaymentDate: new Date("15/Mar/2024"),
+        quotaAvailable: 5800000,
+        minPaymentDetails: {
+          capitalPayment: 100000,
+          currentInterest: 1500000,
+          arrearsInterest: 25000,
+          totalValue: 275000,
+        },
+        totalPaymentDetails: {
+          capitalPayment: 240000,
+          currentInterest: 1500000,
+          arrearsInterest: 25000,
+          totalValue: 2775000,
+        },
+
         currentConsumption: [
           {
+            id: "current-consumption-1",
             title: "Compra RESTAURANTE YANUBA",
             description: "Informe de consumos",
-            attributes: [
-              {
-                id: "consumption_date",
-                label: "Fecha consumo",
-                value: "21/Feb/2024",
-              },
-              {
-                id: "consumption_value",
-                label: "Valor consumo",
-                value: 250000,
-              },
-              {
-                id: "dues_paid",
-                label: "Cuotas pagadas",
-                value: 1,
-              },
-              {
-                id: "dues_earring",
-                label: "Cuotas pendientes",
-                value: 23,
-              },
-              {
-                id: "balance_capital",
-                label: "Saldo a Capital",
-                value: 52000,
-              },
-              {
-                id: "current_interest",
-                label: "Interés corriente",
-                value: "% 2.51 MV",
-              },
-              {
-                id: "min_payment_quota_available",
-                label: "pago minimo interés corriente",
-                value: 50000,
-              },
-              {
-                id: "total_payment_quota_available",
-                label: "pago total interés corriente",
-                value: 50000,
-              },
-              {
-                id: "capital_payment",
-                label: "Abono a capital",
-                value: "cuota 1/24",
-              },
-              {
-                id: "min_capital_payment",
-                label: "pago minimo Abono a capital",
-                value: 25000,
-              },
-              {
-                id: "total_capital_payment",
-                label: "pago total Abono a capital",
-                value: 80000,
-              },
-              {
-                id: "quota_available",
-                label: "interés de mora",
-                value: 0,
-              },
-            ],
+            consumptionDate: new Date("21/Feb/2024"),
+            consumptionValue: 250000,
+            duesPaid: 1,
+            duesEarring: 23,
+            balanceCapital: 52000,
+            currenInterest: "% 2.51 MV",
+            minPaymentQuotAvailable: 50000,
+            totalPaymentQuotaAvailable: 50000,
+            capitalPayment: "cuota 1/24",
+            minCapitalPayment: 25000,
+            totalCapitalPayment: 80000,
+            arrearsInterest: 0,
             movements: [
               {
                 id: "movementConsumption-1",
@@ -141,71 +87,21 @@ const creditQuotasMock: IProduct[] = [
             ],
           },
           {
+            id: "current-consumption-2",
             title: "Compra CLONES Y PERISFERICOS SAS",
             description: "Informe de consumos",
-            attributes: [
-              {
-                id: "consumption_date",
-                label: "Fecha consumo",
-                value: "11/Feb/2024",
-              },
-              {
-                id: "consumption_value",
-                label: "Valor consumo",
-                value: 250000,
-              },
-              {
-                id: "dues_paid",
-                label: "Cuotas pagadas",
-                value: 1,
-              },
-              {
-                id: "dues_earring",
-                label: "Cuotas pendientes",
-                value: 23,
-              },
-              {
-                id: "balance_capital",
-                label: "Saldo a Capital",
-                value: 52000,
-              },
-              {
-                id: "current_interest",
-                label: "Interés corriente",
-                value: "% 2.51 MV",
-              },
-              {
-                id: "min_payment_quota_available",
-                label: "pago minimo interés corriente",
-                value: 50000,
-              },
-              {
-                id: "total_payment_quota_available",
-                label: "pago total interés corriente",
-                value: 50000,
-              },
-              {
-                id: "capital_payment",
-                label: "Abono a capital",
-                value: "cuota 1/24",
-              },
-              {
-                id: "min_capital_payment",
-                label: "pago minimo Abono a capital",
-                value: 25000,
-              },
-              {
-                id: "total_capital_payment",
-                label: "pago total Abono a capital",
-                value: 80000,
-              },
-
-              {
-                id: "quota_available",
-                label: "interés de mora",
-                value: 0,
-              },
-            ],
+            consumptionDate: new Date("11/Feb/2024"),
+            consumptionValue: 250000,
+            duesPaid: 1,
+            duesEarring: 23,
+            balanceCapital: 52000,
+            currenInterest: "% 2.51 MV",
+            minPaymentQuotAvailable: 50000,
+            totalPaymentQuotaAvailable: 50000,
+            capitalPayment: "cuota 1/24",
+            minCapitalPayment: 25000,
+            totalCapitalPayment: 80000,
+            arrearsInterest: 0,
             movements: [
               {
                 id: "movementConsumption-1",
@@ -217,71 +113,21 @@ const creditQuotasMock: IProduct[] = [
             ],
           },
           {
+            id: "current-consumption-3",
             title: "Compra PEPE GANGA",
             description: "Informe de consumos",
-            attributes: [
-              {
-                id: "consumption_date",
-                label: "Fecha consumo",
-                value: "24/Dic/2023",
-              },
-              {
-                id: "consumption_value",
-                label: "Valor consumo",
-                value: 250000,
-              },
-              {
-                id: "dues_paid",
-                label: "Cuotas pagadas",
-                value: 9,
-              },
-              {
-                id: "dues_earring",
-                label: "Cuotas pendientes",
-                value: 15,
-              },
-              {
-                id: "balance_capital",
-                label: "Saldo a Capital",
-                value: 52000,
-              },
-              {
-                id: "current_interest",
-                label: "Interés corriente",
-                value: "% 2.51 MV",
-              },
-              {
-                id: "min_payment_quota_available",
-                label: "pago minimo interés corriente",
-                value: 50000,
-              },
-              {
-                id: "total_payment_quota_available",
-                label: "pago total interés corriente",
-                value: 50000,
-              },
-              {
-                id: "capital_payment",
-                label: "Abono a capital",
-                value: "cuota 9/24",
-              },
-              {
-                id: "min_capital_payment",
-                label: "pago minimo Abono a capital",
-                value: 50000,
-              },
-              {
-                id: "total_capital_payment",
-                label: "pago total Abono a capital",
-                value: 80000,
-              },
-
-              {
-                id: "quota_available",
-                label: "interés de mora",
-                value: 0,
-              },
-            ],
+            consumptionDate: new Date("24/Dic/2023"),
+            consumptionValue: 250000,
+            duesPaid: 9,
+            duesEarring: 15,
+            balanceCapital: 52000,
+            currenInterest: "% 2.51 MV",
+            minPaymentQuotAvailable: 50000,
+            totalPaymentQuotaAvailable: 50000,
+            capitalPayment: "cuota 9/24",
+            minCapitalPayment: 50000,
+            totalCapitalPayment: 80000,
+            arrearsInterest: 0,
             movements: [
               {
                 id: "movementConsumption-1",
@@ -365,7 +211,6 @@ const creditQuotasMock: IProduct[] = [
     id: "590030780133",
     title: "Crédito de vehiculo",
     description: "Crédito de vehiculo 590030780133",
-    type: EProductType.CREDITCARD,
     attributes: [
       {
         id: "available_space",
@@ -400,96 +245,44 @@ const creditQuotasMock: IProduct[] = [
     ],
     quotaDetails: [
       {
+        id: "credit-quota-2",
         title: "Crédito de vehiculo",
         description: "Informe de movimientos",
-        attributes: [
-          {
-            id: "assigned_quota",
-            label: "Pago minimo",
-            value: 1909000,
-          },
-          {
-            id: "full_payment",
-            label: "Pago total",
-            value: 60000000,
-          },
-          {
-            id: "next_payment_date",
-            label: "Fecha próximo pago",
-            value: "Inmediato",
-          },
-          {
-            id: "quota_available",
-            label: "Cupo disponible",
-            value: 0,
-          },
-        ],
+        assignedQuota: 1909000,
+        fullPayment: 60000000,
+        nextPaymentDate: "Inmediato",
+        quotaAvailable: 0,
+        minPaymentDetails: {
+          capitalPayment: 752122,
+          currentInterest: 1157380,
+          arrearsInterest: 10103,
+          totalValue: 1909000,
+        },
+        totalPaymentDetails: {
+          capitalPayment: 766864,
+          currentInterest: 1157380,
+          arrearsInterest: 10103,
+          totalValue: 60000000,
+        },
+
         currentConsumption: [
           {
-            title: "",
+            id: "current-consumption-1",
+            title:
+              "compra DISTRIBUIDORA MAYORISTA DE AUTOMÓVILES MADIAUTOS SAS",
             description: "Informe de consumos",
-            attributes: [
-              {
-                id: "consumption_date",
-                label: "Fecha consumo",
-                value: "20/Dic/2023",
-              },
-              {
-                id: "consumption_value",
-                label: "Valor consumo",
-                value: 60000000,
-              },
-              {
-                id: "dues_paid",
-                label: "Cuotas pagadas",
-                value: 1,
-              },
-              {
-                id: "dues_earring",
-                label: "Cuotas pendientes",
-                value: 47,
-              },
-              {
-                id: "balance_capital",
-                label: "Saldo a Capital",
-                value: 752122,
-              },
-              {
-                id: "current_interest",
-                label: "Interés corriente",
-                value: "% 1.96 MV",
-              },
-              {
-                id: "min_payment_quota_available",
-                label: "pago minimo interés corriente",
-                value: 1157380,
-              },
-              {
-                id: "total_payment_quota_available",
-                label: "pago total interés corriente",
-                value: 1157380,
-              },
-              {
-                id: "capital_payment",
-                label: "Abono a capital",
-                value: "cuota 1/24",
-              },
-              {
-                id: "min_capital_payment",
-                label: "pago minimo Abono a capital",
-                value: 752.122,
-              },
-              {
-                id: "total_capital_payment",
-                label: "pago total Abono a capital",
-                value: 766.864,
-              },
-              {
-                id: "quota_available",
-                label: "interés de mora",
-                value: 10103,
-              },
-            ],
+            consumptionDate: new Date("20/Dic/2023"),
+            consumptionValue: 60000000,
+            duesPaid: 1,
+            duesEarring: 47,
+            balanceCapital: 752122,
+            currenInterest: "% 1.96 MV",
+            minPaymentQuotAvailable: 1157380,
+            totalPaymentQuotaAvailable: 1157380,
+            capitalPayment: "cuota 1/47",
+            minCapitalPayment: 752122,
+            totalCapitalPayment: 766864,
+            arrearsInterest: 10103,
             movements: [
               {
                 id: "movementConsumption-1",
