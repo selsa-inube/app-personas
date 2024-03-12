@@ -8,7 +8,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { inube } from "@design/tokens";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
-import { ISavingAccountsModal, ISelectedProductState } from "./types";
+import { ICommissionsModal, ISavingAccountsModal, ISelectedProductState } from "./types";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Box } from "@components/cards/Box";
@@ -19,14 +19,17 @@ import {
 } from "./config/product";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
+import { CommissionsModal } from "@components/modals/cards/CommissionsModal";
 
 interface CardUIProps {
   cardId?: string;
   selectedProduct: ISelectedProductState;
   savingAccountsModal: ISavingAccountsModal;
+  commissionsModal: ICommissionsModal;
   productsOptions: ISelectOption[];
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleToggleSavingsAccountModal: () => void;
+  handleToggleCommissionsModal: () => void;
 }
 
 function CardUI(props: CardUIProps) {
@@ -34,9 +37,11 @@ function CardUI(props: CardUIProps) {
     cardId,
     selectedProduct,
     savingAccountsModal,
+    commissionsModal,
     productsOptions,
     handleChangeProduct,
     handleToggleSavingsAccountModal,
+    handleToggleCommissionsModal
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -101,6 +106,13 @@ function CardUI(props: CardUIProps) {
                       onClickButton={handleToggleSavingsAccountModal}
                       withButton
                     />
+                    <BoxAttribute
+                      label={`Comisiones: `}
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue="Ver"
+                      onClickButton={handleToggleCommissionsModal}
+                      withButton
+                    />
                   </Grid>
                 </Stack>
               </Box>
@@ -114,6 +126,13 @@ function CardUI(props: CardUIProps) {
           portalId="modals"
           savingAccounts={savingAccountsModal.data}
           onCloseModal={handleToggleSavingsAccountModal}
+        />
+      )}
+      {commissionsModal.show && (
+        <CommissionsModal
+          portalId="modals"
+          commissions={commissionsModal.data}
+          onCloseModal={handleToggleCommissionsModal}
         />
       )}
     </>

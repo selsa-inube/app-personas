@@ -44,8 +44,24 @@ const cardsMock: IProduct[] = [
                 id: "net_value",
                 label: "Saldo total",
                 value: "366976",
-              }
+              },
             ],
+          },
+        ],
+      },
+      {
+        id: "commissions",
+        label: "Comisiones",
+        value: [
+          {
+            id: "account_number_commission",
+            label: "Cuenta de ahorros",
+            value: "013001157292",
+          },
+          {
+            id: "net_value_commission",
+            label: "Saldo total",
+            value: "366976",
           },
         ],
       },
@@ -102,7 +118,7 @@ const cardsMock: IProduct[] = [
                 id: "net_value",
                 label: "Saldo total",
                 value: "0",
-              }
+              },
             ],
           },
           {
@@ -118,8 +134,24 @@ const cardsMock: IProduct[] = [
                 id: "net_value",
                 label: "Saldo total",
                 value: "819153",
-              }
+              },
             ],
+          },
+        ],
+      },
+      {
+        id: "commissions",
+        label: "Comisiones",
+        value: [
+          {
+            id: "account_number_commission",
+            label: "Cuenta de ahorros",
+            value: "013010042193",
+          },
+          {
+            id: "net_value_commission",
+            label: "Saldo total",
+            value: "819153",
           },
         ],
       },

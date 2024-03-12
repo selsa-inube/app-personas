@@ -4,7 +4,12 @@ import { CreditsContext } from "src/context/credits";
 import { CardUI } from "./interface";
 import { cardsMock } from "@mocks/products/cards/cards.mock";
 import { useNavigate, useParams } from "react-router-dom";
-import { ISavingAccountsModal, ISelectedProductState, initialSelectedProductState } from "./types";
+import {
+  ICommissionsModal,
+  ISavingAccountsModal,
+  ISelectedProductState,
+  initialSelectedProductState,
+} from "./types";
 import { ISelectOption } from "@design/input/Select/types";
 
 function Card() {
@@ -16,10 +21,17 @@ function Card() {
     initialSelectedProductState,
   );
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
-  const [savingAccountsModal, setSavingAccountsModal] = useState<ISavingAccountsModal>(() => ({
-    show: false,
-    data: [],
-  }));
+  const [savingAccountsModal, setSavingAccountsModal] =
+    useState<ISavingAccountsModal>(() => ({
+      show: false,
+      data: [],
+    }));
+  const [commissionsModal, setCommissionsModal] = useState<ICommissionsModal>(
+    () => ({
+      show: false,
+      data: [],
+    }),
+  );
 
   useEffect(() => {
     if (user && accessToken && cards.length === 0) {
@@ -52,13 +64,25 @@ function Card() {
       const savingsAccounts = Array.isArray(savingsAccountsAttribute?.value)
         ? savingsAccountsAttribute?.value
         : [];
-  
+
       setSavingAccountsModal((prevState: ISavingAccountsModal) => ({
         ...prevState,
         data: savingsAccounts || [],
       }));
+
+      const commissionsAttribute = selectedProduct.card.attributes.find(
+        (attr) => attr.id === "commissions",
+      );
+      const commissions = Array.isArray(commissionsAttribute?.value)
+        ? commissionsAttribute?.value
+        : [];
+
+      setCommissionsModal((prevState: ICommissionsModal) => ({
+        ...prevState,
+        data: commissions || [],
+      }));
     }
-  }, [card_id, selectedProduct]);
+  }, [selectedProduct]);
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
@@ -72,14 +96,23 @@ function Card() {
     }));
   };
 
+  const handleToggleCommissionsModal = () => {
+    setCommissionsModal((prevState: ICommissionsModal) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
   return (
     <CardUI
       cardId={card_id}
       selectedProduct={selectedProduct}
       productsOptions={productsOptions}
       savingAccountsModal={savingAccountsModal}
+      commissionsModal={commissionsModal}
       handleChangeProduct={handleChangeProduct}
       handleToggleSavingsAccountModal={handleToggleSavingsAccountModal}
+      handleToggleCommissionsModal={handleToggleCommissionsModal}
     />
   );
 }

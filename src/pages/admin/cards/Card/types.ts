@@ -21,5 +21,10 @@ interface ISavingAccountsModal {
   data: IAttribute[];
 }
 
+interface ICommissionsModal {
+  show: boolean;
+  data: IAttribute[];
+}
+
 export { initialSelectedProductState };
-export type { ISelectedProductState, ISavingAccountsModal };
+export type { ISelectedProductState, ISavingAccountsModal, ICommissionsModal };
