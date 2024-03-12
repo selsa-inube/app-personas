@@ -65,6 +65,12 @@ function DateField(props: DateFieldProps) {
     onBlur && onBlur(e);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = new Date(`${e.target.value}T00:00`);
+    console.log(selectedDate);
+    onChange && onChange(e);
+  };
+
   return (
     <DateFieldUI
       label={label}
@@ -85,7 +91,7 @@ function DateField(props: DateFieldProps) {
       initialValue={initialValue}
       isFocused={isFocused}
       isTouched={isTouched}
-      onChange={onChange}
+      onChange={handleChange}
       onFocus={handleFocus}
       onBlur={handleBlur}
     />
