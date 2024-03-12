@@ -76,7 +76,7 @@ function SavingAccountsModal(props: SavingAccountsModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Cuentas ligadas al producto
+            Visualiza las cuentas ligadas a este producto
           </Text>
         </Stack>
         <StyledDivider dashed />
