@@ -8,7 +8,12 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { inube } from "@design/tokens";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
-import { ICommissionsModal, ISavingAccountsModal, ISelectedProductState } from "./types";
+import {
+  ICommissionsModal,
+  IHandlingFeeModal,
+  ISavingAccountsModal,
+  ISelectedProductState,
+} from "./types";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Box } from "@components/cards/Box";
@@ -20,15 +25,19 @@ import {
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
 import { CommissionsModal } from "@components/modals/cards/CommissionsModal";
+import { HandlingFeeModal } from "@components/modals/cards/HandlingFeeModal";
+import { currencyFormat } from "src/utils/currency";
 
 interface CardUIProps {
   cardId?: string;
   selectedProduct: ISelectedProductState;
   savingAccountsModal: ISavingAccountsModal;
+  handlingFeeModal: IHandlingFeeModal;
   commissionsModal: ICommissionsModal;
   productsOptions: ISelectOption[];
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleToggleSavingsAccountModal: () => void;
+  handleToggleHandlingFeeModal: () => void;
   handleToggleCommissionsModal: () => void;
 }
 
@@ -37,11 +46,13 @@ function CardUI(props: CardUIProps) {
     cardId,
     selectedProduct,
     savingAccountsModal,
+    handlingFeeModal,
     commissionsModal,
     productsOptions,
     handleChangeProduct,
     handleToggleSavingsAccountModal,
-    handleToggleCommissionsModal
+    handleToggleHandlingFeeModal,
+    handleToggleCommissionsModal,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -107,6 +118,19 @@ function CardUI(props: CardUIProps) {
                       withButton
                     />
                     <BoxAttribute
+                      label={`Cuota de manejo: `}
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue={currencyFormat(
+                        Number(
+                          handlingFeeModal.data.find(
+                            (x) => x.id === "handling_fee_value",
+                          )?.value,
+                        ),
+                      )}
+                      onClickButton={handleToggleHandlingFeeModal}
+                      withButton
+                    />
+                    <BoxAttribute
                       label={`Comisiones: `}
                       buttonIcon={<MdOpenInNew />}
                       buttonValue="Ver"
@@ -126,6 +150,13 @@ function CardUI(props: CardUIProps) {
           portalId="modals"
           savingAccounts={savingAccountsModal.data}
           onCloseModal={handleToggleSavingsAccountModal}
+        />
+      )}
+      {handlingFeeModal.show && (
+        <HandlingFeeModal
+          portalId="modals"
+          handlingFee={handlingFeeModal.data}
+          onCloseModal={handleToggleHandlingFeeModal}
         />
       )}
       {commissionsModal.show && (

@@ -26,5 +26,15 @@ interface ICommissionsModal {
   data: IAttribute[];
 }
 
+interface IHandlingFeeModal {
+  show: boolean;
+  data: IAttribute[];
+}
+
 export { initialSelectedProductState };
-export type { ISelectedProductState, ISavingAccountsModal, ICommissionsModal };
+export type {
+  ISelectedProductState,
+  ISavingAccountsModal,
+  IHandlingFeeModal,
+  ICommissionsModal,
+};

@@ -50,6 +50,27 @@ const cardsMock: IProduct[] = [
         ],
       },
       {
+        id: "handling_fee",
+        label: "Cuota de manejo",
+        value: [
+          {
+            id: "handling_fee_value",
+            label: "Valor de la cuota",
+            value: "7500",
+          },
+          {
+            id: "payment_method",
+            label: "Forma de pago",
+            value: "Débito automático",
+          },
+          {
+            id: "reference",
+            label: "Referencia",
+            value: "Cuentas de ahorros - 013001157292",
+          },
+        ],
+      },
+      {
         id: "commissions",
         label: "Comisiones",
         value: [
@@ -136,6 +157,27 @@ const cardsMock: IProduct[] = [
                 value: "819153",
               },
             ],
+          },
+        ],
+      },
+      {
+        id: "handling_fee",
+        label: "Cuota de manejo",
+        value: [
+          {
+            id: "handling_fee_value",
+            label: "Valor de la cuota",
+            value: "9800",
+          },
+          {
+            id: "payment_method",
+            label: "Forma de pago",
+            value: "Débito automático",
+          },
+          {
+            id: "reference",
+            label: "Referencia",
+            value: "Cuentas de ahorros - 013010042193",
           },
         ],
       },

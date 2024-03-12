@@ -7,7 +7,7 @@ interface IStyledModal {
 
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
-  width: ${({ smallScreen }) => (smallScreen ? "312px" : "450px")};
+  width: ${({ smallScreen }) => (smallScreen ? "280px" : "402px")};
   padding: ${inube.spacing.s300};
   flex-direction: column;
   gap: ${inube.spacing.s250};

@@ -6,6 +6,7 @@ import { cardsMock } from "@mocks/products/cards/cards.mock";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   ICommissionsModal,
+  IHandlingFeeModal,
   ISavingAccountsModal,
   ISelectedProductState,
   initialSelectedProductState,
@@ -26,6 +27,10 @@ function Card() {
       show: false,
       data: [],
     }));
+  const [handlingFeeModal, setHandlingFeeModal] = useState<IHandlingFeeModal>({
+    show: false,
+    data: [],
+  });
   const [commissionsModal, setCommissionsModal] = useState<ICommissionsModal>(
     () => ({
       show: false,
@@ -70,6 +75,18 @@ function Card() {
         data: savingsAccounts || [],
       }));
 
+      const handlingFeeAttribute = selectedProduct.card.attributes.find(
+        (attr) => attr.id === "handling_fee",
+      );
+      const handlingFee = Array.isArray(handlingFeeAttribute?.value)
+        ? handlingFeeAttribute?.value
+        : [];
+
+      setHandlingFeeModal((prevState: IHandlingFeeModal) => ({
+        ...prevState,
+        data: handlingFee || [],
+      }));
+
       const commissionsAttribute = selectedProduct.card.attributes.find(
         (attr) => attr.id === "commissions",
       );
@@ -103,15 +120,24 @@ function Card() {
     }));
   };
 
+  const handleToggleHandlingFeeModal = () => {
+    setHandlingFeeModal((prevState: IHandlingFeeModal) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
   return (
     <CardUI
       cardId={card_id}
       selectedProduct={selectedProduct}
       productsOptions={productsOptions}
       savingAccountsModal={savingAccountsModal}
+      handlingFeeModal={handlingFeeModal}
       commissionsModal={commissionsModal}
       handleChangeProduct={handleChangeProduct}
       handleToggleSavingsAccountModal={handleToggleSavingsAccountModal}
+      handleToggleHandlingFeeModal={handleToggleHandlingFeeModal}
       handleToggleCommissionsModal={handleToggleCommissionsModal}
     />
   );
