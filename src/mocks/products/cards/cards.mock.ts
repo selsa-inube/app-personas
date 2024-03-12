@@ -34,7 +34,18 @@ const cardsMock: IProduct[] = [
           {
             id: "product-1",
             label: "Ahorro a la vista",
-            value: "013001157292",
+            value: [
+              {
+                id: "account_number",
+                label: "Número de cuenta",
+                value: "013001157292",
+              },
+              {
+                id: "net_value",
+                label: "Saldo total",
+                value: "366976",
+              }
+            ],
           },
         ],
       },
@@ -81,12 +92,34 @@ const cardsMock: IProduct[] = [
           {
             id: "product-1",
             label: "Ahorro construccion",
-            value: "013001162880",
+            value: [
+              {
+                id: "account_number",
+                label: "Número de cuenta",
+                value: "013001162880",
+              },
+              {
+                id: "net_value",
+                label: "Saldo total",
+                value: "0",
+              }
+            ],
           },
           {
             id: "product-2",
             label: "Ahorro a la vista",
-            value: "013010042193",
+            value: [
+              {
+                id: "account_number",
+                label: "Número de cuenta",
+                value: "013010042193",
+              },
+              {
+                id: "net_value",
+                label: "Saldo total",
+                value: "819153",
+              }
+            ],
           },
         ],
       },

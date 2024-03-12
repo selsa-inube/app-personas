@@ -1,14 +1,14 @@
 import { Title } from "@design/data/Title";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
-import { MdArrowBack } from "react-icons/md";
+import { MdArrowBack, MdOpenInNew } from "react-icons/md";
 import { crumbsCard } from "./config/navigation";
 import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { inube } from "@design/tokens";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
-import { ISelectedProductState } from "./types";
+import { ISavingAccountsModal, ISelectedProductState } from "./types";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Box } from "@components/cards/Box";
@@ -18,17 +18,26 @@ import {
   formatCardCurrencyAttrs,
 } from "./config/product";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
 
 interface CardUIProps {
   cardId?: string;
   selectedProduct: ISelectedProductState;
+  savingAccountsModal: ISavingAccountsModal;
   productsOptions: ISelectOption[];
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleToggleSavingsAccountModal: () => void;
 }
 
 function CardUI(props: CardUIProps) {
-  const { cardId, selectedProduct, productsOptions, handleChangeProduct } =
-    props;
+  const {
+    cardId,
+    selectedProduct,
+    savingAccountsModal,
+    productsOptions,
+    handleChangeProduct,
+    handleToggleSavingsAccountModal,
+  } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -85,6 +94,13 @@ function CardUI(props: CardUIProps) {
                         value={attr.value}
                       />
                     ))}
+                    <BoxAttribute
+                      label={`Cuentas de ahorro: `}
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue="Ver"
+                      onClickButton={handleToggleSavingsAccountModal}
+                      withButton
+                    />
                   </Grid>
                 </Stack>
               </Box>
@@ -93,6 +109,13 @@ function CardUI(props: CardUIProps) {
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
+      {savingAccountsModal.show && (
+        <SavingAccountsModal
+          portalId="modals"
+          savingAccounts={savingAccountsModal.data}
+          onCloseModal={handleToggleSavingsAccountModal}
+        />
+      )}
     </>
   );
 }

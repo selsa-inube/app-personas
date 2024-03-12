@@ -4,7 +4,7 @@ import { CreditsContext } from "src/context/credits";
 import { CardUI } from "./interface";
 import { cardsMock } from "@mocks/products/cards/cards.mock";
 import { useNavigate, useParams } from "react-router-dom";
-import { ISelectedProductState, initialSelectedProductState } from "./types";
+import { ISavingAccountsModal, ISelectedProductState, initialSelectedProductState } from "./types";
 import { ISelectOption } from "@design/input/Select/types";
 
 function Card() {
@@ -16,6 +16,10 @@ function Card() {
     initialSelectedProductState,
   );
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [savingAccountsModal, setSavingAccountsModal] = useState<ISavingAccountsModal>(() => ({
+    show: false,
+    data: [],
+  }));
 
   useEffect(() => {
     if (user && accessToken && cards.length === 0) {
@@ -40,9 +44,32 @@ function Card() {
     );
   }, [cards, card_id]);
 
+  useEffect(() => {
+    if (selectedProduct && selectedProduct.card) {
+      const savingsAccountsAttribute = selectedProduct.card.attributes.find(
+        (attr) => attr.id === "savings_accounts",
+      );
+      const savingsAccounts = Array.isArray(savingsAccountsAttribute?.value)
+        ? savingsAccountsAttribute?.value
+        : [];
+  
+      setSavingAccountsModal((prevState: ISavingAccountsModal) => ({
+        ...prevState,
+        data: savingsAccounts || [],
+      }));
+    }
+  }, [card_id, selectedProduct]);
+
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
     navigate(`/my-cards/${id}`);
+  };
+
+  const handleToggleSavingsAccountModal = () => {
+    setSavingAccountsModal((prevState: ISavingAccountsModal) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
   };
 
   return (
@@ -50,7 +77,9 @@ function Card() {
       cardId={card_id}
       selectedProduct={selectedProduct}
       productsOptions={productsOptions}
+      savingAccountsModal={savingAccountsModal}
       handleChangeProduct={handleChangeProduct}
+      handleToggleSavingsAccountModal={handleToggleSavingsAccountModal}
     />
   );
 }

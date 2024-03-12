@@ -1,4 +1,4 @@
-import { EProductType, IProduct } from "src/model/entity/product";
+import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {
   card: IProduct;
@@ -16,5 +16,10 @@ const initialSelectedProductState: ISelectedProductState = {
   option: "",
 };
 
+interface ISavingAccountsModal {
+  show: boolean;
+  data: IAttribute[];
+}
+
 export { initialSelectedProductState };
-export type { ISelectedProductState };
+export type { ISelectedProductState, ISavingAccountsModal };
