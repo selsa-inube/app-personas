@@ -158,13 +158,13 @@ interface UpdateDataUIProps {
   currentStep: number;
   steps: IStep[];
   isCurrentFormValid: boolean;
+  updateData: IFormsUpdateData;
+  formReferences: IFormsUpdateDataRefs;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
-  updateData: IFormsUpdateData;
-  formReferences: IFormsUpdateDataRefs;
 }
 
 function UpdateDataUI(props: UpdateDataUIProps) {
@@ -172,13 +172,13 @@ function UpdateDataUI(props: UpdateDataUIProps) {
     currentStep,
     steps,
     isCurrentFormValid,
+    updateData,
+    formReferences,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
-    updateData,
-    formReferences,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");

@@ -60,7 +60,6 @@ const investmentsMock: IProduct[] = [
         value: "01/Ene/2023",
       },
     ],
-    userOwner: "12340001",
   },
   {
     id: "2-23110125",
@@ -136,7 +135,6 @@ const investmentsMock: IProduct[] = [
         totalValue: 150000,
       },
     ],
-    userOwner: "12340001",
   },
 ];
 

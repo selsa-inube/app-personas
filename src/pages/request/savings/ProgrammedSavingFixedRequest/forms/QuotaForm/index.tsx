@@ -9,13 +9,19 @@ import { initalValuesProgrammedSavingFixed } from "../../config/initialValues";
 import { filterPeriodicityOptions, structureQuotaForm } from "./config/form";
 import { QuotaFormUI } from "./interface";
 import { IQuotaEntry } from "./types";
+import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { EProductType } from "src/model/entity/product";
 
 const initValidationSchema = Yup.object({
   periodicValue: validationRules.money.required(validationMessages.required),
   paymentMethod: Yup.string().required(validationMessages.required),
   periodicity: Yup.string().required(validationMessages.required),
-  paydayTypeToSelect: Yup.string(),
+  payDayType: Yup.string(),
   paydayByDate: validationRules.notPastDate,
+  accountToDebit: Yup.string(),
+  accountType: Yup.string(),
+  bankEntity: Yup.string(),
+  accountNumber: Yup.string(),
 });
 
 interface QuotaFormProps {
@@ -51,33 +57,78 @@ const QuotaForm = forwardRef(function QuotaForm(
 
   let valuePeriodicity = formik.values.periodicity;
 
+  const customHandleAccount = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    formik.handleChange(event);
+    const internalAccounts = savingsMock.filter(
+      (saving) => saving.id === event.target.value,
+    );
+    formik.setFieldValue("accountDescription", internalAccounts[0].description);
+  };
+
+  const savingOptions = savingsMock
+    .filter((saving) => saving.type === EProductType.VIEWSAVINGS)
+    .map((saving) => ({ id: saving.id, value: saving.description }));
+
   useEffect(() => {
-    if (formik.values.paymentMethod) {
-      const { renderFields, validationSchema } = generateDynamicForm(
-        formik,
-        structureQuotaForm(formik, valuePeriodicity),
+    if (
+      savingOptions.length === 1 &&
+      formik.values.accountToDebit === "internalOwnAccountDebit"
+    ) {
+      const internalAccounts = savingsMock.filter(
+        (saving) => saving.type === EProductType.VIEWSAVINGS,
       );
-
-      const newValidationSchema = initValidationSchema.concat(
-        Yup.object({
-          periodicValue: validationRules.money.required(
-            validationMessages.required,
-          ),
-          paymentMethod: Yup.string().required(validationMessages.required),
-          periodicity: Yup.string().required(validationMessages.required),
-          paydayTypeToSelect: Yup.string(),
-          paydayByDate: validationRules.notPastDate,
-        }),
+      formik.setFieldValue("accountNumber", internalAccounts[0].id);
+      formik.setFieldValue(
+        "accountDescription",
+        internalAccounts[0].description,
       );
-
-      setDynamicForm({
-        renderFields,
-        validationSchema: validationSchema.concat(newValidationSchema),
-      });
     }
-  }, []);
+    if (formik.values.accountToDebit !== initialValues.accountToDebit) {
+      formik.setFieldValue("accountNumber", "");
+    }
+  }, [formik.values.accountToDebit]);
 
   useEffect(() => {
+    const { renderFields, validationSchema } = generateDynamicForm(
+      formik,
+      structureQuotaForm(formik, valuePeriodicity, savingOptions),
+    );
+
+    const newValidationSchema = initValidationSchema.concat(
+      Yup.object({
+        periodicValue: validationRules.money.required(
+          validationMessages.required,
+        ),
+        paymentMethod: Yup.string().required(validationMessages.required),
+        periodicity: Yup.string().required(validationMessages.required),
+        payDayType:
+          formik.values.paymentMethod === "physicalCollectionChannels" ||
+          formik.values.paymentMethod === "automaticDebit"
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
+        paydayByDate: validationRules.notPastDate,
+        accountType:
+          formik.values.paymentMethod === "automaticDebit" &&
+          formik.values.accountToDebit === "externalOwnAccountDebit"
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
+        bankEntity:
+          formik.values.paymentMethod === "automaticDebit" &&
+          formik.values.accountToDebit === "externalOwnAccountDebit"
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
+        accountNumber:
+          formik.values.paymentMethod === "automaticDebit"
+            ? Yup.string().required(validationMessages.required)
+            : Yup.string(),
+      }),
+    );
+
+    setDynamicForm({
+      renderFields,
+      validationSchema: validationSchema.concat(newValidationSchema),
+    });
+
     if (formik.dirty) {
       formik.validateForm().then((errors) => {
         onFormValid(Object.keys(errors).length === 0);
@@ -96,6 +147,10 @@ const QuotaForm = forwardRef(function QuotaForm(
       ...formik.values,
       [name]: value,
     };
+
+    if (name === "accountNumber") {
+      customHandleAccount(event as React.ChangeEvent<HTMLSelectElement>);
+    }
 
     if (name === "paymentMethod") {
       updatedFormikValues = {
@@ -118,30 +173,6 @@ const QuotaForm = forwardRef(function QuotaForm(
     if (name === "periodicity") {
       valuePeriodicity = value;
     }
-
-    const { renderFields, validationSchema } = generateDynamicForm(
-      {
-        ...formik,
-        values: updatedFormikValues,
-      },
-      structureQuotaForm(formik, valuePeriodicity),
-    );
-    const newValidationSchema = initValidationSchema.concat(
-      Yup.object({
-        periodicValue: validationRules.money.required(
-          validationMessages.required,
-        ),
-        paymentMethod: Yup.string().required(validationMessages.required),
-        periodicity: Yup.string().required(validationMessages.required),
-        paydayTypeToSelect: Yup.string(),
-        paydayByDate: validationRules.notPastDate,
-      }),
-    );
-
-    setDynamicForm({
-      renderFields,
-      validationSchema: validationSchema.concat(newValidationSchema),
-    });
   };
 
   return (

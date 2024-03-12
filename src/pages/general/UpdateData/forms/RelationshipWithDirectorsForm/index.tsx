@@ -24,9 +24,10 @@ const validationSchema = Yup.object().shape({
 
 interface RelationshipWithDirectorsFormProps {
   initialValues: IRelationshipWithDirectorsEntry;
-  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: IRelationshipWithDirectorsEntry) => void;
   loading?: boolean;
+  withSubmit?: boolean;
+  onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
+  onSubmit?: (values: IRelationshipWithDirectorsEntry) => void;
 }
 
 const RelationshipWithDirectorsForm = forwardRef(
@@ -34,7 +35,7 @@ const RelationshipWithDirectorsForm = forwardRef(
     props: RelationshipWithDirectorsFormProps,
     ref: React.Ref<FormikProps<IRelationshipWithDirectorsEntry>>,
   ) {
-    const { initialValues, onFormValid, onSubmit, loading } = props;
+    const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
 
     const [dynamicSchema] = useState(validationSchema);
     const [showDirectorsModal, setShowDirectorsModal] = useState(false);
@@ -49,7 +50,7 @@ const RelationshipWithDirectorsForm = forwardRef(
     useImperativeHandle(ref, () => formik);
 
     useEffect(() => {
-      if (formik.dirty) {
+      if (formik.dirty && onFormValid) {
         formik.validateForm().then((errors) => {
           onFormValid(Object.keys(errors).length === 0);
         });
@@ -75,6 +76,7 @@ const RelationshipWithDirectorsForm = forwardRef(
       <RelationshipWithDirectorsFormUI
         loading={loading}
         formik={formik}
+        withSubmit={withSubmit}
         showDirectorsModal={showDirectorsModal}
         isRequired={isRequired}
         handleToggleModal={handleToggleModal}

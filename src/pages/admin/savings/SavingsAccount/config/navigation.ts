@@ -1,11 +1,6 @@
 import { IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
 
-const crumbsSaving = (
-  isInvestment: boolean,
-  productId?: string
-): IBreadcrumbItem[] => {
-  const savingsLabel = isInvestment ? "Inversiones" : "Ahorros";
-
+const crumbsSaving = (productId?: string): IBreadcrumbItem[] => {
   return [
     {
       id: "home",
@@ -20,7 +15,7 @@ const crumbsSaving = (
     {
       id: "savingAccount",
       path: `/my-savings/account/${productId}`,
-      label: `Consulta de ${savingsLabel}`,
+      label: "Consulta de ahorros",
       isActive: true,
     },
   ];

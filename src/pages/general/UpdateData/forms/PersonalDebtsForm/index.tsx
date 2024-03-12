@@ -25,6 +25,8 @@ const validationSchema = Yup.object({
 
 interface PersonalDebtsFormProps {
   initialValues: IPersonalDebtEntries;
+  loading?: boolean;
+  withSubmit?: boolean;
   onSubmit?: (values: IPersonalDebtEntries) => void;
 }
 
@@ -32,7 +34,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
   props: PersonalDebtsFormProps,
   ref: React.Ref<FormikProps<IPersonalDebtEntries>>,
 ) {
-  const { initialValues, onSubmit } = props;
+  const { initialValues, loading, withSubmit, onSubmit } = props;
 
   const [showAddDebtModal, setShowAddDebtModal] = useState(false);
   const [message, setMessage] = useState(initialMessageState);
@@ -163,6 +165,8 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
       formik={formik}
       showAddDebtModal={showAddDebtModal}
       personalDebtsTableActions={personalDebtsTableActions}
+      loading={loading}
+      withSubmit={withSubmit}
       message={message}
       onToggleModal={handleToggleModal}
       onAddDebt={handleAddDebt}

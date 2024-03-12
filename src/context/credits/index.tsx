@@ -11,13 +11,16 @@ interface CreditsProviderProps {
 function CreditsProvider(props: CreditsProviderProps) {
   const { children } = props;
   const [credits, setCredits] = useState<IProduct[]>([]);
+  const [cards, setCards] = useState<IProduct[]>([]);
 
   const authContext = useMemo(
     () => ({
       credits,
+      cards,
       setCredits,
+      setCards,
     }),
-    [credits, setCredits]
+    [credits, cards, setCredits, setCards],
   );
 
   return (

@@ -6,7 +6,7 @@ import { getProductAttributes, getProductDetails } from "./utils";
 const mapSavingProductCommitmentApiToEntity = (
   commitment: Record<string, string>,
 ): string => {
-  return commitment.commitmentId;
+  return commitment.commitmentNumber;
 };
 
 const mapSavingProductsCommitmentsApiToEntities = (
@@ -24,7 +24,7 @@ const mapSavingProductMovementsApiToEntity = (
     reference: String(movement.movementNumber),
     description: capitalizeFirstLetters(String(movement.movementDescription)),
     totalValue: Number(
-      movement.creditMovementPesos || movement.debitMovementPesos,
+      movement.creditMovementPesos || -movement.debitMovementPesos || 0
     ),
   };
   return buildMovement;
@@ -35,7 +35,6 @@ const mapSavingProductMovementsApiToEntities = (
 ): IMovement[] => {
   return movements
     .map(mapSavingProductMovementsApiToEntity)
-    .filter((movement) => movement.totalValue > 0)
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 

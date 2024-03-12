@@ -15,15 +15,14 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { IProduct } from "src/model/entity/product";
 import { myCredits } from "./config/boxes";
 import { crumbsMyCredits } from "./config/navigation";
-
+import { creditAttributeBreakpoints } from "@pages/admin/home/config/products";
 import {
-  extractMyCreditAttributes,
-  formatMyCreditCurrencyAttrs,
-  myCreditAttributeBreakpoints,
-} from "./config/products";
-import { IProduct } from "src/model/entity/product";
+  formatCreditCurrencyAttrs,
+  extractCreditAttributes,
+} from "../Credit/config/product";
 
 interface MyCreditsUIProps {
   loading: boolean;
@@ -74,10 +73,10 @@ function MyCreditsUI(props: MyCreditsUIProps) {
                         key={credit.id}
                         title={credit.title}
                         description={credit.id}
-                        attributes={formatMyCreditCurrencyAttrs(
-                          extractMyCreditAttributes(credit),
+                        attributes={formatCreditCurrencyAttrs(
+                          extractCreditAttributes(credit),
                         )}
-                        breakpoints={myCreditAttributeBreakpoints}
+                        breakpoints={creditAttributeBreakpoints}
                         tags={credit.tags}
                         icon={<MdOutlineAttachMoney />}
                         navigateTo={`/my-credits/${credit.id}`}

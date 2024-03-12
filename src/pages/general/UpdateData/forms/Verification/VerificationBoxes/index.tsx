@@ -359,14 +359,14 @@ const renderFinancialOperationsVerification = (
       )}
       {values.bankEntity && (
         <BoxAttribute
-          label="Banco:"
-          value={getValueOfDomain(values.bankEntity, "bankForeign")?.value}
+          label="Entidad bancaria:"
+          value={values.bankEntity}
         />
       )}
       {values.currency && (
         <BoxAttribute
           label="Moneda:"
-          value={getValueOfDomain(values.currency, "currency")?.value}
+          value={values.currency}
         />
       )}
       {values.accountNumber && (

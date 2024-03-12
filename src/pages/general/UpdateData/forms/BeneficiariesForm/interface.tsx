@@ -1,4 +1,5 @@
 import { Text } from "@design/data/Text";
+import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -11,18 +12,19 @@ interface BeneficiariesFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   percentage: number;
+  withSubmit?: boolean;
   customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
-  const { formik, loading, percentage, customHandleChange } = props;
+  const { formik, loading, percentage, withSubmit, customHandleChange } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
     <form>
-      <Stack direction="column" alignItems="flex-end" width="100%" gap="s300">
+      <Stack direction="column" alignItems="flex-end" gap="s300">
         <Grid
           templateColumns={isTablet ? "1fr" : "1fr 1fr"}
           gap={isMobile ? "s150" : "s300"}
@@ -68,6 +70,29 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
             {percentage} %
           </Text>
         </Stack>
+
+        {withSubmit && (
+          <Stack gap="s150" justifyContent="flex-end">
+            <Button
+              onClick={formik.handleReset}
+              type="button"
+              disabled={loading || !formik.dirty}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Cancelar
+            </Button>
+
+            <Button
+              type="submit"
+              spacing="compact"
+              disabled={loading || !formik.dirty || !formik.isValid}
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
       </Stack>
     </form>
   );

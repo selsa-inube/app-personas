@@ -1,3 +1,4 @@
+import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
@@ -18,10 +19,11 @@ import { getFieldState } from "src/utils/forms/forms";
 interface PersonalInformationFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  withSubmit?: boolean;
 }
 
 function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
-  const { formik, loading } = props;
+  const { formik, loading, withSubmit } = props;
 
   const isTablet = useMediaQuery("(max-width: 850px)");
   const isMobile = useMediaQuery("(max-width: 610px)");
@@ -178,6 +180,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             />
           </Grid>
         </Fieldset>
+
         <Fieldset
           title="Complementarios"
           type={isTablet ? "label" : "title"}
@@ -264,6 +267,29 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             />
           </Grid>
         </Fieldset>
+
+        {withSubmit && (
+          <Stack gap="s150" justifyContent="flex-end">
+            <Button
+              onClick={formik.handleReset}
+              type="button"
+              disabled={loading || !formik.dirty}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Cancelar
+            </Button>
+
+            <Button
+              type="submit"
+              spacing="compact"
+              disabled={loading || !formik.dirty || !formik.isValid}
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
       </Stack>
     </form>
   );

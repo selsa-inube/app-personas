@@ -2,7 +2,12 @@ import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
 const productsAttributes: Record<string, string[]> = {
-  [EProductType.PROGRAMMEDSAVINGS]: ["net_value", "interest_rate"],
+  [EProductType.PROGRAMMEDSAVINGS]: [
+    "net_value",
+    "interest_rate",
+    "request_date",
+    "expiration_date",
+  ],
   [EProductType.PERMANENTSAVINGS]: [
     "net_value",
     "withdrawal_balance",
@@ -13,6 +18,7 @@ const productsAttributes: Record<string, string[]> = {
     "net_value",
     "min_value",
     "account_state",
+    "request_date",
     "account_gmf",
   ],
   [EProductType.CDAT]: [

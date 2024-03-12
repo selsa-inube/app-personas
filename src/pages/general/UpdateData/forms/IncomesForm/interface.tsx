@@ -1,4 +1,5 @@
 import { Text } from "@design/data/Text";
+import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -11,11 +12,12 @@ import { getFieldState } from "src/utils/forms/forms";
 interface IncomesFormUIProps {
   formik: FormikValues;
   loading?: boolean;
+  withSubmit?: boolean;
   customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function IncomesFormUI(props: IncomesFormUIProps) {
-  const { formik, loading, customHandleChange } = props;
+  const { formik, loading, withSubmit, customHandleChange } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -150,6 +152,29 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             {currencyFormat(formik.values.totalIncomes || 0)}
           </Text>
         </Stack>
+
+        {withSubmit && (
+          <Stack gap="s150" justifyContent="flex-end">
+            <Button
+              onClick={formik.handleReset}
+              type="button"
+              disabled={loading || !formik.dirty}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Cancelar
+            </Button>
+
+            <Button
+              type="submit"
+              spacing="compact"
+              disabled={loading || !formik.dirty || !formik.isValid}
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
       </Stack>
     </form>
   );

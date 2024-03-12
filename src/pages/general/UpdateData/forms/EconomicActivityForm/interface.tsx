@@ -1,5 +1,6 @@
 import { EconomicActivityModal } from "@components/modals/forms/update-data/EconomicActivityModal";
 import { DateField } from "@design/input/DateField";
+import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
@@ -27,6 +28,7 @@ interface EconomicActivityFormUIProps {
   loading?: boolean;
   showMainActivityModal: boolean;
   showSecondaryActivityModal: boolean;
+  withSubmit?: boolean;
   isRequired: (fieldName: string) => boolean;
   handleToggleModal: (field: string) => void;
   handleModalSelect: (field: string, selectedItem: IEconomicActivity) => void;
@@ -38,6 +40,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
     loading,
     showMainActivityModal,
     showSecondaryActivityModal,
+    withSubmit,
     isRequired,
     handleToggleModal,
     handleModalSelect,
@@ -441,6 +444,28 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   ))}
               </Grid>
             </Fieldset>
+          )}
+          {withSubmit && (
+            <Stack gap="s150" justifyContent="flex-end">
+              <Button
+                onClick={formik.handleReset}
+                type="button"
+                disabled={loading || !formik.dirty}
+                spacing="compact"
+                variant="outlined"
+                appearance="gray"
+              >
+                Cancelar
+              </Button>
+
+              <Button
+                type="submit"
+                spacing="compact"
+                disabled={loading || !formik.dirty || !formik.isValid}
+              >
+                Guardar
+              </Button>
+            </Stack>
           )}
         </Stack>
       </form>

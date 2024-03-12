@@ -33,7 +33,6 @@ const commonFields = {
     name: "supplier",
     type: "select",
     label: "Proveedor",
-    placeholder: "",
     size: "compact",
     options: suppliersTypeData.map((supplier) => ({
       value: supplier.value,
@@ -47,7 +46,6 @@ const commonFields = {
     name: "identificationType",
     type: "select",
     label: "Tipo de identificación",
-    placeholder: "",
     size: "compact",
     options: identificationTypeDM.options.filter(
       (option) =>
@@ -92,7 +90,6 @@ const commonFields = {
     type: "select",
     label: "Numero de cuenta",
     size: "compact",
-    placeholder: "",
     options: savingsMock
       .filter((product) => product.type === EProductType.VIEWSAVINGS)
       .map((product) => ({
@@ -128,7 +125,6 @@ const commonFields = {
     name: "entity",
     type: "select",
     label: "Entidad",
-    placeholder: "",
     size: "compact",
     options: bankData.map((bank) => ({
       value: bank.value,
@@ -199,7 +195,6 @@ const commonFields = {
     name: "gender",
     type: "select",
     label: "Género",
-    placeholder: "",
     size: "compact",
     options: genderDM.options,
     isFullWidth: true,
@@ -227,7 +222,6 @@ const structureDisbursementForm = (formik: FormikValues): IFormStructure => {
           size: "compact",
           isFullWidth: true,
           gridColumn: "span 1",
-          placeholder: "",
           validation: Yup.string().required(validationMessages.required),
         },
       ],

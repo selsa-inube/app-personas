@@ -28,9 +28,9 @@ interface IContactData {
   address: string;
   department: string;
   city: string;
-  zipCode?: string;
-  landlinePhone?: string;
-  cellPhone: string;
+  zipCode?: number;
+  landlinePhone?: number;
+  cellPhone: number;
   email: string;
 }
 
