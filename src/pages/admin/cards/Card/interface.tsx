@@ -117,19 +117,21 @@ function CardUI(props: CardUIProps) {
                       onClickButton={handleToggleSavingsAccountModal}
                       withButton
                     />
-                    <BoxAttribute
-                      label={`Cuota de manejo: `}
-                      buttonIcon={<MdOpenInNew />}
-                      buttonValue={currencyFormat(
-                        Number(
-                          handlingFeeModal.data.find(
-                            (x) => x.id === "handling_fee_value",
-                          )?.value,
-                        ),
-                      )}
-                      onClickButton={handleToggleHandlingFeeModal}
-                      withButton
-                    />
+                    {handlingFeeModal.data.length > 0 && (
+                      <BoxAttribute
+                        label={`Cuota de manejo: `}
+                        buttonIcon={<MdOpenInNew />}
+                        buttonValue={currencyFormat(
+                          Number(
+                            handlingFeeModal.data.find(
+                              (x) => x.id === "handling_fee_value",
+                            )?.value,
+                          ),
+                        )}
+                        onClickButton={handleToggleHandlingFeeModal}
+                        withButton
+                      />
+                    )}
                     <BoxAttribute
                       label={`Comisiones: `}
                       buttonIcon={<MdOpenInNew />}
