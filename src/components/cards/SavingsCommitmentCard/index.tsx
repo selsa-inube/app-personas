@@ -20,15 +20,16 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
 
   return (
     <StyledCardContainer onClick={onClick}>
-      <Stack direction="column" alignItems="flex-start" gap="s075">
-        <Stack alignItems="flex-start" gap="s075">
-          <Icon size="16px" icon={<MdCalendarMonth />} spacing="none" />
+      <Stack alignItems="flex-start" gap="s075">
+        <Icon size="16px" icon={<MdCalendarMonth />} spacing="none" />
+        <Stack direction="column" alignItems="flex-start" gap="s075">
           <Text type="label" size="medium">
             {title}
           </Text>
+          {tag && <Tag label={tag.label} appearance={tag.appearance} />}
         </Stack>
-        {tag && <Tag label={tag.label} appearance={tag.appearance} />}
       </Stack>
+
       <Stack direction="column">
         {truncatedAttributes.map((attribute, index) => (
           <Stack gap="s075" key={index}>
