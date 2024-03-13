@@ -5,7 +5,6 @@ import { CardUI } from "./interface";
 import { cardsMock } from "@mocks/products/cards/cards.mock";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  ICommissionsModal,
   IHandlingFeeModal,
   ISavingAccountsModal,
   ISelectedProductState,
@@ -31,20 +30,22 @@ function Card() {
     show: false,
     data: [],
   });
-  const [commissionsModal, setCommissionsModal] = useState<ICommissionsModal>(
-    () => ({
-      show: false,
-      data: [],
-    }),
-  );
 
   useEffect(() => {
     if (user && accessToken && cards.length === 0) {
       setCards(cardsMock);
     }
-  }, [user, accessToken, cards, setCards]);
+  }, [user, accessToken, cards]);
 
   useEffect(() => {
+    updateSelectedCard();
+  }, [cards, card_id]);
+
+  useEffect(() => {
+    updateModals();
+  }, [selectedProduct]);
+
+  const updateSelectedCard = () => {
     if (cards.length > 0) {
       const selectedCard = cards.find((card) => card.id === card_id);
       if (selectedCard) {
@@ -59,9 +60,9 @@ function Card() {
         .map((card) => ({ id: card.id, value: card.description }))
         .sort((a, b) => a.value.localeCompare(b.value)),
     );
-  }, [cards, card_id]);
+  };
 
-  useEffect(() => {
+  const updateModals = () => {
     if (selectedProduct && selectedProduct.card) {
       const savingsAccountsAttribute = selectedProduct.card.attributes.find(
         (attr) => attr.id === "savings_accounts",
@@ -86,20 +87,8 @@ function Card() {
         ...prevState,
         data: handlingFee || [],
       }));
-
-      const commissionsAttribute = selectedProduct.card.attributes.find(
-        (attr) => attr.id === "commissions",
-      );
-      const commissions = Array.isArray(commissionsAttribute?.value)
-        ? commissionsAttribute?.value
-        : [];
-
-      setCommissionsModal((prevState: ICommissionsModal) => ({
-        ...prevState,
-        data: commissions || [],
-      }));
     }
-  }, [selectedProduct]);
+  };
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
@@ -108,13 +97,6 @@ function Card() {
 
   const handleToggleSavingsAccountModal = () => {
     setSavingAccountsModal((prevState: ISavingAccountsModal) => ({
-      ...prevState,
-      show: !prevState.show,
-    }));
-  };
-
-  const handleToggleCommissionsModal = () => {
-    setCommissionsModal((prevState: ICommissionsModal) => ({
       ...prevState,
       show: !prevState.show,
     }));
@@ -134,11 +116,9 @@ function Card() {
       productsOptions={productsOptions}
       savingAccountsModal={savingAccountsModal}
       handlingFeeModal={handlingFeeModal}
-      commissionsModal={commissionsModal}
       handleChangeProduct={handleChangeProduct}
       handleToggleSavingsAccountModal={handleToggleSavingsAccountModal}
       handleToggleHandlingFeeModal={handleToggleHandlingFeeModal}
-      handleToggleCommissionsModal={handleToggleCommissionsModal}
     />
   );
 }

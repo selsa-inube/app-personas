@@ -70,22 +70,6 @@ const cardsMock: IProduct[] = [
           },
         ],
       },
-      {
-        id: "commissions",
-        label: "Comisiones",
-        value: [
-          {
-            id: "account_number_commission",
-            label: "Cuenta de ahorros",
-            value: "013001157292",
-          },
-          {
-            id: "net_value_commission",
-            label: "Saldo total",
-            value: "366976",
-          },
-        ],
-      },
     ],
     tags: [
       {
@@ -157,43 +141,6 @@ const cardsMock: IProduct[] = [
                 value: "819153",
               },
             ],
-          },
-        ],
-      },
-      {
-        id: "handling_fee",
-        label: "Cuota de manejo",
-        value: [
-          {
-            id: "handling_fee_value",
-            label: "Valor de la cuota",
-            value: "9800",
-          },
-          {
-            id: "payment_method",
-            label: "Forma de pago",
-            value: "Débito automático",
-          },
-          {
-            id: "reference",
-            label: "Referencia",
-            value: "Cuentas de ahorros - 013010042193",
-          },
-        ],
-      },
-      {
-        id: "commissions",
-        label: "Comisiones",
-        value: [
-          {
-            id: "account_number_commission",
-            label: "Cuenta de ahorros",
-            value: "013010042193",
-          },
-          {
-            id: "net_value_commission",
-            label: "Saldo total",
-            value: "819153",
           },
         ],
       },

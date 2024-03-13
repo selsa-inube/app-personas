@@ -4,7 +4,6 @@ import { currencyFormat } from "src/utils/currency";
 const cardAttributes = [
   "card_number",
   "cardholder",
-  "payment_method",
   "status",
   "savings_accounts",
   "handling_fee",

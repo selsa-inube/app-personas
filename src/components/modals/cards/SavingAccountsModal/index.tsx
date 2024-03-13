@@ -8,27 +8,11 @@ import { Icon } from "@design/data/Icon";
 import { MdOutlineAccountBalanceWallet, MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { Product } from "@components/cards/Product";
-import { currencyFormat } from "src/utils/currency";
 
 interface SavingAccountsModalProps {
   portalId: string;
   savingAccounts: IAttribute[];
   onCloseModal: () => void;
-}
-
-function formatAndFilterNetValueAttributes(
-  value: number | string | IAttribute[],
-): IAttribute[] {
-  if (Array.isArray(value)) {
-    const netValueAttributes = value.filter((item) => item.id === "net_value");
-    if (netValueAttributes.length > 0) {
-      return netValueAttributes.map((attribute) => ({
-        ...attribute,
-        value: currencyFormat(Number(attribute.value)),
-      }));
-    }
-  }
-  return [];
 }
 
 function SavingAccountsModal(props: SavingAccountsModalProps) {
@@ -89,7 +73,6 @@ function SavingAccountsModal(props: SavingAccountsModalProps) {
                   title={account.label}
                   description={getAccountNumber(account.value)}
                   icon={<MdOutlineAccountBalanceWallet />}
-                  attributes={formatAndFilterNetValueAttributes(account.value)}
                   navigateTo={`/my-savings/account/${getAccountNumber(account.value)}`}
                 />
               ))}

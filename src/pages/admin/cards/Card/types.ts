@@ -21,11 +21,6 @@ interface ISavingAccountsModal {
   data: IAttribute[];
 }
 
-interface ICommissionsModal {
-  show: boolean;
-  data: IAttribute[];
-}
-
 interface IHandlingFeeModal {
   show: boolean;
   data: IAttribute[];
@@ -36,5 +31,4 @@ export type {
   ISelectedProductState,
   ISavingAccountsModal,
   IHandlingFeeModal,
-  ICommissionsModal,
 };
