@@ -1,7 +1,6 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
-import { creditQuotaDetailsMock } from "@mocks/products/cards/creditQuotaDetails.mock";
+import { creditQuotasMock } from "@mocks/products/cards/creditQuotas.mock";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditQuotaUI } from "./interface";
@@ -49,8 +48,8 @@ function CreditQuota() {
 
   const handleSortProduct = () => {
     const creditQuotas: ISelectOption[] = [];
-    creditQuotaDetailsMock.forEach((creditQuota) => {
-      if (creditQuota.idCard === card_id) {
+    creditQuotasMock.forEach((creditQuota) => {
+      if (card_id) {
         creditQuotas.push({
           id: creditQuota.id,
           value: creditQuota.title,

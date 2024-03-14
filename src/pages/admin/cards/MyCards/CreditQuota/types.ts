@@ -1,7 +1,7 @@
-import { ICreditQuotaDetails } from "src/model/entity/product";
+import { IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {
-  creditQuota: ICreditQuotaDetails;
+  creditQuota: IProduct;
   option: string;
 }
 

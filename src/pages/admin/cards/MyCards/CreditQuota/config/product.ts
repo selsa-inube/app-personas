@@ -1,8 +1,8 @@
-import { IAttribute, ICreditQuotaDetails } from "src/model/entity/product";
+import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
 const quotaDetailsAttrs = [
-  "quota_available",
+  "available_space",
   "min_payment",
   "full_payment",
   "next_payment_date",
@@ -12,13 +12,13 @@ const quotaDetailsAttrs = [
 ];
 
 const quotaDetailsCurrencyAttrs = [
-  "quota_available",
+  "available_space",
   "min_payment",
   "full_payment",
   "assigned_quota",
 ];
 
-function extractQuotaDetailsAttrs(quotaDetail: ICreditQuotaDetails) {
+function extractQuotaDetailsAttrs(quotaDetail: IProduct) {
   const foundAttributes = quotaDetail.attributes.filter((attribute) =>
     quotaDetailsAttrs.includes(attribute.id),
   );

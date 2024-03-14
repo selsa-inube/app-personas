@@ -1,35 +1,38 @@
-import { ICreditQuotaDetails } from "src/model/entity/product";
+import { IProduct } from "src/model/entity/product";
 
-const getUsedQuotaData = (selectedProduct: ICreditQuotaDetails) => {
-  const quotaDetails = selectedProduct.attributes.find(
+const getUsedQuotaData = (selectedProduct: IProduct) => {
+  let currentConsumption;
+  let accumulatedDebt;
+  let transactionsProcess;
+  let usedQuotaValue;
+
+  const UsedQuotaData = selectedProduct.attributes.find(
     (attribute) => attribute.id === "used_quota",
   );
-  const quotaDetailsValue = Array.isArray(quotaDetails?.value)
-    ? quotaDetails?.value
+  const UsedQuotaDataModal = Array.isArray(UsedQuotaData?.value)
+    ? UsedQuotaData?.value
     : [];
 
-  const currentConsumption = quotaDetailsValue?.find(
-    (attr) => attr.id === "current_consumption",
-  );
-
-  const accumulatedDebt = quotaDetailsValue?.find(
-    (attr) => attr.id === "accumulated_debt",
-  );
-
-  const transactionsProcess = quotaDetailsValue?.find(
-    (attr) => attr.id === "transactions_process",
-  );
-
-  const usedQuotaValue = quotaDetailsValue?.find(
-    (attr) => attr.id === "used_quota_value",
-  );
+  UsedQuotaDataModal?.forEach((attr) => {
+    if (attr.id === "current_consumption") {
+      currentConsumption = attr.value;
+    }
+    if (attr.id === "accumulated_debt") {
+      accumulatedDebt = attr.value;
+    }
+    if (attr.id === "transactions_process") {
+      transactionsProcess = attr.value;
+    }
+    if (attr.id === "used_quota_value") {
+      usedQuotaValue = attr.value;
+    }
+  });
 
   return {
-    currentConsumption: currentConsumption && Number(currentConsumption?.value),
-    accumulatedDebt: accumulatedDebt && Number(accumulatedDebt?.value),
-    transactionsProcess:
-      transactionsProcess && Number(transactionsProcess?.value),
-    usedQuotaValue: Number(usedQuotaValue?.value),
+    currentConsumption: currentConsumption && Number(currentConsumption),
+    accumulatedDebt: accumulatedDebt && Number(accumulatedDebt),
+    transactionsProcess: transactionsProcess && Number(transactionsProcess),
+    usedQuotaValue: Number(usedQuotaValue),
   };
 };
 
