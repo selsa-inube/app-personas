@@ -32,7 +32,7 @@ const formatPrimaryDateWithTime = (date: Date) => {
   const dateString = dateFormatter.format(date);
   let timeString = timeFormatter.format(date);
 
-  let [hour, minute, period] = timeString.split(/[:\s]/);
+  const [hour, minute, period] = timeString.split(/[:\s]/);
 
   timeString = `${hour}:${minute} ${period === "p." ? "pm" : "am"}`;
 
