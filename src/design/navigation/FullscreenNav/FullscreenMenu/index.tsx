@@ -1,4 +1,4 @@
-import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { DecisionModal } from "@components/modals/DecisionModal";
 import { Text } from "@design/data/Text";
 import { INav } from "@design/layout/Page/types";
 import { IHeaderLink } from "@design/navigation/Header/types";

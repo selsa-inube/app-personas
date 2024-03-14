@@ -1,4 +1,4 @@
-import { ReferenceModal } from "@components/modals/general/updateData/ReferenceModal";
+import { ReferenceModal } from "@components/modals/forms/update-data/ReferenceModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";

@@ -1,4 +1,4 @@
-import { EditFamilyMemberModal } from "@components/modals/general/updateData/FamilyGroupModals/EditFamilyMemberModal";
+import { EditFamilyMemberModal } from "@components/modals/forms/update-data/FamilyGroupModals/EditFamilyMemberModal";
 import { Icon } from "@design/data/Icon";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";

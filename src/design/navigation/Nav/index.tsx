@@ -2,7 +2,7 @@ import { MdLogout } from "react-icons/md";
 import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 
-import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { DecisionModal } from "@components/modals/DecisionModal";
 import { ISection } from "@design/layout/Page/types";
 import { useAuth } from "@inube/auth";
 import { useState } from "react";

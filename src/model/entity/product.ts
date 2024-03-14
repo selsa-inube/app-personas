@@ -36,12 +36,30 @@ interface IAmortization {
   totalMonthlyValue: number;
   projectedBalance: number;
 }
-
 interface IDetails {
   capitalPayment: number;
   currentInterest: number;
   arrearsInterest: number;
   totalValue: number;
+}
+
+interface ICurrentConsumption {
+  id: string;
+  title: string;
+  description: string;
+  consumptionDate: Date;
+  consumptionValue: number;
+  duesPaid: number;
+  duesEarring: number;
+  balanceCapital: number;
+  currenInterest: string;
+  minPaymentQuotAvailable: number;
+  totalPaymentQuotaAvailable: number;
+  capitalPayment: string;
+  minCapitalPayment: number;
+  totalCapitalPayment: number;
+  arrearsInterest: number;
+  movements: IMovement[];
 }
 
 interface IQuotaDetails {
@@ -54,7 +72,7 @@ interface IQuotaDetails {
   quotaAvailable: number;
   minPaymentDetails: IDetails;
   totalPaymentDetails: IDetails;
-  currentConsumptions: string[];
+  currentConsumption: ICurrentConsumption[];
 }
 
 enum ECommitmentType {
@@ -93,8 +111,16 @@ interface IProduct {
   amortization?: IAmortization[];
   tags?: TagProps[];
   commitments?: string[];
-  quotaDetails?: string[];
-  consumptions?: string[];
+}
+
+interface ICreditQuota {
+  id: string;
+  title: string;
+  description: string;
+  attributes: IAttribute[];
+  movements?: IMovement[];
+  quotaDetails?: IQuotaDetails[];
+  tags?: TagProps[];
 }
 
 interface IRate {
@@ -111,6 +137,7 @@ export type {
   IAmortization,
   IAttribute,
   ICommitment,
+  ICreditQuota,
   IMovement,
   IProduct,
   IQuotaDetails,

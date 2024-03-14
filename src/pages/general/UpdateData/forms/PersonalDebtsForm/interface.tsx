@@ -1,4 +1,4 @@
-import { DebtModal } from "@components/modals/general/updateData/DebtModal";
+import { DebtModal } from "@components/modals/forms/update-data/DebtModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";

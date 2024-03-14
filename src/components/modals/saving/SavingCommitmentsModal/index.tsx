@@ -8,8 +8,7 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IAttribute, ICommitment } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { StyledModal } from "./styles";
-import { Divider } from "@design/layout/Divider";
+import { StyledDivider, StyledModal } from "./styles";
 
 interface SavingCommitmentsModalProps {
   portalId: string;
@@ -73,7 +72,7 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
           </Text>
         </Stack>
 
-        <Divider dashed />
+        <StyledDivider dashed />
         <Stack direction="column" gap="s150">
           {commitments.length === 0
             ? "No se han encontrado resultados"

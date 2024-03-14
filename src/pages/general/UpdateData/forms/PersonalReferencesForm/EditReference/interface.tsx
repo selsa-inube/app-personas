@@ -1,4 +1,4 @@
-import { ReferenceModal } from "@components/modals/general/updateData/ReferenceModal";
+import { ReferenceModal } from "@components/modals/forms/update-data/ReferenceModal";
 import { Icon } from "@design/data/Icon";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";

@@ -1,11 +1,11 @@
-import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { EditFamilyMemberModal } from "@components/modals/general/updateData/FamilyGroupModals/EditFamilyMemberModal";
-import { FamilyMemberViewModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberViewModal";
+import { DecisionModal } from "@components/modals/DecisionModal";
+import { FamilyMemberViewModal } from "@components/modals/forms/update-data/FamilyGroupModals/FamilyMemberViewModal";
 import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
 import { FormikValues } from "formik";
 import { MdOpenInNew } from "react-icons/md";
 import { deleteFamilyMemberModal } from "../config/deleteMember";
+import { EditFamilyMemberModal } from "@components/modals/forms/update-data/FamilyGroupModals/EditFamilyMemberModal";
 
 interface FamilyMemberViewUIProps {
   showModal: boolean;
@@ -80,7 +80,7 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
         <DecisionModal
           title={title}
           description={description(
-            `${member?.firstName} ${member?.firstLastName}`,
+            `${member?.firstName} ${member?.firstLastName}`
           )}
           appearance={appearance}
           actionText={actionText}

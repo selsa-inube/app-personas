@@ -1,4 +1,4 @@
-import { DebtModal } from "@components/modals/general/updateData/DebtModal";
+import { DebtModal } from "@components/modals/forms/update-data/DebtModal";
 import { Icon } from "@design/data/Icon";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";

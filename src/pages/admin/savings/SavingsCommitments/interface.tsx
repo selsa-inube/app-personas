@@ -2,7 +2,7 @@ import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
+import { NextPaymentModal } from "@components/modals/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";

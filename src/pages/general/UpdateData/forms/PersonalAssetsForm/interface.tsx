@@ -1,4 +1,4 @@
-import { AssetModal } from "@components/modals/general/updateData/AssetModal";
+import { AssetModal } from "@components/modals/forms/update-data/AssetModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";

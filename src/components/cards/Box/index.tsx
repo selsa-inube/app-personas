@@ -11,8 +11,12 @@ import {
   ButtonAppearanceType,
   ButtonVariantType,
 } from "@design/input/Button/types";
-import { Divider } from "@design/layout/Divider";
-import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
+import {
+  StyledBox,
+  StyledCollapseIcon,
+  StyledDivider,
+  StyledLink,
+} from "./styles";
 
 interface BoxProps {
   icon?: React.JSX.Element;
@@ -96,7 +100,7 @@ function Box(props: BoxProps) {
             </StyledCollapseIcon>
           )}
         </Stack>
-        <Divider dashed />
+        <StyledDivider />
         {(withCustomCollapse || !collapsing.allow || !collapse) && children}
         {button && (
           <Stack justifyContent="flex-end">

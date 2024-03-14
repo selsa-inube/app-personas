@@ -1,4 +1,4 @@
-import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { DecisionModal } from "@components/modals/DecisionModal";
 import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
 import { MdDeleteOutline } from "react-icons/md";
