@@ -34,7 +34,39 @@ const cardsMock: IProduct[] = [
           {
             id: "product-1",
             label: "Ahorro a la vista",
-            value: "013001157292",
+            value: [
+              {
+                id: "account_number",
+                label: "Número de cuenta",
+                value: "013001157292",
+              },
+              {
+                id: "net_value",
+                label: "Saldo total",
+                value: "366976",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "handling_fee",
+        label: "Cuota de manejo",
+        value: [
+          {
+            id: "handling_fee_value",
+            label: "Valor de la cuota",
+            value: "7500",
+          },
+          {
+            id: "payment_method",
+            label: "Forma de pago",
+            value: "Débito automático",
+          },
+          {
+            id: "reference",
+            label: "Referencia",
+            value: "Cuentas de ahorros - 013001157292",
           },
         ],
       },
@@ -81,12 +113,34 @@ const cardsMock: IProduct[] = [
           {
             id: "product-1",
             label: "Ahorro construccion",
-            value: "013001162880",
+            value: [
+              {
+                id: "account_number",
+                label: "Número de cuenta",
+                value: "013001162880",
+              },
+              {
+                id: "net_value",
+                label: "Saldo total",
+                value: "0",
+              },
+            ],
           },
           {
             id: "product-2",
             label: "Ahorro a la vista",
-            value: "013010042193",
+            value: [
+              {
+                id: "account_number",
+                label: "Número de cuenta",
+                value: "013010042193",
+              },
+              {
+                id: "net_value",
+                label: "Saldo total",
+                value: "819153",
+              },
+            ],
           },
         ],
       },
