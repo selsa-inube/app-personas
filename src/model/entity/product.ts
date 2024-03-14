@@ -62,17 +62,16 @@ interface ICurrentConsumption {
   movements: IMovement[];
 }
 
-interface IQuotaDetails {
+interface ICreditQuotaDetails {
   id: string;
+  idCard: string;
   title: string;
   description?: string;
-  assignedQuota: number;
-  fullPayment: number;
-  nextPaymentDate: Date | string;
-  quotaAvailable: number;
+  attributes: IAttribute[];
   minPaymentDetails: IDetails;
   totalPaymentDetails: IDetails;
   currentConsumption: ICurrentConsumption[];
+  tags?: TagProps[];
 }
 
 enum ECommitmentType {
@@ -119,7 +118,6 @@ interface ICreditQuota {
   description: string;
   attributes: IAttribute[];
   movements?: IMovement[];
-  quotaDetails?: IQuotaDetails[];
   tags?: TagProps[];
 }
 
@@ -138,8 +136,8 @@ export type {
   IAttribute,
   ICommitment,
   ICreditQuota,
+  ICreditQuotaDetails,
   IMovement,
   IProduct,
-  IQuotaDetails,
   IRate,
 };
