@@ -100,7 +100,9 @@ function Box(props: BoxProps) {
             </StyledCollapseIcon>
           )}
         </Stack>
-        <StyledDivider />
+        {(withCustomCollapse || !collapsing.allow || !collapse || button) && (
+          <StyledDivider />
+        )}
         {(withCustomCollapse || !collapsing.allow || !collapse) && children}
         {button && (
           <Stack justifyContent="flex-end">

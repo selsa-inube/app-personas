@@ -1,5 +1,6 @@
 import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { EQuotasMovementType } from "src/model/entity/product";
 
 const cardAttributes = [
   "card_number",
@@ -7,7 +8,14 @@ const cardAttributes = [
   "status",
   "savings_accounts",
   "handling_fee",
-  "commissions"
+  "commissions",
+];
+
+const creditQuotasCurrencyAttributes = [
+  "available_space",
+  "used_quota",
+  "next_payment_value",
+  "assigned_quota",
 ];
 
 const cardCurrencyAttributes = ["handling_fee"];
@@ -34,4 +42,34 @@ function formatCardCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-export { extractCardAttributes, formatCardCurrencyAttrs };
+function formatCreditQuotasCurrencyAttrs(attributes: IAttribute[]) {
+  return attributes.map((attribute) => {
+    if (creditQuotasCurrencyAttributes.includes(attribute.id)) {
+      return {
+        ...attribute,
+        value: currencyFormat(Number(attribute.value)),
+      };
+    }
+    return attribute;
+  });
+}
+
+function getMovementDescriptionType(type?: EQuotasMovementType): string {
+  switch (type) {
+    case EQuotasMovementType.BUY:
+      return "Compra";
+    case EQuotasMovementType.REVERSE:
+      return "Reverso";
+    case EQuotasMovementType.PAY:
+      return "Pago";
+    default:
+      return "";
+  }
+}
+
+export {
+  extractCardAttributes,
+  formatCardCurrencyAttrs,
+  getMovementDescriptionType,
+  formatCreditQuotasCurrencyAttrs,
+};

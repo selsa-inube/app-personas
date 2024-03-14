@@ -6,6 +6,12 @@ interface IAttribute {
   value: number | string | IAttribute[];
 }
 
+enum EQuotasMovementType {
+  BUY = "BUY",
+  REVERSE = "REVERSE",
+  PAY = "PAY",
+}
+
 interface IMovement {
   id: string;
   date: Date;
@@ -21,6 +27,7 @@ interface IMovement {
   cardNumber?: string;
   sequence?: string;
   quotas?: string;
+  quotasMovementsType?: EQuotasMovementType;
 }
 
 interface IAmortization {
@@ -131,7 +138,7 @@ interface IRate {
   annualEffectiveRate: string;
 }
 
-export { ECommitmentType, EProductType };
+export { ECommitmentType, EProductType, EQuotasMovementType };
 
 export type {
   IAmortization,

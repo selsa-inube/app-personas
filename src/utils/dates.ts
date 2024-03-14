@@ -14,6 +14,33 @@ const formatPrimaryDate = (date: Date) => {
   return `${day}/${capitalizeText(month)}/${year}`;
 };
 
+const formatPrimaryDateWithTime = (date: Date) => {
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  };
+  const timeOptions: Intl.DateTimeFormatOptions = {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+
+  const dateFormatter = new Intl.DateTimeFormat("es-ES", dateOptions);
+  const timeFormatter = new Intl.DateTimeFormat("es-ES", timeOptions);
+
+  const dateString = dateFormatter.format(date);
+  let timeString = timeFormatter.format(date);
+
+  let [hour, minute, period] = timeString.split(/[:\s]/);
+
+  timeString = `${hour}:${minute} ${period === "p." ? "pm" : "am"}`;
+
+  const [day, month, year] = dateString.split(" ");
+
+  return `${day}/${capitalizeText(month)}/${year} ${timeString}`;
+};
+
 const formatTraceabilityDate = (date: Date) => {
   const hours = date.getHours();
   const ampm = hours >= 12 ? "PM" : "AM";
@@ -63,4 +90,9 @@ const parseSpanishDate = (spanishDate: string) => {
   return new Date(parseInt(year), numberMonth, parseInt(day));
 };
 
-export { formatPrimaryDate, formatTraceabilityDate, parseSpanishDate };
+export {
+  formatPrimaryDate,
+  formatTraceabilityDate,
+  parseSpanishDate,
+  formatPrimaryDateWithTime,
+};
