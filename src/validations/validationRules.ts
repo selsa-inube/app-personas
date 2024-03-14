@@ -45,18 +45,13 @@ const validationRules = {
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 
-  notPastNewDate: Yup.string()
+  notPastDate: Yup.string()
     .min(24, validationMessages.minCharacters(24))
     .max(24, validationMessages.maxCharacters(24))
     .test("is-not-past-date", validationMessages.notPastDate, (value) => {
       if (!value) return true;
 
-      const dateDivider = value.split("-");
-      const year = parseInt(dateDivider[0]);
-      const monthNumber = parseInt(dateDivider[1]) - 1;
-      const day = parseInt(dateDivider[2]);
-
-      const date = new Date(year, monthNumber, day);
+      const date = new Date(value);
       const today = new Date();
 
       today.setHours(0, 0, 0, 0);
@@ -64,7 +59,7 @@ const validationRules = {
       return date >= today;
     }),
 
-  notPastDate: Yup.string()
+  oldNotPastDate: Yup.string()
     .matches(regex.date, validationMessages.date)
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11))

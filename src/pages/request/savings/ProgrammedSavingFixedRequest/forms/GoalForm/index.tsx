@@ -73,7 +73,7 @@ const GoalForm = forwardRef(function GoalForm(
           const newValidationSchema = validationSchema.concat(
             Yup.object({
               refundDate: validationRules.date
-                .concat(validationRules.notPastDate)
+                .concat(validationRules.oldNotPastDate)
                 .required(validationMessages.required),
             }),
           );

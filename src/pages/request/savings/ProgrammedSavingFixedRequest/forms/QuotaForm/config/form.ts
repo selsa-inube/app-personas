@@ -106,7 +106,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validMessage: "La fecha es válida",
-    validation: validationRules.notPastDate.required(
+    validation: validationRules.oldNotPastDate.required(
       validationMessages.required,
     ),
     readOnly,
@@ -173,7 +173,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validMessage: "El Numero de cuenta es válido",
-    validation: validationRules.notPastDate.required(
+    validation: validationRules.oldNotPastDate.required(
       validationMessages.required,
     ),
   }),

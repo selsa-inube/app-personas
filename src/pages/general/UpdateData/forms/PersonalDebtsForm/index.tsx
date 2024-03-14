@@ -16,7 +16,7 @@ const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
   debtName: Yup.string().required(validationMessages.required),
   terminationDate: Yup.string()
-    .concat(validationRules.notPastNewDate)
+    .concat(validationRules.notPastDate)
     .required(validationMessages.required),
   debtBalance: validationRules.money.required(validationMessages.required),
   financialEntity: validationRules.name.required(validationMessages.required),
