@@ -9,9 +9,9 @@ const validationSchema = Yup.object({
   bankEntity: validationRules.name,
   dueDate: Yup.string(),
   tenant: validationRules.name,
-  tenantCellPhone: validationRules.phone,
+  tenantCellPhone: Yup.string(),
   ownerName: validationRules.name,
-  ownerCellPhone: validationRules.phone,
+  ownerCellPhone: Yup.string(),
 });
 
 interface PersonalResidenceFormProps {

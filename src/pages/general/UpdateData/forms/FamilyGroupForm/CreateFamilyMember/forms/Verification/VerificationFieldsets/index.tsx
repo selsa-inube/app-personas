@@ -1,6 +1,7 @@
 import { TextField } from "@design/input/TextField";
 import { IPersonalDataEntry } from "../../PersonalDataForm/types";
 import { Select } from "@design/input/Select";
+import { formatPrimaryDate } from "src/utils/dates";
 import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IFormsCreateFamilyMember } from "../../../types";
 import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
@@ -205,7 +206,7 @@ const renderInformationDataInfoVerification = (
         id="birthDate"
         type="text"
         size="compact"
-        value={informationValues.birthDate}
+        value={formatPrimaryDate(new Date(informationValues.birthDate))}
         isFullWidth
         readOnly
       />

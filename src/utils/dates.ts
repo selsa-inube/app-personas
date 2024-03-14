@@ -14,26 +14,6 @@ const formatPrimaryDate = (date: Date) => {
   return `${day}/${capitalizeText(month)}/${year}`;
 };
 
-function formatDate(date: string) {
-  const months = [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ];
-  const [year, month, day] = date.split("-");
-  const monthName = months[parseInt(month) - 1];
-  return `${day}/${monthName}/${year}`;
-}
-
 const formatTraceabilityDate = (date: Date) => {
   const hours = date.getHours();
   const ampm = hours >= 12 ? "PM" : "AM";
@@ -83,9 +63,4 @@ const parseSpanishDate = (spanishDate: string) => {
   return new Date(parseInt(year), numberMonth, parseInt(day));
 };
 
-export {
-  formatPrimaryDate,
-  formatTraceabilityDate,
-  parseSpanishDate,
-  formatDate,
-};
+export { formatPrimaryDate, formatTraceabilityDate, parseSpanishDate };

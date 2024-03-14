@@ -4,7 +4,7 @@ import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { formatDate } from "src/utils/dates";
+import { formatPrimaryDate } from "src/utils/dates";
 import { usersMock } from "@mocks/users/users.mocks";
 import {
   mapPersonalAsset,
@@ -80,7 +80,7 @@ const renderPersonalInfoVerification = (
     />
     <BoxAttribute
       label="Fecha de expedición:"
-      value={formatDate(values.expeditionDate)}
+      value={formatPrimaryDate(new Date(values.expeditionDate))}
     />
     <BoxAttribute
       label="País de nacimiento:"
@@ -88,7 +88,7 @@ const renderPersonalInfoVerification = (
     />
     <BoxAttribute
       label="Fecha de nacimiento:"
-      value={formatDate(values.birthDate)}
+      value={formatPrimaryDate(new Date(values.birthDate))}
     />
     <BoxAttribute
       label="Estado civil:"
@@ -358,16 +358,10 @@ const renderFinancialOperationsVerification = (
         />
       )}
       {values.bankEntity && (
-        <BoxAttribute
-          label="Entidad bancaria:"
-          value={values.bankEntity}
-        />
+        <BoxAttribute label="Entidad bancaria:" value={values.bankEntity} />
       )}
       {values.currency && (
-        <BoxAttribute
-          label="Moneda:"
-          value={values.currency}
-        />
+        <BoxAttribute label="Moneda:" value={values.currency} />
       )}
       {values.accountNumber && (
         <BoxAttribute label="Numero de cuenta:" value={values.accountNumber} />
@@ -564,14 +558,14 @@ const renderEconomicActivityVerification = (
           {values.admissionDate && (
             <BoxAttribute
               label="Fecha de ingreso:"
-              value={formatDate(values.admissionDate)}
+              value={formatPrimaryDate(new Date(values.admissionDate))}
             />
           )}
 
           {values.contractExpiration && (
             <BoxAttribute
               label="Vencimiento del contrato:"
-              value={formatDate(values.contractExpiration)}
+              value={formatPrimaryDate(new Date(values.contractExpiration))}
             />
           )}
 

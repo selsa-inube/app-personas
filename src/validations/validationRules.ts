@@ -46,8 +46,8 @@ const validationRules = {
     .max(11, validationMessages.maxCharacters(11)),
 
   notPastNewDate: Yup.string()
-    .min(10, validationMessages.minCharacters(10))
-    .max(10, validationMessages.maxCharacters(10))
+    .min(24, validationMessages.minCharacters(24))
+    .max(24, validationMessages.maxCharacters(24))
     .test("is-not-past-date", validationMessages.notPastDate, (value) => {
       if (!value) return true;
 
