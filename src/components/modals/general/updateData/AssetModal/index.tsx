@@ -17,11 +17,12 @@ import {
   validateCurrencyField,
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
-import { StyledDivider, StyledModal } from "./styles";
+import { StyledModal } from "./styles";
+import { Divider } from "@design/layout/Divider";
 
-const liabilityTypeDM = getDomainById("liabilityType");
+const assetTypeDM = getDomainById("assetType");
 
-interface DebtModalProps {
+interface AssetModalProps {
   title: string;
   description: string;
   confirmButtonText: string;
@@ -32,7 +33,7 @@ interface DebtModalProps {
   onConfirm: () => void;
 }
 
-function DebtModal(props: DebtModalProps) {
+function AssetModal(props: AssetModalProps) {
   const {
     portalId,
     formik,
@@ -47,7 +48,6 @@ function DebtModal(props: DebtModalProps) {
   const [customDirty] = useState(formik.values);
 
   const isMobile = useMediaQuery("(max-width: 550px)");
-
   const node = document.getElementById(portalId);
 
   if (node === null) {
@@ -86,52 +86,52 @@ function DebtModal(props: DebtModalProps) {
           </Text>
         </Stack>
 
-        <StyledDivider dashed />
+        <Divider dashed />
         <Stack direction="column" gap="s150" width="100%">
           <Select
-            label="Tipo de pasivo"
-            name="liabilityType"
-            id="liabilityType"
+            label="Tipo de activo"
+            name="assetType"
+            id="assetType"
             size="compact"
             isFullWidth
-            options={liabilityTypeDM}
+            options={assetTypeDM}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.liabilityType}
-            state={getFieldState(formik, "liabilityType")}
+            errorMessage={formik.errors.assetType}
+            state={getFieldState(formik, "assetType")}
             onChange={formik.handleChange}
-            value={formik.values.liabilityType || ""}
+            value={formik.values.assetType || ""}
             isRequired
           />
           <TextField
-            label="Nombre del pasivo"
-            name="debtName"
-            id="debtName"
-            placeholder="Digite el nombre del pasivo"
-            value={formik.values.debtName || ""}
+            label="Nombre del activo"
+            name="assetName"
+            id="assetName"
+            placeholder="Digita el nombre del activo"
+            value={formik.values.assetName || ""}
             type="text"
-            errorMessage={formik.errors.debtName}
+            errorMessage={formik.errors.assetName}
             size="compact"
             isFullWidth
-            state={getFieldState(formik, "debtName")}
+            state={getFieldState(formik, "assetName")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="El nombre del pasivo es válido"
+            validMessage="El nombre del activo es válido"
             isRequired
           />
           <TextField
-            label="Fecha de terminación"
-            name="terminationDate"
-            id="terminationDate"
-            placeholder="Ejemplo: 01/Ene/1990"
-            value={formik.values.terminationDate || ""}
+            label="Valor comercial"
+            name="commercialValue"
+            id="commercialValue"
+            placeholder="Digite el valor comercial estimado"
+            value={validateCurrencyField("commercialValue", formik)}
             type="text"
-            errorMessage={formik.errors.terminationDate}
+            errorMessage={formik.errors.commercialValue}
             size="compact"
             isFullWidth
-            state={getFieldState(formik, "terminationDate")}
+            state={getFieldState(formik, "commercialValue")}
             onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            validMessage="La fecha de terminación es válida"
+            onChange={(e) => handleChangeWithCurrency(formik, e)}
+            validMessage="El valor comercial es válido"
             isRequired
           />
           <TextField
@@ -148,7 +148,6 @@ function DebtModal(props: DebtModalProps) {
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
             validMessage="El saldo de la deuda es válido"
-            isRequired
           />
           <TextField
             label="Entidad financiera"
@@ -164,7 +163,6 @@ function DebtModal(props: DebtModalProps) {
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="El nombre de la entidad es válido"
-            isRequired
           />
           <TextField
             label="Cuota"
@@ -180,7 +178,6 @@ function DebtModal(props: DebtModalProps) {
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
             validMessage="El valor de la cuota es válido"
-            isRequired
           />
           <Textarea
             label="Observaciones"
@@ -227,4 +224,4 @@ function DebtModal(props: DebtModalProps) {
   );
 }
 
-export { DebtModal };
+export { AssetModal };

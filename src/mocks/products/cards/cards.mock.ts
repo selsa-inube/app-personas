@@ -47,6 +47,7 @@ const cardsMock: IProduct[] = [
         modifier: "clear",
       },
     ],
+    quotaDetails: ["590030780132"],
   },
   {
     id: "2252 0231 6598 2291",
@@ -91,6 +92,7 @@ const cardsMock: IProduct[] = [
         ],
       },
     ],
+    quotaDetails: ["590030780133"],
   },
 ];
 

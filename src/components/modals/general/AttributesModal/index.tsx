@@ -7,7 +7,8 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
-import { StyledDivider, StyledModal } from "./styles";
+import { StyledModal } from "./styles";
+import { Divider } from "@design/layout/Divider";
 
 interface AttributesModalProps {
   title: string;
@@ -54,7 +55,7 @@ function AttributesModal(props: AttributesModalProps) {
           </Text>
         </Stack>
 
-        <StyledDivider dashed />
+        <Divider dashed />
         <Stack direction="column" gap="s150">
           {attributes.length === 0
             ? "No se han encontrado resultados"

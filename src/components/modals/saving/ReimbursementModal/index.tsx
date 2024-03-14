@@ -6,7 +6,8 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
-import { StyledBodyItem, StyledDivider, StyledModal } from "./styles";
+import { StyledBodyItem, StyledModal } from "./styles";
+import { Divider } from "@design/layout/Divider";
 
 interface ReimbursementModalProps {
   portalId: string;
@@ -49,7 +50,7 @@ function ReimbursementModal(props: ReimbursementModalProps) {
           </Text>
         </Stack>
 
-        <StyledDivider />
+        <Divider />
         <Stack direction="column" alignItems="flex-start" gap="s075">
           {reimbursement.map((attr) => (
             <StyledBodyItem key={attr.id}>

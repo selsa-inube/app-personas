@@ -11,11 +11,12 @@ import { FormikValues } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose, MdOutlineModeEdit } from "react-icons/md";
-import { getFieldState } from "src/utils/forms/forms";
-import { StyledDivider, StyledModal } from "./styles";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { countryDM } from "src/model/domains/financialOperations/countrydm";
+import { cityDM } from "src/model/domains/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
+import { getFieldState } from "src/utils/forms/forms";
+import { StyledModal } from "./styles";
+import { Divider } from "@design/layout/Divider";
 
 const referenceTypeDM = getDomainById("referenceType");
 
@@ -85,7 +86,7 @@ function ReferenceModal(props: ReferenceModalProps) {
           </Text>
         </Stack>
 
-        <StyledDivider dashed />
+        <Divider dashed />
         <Stack direction="column" gap="s150" width="100%">
           <Select
             label="Tipo de referencia"

@@ -5,10 +5,6 @@ interface IStyledModal {
   smallScreen: boolean;
 }
 
-interface IStyledDivider {
-  dashed?: boolean;
-}
-
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
   width: ${({ smallScreen }) => (smallScreen ? "312px" : "450px")};
@@ -21,15 +17,4 @@ const StyledModal = styled.div<IStyledModal>`
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
 `;
 
-const StyledDivider = styled.hr<IStyledDivider>`
-  margin: 0;
-  width: 100%;
-  height: 0px;
-  border: none;
-  border-top: 0.5px ${({ dashed }) => (dashed ? "dashed" : "solid")};
-  border-top-color: ${({ theme }) =>
-    theme.color?.stroke?.divider?.regular ||
-    inube.color.stroke.divider.regular};
-`;
-
-export { StyledDivider, StyledModal };
+export { StyledModal };
