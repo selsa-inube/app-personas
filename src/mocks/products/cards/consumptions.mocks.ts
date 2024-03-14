@@ -1,4 +1,5 @@
 import { EProductType, IProduct } from "src/model/entity/product";
+import { formatPrimaryDate } from "src/utils/dates";
 
 const consumptionsMocks: IProduct[] = [
   {
@@ -10,7 +11,7 @@ const consumptionsMocks: IProduct[] = [
       {
         id: "consumption_date",
         label: "Fecha de consumo",
-        value: "2024-02-21T02:03:34.000Z",
+        value: formatPrimaryDate(new Date("2024-02-21T02:03:34.000Z")),
       },
       {
         id: "consumption_value",
@@ -87,7 +88,7 @@ const consumptionsMocks: IProduct[] = [
       {
         id: "consumption_date",
         label: "Fecha de consumo",
-        value: "2024-02-11T02:03:34.000Z",
+        value: formatPrimaryDate(new Date("2024-02-11T02:03:34.000Z")),
       },
       {
         id: "consumption_value",
@@ -164,7 +165,7 @@ const consumptionsMocks: IProduct[] = [
       {
         id: "consumption_date",
         label: "Fecha de consumo",
-        value: "2023-12-24T02:03:34.000Z",
+        value: formatPrimaryDate(new Date("2023-12-24T02:03:34.000Z")),
       },
       {
         id: "consumption_value",
@@ -269,7 +270,7 @@ const consumptionsMocks: IProduct[] = [
       {
         id: "consumption_date",
         label: "Fecha de consumo",
-        value: "2023-12-20T02:03:34.000Z",
+        value: formatPrimaryDate(new Date("2023-12-20T02:03:34.000Z")),
       },
       {
         id: "consumption_value",
