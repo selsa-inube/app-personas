@@ -1,7 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { UsedQuotaModal } from "@components/modals/card/UsedQuotaModal";
+import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
