@@ -183,12 +183,6 @@ const creditQuotaDetailsMock: ICreditQuotaDetails[] = [
         ],
       },
     ],
-    tags: [
-      {
-        label: "en mora",
-        appearance: "error",
-      },
-    ],
   },
   {
     id: "590030780133",
@@ -291,6 +285,12 @@ const creditQuotaDetailsMock: ICreditQuotaDetails[] = [
             totalValue: 19009000,
           },
         ],
+      },
+    ],
+    tags: [
+      {
+        label: "en mora",
+        appearance: "error",
       },
     ],
   },
