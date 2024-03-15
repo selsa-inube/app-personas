@@ -41,7 +41,7 @@ import { infoModalData } from "./config/modals";
 import { formatCreditQuotasCurrencyAttrs } from "./config/product";
 import { InfoModal } from "@components/modals/InfoModal";
 import { IMovementsInfoModal } from "./types";
-import { EQuotasMovementType, ICreditQuota } from "src/model/entity/product";
+import { EQuotasMovementType, IProduct } from "src/model/entity/product";
 import { getMovementDescriptionType } from "./config/product";
 import { Divider } from "@design/layout/Divider";
 import { formatPrimaryDateWithTime } from "src/utils/dates";
@@ -53,7 +53,7 @@ interface CardUIProps {
   savingAccountsModal: ISavingAccountsModal;
   handlingFeeModal: IHandlingFeeModal;
   productsOptions: ISelectOption[];
-  creditQuotas: ICreditQuota[];
+  creditQuotas: IProduct[];
   handleShowMovementsInfoModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleToggleSavingsAccountModal: () => void;

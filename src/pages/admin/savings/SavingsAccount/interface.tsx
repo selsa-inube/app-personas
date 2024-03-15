@@ -1,8 +1,8 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { AttributesModal } from "@components/modals/AttributesModal";
-import { ReimbursementModal } from "@components/modals/investment/ReimbursementModal";
+import { AttributesModal } from "@components/modals/general/AttributesModal";
+import { ReimbursementModal } from "@components/modals/saving/ReimbursementModal";
 import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";

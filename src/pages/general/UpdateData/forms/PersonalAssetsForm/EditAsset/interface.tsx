@@ -1,4 +1,4 @@
-import { AssetModal } from "@components/modals/forms/update-data/AssetModal";
+import { AssetModal } from "@components/modals/general/updateData/AssetModal";
 import { Icon } from "@design/data/Icon";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";

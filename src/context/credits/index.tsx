@@ -12,15 +12,31 @@ function CreditsProvider(props: CreditsProviderProps) {
   const { children } = props;
   const [credits, setCredits] = useState<IProduct[]>([]);
   const [cards, setCards] = useState<IProduct[]>([]);
+  const [creditQuotas, setCreditQuotas] = useState<IProduct[]>([]);
+  const [consumptions, setConsumptions] = useState<IProduct[]>([]);
 
   const authContext = useMemo(
     () => ({
       credits,
       cards,
+      creditQuotas,
+      consumptions,
+
       setCredits,
       setCards,
+      setCreditQuotas,
+      setConsumptions,
     }),
-    [credits, cards, setCredits, setCards],
+    [
+      credits,
+      cards,
+      creditQuotas,
+      consumptions,
+      setCredits,
+      setCards,
+      setCreditQuotas,
+      setConsumptions,
+    ],
   );
 
   return (

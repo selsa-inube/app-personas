@@ -1,13 +1,14 @@
 import { Icon } from "@design/data/Icon";
+import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
+import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
-import { StyledBodyItem, StyledDivider, StyledModal } from "./styles";
-import { IEntry } from "@design/data/Table/types";
+import { StyledBodyItem, StyledModal } from "./styles";
 
 interface SavingMovementModalProps {
   portalId: string;
@@ -87,7 +88,7 @@ function SavingMovementModal(props: SavingMovementModalProps) {
           </Text>
         </Stack>
 
-        <StyledDivider />
+        <Divider dashed />
         <Stack direction="column" alignItems="flex-start" gap="s075">
           {renderTransactionSpecification("Valor", [movement.totalValue])}
           {renderTransactionSpecification("Fecha", [movement.date])}
