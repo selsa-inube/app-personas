@@ -202,7 +202,10 @@ function CardUI(props: CardUIProps) {
                     {quota.movements && quota.movements?.length > 0 && (
                       <Stack direction="column" gap="s200">
                         <Stack gap="s100" alignItems="center">
-                          <Text type="title" size="medium">
+                          <Text
+                            type="title"
+                            size={isMobile ? "small" : "medium"}
+                          >
                             Últimos movimientos
                           </Text>
                           <Icon
@@ -227,41 +230,46 @@ function CardUI(props: CardUIProps) {
                               >
                                 {index !== 0 && <Divider dashed />}
                                 <Stack direction="column" gap="s100">
-                                  <Stack justifyContent="space-between">
+                                  <Stack
+                                    justifyContent="space-between"
+                                    gap="s100"
+                                  >
                                     <Stack gap="s100">
-                                      {movement.quotasMovementsType ===
-                                        EQuotasMovementType.BUY && (
-                                        <Icon
-                                          icon={<MdArrowBack />}
-                                          appearance="error"
-                                          spacing="none"
-                                          size="16px"
-                                          variant="outlined"
-                                          shape="circle"
-                                        />
-                                      )}
-                                      {movement.quotasMovementsType ===
-                                        EQuotasMovementType.REVERSE && (
-                                        <Icon
-                                          icon={<MdOutlineCached />}
-                                          appearance="success"
-                                          spacing="none"
-                                          size="16px"
-                                          variant="outlined"
-                                          shape="circle"
-                                        />
-                                      )}
-                                      {movement.quotasMovementsType ===
-                                        EQuotasMovementType.PAY && (
-                                        <Icon
-                                          icon={<MdOutlineCheck />}
-                                          appearance="success"
-                                          spacing="none"
-                                          size="16px"
-                                          variant="outlined"
-                                          shape="circle"
-                                        />
-                                      )}
+                                      <Stack direction="column">
+                                        {movement.quotasMovementsType ===
+                                          EQuotasMovementType.BUY && (
+                                          <Icon
+                                            icon={<MdArrowBack />}
+                                            appearance="error"
+                                            spacing="none"
+                                            size="16px"
+                                            variant="outlined"
+                                            shape="circle"
+                                          />
+                                        )}
+                                        {movement.quotasMovementsType ===
+                                          EQuotasMovementType.REVERSE && (
+                                          <Icon
+                                            icon={<MdOutlineCached />}
+                                            appearance="success"
+                                            spacing="none"
+                                            size="16px"
+                                            variant="outlined"
+                                            shape="circle"
+                                          />
+                                        )}
+                                        {movement.quotasMovementsType ===
+                                          EQuotasMovementType.PAY && (
+                                          <Icon
+                                            icon={<MdOutlineCheck />}
+                                            appearance="success"
+                                            spacing="none"
+                                            size="16px"
+                                            variant="outlined"
+                                            shape="circle"
+                                          />
+                                        )}
+                                      </Stack>
                                       <Text
                                         type="label"
                                         size="medium"
