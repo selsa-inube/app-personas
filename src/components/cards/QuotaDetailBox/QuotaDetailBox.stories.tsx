@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { props } from "./props";
 
 const story = {
-  title: "components/cards/QuotaDetailBox",
+  label: "components/cards/QuotaDetailBox",
   components: [QuotaDetailBox],
   tags: ["autodocs"],
   argTypes: {
@@ -29,23 +29,28 @@ Default.args = {
   title: "Pago mínimo",
   paymentItems: [
     {
-      title: "Abono a capital",
+      id: "1",
+      label: "Abono a capital",
       value: 100000,
     },
     {
-      title: "Interés corriente",
+      id: "2",
+      label: "Interés corriente",
       value: 150000,
     },
     {
-      title: "Interés de mora",
+      id: "3",
+      label: "Interés de mora",
       value: 0,
     },
     {
-      title: "Cuota de manejo",
+      id: "4",
+      label: "Cuota de manejo",
       value: 7500,
     },
     {
-      title: "Comisiones",
+      id: "5",
+      label: "Comisiones",
       value: 20000,
     },
   ],
