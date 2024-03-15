@@ -4,7 +4,7 @@ const creditQuotasMock: IProduct[] = [
   {
     id: "590030780132",
     title: "Crediexpress",
-    description: "Informe de movimientos",
+    description: "Crediexpress 590030780132",
     type: EProductType.CREDITCARD,
     attributes: [
       {
@@ -36,92 +36,6 @@ const creditQuotasMock: IProduct[] = [
         id: "assigned_quota",
         label: "Cupo asignado",
         value: 8400000,
-      },
-      {
-        id: "min_payment",
-        label: "Pago mínimo",
-        value: 275000,
-      },
-      {
-        id: "full_payment",
-        label: "Pago total",
-        value: 2775000,
-      },
-      {
-        id: "payment_method",
-        label: "Medio de pago",
-        value: "Fondecom mensual",
-      },
-      {
-        id: "used_quota",
-        label: "Cupo usado",
-        value: [
-          {
-            id: "current_consumption",
-            label: "Consumos vigentes",
-            value: 1860000,
-          },
-          {
-            id: "transactions_process",
-            label: "Transacciones en proceso",
-            value: 740000,
-          },
-          {
-            id: "used_quota_value",
-            label: "Pago total",
-            value: 2600000,
-          },
-        ],
-      },
-      {
-        id: "min_capital_payment",
-        label: "Abono a capital",
-        value: 100000,
-      },
-      {
-        id: "min_current_interest",
-        label: "Interés corriente",
-        value: 1500000,
-      },
-      {
-        id: "min_arrears_interest",
-        label: "Interés de mora",
-        value: 0,
-      },
-      {
-        id: "min_handling_fee",
-        label: "Cuota de manejo",
-        value: 7500,
-      },
-      {
-        id: "min_total_value",
-        label: "Pago total",
-        value: 257500,
-      },
-      {
-        id: "total_capital_payment",
-        label: "Abono a capital",
-        value: 100000,
-      },
-      {
-        id: " total_current_interest",
-        label: "Interés corriente",
-        value: 1500000,
-      },
-      {
-        id: "total_arrears_interest",
-        label: "Interés de mora",
-        value: 0,
-      },
-      {
-        id: "total_handling_fee",
-        label: "Cuota de manejo",
-        value: 7500,
-      },
-      {
-        id: "tot_total_value",
-        label: "Pago total",
-        value: 2277500,
       },
     ],
     movements: [
@@ -161,12 +75,13 @@ const creditQuotasMock: IProduct[] = [
         quotas: "a 12 meses",
       },
     ],
+    consumptions: ["123412341", "123412342", "123412343"],
   },
   {
     id: "590030780133",
     title: "Crédito de vehiculo",
+    description: "Crédito de vehiculo 590030780133",
     type: EProductType.CREDITCARD,
-    description: "Informe de movimientos",
     attributes: [
       {
         id: "available_space",
@@ -208,83 +123,6 @@ const creditQuotasMock: IProduct[] = [
         label: "Pago total",
         value: 60000000,
       },
-      {
-        id: "payment_method",
-        label: "Medio de pago",
-        value: "Fondecom mensual",
-      },
-      {
-        id: "used_quota",
-        label: "Cupo usado",
-        value: [
-          {
-            id: "accumulated_debt",
-            label: "Deuda acumulada",
-            value: 56749119,
-          },
-          {
-            id: "transactions_process",
-            label: "Transacciones en proceso",
-            value: 3250881,
-          },
-          {
-            id: "used_quota_value",
-            label: "Pago total",
-            value: 60000000,
-          },
-        ],
-      },
-
-      {
-        id: "min_capital_payment",
-        label: "Abono a capital",
-        value: 752122,
-      },
-      {
-        id: "min_current_interest",
-        label: "Interés corriente",
-        value: 1157380,
-      },
-      {
-        id: "min_arrears_interest",
-        label: "Interés de mora",
-        value: 10103,
-      },
-      {
-        id: "min_handling_fee",
-        label: "Cuota de manejo",
-        value: 7500,
-      },
-      {
-        id: "min_total_value",
-        label: "Pago total",
-        value: 1909000,
-      },
-      {
-        id: "total_capital_payment",
-        label: "Abono a capital",
-        value: 766864,
-      },
-      {
-        id: " total_current_interest",
-        label: "Interés corriente",
-        value: 1157380,
-      },
-      {
-        id: "total_arrears_interest",
-        label: "Interés de mora",
-        value: 10103,
-      },
-      {
-        id: "total_handling_fee",
-        label: "Cuota de manejo",
-        value: 7500,
-      },
-      {
-        id: "min_total_value",
-        label: "Pago total",
-        value: 60000000,
-      },
     ],
     movements: [
       {
@@ -301,6 +139,7 @@ const creditQuotasMock: IProduct[] = [
         appearance: "error",
       },
     ],
+    consumptions: ["123412344"],
   },
 ];
 

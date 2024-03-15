@@ -1,4 +1,4 @@
-import { EconomicActivityModal } from "@components/modals/forms/update-data/EconomicActivityModal";
+import { EconomicActivityModal } from "@components/modals/general/updateData/EconomicActivityModal";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
