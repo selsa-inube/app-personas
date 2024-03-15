@@ -51,12 +51,13 @@ const validationRules = {
     .test("is-not-past-date", validationMessages.notPastDate, (value) => {
       if (!value) return true;
 
-      const date = new Date(value);
+      const dateValue = new Date(value);
       const today = new Date();
 
+      dateValue.setHours(0, 0, 0, 0);
       today.setHours(0, 0, 0, 0);
 
-      return date >= today;
+      return dateValue >= today;
     }),
 
   oldNotPastDate: Yup.string()
