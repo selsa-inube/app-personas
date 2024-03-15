@@ -11,6 +11,16 @@ const cardAttributes = [
   "commissions",
 ];
 
+const creditQuotasAttributes = [
+  "available_space",
+  "used_quota",
+  "next_payment_date",
+  "next_payment_value",
+  "type",
+  "payment_method",
+  "assigned_quota",
+];
+
 const creditQuotasCurrencyAttributes = [
   "available_space",
   "used_quota",
@@ -27,6 +37,18 @@ function extractCardAttributes(credit: IProduct) {
 
   return foundAttributes.sort(
     (a, b) => cardAttributes.indexOf(a.id) - cardAttributes.indexOf(b.id),
+  );
+}
+
+function extractCreditQuotasAttributes(credit: IProduct) {
+  const foundAttributes = credit.attributes.filter((attribute) =>
+    creditQuotasAttributes.includes(attribute.id),
+  );
+
+  return foundAttributes.sort(
+    (a, b) =>
+      creditQuotasAttributes.indexOf(a.id) -
+      creditQuotasAttributes.indexOf(b.id),
   );
 }
 
@@ -69,6 +91,7 @@ function getMovementDescriptionType(type?: EQuotasMovementType): string {
 
 export {
   extractCardAttributes,
+  extractCreditQuotasAttributes,
   formatCardCurrencyAttrs,
   getMovementDescriptionType,
   formatCreditQuotasCurrencyAttrs,

@@ -19,7 +19,23 @@ const creditQuotasMock: IProduct[] = [
       {
         id: "used_quota",
         label: "Cupo usado",
-        value: 2750420,
+        value: [
+          {
+            id: "current_consumption",
+            label: "Consumos vigentes",
+            value: 1860000,
+          },
+          {
+            id: "transactions_process",
+            label: "Transacciones en proceso",
+            value: 740000,
+          },
+          {
+            id: "used_quota_value",
+            label: "Pago total",
+            value: 2600000,
+          },
+        ],
       },
       {
         id: "next_payment_date",
@@ -55,82 +71,6 @@ const creditQuotasMock: IProduct[] = [
         id: "full_payment",
         label: "Pago total",
         value: 2775000,
-      },
-      {
-        id: "payment_method",
-        label: "Medio de pago",
-        value: "Fondecom mensual",
-      },
-      {
-        id: "used_quota",
-        label: "Cupo usado",
-        value: [
-          {
-            id: "current_consumption",
-            label: "Consumos vigentes",
-            value: 1860000,
-          },
-          {
-            id: "transactions_process",
-            label: "Transacciones en proceso",
-            value: 740000,
-          },
-          {
-            id: "used_quota_value",
-            label: "Pago total",
-            value: 2600000,
-          },
-        ],
-      },
-      {
-        id: "min_capital_payment",
-        label: "Abono a capital",
-        value: 100000,
-      },
-      {
-        id: "min_current_interest",
-        label: "Interés corriente",
-        value: 1500000,
-      },
-      {
-        id: "min_arrears_interest",
-        label: "Interés de mora",
-        value: 0,
-      },
-      {
-        id: "min_handling_fee",
-        label: "Cuota de manejo",
-        value: 7500,
-      },
-      {
-        id: "min_total_value",
-        label: "Pago total",
-        value: 257500,
-      },
-      {
-        id: "total_capital_payment",
-        label: "Abono a capital",
-        value: 100000,
-      },
-      {
-        id: " total_current_interest",
-        label: "Interés corriente",
-        value: 1500000,
-      },
-      {
-        id: "total_arrears_interest",
-        label: "Interés de mora",
-        value: 0,
-      },
-      {
-        id: "total_handling_fee",
-        label: "Cuota de manejo",
-        value: 7500,
-      },
-      {
-        id: "tot_total_value",
-        label: "Pago total",
-        value: 2277500,
       },
     ],
     movements: [
@@ -188,51 +128,6 @@ const creditQuotasMock: IProduct[] = [
       {
         id: "used_quota",
         label: "Cupo usado",
-        value: 60000000,
-      },
-      {
-        id: "next_payment_date",
-        label: "Fecha próximo pago",
-        value: "Inmediato",
-      },
-      {
-        id: "next_payment_value",
-        label: "Valor próximo pago",
-        value: 1909000,
-      },
-      {
-        id: "type",
-        label: "Tipo",
-        value: "Crédito rotativo",
-      },
-      {
-        id: "payment_method",
-        label: "Medio de pago",
-        value: "Fondecom mensual",
-      },
-      {
-        id: "assigned_quota",
-        label: "Cupo asignado",
-        value: 70000000,
-      },
-      {
-        id: "min_payment",
-        label: "Pago mínimo",
-        value: 1909000,
-      },
-      {
-        id: "full_payment",
-        label: "Pago total",
-        value: 60000000,
-      },
-      {
-        id: "payment_method",
-        label: "Medio de pago",
-        value: "Fondecom mensual",
-      },
-      {
-        id: "used_quota",
-        label: "Cupo usado",
         value: [
           {
             id: "accumulated_debt",
@@ -253,52 +148,37 @@ const creditQuotasMock: IProduct[] = [
       },
 
       {
-        id: "min_capital_payment",
-        label: "Abono a capital",
-        value: 752122,
+        id: "next_payment_date",
+        label: "Fecha próximo pago",
+        value: "Inmediato",
       },
       {
-        id: "min_current_interest",
-        label: "Interés corriente",
-        value: 1157380,
-      },
-      {
-        id: "min_arrears_interest",
-        label: "Interés de mora",
-        value: 10103,
-      },
-      {
-        id: "min_handling_fee",
-        label: "Cuota de manejo",
-        value: 7500,
-      },
-      {
-        id: "min_total_value",
-        label: "Pago total",
+        id: "next_payment_value",
+        label: "Valor próximo pago",
         value: 1909000,
       },
       {
-        id: "total_capital_payment",
-        label: "Abono a capital",
-        value: 766864,
+        id: "type",
+        label: "Tipo",
+        value: "Crédito por consumo",
       },
       {
-        id: " total_current_interest",
-        label: "Interés corriente",
-        value: 1157380,
+        id: "payment_method",
+        label: "Medio de pago",
+        value: "Fondecom mensual",
       },
       {
-        id: "total_arrears_interest",
-        label: "Interés de mora",
-        value: 10103,
+        id: "assigned_quota",
+        label: "Cupo asignado",
+        value: 60000000,
       },
       {
-        id: "total_handling_fee",
-        label: "Cuota de manejo",
-        value: 7500,
+        id: "min_payment",
+        label: "Pago mínimo",
+        value: 1909000,
       },
       {
-        id: "min_total_value",
+        id: "full_payment",
         label: "Pago total",
         value: 60000000,
       },
