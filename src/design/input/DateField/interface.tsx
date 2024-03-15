@@ -69,6 +69,8 @@ function DateFieldUI(props: DateFieldUIProps) {
     onBlur,
   } = props;
 
+  const normalizedValue = value && new Date(value).toISOString().split("T")[0];
+
   return (
     <StyledContainer
       isFullWidth={isFullWidth}
@@ -119,7 +121,7 @@ function DateFieldUI(props: DateFieldUIProps) {
             max={max}
             step={step}
             isDisabled={isDisabled}
-            value={value}
+            value={normalizedValue || ""}
             required={isRequired}
             onFocus={onFocus}
             onBlur={onBlur}

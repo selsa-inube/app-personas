@@ -43,27 +43,6 @@ interface IAmortization {
   totalMonthlyValue: number;
   projectedBalance: number;
 }
-
-interface IDetails {
-  capitalPayment: number;
-  currentInterest: number;
-  arrearsInterest: number;
-  totalValue: number;
-}
-
-interface IQuotaDetails {
-  id: string;
-  title: string;
-  description?: string;
-  assignedQuota: number;
-  fullPayment: number;
-  nextPaymentDate: Date | string;
-  quotaAvailable: number;
-  minPaymentDetails: IDetails;
-  totalPaymentDetails: IDetails;
-  currentConsumptions: string[];
-}
-
 enum ECommitmentType {
   SAVINGSPROGRAMMED = "SAVINGSPROGRAMMED",
   QUOTAESTATUTORY = "QUOTAESTATUTORY",
@@ -120,6 +99,5 @@ export type {
   ICommitment,
   IMovement,
   IProduct,
-  IQuotaDetails,
   IRate,
 };

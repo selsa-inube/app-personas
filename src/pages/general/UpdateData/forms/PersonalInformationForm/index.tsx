@@ -1,14 +1,13 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { PersonalInformationFormUI } from "./interface";
 import { IPersonalInformationEntry } from "./types";
 
 const validationSchema = Yup.object({
-  expeditionDate: validationRules.date.required(validationMessages.required),
-  birthDate: validationRules.date.required(validationMessages.required),
+  expeditionDate: Yup.string().required(validationMessages.required),
+  birthDate: Yup.string().required(validationMessages.required),
 });
 
 interface PersonalInformationFormProps {

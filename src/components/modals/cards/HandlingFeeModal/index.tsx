@@ -3,12 +3,12 @@ import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { StyledBody, StyledModal } from "./styles";
-import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { StyledBody, StyledModal } from "./styles";
 
 interface HandlingFeeModalProps {
   portalId: string;
@@ -32,6 +32,11 @@ function formatAndFilterHandlingFeeAttributes(
     });
   }
   return [];
+}
+
+function numberAccount(account: string) {
+  const separateAccount = String(account).split(" - ");
+  return separateAccount.length > 1 ? separateAccount[1] : account;
 }
 
 function HandlingFeeModal(props: HandlingFeeModalProps) {
@@ -102,7 +107,9 @@ function HandlingFeeModal(props: HandlingFeeModalProps) {
                         size={isMobile ? "small" : "medium"}
                         appearance="gray"
                       >
-                        {String(quota.value)}
+                        {quota.id === "reference" && isMobile
+                          ? numberAccount(String(quota.value))
+                          : String(quota.value)}
                       </Text>
                     </Stack>
                   </Stack>

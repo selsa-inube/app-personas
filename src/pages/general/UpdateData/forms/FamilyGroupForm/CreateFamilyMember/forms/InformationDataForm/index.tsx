@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 import { familyGroupRequiredFields } from "../../../config/formConfig";
 import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
 import { IInformationDataEntry } from "./types";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { FormikProps, useFormik } from "formik";
@@ -20,8 +19,8 @@ const validationSchema = Yup.object().shape({
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
   birthDate: familyGroupRequiredFields.birthDate
-    ? validationRules.date.required(validationMessages.required)
-    : validationRules.date,
+    ? Yup.string().required(validationMessages.required)
+    : Yup.string(),
   businessActivity: familyGroupRequiredFields.businessActivity
     ? Yup.string().required(validationMessages.required)
     : Yup.string(),
@@ -64,7 +63,7 @@ const InformationDataForm = forwardRef(function InformationDataForm(
             : Yup.string(),
         }),
       );
-  
+
       setDynamicSchema(newValidationSchema);
     }
   }, []);
