@@ -30,13 +30,4 @@ const StyledLink = styled(Link)`
   gap: ${inube.spacing.s100};
 `;
 
-const StyledDivider = styled.hr`
-  margin: 0;
-  border-style: dashed;
-  width: 100%;
-  color: ${({ theme }) =>
-    theme.color?.stroke?.divider?.regular ||
-    inube.color.stroke.divider.regular};
-`;
-
-export { StyledBox, StyledCollapseIcon, StyledDivider, StyledLink };
+export { StyledBox, StyledCollapseIcon, StyledLink };

@@ -2,16 +2,12 @@ import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
+import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import {
-  StyledBody,
-  StyledBodyHead,
-  StyledDivider,
-  StyledModal,
-} from "./styles";
+import { StyledBody, StyledBodyHead, StyledModal } from "./styles";
 
 const renderTransactionSpecification = (label: string, value?: number) => (
   <Stack gap="s100" alignItems="center">
@@ -68,7 +64,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
           </Text>
         </Stack>
 
-        <StyledDivider dashed />
+        <Divider dashed />
 
         <StyledBodyHead>
           <Text type="title" size="medium" appearance="dark">
@@ -122,7 +118,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
           </Stack>
 
           <Stack direction="column" gap="s150">
-            <StyledDivider />
+            <Divider />
 
             <Stack justifyContent="space-between" alignItems="center">
               <Text type="title" size="medium" appearance="gray">

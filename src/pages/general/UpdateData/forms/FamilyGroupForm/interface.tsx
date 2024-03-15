@@ -1,23 +1,23 @@
+import { FamilyMemberCreateModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberCreateModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
+import { usersMock } from "@mocks/users/users.mocks";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
+import { mapFamilyGroups } from "../../config/mappers";
+import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
+import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/IdentificationDataForm/types";
+import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
+import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
 import { mapFamilyGroupTable } from "./config/mapper";
 import {
   familyGroupTableBreakpoints,
   familyGroupTableTitles,
 } from "./config/table";
-import { IIdentificationDataEntry } from "./CreateFamilyMember/forms/IdentificationDataForm/types";
-import { FamilyMemberCreateModal } from "@components/modals/forms/update-data/FamilyGroupModals/FamilyMemberCreateModal";
-import { IPersonalDataEntry } from "./CreateFamilyMember/forms/PersonalDataForm/types";
-import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
-import { IInformationDataEntry } from "./CreateFamilyMember/forms/InformationDataForm/types";
-import { usersMock } from "@mocks/users/users.mocks";
-import { mapFamilyGroups } from "../../config/mappers";
 
 interface FamilyGroupFormUIProps {
   formik: FormikValues;
