@@ -2,23 +2,18 @@ import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 
 import { Divider } from "@design/layout/Divider";
+import { IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { StyledQuotaDetailBox } from "./styles";
 
 interface QuotaDetailBoxProps {
   title: string;
-  paymentItems: {
-    title: string;
-    value: number;
-  }[];
+  paymentItems: IAttribute[];
+  totalPayment: number;
 }
 
 function QuotaDetailBox(props: QuotaDetailBoxProps) {
-  const { title, paymentItems } = props;
-
-  const total = paymentItems.reduce((acc, item) => {
-    return acc + item.value;
-  }, 0);
+  const { title, paymentItems, totalPayment } = props;
 
   return (
     <StyledQuotaDetailBox>
@@ -30,10 +25,10 @@ function QuotaDetailBox(props: QuotaDetailBoxProps) {
           {paymentItems.map((item, index) => (
             <Stack key={index} justifyContent="space-between">
               <Text type="label" size="medium">
-                {item.title}:
+                {item.label}:
               </Text>
               <Text type="body" size="small" appearance="gray">
-                {currencyFormat(item.value)}
+                {currencyFormat(Number(item.value))}
               </Text>
             </Stack>
           ))}
@@ -44,7 +39,7 @@ function QuotaDetailBox(props: QuotaDetailBoxProps) {
             Total:
           </Text>
           <Text type="title" size="medium">
-            {currencyFormat(total)}
+            {currencyFormat(totalPayment)}
           </Text>
         </Stack>
       </Stack>

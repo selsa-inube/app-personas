@@ -1,6 +1,6 @@
-import { EconomicActivityModal } from "@components/modals/forms/update-data/EconomicActivityModal";
-import { DateField } from "@design/input/DateField";
+import { EconomicActivityModal } from "@components/modals/general/updateData/EconomicActivityModal";
 import { Button } from "@design/input/Button";
+import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
