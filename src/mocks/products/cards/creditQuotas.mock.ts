@@ -20,7 +20,7 @@ const creditQuotasMock: IProduct[] = [
       {
         id: "next_payment_date",
         label: "Fecha próximo pago",
-        value: "29/Feb/2024",
+        value: "15/Mar/2024",
       },
       {
         id: "next_payment_value",
@@ -35,12 +35,12 @@ const creditQuotasMock: IProduct[] = [
       {
         id: "assigned_quota",
         label: "Cupo asignado",
-        value: 8400000,
+        value: 8550420,
       },
       {
         id: "min_payment",
         label: "Pago mínimo",
-        value: 275000,
+        value: 257500,
       },
       {
         id: "full_payment",
@@ -81,7 +81,7 @@ const creditQuotasMock: IProduct[] = [
       {
         id: "min_current_interest",
         label: "Interés corriente",
-        value: 1500000,
+        value: 150000,
       },
       {
         id: "min_arrears_interest",
@@ -94,19 +94,14 @@ const creditQuotasMock: IProduct[] = [
         value: 7500,
       },
       {
-        id: "min_total_value",
-        label: "Pago total",
-        value: 257500,
-      },
-      {
         id: "total_capital_payment",
         label: "Abono a capital",
-        value: 100000,
+        value: 240000,
       },
       {
-        id: " total_current_interest",
+        id: "total_current_interest",
         label: "Interés corriente",
-        value: 1500000,
+        value: 150000,
       },
       {
         id: "total_arrears_interest",
@@ -117,11 +112,6 @@ const creditQuotasMock: IProduct[] = [
         id: "total_handling_fee",
         label: "Cuota de manejo",
         value: 7500,
-      },
-      {
-        id: "tot_total_value",
-        label: "Pago total",
-        value: 2277500,
       },
     ],
     movements: [
@@ -257,17 +247,12 @@ const creditQuotasMock: IProduct[] = [
         value: 7500,
       },
       {
-        id: "min_total_value",
-        label: "Pago total",
-        value: 1909000,
-      },
-      {
         id: "total_capital_payment",
         label: "Abono a capital",
         value: 766864,
       },
       {
-        id: " total_current_interest",
+        id: "total_current_interest",
         label: "Interés corriente",
         value: 1157380,
       },
@@ -280,11 +265,6 @@ const creditQuotasMock: IProduct[] = [
         id: "total_handling_fee",
         label: "Cuota de manejo",
         value: 7500,
-      },
-      {
-        id: "min_total_value",
-        label: "Pago total",
-        value: 60000000,
       },
     ],
     movements: [

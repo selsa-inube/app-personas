@@ -1,13 +1,14 @@
+import { Product } from "@components/cards/Product";
+import { Icon } from "@design/data/Icon";
+import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
+import { Divider } from "@design/layout/Divider";
+import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
-import { StyledDivider, StyledModal } from "./styles";
-import { Stack } from "@design/layout/Stack";
-import { Text } from "@design/data/Text";
-import { Icon } from "@design/data/Icon";
 import { MdOutlineAccountBalanceWallet, MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
-import { Product } from "@components/cards/Product";
+import { StyledModal } from "./styles";
 
 interface SavingAccountsModalProps {
   portalId: string;
@@ -63,7 +64,7 @@ function SavingAccountsModal(props: SavingAccountsModalProps) {
             Visualiza las cuentas ligadas a este producto
           </Text>
         </Stack>
-        <StyledDivider dashed />
+        <Divider dashed />
         <Stack direction="column" gap="s150">
           {savingAccounts.length === 0
             ? "No se han encontrado resultados"
