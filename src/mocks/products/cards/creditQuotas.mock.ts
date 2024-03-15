@@ -29,7 +29,7 @@ const creditQuotasMock: IProduct[] = [
       },
       {
         id: "type",
-        label: "tipo",
+        label: "Tipo",
         value: "Crédito por consumo",
       },
       {
@@ -127,7 +127,7 @@ const creditQuotasMock: IProduct[] = [
     movements: [
       {
         id: "movement-1",
-        description: "compra GERÓNIMO MARTINS SAS",
+        description: "Compra GERÓNIMO MARTINS SAS",
         totalValue: 500000,
         date: new Date("10/May/2024 11:20 am"),
         quotas: "a 12 meses",
@@ -182,7 +182,7 @@ const creditQuotasMock: IProduct[] = [
       {
         id: "next_payment_date",
         label: "Fecha próximo pago",
-        value: "inmediato",
+        value: "Inmediato",
       },
       {
         id: "next_payment_value",
@@ -191,7 +191,7 @@ const creditQuotasMock: IProduct[] = [
       },
       {
         id: "type",
-        label: "tipo",
+        label: "Tipo",
         value: "Crédito rotativo",
       },
       {
