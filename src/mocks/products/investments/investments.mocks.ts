@@ -29,9 +29,9 @@ const investmentsMock: IProduct[] = [
         value: "9,40 % EA",
       },
       {
-        id: "deadline_days",
-        label: "Plazo en días",
-        value: "180 Dias",
+        id: "deadline",
+        label: "Plazo",
+        value: "180",
       },
       {
         id: "payment_interest",
