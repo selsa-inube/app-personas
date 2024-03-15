@@ -72,6 +72,8 @@ interface IProduct {
   amortization?: IAmortization[];
   tags?: TagProps[];
   commitments?: string[];
+  quotaDetails?: string[];
+  consumptions?: string[];
 }
 
 interface IRate {

@@ -34,6 +34,11 @@ function formatAndFilterHandlingFeeAttributes(
   return [];
 }
 
+function numberAccount(account: string) {
+  const separateAccount = String(account).split(" - ");
+  return separateAccount.length > 1 ? separateAccount[1] : account;
+}
+
 function HandlingFeeModal(props: HandlingFeeModalProps) {
   const { portalId, handlingFee, onCloseModal } = props;
   const isMobile = useMediaQuery("(max-width: 580px)");
@@ -103,7 +108,7 @@ function HandlingFeeModal(props: HandlingFeeModalProps) {
                         appearance="gray"
                       >
                         {quota.id === "reference" && isMobile
-                          ? String(quota.value).split(" - ")[1]
+                          ? numberAccount(String(quota.value))
                           : String(quota.value)}
                       </Text>
                     </Stack>
