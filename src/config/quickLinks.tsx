@@ -1,36 +1,30 @@
 import {
-  MdAttachMoney,
-  MdCurrencyExchange,
-  MdHistory,
-  MdOutlineAddHome,
-  MdOutlineSupportAgent,
+  MdOutlineAccountBalance,
+  MdOutlineAttachMoney,
+  MdOutlineCreditCard,
+  MdOutlineSavings,
 } from "react-icons/md";
 
 const quickLinks = [
   {
-    icon: <MdAttachMoney />,
-    label: "Paga tus créditos",
+    icon: <MdOutlineSavings />,
+    label: "Consultar ahorros",
+    path: "/my-savings",
+  },
+  {
+    icon: <MdOutlineAccountBalance />,
+    label: "Consultar créditos",
+    path: "/my-credits",
+  },
+  {
+    icon: <MdOutlineCreditCard />,
+    label: "Consultar tarjetas",
+    path: "/my-cards",
+  },
+  {
+    icon: <MdOutlineAttachMoney />,
+    label: "Realizar pagos",
     path: "/payments",
-  },
-  {
-    icon: <MdCurrencyExchange />,
-    label: "Transferir dinero",
-    path: "/transfer",
-  },
-  {
-    icon: <MdHistory />,
-    label: "Mis pagos automáticos",
-    path: "/debit",
-  },
-  {
-    icon: <MdOutlineAddHome />,
-    label: "Abrir CDAT",
-    path: "/cdat",
-  },
-  {
-    icon: <MdOutlineSupportAgent />,
-    label: "Atención en línea",
-    path: "/support",
   },
 ];
 

@@ -38,6 +38,7 @@ import {
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
+import { formatPrimaryDate } from "src/utils/dates";
 
 const mapPersonalInformation = (
   personalInfoData: IThird,
@@ -162,7 +163,9 @@ const mapPersonalDebt = (
       "liabilityType",
     )?.value,
     debtName: personalDebt.debtName,
-    terminationDate: personalDebt.terminationDate,
+    terminationDate: formatPrimaryDate(
+      new Date(String(personalDebt.terminationDate)),
+    ),
     debtBalance: currencyFormat(Number(personalDebt.debtBalance)),
     financialEntity: personalDebt.financialEntity,
     quota: currencyFormat(Number(personalDebt.quota)),

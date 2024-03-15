@@ -1,10 +1,11 @@
-import { ICreditQuota } from "src/model/entity/product";
+import { EProductType, IProduct } from "src/model/entity/product";
 
-const creditQuotasMock: ICreditQuota[] = [
+const creditQuotasMock: IProduct[] = [
   {
     id: "590030780132",
     title: "Crediexpress",
-    description: "Crediexpress 590030780132",
+    description: "Informe de movimientos",
+    type: EProductType.CREDITCARD,
     attributes: [
       {
         id: "available_space",
@@ -28,151 +29,105 @@ const creditQuotasMock: ICreditQuota[] = [
       },
       {
         id: "type",
-        label: "tipo",
+        label: "Tipo",
         value: "Crédito por consumo",
       },
       {
         id: "assigned_quota",
         label: "Cupo asignado",
-        value: 8550420,
+        value: 8400000,
       },
-    ],
-    quotaDetails: [
       {
-        id: "credit-quota-1",
-        title: "Crediexpress",
-        description: "Informe de movimientos",
-        assignedQuota: 275000,
-        fullPayment: 2775000,
-        nextPaymentDate: new Date("15/Mar/2024"),
-        quotaAvailable: 5800000,
-        minPaymentDetails: {
-          capitalPayment: 100000,
-          currentInterest: 1500000,
-          arrearsInterest: 25000,
-          totalValue: 275000,
-        },
-        totalPaymentDetails: {
-          capitalPayment: 240000,
-          currentInterest: 1500000,
-          arrearsInterest: 25000,
-          totalValue: 2775000,
-        },
-
-        currentConsumption: [
+        id: "min_payment",
+        label: "Pago mínimo",
+        value: 275000,
+      },
+      {
+        id: "full_payment",
+        label: "Pago total",
+        value: 2775000,
+      },
+      {
+        id: "payment_method",
+        label: "Medio de pago",
+        value: "Fondecom mensual",
+      },
+      {
+        id: "used_quota",
+        label: "Cupo usado",
+        value: [
           {
-            id: "current-consumption-1",
-            title: "Compra RESTAURANTE YANUBA",
-            description: "Informe de consumos",
-            consumptionDate: new Date("21/Feb/2024"),
-            consumptionValue: 250000,
-            duesPaid: 1,
-            duesEarring: 23,
-            balanceCapital: 52000,
-            currenInterest: "% 2.51 MV",
-            minPaymentQuotAvailable: 50000,
-            totalPaymentQuotaAvailable: 50000,
-            capitalPayment: "cuota 1/24",
-            minCapitalPayment: 25000,
-            totalCapitalPayment: 80000,
-            arrearsInterest: 0,
-            movements: [
-              {
-                id: "movementConsumption-1",
-                date: new Date("15/Mar/2024"),
-                reference: "CT1001210",
-                description: "Pago periódico",
-                totalValue: 22000,
-              },
-            ],
+            id: "current_consumption",
+            label: "Consumos vigentes",
+            value: 1860000,
           },
           {
-            id: "current-consumption-2",
-            title: "Compra CLONES Y PERISFERICOS SAS",
-            description: "Informe de consumos",
-            consumptionDate: new Date("11/Feb/2024"),
-            consumptionValue: 250000,
-            duesPaid: 1,
-            duesEarring: 23,
-            balanceCapital: 52000,
-            currenInterest: "% 2.51 MV",
-            minPaymentQuotAvailable: 50000,
-            totalPaymentQuotaAvailable: 50000,
-            capitalPayment: "cuota 1/24",
-            minCapitalPayment: 25000,
-            totalCapitalPayment: 80000,
-            arrearsInterest: 0,
-            movements: [
-              {
-                id: "movementConsumption-1",
-                date: new Date("15/Mar/2024"),
-                reference: "CT1001210",
-                description: "Pago periódico",
-                totalValue: 22000,
-              },
-            ],
+            id: "transactions_process",
+            label: "Transacciones en proceso",
+            value: 740000,
           },
           {
-            id: "current-consumption-3",
-            title: "Compra PEPE GANGA",
-            description: "Informe de consumos",
-            consumptionDate: new Date("24/Dic/2023"),
-            consumptionValue: 250000,
-            duesPaid: 9,
-            duesEarring: 15,
-            balanceCapital: 52000,
-            currenInterest: "% 2.51 MV",
-            minPaymentQuotAvailable: 50000,
-            totalPaymentQuotaAvailable: 50000,
-            capitalPayment: "cuota 9/24",
-            minCapitalPayment: 50000,
-            totalCapitalPayment: 80000,
-            arrearsInterest: 0,
-            movements: [
-              {
-                id: "movementConsumption-1",
-                date: new Date("15/Ene/2024"),
-                reference: "CT1001210",
-                description: "Pago periódico",
-                totalValue: 22000,
-              },
-              {
-                id: "movementConsumption-2",
-                date: new Date("15/Dic/2023"),
-                reference: "CT1001210",
-                description: "Pago periódico",
-                totalValue: 22000,
-              },
-              {
-                id: "movementConsumption-3",
-                date: new Date("15/Nov/2023"),
-                reference: "CT1001210",
-                description: "Pago periódico",
-                totalValue: 22000,
-              },
-              {
-                id: "movementConsumption-4",
-                date: new Date("15/Oct/2023"),
-                reference: "CT1001210",
-                description: "Pago periódico",
-                totalValue: 22000,
-              },
-              {
-                id: "movementConsumption-5",
-                date: new Date("15/Sep/2023"),
-                reference: "CT1001210",
-                description: "Pago periódico",
-                totalValue: 22000,
-              },
-            ],
+            id: "used_quota_value",
+            label: "Pago total",
+            value: 2600000,
           },
         ],
+      },
+      {
+        id: "min_capital_payment",
+        label: "Abono a capital",
+        value: 100000,
+      },
+      {
+        id: "min_current_interest",
+        label: "Interés corriente",
+        value: 1500000,
+      },
+      {
+        id: "min_arrears_interest",
+        label: "Interés de mora",
+        value: 0,
+      },
+      {
+        id: "min_handling_fee",
+        label: "Cuota de manejo",
+        value: 7500,
+      },
+      {
+        id: "min_total_value",
+        label: "Pago total",
+        value: 257500,
+      },
+      {
+        id: "total_capital_payment",
+        label: "Abono a capital",
+        value: 100000,
+      },
+      {
+        id: " total_current_interest",
+        label: "Interés corriente",
+        value: 1500000,
+      },
+      {
+        id: "total_arrears_interest",
+        label: "Interés de mora",
+        value: 0,
+      },
+      {
+        id: "total_handling_fee",
+        label: "Cuota de manejo",
+        value: 7500,
+      },
+      {
+        id: "tot_total_value",
+        label: "Pago total",
+        value: 2277500,
       },
     ],
     movements: [
       {
         id: "movement-1",
-        description: "compra GERÓNIMO MARTINS SAS",
+        description: "Compra GERÓNIMO MARTINS SAS",
         totalValue: 500000,
         date: new Date("10/May/2024 11:20 am"),
         quotas: "a 12 meses",
@@ -206,16 +161,18 @@ const creditQuotasMock: ICreditQuota[] = [
         quotas: "a 12 meses",
       },
     ],
+    consumptions: ["123412341", "123412342", "123412343"],
   },
   {
     id: "590030780133",
     title: "Crédito de vehiculo",
-    description: "Crédito de vehiculo 590030780133",
+    type: EProductType.CREDITCARD,
+    description: "Informe de movimientos",
     attributes: [
       {
         id: "available_space",
         label: "Cupo disponible",
-        value: 0,
+        value: 10000000,
       },
       {
         id: "total_dedt",
@@ -225,7 +182,7 @@ const creditQuotasMock: ICreditQuota[] = [
       {
         id: "next_payment_date",
         label: "Fecha próximo pago",
-        value: "inmediato",
+        value: "Inmediato",
       },
       {
         id: "next_payment_value",
@@ -234,66 +191,100 @@ const creditQuotasMock: ICreditQuota[] = [
       },
       {
         id: "type",
-        label: "tipo",
-        value: "Crédito por consumo",
+        label: "Tipo",
+        value: "Crédito rotativo",
       },
       {
         id: "assigned_quota",
         label: "Cupo asignado",
+        value: 70000000,
+      },
+      {
+        id: "min_payment",
+        label: "Pago mínimo",
+        value: 1909000,
+      },
+      {
+        id: "full_payment",
+        label: "Pago total",
         value: 60000000,
       },
-    ],
-    quotaDetails: [
       {
-        id: "credit-quota-2",
-        title: "Crédito de vehiculo",
-        description: "Informe de movimientos",
-        assignedQuota: 1909000,
-        fullPayment: 60000000,
-        nextPaymentDate: "Inmediato",
-        quotaAvailable: 0,
-        minPaymentDetails: {
-          capitalPayment: 752122,
-          currentInterest: 1157380,
-          arrearsInterest: 10103,
-          totalValue: 1909000,
-        },
-        totalPaymentDetails: {
-          capitalPayment: 766864,
-          currentInterest: 1157380,
-          arrearsInterest: 10103,
-          totalValue: 60000000,
-        },
-
-        currentConsumption: [
+        id: "payment_method",
+        label: "Medio de pago",
+        value: "Fondecom mensual",
+      },
+      {
+        id: "used_quota",
+        label: "Cupo usado",
+        value: [
           {
-            id: "current-consumption-1",
-            title:
-              "compra DISTRIBUIDORA MAYORISTA DE AUTOMÓVILES MADIAUTOS SAS",
-            description: "Informe de consumos",
-            consumptionDate: new Date("20/Dic/2023"),
-            consumptionValue: 60000000,
-            duesPaid: 1,
-            duesEarring: 47,
-            balanceCapital: 752122,
-            currenInterest: "% 1.96 MV",
-            minPaymentQuotAvailable: 1157380,
-            totalPaymentQuotaAvailable: 1157380,
-            capitalPayment: "cuota 1/47",
-            minCapitalPayment: 752122,
-            totalCapitalPayment: 766864,
-            arrearsInterest: 10103,
-            movements: [
-              {
-                id: "movementConsumption-1",
-                date: new Date("20/Ene/2024"),
-                reference: "CT1001210",
-                description: "Pago periódico",
-                totalValue: 19009000,
-              },
-            ],
+            id: "accumulated_debt",
+            label: "Deuda acumulada",
+            value: 56749119,
+          },
+          {
+            id: "transactions_process",
+            label: "Transacciones en proceso",
+            value: 3250881,
+          },
+          {
+            id: "used_quota_value",
+            label: "Pago total",
+            value: 60000000,
           },
         ],
+      },
+
+      {
+        id: "min_capital_payment",
+        label: "Abono a capital",
+        value: 752122,
+      },
+      {
+        id: "min_current_interest",
+        label: "Interés corriente",
+        value: 1157380,
+      },
+      {
+        id: "min_arrears_interest",
+        label: "Interés de mora",
+        value: 10103,
+      },
+      {
+        id: "min_handling_fee",
+        label: "Cuota de manejo",
+        value: 7500,
+      },
+      {
+        id: "min_total_value",
+        label: "Pago total",
+        value: 1909000,
+      },
+      {
+        id: "total_capital_payment",
+        label: "Abono a capital",
+        value: 766864,
+      },
+      {
+        id: " total_current_interest",
+        label: "Interés corriente",
+        value: 1157380,
+      },
+      {
+        id: "total_arrears_interest",
+        label: "Interés de mora",
+        value: 10103,
+      },
+      {
+        id: "total_handling_fee",
+        label: "Cuota de manejo",
+        value: 7500,
+      },
+      {
+        id: "min_total_value",
+        label: "Pago total",
+        value: 60000000,
       },
     ],
     movements: [
@@ -311,6 +302,7 @@ const creditQuotasMock: ICreditQuota[] = [
         appearance: "error",
       },
     ],
+    consumptions: ["123412344"],
   },
 ];
 
