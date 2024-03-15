@@ -1,5 +1,5 @@
 import { Select } from "@design/input/Select";
-import { TextField } from "@design/input/TextField";
+import { DateField } from "@design/input/DateField";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
@@ -102,19 +102,16 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         readOnly={readonly}
         isFullWidth
       />
-      <TextField
+      <DateField
         label="Fecha de nacimiento"
-        placeholder="Fecha de nacimiento"
         name="birthDate"
         id="birthDate"
-        type="text"
-        size="compact"
-        validMessage="La fecha de nacimiento es válida"
-        value={formik.values.birthDate || ""}
+        value={formik.values.birthDate}
         errorMessage={formik.errors.birthDate}
+        state={getFieldState(formik, "birthDate")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        state={getFieldState(formik, "birthDate")}
+        validMessage="La fecha de nacimiento es válida"
         isRequired={isRequired("birthDate")}
         readOnly={readonly}
         isFullWidth

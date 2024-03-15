@@ -3,6 +3,7 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
+import { DateField } from "@design/input/DateField";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { Fieldset } from "@design/input/Fieldset";
@@ -245,14 +246,11 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 value={formik.values.gender}
                 readOnly
               />
-              <TextField
+              <DateField
                 label="Fecha de nacimiento"
                 name="birthDate"
                 id="birthDate"
-                placeholder=""
                 value={formik.values.birthDate}
-                type="text"
-                size="compact"
                 isFullWidth
                 readOnly
               />
