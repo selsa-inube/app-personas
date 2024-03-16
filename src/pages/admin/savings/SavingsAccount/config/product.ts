@@ -27,7 +27,7 @@ const productsAttributes: Record<string, string[]> = {
     "expiration_date",
     "interest_rate",
     "request_date",
-    "deadline_days",
+    "deadline",
     "payment_interest",
   ],
 };

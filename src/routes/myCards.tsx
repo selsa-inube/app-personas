@@ -1,7 +1,7 @@
 import { Card } from "@pages/admin/cards/Card";
 import { Consumption } from "@pages/admin/cards/Consumption";
+import { CreditQuota } from "@pages/admin/cards/CreditQuota";
 import { MyCards } from "@pages/admin/cards/MyCards";
-import { CreditQuota } from "@pages/admin/cards/MyCards/CreditQuota";
 import { Route, Routes } from "react-router-dom";
 
 function MyCardsRoutes() {

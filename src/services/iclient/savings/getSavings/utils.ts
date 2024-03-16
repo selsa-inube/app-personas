@@ -102,8 +102,8 @@ const getProductAttributes = (
         value: `${saving.annualEffectiveRate} % EA`,
       },
       {
-        id: "deadline_days",
-        label: "Plazo en días",
+        id: "deadline",
+        label: "Plazo",
         value: `${saving.savingsTerm} Meses`,
       },
       {
