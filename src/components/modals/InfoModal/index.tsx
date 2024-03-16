@@ -8,16 +8,22 @@ import { createPortal } from "react-dom";
 import { MdClear, MdQuestionMark } from "react-icons/md";
 import { StyledModal } from "./styles";
 
-interface IInfoModalProps {
+interface InfoModalProps {
   title: string;
   description: string;
   buttonText: string;
-  portalId: string;
+  portalId?: string;
   onCloseModal?: () => void;
 }
 
-function InfoModal(props: IInfoModalProps) {
-  const { title, description, buttonText, portalId, onCloseModal } = props;
+function InfoModal(props: InfoModalProps) {
+  const {
+    title,
+    description,
+    buttonText,
+    portalId = "modals",
+    onCloseModal,
+  } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
@@ -65,5 +71,5 @@ function InfoModal(props: IInfoModalProps) {
   );
 }
 
-export type { IInfoModalProps };
+export type { InfoModalProps };
 export { InfoModal };

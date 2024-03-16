@@ -1,6 +1,6 @@
 import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { EQuotasMovementType } from "src/model/entity/product";
+import { EMovementType } from "src/model/entity/product";
 
 const cardAttributes = [
   "card_number",
@@ -76,13 +76,13 @@ function formatCreditQuotasCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function getMovementDescriptionType(type?: EQuotasMovementType): string {
+function getMovementDescriptionType(type?: EMovementType): string {
   switch (type) {
-    case EQuotasMovementType.BUY:
+    case EMovementType.BUY:
       return "Compra";
-    case EQuotasMovementType.REVERSE:
+    case EMovementType.REVERSE:
       return "Reverso";
-    case EQuotasMovementType.PAY:
+    case EMovementType.PAY:
       return "Pago";
     default:
       return "";

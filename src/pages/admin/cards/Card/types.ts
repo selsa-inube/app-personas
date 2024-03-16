@@ -1,5 +1,5 @@
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
-import { IInfoModalProps } from "@components/modals/InfoModal";
+import { InfoModalProps } from "@components/modals/InfoModal";
 
 interface ISelectedProductState {
   card: IProduct;
@@ -24,7 +24,7 @@ interface ISavingAccountsModal {
 
 interface IMovementsInfoModal {
   show: boolean;
-  data: IInfoModalProps;
+  data: InfoModalProps;
 }
 
 interface IHandlingFeeModal {

@@ -1,7 +1,6 @@
-import { IInfoModalProps } from "@components/modals/InfoModal";
+import { InfoModalProps } from "@components/modals/InfoModal";
 
-const infoModalData: IInfoModalProps = {
-  portalId: "modals",
+const infoModalData: InfoModalProps = {
   title: "Últimos movimientos",
   buttonText: "Aceptar",
   description:

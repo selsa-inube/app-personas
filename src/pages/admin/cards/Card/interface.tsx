@@ -43,7 +43,7 @@ import { myQuotas } from "./config/card";
 import { infoModalData } from "./config/modals";
 import { InfoModal } from "@components/modals/InfoModal";
 import { IMovementsInfoModal } from "./types";
-import { EQuotasMovementType, IProduct } from "src/model/entity/product";
+import { EMovementType, IProduct } from "src/model/entity/product";
 import { Divider } from "@design/layout/Divider";
 import { formatPrimaryDateWithTime } from "src/utils/dates";
 
@@ -265,8 +265,8 @@ function CardUI(props: CardUIProps) {
                                     >
                                       <Stack gap="s100">
                                         <Stack direction="column">
-                                          {movement.quotasMovementsType ===
-                                            EQuotasMovementType.BUY && (
+                                          {movement.type ===
+                                            EMovementType.BUY && (
                                             <Icon
                                               icon={<MdArrowBack />}
                                               appearance="error"
@@ -276,8 +276,8 @@ function CardUI(props: CardUIProps) {
                                               shape="circle"
                                             />
                                           )}
-                                          {movement.quotasMovementsType ===
-                                            EQuotasMovementType.REVERSE && (
+                                          {movement.type ===
+                                            EMovementType.REVERSE && (
                                             <Icon
                                               icon={<MdOutlineCached />}
                                               appearance="success"
@@ -287,8 +287,8 @@ function CardUI(props: CardUIProps) {
                                               shape="circle"
                                             />
                                           )}
-                                          {movement.quotasMovementsType ===
-                                            EQuotasMovementType.PAY && (
+                                          {movement.type ===
+                                            EMovementType.PAY && (
                                             <Icon
                                               icon={<MdOutlineCheck />}
                                               appearance="success"
@@ -302,7 +302,7 @@ function CardUI(props: CardUIProps) {
                                         <Text
                                           type="label"
                                           size="medium"
-                                        >{`${getMovementDescriptionType(movement.quotasMovementsType)} ${movement.description}`}</Text>
+                                        >{`${getMovementDescriptionType(movement.type)} ${movement.description}`}</Text>
                                       </Stack>
                                       <Text type="label" size="medium">
                                         {currencyFormat(movement.totalValue)}

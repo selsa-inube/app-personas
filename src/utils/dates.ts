@@ -20,21 +20,18 @@ const formatPrimaryDateWithTime = (date: Date) => {
     month: "short",
     year: "numeric",
   };
-  const timeOptions: Intl.DateTimeFormatOptions = {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  };
 
   const dateFormatter = new Intl.DateTimeFormat("es-ES", dateOptions);
-  const timeFormatter = new Intl.DateTimeFormat("es-ES", timeOptions);
 
   const dateString = dateFormatter.format(date);
-  let timeString = timeFormatter.format(date);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
 
-  const [hour, minute, period] = timeString.split(/[:\s]/);
+  const period = hours >= 12 ? "pm" : "am";
+  const hour = hours % 12 || 12;
+  const minute = minutes < 10 ? `0${minutes}` : minutes;
 
-  timeString = `${hour}:${minute} ${period === "p." ? "pm" : "am"}`;
+  const timeString = `${hour}:${minute} ${period}`;
 
   const [day, month, year] = dateString.split(" ");
 
