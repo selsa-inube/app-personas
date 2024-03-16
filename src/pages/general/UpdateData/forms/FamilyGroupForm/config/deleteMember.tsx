@@ -1,4 +1,4 @@
-import { IDecisionModalOptions } from "@components/modals/DecisionModal/types";
+import { IDecisionModalOptions } from "@components/modals/general/DecisionModal/types";
 import { IMessageCases } from "@ptypes/messages.types";
 import { MdSentimentNeutral, MdThumbUpOffAlt } from "react-icons/md";
 

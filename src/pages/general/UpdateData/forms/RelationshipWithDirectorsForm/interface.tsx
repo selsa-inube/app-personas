@@ -1,4 +1,4 @@
-import { RelationshipWithDirectorsModal } from "@components/modals/forms/update-data/RelationshipWithDirectorsModal";
+import { RelationshipWithDirectorsModal } from "@components/modals/general/updateData/RelationshipWithDirectorsModal";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";

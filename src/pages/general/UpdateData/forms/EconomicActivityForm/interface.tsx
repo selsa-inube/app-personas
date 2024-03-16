@@ -1,5 +1,6 @@
-import { EconomicActivityModal } from "@components/modals/forms/update-data/EconomicActivityModal";
+import { EconomicActivityModal } from "@components/modals/general/updateData/EconomicActivityModal";
 import { Button } from "@design/input/Button";
+import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
@@ -221,25 +222,22 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   isDisabled={loading}
                   isFullWidth
                 />
-                <TextField
+                <DateField
                   label="Fecha de ingreso"
-                  placeholder="Fecha de ingreso"
                   name="admissionDate"
                   id="admissionDate"
                   value={formik.values.admissionDate}
                   errorMessage={formik.errors.admissionDate}
                   isDisabled={loading}
-                  size="compact"
-                  isFullWidth
                   state={getFieldState(formik, "admissionDate")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   validMessage="La fecha de ingreso es válida"
                   isRequired={isRequired("admissionDate")}
+                  isFullWidth
                 />
-                <TextField
+                <DateField
                   label="Vencimiento del contrato"
-                  placeholder="Vencimiento del contrato"
                   name="contractExpiration"
                   id="contractExpiration"
                   value={formik.values.contractExpiration}
