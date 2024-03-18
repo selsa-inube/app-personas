@@ -263,7 +263,7 @@ const consumptionsMocks: IProduct[] = [
   },
   {
     id: "123412344",
-    title: "Compra DISTRIBUIDORA MAYORISTA DE AUTOMÓVILES MADIAUTOS SAS",
+    title: "Compra DISTRIBUIDORA AUTOMÓVILES",
     description: "Informe de consumos",
     type: EProductType.CREDIT,
     attributes: [

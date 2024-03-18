@@ -4,13 +4,21 @@ import { creditQuotasMock } from "@mocks/products/cards/creditQuotas.mock";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditQuotaUI } from "./interface";
-import { ISelectedProductState, IUsedQuotaModalState } from "./types";
+import {
+  ISelectedProductState,
+  IUsedQuotaModalState,
+} from "./types";
 import { getUsedQuotaData } from "./utils";
+import { consumptionsMocks } from "@mocks/products/cards/consumptions.mocks";
+import { IProduct } from "src/model/entity/product";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
+  const [selectedConsumption, setSelectedConsumption] = useState<IProduct[]>(
+    [],
+  );
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const [usedQuotaModal, setUsedQuotaModal] = useState<IUsedQuotaModalState>({
     show: false,
@@ -22,6 +30,10 @@ function CreditQuota() {
   useEffect(() => {
     handleSortProduct();
   }, [credit_quota_id, isMobile]);
+
+  useEffect(() => {
+    handleSortConsumptions();
+  }, [selectedProduct]);
 
   useEffect(() => {
     if (!selectedProduct) return;
@@ -67,6 +79,18 @@ function CreditQuota() {
     setProductsOptions(creditQuotas);
   };
 
+  const handleSortConsumptions = () => {
+    const verificationDataConsumption = selectedProduct?.creditQuota.consumptions;
+    const currentConsumption: IProduct[] = [];
+    consumptionsMocks.map((consumption) => {
+      
+      if (verificationDataConsumption?.includes(consumption.id)) {
+        currentConsumption.push(consumption);
+      }
+    });
+    setSelectedConsumption(currentConsumption);
+  };
+
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
     navigate(`/my-cards/${card_id}/credit-quota/${id}`);
@@ -90,6 +114,7 @@ function CreditQuota() {
         handleChangeProduct={handleChangeProduct}
         productsOptions={productsOptions}
         selectedProduct={selectedProduct}
+        selectedConsumption={selectedConsumption}
       />
     </>
   );

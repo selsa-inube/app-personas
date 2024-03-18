@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { props } from "./props";
 
 const story = {
-  label: "components/cards/QuotaDetailBox",
+  title: "components/cards/QuotaDetailBox",
   components: [QuotaDetailBox],
   tags: ["autodocs"],
   argTypes: {
