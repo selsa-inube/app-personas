@@ -7,7 +7,7 @@ const cardBox = {
 
 const myQuotas = {
   icon: <MdOutlineCreditScore />,
-  navigateTo: "/",
+  navigateTo: "",
   collapsing: { start: true, allow: true },
 };
 

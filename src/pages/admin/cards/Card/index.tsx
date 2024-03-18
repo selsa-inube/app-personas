@@ -1,23 +1,25 @@
+import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
+import { creditQuotasMock } from "@mocks/products/cards/creditQuotas.mock";
 import { useContext, useEffect, useState } from "react";
-import { CreditsContext } from "src/context/credits";
-import { CardUI } from "./interface";
-import { cardsMock } from "@mocks/products/cards/cards.mock";
 import { useNavigate, useParams } from "react-router-dom";
+import { CreditsContext } from "src/context/credits";
+import { SavingsContext } from "src/context/savings";
+import { infoModalData } from "./config/modals";
+import { CardUI } from "./interface";
 import {
   IHandlingFeeModal,
+  IMovementsInfoModal,
   ISavingAccountsModal,
   ISelectedProductState,
   initialSelectedProductState,
-  IMovementsInfoModal,
 } from "./types";
-import { ISelectOption } from "@design/input/Select/types";
-import { infoModalData } from "./config/modals";
-import { creditQuotasMock } from "@mocks/products/cards/creditQuotas.mock";
+import { validateCard } from "./utils";
 
 function Card() {
   const { card_id } = useParams();
   const { cards, setCards } = useContext(CreditsContext);
+  const { savings } = useContext(SavingsContext);
   const { user, accessToken } = useAuth();
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState<ISelectedProductState>(
@@ -40,33 +42,38 @@ function Card() {
     });
 
   useEffect(() => {
-    if (user && accessToken && cards.length === 0) {
-      setCards(cardsMock);
-    }
-  }, [user, accessToken, cards]);
-
-  useEffect(() => {
-    updateSelectedCard();
-  }, [cards, card_id]);
+    handleSortProduct();
+  }, [card_id, user, accessToken]);
 
   useEffect(() => {
     updateModals();
   }, [selectedProduct]);
 
-  const updateSelectedCard = () => {
-    if (cards.length > 0) {
-      const selectedCard = cards.find((card) => card.id === card_id);
-      if (selectedCard) {
-        setSelectedProduct({
-          card: selectedCard,
-          option: selectedCard.id,
-        });
-      }
-    }
+  const handleSortProduct = async () => {
+    if (!card_id || !user || !accessToken) return;
+
+    const { selectedCard, newCards } = await validateCard(
+      cards,
+      card_id,
+      user.identification,
+      accessToken,
+      savings.savingsAccounts,
+    );
+
+    setCards(newCards);
+
+    if (!selectedCard) return;
+
+    setSelectedProduct({
+      card: selectedCard || [],
+      option: selectedCard.id,
+    });
+
     setProductsOptions(
-      cardsMock
-        .map((card) => ({ id: card.id, value: card.description }))
-        .sort((a, b) => a.value.localeCompare(b.value)),
+      newCards.map((card) => ({
+        id: card.id,
+        value: card.description,
+      })),
     );
   };
 
