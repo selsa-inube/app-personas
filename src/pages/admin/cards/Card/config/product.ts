@@ -1,6 +1,5 @@
-import { IAttribute, IProduct } from "src/model/entity/product";
+import { EMovementType, IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { EMovementType } from "src/model/entity/product";
 
 const cardAttributes = [
   "card_number",
@@ -17,7 +16,6 @@ const creditQuotasAttributes = [
   "next_payment_date",
   "next_payment_value",
   "type",
-  "payment_method",
   "assigned_quota",
 ];
 
@@ -93,6 +91,6 @@ export {
   extractCardAttributes,
   extractCreditQuotasAttributes,
   formatCardCurrencyAttrs,
-  getMovementDescriptionType,
   formatCreditQuotasCurrencyAttrs,
+  getMovementDescriptionType,
 };
