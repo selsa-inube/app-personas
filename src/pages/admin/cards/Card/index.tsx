@@ -9,8 +9,11 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
   initialSelectedProductState,
+  IMovementsInfoModal,
 } from "./types";
 import { ISelectOption } from "@design/input/Select/types";
+import { infoModalData } from "./config/modals";
+import { creditQuotasMock } from "@mocks/products/cards/creditQuotas.mock";
 
 function Card() {
   const { card_id } = useParams();
@@ -30,6 +33,11 @@ function Card() {
     show: false,
     data: [],
   });
+  const [showMovementsInfoModal, setShowMovementsInfoModal] =
+    useState<IMovementsInfoModal>({
+      show: false,
+      data: infoModalData,
+    });
 
   useEffect(() => {
     if (user && accessToken && cards.length === 0) {
@@ -109,14 +117,24 @@ function Card() {
     }));
   };
 
+  function handleShowMovementsInfoModal() {
+    setShowMovementsInfoModal((prevState: IMovementsInfoModal) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  }
+
   return (
     <CardUI
       cardId={card_id}
+      creditQuotas={creditQuotasMock}
+      showMovementsInfoModal={showMovementsInfoModal}
       selectedProduct={selectedProduct}
       productsOptions={productsOptions}
       savingAccountsModal={savingAccountsModal}
       handlingFeeModal={handlingFeeModal}
       handleChangeProduct={handleChangeProduct}
+      handleShowMovementsInfoModal={handleShowMovementsInfoModal}
       handleToggleSavingsAccountModal={handleToggleSavingsAccountModal}
       handleToggleHandlingFeeModal={handleToggleHandlingFeeModal}
     />

@@ -1,6 +1,6 @@
 import { capitalizeText } from "./texts";
 
-const formatPrimaryDate = (date: Date) => {
+const formatPrimaryDate = (date: Date, withTime?: boolean) => {
   const options: Intl.DateTimeFormatOptions = {
     day: "2-digit",
     month: "short",
@@ -11,7 +11,22 @@ const formatPrimaryDate = (date: Date) => {
 
   const [day, month, year] = dateString.split(" ");
 
-  return `${day}/${capitalizeText(month)}/${year}`;
+  let formattedDate = `${day}/${capitalizeText(month)}/${year}`;
+
+  if (withTime) {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    const period = hours >= 12 ? "pm" : "am";
+    const hour = hours % 12 || 12;
+    const minute = minutes < 10 ? `0${minutes}` : minutes;
+
+    const timeString = `${hour}:${minute} ${period}`;
+
+    formattedDate += ` ${timeString}`;
+  }
+
+  return formattedDate;
 };
 
 const formatTraceabilityDate = (date: Date) => {
