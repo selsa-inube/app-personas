@@ -78,11 +78,11 @@ function formatCreditQuotasCurrencyAttrs(attributes: IAttribute[]) {
 
 function getMovementDescriptionType(type?: EMovementType): string {
   switch (type) {
-    case EMovementType.BUY:
+    case EMovementType.PURCHASE:
       return "Compra";
     case EMovementType.REVERSE:
       return "Reverso";
-    case EMovementType.PAY:
+    case EMovementType.PAYMENT:
       return "Pago";
     default:
       return "";
