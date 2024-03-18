@@ -1,4 +1,8 @@
-import { EProductType, IProduct } from "src/model/entity/product";
+import {
+  EProductType,
+  IProduct,
+  EMovementType,
+} from "src/model/entity/product";
 
 const creditQuotasMock: IProduct[] = [
   {
@@ -117,38 +121,40 @@ const creditQuotasMock: IProduct[] = [
     movements: [
       {
         id: "movement-1",
-        description: "Compra GERÓNIMO MARTINS SAS",
+        description: "GERÓNIMO MARTINS SAS",
         totalValue: 500000,
-        date: new Date("10/May/2024 11:20 am"),
+        date: new Date("21/Feb/2024 11:20 am"),
         quotas: "a 12 meses",
+        type: EMovementType.BUY,
       },
       {
         id: "movement-2",
-        description: "Pago mensual CREDIEXPRESS",
+        description: "cuota mensual CREDIEXPRESS",
         totalValue: -856321,
         date: new Date("21/Feb/2024 08:15 am"),
-        quotas: "",
+        type: EMovementType.PAY,
       },
       {
         id: "movement-3",
-        description: "Compra RESTAURANTE YANUBA",
+        description: "RESTAURANTE YANUBA",
         totalValue: 240000,
-        date: new Date("19/Feb/2024 01:55 am"),
+        date: new Date("19/Feb/2024 01:55 pm"),
         quotas: "a 12 meses",
+        type: EMovementType.BUY,
       },
       {
         id: "movement-4",
-        description: "Reverso compra CLONES Y PERISFERICOS SAS",
+        description: "compra CLONES Y PERIFÉRICOS SAS",
         totalValue: -8500000,
-        date: new Date("19/Feb/2024 01:55 am"),
-        quotas: "a 12 meses",
+        date: new Date("19/Feb/2024 01:55 pm"),
+        type: EMovementType.REVERSE,
       },
       {
         id: "movement-5",
-        description: "Compra CLONES Y PERISFERICOS SAS",
+        description: "CLONES Y PERIFÉRICOS SAS",
         totalValue: 8500000,
         date: new Date("19/Feb/2024 01:55 am"),
-        quotas: "a 12 meses",
+        type: EMovementType.BUY,
       },
     ],
     consumptions: ["123412341", "123412342", "123412343"],
@@ -270,10 +276,11 @@ const creditQuotasMock: IProduct[] = [
     movements: [
       {
         id: "movement-1",
-        description: "Compra de vehiculo",
+        description: "vehiculo",
         totalValue: 6000000,
-        date: new Date("20/Dic/2023"),
+        date: new Date("10/Dec/2023 4:20 pm"),
         quotas: "a 48 meses",
+        type: EMovementType.BUY,
       },
     ],
     tags: [
