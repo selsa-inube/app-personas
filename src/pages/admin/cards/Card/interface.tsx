@@ -45,7 +45,7 @@ import { InfoModal } from "@components/modals/InfoModal";
 import { IMovementsInfoModal } from "./types";
 import { EMovementType, IProduct } from "src/model/entity/product";
 import { Divider } from "@design/layout/Divider";
-import { formatPrimaryDateWithTime } from "src/utils/dates";
+import { formatPrimaryDate } from "src/utils/dates";
 
 interface CardUIProps {
   cardId?: string;
@@ -314,9 +314,7 @@ function CardUI(props: CardUIProps) {
                                         size="medium"
                                         appearance="gray"
                                       >
-                                        {formatPrimaryDateWithTime(
-                                          movement.date,
-                                        )}
+                                        {formatPrimaryDate(movement.date, true)}
                                       </Text>
                                       <Text
                                         type="label"

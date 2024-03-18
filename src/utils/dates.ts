@@ -1,6 +1,6 @@
 import { capitalizeText } from "./texts";
 
-const formatPrimaryDate = (date: Date) => {
+const formatPrimaryDate = (date: Date, withTime?: boolean) => {
   const options: Intl.DateTimeFormatOptions = {
     day: "2-digit",
     month: "short",
@@ -11,31 +11,22 @@ const formatPrimaryDate = (date: Date) => {
 
   const [day, month, year] = dateString.split(" ");
 
-  return `${day}/${capitalizeText(month)}/${year}`;
-};
+  let formattedDate = `${day}/${capitalizeText(month)}/${year}`;
 
-const formatPrimaryDateWithTime = (date: Date) => {
-  const dateOptions: Intl.DateTimeFormatOptions = {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  };
+  if (withTime) {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
 
-  const dateFormatter = new Intl.DateTimeFormat("es-ES", dateOptions);
+    const period = hours >= 12 ? "pm" : "am";
+    const hour = hours % 12 || 12;
+    const minute = minutes < 10 ? `0${minutes}` : minutes;
 
-  const dateString = dateFormatter.format(date);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+    const timeString = `${hour}:${minute} ${period}`;
 
-  const period = hours >= 12 ? "pm" : "am";
-  const hour = hours % 12 || 12;
-  const minute = minutes < 10 ? `0${minutes}` : minutes;
+    formattedDate += ` ${timeString}`;
+  }
 
-  const timeString = `${hour}:${minute} ${period}`;
-
-  const [day, month, year] = dateString.split(" ");
-
-  return `${day}/${capitalizeText(month)}/${year} ${timeString}`;
+  return formattedDate;
 };
 
 const formatTraceabilityDate = (date: Date) => {
@@ -87,9 +78,4 @@ const parseSpanishDate = (spanishDate: string) => {
   return new Date(parseInt(year), numberMonth, parseInt(day));
 };
 
-export {
-  formatPrimaryDate,
-  formatTraceabilityDate,
-  parseSpanishDate,
-  formatPrimaryDateWithTime,
-};
+export { formatPrimaryDate, formatTraceabilityDate, parseSpanishDate };
