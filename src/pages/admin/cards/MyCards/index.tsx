@@ -1,21 +1,33 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
+import { SavingsContext } from "src/context/savings";
+import { getCardsForUser } from "src/services/iclient/cards/getCards";
 import { MyCardsUI } from "./interface";
-import { cardsMock } from "@mocks/products/cards/cards.mock";
 
 function MyCards() {
   const { cards, setCards } = useContext(CreditsContext);
+  const { savings } = useContext(SavingsContext);
   const [loading, setLoading] = useState(false);
   const { user, accessToken } = useAuth();
 
   useEffect(() => {
     if (user && accessToken && cards.length === 0) {
       setLoading(true);
-      setTimeout(() => {
-        setCards(cardsMock);
-        setLoading(false);
-      }, 1000);
+      getCardsForUser(
+        user?.identification,
+        accessToken,
+        savings.savingsAccounts,
+      )
+        .then((credits) => {
+          setCards(credits);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, [user, accessToken, cards]);
 
