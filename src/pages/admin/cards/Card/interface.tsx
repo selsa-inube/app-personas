@@ -266,7 +266,7 @@ function CardUI(props: CardUIProps) {
                                       <Stack gap="s100">
                                         <Stack direction="column">
                                           {movement.type ===
-                                            EMovementType.BUY && (
+                                            EMovementType.PURCHASE && (
                                             <Icon
                                               icon={<MdArrowBack />}
                                               appearance="error"
@@ -288,7 +288,7 @@ function CardUI(props: CardUIProps) {
                                             />
                                           )}
                                           {movement.type ===
-                                            EMovementType.PAY && (
+                                            EMovementType.PAYMENT && (
                                             <Icon
                                               icon={<MdOutlineCheck />}
                                               appearance="success"
