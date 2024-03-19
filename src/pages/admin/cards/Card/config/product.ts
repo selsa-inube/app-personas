@@ -1,6 +1,5 @@
-import { IAttribute, IProduct } from "src/model/entity/product";
+import { EMovementType, IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { EMovementType } from "src/model/entity/product";
 
 const cardAttributes = [
   "card_number",
@@ -17,7 +16,6 @@ const creditQuotasAttributes = [
   "next_payment_date",
   "next_payment_value",
   "type",
-  "payment_method",
   "assigned_quota",
 ];
 
@@ -78,11 +76,11 @@ function formatCreditQuotasCurrencyAttrs(attributes: IAttribute[]) {
 
 function getMovementDescriptionType(type?: EMovementType): string {
   switch (type) {
-    case EMovementType.BUY:
+    case EMovementType.PURCHASE:
       return "Compra";
     case EMovementType.REVERSE:
       return "Reverso";
-    case EMovementType.PAY:
+    case EMovementType.PAYMENT:
       return "Pago";
     default:
       return "";
@@ -93,6 +91,6 @@ export {
   extractCardAttributes,
   extractCreditQuotasAttributes,
   formatCardCurrencyAttrs,
-  getMovementDescriptionType,
   formatCreditQuotasCurrencyAttrs,
+  getMovementDescriptionType,
 };

@@ -260,21 +260,30 @@ function renderHomeContent(
 
       <Box {...cardsBox}>
         <Stack direction="column" gap="s100">
-          {cards.length === 0 ? (
-            <Product icon={<MdOutlineCreditCard />} empty={true} />
+          {loadingCards ? (
+            <>
+              <Product loading />
+              <Product loading />
+            </>
           ) : (
-            cards.map((card) => (
-              <Product
-                key={card.id}
-                title={card.title}
-                description={card.description}
-                attributes={extractCardAttributes(card)}
-                tags={card.tags}
-                icon={<MdOutlineCreditCard />}
-                breakpoints={cardAttributeBreakpoints}
-                navigateTo={`/my-cards/${card.id}`}
-              />
-            ))
+            <>
+              {cards.length === 0 ? (
+                <Product icon={<MdOutlineCreditCard />} empty={true} />
+              ) : (
+                cards.map((card) => (
+                  <Product
+                    key={card.id}
+                    title={card.title}
+                    description={card.description}
+                    attributes={extractCardAttributes(card)}
+                    tags={card.tags}
+                    icon={<MdOutlineCreditCard />}
+                    breakpoints={cardAttributeBreakpoints}
+                    navigateTo={`/my-cards/${card.id}`}
+                  />
+                ))
+              )}
+            </>
           )}
         </Stack>
       </Box>

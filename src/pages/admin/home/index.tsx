@@ -1,9 +1,10 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { cardsMock } from "@mocks/products/cards/cards.mock";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
+import { IProduct } from "src/model/entity/product";
+import { getCardsForUser } from "src/services/iclient/cards/getCards";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
@@ -33,7 +34,7 @@ function Home() {
     }
   };
 
-  const validateProducts = () => {
+  const validateProducts = async () => {
     if (!user || !accessToken) return;
 
     const combinedSavings = [
@@ -43,18 +44,38 @@ function Home() {
       ...savings.programmedSavings,
     ];
 
+    let savingAccountsResume: IProduct[] = savings.savingsAccounts.map(
+      (savingAccount) => ({
+        id: savingAccount.id,
+        title: savingAccount.title,
+        description: savingAccount.description,
+        type: savingAccount.type,
+        attributes: savingAccount.attributes,
+      }),
+    );
+
     if (combinedSavings.length === 0) {
       setLoadingSavings(true);
-      getSavingsForUser(user.identification, accessToken)
-        .then((savings) => {
-          setSavings(savings);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        })
-        .finally(() => {
-          setLoadingSavings(false);
-        });
+      try {
+        const newSavings = await getSavingsForUser(
+          user.identification,
+          accessToken,
+        );
+        setSavings(newSavings);
+        savingAccountsResume = newSavings.savingsAccounts.map(
+          (savingAccount) => ({
+            id: savingAccount.id,
+            title: savingAccount.title,
+            description: savingAccount.description,
+            type: savingAccount.type,
+            attributes: savingAccount.attributes,
+          }),
+        );
+      } catch (error) {
+        console.info(error);
+      } finally {
+        setLoadingSavings(false);
+      }
     }
     if (credits.length === 0) {
       setLoadingCredits(true);
@@ -71,10 +92,16 @@ function Home() {
     }
     if (cards.length === 0) {
       setLoadingCards(true);
-      setTimeout(() => {
-        setCards(cardsMock);
-        setLoadingCards(false);
-      }, 1000);
+      getCardsForUser(user?.identification, accessToken, savingAccountsResume)
+        .then((credits) => {
+          setCards(credits);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        })
+        .finally(() => {
+          setLoadingCards(false);
+        });
     }
   };
 

@@ -7,9 +7,9 @@ interface IAttribute {
 }
 
 enum EMovementType {
-  BUY = "BUY",
+  PURCHASE = "PURCHASE",
   REVERSE = "REVERSE",
-  PAY = "PAY",
+  PAYMENT = "PAYMENT",
 }
 
 interface IMovement {

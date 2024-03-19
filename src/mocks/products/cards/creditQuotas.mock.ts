@@ -125,14 +125,14 @@ const creditQuotasMock: IProduct[] = [
         totalValue: 500000,
         date: new Date("21/Feb/2024 11:20 am"),
         quotas: "a 12 meses",
-        type: EMovementType.BUY,
+        type: EMovementType.PURCHASE,
       },
       {
         id: "movement-2",
         description: "cuota mensual CREDIEXPRESS",
         totalValue: -856321,
         date: new Date("21/Feb/2024 08:15 am"),
-        type: EMovementType.PAY,
+        type: EMovementType.PAYMENT,
       },
       {
         id: "movement-3",
@@ -140,7 +140,7 @@ const creditQuotasMock: IProduct[] = [
         totalValue: 240000,
         date: new Date("19/Feb/2024 01:55 pm"),
         quotas: "a 12 meses",
-        type: EMovementType.BUY,
+        type: EMovementType.PURCHASE,
       },
       {
         id: "movement-4",
@@ -154,7 +154,7 @@ const creditQuotasMock: IProduct[] = [
         description: "CLONES Y PERIFÉRICOS SAS",
         totalValue: 8500000,
         date: new Date("19/Feb/2024 01:55 am"),
-        type: EMovementType.BUY,
+        type: EMovementType.PURCHASE,
       },
     ],
     consumptions: ["123412341", "123412342", "123412343"],
@@ -280,7 +280,7 @@ const creditQuotasMock: IProduct[] = [
         totalValue: 6000000,
         date: new Date("10/Dec/2023 4:20 pm"),
         quotas: "a 48 meses",
-        type: EMovementType.BUY,
+        type: EMovementType.PURCHASE,
       },
     ],
     tags: [

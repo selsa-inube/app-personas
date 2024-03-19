@@ -18,11 +18,6 @@ const cardsMock: IProduct[] = [
         value: "David Leonardo Garzón Páramo",
       },
       {
-        id: "payment_method",
-        label: "Medio de pago",
-        value: "Fondecom mensual",
-      },
-      {
         id: "status",
         label: "Estado",
         value: "Activa",
@@ -59,11 +54,6 @@ const cardsMock: IProduct[] = [
             value: "7500",
           },
           {
-            id: "payment_method",
-            label: "Forma de pago",
-            value: "Débito automático",
-          },
-          {
             id: "reference",
             label: "Referencia",
             value: "Cuentas de ahorros - 013001157292",
@@ -96,11 +86,6 @@ const cardsMock: IProduct[] = [
         id: "cardholder",
         label: "Titular",
         value: "Bairon Esneider Perez Gonzalez",
-      },
-      {
-        id: "payment_method",
-        label: "Medio de pago",
-        value: "Fondecom mensual",
       },
       {
         id: "status",

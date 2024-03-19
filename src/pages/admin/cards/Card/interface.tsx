@@ -1,51 +1,50 @@
-import { Button } from "@design/input/Button";
-import { Title } from "@design/data/Title";
-import { Stack } from "@design/layout/Stack";
+import { Box } from "@components/cards/Box";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { QuickAccess } from "@components/cards/QuickAccess";
+import { InfoModal } from "@components/modals/InfoModal";
+import { HandlingFeeModal } from "@components/modals/cards/HandlingFeeModal";
+import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
+import { quickLinks } from "@config/quickLinks";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
+import { Title } from "@design/data/Title";
+import { Button } from "@design/input/Button";
+import { Select } from "@design/input/Select";
+import { ISelectOption } from "@design/input/Select/types";
+import { Divider } from "@design/layout/Divider";
+import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   MdArrowBack,
   MdOpenInNew,
-  MdQuestionMark,
-  MdOutlineDescription,
-  MdOutlineCheck,
-  MdOutlineCached,
   MdOutlineAssignmentTurnedIn,
+  MdOutlineCached,
+  MdOutlineCheck,
+  MdOutlineDescription,
+  MdQuestionMark,
 } from "react-icons/md";
+import { EMovementType, IProduct } from "src/model/entity/product";
+import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
+import { cardBox, myQuotas } from "./config/card";
+import { infoModalData } from "./config/modals";
 import { crumbsCard } from "./config/navigation";
-import { Grid } from "@design/layout/Grid";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { inube } from "@design/tokens";
-import { QuickAccess } from "@components/cards/QuickAccess";
-import { quickLinks } from "@config/quickLinks";
+import {
+  extractCardAttributes,
+  extractCreditQuotasAttributes,
+  formatCardCurrencyAttrs,
+  formatCreditQuotasCurrencyAttrs,
+  getMovementDescriptionType,
+} from "./config/product";
 import {
   IHandlingFeeModal,
+  IMovementsInfoModal,
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
-import { Box } from "@components/cards/Box";
-import { cardBox } from "./config/card";
-import {
-  extractCardAttributes,
-  formatCardCurrencyAttrs,
-  formatCreditQuotasCurrencyAttrs,
-  extractCreditQuotasAttributes,
-  getMovementDescriptionType,
-} from "./config/product";
-import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
-import { HandlingFeeModal } from "@components/modals/cards/HandlingFeeModal";
-import { currencyFormat } from "src/utils/currency";
-import { myQuotas } from "./config/card";
-import { infoModalData } from "./config/modals";
-import { InfoModal } from "@components/modals/InfoModal";
-import { IMovementsInfoModal } from "./types";
-import { EMovementType, IProduct } from "src/model/entity/product";
-import { Divider } from "@design/layout/Divider";
-import { formatPrimaryDate } from "src/utils/dates";
 
 interface CardUIProps {
   cardId?: string;
@@ -132,13 +131,16 @@ function CardUI(props: CardUIProps) {
                           value={attr.value}
                         />
                       ))}
-                      <BoxAttribute
-                        label={`Cuentas de ahorro: `}
-                        buttonIcon={<MdOpenInNew />}
-                        buttonValue="Ver"
-                        onClickButton={handleToggleSavingsAccountModal}
-                        withButton
-                      />
+                      {savingAccountsModal.data.length > 0 && (
+                        <BoxAttribute
+                          label={`Cuentas de ahorro: `}
+                          buttonIcon={<MdOpenInNew />}
+                          buttonValue="Ver"
+                          onClickButton={handleToggleSavingsAccountModal}
+                          withButton
+                        />
+                      )}
+
                       {handlingFeeModal.data.length > 0 && (
                         <BoxAttribute
                           label={`Cuota de manejo: `}
@@ -266,7 +268,7 @@ function CardUI(props: CardUIProps) {
                                       <Stack gap="s100">
                                         <Stack direction="column">
                                           {movement.type ===
-                                            EMovementType.BUY && (
+                                            EMovementType.PURCHASE && (
                                             <Icon
                                               icon={<MdArrowBack />}
                                               appearance="error"
@@ -288,7 +290,7 @@ function CardUI(props: CardUIProps) {
                                             />
                                           )}
                                           {movement.type ===
-                                            EMovementType.PAY && (
+                                            EMovementType.PAYMENT && (
                                             <Icon
                                               icon={<MdOutlineCheck />}
                                               appearance="success"
