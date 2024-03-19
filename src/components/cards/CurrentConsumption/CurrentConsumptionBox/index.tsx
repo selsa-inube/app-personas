@@ -56,14 +56,14 @@ function currentConsumptionAttrs(currentConsumption: IAttribute[]) {
   };
 }
 
-interface CurrenteConsumptionProps {
+interface CurrentConsumptionProps {
   title: string;
   isTablet: boolean;
   consumptions: IAttribute[];
   navigateToDetails: string;
 }
 
-function CurrentConsumptionBox(props: CurrenteConsumptionProps) {
+function CurrentConsumptionBox(props: CurrentConsumptionProps) {
   const { title, isTablet, consumptions, navigateToDetails } = props;
 
   const {
