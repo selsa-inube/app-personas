@@ -5,6 +5,10 @@ interface ISelectedProductState {
   option: string;
 }
 
+interface ISelectedConsumptionsState {
+  consumptions: IProduct;
+}
+
 interface IUsedQuotaModalState {
   show: boolean;
   data?: {
@@ -15,4 +19,4 @@ interface IUsedQuotaModalState {
   };
 }
 
-export type { ISelectedProductState, IUsedQuotaModalState };
+export type { ISelectedProductState, IUsedQuotaModalState, ISelectedConsumptionsState };
