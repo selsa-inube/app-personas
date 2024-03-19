@@ -1,7 +1,7 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { creditQuotasMock } from "@mocks/products/cards/creditQuotas.mock";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditQuotaUI } from "./interface";
 import {
@@ -11,14 +11,13 @@ import {
 import { getUsedQuotaData } from "./utils";
 import { consumptionsMocks } from "@mocks/products/cards/consumptions.mocks";
 import { IProduct } from "src/model/entity/product";
+import { CreditsContext } from "src/context/credits";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
+  const { consumptions, setConsumptions } = useContext(CreditsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
-  const [selectedConsumption, setSelectedConsumption] = useState<IProduct[]>(
-    [],
-  );
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const [usedQuotaModal, setUsedQuotaModal] = useState<IUsedQuotaModalState>({
     show: false,
@@ -88,7 +87,7 @@ function CreditQuota() {
         currentConsumption.push(consumption);
       }
     });
-    setSelectedConsumption(currentConsumption);
+    setConsumptions(currentConsumption);
   };
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -114,7 +113,7 @@ function CreditQuota() {
         handleChangeProduct={handleChangeProduct}
         productsOptions={productsOptions}
         selectedProduct={selectedProduct}
-        selectedConsumption={selectedConsumption}
+        selectedConsumption={consumptions}
       />
     </>
   );

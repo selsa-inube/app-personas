@@ -1,5 +1,5 @@
 import { Stack } from "@design/layout/Stack";
-import { CurrenteConsumptionBox } from "./CurrentConsumptionBox";
+import { CurrentConsumptionBox } from "./CurrentConsumptionBox";
 import { IProduct } from "src/model/entity/product";
 import { StyledContainer } from "./styles";
 import { Divider } from "@design/layout/Divider";
@@ -21,7 +21,7 @@ function CurrentConsumption(props: CurrentConsumptionProps) {
       {consumptions.map((consumption, index) => (
         <>
           <Stack direction="column" key={consumption.id}>
-            <CurrenteConsumptionBox
+            <CurrentConsumptionBox
               isTablet={isTablet}
               title={consumption.title}
               consumptions={formatCurrentConsumptionAttrs(

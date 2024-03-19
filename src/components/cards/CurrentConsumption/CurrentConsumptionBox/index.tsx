@@ -63,7 +63,7 @@ interface CurrenteConsumptionProps {
   navigateToDetails: string;
 }
 
-function CurrenteConsumptionBox(props: CurrenteConsumptionProps) {
+function CurrentConsumptionBox(props: CurrenteConsumptionProps) {
   const { title, isTablet, consumptions, navigateToDetails } = props;
 
   const {
@@ -239,4 +239,4 @@ function CurrenteConsumptionBox(props: CurrenteConsumptionProps) {
   );
 }
 
-export { CurrenteConsumptionBox };
+export { CurrentConsumptionBox };
