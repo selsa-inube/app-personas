@@ -24,11 +24,16 @@ import {
 } from "./config/product";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
+import { IProduct } from "src/model/entity/product";
+import { CurrentConsumption } from "@components/cards/CurrentConsumption";
+
+
 interface CreditQuotaUIProps {
   cardId?: string;
   creditQuotaId?: string;
   productsOptions: ISelectOption[];
   selectedProduct: ISelectedProductState;
+  selectedConsumption?: IProduct[];
   usedQuotaModal: IUsedQuotaModalState;
   handleToggleUsedQuotaModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -39,6 +44,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
     cardId,
     creditQuotaId,
     selectedProduct,
+    selectedConsumption,
     productsOptions,
     usedQuotaModal,
     handleToggleUsedQuotaModal,
@@ -46,8 +52,9 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
-  const isMobile = useMediaQuery("(max-width: 750px)");
-
+  const isTablet = useMediaQuery("(max-width: 1030px)");
+  const isMobile = useMediaQuery("(max-width: 600px)");
+  
   const attributes =
     selectedProduct && extractQuotaAttrs(selectedProduct.creditQuota);
 
@@ -99,7 +106,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               icon={<MdOutlineAttachMoney size={34} />}
               collapsing={{ start: true, allow: false }}
             >
-              <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
+              <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100">
                 {formatedAttributes.slice(0, 1).map((quotaDetail) => (
                   <BoxAttribute
                     key={quotaDetail.id}
@@ -135,7 +142,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               Detalles
             </Text>
 
-            <Grid gap="s200" templateColumns="1fr 1fr">
+            <Grid gap="s200" templateColumns={isMobile ? "1fr":"1fr 1fr"}>
               <QuotaDetailBox
                 title="Pago mínimo"
                 paymentItems={extractQuotaMinDetailsAttrs(
@@ -152,6 +159,21 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               />
             </Grid>
           </Stack>
+
+          {selectedConsumption && (
+            <Stack direction="column" gap="s300">
+              <Text type="title" size="medium">
+                Consumos vigentes
+              </Text>
+              <Stack direction="column" gap="s300">
+                    <CurrentConsumption
+                      isTablet={isTablet}
+                      consumptions={selectedConsumption}
+                      navigateToDetails={`/my-cards/${cardId}/credit-quota/${creditQuotaId}/consumption`}
+                    />
+                  </Stack>
+            </Stack>
+          )}
         </Stack>
 
         {isDesktop && <QuickAccess links={quickLinks} />}

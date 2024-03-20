@@ -11,12 +11,31 @@ const quotaDetailsAttrs = [
   "assigned_quota",
 ];
 
+const currentConsumptionAttrs = [
+  "consumption_date",
+  "consumption_value",
+  "current_interest",
+  "min_payment_quota_available",
+  "total_payment_quota_available",
+  "capital_payment",
+  "min_capital_payment",
+  "total_capital_payment",
+]
+
 const quotaDetailsCurrencyAttrs = [
   "available_space",
   "min_payment",
   "full_payment",
   "assigned_quota",
 ];
+
+const currentConsumptionCurrencyAttrs = [
+  "consumption_value",
+  "min_payment_quota_available",
+  "total_payment_quota_available",
+  "min_capital_payment",
+  "total_capital_payment",
+]
 
 function extractQuotaAttrs(quotaDetail: IProduct) {
   const foundAttributes = quotaDetail.attributes.filter((attribute) =>
@@ -76,9 +95,35 @@ function extractQuotaTotalDetailsAttrs(quotaDetail: IProduct) {
   });
 }
 
+
+
+function extractConsumptionAttrs(consumption: IProduct) {
+  const foundAttributes = consumption.attributes.filter((attribute) =>
+  currentConsumptionAttrs.includes(attribute.id),
+  );
+
+  return foundAttributes.sort(
+    (a, b) => quotaDetailsAttrs.indexOf(a.id) - quotaDetailsAttrs.indexOf(b.id),
+  );
+}
+
+function formatCurrentConsumptionAttrs(attributes: IAttribute[]) {
+  return attributes.map((attribute) => {
+    if (currentConsumptionCurrencyAttrs.includes(attribute.id)) {
+      return {
+        ...attribute,
+        value: currencyFormat(Number(attribute.value)),
+      };
+    }
+    return attribute;
+  });
+}
+
 export {
   extractQuotaAttrs,
   extractQuotaMinDetailsAttrs,
   extractQuotaTotalDetailsAttrs,
   formatQuotaCurrencyAttrs,
+  formatCurrentConsumptionAttrs,
+  extractConsumptionAttrs
 };
