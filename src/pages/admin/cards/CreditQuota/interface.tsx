@@ -61,7 +61,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
   const formatedAttributes = formatQuotaCurrencyAttrs(attributes);
 
   const minPayment = selectedProduct.creditQuota.attributes.find(
-    (attr) => attr.id === "min_payment",
+    (attr) => attr.id === "next_payment_value",
   )?.value;
 
   const totalPayment = selectedProduct.creditQuota.attributes.find(

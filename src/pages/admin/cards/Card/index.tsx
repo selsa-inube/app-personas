@@ -1,11 +1,11 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
-import { creditQuotasMock } from "@mocks/products/cards/creditQuotas.mock";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { infoModalData } from "./config/modals";
+import { getCreditQuotasForUser } from "src/services/iclient/cards/creditQuotas";
 import { CardUI } from "./interface";
 import {
   IHandlingFeeModal,
@@ -15,10 +15,13 @@ import {
   initialSelectedProductState,
 } from "./types";
 import { validateCard } from "./utils";
+import { IUsedQuotaModalState } from "../CreditQuota/types";
+import { getUsedQuotaData } from "../CreditQuota/utils";
 
 function Card() {
   const { card_id } = useParams();
-  const { cards, setCards } = useContext(CreditsContext);
+  const { cards, setCards, creditQuotas, setCreditQuotas } =
+    useContext(CreditsContext);
   const { savings } = useContext(SavingsContext);
   const { user, accessToken } = useAuth();
   const navigate = useNavigate();
@@ -40,6 +43,21 @@ function Card() {
       show: false,
       data: infoModalData,
     });
+  const [usedQuotaModal, setUsedQuotaModal] = useState<IUsedQuotaModalState>({
+    show: false,
+  });
+
+  useEffect(() => {
+    if (card_id && accessToken) {
+      getCreditQuotasForUser(card_id, accessToken)
+        .then((creditQuotas) => {
+          setCreditQuotas(creditQuotas);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        });
+    }
+  }, [card_id, accessToken]);
 
   useEffect(() => {
     handleSortProduct();
@@ -102,6 +120,25 @@ function Card() {
         ...prevState,
         data: handlingFee || [],
       }));
+
+      const {
+        currentConsumption,
+        accumulatedDebt,
+        transactionsProcess,
+        usedQuotaValue,
+      } = getUsedQuotaData(creditQuotas);
+
+      if (!usedQuotaValue) return;
+
+      setUsedQuotaModal({
+        ...usedQuotaModal,
+        data: {
+          currentConsumption,
+          accumulatedDebt,
+          transactionsProcess,
+          usedQuotaValue,
+        },
+      });
     }
   };
 
@@ -131,19 +168,28 @@ function Card() {
     }));
   }
 
+  const handleUsedQuotaModal = () => {
+    setUsedQuotaModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
   return (
     <CardUI
       cardId={card_id}
-      creditQuotas={creditQuotasMock}
+      creditQuotas={creditQuotas}
       showMovementsInfoModal={showMovementsInfoModal}
       selectedProduct={selectedProduct}
       productsOptions={productsOptions}
       savingAccountsModal={savingAccountsModal}
+      usedQuotaModal={usedQuotaModal}
       handlingFeeModal={handlingFeeModal}
       handleChangeProduct={handleChangeProduct}
       handleShowMovementsInfoModal={handleShowMovementsInfoModal}
       handleToggleSavingsAccountModal={handleToggleSavingsAccountModal}
       handleToggleHandlingFeeModal={handleToggleHandlingFeeModal}
+      handleToggleUsedQuotaModal={handleUsedQuotaModal}
     />
   );
 }
