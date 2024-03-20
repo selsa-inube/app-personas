@@ -114,11 +114,6 @@ const mapCreditQuotaApiToEntity = (
       value: Number(creditQuota.assignedCreditLimit),
     },
     {
-      id: "min_payment",
-      label: "Pago mínimo",
-      value: 257500,
-    },
-    {
       id: "full_payment",
       label: "Pago total",
       value: Object(creditQuota.totalDebt)?.capitalBalanceInPesos,

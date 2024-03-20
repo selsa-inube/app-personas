@@ -7,7 +7,7 @@ interface DataSummary {
 }
 
 const getCreditQuotasForUser = async (
-  creditId: string,
+  cardId: string,
   accessToken: string,
 ): Promise<IProduct[]> => {
   const maxRetries = 5;
@@ -44,11 +44,11 @@ const getCreditQuotasForUser = async (
 
       const [resSummary, resDetail] = await Promise.all([
         fetch(
-          `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${creditId}/summary`,
+          `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${cardId}/summary`,
           optionsSummary,
         ),
         fetch(
-          `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${creditId}/detail`,
+          `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${cardId}/detail`,
           optionsDetail,
         ),
       ]);
