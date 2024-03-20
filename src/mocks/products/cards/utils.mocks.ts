@@ -4,7 +4,7 @@ const cardStatusValuesMock: Record<string, string> = {
 };
 
 const cardTypeValuesMock: Record<string, string> = {
-  AnObligation: "En obligación",
+  AnObligation: "Credito por consumo",
 }
 
 export {

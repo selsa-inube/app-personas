@@ -71,10 +71,13 @@ const getCreditQuotasForUser = async (
         };
       }
 
+      const productCode = dataDetail.creditProductCode;
+
       for (const [key, value] of Object.entries(dataDetail)) {
-        dataSummary.map((x:DataSummary) => {
-          if (!x[key as typeof dataDetail] || key === "totalDebt" || key === "nextPaymentValue") {
-            x[key as typeof dataDetail]=value;
+        dataSummary.map((data:DataSummary) => {
+        
+          if (data.creditProductCode === productCode && (!data[key as typeof dataDetail] || key === "totalDebt" || key === "nextPaymentValue")) {
+            data[key as typeof dataDetail]=value;
           }
         });
       }

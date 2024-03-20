@@ -46,7 +46,6 @@ const mapCreditQuotaMovementsApiToEntities = (
 const mapCreditQuotaApiToEntity = (
   creditQuota: Record<string, string | number | object>,
 ): IProduct => {
-
   const movements = Array.isArray(creditQuota.listOfConsumerMovements)
     ? mapCreditQuotaMovementsApiToEntities(creditQuota.listOfConsumerMovements)
     : [];
@@ -113,6 +112,7 @@ const mapCreditQuotaApiToEntity = (
       label: "Cupo asignado",
       value: Number(creditQuota.assignedCreditLimit),
     },
+
     {
       id: "full_payment",
       label: "Pago total",
@@ -123,11 +123,15 @@ const mapCreditQuotaApiToEntity = (
       label: "Medio de pago",
       value: normalizedPaymentMediumName,
     },
-
+    {
+      id: "used_quota",
+      label: "Cupo usado",
+      value: usedQuota,
+    },
     {
       id: "current_consumption",
       label: "Consumos vigentes",
-      value: currentConsumption,
+      value: Number(currentConsumption),
     },
     {
       id: "transactions_process",

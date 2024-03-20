@@ -12,16 +12,15 @@ const cardAttributes = [
 
 const creditQuotasAttributes = [
   "available_space",
-  "used_quota",
   "next_payment_date",
   "next_payment_value",
   "type",
+  "payment_method",
   "assigned_quota",
 ];
 
 const creditQuotasCurrencyAttributes = [
   "available_space",
-  "used_quota",
   "next_payment_value",
   "assigned_quota",
 ];

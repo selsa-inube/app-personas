@@ -90,12 +90,10 @@ function UsedQuotaModal(props: UsedQuotaModalProps) {
                 usedQuotaData.accumulatedDebt,
               )}
 
-            {usedQuotaData.transactionsProcess &&
-              String(usedQuotaData.transactionsProcess).length &&
-              renderTransactionSpecification(
-                "Transacciones en proceso:",
-                usedQuotaData.transactionsProcess,
-              )}
+            {renderTransactionSpecification(
+              "Transacciones en proceso:",
+              usedQuotaData.transactionsProcess || 0,
+            )}
           </Stack>
 
           <Stack direction="column" gap="s150">

@@ -15,10 +15,13 @@ import {
   initialSelectedProductState,
 } from "./types";
 import { validateCard } from "./utils";
+import { IUsedQuotaModalState } from "../CreditQuota/types";
+import { getUsedQuotaData } from "../CreditQuota/utils";
 
 function Card() {
   const { card_id } = useParams();
-  const { cards, setCards, creditQuotas, setCreditQuotas} = useContext(CreditsContext);
+  const { cards, setCards, creditQuotas, setCreditQuotas } =
+    useContext(CreditsContext);
   const { savings } = useContext(SavingsContext);
   const { user, accessToken } = useAuth();
   const navigate = useNavigate();
@@ -40,21 +43,21 @@ function Card() {
       show: false,
       data: infoModalData,
     });
+  const [usedQuotaModal, setUsedQuotaModal] = useState<IUsedQuotaModalState>({
+    show: false,
+  });
 
-    useEffect(() => {
-      if (card_id && accessToken) {
-        getCreditQuotasForUser(
-          card_id,
-          accessToken,   
-        )
-          .then((creditQuotas) => {
-            setCreditQuotas(creditQuotas);
-          })
-          .catch((error) => {
-            console.info(error.message);
-          })
-      }
-    }, [card_id, accessToken]);
+  useEffect(() => {
+    if (card_id && accessToken) {
+      getCreditQuotasForUser(card_id, accessToken)
+        .then((creditQuotas) => {
+          setCreditQuotas(creditQuotas);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        });
+    }
+  }, [card_id, accessToken]);
 
   useEffect(() => {
     handleSortProduct();
@@ -117,6 +120,25 @@ function Card() {
         ...prevState,
         data: handlingFee || [],
       }));
+
+      const {
+        currentConsumption,
+        accumulatedDebt,
+        transactionsProcess,
+        usedQuotaValue,
+      } = getUsedQuotaData(creditQuotas);
+
+      if (!usedQuotaValue) return;
+
+      setUsedQuotaModal({
+        ...usedQuotaModal,
+        data: {
+          currentConsumption,
+          accumulatedDebt,
+          transactionsProcess,
+          usedQuotaValue,
+        },
+      });
     }
   };
 
@@ -146,6 +168,13 @@ function Card() {
     }));
   }
 
+  const handleUsedQuotaModal = () => {
+    setUsedQuotaModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
   return (
     <CardUI
       cardId={card_id}
@@ -154,11 +183,13 @@ function Card() {
       selectedProduct={selectedProduct}
       productsOptions={productsOptions}
       savingAccountsModal={savingAccountsModal}
+      usedQuotaModal={usedQuotaModal}
       handlingFeeModal={handlingFeeModal}
       handleChangeProduct={handleChangeProduct}
       handleShowMovementsInfoModal={handleShowMovementsInfoModal}
       handleToggleSavingsAccountModal={handleToggleSavingsAccountModal}
       handleToggleHandlingFeeModal={handleToggleHandlingFeeModal}
+      handleToggleUsedQuotaModal={handleUsedQuotaModal}
     />
   );
 }
