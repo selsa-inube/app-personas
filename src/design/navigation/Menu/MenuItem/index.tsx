@@ -1,0 +1,69 @@
+import { Stack } from "@design/layout/Stack";
+import { Text } from "@design/data/Text";
+import { Icon } from "@design/data/Icon";
+import { StyledMenuItemContainer } from "./styles";
+
+import { MenuItemSpacingType } from "./types";
+
+interface MenuItemProps {
+  title: string;
+  description?: string;
+  spacing?: MenuItemSpacingType;
+  iconBefore?: React.JSX.Element;
+  iconAfter?: React.JSX.Element;
+  isDisabled?: boolean;
+  path: string;
+}
+
+function MenuItem(props: MenuItemProps) {
+  const {
+    title,
+    description,
+    spacing = "wide",
+    iconBefore,
+    iconAfter,
+    isDisabled = false,
+    path,
+  } = props;
+
+  return (
+    <StyledMenuItemContainer spacing={spacing} disabled={isDisabled} to={path}>
+      <Stack gap="s150" alignItems="center">
+        {iconBefore && (
+          <Icon
+            icon={iconBefore}
+            spacing="none"
+            size="24px"
+            appearance="dark"
+            disabled={isDisabled}
+          />
+        )}
+        <Stack direction="column" gap="s050">
+          <Text type="label" size="large" disabled={isDisabled}>
+            {title}
+          </Text>
+          <Text
+            type="body"
+            size="small"
+            appearance="gray"
+            disabled={isDisabled}
+          >
+            {description}
+          </Text>
+        </Stack>
+      </Stack>
+      {iconAfter && (
+        <Icon
+          icon={iconAfter}
+          spacing="none"
+          size="24px"
+          appearance="dark"
+          disabled={isDisabled}
+        />
+      )}
+    </StyledMenuItemContainer>
+  );
+}
+
+export type { MenuItemProps };
+export { MenuItem };
