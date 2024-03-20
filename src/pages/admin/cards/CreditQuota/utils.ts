@@ -23,30 +23,6 @@ const getUsedQuotaData = (creditQuotas: IProduct[]) => {
     });
    })
    
-  
-   
-  //  .find(
-  //   (attribute) => attribute.id === "used_quota",
-  // );
-  // const UsedQuotaDataModal = Array.isArray(UsedQuotaData?.value)
-  //   ? UsedQuotaData?.value
-  //   : [];
-
-  // creditQuotas.forEach((attr) => {
-  //   if (attr.id === "current_consumption") {
-  //     currentConsumption = attr;
-  //   }
-  //   if (attr.id === "accumulated_debt") {
-  //     accumulatedDebt = attr.value;
-  //   }
-  //   if (attr.id === "transactions_process") {
-  //     transactionsProcess = attr.value;
-  //   }
-  //   if (attr.id === "used_quota_value") {
-  //     usedQuotaValue = attr.value;
-  //   }
-  // });
-
   return {
     currentConsumption: currentConsumption && Number(currentConsumption),
     accumulatedDebt: accumulatedDebt && Number(accumulatedDebt),
