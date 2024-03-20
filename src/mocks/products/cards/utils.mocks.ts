@@ -3,6 +3,11 @@ const cardStatusValuesMock: Record<string, string> = {
   InactiveCard: "Inactiva",
 };
 
+const cardTypeValuesMock: Record<string, string> = {
+  AnObligation: "En obligación",
+}
+
 export {
   cardStatusValuesMock,
+  cardTypeValuesMock,
 };
