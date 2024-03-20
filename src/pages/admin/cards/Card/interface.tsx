@@ -334,6 +334,8 @@ function CardUI(props: CardUIProps) {
                             <Button
                               iconBefore={<MdOutlineAssignmentTurnedIn />}
                               spacing="compact"
+                              type="link"
+                              path={`/my-cards/${selectedProduct.card.id}/movements/${quota.id}`}
                             >
                               Movimientos
                             </Button>
