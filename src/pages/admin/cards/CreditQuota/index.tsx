@@ -42,7 +42,7 @@ function CreditQuota() {
       accumulatedDebt,
       transactionsProcess,
       usedQuotaValue,
-    } = getUsedQuotaData(selectedProduct.creditQuota);
+    } = getUsedQuotaData([]);
 
     if (!usedQuotaValue) return;
 

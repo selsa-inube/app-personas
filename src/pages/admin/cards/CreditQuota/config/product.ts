@@ -3,7 +3,7 @@ import { currencyFormat } from "src/utils/currency";
 
 const quotaDetailsAttrs = [
   "available_space",
-  "min_payment",
+  "next_payment_value",
   "full_payment",
   "next_payment_date",
   "type",
@@ -24,7 +24,7 @@ const currentConsumptionAttrs = [
 
 const quotaDetailsCurrencyAttrs = [
   "available_space",
-  "min_payment",
+  "next_payment_value",
   "full_payment",
   "assigned_quota",
 ];

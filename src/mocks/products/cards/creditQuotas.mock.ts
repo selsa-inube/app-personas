@@ -41,12 +41,7 @@ const creditQuotasMock: IProduct[] = [
         label: "Cupo asignado",
         value: 8550420,
       },
-      {
-        id: "min_payment",
-        label: "Pago mínimo",
-        value: 257500,
-      },
-      {
+          {
         id: "full_payment",
         label: "Pago total",
         value: 2775000,
@@ -194,11 +189,6 @@ const creditQuotasMock: IProduct[] = [
         id: "assigned_quota",
         label: "Cupo asignado",
         value: 70000000,
-      },
-      {
-        id: "min_payment",
-        label: "Pago mínimo",
-        value: 1909000,
       },
       {
         id: "full_payment",
