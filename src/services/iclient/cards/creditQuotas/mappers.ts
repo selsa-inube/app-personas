@@ -155,7 +155,7 @@ const mapCreditQuotaApiToEntity = (
 
   return {
     id: String(creditQuota.creditProductCode),
-    title: String(creditQuota.productDescription),
+    title: "Crediexpress",
     description: "Informe de movimientos",
     type: EProductType.CREDITCARD,
     attributes,
