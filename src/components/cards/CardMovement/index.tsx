@@ -19,7 +19,7 @@ interface CardMovementProps {
   description: string;
   totalValue: number;
   date: Date;
-  quotas: string;
+  quotas?: string;
   onClick: () => void;
 }
 
@@ -95,13 +95,15 @@ function CardMovement(props: CardMovementProps) {
         >
           {formatPrimaryDate(date, true)}
         </Text>
-        <Text
-          type="label"
-          size={isMobile ? "small" : "medium"}
-          appearance="gray"
-        >
-          {quotas}
-        </Text>
+        {quotas && (
+          <Text
+            type="label"
+            size={isMobile ? "small" : "medium"}
+            appearance="gray"
+          >
+            {quotas}
+          </Text>
+        )}
       </Stack>
       {isMobile && (
         <Stack justifyContent="flex-end">
