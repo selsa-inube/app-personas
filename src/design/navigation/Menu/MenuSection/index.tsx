@@ -4,6 +4,7 @@ import { ISection } from "./types";
 import { MenuItemSpacingType } from "../MenuItem/types";
 import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 
 interface MenuSectionProps {
   sections: ISection[];
@@ -25,18 +26,24 @@ function MenuSection(props: MenuSectionProps) {
           )}
 
           {section.title && <MenuHeading title={section.title} />}
-          {section.links.map((link, linkIndex) => (
-            <MenuItem
-              key={linkIndex}
-              title={link.title}
-              description={link.description}
-              iconBefore={link.iconBefore}
-              iconAfter={link.iconAfter}
-              isDisabled={link.isDisabled}
-              path={link.path}
-              spacing={spacing}
-            />
-          ))}
+          <Stack
+            direction="column"
+            gap={spacing === "compact" ? inube.spacing.s050 : inube.spacing.s0}
+            margin={`${inube.spacing.s075} ${inube.spacing.s0}`}
+          >
+            {section.links.map((link, linkIndex) => (
+              <MenuItem
+                key={linkIndex}
+                title={link.title}
+                description={link.description}
+                iconBefore={link.iconBefore}
+                iconAfter={link.iconAfter}
+                isDisabled={link.isDisabled}
+                path={link.path}
+                spacing={spacing}
+              />
+            ))}
+          </Stack>
         </Stack>
       ))}
     </>

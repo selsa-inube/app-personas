@@ -13,7 +13,7 @@ const StyledMenuItemContainer = styled(Link)<IStyledMenuItemContainer>`
   justify-content: space-between;
   text-decoration: none;
   align-items: center;
-  height: 56px;
+  height: ${(props) => (props.spacing === "wide" ? "40px" : "36px")};
   padding: ${(props) =>
     props.spacing === "wide"
       ? `${inube.spacing.s100} ${inube.spacing.s200}`
