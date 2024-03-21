@@ -191,7 +191,6 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
     type: EProductType.CREDITCARD,
     attributes,
     movements: movements,
-    amortization: [],
     consumptions: [],
     tags,
   };
