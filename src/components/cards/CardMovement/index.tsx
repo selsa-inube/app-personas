@@ -20,7 +20,7 @@ interface CardMovementProps {
   totalValue: number;
   date: Date;
   quotas?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function CardMovement(props: CardMovementProps) {

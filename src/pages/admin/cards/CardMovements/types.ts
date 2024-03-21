@@ -1,8 +1,9 @@
-import { IProduct } from "src/model/entity/product";
+import { IMovement } from "src/model/entity/product";
 
 interface ISelectedProductState {
-  movement: IProduct;
+  movements: IMovement[];
   option: string;
+  totalMovements: number;
 }
 
 export type { ISelectedProductState };

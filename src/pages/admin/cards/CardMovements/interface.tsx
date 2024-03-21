@@ -1,7 +1,7 @@
 import { Title } from "@design/data/Title";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
-import { MdArrowBack } from "react-icons/md";
+import { MdAdd, MdArrowBack } from "react-icons/md";
 import { crumbsCardMovements } from "./config/navigation";
 import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -11,13 +11,20 @@ import { quickLinks } from "@config/quickLinks";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { ISelectedProductState } from "./types";
+import { EMovementType } from "src/model/entity/product";
+import { Divider } from "@design/layout/Divider";
+import { CardMovement } from "@components/cards/CardMovement";
+import { StyledContainer, StyledItem } from "./styles";
+import { Button } from "@design/input/Button";
 
 interface CardMovementsUIProps {
   cardId?: string;
   creditQuotaId?: string;
   productsOptions: ISelectOption[];
   selectedProduct: ISelectedProductState;
+  loading: boolean;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleAddMovements: () => void;
 }
 
 function CardMovementsUI(props: CardMovementsUIProps) {
@@ -26,9 +33,13 @@ function CardMovementsUI(props: CardMovementsUIProps) {
     creditQuotaId,
     productsOptions,
     selectedProduct,
+    loading,
     handleChangeProduct,
+    handleAddMovements,
   } = props;
+
   const isDesktop = useMediaQuery("(min-width: 1400px)");
+
   return (
     <>
       <Stack direction="column" gap="s300">
@@ -57,6 +68,45 @@ function CardMovementsUI(props: CardMovementsUIProps) {
               value={selectedProduct.option}
               isFullWidth
             />
+          </Stack>
+          <Stack direction="column" gap="s300">
+            <StyledContainer>
+              {selectedProduct.movements
+                .filter(
+                  (movement) =>
+                    typeof movement.totalValue === "number" &&
+                    !isNaN(movement.totalValue) &&
+                    movement.type !== undefined,
+                )
+                .map((movement, index) => (
+                  <Stack direction="column" key={movement.id}>
+                    {index !== 0 && <Divider dashed />}
+                    <StyledItem>
+                      <CardMovement
+                        movementType={movement.type as EMovementType}
+                        description={movement.description}
+                        totalValue={movement.totalValue}
+                        date={movement.date}
+                      />
+                    </StyledItem>
+                  </Stack>
+                ))}
+            </StyledContainer>
+            <Stack direction="column" alignItems="center">
+              <Button
+                appearance="primary"
+                variant="none"
+                iconBefore={<MdAdd />}
+                onClick={handleAddMovements}
+                load={loading}
+                disabled={
+                  selectedProduct.movements.length ===
+                  selectedProduct.totalMovements
+                }
+              >
+                Ver más movimientos
+              </Button>
+            </Stack>
           </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
