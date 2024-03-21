@@ -66,6 +66,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
               label="Selección de producto"
               options={productsOptions}
               value={selectedProduct.option}
+              readOnly={productsOptions.length == 1 ? true : false}
               isFullWidth
             />
           </Stack>
