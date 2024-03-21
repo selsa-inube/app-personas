@@ -136,28 +136,34 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
             </Box>
           </Stack>
 
-          <Stack direction="column" gap="s300">
-            <Text type="title" size="medium">
-              Detalles
-            </Text>
+          {!isNaN(Number(minPayment)) && !isNaN(Number(totalPayment)) && (
+            <Stack direction="column" gap="s300">
+              <Text type="title" size="medium">
+                Detalles
+              </Text>
 
-            <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
-              <QuotaDetailBox
-                title="Valor próximo pago"
-                paymentItems={extractNextPaymentValueDetailsAttrs(
-                  selectedProduct.creditQuota,
+              <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+                {!isNaN(Number(minPayment)) && (
+                  <QuotaDetailBox
+                    title="Valor próximo pago"
+                    paymentItems={extractNextPaymentValueDetailsAttrs(
+                      selectedProduct.creditQuota,
+                    )}
+                    totalPayment={Number(minPayment)}
+                  />
                 )}
-                totalPayment={Number(minPayment)}
-              />
-              <QuotaDetailBox
-                title="Pago total"
-                paymentItems={extractQuotaTotalDetailsAttrs(
-                  selectedProduct.creditQuota,
+                {!isNaN(Number(totalPayment)) && (
+                  <QuotaDetailBox
+                    title="Pago total"
+                    paymentItems={extractQuotaTotalDetailsAttrs(
+                      selectedProduct.creditQuota,
+                    )}
+                    totalPayment={Number(totalPayment)}
+                  />
                 )}
-                totalPayment={Number(totalPayment)}
-              />
-            </Grid>
-          </Stack>
+              </Grid>
+            </Stack>
+          )}
 
           {selectedConsumption && (
             <Stack direction="column" gap="s300">
