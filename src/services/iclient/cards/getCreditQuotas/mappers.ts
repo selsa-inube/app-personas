@@ -203,4 +203,4 @@ const mapCreditQuotaApiToEntities = (
   );
 };
 
-export { mapCreditQuotaApiToEntity, mapCreditQuotaApiToEntities };
+export { mapCreditQuotaApiToEntities, mapCreditQuotaApiToEntity };
