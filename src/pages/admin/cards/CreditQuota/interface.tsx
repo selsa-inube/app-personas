@@ -67,6 +67,10 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
     (attr) => attr.id === "full_payment",
   )?.value;
 
+  const isRevolving = selectedProduct.creditQuota.attributes.find(
+    (attr) => attr.id === "type",
+  )?.value;
+
   return (
     <>
       <Stack direction="column" gap="s300">
@@ -165,22 +169,20 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
             </Stack>
           )}
 
-          {selectedConsumption &&
-            selectedProduct.creditQuota.type !==
-              "CREDITCARDREVOLVINGCREDIT" && (
+          {selectedConsumption && isRevolving !== "Rotativo" && (
+            <Stack direction="column" gap="s300">
+              <Text type="title" size="medium">
+                Consumos vigentes
+              </Text>
               <Stack direction="column" gap="s300">
-                <Text type="title" size="medium">
-                  Consumos vigentes
-                </Text>
-                <Stack direction="column" gap="s300">
-                  <CurrentConsumption
-                    isTablet={isTablet}
-                    consumptions={selectedConsumption}
-                    navigateToDetails={`/my-cards/${cardId}/credit-quota/${creditQuotaId}/consumption`}
-                  />
-                </Stack>
+                <CurrentConsumption
+                  isTablet={isTablet}
+                  consumptions={selectedConsumption}
+                  navigateToDetails={`/my-cards/${cardId}/credit-quota/${creditQuotaId}/consumption`}
+                />
               </Stack>
-            )}
+            </Stack>
+          )}
         </Stack>
 
         {isDesktop && <QuickAccess links={quickLinks} />}
