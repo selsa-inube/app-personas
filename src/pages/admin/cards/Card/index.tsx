@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { infoModalData } from "./config/modals";
-import { getCreditQuotasForUser } from "src/services/iclient/cards/creditQuotas";
 import { CardUI } from "./interface";
 import {
   IHandlingFeeModal,
@@ -14,7 +13,7 @@ import {
   ISelectedProductState,
   initialSelectedProductState,
 } from "./types";
-import { validateCard } from "./utils";
+import { validateCard, validateCreditQuotasInCards } from "./utils";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
 import { getUsedQuotaData } from "../CreditQuota/utils";
 
@@ -48,18 +47,6 @@ function Card() {
   });
 
   useEffect(() => {
-    if (card_id && accessToken) {
-      getCreditQuotasForUser(card_id, accessToken)
-        .then((creditQuotas) => {
-          setCreditQuotas(creditQuotas);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        });
-    }
-  }, [card_id, accessToken]);
-
-  useEffect(() => {
     handleSortProduct();
   }, [card_id, user, accessToken]);
 
@@ -79,6 +66,14 @@ function Card() {
     );
 
     setCards(newCards);
+    
+    const { newCreditQuotas } = await validateCreditQuotasInCards(
+      creditQuotas,
+      card_id,
+      accessToken,
+    );
+
+    setCreditQuotas(newCreditQuotas);
 
     if (!selectedCard) return;
 
@@ -92,7 +87,7 @@ function Card() {
         id: card.id,
         value: card.description,
       })),
-    );
+    );   
   };
 
   const updateModals = () => {
