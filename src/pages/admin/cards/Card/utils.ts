@@ -1,6 +1,6 @@
 import { IProduct } from "src/model/entity/product";
-import { getCreditQuotasForUser } from "src/services/iclient/cards/creditQuotas";
 import { getCardsForUser } from "src/services/iclient/cards/getCards";
+import { getCreditQuotasForUser } from "src/services/iclient/cards/getCreditQuotas";
 
 const validateCard = async (
   cards: IProduct[],
@@ -29,7 +29,6 @@ const validateCard = async (
   };
 };
 
-
 const validateCreditQuotasInCards = async (
   creditQuotas: IProduct[],
   cardId: string,
@@ -42,7 +41,6 @@ const validateCreditQuotasInCards = async (
   }
 
   return {
-
     newCreditQuotas: currentyCreditQuotas,
   };
 };

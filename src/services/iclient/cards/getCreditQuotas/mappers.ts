@@ -116,7 +116,7 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
     {
       id: "next_payment_value",
       label: "Valor próximo pago",
-      value: Object(creditQuota.nextPaymentValue)?.total,
+      value: Object(creditQuota.nextPaymentValue)?.total || "Sin definir",
     },
     {
       id: "type",
@@ -147,7 +147,7 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
     {
       id: "full_payment",
       label: "Pago total",
-      value: Object(creditQuota.totalDebt)?.totalPending,
+      value: Object(creditQuota.totalDebt)?.totalPending || "Sin definir",
     },
     {
       id: "payment_method",
@@ -205,4 +205,4 @@ const mapCreditQuotaApiToEntities = (
   );
 };
 
-export { mapCreditQuotaApiToEntity, mapCreditQuotaApiToEntities };
+export { mapCreditQuotaApiToEntities, mapCreditQuotaApiToEntity };

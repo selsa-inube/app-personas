@@ -52,7 +52,9 @@ function formatQuotaCurrencyAttrs(attributes: IAttribute[]) {
     if (quotaDetailsCurrencyAttrs.includes(attribute.id)) {
       return {
         ...attribute,
-        value: currencyFormat(Number(attribute.value)),
+        value: !isNaN(Number(attribute.value))
+          ? currencyFormat(Number(attribute.value))
+          : attribute.value,
       };
     }
     return attribute;
@@ -116,10 +118,10 @@ function formatCurrentConsumptionAttrs(attributes: IAttribute[]) {
 }
 
 export {
-  extractQuotaAttrs,
-  extractNextPaymentValueDetailsAttrs,
-  extractQuotaTotalDetailsAttrs,
-  formatQuotaCurrencyAttrs,
-  formatCurrentConsumptionAttrs,
   extractConsumptionAttrs,
+  extractNextPaymentValueDetailsAttrs,
+  extractQuotaAttrs,
+  extractQuotaTotalDetailsAttrs,
+  formatCurrentConsumptionAttrs,
+  formatQuotaCurrencyAttrs,
 };
