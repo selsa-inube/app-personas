@@ -18,7 +18,7 @@ import { currencyFormat } from "src/utils/currency";
 import { crumbsCreditQuota } from "./config/navigation";
 import {
   extractQuotaAttrs,
-  extractQuotaMinDetailsAttrs,
+  extractNextPaymentValueDetailsAttrs,
   extractQuotaTotalDetailsAttrs,
   formatQuotaCurrencyAttrs,
 } from "./config/product";
@@ -26,7 +26,6 @@ import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
 import { IProduct } from "src/model/entity/product";
 import { CurrentConsumption } from "@components/cards/CurrentConsumption";
-
 
 interface CreditQuotaUIProps {
   cardId?: string;
@@ -54,7 +53,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isTablet = useMediaQuery("(max-width: 1030px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
-  
+
   const attributes =
     selectedProduct && extractQuotaAttrs(selectedProduct.creditQuota);
 
@@ -142,10 +141,10 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               Detalles
             </Text>
 
-            <Grid gap="s200" templateColumns={isMobile ? "1fr":"1fr 1fr"}>
+            <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
               <QuotaDetailBox
-                title="Pago mínimo"
-                paymentItems={extractQuotaMinDetailsAttrs(
+                title="Valor próximo pago"
+                paymentItems={extractNextPaymentValueDetailsAttrs(
                   selectedProduct.creditQuota,
                 )}
                 totalPayment={Number(minPayment)}
@@ -166,12 +165,12 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
                 Consumos vigentes
               </Text>
               <Stack direction="column" gap="s300">
-                    <CurrentConsumption
-                      isTablet={isTablet}
-                      consumptions={selectedConsumption}
-                      navigateToDetails={`/my-cards/${cardId}/credit-quota/${creditQuotaId}/consumption`}
-                    />
-                  </Stack>
+                <CurrentConsumption
+                  isTablet={isTablet}
+                  consumptions={selectedConsumption}
+                  navigateToDetails={`/my-cards/${cardId}/credit-quota/${creditQuotaId}/consumption`}
+                />
+              </Stack>
             </Stack>
           )}
         </Stack>
