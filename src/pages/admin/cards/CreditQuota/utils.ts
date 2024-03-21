@@ -1,4 +1,27 @@
 import { IProduct } from "src/model/entity/product";
+import { getCreditQuotasForUser } from "src/services/iclient/cards/creditQuotas";
+
+const validateCreditQuotas = async (
+  creditQuotas: IProduct[],
+  cardId: string,
+  creditQuotaId: string,
+  accessToken: string,
+) => {
+  let currentyCreditQuotas = [...creditQuotas];
+
+  if (currentyCreditQuotas.length === 0) {
+    currentyCreditQuotas = await getCreditQuotasForUser(cardId, accessToken);
+  }
+
+  const selectCreditQuotas = currentyCreditQuotas.find((creditQuota) => {
+    return creditQuota.id === creditQuotaId;
+  });
+
+  return {
+    selectCreditQuotas,
+    newCreditQuotas: currentyCreditQuotas,
+  };
+};
 
 const getUsedQuotaData = (creditQuotas: IProduct[]) => {
   let currentConsumption;
@@ -6,7 +29,7 @@ const getUsedQuotaData = (creditQuotas: IProduct[]) => {
   let transactionsProcess;
   let usedQuotaValue;
 
-    creditQuotas.map((creditQuota) =>{
+  creditQuotas.map((creditQuota) => {
     creditQuota.attributes.forEach((attr) => {
       if (attr.id === "current_consumption") {
         currentConsumption = attr.value;
@@ -21,8 +44,8 @@ const getUsedQuotaData = (creditQuotas: IProduct[]) => {
         usedQuotaValue = attr.value;
       }
     });
-   })
-   
+  });
+
   return {
     currentConsumption: currentConsumption && Number(currentConsumption),
     accumulatedDebt: accumulatedDebt && Number(accumulatedDebt),
@@ -31,4 +54,4 @@ const getUsedQuotaData = (creditQuotas: IProduct[]) => {
   };
 };
 
-export { getUsedQuotaData };
+export { getUsedQuotaData, validateCreditQuotas };
