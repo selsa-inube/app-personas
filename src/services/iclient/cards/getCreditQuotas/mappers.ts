@@ -59,9 +59,11 @@ const mapCreditQuotaApiToEntity = (
 
   const inArrears = today > nextPaymentDate;
 
-  const nextPayment = inArrears
+  const nextPaymentFormat = inArrears
     ? "Inmediato"
-    : formatPrimaryDate(new Date(String(creditQuota.nextPaymentDate)));
+    : formatPrimaryDate(new Date(String(creditQuota.nextPaymentDay)));
+
+const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "Sin definir"
 
   const normalizedPaymentMediumName = capitalizeText(
     String(creditQuota.paymentMediumName).toLowerCase(),
@@ -94,7 +96,7 @@ const mapCreditQuotaApiToEntity = (
     {
       id: "next_payment_date",
       label: "Fecha próximo pago",
-      value: nextPayment,
+      value: nextPaymentDateValid,
     },
     {
       id: "min_capital_payment",
