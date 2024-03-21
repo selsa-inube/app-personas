@@ -165,20 +165,22 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
             </Stack>
           )}
 
-          {selectedConsumption && (
-            <Stack direction="column" gap="s300">
-              <Text type="title" size="medium">
-                Consumos vigentes
-              </Text>
+          {selectedConsumption &&
+            selectedProduct.creditQuota.type !==
+              "CREDITCARDREVOLVINGCREDIT" && (
               <Stack direction="column" gap="s300">
-                <CurrentConsumption
-                  isTablet={isTablet}
-                  consumptions={selectedConsumption}
-                  navigateToDetails={`/my-cards/${cardId}/credit-quota/${creditQuotaId}/consumption`}
-                />
+                <Text type="title" size="medium">
+                  Consumos vigentes
+                </Text>
+                <Stack direction="column" gap="s300">
+                  <CurrentConsumption
+                    isTablet={isTablet}
+                    consumptions={selectedConsumption}
+                    navigateToDetails={`/my-cards/${cardId}/credit-quota/${creditQuotaId}/consumption`}
+                  />
+                </Stack>
               </Stack>
-            </Stack>
-          )}
+            )}
         </Stack>
 
         {isDesktop && <QuickAccess links={quickLinks} />}
