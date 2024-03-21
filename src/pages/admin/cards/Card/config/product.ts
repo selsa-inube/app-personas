@@ -66,7 +66,9 @@ function formatCreditQuotasCurrencyAttrs(attributes: IAttribute[]) {
     if (creditQuotasCurrencyAttributes.includes(attribute.id)) {
       return {
         ...attribute,
-        value: currencyFormat(Number(attribute.value)),
+        value: !isNaN(Number(attribute.value))
+          ? currencyFormat(Number(attribute.value))
+          : attribute.value,
       };
     }
     return attribute;

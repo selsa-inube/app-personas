@@ -1,5 +1,5 @@
 import { IProduct } from "src/model/entity/product";
-import { getCreditQuotasForUser } from "src/services/iclient/cards/creditQuotas";
+import { getCreditQuotasForUser } from "src/services/iclient/cards/getCreditQuotas";
 
 const validateCreditQuotas = async (
   creditQuotas: IProduct[],
