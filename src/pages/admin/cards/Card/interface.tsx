@@ -21,14 +21,11 @@ import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineAssignmentTurnedIn,
-  MdOutlineCached,
-  MdOutlineCheck,
   MdOutlineDescription,
   MdQuestionMark,
 } from "react-icons/md";
 import { EMovementType, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
 import { cardBox, myQuotas } from "./config/card";
 import { infoModalData } from "./config/modals";
 import { crumbsCard } from "./config/navigation";
@@ -37,7 +34,6 @@ import {
   extractCreditQuotasAttributes,
   formatCardCurrencyAttrs,
   formatCreditQuotasCurrencyAttrs,
-  getMovementDescriptionType,
 } from "./config/product";
 import {
   IHandlingFeeModal,
@@ -47,6 +43,7 @@ import {
 } from "./types";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
+import { CardMovement } from "@components/cards/CardMovement";
 
 interface CardUIProps {
   cardId?: string;
@@ -205,12 +202,12 @@ function CardUI(props: CardUIProps) {
                             label="Cupo usado:"
                             buttonIcon={<MdOpenInNew />}
                             buttonValue={currencyFormat(
-                            usedQuotaModal.data.usedQuotaValue,
+                              usedQuotaModal.data.usedQuotaValue,
                             )}
                             onClickButton={handleToggleUsedQuotaModal}
                             withButton
                           />
-                        )} 
+                        )}
                         {formatCreditQuotasCurrencyAttrs(
                           extractCreditQuotasAttributes(quota),
                         )
@@ -262,73 +259,14 @@ function CardUI(props: CardUIProps) {
                                 key={movement.id}
                               >
                                 {index !== 0 && <Divider dashed />}
-                                <Stack direction="column" gap="s100">
-                                  <Stack
-                                    justifyContent="space-between"
-                                    gap="s100"
-                                  >
-                                    <Stack gap="s100">
-                                      <Stack direction="column">
-                                        {movement.type ===
-                                          EMovementType.PURCHASE && (
-                                          <Icon
-                                            icon={<MdArrowBack />}
-                                            appearance="error"
-                                            spacing="none"
-                                            size="16px"
-                                            variant="outlined"
-                                            shape="circle"
-                                          />
-                                        )}
-                                        {movement.type ===
-                                          EMovementType.REVERSE && (
-                                          <Icon
-                                            icon={<MdOutlineCached />}
-                                            appearance="success"
-                                            spacing="none"
-                                            size="16px"
-                                            variant="outlined"
-                                            shape="circle"
-                                          />
-                                        )}
-                                        {movement.type ===
-                                          EMovementType.PAYMENT && (
-                                          <Icon
-                                            icon={<MdOutlineCheck />}
-                                            appearance="success"
-                                            spacing="none"
-                                            size="16px"
-                                            variant="outlined"
-                                            shape="circle"
-                                          />
-                                        )}
-                                      </Stack>
-                                      <Text
-                                        type="label"
-                                        size="medium"
-                                      >{`${getMovementDescriptionType(movement.type)} ${movement.description}`}</Text>
-                                    </Stack>
-                                    <Text type="label" size="medium">
-                                      {currencyFormat(movement.totalValue)}
-                                    </Text>
-                                  </Stack>
-                                  <Stack justifyContent="space-between">
-                                    <Text
-                                      type="label"
-                                      size="medium"
-                                      appearance="gray"
-                                    >
-                                      {formatPrimaryDate(movement.date, true)}
-                                    </Text>
-                                    <Text
-                                      type="label"
-                                      size="medium"
-                                      appearance="gray"
-                                    >
-                                      {movement.quotas}
-                                    </Text>
-                                  </Stack>
-                                </Stack>
+                                <CardMovement
+                                  movementType={
+                                    movement.type || EMovementType.PAYMENT
+                                  }
+                                  description={movement.description}
+                                  totalValue={movement.totalValue || 0}
+                                  date={movement.date}
+                                />
                               </Stack>
                             ))}
                         </Stack>
@@ -336,6 +274,8 @@ function CardUI(props: CardUIProps) {
                           <Button
                             iconBefore={<MdOutlineAssignmentTurnedIn />}
                             spacing="compact"
+                            type="link"
+                            path={`/my-cards/${selectedProduct.card.id}/movements/${quota.id}`}
                           >
                             Movimientos
                           </Button>
