@@ -97,6 +97,21 @@ const mapCreditQuotaApiToEntity = (
       value: nextPayment,
     },
     {
+      id: "min_capital_payment",
+      label: "Abono a capital",
+      value: Object(creditQuota.nextPaymentValue)?.capitalValue,
+    },
+    {
+      id: "min_current_interest",
+      label: "Interés corriente",
+      value: Object(creditQuota.nextPaymentValue)?.interestValue,
+    },
+    {
+      id: "min_arrears_interest",
+      label: "Interés de mora",
+      value: Object(creditQuota.nextPaymentValue)?.penalityInterestValue,
+    },
+    {
       id: "next_payment_value",
       label: "Valor próximo pago",
       value: Object(creditQuota.nextPaymentValue)?.total,
@@ -112,11 +127,25 @@ const mapCreditQuotaApiToEntity = (
       label: "Cupo asignado",
       value: Number(creditQuota.assignedCreditLimit),
     },
-
+    {
+      id: "total_capital_payment",
+      label: "Abono a capital",
+      value: Object(creditQuota.totalDebt)?.capitalBalanceInPesos,
+    },
+    {
+      id: "total_current_interest",
+      label: "Interés corriente",
+      value: Object(creditQuota.totalDebt)?.theBalanceOfRemunerativeInterest,
+    },
+    {
+      id: "total_arrears_interest",
+      label: "Interés de mora",
+      value: Object(creditQuota.totalDebt)?.theBalanceOfDefaultInterest,
+    },
     {
       id: "full_payment",
       label: "Pago total",
-      value: Object(creditQuota.totalDebt)?.capitalBalanceInPesos,
+      value: Object(creditQuota.totalDebt)?.totalPending,
     },
     {
       id: "payment_method",

@@ -20,7 +20,7 @@ const currentConsumptionAttrs = [
   "capital_payment",
   "min_capital_payment",
   "total_capital_payment",
-]
+];
 
 const quotaDetailsCurrencyAttrs = [
   "available_space",
@@ -35,7 +35,7 @@ const currentConsumptionCurrencyAttrs = [
   "total_payment_quota_available",
   "min_capital_payment",
   "total_capital_payment",
-]
+];
 
 function extractQuotaAttrs(quotaDetail: IProduct) {
   const foundAttributes = quotaDetail.attributes.filter((attribute) =>
@@ -59,14 +59,13 @@ function formatQuotaCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function extractQuotaMinDetailsAttrs(quotaDetail: IProduct) {
+function extractNextPaymentValueDetailsAttrs(quotaDetail: IProduct) {
   return quotaDetail.attributes.filter((attribute) => {
     if (
       [
         "min_capital_payment",
         "min_current_interest",
         "min_arrears_interest",
-        "min_handling_fee",
       ].includes(attribute.id)
     ) {
       return {
@@ -84,7 +83,6 @@ function extractQuotaTotalDetailsAttrs(quotaDetail: IProduct) {
         "total_capital_payment",
         "total_current_interest",
         "total_arrears_interest",
-        "total_handling_fee",
       ].includes(attribute.id)
     ) {
       return {
@@ -95,11 +93,9 @@ function extractQuotaTotalDetailsAttrs(quotaDetail: IProduct) {
   });
 }
 
-
-
 function extractConsumptionAttrs(consumption: IProduct) {
   const foundAttributes = consumption.attributes.filter((attribute) =>
-  currentConsumptionAttrs.includes(attribute.id),
+    currentConsumptionAttrs.includes(attribute.id),
   );
 
   return foundAttributes.sort(
@@ -121,9 +117,9 @@ function formatCurrentConsumptionAttrs(attributes: IAttribute[]) {
 
 export {
   extractQuotaAttrs,
-  extractQuotaMinDetailsAttrs,
+  extractNextPaymentValueDetailsAttrs,
   extractQuotaTotalDetailsAttrs,
   formatQuotaCurrencyAttrs,
   formatCurrentConsumptionAttrs,
-  extractConsumptionAttrs
+  extractConsumptionAttrs,
 };
