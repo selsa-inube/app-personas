@@ -93,7 +93,7 @@ function CardMovement(props: CardMovementProps) {
           size={isMobile ? "small" : "medium"}
           appearance="gray"
         >
-          {formatPrimaryDate(date, true)}
+          {formatPrimaryDate(date, false)}
         </Text>
         {quotas && (
           <Text
