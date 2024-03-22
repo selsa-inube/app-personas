@@ -67,7 +67,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
     (attr) => attr.id === "full_payment",
   )?.value;
 
-  const isRevolving = selectedProduct.creditQuota.attributes.find(
+  const cardType = selectedProduct.creditQuota.attributes.find(
     (attr) => attr.id === "type",
   )?.value;
 
@@ -169,7 +169,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
             </Stack>
           )}
 
-          {selectedConsumption && isRevolving !== "Rotativo" && (
+          {selectedConsumption && cardType !== "Rotativo" && (
             <Stack direction="column" gap="s300">
               <Text type="title" size="medium">
                 Consumos vigentes
