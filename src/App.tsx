@@ -26,6 +26,8 @@ import { SavingRoutes } from "./routes/saving";
 
 import { useAuth } from "@inube/auth";
 import { CreditsProvider } from "./context/credits";
+import { CardsProvider } from "./context/cards";
+
 import { SavingsProvider } from "./context/savings";
 import { MyCardsRoutes } from "./routes/myCards";
 
@@ -73,7 +75,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <SavingsProvider>
           <CreditsProvider>
+          <CardsProvider>
             <RouterProvider router={router} />
+            </CardsProvider>
           </CreditsProvider>
         </SavingsProvider>
       </ThemeProvider>

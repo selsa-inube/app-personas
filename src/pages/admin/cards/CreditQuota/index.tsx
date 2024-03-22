@@ -8,13 +8,13 @@ import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 import { getUsedQuotaData, validateCreditQuotas } from "./utils";
 import { consumptionsMocks } from "@mocks/products/cards/consumptions.mocks";
 import { IProduct } from "src/model/entity/product";
-import { CreditsContext } from "src/context/credits";
 import { useAuth } from "@inube/auth";
+import { CardsContext } from "src/context/cards";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
   const { consumptions, setConsumptions, creditQuotas, setCreditQuotas } =
-    useContext(CreditsContext);
+    useContext(CardsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);

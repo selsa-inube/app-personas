@@ -2,7 +2,6 @@ import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { infoModalData } from "./config/modals";
 import { CardUI } from "./interface";
@@ -16,11 +15,12 @@ import {
 import { validateCard, validateCreditQuotasInCards } from "./utils";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
 import { getUsedQuotaData } from "../CreditQuota/utils";
+import { CardsContext } from "src/context/cards";
 
 function Card() {
   const { card_id } = useParams();
   const { cards, setCards, creditQuotas, setCreditQuotas } =
-    useContext(CreditsContext);
+    useContext(CardsContext);
   const { savings } = useContext(SavingsContext);
   const { user, accessToken } = useAuth();
   const navigate = useNavigate();
