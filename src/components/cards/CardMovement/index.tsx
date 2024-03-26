@@ -67,7 +67,7 @@ function CardMovement(props: CardMovementProps) {
           </Stack>
           <Stack alignItems="center">
             <Text type="label" size={isMobile ? "small" : "medium"}>
-              {`${getMovementDescriptionType(movementType)} ${description}`}
+              {`${getMovementDescriptionType(movementType, description)} ${description}`}
             </Text>
           </Stack>
         </Stack>
