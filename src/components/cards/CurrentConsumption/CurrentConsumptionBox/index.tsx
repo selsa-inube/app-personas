@@ -84,7 +84,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
   };
   return (
     <Grid
-      templateColumns={isTablet ? "1fr" : "0.4fr 3fr 0.5fr 0.5fr 0.1fr"}
+      templateColumns={isTablet ? "1fr" : "0.6fr 3fr 0.5fr 0.5fr 0.1fr"}
       gap="s075"
       padding={`${inube.spacing.s200} 0px ${inube.spacing.s200} 0px`}
     >
