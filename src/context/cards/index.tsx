@@ -11,17 +11,21 @@ interface CardsProviderProps {
 function CardsProvider(props: CardsProviderProps) {
   const { children } = props;
   const [cards, setCards] = useState<IProduct[]>([]);
+  const [consumptions, setConsumptions] = useState<IProduct[]>([]);
+
   const [creditQuotas, setCreditQuotas] = useState<IProduct[]>([]);
 
   const authContext = useMemo(
     () => ({
       cards,
       creditQuotas,
+      consumptions, 
 
       setCards,
       setCreditQuotas,
+      setConsumptions
     }),
-    [cards, creditQuotas, setCards, setCreditQuotas],
+    [cards, creditQuotas, consumptions, setCards, setCreditQuotas, setConsumptions],
   );
 
   return (

@@ -1,12 +1,12 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
-import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { getCardsForUser } from "src/services/iclient/cards/getCards";
 import { MyCardsUI } from "./interface";
+import { CardsContext } from "src/context/cards";
 
 function MyCards() {
-  const { cards, setCards } = useContext(CreditsContext);
+  const { cards, setCards } = useContext(CardsContext);
   const { savings } = useContext(SavingsContext);
   const [loading, setLoading] = useState(false);
   const { user, accessToken } = useAuth();

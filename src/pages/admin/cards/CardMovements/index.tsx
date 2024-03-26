@@ -4,13 +4,13 @@ import { useContext, useEffect, useState } from "react";
 import { ISelectOption } from "@design/input/Select/types";
 import { ISelectedProductState } from "./types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { CreditsContext } from "src/context/credits";
 import { useAuth } from "@inube/auth";
 import { addMovementsToCard, validateCreditQuotas } from "./utils";
+import { CardsContext } from 'src/context/cards';
 
 function CardMovements() {
   const { card_id, credit_quota_id } = useParams();
-  const { creditQuotas, setCreditQuotas } = useContext(CreditsContext);
+  const { creditQuotas, setCreditQuotas } = useContext(CardsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);

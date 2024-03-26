@@ -9,9 +9,11 @@ import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { HomeUI } from "./interface";
+import { CardsContext } from "src/context/cards";
 
 function Home() {
-  const { credits, cards, setCredits, setCards } = useContext(CreditsContext);
+  const { credits, setCredits } = useContext(CreditsContext);
+  const { cards, setCards } = useContext(CardsContext);
   const { commitments, savings, setCommitments, setSavings } =
     useContext(SavingsContext);
   const { user, accessToken } = useAuth();

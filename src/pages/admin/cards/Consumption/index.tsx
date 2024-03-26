@@ -4,10 +4,10 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { CreditsContext } from "src/context/credits";
 import { ConsumptionUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { validateConsumption, validateConsumptionMovements } from "./utils";
+import { CardsContext } from "src/context/cards";
 
 function Consumption() {
   const { card_id, credit_quota_id, consumption_id } = useParams();
@@ -15,7 +15,7 @@ function Consumption() {
     useState<ISelectedProductState>();
   const [loading, setLoading] = useState(true);
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
-  const { consumptions, setConsumptions } = useContext(CreditsContext);
+  const { consumptions, setConsumptions } = useContext(CardsContext);
   const { user, accessToken } = useAuth();
 
   const navigate = useNavigate();
