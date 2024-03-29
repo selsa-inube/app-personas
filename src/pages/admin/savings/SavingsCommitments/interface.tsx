@@ -36,6 +36,7 @@ import {
 } from "./config/table";
 import { StyledPaymentsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
+import { extractSavingsCommitmentsAttributes } from "./config/commitments";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
@@ -139,7 +140,9 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
                       withButton
                     />
                   )}
-                  {selectedCommitment.commitment.attributes
+                  {extractSavingsCommitmentsAttributes(
+                    selectedCommitment.commitment,
+                  )
                     .filter((attr) => attr.id !== "value_to_pay")
                     .map((attr) => (
                       <BoxAttribute
