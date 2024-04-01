@@ -1,6 +1,6 @@
-import { Stack } from "@design/layout/Stack";
-import { Text } from "@design/data/Text";
 import { Icon } from "@design/data/Icon";
+import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
 import { StyledMenuItemContainer } from "./styles";
 
 import { MenuItemSpacingType } from "./types";
@@ -24,12 +24,17 @@ function MenuItem(props: MenuItemProps) {
     iconBefore,
     iconAfter,
     isDisabled = false,
-    path = "",
+    path = "#",
     onClick,
   } = props;
 
   return (
-    <StyledMenuItemContainer spacing={spacing} disabled={isDisabled} to={path} onClick={onClick}>
+    <StyledMenuItemContainer
+      spacing={spacing}
+      disabled={isDisabled}
+      to={path}
+      onClick={onClick}
+    >
       <Stack gap="s150" alignItems="center">
         {iconBefore && (
           <Icon
@@ -67,5 +72,5 @@ function MenuItem(props: MenuItemProps) {
   );
 }
 
-export type { MenuItemProps };
 export { MenuItem };
+export type { MenuItemProps };

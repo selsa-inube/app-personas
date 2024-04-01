@@ -72,6 +72,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
             options={productsOptions}
             value={selectedProduct?.option}
             isFullWidth
+            readOnly={productsOptions.length === 1}
           />
           {selectedProduct && (
             <StyledMovementsContainer>

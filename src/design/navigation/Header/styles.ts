@@ -55,6 +55,7 @@ const StyledContainerMenu = styled.div`
   position: absolute;
   top: 48px;
   right: 15px;
+  z-index: 1;
 `;
 
 export {

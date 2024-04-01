@@ -17,4 +17,4 @@ const StyledMain = styled.main`
   }
 `;
 
-export { StyledPage, StyledMain };
+export { StyledMain, StyledPage };
