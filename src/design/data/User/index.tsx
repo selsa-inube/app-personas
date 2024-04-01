@@ -8,10 +8,11 @@ interface UserProps {
   username: string;
   client?: string;
   onlyAvatar?: boolean;
+  onClick?: () => void;
 }
 
 function User(props: UserProps) {
-  const { username, client, onlyAvatar } = props;
+  const { username, client, onlyAvatar, onClick } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   function toggleHover(state: boolean) {
@@ -22,6 +23,7 @@ function User(props: UserProps) {
     <StyledUser
       onMouseOver={() => toggleHover(true)}
       onMouseLeave={() => toggleHover(false)}
+      onClick={onClick}
     >
       <Stack gap="16px">
         {!onlyAvatar && (
