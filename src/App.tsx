@@ -30,6 +30,7 @@ import { CardsProvider } from "./context/cards";
 
 import { SavingsProvider } from "./context/savings";
 import { MyCardsRoutes } from "./routes/myCards";
+import { PaymentsRoutes } from "./routes/payments";
 import { PageNotFound } from "@components/layout/PageNotFound";
 
 const router = createBrowserRouter(
@@ -45,6 +46,8 @@ const router = createBrowserRouter(
 
         <Route path="my-cards/*" element={<MyCardsRoutes />} />
 
+        <Route path="payments/*" element={<PaymentsRoutes />} />
+
         <Route path="credit/*" element={<CreditRoutes />} />
 
         <Route path="savings/*" element={<SavingRoutes />} />
@@ -55,6 +58,7 @@ const router = createBrowserRouter(
           element={<UpdateDataUnassisted />}
         />
       </Route>
+      ,
     </>,
   ),
 );
