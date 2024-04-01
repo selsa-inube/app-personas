@@ -17,15 +17,15 @@ import { MdArrowBack, MdOpenInNew, MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { crumbsCreditQuota } from "./config/navigation";
 import {
-  extractQuotaAttrs,
   extractNextPaymentValueDetailsAttrs,
+  extractQuotaAttrs,
   extractQuotaTotalDetailsAttrs,
   formatQuotaCurrencyAttrs,
 } from "./config/product";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
-import { IProduct } from "src/model/entity/product";
 import { CurrentConsumption } from "@components/cards/CurrentConsumption";
+import { IProduct } from "src/model/entity/product";
 
 interface CreditQuotaUIProps {
   cardId?: string;
@@ -99,7 +99,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               options={productsOptions}
               value={selectedProduct.creditQuota.id}
               isFullWidth
-              readOnly={productsOptions.length == 1 ? true : false}
+              readOnly={productsOptions.length === 1}
             />
 
             <Box
