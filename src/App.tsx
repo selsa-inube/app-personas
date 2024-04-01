@@ -31,30 +31,35 @@ import { CardsProvider } from "./context/cards";
 import { SavingsProvider } from "./context/savings";
 import { MyCardsRoutes } from "./routes/myCards";
 import { PaymentsRoutes } from "./routes/payments";
+import { PageNotFound } from "@components/layout/PageNotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Page header={header} nav={nav} />}>
-      <Route path="/" element={<Home />} />
+    <>
+      <Route errorElement={<PageNotFound />} />
+      <Route path="/" element={<Page header={header} nav={nav} />}>
+        <Route path="/" element={<Home />} />
 
-      <Route path="my-credits/*" element={<MyCreditsRoutes />} />
+        <Route path="my-credits/*" element={<MyCreditsRoutes />} />
 
-      <Route path="my-savings/*" element={<MySavingsRoutes />} />
+        <Route path="my-savings/*" element={<MySavingsRoutes />} />
 
-      <Route path="my-cards/*" element={<MyCardsRoutes />} />
+        <Route path="my-cards/*" element={<MyCardsRoutes />} />
 
-      <Route path="payments/*" element={<PaymentsRoutes />} />
+        <Route path="payments/*" element={<PaymentsRoutes />} />
 
-      <Route path="credit/*" element={<CreditRoutes />} />
+        <Route path="credit/*" element={<CreditRoutes />} />
 
-      <Route path="savings/*" element={<SavingRoutes />} />
+        <Route path="savings/*" element={<SavingRoutes />} />
 
-      <Route path="/update-data-assisted" element={<UpdateData />} />
-      <Route
-        path="/update-data-no-assisted"
-        element={<UpdateDataUnassisted />}
-      />
-    </Route>,
+        <Route path="/update-data-assisted" element={<UpdateData />} />
+        <Route
+          path="/update-data-no-assisted"
+          element={<UpdateDataUnassisted />}
+        />
+      </Route>
+      ,
+    </>,
   ),
 );
 
@@ -78,8 +83,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <SavingsProvider>
           <CreditsProvider>
-          <CardsProvider>
-            <RouterProvider router={router} />
+            <CardsProvider>
+              <RouterProvider router={router} />
             </CardsProvider>
           </CreditsProvider>
         </SavingsProvider>
