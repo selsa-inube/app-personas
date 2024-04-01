@@ -30,6 +30,7 @@ import { CardsProvider } from "./context/cards";
 
 import { SavingsProvider } from "./context/savings";
 import { MyCardsRoutes } from "./routes/myCards";
+import { PaymentsRoutes } from "./routes/payments";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,8 @@ const router = createBrowserRouter(
       <Route path="my-savings/*" element={<MySavingsRoutes />} />
 
       <Route path="my-cards/*" element={<MyCardsRoutes />} />
+
+      <Route path="payments/*" element={<PaymentsRoutes />} />
 
       <Route path="credit/*" element={<CreditRoutes />} />
 

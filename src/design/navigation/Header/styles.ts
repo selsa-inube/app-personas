@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { inube } from "../../tokens";
-import { Link } from "react-router-dom";
 
 const StyledHeader = styled.header`
   margin: 0;
@@ -51,11 +51,18 @@ const StyledUser = styled.div`
   align-items: center;
 `;
 
+const StyledContainerMenu = styled.div`
+  position: absolute;
+  top: 48px;
+  right: 15px;
+`;
+
 export {
+  StyledContainer,
+  StyledContainerMenu,
   StyledHeader,
-  StyledLogoContainer,
-  StyledLogo,
-  StyledUser,
   StyledLink,
-  StyledContainer
+  StyledLogo,
+  StyledLogoContainer,
+  StyledUser,
 };
