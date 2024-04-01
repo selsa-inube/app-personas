@@ -12,7 +12,8 @@ interface MenuItemProps {
   iconBefore?: React.JSX.Element;
   iconAfter?: React.JSX.Element;
   isDisabled?: boolean;
-  path: string;
+  path?: string;
+  onClick?: () => void;
 }
 
 function MenuItem(props: MenuItemProps) {
@@ -23,11 +24,12 @@ function MenuItem(props: MenuItemProps) {
     iconBefore,
     iconAfter,
     isDisabled = false,
-    path,
+    path = "",
+    onClick,
   } = props;
 
   return (
-    <StyledMenuItemContainer spacing={spacing} disabled={isDisabled} to={path}>
+    <StyledMenuItemContainer spacing={spacing} disabled={isDisabled} to={path} onClick={onClick}>
       <Stack gap="s150" alignItems="center">
         {iconBefore && (
           <Icon

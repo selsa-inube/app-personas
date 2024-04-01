@@ -27,6 +27,9 @@ function Page(props: PageProps) {
         username={capitalizeFirstLetters(
           `${user?.firstName} ${user?.firstLastName}`
         )}
+        fullName={capitalizeFirstLetters(
+          `${user?.firstName} ${user?.secondName} ${user?.firstLastName} ${user?.secondLastName}`
+        )}
         client={header.client}
         links={header.links}
         portalId={header.portalId}
