@@ -75,33 +75,21 @@ function formatCreditQuotasCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function prefix(type: EMovementType, description: string) {
-  const text = description.split(" ");
-  if (text.length > 0) {
-    const word = text[0].toLowerCase();
-
-    if (type === EMovementType.PURCHASE && word !== "compra") return "Compra";
-
-    if (type === EMovementType.PAYMENT && word !== "pago") return "Pago";
-
-    if (type === EMovementType.REVERSE && word !== "reverso") return "Reverso";
-
-    return "";
-  }
-  return;
-}
-
 function getMovementDescriptionType(
   type?: EMovementType,
   description?: string,
 ): string {
+
+  const text = description && description.split(" ");
+  const word = text && text.length > 0 ? text[0].toLowerCase(): "";
+
   switch (type) {
     case EMovementType.PURCHASE:
-      return `${description && prefix(type, description)}`;
+      return word !== "compra" ? "Compra" : "";
     case EMovementType.REVERSE:
-      return `${description && prefix(type, description)}`;
+      return word !== "reverso" ? "Reverso" : "";
     case EMovementType.PAYMENT:
-      return `${description && prefix(type, description)}`;
+      return word !== "pago" ? "Pago" : "";
     default:
       return "";
   }
