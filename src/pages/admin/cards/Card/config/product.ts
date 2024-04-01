@@ -76,19 +76,19 @@ function formatCreditQuotasCurrencyAttrs(attributes: IAttribute[]) {
 }
 
 function getMovementDescriptionType(
-  type?: EMovementType,
-  description?: string,
+  type: EMovementType,
+  description: string,
 ): string {
 
-  const text = description && description.toLowerCase().split(" ");
+  const text = description.toLowerCase();
   
   switch (type) {
     case EMovementType.PURCHASE:
-      return text && text.includes("compra") ? "" : "Compra";
+      return  text.includes("compra") ? "" : "Compra";
     case EMovementType.REVERSE:
-      return text && text.includes("reverso") ? "" : "Reverso";
+      return text.includes("reverso") ? "" : "Reverso";
     case EMovementType.PAYMENT:
-      return text && text.includes("pago") ? "" : "Pago" ;
+      return text.includes("pago") ? "" : "Pago" ;
     default:
       return "";
   }
