@@ -38,7 +38,7 @@ function FullscreenMenu(props: FullscreenMenuProps) {
     sessionStorage.clear();
   };
 
-  const totalSections = Object.keys(navigation.sections).length;
+ const totalSections = Object.keys(navigation.sections).length;
 
   return (
     <>
@@ -49,7 +49,7 @@ function FullscreenMenu(props: FullscreenMenuProps) {
           </Text>
           <MdClose onClick={onClose} />
         </StyledCloseMenu>
-        {totalSections > 1 ? (
+        {(totalSections > 1) || (links && totalSections > 0) ? (
           <MultiSections
             navigation={navigation}
             onClose={onClose}
@@ -57,7 +57,7 @@ function FullscreenMenu(props: FullscreenMenuProps) {
           />
         ) : (
           <OneSection navigation={navigation} onClose={onClose} links={links} />
-        )}
+       )} 
         <StyledSeparatorLine />
         <NavLink
           key="logout"
