@@ -1,8 +1,6 @@
 import {
   MdOutlineAccountBalance,
-  MdOutlineAccountBalanceWallet,
-  MdOutlineAirplaneTicket,
-  MdOutlineAttachMoney,
+  MdOutlineAssignment,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlineSavings,
@@ -34,35 +32,10 @@ const nav = {
           icon: <MdOutlineCreditCard />,
         },
         {
-          label: "Pagos",
-          path: "/payments",
-          icon: <MdOutlineAttachMoney />,
-        },
-      ],
-    },
-    {
-      title: "Solicitar",
-      links: [
-        {
-          label: "Ahorros",
-          path: "/savings",
-          icon: <MdOutlineAccountBalanceWallet />,
-        },
-        {
-          label: "Créditos",
-          path: "/credit",
-          icon: <MdOutlineAttachMoney />,
-        },
-        {
-          label: "Eventos",
-          path: "/events",
-          icon: <MdOutlineSportsCricket />,
-        },
-        {
-          label: "Vacaciones",
-          path: "/holidays",
-          icon: <MdOutlineAirplaneTicket />,
-        },
+          label: "Mis solicitudes",
+          path: "/products",
+          icon: <MdOutlineAssignment />,
+        }
       ],
     },
   ],
