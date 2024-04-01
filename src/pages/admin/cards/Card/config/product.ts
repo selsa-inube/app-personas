@@ -80,16 +80,15 @@ function getMovementDescriptionType(
   description?: string,
 ): string {
 
-  const text = description && description.split(" ");
-  const word = text && text.length > 0 ? text[0].toLowerCase(): "";
-
+  const text = description && description.toLowerCase().split(" ");
+  
   switch (type) {
     case EMovementType.PURCHASE:
-      return word.includes("compra") ? "" : "Compra";
+      return text && text.includes("compra") ? "" : "Compra";
     case EMovementType.REVERSE:
-      return word.includes("reverso") ? "" : "Reverso" ;
+      return text && text.includes("reverso") ? "" : "Reverso";
     case EMovementType.PAYMENT:
-      return word.includes("pago") ? "" : "Pago" ;
+      return text && text.includes("pago") ? "" : "Pago" ;
     default:
       return "";
   }
