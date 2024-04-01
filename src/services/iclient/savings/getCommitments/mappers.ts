@@ -93,6 +93,11 @@ const mapSavingsCommitmentsApiToEntity = (
       label: "Medio de pago",
       value: capitalizeFirstLetters(String(commitment.paymentMediumName)),
     },
+    {
+      id: "contribution_value",
+      label: "Compromiso",
+      value: String(commitment.contributionValue),
+    },
   ];
 
   const tag: TagProps | undefined = inArrears

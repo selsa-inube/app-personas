@@ -40,6 +40,7 @@ function MenuSection(props: MenuSectionProps) {
                 iconAfter={link.iconAfter}
                 isDisabled={link.isDisabled}
                 path={link.path}
+                onClick={link.onClick}
                 spacing={spacing}
               />
             ))}
