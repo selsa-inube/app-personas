@@ -85,11 +85,11 @@ function getMovementDescriptionType(
 
   switch (type) {
     case EMovementType.PURCHASE:
-      return word !== "compra" ? "Compra" : "";
+      return word.includes("compra") ? "" : "Compra";
     case EMovementType.REVERSE:
-      return word !== "reverso" ? "Reverso" : "";
+      return word.includes("reverso") ? "" : "Reverso" ;
     case EMovementType.PAYMENT:
-      return word !== "pago" ? "Pago" : "";
+      return word.includes("pago") ? "" : "Pago" ;
     default:
       return "";
   }
