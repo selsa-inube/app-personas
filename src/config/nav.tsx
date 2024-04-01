@@ -1,6 +1,6 @@
 import {
   MdOutlineAccountBalance,
-  MdOutlineAssignment,
+  MdOutlineAttachMoney,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlineSavings,
@@ -32,10 +32,10 @@ const nav = {
           icon: <MdOutlineCreditCard />,
         },
         {
-          label: "Mis solicitudes",
-          path: "/products",
-          icon: <MdOutlineAssignment />,
-        }
+          label: "Pagos",
+          path: "/payments",
+          icon: <MdOutlineAttachMoney />,
+        },
       ],
     },
   ],
