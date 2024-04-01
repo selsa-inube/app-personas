@@ -1,12 +1,12 @@
-import { useLocation, Outlet } from "react-router-dom";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useAuth } from "@inube/auth";
+import { Outlet, useLocation } from "react-router-dom";
+import { capitalizeFirstLetters } from "src/utils/texts";
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
 import { Grid } from "../Grid";
-import { StyledPage, StyledMain } from "./styles";
+import { StyledMain, StyledPage } from "./styles";
 import { IHeader, INav } from "./types";
-import { useAuth } from "@inube/auth";
-import { capitalizeFirstLetters } from "src/utils/texts";
 
 interface PageProps {
   header: IHeader;
@@ -25,10 +25,10 @@ function Page(props: PageProps) {
       <Header
         logoURL={header.logoURL}
         username={capitalizeFirstLetters(
-          `${user?.firstName} ${user?.firstLastName}`
+          `${user?.firstName} ${user?.firstLastName}`,
         )}
         fullName={capitalizeFirstLetters(
-          `${user?.firstName} ${user?.secondName} ${user?.firstLastName} ${user?.secondLastName}`
+          `${user?.firstName} ${user?.secondName || ""} ${user?.firstLastName} ${user?.secondLastName || ""}`,
         )}
         client={header.client}
         links={header.links}

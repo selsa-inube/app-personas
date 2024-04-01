@@ -9,11 +9,12 @@ import { FullscreenNav } from "@design/navigation/FullscreenNav";
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { INav } from "@design/layout/Page/types";
 import { useAuth } from "@inube/auth";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdLogout } from "react-icons/md";
 import { Menu } from "../Menu";
 import {
   StyledContainer,
+  StyledContainerMenu,
   StyledHeader,
   StyledLink,
   StyledLogo,
@@ -46,10 +47,29 @@ function Header(props: HeaderProps) {
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
   const { logout } = useAuth();
 
   const isMobile = useMediaQuery("(max-width: 450px)");
   const isTablet = useMediaQuery("(min-width: 900px)");
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      userMenuRef.current &&
+      !userMenuRef.current.contains(event.target as Node) &&
+      event.target !== userMenuRef.current
+    ) {
+      setShowUserMenu(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleToggleuserMenu = () => {
     setShowUserMenu(!showUserMenu);
@@ -57,6 +77,7 @@ function Header(props: HeaderProps) {
 
   const handleToggleLogoutModal = () => {
     setShowLogoutModal(!showLogoutModal);
+    setShowUserMenu(false);
   };
 
   const handleLogout = () => {
@@ -108,20 +129,22 @@ function Header(props: HeaderProps) {
       </StyledHeader>
 
       {showUserMenu && (
-        <Menu
-          userName={fullName}
-          sections={[
-            {
-              links: [
-                {
-                  title: "Cerrar sesión",
-                  iconBefore: <MdLogout />,
-                  onClick: handleToggleLogoutModal,
-                },
-              ],
-            },
-          ]}
-        />
+        <StyledContainerMenu ref={userMenuRef}>
+          <Menu
+            userName={fullName}
+            sections={[
+              {
+                links: [
+                  {
+                    title: "Cerrar sesión",
+                    iconBefore: <MdLogout />,
+                    onClick: handleToggleLogoutModal,
+                  },
+                ],
+              },
+            ]}
+          />
+        </StyledContainerMenu>
       )}
 
       {showLogoutModal && (
