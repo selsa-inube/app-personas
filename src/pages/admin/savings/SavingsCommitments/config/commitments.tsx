@@ -1,21 +1,25 @@
-import { ICommitment } from "src/model/entity/product";
+import { ICommitment, ECommitmentType } from "src/model/entity/product";
 
-const savingsCommitmentsAttributes = [
-  "next_pay_date",
-  "due_date",
-  "pay_method",
-  "periodicity",
-];
+const savingsCommitmentsAttributes: Record<string, string[]> = {
+  [ECommitmentType.QUOTAESTATUTORY]: [
+    "next_pay_date",
+    "contribution_value",
+    "pay_method",
+  ],
+  [ECommitmentType.SAVINGSPROGRAMMED]: ["next_pay_date", "pay_method"],
+};
 
 function extractSavingsCommitmentsAttributes(commitment: ICommitment) {
+  const commitmentType = commitment.type;
+
   const foundAttributes = commitment.attributes.filter((attribute) =>
-    savingsCommitmentsAttributes.includes(attribute.id),
+    savingsCommitmentsAttributes[commitmentType].includes(attribute.id),
   );
 
   return foundAttributes.sort(
     (a, b) =>
-      savingsCommitmentsAttributes.indexOf(a.id) -
-      savingsCommitmentsAttributes.indexOf(b.id),
+      savingsCommitmentsAttributes[commitmentType].indexOf(a.id) -
+      savingsCommitmentsAttributes[commitmentType].indexOf(b.id),
   );
 }
 
