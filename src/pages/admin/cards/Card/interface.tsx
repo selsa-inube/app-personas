@@ -1,9 +1,11 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { CardMovement } from "@components/cards/CardMovement";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { InfoModal } from "@components/modals/InfoModal";
 import { HandlingFeeModal } from "@components/modals/cards/HandlingFeeModal";
 import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
+import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { quickLinks } from "@config/quickLinks";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
@@ -26,6 +28,7 @@ import {
 } from "react-icons/md";
 import { EMovementType, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { IUsedQuotaModalState } from "../CreditQuota/types";
 import { cardBox, myQuotas } from "./config/card";
 import { infoModalData } from "./config/modals";
 import { crumbsCard } from "./config/navigation";
@@ -41,9 +44,6 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
-import { IUsedQuotaModalState } from "../CreditQuota/types";
-import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
-import { CardMovement } from "@components/cards/CardMovement";
 
 interface CardUIProps {
   cardId?: string;
@@ -115,6 +115,7 @@ function CardUI(props: CardUIProps) {
                   options={productsOptions}
                   value={selectedProduct.option}
                   isFullWidth
+                  readOnly={productsOptions.length === 1}
                 />
                 <Box
                   title={selectedProduct.card.title}

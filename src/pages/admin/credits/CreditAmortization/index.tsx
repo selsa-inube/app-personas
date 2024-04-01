@@ -135,6 +135,7 @@ function CreditAmortization() {
               options={productsOptions}
               value={selectedProduct.option.id}
               isFullWidth
+              readOnly={productsOptions.length === 1}
             />
             <Box
               title={selectedProduct.option.title}

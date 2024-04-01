@@ -133,6 +133,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             options={productsOptions}
             value={selectedProduct.option}
             isFullWidth
+            readOnly={productsOptions.length === 1}
           />
           <Box
             title={selectedProduct.saving.title}

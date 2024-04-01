@@ -98,6 +98,7 @@ function CreditUI(props: CreditUIProps) {
                 options={productsOptions}
                 value={selectedProduct.option}
                 isFullWidth
+                readOnly={productsOptions.length === 1}
               />
               <Box
                 title={selectedProduct.credit.title}
