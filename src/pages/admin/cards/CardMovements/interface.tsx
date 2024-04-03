@@ -1,21 +1,21 @@
-import { Title } from "@design/data/Title";
-import { Stack } from "@design/layout/Stack";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
-import { MdAdd, MdArrowBack } from "react-icons/md";
-import { crumbsCardMovements } from "./config/navigation";
-import { Grid } from "@design/layout/Grid";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { inube } from "@design/tokens";
+import { CardMovement } from "@components/cards/CardMovement";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
+import { Title } from "@design/data/Title";
+import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { ISelectedProductState } from "./types";
-import { EMovementType } from "src/model/entity/product";
 import { Divider } from "@design/layout/Divider";
-import { CardMovement } from "@components/cards/CardMovement";
+import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
+import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { MdAdd, MdArrowBack } from "react-icons/md";
+import { EMovementType } from "src/model/entity/product";
+import { crumbsCardMovements } from "./config/navigation";
 import { StyledContainer, StyledItem } from "./styles";
-import { Button } from "@design/input/Button";
+import { ISelectedProductState } from "./types";
 
 interface CardMovementsUIProps {
   cardId?: string;
@@ -66,7 +66,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
               label="Selección de producto"
               options={productsOptions}
               value={selectedProduct.option}
-              readOnly={productsOptions.length == 1 ? true : false}
+              readOnly={productsOptions.length === 1}
               isFullWidth
             />
           </Stack>

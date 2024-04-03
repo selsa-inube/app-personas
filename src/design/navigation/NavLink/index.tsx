@@ -15,7 +15,7 @@ interface NavLinkProps {
 }
 
 function NavLink(props: NavLinkProps) {
-  const { icon, children, path = "", selected = false, onClick } = props;
+  const { icon, children, path = "#", selected = false, onClick } = props;
 
   function getIconAppearance() {
     if (selected) {

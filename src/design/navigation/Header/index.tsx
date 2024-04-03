@@ -132,6 +132,7 @@ function Header(props: HeaderProps) {
         <StyledContainerMenu ref={userMenuRef}>
           <Menu
             userName={fullName}
+            divider
             sections={[
               {
                 links: [
