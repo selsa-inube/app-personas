@@ -99,9 +99,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               options={productsOptions}
               value={selectedProduct.creditQuotaDetails.id}
               isFullWidth
-              readOnly={
-                productsOptions && productsOptions.length == 1 ? true : false
-              }
+              readOnly={productsOptions && productsOptions.length === 1}
             />
 
             <Box
