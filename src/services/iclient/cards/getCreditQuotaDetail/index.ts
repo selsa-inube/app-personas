@@ -1,11 +1,11 @@
 import { enviroment } from "@config/enviroment";
 import { IProduct } from "src/model/entity/product";
-import { mapCreditQuotaApiToEntities } from "./mappers";
+import { mapCreditQuotaDetailsApiToEntity } from "./mappers";
 
-const getCreditQuotasForUser = async (
+const getCreditQuotasDetailsForUser = async (
   cardId: string,
   accessToken: string,
-): Promise<IProduct[]> => {
+): Promise<IProduct | undefined> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
 
@@ -19,7 +19,7 @@ const getCreditQuotasForUser = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchCreditProductsSummary",
+          "X-Action": "SearchCreditProductsDetail",
           "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -27,14 +27,14 @@ const getCreditQuotasForUser = async (
       };
 
       const res = await fetch(
-        `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${cardId}/summary`,
+        `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${cardId}/detail`,
         options,
       );
 
       clearTimeout(timeoutId);
 
       if (res.status === 204) {
-        return [];
+        return;
       }
 
       const data = await res.json();
@@ -47,11 +47,12 @@ const getCreditQuotasForUser = async (
         };
       }
 
-      const normalizedCreditQuotas = Array.isArray(data)
-        ? mapCreditQuotaApiToEntities(data)
-        : [];
+      const normalizedCreditQuotaDetails =
+        Object.keys(data).length === 0
+          ? undefined
+          : mapCreditQuotaDetailsApiToEntity(data);
 
-      return normalizedCreditQuotas;
+      return normalizedCreditQuotaDetails;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
@@ -61,7 +62,7 @@ const getCreditQuotasForUser = async (
     }
   }
 
-  return [];
+  return;
 };
 
-export { getCreditQuotasForUser };
+export { getCreditQuotasDetailsForUser };

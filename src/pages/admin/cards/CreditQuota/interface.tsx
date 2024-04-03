@@ -30,7 +30,7 @@ import { CurrentConsumption } from "@components/cards/CurrentConsumption";
 interface CreditQuotaUIProps {
   cardId?: string;
   creditQuotaId?: string;
-  productsOptions: ISelectOption[];
+  productsOptions: ISelectOption[] | undefined;
   selectedProduct: ISelectedProductState;
   selectedConsumption?: IProduct[];
   usedQuotaModal: IUsedQuotaModalState;
@@ -55,19 +55,19 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
   const attributes =
-    selectedProduct && extractQuotaAttrs(selectedProduct.creditQuota);
+    selectedProduct && extractQuotaAttrs(selectedProduct.creditQuotaDetails);
 
   const formatedAttributes = formatQuotaCurrencyAttrs(attributes);
 
-  const minPayment = selectedProduct.creditQuota.attributes.find(
+  const minPayment = selectedProduct.creditQuotaDetails.attributes.find(
     (attr) => attr.id === "next_payment_value",
   )?.value;
 
-  const totalPayment = selectedProduct.creditQuota.attributes.find(
+  const totalPayment = selectedProduct.creditQuotaDetails.attributes.find(
     (attr) => attr.id === "full_payment",
   )?.value;
 
-  const creditQuotaType = selectedProduct.creditQuota.attributes.find(
+  const creditQuotaType = selectedProduct.creditQuotaDetails.attributes.find(
     (attr) => attr.id === "type",
   )?.value;
 
@@ -97,15 +97,17 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               onChange={handleChangeProduct}
               label="Selección de producto"
               options={productsOptions}
-              value={selectedProduct.creditQuota.id}
+              value={selectedProduct.creditQuotaDetails.id}
               isFullWidth
-              readOnly={productsOptions.length == 1 ? true : false}
+              readOnly={
+                productsOptions && productsOptions.length == 1 ? true : false
+              }
             />
 
             <Box
-              title={selectedProduct.creditQuota.title}
-              subtitle={selectedProduct.creditQuota.description}
-              tags={selectedProduct.creditQuota.tags}
+              title={selectedProduct.creditQuotaDetails.title}
+              subtitle={selectedProduct.creditQuotaDetails.description}
+              tags={selectedProduct.creditQuotaDetails.tags}
               icon={<MdOutlineAttachMoney size={34} />}
               collapsing={{ start: true, allow: false }}
             >
@@ -151,7 +153,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
                   <QuotaDetailBox
                     title="Valor próximo pago"
                     paymentItems={extractNextPaymentValueDetailsAttrs(
-                      selectedProduct.creditQuota,
+                      selectedProduct.creditQuotaDetails,
                     )}
                     totalPayment={Number(minPayment)}
                   />
@@ -160,7 +162,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
                   <QuotaDetailBox
                     title="Pago total"
                     paymentItems={extractQuotaTotalDetailsAttrs(
-                      selectedProduct.creditQuota,
+                      selectedProduct.creditQuotaDetails,
                     )}
                     totalPayment={Number(totalPayment)}
                   />
