@@ -5,7 +5,11 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreditQuotaUI } from "./interface";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
-import { getUsedQuotaData, validateCreditQuotas } from "./utils";
+import {
+  getUsedQuotaData,
+  validateCreditQuotaDetail,
+  validateCreditQuotas,
+} from "./utils";
 import { consumptionsMocks } from "@mocks/products/cards/consumptions.mocks";
 import { IProduct } from "src/model/entity/product";
 import { useAuth } from "@inube/auth";
@@ -13,13 +17,18 @@ import { CardsContext } from "src/context/cards";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
-  const { consumptions, setConsumptions, creditQuotas, setCreditQuotas } =
-    useContext(CardsContext);
+  const {
+    consumptions,
+    setConsumptions,
+    creditQuotas,
+    creditQuotaDetail,
+    setCreditQuotaDetail,
+  } = useContext(CardsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>();
   const [usedQuotaModal, setUsedQuotaModal] = useState<IUsedQuotaModalState>({
-    show: false
+    show: false,
   });
   const navigate = useNavigate();
   const { user, accessToken } = useAuth();
@@ -29,66 +38,73 @@ function CreditQuota() {
   useEffect(() => {
     handleSortProduct();
   }, [credit_quota_id, user, accessToken, isMobile]);
-  
+
   useEffect(() => {
-    if (!selectedProduct) return;
-
-    const {
-      currentConsumption,
-      accumulatedDebt,
-      transactionsProcess,
-      usedQuotaValue,
-    } = getUsedQuotaData(creditQuotas);
-
-    if (!usedQuotaValue) return;
-
-    setUsedQuotaModal({
-      ...usedQuotaModal,
-      data: {
-        currentConsumption,
-        accumulatedDebt,
-        transactionsProcess,
-        usedQuotaValue,
-      },
-    });
-  }, [card_id, credit_quota_id ,selectedProduct]);
+    usedQuotaData();
+  }, [selectedProduct]);
 
   useEffect(() => {
     handleSortConsumptions();
   }, [selectedProduct]);
 
- 
-
   const handleSortProduct = async () => {
     if (!card_id || !credit_quota_id || !user || !accessToken) return;
 
-    const { selectCreditQuotas, newCreditQuotas } = await validateCreditQuotas(
-      creditQuotas,
+    const { selectCreditQuotaDetail } = await validateCreditQuotaDetail(
       card_id,
       credit_quota_id,
       accessToken,
+      creditQuotaDetail,
     );
 
-    setCreditQuotas(newCreditQuotas);
+    setCreditQuotaDetail(creditQuotaDetail);
 
-    if (!selectCreditQuotas) return;
+    const { newCreditQuotas } = await validateCreditQuotas(
+      creditQuotas,
+      card_id,
+      accessToken,
+    );
+
+    if (!selectCreditQuotaDetail) return;
 
     setSelectedProduct({
-      creditQuota: selectCreditQuotas || [],
-      option: selectCreditQuotas.id,
+      creditQuotaDetail: selectCreditQuotaDetail,
+      option: selectCreditQuotaDetail.id,
     });
 
     setProductsOptions(
-      newCreditQuotas.map((creditQuota)=>({
+      newCreditQuotas.map((creditQuota) => ({
         id: creditQuota.id,
         value: creditQuota.title,
-      }))
-    )
+      })),
+    );
   };
- 
+
+  const usedQuotaData = () => {
+    if (selectedProduct && selectedProduct.creditQuotaDetail) {
+      const {
+        currentConsumption,
+        accumulatedDebt,
+        transactionsProcess,
+        usedQuotaValue,
+      } = getUsedQuotaData(selectedProduct.creditQuotaDetail);
+
+      if (!usedQuotaValue) return;
+      setUsedQuotaModal({
+        ...usedQuotaModal,
+        data: {
+          currentConsumption,
+          accumulatedDebt,
+          transactionsProcess,
+          usedQuotaValue,
+        },
+      });
+    }
+  };
+
   const handleSortConsumptions = () => {
     const verificationDataConsumption =
-      selectedProduct?.creditQuota.consumptions;
+      selectedProduct?.creditQuotaDetail.consumptions;
     const currentConsumption: IProduct[] = [];
     consumptionsMocks.map((consumption) => {
       if (verificationDataConsumption?.includes(consumption.id)) {
@@ -103,7 +119,7 @@ function CreditQuota() {
     navigate(`/my-cards/${card_id}/credit-quota/${id}`);
   };
 
-  if (!selectedProduct || !selectedProduct.creditQuota) return null;
+  if (!selectedProduct) return null;
 
   const handleUsedQuotaModal = () => {
     setUsedQuotaModal((prevState) => ({
@@ -111,6 +127,7 @@ function CreditQuota() {
       show: !prevState.show,
     }));
   };
+
   return (
     <>
       <CreditQuotaUI
