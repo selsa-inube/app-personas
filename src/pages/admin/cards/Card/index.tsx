@@ -14,7 +14,7 @@ import {
 } from "./types";
 import { validateCard, validateCreditQuotasInCards } from "./utils";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
-import { getUsedQuotaData } from "../CreditQuota/utils";
+import { getUsedQuotaData } from "./utils";
 import { CardsContext } from "src/context/cards";
 
 function Card() {
