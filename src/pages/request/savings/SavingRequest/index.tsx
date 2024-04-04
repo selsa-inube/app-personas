@@ -53,6 +53,7 @@ function SavingRequest() {
                 key={index}
                 title={card.title}
                 descriptions={card.descriptions}
+                actionText="Solicitar"
                 onClick={() => handleCardNavigate(card.navigateTo)}
               />
             ))}
