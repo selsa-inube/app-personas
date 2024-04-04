@@ -1,14 +1,13 @@
 import { IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {
-  creditQuota: IProduct;
+  creditQuotaDetail: IProduct;
   option: string;
 }
 
 interface ISelectedConsumptionsState {
   consumptions: IProduct;
 }
-
 interface IUsedQuotaModalState {
   show: boolean;
   data?: {
