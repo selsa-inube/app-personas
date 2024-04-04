@@ -21,8 +21,8 @@ function CreditQuota() {
     consumptions,
     setConsumptions,
     creditQuotas,
-    creditQuotaDetails,
-    setCreditQuotaDetails,
+    creditQuotaDetail,
+    setCreditQuotaDetail,
   } = useContext(CardsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
@@ -51,13 +51,13 @@ function CreditQuota() {
     if (!card_id || !credit_quota_id || !user || !accessToken) return;
 
     const { selectCreditQuotaDetails } = await validateCreditQuotaDetails(
-      creditQuotaDetails,
+      creditQuotaDetail,
       card_id,
       credit_quota_id,
       accessToken,
     );
 
-    setCreditQuotaDetails(creditQuotaDetails);
+    setCreditQuotaDetail(creditQuotaDetail);
 
     const { newCreditQuotas } = await validateCreditQuotas(
       creditQuotas,
@@ -68,7 +68,7 @@ function CreditQuota() {
     if (!selectCreditQuotaDetails) return;
 
     setSelectedProduct({
-      creditQuotaDetails: selectCreditQuotaDetails,
+      creditQuotaDetail: selectCreditQuotaDetails,
       option: selectCreditQuotaDetails.id,
     });
 
@@ -81,13 +81,13 @@ function CreditQuota() {
   };
 
   const usedQuotaData = () => {
-    if (selectedProduct && selectedProduct.creditQuotaDetails) {
+    if (selectedProduct && selectedProduct.creditQuotaDetail) {
       const {
         currentConsumption,
         accumulatedDebt,
         transactionsProcess,
         usedQuotaValue,
-      } = getUsedQuotaData(selectedProduct.creditQuotaDetails);
+      } = getUsedQuotaData(selectedProduct.creditQuotaDetail);
 
       if (!usedQuotaValue) return;
       setUsedQuotaModal({
@@ -104,7 +104,7 @@ function CreditQuota() {
 
   const handleSortConsumptions = () => {
     const verificationDataConsumption =
-      selectedProduct?.creditQuotaDetails.consumptions;
+      selectedProduct?.creditQuotaDetail.consumptions;
     const currentConsumption: IProduct[] = [];
     consumptionsMocks.map((consumption) => {
       if (verificationDataConsumption?.includes(consumption.id)) {

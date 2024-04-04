@@ -1,7 +1,7 @@
 import { IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {
-  creditQuotaDetails: IProduct;
+  creditQuotaDetail: IProduct;
   option: string;
 }
 

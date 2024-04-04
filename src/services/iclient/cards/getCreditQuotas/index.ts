@@ -2,7 +2,7 @@ import { enviroment } from "@config/enviroment";
 import { IProduct } from "src/model/entity/product";
 import { mapCreditQuotaApiToEntities } from "./mappers";
 
-const getCreditQuotasForUser = async (
+const getCreditQuotasForCard = async (
   cardId: string,
   accessToken: string,
 ): Promise<IProduct[]> => {
@@ -64,4 +64,4 @@ const getCreditQuotasForUser = async (
   return [];
 };
 
-export { getCreditQuotasForUser };
+export { getCreditQuotasForCard };

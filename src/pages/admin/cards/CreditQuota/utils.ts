@@ -1,6 +1,6 @@
 import { IProduct } from "src/model/entity/product";
-import { getCreditQuotasDetailsForUser } from "src/services/iclient/cards/getCreditQuotaDetail";
-import { getCreditQuotasForUser } from "src/services/iclient/cards/getCreditQuotas";
+import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
+import { getCreditQuotasForCard } from "src/services/iclient/cards/getCreditQuotas";
 
 const validateCreditQuotaDetails = async (
   creditQuotaDetails: IProduct | undefined,
@@ -12,7 +12,7 @@ const validateCreditQuotaDetails = async (
   currentyCreditQuotaDetails = { ...creditQuotaDetails };
 
   if (currentyCreditQuotaDetails) {
-    currentyCreditQuotaDetails = await getCreditQuotasDetailsForUser(
+    currentyCreditQuotaDetails = await getDetailForCreditQuota(
       cardId,
       accessToken,
     );
@@ -35,7 +35,7 @@ const validateCreditQuotas = async (
   let currentyCreditQuotas = [...creditQuotas];
 
   if (currentyCreditQuotas.length === 0) {
-    currentyCreditQuotas = await getCreditQuotasForUser(cardId, accessToken);
+    currentyCreditQuotas = await getCreditQuotasForCard(cardId, accessToken);
   }
 
   return {
