@@ -10,25 +10,28 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { savingRequestCards } from "./config/cards";
-import { crumbsSavingRequest } from "./config/navigation";
+import { crumbsPaymentOptions } from "./config/navigation";
 
-function SavingRequest() {
-  const navigate = useNavigate();
-
+function PaymentOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
-  const handleCardNavigate = (path: string) => {
-    navigate(`/savings/${path}`);
+  const navigate = useNavigate();
+
+  const handleGoToPay = () => {
+    navigate("/payments/pay");
+  };
+
+  const handleGoHistory = () => {
+    navigate("/payments/history");
   };
 
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsSavingRequest} />
+        <Breadcrumbs crumbs={crumbsPaymentOptions} />
         <Title
-          title="Solicitud de ahorro"
-          subtitle="Genera tu solicitud de ahorro"
+          title="Pagos"
+          subtitle="Gestiona tus pagos y obligaciones."
           icon={<MdArrowBack />}
           navigatePage="/"
         />
@@ -41,22 +44,29 @@ function SavingRequest() {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap={isDesktop ? "s400" : "s250"}>
+        <Stack direction="column" gap="s400">
           <Text type="title" size="small">
-            Aquí encontraras las opciones que puedes usar para realizar tu
-            solicitud de crédito.
+            Aquí encontraras las opciones que puedes usar para gestionar tus
+            pagos.
           </Text>
 
           <Stack direction="column" gap="s300">
-            {savingRequestCards.map((card, index) => (
-              <RequestCard
-                key={index}
-                title={card.title}
-                descriptions={card.descriptions}
-                actionText="Solicitar"
-                onClick={() => handleCardNavigate(card.navigateTo)}
-              />
-            ))}
+            <RequestCard
+              title="Realizar pagos"
+              descriptions={[
+                "Gestiona y realiza el pago de las obligaciones vigentes.",
+              ]}
+              actionText="Pagar"
+              onClick={handleGoToPay}
+            />
+            <RequestCard
+              title="Histórico de pagos"
+              descriptions={[
+                "Revisa el historial de pagos que has realizado de forma reciente.",
+              ]}
+              actionText="Consultar"
+              onClick={handleGoHistory}
+            />
           </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
@@ -65,4 +75,4 @@ function SavingRequest() {
   );
 }
 
-export { SavingRequest };
+export { PaymentOptions };

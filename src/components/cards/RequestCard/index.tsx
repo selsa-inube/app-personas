@@ -9,11 +9,12 @@ import { StyledCardContainer } from "./styles";
 interface RequestCardProps {
   title: string;
   descriptions: string[];
+  actionText: string;
   onClick: () => void;
 }
 
 function RequestCard(props: RequestCardProps) {
-  const { title, descriptions, onClick } = props;
+  const { title, descriptions, actionText, onClick } = props;
 
   const isMobile = useMediaQuery("(max-width: 500px)");
 
@@ -62,7 +63,7 @@ function RequestCard(props: RequestCardProps) {
       </Stack>
 
       <Button onClick={onClick} spacing="compact">
-        Solicitar
+        {actionText}
       </Button>
     </StyledCardContainer>
   );
