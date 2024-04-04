@@ -2,28 +2,28 @@ import { IProduct } from "src/model/entity/product";
 import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
 import { getCreditQuotasForCard } from "src/services/iclient/cards/getCreditQuotas";
 
-const validateCreditQuotaDetails = async (
-  creditQuotaDetails: IProduct | undefined,
+const validateCreditQuotaDetail = async (
   cardId: string,
   creditQuotaId: string,
   accessToken: string,
+  creditQuotaDetail?: IProduct,
 ) => {
-  let currentyCreditQuotaDetails;
-  currentyCreditQuotaDetails = { ...creditQuotaDetails };
+  let currentCreditQuotaDetail;
+  currentCreditQuotaDetail = { ...creditQuotaDetail };
 
-  if (currentyCreditQuotaDetails) {
-    currentyCreditQuotaDetails = await getDetailForCreditQuota(
+  if (currentCreditQuotaDetail) {
+    currentCreditQuotaDetail = await getDetailForCreditQuota(
       cardId,
       accessToken,
     );
   }
 
-  const selectCreditQuotaDetails =
-    currentyCreditQuotaDetails?.id === creditQuotaId &&
-    currentyCreditQuotaDetails;
+  const selectCreditQuotaDetail =
+    currentCreditQuotaDetail?.id === creditQuotaId &&
+    currentCreditQuotaDetail;
 
   return {
-    selectCreditQuotaDetails,
+    selectCreditQuotaDetail,
   };
 };
 
@@ -32,24 +32,24 @@ const validateCreditQuotas = async (
   cardId: string,
   accessToken: string,
 ) => {
-  let currentyCreditQuotas = [...creditQuotas];
+  let currentCreditQuotas = [...creditQuotas];
 
-  if (currentyCreditQuotas.length === 0) {
-    currentyCreditQuotas = await getCreditQuotasForCard(cardId, accessToken);
+  if (currentCreditQuotas.length === 0) {
+    currentCreditQuotas = await getCreditQuotasForCard(cardId, accessToken);
   }
 
   return {
-    newCreditQuotas: currentyCreditQuotas,
+    newCreditQuotas: currentCreditQuotas,
   };
 };
 
-const getUsedQuotaData =(creditQuotaDetails: IProduct) => {
+const getUsedQuotaData =(creditQuotaDetail: IProduct) => {
   let currentConsumption;
   let accumulatedDebt;
   let transactionsProcess;
   let usedQuotaValue;
 
-  creditQuotaDetails.attributes.forEach((attr) => {
+  creditQuotaDetail.attributes.forEach((attr) => {
     if (attr.id === "current_consumption") {
       currentConsumption = attr.value;
     }
@@ -72,4 +72,4 @@ const getUsedQuotaData =(creditQuotaDetails: IProduct) => {
   };
 };
 
-export { getUsedQuotaData, validateCreditQuotas, validateCreditQuotaDetails };
+export { getUsedQuotaData, validateCreditQuotas, validateCreditQuotaDetail };

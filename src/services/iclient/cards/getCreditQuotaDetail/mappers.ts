@@ -9,7 +9,7 @@ import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
 
 
-const mapCreditQuotaDetailsApiToEntity = (
+const mapCreditQuotaDetailApiToEntity = (
   creditQuota: Record<string, string | number | object>,
 ): IProduct => {
   
@@ -154,4 +154,4 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
 };
 
 
-export {mapCreditQuotaDetailsApiToEntity };
+export {mapCreditQuotaDetailApiToEntity };

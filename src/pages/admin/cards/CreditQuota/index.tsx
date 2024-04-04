@@ -7,7 +7,7 @@ import { CreditQuotaUI } from "./interface";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 import {
   getUsedQuotaData,
-  validateCreditQuotaDetails,
+  validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
 import { consumptionsMocks } from "@mocks/products/cards/consumptions.mocks";
@@ -50,11 +50,11 @@ function CreditQuota() {
   const handleSortProduct = async () => {
     if (!card_id || !credit_quota_id || !user || !accessToken) return;
 
-    const { selectCreditQuotaDetails } = await validateCreditQuotaDetails(
-      creditQuotaDetail,
+    const { selectCreditQuotaDetail } = await validateCreditQuotaDetail(
       card_id,
       credit_quota_id,
       accessToken,
+      creditQuotaDetail,
     );
 
     setCreditQuotaDetail(creditQuotaDetail);
@@ -65,11 +65,11 @@ function CreditQuota() {
       accessToken,
     );
 
-    if (!selectCreditQuotaDetails) return;
+    if (!selectCreditQuotaDetail) return;
 
     setSelectedProduct({
-      creditQuotaDetail: selectCreditQuotaDetails,
-      option: selectCreditQuotaDetails.id,
+      creditQuotaDetail: selectCreditQuotaDetail,
+      option: selectCreditQuotaDetail.id,
     });
 
     setProductsOptions(

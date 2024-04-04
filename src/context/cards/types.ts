@@ -3,7 +3,7 @@ import { IProduct } from "src/model/entity/product";
 interface ICardsContext {
   cards: IProduct[];
   creditQuotas: IProduct[];
-  creditQuotaDetail: IProduct | undefined;
+  creditQuotaDetail?: IProduct;
   consumptions:IProduct[];
   setCards: React.Dispatch<React.SetStateAction<IProduct[]>>;
   setCreditQuotas: React.Dispatch<React.SetStateAction<IProduct[]>>;

@@ -1,6 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { IProduct } from "src/model/entity/product";
-import { mapCreditQuotaDetailsApiToEntity } from "./mappers";
+import { mapCreditQuotaDetailApiToEntity } from "./mappers";
 
 const getDetailForCreditQuota = async (
   cardId: string,
@@ -47,12 +47,12 @@ const getDetailForCreditQuota = async (
         };
       }
 
-      const normalizedCreditQuotaDetails =
+      const normalizedCreditQuotaDetail =
         Object.keys(data).length === 0
           ? undefined
-          : mapCreditQuotaDetailsApiToEntity(data);
+          : mapCreditQuotaDetailApiToEntity(data);
 
-      return normalizedCreditQuotaDetails;
+      return normalizedCreditQuotaDetail;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(

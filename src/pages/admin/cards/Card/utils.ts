@@ -34,14 +34,14 @@ const validateCreditQuotasInCards = async (
   cardId: string,
   accessToken: string,
 ) => {
-  let currentyCreditQuotas = [...creditQuotas];
+  let currentCreditQuotas = [...creditQuotas];
 
-  if (currentyCreditQuotas.length === 0) {
-    currentyCreditQuotas = await getCreditQuotasForCard(cardId, accessToken);
+  if (currentCreditQuotas.length === 0) {
+    currentCreditQuotas = await getCreditQuotasForCard(cardId, accessToken);
   }
 
   return {
-    newCreditQuotas: currentyCreditQuotas,
+    newCreditQuotas: currentCreditQuotas,
   };
 };
 
