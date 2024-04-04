@@ -10,9 +10,9 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { crumbsPayments } from "./config/navigation";
+import { crumbsPaymentOptions } from "./config/navigation";
 
-function Payments() {
+function PaymentOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function Payments() {
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsPayments} />
+        <Breadcrumbs crumbs={crumbsPaymentOptions} />
         <Title
           title="Pagos"
           subtitle="Gestiona tus pagos y obligaciones."
@@ -75,4 +75,4 @@ function Payments() {
   );
 }
 
-export { Payments };
+export { PaymentOptions };
