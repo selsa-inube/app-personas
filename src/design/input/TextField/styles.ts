@@ -135,7 +135,7 @@ const StyledInput = styled.input<IStyledInput>`
 
   border: none;
 
-  width: ${({ isFullWidth }) => (isFullWidth ? "calc(100% - 32px)" : "252px")};
+  width: ${({ isFullWidth }) => (isFullWidth ? "100%" : "252px")};
   height: ${({ $size }) =>
     $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s400}`};
 
