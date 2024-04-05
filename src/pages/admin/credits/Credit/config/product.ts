@@ -7,16 +7,17 @@ const creditAttributes = [
   "next_payment_date",
   "dues_paid",
   "outstanding_dues",
-  "peridiocity",
   "payment_means",
-  "interest_rate",
+  "peridiocity",
   "net_value",
+  "expired_value",
   "days_past_due",
   "guarantee_type",
   "amortization_type",
+  "interest_rate",
 ];
 
-const creditCurrencyAttributes = ["loan_value", "net_value"];
+const creditCurrencyAttributes = ["loan_value", "net_value", "expired_value"];
 
 function extractCreditAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>

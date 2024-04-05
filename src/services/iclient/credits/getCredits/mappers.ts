@@ -57,6 +57,9 @@ const mapCreditApiToEntity = (
   const roundInteresRate =
     interesRate == 0 ? interesRate : interesRate.toFixed(2);
 
+  const expiredValue =
+    (Object(credit.valueExpired)?.totalPending || 0);
+
   const attributes: IAttribute[] = [
     {
       id: "loan_date",
@@ -122,6 +125,11 @@ const mapCreditApiToEntity = (
       id: "interest_rate",
       label: "Tasa de interés",
       value: `${roundInteresRate} % NAMV`,
+    },
+    {
+      id: "expired_value",
+      label: "Valor vencido",
+      value: `${expiredValue}`,
     },
   ];
 
