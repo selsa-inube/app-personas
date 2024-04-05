@@ -10,7 +10,8 @@ const StyledCardContainer = styled.div`
   border-radius: ${inube.spacing.s050};
   background: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
-  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
+  box-shadow:
+    0px 1px 3px 1px rgba(0, 0, 0, 0.15),
     0px 1px 2px 0px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 `;
@@ -20,6 +21,7 @@ const StyledInputRadio = styled.input`
   accent-color: ${({ theme }) =>
     theme.color?.surface?.primary?.regular ||
     inube.color.surface.primary.regular};
+  margin: 0;
 `;
 
 export { StyledCardContainer, StyledInputRadio };

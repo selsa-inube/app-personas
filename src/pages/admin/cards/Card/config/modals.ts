@@ -1,4 +1,4 @@
-import { InfoModalProps } from "@components/modals/InfoModal";
+import { InfoModalProps } from "@components/modals/cards/InfoModal";
 
 const infoModalData: InfoModalProps = {
   title: "Últimos movimientos",

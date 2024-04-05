@@ -1,5 +1,5 @@
+import { InfoModalProps } from "@components/modals/cards/InfoModal";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
-import { InfoModalProps } from "@components/modals/InfoModal";
 
 interface ISelectedProductState {
   card: IProduct;
@@ -34,8 +34,8 @@ interface IHandlingFeeModal {
 
 export { initialSelectedProductState };
 export type {
-  ISelectedProductState,
-  ISavingAccountsModal,
   IHandlingFeeModal,
   IMovementsInfoModal,
+  ISavingAccountsModal,
+  ISelectedProductState,
 };
