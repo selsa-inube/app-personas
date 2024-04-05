@@ -7,6 +7,7 @@ import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { MdEdit } from "react-icons/md";
 import { currencyFormat, parseCurrencyString } from "src/utils/currency";
@@ -50,6 +51,7 @@ function PaymentCard(props: PaymentCardProps) {
 
   const [selectedOption, setSelectedOption] = useState<IPaymentOption>();
   const [showModal, setShowModal] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 580px)");
 
   const handleChangeOption = (option: IPaymentOption) => {
     onChangePaymentValue(id, option.value);
@@ -90,7 +92,10 @@ function PaymentCard(props: PaymentCardProps) {
     <>
       <StyledCardContainer>
         <Stack direction="column" gap="s100">
-          <Stack justifyContent="space-between">
+          <Stack
+            direction={isMobile ? "column" : "row"}
+            justifyContent="space-between"
+          >
             <Text type="label" size="large">
               {title}
             </Text>
@@ -117,14 +122,19 @@ function PaymentCard(props: PaymentCardProps) {
                   checked={selectedOption && option.id === selectedOption.id}
                   readOnly
                 />
-                <Text type="label" size="medium">
-                  {option.label}:
-                </Text>
-                {option.description && (
-                  <Text type="body" size="small" appearance="gray">
-                    {option.description}
+                <Stack
+                  direction={isMobile ? "column" : "row"}
+                  gap={isMobile ? "s0" : "s150"}
+                >
+                  <Text type="label" size="medium">
+                    {option.label}:
                   </Text>
-                )}
+                  {option.description && (
+                    <Text type="body" size="small" appearance="gray">
+                      {option.description}
+                    </Text>
+                  )}
+                </Stack>
               </Stack>
 
               <Text type="body" size="small" appearance="gray">
