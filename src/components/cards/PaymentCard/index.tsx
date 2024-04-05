@@ -6,7 +6,6 @@ import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useState } from "react";
 import { MdEdit } from "react-icons/md";
@@ -91,7 +90,7 @@ function PaymentCard(props: PaymentCardProps) {
     <>
       <StyledCardContainer>
         <Stack direction="column" gap="s100">
-          <Stack gap="s100">
+          <Stack justifyContent="space-between">
             <Text type="label" size="large">
               {title}
             </Text>
@@ -105,7 +104,7 @@ function PaymentCard(props: PaymentCardProps) {
           </Stack>
         </Stack>
 
-        <Grid templateColumns="1fr 1fr" gap="s100">
+        <Stack direction="column" gap="s100">
           {options.map((option, index) => (
             <StyledInputContainer
               key={index}
@@ -133,7 +132,7 @@ function PaymentCard(props: PaymentCardProps) {
               </Text>
             </StyledInputContainer>
           ))}
-        </Grid>
+        </Stack>
 
         <Stack
           gap="s050"
