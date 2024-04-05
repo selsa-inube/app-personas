@@ -17,6 +17,9 @@ const props = {
   balanceValue: {
     description: "Controls the balance value of the obligation",
   },
+  allowCustomValue: {
+    description: "Controls if show the custom value option",
+  },
 };
 
 export { props };
