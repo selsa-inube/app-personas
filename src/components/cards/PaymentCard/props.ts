@@ -1,18 +1,21 @@
 const props = {
   id: {
-    description: "Controls the id of the radio card",
-  },
-  name: {
-    description: "Controls the name of the radio card",
+    description: "Controls the id of the payment card",
   },
   title: {
-    description: "Controls the title of the radio card",
+    description: "Controls the title of the payment card",
   },
   description: {
-    description: "Controls the description of the radio card",
+    description: "Controls the description of the payment card",
   },
-  checked: {
-    description: "Controls if the radio card should appear selected",
+  options: {
+    description: "Define the payment options for de radio selection",
+  },
+  tags: {
+    description: "Define the tags for the payment card",
+  },
+  balanceValue: {
+    description: "Controls the balance value of the obligation",
   },
 };
 

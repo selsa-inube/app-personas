@@ -47,7 +47,10 @@ Default.args = {
       textAppearance: "primary",
     },
   ],
+  balanceValue: 10000000,
+  allowCustomValue: true,
   onChangePaymentValue: () => true,
+  onApplyPayOption: () => true,
 };
 
 const theme = {
