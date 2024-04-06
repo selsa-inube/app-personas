@@ -80,7 +80,7 @@ interface IProduct {
   tags?: TagProps[];
   commitments?: string[];
   quotaDetails?: string[];
-  consumptions?: string[];
+  consumptions?: IProduct[];
 }
 
 interface IRate {

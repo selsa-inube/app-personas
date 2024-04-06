@@ -30,7 +30,7 @@ import { IProduct } from "src/model/entity/product";
 interface CreditQuotaUIProps {
   cardId?: string;
   creditQuotaId?: string;
-  productsOptions?: ISelectOption[]
+  productsOptions?: ISelectOption[];
   selectedProduct: ISelectedProductState;
   selectedConsumption?: IProduct[];
   usedQuotaModal: IUsedQuotaModalState;

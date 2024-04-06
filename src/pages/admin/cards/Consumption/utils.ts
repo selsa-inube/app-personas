@@ -1,52 +1,54 @@
 import { consumptionsMocks } from "@mocks/products/cards/consumptions.mocks";
+import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
 import { IProduct } from "src/model/entity/product";
 
 const validateConsumption = async (
-  consumptions: IProduct[],
+  cardId: string,
+  accessToken: string,
   consumptionId: string,
-  //userIdentification: string,
-  //accessToken: string,
+  creditQuotaDetail?: IProduct,
 ) => {
-  let currentConsumptions = [...consumptions];
+  let currentCreditQuotaDetail;
+  currentCreditQuotaDetail = { ...creditQuotaDetail };
 
-  if (currentConsumptions.length === 0) {
-    currentConsumptions = consumptionsMocks;
+  if (currentCreditQuotaDetail) {
+    currentCreditQuotaDetail = await getDetailForCreditQuota(
+      cardId,
+      accessToken,
+    );
   }
 
-  const selectedConsumption = currentConsumptions.find((consumption) => {
-    return consumption.id === consumptionId;
-  });
+  const selectedConsumption = currentCreditQuotaDetail?.consumptions?.find(
+    (consumption) => {
+      return consumption.id === consumptionId;
+    },
+  );
 
   return {
     selectedConsumption,
-    newConsumptions: currentConsumptions,
+    newConsumptions: currentCreditQuotaDetail as IProduct,
   };
 };
 
 const validateConsumptionMovements = async (
   selectedConsumption: IProduct,
-  consumptions: IProduct[],
-  // accessToken: string,
+  consumption: IProduct,
 ) => {
-  const currentConsumptions = [...consumptions];
+  const currentConsumption = { ...consumption };
   const newSelectedConsumption = { ...selectedConsumption };
 
-  for (const ix in currentConsumptions) {
-    if (currentConsumptions[ix].id === selectedConsumption.id) {
-      if (currentConsumptions[ix].movements?.length === 0) {
-        const movements = consumptionsMocks.find(
-          (consumption) => consumption.id === selectedConsumption.id,
-        )?.movements;
-        currentConsumptions[ix].movements = movements;
-      }
-
-      break;
+  if (currentConsumption.id === selectedConsumption.id) {
+    if (currentConsumption.movements?.length === 0) {
+      const movements = consumptionsMocks.find(
+        (consumption) => consumption.id === selectedConsumption.id,
+      )?.movements;
+      currentConsumption.movements = movements;
     }
   }
 
   return {
+    newConsumptions: currentConsumption,
     newSelectedConsumption,
-    newConsumptions: currentConsumptions,
   };
 };
 

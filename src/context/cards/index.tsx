@@ -12,7 +12,6 @@ function CardsProvider(props: CardsProviderProps) {
   const { children } = props;
 
   const [cards, setCards] = useState<IProduct[]>([]);
-  const [consumptions, setConsumptions] = useState<IProduct[]>([]);
 
   const [creditQuotas, setCreditQuotas] = useState<IProduct[]>([]);
   const [creditQuotaDetail, setCreditQuotaDetail] = useState<IProduct>();
@@ -22,22 +21,19 @@ function CardsProvider(props: CardsProviderProps) {
       cards,
       creditQuotas,
       creditQuotaDetail,
-      consumptions,
 
       setCards,
       setCreditQuotas,
       setCreditQuotaDetail,
-      setConsumptions,
     }),
     [
       cards,
       creditQuotas,
       creditQuotaDetail,
-      consumptions,
+
       setCards,
       setCreditQuotas,
       setCreditQuotaDetail,
-      setConsumptions,
     ],
   );
 
