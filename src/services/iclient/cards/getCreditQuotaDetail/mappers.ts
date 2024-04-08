@@ -4,16 +4,6 @@ import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
 
-interface IBalanceObligation {
-  capitalBalanceInPesos: number;
-  totalPending: number;
-}
-
-interface INextPaymentValue {
-  capitalValue: number;
-  total: number;
-}
-
 const mapConsumptionApiToEntity = (
   consumption: Record<string, string | number | object>,
 ): IProduct => {
@@ -22,8 +12,8 @@ const mapConsumptionApiToEntity = (
     Number(consumption.duesPaid) + Number(consumption.outstandingDues);
   const currentAccount = `${paidDues}/${outstandingDues}`;
 
-  const nextPaymentValue = consumption.nextPaymentValue as INextPaymentValue;
-  const balanceObligation = consumption.balanceObligation as IBalanceObligation;
+  const nextPaymentValue = Object(consumption.nextPaymentValue);
+  const balanceObligation = Object(consumption.balanceObligation);
 
   const attributes = [
     {
