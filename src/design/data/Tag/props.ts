@@ -19,6 +19,10 @@ const props = {
     options: tagModifier,
     description: "Controls the appearance of the tag",
   },
+  removable: {
+    control: "boolean",
+    description: "Controls the visibility of the removable icon",
+  },
 };
 
 export { props };

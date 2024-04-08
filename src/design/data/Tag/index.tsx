@@ -1,3 +1,5 @@
+import { MdOutlineClose } from "react-icons/md";
+import { Icon } from "../Icon";
 import { Text } from "../Text";
 
 import { StyledTag } from "./styles";
@@ -10,6 +12,8 @@ interface TagProps {
   appearance?: TagAppearanceType;
   textAppearance?: TagAppearanceType;
   modifier?: TagModifierType;
+  removable?: boolean;
+  onRemove?: () => void;
 }
 
 function Tag(props: TagProps) {
@@ -18,6 +22,8 @@ function Tag(props: TagProps) {
     appearance = "gray",
     modifier = "regular",
     textAppearance,
+    removable,
+    onRemove,
   } = props;
 
   return (
@@ -35,6 +41,22 @@ function Tag(props: TagProps) {
       >
         {label}
       </Text>
+      {removable && (
+        <Icon
+          appearance={
+            textAppearance
+              ? textAppearance
+              : darkTextAppearances.includes(appearance)
+                ? "dark"
+                : "light"
+          }
+          icon={<MdOutlineClose />}
+          size="12px"
+          spacing="none"
+          cursorHover
+          onClick={onRemove}
+        />
+      )}
     </StyledTag>
   );
 }

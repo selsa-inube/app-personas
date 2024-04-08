@@ -8,13 +8,16 @@ interface IStyledTag {
 }
 
 const StyledTag = styled.div<IStyledTag>`
-  display: inline-block;
+  display: flex;
+  align-items: center;
   padding: 0 ${inube.spacing.s050};
   background-color: ${({ theme, appearance, modifier }) =>
     theme.color?.surface?.[appearance]?.[modifier] ||
     inube.color.surface[appearance][modifier]};
 
   border-radius: 4px;
+  gap: ${inube.spacing.s050};
+  width: fit-content;
 `;
 
 export { StyledTag };
