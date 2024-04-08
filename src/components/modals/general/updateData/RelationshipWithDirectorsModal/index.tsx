@@ -5,11 +5,11 @@ import { Blanket } from "@design/layout/Blanket";
 import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IDirector } from "@mocks/directors/directors.mocks";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledBody, StyledItem, StyledModal } from "./styles";
+import { IDirector } from "src/model/entity/user";
 
 interface ItemProps {
   description: string;

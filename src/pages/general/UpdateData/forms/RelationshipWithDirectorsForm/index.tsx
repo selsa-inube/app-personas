@@ -1,4 +1,3 @@
-import { IDirector } from "@mocks/directors/directors.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
@@ -7,6 +6,7 @@ import * as Yup from "yup";
 import { RelationshipWithDirectorsRequiredFields } from "./config/formConfig";
 import { RelationshipWithDirectorsFormUI } from "./interface";
 import { IRelationshipWithDirectorsEntry } from "./types";
+import { IDirector } from "src/model/entity/user";
 
 const validationSchema = Yup.object().shape({
   hasRelationshipWithDirectors:

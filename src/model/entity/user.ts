@@ -130,9 +130,15 @@ interface IThird {
   relationshipWithDirectors?: IRelationshipWithDirectors;
 }
 
+interface IDirector {
+  id: string;
+  name: string;
+}
+
 export type {
   IBankTransfersAccount,
   IContactData,
+  IDirector,
   IEconomicActivity,
   IFamilyThird,
   IFinancialOperations,

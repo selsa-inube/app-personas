@@ -1,7 +1,4 @@
-interface IDirector {
-  id: string;
-  name: string;
-}
+import { IDirector } from "src/model/entity/user";
 
 const directorsMock: IDirector[] = [
   {
@@ -39,4 +36,3 @@ const directorsMock: IDirector[] = [
 ];
 
 export { directorsMock };
-export type { IDirector };

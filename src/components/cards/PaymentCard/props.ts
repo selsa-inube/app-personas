@@ -14,9 +14,6 @@ const props = {
   tags: {
     description: "Define the tags for the payment card",
   },
-  balanceValue: {
-    description: "Controls the balance value of the obligation",
-  },
   allowCustomValue: {
     description: "Controls if show the custom value option",
   },
