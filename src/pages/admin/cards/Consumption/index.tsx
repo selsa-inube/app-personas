@@ -4,10 +4,10 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
+import { CardsContext } from "src/context/cards";
 import { ConsumptionUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { validateConsumption, validateConsumptionMovements } from "./utils";
-import { CardsContext } from "src/context/cards";
 
 function Consumption() {
   const { card_id, credit_quota_id, consumption_id } = useParams();
@@ -15,7 +15,7 @@ function Consumption() {
     useState<ISelectedProductState>();
   const [loading, setLoading] = useState(true);
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
-  const { consumptions, setConsumptions } = useContext(CardsContext);
+  const { creditQuotaDetail, setCreditQuotaDetail } = useContext(CardsContext);
   const { user, accessToken } = useAuth();
 
   const navigate = useNavigate();
@@ -27,16 +27,17 @@ function Consumption() {
   }, [consumption_id, user, accessToken, isMobile]);
 
   const handleSortProduct = async () => {
-    if (!consumption_id || !user || !accessToken) return;
+    if (!consumption_id || !user || !accessToken || !card_id) return;
 
-    const { selectedConsumption, newConsumptions } = await validateConsumption(
-      consumptions,
-      consumption_id,
-      //user.identification,
-      //accessToken,
-    );
+    const { selectedConsumption, newCreditQuotaDetail } =
+      await validateConsumption(
+        card_id,
+        consumption_id,
+        accessToken,
+        creditQuotaDetail,
+      );
 
-    setConsumptions(newConsumptions);
+    setCreditQuotaDetail(newCreditQuotaDetail);
 
     if (!selectedConsumption) return;
 
@@ -45,25 +46,23 @@ function Consumption() {
       option: selectedConsumption.id,
     });
 
-    setProductsOptions(
-      newConsumptions.map((consumption) => ({
-        id: consumption.id,
-        value: consumption.title,
-      })),
-    );
+    if (newCreditQuotaDetail && newCreditQuotaDetail.consumptions)
+      setProductsOptions(
+        newCreditQuotaDetail.consumptions.map((consumption) => ({
+          id: consumption.id,
+          value: consumption.title,
+        })),
+      );
 
-    validateConsumptionMovements(
-      selectedConsumption,
-      newConsumptions,
-      //accessToken,
-    ).then(({ newConsumptions, newSelectedConsumption }) => {
-      setLoading(false);
-      setConsumptions(newConsumptions);
-      setSelectedProduct({
-        option: newSelectedConsumption.id,
-        consumption: newSelectedConsumption,
-      });
-    });
+    validateConsumptionMovements(selectedConsumption, accessToken).then(
+      ({ newSelectedConsumption }) => {
+        setLoading(false);
+        setSelectedProduct({
+          option: newSelectedConsumption.id,
+          consumption: newSelectedConsumption,
+        });
+      },
+    );
   };
 
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {

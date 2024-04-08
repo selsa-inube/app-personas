@@ -1,6 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { IProduct } from "src/model/entity/product";
-import { mapCreditQuotaApiToEntities } from "./mappers";
+import { mapCreditQuotasApiToEntities } from "./mappers";
 
 const getCreditQuotasForCard = async (
   cardId: string,
@@ -48,7 +48,7 @@ const getCreditQuotasForCard = async (
       }
 
       const normalizedCreditQuotas = Array.isArray(data)
-        ? mapCreditQuotaApiToEntities(data)
+        ? mapCreditQuotasApiToEntities(data)
         : [];
 
       return normalizedCreditQuotas;

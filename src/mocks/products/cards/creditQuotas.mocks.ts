@@ -1,7 +1,7 @@
 import {
+  EMovementType,
   EProductType,
   IProduct,
-  EMovementType,
 } from "src/model/entity/product";
 
 const creditQuotasMock: IProduct[] = [
@@ -41,7 +41,7 @@ const creditQuotasMock: IProduct[] = [
         label: "Cupo asignado",
         value: 8550420,
       },
-          {
+      {
         id: "full_payment",
         label: "Pago total",
         value: 2775000,
@@ -152,7 +152,6 @@ const creditQuotasMock: IProduct[] = [
         type: EMovementType.PURCHASE,
       },
     ],
-    consumptions: ["123412341", "123412342", "123412343"],
   },
   {
     id: "590030780133",
@@ -279,7 +278,6 @@ const creditQuotasMock: IProduct[] = [
         appearance: "error",
       },
     ],
-    consumptions: ["123412344"],
   },
 ];
 

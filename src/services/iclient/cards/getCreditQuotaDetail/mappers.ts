@@ -1,23 +1,104 @@
 import { TagProps } from "@design/data/Tag";
 import { cardTypeValuesMock } from "@mocks/products/cards/utils.mocks";
-import {
-  EProductType,
-  IAttribute,
-  IProduct,
-} from "src/model/entity/product";
+import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
 
+const mapConsumptionApiToEntity = (
+  consumption: Record<string, string | number | object>,
+): IProduct => {
+  const paidDues = consumption.duesPaid;
+  const outstandingDues =
+    Number(consumption.duesPaid) + Number(consumption.outstandingDues);
+  const currentAccount = `${paidDues}/${outstandingDues}`;
+
+  const nextPaymentValue = Object(consumption.nextPaymentValue);
+  const balanceObligation = Object(consumption.balanceObligation);
+
+  const attributes = [
+    {
+      id: "consumption_date",
+      label: "Fecha de consumo",
+      value: formatPrimaryDate(new Date(String(consumption.obligationDate))),
+    },
+    {
+      id: "consumption_value",
+      label: "Valor del consumo",
+      value: "",
+    },
+    {
+      id: "dues_paid",
+      label: "Cuotas pagadas",
+      value: Number(consumption.duesPaid || 0),
+    },
+    {
+      id: "outstanding_dues",
+      label: "Cuotas pendientes",
+      value: Number(outstandingDues || 0),
+    },
+    {
+      id: "net_value",
+      label: "Saldo de capital",
+      value: Number(
+        Object(consumption.balanceObligation).capitalBalanceInPesos,
+      ),
+    },
+    {
+      id: "current_interest",
+      label: "Intéres corriente",
+      value: `${Number(consumption.periodicRate)}% MV`,
+    },
+    {
+      id: "capital_payment",
+      label: "Abono capital",
+      value: `cuota ${currentAccount}`,
+    },
+    {
+      id: "min_payment_quota_available",
+      label: "Pago minimo de cuota",
+      value: nextPaymentValue.capitalValue,
+    },
+    {
+      id: "total_payment_quota_available",
+      label: "Pago total de cuota",
+      value: nextPaymentValue.total,
+    },
+    {
+      id: "total_capital_payment",
+      label: "Pago capital total",
+      value: balanceObligation.totalPending,
+    },
+    {
+      id: "min_capital_payment",
+      label: "Pago capital minimo",
+      value: balanceObligation.capitalBalanceInPesos,
+    },
+  ];
+
+  return {
+    id: String(consumption.obligationNumber),
+    title: String(consumption.obligationNumber),
+    description: "Informe de consumos",
+    type: EProductType.CONTRIBUTIONS,
+    attributes,
+  };
+};
+
+const mapConsumptionsApiToEntities = (
+  consumptions: Record<string, string | number | object>[],
+): IProduct[] => {
+  return consumptions.map((consumption) =>
+    mapConsumptionApiToEntity(consumption),
+  );
+};
 
 const mapCreditQuotaDetailApiToEntity = (
   creditQuota: Record<string, string | number | object>,
 ): IProduct => {
-  
   const nextPaymentDate = new Date(String(creditQuota.nextPaymentDay));
   nextPaymentDate.setUTCHours(5, 5, 5, 5);
 
   const today = new Date();
-
   today.setUTCHours(5, 5, 5, 5);
 
   const inArrears = today > nextPaymentDate;
@@ -26,7 +107,9 @@ const mapCreditQuotaDetailApiToEntity = (
     ? "Inmediato"
     : formatPrimaryDate(new Date(String(creditQuota.nextPaymentDay)));
 
-const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "Sin definir"
+  const nextPaymentDateValid = creditQuota.nextPaymentDay
+    ? nextPaymentFormat
+    : "Sin definir";
 
   const normalizedPaymentMediumName = capitalizeText(
     String(creditQuota.paymentMediumName).toLowerCase(),
@@ -112,11 +195,7 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
       label: "Medio de pago",
       value: normalizedPaymentMediumName,
     },
-    {
-      id: "used_quota",
-      label: "Cupo usado",
-      value: usedQuota,
-    },
+    { id: "used_quota", label: "Cupo usado", value: usedQuota },
     {
       id: "current_consumption",
       label: "Consumos vigentes",
@@ -127,19 +206,15 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
       label: "Transacciones en proceso",
       value: transactionProcess,
     },
-    {
-      id: "used_quota_value",
-      label: "Pago total",
-      value: usedQuota,
-    },
+    { id: "used_quota_value", label: "Pago total", value: usedQuota },
   ];
+
   const tags: TagProps[] = inArrears
-    ? [
-        {
-          label: "En mora",
-          appearance: "error",
-        },
-      ]
+    ? [{ label: "En mora", appearance: "error" }]
+    : [];
+
+  const consumptions = Array.isArray(creditQuota.listObligationProducts)
+    ? creditQuota.listObligationProducts
     : [];
 
   return {
@@ -148,10 +223,9 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
     description: "Informe de movimientos",
     type: EProductType.CREDITCARD,
     attributes,
-    consumptions: [],
+    consumptions: mapConsumptionsApiToEntities(consumptions),
     tags,
   };
 };
 
-
-export {mapCreditQuotaDetailApiToEntity };
+export { mapCreditQuotaDetailApiToEntity };

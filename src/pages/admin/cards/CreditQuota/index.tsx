@@ -10,20 +10,13 @@ import {
   validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
-import { consumptionsMocks } from "@mocks/products/cards/consumptions.mocks";
-import { IProduct } from "src/model/entity/product";
 import { useAuth } from "@inube/auth";
 import { CardsContext } from "src/context/cards";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
-  const {
-    consumptions,
-    setConsumptions,
-    creditQuotas,
-    creditQuotaDetail,
-    setCreditQuotaDetail,
-  } = useContext(CardsContext);
+  const { creditQuotas, creditQuotaDetail, setCreditQuotaDetail } =
+    useContext(CardsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>();
@@ -41,10 +34,6 @@ function CreditQuota() {
 
   useEffect(() => {
     usedQuotaData();
-  }, [selectedProduct]);
-
-  useEffect(() => {
-    handleSortConsumptions();
   }, [selectedProduct]);
 
   const handleSortProduct = async () => {
@@ -102,18 +91,6 @@ function CreditQuota() {
     }
   };
 
-  const handleSortConsumptions = () => {
-    const verificationDataConsumption =
-      selectedProduct?.creditQuotaDetail.consumptions;
-    const currentConsumption: IProduct[] = [];
-    consumptionsMocks.map((consumption) => {
-      if (verificationDataConsumption?.includes(consumption.id)) {
-        currentConsumption.push(consumption);
-      }
-    });
-    setConsumptions(currentConsumption);
-  };
-
   const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value: id } = event.target;
     navigate(`/my-cards/${card_id}/credit-quota/${id}`);
@@ -138,7 +115,7 @@ function CreditQuota() {
         handleChangeProduct={handleChangeProduct}
         productsOptions={productsOptions}
         selectedProduct={selectedProduct}
-        selectedConsumption={consumptions}
+        selectedConsumption={selectedProduct.creditQuotaDetail?.consumptions}
       />
     </>
   );

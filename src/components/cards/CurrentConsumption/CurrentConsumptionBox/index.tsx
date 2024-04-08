@@ -125,7 +125,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
               padding={`0px 0px ${inube.spacing.s075} 0px`}
             >
               <Text type="label" size="medium">
-                Pago min.
+                Próximo pago
               </Text>
             </Stack>
 
@@ -156,7 +156,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
               padding={`0px 0px ${inube.spacing.s075} 0px`}
             >
               <Text type="label" size="medium">
-                Pago tot.
+                Próximo total
               </Text>
             </Stack>
 
@@ -205,7 +205,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
           </Stack>
           <Stack direction="column" alignItems="center" gap="s100">
             <Text type="label" size="medium">
-              Pago min.
+              Próximo pago
             </Text>
             <Text type="body" size="small" appearance="gray">
               {minPaymentQuotaAvailable}
@@ -216,7 +216,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
           </Stack>
           <Stack direction="column" alignItems="center" gap="s100">
             <Text type="label" size="medium">
-              Pago tot.
+              Próximo total
             </Text>
             <Text type="body" size="small" appearance="gray">
               {totalPaymentQuotaAvailable}

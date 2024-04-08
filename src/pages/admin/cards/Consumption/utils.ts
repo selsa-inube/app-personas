@@ -1,52 +1,50 @@
-import { consumptionsMocks } from "@mocks/products/cards/consumptions.mocks";
 import { IProduct } from "src/model/entity/product";
+import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
+import { getMovementsForCredit } from "src/services/iclient/credits/getMovements";
 
 const validateConsumption = async (
-  consumptions: IProduct[],
+  cardId: string,
   consumptionId: string,
-  //userIdentification: string,
-  //accessToken: string,
+  accessToken: string,
+  creditQuotaDetail?: IProduct,
 ) => {
-  let currentConsumptions = [...consumptions];
+  let currentCreditQuotaDetail = creditQuotaDetail;
 
-  if (currentConsumptions.length === 0) {
-    currentConsumptions = consumptionsMocks;
+  if (!currentCreditQuotaDetail) {
+    currentCreditQuotaDetail = await getDetailForCreditQuota(
+      cardId,
+      accessToken,
+    );
   }
 
-  const selectedConsumption = currentConsumptions.find((consumption) => {
-    return consumption.id === consumptionId;
-  });
+  const selectedConsumption = currentCreditQuotaDetail?.consumptions?.find(
+    (consumption) => {
+      return consumption.id === consumptionId;
+    },
+  );
 
   return {
     selectedConsumption,
-    newConsumptions: currentConsumptions,
+    newCreditQuotaDetail: currentCreditQuotaDetail,
   };
 };
 
 const validateConsumptionMovements = async (
   selectedConsumption: IProduct,
-  consumptions: IProduct[],
-  // accessToken: string,
+  accessToken: string,
 ) => {
-  const currentConsumptions = [...consumptions];
-  const newSelectedConsumption = { ...selectedConsumption };
+  const currentConsumption = { ...selectedConsumption };
 
-  for (const ix in currentConsumptions) {
-    if (currentConsumptions[ix].id === selectedConsumption.id) {
-      if (currentConsumptions[ix].movements?.length === 0) {
-        const movements = consumptionsMocks.find(
-          (consumption) => consumption.id === selectedConsumption.id,
-        )?.movements;
-        currentConsumptions[ix].movements = movements;
-      }
-
-      break;
-    }
+  if (selectedConsumption.movements?.length === 0) {
+    const movements = await getMovementsForCredit(
+      selectedConsumption.id,
+      accessToken,
+    );
+    currentConsumption.movements = movements;
   }
 
   return {
-    newSelectedConsumption,
-    newConsumptions: currentConsumptions,
+    newSelectedConsumption: currentConsumption,
   };
 };
 
