@@ -5,11 +5,12 @@ import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IDirector, directorsMock } from "@mocks/directors/directors.mocks";
+import { directorsMock } from "@mocks/users/directors/directors.mocks";
 import { FormikValues } from "formik";
 import { MdSearch } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
+import { IDirector } from "src/model/entity/user";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface RelationshipWithDirectorsFormUIProps {

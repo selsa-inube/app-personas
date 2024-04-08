@@ -10,6 +10,7 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { MdEdit } from "react-icons/md";
+import { IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat, parseCurrencyString } from "src/utils/currency";
 import {
   StyledCardContainer,
@@ -17,20 +18,12 @@ import {
   StyledInputRadio,
 } from "./styles";
 
-interface IPaymentOption {
-  id: string;
-  label: string;
-  description?: string;
-  value: number;
-}
-
 interface PaymentCardProps {
   id: string;
   title: string;
   description: string;
   options: IPaymentOption[];
   tags: TagProps[];
-  balanceValue: number;
   allowCustomValue?: boolean;
   onChangePaymentValue: (cardId: string, valueToPay: number) => void;
   onApplyPayOption: (cardId: string, option: IApplyPayOption) => void;
@@ -43,7 +36,6 @@ function PaymentCard(props: PaymentCardProps) {
     description,
     options,
     tags,
-    balanceValue,
     allowCustomValue,
     onChangePaymentValue,
     onApplyPayOption,
@@ -87,6 +79,10 @@ function PaymentCard(props: PaymentCardProps) {
       textAppearance: "dark",
     });
   };
+
+  const balanceValue = options.find(
+    (option) => option.id === "totalValue",
+  )?.value;
 
   return (
     <>
@@ -175,7 +171,7 @@ function PaymentCard(props: PaymentCardProps) {
         </Stack>
       </StyledCardContainer>
 
-      {showModal && (
+      {showModal && balanceValue && (
         <CustomValueModal
           portalId="modals"
           value={selectedOption?.value || 0}
