@@ -1,5 +1,5 @@
-import { ThemeProvider } from "styled-components";
 import { StoryFn } from "@storybook/react";
+import { ThemeProvider } from "styled-components";
 import { Tag, TagProps } from ".";
 
 import { themes } from "@mocks/design/themes";
