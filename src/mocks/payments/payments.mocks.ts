@@ -4,6 +4,9 @@ const paymentsMock: IPayment[] = [
   {
     id: "10-241000476",
     title: "CREDI-APORTES GASTOS PERSONALES",
+    group: "credits",
+    paymentMethod: "monthly",
+    status: "anywhere",
     options: [
       {
         id: "expiredValue",
@@ -34,6 +37,9 @@ const paymentsMock: IPayment[] = [
   {
     id: "10-241000477",
     title: "TEMPORADA GASTOS PERSONALES",
+    group: "savings",
+    paymentMethod: "automaticDebit",
+    status: "anywhere",
     options: [
       {
         id: "expiredValue",
@@ -64,6 +70,9 @@ const paymentsMock: IPayment[] = [
   {
     id: "10-241000478",
     title: "TEMPORADA GASTOS PERSONALES",
+    group: "savings",
+    paymentMethod: "window",
+    status: "anywhere",
     options: [
       {
         id: "expiredValue",
@@ -94,6 +103,9 @@ const paymentsMock: IPayment[] = [
   {
     id: "10-241000479",
     title: "CREDI-APORTES GASTOS PERSONALES",
+    group: "credits",
+    paymentMethod: "monthly",
+    status: "arrears",
     options: [
       {
         id: "expiredValue",
@@ -103,7 +115,7 @@ const paymentsMock: IPayment[] = [
       {
         id: "nextValue",
         label: "Próximo vencimiento",
-        description: "15/Abr/2024",
+        description: "Inmediato",
         value: 75000,
       },
       {
@@ -113,6 +125,10 @@ const paymentsMock: IPayment[] = [
       },
     ],
     tags: [
+      {
+        label: "En mora",
+        appearance: "error",
+      },
       {
         label: "Fondecom mensual",
         appearance: "primary",

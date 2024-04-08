@@ -1,6 +1,9 @@
 import { PaymentCard } from "@components/cards/PaymentCard";
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
-import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
+import {
+  IPaymentFilters,
+  PaymentFilterModal,
+} from "@components/modals/payments/PaymentFilterModal";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
@@ -16,7 +19,7 @@ import { currencyFormat } from "src/utils/currency";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledTotalPayment } from "./styles";
 
-const renderFilters = (filters: IPaymentFilters) => {
+const renderFilters = (filters: IPaymentFilters, onRemove: (filterName: string) => void) => {
   return Object.entries(filters).map(([key, id]) => {
     const filterInitialId =
       paymentInitialFilters[key as keyof typeof paymentInitialFilters];
@@ -32,9 +35,9 @@ const renderFilters = (filters: IPaymentFilters) => {
           key={key}
           label={filterLabel}
           appearance="gray"
-          modifier="clear"
-          textAppearance="gray"
+          modifier="regular"
           removable
+          onRemove={() => onRemove(key)}
         />
       )
     );
@@ -43,12 +46,24 @@ const renderFilters = (filters: IPaymentFilters) => {
 
 interface ObligationsFormUIProps {
   formik: FormikValues;
+  showFiltersModal: boolean;
   onApplyPayOption: (payId: string, option: IApplyPayOption) => void;
   onChangePaymentValue: (payId: string, valueToPay: number) => void;
+  onToggleFiltersModal: () => void;
+  onApplyFilters: (filters: IPaymentFilters) => void;
+  onRemoveFilter: (filterName: string) => void;
 }
 
 function ObligationsFormUI(props: ObligationsFormUIProps) {
-  const { formik, onApplyPayOption, onChangePaymentValue } = props;
+  const {
+    formik,
+    showFiltersModal,
+    onApplyPayOption,
+    onChangePaymentValue,
+    onToggleFiltersModal,
+    onApplyFilters,
+    onRemoveFilter,
+  } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
@@ -71,14 +86,18 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               >
                 Ayudas
               </Button>
-              <Button spacing="compact" iconBefore={<MdFilterAlt />}>
+              <Button
+                spacing="compact"
+                iconBefore={<MdFilterAlt />}
+                onClick={onToggleFiltersModal}
+              >
                 Filtros
               </Button>
             </Stack>
 
             <Fieldset title="Filtros aplicados">
               <Stack direction="row" gap="s150">
-                {renderFilters(formik.values.filters)}
+                {renderFilters(formik.values.filters, onRemoveFilter)}
               </Stack>
             </Fieldset>
           </Stack>
@@ -117,6 +136,16 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
           </Stack>
         </Stack>
       </form>
+
+      {showFiltersModal && (
+        <PaymentFilterModal
+          initialFilters={paymentInitialFilters}
+          allowedFilters={paymentFilters}
+          onCloseModal={onToggleFiltersModal}
+          portalId="modals"
+          onApplyFilters={onApplyFilters}
+        />
+      )}
     </>
   );
 }

@@ -40,7 +40,7 @@ const paymentFilters = {
     },
     {
       id: "monthly",
-      value: "Mensual",
+      value: "Fondecom mensual",
     },
     {
       id: "automaticDebit",

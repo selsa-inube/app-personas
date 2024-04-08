@@ -11,6 +11,9 @@ interface IPaymentOption {
 interface IPayment {
   id: string;
   title: string;
+  group: string;
+  paymentMethod: string;
+  status: string;
   options: IPaymentOption[];
   tags: TagProps[];
   valueToPay?: number;
