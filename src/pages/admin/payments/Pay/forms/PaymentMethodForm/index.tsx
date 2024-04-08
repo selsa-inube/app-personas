@@ -8,17 +8,14 @@ const validationSchema = Yup.object().shape({});
 
 interface PaymentMethodFormProps {
   initialValues: IPaymentMethodEntry;
-  loading?: boolean;
-  withSubmit?: boolean;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: IPaymentMethodEntry) => void;
 }
 
 const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   props: PaymentMethodFormProps,
   ref: React.Ref<FormikProps<IPaymentMethodEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading, withSubmit } = props;
+  const { initialValues, onFormValid } = props;
 
   const [dynamicSchema] = useState(validationSchema);
 
@@ -26,7 +23,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     initialValues,
     validationSchema: dynamicSchema,
     validateOnBlur: false,
-    onSubmit: onSubmit || (() => true),
+    onSubmit: async () => true,
   });
 
   useImperativeHandle(ref, () => formik);
@@ -39,20 +36,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
   }, [formik.values]);
 
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName];
-    if (!("nullable" in fieldDescription)) return false;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
-
-  return (
-    <PaymentMethodFormUI
-      loading={loading}
-      formik={formik}
-      isRequired={isRequired}
-      withSubmit={withSubmit}
-    />
-  );
+  return <PaymentMethodFormUI formik={formik} />;
 });
 
 export { PaymentMethodForm };

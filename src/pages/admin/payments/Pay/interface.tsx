@@ -1,6 +1,7 @@
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
+import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -73,6 +74,8 @@ function PayUI(props: PayUIProps) {
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
+    handleNextStep,
+    handlePreviousStep,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -109,6 +112,27 @@ function PayUI(props: PayUIProps) {
           setIsCurrentFormValid,
           handleStepChange,
         )}
+
+        <Stack gap="s150" justifyContent="flex-end">
+          <Button
+            onClick={handlePreviousStep}
+            type="button"
+            disabled={currentStep === steps[0].id}
+            spacing="compact"
+            variant="outlined"
+            appearance="gray"
+          >
+            Atrás
+          </Button>
+
+          <Button
+            onClick={handleNextStep}
+            spacing="compact"
+            disabled={!isCurrentFormValid}
+          >
+            {currentStep === steps.length ? "Enviar" : "Siguiente"}
+          </Button>
+        </Stack>
       </Stack>
     </Stack>
   );

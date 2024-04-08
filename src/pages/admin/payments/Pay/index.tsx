@@ -1,8 +1,10 @@
+import { paymentsMock } from "@mocks/payments/payments.mocks";
 import { mapComments } from "@pages/general/UpdateData/config/mappers";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { paySteps } from "./config/assisted";
+import { mapObligations, mapPaymentMethod } from "./config/mappers";
 import { IObligationsEntry } from "./forms/ObligationsForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { PayUI } from "./interface";
@@ -16,15 +18,11 @@ function Pay() {
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
       isValid: true,
-      values: {
-        id: "", // TEMP
-      },
+      values: mapObligations(paymentsMock),
     },
     paymentMethod: {
       isValid: true,
-      values: {
-        id: "", // TEMP
-      },
+      values: mapPaymentMethod(),
     },
     comments: { isValid: true, values: mapComments() },
   });

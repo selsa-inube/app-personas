@@ -95,8 +95,11 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
               <StyledInputRadio
                 id={option.id}
                 type="radio"
-                checked={selectedOption && selectedOption.id === option.id}
+                checked={
+                  (selectedOption && selectedOption.id === option.id) || false
+                }
                 readOnly
+                value={option.id}
               />
               <Text type="label" size="large">
                 {option.label}

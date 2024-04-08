@@ -11,7 +11,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { MdEdit } from "react-icons/md";
 import { IPaymentOption } from "src/model/entity/payment";
-import { currencyFormat, parseCurrencyString } from "src/utils/currency";
+import { currencyFormat } from "src/utils/currency";
 import {
   StyledCardContainer,
   StyledInputContainer,
@@ -21,19 +21,17 @@ import {
 interface PaymentCardProps {
   id: string;
   title: string;
-  description: string;
   options: IPaymentOption[];
   tags: TagProps[];
   allowCustomValue?: boolean;
-  onChangePaymentValue: (cardId: string, valueToPay: number) => void;
-  onApplyPayOption: (cardId: string, option: IApplyPayOption) => void;
+  onChangePaymentValue: (payId: string, valueToPay: number) => void;
+  onApplyPayOption: (payId: string, option: IApplyPayOption) => void;
 }
 
 function PaymentCard(props: PaymentCardProps) {
   const {
     id,
     title,
-    description,
     options,
     tags,
     allowCustomValue,
@@ -48,26 +46,14 @@ function PaymentCard(props: PaymentCardProps) {
   const handleChangeOption = (option: IPaymentOption) => {
     onChangePaymentValue(id, option.value);
     setSelectedOption(option);
-  };
-
-  const handleChangeCustomValue = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const parsedValue = parseCurrencyString(event.target.value);
-
-    onChangePaymentValue(id, parsedValue);
-    setSelectedOption({
-      id: "custom",
-      label: "Personalizado",
-      value: isNaN(parsedValue) ? 0 : parsedValue,
-    });
+    if (tags.length > 1) tags.pop();
   };
 
   const handleToggleModal = () => {
     setShowModal(!showModal);
   };
 
-  const handleApplyPayOption = (option: IApplyPayOption) => {
+  const handleApplyPayOption = (option: IApplyPayOption, value: number) => {
     onApplyPayOption(id, option);
 
     if (tags.length > 1) tags.pop();
@@ -77,6 +63,13 @@ function PaymentCard(props: PaymentCardProps) {
       appearance: "dark",
       modifier: "clear",
       textAppearance: "dark",
+    });
+
+    onChangePaymentValue(id, value);
+    setSelectedOption({
+      id: "custom",
+      label: "Personalizado",
+      value,
     });
   };
 
@@ -96,7 +89,7 @@ function PaymentCard(props: PaymentCardProps) {
               {title}
             </Text>
             <Text type="body" size="medium" appearance="gray">
-              {description}
+              {id}
             </Text>
           </Stack>
           <Stack gap="s100">
@@ -115,8 +108,11 @@ function PaymentCard(props: PaymentCardProps) {
                 <StyledInputRadio
                   id={option.id}
                   type="radio"
-                  checked={selectedOption && option.id === selectedOption.id}
+                  checked={
+                    (selectedOption && option.id === selectedOption.id) || false
+                  }
                   readOnly
+                  value={option.id}
                 />
                 <Stack
                   direction={isMobile ? "column" : "row"}
@@ -149,7 +145,7 @@ function PaymentCard(props: PaymentCardProps) {
           <Text type="label" size="medium">
             Pagar:
           </Text>
-          <Stack width="120px">
+          <Stack width="160px">
             <TextField
               id="customValue"
               name="customValue"
@@ -157,14 +153,17 @@ function PaymentCard(props: PaymentCardProps) {
               onFocus={allowCustomValue ? handleToggleModal : undefined}
               value={currencyFormat(selectedOption?.value || 0)}
               isFullWidth
+              size="compact"
               iconAfter={
-                <Icon
-                  icon={<MdEdit />}
-                  appearance="dark"
-                  size="16px"
-                  onClick={allowCustomValue ? handleToggleModal : undefined}
-                  cursorHover
-                />
+                allowCustomValue ? (
+                  <Icon
+                    icon={<MdEdit />}
+                    appearance="dark"
+                    size="16px"
+                    onClick={handleToggleModal}
+                    cursorHover
+                  />
+                ) : undefined
               }
             />
           </Stack>
@@ -176,7 +175,6 @@ function PaymentCard(props: PaymentCardProps) {
           portalId="modals"
           value={selectedOption?.value || 0}
           balanceValue={balanceValue}
-          onChangeCustomValue={handleChangeCustomValue}
           onCloseModal={handleToggleModal}
           onApplyPayOption={handleApplyPayOption}
         />

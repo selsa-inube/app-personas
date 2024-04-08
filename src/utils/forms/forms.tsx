@@ -6,6 +6,15 @@ import { FormikValues } from "formik";
 import * as Yup from "yup";
 import { StyledInputForm } from "./forms.styles";
 
+const isRequired = (
+  schema: Yup.ObjectSchema<Yup.AnyObject>,
+  fieldName: string,
+): boolean => {
+  const fieldDescription = schema.describe().fields[fieldName];
+  if (!("nullable" in fieldDescription)) return false;
+  return !fieldDescription.nullable && !fieldDescription.optional;
+};
+
 const getFieldState = (formik: FormikValues, fieldName: string) => {
   if (formik.errors[fieldName]) return "invalid";
   return "valid";
@@ -144,4 +153,5 @@ export {
   generateDynamicForm,
   generateFormFields,
   getFieldState,
+  isRequired,
 };

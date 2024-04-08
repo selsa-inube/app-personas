@@ -2,7 +2,7 @@ import { FormikValues } from "formik";
 
 const currencyFormat = (price: number): string => {
   if (price === 0) {
-    return "$ 0.00";
+    return "$ 0";
   }
 
   return Intl.NumberFormat("es-CO", {
@@ -13,7 +13,7 @@ const currencyFormat = (price: number): string => {
 };
 
 const parseCurrencyString = (currencyString: string): number => {
-  if (currencyString === "$ 0.0") {
+  if (currencyString === "$ 0") {
     return NaN;
   }
 
