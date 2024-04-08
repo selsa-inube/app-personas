@@ -18,7 +18,7 @@ interface IPaymentFilters {
   status: string;
 }
 
-interface PaymentHelpModalProps {
+interface PaymentFilterModalProps {
   portalId: string;
   initialFilters: IPaymentFilters;
   allowedFilters: {
@@ -30,7 +30,7 @@ interface PaymentHelpModalProps {
   onApplyFilters: (selectedFilters: IPaymentFilters) => void;
 }
 
-function PaymentHelpModal(props: PaymentHelpModalProps) {
+function PaymentFilterModal(props: PaymentFilterModalProps) {
   const {
     portalId,
     initialFilters,
@@ -99,7 +99,6 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
             options={allowedFilters.group}
             onChange={handleChangeFilter}
             value={selectedFilters.group}
-            isRequired
           />
 
           <Select
@@ -111,7 +110,6 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
             options={allowedFilters.paymentMethod}
             onChange={handleChangeFilter}
             value={selectedFilters.paymentMethod}
-            isRequired
           />
 
           <Select
@@ -123,7 +121,6 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
             options={allowedFilters.status}
             onChange={handleChangeFilter}
             value={selectedFilters.status}
-            isRequired
           />
         </StyledOptionsContainer>
 
@@ -150,5 +147,5 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
   );
 }
 
-export { PaymentHelpModal };
+export { PaymentFilterModal };
 export type { IPaymentFilters };

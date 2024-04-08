@@ -1,7 +1,9 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
+import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import * as Yup from "yup";
+import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
 
@@ -19,6 +21,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const { initialValues, onFormValid } = props;
 
   const [dynamicSchema] = useState(validationSchema);
+  const [showFiltersModal, setShowFiltersModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -72,11 +75,46 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     );
   };
 
+  const handleToggleFiltersModal = () => {
+    setShowFiltersModal(!showFiltersModal);
+  };
+
+  const handleApplyFilters = (filters: IPaymentFilters) => {
+    const filteredPayments = initialValues.payments.filter((payment) => {
+      return (
+        (filters.group === "all" || payment.group === filters.group) &&
+        (filters.paymentMethod === "all" ||
+          payment.paymentMethod === filters.paymentMethod) &&
+        (filters.status === "anywhere" || payment.status === filters.status)
+      );
+    });
+
+    formik.setFieldValue("payments", filteredPayments);
+    formik.setFieldValue("filters", filters);
+    setShowFiltersModal(false);
+  };
+
+  const handleRemoveFilter = (filterName: string) => {
+    const reducedFilters = {
+      ...formik.values.filters,
+      [filterName]:
+        paymentInitialFilters[filterName as keyof typeof paymentInitialFilters],
+    };
+
+    formik.setFieldValue("filters", reducedFilters);
+
+    handleApplyFilters(reducedFilters);
+  };
+
   return (
     <ObligationsFormUI
       formik={formik}
+      showFiltersModal={showFiltersModal}
       onApplyPayOption={handleApplyPayOption}
       onChangePaymentValue={handleChangePaymentValue}
+      onToggleFiltersModal={handleToggleFiltersModal}
+      onApplyFilters={handleApplyFilters}
+      onRemoveFilter={handleRemoveFilter}
     />
   );
 });

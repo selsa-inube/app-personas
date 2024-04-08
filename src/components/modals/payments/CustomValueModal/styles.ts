@@ -30,7 +30,6 @@ const StyledApprovedValue = styled.div`
 const StyledApplyPayContainer = styled.div`
   display: flex;
   flex-direction: column;
-  cursor: pointer;
   padding: ${inube.spacing.s200};
   gap: ${inube.spacing.s200};
   border-radius: ${inube.spacing.s100};
