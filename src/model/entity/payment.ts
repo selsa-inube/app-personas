@@ -1,3 +1,4 @@
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
 import { TagProps } from "@design/data/Tag";
 
 interface IPaymentOption {
@@ -12,7 +13,8 @@ interface IPayment {
   title: string;
   options: IPaymentOption[];
   tags: TagProps[];
-  balanceValue: number;
+  valueToPay?: number;
+  applyPayOption?: IApplyPayOption;
 }
 
 export type { IPayment, IPaymentOption };

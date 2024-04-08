@@ -12,26 +12,34 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledModal, StyledOptionsContainer } from "./styles";
 
-const initialState = {
-  group: "all",
-  paymentMethod: "all",
-  status: "anywhere",
-};
+interface IPaymentFilters {
+  group: string;
+  paymentMethod: string;
+  status: string;
+}
 
 interface PaymentHelpModalProps {
   portalId: string;
+  initialFilters: IPaymentFilters;
   allowedFilters: {
     group: ISelectOption[];
     paymentMethod: ISelectOption[];
     status: ISelectOption[];
   };
   onCloseModal: () => void;
-  onApplyFilters: (selectedFilters: typeof initialState) => void;
+  onApplyFilters: (selectedFilters: IPaymentFilters) => void;
 }
 
 function PaymentHelpModal(props: PaymentHelpModalProps) {
-  const { portalId, allowedFilters, onCloseModal, onApplyFilters } = props;
-  const [selectedFilters, setSelectedFilters] = useState(initialState);
+  const {
+    portalId,
+    initialFilters,
+    allowedFilters,
+    onCloseModal,
+    onApplyFilters,
+  } = props;
+  const [selectedFilters, setSelectedFilters] =
+    useState<IPaymentFilters>(initialFilters);
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -48,7 +56,7 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
   };
 
   const disabledApply =
-    JSON.stringify(selectedFilters) === JSON.stringify(initialState);
+    JSON.stringify(selectedFilters) === JSON.stringify(initialFilters);
 
   if (node === null) {
     throw new Error(
@@ -143,3 +151,4 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
 }
 
 export { PaymentHelpModal };
+export type { IPaymentFilters };

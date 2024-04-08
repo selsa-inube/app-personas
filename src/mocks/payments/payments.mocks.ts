@@ -1,4 +1,6 @@
-const paymentsMock = [
+import { IPayment } from "src/model/entity/payment";
+
+const paymentsMock: IPayment[] = [
   {
     id: "10-241000476",
     title: "CREDI-APORTES GASTOS PERSONALES",

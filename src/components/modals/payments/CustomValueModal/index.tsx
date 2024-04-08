@@ -14,7 +14,7 @@ import {
   MdOutlineCheckCircle,
   MdOutlineClose,
 } from "react-icons/md";
-import { currencyFormat } from "src/utils/currency";
+import { currencyFormat, parseCurrencyString } from "src/utils/currency";
 import {
   StyledApplyPayContainer,
   StyledApplyPayOption,
@@ -46,26 +46,20 @@ interface CustomValueModalProps {
   portalId: string;
   value: number;
   balanceValue: number;
-  onChangeCustomValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onCloseModal: () => void;
-  onApplyPayOption: (option: IApplyPayOption) => void;
+  onApplyPayOption: (option: IApplyPayOption, value: number) => void;
 }
 
 function CustomValueModal(props: CustomValueModalProps) {
-  const {
-    portalId,
-    value,
-    balanceValue,
-    onChangeCustomValue,
-    onCloseModal,
-    onApplyPayOption,
-  } = props;
+  const { portalId, value, balanceValue, onCloseModal, onApplyPayOption } =
+    props;
   const [showResponse, setShowResponse] = useState(false);
   const [inputValidation, setInputValidation] = useState({
     state: "pending",
     errorMessage: "",
   });
   const [selectedOption, setSelectedOption] = useState<IApplyPayOption>();
+  const [customValue, setCustomValue] = useState(value);
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -86,8 +80,15 @@ function CustomValueModal(props: CustomValueModalProps) {
   const handleApplyPayOption = () => {
     if (!selectedOption) return;
 
-    onApplyPayOption(selectedOption);
+    onApplyPayOption(selectedOption, customValue);
     onCloseModal();
+  };
+
+  const handleChangeCustomValue = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const parsedValue = parseCurrencyString(event.target.value);
+    setCustomValue(parsedValue);
   };
 
   if (node === null) {
@@ -130,8 +131,8 @@ function CustomValueModal(props: CustomValueModalProps) {
               <Icon icon={<MdAttachMoney />} appearance="dark" size="18px" />
             }
             placeholder=""
-            value={currencyFormat(value || 0)}
-            onChange={onChangeCustomValue}
+            value={currencyFormat(customValue)}
+            onChange={handleChangeCustomValue}
             isFullWidth
             state={inputValidation.state}
             errorMessage={inputValidation.errorMessage}
@@ -174,9 +175,11 @@ function CustomValueModal(props: CustomValueModalProps) {
                       id={option.id}
                       type="radio"
                       checked={
-                        selectedOption && selectedOption.id === option.id
+                        (selectedOption && selectedOption.id === option.id) ||
+                        false
                       }
                       readOnly
+                      value={option.id}
                     />
                     <Text type="label" size="large">
                       {option.label}
@@ -194,7 +197,11 @@ function CustomValueModal(props: CustomValueModalProps) {
                 >
                   Cancelar
                 </Button>
-                <Button spacing="compact" onClick={handleApplyPayOption}>
+                <Button
+                  spacing="compact"
+                  onClick={handleApplyPayOption}
+                  disabled={!selectedOption}
+                >
                   Aceptar
                 </Button>
               </Stack>

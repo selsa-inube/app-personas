@@ -18,9 +18,8 @@ export const Default: StoryFn<PaymentCardProps> = (args) => (
   <PaymentCard {...args} />
 );
 Default.args = {
-  id: "payment-card-1",
+  id: "10-241000476",
   title: "CREDI-APORTES GASTOS PERSONALES",
-  description: "10-241000476",
   options: [
     {
       id: "expiredValue",

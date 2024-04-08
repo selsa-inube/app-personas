@@ -1,5 +1,11 @@
+import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
+import { IPayment } from "src/model/entity/payment";
+
 interface IObligationsEntry {
-  id: string; // TEMP
+  payments: IPayment[];
+  totalPayment: number;
+  allowCustomValue: boolean;
+  filters: IPaymentFilters;
 }
 
 export type { IObligationsEntry };
