@@ -4,10 +4,10 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
+import { CardsContext } from "src/context/cards";
 import { ConsumptionUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { validateConsumption, validateConsumptionMovements } from "./utils";
-import { CardsContext } from "src/context/cards";
 
 function Consumption() {
   const { card_id, credit_quota_id, consumption_id } = useParams();
@@ -29,14 +29,15 @@ function Consumption() {
   const handleSortProduct = async () => {
     if (!consumption_id || !user || !accessToken || !card_id) return;
 
-    const { selectedConsumption, newConsumptions } = await validateConsumption(
-      card_id,
-      accessToken,
-      consumption_id,
-      creditQuotaDetail,
-    );
+    const { selectedConsumption, newCreditQuotaDetail } =
+      await validateConsumption(
+        card_id,
+        consumption_id,
+        accessToken,
+        creditQuotaDetail,
+      );
 
-    setCreditQuotaDetail(newConsumptions);
+    setCreditQuotaDetail(newCreditQuotaDetail);
 
     if (!selectedConsumption) return;
 
@@ -45,18 +46,17 @@ function Consumption() {
       option: selectedConsumption.id,
     });
 
-    if (newConsumptions && newConsumptions.consumptions)
+    if (newCreditQuotaDetail && newCreditQuotaDetail.consumptions)
       setProductsOptions(
-        newConsumptions.consumptions.map((consumption) => ({
+        newCreditQuotaDetail.consumptions.map((consumption) => ({
           id: consumption.id,
           value: consumption.title,
         })),
       );
 
-    validateConsumptionMovements(selectedConsumption, newConsumptions).then(
-      ({ newConsumptions, newSelectedConsumption }) => {
+    validateConsumptionMovements(selectedConsumption, accessToken).then(
+      ({ newSelectedConsumption }) => {
         setLoading(false);
-        setCreditQuotaDetail(newConsumptions);
         setSelectedProduct({
           option: newSelectedConsumption.id,
           consumption: newSelectedConsumption,

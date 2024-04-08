@@ -94,7 +94,7 @@ function ConsumptionUI(props: ConsumptionUIProps) {
               />
               <Box
                 title={selectedProduct.consumption.title}
-                subtitle={selectedProduct.consumption.id}
+                subtitle={selectedProduct.consumption.description}
                 tags={selectedProduct.consumption.tags}
                 {...consumptionBox}
               >

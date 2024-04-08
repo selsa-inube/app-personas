@@ -5,12 +5,12 @@ const consumptionAttributes = [
   "consumption_date",
   "consumption_value",
   "dues_paid",
-  "dues_earring",
-  "balance_capital",
+  "outstanding_dues",
+  "net_value",
   "current_interest",
 ];
 
-const consumptionCurrencyAttributes = ["consumption_value", "balance_capital"];
+const consumptionCurrencyAttributes = ["consumption_value", "net_value"];
 
 function extractConsumptionAttributes(consumption: IProduct) {
   const foundAttributes = consumption.attributes.filter((attribute) =>

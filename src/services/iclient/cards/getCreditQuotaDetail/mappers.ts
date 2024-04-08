@@ -14,70 +14,92 @@ interface INextPaymentValue {
   total: number;
 }
 
-const formatConsumption = (
-  data: Record<string, string | number | object>,
+const mapConsumptionApiToEntity = (
+  consumption: Record<string, string | number | object>,
 ): IProduct => {
-  const paidDues = data.duesPaid;
-  const outstandingDues = Number(data.duesPaid) + Number(data.outstandingDues);
+  const paidDues = consumption.duesPaid;
+  const outstandingDues =
+    Number(consumption.duesPaid) + Number(consumption.outstandingDues);
   const currentAccount = `${paidDues}/${outstandingDues}`;
 
-  const nextPaymentValue = data.nextPaymentValue as INextPaymentValue;
-  const balanceObligation = data.balanceObligation as IBalanceObligation;
+  const nextPaymentValue = consumption.nextPaymentValue as INextPaymentValue;
+  const balanceObligation = consumption.balanceObligation as IBalanceObligation;
+
+  const attributes = [
+    {
+      id: "consumption_date",
+      label: "Fecha de consumo",
+      value: formatPrimaryDate(new Date(String(consumption.obligationDate))),
+    },
+    {
+      id: "consumption_value",
+      label: "Valor del consumo",
+      value: "",
+    },
+    {
+      id: "dues_paid",
+      label: "Cuotas pagadas",
+      value: Number(consumption.duesPaid || 0),
+    },
+    {
+      id: "outstanding_dues",
+      label: "Cuotas pendientes",
+      value: Number(outstandingDues || 0),
+    },
+    {
+      id: "net_value",
+      label: "Saldo de capital",
+      value: Number(
+        Object(consumption.balanceObligation).capitalBalanceInPesos,
+      ),
+    },
+    {
+      id: "current_interest",
+      label: "Intéres corriente",
+      value: `${Number(consumption.periodicRate)}% MV`,
+    },
+    {
+      id: "capital_payment",
+      label: "Abono capital",
+      value: `cuota ${currentAccount}`,
+    },
+    {
+      id: "min_payment_quota_available",
+      label: "Pago minimo de cuota",
+      value: nextPaymentValue.capitalValue,
+    },
+    {
+      id: "total_payment_quota_available",
+      label: "Pago total de cuota",
+      value: nextPaymentValue.total,
+    },
+    {
+      id: "total_capital_payment",
+      label: "Pago capital total",
+      value: balanceObligation.totalPending,
+    },
+    {
+      id: "min_capital_payment",
+      label: "Pago capital minimo",
+      value: balanceObligation.capitalBalanceInPesos,
+    },
+  ];
 
   return {
-    id: String(data.obligationId),
-    title: "",
-    description: "",
+    id: String(consumption.obligationNumber),
+    title: String(consumption.obligationNumber),
+    description: "Informe de consumos",
     type: EProductType.CONTRIBUTIONS,
-    attributes: [
-      {
-        id: "consumption_date",
-        label: "Fecha de consumo",
-        value: formatPrimaryDate(new Date(String(data.obligationDate))),
-      },
-      {
-        id: "consumption_value",
-        label: "valor de consumo",
-        value: "",
-      },
-      {
-        id: "current_interest",
-        label: "Intéres corriente",
-        value: `${Number(data.periodicRate)}% mv`,
-      },
-      {
-        id: "capital_payment",
-        label: "Abono capital",
-        value: `cuota ${currentAccount}`,
-      },
-      {
-        id: "min_payment_quota_available",
-        label: "Pago minimo de cuota",
-        value: nextPaymentValue.capitalValue,
-      },
-      {
-        id: "total_payment_quota_available",
-        label: "Pago total de cuota",
-        value: nextPaymentValue.total,
-      },
-      {
-        id: "total_capital_payment",
-        label: "Pago capital total",
-        value: balanceObligation.totalPending,
-      },
-      {
-        id: "min_capital_payment",
-        label: "Pago capital minimo",
-        value: balanceObligation.capitalBalanceInPesos,
-      },
-    ],
+    attributes,
   };
 };
 
-const mapFormatConsumption = (
-  datos: Record<string, string | number | object>[],
+const mapConsumptionsApiToEntities = (
+  consumptions: Record<string, string | number | object>[],
 ): IProduct[] => {
-  return datos.map((dato) => formatConsumption(dato));
+  return consumptions.map((consumption) =>
+    mapConsumptionApiToEntity(consumption),
+  );
 };
 
 const mapCreditQuotaDetailApiToEntity = (
@@ -201,10 +223,9 @@ const mapCreditQuotaDetailApiToEntity = (
     ? [{ label: "En mora", appearance: "error" }]
     : [];
 
-  const obligationProducts: Record<string, string | number | object>[] =
-    Array.isArray(creditQuota.listObligationProducts)
-      ? creditQuota.listObligationProducts
-      : [];
+  const consumptions = Array.isArray(creditQuota.listObligationProducts)
+    ? creditQuota.listObligationProducts
+    : [];
 
   return {
     id: String(creditQuota.creditProductCode),
@@ -212,7 +233,7 @@ const mapCreditQuotaDetailApiToEntity = (
     description: "Informe de movimientos",
     type: EProductType.CREDITCARD,
     attributes,
-    consumptions: mapFormatConsumption(obligationProducts),
+    consumptions: mapConsumptionsApiToEntities(consumptions),
     tags,
   };
 };

@@ -1,17 +1,16 @@
-import { consumptionsMocks } from "@mocks/products/cards/consumptions.mocks";
-import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
 import { IProduct } from "src/model/entity/product";
+import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
+import { getMovementsForCredit } from "src/services/iclient/credits/getMovements";
 
 const validateConsumption = async (
   cardId: string,
-  accessToken: string,
   consumptionId: string,
+  accessToken: string,
   creditQuotaDetail?: IProduct,
 ) => {
-  let currentCreditQuotaDetail;
-  currentCreditQuotaDetail = { ...creditQuotaDetail };
+  let currentCreditQuotaDetail = creditQuotaDetail;
 
-  if (currentCreditQuotaDetail) {
+  if (!currentCreditQuotaDetail) {
     currentCreditQuotaDetail = await getDetailForCreditQuota(
       cardId,
       accessToken,
@@ -26,29 +25,26 @@ const validateConsumption = async (
 
   return {
     selectedConsumption,
-    newConsumptions: currentCreditQuotaDetail as IProduct,
+    newCreditQuotaDetail: currentCreditQuotaDetail,
   };
 };
 
 const validateConsumptionMovements = async (
   selectedConsumption: IProduct,
-  consumption: IProduct,
+  accessToken: string,
 ) => {
-  const currentConsumption = { ...consumption };
-  const newSelectedConsumption = { ...selectedConsumption };
+  const currentConsumption = { ...selectedConsumption };
 
-  if (currentConsumption.id === selectedConsumption.id) {
-    if (currentConsumption.movements?.length === 0) {
-      const movements = consumptionsMocks.find(
-        (consumption) => consumption.id === selectedConsumption.id,
-      )?.movements;
-      currentConsumption.movements = movements;
-    }
+  if (selectedConsumption.movements?.length === 0) {
+    const movements = await getMovementsForCredit(
+      selectedConsumption.id,
+      accessToken,
+    );
+    currentConsumption.movements = movements;
   }
 
   return {
-    newConsumptions: currentConsumption,
-    newSelectedConsumption,
+    newSelectedConsumption: currentConsumption,
   };
 };
 

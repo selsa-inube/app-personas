@@ -154,7 +154,7 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
   };
 };
 
-const mapCreditQuotaApiToEntities = (
+const mapCreditQuotasApiToEntities = (
   creditQuotas: Record<string, string | number | object>[],
 ): IProduct[] => {
   return creditQuotas.map((creditQuota) =>
@@ -162,4 +162,4 @@ const mapCreditQuotaApiToEntities = (
   );
 };
 
-export { mapCreditQuotaApiToEntities, mapCreditQuotaApiToEntity };
+export { mapCreditQuotasApiToEntities, mapCreditQuotaApiToEntity };
