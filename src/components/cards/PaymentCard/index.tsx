@@ -26,7 +26,11 @@ interface PaymentCardProps {
   allowCustomValue?: boolean;
   defaultSelectedOption?: IPaymentOption;
   onChangePaymentValue: (payId: string, valueToPay: number) => void;
-  onApplyPayOption: (payId: string, option: IApplyPayOption) => void;
+  onApplyPayOption: (
+    payId: string,
+    option: IApplyPayOption,
+    valueToPay: number,
+  ) => void;
 }
 
 function PaymentCard(props: PaymentCardProps) {
@@ -48,15 +52,17 @@ function PaymentCard(props: PaymentCardProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   useEffect(() => {
-    if (!defaultSelectedOption) return;
-
     setSelectedOption(defaultSelectedOption);
   }, [defaultSelectedOption]);
 
   const handleChangeOption = (option: IPaymentOption) => {
     onChangePaymentValue(id, option.value);
     setSelectedOption(option);
-    if (tags.length > 1) tags.pop();
+
+    if (tags.find((tag) => tag.id === "payOption")) {
+      const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
+      tags.splice(indexPayOption, 1);
+    }
   };
 
   const handleToggleModal = () => {
@@ -64,18 +70,21 @@ function PaymentCard(props: PaymentCardProps) {
   };
 
   const handleApplyPayOption = (option: IApplyPayOption, value: number) => {
-    onApplyPayOption(id, option);
+    onApplyPayOption(id, option, value);
 
-    if (tags.length > 1) tags.pop();
+    if (tags.find((tag) => tag.id === "payOption")) {
+      const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
+      tags.splice(indexPayOption, 1);
+    }
 
     tags.push({
+      id: "payOption",
       label: option.label,
       appearance: "dark",
       modifier: "clear",
       textAppearance: "dark",
     });
 
-    onChangePaymentValue(id, value);
     setSelectedOption({
       id: "custom",
       label: "Próximo vencimiento",
@@ -119,10 +128,7 @@ function PaymentCard(props: PaymentCardProps) {
                   id={option.id}
                   type="radio"
                   checked={
-                    (defaultSelectedOption &&
-                      option.id === defaultSelectedOption.id) ||
-                    (selectedOption && option.id === selectedOption.id) ||
-                    false
+                    (selectedOption && option.id === selectedOption.id) || false
                   }
                   readOnly
                   value={option.id}

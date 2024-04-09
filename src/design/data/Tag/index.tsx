@@ -9,6 +9,7 @@ const darkTextAppearances = ["warning", "gray", "light"];
 
 interface TagProps {
   label: string;
+  id?: string;
   appearance?: TagAppearanceType;
   textAppearance?: TagAppearanceType;
   modifier?: TagModifierType;
