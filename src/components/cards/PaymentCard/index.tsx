@@ -78,7 +78,7 @@ function PaymentCard(props: PaymentCardProps) {
     onChangePaymentValue(id, value);
     setSelectedOption({
       id: "custom",
-      label: "Personalizado",
+      label: "Próximo vencimiento",
       value,
     });
   };
