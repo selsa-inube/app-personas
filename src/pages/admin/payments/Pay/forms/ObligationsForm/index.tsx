@@ -3,12 +3,9 @@ import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal"
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import * as Yup from "yup";
 import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
-
-const validationSchema = Yup.object().shape({});
 
 interface ObligationsFormProps {
   initialValues: IObligationsEntry;
@@ -21,13 +18,12 @@ const ObligationsForm = forwardRef(function ObligationsForm(
 ) {
   const { initialValues, onFormValid } = props;
 
-  const [dynamicSchema] = useState(validationSchema);
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
+  const [selectedHelpOption, setSelectedHelpOption] = useState<IHelpOption>();
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicSchema,
     validateOnBlur: false,
     onSubmit: async () => true,
   });
@@ -40,18 +36,30 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     }
   }, [formik.values.totalPayment]);
 
-  const handleApplyPayOption = (payId: string, option: IApplyPayOption) => {
+  const handleApplyPayOption = (
+    payId: string,
+    option: IApplyPayOption,
+    valueToPay: number,
+  ) => {
+    const updatedPayments = formik.values.payments.map((payment) => {
+      if (payment.id === payId) {
+        return {
+          ...payment,
+          applyPayOption: option,
+          valueToPay,
+        };
+      }
+      return payment;
+    });
+
+    formik.setFieldValue("payments", updatedPayments);
+
     formik.setFieldValue(
-      "payments",
-      formik.values.payments.map((payment) => {
-        if (payment.id === payId) {
-          return {
-            ...payment,
-            applyPayOption: option,
-          };
-        }
-        return payment;
-      }),
+      "totalPayment",
+      updatedPayments.reduce(
+        (acc, payment) => acc + (payment.valueToPay || 0),
+        0,
+      ),
     );
   };
 
@@ -113,32 +121,35 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   };
 
   const handleApplyHelpOption = (option: IHelpOption) => {
+    setSelectedHelpOption(option);
     let totalValue = 0;
+
     const updatedPayments = formik.values.payments.map((payment) => {
       let valueToPay = 0;
-      return {
-        ...payment,
-        options: payment.options.map((payOption) => {
-          if (payOption.id === option.id) {
-            totalValue += payOption.value;
-            valueToPay = payOption.value;
-            return {
-              ...payOption,
-              selected: true,
-            };
-          }
-          return {
-            ...payOption,
-            selected: false,
-          };
-        }),
-        valueToPay,
-      };
+
+      const options = payment.options.map((payOption) => {
+        let selected = false;
+
+        if (option.id === "unselectAll" || payOption.id !== option.id) {
+          selected = false;
+        } else {
+          selected = true;
+          totalValue += payOption.value;
+          valueToPay = payOption.value;
+        }
+
+        return { ...payOption, selected };
+      });
+
+      return { ...payment, options, valueToPay };
     });
+
+    if (option.id === "unselectAll") {
+      totalValue = 0;
+    }
 
     formik.setFieldValue("payments", updatedPayments);
     formik.setFieldValue("totalPayment", totalValue);
-
     setShowHelpModal(false);
   };
 
@@ -147,6 +158,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       formik={formik}
       showFiltersModal={showFiltersModal}
       showHelpModal={showHelpModal}
+      selectedHelpOption={selectedHelpOption}
       onApplyPayOption={handleApplyPayOption}
       onChangePaymentValue={handleChangePaymentValue}
       onToggleFiltersModal={handleToggleFiltersModal}

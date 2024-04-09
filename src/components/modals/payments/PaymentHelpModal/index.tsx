@@ -33,16 +33,23 @@ const helpOptions: IHelpOption[] = [
     id: "totalValue",
     label: "Seleccionar pagos totales",
   },
+  {
+    id: "unselectAll",
+    label: "Deseleccionar todo",
+  },
 ];
 
 interface PaymentHelpModalProps {
+  currentOption?: IHelpOption;
   onCloseModal: () => void;
   onApplyOption: (option: IHelpOption) => void;
 }
 
 function PaymentHelpModal(props: PaymentHelpModalProps) {
-  const { onCloseModal, onApplyOption } = props;
-  const [selectedOption, setSelectedOption] = useState<IHelpOption>();
+  const { currentOption, onCloseModal, onApplyOption } = props;
+  const [selectedOption, setSelectedOption] = useState<IHelpOption | undefined>(
+    currentOption,
+  );
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById("modals");

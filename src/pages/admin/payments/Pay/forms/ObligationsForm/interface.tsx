@@ -55,7 +55,8 @@ interface ObligationsFormUIProps {
   formik: FormikValues;
   showFiltersModal: boolean;
   showHelpModal: boolean;
-  onApplyPayOption: (payId: string, option: IApplyPayOption) => void;
+  selectedHelpOption?: IHelpOption;
+  onApplyPayOption: (payId: string, option: IApplyPayOption, valueToPay: number) => void;
   onChangePaymentValue: (payId: string, valueToPay: number) => void;
   onToggleFiltersModal: () => void;
   onApplyFilters: (filters: IPaymentFilters) => void;
@@ -69,6 +70,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     formik,
     showFiltersModal,
     showHelpModal,
+    selectedHelpOption,
     onApplyPayOption,
     onChangePaymentValue,
     onToggleFiltersModal,
@@ -158,6 +160,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
         <PaymentHelpModal
           onCloseModal={onToggleHelpModal}
           onApplyOption={onApplyHelpOption}
+          currentOption={selectedHelpOption}
         />
       )}
 

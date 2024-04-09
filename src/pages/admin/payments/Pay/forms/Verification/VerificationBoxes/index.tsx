@@ -3,6 +3,7 @@ import { Text } from "@design/data/Text";
 import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
+import { Fragment } from "react";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsPay } from "../../../types";
@@ -27,7 +28,7 @@ const renderObligationsVerification = (
         const applyPay = payment.applyPayOption && payment.applyPayOption.label;
 
         return (
-          <>
+          <Fragment key={payment.id}>
             <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100">
               <BoxAttribute
                 label="Nombre de la obligación:"
@@ -47,7 +48,7 @@ const renderObligationsVerification = (
               )}
             </Grid>
             {filteredPayments.length > 1 && <Divider dashed />}
-          </>
+          </Fragment>
         );
       })}
 
