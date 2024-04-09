@@ -4,6 +4,10 @@ import {
   IPaymentFilters,
   PaymentFilterModal,
 } from "@components/modals/payments/PaymentFilterModal";
+import {
+  IHelpOption,
+  PaymentHelpModal,
+} from "@components/modals/payments/PaymentHelpModal";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
@@ -19,7 +23,10 @@ import { currencyFormat } from "src/utils/currency";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledTotalPayment } from "./styles";
 
-const renderFilters = (filters: IPaymentFilters, onRemove: (filterName: string) => void) => {
+const renderFilters = (
+  filters: IPaymentFilters,
+  onRemove: (filterName: string) => void,
+) => {
   return Object.entries(filters).map(([key, id]) => {
     const filterInitialId =
       paymentInitialFilters[key as keyof typeof paymentInitialFilters];
@@ -47,22 +54,28 @@ const renderFilters = (filters: IPaymentFilters, onRemove: (filterName: string) 
 interface ObligationsFormUIProps {
   formik: FormikValues;
   showFiltersModal: boolean;
+  showHelpModal: boolean;
   onApplyPayOption: (payId: string, option: IApplyPayOption) => void;
   onChangePaymentValue: (payId: string, valueToPay: number) => void;
   onToggleFiltersModal: () => void;
   onApplyFilters: (filters: IPaymentFilters) => void;
   onRemoveFilter: (filterName: string) => void;
+  onToggleHelpModal: () => void;
+  onApplyHelpOption: (option: IHelpOption) => void;
 }
 
 function ObligationsFormUI(props: ObligationsFormUIProps) {
   const {
     formik,
     showFiltersModal,
+    showHelpModal,
     onApplyPayOption,
     onChangePaymentValue,
     onToggleFiltersModal,
     onApplyFilters,
     onRemoveFilter,
+    onToggleHelpModal,
+    onApplyHelpOption,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -83,6 +96,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                 spacing="compact"
                 variant="outlined"
                 iconBefore={<MdCheckBox />}
+                onClick={onToggleHelpModal}
               >
                 Ayudas
               </Button>
@@ -115,6 +129,9 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   options={payment.options}
                   tags={payment.tags}
                   allowCustomValue={formik.values.allowCustomValue}
+                  defaultSelectedOption={payment.options.find(
+                    (option) => option.selected,
+                  )}
                   onApplyPayOption={onApplyPayOption}
                   onChangePaymentValue={onChangePaymentValue}
                 />
@@ -137,12 +154,18 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
         </Stack>
       </form>
 
+      {showHelpModal && (
+        <PaymentHelpModal
+          onCloseModal={onToggleHelpModal}
+          onApplyOption={onApplyHelpOption}
+        />
+      )}
+
       {showFiltersModal && (
         <PaymentFilterModal
           initialFilters={paymentInitialFilters}
           allowedFilters={paymentFilters}
           onCloseModal={onToggleFiltersModal}
-          portalId="modals"
           onApplyFilters={onApplyFilters}
         />
       )}

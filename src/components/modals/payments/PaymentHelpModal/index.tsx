@@ -22,31 +22,30 @@ interface IHelpOption {
 
 const helpOptions: IHelpOption[] = [
   {
-    id: "selectExpiredValues",
+    id: "expiredValue",
     label: "Seleccionar valores vencidos",
   },
   {
-    id: "selectFutureValues",
+    id: "nextValue",
     label: "Seleccionar próximos vencimientos",
   },
   {
-    id: "selectAllTotalValues",
+    id: "totalValue",
     label: "Seleccionar pagos totales",
   },
 ];
 
 interface PaymentHelpModalProps {
-  portalId: string;
   onCloseModal: () => void;
   onApplyOption: (option: IHelpOption) => void;
 }
 
 function PaymentHelpModal(props: PaymentHelpModalProps) {
-  const { portalId, onCloseModal, onApplyOption } = props;
+  const { onCloseModal, onApplyOption } = props;
   const [selectedOption, setSelectedOption] = useState<IHelpOption>();
 
   const isMobile = useMediaQuery("(max-width: 580px)");
-  const node = document.getElementById(portalId);
+  const node = document.getElementById("modals");
 
   const handleApplyOption = () => {
     if (!selectedOption) return;
@@ -117,7 +116,11 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
           >
             Cancelar
           </Button>
-          <Button spacing="compact" onClick={handleApplyOption}>
+          <Button
+            spacing="compact"
+            onClick={handleApplyOption}
+            disabled={!selectedOption}
+          >
             Aceptar
           </Button>
         </Stack>

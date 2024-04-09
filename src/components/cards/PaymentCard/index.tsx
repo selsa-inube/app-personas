@@ -8,7 +8,7 @@ import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdEdit } from "react-icons/md";
 import { IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
@@ -24,6 +24,7 @@ interface PaymentCardProps {
   options: IPaymentOption[];
   tags: TagProps[];
   allowCustomValue?: boolean;
+  defaultSelectedOption?: IPaymentOption;
   onChangePaymentValue: (payId: string, valueToPay: number) => void;
   onApplyPayOption: (payId: string, option: IApplyPayOption) => void;
 }
@@ -35,13 +36,22 @@ function PaymentCard(props: PaymentCardProps) {
     options,
     tags,
     allowCustomValue,
+    defaultSelectedOption,
     onChangePaymentValue,
     onApplyPayOption,
   } = props;
+  const [selectedOption, setSelectedOption] = useState<
+    IPaymentOption | undefined
+  >();
 
-  const [selectedOption, setSelectedOption] = useState<IPaymentOption>();
   const [showModal, setShowModal] = useState(false);
   const isMobile = useMediaQuery("(max-width: 580px)");
+
+  useEffect(() => {
+    if (!defaultSelectedOption) return;
+
+    setSelectedOption(defaultSelectedOption);
+  }, [defaultSelectedOption]);
 
   const handleChangeOption = (option: IPaymentOption) => {
     onChangePaymentValue(id, option.value);
@@ -109,7 +119,10 @@ function PaymentCard(props: PaymentCardProps) {
                   id={option.id}
                   type="radio"
                   checked={
-                    (selectedOption && option.id === selectedOption.id) || false
+                    (defaultSelectedOption &&
+                      option.id === defaultSelectedOption.id) ||
+                    (selectedOption && option.id === selectedOption.id) ||
+                    false
                   }
                   readOnly
                   value={option.id}

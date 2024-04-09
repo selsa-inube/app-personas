@@ -1,5 +1,6 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
 import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
+import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import * as Yup from "yup";
@@ -22,6 +23,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
 
   const [dynamicSchema] = useState(validationSchema);
   const [showFiltersModal, setShowFiltersModal] = useState(false);
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -106,15 +108,52 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     handleApplyFilters(reducedFilters);
   };
 
+  const handleToggleHelpModal = () => {
+    setShowHelpModal(!showHelpModal);
+  };
+
+  const handleApplyHelpOption = (option: IHelpOption) => {
+    let totalValue = 0;
+    const updatedPayments = formik.values.payments.map((payment) => {
+      let valueToPay = 0;
+      return {
+        ...payment,
+        options: payment.options.map((payOption) => {
+          if (payOption.id === option.id) {
+            totalValue += payOption.value;
+            valueToPay = payOption.value;
+            return {
+              ...payOption,
+              selected: true,
+            };
+          }
+          return {
+            ...payOption,
+            selected: false,
+          };
+        }),
+        valueToPay,
+      };
+    });
+
+    formik.setFieldValue("payments", updatedPayments);
+    formik.setFieldValue("totalPayment", totalValue);
+
+    setShowHelpModal(false);
+  };
+
   return (
     <ObligationsFormUI
       formik={formik}
       showFiltersModal={showFiltersModal}
+      showHelpModal={showHelpModal}
       onApplyPayOption={handleApplyPayOption}
       onChangePaymentValue={handleChangePaymentValue}
       onToggleFiltersModal={handleToggleFiltersModal}
       onApplyFilters={handleApplyFilters}
       onRemoveFilter={handleRemoveFilter}
+      onToggleHelpModal={handleToggleHelpModal}
+      onApplyHelpOption={handleApplyHelpOption}
     />
   );
 });
