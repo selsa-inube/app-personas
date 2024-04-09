@@ -19,7 +19,6 @@ interface IPaymentFilters {
 }
 
 interface PaymentFilterModalProps {
-  portalId: string;
   initialFilters: IPaymentFilters;
   allowedFilters: {
     group: ISelectOption[];
@@ -31,18 +30,13 @@ interface PaymentFilterModalProps {
 }
 
 function PaymentFilterModal(props: PaymentFilterModalProps) {
-  const {
-    portalId,
-    initialFilters,
-    allowedFilters,
-    onCloseModal,
-    onApplyFilters,
-  } = props;
+  const { initialFilters, allowedFilters, onCloseModal, onApplyFilters } =
+    props;
   const [selectedFilters, setSelectedFilters] =
     useState<IPaymentFilters>(initialFilters);
 
   const isMobile = useMediaQuery("(max-width: 580px)");
-  const node = document.getElementById(portalId);
+  const node = document.getElementById("modals");
 
   const handleChangeFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;

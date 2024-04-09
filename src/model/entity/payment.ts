@@ -6,6 +6,7 @@ interface IPaymentOption {
   label: string;
   description?: string;
   value: number;
+  selected?: boolean;
 }
 
 interface IPayment {
