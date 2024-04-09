@@ -207,7 +207,7 @@ function TextFieldUI(props: TextFieldUIProps) {
           />
         )}
 
-      {state === "invalid" && isTouched && (
+      {state === "invalid" && isTouched && errorMessage && (
         <Invalid
           isDisabled={isDisabled}
           state={state}

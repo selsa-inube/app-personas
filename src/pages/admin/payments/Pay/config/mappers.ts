@@ -17,7 +17,10 @@ const mapObligations = (payments: IPayment[]): IObligationsEntry => {
 
 const mapPaymentMethod = (): IPaymentMethodEntry => {
   return {
-    id: "",
+    paymentMethod: "",
+    valueToPay: 0,
+    paidValue: 0,
+    pendingValue: 0,
   };
 };
 

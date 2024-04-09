@@ -194,6 +194,12 @@ function PaymentCard(props: PaymentCardProps) {
           portalId="modals"
           value={selectedOption?.value || 0}
           balanceValue={balanceValue}
+          nextPaymentValue={
+            options.find((option) => option.id === "nextValue")?.value || 0
+          }
+          totalPaymentValue={
+            options.find((option) => option.id === "totalValue")?.value || 0
+          }
           onCloseModal={handleToggleModal}
           onApplyPayOption={handleApplyPayOption}
         />
