@@ -9,6 +9,8 @@ import { currencyFormat } from "src/utils/currency";
 import { IFormsPay } from "../../../types";
 import { StyledTotalPayment } from "../../ObligationsForm/styles";
 import { IObligationsEntry } from "../../ObligationsForm/types";
+import { paymentMethods } from "../../PaymentMethodForm/config/payment";
+import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -65,7 +67,49 @@ const renderObligationsVerification = (
     </Stack>
   );
 };
-const renderPaymentMethodVerification = () => <></>;
+const renderPaymentMethodVerification = (
+  values: IPaymentMethodEntry,
+  isTablet: boolean,
+) => (
+  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+    {values.paymentMethod === "pse" ? (
+      <BoxAttribute
+        label="Forma de recaudo:"
+        value={
+          paymentMethods.find(
+            (paymentMethod) => paymentMethod.id === values.paymentMethod,
+          )?.value
+        }
+      />
+    ) : (
+      <>
+        <BoxAttribute
+          label="Forma de recaudo:"
+          value={
+            paymentMethods.find(
+              (paymentMethod) => paymentMethod.id === values.paymentMethod,
+            )?.value
+          }
+        />
+
+        <BoxAttribute
+          label="Valor pagado:"
+          value={currencyFormat(values.paidValue)}
+        />
+        {Object.values(values.moneySources || {}).map(
+          (moneySource) =>
+            moneySource.value > 0 && (
+              <BoxAttribute
+                key={moneySource.label}
+                label={moneySource.label}
+                value={currencyFormat(moneySource.value)}
+              />
+            ),
+        )}
+      </>
+    )}
+  </Grid>
+);
 
 const renderCommentsVerification = (values: ICommentsEntry) => (
   <Stack width="100%" direction="column">
@@ -92,7 +136,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "obligations" &&
         renderObligationsVerification(pay.obligations.values, isTablet)}
 
-      {stepKey === "paymentMethod" && renderPaymentMethodVerification()}
+      {stepKey === "paymentMethod" &&
+        renderPaymentMethodVerification(pay.paymentMethod.values, isTablet)}
 
       {stepKey === "comments" &&
         renderCommentsVerification(pay.comments.values)}

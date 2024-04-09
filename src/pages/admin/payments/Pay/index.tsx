@@ -9,6 +9,7 @@ import { IObligationsEntry } from "./forms/ObligationsForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { PayUI } from "./interface";
 import { IFormsPay, IFormsPayRefs } from "./types";
+import { payStepsRules } from "./utils";
 
 function Pay() {
   const [currentStep, setCurrentStep] = useState(paySteps.obligations.id);
@@ -38,19 +39,13 @@ function Pay() {
   };
 
   const handleStepChange = (stepId: number) => {
-    const stepKey = Object.entries(paySteps).find(
-      ([, config]) => config.id === currentStep,
-    )?.[0];
-
-    if (stepKey) {
-      const values =
-        formReferences[stepKey as keyof IFormsPayRefs]?.current?.values;
-
-      setPay((prevPay) => ({
-        ...prevPay,
-        [stepKey]: { isValid: isCurrentFormValid, values },
-      }));
-    }
+    const newPay = payStepsRules(
+      currentStep,
+      pay,
+      formReferences,
+      isCurrentFormValid,
+    );
+    setPay(newPay);
 
     const changeStepKey = Object.entries(paySteps).find(
       ([, config]) => config.id === stepId,
@@ -59,10 +54,9 @@ function Pay() {
     if (!changeStepKey) return;
 
     const changeIsVerification = stepId === steps.length;
-
     setIsCurrentFormValid(
       changeIsVerification ||
-        pay[changeStepKey as keyof IFormsPay]?.isValid ||
+        newPay[changeStepKey as keyof IFormsPay]?.isValid ||
         false,
     );
 

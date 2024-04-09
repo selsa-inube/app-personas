@@ -46,13 +46,22 @@ interface CustomValueModalProps {
   portalId: string;
   value: number;
   balanceValue: number;
+  nextPaymentValue: number;
+  totalPaymentValue: number;
   onCloseModal: () => void;
   onApplyPayOption: (option: IApplyPayOption, value: number) => void;
 }
 
 function CustomValueModal(props: CustomValueModalProps) {
-  const { portalId, value, balanceValue, onCloseModal, onApplyPayOption } =
-    props;
+  const {
+    portalId,
+    value,
+    balanceValue,
+    nextPaymentValue,
+    totalPaymentValue,
+    onCloseModal,
+    onApplyPayOption,
+  } = props;
   const [showResponse, setShowResponse] = useState(false);
   const [inputValidation, setInputValidation] = useState({
     state: "pending",
@@ -65,14 +74,33 @@ function CustomValueModal(props: CustomValueModalProps) {
   const node = document.getElementById(portalId);
 
   const handleValidateValue = () => {
-    if (value > balanceValue) {
+    if (customValue > balanceValue) {
       setInputValidation({
         state: "invalid",
         errorMessage: "(Valor superior al saldo)",
       });
 
       return;
+    } else if (customValue < nextPaymentValue) {
+      setInputValidation({
+        state: "invalid",
+        errorMessage: "(Valor inferior al pago mínimo)",
+      });
+
+      return;
+    } else if (customValue > totalPaymentValue) {
+      setInputValidation({
+        state: "invalid",
+        errorMessage: "(Valor superior al total)",
+      });
+
+      return;
     }
+
+    setInputValidation({
+      state: "pending",
+      errorMessage: "",
+    });
 
     setShowResponse(true);
   };
@@ -135,7 +163,11 @@ function CustomValueModal(props: CustomValueModalProps) {
             onChange={handleChangeCustomValue}
             isFullWidth
             state={inputValidation.state}
-            errorMessage={inputValidation.errorMessage}
+            errorMessage={
+              (inputValidation.errorMessage !== "" &&
+                inputValidation.errorMessage) ||
+              undefined
+            }
           />
           <Stack width="100%" justifyContent="flex-end">
             <Button
@@ -200,7 +232,11 @@ function CustomValueModal(props: CustomValueModalProps) {
                 <Button
                   spacing="compact"
                   onClick={handleApplyPayOption}
-                  disabled={!selectedOption}
+                  disabled={
+                    !selectedOption ||
+                    customValue < nextPaymentValue ||
+                    customValue > totalPaymentValue
+                  }
                 >
                   Aceptar
                 </Button>

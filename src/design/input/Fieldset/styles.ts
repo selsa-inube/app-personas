@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 interface IStyledFieldset {
   isMobile: boolean;
+  width: string;
+  height: string;
 }
 
 const StyledFieldset = styled.fieldset<IStyledFieldset>`
@@ -17,6 +19,8 @@ const StyledFieldset = styled.fieldset<IStyledFieldset>`
     isMobile
       ? `${inube.spacing.s100} ${inube.spacing.s150} ${inube.spacing.s200}`
       : `${inube.spacing.s150} ${inube.spacing.s250} ${inube.spacing.s300}`};
+  height: ${({ height }) => height};
+  width: ${({ width }) => width};
 `;
 
 export { StyledFieldset };

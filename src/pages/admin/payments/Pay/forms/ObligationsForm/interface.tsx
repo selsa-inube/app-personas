@@ -16,12 +16,13 @@ import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { FormikValues } from "formik";
 import { MdCheckBox, MdFilterAlt } from "react-icons/md";
 import { IPayment } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledTotalPayment } from "./styles";
+import { IObligationsEntry } from "./types";
+import { FormikProps } from "formik";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -52,11 +53,15 @@ const renderFilters = (
 };
 
 interface ObligationsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IObligationsEntry>;
   showFiltersModal: boolean;
   showHelpModal: boolean;
   selectedHelpOption?: IHelpOption;
-  onApplyPayOption: (payId: string, option: IApplyPayOption, valueToPay: number) => void;
+  onApplyPayOption: (
+    payId: string,
+    option: IApplyPayOption,
+    valueToPay: number,
+  ) => void;
   onChangePaymentValue: (payId: string, valueToPay: number) => void;
   onToggleFiltersModal: () => void;
   onApplyFilters: (filters: IPaymentFilters) => void;
