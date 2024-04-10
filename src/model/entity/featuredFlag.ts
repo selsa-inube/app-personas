@@ -1,12 +1,16 @@
 interface IFeaturedFlag {
-  id: string;
-  name: string;
-  description: string;
-  value: boolean;
+  [scope: string]: {
+    [category: string]: {
+      [product: string]: {
+        [flagCode: string]: {
+          id: string;
+          name: string;
+          description: string;
+          value: boolean;
+        };
+      };
+    };
+  };
 }
 
-interface IFeaturedFlags {
-  [key: string]: IFeaturedFlag;
-}
-
-export type { IFeaturedFlag, IFeaturedFlags };
+export type { IFeaturedFlag };
