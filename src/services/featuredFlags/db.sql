@@ -52,7 +52,7 @@ CREATE TABLE "public".featured_flag_personas
  CONSTRAINT "featured_flag_personas_fk_instance" FOREIGN KEY (instance_id) REFERENCES flag_instance (instance_id)
 );
 
-CREATE INDEX FK_1 ON "public".featured_flag
+CREATE INDEX FK_1 ON "public".featured_flag_personas
 (
  instance_id
 );
