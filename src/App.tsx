@@ -9,7 +9,6 @@ import { GlobalStyles } from "@design/styles";
 import { useFonts } from "@hooks/useFonts";
 import { ThemeProvider } from "styled-components";
 
-import { header } from "@config/header";
 import { nav } from "@config/nav";
 import { theme } from "@config/theme";
 
@@ -25,19 +24,20 @@ import { MySavingsRoutes } from "./routes/mySavings";
 import { SavingRoutes } from "./routes/saving";
 
 import { useAuth } from "@inube/auth";
-import { CreditsProvider } from "./context/credits";
 import { CardsProvider } from "./context/cards";
+import { CreditsProvider } from "./context/credits";
 
+import { PageNotFound } from "@components/layout/PageNotFound";
+import { AppProvider } from "./context/app";
 import { SavingsProvider } from "./context/savings";
 import { MyCardsRoutes } from "./routes/myCards";
 import { PaymentsRoutes } from "./routes/payments";
-import { PageNotFound } from "@components/layout/PageNotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route errorElement={<PageNotFound />} />
-      <Route path="/" element={<Page header={header} nav={nav} />}>
+      <Route path="/" element={<Page nav={nav} />}>
         <Route path="/" element={<Home />} />
 
         <Route path="my-credits/*" element={<MyCreditsRoutes />} />
@@ -54,7 +54,7 @@ const router = createBrowserRouter(
 
         <Route path="/update-data-assisted" element={<UpdateData />} />
         <Route
-          path="/update-data-no-assisted"
+          path="/update-data-unassisted"
           element={<UpdateDataUnassisted />}
         />
       </Route>
@@ -81,13 +81,15 @@ function App() {
     <>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <SavingsProvider>
-          <CreditsProvider>
-            <CardsProvider>
-              <RouterProvider router={router} />
-            </CardsProvider>
-          </CreditsProvider>
-        </SavingsProvider>
+        <AppProvider>
+          <SavingsProvider>
+            <CreditsProvider>
+              <CardsProvider>
+                <RouterProvider router={router} />
+              </CardsProvider>
+            </CreditsProvider>
+          </SavingsProvider>
+        </AppProvider>
       </ThemeProvider>
     </>
   );

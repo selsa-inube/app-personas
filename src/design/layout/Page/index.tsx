@@ -1,15 +1,17 @@
+import { getHeader } from "@config/header";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { useContext } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { capitalizeFirstLetters } from "src/utils/texts";
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
 import { Grid } from "../Grid";
 import { StyledMain, StyledPage } from "./styles";
-import { IHeader, INav } from "./types";
+import { INav } from "./types";
 
 interface PageProps {
-  header: IHeader;
   nav: INav;
 }
 
@@ -17,8 +19,11 @@ function Page(props: PageProps) {
   const currentLocation = useLocation().pathname;
   const isTablet = useMediaQuery("(min-width: 900px)");
 
-  const { header, nav } = props;
+  const { nav } = props;
   const { user } = useAuth();
+  const { featuredFlags } = useContext(AppContext);
+
+  const header = getHeader(featuredFlags);
 
   return (
     <StyledPage>

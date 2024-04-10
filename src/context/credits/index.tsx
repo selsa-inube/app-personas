@@ -12,20 +12,17 @@ function CreditsProvider(props: CreditsProviderProps) {
   const { children } = props;
   const [credits, setCredits] = useState<IProduct[]>([]);
 
-  const authContext = useMemo(
+  const creditsContext = useMemo(
     () => ({
       credits,
-  
+
       setCredits,
     }),
-    [
-      credits,
-      setCredits,
-    ],
+    [credits, setCredits],
   );
 
   return (
-    <CreditsContext.Provider value={authContext}>
+    <CreditsContext.Provider value={creditsContext}>
       {children}
     </CreditsContext.Provider>
   );

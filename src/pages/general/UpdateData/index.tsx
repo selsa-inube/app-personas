@@ -1,6 +1,8 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { updateDataSteps } from "./config/assisted";
 import {
@@ -41,6 +43,7 @@ function UpdateData() {
   );
   const steps = Object.values(updateDataSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
+  const { featuredFlags } = useContext(AppContext);
 
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: {
@@ -181,6 +184,10 @@ function UpdateData() {
   const handlePreviousStep = () => {
     handleStepChange(currentStep - 1);
   };
+
+  if (featuredFlags && !featuredFlags["update-data-with-assisted"].value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <UpdateDataUI

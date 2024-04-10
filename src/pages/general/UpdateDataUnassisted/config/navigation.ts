@@ -8,7 +8,7 @@ const crumbsUpdateData: IBreadcrumbItem[] = [
   },
   {
     id: "updateData",
-    path: "/update-data-no-assisted",
+    path: "/update-data-unassisted",
     label: "Actualización de datos",
     isActive: true,
   },
