@@ -1,11 +1,15 @@
-import { IFeaturedFlags } from "src/model/entity/featuredFlag";
+import { IFeaturedFlag } from "src/model/entity/featuredFlag";
 
 interface IAppContext {
-  featuredFlags: IFeaturedFlags | undefined;
-
-  setFeaturedFlags: React.Dispatch<
-    React.SetStateAction<IFeaturedFlags | undefined>
-  >;
+  setFeaturedFlags: React.Dispatch<React.SetStateAction<IFeaturedFlag[]>>;
+  getFlag: (flagId: string) =>
+    | {
+        id: string;
+        name: string;
+        description: string;
+        value: boolean;
+      }
+    | undefined;
 }
 
 export type { IAppContext };

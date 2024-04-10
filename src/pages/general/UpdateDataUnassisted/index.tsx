@@ -24,7 +24,7 @@ function UpdateDataUnassisted() {
   const [selectedTab, setSelectedTab] = useState(
     updateDataTabs.personalInformation.id,
   );
-  const { featuredFlags } = useContext(AppContext);
+  const { getFlag } = useContext(AppContext);
 
   const [updateData] = useState<IFormsUpdateData>({
     personalInformation: {
@@ -81,7 +81,9 @@ function UpdateDataUnassisted() {
     setSelectedTab(tabId);
   };
 
-  if (featuredFlags && !featuredFlags["update-data-without-assisted"].value) {
+  if (
+    getFlag("general.links.update-data.update-data-without-assisted")?.value
+  ) {
     return <Navigate to="/" />;
   }
 

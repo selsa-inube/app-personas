@@ -43,7 +43,7 @@ function UpdateData() {
   );
   const steps = Object.values(updateDataSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
-  const { featuredFlags } = useContext(AppContext);
+  const { getFlag } = useContext(AppContext);
 
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: {
@@ -185,7 +185,9 @@ function UpdateData() {
     handleStepChange(currentStep - 1);
   };
 
-  if (featuredFlags && !featuredFlags["update-data-with-assisted"].value) {
+  if (
+    getFlag("general.links.update-data.update-data-without-assisted")?.value
+  ) {
     return <Navigate to="/" />;
   }
 

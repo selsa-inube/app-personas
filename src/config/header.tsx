@@ -1,11 +1,13 @@
 import { MdOutlineBadge } from "react-icons/md";
-import { IFeaturedFlags } from "src/model/entity/featuredFlag";
 import { nav } from "./nav";
 
-const getHeader = (flags?: IFeaturedFlags) => {
+const getHeader = (
+  updateDataAssistedFlag: boolean,
+  updateDataUnassistedFlag: boolean,
+) => {
   const links = [];
 
-  if (flags && flags["update-data-with-assisted"].value) {
+  if (updateDataAssistedFlag) {
     links.push({
       label: "Actualiza tus datos (Con)",
       path: "/update-data-assisted",
@@ -13,7 +15,7 @@ const getHeader = (flags?: IFeaturedFlags) => {
     });
   }
 
-  if (flags && flags["update-data-without-assisted"].value) {
+  if (updateDataUnassistedFlag) {
     links.push({
       label: "Actualiza tus datos (Sin)",
       path: "/update-data-unassisted",

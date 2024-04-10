@@ -40,7 +40,9 @@ const getFeaturedFlagsByModule = async (
 
     const { data: featuredFlagsData } = await supabasedb
       .from("featured_flag_personas")
-      .select("public_code, abbreviated_name, description_use, value")
+      .select(
+        "scope, category, product, public_code, abbreviated_name, description_use, value",
+      )
       .eq("instance_id", flagInstanceData.instance_id)
       .eq("scope", scope)
       .eq("category", category)
@@ -91,7 +93,9 @@ const getFeaturedFlagsByCodes = async (
 
     const { data: featuredFlagsData } = await supabasedb
       .from("featured_flag_personas")
-      .select("public_code, abbreviated_name, description_use, value")
+      .select(
+        "scope, category, product, public_code, abbreviated_name, description_use, value",
+      )
       .eq("instance_id", flagInstanceData.instance_id)
       .eq("is_production", enviroment.IS_PRODUCTION)
       .in("public_code", flagCodes);
