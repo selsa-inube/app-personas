@@ -34,13 +34,16 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   useEffect(() => {
     if (onFormValid) {
       onFormValid(
-        formik.values.pendingValue === 0 && formik.values.paidValue > 0,
+        formik.values.pendingValue === 0 &&
+          formik.values.paidValue > 0 &&
+          !showFundsAlert,
       );
     }
   }, [
     formik.values.valueToPay,
     formik.values.pendingValue,
     formik.values.paidValue,
+    showFundsAlert,
   ]);
 
   useEffect(() => {
@@ -77,6 +80,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
 
     formik.setFieldValue("moneySources", moneySources);
+    formik.setFieldValue("paidValue", 0);
+    formik.setFieldValue("pendingValue", formik.values.valueToPay);
   };
 
   const handleChangeMoneySource = (
