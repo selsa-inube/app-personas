@@ -21,9 +21,14 @@ function Page(props: PageProps) {
 
   const { nav } = props;
   const { user } = useAuth();
-  const { featuredFlags } = useContext(AppContext);
+  const { getFlag } = useContext(AppContext);
 
-  const header = getHeader(featuredFlags);
+  const header = getHeader(
+    getFlag("general.links.update-data.update-data-with-assisted")?.value ||
+      false,
+    getFlag("general.links.update-data.update-data-without-assisted")?.value ||
+      false,
+  );
 
   return (
     <StyledPage>

@@ -38,7 +38,9 @@ const getFeaturedFlagByCode = async (
 
     const { data: flagData } = await supabasedb
       .from("featured_flag_personas")
-      .select("public_code, abbreviated_name, description_use, value")
+      .select(
+        "scope, category, product, public_code, abbreviated_name, description_use, value",
+      )
       .eq("instance_id", flagInstanceData.instance_id)
       .eq("public_code", flagCode)
       .eq("is_production", enviroment.IS_PRODUCTION)

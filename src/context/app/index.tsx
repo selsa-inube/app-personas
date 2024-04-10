@@ -1,5 +1,11 @@
-import { createContext, useEffect, useMemo, useState } from "react";
-import { IFeaturedFlags } from "src/model/entity/featuredFlag";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { IFeaturedFlag } from "src/model/entity/featuredFlag";
 import { IAppContext } from "./types";
 import { getAppFeaturedFlags } from "./utils";
 
@@ -12,7 +18,7 @@ interface AppProviderProps {
 function AppProvider(props: AppProviderProps) {
   const { children } = props;
 
-  const [featuredFlags, setFeaturedFlags] = useState<IFeaturedFlags>();
+  const [featuredFlags, setFeaturedFlags] = useState<IFeaturedFlag[]>([]);
 
   useEffect(() => {
     getAppFeaturedFlags().then((flags) => {
@@ -20,13 +26,27 @@ function AppProvider(props: AppProviderProps) {
     });
   }, []);
 
+  const getFlag = useCallback(
+    (flagId: string) => {
+      const [scope, category, product, flagCode] = flagId.split(".");
+
+      const foundFlag = featuredFlags.find((flag) => {
+        return flag[scope]?.[category]?.[product]?.[flagCode];
+      });
+
+      if (!foundFlag) return;
+
+      return foundFlag?.[scope][category][product][flagCode];
+    },
+    [featuredFlags],
+  );
+
   const appContext = useMemo(
     () => ({
-      featuredFlags,
-
       setFeaturedFlags,
+      getFlag,
     }),
-    [featuredFlags, setFeaturedFlags],
+    [setFeaturedFlags, getFlag],
   );
 
   return (
