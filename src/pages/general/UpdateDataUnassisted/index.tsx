@@ -1,5 +1,7 @@
 import { usersMock } from "@mocks/users/users.mocks";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import {
   mapBankTransfers,
   mapComments,
@@ -22,6 +24,7 @@ function UpdateDataUnassisted() {
   const [selectedTab, setSelectedTab] = useState(
     updateDataTabs.personalInformation.id,
   );
+  const { featuredFlags } = useContext(AppContext);
 
   const [updateData] = useState<IFormsUpdateData>({
     personalInformation: {
@@ -77,6 +80,10 @@ function UpdateDataUnassisted() {
   const handleTabChange = (tabId: string) => {
     setSelectedTab(tabId);
   };
+
+  if (featuredFlags && !featuredFlags["update-data-without-assisted"].value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <UpdateDataUnassistedUI

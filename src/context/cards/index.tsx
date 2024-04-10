@@ -16,7 +16,7 @@ function CardsProvider(props: CardsProviderProps) {
   const [creditQuotas, setCreditQuotas] = useState<IProduct[]>([]);
   const [creditQuotaDetail, setCreditQuotaDetail] = useState<IProduct>();
 
-  const authContext = useMemo(
+  const cardsContext = useMemo(
     () => ({
       cards,
       creditQuotas,
@@ -38,7 +38,7 @@ function CardsProvider(props: CardsProviderProps) {
   );
 
   return (
-    <CardsContext.Provider value={authContext}>
+    <CardsContext.Provider value={cardsContext}>
       {children}
     </CardsContext.Provider>
   );

@@ -1,6 +1,7 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
+import { CardsContext } from "src/context/cards";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { IProduct } from "src/model/entity/product";
@@ -9,7 +10,6 @@ import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { HomeUI } from "./interface";
-import { CardsContext } from "src/context/cards";
 
 function Home() {
   const { credits, setCredits } = useContext(CreditsContext);
