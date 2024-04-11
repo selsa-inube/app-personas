@@ -120,7 +120,7 @@ function SelectUI(props: SelectUIProps) {
 
         {!readOnly && (
           <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
-            <MdExpandMore onClick={onToggleOptions} />
+            <MdExpandMore />
           </StyledIcon>
         )}
       </StyledInputContainer>

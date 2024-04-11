@@ -3,6 +3,7 @@ import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal"
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { IPayment } from "src/model/entity/payment";
 import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
@@ -19,6 +20,12 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const { initialValues, onFormValid } = props;
 
   const [showFiltersModal, setShowFiltersModal] = useState(false);
+  const [filters, setFilters] = useState<IPaymentFilters>(
+    paymentInitialFilters,
+  );
+  const [filteredPayments, setFilteredPayments] = useState<IPayment[]>(
+    initialValues.payments,
+  );
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [selectedHelpOption, setSelectedHelpOption] = useState<IHelpOption>();
 
@@ -53,7 +60,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     });
 
     formik.setFieldValue("payments", updatedPayments);
-
+    setFilteredPayments(updatedPayments);
     formik.setFieldValue(
       "totalPayment",
       updatedPayments.reduce(
@@ -75,7 +82,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     });
 
     formik.setFieldValue("payments", updatedPayments);
-
+    setFilteredPayments(updatedPayments);
     formik.setFieldValue(
       "totalPayment",
       updatedPayments.reduce(
@@ -90,7 +97,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   };
 
   const handleApplyFilters = (filters: IPaymentFilters) => {
-    const filteredPayments = initialValues.payments.filter((payment) => {
+    const updatedFilteredPayments = initialValues.payments.filter((payment) => {
       return (
         (filters.group === "all" || payment.group === filters.group) &&
         (filters.paymentMethod === "all" ||
@@ -99,19 +106,19 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       );
     });
 
-    formik.setFieldValue("payments", filteredPayments);
-    formik.setFieldValue("filters", filters);
+    setFilteredPayments(updatedFilteredPayments);
+    setFilters(filters);
     setShowFiltersModal(false);
   };
 
   const handleRemoveFilter = (filterName: string) => {
     const reducedFilters = {
-      ...formik.values.filters,
+      ...filters,
       [filterName]:
         paymentInitialFilters[filterName as keyof typeof paymentInitialFilters],
     };
 
-    formik.setFieldValue("filters", reducedFilters);
+    setFilters(reducedFilters);
 
     handleApplyFilters(reducedFilters);
   };
@@ -149,6 +156,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     }
 
     formik.setFieldValue("payments", updatedPayments);
+    setFilteredPayments(updatedPayments);
     formik.setFieldValue("totalPayment", totalValue);
     setShowHelpModal(false);
   };
@@ -156,7 +164,9 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   return (
     <ObligationsFormUI
       formik={formik}
+      filteredPayments={filteredPayments}
       showFiltersModal={showFiltersModal}
+      filters={filters}
       showHelpModal={showHelpModal}
       selectedHelpOption={selectedHelpOption}
       onApplyPayOption={handleApplyPayOption}
