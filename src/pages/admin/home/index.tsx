@@ -46,6 +46,20 @@ function Home() {
       ...savings.programmedSavings,
     ];
 
+    if (credits.length === 0) {
+      setLoadingCredits(true);
+      getCreditsForUser(user?.identification, accessToken)
+        .then((credits) => {
+          setCredits(credits);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        })
+        .finally(() => {
+          setLoadingCredits(false);
+        });
+    }
+
     let savingAccountsResume: IProduct[] = savings.savingsAccounts.map(
       (savingAccount) => ({
         id: savingAccount.id,
@@ -58,6 +72,7 @@ function Home() {
 
     if (combinedSavings.length === 0) {
       setLoadingSavings(true);
+      setLoadingCards(true);
       try {
         const newSavings = await getSavingsForUser(
           user.identification,
@@ -79,19 +94,7 @@ function Home() {
         setLoadingSavings(false);
       }
     }
-    if (credits.length === 0) {
-      setLoadingCredits(true);
-      getCreditsForUser(user?.identification, accessToken)
-        .then((credits) => {
-          setCredits(credits);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        })
-        .finally(() => {
-          setLoadingCredits(false);
-        });
-    }
+
     if (cards.length === 0) {
       setLoadingCards(true);
       getCardsForUser(user?.identification, accessToken, savingAccountsResume)
@@ -104,6 +107,8 @@ function Home() {
         .finally(() => {
           setLoadingCards(false);
         });
+    } else {
+      setLoadingCards(false);
     }
   };
 
