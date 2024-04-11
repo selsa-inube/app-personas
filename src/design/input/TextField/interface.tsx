@@ -100,45 +100,47 @@ function TextFieldUI(props: TextFieldUIProps) {
   return (
     <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
       <Stack direction="column" gap="s050">
-        <Stack justifyContent="space-between" alignItems="center">
-          {(label || isRequired) && (
-            <Stack
-              width="100%"
-              gap="4px"
-              alignItems="center"
-              padding={`0px 0px 0px ${inube.spacing.s200}`}
-            >
-              {label && (
-                <Label
-                  htmlFor={id}
+        {(label || isRequired || (!isDisabled && maxLength && withCounter)) && (
+          <Stack justifyContent="space-between" alignItems="center">
+            {(label || isRequired) && (
+              <Stack
+                width="100%"
+                gap="4px"
+                alignItems="center"
+                padding={`0px 0px 0px ${inube.spacing.s200}`}
+              >
+                {label && (
+                  <Label
+                    htmlFor={id}
+                    isDisabled={isDisabled}
+                    isFocused={isFocused && state !== "invalid"}
+                    isInvalid={state === "invalid"}
+                    size="medium"
+                  >
+                    {label}
+                  </Label>
+                )}
+
+                {isRequired && !isDisabled && (
+                  <Text type="body" size="small" appearance="dark">
+                    (Requerido)
+                  </Text>
+                )}
+              </Stack>
+            )}
+
+            {!isDisabled && maxLength && withCounter && (
+              <Stack justifyContent="flex-end" alignItems="center">
+                <Counter
+                  appearance={counterAppearence}
+                  maxLength={maxLength}
                   isDisabled={isDisabled}
-                  isFocused={isFocused && state !== "invalid"}
-                  isInvalid={state === "invalid"}
-                  size="medium"
-                >
-                  {label}
-                </Label>
-              )}
-
-              {isRequired && !isDisabled && (
-                <Text type="body" size="small" appearance="dark">
-                  (Requerido)
-                </Text>
-              )}
-            </Stack>
-          )}
-
-          {!isDisabled && maxLength && withCounter && (
-            <Stack justifyContent="flex-end" alignItems="center">
-              <Counter
-                appearance={counterAppearence}
-                maxLength={maxLength}
-                isDisabled={isDisabled}
-                valueLength={truncatedValue.length}
-              />
-            </Stack>
-          )}
-        </Stack>
+                  valueLength={truncatedValue.length}
+                />
+              </Stack>
+            )}
+          </Stack>
+        )}
 
         <StyledInputContainer
           isDisabled={isDisabled}

@@ -16,13 +16,13 @@ import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { MdCheckBox, MdFilterAlt } from "react-icons/md";
+import { FormikProps } from "formik";
+import { MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
 import { IPayment } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledTotalPayment } from "./styles";
 import { IObligationsEntry } from "./types";
-import { FormikProps } from "formik";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -54,7 +54,9 @@ const renderFilters = (
 
 interface ObligationsFormUIProps {
   formik: FormikProps<IObligationsEntry>;
+  filteredPayments: IPayment[];
   showFiltersModal: boolean;
+  filters: IPaymentFilters;
   showHelpModal: boolean;
   selectedHelpOption?: IHelpOption;
   onApplyPayOption: (
@@ -73,7 +75,9 @@ interface ObligationsFormUIProps {
 function ObligationsFormUI(props: ObligationsFormUIProps) {
   const {
     formik,
+    filteredPayments,
     showFiltersModal,
+    filters,
     showHelpModal,
     selectedHelpOption,
     onApplyPayOption,
@@ -102,14 +106,14 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               <Button
                 spacing="compact"
                 variant="outlined"
-                iconBefore={<MdCheckBox />}
+                iconBefore={<MdOutlineCheckBox />}
                 onClick={onToggleHelpModal}
               >
                 Ayudas
               </Button>
               <Button
                 spacing="compact"
-                iconBefore={<MdFilterAlt />}
+                iconBefore={<MdOutlineFilterAlt />}
                 onClick={onToggleFiltersModal}
               >
                 Filtros
@@ -118,7 +122,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
 
             <Fieldset title="Filtros aplicados">
               <Stack direction="row" gap="s150">
-                {renderFilters(formik.values.filters, onRemoveFilter)}
+                {renderFilters(filters, onRemoveFilter)}
               </Stack>
             </Fieldset>
           </Stack>
@@ -128,7 +132,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               templateColumns={isTablet ? "1fr" : "1fr 1fr"}
               gap={isMobile ? "s200" : "s300"}
             >
-              {formik.values.payments.map((payment: IPayment) => (
+              {filteredPayments.map((payment: IPayment) => (
                 <PaymentCard
                   key={payment.id}
                   id={payment.id}

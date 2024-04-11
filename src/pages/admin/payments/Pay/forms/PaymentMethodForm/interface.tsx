@@ -64,7 +64,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
                     <Grid
                       templateColumns={isMobile ? "1fr" : "78% 20%"}
                       gap="s150"
-                      alignItems="center"
+                      alignContent="center"
                       key={key}
                     >
                       {!isMobile && (

@@ -81,13 +81,6 @@ function CustomValueModal(props: CustomValueModalProps) {
       });
 
       return;
-    } else if (customValue < nextPaymentValue) {
-      setInputValidation({
-        state: "invalid",
-        errorMessage: "(Valor inferior al pago mínimo)",
-      });
-
-      return;
     } else if (customValue > totalPaymentValue) {
       setInputValidation({
         state: "invalid",
@@ -115,8 +108,9 @@ function CustomValueModal(props: CustomValueModalProps) {
   const handleChangeCustomValue = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
+    setShowResponse(false);
     const parsedValue = parseCurrencyString(event.target.value);
-    setCustomValue(parsedValue);
+    setCustomValue(isNaN(parsedValue) ? 0 : parsedValue);
   };
 
   if (node === null) {
@@ -155,7 +149,7 @@ function CustomValueModal(props: CustomValueModalProps) {
             id="customValue"
             name="customValue"
             label="Valor"
-            iconBefore={
+            iconAfter={
               <Icon icon={<MdAttachMoney />} appearance="dark" size="18px" />
             }
             placeholder=""
@@ -174,7 +168,7 @@ function CustomValueModal(props: CustomValueModalProps) {
               variant="outlined"
               spacing="compact"
               onClick={handleValidateValue}
-              disabled={showResponse}
+              disabled={customValue === 0 || showResponse}
             >
               Continuar
             </Button>
@@ -193,32 +187,37 @@ function CustomValueModal(props: CustomValueModalProps) {
                 </Text>
               </StyledApprovedValue>
 
-              <Text type="body" size="medium" appearance="gray">
-                Selecciona como quieres aplicar el pago.
-              </Text>
+              {customValue !== totalPaymentValue && (
+                <>
+                  <Text type="body" size="medium" appearance="gray">
+                    Selecciona como quieres aplicar el pago.
+                  </Text>
 
-              <StyledApplyPayContainer>
-                {applyPayOptions.map((option) => (
-                  <StyledApplyPayOption
-                    key={option.id}
-                    onClick={() => setSelectedOption(option)}
-                  >
-                    <StyledInputRadio
-                      id={option.id}
-                      type="radio"
-                      checked={
-                        (selectedOption && selectedOption.id === option.id) ||
-                        false
-                      }
-                      readOnly
-                      value={option.id}
-                    />
-                    <Text type="label" size="large">
-                      {option.label}
-                    </Text>
-                  </StyledApplyPayOption>
-                ))}
-              </StyledApplyPayContainer>
+                  <StyledApplyPayContainer>
+                    {applyPayOptions.map((option) => (
+                      <StyledApplyPayOption
+                        key={option.id}
+                        onClick={() => setSelectedOption(option)}
+                      >
+                        <StyledInputRadio
+                          id={option.id}
+                          type="radio"
+                          checked={
+                            (selectedOption &&
+                              selectedOption.id === option.id) ||
+                            false
+                          }
+                          readOnly
+                          value={option.id}
+                        />
+                        <Text type="label" size="large">
+                          {option.label}
+                        </Text>
+                      </StyledApplyPayOption>
+                    ))}
+                  </StyledApplyPayContainer>
+                </>
+              )}
 
               <Stack width="100%" justifyContent="flex-end" gap="s100">
                 <Button
@@ -233,7 +232,7 @@ function CustomValueModal(props: CustomValueModalProps) {
                   spacing="compact"
                   onClick={handleApplyPayOption}
                   disabled={
-                    !selectedOption ||
+                    (customValue !== totalPaymentValue && !selectedOption) ||
                     customValue < nextPaymentValue ||
                     customValue > totalPaymentValue
                   }

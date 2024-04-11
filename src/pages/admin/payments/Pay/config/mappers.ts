@@ -1,6 +1,5 @@
 import { IPayment } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
-import { paymentInitialFilters } from "../forms/ObligationsForm/config/filters";
 import { IObligationsEntry } from "../forms/ObligationsForm/types";
 import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 
@@ -11,7 +10,6 @@ const mapObligations = (payments: IPayment[]): IObligationsEntry => {
     payments: payments,
     allowCustomValue: buAllowCustomValue,
     totalPayment: 0,
-    filters: paymentInitialFilters,
   };
 };
 
