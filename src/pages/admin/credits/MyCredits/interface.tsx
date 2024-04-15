@@ -22,7 +22,7 @@ import { creditAttributeBreakpoints } from "@pages/admin/home/config/products";
 import {
   formatCreditCurrencyAttrs,
   extractCreditAttributes,
-} from "../Credit/config/product";
+} from "../../home/config/products";
 
 interface MyCreditsUIProps {
   loading: boolean;
