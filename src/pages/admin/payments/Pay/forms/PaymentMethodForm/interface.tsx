@@ -1,3 +1,4 @@
+import { StyledInputRadio } from "@components/cards/PaymentCard/styles";
 import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
@@ -12,18 +13,94 @@ import { MdReportProblem } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { paymentMethods } from "./config/payment";
 import { StyledLabelPaymentMethod } from "./styles";
-import { IPaymentMethodEntry } from "./types";
+import { IMoneySource, IPaymentMethodEntry } from "./types";
+
+const renderMoneySources = (
+  moneySources: IMoneySource,
+  paymentMethod: string,
+  valueToPay: number,
+  isMobile: boolean,
+  onChangeMoneySource: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  onSelectMoneySource: (id: string) => void,
+) => {
+  return Object.entries(moneySources).map(([key, moneySource]) => (
+    <Grid
+      templateColumns={isMobile ? "1fr" : "82% 17%"}
+      gap="s150"
+      alignContent="center"
+      key={key}
+    >
+      {!isMobile && (
+        <StyledLabelPaymentMethod
+          onClick={() => onSelectMoneySource(moneySource.id)}
+          cursorPointer={
+            moneySource.type === "savingAccount" && paymentMethod === "debit"
+          }
+        >
+          <Stack gap="s100">
+            {moneySource.type === "savingAccount" &&
+              paymentMethod === "debit" && (
+                <StyledInputRadio
+                  id={`radio-${key}`}
+                  type="radio"
+                  checked={moneySource.value !== 0}
+                  readOnly
+                  value={valueToPay}
+                />
+              )}
+            <Text type="body" size="medium">
+              {moneySource.label}
+            </Text>
+            {moneySource.value > moneySource.balance && (
+              <Tag label="Fondos insuficientes" appearance="error" />
+            )}
+          </Stack>
+
+          {moneySource.type === "savingAccount" && (
+            <Stack gap="s100">
+              <Text type="label" size="large" appearance="gray">
+                Saldo:
+              </Text>
+              <Text type="body" size="medium">
+                {currencyFormat(moneySource.balance)}
+              </Text>
+            </Stack>
+          )}
+        </StyledLabelPaymentMethod>
+      )}
+
+      <TextField
+        id={key}
+        name={key}
+        placeholder=""
+        label={isMobile ? moneySource.label : undefined}
+        value={currencyFormat(moneySource.value)}
+        onChange={onChangeMoneySource}
+        isFullWidth
+        isDisabled={paymentMethod !== "multiple"}
+        size="compact"
+        state={moneySource.value > moneySource.balance ? "invalid" : "pending"}
+      />
+    </Grid>
+  ));
+};
 
 interface PaymentMethodFormUIProps {
   formik: FormikProps<IPaymentMethodEntry>;
   showFundsAlert: boolean;
   customHandleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangeMoneySource: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSelectMoneySource: (id: string) => void;
 }
 
 function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
-  const { formik, showFundsAlert, customHandleChange, onChangeMoneySource } =
-    props;
+  const {
+    formik,
+    showFundsAlert,
+    customHandleChange,
+    onChangeMoneySource,
+    onSelectMoneySource,
+  } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
@@ -59,45 +136,13 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
                   valores en cada una de las fuentes de dinero.
                 </Text>
 
-                {Object.entries(formik.values.moneySources).map(
-                  ([key, moneySource]) => (
-                    <Grid
-                      templateColumns={isMobile ? "1fr" : "78% 20%"}
-                      gap="s150"
-                      alignContent="center"
-                      key={key}
-                    >
-                      {!isMobile && (
-                        <StyledLabelPaymentMethod>
-                          <Text type="body" size="medium">
-                            {moneySource.label}
-                          </Text>
-                          {moneySource.value > moneySource.maxFunds && (
-                            <Tag
-                              label="Fondos insuficientes"
-                              appearance="error"
-                            />
-                          )}
-                        </StyledLabelPaymentMethod>
-                      )}
-
-                      <TextField
-                        id={key}
-                        name={key}
-                        placeholder=""
-                        label={isMobile ? moneySource.label : undefined}
-                        value={currencyFormat(moneySource.value || 0)}
-                        onChange={onChangeMoneySource}
-                        isFullWidth
-                        size="compact"
-                        state={
-                          moneySource.value > moneySource.maxFunds
-                            ? "invalid"
-                            : "pending"
-                        }
-                      />
-                    </Grid>
-                  ),
+                {renderMoneySources(
+                  formik.values.moneySources,
+                  formik.values.paymentMethod,
+                  formik.values.valueToPay,
+                  isMobile,
+                  onChangeMoneySource,
+                  onSelectMoneySource,
                 )}
               </Stack>
             </Fieldset>
