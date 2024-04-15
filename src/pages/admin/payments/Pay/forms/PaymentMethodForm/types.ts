@@ -1,5 +1,11 @@
 interface IMoneySource {
-  [key: string]: { label: string; value: number; maxFunds: number };
+  [key: string]: {
+    id: string;
+    label: string;
+    value: number;
+    balance: number;
+    type: "savingAccount" | "pse";
+  };
 }
 
 interface IPaymentMethodEntry {
