@@ -49,7 +49,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   useEffect(() => {
     setShowFundsAlert(
       Object.values(formik.values.moneySources || {}).some(
-        (source) => source.value > source.maxFunds,
+        (source) => source.value > source.balance,
       ),
     );
   }, [formik.values.moneySources]);
@@ -63,19 +63,17 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
     if (paymentMethod === "pse" || paymentMethod === "multiple") {
       moneySources.pse = {
+        id: "pse",
         label: "Pago PSE",
         value: 0,
-        maxFunds: Infinity,
+        balance: Infinity,
+        type: "pse",
       };
     }
 
     if (paymentMethod === "multiple") {
-      moneySourcesMock.forEach((source) => {
-        moneySources[source.id] = {
-          label: source.name,
-          value: 0,
-          maxFunds: source.maxFunds,
-        };
+      Object.values(moneySourcesMock).forEach((source) => {
+        moneySources[source.id] = source;
       });
     }
 
@@ -110,12 +108,31 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     formik.setFieldValue("pendingValue", formik.values.valueToPay - paidValue);
   };
 
+  const handleSelectMoneySource = (id: string) => {
+    const moneySourceKey = id;
+
+    const updatedMoneySources = {
+      ...formik.values.moneySources,
+      [moneySourceKey]: {
+        ...formik.values.moneySources?.[moneySourceKey],
+        value: formik.values.valueToPay,
+      },
+    };
+
+    formik.setFieldValue("moneySources", updatedMoneySources);
+
+    formik.setFieldValue("paidValue", formik.values.valueToPay);
+
+    formik.setFieldValue("pendingValue", 0);
+  };
+
   return (
     <PaymentMethodFormUI
       formik={formik}
       showFundsAlert={showFundsAlert}
       customHandleChange={customHandleChange}
       onChangeMoneySource={handleChangeMoneySource}
+      onSelectMoneySource={handleSelectMoneySource}
     />
   );
 });
