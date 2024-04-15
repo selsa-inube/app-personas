@@ -25,7 +25,7 @@ const renderMoneySources = (
 ) => {
   return Object.entries(moneySources).map(([key, moneySource]) => (
     <Grid
-      templateColumns={isMobile ? "1fr" : "78% 20%"}
+      templateColumns={isMobile ? "1fr" : "82% 17%"}
       gap="s150"
       alignContent="center"
       key={key}
@@ -33,23 +33,38 @@ const renderMoneySources = (
       {!isMobile && (
         <StyledLabelPaymentMethod
           onClick={() => onSelectMoneySource(moneySource.id)}
+          cursorPointer={
+            moneySource.type === "savingAccount" && paymentMethod === "debit"
+          }
         >
-          {moneySource.type === "savingAccount" &&
-            paymentMethod === "debit" && (
-              <StyledInputRadio
-                id={`radio-${key}`}
-                type="radio"
-                checked={moneySource.value !== 0}
-                readOnly
-                value={valueToPay}
-              />
+          <Stack gap="s100">
+            {moneySource.type === "savingAccount" &&
+              paymentMethod === "debit" && (
+                <StyledInputRadio
+                  id={`radio-${key}`}
+                  type="radio"
+                  checked={moneySource.value !== 0}
+                  readOnly
+                  value={valueToPay}
+                />
+              )}
+            <Text type="body" size="medium">
+              {moneySource.label}
+            </Text>
+            {moneySource.value > moneySource.balance && (
+              <Tag label="Fondos insuficientes" appearance="error" />
             )}
-          <Text type="body" size="medium">
-            {moneySource.label}
-          </Text>
+          </Stack>
 
-          {moneySource.value > moneySource.balance && (
-            <Tag label="Fondos insuficientes" appearance="error" />
+          {moneySource.type === "savingAccount" && (
+            <Stack gap="s100">
+              <Text type="label" size="large" appearance="gray">
+                Saldo:
+              </Text>
+              <Text type="body" size="medium">
+                {currencyFormat(moneySource.balance)}
+              </Text>
+            </Stack>
           )}
         </StyledLabelPaymentMethod>
       )}
@@ -59,9 +74,7 @@ const renderMoneySources = (
         name={key}
         placeholder=""
         label={isMobile ? moneySource.label : undefined}
-        value={currencyFormat(
-          (paymentMethod === "multiple" ? moneySource.value : valueToPay) || 0,
-        )}
+        value={currencyFormat(moneySource.value)}
         onChange={onChangeMoneySource}
         isFullWidth
         isDisabled={paymentMethod !== "multiple"}

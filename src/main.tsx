@@ -20,6 +20,7 @@ root &&
           redirectUri: enviroment.REDIRECT_URI,
           scope: ["openid", "profile", "email"],
         }}
+        isProduction={enviroment.IS_PRODUCTION}
       >
         <App />
       </AuthProvider>

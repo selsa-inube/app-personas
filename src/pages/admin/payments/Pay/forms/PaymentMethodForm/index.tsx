@@ -56,6 +56,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const customHandleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     formik.handleChange(event);
+    formik.setFieldValue("paidValue", 0);
+    formik.setFieldValue("pendingValue", formik.values.valueToPay);
 
     const moneySources: IMoneySource = {};
 
@@ -65,21 +67,40 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       moneySources.pse = {
         id: "pse",
         label: "Pago PSE",
-        value: 0,
+        value: paymentMethod === "pse" ? formik.values.valueToPay : 0,
         balance: Infinity,
         type: "pse",
       };
+
+      if (paymentMethod === "pse") {
+        formik.setFieldValue("paidValue", formik.values.valueToPay);
+        formik.setFieldValue("pendingValue", 0);
+      }
     }
 
-    if (paymentMethod === "multiple") {
+    if (paymentMethod === "debit" || paymentMethod === "multiple") {
       Object.values(moneySourcesMock).forEach((source) => {
-        moneySources[source.id] = source;
+        moneySources[source.id] = { ...source };
       });
+
+      const moneySourcesList = Object.keys(moneySources);
+
+      if (paymentMethod === "debit" && moneySourcesList.length === 1) {
+        moneySources[moneySourcesList[0]].value = formik.values.valueToPay;
+
+        const notFunds = Object.values(moneySources).some(
+          (source) => source.value > source.balance,
+        );
+
+        if (!notFunds) {
+          formik.setFieldValue("paidValue", formik.values.valueToPay);
+
+          formik.setFieldValue("pendingValue", 0);
+        }
+      }
     }
 
     formik.setFieldValue("moneySources", moneySources);
-    formik.setFieldValue("paidValue", 0);
-    formik.setFieldValue("pendingValue", formik.values.valueToPay);
   };
 
   const handleChangeMoneySource = (
@@ -119,11 +140,23 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       },
     };
 
+    Object.keys(updatedMoneySources).forEach((key) => {
+      if (key !== moneySourceKey) {
+        updatedMoneySources[key].value = 0;
+      }
+    });
+
+    const notFunds = Object.values(updatedMoneySources).some(
+      (source) => source.balance && source.value > source.balance,
+    );
+
     formik.setFieldValue("moneySources", updatedMoneySources);
 
-    formik.setFieldValue("paidValue", formik.values.valueToPay);
+    if (notFunds) {
+      formik.setFieldValue("paidValue", formik.values.valueToPay);
 
-    formik.setFieldValue("pendingValue", 0);
+      formik.setFieldValue("pendingValue", 0);
+    }
   };
 
   return (
