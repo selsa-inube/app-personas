@@ -174,9 +174,7 @@ function CardUI(props: CardUIProps) {
               Cupos de crédito
             </Text>
             {loadingCards ? (
-              <Box title="" subtitle="" loading={loadingCards} {...myQuotas}>
-                {" "}
-              </Box>
+              <Box title="" subtitle="" loading={loadingCards} {...myQuotas} />
             ) : (
               creditQuotas.map((quota) => (
                 <Box
