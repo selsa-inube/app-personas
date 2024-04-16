@@ -82,7 +82,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     });
 
     formik.setFieldValue("payments", updatedPayments);
-    setFilteredPayments(updatedPayments);
+
     formik.setFieldValue(
       "totalPayment",
       updatedPayments.reduce(
