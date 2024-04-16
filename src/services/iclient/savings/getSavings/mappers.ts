@@ -24,7 +24,7 @@ const mapSavingProductMovementsApiToEntity = (
     reference: String(movement.movementNumber),
     description: capitalizeFirstLetters(String(movement.movementDescription)),
     totalValue: Number(
-      movement.creditMovementPesos || -movement.debitMovementPesos || 0
+      movement.creditMovementPesos || -movement.debitMovementPesos || 0,
     ),
   };
   return buildMovement;
