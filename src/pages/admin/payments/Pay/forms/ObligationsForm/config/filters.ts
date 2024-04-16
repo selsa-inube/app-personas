@@ -60,10 +60,6 @@ const paymentFilters = {
       id: "arrears",
       value: "En mora",
     },
-    {
-      id: "nextExpire",
-      value: "Próximos a vencer",
-    },
   ],
 };
 
