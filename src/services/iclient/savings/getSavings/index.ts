@@ -59,7 +59,7 @@ const getSavingsForUser = async (
           data,
         };
       }
-
+      console.log(data);
       const normalizedSavings = Array.isArray(data)
         ? mapSavingsApiToEntities(data)
         : emptyResponse;

@@ -46,7 +46,7 @@ const mapSavingProductMovementsApiToEntities = (
 
 const mapSavingsCommitmentsApiToEntity = (
   commitment: Record<string, string | number | object>,
-): ICommitment => {
+): ICommitment | undefined => {
   const today = new Date();
   today.setUTCHours(5, 5, 5, 5);
 
@@ -63,7 +63,7 @@ const mapSavingsCommitmentsApiToEntity = (
   const nextPaymentDate = new Date(String(commitment.closePaymentDate));
   nextPaymentDate.setUTCHours(5, 5, 5, 5);
 
-  let nextPaymentValue;
+  let nextPaymentValue: number | undefined;
 
   if (Array.isArray(commitment.savingPaymentPlans)) {
     const lastSavingPaymentPlan =
@@ -76,6 +76,10 @@ const mapSavingsCommitmentsApiToEntity = (
   }
 
   const inArrears = today > nextPaymentDate;
+
+  if (!nextPaymentValue || !nextPaymentDate) {
+    return;
+  }
 
   const attributes: IAttribute[] = [
     {
@@ -127,9 +131,11 @@ const mapSavingsCommitmentsApiToEntity = (
 const mapSavingsApiToEntities = (
   commitments: Record<string, string | number | object>[],
 ): ICommitment[] => {
-  return commitments.map((commitment) =>
-    mapSavingsCommitmentsApiToEntity(commitment),
-  );
+  return commitments
+    .map(mapSavingsCommitmentsApiToEntity)
+    .filter(
+      (commitment): commitment is ICommitment => commitment !== undefined,
+    );
 };
 
 export { mapSavingsApiToEntities, mapSavingsCommitmentsApiToEntity };
