@@ -24,6 +24,7 @@ function Card() {
   const { savings } = useContext(SavingsContext);
   const { user, accessToken } = useAuth();
   const navigate = useNavigate();
+  const [loadingCards, setLoadingCards] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ISelectedProductState>(
     initialSelectedProductState,
   );
@@ -56,6 +57,7 @@ function Card() {
 
   const handleSortProduct = async () => {
     if (!card_id || !user || !accessToken) return;
+    setLoadingCards(true);
 
     const { selectedCard, newCards } = await validateCard(
       cards,
@@ -87,7 +89,8 @@ function Card() {
         id: card.id,
         value: card.description,
       })),
-    );   
+    );
+    setLoadingCards(false);   
   };
 
   const updateModals = () => {
@@ -180,6 +183,7 @@ function Card() {
       savingAccountsModal={savingAccountsModal}
       usedQuotaModal={usedQuotaModal}
       handlingFeeModal={handlingFeeModal}
+      loadingCards={loadingCards}
       handleChangeProduct={handleChangeProduct}
       handleShowMovementsInfoModal={handleShowMovementsInfoModal}
       handleToggleSavingsAccountModal={handleToggleSavingsAccountModal}

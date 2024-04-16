@@ -9,6 +9,9 @@ const props = {
     description:
       "Controls whatever should be rendered inside the box (cards, grids, data).",
   },
+  loading: {
+    description: "Corresponds to the view during data loading",
+  },
   button: {
     description:
       "Controls if there should be a button in the bottom-right part and some attributes. This includes the button label, an icon and the path where to redirect the user when the button is clicked. The styles of the buttons are defined inside the Box.",

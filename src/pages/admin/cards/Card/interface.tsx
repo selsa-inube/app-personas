@@ -54,6 +54,7 @@ interface CardUIProps {
   productsOptions: ISelectOption[];
   creditQuotas: IProduct[];
   usedQuotaModal: IUsedQuotaModalState;
+  loadingCards: boolean;
   handleShowMovementsInfoModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleToggleSavingsAccountModal: () => void;
@@ -71,6 +72,7 @@ function CardUI(props: CardUIProps) {
     productsOptions,
     creditQuotas,
     usedQuotaModal,
+    loadingCards,
     handleShowMovementsInfoModal,
     handleChangeProduct,
     handleToggleSavingsAccountModal,
@@ -121,6 +123,7 @@ function CardUI(props: CardUIProps) {
                   title={selectedProduct.card.title}
                   subtitle={selectedProduct.card.id}
                   tags={selectedProduct.card.tags}
+                  loading={loadingCards}
                   {...cardBox}
                 >
                   <Stack direction="column" gap="s100">
@@ -170,123 +173,132 @@ function CardUI(props: CardUIProps) {
             <Text type="title" size="medium">
               Cupos de crédito
             </Text>
-
-            {creditQuotas.map((quota) => (
-              <Box
-                key={quota.id}
-                title={quota.title}
-                subtitle={quota.id}
-                tags={quota.tags}
-                {...myQuotas}
-              >
-                <Stack direction="column" gap="s075">
-                  <Stack direction="column" gap="s300">
-                    <Stack direction="column" gap="s200" alignItems="flex-end">
-                      <Grid
-                        templateColumns={!isDesktop ? "1fr" : "1fr 1fr"}
-                        gap="s100"
-                        width="100%"
-                      >
-                        {formatCreditQuotasCurrencyAttrs(
-                          extractCreditQuotasAttributes(quota),
-                        )
-                          .slice(0, 1)
-                          .map((attribute) => (
-                            <BoxAttribute
-                              key={attribute.id}
-                              label={attribute.label}
-                              value={attribute.value}
-                            />
-                          ))}
-                        {usedQuotaModal.data && (
-                          <BoxAttribute
-                            label="Cupo usado:"
-                            buttonIcon={<MdOpenInNew />}
-                            buttonValue={currencyFormat(
-                              usedQuotaModal.data.usedQuotaValue,
-                            )}
-                            onClickButton={handleToggleUsedQuotaModal}
-                            withButton
-                          />
-                        )}
-                        {formatCreditQuotasCurrencyAttrs(
-                          extractCreditQuotasAttributes(quota),
-                        )
-                          .slice(1)
-                          .map((attribute) => (
-                            <BoxAttribute
-                              key={attribute.id}
-                              label={attribute.label}
-                              value={attribute.value}
-                            />
-                          ))}
-                      </Grid>
-                      <Button
-                        iconBefore={<MdOutlineDescription />}
-                        type="link"
-                        path={`/my-cards/${selectedProduct.card.id}/credit-quota/${quota.id}`}
-                        spacing="compact"
-                      >
-                        Detalles del cupo
-                      </Button>
-                    </Stack>
-                    {quota.movements && quota.movements?.length > 0 && (
-                      <Stack direction="column" gap="s200">
-                        <Stack gap="s100" alignItems="center">
-                          <Text
-                            type="title"
-                            size={isMobile ? "small" : "medium"}
-                          >
-                            Últimos movimientos
-                          </Text>
-                          <Icon
-                            icon={<MdQuestionMark />}
-                            appearance="help"
-                            spacing="none"
-                            size="16px"
-                            variant="filled"
-                            shape="circle"
-                            cursorHover
-                            onClick={handleShowMovementsInfoModal}
-                          />
-                        </Stack>
-                        <Stack direction="column" gap="s200">
-                          {quota.movements
-                            .slice(0, 5)
-                            .map((movement, index) => (
-                              <Stack
-                                direction="column"
-                                gap="s200"
-                                key={movement.id}
-                              >
-                                {index !== 0 && <Divider dashed />}
-                                <CardMovement
-                                  movementType={
-                                    movement.type || EMovementType.PAYMENT
-                                  }
-                                  description={movement.description}
-                                  totalValue={movement.totalValue || 0}
-                                  date={movement.date}
-                                />
-                              </Stack>
-                            ))}
-                        </Stack>
-                        <Stack justifyContent="flex-end" width="100%">
-                          <Button
-                            iconBefore={<MdOutlineAssignmentTurnedIn />}
-                            spacing="compact"
-                            type="link"
-                            path={`/my-cards/${selectedProduct.card.id}/movements/${quota.id}`}
-                          >
-                            Movimientos
-                          </Button>
-                        </Stack>
-                      </Stack>
-                    )}
-                  </Stack>
-                </Stack>
+            {loadingCards ? (
+              <Box title="" subtitle="" loading={loadingCards} {...myQuotas}>
+                {" "}
               </Box>
-            ))}
+            ) : (
+              creditQuotas.map((quota) => (
+                <Box
+                  key={quota.id}
+                  title={quota.title}
+                  subtitle={quota.id}
+                  tags={quota.tags}
+                  {...myQuotas}
+                >
+                  <Stack direction="column" gap="s075">
+                    <Stack direction="column" gap="s300">
+                      <Stack
+                        direction="column"
+                        gap="s200"
+                        alignItems="flex-end"
+                      >
+                        <Grid
+                          templateColumns={!isDesktop ? "1fr" : "1fr 1fr"}
+                          gap="s100"
+                          width="100%"
+                        >
+                          {formatCreditQuotasCurrencyAttrs(
+                            extractCreditQuotasAttributes(quota),
+                          )
+                            .slice(0, 1)
+                            .map((attribute) => (
+                              <BoxAttribute
+                                key={attribute.id}
+                                label={attribute.label}
+                                value={attribute.value}
+                              />
+                            ))}
+                          {usedQuotaModal.data && (
+                            <BoxAttribute
+                              label="Cupo usado:"
+                              buttonIcon={<MdOpenInNew />}
+                              buttonValue={currencyFormat(
+                                usedQuotaModal.data.usedQuotaValue,
+                              )}
+                              onClickButton={handleToggleUsedQuotaModal}
+                              withButton
+                            />
+                          )}
+                          {formatCreditQuotasCurrencyAttrs(
+                            extractCreditQuotasAttributes(quota),
+                          )
+                            .slice(1)
+                            .map((attribute) => (
+                              <BoxAttribute
+                                key={attribute.id}
+                                label={attribute.label}
+                                value={attribute.value}
+                              />
+                            ))}
+                        </Grid>
+                        <Button
+                          iconBefore={<MdOutlineDescription />}
+                          type="link"
+                          path={`/my-cards/${selectedProduct.card.id}/credit-quota/${quota.id}`}
+                          spacing="compact"
+                        >
+                          Detalles del cupo
+                        </Button>
+                      </Stack>
+                      {quota.movements && quota.movements?.length > 0 && (
+                        <Stack direction="column" gap="s200">
+                          <Stack gap="s100" alignItems="center">
+                            <Text
+                              type="title"
+                              size={isMobile ? "small" : "medium"}
+                            >
+                              Últimos movimientos
+                            </Text>
+                            <Icon
+                              icon={<MdQuestionMark />}
+                              appearance="help"
+                              spacing="none"
+                              size="16px"
+                              variant="filled"
+                              shape="circle"
+                              cursorHover
+                              onClick={handleShowMovementsInfoModal}
+                            />
+                          </Stack>
+                          <Stack direction="column" gap="s200">
+                            {quota.movements
+                              .slice(0, 5)
+                              .map((movement, index) => (
+                                <Stack
+                                  direction="column"
+                                  gap="s200"
+                                  key={movement.id}
+                                >
+                                  {index !== 0 && <Divider dashed />}
+                                  <CardMovement
+                                    movementType={
+                                      movement.type || EMovementType.PAYMENT
+                                    }
+                                    description={movement.description}
+                                    totalValue={movement.totalValue || 0}
+                                    date={movement.date}
+                                  />
+                                </Stack>
+                              ))}
+                          </Stack>
+                          <Stack justifyContent="flex-end" width="100%">
+                            <Button
+                              iconBefore={<MdOutlineAssignmentTurnedIn />}
+                              spacing="compact"
+                              type="link"
+                              path={`/my-cards/${selectedProduct.card.id}/movements/${quota.id}`}
+                            >
+                              Movimientos
+                            </Button>
+                          </Stack>
+                        </Stack>
+                      )}
+                    </Stack>
+                  </Stack>
+                </Box>
+              ))
+            )}
           </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}

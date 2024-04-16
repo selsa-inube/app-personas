@@ -44,6 +44,7 @@ Default.args = {
     </Text>
   ),
   icon: <MdOutlineSavings />,
+  loading: false,
 };
 
 const theme = {
