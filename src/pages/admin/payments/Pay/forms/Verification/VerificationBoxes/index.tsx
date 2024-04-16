@@ -11,6 +11,7 @@ import { StyledTotalPayment } from "../../ObligationsForm/styles";
 import { IObligationsEntry } from "../../ObligationsForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
 import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
+import { StyledPayments } from "./styles";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -22,37 +23,43 @@ const renderObligationsVerification = (
 
   return (
     <Stack width="100%" direction="column" gap="s200">
-      {filteredPayments.map((payment) => {
-        const selectedPayment = payment.options.find(
-          (option) => option.selected,
-        );
+      <StyledPayments>
+        {filteredPayments.map((payment) => {
+          const selectedPayment = payment.options.find(
+            (option) => option.selected,
+          );
 
-        const applyPay = payment.applyPayOption && payment.applyPayOption.label;
+          const applyPay =
+            payment.applyPayOption && payment.applyPayOption.label;
 
-        return (
-          <Fragment key={payment.id}>
-            <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100">
-              <BoxAttribute
-                label="Nombre de la obligación:"
-                value={payment.title}
-              />
-              <BoxAttribute label="Numero de obligación:" value={payment.id} />
-              <BoxAttribute
-                label="Tipo de pago:"
-                value={selectedPayment?.label || "Próximo vencimiento"}
-              />
-              <BoxAttribute
-                label="Valor del pago:"
-                value={`${currencyFormat(payment.valueToPay || 0)}`}
-              />
-              {applyPay && (
-                <BoxAttribute label="Pago aplicado a:" value={applyPay} />
-              )}
-            </Grid>
-            {filteredPayments.length > 1 && <Divider dashed />}
-          </Fragment>
-        );
-      })}
+          return (
+            <Fragment key={payment.id}>
+              <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100">
+                <BoxAttribute
+                  label="Nombre de la obligación:"
+                  value={payment.title}
+                />
+                <BoxAttribute
+                  label="Numero de obligación:"
+                  value={payment.id}
+                />
+                <BoxAttribute
+                  label="Tipo de pago:"
+                  value={selectedPayment?.label || "Próximo vencimiento"}
+                />
+                <BoxAttribute
+                  label="Valor del pago:"
+                  value={`${currencyFormat(payment.valueToPay || 0)}`}
+                />
+                {applyPay && (
+                  <BoxAttribute label="Pago aplicado a:" value={applyPay} />
+                )}
+              </Grid>
+              {filteredPayments.length > 1 && <Divider dashed />}
+            </Fragment>
+          );
+        })}
+      </StyledPayments>
 
       <Stack justifyContent="flex-end" width="100%">
         <StyledTotalPayment isMobile={isTablet}>
