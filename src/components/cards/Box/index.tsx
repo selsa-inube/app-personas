@@ -13,12 +13,13 @@ import {
 } from "@design/input/Button/types";
 import { Divider } from "@design/layout/Divider";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
+import { SkeletonLine } from "@inube/design-system";
 
 interface BoxProps {
   icon?: React.JSX.Element;
   title: string;
   subtitle?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   button?: {
     label: string;
     icon: React.JSX.Element;
@@ -33,6 +34,7 @@ interface BoxProps {
   };
   tags?: TagProps[];
   withCustomCollapse?: boolean;
+  loading?: boolean;
   onCustomCollapse?: () => void;
 }
 
@@ -50,6 +52,7 @@ function Box(props: BoxProps) {
     },
     tags = [],
     withCustomCollapse,
+    loading,
     onCustomCollapse,
   } = props;
 
@@ -70,14 +73,22 @@ function Box(props: BoxProps) {
           <StyledLink to={navigateTo}>
             {icon && <Icon icon={icon} variant="filled" cursorHover />}
             <Stack direction="column" gap="s025">
-              <Text type="title" size="medium">
-                {title}
-              </Text>
+              {loading ? (
+                <SkeletonLine animated width="200px" />
+              ) : (
+                <Text type="title" size="medium">
+                  {title}
+                </Text>
+              )}
 
               <Stack gap="s100" alignItems="center">
-                <Text appearance="gray" size="small">
-                  {subtitle}
-                </Text>
+                {loading ? (
+                  <SkeletonLine animated width="200px" />
+                ) : (
+                  <Text appearance="gray" size="small">
+                    {subtitle}
+                  </Text>
+                )}
                 <Stack gap="s050">
                   {tags.length > 0 &&
                     tags.map((tag) => <Tag {...tag} key={tag.label} />)}
@@ -99,7 +110,9 @@ function Box(props: BoxProps) {
         {(withCustomCollapse || !collapsing.allow || !collapse || button) && (
           <Divider dashed />
         )}
-        {(withCustomCollapse || !collapsing.allow || !collapse) && children}
+        {(withCustomCollapse || !collapsing.allow || !collapse) && (
+          <>{loading ? <SkeletonLine animated width="100%" /> : children}</>
+        )}
         {button && (
           <Stack justifyContent="flex-end">
             <Button
