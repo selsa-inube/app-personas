@@ -9,7 +9,7 @@ import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useEffect, useState } from "react";
-import { MdOutlineDelete } from "react-icons/md";
+import { MdEdit, MdOutlineDelete } from "react-icons/md";
 import { IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import {
@@ -169,7 +169,7 @@ function PaymentCard(props: PaymentCardProps) {
           <Text type="label" size="medium">
             Pagar:
           </Text>
-          <Stack width="176px" alignItems="center" justifyContent="flex-end">
+          <Stack width="180px" alignItems="center" justifyContent="flex-end">
             <TextField
               id="customValue"
               name="customValue"
@@ -177,7 +177,18 @@ function PaymentCard(props: PaymentCardProps) {
               onFocus={allowCustomValue ? handleToggleModal : undefined}
               value={currencyFormat(selectedOption?.value || 0)}
               isFullWidth
-              size="compact"              
+              size="compact"
+              iconAfter={
+                allowCustomValue ? (
+                  <Icon
+                    icon={<MdEdit />}
+                    appearance="dark"
+                    size="16px"
+                    onClick={handleToggleModal}
+                    cursorHover
+                  />
+                ) : undefined
+              }
             />
             <Icon
               icon={<MdOutlineDelete />}
