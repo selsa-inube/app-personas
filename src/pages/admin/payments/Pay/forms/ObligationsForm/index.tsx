@@ -1,6 +1,7 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
 import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
+import { TagProps } from "@design/data/Tag";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { IPayment } from "src/model/entity/payment";
@@ -45,8 +46,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
 
   const handleApplyPayOption = (
     payId: string,
-    option: IApplyPayOption,
     valueToPay: number,
+    option?: IApplyPayOption,
   ) => {
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === payId) {
@@ -148,7 +149,19 @@ const ObligationsForm = forwardRef(function ObligationsForm(
         return { ...payOption, selected };
       });
 
-      return { ...payment, options, valueToPay };
+      let tags: TagProps[] = [];
+
+      if (payment.tags.find((tag) => tag.id === "payOption")) {
+        tags = payment.tags.filter((tag) => tag.id !== "payOption");
+      }
+
+      return {
+        ...payment,
+        options,
+        valueToPay,
+        applyPayOption: undefined,
+        tags,
+      };
     });
 
     if (option.id === "unselectAll") {

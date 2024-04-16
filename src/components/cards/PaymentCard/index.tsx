@@ -28,8 +28,8 @@ interface PaymentCardProps {
   onChangePaymentValue: (payId: string, valueToPay: number) => void;
   onApplyPayOption: (
     payId: string,
-    option: IApplyPayOption,
     valueToPay: number,
+    option?: IApplyPayOption,
   ) => void;
 }
 
@@ -71,11 +71,16 @@ function PaymentCard(props: PaymentCardProps) {
 
   const resetValues = () => {
     setSelectedOption(undefined);
-    onChangePaymentValue(id, 0);
+    onApplyPayOption(id, 0);
+
+    if (tags.find((tag) => tag.id === "payOption")) {
+      const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
+      tags.splice(indexPayOption, 1);
+    }
   };
 
   const handleApplyPayOption = (option: IApplyPayOption, value: number) => {
-    onApplyPayOption(id, option, value);
+    onApplyPayOption(id, value, option);
 
     if (tags.find((tag) => tag.id === "payOption")) {
       const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
@@ -91,7 +96,7 @@ function PaymentCard(props: PaymentCardProps) {
     });
 
     setSelectedOption({
-      id: "custom",
+      id: "otherValue",
       label: "Próximo vencimiento",
       value,
     });
@@ -206,7 +211,6 @@ function PaymentCard(props: PaymentCardProps) {
         <CustomValueModal
           portalId="modals"
           value={selectedOption?.value || 0}
-          balanceValue={balanceValue}
           nextPaymentValue={
             options.find((option) => option.id === "nextValue")?.value || 0
           }
@@ -215,6 +219,7 @@ function PaymentCard(props: PaymentCardProps) {
           }
           onCloseModal={handleToggleModal}
           onApplyPayOption={handleApplyPayOption}
+          onChangeOtherValue={handleChangeOption}
         />
       )}
     </>

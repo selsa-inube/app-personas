@@ -61,8 +61,8 @@ interface ObligationsFormUIProps {
   selectedHelpOption?: IHelpOption;
   onApplyPayOption: (
     payId: string,
-    option: IApplyPayOption,
     valueToPay: number,
+    option?: IApplyPayOption,
   ) => void;
   onChangePaymentValue: (payId: string, valueToPay: number) => void;
   onToggleFiltersModal: () => void;

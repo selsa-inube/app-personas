@@ -14,6 +14,7 @@ import {
   MdOutlineCheckCircle,
   MdOutlineClose,
 } from "react-icons/md";
+import { IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat, parseCurrencyString } from "src/utils/currency";
 import {
   StyledApplyPayContainer,
@@ -45,21 +46,21 @@ const applyPayOptions: IApplyPayOption[] = [
 interface CustomValueModalProps {
   portalId: string;
   value: number;
-  balanceValue: number;
   nextPaymentValue: number;
   totalPaymentValue: number;
   onCloseModal: () => void;
-  onApplyPayOption: (option: IApplyPayOption, value: number) => void;
+  onChangeOtherValue: (option: IPaymentOption) => void;
+  onApplyPayOption?: (option: IApplyPayOption, value: number) => void;
 }
 
 function CustomValueModal(props: CustomValueModalProps) {
   const {
     portalId,
     value,
-    balanceValue,
     nextPaymentValue,
     totalPaymentValue,
     onCloseModal,
+    onChangeOtherValue,
     onApplyPayOption,
   } = props;
   const [showResponse, setShowResponse] = useState(false);
@@ -74,17 +75,10 @@ function CustomValueModal(props: CustomValueModalProps) {
   const node = document.getElementById(portalId);
 
   const handleValidateValue = () => {
-    if (customValue > balanceValue) {
+    if (customValue > totalPaymentValue) {
       setInputValidation({
         state: "invalid",
-        errorMessage: "(Valor superior al saldo)",
-      });
-
-      return;
-    } else if (customValue > totalPaymentValue) {
-      setInputValidation({
-        state: "invalid",
-        errorMessage: "(Valor superior al total)",
+        errorMessage: "(Valor superior al saldo total)",
       });
 
       return;
@@ -95,11 +89,21 @@ function CustomValueModal(props: CustomValueModalProps) {
       errorMessage: "",
     });
 
-    setShowResponse(true);
+    if (customValue > nextPaymentValue) {
+      setShowResponse(true);
+    } else {
+      onChangeOtherValue({
+        id: "otherValue",
+        label: "Próximo vencimiento",
+        value: customValue,
+      });
+
+      onCloseModal();
+    }
   };
 
   const handleApplyPayOption = () => {
-    if (!selectedOption) return;
+    if (!selectedOption || !onApplyPayOption) return;
 
     onApplyPayOption(selectedOption, customValue);
     onCloseModal();
