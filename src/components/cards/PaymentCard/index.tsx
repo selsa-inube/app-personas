@@ -9,7 +9,7 @@ import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useEffect, useState } from "react";
-import { MdEdit } from "react-icons/md";
+import { MdEdit, MdOutlineDelete } from "react-icons/md";
 import { IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import {
@@ -67,6 +67,11 @@ function PaymentCard(props: PaymentCardProps) {
 
   const handleToggleModal = () => {
     setShowModal(!showModal);
+  };
+
+  const resetValues = () => {
+    setSelectedOption(undefined);
+    onChangePaymentValue(id, 0);
   };
 
   const handleApplyPayOption = (option: IApplyPayOption, value: number) => {
@@ -156,7 +161,7 @@ function PaymentCard(props: PaymentCardProps) {
         </Stack>
 
         <Stack
-          gap="s050"
+          gap="s100"
           width="100%"
           alignItems="center"
           justifyContent="flex-end"
@@ -164,7 +169,7 @@ function PaymentCard(props: PaymentCardProps) {
           <Text type="label" size="medium">
             Pagar:
           </Text>
-          <Stack width="160px">
+          <Stack width="180px" alignItems="center" justifyContent="flex-end">
             <TextField
               id="customValue"
               name="customValue"
@@ -184,6 +189,14 @@ function PaymentCard(props: PaymentCardProps) {
                   />
                 ) : undefined
               }
+            />
+            <Icon
+              icon={<MdOutlineDelete />}
+              appearance="error"
+              size="20px"
+              onClick={resetValues}
+              disabled={(selectedOption?.value || 0) === 0}
+              cursorHover
             />
           </Stack>
         </Stack>
