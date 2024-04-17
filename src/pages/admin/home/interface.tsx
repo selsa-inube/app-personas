@@ -50,7 +50,7 @@ function renderHomeContent(
   programmedSavings: IProduct[],
   savingsContributions: IProduct[],
   cdats: IProduct[],
-  productsCommitments: ICommitment[],
+  commitments: ICommitment[],
   credits: IProduct[],
   cards: IProduct[],
   loadingSavings: boolean,
@@ -208,14 +208,14 @@ function renderHomeContent(
                   </Stack>
                 )}
 
-                {productsCommitments.length > 0 && (
+                {commitments.length > 0 && (
                   <Stack direction="column" gap="s200">
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
                     <StyledCommitmentsContainer isTablet={isTablet}>
                       <ProductsCommitments
-                        productsCommitments={productsCommitments}
+                        commitments={commitments}
                       />
                     </StyledCommitmentsContainer>
                   </Stack>
@@ -292,7 +292,7 @@ function renderHomeContent(
 }
 
 interface HomeUIProps {
-  productsCommitments: ICommitment[];
+  commitments: ICommitment[];
   savingsAccounts: IProduct[];
   savingsContributions: IProduct[];
   cdats: IProduct[];
@@ -307,7 +307,7 @@ interface HomeUIProps {
 
 function HomeUI(props: HomeUIProps) {
   const {
-    productsCommitments,
+    commitments,
     savingsAccounts,
     savingsContributions,
     cdats,
@@ -358,7 +358,7 @@ function HomeUI(props: HomeUIProps) {
             programmedSavings,
             savingsContributions,
             cdats,
-            productsCommitments,
+            commitments,
             credits,
             cards,
             loadingSavings,
@@ -378,7 +378,7 @@ function HomeUI(props: HomeUIProps) {
             programmedSavings,
             savingsContributions,
             cdats,
-            productsCommitments,
+            commitments,
             credits,
             cards,
             loadingSavings,

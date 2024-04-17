@@ -1,27 +1,27 @@
-import { SavingsCommitmentCard } from "@components/cards/SavingsCommitmentCard";
+import { CommitmentCard } from "@components/cards/CommitmentCard";
 import { useNavigate } from "react-router-dom";
 import { ICommitment } from "src/model/entity/product";
-import { getSavingsAttributes } from "../utils";
+import { getCommitmentAttributes } from "../utils";
 
 interface ProductsCommitmentsProps {
-  productsCommitments: ICommitment[];
+  commitments: ICommitment[];
 }
 function ProductsCommitments(props: ProductsCommitmentsProps) {
-  const { productsCommitments } = props;
+  const { commitments } = props;
 
   const navigate = useNavigate();
 
-  return productsCommitments.map((commitment) => {
+  return commitments.map((commitment) => {
     const handleNavigateCommitment = () => {
       navigate(`/my-savings/commitment/${commitment.id}`);
     };
 
     return (
-      <SavingsCommitmentCard
+      <CommitmentCard
         key={commitment.id}
         title={commitment.title}
         tag={commitment.tag}
-        attributes={getSavingsAttributes(commitment.attributes)}
+        attributes={getCommitmentAttributes(commitment.attributes)}
         onClick={handleNavigateCommitment}
       />
     );

@@ -122,7 +122,7 @@ function Home() {
 
   return (
     <HomeUI
-      productsCommitments={commitments}
+      commitments={commitments}
       savingsAccounts={savings.savingsAccounts}
       savingsContributions={savings.savingsContributions}
       cdats={savings.cdats}

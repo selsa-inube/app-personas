@@ -2,9 +2,13 @@ import { IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
 
-const getSavingsAttributes = (commitmentAttributes: IAttribute[]) => {
+const getCommitmentAttributes = (commitmentAttributes: IAttribute[]) => {
   const valueToPay = extractAttribute(commitmentAttributes, "value_to_pay");
   const nextPayDate = extractAttribute(commitmentAttributes, "next_pay_date");
+  const commitmentValue = extractAttribute(
+    commitmentAttributes,
+    "commitment_value",
+  );
 
   const currencyValueToPay = valueToPay && {
     id: valueToPay.id || "",
@@ -13,10 +17,11 @@ const getSavingsAttributes = (commitmentAttributes: IAttribute[]) => {
   };
 
   const attributes: IAttribute[] = [];
+  if (commitmentValue) attributes.push(commitmentValue);
   if (currencyValueToPay) attributes.push(currencyValueToPay);
   if (nextPayDate) attributes.push(nextPayDate);
 
   return attributes;
 };
 
-export { getSavingsAttributes };
+export { getCommitmentAttributes };
