@@ -63,21 +63,6 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
     const paymentMethod = event.target.value;
 
-    if (paymentMethod === "pse" || paymentMethod === "multiple") {
-      moneySources.pse = {
-        id: "pse",
-        label: "Pago PSE",
-        value: paymentMethod === "pse" ? formik.values.valueToPay : 0,
-        balance: Infinity,
-        type: "pse",
-      };
-
-      if (paymentMethod === "pse") {
-        formik.setFieldValue("paidValue", formik.values.valueToPay);
-        formik.setFieldValue("pendingValue", 0);
-      }
-    }
-
     if (paymentMethod === "debit" || paymentMethod === "multiple") {
       Object.values(moneySourcesMock).forEach((source) => {
         moneySources[source.id] = { ...source };
@@ -97,6 +82,21 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
           formik.setFieldValue("pendingValue", 0);
         }
+      }
+    }
+
+    if (paymentMethod === "pse" || paymentMethod === "multiple") {
+      moneySources.pse = {
+        id: "pse",
+        label: "Pago PSE",
+        value: paymentMethod === "pse" ? formik.values.valueToPay : 0,
+        balance: Infinity,
+        type: "pse",
+      };
+
+      if (paymentMethod === "pse") {
+        formik.setFieldValue("paidValue", formik.values.valueToPay);
+        formik.setFieldValue("pendingValue", 0);
       }
     }
 
@@ -153,6 +153,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     formik.setFieldValue("moneySources", updatedMoneySources);
 
     if (notFunds) {
+      setShowFundsAlert(true);
       formik.setFieldValue("paidValue", formik.values.valueToPay);
 
       formik.setFieldValue("pendingValue", 0);
