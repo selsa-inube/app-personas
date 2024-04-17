@@ -2,8 +2,8 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
 
-import { MyCreditsUI } from "./interface";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
+import { MyCreditsUI } from "./interface";
 
 function MyCredits() {
   const { credits, setCredits } = useContext(CreditsContext);
@@ -13,7 +13,7 @@ function MyCredits() {
   useEffect(() => {
     if (user && accessToken && credits.length === 0) {
       setLoading(true);
-      getCreditsForUser(user?.identification, accessToken)
+      getCreditsForUser(user.identification, accessToken)
         .then((credits) => {
           setCredits(credits);
         })

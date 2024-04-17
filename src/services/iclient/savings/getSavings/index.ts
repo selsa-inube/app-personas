@@ -1,4 +1,5 @@
 import { enviroment } from "@config/enviroment";
+import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { ISavingsState } from "src/context/savings/types";
 import { mapSavingsApiToEntities } from "./mappers";
 
@@ -19,7 +20,8 @@ const getSavingsForUser = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        customerCode: userIdentification,
+        customerCode:
+          developmentUsersMock[userIdentification] || userIdentification,
       });
 
       const controller = new AbortController();

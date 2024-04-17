@@ -26,7 +26,7 @@ function Home() {
   const validateCommitments = () => {
     if (!user || !accessToken) return;
     if (commitments.length === 0) {
-      getSavingsCommitmentsForUser(user?.identification, accessToken)
+      getSavingsCommitmentsForUser(user.identification, accessToken)
         .then((commitments) => {
           setCommitments(commitments);
         })
@@ -48,7 +48,7 @@ function Home() {
 
     if (credits.length === 0) {
       setLoadingCredits(true);
-      getCreditsForUser(user?.identification, accessToken)
+      getCreditsForUser(user.identification, accessToken)
         .then((credits) => {
           setCredits(credits);
         })
@@ -97,7 +97,7 @@ function Home() {
 
     if (cards.length === 0) {
       setLoadingCards(true);
-      getCardsForUser(user?.identification, accessToken, savingAccountsResume)
+      getCardsForUser(user.identification, accessToken, savingAccountsResume)
         .then((credits) => {
           setCards(credits);
         })
