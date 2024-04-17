@@ -1,6 +1,7 @@
 import {
   estateTypeValuesMock,
   gmfTypeValuesMock,
+  interestPaymentValuesMock,
 } from "@mocks/products/savings/utils.mocks";
 import { EProductType, IAttribute } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
@@ -109,7 +110,10 @@ const getProductAttributes = (
       {
         id: "payment_interest",
         label: "Pago de intereses",
-        value: String(saving.interestPaymentRate),
+        value:
+          interestPaymentValuesMock[
+            Object(saving.performancePaymentOpportunity).code
+          ],
       },
       {
         id: "beneficiaries",
