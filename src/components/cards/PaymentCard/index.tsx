@@ -46,6 +46,7 @@ const renderOptions = (
           <Stack
             direction={isMobile ? "column" : "row"}
             gap={isMobile ? "s0" : "s150"}
+            alignItems="center"
           >
             <Text type="label" size="medium" disabled={valueIsZero}>
               {option.label}:
@@ -174,7 +175,7 @@ function PaymentCard(props: PaymentCardProps) {
               {id}
             </Text>
           </Stack>
-          <Stack gap="s100">
+          <Stack gap="s100" wrap="wrap">
             {tags.length > 0 &&
               tags.map((tag) => <Tag {...tag} key={tag.label} />)}
           </Stack>
