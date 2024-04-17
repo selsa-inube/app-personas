@@ -11,4 +11,9 @@ const gmfTypeValuesMock: Record<string, string> = {
   ExcemptUntilMaximumOnPensionAllowance: "Exento hasta el máximo de pensión",
 };
 
-export { estateTypeValuesMock, gmfTypeValuesMock };
+const interestPaymentValuesMock: Record<string, string> = {
+  PaymentOnDueDate: "Al vencimiento",
+  PeriodicPayment: "Periódico",
+};
+
+export { estateTypeValuesMock, gmfTypeValuesMock, interestPaymentValuesMock };
