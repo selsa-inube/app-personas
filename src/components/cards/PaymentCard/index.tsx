@@ -18,6 +18,59 @@ import {
   StyledInputRadio,
 } from "./styles";
 
+const renderOptions = (
+  options: IPaymentOption[],
+  isMobile: boolean,
+  onChangeOption: (option: IPaymentOption) => void,
+  selectedOption?: IPaymentOption,
+) => {
+  return options.map((option, index) => {
+    const valueIsZero = option.value === 0;
+
+    return (
+      <StyledInputContainer
+        key={index}
+        onClick={() => !valueIsZero && onChangeOption(option)}
+      >
+        <Stack gap="s150">
+          <StyledInputRadio
+            id={option.id}
+            type="radio"
+            checked={
+              (selectedOption && option.id === selectedOption.id) || false
+            }
+            readOnly
+            value={option.id}
+            disabled={valueIsZero}
+          />
+          <Stack
+            direction={isMobile ? "column" : "row"}
+            gap={isMobile ? "s0" : "s150"}
+          >
+            <Text type="label" size="medium" disabled={valueIsZero}>
+              {option.label}:
+            </Text>
+            {option.description && (
+              <Text
+                type="body"
+                size="small"
+                appearance="gray"
+                disabled={valueIsZero}
+              >
+                {option.description}
+              </Text>
+            )}
+          </Stack>
+        </Stack>
+
+        <Text type="body" size="small" appearance="gray" disabled={valueIsZero}>
+          {currencyFormat(option.value)}
+        </Text>
+      </StyledInputContainer>
+    );
+  });
+};
+
 interface PaymentCardProps {
   id: string;
   title: string;
@@ -123,41 +176,7 @@ function PaymentCard(props: PaymentCardProps) {
         </Stack>
 
         <Stack direction="column" gap="s100">
-          {options.map((option, index) => (
-            <StyledInputContainer
-              key={index}
-              onClick={() => handleChangeOption(option)}
-            >
-              <Stack gap="s150">
-                <StyledInputRadio
-                  id={option.id}
-                  type="radio"
-                  checked={
-                    (selectedOption && option.id === selectedOption.id) || false
-                  }
-                  readOnly
-                  value={option.id}
-                />
-                <Stack
-                  direction={isMobile ? "column" : "row"}
-                  gap={isMobile ? "s0" : "s150"}
-                >
-                  <Text type="label" size="medium">
-                    {option.label}:
-                  </Text>
-                  {option.description && (
-                    <Text type="body" size="small" appearance="gray">
-                      {option.description}
-                    </Text>
-                  )}
-                </Stack>
-              </Stack>
-
-              <Text type="body" size="small" appearance="gray">
-                {currencyFormat(option.value)}
-              </Text>
-            </StyledInputContainer>
-          ))}
+          {renderOptions(options, isMobile, handleChangeOption, selectedOption)}
         </Stack>
 
         <Stack
