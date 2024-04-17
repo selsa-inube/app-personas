@@ -1,3 +1,4 @@
+import { useAuth } from "@inube/auth";
 import { paymentsMock } from "@mocks/payments/payments.mocks";
 import { mapComments } from "@pages/general/UpdateData/config/mappers";
 import { FormikProps } from "formik";
@@ -9,12 +10,13 @@ import { IObligationsEntry } from "./forms/ObligationsForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { PayUI } from "./interface";
 import { IFormsPay, IFormsPayRefs } from "./types";
-import { payStepsRules } from "./utils";
+import { payStepsRules, sendPaymentRequest } from "./utils";
 
 function Pay() {
   const [currentStep, setCurrentStep] = useState(paySteps.obligations.id);
   const steps = Object.values(paySteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
+  const { user, accessToken } = useAuth();
 
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
@@ -66,7 +68,9 @@ function Pay() {
   };
 
   const handleFinishAssisted = () => {
-    return true;
+    if (!accessToken || !user) return;
+
+    sendPaymentRequest(user, pay, accessToken);
   };
 
   const handleNextStep = () => {
