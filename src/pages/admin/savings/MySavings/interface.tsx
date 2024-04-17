@@ -30,7 +30,7 @@ import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
 
 function renderMySavingsContent(
-  productsCommitments: ICommitment[],
+  commitments: ICommitment[],
   savingsAccounts: IProduct[],
   savingsContributions: IProduct[],
   loading: boolean,
@@ -188,14 +188,14 @@ function renderMySavingsContent(
                   </Stack>
                 )}
 
-                {productsCommitments.length > 0 && (
+                {commitments.length > 0 && (
                   <Stack direction="column" gap="s200">
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
                     <StyledCommitmentsContainer isTablet={isTablet}>
                       <ProductsCommitments
-                        productsCommitments={productsCommitments}
+                        commitments={commitments}
                       />
                     </StyledCommitmentsContainer>
                   </Stack>
@@ -210,7 +210,7 @@ function renderMySavingsContent(
 }
 
 interface MySavingsUIProps {
-  productsCommitments: ICommitment[];
+  commitments: ICommitment[];
   savingsAccounts: IProduct[];
   savingsContributions: IProduct[];
   cdats: IProduct[];
@@ -221,7 +221,7 @@ interface MySavingsUIProps {
 
 function MySavingsUI(props: MySavingsUIProps) {
   const {
-    productsCommitments,
+    commitments,
     savingsAccounts,
     savingsContributions,
     cdats,
@@ -245,7 +245,7 @@ function MySavingsUI(props: MySavingsUIProps) {
       {!isDesktop ? (
         <Stack direction="column" margin={`${inube.spacing.s300} 0 0`}>
           {renderMySavingsContent(
-            productsCommitments,
+            commitments,
             savingsAccounts,
             savingsContributions,
             loading,
@@ -261,7 +261,7 @@ function MySavingsUI(props: MySavingsUIProps) {
           templateColumns="1fr 250px"
         >
           {renderMySavingsContent(
-            productsCommitments,
+            commitments,
             savingsAccounts,
             savingsContributions,
             loading,
