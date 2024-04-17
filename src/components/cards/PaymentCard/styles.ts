@@ -19,6 +19,7 @@ const StyledInputContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: ${inube.spacing.s100};
   border-radius: ${inube.spacing.s100};
   padding: ${inube.spacing.s100} ${inube.spacing.s150};
   background: ${({ theme }) =>
