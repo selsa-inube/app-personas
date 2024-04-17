@@ -21,4 +21,32 @@ interface IPayment {
   applyPayOption?: IApplyPayOption;
 }
 
-export type { IPayment, IPaymentOption };
+interface IPaymentRequest {
+  customerCode: string;
+  customerName: string;
+  comments: string;
+  payments: IPayment[];
+  paymentMethod: {
+    id: string;
+    label: string;
+    value: number;
+    balance: number;
+    type: "savingAccount" | "pse";
+  }[];
+  urlRedirect: string;
+}
+
+interface IPaymentRequestResponse {
+  codeTracking: string;
+  url: string;
+  state: string;
+  message: string;
+  httpStatus: number;
+}
+
+export type {
+  IPayment,
+  IPaymentOption,
+  IPaymentRequest,
+  IPaymentRequestResponse,
+};
