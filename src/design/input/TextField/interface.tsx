@@ -150,7 +150,7 @@ function TextFieldUI(props: TextFieldUIProps) {
           iconAfter={iconAfter}
           readOnly={readOnly}
         >
-          {!isDisabled && iconBefore && (
+          {iconBefore && (
             <StyledIcon
               isDisabled={isDisabled}
               iconBefore={iconBefore}
@@ -179,7 +179,7 @@ function TextFieldUI(props: TextFieldUIProps) {
             readOnly={readOnly}
             $size={size}
           />
-          {!isDisabled && iconAfter && (
+          {iconAfter && (
             <StyledIcon
               iconAfter={iconAfter}
               isDisabled={isDisabled}
