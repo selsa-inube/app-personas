@@ -9,6 +9,8 @@ const StyledPage = styled.div`
 `;
 
 const StyledMain = styled.main`
+  box-sizing: border-box;
+  height: inherit;
   padding: ${inube.spacing.s400} ${inube.spacing.s800};
   overflow-y: scroll;
 

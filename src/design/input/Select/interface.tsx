@@ -15,6 +15,7 @@ import {
   StyledInput,
   StyledInputContainer,
 } from "./styles";
+import { Stack } from "@design/layout/Stack";
 
 function Invalid(props: ISelectMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -126,11 +127,13 @@ function SelectUI(props: SelectUIProps) {
       </StyledInputContainer>
 
       {openOptions && !isDisabled && !readOnly && (
-        <DropdownMenu
-          options={options}
-          onClick={onOptionClick}
-          onCloseOptions={onToggleOptions}
-        />
+        <Stack>
+          <DropdownMenu
+            options={options}
+            onClick={onOptionClick}
+            onCloseOptions={onToggleOptions}
+          />
+        </Stack>
       )}
 
       {state === "invalid" && isTouched && !openOptions && (
