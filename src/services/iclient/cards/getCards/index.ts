@@ -1,6 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { IProduct } from "src/model/entity/product";
 import { mapCardsApiToEntities } from "./mappers";
+import { developmentUsersMock } from "@mocks/users/users.mocks";
 
 const getCardsForUser = async (
   userIdentification: string,
@@ -13,7 +14,7 @@ const getCardsForUser = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        customerPublicCode: userIdentification,
+        customerPublicCode: developmentUsersMock[userIdentification] || userIdentification,
       });
 
       const controller = new AbortController();

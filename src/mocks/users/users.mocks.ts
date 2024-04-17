@@ -131,4 +131,10 @@ const usersMock: IThird[] = [
   },
 ];
 
-export { usersMock };
+const developmentUsersMock: Record<string, string> = {
+  "12340001": "66862673",
+  "12340002": "1113697385",
+  "12340003": "1077859890",
+};
+
+export { developmentUsersMock, usersMock };

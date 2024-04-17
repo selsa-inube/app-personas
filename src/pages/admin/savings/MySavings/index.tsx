@@ -24,7 +24,7 @@ function MySavings() {
     if (user && accessToken) {
       if (combinedSavings.length === 0) {
         setLoading(true);
-        getSavingsForUser(user?.identification, accessToken)
+        getSavingsForUser(user.identification, accessToken)
           .then((savings) => {
             setSavings(savings);
           })
@@ -36,7 +36,7 @@ function MySavings() {
           });
       }
       if (commitments.length === 0) {
-        getSavingsCommitmentsForUser(user?.identification, accessToken)
+        getSavingsCommitmentsForUser(user.identification, accessToken)
           .then((commitments) => {
             setCommitments(commitments);
           })

@@ -1,9 +1,9 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
+import { CardsContext } from "src/context/cards";
 import { SavingsContext } from "src/context/savings";
 import { getCardsForUser } from "src/services/iclient/cards/getCards";
 import { MyCardsUI } from "./interface";
-import { CardsContext } from "src/context/cards";
 
 function MyCards() {
   const { cards, setCards } = useContext(CardsContext);
@@ -14,11 +14,7 @@ function MyCards() {
   useEffect(() => {
     if (user && accessToken && cards.length === 0) {
       setLoading(true);
-      getCardsForUser(
-        user?.identification,
-        accessToken,
-        savings.savingsAccounts,
-      )
+      getCardsForUser(user.identification, accessToken, savings.savingsAccounts)
         .then((credits) => {
           setCards(credits);
         })
