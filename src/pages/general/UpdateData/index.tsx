@@ -1,7 +1,6 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
-import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { updateDataSteps } from "./config/assisted";
@@ -36,6 +35,7 @@ import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirecto
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
+import { Navigate } from "react-router-dom";
 
 function UpdateData() {
   const [currentStep, setCurrentStep] = useState(
@@ -185,9 +185,7 @@ function UpdateData() {
     handleStepChange(currentStep - 1);
   };
 
-  if (
-    getFlag("general.links.update-data.update-data-without-assisted")?.value
-  ) {
+  if (!getFlag("general.links.update-data.update-data-with-assisted")?.value) {
     return <Navigate to="/" />;
   }
 

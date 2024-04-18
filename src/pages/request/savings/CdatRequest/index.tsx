@@ -1,6 +1,7 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
@@ -12,6 +13,7 @@ import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
+import { Navigate } from "react-router-dom";
 
 function CdatRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -20,6 +22,7 @@ function CdatRequest() {
   const steps = Object.values(cdatRequestSteps);
 
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
+  const { getFlag } = useContext(AppContext);
 
   const [cdatRequest, setCdatRequest] = useState<IFormsCdatRequest>({
     investment: {
@@ -104,6 +107,10 @@ function CdatRequest() {
   const handlePreviousStep = () => {
     handleStepChange(currentStep - 1);
   };
+
+  if (!getFlag("admin.savings.savings.request-saving")?.value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <CdatRequestUI

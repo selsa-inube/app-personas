@@ -1,6 +1,6 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
@@ -17,6 +17,8 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { programmedSavingFixedStepsRules } from "./utils";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 
 function ProgrammedSavingFixedRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -25,6 +27,7 @@ function ProgrammedSavingFixedRequest() {
   const steps = Object.values(programmedSavingFixedRequestSteps);
 
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
+  const { getFlag } = useContext(AppContext);
 
   const [programmedSavingFixedRequest, setProgrammedSavingFixedRequest] =
     useState<IFormsProgrammedSavingFixedRequest>({
@@ -112,6 +115,10 @@ function ProgrammedSavingFixedRequest() {
   const handlePreviousStep = () => {
     handleStepChange(currentStep - 1);
   };
+
+  if (!getFlag("admin.savings.savings.request-saving")?.value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <ProgrammedSavingFixedRequestUI
