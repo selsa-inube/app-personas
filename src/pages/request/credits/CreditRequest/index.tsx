@@ -9,18 +9,25 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { creditRequestCards } from "./config/cards";
 import { crumbsCreditRequest } from "./config/navigation";
+import { useContext } from "react";
+import { AppContext } from "src/context/app";
 
 function CreditRequest() {
   const navigate = useNavigate();
+  const { getFlag } = useContext(AppContext);
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   const handleCardNavigate = (path: string) => {
     navigate(`/credit/${path}`);
   };
+
+  if (!getFlag("admin.credits.credits.request-credit")?.value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <>
