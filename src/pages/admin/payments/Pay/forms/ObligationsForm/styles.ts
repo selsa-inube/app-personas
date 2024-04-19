@@ -7,6 +7,7 @@ interface IStyledTotalPayment {
 
 const StyledTotalPayment = styled.div<IStyledTotalPayment>`
   display: flex;
+  align-items: center;
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s150};
   border-radius: ${inube.spacing.s100};

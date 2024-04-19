@@ -29,6 +29,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   );
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [selectedHelpOption, setSelectedHelpOption] = useState<IHelpOption>();
+  const [showTotalPaymentModal, setShowTotalPaymentModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -174,6 +175,10 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     setShowHelpModal(false);
   };
 
+  const handleToggleTotalModal = () => {
+    setShowTotalPaymentModal(!showTotalPaymentModal);
+  };
+
   return (
     <ObligationsFormUI
       formik={formik}
@@ -182,6 +187,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       filters={filters}
       showHelpModal={showHelpModal}
       selectedHelpOption={selectedHelpOption}
+      showTotalPaymentModal={showTotalPaymentModal}
       onApplyPayOption={handleApplyPayOption}
       onChangePaymentValue={handleChangePaymentValue}
       onToggleFiltersModal={handleToggleFiltersModal}
@@ -189,6 +195,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       onRemoveFilter={handleRemoveFilter}
       onToggleHelpModal={handleToggleHelpModal}
       onApplyHelpOption={handleApplyHelpOption}
+      onToggleTotalModal={handleToggleTotalModal}
     />
   );
 });
