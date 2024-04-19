@@ -1,3 +1,7 @@
+import { enviroment } from "@config/enviroment";
+import { IUser } from "@inube/auth/dist/types/user";
+import { IPaymentRequest } from "src/model/entity/payment";
+import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
 import { paySteps } from "./config/assisted";
 import { mapPaymentMethod } from "./config/mappers";
 import { IFormsPay, IFormsPayRefs } from "./types";
@@ -52,4 +56,36 @@ const payStepsRules = (
   });
 };
 
-export { payStepsRules };
+const sendPaymentRequest = async (
+  user: IUser,
+  pay: IFormsPay,
+  accessToken: string,
+) => {
+  const filteredPayments = pay.obligations.values.payments.filter(
+    (payment) => payment.valueToPay && payment.valueToPay > 0,
+  );
+
+  const filteredPaymentMethod = Object.values(
+    pay.paymentMethod.values.moneySources || {},
+  ).filter((moneySource) => moneySource.value > 0);
+
+  const paymentRequestData: IPaymentRequest = {
+    customerCode: user.identification,
+    customerName: `${user.firstName} ${user.firstLastName}`,
+    comments: pay.comments.values.comments,
+    payments: filteredPayments,
+    paymentMethod: filteredPaymentMethod,
+    urlRedirect: `${enviroment.REDIRECT_URI}/payments/history`,
+  };
+
+  const paymentRequestResponse = await createPaymentRequest(
+    paymentRequestData,
+    accessToken,
+  );
+
+  if (paymentRequestResponse) {
+    window.open(paymentRequestResponse.url, "_self");
+  }
+};
+
+export { payStepsRules, sendPaymentRequest };

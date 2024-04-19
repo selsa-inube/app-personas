@@ -1,10 +1,10 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import styled from "styled-components";
 
 const StyledCardContainer = styled.div`
   width: 238px;
   min-width: 238px;
-  height: 120px;
+  height: 136px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

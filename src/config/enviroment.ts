@@ -9,6 +9,7 @@ const enviroment = {
   PROVIDER: import.meta.env.VITE_AUTH_PROVIDER,
   REDIRECT_URI: IS_PRODUCTION ? window.location.origin : AUTH_REDIRECT_URI,
   ICLIENT_API_URL_QUERY: import.meta.env.VITE_ICLIENT_API_URL_QUERY,
+  ICLIENT_API_URL_PERSISTENCE: import.meta.env.VITE_ICLIENT_API_URL_PERSISTENCE,
   TEMP_BUSINESS_UNIT: "test",
   APP_CODE: "personas",
   SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,

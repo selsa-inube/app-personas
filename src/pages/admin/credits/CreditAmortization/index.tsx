@@ -70,7 +70,7 @@ function CreditAmortization() {
     const { newCredits, selectedCredit } = await validateCreditsAndAmortization(
       credits,
       credit_id,
-      user?.identification,
+      user.identification,
       accessToken,
     );
 

@@ -1,14 +1,14 @@
 import { ThemeProvider } from "styled-components";
-import { props, parameters } from "./props";
+import { parameters, props } from "./props";
 
 import { themes } from "@mocks/design/themes";
-import { StoryFn } from "@storybook/react";
-import { SavingsCommitmentCard, SavingsCommitmentCardProps } from ".";
 import { action } from "@storybook/addon-actions";
+import { StoryFn } from "@storybook/react";
+import { CommitmentCard, CommitmentCardProps } from ".";
 
 const story = {
-  title: "components/cards/SavingsCommitmentCard",
-  components: [SavingsCommitmentCard],
+  title: "components/cards/CommitmentCard",
+  components: [CommitmentCard],
   tags: ["autodocs"],
   parameters,
   argTypes: {
@@ -16,17 +16,17 @@ const story = {
   },
 };
 
-export const Default: StoryFn<SavingsCommitmentCardProps> = (args) => (
-  <SavingsCommitmentCard {...args} />
+export const Default: StoryFn<CommitmentCardProps> = (args) => (
+  <CommitmentCard {...args} />
 );
 
-export const WhitTag: StoryFn<SavingsCommitmentCardProps> = (args) => (
-  <SavingsCommitmentCard {...args} />
+export const WhitTag: StoryFn<CommitmentCardProps> = (args) => (
+  <CommitmentCard {...args} />
 );
 
-export const Themed: StoryFn<SavingsCommitmentCardProps> = (args) => (
+export const Themed: StoryFn<CommitmentCardProps> = (args) => (
   <ThemeProvider theme={themes["fondecom"]}>
-    <SavingsCommitmentCard {...args} />
+    <CommitmentCard {...args} />
   </ThemeProvider>
 );
 

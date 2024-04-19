@@ -24,7 +24,7 @@ function CreditMovements() {
     const { newCredits, selectedCredit } = await validateCreditsAndMovements(
       credits,
       credit_id,
-      user?.identification,
+      user.identification,
       accessToken,
     );
 

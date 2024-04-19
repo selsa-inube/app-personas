@@ -1,6 +1,6 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
@@ -17,6 +17,8 @@ import {
   IFormsCreditDestinationRequestRefs,
 } from "./types";
 import { creditDestinationStepsRules } from "./utils";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 
 function CreditDestinationRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -25,6 +27,7 @@ function CreditDestinationRequest() {
   const steps = Object.values(creditDestinationRequestSteps);
 
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
+  const { getFlag } = useContext(AppContext);
 
   const [creditDestinationRequest, setCreditDestinationRequest] =
     useState<IFormsCreditDestinationRequest>({
@@ -119,6 +122,10 @@ function CreditDestinationRequest() {
   const handlePreviousStep = () => {
     handleStepChange(currentStep - 1);
   };
+
+  if (!getFlag("admin.credits.credits.request-credit")?.value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <CreditDestinationRequestUI

@@ -46,7 +46,7 @@ const mapSavingProductMovementsApiToEntities = (
 
 const mapSavingsCommitmentsApiToEntity = (
   commitment: Record<string, string | number | object>,
-): ICommitment | undefined => {
+): ICommitment => {
   const today = new Date();
   today.setUTCHours(5, 5, 5, 5);
 
@@ -63,46 +63,41 @@ const mapSavingsCommitmentsApiToEntity = (
   const nextPaymentDate = new Date(String(commitment.closePaymentDate));
   nextPaymentDate.setUTCHours(5, 5, 5, 5);
 
-  let nextPaymentValue: number | undefined;
-
-  if (Array.isArray(commitment.savingPaymentPlans)) {
-    const lastSavingPaymentPlan =
-      commitment.savingPaymentPlans[commitment.savingPaymentPlans.length - 1];
-
-    nextPaymentValue =
-      today > nextPaymentDate
-        ? commitment.expiredValue
-        : lastSavingPaymentPlan.valuePendingPayment;
-  }
+  const nextPaymentValue = commitment.expiredValue || commitment.quotaValue;
 
   const inArrears = today > nextPaymentDate;
 
-  if (!nextPaymentValue || !nextPaymentDate) {
-    return;
-  }
-
   const attributes: IAttribute[] = [
-    {
-      id: "value_to_pay",
-      label: "Valor próximo pago",
-      value: Number(nextPaymentValue),
-    },
-    {
-      id: "next_pay_date",
-      label: "Fecha próximo pago",
-      value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
-    },
     {
       id: "pay_method",
       label: "Medio de pago",
       value: capitalizeFirstLetters(String(commitment.paymentMediumName)),
     },
-    {
-      id: "contribution_value",
+  ];
+
+  if (commitment.contributionValue) {
+    attributes.push({
+      id: "commitment_value",
       label: "Compromiso",
       value: String(commitment.contributionValue),
-    },
-  ];
+    });
+  }
+
+  if (nextPaymentValue) {
+    attributes.push({
+      id: "value_to_pay",
+      label: "Valor próximo pago",
+      value: Number(nextPaymentValue),
+    });
+  }
+
+  if (commitment.closePaymentDate) {
+    attributes.push({
+      id: "next_pay_date",
+      label: "Fecha próximo pago",
+      value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
+    });
+  }
 
   const tag: TagProps | undefined = inArrears
     ? {
@@ -131,11 +126,7 @@ const mapSavingsCommitmentsApiToEntity = (
 const mapSavingsApiToEntities = (
   commitments: Record<string, string | number | object>[],
 ): ICommitment[] => {
-  return commitments
-    .map(mapSavingsCommitmentsApiToEntity)
-    .filter(
-      (commitment): commitment is ICommitment => commitment !== undefined,
-    );
+  return commitments.map(mapSavingsCommitmentsApiToEntity);
 };
 
 export { mapSavingsApiToEntities, mapSavingsCommitmentsApiToEntity };

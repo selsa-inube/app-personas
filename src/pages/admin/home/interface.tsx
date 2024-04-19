@@ -15,7 +15,7 @@ import { StyledCommitmentsContainer } from "./styles";
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
 import { useAuth } from "@inube/auth";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAttachMoney,
@@ -24,6 +24,7 @@ import {
 import { ICommitment, IProduct } from "src/model/entity/product";
 import { formatTraceabilityDate } from "src/utils/dates";
 
+import { AppContext } from "src/context/app";
 import {
   investmentIcons,
   savingsAccountIcons,
@@ -50,20 +51,23 @@ function renderHomeContent(
   programmedSavings: IProduct[],
   savingsContributions: IProduct[],
   cdats: IProduct[],
-  productsCommitments: ICommitment[],
+  commitments: ICommitment[],
   credits: IProduct[],
   cards: IProduct[],
   loadingSavings: boolean,
   loadingCredits: boolean,
   loadingCards: boolean,
   isTablet: boolean,
+  requestSaving: boolean,
+  requestCredit: boolean,
+  requestCard: boolean,
 ) {
   return (
     <Stack direction="column" gap="s300">
       <Text type="title" size="medium">
         Tus productos
       </Text>
-      <Box {...savingsBox}>
+      <Box {...savingsBox(requestSaving)}>
         <Stack direction="column">
           {loadingSavings ? (
             <Stack direction="column" gap="s200">
@@ -208,15 +212,13 @@ function renderHomeContent(
                   </Stack>
                 )}
 
-                {productsCommitments.length > 0 && (
+                {commitments.length > 0 && (
                   <Stack direction="column" gap="s200">
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
                     <StyledCommitmentsContainer isTablet={isTablet}>
-                      <ProductsCommitments
-                        productsCommitments={productsCommitments}
-                      />
+                      <ProductsCommitments commitments={commitments} />
                     </StyledCommitmentsContainer>
                   </Stack>
                 )}
@@ -226,7 +228,7 @@ function renderHomeContent(
         </Stack>
       </Box>
 
-      <Box {...creditsBox}>
+      <Box {...creditsBox(requestCredit)}>
         <Stack direction="column" gap="s100">
           {loadingCredits ? (
             <>
@@ -258,7 +260,7 @@ function renderHomeContent(
         </Stack>
       </Box>
 
-      <Box {...cardsBox}>
+      <Box {...cardsBox(requestCard)}>
         <Stack direction="column" gap="s100">
           {loadingCards ? (
             <>
@@ -292,7 +294,7 @@ function renderHomeContent(
 }
 
 interface HomeUIProps {
-  productsCommitments: ICommitment[];
+  commitments: ICommitment[];
   savingsAccounts: IProduct[];
   savingsContributions: IProduct[];
   cdats: IProduct[];
@@ -307,7 +309,7 @@ interface HomeUIProps {
 
 function HomeUI(props: HomeUIProps) {
   const {
-    productsCommitments,
+    commitments,
     savingsAccounts,
     savingsContributions,
     cdats,
@@ -322,6 +324,7 @@ function HomeUI(props: HomeUIProps) {
 
   const { user } = useAuth();
   const [currentTime, setCurrentTime] = useState(new Date());
+  const { getFlag } = useContext(AppContext);
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
@@ -332,6 +335,15 @@ function HomeUI(props: HomeUIProps) {
 
     return () => clearInterval(currentTimeInterval);
   }, []);
+
+  const withRequestSaving =
+    getFlag("admin.savings.savings.request-saving")?.value || false;
+    
+  const withRequestCredit =
+    getFlag("admin.credits.credits.request-credit")?.value || false;
+    
+  const withRequestCard =
+    getFlag("admin.cards.cards.request-card")?.value || false;
 
   return (
     <>
@@ -358,13 +370,16 @@ function HomeUI(props: HomeUIProps) {
             programmedSavings,
             savingsContributions,
             cdats,
-            productsCommitments,
+            commitments,
             credits,
             cards,
             loadingSavings,
             loadingCredits,
             loadingCards,
             isTablet,
+            withRequestSaving,
+            withRequestCredit,
+            withRequestCard,
           )}
         </Stack>
       ) : (
@@ -378,13 +393,16 @@ function HomeUI(props: HomeUIProps) {
             programmedSavings,
             savingsContributions,
             cdats,
-            productsCommitments,
+            commitments,
             credits,
             cards,
             loadingSavings,
             loadingCredits,
             loadingCards,
             isTablet,
+            withRequestSaving,
+            withRequestCredit,
+            withRequestCard,
           )}
           <QuickAccess links={quickLinks} />
         </Grid>

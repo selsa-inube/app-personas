@@ -46,7 +46,6 @@ const renderOptions = (
           <Stack
             direction={isMobile ? "column" : "row"}
             gap={isMobile ? "s0" : "s150"}
-            alignItems="center"
           >
             <Text type="label" size="medium" disabled={valueIsZero}>
               {option.label}:

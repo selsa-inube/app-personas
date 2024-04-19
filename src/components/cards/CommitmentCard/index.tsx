@@ -6,17 +6,17 @@ import { MdCalendarMonth } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { StyledCardContainer } from "./styles";
 
-interface SavingsCommitmentCardProps {
+interface CommitmentCardProps {
   onClick: () => void;
   title: string;
-  tag?: TagProps;
   attributes: IAttribute[];
+  tag?: TagProps;
 }
 
-function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
+function CommitmentCard(props: CommitmentCardProps) {
   const { onClick, title, tag, attributes } = props;
 
-  const truncatedAttributes = attributes.slice(0, 2);
+  const truncatedAttributes = attributes.slice(0, 3);
 
   return (
     <StyledCardContainer onClick={onClick}>
@@ -46,5 +46,5 @@ function SavingsCommitmentCard(props: SavingsCommitmentCardProps) {
   );
 }
 
-export { SavingsCommitmentCard };
-export type { SavingsCommitmentCardProps };
+export { CommitmentCard };
+export type { CommitmentCardProps };

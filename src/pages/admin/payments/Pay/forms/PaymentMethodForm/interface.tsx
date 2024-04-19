@@ -1,10 +1,9 @@
-import { StyledInputRadio } from "@components/cards/PaymentCard/styles";
+import { PaymentMethodCard } from "@components/cards/PaymentMethodCard";
 import { Icon } from "@design/data/Icon";
-import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
-import { TextField } from "@design/input/TextField";
+import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -12,76 +11,24 @@ import { FormikProps } from "formik";
 import { MdReportProblem } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { paymentMethods } from "./config/payment";
-import { StyledLabelPaymentMethod } from "./styles";
 import { IMoneySource, IPaymentMethodEntry } from "./types";
 
 const renderMoneySources = (
   moneySources: IMoneySource,
   paymentMethod: string,
   valueToPay: number,
-  isMobile: boolean,
   onChangeMoneySource: (event: React.ChangeEvent<HTMLInputElement>) => void,
   onSelectMoneySource: (id: string) => void,
 ) => {
   return Object.entries(moneySources).map(([key, moneySource]) => (
-    <Grid
-      templateColumns={isMobile ? "1fr" : "82% 17%"}
-      gap="s150"
-      alignContent="center"
+    <PaymentMethodCard
       key={key}
-    >
-      {!isMobile && (
-        <StyledLabelPaymentMethod
-          onClick={() => onSelectMoneySource(moneySource.id)}
-          cursorPointer={
-            moneySource.type === "savingAccount" && paymentMethod === "debit"
-          }
-        >
-          <Stack gap="s100">
-            {moneySource.type === "savingAccount" &&
-              paymentMethod === "debit" && (
-                <StyledInputRadio
-                  id={`radio-${key}`}
-                  type="radio"
-                  checked={moneySource.value !== 0}
-                  readOnly
-                  value={valueToPay}
-                />
-              )}
-            <Text type="body" size="medium">
-              {moneySource.label}
-            </Text>
-            {moneySource.value > moneySource.balance && (
-              <Tag label="Fondos insuficientes" appearance="error" />
-            )}
-          </Stack>
-
-          {moneySource.type === "savingAccount" && (
-            <Stack gap="s100">
-              <Text type="label" size="large" appearance="gray">
-                Saldo:
-              </Text>
-              <Text type="body" size="medium">
-                {currencyFormat(moneySource.balance)}
-              </Text>
-            </Stack>
-          )}
-        </StyledLabelPaymentMethod>
-      )}
-
-      <TextField
-        id={key}
-        name={key}
-        placeholder=""
-        label={isMobile ? moneySource.label : undefined}
-        value={currencyFormat(moneySource.value)}
-        onChange={onChangeMoneySource}
-        isFullWidth
-        isDisabled={paymentMethod !== "multiple"}
-        size="compact"
-        state={moneySource.value > moneySource.balance ? "invalid" : "pending"}
-      />
-    </Grid>
+      moneySource={moneySource}
+      paymentMethod={paymentMethod}
+      valueToPay={valueToPay}
+      onChangeMoneySource={onChangeMoneySource}
+      onSelectMoneySource={onSelectMoneySource}
+    />
   ));
 };
 
@@ -107,8 +54,11 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
 
   return (
     <form>
-      <Stack gap={isMobile ? "s300" : "s400"} direction="column">
-        <Stack width={isMobile ? "100%" : "50%"}>
+      <Stack gap={isMobile ? "s200" : "s300"} direction="column">
+        <Grid
+          templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+          gap={isMobile ? "s200" : "s300"}
+        >
           <Select
             label="Formas de pago"
             name="paymentMethod"
@@ -121,88 +71,67 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
             onChange={customHandleChange}
             value={formik.values.paymentMethod || ""}
           />
-        </Stack>
+        </Grid>
 
         {formik.values.paymentMethod && formik.values.moneySources && (
-          <Grid
-            templateColumns={isTablet ? "1fr" : "68% 30%"}
-            gap={isMobile ? "s250" : "s300"}
-            width="100%"
-          >
-            <Fieldset title="Fuentes de dinero">
-              <Stack gap="s250" direction="column">
-                <Text type="body" size="medium" appearance="gray">
-                  Cuéntanos como quieres pagar tu obligación, digitando los
-                  valores en cada una de las fuentes de dinero.
-                </Text>
-
-                {renderMoneySources(
-                  formik.values.moneySources,
-                  formik.values.paymentMethod,
-                  formik.values.valueToPay,
-                  isMobile,
-                  onChangeMoneySource,
-                  onSelectMoneySource,
-                )}
-              </Stack>
-            </Fieldset>
-
-            <Fieldset
-              title="Resumen"
-              height="fit-content"
-              width={isMobile ? "auto" : isTablet ? "fit-content" : "auto"}
+          <>
+            <Grid
+              templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+              gap={isMobile ? "s200" : "s300"}
             >
-              <Stack gap="s100" direction="column">
-                <Stack
-                  gap="s150"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Text type="title" size="small" appearance="gray">
-                    Valor a pagar:
-                  </Text>
-                  <Text type="title" size="small">
-                    {currencyFormat(formik.values.valueToPay)}
-                  </Text>
-                </Stack>
-                <Stack
-                  gap="s150"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Text type="title" size="small" appearance="gray">
-                    Valor pagado:
-                  </Text>
-                  <Text type="title" size="small">
-                    {currencyFormat(formik.values.paidValue)}
-                  </Text>
-                </Stack>
-                <Stack
-                  gap="s150"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Stack gap="s075" alignItems="center">
-                    <Text type="title" size="small" appearance="gray">
-                      Valor pendiente:
-                    </Text>
-                    {formik.values.pendingValue > 0 && showFundsAlert && (
-                      <Icon
-                        appearance="error"
-                        icon={<MdReportProblem />}
-                        size="20px"
-                        spacing="none"
-                      />
-                    )}
-                  </Stack>
+              {renderMoneySources(
+                formik.values.moneySources,
+                formik.values.paymentMethod,
+                formik.values.valueToPay,
+                onChangeMoneySource,
+                onSelectMoneySource,
+              )}
+            </Grid>
 
-                  <Text type="title" size="small">
-                    {currencyFormat(formik.values.pendingValue)}
-                  </Text>
+            <Stack direction="column" gap="s100">
+              <Divider dashed />
+
+              <Fieldset title="Resumen">
+                <Stack gap="s100" direction="column">
+                  <Stack gap="s200" alignItems="center">
+                    <Text type="title" size="small" appearance="gray">
+                      Valor a pagar:
+                    </Text>
+                    <Text type="title" size="small">
+                      {currencyFormat(formik.values.valueToPay)}
+                    </Text>
+                  </Stack>
+                  <Stack gap="s200" alignItems="center">
+                    <Text type="title" size="small" appearance="gray">
+                      Valor pagado:
+                    </Text>
+                    <Text type="title" size="small">
+                      {currencyFormat(formik.values.paidValue)}
+                    </Text>
+                  </Stack>
+                  <Stack gap="s200" alignItems="center">
+                    <Stack gap="s075" alignItems="center">
+                      <Text type="title" size="small" appearance="gray">
+                        Valor pendiente:
+                      </Text>
+                      {showFundsAlert && (
+                        <Icon
+                          appearance="error"
+                          icon={<MdReportProblem />}
+                          size="20px"
+                          spacing="none"
+                        />
+                      )}
+                    </Stack>
+
+                    <Text type="title" size="small">
+                      {currencyFormat(formik.values.pendingValue)}
+                    </Text>
+                  </Stack>
                 </Stack>
-              </Stack>
-            </Fieldset>
-          </Grid>
+              </Fieldset>
+            </Stack>
+          </>
         )}
       </Stack>
     </form>
