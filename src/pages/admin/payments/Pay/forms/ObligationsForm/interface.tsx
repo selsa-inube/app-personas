@@ -8,6 +8,8 @@ import {
   IHelpOption,
   PaymentHelpModal,
 } from "@components/modals/payments/PaymentHelpModal";
+import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
+import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
@@ -22,13 +24,11 @@ import {
   MdOutlineCheckBox,
   MdOutlineFilterAlt,
 } from "react-icons/md";
-import { IPayment } from "src/model/entity/payment";
+import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledTotalPayment } from "./styles";
 import { IObligationsEntry } from "./types";
-import { Icon } from "@design/data/Icon";
-import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -68,10 +68,10 @@ interface ObligationsFormUIProps {
   selectedHelpOption?: IHelpOption;
   onApplyPayOption: (
     payId: string,
-    valueToPay: number,
-    option?: IApplyPayOption,
+    option: IPaymentOption,
+    applyPayOption?: IApplyPayOption,
   ) => void;
-  onChangePaymentValue: (payId: string, valueToPay: number) => void;
+  onChangePaymentValue: (payId: string, option: IPaymentOption) => void;
   onToggleFiltersModal: () => void;
   onApplyFilters: (filters: IPaymentFilters) => void;
   onRemoveFilter: (filterName: string) => void;
@@ -161,8 +161,10 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   defaultSelectedOption={payment.options.find(
                     (option) => option.selected,
                   )}
+                  valueToPay={payment.valueToPay}
                   onApplyPayOption={onApplyPayOption}
                   onChangePaymentValue={onChangePaymentValue}
+                  onRemovePayment={onRemovePayment}
                 />
               ))}
             </Grid>
