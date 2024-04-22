@@ -11,6 +11,7 @@ import { FormikProps } from "formik";
 import { MdReportProblem } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { paymentMethods } from "./config/payment";
+import { StyledSummaryContainer } from "./styles";
 import { IMoneySource, IPaymentMethodEntry } from "./types";
 
 const renderMoneySources = (
@@ -54,7 +55,11 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
 
   return (
     <form>
-      <Stack gap={isMobile ? "s200" : "s300"} direction="column">
+      <Stack
+        gap={isMobile ? "s200" : "s300"}
+        direction="column"
+        margin={isMobile ? "0 0 210px 0" : "0"}
+      >
         <Grid
           templateColumns={isTablet ? "1fr" : "1fr 1fr"}
           gap={isMobile ? "s200" : "s300"}
@@ -88,7 +93,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
               )}
             </Grid>
 
-            <Stack direction="column" gap="s100">
+            <StyledSummaryContainer fixed={isMobile}>
               <Divider dashed />
 
               <Fieldset title="Resumen">
@@ -130,7 +135,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
                   </Stack>
                 </Stack>
               </Fieldset>
-            </Stack>
+            </StyledSummaryContainer>
           </>
         )}
       </Stack>
