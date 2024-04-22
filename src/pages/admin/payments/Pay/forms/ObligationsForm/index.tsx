@@ -179,6 +179,39 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     setShowTotalPaymentModal(!showTotalPaymentModal);
   };
 
+  const removePayment = (paymentId: string) => {
+    const updatedPayments = formik.values.payments.map((payment) => {
+      if (payment.id === paymentId) {
+        return {
+          ...payment,
+          valueToPay: 0,
+          options: payment.options.map((option) => ({
+            ...option,
+            selected: false,
+          })),
+        };
+      }
+      return payment;
+    });
+
+    formik.setFieldValue("payments", updatedPayments);
+
+    const totalPayment = updatedPayments.reduce(
+      (acc, payment) => acc + (payment.valueToPay || 0),
+      0,
+    );
+
+    formik.setFieldValue("totalPayment", totalPayment);
+
+    if (totalPayment === 0) {
+      handleToggleTotalModal();
+    }
+  };
+
+  const updateTotalPayment = (newTotal: number) => {
+    formik.setFieldValue("totalPayment", newTotal);
+  };
+
   return (
     <ObligationsFormUI
       formik={formik}
@@ -196,6 +229,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       onToggleHelpModal={handleToggleHelpModal}
       onApplyHelpOption={handleApplyHelpOption}
       onToggleTotalModal={handleToggleTotalModal}
+      onRemovePayment={removePayment}
+      onUpdateTotalPayment={updateTotalPayment}
     />
   );
 });

@@ -78,6 +78,8 @@ interface ObligationsFormUIProps {
   onToggleHelpModal: () => void;
   onApplyHelpOption: (option: IHelpOption) => void;
   onToggleTotalModal: () => void;
+  onRemovePayment: (paymentId: string) => void;
+  onUpdateTotalPayment: (newTotal: number) => void;
 }
 
 function ObligationsFormUI(props: ObligationsFormUIProps) {
@@ -97,13 +99,15 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     onToggleHelpModal,
     onApplyHelpOption,
     onToggleTotalModal,
+    onRemovePayment,
+    onUpdateTotalPayment,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
 
   const selectedPayments = formik.values.payments.filter(
-    (payment) => payment.valueToPay && payment.valueToPay > 0
+    (payment) => payment.valueToPay && payment.valueToPay > 0,
   );
 
   return (
@@ -209,6 +213,8 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
           onCloseModal={onToggleTotalModal}
           totalPayment={formik.values.totalPayment}
           selectedPayments={selectedPayments}
+          onRemovePayment={onRemovePayment}
+          onUpdateTotalPayment={onUpdateTotalPayment}
         />
       )}
     </>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
@@ -16,12 +15,18 @@ interface PaymentTotalModalProps {
   totalPayment: number;
   selectedPayments?: IPayment[];
   onCloseModal: () => void;
+  onRemovePayment: (paymentId: string) => void;
+  onUpdateTotalPayment: (newTotal: number) => void;
 }
 
 function PaymentTotalModal(props: PaymentTotalModalProps) {
-  const { onCloseModal, totalPayment, selectedPayments } = props;
-  const [payments, setPayments] = useState<IPayment[]>(selectedPayments || []);
-  const [totalPaymentValue, setTotalPaymentsValue] = useState(totalPayment);
+  const {
+    totalPayment,
+    selectedPayments = [],
+    onCloseModal,
+    onRemovePayment,
+    onUpdateTotalPayment,
+  } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -33,22 +38,19 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
     );
   }
 
-  const removePaymentCard = (paymentId: string, paymentValue: number) => {
-    const updatedPayments = payments.filter(
-      (payment) => payment.id !== paymentId,
-    );
-    if (updatedPayments.length === 0) {
-      onCloseModal();
+  const getDescription = (payment: IPayment) => {
+    if (payment.options && payment.valueToPay) {
+      const selectedOption = payment.options.find(
+        (option) => option.value === payment.valueToPay,
+      );
+      if (selectedOption) return selectedOption.label;
     }
-    setPayments(updatedPayments);
-    setTotalPaymentsValue((prevTotal) => prevTotal - paymentValue);
+    if (payment.applyPayOption) return payment.applyPayOption.label || "";
+    return "";
   };
 
   return createPortal(
-    <Blanket
-      justifyContent={isMobile ? "center" : "flex-end"}
-      padding={isMobile ? "s0" : "s300"}
-    >
+    <Blanket>
       <StyledModal smallScreen={isMobile} tabletScreen={isTablet}>
         <Stack direction="column" gap="s250">
           <Stack direction="column" width="100%" gap="s100">
@@ -60,9 +62,9 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
                 appearance="dark"
                 icon={<MdOutlineClose />}
                 onClick={onCloseModal}
-                cursorHover={true}
                 size="20px"
                 spacing="none"
+                cursorHover
               />
             </Stack>
             <Text
@@ -75,18 +77,17 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
           </Stack>
           <Divider dashed />
           <StyledCardContainer smallScreen={isMobile} tabletScreen={isTablet}>
-            {payments.map((selectedPayment) => (
+            {selectedPayments.map((selectedPayment) => (
               <PaymentInformationCard
                 key={selectedPayment.id}
                 id={selectedPayment.id}
                 title={selectedPayment.title}
-                description={
-                  selectedPayment.options.filter(
-                    (option) => option.value === selectedPayment.valueToPay,
-                  )[0]?.label
-                }
+                description={getDescription(selectedPayment)}
                 value={selectedPayment.valueToPay || 0}
-                removePaymentCard={removePaymentCard}
+                removePaymentCard={() => {
+                  onRemovePayment(selectedPayment.id);
+                  onUpdateTotalPayment(totalPayment - (selectedPayment.valueToPay || 0));
+                }}
               />
             ))}
           </StyledCardContainer>
@@ -99,7 +100,7 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
               Total a pagar hoy:
             </Text>
             <Text type="body" size="medium">
-              {currencyFormat(totalPaymentValue)}
+              {currencyFormat(totalPayment)}
             </Text>
           </StyledTotalPayment>
         </Stack>

@@ -7,12 +7,14 @@ interface IStyledModal {
 }
 
 const StyledModal = styled.div<IStyledModal>`
+  position: fixed;
+  top: ${inube.spacing.s300};
+  bottom: ${inube.spacing.s300};
+  right: ${({ smallScreen }) => (smallScreen ? "none" : inube.spacing.s300)};
   display: flex;
   box-sizing: border-box;
   justify-content: space-between;
   width: ${({ smallScreen }) => (smallScreen ? "312px" : "400px")};
-  height: ${({ smallScreen, tabletScreen }) =>
-    smallScreen ? "592px" : tabletScreen ? "1085px" : "976px"};
   padding: ${inube.spacing.s300};
   flex-direction: column;
   gap: ${({ smallScreen }) =>
@@ -35,7 +37,6 @@ const StyledCardContainer = styled.div<IStyledCardContainer>`
     smallScreen ? "380px" : tabletScreen ? "865px" : "756px"};
   gap: ${inube.spacing.s150};
   overflow-y: auto;
-
 
   ::-webkit-scrollbar {
     width: 4px;
