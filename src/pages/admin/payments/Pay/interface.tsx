@@ -12,6 +12,7 @@ import { crumbsPay } from "./config/navigation";
 import { ObligationsForm } from "./forms/ObligationsForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { PayVerification } from "./forms/Verification";
+import { StyledButtonsContainer } from "./styles";
 import { IFormsPay, IFormsPayRefs } from "./types";
 
 const renderStepContent = (
@@ -113,7 +114,7 @@ function PayUI(props: PayUIProps) {
           handleStepChange,
         )}
 
-        <Stack gap="s150" justifyContent="flex-end">
+        <StyledButtonsContainer fixed={isMobile && currentStep === 2}>
           <Button
             onClick={handlePreviousStep}
             type="button"
@@ -132,7 +133,7 @@ function PayUI(props: PayUIProps) {
           >
             {currentStep === steps.length ? "Enviar" : "Siguiente"}
           </Button>
-        </Stack>
+        </StyledButtonsContainer>
       </Stack>
     </Stack>
   );
