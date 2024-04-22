@@ -12,7 +12,7 @@ const StyledButtonsContainer = styled.div<IStyledButtonsContainer>`
   background-color: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
   position: ${({ fixed }) => (fixed ? "fixed" : "initial")};
-  bottom: ${({ fixed }) => (fixed ? "0" : "initial")};
+  bottom: ${({ fixed }) => (fixed ? 0 : "initial")};
   left: ${({ fixed }) => (fixed ? 0 : "initial")};
   right: ${({ fixed }) => (fixed ? 0 : "initial")};
   box-sizing: ${({ fixed }) => (fixed ? "border-box" : "initial")};
