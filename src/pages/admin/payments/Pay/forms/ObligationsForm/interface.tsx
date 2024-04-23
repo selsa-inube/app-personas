@@ -9,6 +9,7 @@ import {
   PaymentHelpModal,
 } from "@components/modals/payments/PaymentHelpModal";
 import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
+import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
@@ -18,13 +19,16 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
-import { MdOpenInNew, MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
+import {
+  MdOpenInNew,
+  MdOutlineCheckBox,
+  MdOutlineFilterAlt,
+} from "react-icons/md";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledTotalPayment, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
-import { Icon } from "@design/data/Icon";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -181,13 +185,13 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                     {currencyFormat(formik.values.totalPayment)}
                   </Text>
                   <Icon
-                  icon={<MdOpenInNew />}
-                  appearance="primary"
-                  size="20px"
-                  cursorHover
-                  disabled={(formik.values.totalPayment || 0) === 0}
-                  onClick={onToggleTotalModal}
-                />
+                    icon={<MdOpenInNew />}
+                    appearance="primary"
+                    size="20px"
+                    cursorHover
+                    disabled={(formik.values.totalPayment || 0) === 0}
+                    onClick={onToggleTotalModal}
+                  />
                 </StyledTotalPayment>
               </Stack>
             </StyledTotalPaymentContainer>

@@ -59,6 +59,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
               return {
                 ...payOption,
                 selected: true,
+                value:
+                  option.id === "otherValue" ? option.value : payOption.value,
               };
             }
             return {

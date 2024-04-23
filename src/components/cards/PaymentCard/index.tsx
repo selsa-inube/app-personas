@@ -25,6 +25,8 @@ const renderOptions = (
   selectedOption?: IPaymentOption,
 ) => {
   return options.map((option, index) => {
+    if (option.hidden) return null;
+
     const valueIsZero = option.value === 0;
 
     return (
@@ -141,8 +143,8 @@ function PaymentCard(props: PaymentCardProps) {
     value: number,
   ) => {
     const customOption = {
-      id: "customValue",
-      label: "Valor personalizado",
+      id: "otherValue",
+      label: "Próximo vencimiento",
       value,
     };
 
