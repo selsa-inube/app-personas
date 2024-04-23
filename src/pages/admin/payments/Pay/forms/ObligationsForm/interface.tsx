@@ -8,6 +8,8 @@ import {
   IHelpOption,
   PaymentHelpModal,
 } from "@components/modals/payments/PaymentHelpModal";
+import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
+import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
@@ -17,8 +19,12 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
-import { MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
-import { IPayment } from "src/model/entity/payment";
+import {
+  MdOpenInNew,
+  MdOutlineCheckBox,
+  MdOutlineFilterAlt,
+} from "react-icons/md";
+import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledTotalPayment, StyledTotalPaymentContainer } from "./styles";
@@ -58,18 +64,22 @@ interface ObligationsFormUIProps {
   showFiltersModal: boolean;
   filters: IPaymentFilters;
   showHelpModal: boolean;
+  showTotalPaymentModal: boolean;
   selectedHelpOption?: IHelpOption;
   onApplyPayOption: (
     payId: string,
-    valueToPay: number,
-    option?: IApplyPayOption,
+    option: IPaymentOption,
+    applyPayOption?: IApplyPayOption,
   ) => void;
-  onChangePaymentValue: (payId: string, valueToPay: number) => void;
+  onChangePaymentValue: (payId: string, option: IPaymentOption) => void;
   onToggleFiltersModal: () => void;
   onApplyFilters: (filters: IPaymentFilters) => void;
   onRemoveFilter: (filterName: string) => void;
   onToggleHelpModal: () => void;
   onApplyHelpOption: (option: IHelpOption) => void;
+  onToggleTotalModal: () => void;
+  onRemovePayment: (paymentId: string) => void;
+  onUpdateTotalPayment: (newTotal: number) => void;
 }
 
 function ObligationsFormUI(props: ObligationsFormUIProps) {
@@ -79,6 +89,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     showFiltersModal,
     filters,
     showHelpModal,
+    showTotalPaymentModal,
     selectedHelpOption,
     onApplyPayOption,
     onChangePaymentValue,
@@ -87,10 +98,17 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     onRemoveFilter,
     onToggleHelpModal,
     onApplyHelpOption,
+    onToggleTotalModal,
+    onRemovePayment,
+    onUpdateTotalPayment,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
+
+  const selectedPayments = formik.values.payments.filter(
+    (payment) => payment.valueToPay && payment.valueToPay > 0,
+  );
 
   return (
     <>
@@ -147,8 +165,10 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   defaultSelectedOption={payment.options.find(
                     (option) => option.selected,
                   )}
+                  valueToPay={payment.valueToPay}
                   onApplyPayOption={onApplyPayOption}
                   onChangePaymentValue={onChangePaymentValue}
+                  onRemovePayment={onRemovePayment}
                 />
               ))}
             </Grid>
@@ -164,6 +184,14 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   <Text type="body" size="medium">
                     {currencyFormat(formik.values.totalPayment)}
                   </Text>
+                  <Icon
+                    icon={<MdOpenInNew />}
+                    appearance="primary"
+                    size="20px"
+                    cursorHover
+                    disabled={(formik.values.totalPayment || 0) === 0}
+                    onClick={onToggleTotalModal}
+                  />
                 </StyledTotalPayment>
               </Stack>
             </StyledTotalPaymentContainer>
@@ -185,6 +213,16 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
           allowedFilters={paymentFilters}
           onCloseModal={onToggleFiltersModal}
           onApplyFilters={onApplyFilters}
+        />
+      )}
+
+      {showTotalPaymentModal && (
+        <PaymentTotalModal
+          onCloseModal={onToggleTotalModal}
+          totalPayment={formik.values.totalPayment}
+          selectedPayments={selectedPayments}
+          onRemovePayment={onRemovePayment}
+          onUpdateTotalPayment={onUpdateTotalPayment}
         />
       )}
     </>

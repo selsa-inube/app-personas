@@ -25,6 +25,8 @@ const renderOptions = (
   selectedOption?: IPaymentOption,
 ) => {
   return options.map((option, index) => {
+    if (option.hidden) return null;
+
     const valueIsZero = option.value === 0;
 
     return (
@@ -78,12 +80,14 @@ interface PaymentCardProps {
   tags: TagProps[];
   allowCustomValue?: boolean;
   defaultSelectedOption?: IPaymentOption;
-  onChangePaymentValue: (payId: string, valueToPay: number) => void;
+  valueToPay?: number;
   onApplyPayOption: (
     payId: string,
-    valueToPay: number,
-    option?: IApplyPayOption,
+    option: IPaymentOption,
+    applyPayOption?: IApplyPayOption,
   ) => void;
+  onChangePaymentValue: (payId: string, option: IPaymentOption) => void;
+  onRemovePayment: (paymentId: string) => void;
 }
 
 function PaymentCard(props: PaymentCardProps) {
@@ -94,8 +98,10 @@ function PaymentCard(props: PaymentCardProps) {
     tags,
     allowCustomValue,
     defaultSelectedOption,
+    valueToPay,
     onChangePaymentValue,
     onApplyPayOption,
+    onRemovePayment,
   } = props;
   const [selectedOption, setSelectedOption] = useState<
     IPaymentOption | undefined
@@ -106,10 +112,10 @@ function PaymentCard(props: PaymentCardProps) {
 
   useEffect(() => {
     setSelectedOption(defaultSelectedOption);
-  }, [defaultSelectedOption]);
+  }, [defaultSelectedOption, valueToPay]);
 
   const handleChangeOption = (option: IPaymentOption) => {
-    onChangePaymentValue(id, option.value);
+    onChangePaymentValue(id, option);
     setSelectedOption(option);
 
     if (tags.find((tag) => tag.id === "payOption")) {
@@ -124,7 +130,7 @@ function PaymentCard(props: PaymentCardProps) {
 
   const resetValues = () => {
     setSelectedOption(undefined);
-    onApplyPayOption(id, 0);
+    onRemovePayment(id);
 
     if (tags.find((tag) => tag.id === "payOption")) {
       const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
@@ -132,8 +138,17 @@ function PaymentCard(props: PaymentCardProps) {
     }
   };
 
-  const handleApplyPayOption = (option: IApplyPayOption, value: number) => {
-    onApplyPayOption(id, value, option);
+  const handleApplyPayOption = (
+    applyPayOption: IApplyPayOption,
+    value: number,
+  ) => {
+    const customOption = {
+      id: "otherValue",
+      label: "Próximo vencimiento",
+      value,
+    };
+
+    onApplyPayOption(id, customOption, applyPayOption);
 
     if (tags.find((tag) => tag.id === "payOption")) {
       const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
@@ -142,17 +157,13 @@ function PaymentCard(props: PaymentCardProps) {
 
     tags.push({
       id: "payOption",
-      label: option.label,
+      label: applyPayOption.label,
       appearance: "dark",
       modifier: "clear",
       textAppearance: "dark",
     });
 
-    setSelectedOption({
-      id: "otherValue",
-      label: "Próximo vencimiento",
-      value,
-    });
+    setSelectedOption(customOption);
   };
 
   const balanceValue = options.find(
