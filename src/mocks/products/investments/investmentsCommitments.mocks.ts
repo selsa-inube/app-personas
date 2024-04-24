@@ -1,5 +1,4 @@
-import { ICommitment } from "src/model/entity/product";
-import { ECommitmentType } from "src/model/entity/product";
+import { ECommitmentType, ICommitment } from "src/model/entity/product";
 
 const investmentsCommitmentsMock: ICommitment[] = [
   {
@@ -9,12 +8,12 @@ const investmentsCommitmentsMock: ICommitment[] = [
     type: ECommitmentType.SAVINGSPROGRAMMED,
     attributes: [
       {
-        id: "next_pay_date",
+        id: "next_payment_date",
         label: "Fecha de pago",
         value: "23/Sep/2023",
       },
       {
-        id: "value_to_pay",
+        id: "next_payment_value",
         label: "Valor próximo pago",
         value: 150000,
       },
@@ -24,7 +23,7 @@ const investmentsCommitmentsMock: ICommitment[] = [
         value: "23/Oct/2023",
       },
       {
-        id: "pay_method",
+        id: "payment_method",
         label: "Medio de pago",
         value: "Grúas de occidente",
       },

@@ -1,16 +1,17 @@
 import { ISelectOption } from "@design/input/Select/types";
+import { EPaymentMethodType } from "../../../types";
 
 const paymentMethods: ISelectOption[] = [
   {
-    id: "pse",
+    id: EPaymentMethodType.PSE,
     value: "Pagar con PSE",
   },
   {
-    id: "debit",
+    id: EPaymentMethodType.DEBIT,
     value: "Pagar con débito a una cuenta de ahorros",
   },
   {
-    id: "multiple",
+    id: EPaymentMethodType.MULTIPLE,
     value: "Pagar con múltiples fuentes de dinero",
   },
 ];

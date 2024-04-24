@@ -13,6 +13,7 @@ const StyledCardContainer = styled.div`
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
+  height: fit-content;
 `;
 
 const StyledInputContainer = styled.div`

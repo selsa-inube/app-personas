@@ -27,6 +27,7 @@ import {
   investmentIcons,
   savingsAccountIcons,
 } from "../SavingsAccount/config/saving";
+import { extractSavingsCommitmentsAttributes } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
 import {
   savingAccountPaymentsNormalizeEntries,
@@ -36,7 +37,6 @@ import {
 } from "./config/table";
 import { StyledPaymentsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
-import { extractSavingsCommitmentsAttributes } from "./config/commitments";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
@@ -143,7 +143,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
                   {extractSavingsCommitmentsAttributes(
                     selectedCommitment.commitment,
                   )
-                    .filter((attr) => attr.id !== "value_to_pay")
+                    .filter((attr) => attr.id !== "next_payment_value")
                     .map((attr) => (
                       <BoxAttribute
                         key={attr.id}

@@ -57,8 +57,8 @@ const mapCreditApiToEntity = (
   const roundInteresRate =
     interesRate == 0 ? interesRate : interesRate.toFixed(2);
 
-  const expiredValue =
-    (Object(credit.valueExpired)?.totalPending || 0);
+  // TEMP
+  /*  const expiredValue = Object(credit.valueExpired)?.totalPending || 0; */
 
   const attributes: IAttribute[] = [
     {
@@ -97,7 +97,7 @@ const mapCreditApiToEntity = (
       value: peridiocityValuesMock[String(credit.periodicityOfQuota)],
     },
     {
-      id: "payment_means",
+      id: "payment_method",
       label: "Medio de pago",
       value: normalizedPaymentMethodName,
     },
@@ -126,14 +126,19 @@ const mapCreditApiToEntity = (
       label: "Tasa de interés",
       value: `${roundInteresRate} % NAMV`,
     },
-    {
+    /* { // TEMP
       id: "expired_value",
       label: "Valor vencido",
       value: `${expiredValue}`,
+    }, */
+    {
+      id: "in_arrears",
+      label: "En mora",
+      value: String(inArrears),
     },
   ];
 
-  if (differenceDays) {
+  if (differenceDays > 0) {
     attributes.push({
       id: "days_past_due",
       label: "Días de mora",

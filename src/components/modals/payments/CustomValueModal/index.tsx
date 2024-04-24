@@ -7,6 +7,7 @@ import { Blanket } from "@design/layout/Blanket";
 import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import {
@@ -93,7 +94,7 @@ function CustomValueModal(props: CustomValueModalProps) {
       setShowResponse(true);
     } else {
       onChangeOtherValue({
-        id: "otherValue",
+        id: EPaymentOptionType.OTHERVALUE,
         label: "Próximo vencimiento",
         value: customValue,
       });
