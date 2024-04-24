@@ -90,7 +90,6 @@ function Pay() {
       isCurrentFormValid,
     );
 
-    console.log(newPay.obligations.values.payments[0]);
     setPay(newPay);
 
     const changeStepKey = Object.entries(paySteps).find(

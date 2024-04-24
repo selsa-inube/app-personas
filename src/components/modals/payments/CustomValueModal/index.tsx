@@ -92,7 +92,6 @@ function CustomValueModal(props: CustomValueModalProps) {
 
     if (customValue > nextPaymentValue) {
       setShowResponse(true);
-      console.log("aca");
     } else {
       onChangeOtherValue({
         id: EPaymentOptionType.OTHERVALUE,

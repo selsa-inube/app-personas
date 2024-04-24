@@ -29,8 +29,6 @@ const renderObligationsVerification = (
             (option) => option.selected,
           );
 
-          console.log(selectedPayment);
-
           const applyPay =
             payment.applyPayOption && payment.applyPayOption.label;
 

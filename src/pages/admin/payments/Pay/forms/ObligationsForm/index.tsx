@@ -102,7 +102,6 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   };
 
   const handleChangePaymentValue = (payId: string, option: IPaymentOption) => {
-    console.log(option);
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === payId) {
         return {
