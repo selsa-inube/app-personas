@@ -1,3 +1,4 @@
+import React from "react"
 import { createPortal } from "react-dom";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@design/layout/Blanket";
@@ -136,7 +137,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
           <StyledContainerItems>
             {paymentHistoryData.products &&
               paymentHistoryData.products.map((product, index) => (
-                <>
+                <React.Fragment key={index}>
                   <Stack key={index} direction="column" gap="s100">
                     {Object.values(product).map((item, itemIndex) => (
                       <StyledItem key={itemIndex} smallScreen={isMobile}>
@@ -158,7 +159,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
                   {index !== (paymentHistoryData.products?.length ?? 0) - 1 && (
                     <Divider dashed />
                   )}
-                </>
+                </React.Fragment>
               ))}
           </StyledContainerItems>
         </StyledContainer>
