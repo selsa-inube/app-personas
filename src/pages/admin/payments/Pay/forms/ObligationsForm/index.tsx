@@ -59,6 +59,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
               return {
                 ...payOption,
                 selected: true,
+                label:
+                  option.id === "otherValue" ? option.label : payOption.label,
                 value:
                   option.id === "otherValue" ? option.value : payOption.value,
               };
@@ -87,6 +89,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   };
 
   const handleChangePaymentValue = (payId: string, option: IPaymentOption) => {
+    console.log(option);
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === payId) {
         return {
@@ -95,6 +98,10 @@ const ObligationsForm = forwardRef(function ObligationsForm(
             if (payOption.id === option.id) {
               return {
                 ...payOption,
+                label:
+                  option.id === "otherValue" ? option.label : payOption.label,
+                value:
+                  option.id === "otherValue" ? option.value : payOption.value,
                 selected: true,
               };
             }

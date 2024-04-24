@@ -91,10 +91,11 @@ function CustomValueModal(props: CustomValueModalProps) {
 
     if (customValue > nextPaymentValue) {
       setShowResponse(true);
+      console.log("aca");
     } else {
       onChangeOtherValue({
         id: "otherValue",
-        label: "Próximo vencimiento",
+        label: `Otro valor / Reducir cuota`,
         value: customValue,
       });
 

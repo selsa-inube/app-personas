@@ -144,7 +144,7 @@ function PaymentCard(props: PaymentCardProps) {
   ) => {
     const customOption = {
       id: "otherValue",
-      label: "Próximo vencimiento",
+      label: `Otro valor / ${applyPayOption.label}`,
       value,
     };
 

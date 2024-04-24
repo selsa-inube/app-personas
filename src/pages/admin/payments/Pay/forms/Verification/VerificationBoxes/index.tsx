@@ -29,6 +29,8 @@ const renderObligationsVerification = (
             (option) => option.selected,
           );
 
+          console.log(selectedPayment);
+
           const applyPay =
             payment.applyPayOption && payment.applyPayOption.label;
 
@@ -45,7 +47,7 @@ const renderObligationsVerification = (
                 />
                 <BoxAttribute
                   label="Tipo de pago:"
-                  value={selectedPayment?.label || "Próximo vencimiento"}
+                  value={selectedPayment?.label}
                 />
                 <BoxAttribute
                   label="Valor del pago:"
