@@ -24,6 +24,12 @@ const paymentsMock: IPayment[] = [
         label: "Pago total",
         value: 828022,
       },
+      {
+        id: "otherValue",
+        label: "Próximo vencimiento",
+        value: 0,
+        hidden: true,
+      },
     ],
     tags: [
       {
@@ -56,6 +62,12 @@ const paymentsMock: IPayment[] = [
         id: "totalValue",
         label: "Pago total",
         value: 4500000,
+      },
+      {
+        id: "otherValue",
+        label: "Próximo vencimiento",
+        value: 0,
+        hidden: true,
       },
     ],
     tags: [
@@ -90,6 +102,12 @@ const paymentsMock: IPayment[] = [
         label: "Pago total",
         value: 1500000,
       },
+      {
+        id: "otherValue",
+        label: "Próximo vencimiento",
+        value: 0,
+        hidden: true,
+      },
     ],
     tags: [
       {
@@ -122,6 +140,12 @@ const paymentsMock: IPayment[] = [
         id: "totalValue",
         label: "Pago total",
         value: 550000,
+      },
+      {
+        id: "otherValue",
+        label: "Próximo vencimiento",
+        value: 0,
+        hidden: true,
       },
     ],
     tags: [

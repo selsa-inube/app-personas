@@ -7,6 +7,7 @@ interface IPaymentOption {
   description?: string;
   value: number;
   selected?: boolean;
+  hidden?: boolean;
 }
 
 interface IPayment {

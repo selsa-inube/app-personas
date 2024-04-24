@@ -50,7 +50,7 @@ interface CustomValueModalProps {
   totalPaymentValue: number;
   onCloseModal: () => void;
   onChangeOtherValue: (option: IPaymentOption) => void;
-  onApplyPayOption?: (option: IApplyPayOption, value: number) => void;
+  onApplyPayOption?: (applyPayOption: IApplyPayOption, value: number) => void;
 }
 
 function CustomValueModal(props: CustomValueModalProps) {

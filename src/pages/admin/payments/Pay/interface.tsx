@@ -114,7 +114,14 @@ function PayUI(props: PayUIProps) {
           handleStepChange,
         )}
 
-        <StyledButtonsContainer fixed={isMobile && currentStep === 2}>
+        <StyledButtonsContainer
+          fixed={
+            isMobile &&
+            [paySteps.obligations.id, paySteps.paymentMethod.id].includes(
+              currentStep,
+            )
+          }
+        >
           <Button
             onClick={handlePreviousStep}
             type="button"
