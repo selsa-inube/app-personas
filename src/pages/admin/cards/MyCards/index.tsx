@@ -25,7 +25,7 @@ function MyCards() {
           setLoading(false);
         });
     }
-  }, [user, accessToken, cards]);
+  }, [user, accessToken]);
 
   return <MyCardsUI cards={cards} loading={loading} />;
 }

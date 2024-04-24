@@ -23,19 +23,6 @@ function Home() {
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
-  const validateCommitments = () => {
-    if (!user || !accessToken) return;
-    if (commitments.length === 0) {
-      getSavingsCommitmentsForUser(user.identification, accessToken)
-        .then((commitments) => {
-          setCommitments(commitments);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        });
-    }
-  };
-
   const validateProducts = async () => {
     if (!user || !accessToken) return;
 
@@ -69,6 +56,16 @@ function Home() {
         attributes: savingAccount.attributes,
       }),
     );
+
+    if (commitments.length === 0) {
+      getSavingsCommitmentsForUser(user.identification, accessToken)
+        .then((commitments) => {
+          setCommitments(commitments);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        });
+    }
 
     if (combinedSavings.length === 0) {
       setLoadingSavings(true);
@@ -111,10 +108,6 @@ function Home() {
       setLoadingCards(false);
     }
   };
-
-  useEffect(() => {
-    validateCommitments();
-  }, [savings]);
 
   useEffect(() => {
     validateProducts();
