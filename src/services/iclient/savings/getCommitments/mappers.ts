@@ -69,9 +69,19 @@ const mapSavingsCommitmentsApiToEntity = (
 
   const attributes: IAttribute[] = [
     {
-      id: "pay_method",
+      id: "payment_method",
       label: "Medio de pago",
       value: capitalizeFirstLetters(String(commitment.paymentMediumName)),
+    },
+    {
+      id: "expired_value",
+      label: "Valor vencido",
+      value: Number(commitment.expiredValue),
+    },
+    {
+      id: "in_arrears",
+      label: "En mora",
+      value: String(inArrears),
     },
   ];
 
@@ -85,7 +95,7 @@ const mapSavingsCommitmentsApiToEntity = (
 
   if (nextPaymentValue) {
     attributes.push({
-      id: "value_to_pay",
+      id: "next_payment_value",
       label: "Valor próximo pago",
       value: Number(nextPaymentValue),
     });
@@ -93,7 +103,7 @@ const mapSavingsCommitmentsApiToEntity = (
 
   if (commitment.closePaymentDate) {
     attributes.push({
-      id: "next_pay_date",
+      id: "next_payment_date",
       label: "Fecha próximo pago",
       value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
     });

@@ -28,7 +28,7 @@ const validateCommitment = async (
 
 const getNextPaymentData = (selectedProduct: ICommitment) => {
   const nextPaymentValue = selectedProduct.attributes.find(
-    (attr) => attr.id === "value_to_pay",
+    (attr) => attr.id === "next_payment_value",
   );
 
   return {

@@ -1,5 +1,4 @@
-import { ICommitment } from "src/model/entity/product";
-import { ECommitmentType } from "src/model/entity/product";
+import { ECommitmentType, ICommitment } from "src/model/entity/product";
 
 const savingsCommitmentsMock: ICommitment[] = [
   {
@@ -9,12 +8,12 @@ const savingsCommitmentsMock: ICommitment[] = [
     type: ECommitmentType.SAVINGSPROGRAMMED,
     attributes: [
       {
-        id: "next_pay_date",
+        id: "next_payment_date",
         label: "Fecha de pago",
         value: "inmediato",
       },
       {
-        id: "value_to_pay",
+        id: "next_payment_value",
         label: "Valor próximo pago",
         value: 160000,
       },
@@ -24,7 +23,7 @@ const savingsCommitmentsMock: ICommitment[] = [
         value: "30/Ene/2023",
       },
       {
-        id: "pay_method",
+        id: "payment_method",
         label: "Medio de pago",
         value: "Grúas de occidente",
       },
@@ -47,12 +46,12 @@ const savingsCommitmentsMock: ICommitment[] = [
     type: ECommitmentType.QUOTAESTATUTORY,
     attributes: [
       {
-        id: "next_pay_date",
+        id: "next_payment_date",
         label: "Fecha de pago",
         value: "30/Sep/2023",
       },
       {
-        id: "value_to_pay",
+        id: "next_payment_value",
         label: "Valor próximo pago",
         value: 65000,
       },
@@ -62,7 +61,7 @@ const savingsCommitmentsMock: ICommitment[] = [
         value: "30/Sep/2023",
       },
       {
-        id: "pay_method",
+        id: "payment_method",
         label: "Medio de pago",
         value: "Grúas de occidente",
       },

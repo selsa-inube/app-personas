@@ -9,6 +9,7 @@ import {
 import { SavingsContext } from "src/context/savings";
 import { parseCurrencyString } from "src/utils/currency";
 import * as Yup from "yup";
+import { EPaymentMethodType } from "../../types";
 import { PaymentMethodFormUI } from "./interface";
 import { IMoneySource, IPaymentMethodEntry } from "./types";
 import { mapMoneySources } from "./utils";
@@ -71,7 +72,10 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
     const paymentMethod = event.target.value;
 
-    if (paymentMethod === "debit" || paymentMethod === "multiple") {
+    if (
+      paymentMethod === EPaymentMethodType.DEBIT ||
+      paymentMethod === EPaymentMethodType.MULTIPLE
+    ) {
       Object.values(mapMoneySources(savings.savingsAccounts)).forEach(
         (source) => {
           moneySources[source.id] = { ...source };
@@ -80,7 +84,10 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
       const moneySourcesList = Object.keys(moneySources);
 
-      if (paymentMethod === "debit" && moneySourcesList.length === 1) {
+      if (
+        paymentMethod === EPaymentMethodType.DEBIT &&
+        moneySourcesList.length === 1
+      ) {
         moneySources[moneySourcesList[0]].value = formik.values.valueToPay;
 
         const notFunds = Object.values(moneySources).some(
@@ -95,16 +102,22 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       }
     }
 
-    if (paymentMethod === "pse" || paymentMethod === "multiple") {
+    if (
+      paymentMethod === EPaymentMethodType.PSE ||
+      EPaymentMethodType.MULTIPLE
+    ) {
       moneySources.pse = {
-        id: "pse",
+        id: EPaymentMethodType.PSE,
         label: "Pago PSE",
-        value: paymentMethod === "pse" ? formik.values.valueToPay : 0,
+        value:
+          paymentMethod === EPaymentMethodType.PSE
+            ? formik.values.valueToPay
+            : 0,
         balance: Infinity,
         type: "pse",
       };
 
-      if (paymentMethod === "pse") {
+      if (paymentMethod === EPaymentMethodType.PSE) {
         formik.setFieldValue("paidValue", formik.values.valueToPay);
         formik.setFieldValue("pendingValue", 0);
       }

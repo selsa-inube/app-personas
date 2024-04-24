@@ -2,6 +2,7 @@ import { Product } from "@components/cards/Product";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
+import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
@@ -9,7 +10,6 @@ import { MdOutlineClose } from "react-icons/md";
 import { IAttribute, ICommitment } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { StyledModal } from "./styles";
-import { Divider } from "@design/layout/Divider";
 
 interface SavingCommitmentsModalProps {
   portalId: string;
@@ -20,7 +20,7 @@ interface SavingCommitmentsModalProps {
 
 function formatValueToPayAttribute(attributes: IAttribute[]) {
   const valueToPayAttribute = attributes.find(
-    (attribute) => attribute.id === "value_to_pay",
+    (attribute) => attribute.id === "next_payment_value",
   );
 
   if (valueToPayAttribute) {

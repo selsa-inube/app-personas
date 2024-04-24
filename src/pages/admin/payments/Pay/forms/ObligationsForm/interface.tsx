@@ -14,6 +14,7 @@ import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
+import { ISelectOption } from "@design/input/Select/types";
 import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -32,13 +33,18 @@ import { IObligationsEntry } from "./types";
 
 const renderFilters = (
   filters: IPaymentFilters,
+  allowedFilters: {
+    group: ISelectOption[];
+    paymentMethod: ISelectOption[];
+    status: ISelectOption[];
+  },
   onRemove: (filterName: string) => void,
 ) => {
   return Object.entries(filters).map(([key, id]) => {
     const filterInitialId =
       paymentInitialFilters[key as keyof typeof paymentInitialFilters];
 
-    const filterLabel = paymentFilters[key as keyof typeof paymentFilters].find(
+    const filterLabel = allowedFilters[key as keyof typeof allowedFilters].find(
       (option) => option.id === id,
     )?.value;
 
@@ -140,7 +146,11 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
 
             <Fieldset title="Filtros aplicados">
               <Stack direction="row" gap="s150">
-                {renderFilters(filters, onRemoveFilter)}
+                {renderFilters(
+                  filters,
+                  paymentFilters(formik.values.paymentMethodFilters),
+                  onRemoveFilter,
+                )}
               </Stack>
             </Fieldset>
           </Stack>
@@ -162,10 +172,9 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   options={payment.options}
                   tags={payment.tags}
                   allowCustomValue={formik.values.allowCustomValue}
-                  defaultSelectedOption={payment.options.find(
+                  selectedOption={payment.options.find(
                     (option) => option.selected,
                   )}
-                  valueToPay={payment.valueToPay}
                   onApplyPayOption={onApplyPayOption}
                   onChangePaymentValue={onChangePaymentValue}
                   onRemovePayment={onRemovePayment}
@@ -210,7 +219,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
       {showFiltersModal && (
         <PaymentFilterModal
           initialFilters={paymentInitialFilters}
-          allowedFilters={paymentFilters}
+          allowedFilters={paymentFilters(formik.values.paymentMethodFilters)}
           onCloseModal={onToggleFiltersModal}
           onApplyFilters={onApplyFilters}
         />

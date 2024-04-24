@@ -6,7 +6,7 @@ import { Stack } from "@design/layout/Stack";
 import { Fragment } from "react";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
-import { IFormsPay } from "../../../types";
+import { EPaymentMethodType, IFormsPay } from "../../../types";
 import { StyledTotalPayment } from "../../ObligationsForm/styles";
 import { IObligationsEntry } from "../../ObligationsForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
@@ -79,7 +79,7 @@ const renderPaymentMethodVerification = (
   isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
-    {values.paymentMethod === "pse" ? (
+    {values.paymentMethod === EPaymentMethodType.PSE ? (
       <BoxAttribute
         label="Forma de recaudo:"
         value={
