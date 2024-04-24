@@ -11,46 +11,42 @@ const getFeaturedFlagsByModule = async (
   const TEMP_CLIENT = "fondecom";
 
   try {
-    const { data: appData } = await supabasedb
-      .from("app")
-      .select("app_id")
-      .eq("public_code", enviroment.APP_CODE)
+    const { data: instanceData } = await supabasedb
+      .from("instances")
+      .select(
+        `instance_id,
+        app!inner(app_id),
+        business_unit!inner(bunit_id)
+        `,
+      )
+      .eq("is_production", enviroment.IS_PRODUCTION)
+      .eq("app.public_code", enviroment.APP_CODE)
+      .eq("business_unit.public_code", TEMP_CLIENT)
       .single();
 
-    const { data: bunitData } = await supabasedb
-      .from("business_unit")
-      .select("bunit_id")
-      .eq("public_code", TEMP_CLIENT)
-      .single();
-
-    if (!appData || !bunitData) {
-      throw new Error("No se encontró la aplicación o la unidad de negocio.");
-    }
-
-    const { data: flagInstanceData } = await supabasedb
-      .from("flag_instance")
-      .select("instance_id")
-      .eq("app_id", appData.app_id)
-      .eq("bunit_id", bunitData.bunit_id)
-      .single();
-
-    if (!flagInstanceData) {
+    if (!instanceData) {
       throw new Error("No se encontró la instancia de la featured flag.");
     }
 
-    const { data: featuredFlagsData } = await supabasedb
-      .from("featured_flag_personas")
+    const { data: flagsData } = await supabasedb
+      .from("feature_flags_personas")
       .select(
-        "scope, category, product, public_code, abbreviated_name, description_use, value",
+        `structure_id, scope, category, product, public_code, abbreviated_name, description_use,
+        flags!inner(value)
+        `,
       )
-      .eq("instance_id", flagInstanceData.instance_id)
+      .eq("app_id", "app_id" in instanceData.app && instanceData.app.app_id)
+      .eq("flags.instance_id", instanceData.instance_id)
       .eq("scope", scope)
       .eq("category", category)
-      .eq("product", product)
-      .eq("is_production", enviroment.IS_PRODUCTION);
+      .eq("product", product);
 
-    return Array.isArray(featuredFlagsData)
-      ? mapFeaturedFlagsApiToEntities(featuredFlagsData)
+    if (!flagsData) {
+      throw new Error("No se encontraron las featured flags.");
+    }
+
+    return Array.isArray(flagsData)
+      ? mapFeaturedFlagsApiToEntities(flagsData)
       : [];
   } catch (error) {
     console.error(error);
@@ -64,44 +60,40 @@ const getFeaturedFlagsByCodes = async (
   const TEMP_CLIENT = "fondecom";
 
   try {
-    const { data: appData } = await supabasedb
-      .from("app")
-      .select("app_id")
-      .eq("public_code", enviroment.APP_CODE)
+    const { data: instanceData } = await supabasedb
+      .from("instances")
+      .select(
+        `instance_id,
+        app!inner(app_id),
+        business_unit!inner(bunit_id)
+        `,
+      )
+      .eq("is_production", enviroment.IS_PRODUCTION)
+      .eq("app.public_code", enviroment.APP_CODE)
+      .eq("business_unit.public_code", TEMP_CLIENT)
       .single();
 
-    const { data: bunitData } = await supabasedb
-      .from("business_unit")
-      .select("bunit_id")
-      .eq("public_code", TEMP_CLIENT)
-      .single();
-
-    if (!appData || !bunitData) {
-      throw new Error("No se encontró la aplicación o la unidad de negocio.");
-    }
-
-    const { data: flagInstanceData } = await supabasedb
-      .from("flag_instance")
-      .select("instance_id")
-      .eq("app_id", appData.app_id)
-      .eq("bunit_id", bunitData.bunit_id)
-      .single();
-
-    if (!flagInstanceData) {
+    if (!instanceData) {
       throw new Error("No se encontró la instancia de la featured flag.");
     }
 
-    const { data: featuredFlagsData } = await supabasedb
-      .from("featured_flag_personas")
+    const { data: flagsData } = await supabasedb
+      .from("feature_flags_personas")
       .select(
-        "scope, category, product, public_code, abbreviated_name, description_use, value",
+        `structure_id, scope, category, product, public_code, abbreviated_name, description_use,
+        flags!inner(value)
+        `,
       )
-      .eq("instance_id", flagInstanceData.instance_id)
-      .eq("is_production", enviroment.IS_PRODUCTION)
+      .eq("app_id", "app_id" in instanceData.app && instanceData.app.app_id)
+      .eq("flags.instance_id", instanceData.instance_id)
       .in("public_code", flagCodes);
 
-    return Array.isArray(featuredFlagsData)
-      ? mapFeaturedFlagsApiToEntities(featuredFlagsData)
+    if (!flagsData) {
+      throw new Error("No se encontraron las featured flags.");
+    }
+
+    return Array.isArray(flagsData)
+      ? mapFeaturedFlagsApiToEntities(flagsData)
       : [];
   } catch (error) {
     console.error(error);
