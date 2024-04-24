@@ -24,7 +24,7 @@ function MyCredits() {
           setLoading(false);
         });
     }
-  }, [user, accessToken, credits]);
+  }, [user, accessToken]);
 
   return <MyCreditsUI loading={loading} credits={credits} />;
 }

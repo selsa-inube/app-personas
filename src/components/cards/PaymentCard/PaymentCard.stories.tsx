@@ -3,6 +3,7 @@ import { PaymentCard, PaymentCardProps } from ".";
 import { props } from "./props";
 
 import { fondecom } from "@mocks/design/themes/fondecom";
+import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { ThemeProvider } from "styled-components";
 
 const story = {
@@ -22,18 +23,18 @@ Default.args = {
   title: "CREDI-APORTES GASTOS PERSONALES",
   options: [
     {
-      id: "expiredValue",
+      id: EPaymentOptionType.EXPIREDVALUE,
       label: "Valor vencido",
       value: 0,
     },
     {
-      id: "nextValue",
+      id: EPaymentOptionType.NEXTVALUE,
       label: "Próximo vencimiento",
       description: "15/Abr/2024",
       value: 150000,
     },
     {
-      id: "totalValue",
+      id: EPaymentOptionType.TOTALVALUE,
       label: "Pago total",
       value: 828022,
     },

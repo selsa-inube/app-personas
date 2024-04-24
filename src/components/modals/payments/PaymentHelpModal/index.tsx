@@ -6,6 +6,7 @@ import { Blanket } from "@design/layout/Blanket";
 import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -22,19 +23,19 @@ interface IHelpOption {
 
 const helpOptions: IHelpOption[] = [
   {
-    id: "expiredValue",
+    id: EPaymentOptionType.EXPIREDVALUE,
     label: "Seleccionar valores vencidos",
   },
   {
-    id: "nextValue",
+    id: EPaymentOptionType.NEXTVALUE,
     label: "Seleccionar próximos vencimientos",
   },
   {
-    id: "totalValue",
+    id: EPaymentOptionType.TOTALVALUE,
     label: "Seleccionar pagos totales",
   },
   {
-    id: "unselectAll",
+    id: EPaymentOptionType.UNSELECTALL,
     label: "Deseleccionar todo",
   },
 ];

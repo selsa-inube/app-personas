@@ -2,11 +2,11 @@ import { ECommitmentType, ICommitment } from "src/model/entity/product";
 
 const savingsCommitmentsAttributes: Record<string, string[]> = {
   [ECommitmentType.QUOTAESTATUTORY]: [
-    "next_pay_date",
+    "next_payment_date",
     "commitment_value",
-    "pay_method",
+    "payment_method",
   ],
-  [ECommitmentType.SAVINGSPROGRAMMED]: ["next_pay_date", "pay_method"],
+  [ECommitmentType.SAVINGSPROGRAMMED]: ["next_payment_date", "payment_method"],
 };
 
 function extractSavingsCommitmentsAttributes(commitment: ICommitment) {
@@ -24,4 +24,3 @@ function extractSavingsCommitmentsAttributes(commitment: ICommitment) {
 }
 
 export { extractSavingsCommitmentsAttributes };
-

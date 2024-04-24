@@ -8,7 +8,8 @@ import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useEffect, useState } from "react";
+import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
+import { useState } from "react";
 import { MdEdit, MdOutlineDelete } from "react-icons/md";
 import { IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
@@ -79,8 +80,7 @@ interface PaymentCardProps {
   options: IPaymentOption[];
   tags: TagProps[];
   allowCustomValue?: boolean;
-  defaultSelectedOption?: IPaymentOption;
-  valueToPay?: number;
+  selectedOption?: IPaymentOption;
   onApplyPayOption: (
     payId: string,
     option: IPaymentOption,
@@ -97,26 +97,17 @@ function PaymentCard(props: PaymentCardProps) {
     options,
     tags,
     allowCustomValue,
-    defaultSelectedOption,
-    valueToPay,
+    selectedOption,
     onChangePaymentValue,
     onApplyPayOption,
     onRemovePayment,
   } = props;
-  const [selectedOption, setSelectedOption] = useState<
-    IPaymentOption | undefined
-  >();
 
   const [showModal, setShowModal] = useState(false);
   const isMobile = useMediaQuery("(max-width: 580px)");
 
-  useEffect(() => {
-    setSelectedOption(defaultSelectedOption);
-  }, [defaultSelectedOption, valueToPay]);
-
   const handleChangeOption = (option: IPaymentOption) => {
     onChangePaymentValue(id, option);
-    setSelectedOption(option);
 
     if (tags.find((tag) => tag.id === "payOption")) {
       const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
@@ -129,7 +120,6 @@ function PaymentCard(props: PaymentCardProps) {
   };
 
   const resetValues = () => {
-    setSelectedOption(undefined);
     onRemovePayment(id);
 
     if (tags.find((tag) => tag.id === "payOption")) {
@@ -143,7 +133,7 @@ function PaymentCard(props: PaymentCardProps) {
     value: number,
   ) => {
     const customOption = {
-      id: "otherValue",
+      id: EPaymentOptionType.OTHERVALUE,
       label: `Otro valor / ${applyPayOption.label}`,
       value,
     };
@@ -162,12 +152,10 @@ function PaymentCard(props: PaymentCardProps) {
       modifier: "clear",
       textAppearance: "dark",
     });
-
-    setSelectedOption(customOption);
   };
 
   const balanceValue = options.find(
-    (option) => option.id === "totalValue",
+    (option) => option.id === EPaymentOptionType.TOTALVALUE,
   )?.value;
 
   return (
@@ -201,30 +189,38 @@ function PaymentCard(props: PaymentCardProps) {
           alignItems="center"
           justifyContent="flex-end"
         >
-          <Text type="label" size="medium">
-            Pagar:
-          </Text>
+          {options.find(
+            (option) => option.id === EPaymentOptionType.OTHERVALUE,
+          ) && (
+            <Text type="label" size="medium">
+              Pagar:
+            </Text>
+          )}
           <Stack width="180px" alignItems="center" justifyContent="flex-end">
-            <TextField
-              id="customValue"
-              name="customValue"
-              placeholder=""
-              onFocus={allowCustomValue ? handleToggleModal : undefined}
-              value={currencyFormat(selectedOption?.value || 0)}
-              isFullWidth
-              size="compact"
-              iconAfter={
-                allowCustomValue ? (
-                  <Icon
-                    icon={<MdEdit />}
-                    appearance="dark"
-                    size="16px"
-                    onClick={handleToggleModal}
-                    cursorHover
-                  />
-                ) : undefined
-              }
-            />
+            {options.find(
+              (option) => option.id === EPaymentOptionType.OTHERVALUE,
+            ) && (
+              <TextField
+                id="customValue"
+                name="customValue"
+                placeholder=""
+                onFocus={allowCustomValue ? handleToggleModal : undefined}
+                value={currencyFormat(selectedOption?.value || 0)}
+                isFullWidth
+                size="compact"
+                iconAfter={
+                  allowCustomValue ? (
+                    <Icon
+                      icon={<MdEdit />}
+                      appearance="dark"
+                      size="16px"
+                      onClick={handleToggleModal}
+                      cursorHover
+                    />
+                  ) : undefined
+                }
+              />
+            )}
             <Icon
               icon={<MdOutlineDelete />}
               appearance="error"
@@ -242,10 +238,13 @@ function PaymentCard(props: PaymentCardProps) {
           portalId="modals"
           value={selectedOption?.value || 0}
           nextPaymentValue={
-            options.find((option) => option.id === "nextValue")?.value || 0
+            options.find((option) => option.id === EPaymentOptionType.NEXTVALUE)
+              ?.value || 0
           }
           totalPaymentValue={
-            options.find((option) => option.id === "totalValue")?.value || 0
+            options.find(
+              (option) => option.id === EPaymentOptionType.TOTALVALUE,
+            )?.value || 0
           }
           onCloseModal={handleToggleModal}
           onApplyPayOption={handleApplyPayOption}

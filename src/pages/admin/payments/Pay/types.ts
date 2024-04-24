@@ -15,4 +15,44 @@ interface IFormsPayRefs {
   comments: React.RefObject<FormikProps<ICommentsEntry>>;
 }
 
+enum EPaymentStatusType {
+  ANYWHERE = "ANYWHERE",
+  ARREARS = "ARREARS",
+}
+
+enum EPaymentMethodFilterType {
+  ALL = "ALL",
+}
+
+enum EPaymentGroupType {
+  ALL = "ALL",
+  CREDITS = "CREDITS",
+  SAVINGS = "SAVINGS",
+  CREDITQUOTAS = "CREDITQUOTAS",
+  INSURANCES = "INSURANCES",
+  ACCOUNTSPAYABLE = "ACCOUNTSPAYABLE",
+}
+
+enum EPaymentOptionType {
+  EXPIREDVALUE = "EXPIREDVALUE",
+  NEXTVALUE = "NEXTVALUE",
+  TOTALVALUE = "TOTALVALUE",
+  OTHERVALUE = "OTHERVALUE",
+  UNSELECTALL = "UNSELECTALL",
+}
+
+enum EPaymentMethodType {
+  PSE = "PSE",
+  DEBIT = "DEBIT",
+  MULTIPLE = "MULTIPLE",
+}
+
+export {
+  EPaymentGroupType,
+  EPaymentMethodFilterType,
+  EPaymentMethodType,
+  EPaymentOptionType,
+  EPaymentStatusType,
+};
+
 export type { IFormsPay, IFormsPayRefs };

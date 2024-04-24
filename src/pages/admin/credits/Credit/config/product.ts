@@ -7,7 +7,7 @@ const creditAttributes = [
   "next_payment_date",
   "dues_paid",
   "outstanding_dues",
-  "payment_means",
+  "payment_method",
   "peridiocity",
   "net_value",
   "expired_value",
