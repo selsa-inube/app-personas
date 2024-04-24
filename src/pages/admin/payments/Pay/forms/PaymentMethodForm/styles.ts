@@ -12,14 +12,14 @@ const StyledSummaryContainer = styled.div<IStyledSummaryContainer>`
   background-color: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
   position: ${({ fixed }) => (fixed ? "fixed" : "initial")};
-  bottom: ${({ fixed }) => (fixed ? "45px" : "initial")};
+  bottom: ${({ fixed }) => (fixed ? "43px" : "initial")};
   left: ${({ fixed }) => (fixed ? 0 : "initial")};
   right: ${({ fixed }) => (fixed ? 0 : "initial")};
   box-sizing: ${({ fixed }) => (fixed ? "border-box" : "initial")};
   width: ${({ fixed }) => (fixed ? "100%" : "initial")};
   padding: ${({ fixed }) =>
     fixed
-      ? `0 ${inube.spacing.s300} ${inube.spacing.s300} ${inube.spacing.s300}`
+      ? `${inube.spacing.s050} ${inube.spacing.s300} ${inube.spacing.s300} ${inube.spacing.s300}`
       : "initial"};
 `;
 
