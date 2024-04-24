@@ -22,9 +22,6 @@ enum EPaymentStatusType {
 
 enum EPaymentMethodFilterType {
   ALL = "ALL",
-  MONTHLY = "MONTHLY",
-  AUTOMATICDEBIT = "AUTOMATICDEBIT",
-  WINDOW = "WINDOW",
 }
 
 enum EPaymentGroupType {

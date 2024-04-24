@@ -38,10 +38,16 @@ const paymentFilters = (paymentMethodFilters: string[]) => ({
       value: "Cuentas por pagar",
     },
   ],
-  paymentMethod: paymentMethodFilters.map((paymentMethod) => ({
-    id: paymentMethod,
-    value: paymentMethod,
-  })),
+  paymentMethod: [
+    {
+      id: EPaymentMethodFilterType.ALL,
+      value: "Todos",
+    },
+    ...paymentMethodFilters.map((paymentMethod) => ({
+      id: paymentMethod,
+      value: paymentMethod,
+    })),
+  ],
   status: [
     {
       id: EPaymentStatusType.ANYWHERE,
