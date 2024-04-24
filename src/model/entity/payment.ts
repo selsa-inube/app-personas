@@ -44,9 +44,31 @@ interface IPaymentRequestResponse {
   httpStatus: number;
 }
 
+interface IProductDetailPayment {
+  id: string;
+  label: string;
+  value: string | number;
+}
+
+interface IProductPayment {
+  [index: number]: IProductDetailPayment;
+}
+
+interface IPaymentHistory {
+  id: string;
+  title: string;
+  tag: TagProps;
+  value: number;
+  paymentDate: Date;
+  paymentType: string;
+  cus: string;
+  products?: IProductPayment[];
+}
+
 export type {
   IPayment,
   IPaymentOption,
   IPaymentRequest,
   IPaymentRequestResponse,
+  IPaymentHistory
 };
