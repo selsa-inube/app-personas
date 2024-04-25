@@ -155,9 +155,9 @@ function PaymentCard(props: PaymentCardProps) {
     });
   };
 
-  const balanceValue = options.find(
-    (option) => option.id === EPaymentOptionType.TOTALVALUE,
-  )?.value;
+  const hastOtherValue = options.find(
+    (option) => option.id === EPaymentOptionType.OTHERVALUE,
+  );
 
   return (
     <>
@@ -199,15 +199,16 @@ function PaymentCard(props: PaymentCardProps) {
               id="customValue"
               name="customValue"
               placeholder=""
-              onFocus={allowCustomValue ? handleToggleModal : undefined}
+              onFocus={
+                allowCustomValue && hastOtherValue
+                  ? handleToggleModal
+                  : undefined
+              }
               value={currencyFormat(selectedOption?.value || 0)}
               isFullWidth
               size="compact"
               iconAfter={
-                allowCustomValue &&
-                options.find(
-                  (option) => option.id === EPaymentOptionType.OTHERVALUE,
-                ) ? (
+                allowCustomValue && hastOtherValue ? (
                   <Icon
                     icon={<MdEdit />}
                     appearance="dark"
@@ -231,7 +232,7 @@ function PaymentCard(props: PaymentCardProps) {
         </Stack>
       </StyledCardContainer>
 
-      {showModal && balanceValue && (
+      {showModal && (
         <CustomValueModal
           portalId="modals"
           value={selectedOption?.value || 0}

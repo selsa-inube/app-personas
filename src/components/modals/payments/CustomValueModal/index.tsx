@@ -76,7 +76,7 @@ function CustomValueModal(props: CustomValueModalProps) {
   const node = document.getElementById(portalId);
 
   const handleValidateValue = () => {
-    if (customValue > totalPaymentValue) {
+    if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
       setInputValidation({
         state: "invalid",
         errorMessage: "(Valor superior al saldo total)",
