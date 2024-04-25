@@ -33,7 +33,11 @@ const mapObligations = (
       extractAttribute(credit.attributes, "payment_method")?.value,
     );
 
-    if (!paymentMethodFilters.includes(paymentMethod)) {
+    if (
+      !paymentMethodFilters.find(
+        (filter) => filter.toLowerCase() === paymentMethod.toLowerCase(),
+      )
+    ) {
       paymentMethodFilters.push(paymentMethod);
     }
 
@@ -114,7 +118,11 @@ const mapObligations = (
       extractAttribute(commitment.attributes, "payment_method")?.value,
     );
 
-    if (!paymentMethodFilters.includes(paymentMethod)) {
+    if (
+      !paymentMethodFilters.find(
+        (filter) => filter.toLowerCase() === paymentMethod.toLowerCase(),
+      )
+    ) {
       paymentMethodFilters.push(paymentMethod);
     }
 

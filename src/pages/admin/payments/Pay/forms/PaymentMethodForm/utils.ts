@@ -1,6 +1,6 @@
 import { IProduct } from "src/model/entity/product";
 import { extractAttribute } from "src/utils/products";
-import { IMoneySource } from "./types";
+import { EMoneySourceType, IMoneySource } from "./types";
 
 const mapMoneySources = (savings: IProduct[]): IMoneySource => {
   return savings.reduce((acc, saving) => {
@@ -11,7 +11,7 @@ const mapMoneySources = (savings: IProduct[]): IMoneySource => {
       label: saving.title,
       value: 0,
       balance: !isNaN(Number(netValue?.value)) ? Number(netValue?.value) : 0,
-      type: "SAVINGACCOUNT",
+      type: EMoneySourceType.SAVINGACCOUNT,
     };
     return acc;
   }, {} as IMoneySource);

@@ -3,6 +3,7 @@ import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
+import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import { EPaymentMethodType } from "@pages/admin/payments/Pay/types";
 import { MdAttachMoney } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
@@ -14,7 +15,7 @@ interface PaymentMethodCardProps {
     label: string;
     value: number;
     balance: number;
-    type: "SAVINGACCOUNT" | "PSE";
+    type: EMoneySourceType;
   };
   paymentMethod: string;
   valueToPay: number;
@@ -34,7 +35,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
   return (
     <StyledCardContainer>
       <Stack gap="s100" alignItems="center" width="100%">
-        {moneySource.type === "SAVINGACCOUNT" &&
+        {moneySource.type === EMoneySourceType.SAVINGACCOUNT &&
           paymentMethod === EPaymentMethodType.DEBIT && (
             <StyledInputRadio
               id={`radio-${moneySource.id}`}
@@ -44,7 +45,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
               value={valueToPay}
               onClick={() => onSelectMoneySource(moneySource.id)}
               cursorPointer={
-                moneySource.type === "SAVINGACCOUNT" &&
+                moneySource.type === EMoneySourceType.SAVINGACCOUNT &&
                 paymentMethod === EPaymentMethodType.DEBIT
               }
             />
@@ -60,7 +61,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         </Stack>
       </Stack>
 
-      {moneySource.type === "SAVINGACCOUNT" && (
+      {moneySource.type === EMoneySourceType.SAVINGACCOUNT && (
         <Stack direction="column" gap="s100">
           <StyledLabel>
             <Text type="label" size="large" appearance="gray">

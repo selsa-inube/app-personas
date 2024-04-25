@@ -218,7 +218,11 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
 
       {showFiltersModal && (
         <PaymentFilterModal
-          initialFilters={paymentInitialFilters}
+          initialFilters={
+            JSON.stringify(filters) === JSON.stringify(paymentInitialFilters)
+              ? paymentInitialFilters
+              : filters
+          }
           allowedFilters={paymentFilters(formik.values.paymentMethodFilters)}
           onCloseModal={onToggleFiltersModal}
           onApplyFilters={onApplyFilters}
