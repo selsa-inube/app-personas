@@ -9,19 +9,16 @@ const mapPaymentRequestApiToEntity = (
   const causes = paymentRequest.causas;
   let state = "";
   let message = "";
-  let httpStatus = 500;
 
   if (Array.isArray(causes)) {
     state = String(causes[0].id);
-    message = String(causes[0].mensaje);
-    httpStatus = Number(causes[0].estadoHttp);
+    message = String(causes[0].message);
   }
   return {
-    codeTracking: String(paymentRequest.codigoSeguimiento),
+    trackingCode: String(paymentRequest.trackingCode),
     url: String(paymentRequest.url),
     state,
     message,
-    httpStatus,
   };
 };
 
@@ -29,21 +26,23 @@ const mapPaymentRequestEntityToApi = (
   paymentRequest: IPaymentRequest,
 ): Record<string, string | number | object> => {
   return {
-    client_code: paymentRequest.customerCode,
-    client_name: paymentRequest.customerName,
-    description_payment: paymentRequest.comments,
-    product_list: paymentRequest.payments.map((payment) => ({
-      product_name: payment.id,
-      payment_value: payment.valueToPay,
-      extraordinary_payment_decision: payment.applyPayOption?.id,
+    clientCode: paymentRequest.customerCode,
+    clientName: paymentRequest.customerName,
+    descriptionPayment: paymentRequest.comments,
+    productList: paymentRequest.payments.map((payment) => ({
+      productCode: payment.id,
+      productName: payment.title,
+      valor: payment.valueToPay,
+      action: payment.applyPayOption?.id,
     })),
-    way_to_pay: paymentRequest.paymentMethod.map((moneySource) => ({
-      code: moneySource.type,
-      payment_value: moneySource.value,
-      savings_account_number:
-        moneySource.type === "savingAccount" ? moneySource.id : "",
+    urlRedirect: paymentRequest.urlRedirect,
+    wayToPay: paymentRequest.paymentMethod.map((moneySource) => ({
+      paymentMethoName: moneySource.label,
+      paymentMethodCode: moneySource.type,
+      value: moneySource.value,
+      savingProductNumber:
+        moneySource.type === "savingAccount" ? moneySource.id : undefined,
     })),
-    url_redirection_commerce: paymentRequest.urlRedirect,
   };
 };
 

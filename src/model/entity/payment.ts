@@ -38,11 +38,10 @@ interface IPaymentRequest {
 }
 
 interface IPaymentRequestResponse {
-  codeTracking: string;
+  trackingCode: string;
   url: string;
   state: string;
   message: string;
-  httpStatus: number;
 }
 
 export type {
