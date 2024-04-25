@@ -193,8 +193,9 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
     if (notFunds) {
       setShowFundsAlert(true);
+    } else {
+      setShowFundsAlert(false);
       formik.setFieldValue("paidValue", formik.values.valueToPay);
-
       formik.setFieldValue("pendingValue", 0);
     }
   };
