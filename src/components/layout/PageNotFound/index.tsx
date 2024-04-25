@@ -21,7 +21,7 @@ interface PageNotFoundProps {
 }
 
 function PageNotFound(props: PageNotFoundProps) {
-  const currentLocation = useLocation().pathname;
+  const { pathname: currentLocation } = useLocation();
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
 
