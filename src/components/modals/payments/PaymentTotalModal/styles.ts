@@ -13,8 +13,7 @@ const StyledModal = styled.div<IStyledModal>`
   right: ${({ smallScreen }) => (smallScreen ? "none" : inube.spacing.s300)};
   display: flex;
   box-sizing: border-box;
-  justify-content: space-between;
-  width: ${({ smallScreen }) => (smallScreen ? "312px" : "400px")};
+  width: ${({ smallScreen }) => (smallScreen ? "90%" : "400px")};
   padding: ${inube.spacing.s300};
   flex-direction: column;
   gap: ${({ smallScreen }) =>
@@ -24,17 +23,10 @@ const StyledModal = styled.div<IStyledModal>`
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
 `;
 
-interface IStyledCardContainer {
-  smallScreen: boolean;
-  tabletScreen: boolean;
-}
-
-const StyledCardContainer = styled.div<IStyledCardContainer>`
+const StyledCardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 352px;
-  max-height: ${({ smallScreen, tabletScreen }) =>
-    smallScreen ? "380px" : tabletScreen ? "865px" : "756px"};
+  height: 90%;
   gap: ${inube.spacing.s150};
   overflow-y: auto;
 
@@ -63,4 +55,4 @@ const StyledTotalPayment = styled.div`
       inube.color.stroke.divider.regular};
 `;
 
-export { StyledModal, StyledCardContainer, StyledTotalPayment };
+export { StyledCardContainer, StyledModal, StyledTotalPayment };
