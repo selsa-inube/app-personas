@@ -89,6 +89,7 @@ function Pay() {
       formReferences,
       isCurrentFormValid,
     );
+
     setPay(newPay);
 
     const changeStepKey = Object.entries(paySteps).find(

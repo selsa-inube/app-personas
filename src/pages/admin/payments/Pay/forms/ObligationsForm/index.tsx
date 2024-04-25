@@ -70,6 +70,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
               return {
                 ...payOption,
                 selected: true,
+                label:
+                  option.id === EPaymentOptionType.OTHERVALUE ? option.label : payOption.label,
                 value:
                   option.id === EPaymentOptionType.OTHERVALUE
                     ? option.value
@@ -108,6 +110,10 @@ const ObligationsForm = forwardRef(function ObligationsForm(
             if (payOption.id === option.id) {
               return {
                 ...payOption,
+                label:
+                  option.id === EPaymentOptionType.OTHERVALUE ? option.label : payOption.label,
+                value:
+                  option.id === EPaymentOptionType.OTHERVALUE ? option.value : payOption.value,
                 selected: true,
               };
             }

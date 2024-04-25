@@ -86,17 +86,19 @@ const mapObligations = (
       },
     ];
 
-    payments.push({
-      id: credit.id,
-      title: credit.title,
-      group: EPaymentGroupType.CREDITS,
-      paymentMethod,
-      status: inArrears
-        ? EPaymentStatusType.ARREARS
-        : EPaymentStatusType.ANYWHERE,
-      options,
-      tags,
-    });
+    if (options.some((option) => option.value > 0)) {
+      payments.push({
+        id: credit.id,
+        title: credit.title,
+        group: EPaymentGroupType.CREDITS,
+        paymentMethod,
+        status: inArrears
+          ? EPaymentStatusType.ARREARS
+          : EPaymentStatusType.ANYWHERE,
+        options,
+        tags,
+      });
+    }
   });
 
   commitments.forEach((commitment) => {
@@ -150,17 +152,19 @@ const mapObligations = (
       },
     ];
 
-    payments.push({
-      id: commitment.id,
-      title: commitment.title,
-      group: EPaymentGroupType.SAVINGS,
-      paymentMethod,
-      status: inArrears
-        ? EPaymentStatusType.ARREARS
-        : EPaymentStatusType.ANYWHERE,
-      options,
-      tags,
-    });
+    if (options.some((option) => option.value > 0)) {
+      payments.push({
+        id: commitment.id,
+        title: commitment.title,
+        group: EPaymentGroupType.SAVINGS,
+        paymentMethod,
+        status: inArrears
+          ? EPaymentStatusType.ARREARS
+          : EPaymentStatusType.ANYWHERE,
+        options,
+        tags,
+      });
+    }
   });
 
   return {

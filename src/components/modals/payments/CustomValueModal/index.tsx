@@ -95,7 +95,7 @@ function CustomValueModal(props: CustomValueModalProps) {
     } else {
       onChangeOtherValue({
         id: EPaymentOptionType.OTHERVALUE,
-        label: "Próximo vencimiento",
+        label: `Otro valor / Reducir cuota`,
         value: customValue,
       });
 

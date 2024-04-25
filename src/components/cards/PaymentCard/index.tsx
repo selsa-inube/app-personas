@@ -34,6 +34,7 @@ const renderOptions = (
       <StyledInputContainer
         key={index}
         onClick={() => !valueIsZero && onChangeOption(option)}
+        disabled={valueIsZero}
       >
         <Stack gap="s150">
           <StyledInputRadio
@@ -134,7 +135,7 @@ function PaymentCard(props: PaymentCardProps) {
   ) => {
     const customOption = {
       id: EPaymentOptionType.OTHERVALUE,
-      label: "Próximo vencimiento",
+      label: `Otro valor / ${applyPayOption.label}`,
       value,
     };
 
