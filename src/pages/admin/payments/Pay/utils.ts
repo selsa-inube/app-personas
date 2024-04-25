@@ -1,11 +1,11 @@
 import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth/dist/types/user";
+import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IPaymentRequest } from "src/model/entity/payment";
 import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
 import { paySteps } from "./config/assisted";
 import { mapPaymentMethod } from "./config/mappers";
 import { IFormsPay, IFormsPayRefs } from "./types";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
 
 const payStepsRules = (
   currentStep: number,
@@ -77,7 +77,7 @@ const sendPaymentRequest = async (
     comments: pay.comments.values.comments,
     payments: filteredPayments,
     paymentMethod: filteredPaymentMethod,
-    urlRedirect: `${enviroment.REDIRECT_URI}/payments/history`,
+    urlRedirect: `${enviroment.REDIRECT_URI}payments/history`,
   };
 
   const paymentRequestResponse = await createPaymentRequest(
