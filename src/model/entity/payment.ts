@@ -44,9 +44,28 @@ interface IPaymentRequestResponse {
   message: string;
 }
 
+interface IProductPayment {
+  productName: string;
+  productNumber: string;
+  valueToPay: number;
+  applyPayment?:string;
+}
+
+interface IPaymentHistory {
+  id: string;
+  title: string;
+  tag: TagProps;
+  value: number;
+  paymentDate: Date;
+  paymentType: string;
+  cus: string;
+  products?: IProductPayment[];
+}
+
 export type {
   IPayment,
   IPaymentOption,
   IPaymentRequest,
   IPaymentRequestResponse,
+  IPaymentHistory
 };
