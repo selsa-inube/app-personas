@@ -106,7 +106,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       paymentMethod === EPaymentMethodType.PSE ||
       paymentMethod === EPaymentMethodType.MULTIPLE
     ) {
-      moneySources.pse = {
+      moneySources.PSE = {
         id: EPaymentMethodType.PSE,
         label: "Pago PSE",
         value:
