@@ -14,6 +14,7 @@ import { Button } from "@design/input/Button";
 import { PaymentHistoryModal } from "@components/modals/payments/PaymentHistoryModal";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { paymentHistoryMock } from "@mocks/payments/paymentHistory.mocks";
+import { StyledContainer } from "./styles";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
@@ -22,7 +23,7 @@ interface PaymentHistoryUIProps {
   selectedPayment: IPaymentHistory | undefined;
   handleTogglePaymentHistoryModal: (payment: IPaymentHistory) => void;
   handleAddPaymentCards: () => void;
-  handleToggleClosePaymentHistoryModal:() => void;
+  handleToggleClosePaymentHistoryModal: () => void;
 }
 
 function PaymentHistoryUI(props: PaymentHistoryUIProps) {
@@ -33,7 +34,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
     selectedPayment,
     handleTogglePaymentHistoryModal,
     handleAddPaymentCards,
-    handleToggleClosePaymentHistoryModal
+    handleToggleClosePaymentHistoryModal,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -74,7 +75,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               Refrescar
             </Button>
           </Stack>
-          <Stack direction="column" gap="s200" padding="s250">
+          <StyledContainer>
             {payments.map((payment, index) => (
               <Stack
                 direction="column"
@@ -91,12 +92,11 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                   paymentType={payment.paymentType}
                   cus={payment.cus}
                   onClick={() => handleTogglePaymentHistoryModal(payment)}
-
                 />
                 {index !== payments.length - 1 && <Divider dashed />}
               </Stack>
             ))}
-          </Stack>
+          </StyledContainer>
           <Stack direction="column" alignItems="center">
             <Button
               appearance="primary"
@@ -104,9 +104,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               iconBefore={<MdAdd />}
               load={loading}
               onClick={handleAddPaymentCards}
-              disabled={
-                paymentHistoryMock.length === payments.length
-              }
+              disabled={paymentHistoryMock.length === payments.length}
             >
               Ver más movimientos
             </Button>
