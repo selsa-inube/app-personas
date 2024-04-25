@@ -34,6 +34,7 @@ const renderOptions = (
       <StyledInputContainer
         key={index}
         onClick={() => !valueIsZero && onChangeOption(option)}
+        disabled={valueIsZero}
       >
         <Stack gap="s150">
           <StyledInputRadio
