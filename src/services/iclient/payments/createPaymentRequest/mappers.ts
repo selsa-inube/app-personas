@@ -45,7 +45,7 @@ const mapPaymentRequestEntityToApi = (
       value: moneySource.value,
       savingProductNumber:
         moneySource.type === EMoneySourceType.SAVINGACCOUNT
-          ? moneySource.id
+          ? parseInt(moneySource.id)
           : undefined,
     })),
   };
