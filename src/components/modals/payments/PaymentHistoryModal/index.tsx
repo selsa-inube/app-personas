@@ -168,12 +168,16 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
               paymentHistoryData.products.map((product, index) => (
                 <React.Fragment key={index}>
                   <Stack key={index} direction="column" gap="s100">
-                    {Object.entries(product).map(([label, value]) =>
-                      renderAttribute(label, value, isMobile),
+                    {Object.entries(product).map(
+                      ([label, value], innerIndex) => (
+                        <React.Fragment key={innerIndex}>
+                          {renderAttribute(label, value, isMobile)}
+                        </React.Fragment>
+                      ),
                     )}
                   </Stack>
                   {index !== (paymentHistoryData.products?.length ?? 0) - 1 && (
-                    <Divider dashed />
+                    <Divider key={`divider-${index}`} dashed />
                   )}
                 </React.Fragment>
               ))}
