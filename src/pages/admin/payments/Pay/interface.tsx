@@ -81,7 +81,7 @@ function PayUI(props: PayUIProps) {
     handlePreviousStep,
   } = props;
 
-  const isMobile = useMediaQuery("(max-width: 450px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
