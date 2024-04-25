@@ -190,38 +190,35 @@ function PaymentCard(props: PaymentCardProps) {
           alignItems="center"
           justifyContent="flex-end"
         >
-          {options.find(
-            (option) => option.id === EPaymentOptionType.OTHERVALUE,
-          ) && (
-            <Text type="label" size="medium">
-              Pagar:
-            </Text>
-          )}
+          <Text type="label" size="medium">
+            Pagar:
+          </Text>
+
           <Stack width="180px" alignItems="center" justifyContent="flex-end">
-            {options.find(
-              (option) => option.id === EPaymentOptionType.OTHERVALUE,
-            ) && (
-              <TextField
-                id="customValue"
-                name="customValue"
-                placeholder=""
-                onFocus={allowCustomValue ? handleToggleModal : undefined}
-                value={currencyFormat(selectedOption?.value || 0)}
-                isFullWidth
-                size="compact"
-                iconAfter={
-                  allowCustomValue ? (
-                    <Icon
-                      icon={<MdEdit />}
-                      appearance="dark"
-                      size="16px"
-                      onClick={handleToggleModal}
-                      cursorHover
-                    />
-                  ) : undefined
-                }
-              />
-            )}
+            <TextField
+              id="customValue"
+              name="customValue"
+              placeholder=""
+              onFocus={allowCustomValue ? handleToggleModal : undefined}
+              value={currencyFormat(selectedOption?.value || 0)}
+              isFullWidth
+              size="compact"
+              iconAfter={
+                allowCustomValue &&
+                options.find(
+                  (option) => option.id === EPaymentOptionType.OTHERVALUE,
+                ) ? (
+                  <Icon
+                    icon={<MdEdit />}
+                    appearance="dark"
+                    size="16px"
+                    onClick={handleToggleModal}
+                    cursorHover
+                  />
+                ) : undefined
+              }
+            />
+
             <Icon
               icon={<MdOutlineDelete />}
               appearance="error"

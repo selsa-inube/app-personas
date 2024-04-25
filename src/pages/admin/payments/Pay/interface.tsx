@@ -58,6 +58,7 @@ interface PayUIProps {
   isCurrentFormValid: boolean;
   pay: IFormsPay;
   formReferences: IFormsPayRefs;
+  loadingSend: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
@@ -72,6 +73,7 @@ function PayUI(props: PayUIProps) {
     isCurrentFormValid,
     pay,
     formReferences,
+    loadingSend,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
@@ -100,9 +102,10 @@ function PayUI(props: PayUIProps) {
       <Assisted
         steps={steps}
         currentStep={currentStep}
+        disableNextStep={!isCurrentFormValid}
+        loading={loadingSend}
         onFinishAssisted={handleFinishAssisted}
         onStepChange={handleStepChange}
-        disableNextStep={!isCurrentFormValid}
       />
 
       <Stack direction="column" gap="s300">
@@ -125,7 +128,7 @@ function PayUI(props: PayUIProps) {
           <Button
             onClick={handlePreviousStep}
             type="button"
-            disabled={currentStep === steps[0].id}
+            disabled={loadingSend || currentStep === steps[0].id}
             spacing="compact"
             variant="outlined"
             appearance="gray"
@@ -137,6 +140,7 @@ function PayUI(props: PayUIProps) {
             onClick={handleNextStep}
             spacing="compact"
             disabled={!isCurrentFormValid}
+            load={loadingSend}
           >
             {currentStep === steps.length ? "Enviar" : "Siguiente"}
           </Button>

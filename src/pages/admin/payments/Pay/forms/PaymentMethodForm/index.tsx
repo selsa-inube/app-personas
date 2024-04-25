@@ -104,7 +104,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
     if (
       paymentMethod === EPaymentMethodType.PSE ||
-      EPaymentMethodType.MULTIPLE
+      paymentMethod === EPaymentMethodType.MULTIPLE
     ) {
       moneySources.pse = {
         id: EPaymentMethodType.PSE,

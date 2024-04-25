@@ -1,10 +1,11 @@
+import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Icon } from "@design/data/Icon";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack, MdArrowForward, MdCheckCircle } from "react-icons/md";
+import { Spinner } from "../Spinner";
 import {
   StyledAssistedContainer,
   StyledBar,
@@ -21,6 +22,7 @@ interface AssistedUIProps {
   currentStepInfo?: IStep;
   disableNextStep?: boolean;
   showButtonsLabels?: boolean;
+  loading?: boolean;
   handlePreviousStep: () => void;
   handleNextStep: () => void;
 }
@@ -33,6 +35,7 @@ function AssistedUI(props: AssistedUIProps) {
     currentStepInfo,
     disableNextStep,
     showButtonsLabels = true,
+    loading,
     handlePreviousStep,
     handleNextStep,
   } = props;
@@ -43,7 +46,10 @@ function AssistedUI(props: AssistedUIProps) {
   const barWidth = ((currentStepIndex + 1) / steps.length) * 100;
 
   return (
-    <StyledAssistedContainer smallScreen={isMobile} showButtonsLabels={showButtonsLabels}>
+    <StyledAssistedContainer
+      smallScreen={isMobile}
+      showButtonsLabels={showButtonsLabels}
+    >
       <Stack
         justifyContent="space-between"
         alignItems="center"
@@ -56,7 +62,7 @@ function AssistedUI(props: AssistedUIProps) {
               variant="none"
               iconBefore={<MdArrowBack size={18} />}
               onClick={handlePreviousStep}
-              disabled={currentStepIndex === 0}
+              disabled={loading || currentStepIndex === 0}
               spacing="compact"
             >
               Atrás
@@ -69,6 +75,7 @@ function AssistedUI(props: AssistedUIProps) {
             size="20px"
             spacing="none"
             onClick={handlePreviousStep}
+            appearance={loading ? "gray" : "primary"}
             disabled={currentStepIndex === 0}
           />
         )}
@@ -90,7 +97,9 @@ function AssistedUI(props: AssistedUIProps) {
             </StyledCircleId>
             <Text
               type="title"
-              size={!showButtonsLabels ? "small" : isMobile ? "small" : "medium"}
+              size={
+                !showButtonsLabels ? "small" : isMobile ? "small" : "medium"
+              }
             >
               {currentStepInfo?.name}
             </Text>
@@ -130,10 +139,13 @@ function AssistedUI(props: AssistedUIProps) {
               onClick={handleNextStep}
               disabled={disableNextStep}
               spacing="compact"
+              load={loading}
             >
               {currentStepIndex === steps.length - 1 ? "Enviar" : "Siguiente"}
             </Button>
           </StyledButton>
+        ) : loading ? (
+          <Spinner track={false} />
         ) : (
           <Icon
             variant="none"
@@ -147,7 +159,10 @@ function AssistedUI(props: AssistedUIProps) {
       </Stack>
       {(!showButtonsLabels || (isMobile && showButtonsLabels)) && (
         <>
-          <StyledBarContainer smallScreen={isMobile} showButtonsLabels={showButtonsLabels}>
+          <StyledBarContainer
+            smallScreen={isMobile}
+            showButtonsLabels={showButtonsLabels}
+          >
             <StyledBar
               smallScreen={isMobile}
               width={barWidth}

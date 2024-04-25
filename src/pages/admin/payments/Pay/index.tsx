@@ -22,6 +22,7 @@ function Pay() {
   const { user, accessToken } = useAuth();
   const { credits } = useContext(CreditsContext);
   const { commitments } = useContext(SavingsContext);
+  const [loadingSend, setLoadingSend] = useState(false);
 
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
@@ -113,6 +114,7 @@ function Pay() {
   const handleFinishAssisted = () => {
     if (!accessToken || !user) return;
 
+    setLoadingSend(true);
     sendPaymentRequest(user, pay, accessToken);
   };
 
@@ -135,6 +137,7 @@ function Pay() {
       pay={pay}
       steps={steps}
       isCurrentFormValid={isCurrentFormValid}
+      loadingSend={loadingSend}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}
