@@ -26,7 +26,7 @@ const creditsMock: IProduct[] = [
       { id: "quote", label: "Cuota", value: "8 de 24" },
       { id: "peridiocity", label: "Periodicidad", value: "Mensual" },
       {
-        id: "payment_means",
+        id: "payment_method",
         label: "Medio de pago",
         value: "Grúas de occidente",
       },
@@ -673,7 +673,7 @@ const creditsMock: IProduct[] = [
       { id: "quote", label: "Cuota", value: "10 de 30" },
       { id: "peridiocity", label: "Periodicidad", value: "Mensual" },
       {
-        id: "payment_means",
+        id: "payment_method",
         label: "Medio de pago",
         value: "Grúas de occidente",
       },

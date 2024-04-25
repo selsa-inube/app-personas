@@ -5,6 +5,12 @@ import { TagProps } from "@design/data/Tag";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
+import {
+  EPaymentGroupType,
+  EPaymentMethodFilterType,
+  EPaymentOptionType,
+  EPaymentStatusType,
+} from "../../types";
 import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
@@ -35,9 +41,14 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     initialValues,
     validateOnBlur: false,
     onSubmit: async () => true,
+    enableReinitialize: true,
   });
 
   useImperativeHandle(ref, () => formik);
+
+  useEffect(() => {
+    setFilteredPayments(initialValues.payments);
+  }, [initialValues]);
 
   useEffect(() => {
     if (onFormValid) {
@@ -59,8 +70,12 @@ const ObligationsForm = forwardRef(function ObligationsForm(
               return {
                 ...payOption,
                 selected: true,
+                label:
+                  option.id === EPaymentOptionType.OTHERVALUE ? option.label : payOption.label,
                 value:
-                  option.id === "otherValue" ? option.value : payOption.value,
+                  option.id === EPaymentOptionType.OTHERVALUE
+                    ? option.value
+                    : payOption.value,
               };
             }
             return {
@@ -95,6 +110,10 @@ const ObligationsForm = forwardRef(function ObligationsForm(
             if (payOption.id === option.id) {
               return {
                 ...payOption,
+                label:
+                  option.id === EPaymentOptionType.OTHERVALUE ? option.label : payOption.label,
+                value:
+                  option.id === EPaymentOptionType.OTHERVALUE ? option.value : payOption.value,
                 selected: true,
               };
             }
@@ -110,6 +129,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     });
 
     formik.setFieldValue("payments", updatedPayments);
+    setFilteredPayments(updatedPayments);
 
     formik.setFieldValue(
       "totalPayment",
@@ -127,10 +147,12 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const handleApplyFilters = (filters: IPaymentFilters) => {
     const updatedFilteredPayments = initialValues.payments.filter((payment) => {
       return (
-        (filters.group === "all" || payment.group === filters.group) &&
-        (filters.paymentMethod === "all" ||
+        (filters.group === EPaymentGroupType.ALL ||
+          payment.group === filters.group) &&
+        (filters.paymentMethod === EPaymentMethodFilterType.ALL ||
           payment.paymentMethod === filters.paymentMethod) &&
-        (filters.status === "anywhere" || payment.status === filters.status)
+        (filters.status === EPaymentStatusType.ANYWHERE ||
+          payment.status === filters.status)
       );
     });
 
@@ -165,7 +187,10 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       const options = payment.options.map((payOption) => {
         let selected = false;
 
-        if (option.id === "unselectAll" || payOption.id !== option.id) {
+        if (
+          option.id === EPaymentOptionType.UNSELECTALL ||
+          payOption.id !== option.id
+        ) {
           selected = false;
         } else {
           selected = true;
@@ -191,7 +216,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       };
     });
 
-    if (option.id === "unselectAll") {
+    if (option.id === EPaymentOptionType.UNSELECTALL) {
       totalValue = 0;
     }
 

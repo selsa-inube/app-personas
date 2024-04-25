@@ -32,17 +32,16 @@ interface IPaymentRequest {
     label: string;
     value: number;
     balance: number;
-    type: "savingAccount" | "pse";
+    type: "SAVINGACCOUNT" | "PSE";
   }[];
   urlRedirect: string;
 }
 
 interface IPaymentRequestResponse {
-  codeTracking: string;
+  trackingCode: string;
   url: string;
   state: string;
   message: string;
-  httpStatus: number;
 }
 
 interface IProductPayment {

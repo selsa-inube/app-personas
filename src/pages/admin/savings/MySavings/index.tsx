@@ -45,7 +45,7 @@ function MySavings() {
           });
       }
     }
-  }, [user, accessToken, savings]);
+  }, [user, accessToken]);
 
   return (
     <MySavingsUI

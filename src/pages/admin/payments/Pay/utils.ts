@@ -1,5 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth/dist/types/user";
+import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IPaymentRequest } from "src/model/entity/payment";
 import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
 import { paySteps } from "./config/assisted";
@@ -70,12 +71,13 @@ const sendPaymentRequest = async (
   ).filter((moneySource) => moneySource.value > 0);
 
   const paymentRequestData: IPaymentRequest = {
-    customerCode: user.identification,
+    customerCode:
+      developmentUsersMock[user.identification] || user.identification,
     customerName: `${user.firstName} ${user.firstLastName}`,
     comments: pay.comments.values.comments,
     payments: filteredPayments,
     paymentMethod: filteredPaymentMethod,
-    urlRedirect: `${enviroment.REDIRECT_URI}/payments/history`,
+    urlRedirect: `${enviroment.REDIRECT_URI}payments/history`,
   };
 
   const paymentRequestResponse = await createPaymentRequest(

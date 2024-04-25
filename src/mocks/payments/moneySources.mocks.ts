@@ -6,14 +6,14 @@ const moneySourcesMock: IMoneySource = {
     label: "Cuenta familiar",
     value: 0,
     balance: 50000,
-    type: "savingAccount",
+    type: "SAVINGACCOUNT",
   },
   "013001162025": {
     id: "013001162025",
     label: "Cuenta de ahorros",
     value: 0,
     balance: 900000,
-    type: "savingAccount",
+    type: "SAVINGACCOUNT",
   },
 };
 export { moneySourcesMock };

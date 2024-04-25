@@ -13,9 +13,14 @@ const StyledCardContainer = styled.div`
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
+  height: fit-content;
 `;
 
-const StyledInputContainer = styled.div`
+interface IStyledInputContainer {
+  disabled?: boolean;
+}
+
+const StyledInputContainer = styled.div<IStyledInputContainer>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,7 +29,7 @@ const StyledInputContainer = styled.div`
   padding: ${inube.spacing.s100} ${inube.spacing.s150};
   background: ${({ theme }) =>
     theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
 
 const StyledInputRadio = styled.input`

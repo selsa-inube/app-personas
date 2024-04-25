@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { IFeaturedFlag } from "src/model/entity/featuredFlag";
-import { supabasedb } from "src/services/database/supabase/config";
 import { mapFeaturedFlagsApiToEntities } from "./mappers";
+import { supabasedb } from "src/services/config/supabase/config";
 
 const getFeaturedFlagsByModule = async (
   scope: string,

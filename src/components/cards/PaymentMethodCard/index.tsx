@@ -3,6 +3,7 @@ import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
+import { EPaymentMethodType } from "@pages/admin/payments/Pay/types";
 import { MdAttachMoney } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
@@ -13,7 +14,7 @@ interface PaymentMethodCardProps {
     label: string;
     value: number;
     balance: number;
-    type: "savingAccount" | "pse";
+    type: "SAVINGACCOUNT" | "PSE";
   };
   paymentMethod: string;
   valueToPay: number;
@@ -33,19 +34,21 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
   return (
     <StyledCardContainer>
       <Stack gap="s100" alignItems="center" width="100%">
-        {moneySource.type === "savingAccount" && paymentMethod === "debit" && (
-          <StyledInputRadio
-            id={`radio-${moneySource.id}`}
-            type="radio"
-            checked={moneySource.value !== 0}
-            readOnly
-            value={valueToPay}
-            onClick={() => onSelectMoneySource(moneySource.id)}
-            cursorPointer={
-              moneySource.type === "savingAccount" && paymentMethod === "debit"
-            }
-          />
-        )}
+        {moneySource.type === "SAVINGACCOUNT" &&
+          paymentMethod === EPaymentMethodType.DEBIT && (
+            <StyledInputRadio
+              id={`radio-${moneySource.id}`}
+              type="radio"
+              checked={moneySource.value !== 0}
+              readOnly
+              value={valueToPay}
+              onClick={() => onSelectMoneySource(moneySource.id)}
+              cursorPointer={
+                moneySource.type === "SAVINGACCOUNT" &&
+                paymentMethod === EPaymentMethodType.DEBIT
+              }
+            />
+          )}
 
         <Stack justifyContent="space-between" alignItems="center" width="100%">
           <Text type="label" size="large">
@@ -57,7 +60,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         </Stack>
       </Stack>
 
-      {moneySource.type === "savingAccount" && (
+      {moneySource.type === "SAVINGACCOUNT" && (
         <Stack direction="column" gap="s100">
           <StyledLabel>
             <Text type="label" size="large" appearance="gray">
@@ -85,7 +88,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         value={currencyFormat(moneySource.value)}
         onChange={onChangeMoneySource}
         isFullWidth
-        isDisabled={paymentMethod !== "multiple"}
+        isDisabled={paymentMethod !== EPaymentMethodType.MULTIPLE}
         size="compact"
         state={moneySource.value > moneySource.balance ? "invalid" : "pending"}
         iconAfter={

@@ -11,7 +11,7 @@ const mapMoneySources = (savings: IProduct[]): IMoneySource => {
       label: saving.title,
       value: 0,
       balance: !isNaN(Number(netValue?.value)) ? Number(netValue?.value) : 0,
-      type: "savingAccount",
+      type: "SAVINGACCOUNT",
     };
     return acc;
   }, {} as IMoneySource);

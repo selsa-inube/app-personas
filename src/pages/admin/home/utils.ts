@@ -3,8 +3,14 @@ import { currencyFormat } from "src/utils/currency";
 import { extractAttribute } from "src/utils/products";
 
 const getCommitmentAttributes = (commitmentAttributes: IAttribute[]) => {
-  const valueToPay = extractAttribute(commitmentAttributes, "value_to_pay");
-  const nextPayDate = extractAttribute(commitmentAttributes, "next_pay_date");
+  const valueToPay = extractAttribute(
+    commitmentAttributes,
+    "next_payment_value",
+  );
+  const nextPayDate = extractAttribute(
+    commitmentAttributes,
+    "next_payment_date",
+  );
   const commitmentValue = extractAttribute(
     commitmentAttributes,
     "commitment_value",

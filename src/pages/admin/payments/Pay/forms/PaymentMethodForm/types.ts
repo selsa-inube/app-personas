@@ -4,7 +4,7 @@ interface IMoneySource {
     label: string;
     value: number;
     balance: number;
-    type: "savingAccount" | "pse";
+    type: "SAVINGACCOUNT" | "PSE";
   };
 }
 

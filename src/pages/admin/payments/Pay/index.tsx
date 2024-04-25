@@ -1,8 +1,11 @@
 import { useAuth } from "@inube/auth";
-import { paymentsMock } from "@mocks/payments/payments.mocks";
 import { mapComments } from "@pages/general/UpdateData/config/mappers";
 import { FormikProps } from "formik";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { CreditsContext } from "src/context/credits";
+import { SavingsContext } from "src/context/savings";
+import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
+import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { paySteps } from "./config/assisted";
 import { mapObligations, mapPaymentMethod } from "./config/mappers";
@@ -17,11 +20,13 @@ function Pay() {
   const steps = Object.values(paySteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { user, accessToken } = useAuth();
+  const { credits } = useContext(CreditsContext);
+  const { commitments } = useContext(SavingsContext);
 
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
       isValid: true,
-      values: mapObligations(paymentsMock),
+      values: mapObligations(credits, commitments),
     },
     paymentMethod: {
       isValid: true,
@@ -40,6 +45,43 @@ function Pay() {
     comments: commentsRef,
   };
 
+  const validateObligations = async () => {
+    if (!user || !accessToken) return;
+
+    let newCredits = credits;
+
+    if (credits.length === 0) {
+      newCredits = await getCreditsForUser(user.identification, accessToken);
+
+      setPay((prev) => ({
+        ...prev,
+        obligations: {
+          ...prev.obligations,
+          values: mapObligations(newCredits, commitments),
+        },
+      }));
+    }
+
+    if (commitments.length === 0) {
+      const newCommitments = await getSavingsCommitmentsForUser(
+        user.identification,
+        accessToken,
+      );
+
+      setPay((prev) => ({
+        ...prev,
+        obligations: {
+          ...prev.obligations,
+          values: mapObligations(newCredits, newCommitments),
+        },
+      }));
+    }
+  };
+
+  useEffect(() => {
+    validateObligations();
+  }, [user, accessToken]);
+
   const handleStepChange = (stepId: number) => {
     const newPay = payStepsRules(
       currentStep,
@@ -47,6 +89,7 @@ function Pay() {
       formReferences,
       isCurrentFormValid,
     );
+
     setPay(newPay);
 
     const changeStepKey = Object.entries(paySteps).find(
@@ -76,7 +119,9 @@ function Pay() {
   const handleNextStep = () => {
     if (currentStep + 1 <= steps.length) {
       handleStepChange(currentStep + 1);
+      return;
     }
+    handleFinishAssisted();
   };
 
   const handlePreviousStep = () => {

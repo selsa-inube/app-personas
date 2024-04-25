@@ -1,66 +1,63 @@
 import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
+import {
+  EPaymentGroupType,
+  EPaymentMethodFilterType,
+  EPaymentStatusType,
+} from "../../../types";
 
 const paymentInitialFilters: IPaymentFilters = {
-  group: "all",
-  paymentMethod: "all",
-  status: "anywhere",
+  group: EPaymentGroupType.ALL,
+  paymentMethod: EPaymentMethodFilterType.ALL,
+  status: EPaymentStatusType.ANYWHERE,
 };
 
-const paymentFilters = {
+const paymentFilters = (paymentMethodFilters: string[]) => ({
   group: [
     {
-      id: "all",
+      id: EPaymentGroupType.ALL,
       value: "Todos",
     },
     {
-      id: "savings",
+      id: EPaymentGroupType.SAVINGS,
       value: "Ahorros",
     },
     {
-      id: "credits",
+      id: EPaymentGroupType.CREDITS,
       value: "Créditos",
     },
     {
-      id: "creditQuotas",
+      id: EPaymentGroupType.CREDITQUOTAS,
       value: "Cupos de crédito",
     },
     {
-      id: "insurances",
+      id: EPaymentGroupType.INSURANCES,
       value: "Seguros",
     },
     {
-      id: "accountsPayable",
+      id: EPaymentGroupType.ACCOUNTSPAYABLE,
       value: "Cuentas por pagar",
     },
   ],
   paymentMethod: [
     {
-      id: "all",
+      id: EPaymentMethodFilterType.ALL,
       value: "Todos",
     },
-    {
-      id: "monthly",
-      value: "Fondecom mensual",
-    },
-    {
-      id: "automaticDebit",
-      value: "Débito automático",
-    },
-    {
-      id: "window",
-      value: "Ventanilla",
-    },
+    ...paymentMethodFilters.map((paymentMethod) => ({
+      id: paymentMethod,
+      value: paymentMethod,
+    })),
   ],
   status: [
     {
-      id: "anywhere",
+      id: EPaymentStatusType.ANYWHERE,
       value: "Cualquiera",
     },
     {
-      id: "arrears",
+      id: EPaymentStatusType.ARREARS,
       value: "En mora",
     },
   ],
-};
+});
 
 export { paymentFilters, paymentInitialFilters };
