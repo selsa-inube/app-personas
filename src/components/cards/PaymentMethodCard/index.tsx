@@ -14,7 +14,7 @@ interface PaymentMethodCardProps {
     label: string;
     value: number;
     balance: number;
-    type: "savingAccount" | "pse";
+    type: "SAVINGACCOUNT" | "PSE";
   };
   paymentMethod: string;
   valueToPay: number;
@@ -34,7 +34,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
   return (
     <StyledCardContainer>
       <Stack gap="s100" alignItems="center" width="100%">
-        {moneySource.type === "savingAccount" &&
+        {moneySource.type === "SAVINGACCOUNT" &&
           paymentMethod === EPaymentMethodType.DEBIT && (
             <StyledInputRadio
               id={`radio-${moneySource.id}`}
@@ -44,7 +44,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
               value={valueToPay}
               onClick={() => onSelectMoneySource(moneySource.id)}
               cursorPointer={
-                moneySource.type === "savingAccount" &&
+                moneySource.type === "SAVINGACCOUNT" &&
                 paymentMethod === EPaymentMethodType.DEBIT
               }
             />
@@ -60,7 +60,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         </Stack>
       </Stack>
 
-      {moneySource.type === "savingAccount" && (
+      {moneySource.type === "SAVINGACCOUNT" && (
         <Stack direction="column" gap="s100">
           <StyledLabel>
             <Text type="label" size="large" appearance="gray">

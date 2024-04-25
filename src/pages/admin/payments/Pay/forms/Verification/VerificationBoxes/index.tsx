@@ -109,7 +109,7 @@ const renderPaymentMethodVerification = (
               <BoxAttribute
                 key={moneySource.id}
                 label={
-                  moneySource.type === "savingAccount"
+                  moneySource.type === "SAVINGACCOUNT"
                     ? `${moneySource.label} - ${moneySource.id}`
                     : moneySource.label
                 }
