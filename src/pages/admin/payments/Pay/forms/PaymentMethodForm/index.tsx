@@ -1,3 +1,4 @@
+import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -7,6 +8,7 @@ import {
   useState,
 } from "react";
 import { SavingsContext } from "src/context/savings";
+import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { parseCurrencyString } from "src/utils/currency";
 import * as Yup from "yup";
 import { EPaymentMethodType } from "../../types";
@@ -29,7 +31,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const [dynamicSchema] = useState(validationSchema);
   const [showFundsAlert, setShowFundsAlert] = useState(false);
-  const { savings } = useContext(SavingsContext);
+  const { savings, setSavings } = useContext(SavingsContext);
+  const { user, accessToken } = useAuth();
 
   const formik = useFormik({
     initialValues,
@@ -62,6 +65,19 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       ),
     );
   }, [formik.values.moneySources]);
+
+  useEffect(() => {
+    if (!user || !accessToken) return;
+    if (savings.savingsAccounts.length === 0) {
+      getSavingsForUser(user.identification, accessToken)
+        .then((savings) => {
+          setSavings(savings);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        });
+    }
+  }, [user, accessToken]);
 
   const customHandleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     formik.handleChange(event);
