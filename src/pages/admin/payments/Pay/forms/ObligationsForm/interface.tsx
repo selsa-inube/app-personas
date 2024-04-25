@@ -110,7 +110,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
-  const isMobile = useMediaQuery("(max-width: 550px)");
+  const isMobile = useMediaQuery("(max-width: 700px)");
 
   const selectedPayments = formik.values.payments.filter(
     (payment) => payment.valueToPay && payment.valueToPay > 0,
