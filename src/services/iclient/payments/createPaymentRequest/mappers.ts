@@ -1,3 +1,4 @@
+import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import {
   IPaymentRequest,
   IPaymentRequestResponse,
@@ -43,7 +44,9 @@ const mapPaymentRequestEntityToApi = (
       paymentMethodCode: moneySource.type,
       value: moneySource.value,
       savingProductNumber:
-        moneySource.type === "SAVINGACCOUNT" ? moneySource.id : undefined,
+        moneySource.type === EMoneySourceType.SAVINGACCOUNT
+          ? moneySource.id
+          : undefined,
     })),
   };
 };

@@ -1,4 +1,7 @@
-import { IMoneySource } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
+import {
+  EMoneySourceType,
+  IMoneySource,
+} from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 
 const moneySourcesMock: IMoneySource = {
   "013001157292": {
@@ -6,14 +9,14 @@ const moneySourcesMock: IMoneySource = {
     label: "Cuenta familiar",
     value: 0,
     balance: 50000,
-    type: "SAVINGACCOUNT",
+    type: EMoneySourceType.SAVINGACCOUNT,
   },
   "013001162025": {
     id: "013001162025",
     label: "Cuenta de ahorros",
     value: 0,
     balance: 900000,
-    type: "SAVINGACCOUNT",
+    type: EMoneySourceType.SAVINGACCOUNT,
   },
 };
 export { moneySourcesMock };

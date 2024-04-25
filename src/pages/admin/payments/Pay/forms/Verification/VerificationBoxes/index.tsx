@@ -10,7 +10,10 @@ import { EPaymentMethodType, IFormsPay } from "../../../types";
 import { StyledTotalPayment } from "../../ObligationsForm/styles";
 import { IObligationsEntry } from "../../ObligationsForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
-import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
+import {
+  EMoneySourceType,
+  IPaymentMethodEntry,
+} from "../../PaymentMethodForm/types";
 import { StyledPayments } from "./styles";
 
 const renderObligationsVerification = (
@@ -109,7 +112,7 @@ const renderPaymentMethodVerification = (
               <BoxAttribute
                 key={moneySource.id}
                 label={
-                  moneySource.type === "SAVINGACCOUNT"
+                  moneySource.type === EMoneySourceType.SAVINGACCOUNT
                     ? `${moneySource.label} - ${moneySource.id}`
                     : moneySource.label
                 }

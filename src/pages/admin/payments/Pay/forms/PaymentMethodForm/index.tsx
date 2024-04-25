@@ -11,7 +11,7 @@ import { parseCurrencyString } from "src/utils/currency";
 import * as Yup from "yup";
 import { EPaymentMethodType } from "../../types";
 import { PaymentMethodFormUI } from "./interface";
-import { IMoneySource, IPaymentMethodEntry } from "./types";
+import { EMoneySourceType, IMoneySource, IPaymentMethodEntry } from "./types";
 import { mapMoneySources } from "./utils";
 
 const validationSchema = Yup.object().shape({});
@@ -106,7 +106,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       paymentMethod === EPaymentMethodType.PSE ||
       paymentMethod === EPaymentMethodType.MULTIPLE
     ) {
-      moneySources.PSE = {
+      moneySources[EMoneySourceType.PSE] = {
         id: EPaymentMethodType.PSE,
         label: "Pago PSE",
         value:
@@ -114,7 +114,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
             ? formik.values.valueToPay
             : 0,
         balance: Infinity,
-        type: "PSE",
+        type: EMoneySourceType.PSE,
       };
 
       if (paymentMethod === EPaymentMethodType.PSE) {

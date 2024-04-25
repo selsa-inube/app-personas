@@ -1,10 +1,15 @@
+enum EMoneySourceType {
+  SAVINGACCOUNT = "SAVINGACCOUNT",
+  PSE = "PSE",
+}
+
 interface IMoneySource {
   [key: string]: {
     id: string;
     label: string;
     value: number;
     balance: number;
-    type: "SAVINGACCOUNT" | "PSE";
+    type: EMoneySourceType;
   };
 }
 
@@ -16,4 +21,5 @@ interface IPaymentMethodEntry {
   pendingValue: number;
 }
 
+export { EMoneySourceType };
 export type { IMoneySource, IPaymentMethodEntry };

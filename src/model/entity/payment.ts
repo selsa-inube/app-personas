@@ -1,5 +1,6 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
 import { TagProps } from "@design/data/Tag";
+import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 
 interface IPaymentOption {
   id: string;
@@ -32,7 +33,7 @@ interface IPaymentRequest {
     label: string;
     value: number;
     balance: number;
-    type: "SAVINGACCOUNT" | "PSE";
+    type: EMoneySourceType;
   }[];
   urlRedirect: string;
 }
