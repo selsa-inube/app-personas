@@ -17,7 +17,7 @@ import { paymentHistoryMock } from "@mocks/payments/paymentHistory.mocks";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
-  paymentHistoryCards: IPaymentHistory[];
+  payments: IPaymentHistory[];
   loading: boolean;
   selectedPayment: IPaymentHistory | undefined;
   handleTogglePaymentHistoryModal: (payment: IPaymentHistory) => void;
@@ -28,7 +28,7 @@ interface PaymentHistoryUIProps {
 function PaymentHistoryUI(props: PaymentHistoryUIProps) {
   const {
     showPaymentHistoryModal,
-    paymentHistoryCards,
+    payments,
     loading,
     selectedPayment,
     handleTogglePaymentHistoryModal,
@@ -75,7 +75,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
             </Button>
           </Stack>
           <Stack direction="column" gap="s200" padding="s250">
-            {paymentHistoryCards.map((payment, index) => (
+            {payments.map((payment, index) => (
               <Stack
                 direction="column"
                 width="100%"
@@ -93,7 +93,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                   onClick={() => handleTogglePaymentHistoryModal(payment)}
 
                 />
-                {index !== paymentHistoryCards.length - 1 && <Divider dashed />}
+                {index !== payments.length - 1 && <Divider dashed />}
               </Stack>
             ))}
           </Stack>
@@ -105,7 +105,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               load={loading}
               onClick={handleAddPaymentCards}
               disabled={
-                paymentHistoryMock.length === paymentHistoryCards.length
+                paymentHistoryMock.length === payments.length
               }
             >
               Ver más movimientos

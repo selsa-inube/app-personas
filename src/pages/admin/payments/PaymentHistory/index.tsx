@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PaymentHistoryUI } from "./interface";
 import { paymentHistoryMock } from "@mocks/payments/paymentHistory.mocks";
 import { IPaymentHistory } from "src/model/entity/payment";
@@ -6,12 +6,14 @@ import { IPaymentHistory } from "src/model/entity/payment";
 function PaymentHistory() {
   const [showPaymentHistoryModal, setShowPaymentHistoryModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [paymentHistoryCards, setPaymentHistoryCards] = useState(
-    paymentHistoryMock.slice(0, 5) || [],
-  );
+  const [paymentHistoryCards, setPaymentHistoryCards] = useState<IPaymentHistory[]>([]);
   const [selectedPayment, setSelectedPayment] = useState<IPaymentHistory | undefined>();
-  
-  const maxPaymentHistoryCards = paymentHistoryMock.length || 0;
+  const [maxPaymentHistoryCards, setMaxPaymentHistoryCards] = useState(0);
+
+  useEffect(() => {
+    setPaymentHistoryCards(paymentHistoryMock.slice(0, 5));
+    setMaxPaymentHistoryCards(paymentHistoryMock.length);
+  }, []);
 
   const handleAddPaymentCards = () => {
     setLoading(true);
@@ -23,9 +25,7 @@ function PaymentHistory() {
             paymentHistoryCards.length + 5,
           ),
         );
-        setPaymentHistoryCards(
-          newPaymentCards.slice(0, maxPaymentHistoryCards),
-        );
+        setPaymentHistoryCards(newPaymentCards.slice(0, maxPaymentHistoryCards));
       } finally {
         setLoading(false);
       }
@@ -44,7 +44,7 @@ function PaymentHistory() {
   return (
     <PaymentHistoryUI
       showPaymentHistoryModal={showPaymentHistoryModal}
-      paymentHistoryCards={paymentHistoryCards}
+      payments={paymentHistoryCards}
       loading={loading}
       selectedPayment={selectedPayment}
       handleTogglePaymentHistoryModal={handleTogglePaymentHistoryModal}

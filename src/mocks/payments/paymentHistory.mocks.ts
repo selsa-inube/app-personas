@@ -16,60 +16,20 @@ const paymentHistoryMock: IPaymentHistory[] = [
     },
     products: [
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 100000,
-        },
-        "3": {
-          id: "4",
-          label: "Aplicar pago a:",
-          value: "Reducir plazo",
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 100000,
+        applyPayment: "Reducir plazo"
       },
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "CREDI-APORTES GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 395000,
-        },
+        productName: "CREDI-APORTES GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 395000,
       },
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 150000,
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 150000,        
       },
     ],
   },
@@ -88,21 +48,9 @@ const paymentHistoryMock: IPaymentHistory[] = [
     },
     products: [
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 100000,
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 150000,        
       },
     ],
   },
@@ -121,21 +69,9 @@ const paymentHistoryMock: IPaymentHistory[] = [
     },
     products: [
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 150000,
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 150000,        
       },
     ],
   },
@@ -154,43 +90,16 @@ const paymentHistoryMock: IPaymentHistory[] = [
     },
     products: [
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 100000,
-        },
-        "3": {
-          id: "4",
-          label: "Aplicar pago a:",
-          value: "Reducir plazo",
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 100000,
+        applyPayment: "Reducir plazo"   
       },
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "CREDI-APORTES GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 50000,
-        },
+        productName: "CREDI-APORTES GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 50000,
+       
       },
     ],
   },
@@ -209,60 +118,20 @@ const paymentHistoryMock: IPaymentHistory[] = [
     },
     products: [
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 50000,
-        },
-        "3": {
-          id: "4",
-          label: "Aplicar pago a:",
-          value: "Reducir plazo",
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 50000,
+        applyPayment: "Reducir plazo"        
       },
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "CREDI-APORTES GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 50000,
-        },
+        productName: "CREDI-APORTES GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 50000,        
       },
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 50000,
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 50000,         
       },
     ],
   },
@@ -281,26 +150,10 @@ const paymentHistoryMock: IPaymentHistory[] = [
     },
     products: [
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 150000,
-        },
-        "3": {
-          id: "4",
-          label: "Aplicar pago a:",
-          value: "Reducir plazo",
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 150000,
+        applyPayment: "Reducir plazo" 
       },
     ],
   },
@@ -319,26 +172,10 @@ const paymentHistoryMock: IPaymentHistory[] = [
     },
     products: [
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 200000,
-        },
-        "3": {
-          id: "4",
-          label: "Aplicar pago a:",
-          value: "Reducir plazo",
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 200000,
+        applyPayment: "Reducir cuota"        
       },
     ],
   },
@@ -357,60 +194,20 @@ const paymentHistoryMock: IPaymentHistory[] = [
     },
     products: [
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 100000,
-        },
-        "3": {
-          id: "4",
-          label: "Aplicar pago a:",
-          value: "Reducir plazo",
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 100000,
+        applyPayment: "Reducir plazo"       
       },
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "CREDI-APORTES GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 250000,
-        },
+        productName: "CREDI-APORTES GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 250000,
       },
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 100000,
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 100000,        
       },
     ],
   },
@@ -429,26 +226,30 @@ const paymentHistoryMock: IPaymentHistory[] = [
     },
     products: [
       {
-        "0": {
-          id: "1",
-          label: "Nombre del producto:",
-          value: "TEMPORADA GASTOS PERSONALES",
-        },
-        "1": {
-          id: "2",
-          label: "Numero del producto:",
-          value: "10-241000476",
-        },
-        "2": {
-          id: "3",
-          label: "Valor del pago:",
-          value: 300000,
-        },
-        "3": {
-          id: "4",
-          label: "Aplicar pago a:",
-          value: "Reducir plazo",
-        },
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 100000,
+        applyPayment: "Reducir cuota"        
+      },
+      {
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 50000,      
+      },
+      {
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 50000,      
+      },
+      {
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 50000,      
+      },
+      {
+        productName: "TEMPORADA GASTOS PERSONALES",
+        productNumber: "10-241000476",
+        valueToPay: 50000,       
       },
     ],
   },

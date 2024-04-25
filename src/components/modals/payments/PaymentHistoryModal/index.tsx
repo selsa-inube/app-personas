@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import { createPortal } from "react-dom";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@design/layout/Blanket";
@@ -18,6 +18,35 @@ import { Tag } from "@design/data/Tag";
 import { currencyFormat } from "src/utils/currency";
 import { IPaymentHistory } from "src/model/entity/payment";
 
+const renderAttribute = (
+  label: string,
+  value: string | number,
+  isMobile: boolean,
+) => {
+  let formattedLabel = label;
+
+  const labelMappings: { [key: string]: string } = {
+    productName: "Nombre del producto:",
+    productNumber: "Número del producto:",
+    valueToPay: "Valor del pago:",
+    applyPayment: "Aplicar pago a:",
+  };
+
+  if (labelMappings[label]) {
+    formattedLabel = labelMappings[label];
+  }
+
+  return (
+    <StyledItem smallScreen={isMobile}>
+      <Text type="label" size={isMobile ? "small" : "medium"}>
+        {formattedLabel}
+      </Text>
+      <Text type="body" size={isMobile ? "small" : "medium"} appearance="gray">
+        {typeof value === "number" ? currencyFormat(value) : value}
+      </Text>
+    </StyledItem>
+  );
+};
 interface PaymentHistoryModalProps {
   paymentHistoryData: IPaymentHistory;
   onCloseModal: () => void;
@@ -71,7 +100,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
                 {currencyFormat(paymentHistoryData.value)}
               </Text>
             </Stack>
-            <Stack gap="s050">
+            <Stack justifyContent="space-between">
               <Text type="label" size="small" appearance="gray">
                 Forma de pago:
               </Text>
@@ -139,22 +168,9 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
               paymentHistoryData.products.map((product, index) => (
                 <React.Fragment key={index}>
                   <Stack key={index} direction="column" gap="s100">
-                    {Object.values(product).map((item, itemIndex) => (
-                      <StyledItem key={itemIndex} smallScreen={isMobile}>
-                        <Text type="label" size={isMobile ? "small" : "medium"}>
-                          {item.label}
-                        </Text>
-                        <Text
-                          type="body"
-                          size={isMobile ? "small" : "medium"}
-                          appearance="gray"
-                        >
-                          {typeof item.value === "number"
-                            ? currencyFormat(item.value)
-                            : item.value}
-                        </Text>
-                      </StyledItem>
-                    ))}
+                    {Object.entries(product).map(([label, value]) =>
+                      renderAttribute(label, value, isMobile),
+                    )}
                   </Stack>
                   {index !== (paymentHistoryData.products?.length ?? 0) - 1 && (
                     <Divider dashed />

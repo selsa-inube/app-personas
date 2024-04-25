@@ -45,14 +45,11 @@ interface IPaymentRequestResponse {
   httpStatus: number;
 }
 
-interface IProductDetailPayment {
-  id: string;
-  label: string;
-  value: string | number;
-}
-
 interface IProductPayment {
-  [index: number]: IProductDetailPayment;
+  productName: string;
+  productNumber: string;
+  valueToPay: number;
+  applyPayment?:string;
 }
 
 interface IPaymentHistory {
