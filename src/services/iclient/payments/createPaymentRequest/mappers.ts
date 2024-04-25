@@ -33,7 +33,9 @@ const mapPaymentRequestEntityToApi = (
       productCode: payment.id,
       productName: payment.title,
       valor: payment.valueToPay,
-      action: payment.applyPayOption?.id,
+      action:
+        payment.applyPayOption?.id ||
+        payment.options.find((option) => option.selected)?.id,
     })),
     urlRedirect: paymentRequest.urlRedirect,
     wayToPay: paymentRequest.paymentMethod.map((moneySource) => ({

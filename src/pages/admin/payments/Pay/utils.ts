@@ -5,6 +5,7 @@ import { createPaymentRequest } from "src/services/iclient/payments/createPaymen
 import { paySteps } from "./config/assisted";
 import { mapPaymentMethod } from "./config/mappers";
 import { IFormsPay, IFormsPayRefs } from "./types";
+import { developmentUsersMock } from "@mocks/users/users.mocks";
 
 const payStepsRules = (
   currentStep: number,
@@ -70,7 +71,8 @@ const sendPaymentRequest = async (
   ).filter((moneySource) => moneySource.value > 0);
 
   const paymentRequestData: IPaymentRequest = {
-    customerCode: user.identification,
+    customerCode:
+      developmentUsersMock[user.identification] || user.identification,
     customerName: `${user.firstName} ${user.firstLastName}`,
     comments: pay.comments.values.comments,
     payments: filteredPayments,

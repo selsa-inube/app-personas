@@ -119,7 +119,9 @@ function Pay() {
   const handleNextStep = () => {
     if (currentStep + 1 <= steps.length) {
       handleStepChange(currentStep + 1);
+      return;
     }
+    handleFinishAssisted();
   };
 
   const handlePreviousStep = () => {
