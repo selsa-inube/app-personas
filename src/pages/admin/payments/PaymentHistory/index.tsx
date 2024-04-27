@@ -11,6 +11,7 @@ function PaymentHistory() {
   const [selectedPayment, setSelectedPayment] = useState<
     IPaymentHistory | undefined
   >();
+  const [noMorePayments, setNoMorePayments] = useState(false);
   const { user, accessToken } = useAuth();
 
   useEffect(() => {
@@ -35,8 +36,13 @@ function PaymentHistory() {
     if (user && accessToken && paymentHistory.length === 0) {
       setLoading(true);
       getPaymentHistory(user.identification, accessToken, page, limit)
-        .then((paymentHistory) => {
-          setPaymentHistory(paymentHistory);
+        .then((newPaymentHistory) => {
+          if (newPaymentHistory.length === 0) {
+            setNoMorePayments(true);
+            return;
+          }
+
+          setPaymentHistory([...paymentHistory, ...newPaymentHistory]);
         })
         .catch((error) => {
           console.info(error.message);
@@ -47,7 +53,7 @@ function PaymentHistory() {
     }
   };
 
-  const handleAddPaymentCards = () => {
+  const handleAddPayments = () => {
     handleGetPaymentHistory(paymentHistory.length, 5);
   };
 
@@ -66,8 +72,9 @@ function PaymentHistory() {
       paymentHistory={paymentHistory}
       loading={loading}
       selectedPayment={selectedPayment}
+      noMorePayments={noMorePayments}
       onTogglePaymentHistoryModal={handleTogglePaymentHistoryModal}
-      onAddPaymentCards={handleAddPaymentCards}
+      onAddPayments={handleAddPayments}
       onToggleClosePaymentHistoryModal={handleToggleClosePaymentHistoryModal}
       onRefreshHistory={handleRefreshHistory}
     />

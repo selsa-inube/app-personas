@@ -10,7 +10,6 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { paymentHistoryMock } from "@mocks/payments/paymentHistory.mocks";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { crumbsPaymentHistory } from "./config/navigation";
@@ -20,9 +19,10 @@ interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
   paymentHistory: IPaymentHistory[];
   loading: boolean;
-  selectedPayment: IPaymentHistory | undefined;
+  selectedPayment?: IPaymentHistory;
+  noMorePayments: boolean;
   onTogglePaymentHistoryModal: (payment: IPaymentHistory) => void;
-  onAddPaymentCards: () => void;
+  onAddPayments: () => void;
   onToggleClosePaymentHistoryModal: () => void;
   onRefreshHistory: () => void;
 }
@@ -33,8 +33,9 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
     paymentHistory,
     loading,
     selectedPayment,
+    noMorePayments,
     onTogglePaymentHistoryModal,
-    onAddPaymentCards,
+    onAddPayments,
     onToggleClosePaymentHistoryModal,
     onRefreshHistory,
   } = props;
@@ -106,8 +107,8 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               variant="none"
               iconBefore={<MdAdd />}
               load={loading}
-              onClick={onAddPaymentCards}
-              disabled={paymentHistoryMock.length === paymentHistory.length}
+              onClick={onAddPayments}
+              disabled={noMorePayments}
             >
               Ver más movimientos
             </Button>
