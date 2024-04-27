@@ -4,6 +4,8 @@ import { IPaymentHistory } from "src/model/entity/payment";
 import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHistory";
 import { PaymentHistoryUI } from "./interface";
 
+let refreshInterval: ReturnType<typeof setTimeout> | null = null;
+
 function PaymentHistory() {
   const [showPaymentHistoryModal, setShowPaymentHistoryModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -16,20 +18,24 @@ function PaymentHistory() {
 
   useEffect(() => {
     handleRefreshHistory();
-  }, [user, accessToken]);
-
-  useEffect(() => {
-    const refreshInterval = setInterval(() => {
-      handleRefreshHistory();
-    }, 60000);
 
     return () => {
-      clearInterval(refreshInterval);
+      if (refreshInterval) {
+        clearInterval(refreshInterval);
+      }
     };
   }, []);
 
   const handleRefreshHistory = () => {
+    if (refreshInterval) {
+      clearInterval(refreshInterval);
+    }
+
     handleGetPaymentHistory(0, 5);
+
+    refreshInterval = setInterval(() => {
+      handleGetPaymentHistory(0, 5);
+    }, 5000);
   };
 
   const handleGetPaymentHistory = (page: number, limit: number) => {
