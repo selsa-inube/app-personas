@@ -49,7 +49,7 @@ interface IProductPayment {
   productName: string;
   productNumber: string;
   valueToPay: number;
-  applyPayment?:string;
+  applyPayment?: string;
 }
 
 interface IPaymentHistory {
@@ -65,8 +65,9 @@ interface IPaymentHistory {
 
 export type {
   IPayment,
+  IPaymentHistory,
   IPaymentOption,
   IPaymentRequest,
   IPaymentRequestResponse,
-  IPaymentHistory
+  IProductPayment,
 };
