@@ -35,7 +35,7 @@ function PaymentHistory() {
 
     refreshInterval = setInterval(() => {
       handleGetPaymentHistory(0, 5);
-    }, 5000);
+    }, 60000);
   };
 
   const handleGetPaymentHistory = (page: number, limit: number) => {
