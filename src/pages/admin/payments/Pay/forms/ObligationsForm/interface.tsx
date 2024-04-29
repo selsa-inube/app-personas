@@ -77,7 +77,7 @@ interface ObligationsFormUIProps {
   onApplyPayOption: (
     payId: string,
     option: IPaymentOption,
-    applyPayOption?: IApplyPayOption,
+    applyPayOption: IApplyPayOption,
   ) => void;
   onChangePaymentValue: (payId: string, option: IPaymentOption) => void;
   onToggleFiltersModal: () => void;

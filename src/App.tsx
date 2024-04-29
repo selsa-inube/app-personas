@@ -36,7 +36,7 @@ import { PaymentsRoutes } from "./routes/payments";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route errorElement={<PageNotFound />} />
+      <Route errorElement={<PageNotFound nav={nav}/>} />
       <Route path="/" element={<Page nav={nav} />}>
         <Route path="/" element={<Home />} />
 

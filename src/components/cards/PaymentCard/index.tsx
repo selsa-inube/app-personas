@@ -82,7 +82,7 @@ interface PaymentCardProps {
   onApplyPayOption: (
     payId: string,
     option: IPaymentOption,
-    applyPayOption?: IApplyPayOption,
+    applyPayOption: IApplyPayOption,
   ) => void;
   onChangePaymentValue: (payId: string, option: IPaymentOption) => void;
   onRemovePayment: (paymentId: string) => void;
@@ -108,11 +108,6 @@ function PaymentCard(props: PaymentCardProps) {
 
   const handleChangeOption = (option: IPaymentOption) => {
     onChangePaymentValue(id, option);
-
-    if (tags.find((tag) => tag.id === "payOption")) {
-      const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
-      tags.splice(indexPayOption, 1);
-    }
   };
 
   const handleToggleModal = () => {
@@ -121,11 +116,6 @@ function PaymentCard(props: PaymentCardProps) {
 
   const resetValues = () => {
     onRemovePayment(id);
-
-    if (tags.find((tag) => tag.id === "payOption")) {
-      const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
-      tags.splice(indexPayOption, 1);
-    }
   };
 
   const handleApplyPayOption = (
@@ -139,24 +129,19 @@ function PaymentCard(props: PaymentCardProps) {
     };
 
     onApplyPayOption(id, customOption, applyPayOption);
-
-    if (tags.find((tag) => tag.id === "payOption")) {
-      const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
-      tags.splice(indexPayOption, 1);
-    }
-
-    tags.push({
-      id: "payOption",
-      label: applyPayOption.label,
-      appearance: "dark",
-      modifier: "clear",
-      textAppearance: "dark",
-    });
   };
 
   const hastOtherValue = options.find(
     (option) => option.id === EPaymentOptionType.OTHERVALUE,
   );
+
+  const nextPaymentValue = options.find(
+    (option) => option.id === EPaymentOptionType.NEXTVALUE,
+  )?.value;
+
+  const totalPaymentValue =
+    options.find((option) => option.id === EPaymentOptionType.TOTALVALUE)
+      ?.value || nextPaymentValue;
 
   return (
     <>
@@ -217,15 +202,8 @@ function PaymentCard(props: PaymentCardProps) {
         <CustomValueModal
           portalId="modals"
           value={selectedOption?.value || 0}
-          nextPaymentValue={
-            options.find((option) => option.id === EPaymentOptionType.NEXTVALUE)
-              ?.value || 0
-          }
-          totalPaymentValue={
-            options.find(
-              (option) => option.id === EPaymentOptionType.TOTALVALUE,
-            )?.value || 0
-          }
+          nextPaymentValue={nextPaymentValue || 0}
+          totalPaymentValue={totalPaymentValue || 0}
           onCloseModal={handleToggleModal}
           onApplyPayOption={handleApplyPayOption}
           onChangeOtherValue={handleChangeOption}

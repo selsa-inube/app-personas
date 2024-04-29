@@ -64,7 +64,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
       {moneySource.type === EMoneySourceType.SAVINGACCOUNT && (
         <Stack direction="column" gap="s100">
           <StyledLabel>
-            <Text type="label" size="large" appearance="gray">
+            <Text type="label" size="medium" appearance="gray">
               Numero de cuenta:
             </Text>
             <Text type="body" size="medium">
@@ -72,7 +72,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
             </Text>
           </StyledLabel>
           <StyledLabel>
-            <Text type="label" size="large" appearance="gray">
+            <Text type="label" size="medium" appearance="gray">
               Saldo de la cuenta:
             </Text>
             <Text type="body" size="medium">
