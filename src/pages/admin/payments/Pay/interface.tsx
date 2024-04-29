@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
+import { LoadingPayment } from "./LoadingPayment";
 import { paySteps } from "./config/assisted";
 import { crumbsPay } from "./config/navigation";
 import { ObligationsForm } from "./forms/ObligationsForm";
@@ -85,68 +86,70 @@ function PayUI(props: PayUIProps) {
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
-    <Stack
-      direction="column"
-      gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
-    >
-      <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsPay} />
-        <Title
-          title="Realizar pagos"
-          subtitle="Realiza el pago de obligaciones y transferencias"
-          icon={<MdArrowBack />}
-          navigatePage="/payments"
+    <>
+      <Stack
+        direction="column"
+        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+      >
+        <Stack direction="column" gap="s300">
+          <Breadcrumbs crumbs={crumbsPay} />
+          <Title
+            title="Realizar pagos"
+            subtitle="Realiza el pago de obligaciones y transferencias"
+            icon={<MdArrowBack />}
+            navigatePage="/payments"
+          />
+        </Stack>
+
+        <Assisted
+          steps={steps}
+          currentStep={currentStep}
+          disableNextStep={!isCurrentFormValid}
+          onFinishAssisted={handleFinishAssisted}
+          onStepChange={handleStepChange}
         />
+
+        <Stack direction="column" gap="s300">
+          {renderStepContent(
+            currentStep,
+            formReferences,
+            pay,
+            setIsCurrentFormValid,
+            handleStepChange,
+          )}
+
+          <StyledButtonsContainer
+            fixed={
+              isMobile &&
+              [paySteps.obligations.id, paySteps.paymentMethod.id].includes(
+                currentStep,
+              )
+            }
+          >
+            <Button
+              onClick={handlePreviousStep}
+              type="button"
+              disabled={currentStep === steps[0].id}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Atrás
+            </Button>
+
+            <Button
+              onClick={handleNextStep}
+              spacing="compact"
+              disabled={!isCurrentFormValid}
+            >
+              {currentStep === steps.length ? "Enviar" : "Siguiente"}
+            </Button>
+          </StyledButtonsContainer>
+        </Stack>
       </Stack>
 
-      <Assisted
-        steps={steps}
-        currentStep={currentStep}
-        disableNextStep={!isCurrentFormValid}
-        loading={loadingSend}
-        onFinishAssisted={handleFinishAssisted}
-        onStepChange={handleStepChange}
-      />
-
-      <Stack direction="column" gap="s300">
-        {renderStepContent(
-          currentStep,
-          formReferences,
-          pay,
-          setIsCurrentFormValid,
-          handleStepChange,
-        )}
-
-        <StyledButtonsContainer
-          fixed={
-            isMobile &&
-            [paySteps.obligations.id, paySteps.paymentMethod.id].includes(
-              currentStep,
-            )
-          }
-        >
-          <Button
-            onClick={handlePreviousStep}
-            type="button"
-            disabled={loadingSend || currentStep === steps[0].id}
-            spacing="compact"
-            variant="outlined"
-            appearance="gray"
-          >
-            Atrás
-          </Button>
-
-          <Button
-            onClick={handleNextStep}
-            spacing="compact"
-            disabled={!isCurrentFormValid}
-            load={loadingSend}
-          >
-            {currentStep === steps.length ? "Enviar" : "Siguiente"}
-          </Button>
-        </StyledButtonsContainer>
-      </Stack>
-    </Stack>
+      {loadingSend && <LoadingPayment />}
+    </>
   );
 }
 
