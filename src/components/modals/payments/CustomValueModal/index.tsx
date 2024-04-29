@@ -7,6 +7,7 @@ import { Blanket } from "@design/layout/Blanket";
 import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -31,16 +32,16 @@ interface IApplyPayOption {
 
 const applyPayOptions: IApplyPayOption[] = [
   {
-    id: "reduceTerm",
-    label: "Reducir plazo",
+    id: EPaymentOptionType.REDUCETERM,
+    label: paymentOptionValues[EPaymentOptionType.REDUCETERM],
   },
   {
-    id: "reduceQuota",
-    label: "Reducir cuota",
+    id: EPaymentOptionType.REDUCEQUOTA,
+    label: paymentOptionValues[EPaymentOptionType.REDUCEQUOTA],
   },
   {
-    id: "reduceFutureQuota",
-    label: "Pagar cuotas futuras",
+    id: EPaymentOptionType.REDUCEFUTUREQUOTA,
+    label: paymentOptionValues[EPaymentOptionType.REDUCEFUTUREQUOTA],
   },
 ];
 
@@ -95,7 +96,7 @@ function CustomValueModal(props: CustomValueModalProps) {
     } else {
       onChangeOtherValue({
         id: EPaymentOptionType.OTHERVALUE,
-        label: `Otro valor / Reducir cuota`,
+        label: `Otro valor`,
         value: customValue,
       });
 

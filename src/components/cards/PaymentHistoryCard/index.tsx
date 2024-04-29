@@ -33,7 +33,6 @@ function PaymentHistoryCard(props: PaymentHistoryCardProps) {
               appearance="gray"
               size="16px"
               spacing="none"
-              cursorHover
             />
             <Text type="label" size={isMobile ? "small" : "medium"}>
               {title}

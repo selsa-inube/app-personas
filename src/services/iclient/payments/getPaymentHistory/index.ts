@@ -49,15 +49,14 @@ const getPaymentHistory = async (
         return [];
       }
 
-      const data = await res.json();
-
       if (!res.ok) {
         throw {
-          message: "Error al obtener los créditos del usuario",
+          message: "Error al obtener el historial de pagos del usuario.",
           status: res.status,
-          data,
         };
       }
+
+      const data = await res.json();
 
       const normalizedPaymentHistory = Array.isArray(data)
         ? mapPaymentHistoryApiToEntities(data)
@@ -67,7 +66,7 @@ const getPaymentHistory = async (
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
-          "Todos los intentos fallaron. No se pudieron obtener los créditos del usuario.",
+          "Todos los intentos fallaron. No se pudo obtener el historial de pagos.",
         );
       }
     }

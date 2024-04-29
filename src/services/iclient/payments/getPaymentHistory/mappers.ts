@@ -3,6 +3,7 @@ import {
   paymentStatusValuesMock,
   paymentTitleValuesMock,
 } from "@mocks/payments/utils.mocks";
+import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import { IPaymentHistory, IProductPayment } from "src/model/entity/payment";
 
 const mapPaymentHistoryApiToEntity = (
@@ -12,35 +13,40 @@ const mapPaymentHistoryApiToEntity = (
 
   if (Array.isArray(payment.productList)) {
     payment.productList.forEach((product) => {
-      products.push({
-        productName: String(product.productName),
-        productNumber: String(product.productCode),
-        valueToPay: Number(product.value),
-        applyPayment: String(product.action),
-      });
+      if (product.productName && product.productCode && product.value) {
+        products.push({
+          productName: String(product.productName),
+          productNumber: String(product.productCode),
+          valueToPay: Number(product.value),
+          applyPayment: paymentOptionValues[String(product.action)],
+        });
+      }
     });
   }
 
+  const paymentMethods = Array.isArray(payment.wayToPay)
+    ? payment.wayToPay.filter((way) => way.paymentMethodName)
+    : [];
+
   const paymentMethod =
-    Array.isArray(payment.wayToPay) && payment.wayToPay.length > 0
-      ? payment.wayToPay.length === 1
-        ? payment.wayToPay[0].paymentMethoName
-        : "Múltiples fuentes de dinero"
-      : "";
+    paymentMethods.length > 1
+      ? "Múltiples fuentes de dinero"
+      : paymentMethods.length > 0
+        ? paymentMethods[0].paymentMethodName
+        : "";
 
   return {
     id: String(payment.paymentId),
-    title: paymentTitleValuesMock[Object(payment.paymentSource).code],
+    title: paymentTitleValuesMock[String(payment.paymentSource)],
     value: Number(payment.totalValuePaid),
     paymentDate: new Date(String(payment.payDay)),
     paymentMethod,
     cus: String(payment.cus),
     tag: {
-      label: paymentStatusValuesMock[Object(payment.paymentStatus).code],
-      appearance:
-        paymentStatusAppearanceMock[Object(payment.paymentStatus).code],
+      label: paymentStatusValuesMock[String(payment.paymentStatus)],
+      appearance: paymentStatusAppearanceMock[String(payment.paymentStatus)],
       textAppearance:
-        paymentStatusAppearanceMock[Object(payment.paymentStatus).code],
+        paymentStatusAppearanceMock[String(payment.paymentStatus)],
       modifier: "clear",
     },
     products,
