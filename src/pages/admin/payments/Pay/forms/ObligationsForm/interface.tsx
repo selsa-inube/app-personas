@@ -16,7 +16,9 @@ import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { ISelectOption } from "@design/input/Select/types";
 import { Divider } from "@design/layout/Divider";
+import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
+import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import {
@@ -26,6 +28,7 @@ import {
 } from "react-icons/md";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
+import { paymentCardsBreakpoints } from "./config/cards";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledTotalPayment, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
@@ -110,6 +113,15 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
 
   const isMobile = useMediaQuery("(max-width: 700px)");
 
+  const cardsQueries = Object.keys(paymentCardsBreakpoints);
+  const cardsMediaQueries = useMediaQueries(cardsQueries);
+
+  const indexQuery = cardsQueries.findLastIndex(
+    (query) => cardsMediaQueries[query] === true,
+  );
+
+  const cardsPerRow = paymentCardsBreakpoints[cardsQueries[indexQuery]];
+
   const selectedPayments = formik.values.payments.filter(
     (payment) => payment.valueToPay && payment.valueToPay > 0,
   );
@@ -158,7 +170,10 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
             gap="s300"
             margin={isMobile ? "0 0 130px 0" : "0"}
           >
-            <Stack gap={isMobile ? "s200" : "s300"} wrap="wrap">
+            <Grid
+              templateColumns={`repeat(${cardsPerRow}, minmax(262px, 1fr))`}
+              gap={isMobile ? "s200" : "s300"}
+            >
               {filteredPayments.map((payment: IPayment) => (
                 <PaymentCard
                   key={payment.id}
@@ -175,7 +190,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   onRemovePayment={onRemovePayment}
                 />
               ))}
-            </Stack>
+            </Grid>
 
             <StyledTotalPaymentContainer fixed={isMobile}>
               <Divider dashed />

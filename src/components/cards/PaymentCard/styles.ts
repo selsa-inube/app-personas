@@ -18,9 +18,6 @@ const StyledCardContainer = styled.div<IStyledCardContainer>`
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
-  width: 262px;
-  /*  width: ${({ isMobile, isTablet }) =>
-    isMobile ? "100%" : isTablet ? "40%" : "27%"}; */
 `;
 
 interface IStyledInputContainer {
