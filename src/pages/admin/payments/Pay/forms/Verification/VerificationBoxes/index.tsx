@@ -1,5 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Text } from "@design/data/Text";
+// import { Text } from "@design/data/Text";
 import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -7,7 +7,6 @@ import { Fragment } from "react";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { EPaymentMethodType, IFormsPay } from "../../../types";
-import { StyledTotalPayment } from "../../ObligationsForm/styles";
 import { IObligationsEntry } from "../../ObligationsForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
 import {
@@ -15,6 +14,7 @@ import {
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
 import { StyledPayments } from "./styles";
+import { TotalToPay } from "@components/layout/TotalToPay";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -65,14 +65,10 @@ const renderObligationsVerification = (
       </StyledPayments>
 
       <Stack justifyContent="flex-end" width="100%">
-        <StyledTotalPayment isMobile={isTablet}>
-          <Text type="title" size="small">
-            Total a pagar hoy:
-          </Text>
-          <Text type="body" size="medium">
-            {currencyFormat(values.totalPayment)}
-          </Text>
-        </StyledTotalPayment>
+        <TotalToPay
+          isMobile={isTablet}
+          value={values.totalPayment}
+        />
       </Stack>
     </Stack>
   );

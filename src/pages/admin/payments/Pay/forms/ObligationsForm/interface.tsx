@@ -9,7 +9,6 @@ import {
   PaymentHelpModal,
 } from "@components/modals/payments/PaymentHelpModal";
 import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
-import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
@@ -20,22 +19,13 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
-import {
-  MdOpenInNew,
-  MdOutlineCheckBox,
-  MdOutlineFilterAlt,
-} from "react-icons/md";
+import { MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
-import { currencyFormat } from "src/utils/currency";
 import { paymentCardsBreakpoints } from "./config/cards";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
-import {
-  StyledFiltersContainer,
-  StyledTagValue,
-  StyledTotalPayment,
-  StyledTotalPaymentContainer,
-} from "./styles";
+import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
+import { TotalToPay } from "@components/layout/TotalToPay";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -203,25 +193,13 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               <Divider dashed />
 
               <Stack justifyContent="flex-end" width="100%">
-                <StyledTotalPayment isMobile={isMobile}>
-                  <Text type="title" size="medium">
-                    Total a pagar hoy:
-                  </Text>
-                  <StyledTagValue>
-                    <Icon
-                      icon={<MdOpenInNew />}
-                      appearance="primary"
-                      size="16px"
-                      cursorHover
-                      disabled={(formik.values.totalPayment || 0) === 0}
-                      onClick={onToggleTotalModal}
-                      spacing="none"
-                    />
-                    <Text type="title" size="medium" appearance="gray">
-                      {currencyFormat(formik.values.totalPayment)}
-                    </Text>
-                  </StyledTagValue>
-                </StyledTotalPayment>
+                <TotalToPay
+                  isMobile={isMobile}
+                  isExpandable={true}
+                  isdisabled={(formik.values.totalPayment || 0) === 0}
+                  onclick={onToggleTotalModal}
+                  value={formik.values.totalPayment}
+                />
               </Stack>
             </StyledTotalPaymentContainer>
           </Stack>
