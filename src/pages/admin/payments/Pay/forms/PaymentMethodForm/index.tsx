@@ -30,7 +30,6 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   const { initialValues, onFormValid } = props;
 
   const [dynamicSchema] = useState(validationSchema);
-  const [showFundsAlert, setShowFundsAlert] = useState(false);
   const { savings, setSavings } = useContext(SavingsContext);
   const { user, accessToken } = useAuth();
 
@@ -45,26 +44,9 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   useEffect(() => {
     if (onFormValid) {
-      onFormValid(
-        formik.values.pendingValue === 0 &&
-          formik.values.paidValue > 0 &&
-          !showFundsAlert,
-      );
+      onFormValid(formik.values.pendingValue === 0);
     }
-  }, [
-    formik.values.valueToPay,
-    formik.values.pendingValue,
-    formik.values.paidValue,
-    showFundsAlert,
-  ]);
-
-  useEffect(() => {
-    setShowFundsAlert(
-      Object.values(formik.values.moneySources || {}).some(
-        (source) => source.value > source.balance,
-      ),
-    );
-  }, [formik.values.moneySources]);
+  }, [formik.values.pendingValue]);
 
   useEffect(() => {
     if (!user || !accessToken) return;
@@ -81,7 +63,6 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const customHandleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     formik.handleChange(event);
-    formik.setFieldValue("paidValue", 0);
     formik.setFieldValue("pendingValue", formik.values.valueToPay);
 
     const moneySources: IMoneySource = {};
@@ -111,8 +92,6 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         );
 
         if (!notFunds) {
-          formik.setFieldValue("paidValue", formik.values.valueToPay);
-
           formik.setFieldValue("pendingValue", 0);
         }
       }
@@ -134,7 +113,6 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       };
 
       if (paymentMethod === EPaymentMethodType.PSE) {
-        formik.setFieldValue("paidValue", formik.values.valueToPay);
         formik.setFieldValue("pendingValue", 0);
       }
     }
@@ -157,15 +135,25 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     };
 
     formik.setFieldValue("moneySources", updatedMoneySources);
+  };
 
-    const paidValue = Object.values(updatedMoneySources).reduce(
+  const handleSaveMoneySource = () => {
+    const paidValue = Object.values(formik.values.moneySources || {}).reduce(
       (acc, source) => acc + source.value,
       0,
     );
 
-    formik.setFieldValue("paidValue", paidValue);
-
     formik.setFieldValue("pendingValue", formik.values.valueToPay - paidValue);
+  };
+
+  const handleRemoveValueMoneySource = (id: string) => {
+    const moneySources = { ...formik.values.moneySources };
+
+    moneySources[id].value = 0;
+
+    formik.setFieldValue("moneySources", moneySources);
+
+    handleSaveMoneySource();
   };
 
   const handleSelectMoneySource = (id: string) => {
@@ -185,28 +173,19 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       }
     });
 
-    const notFunds = Object.values(updatedMoneySources).some(
-      (source) => source.balance && source.value > source.balance,
-    );
-
     formik.setFieldValue("moneySources", updatedMoneySources);
 
-    if (notFunds) {
-      setShowFundsAlert(true);
-    } else {
-      setShowFundsAlert(false);
-      formik.setFieldValue("paidValue", formik.values.valueToPay);
-      formik.setFieldValue("pendingValue", 0);
-    }
+    formik.setFieldValue("pendingValue", 0);
   };
 
   return (
     <PaymentMethodFormUI
       formik={formik}
-      showFundsAlert={showFundsAlert}
       customHandleChange={customHandleChange}
       onChangeMoneySource={handleChangeMoneySource}
       onSelectMoneySource={handleSelectMoneySource}
+      onSaveMoneySource={handleSaveMoneySource}
+      onRemoveValueMoneySource={handleRemoveValueMoneySource}
     />
   );
 });

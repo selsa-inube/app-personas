@@ -31,6 +31,7 @@ import { paymentCardsBreakpoints } from "./config/cards";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import {
   StyledFiltersContainer,
+  StyledTagValue,
   StyledTotalPayment,
   StyledTotalPaymentContainer,
 } from "./styles";
@@ -203,20 +204,23 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
 
               <Stack justifyContent="flex-end" width="100%">
                 <StyledTotalPayment isMobile={isMobile}>
-                  <Text type="title" size="small">
+                  <Text type="title" size="medium">
                     Total a pagar hoy:
                   </Text>
-                  <Text type="body" size="medium">
-                    {currencyFormat(formik.values.totalPayment)}
-                  </Text>
-                  <Icon
-                    icon={<MdOpenInNew />}
-                    appearance="primary"
-                    size="20px"
-                    cursorHover
-                    disabled={(formik.values.totalPayment || 0) === 0}
-                    onClick={onToggleTotalModal}
-                  />
+                  <StyledTagValue>
+                    <Icon
+                      icon={<MdOpenInNew />}
+                      appearance="primary"
+                      size="16px"
+                      cursorHover
+                      disabled={(formik.values.totalPayment || 0) === 0}
+                      onClick={onToggleTotalModal}
+                      spacing="none"
+                    />
+                    <Text type="title" size="medium" appearance="gray">
+                      {currencyFormat(formik.values.totalPayment)}
+                    </Text>
+                  </StyledTagValue>
                 </StyledTotalPayment>
               </Stack>
             </StyledTotalPaymentContainer>
