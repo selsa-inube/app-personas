@@ -57,8 +57,19 @@ const StyledFiltersContainer = styled.div`
       inube.color.stroke.divider.regular};
 `;
 
+const StyledTagValue = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${inube.spacing.s025};
+  padding: 0 ${inube.spacing.s050};
+  border-radius: ${inube.spacing.s050};
+  background: ${({ theme }) =>
+    theme.color?.surface?.gray?.regular || inube.color.surface.gray.regular};
+`;
+
 export {
   StyledFiltersContainer,
+  StyledTagValue,
   StyledTotalPayment,
   StyledTotalPaymentContainer,
 };

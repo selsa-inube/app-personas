@@ -17,7 +17,6 @@ interface IPaymentMethodEntry {
   paymentMethod: string;
   moneySources?: IMoneySource;
   valueToPay: number;
-  paidValue: number;
   pendingValue: number;
 }
 
