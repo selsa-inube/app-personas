@@ -4,21 +4,21 @@ import { MdOpenInNew } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledTotalPayment, StyledTagValue } from "./styles";
 
-interface TotalToPayProps {
+interface TotalizerProps {
   isMobile: boolean;
   isExpandable?: boolean;
-  isdisabled?: boolean;
+  isDisabled?: boolean;
   value: number;
-  onclick?: () => void;
+  onClick?: () => void;
 }
 
-function TotalToPay(props: TotalToPayProps) {
+function Totalizer(props: TotalizerProps) {
   const {
     isMobile,
     isExpandable = false,
-    isdisabled = false,
+    isDisabled = false,
     value,
-    onclick,
+    onClick,
   } = props;
 
   return (
@@ -34,8 +34,8 @@ function TotalToPay(props: TotalToPayProps) {
             size="16px"
             spacing="none"
             cursorHover
-            disabled={isdisabled}
-            onClick={onclick}
+            disabled={isDisabled}
+            onClick={onClick}
           />
         )}
         <Text type="title" size="medium" appearance="gray">
@@ -46,4 +46,4 @@ function TotalToPay(props: TotalToPayProps) {
   );
 }
 
-export { TotalToPay };
+export { Totalizer };

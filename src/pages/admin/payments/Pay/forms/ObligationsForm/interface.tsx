@@ -1,4 +1,5 @@
 import { PaymentCard } from "@components/cards/PaymentCard";
+import { Totalizer } from "@components/layout/Totalizer";
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
 import {
   IPaymentFilters,
@@ -25,7 +26,6 @@ import { paymentCardsBreakpoints } from "./config/cards";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
-import { TotalToPay } from "@components/layout/TotalToPay";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -193,11 +193,11 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               <Divider dashed />
 
               <Stack justifyContent="flex-end" width="100%">
-                <TotalToPay
+                <Totalizer
                   isMobile={isMobile}
                   isExpandable={true}
-                  isdisabled={(formik.values.totalPayment || 0) === 0}
-                  onclick={onToggleTotalModal}
+                  isDisabled={(formik.values.totalPayment || 0) === 0}
+                  onClick={onToggleTotalModal}
                   value={formik.values.totalPayment}
                 />
               </Stack>

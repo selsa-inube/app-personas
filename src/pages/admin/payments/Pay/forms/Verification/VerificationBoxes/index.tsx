@@ -1,4 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { Totalizer } from "@components/layout/Totalizer";
 import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -13,7 +14,6 @@ import {
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
 import { StyledPayments } from "./styles";
-import { TotalToPay } from "@components/layout/TotalToPay";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -64,10 +64,7 @@ const renderObligationsVerification = (
       </StyledPayments>
 
       <Stack justifyContent="flex-end" width="100%">
-        <TotalToPay
-          isMobile={isTablet}
-          value={values.totalPayment}
-        />
+        <Totalizer isMobile={isTablet} value={values.totalPayment} />
       </Stack>
     </Stack>
   );
