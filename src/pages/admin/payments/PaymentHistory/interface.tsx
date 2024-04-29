@@ -93,7 +93,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                   value={payment.value}
                   tag={payment.tag}
                   paymentDate={payment.paymentDate}
-                  paymentType={payment.paymentType}
+                  paymentMethod={payment.paymentMethod}
                   cus={payment.cus}
                   onClick={() => onTogglePaymentHistoryModal(payment)}
                 />

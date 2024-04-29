@@ -22,7 +22,7 @@ Default.args = {
   title: "Pago PRE-LIQUIDACIÓN WEB",
   value: 645000,
   paymentDate: new Date("30/Mar/2024 11:20 am"),
-  paymentType: "Pagar con débito a una cuenta de ahorros",
+  paymentMethod: "Pagar con débito a una cuenta de ahorros",
   cus: "558907643",
   tag: {
     label: "En progreso",

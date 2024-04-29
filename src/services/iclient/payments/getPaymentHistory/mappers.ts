@@ -1,3 +1,8 @@
+import {
+  paymentStatusAppearanceMock,
+  paymentStatusValuesMock,
+  paymentTitleValuesMock,
+} from "@mocks/payments/utils.mocks";
 import { IPaymentHistory, IProductPayment } from "src/model/entity/payment";
 
 const mapPaymentHistoryApiToEntity = (
@@ -16,17 +21,26 @@ const mapPaymentHistoryApiToEntity = (
     });
   }
 
+  const paymentMethod =
+    Array.isArray(payment.wayToPay) && payment.wayToPay.length > 0
+      ? payment.wayToPay.length === 1
+        ? payment.wayToPay[0].paymentMethoName
+        : "Múltiples fuentes de dinero"
+      : "";
+
   return {
     id: String(payment.paymentId),
-    title: String(payment.descriptionPayment),
+    title: paymentTitleValuesMock[Object(payment.paymentSource).code],
     value: Number(payment.totalValuePaid),
     paymentDate: new Date(String(payment.payDay)),
-    paymentType: String(payment.paymentSource),
+    paymentMethod,
     cus: String(payment.cus),
     tag: {
-      label: String(payment.paymentStatus),
-      appearance: "warning",
-      textAppearance: "warning",
+      label: paymentStatusValuesMock[Object(payment.paymentStatus).code],
+      appearance:
+        paymentStatusAppearanceMock[Object(payment.paymentStatus).code],
+      textAppearance:
+        paymentStatusAppearanceMock[Object(payment.paymentStatus).code],
       modifier: "clear",
     },
     products,

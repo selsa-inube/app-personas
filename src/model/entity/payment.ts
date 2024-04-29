@@ -58,7 +58,7 @@ interface IPaymentHistory {
   tag: TagProps;
   value: number;
   paymentDate: Date;
-  paymentType: string;
+  paymentMethod: string;
   cus: string;
   products?: IProductPayment[];
 }
