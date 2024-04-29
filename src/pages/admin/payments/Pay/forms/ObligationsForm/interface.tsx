@@ -16,7 +16,6 @@ import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { ISelectOption } from "@design/input/Select/types";
 import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
@@ -109,7 +108,6 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     onUpdateTotalPayment,
   } = props;
 
-  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 700px)");
 
   const selectedPayments = formik.values.payments.filter(
@@ -160,10 +158,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
             gap="s300"
             margin={isMobile ? "0 0 130px 0" : "0"}
           >
-            <Grid
-              templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-              gap={isMobile ? "s200" : "s300"}
-            >
+            <Stack gap={isMobile ? "s200" : "s300"} wrap="wrap">
               {filteredPayments.map((payment: IPayment) => (
                 <PaymentCard
                   key={payment.id}
@@ -180,7 +175,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   onRemovePayment={onRemovePayment}
                 />
               ))}
-            </Grid>
+            </Stack>
 
             <StyledTotalPaymentContainer fixed={isMobile}>
               <Divider dashed />

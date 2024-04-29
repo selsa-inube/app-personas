@@ -237,7 +237,6 @@ function CustomValueModal(props: CustomValueModalProps) {
                   spacing="compact"
                   onClick={handleApplyPayOption}
                   disabled={
-                    (customValue !== totalPaymentValue && !selectedOption) ||
                     customValue < nextPaymentValue ||
                     customValue > totalPaymentValue
                   }

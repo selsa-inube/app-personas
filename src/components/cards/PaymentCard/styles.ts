@@ -1,7 +1,12 @@
 import { inube } from "@design/tokens";
 import styled from "styled-components";
 
-const StyledCardContainer = styled.div`
+interface IStyledCardContainer {
+  isMobile: boolean;
+  isTablet: boolean;
+}
+
+const StyledCardContainer = styled.div<IStyledCardContainer>`
   display: flex;
   flex-direction: column;
   padding: ${inube.spacing.s300} ${inube.spacing.s250};
@@ -13,7 +18,9 @@ const StyledCardContainer = styled.div`
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
-  height: fit-content;
+  width: 262px;
+  /*  width: ${({ isMobile, isTablet }) =>
+    isMobile ? "100%" : isTablet ? "40%" : "27%"}; */
 `;
 
 interface IStyledInputContainer {
