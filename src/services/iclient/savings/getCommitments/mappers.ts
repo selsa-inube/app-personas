@@ -60,7 +60,19 @@ const mapSavingsCommitmentsApiToEntity = (
       )
     : [];
 
-  const nextPaymentDate = new Date(String(commitment.closePaymentDate));
+  const lastMovementTheSavingPlans = commitment.savingPaymentPlans;
+
+  const lastSavingPlan =
+    Array.isArray(lastMovementTheSavingPlans) &&
+    lastMovementTheSavingPlans.reduce((latest, current) => {
+      return !latest || new Date(current.quotaDate) > new Date(latest.quotaDate)
+        ? current
+        : latest;
+    }, null);
+
+  const nextPaymentDate = commitment.closePaymentDate
+    ? new Date(String(commitment.closePaymentDate))
+    : new Date(String(lastSavingPlan.quotaDate));
   nextPaymentDate.setUTCHours(5, 5, 5, 5);
 
   const nextPaymentValue = commitment.expiredValue || commitment.quotaValue;
@@ -93,18 +105,18 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
-  if (nextPaymentValue) {
+  if (nextPaymentDate && nextPaymentValue) {
     attributes.push({
       id: "next_payment_value",
-      label: "Valor próximo pago",
+      label: "Próximo pago",
       value: Number(nextPaymentValue),
     });
   }
 
-  if (commitment.closePaymentDate) {
+  if (nextPaymentValue && nextPaymentDate) {
     attributes.push({
       id: "next_payment_date",
-      label: "Fecha próximo pago",
+      label: "Fecha de pago",
       value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
     });
   }
@@ -121,7 +133,7 @@ const mapSavingsCommitmentsApiToEntity = (
     title: capitalizeText(
       String(commitment.commitmentDescription).toLowerCase(),
     ),
-    tag: tag,
+    tag: nextPaymentDate && nextPaymentValue && tag ? tag : undefined,
     type: commitmentType,
     attributes,
     movements,
