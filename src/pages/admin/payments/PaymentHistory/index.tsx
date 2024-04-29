@@ -1,35 +1,66 @@
-import { useState, useEffect } from "react";
-import { PaymentHistoryUI } from "./interface";
-import { paymentHistoryMock } from "@mocks/payments/paymentHistory.mocks";
+import { useAuth } from "@inube/auth";
+import { useEffect, useState } from "react";
 import { IPaymentHistory } from "src/model/entity/payment";
+import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHistory";
+import { PaymentHistoryUI } from "./interface";
+
+let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 
 function PaymentHistory() {
   const [showPaymentHistoryModal, setShowPaymentHistoryModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [paymentHistoryCards, setPaymentHistoryCards] = useState<IPaymentHistory[]>([]);
-  const [selectedPayment, setSelectedPayment] = useState<IPaymentHistory | undefined>();
-  const [maxPaymentHistoryCards, setMaxPaymentHistoryCards] = useState(0);
+  const [paymentHistory, setPaymentHistory] = useState<IPaymentHistory[]>([]);
+  const [selectedPayment, setSelectedPayment] = useState<
+    IPaymentHistory | undefined
+  >();
+  const [noMorePayments, setNoMorePayments] = useState(false);
+  const { user, accessToken } = useAuth();
 
   useEffect(() => {
-    setPaymentHistoryCards(paymentHistoryMock.slice(0, 5));
-    setMaxPaymentHistoryCards(paymentHistoryMock.length);
+    handleRefreshHistory();
+
+    return () => {
+      if (refreshInterval) {
+        clearInterval(refreshInterval);
+      }
+    };
   }, []);
 
-  const handleAddPaymentCards = () => {
-    setLoading(true);
-    setTimeout(() => {
-      try {
-        const newPaymentCards = paymentHistoryCards.concat(
-          paymentHistoryMock.slice(
-            paymentHistoryCards.length,
-            paymentHistoryCards.length + 5,
-          ),
-        );
-        setPaymentHistoryCards(newPaymentCards.slice(0, maxPaymentHistoryCards));
-      } finally {
-        setLoading(false);
-      }
-    }, 500);
+  const handleRefreshHistory = () => {
+    if (refreshInterval) {
+      clearInterval(refreshInterval);
+    }
+
+    handleGetPaymentHistory(0, 5);
+
+    refreshInterval = setInterval(() => {
+      handleGetPaymentHistory(0, 5);
+    }, 60000);
+  };
+
+  const handleGetPaymentHistory = (page: number, limit: number) => {
+    if (user && accessToken && paymentHistory.length === 0) {
+      setLoading(true);
+      getPaymentHistory(user.identification, accessToken, page, limit)
+        .then((newPaymentHistory) => {
+          if (newPaymentHistory.length === 0) {
+            setNoMorePayments(true);
+            return;
+          }
+
+          setPaymentHistory([...paymentHistory, ...newPaymentHistory]);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  };
+
+  const handleAddPayments = () => {
+    handleGetPaymentHistory(paymentHistory.length, 5);
   };
 
   const handleTogglePaymentHistoryModal = (payment: IPaymentHistory) => {
@@ -44,12 +75,14 @@ function PaymentHistory() {
   return (
     <PaymentHistoryUI
       showPaymentHistoryModal={showPaymentHistoryModal}
-      payments={paymentHistoryCards}
+      paymentHistory={paymentHistory}
       loading={loading}
       selectedPayment={selectedPayment}
-      handleTogglePaymentHistoryModal={handleTogglePaymentHistoryModal}
-      handleAddPaymentCards={handleAddPaymentCards}
-      handleToggleClosePaymentHistoryModal={handleToggleClosePaymentHistoryModal}
+      noMorePayments={noMorePayments}
+      onTogglePaymentHistoryModal={handleTogglePaymentHistoryModal}
+      onAddPayments={handleAddPayments}
+      onToggleClosePaymentHistoryModal={handleToggleClosePaymentHistoryModal}
+      onRefreshHistory={handleRefreshHistory}
     />
   );
 }

@@ -11,7 +11,7 @@ const props = {
   paymentDate: {
     description: "Controls the date of the payment history card",
   },
-  paymentType: {
+  paymentMethod: {
     description: "Corresponds to the monitoring code",
   },
   tag: {
