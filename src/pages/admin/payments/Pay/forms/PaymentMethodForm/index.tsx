@@ -174,6 +174,14 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     });
 
     formik.setFieldValue("moneySources", updatedMoneySources);
+    const selectedMoneySource = updatedMoneySources[moneySourceKey];
+
+    if (
+      selectedMoneySource.balance &&
+      updatedMoneySources[moneySourceKey].value > selectedMoneySource.balance
+    ) {
+      return;
+    }
 
     formik.setFieldValue("pendingValue", 0);
   };
