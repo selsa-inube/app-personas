@@ -1,22 +1,22 @@
+import { Icon } from "@design/data/Icon";
+import { Tag } from "@design/data/Tag";
+import { Text } from "@design/data/Text";
+import { Blanket } from "@design/layout/Blanket";
+import { Divider } from "@design/layout/Divider";
+import { Stack } from "@design/layout/Stack";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import React from "react";
 import { createPortal } from "react-dom";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@design/layout/Blanket";
+import { MdOutlineClose } from "react-icons/md";
+import { IPaymentHistory } from "src/model/entity/payment";
+import { currencyFormat } from "src/utils/currency";
 import {
-  StyledItem,
   StyledContainer,
+  StyledContainerItems,
+  StyledItem,
   StyledModal,
   StyledResume,
-  StyledContainerItems,
 } from "./styles";
-import { Icon } from "@design/data/Icon";
-import { MdOutlineClose } from "react-icons/md";
-import { Stack } from "@design/layout/Stack";
-import { Text } from "@design/data/Text";
-import { Divider } from "@design/layout/Divider";
-import { Tag } from "@design/data/Tag";
-import { currencyFormat } from "src/utils/currency";
-import { IPaymentHistory } from "src/model/entity/payment";
 
 const renderAttribute = (
   label: string,
@@ -105,7 +105,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
                 Forma de pago:
               </Text>
               <Text type="body" size="small">
-                {paymentHistoryData.paymentType}
+                {paymentHistoryData.paymentMethod}
               </Text>
             </Stack>
           </StyledResume>
@@ -140,7 +140,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
                   Forma de pago:
                 </Text>
                 <Text type="body" size="medium">
-                  {paymentHistoryData.paymentType}
+                  {paymentHistoryData.paymentMethod}
                 </Text>
               </Stack>
             </StyledResume>

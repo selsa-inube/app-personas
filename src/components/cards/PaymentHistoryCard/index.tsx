@@ -1,12 +1,12 @@
 import { Icon } from "@design/data/Icon";
-import { StyledCard } from "./styles";
-import { MdOpenInNew, MdOutlinePayments } from "react-icons/md";
+import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
-import { currencyFormat } from "src/utils/currency";
-import { Tag, TagProps } from "@design/data/Tag";
-import { formatPrimaryDate } from "src/utils/dates";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { MdOpenInNew, MdOutlinePayments } from "react-icons/md";
+import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
+import { StyledCard } from "./styles";
 
 interface PaymentHistoryCardProps {
   id: string;
@@ -14,13 +14,13 @@ interface PaymentHistoryCardProps {
   tag: TagProps;
   value: number;
   paymentDate: Date;
-  paymentType: string;
+  paymentMethod: string;
   cus: string;
   onClick: () => void;
 }
 
 function PaymentHistoryCard(props: PaymentHistoryCardProps) {
-  const { title, tag, value, paymentDate, paymentType, cus, onClick } = props;
+  const { title, tag, value, paymentDate, paymentMethod, cus, onClick } = props;
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   return (
@@ -94,7 +94,7 @@ function PaymentHistoryCard(props: PaymentHistoryCardProps) {
               Forma de pago:
             </Text>
             <Text type="body" size="small">
-              {paymentType}
+              {paymentMethod}
             </Text>
           </Stack>
           <Stack justifyContent="space-between">
