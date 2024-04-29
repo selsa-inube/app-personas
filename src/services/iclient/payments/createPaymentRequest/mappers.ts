@@ -29,7 +29,7 @@ const mapPaymentRequestEntityToApi = (
   return {
     clientCode: paymentRequest.customerCode,
     clientName: paymentRequest.customerName,
-    descriptionPayment: paymentRequest.comments || "xxxx",
+    descriptionPayment: paymentRequest.comments,
     productList: paymentRequest.payments.map((payment) => ({
       productCode: payment.id,
       productName: payment.title,
