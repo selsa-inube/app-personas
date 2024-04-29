@@ -5,7 +5,6 @@ import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack, MdArrowForward, MdCheckCircle } from "react-icons/md";
-import { Spinner } from "../Spinner";
 import {
   StyledAssistedContainer,
   StyledBar,
@@ -22,7 +21,6 @@ interface AssistedUIProps {
   currentStepInfo?: IStep;
   disableNextStep?: boolean;
   showButtonsLabels?: boolean;
-  loading?: boolean;
   handlePreviousStep: () => void;
   handleNextStep: () => void;
 }
@@ -35,7 +33,6 @@ function AssistedUI(props: AssistedUIProps) {
     currentStepInfo,
     disableNextStep,
     showButtonsLabels = true,
-    loading,
     handlePreviousStep,
     handleNextStep,
   } = props;
@@ -62,7 +59,7 @@ function AssistedUI(props: AssistedUIProps) {
               variant="none"
               iconBefore={<MdArrowBack size={18} />}
               onClick={handlePreviousStep}
-              disabled={loading || currentStepIndex === 0}
+              disabled={currentStepIndex === 0}
               spacing="compact"
             >
               Atrás
@@ -75,7 +72,7 @@ function AssistedUI(props: AssistedUIProps) {
             size="20px"
             spacing="none"
             onClick={handlePreviousStep}
-            appearance={loading ? "gray" : "primary"}
+            appearance="primary"
             disabled={currentStepIndex === 0}
           />
         )}
@@ -139,13 +136,10 @@ function AssistedUI(props: AssistedUIProps) {
               onClick={handleNextStep}
               disabled={disableNextStep}
               spacing="compact"
-              load={loading}
             >
               {currentStepIndex === steps.length - 1 ? "Enviar" : "Siguiente"}
             </Button>
           </StyledButton>
-        ) : loading ? (
-          <Spinner track={false} />
         ) : (
           <Icon
             variant="none"
