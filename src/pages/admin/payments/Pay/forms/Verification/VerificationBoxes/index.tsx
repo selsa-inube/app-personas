@@ -104,8 +104,9 @@ const renderPaymentMethodVerification = (
 
         <BoxAttribute
           label="Valor pagado:"
-          value={currencyFormat(values.paidValue)}
+          value={currencyFormat(values.valueToPay)}
         />
+
         {Object.values(values.moneySources || {}).map(
           (moneySource) =>
             moneySource.value > 0 && (

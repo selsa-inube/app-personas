@@ -73,10 +73,22 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const handleApplyPayOption = (
     payId: string,
     option: IPaymentOption,
-    applyPayOption?: IApplyPayOption,
+    applyPayOption: IApplyPayOption,
   ) => {
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === payId) {
+        const tags: TagProps[] = payment.tags.filter(
+          (tag) => tag.id !== "payOption",
+        );
+
+        tags.push({
+          id: "payOption",
+          label: applyPayOption.label,
+          appearance: "dark",
+          modifier: "clear",
+          textAppearance: "dark",
+        });
+
         return {
           ...payment,
           options: payment.options.map((payOption) => {
@@ -95,6 +107,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
           }),
           applyPayOption,
           valueToPay: option.value,
+          tags,
         };
       }
       return payment;
@@ -116,6 +129,10 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const handleChangePaymentValue = (payId: string, option: IPaymentOption) => {
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === payId) {
+        const tags: TagProps[] = payment.tags.filter(
+          (tag) => tag.id !== "payOption",
+        );
+
         return {
           ...payment,
           options: payment.options.map((payOption) => {
@@ -133,6 +150,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
             };
           }),
           valueToPay: option.value,
+          tags,
         };
       }
       return payment;
@@ -213,11 +231,9 @@ const ObligationsForm = forwardRef(function ObligationsForm(
         return { ...payOption, selected };
       });
 
-      let tags: TagProps[] = [];
-
-      if (payment.tags.find((tag) => tag.id === "payOption")) {
-        tags = payment.tags.filter((tag) => tag.id !== "payOption");
-      }
+      const tags: TagProps[] = payment.tags.filter(
+        (tag) => tag.id !== "payOption",
+      );
 
       return {
         ...payment,
@@ -246,11 +262,9 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const handleRemovePayment = (paymentId: string) => {
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === paymentId) {
-        let tags = payment.tags;
-
-        if (payment.tags.find((tag) => tag.id === "payOption")) {
-          tags = payment.tags.filter((tag) => tag.id !== "payOption");
-        }
+        const tags: TagProps[] = payment.tags.filter(
+          (tag) => tag.id !== "payOption",
+        );
 
         return {
           ...payment,

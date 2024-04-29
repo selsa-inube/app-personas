@@ -13,11 +13,11 @@ import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Fieldset } from "@design/input/Fieldset";
 import { ISelectOption } from "@design/input/Select/types";
 import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
+import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import {
@@ -27,8 +27,14 @@ import {
 } from "react-icons/md";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
+import { paymentCardsBreakpoints } from "./config/cards";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
-import { StyledTotalPayment, StyledTotalPaymentContainer } from "./styles";
+import {
+  StyledFiltersContainer,
+  StyledTagValue,
+  StyledTotalPayment,
+  StyledTotalPaymentContainer,
+} from "./styles";
 import { IObligationsEntry } from "./types";
 
 const renderFilters = (
@@ -75,7 +81,7 @@ interface ObligationsFormUIProps {
   onApplyPayOption: (
     payId: string,
     option: IPaymentOption,
-    applyPayOption?: IApplyPayOption,
+    applyPayOption: IApplyPayOption,
   ) => void;
   onChangePaymentValue: (payId: string, option: IPaymentOption) => void;
   onToggleFiltersModal: () => void;
@@ -109,8 +115,16 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     onUpdateTotalPayment,
   } = props;
 
-  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 700px)");
+
+  const cardsQueries = Object.keys(paymentCardsBreakpoints);
+  const cardsMediaQueries = useMediaQueries(cardsQueries);
+
+  const indexQuery = cardsQueries.findLastIndex(
+    (query) => cardsMediaQueries[query] === true,
+  );
+
+  const cardsPerRow = paymentCardsBreakpoints[cardsQueries[indexQuery]];
 
   const selectedPayments = formik.values.payments.filter(
     (payment) => payment.valueToPay && payment.valueToPay > 0,
@@ -133,7 +147,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                 iconBefore={<MdOutlineCheckBox />}
                 onClick={onToggleHelpModal}
               >
-                Ayudas
+                Selección múltiple
               </Button>
               <Button
                 spacing="compact"
@@ -144,15 +158,18 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               </Button>
             </Stack>
 
-            <Fieldset title="Filtros aplicados">
-              <Stack direction="row" gap="s150">
+            <StyledFiltersContainer>
+              <Text type="title" size="small">
+                Filtros:
+              </Text>
+              <Stack direction="row" gap="s150" alignItems="center">
                 {renderFilters(
                   filters,
                   paymentFilters(formik.values.paymentMethodFilters),
                   onRemoveFilter,
                 )}
               </Stack>
-            </Fieldset>
+            </StyledFiltersContainer>
           </Stack>
 
           <Stack
@@ -161,7 +178,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
             margin={isMobile ? "0 0 130px 0" : "0"}
           >
             <Grid
-              templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+              templateColumns={`repeat(${cardsPerRow}, minmax(262px, 1fr))`}
               gap={isMobile ? "s200" : "s300"}
             >
               {filteredPayments.map((payment: IPayment) => (
@@ -187,20 +204,23 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
 
               <Stack justifyContent="flex-end" width="100%">
                 <StyledTotalPayment isMobile={isMobile}>
-                  <Text type="title" size="small">
+                  <Text type="title" size="medium">
                     Total a pagar hoy:
                   </Text>
-                  <Text type="body" size="medium">
-                    {currencyFormat(formik.values.totalPayment)}
-                  </Text>
-                  <Icon
-                    icon={<MdOpenInNew />}
-                    appearance="primary"
-                    size="20px"
-                    cursorHover
-                    disabled={(formik.values.totalPayment || 0) === 0}
-                    onClick={onToggleTotalModal}
-                  />
+                  <StyledTagValue>
+                    <Icon
+                      icon={<MdOpenInNew />}
+                      appearance="primary"
+                      size="16px"
+                      cursorHover
+                      disabled={(formik.values.totalPayment || 0) === 0}
+                      onClick={onToggleTotalModal}
+                      spacing="none"
+                    />
+                    <Text type="title" size="medium" appearance="gray">
+                      {currencyFormat(formik.values.totalPayment)}
+                    </Text>
+                  </StyledTagValue>
                 </StyledTotalPayment>
               </Stack>
             </StyledTotalPaymentContainer>

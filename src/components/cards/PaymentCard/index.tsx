@@ -5,12 +5,12 @@ import {
 import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
-import { TextField } from "@design/input/TextField";
+import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
-import { MdEdit, MdOutlineDelete } from "react-icons/md";
+import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
 import { IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import {
@@ -47,10 +47,7 @@ const renderOptions = (
             value={option.id}
             disabled={valueIsZero}
           />
-          <Stack
-            direction={isMobile ? "column" : "row"}
-            gap={isMobile ? "s0" : "s150"}
-          >
+          <Stack direction="column" gap="s0">
             <Text type="label" size="medium" disabled={valueIsZero}>
               {option.label}:
             </Text>
@@ -85,7 +82,7 @@ interface PaymentCardProps {
   onApplyPayOption: (
     payId: string,
     option: IPaymentOption,
-    applyPayOption?: IApplyPayOption,
+    applyPayOption: IApplyPayOption,
   ) => void;
   onChangePaymentValue: (payId: string, option: IPaymentOption) => void;
   onRemovePayment: (paymentId: string) => void;
@@ -105,15 +102,12 @@ function PaymentCard(props: PaymentCardProps) {
   } = props;
 
   const [showModal, setShowModal] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 580px)");
+
+  const isTablet = useMediaQuery("(max-width: 1100px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
 
   const handleChangeOption = (option: IPaymentOption) => {
     onChangePaymentValue(id, option);
-
-    if (tags.find((tag) => tag.id === "payOption")) {
-      const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
-      tags.splice(indexPayOption, 1);
-    }
   };
 
   const handleToggleModal = () => {
@@ -122,11 +116,6 @@ function PaymentCard(props: PaymentCardProps) {
 
   const resetValues = () => {
     onRemovePayment(id);
-
-    if (tags.find((tag) => tag.id === "payOption")) {
-      const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
-      tags.splice(indexPayOption, 1);
-    }
   };
 
   const handleApplyPayOption = (
@@ -140,36 +129,31 @@ function PaymentCard(props: PaymentCardProps) {
     };
 
     onApplyPayOption(id, customOption, applyPayOption);
-
-    if (tags.find((tag) => tag.id === "payOption")) {
-      const indexPayOption = tags.findIndex((tag) => tag.id === "payOption");
-      tags.splice(indexPayOption, 1);
-    }
-
-    tags.push({
-      id: "payOption",
-      label: applyPayOption.label,
-      appearance: "dark",
-      modifier: "clear",
-      textAppearance: "dark",
-    });
   };
 
   const hastOtherValue = options.find(
     (option) => option.id === EPaymentOptionType.OTHERVALUE,
   );
 
+  const nextPaymentValue = options.find(
+    (option) => option.id === EPaymentOptionType.NEXTVALUE,
+  )?.value;
+
+  const totalPaymentValue =
+    options.find((option) => option.id === EPaymentOptionType.TOTALVALUE)
+      ?.value || nextPaymentValue;
+
   return (
     <>
-      <StyledCardContainer>
+      <StyledCardContainer isMobile={isMobile} isTablet={isTablet}>
         <Stack direction="column" gap="s100">
-          <Stack
-            direction={isMobile ? "column" : "row"}
-            justifyContent="space-between"
-          >
-            <Text type="label" size="large">
-              {title}
-            </Text>
+          <Stack justifyContent="space-between">
+            <Stack width="60%">
+              <Text type="label" size="large" ellipsis>
+                {title}
+              </Text>
+            </Stack>
+
             <Text type="body" size="medium" appearance="gray">
               {id}
             </Text>
@@ -184,50 +168,32 @@ function PaymentCard(props: PaymentCardProps) {
           {renderOptions(options, isMobile, handleChangeOption, selectedOption)}
         </Stack>
 
-        <Stack
-          gap="s100"
-          width="100%"
-          alignItems="center"
-          justifyContent="flex-end"
-        >
-          <Text type="label" size="medium">
-            Pagar:
-          </Text>
+        <Stack width="100%" alignItems="center" justifyContent="space-between">
+          <Button
+            onClick={resetValues}
+            variant="outlined"
+            disabled={(selectedOption?.value || 0) === 0}
+            appearance="error"
+            spacing="compact"
+            iconBefore={<MdOutlineDelete />}
+          >
+            Eliminar
+          </Button>
 
-          <Stack width="180px" alignItems="center" justifyContent="flex-end">
-            <TextField
-              id="customValue"
-              name="customValue"
-              placeholder=""
-              onFocus={
-                allowCustomValue && hastOtherValue
-                  ? handleToggleModal
-                  : undefined
-              }
-              value={currencyFormat(selectedOption?.value || 0)}
-              isFullWidth
-              size="compact"
-              iconAfter={
-                allowCustomValue && hastOtherValue ? (
-                  <Icon
-                    icon={<MdEdit />}
-                    appearance="dark"
-                    size="16px"
-                    onClick={handleToggleModal}
-                    cursorHover
-                  />
-                ) : undefined
-              }
-            />
+          <Stack gap="s100" alignItems="center">
+            {allowCustomValue && hastOtherValue && (
+              <Icon
+                icon={<MdOutlineEdit />}
+                appearance="primary"
+                size="16px"
+                onClick={handleToggleModal}
+                cursorHover
+              />
+            )}
 
-            <Icon
-              icon={<MdOutlineDelete />}
-              appearance="error"
-              size="20px"
-              onClick={resetValues}
-              disabled={(selectedOption?.value || 0) === 0}
-              cursorHover
-            />
+            <Text type="title" size="medium">
+              {currencyFormat(selectedOption?.value || 0)}
+            </Text>
           </Stack>
         </Stack>
       </StyledCardContainer>
@@ -236,15 +202,8 @@ function PaymentCard(props: PaymentCardProps) {
         <CustomValueModal
           portalId="modals"
           value={selectedOption?.value || 0}
-          nextPaymentValue={
-            options.find((option) => option.id === EPaymentOptionType.NEXTVALUE)
-              ?.value || 0
-          }
-          totalPaymentValue={
-            options.find(
-              (option) => option.id === EPaymentOptionType.TOTALVALUE,
-            )?.value || 0
-          }
+          nextPaymentValue={nextPaymentValue || 0}
+          totalPaymentValue={totalPaymentValue || 0}
           onCloseModal={handleToggleModal}
           onApplyPayOption={handleApplyPayOption}
           onChangeOtherValue={handleChangeOption}

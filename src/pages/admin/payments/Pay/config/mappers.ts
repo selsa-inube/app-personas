@@ -52,9 +52,9 @@ const mapObligations = (
     const tags: TagProps[] = [
       {
         label: paymentMethod,
-        appearance: "primary",
+        appearance: "gray",
         modifier: "clear",
-        textAppearance: "primary",
+        textAppearance: "gray",
       },
     ];
 
@@ -133,9 +133,9 @@ const mapObligations = (
     const tags: TagProps[] = [
       {
         label: paymentMethod,
-        appearance: "primary",
+        appearance: "gray",
         modifier: "clear",
-        textAppearance: "primary",
+        textAppearance: "gray",
       },
     ];
 
@@ -187,7 +187,6 @@ const mapPaymentMethod = (): IPaymentMethodEntry => {
   return {
     paymentMethod: "",
     valueToPay: 0,
-    paidValue: 0,
     pendingValue: 0,
   };
 };

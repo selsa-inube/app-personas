@@ -1,11 +1,13 @@
 import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
+import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import { EPaymentMethodType } from "@pages/admin/payments/Pay/types";
-import { MdAttachMoney } from "react-icons/md";
+import { useState } from "react";
+import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
 
@@ -21,6 +23,8 @@ interface PaymentMethodCardProps {
   valueToPay: number;
   onChangeMoneySource: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSelectMoneySource: (id: string) => void;
+  onSaveMoneySource: () => void;
+  onRemoveValueMoneySource: (id: string) => void;
 }
 
 function PaymentMethodCard(props: PaymentMethodCardProps) {
@@ -30,31 +34,54 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
     valueToPay,
     onChangeMoneySource,
     onSelectMoneySource,
+    onSaveMoneySource,
+    onRemoveValueMoneySource,
   } = props;
+
+  const [isSaved, setIsSaved] = useState(false);
+
+  const handleSave = () => {
+    setIsSaved(true);
+    onSaveMoneySource();
+  };
+
+  const handleRemove = () => {
+    setIsSaved(false);
+
+    onRemoveValueMoneySource(moneySource.id);
+  };
 
   return (
     <StyledCardContainer>
-      <Stack gap="s100" alignItems="center" width="100%">
+      <Stack gap="s100" alignItems="flex-start" width="100%">
         {moneySource.type === EMoneySourceType.SAVINGACCOUNT &&
           paymentMethod === EPaymentMethodType.DEBIT && (
-            <StyledInputRadio
-              id={`radio-${moneySource.id}`}
-              type="radio"
-              checked={moneySource.value !== 0}
-              readOnly
-              value={valueToPay}
-              onClick={() => onSelectMoneySource(moneySource.id)}
-              cursorPointer={
-                moneySource.type === EMoneySourceType.SAVINGACCOUNT &&
-                paymentMethod === EPaymentMethodType.DEBIT
-              }
-            />
+            <Stack padding="3px 0 0 0">
+              <StyledInputRadio
+                id={`radio-${moneySource.id}`}
+                type="radio"
+                checked={moneySource.value !== 0}
+                readOnly
+                value={valueToPay}
+                onClick={() => onSelectMoneySource(moneySource.id)}
+                cursorPointer={
+                  moneySource.type === EMoneySourceType.SAVINGACCOUNT &&
+                  paymentMethod === EPaymentMethodType.DEBIT
+                }
+              />
+            </Stack>
           )}
 
-        <Stack justifyContent="space-between" alignItems="center" width="100%">
+        <Stack
+          justifyContent="space-between"
+          alignItems="flex-start"
+          width="100%"
+          wrap="wrap"
+        >
           <Text type="label" size="large">
             {moneySource.label}
           </Text>
+
           {moneySource.value > moneySource.balance && (
             <Tag label="Fondos insuficientes" appearance="error" />
           )}
@@ -89,7 +116,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         value={currencyFormat(moneySource.value)}
         onChange={onChangeMoneySource}
         isFullWidth
-        isDisabled={paymentMethod !== EPaymentMethodType.MULTIPLE}
+        isDisabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
         size="compact"
         state={moneySource.value > moneySource.balance ? "invalid" : "pending"}
         iconAfter={
@@ -101,6 +128,40 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           />
         }
       />
+
+      {paymentMethod === EPaymentMethodType.MULTIPLE && (
+        <Stack
+          gap="s150"
+          width="100%"
+          alignItems="center"
+          justifyContent="flex-end"
+        >
+          <Button
+            onClick={handleRemove}
+            variant="outlined"
+            disabled={moneySource.value === 0}
+            appearance="error"
+            spacing="compact"
+            iconBefore={<MdOutlineDelete />}
+          >
+            Eliminar
+          </Button>
+          <Button
+            onClick={handleSave}
+            variant="outlined"
+            disabled={
+              isSaved ||
+              moneySource.value === 0 ||
+              moneySource.value > moneySource.balance
+            }
+            appearance="primary"
+            spacing="compact"
+            iconBefore={<MdOutlineSave />}
+          >
+            Guardar
+          </Button>
+        </Stack>
+      )}
     </StyledCardContainer>
   );
 }
