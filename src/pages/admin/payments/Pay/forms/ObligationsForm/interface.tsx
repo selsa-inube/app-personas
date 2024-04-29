@@ -146,7 +146,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                 iconBefore={<MdOutlineCheckBox />}
                 onClick={onToggleHelpModal}
               >
-                Ayudas
+                Selección múltiple
               </Button>
               <Button
                 spacing="compact"
