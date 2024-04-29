@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-// import { Text } from "@design/data/Text";
 import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
