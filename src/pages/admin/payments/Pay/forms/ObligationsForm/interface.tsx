@@ -13,7 +13,6 @@ import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Fieldset } from "@design/input/Fieldset";
 import { ISelectOption } from "@design/input/Select/types";
 import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
@@ -30,7 +29,11 @@ import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { paymentCardsBreakpoints } from "./config/cards";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
-import { StyledTotalPayment, StyledTotalPaymentContainer } from "./styles";
+import {
+  StyledFiltersContainer,
+  StyledTotalPayment,
+  StyledTotalPaymentContainer,
+} from "./styles";
 import { IObligationsEntry } from "./types";
 
 const renderFilters = (
@@ -154,15 +157,18 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               </Button>
             </Stack>
 
-            <Fieldset title="Filtros aplicados">
-              <Stack direction="row" gap="s150">
+            <StyledFiltersContainer>
+              <Text type="title" size="small">
+                Filtros:
+              </Text>
+              <Stack direction="row" gap="s150" alignItems="center">
                 {renderFilters(
                   filters,
                   paymentFilters(formik.values.paymentMethodFilters),
                   onRemoveFilter,
                 )}
               </Stack>
-            </Fieldset>
+            </StyledFiltersContainer>
           </Stack>
 
           <Stack
