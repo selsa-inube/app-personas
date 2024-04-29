@@ -43,4 +43,22 @@ const StyledTotalPayment = styled.div<IStyledTotalPayment>`
   justify-content: ${({ isMobile }) => (isMobile ? "center" : "left")};
 `;
 
-export { StyledTotalPayment, StyledTotalPaymentContainer };
+const StyledFiltersContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${inube.spacing.s200};
+  padding: ${inube.spacing.s150} ${inube.spacing.s250};
+  border-radius: ${inube.spacing.s100};
+  background: ${({ theme }) =>
+    theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
+  border: 1px solid
+    ${({ theme }) =>
+      theme.color?.stroke?.divider?.regular ||
+      inube.color.stroke.divider.regular};
+`;
+
+export {
+  StyledFiltersContainer,
+  StyledTotalPayment,
+  StyledTotalPaymentContainer,
+};
