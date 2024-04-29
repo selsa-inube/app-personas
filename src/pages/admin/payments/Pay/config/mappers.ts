@@ -13,6 +13,16 @@ import {
 
 const buAllowCustomValue = true;
 
+const paymentOptionValues: Record<string, string> = {
+  [EPaymentOptionType.EXPIREDVALUE]: "Valor vencido",
+  [EPaymentOptionType.NEXTVALUE]: "Próximo vencimiento",
+  [EPaymentOptionType.TOTALVALUE]: "Pago total",
+  [EPaymentOptionType.OTHERVALUE]: "Otro valor",
+  [EPaymentOptionType.REDUCETERM]: "Reducir plazo",
+  [EPaymentOptionType.REDUCEQUOTA]: "Reducir cuota",
+  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Pagar cuotas futuras",
+};
+
 const mapObligations = (
   credits: IProduct[],
   commitments: ICommitment[],
@@ -73,7 +83,7 @@ const mapObligations = (
       }, */
       {
         id: EPaymentOptionType.NEXTVALUE,
-        label: "Próximo vencimiento",
+        label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
         description: "Inmediato",
         value: nextPaymentValue,
       },
@@ -84,7 +94,7 @@ const mapObligations = (
       }, */
       {
         id: EPaymentOptionType.OTHERVALUE,
-        label: "Otro valor / Reducir cuota",
+        label: "Otro valor",
         value: 0,
         hidden: true,
       },
@@ -154,7 +164,7 @@ const mapObligations = (
       }, */
       {
         id: EPaymentOptionType.NEXTVALUE,
-        label: "Próximo vencimiento",
+        label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
         description: "Inmediato",
         value: nextPaymentValue,
       },
@@ -197,4 +207,4 @@ const mapComments = (): ICommentsEntry => {
   };
 };
 
-export { mapComments, mapObligations, mapPaymentMethod };
+export { mapComments, mapObligations, mapPaymentMethod, paymentOptionValues };

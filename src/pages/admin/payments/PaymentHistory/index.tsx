@@ -4,6 +4,8 @@ import { IPaymentHistory } from "src/model/entity/payment";
 import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHistory";
 import { PaymentHistoryUI } from "./interface";
 
+const limitPayments = 5;
+
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 
 function PaymentHistory() {
@@ -31,15 +33,19 @@ function PaymentHistory() {
       clearInterval(refreshInterval);
     }
 
-    handleGetPaymentHistory(0, 5);
+    handleGetPaymentHistory(0, limitPayments, true);
 
     refreshInterval = setInterval(() => {
-      handleGetPaymentHistory(0, 5);
+      handleGetPaymentHistory(0, limitPayments, true);
     }, 60000);
   };
 
-  const handleGetPaymentHistory = (page: number, limit: number) => {
-    if (user && accessToken && paymentHistory.length === 0) {
+  const handleGetPaymentHistory = (
+    page: number,
+    limit: number,
+    reset?: boolean,
+  ) => {
+    if (user && accessToken) {
       setLoading(true);
       getPaymentHistory(user.identification, accessToken, page, limit)
         .then((newPaymentHistory) => {
@@ -48,9 +54,15 @@ function PaymentHistory() {
             return;
           }
 
+          if (reset) {
+            setPaymentHistory(newPaymentHistory);
+            return;
+          }
+
           setPaymentHistory([...paymentHistory, ...newPaymentHistory]);
         })
         .catch((error) => {
+          setNoMorePayments(true);
           console.info(error.message);
         })
         .finally(() => {
@@ -60,7 +72,7 @@ function PaymentHistory() {
   };
 
   const handleAddPayments = () => {
-    handleGetPaymentHistory(paymentHistory.length, 5);
+    handleGetPaymentHistory(paymentHistory.length, limitPayments);
   };
 
   const handleTogglePaymentHistoryModal = (payment: IPaymentHistory) => {

@@ -75,44 +75,50 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               spacing="compact"
               iconBefore={<MdHistory />}
               onClick={onRefreshHistory}
+              load={loading}
             >
               Refrescar
             </Button>
           </Stack>
-          <StyledContainer>
-            {paymentHistory.map((payment, index) => (
-              <Stack
-                direction="column"
-                width="100%"
-                key={payment.id}
-                gap="s200"
-              >
-                <PaymentHistoryCard
-                  id={payment.id}
-                  title={payment.title}
-                  value={payment.value}
-                  tag={payment.tag}
-                  paymentDate={payment.paymentDate}
-                  paymentMethod={payment.paymentMethod}
-                  cus={payment.cus}
-                  onClick={() => onTogglePaymentHistoryModal(payment)}
-                />
-                {index !== paymentHistory.length - 1 && <Divider dashed />}
+
+          {paymentHistory.length > 0 && (
+            <>
+              <StyledContainer>
+                {paymentHistory.map((payment, index) => (
+                  <Stack
+                    direction="column"
+                    width="100%"
+                    key={payment.id}
+                    gap="s200"
+                  >
+                    <PaymentHistoryCard
+                      id={payment.id}
+                      title={payment.title}
+                      value={payment.value}
+                      tag={payment.tag}
+                      paymentDate={payment.paymentDate}
+                      paymentMethod={payment.paymentMethod}
+                      cus={payment.cus}
+                      onClick={() => onTogglePaymentHistoryModal(payment)}
+                    />
+                    {index !== paymentHistory.length - 1 && <Divider dashed />}
+                  </Stack>
+                ))}
+              </StyledContainer>
+              <Stack direction="column" alignItems="center">
+                <Button
+                  appearance="primary"
+                  variant="none"
+                  iconBefore={<MdAdd />}
+                  load={loading}
+                  onClick={onAddPayments}
+                  disabled={noMorePayments}
+                >
+                  Ver más movimientos
+                </Button>
               </Stack>
-            ))}
-          </StyledContainer>
-          <Stack direction="column" alignItems="center">
-            <Button
-              appearance="primary"
-              variant="none"
-              iconBefore={<MdAdd />}
-              load={loading}
-              onClick={onAddPayments}
-              disabled={noMorePayments}
-            >
-              Ver más movimientos
-            </Button>
-          </Stack>
+            </>
+          )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
