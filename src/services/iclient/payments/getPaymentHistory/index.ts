@@ -29,7 +29,7 @@ const getPaymentHistory = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "PaymentHistory",
+          "X-Action": "SearchAllPaymentHistory",
           "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
