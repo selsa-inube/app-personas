@@ -62,18 +62,17 @@ const mapSavingsCommitmentsApiToEntity = (
 
   const lastMovementTheSavingPlans = commitment.savingPaymentPlans;
 
-  const sortedPlans =
+  const lastSavingPlan =
     Array.isArray(lastMovementTheSavingPlans) &&
     lastMovementTheSavingPlans.reduce((latest, current) => {
-      const currentDate = new Date(current.quotaDate);
-      const latestDate = latest && new Date(latest.quotaDate);
-
-      return !latestDate || currentDate > latestDate ? current : latest;
+      return !latest || new Date(current.quotaDate) > new Date(latest.quotaDate)
+        ? current
+        : latest;
     }, null);
 
   const nextPaymentDate = commitment.closePaymentDate
     ? new Date(String(commitment.closePaymentDate))
-    : new Date(String(sortedPlans.quotaDate));
+    : new Date(String(lastSavingPlan.quotaDate));
   nextPaymentDate.setUTCHours(5, 5, 5, 5);
 
   const nextPaymentValue = commitment.expiredValue || commitment.quotaValue;
@@ -106,7 +105,7 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
-  if (nextPaymentValue) {
+  if (nextPaymentDate && nextPaymentValue) {
     attributes.push({
       id: "next_payment_value",
       label: "Próximo pago",
@@ -114,7 +113,7 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
-  if (nextPaymentValue) {
+  if (nextPaymentValue && nextPaymentDate) {
     attributes.push({
       id: "next_payment_date",
       label: "Fecha de pago",
