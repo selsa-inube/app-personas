@@ -76,4 +76,4 @@ const getUsedQuotaData = (creditQuotas: IProduct[]) => {
   };
 };
 
-export { validateCard, validateCreditQuotasInCards, getUsedQuotaData };
+export { getUsedQuotaData, validateCard, validateCreditQuotasInCards };

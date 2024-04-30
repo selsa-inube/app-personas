@@ -18,12 +18,12 @@ const validateCreditQuotaDetail = async (
     );
   }
 
-  const selectCreditQuotaDetail =
+  const selectedCreditQuotaDetail =
     currentCreditQuotaDetail?.id === creditQuotaId &&
     currentCreditQuotaDetail;
 
   return {
-    selectCreditQuotaDetail,
+    selectedCreditQuotaDetail,
   };
 };
 

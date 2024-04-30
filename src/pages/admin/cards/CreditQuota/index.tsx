@@ -1,8 +1,10 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
+import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { CardsContext } from "src/context/cards";
 import { CreditQuotaUI } from "./interface";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 import {
@@ -10,12 +12,10 @@ import {
   validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
-import { useAuth } from "@inube/auth";
-import { CardsContext } from "src/context/cards";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
-  const { creditQuotas, creditQuotaDetail, setCreditQuotaDetail } =
+  const { cards, creditQuotas, creditQuotaDetail, setCreditQuotaDetail } =
     useContext(CardsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
@@ -39,7 +39,21 @@ function CreditQuota() {
   const handleSortProduct = async () => {
     if (!card_id || !credit_quota_id || !user || !accessToken) return;
 
-    const { selectCreditQuotaDetail } = await validateCreditQuotaDetail(
+    if (cards.length === 0) return;
+
+    const { newCreditQuotas } = await validateCreditQuotas(
+      creditQuotas,
+      card_id,
+      accessToken,
+    );
+
+    const isCardQuotaValid = cards.every((card) =>
+      newCreditQuotas.every((quota) => card.quotaDetails?.includes(quota.id)),
+    );
+
+    if (!isCardQuotaValid) return;
+
+    const { selectedCreditQuotaDetail } = await validateCreditQuotaDetail(
       card_id,
       credit_quota_id,
       accessToken,
@@ -48,17 +62,11 @@ function CreditQuota() {
 
     setCreditQuotaDetail(creditQuotaDetail);
 
-    const { newCreditQuotas } = await validateCreditQuotas(
-      creditQuotas,
-      card_id,
-      accessToken,
-    );
-
-    if (!selectCreditQuotaDetail) return;
+    if (!selectedCreditQuotaDetail) return;
 
     setSelectedProduct({
-      creditQuotaDetail: selectCreditQuotaDetail,
-      option: selectCreditQuotaDetail.id,
+      creditQuotaDetail: selectedCreditQuotaDetail,
+      option: selectedCreditQuotaDetail.id,
     });
 
     setProductsOptions(

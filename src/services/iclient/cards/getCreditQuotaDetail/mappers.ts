@@ -115,18 +115,15 @@ const mapCreditQuotaDetailApiToEntity = (
     String(creditQuota.paymentMediumName).toLowerCase(),
   );
 
-  const currentConsumption =
-    Array.isArray(creditQuota.listObligationProducts) &&
-    creditQuota.listObligationProducts.reduce(
-      (acc, value) => acc + value.balanceObligation.capitalBalanceInPesos,
-      0,
-    );
+  const currentConsumption = Number(
+    Object(creditQuota.totalDebt).debtCapital || 0,
+  );
 
-  const usedQuota =
-    Number(creditQuota.assignedCreditLimit) -
-    Number(creditQuota.availableCredit || 0);
+  const usedQuota = Number(Object(creditQuota.totalDebt).totalPending || 0);
 
-  const transactionProcess = usedQuota - currentConsumption;
+  const transactionProcess = Number(
+    Object(creditQuota.totalDebt).transactionsInProcess || 0,
+  );
 
   const attributes: IAttribute[] = [
     {
