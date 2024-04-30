@@ -2,7 +2,9 @@ import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { CardsContext } from "src/context/cards";
 import { SavingsContext } from "src/context/savings";
+import { IUsedQuotaModalState } from "../CreditQuota/types";
 import { infoModalData } from "./config/modals";
 import { CardUI } from "./interface";
 import {
@@ -12,10 +14,11 @@ import {
   ISelectedProductState,
   initialSelectedProductState,
 } from "./types";
-import { validateCard, validateCreditQuotasInCards } from "./utils";
-import { IUsedQuotaModalState } from "../CreditQuota/types";
-import { getUsedQuotaData } from "./utils";
-import { CardsContext } from "src/context/cards";
+import {
+  getUsedQuotaData,
+  validateCard,
+  validateCreditQuotasInCards,
+} from "./utils";
 
 function Card() {
   const { card_id } = useParams();
@@ -67,13 +70,27 @@ function Card() {
       savings.savingsAccounts,
     );
 
+    if (newCards.length === 0) {
+      setLoadingCards(false);
+      return;
+    }
+
     setCards(newCards);
-    
+
     const { newCreditQuotas } = await validateCreditQuotasInCards(
       creditQuotas,
       card_id,
       accessToken,
     );
+
+    const isCardQuotaValid = newCards.every((card) =>
+      newCreditQuotas.every((quota) => card.quotaDetails?.includes(quota.id)),
+    );
+    
+    if (!isCardQuotaValid) {
+      setLoadingCards(false);
+      return;
+    }
 
     setCreditQuotas(newCreditQuotas);
 
@@ -90,7 +107,7 @@ function Card() {
         value: card.description,
       })),
     );
-    setLoadingCards(false);   
+    setLoadingCards(false);
   };
 
   const updateModals = () => {
