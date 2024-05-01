@@ -48,7 +48,7 @@ const createPaymentRequest = async (
   } catch (error) {
     console.info(error);
 
-    return;
+    throw error;
   }
 };
 
