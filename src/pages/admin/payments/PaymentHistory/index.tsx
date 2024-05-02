@@ -4,7 +4,7 @@ import { IPaymentHistory } from "src/model/entity/payment";
 import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHistory";
 import { PaymentHistoryUI } from "./interface";
 
-const limitPayments = 5;
+const limitPayments = 1000; // TEMP
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 
