@@ -9,6 +9,7 @@ interface IStyledCardContainer {
 const StyledCardContainer = styled.div<IStyledCardContainer>`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: ${inube.spacing.s300} ${inube.spacing.s250};
   gap: ${inube.spacing.s200};
   border-radius: ${inube.spacing.s100};

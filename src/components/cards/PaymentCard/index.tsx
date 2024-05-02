@@ -146,18 +146,13 @@ function PaymentCard(props: PaymentCardProps) {
   return (
     <>
       <StyledCardContainer isMobile={isMobile} isTablet={isTablet}>
-        <Stack direction="column" gap="s100">
-          <Stack justifyContent="space-between">
-            <Stack width="60%">
-              <Text type="label" size="large" ellipsis>
-                {title}
-              </Text>
-            </Stack>
-
-            <Text type="body" size="medium" appearance="gray">
-              {id}
-            </Text>
-          </Stack>
+        <Stack direction="column" gap="s050">
+          <Text type="label" size="large" ellipsis>
+            {title}
+          </Text>
+          <Text type="body" size="medium" appearance="gray">
+            {id}
+          </Text>
           <Stack gap="s100" wrap="wrap">
             {tags.length > 0 &&
               tags.map((tag) => <Tag {...tag} key={tag.label} />)}
