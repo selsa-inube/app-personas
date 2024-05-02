@@ -1,12 +1,15 @@
 import { useAuth } from "@inube/auth";
 import { mapComments } from "@pages/general/UpdateData/config/mappers";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
+import { MdSentimentNeutral } from "react-icons/md";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
+import { initialMessageState } from "src/utils/messages";
 import { paySteps } from "./config/assisted";
 import { mapObligations, mapPaymentMethod } from "./config/mappers";
 import { IObligationsEntry } from "./forms/ObligationsForm/types";
@@ -23,6 +26,7 @@ function Pay() {
   const { credits } = useContext(CreditsContext);
   const { commitments } = useContext(SavingsContext);
   const [loadingSend, setLoadingSend] = useState(false);
+  const [message, setMessage] = useState<IMessage>(initialMessageState);
 
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
@@ -115,7 +119,17 @@ function Pay() {
     if (!accessToken || !user) return;
 
     setLoadingSend(true);
-    sendPaymentRequest(user, pay, accessToken);
+    sendPaymentRequest(user, pay, accessToken).catch(() => {
+      setMessage({
+        show: true,
+        title: "El pago no pudo ser procesado",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        icon: <MdSentimentNeutral />,
+        appearance: "error",
+      });
+      setLoadingSend(false);
+    });
   };
 
   const handleNextStep = () => {
@@ -130,6 +144,10 @@ function Pay() {
     handleStepChange(currentStep - 1);
   };
 
+  const handleCloseMessage = () => {
+    setMessage(initialMessageState);
+  }
+
   return (
     <PayUI
       currentStep={currentStep}
@@ -138,11 +156,13 @@ function Pay() {
       steps={steps}
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
+      message={message}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
+      handleCloseMessage={handleCloseMessage}
     />
   );
 }
