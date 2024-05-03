@@ -119,6 +119,7 @@ function Pay() {
     if (!accessToken || !user) return;
 
     setLoadingSend(true);
+
     sendPaymentRequest(user, pay, accessToken).catch(() => {
       setMessage({
         show: true,
@@ -146,7 +147,7 @@ function Pay() {
 
   const handleCloseMessage = () => {
     setMessage(initialMessageState);
-  }
+  };
 
   return (
     <PayUI

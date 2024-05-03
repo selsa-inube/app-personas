@@ -1,6 +1,6 @@
 import { analyticsDB } from "src/services/config/supabase/config";
 
-const saveTraffic = async (uid: string) => {
+const saveTrafficTracking = async (uid: string) => {
   const userAgent = navigator.userAgent;
 
   try {
@@ -17,4 +17,4 @@ const saveTraffic = async (uid: string) => {
   }
 };
 
-export { saveTraffic };
+export { saveTrafficTracking };

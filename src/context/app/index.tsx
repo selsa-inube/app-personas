@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
-import { saveTraffic } from "src/services/analytics/saveTraffic";
+import { saveTrafficTracking } from "src/services/analytics/saveTrafficTracking";
 import { IAppContext } from "./types";
 import { getAppFeatureFlags } from "./utils";
 
@@ -30,7 +30,7 @@ function AppProvider(props: AppProviderProps) {
     });
 
     if (user && enviroment.IS_PRODUCTION) {
-      saveTraffic(user?.identification);
+      saveTrafficTracking(user?.identification);
     }
   }, []);
 
