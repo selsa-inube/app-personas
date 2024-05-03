@@ -26,9 +26,9 @@ enum EPaymentMethodFilterType {
 
 enum EPaymentGroupType {
   ALL = "ALL",
-  CREDITS = "CREDITS",
-  SAVINGS = "SAVINGS",
-  CREDITQUOTAS = "CREDITQUOTAS",
+  CREDITS = "BRIEFCASE",
+  SAVINGS = "SAVINGSCOMMITMENT",
+  CREDITQUOTAS = "CARD",
   INSURANCES = "INSURANCES",
   ACCOUNTSPAYABLE = "ACCOUNTSPAYABLE",
 }
@@ -46,8 +46,18 @@ enum EPaymentOptionType {
 
 enum EPaymentMethodType {
   PSE = "PSE",
-  DEBIT = "DEBIT",
+  DEBIT = "DEBITSAVINGACCOUNT",
   MULTIPLE = "MULTIPLE",
+}
+
+enum ESupportDocumentType {
+  FINANCIALPORTFOLIO = "OB",
+  CONTRIBUTIONCOMMITMENT = "AP",
+  SAVINGCOMMITMENT = "AH",
+  INSURANCES = "OS",
+  MEMBERSHIPFEE = "CF",
+  ACCOUNTSRECEIVABLE = "CC",
+  ACCOUNTSPAYABLE = "CP",
 }
 
 export {
@@ -56,6 +66,7 @@ export {
   EPaymentMethodType,
   EPaymentOptionType,
   EPaymentStatusType,
+  ESupportDocumentType,
 };
 
 export type { IFormsPay, IFormsPayRefs };
