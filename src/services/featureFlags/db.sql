@@ -36,7 +36,7 @@ CREATE INDEX FK_1 ON "public".flag_instance
 );
 
 
-CREATE TABLE "public".featured_flag_personas
+CREATE TABLE "public".feature_flag_personas
 (
  flag_id varchar(50) NOT NULL,
  scope      varchar(50) NOT NULL,
@@ -48,11 +48,11 @@ CREATE TABLE "public".featured_flag_personas
  description_use  varchar(1000) NOT NULL,
  value            boolean NOT NULL,
  instance_id     uuid NOT NULL,
- CONSTRAINT "featured_flag_personas_pk" PRIMARY KEY (flag_id),
- CONSTRAINT "featured_flag_personas_fk_instance" FOREIGN KEY (instance_id) REFERENCES flag_instance (instance_id)
+ CONSTRAINT "feature_flag_personas_pk" PRIMARY KEY (flag_id),
+ CONSTRAINT "feature_flag_personas_fk_instance" FOREIGN KEY (instance_id) REFERENCES flag_instance (instance_id)
 );
 
-CREATE INDEX FK_1 ON "public".featured_flag_personas
+CREATE INDEX FK_1 ON "public".feature_flag_personas
 (
  instance_id
 );

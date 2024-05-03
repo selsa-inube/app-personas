@@ -1,7 +1,7 @@
-import { IFeaturedFlag } from "src/model/entity/featuredFlag";
+import { IFeatureFlag } from "src/model/entity/featureFlag";
 
 interface IAppContext {
-  setFeaturedFlags: React.Dispatch<React.SetStateAction<IFeaturedFlag[]>>;
+  setFeatureFlags: React.Dispatch<React.SetStateAction<IFeatureFlag[]>>;
   getFlag: (flagId: string) =>
     | {
         id: string;

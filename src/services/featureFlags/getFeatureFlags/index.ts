@@ -1,17 +1,17 @@
 import { enviroment } from "@config/enviroment";
-import { IFeaturedFlag } from "src/model/entity/featuredFlag";
-import { mapFeaturedFlagsApiToEntities } from "./mappers";
-import { supabasedb } from "src/services/config/supabase/config";
+import { IFeatureFlag } from "src/model/entity/featureFlag";
+import { featureFlagsDB } from "src/services/config/supabase/config";
+import { mapFeatureFlagsApiToEntities } from "./mappers";
 
-const getFeaturedFlagsByModule = async (
+const getFeatureFlagsByModule = async (
   scope: string,
   category: string,
   product: string,
-): Promise<IFeaturedFlag[]> => {
+): Promise<IFeatureFlag[]> => {
   const TEMP_CLIENT = "fondecom";
 
   try {
-    const { data: instanceData } = await supabasedb
+    const { data: instanceData } = await featureFlagsDB
       .from("instances")
       .select(
         `instance_id,
@@ -25,10 +25,10 @@ const getFeaturedFlagsByModule = async (
       .single();
 
     if (!instanceData) {
-      throw new Error("No se encontró la instancia de la featured flag.");
+      throw new Error("No se encontró la instancia de la feature flag.");
     }
 
-    const { data: flagsData } = await supabasedb
+    const { data: flagsData } = await featureFlagsDB
       .from("feature_flags_personas")
       .select(
         `structure_id, scope, category, product, public_code, abbreviated_name, description_use,
@@ -42,11 +42,11 @@ const getFeaturedFlagsByModule = async (
       .eq("product", product);
 
     if (!flagsData) {
-      throw new Error("No se encontraron las featured flags.");
+      throw new Error("No se encontraron las feature flags.");
     }
 
     return Array.isArray(flagsData)
-      ? mapFeaturedFlagsApiToEntities(flagsData)
+      ? mapFeatureFlagsApiToEntities(flagsData)
       : [];
   } catch (error) {
     console.error(error);
@@ -54,13 +54,13 @@ const getFeaturedFlagsByModule = async (
   }
 };
 
-const getFeaturedFlagsByCodes = async (
+const getFeatureFlagsByCodes = async (
   flagCodes: string[],
-): Promise<IFeaturedFlag[]> => {
+): Promise<IFeatureFlag[]> => {
   const TEMP_CLIENT = "fondecom";
 
   try {
-    const { data: instanceData } = await supabasedb
+    const { data: instanceData } = await featureFlagsDB
       .from("instances")
       .select(
         `instance_id,
@@ -74,10 +74,10 @@ const getFeaturedFlagsByCodes = async (
       .single();
 
     if (!instanceData) {
-      throw new Error("No se encontró la instancia de la featured flag.");
+      throw new Error("No se encontró la instancia de la feature flag.");
     }
 
-    const { data: flagsData } = await supabasedb
+    const { data: flagsData } = await featureFlagsDB
       .from("feature_flags_personas")
       .select(
         `structure_id, scope, category, product, public_code, abbreviated_name, description_use,
@@ -89,11 +89,11 @@ const getFeaturedFlagsByCodes = async (
       .in("public_code", flagCodes);
 
     if (!flagsData) {
-      throw new Error("No se encontraron las featured flags.");
+      throw new Error("No se encontraron las feature flags.");
     }
 
     return Array.isArray(flagsData)
-      ? mapFeaturedFlagsApiToEntities(flagsData)
+      ? mapFeatureFlagsApiToEntities(flagsData)
       : [];
   } catch (error) {
     console.error(error);
@@ -101,4 +101,4 @@ const getFeaturedFlagsByCodes = async (
   }
 };
 
-export { getFeaturedFlagsByCodes, getFeaturedFlagsByModule };
+export { getFeatureFlagsByCodes, getFeatureFlagsByModule };

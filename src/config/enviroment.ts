@@ -12,8 +12,10 @@ const enviroment = {
   ICLIENT_API_URL_PERSISTENCE: import.meta.env.VITE_ICLIENT_API_URL_PERSISTENCE,
   TEMP_BUSINESS_UNIT: "test",
   APP_CODE: "personas",
-  SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
-  SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY,
+  FEATURE_FLAGS_URL: import.meta.env.VITE_FEATURE_FLAGS_URL,
+  FEATURE_FLAGS_KEY: import.meta.env.VITE_FEATURE_FLAGS_KEY,
+  ANALYTICS_URL: import.meta.env.VITE_ANALYTICS_URL,
+  ANALYTICS_KEY: import.meta.env.VITE_ANALYTICS_KEY,
 };
 
 export { enviroment };

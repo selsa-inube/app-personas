@@ -1,4 +1,4 @@
-interface IFeaturedFlag {
+interface IFeatureFlag {
   [scope: string]: {
     [category: string]: {
       [product: string]: {
@@ -13,4 +13,4 @@ interface IFeaturedFlag {
   };
 }
 
-export type { IFeaturedFlag };
+export type { IFeatureFlag };
