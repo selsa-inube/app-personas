@@ -1,3 +1,5 @@
+import { enviroment } from "@config/enviroment";
+import { useAuth } from "@inube/auth";
 import {
   createContext,
   useCallback,
@@ -5,9 +7,10 @@ import {
   useMemo,
   useState,
 } from "react";
-import { IFeaturedFlag } from "src/model/entity/featuredFlag";
+import { IFeatureFlag } from "src/model/entity/featureFlag";
+import { saveTraffic } from "src/services/analytics/saveTraffic";
 import { IAppContext } from "./types";
-import { getAppFeaturedFlags } from "./utils";
+import { getAppFeatureFlags } from "./utils";
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
 
@@ -18,19 +21,24 @@ interface AppProviderProps {
 function AppProvider(props: AppProviderProps) {
   const { children } = props;
 
-  const [featuredFlags, setFeaturedFlags] = useState<IFeaturedFlag[]>([]);
+  const [featureFlags, setFeatureFlags] = useState<IFeatureFlag[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    getAppFeaturedFlags().then((flags) => {
-      setFeaturedFlags(flags);
+    getAppFeatureFlags().then((flags) => {
+      setFeatureFlags(flags);
     });
+
+    if (user && enviroment.IS_PRODUCTION) {
+      saveTraffic(user?.identification);
+    }
   }, []);
 
   const getFlag = useCallback(
     (flagId: string) => {
       const [scope, category, product, flagCode] = flagId.split(".");
 
-      const foundFlag = featuredFlags.find((flag) => {
+      const foundFlag = featureFlags.find((flag) => {
         return flag[scope]?.[category]?.[product]?.[flagCode];
       });
 
@@ -38,15 +46,15 @@ function AppProvider(props: AppProviderProps) {
 
       return foundFlag?.[scope][category][product][flagCode];
     },
-    [featuredFlags],
+    [featureFlags],
   );
 
   const appContext = useMemo(
     () => ({
-      setFeaturedFlags,
+      setFeatureFlags,
       getFlag,
     }),
-    [setFeaturedFlags, getFlag],
+    [setFeatureFlags, getFlag],
   );
 
   return (

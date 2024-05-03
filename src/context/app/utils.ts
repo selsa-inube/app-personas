@@ -1,8 +1,8 @@
-import { IFeaturedFlag } from "src/model/entity/featuredFlag";
-import { getFeaturedFlagsByCodes } from "src/services/featuredFlags/getFeaturedFlags";
+import { IFeatureFlag } from "src/model/entity/featureFlag";
+import { getFeatureFlagsByCodes } from "src/services/featureFlags/getFeatureFlags";
 
-const getAppFeaturedFlags = async (): Promise<IFeaturedFlag[]> => {
-  const foundFlags = await getFeaturedFlagsByCodes([
+const getAppFeatureFlags = async (): Promise<IFeatureFlag[]> => {
+  const foundFlags = await getFeatureFlagsByCodes([
     "update-data-with-assisted",
     "update-data-without-assisted",
     "request-saving",
@@ -13,4 +13,4 @@ const getAppFeaturedFlags = async (): Promise<IFeaturedFlag[]> => {
   return foundFlags;
 };
 
-export { getAppFeaturedFlags };
+export { getAppFeatureFlags };

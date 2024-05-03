@@ -1,9 +1,14 @@
 import { enviroment } from "@config/enviroment";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  enviroment.SUPABASE_URL,
-  enviroment.SUPABASE_ANON_KEY,
+const featureFlagsDB = createClient(
+  enviroment.FEATURE_FLAGS_URL,
+  enviroment.FEATURE_FLAGS_KEY,
 );
 
-export const supabasedb = supabase;
+const analyticsDB = createClient(
+  enviroment.ANALYTICS_URL,
+  enviroment.ANALYTICS_KEY,
+);
+
+export { analyticsDB, featureFlagsDB };
