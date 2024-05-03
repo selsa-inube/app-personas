@@ -1,9 +1,15 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
 import { TagProps } from "@design/data/Tag";
 import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
+import {
+  EPaymentGroupType,
+  EPaymentOptionType,
+  EPaymentStatusType,
+  ESupportDocumentType,
+} from "@pages/admin/payments/Pay/types";
 
 interface IPaymentOption {
-  id: string;
+  id: EPaymentOptionType;
   label: string;
   description?: string;
   value: number;
@@ -14,11 +20,12 @@ interface IPaymentOption {
 interface IPayment {
   id: string;
   title: string;
-  group: string;
+  group: EPaymentGroupType;
   paymentMethod: string;
-  status: string;
+  status: EPaymentStatusType;
   options: IPaymentOption[];
   tags: TagProps[];
+  supportDocumentType: ESupportDocumentType;
   valueToPay?: number;
   applyPayOption?: IApplyPayOption;
 }
@@ -36,6 +43,7 @@ interface IPaymentRequest {
     type: EMoneySourceType;
   }[];
   urlRedirect: string;
+  source: string;
 }
 
 interface IPaymentRequestResponse {

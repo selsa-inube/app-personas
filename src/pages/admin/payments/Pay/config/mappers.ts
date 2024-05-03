@@ -1,6 +1,10 @@
 import { TagProps } from "@design/data/Tag";
 import { IPayment } from "src/model/entity/payment";
-import { ICommitment, IProduct } from "src/model/entity/product";
+import {
+  ECommitmentType,
+  ICommitment,
+  IProduct,
+} from "src/model/entity/product";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { extractAttribute } from "src/utils/products";
 import { IObligationsEntry } from "../forms/ObligationsForm/types";
@@ -9,6 +13,7 @@ import {
   EPaymentGroupType,
   EPaymentOptionType,
   EPaymentStatusType,
+  ESupportDocumentType,
 } from "../types";
 
 const buAllowCustomValue = true;
@@ -111,6 +116,7 @@ const mapObligations = (
           : EPaymentStatusType.ANYWHERE,
         options,
         tags,
+        supportDocumentType: ESupportDocumentType.FINANCIALPORTFOLIO,
       });
     }
   });
@@ -170,6 +176,11 @@ const mapObligations = (
       },
     ];
 
+    let supportDocumentType = ESupportDocumentType.CONTRIBUTIONCOMMITMENT;
+    if (commitment.type === ECommitmentType.SAVINGSPROGRAMMED) {
+      supportDocumentType = ESupportDocumentType.SAVINGCOMMITMENT;
+    }
+
     if (options.some((option) => option.value > 0)) {
       payments.push({
         id: commitment.id,
@@ -181,6 +192,7 @@ const mapObligations = (
           : EPaymentStatusType.ANYWHERE,
         options,
         tags,
+        supportDocumentType,
       });
     }
   });

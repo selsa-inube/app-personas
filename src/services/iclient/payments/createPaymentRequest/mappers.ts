@@ -33,10 +33,12 @@ const mapPaymentRequestEntityToApi = (
     productList: paymentRequest.payments.map((payment) => ({
       productCode: payment.id,
       productName: payment.title,
-      valor: payment.valueToPay,
+      value: payment.valueToPay,
       action:
         payment.applyPayOption?.id ||
         payment.options.find((option) => option.selected)?.id,
+      supportDocumentType: payment.supportDocumentType,
+      productGroupType: payment.group,
     })),
     urlRedirect: paymentRequest.urlRedirect,
     wayToPay: paymentRequest.paymentMethod.map((moneySource) => ({
@@ -48,6 +50,7 @@ const mapPaymentRequestEntityToApi = (
           ? parseInt(moneySource.id)
           : undefined,
     })),
+    paymentSource: paymentRequest.source,
   };
 };
 

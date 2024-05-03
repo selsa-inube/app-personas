@@ -78,6 +78,7 @@ const sendPaymentRequest = async (
     payments: filteredPayments,
     paymentMethod: filteredPaymentMethod,
     urlRedirect: `${enviroment.REDIRECT_URI}payments/history`,
+    source: "preliquidacion_web"
   };
 
   const paymentRequestResponse = await createPaymentRequest(
@@ -89,5 +90,6 @@ const sendPaymentRequest = async (
     window.open(paymentRequestResponse.url, "_self");
   }
 };
+
 
 export { payStepsRules, sendPaymentRequest };
