@@ -84,7 +84,7 @@ function getMovementDescriptionType(
   
   switch (type) {
     case EMovementType.PURCHASE:
-      return  text.includes("compra") ? "" : "Compra";
+    return text.includes("compra") || text.includes("retiro") ? "" : "Compra";
     case EMovementType.REVERSE:
       return text.includes("reverso") ? "" : "Reverso";
     case EMovementType.PAYMENT:
