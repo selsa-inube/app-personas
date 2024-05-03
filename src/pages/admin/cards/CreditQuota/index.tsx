@@ -47,8 +47,14 @@ function CreditQuota() {
       accessToken,
     );
 
-    const isCardQuotaValid = cards.every((card) =>
-      newCreditQuotas.every((quota) => card.quotaDetails?.includes(quota.id)),
+    const isCardQuotaValid = newCreditQuotas.every((creditQuota) =>
+      cards.some(
+        (card) =>
+          card.quotaDetails &&
+          card.quotaDetails.some(
+            (quotaDetail) => quotaDetail === creditQuota.id,
+          ),
+      ),
     );
 
     if (!isCardQuotaValid) return;

@@ -70,6 +70,11 @@ function Card() {
       savings.savingsAccounts,
     );
 
+    if (!selectedCard) {
+      setLoadingCards(false);
+      return;
+    }
+
     if (newCards.length === 0) {
       setLoadingCards(false);
       return;
@@ -83,18 +88,22 @@ function Card() {
       accessToken,
     );
 
-    const isCardQuotaValid = newCards.every((card) =>
-      newCreditQuotas.every((quota) => card.quotaDetails?.includes(quota.id)),
+    const isCardQuotaValid = newCreditQuotas.every((creditQuota) =>
+      newCards.some(
+        (card) =>
+          card.quotaDetails &&
+          card.quotaDetails.some(
+            (quotaDetail) => quotaDetail === creditQuota.id,
+          ),
+      ),
     );
-    
+
     if (!isCardQuotaValid) {
       setLoadingCards(false);
       return;
     }
 
     setCreditQuotas(newCreditQuotas);
-
-    if (!selectedCard) return;
 
     setSelectedProduct({
       card: selectedCard || [],
