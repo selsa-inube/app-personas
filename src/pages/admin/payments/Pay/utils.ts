@@ -2,6 +2,7 @@ import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth/dist/types/user";
 import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IPaymentRequest } from "src/model/entity/payment";
+import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
 import { paySteps } from "./config/assisted";
 import { mapPaymentMethod } from "./config/mappers";
@@ -78,18 +79,38 @@ const sendPaymentRequest = async (
     payments: filteredPayments,
     paymentMethod: filteredPaymentMethod,
     urlRedirect: `${enviroment.REDIRECT_URI}payments/history`,
-    source: "preliquidacion_web"
+    source: "preliquidacion_web",
   };
 
-  const paymentRequestResponse = await createPaymentRequest(
-    paymentRequestData,
-    accessToken,
-  );
+  const creationTime = new Date();
+  let confirmationType = "succeed";
 
-  if (paymentRequestResponse) {
-    window.open(paymentRequestResponse.url, "_self");
+  try {
+    const paymentRequestResponse = await createPaymentRequest(
+      paymentRequestData,
+      accessToken,
+    );
+
+    if (paymentRequestResponse) {
+      window.open(paymentRequestResponse.url, "_self");
+    }
+  } catch (error) {
+    confirmationType = "failed";
+
+    throw error;
+  } finally {
+    if (enviroment.IS_PRODUCTION) {
+      const confirmationTime = new Date();
+      savePaymentTracking(
+        creationTime,
+        confirmationTime,
+        confirmationType,
+        pay.obligations.values.totalPayment,
+        filteredPayments.map((payment) => payment.group),
+        filteredPaymentMethod.map((moneySource) => moneySource.type),
+      );
+    }
   }
 };
-
 
 export { payStepsRules, sendPaymentRequest };

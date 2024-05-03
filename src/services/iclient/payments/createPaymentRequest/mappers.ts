@@ -42,7 +42,7 @@ const mapPaymentRequestEntityToApi = (
     })),
     urlRedirect: paymentRequest.urlRedirect,
     wayToPay: paymentRequest.paymentMethod.map((moneySource) => ({
-      paymentMethoName: moneySource.label,
+      paymentMethodName: moneySource.label,
       paymentMethodCode: moneySource.type,
       value: moneySource.value,
       savingProductNumber:
