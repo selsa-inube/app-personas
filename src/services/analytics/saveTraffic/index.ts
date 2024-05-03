@@ -14,7 +14,6 @@ const saveTraffic = async (uid: string) => {
     }
   } catch (error) {
     console.error(error);
-    return [];
   }
 };
 
