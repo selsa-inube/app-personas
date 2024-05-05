@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
+import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IProduct } from "src/model/entity/product";
 import { mapCardsApiToEntities } from "./mappers";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
 
 const getCardsForUser = async (
   userIdentification: string,
@@ -14,7 +14,8 @@ const getCardsForUser = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        customerPublicCode: developmentUsersMock[userIdentification] || userIdentification,
+        customerPublicCode:
+          developmentUsersMock[userIdentification] || userIdentification,
       });
 
       const controller = new AbortController();
@@ -26,7 +27,7 @@ const getCardsForUser = async (
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
           "X-Action": "SearchAllCard",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": enviroment.BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

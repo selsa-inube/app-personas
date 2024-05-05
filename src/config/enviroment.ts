@@ -10,7 +10,7 @@ const enviroment = {
   REDIRECT_URI: IS_PRODUCTION ? window.location.origin : AUTH_REDIRECT_URI,
   ICLIENT_API_URL_QUERY: import.meta.env.VITE_ICLIENT_API_URL_QUERY,
   ICLIENT_API_URL_PERSISTENCE: import.meta.env.VITE_ICLIENT_API_URL_PERSISTENCE,
-  TEMP_BUSINESS_UNIT: "test",
+  BUSINESS_UNIT: import.meta.env.PROD ? "fondecom" : "test",
   APP_CODE: "personas",
   FEATURE_FLAGS_URL: import.meta.env.VITE_FEATURE_FLAGS_URL,
   FEATURE_FLAGS_KEY: import.meta.env.VITE_FEATURE_FLAGS_KEY,
