@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
+import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { ICommitment } from "src/model/entity/product";
 import { mapSavingsApiToEntities } from "./mappers";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
 
 const getSavingsCommitmentsForUser = async (
   userIdentification: string,
@@ -27,7 +27,7 @@ const getSavingsCommitmentsForUser = async (
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
           "X-Action": "SearchAllSavingPlan",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": enviroment.BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

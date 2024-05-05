@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
+import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IProduct } from "src/model/entity/product";
 import { mapCreditsApiToEntities } from "./mappers";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
 
 const getCreditsForUser = async (
   userIdentification: string,
@@ -26,7 +26,7 @@ const getCreditsForUser = async (
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
           "X-Action": "SearchGeneralInformationObligation",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": enviroment.BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,

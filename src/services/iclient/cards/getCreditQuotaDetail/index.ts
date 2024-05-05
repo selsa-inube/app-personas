@@ -20,7 +20,7 @@ const getDetailForCreditQuota = async (
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
           "X-Action": "SearchCreditProductsDetail",
-          "X-Business-Unit": enviroment.TEMP_BUSINESS_UNIT,
+          "X-Business-Unit": enviroment.BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
         signal: controller.signal,
