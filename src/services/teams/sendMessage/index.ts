@@ -9,14 +9,7 @@ const sendTeamsMessage = async (messageRequest: ITeamsMessageRequest) => {
       mode: "no-cors",
     };
 
-    const res = await fetch(enviroment.TEAMS_WEBHOOK, options);
-
-    if (!res.ok) {
-      throw {
-        message: "Error al enviar el mensaje a Teams",
-        status: res.status,
-      };
-    }
+    await fetch(enviroment.TEAMS_WEBHOOK, options);
   } catch (error) {
     console.info(error);
 

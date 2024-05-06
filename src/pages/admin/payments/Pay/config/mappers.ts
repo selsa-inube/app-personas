@@ -44,6 +44,10 @@ const mapObligations = (
       extractAttribute(credit.attributes, "next_payment_value")?.value || 0,
     );
 
+    const nextPaymentDate = String(
+      extractAttribute(credit.attributes, "next_payment_date")?.value,
+    );
+
     const paymentMethod = String(
       extractAttribute(credit.attributes, "payment_method")?.value,
     );
@@ -89,7 +93,7 @@ const mapObligations = (
       {
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
-        description: "Inmediato",
+        description: nextPaymentDate,
         value: nextPaymentValue,
       },
       /* { // TEMP
@@ -128,6 +132,10 @@ const mapObligations = (
 
     const nextPaymentValue = Number(
       extractAttribute(commitment.attributes, "next_payment_value")?.value || 0,
+    );
+
+    const nextPaymentDate = String(
+      extractAttribute(commitment.attributes, "next_payment_date")?.value,
     );
 
     const paymentMethod = String(
@@ -171,7 +179,7 @@ const mapObligations = (
       {
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
-        description: "Inmediato",
+        description: nextPaymentDate,
         value: nextPaymentValue,
       },
     ];
