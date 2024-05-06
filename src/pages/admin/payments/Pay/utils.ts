@@ -4,6 +4,7 @@ import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IPaymentRequest } from "src/model/entity/payment";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
+import { sendTeamsMessage } from "src/services/teams/sendMessage";
 import { paySteps } from "./config/assisted";
 import { mapPaymentMethod } from "./config/mappers";
 import { IFormsPay, IFormsPayRefs } from "./types";
@@ -99,16 +100,37 @@ const sendPaymentRequest = async (
 
     throw error;
   } finally {
+    const totalPayment = pay.obligations.values.totalPayment;
+    const paymentMethods = filteredPaymentMethod.map(
+      (moneySource) => moneySource.type,
+    );
+
     if (enviroment.IS_PRODUCTION) {
       const confirmationTime = new Date();
       savePaymentTracking(
         creationTime,
         confirmationTime,
         confirmationType,
-        pay.obligations.values.totalPayment,
+        totalPayment,
         filteredPayments.map((payment) => payment.group),
-        filteredPaymentMethod.map((moneySource) => moneySource.type),
-      );
+        paymentMethods,
+      ).then((trackId) => {
+        if (confirmationType !== "failed") return;
+
+        sendTeamsMessage({
+          type: "MessageCard",
+          summary: "Payment failure",
+          title: "Failed payment",
+          subtitle: "Details",
+          facts: [
+            { name: "Track ID:", value: trackId },
+            { name: "User ID:", value: user.identification },
+            { name: "Date:", value: confirmationTime },
+            { name: "Amount:", value: totalPayment },
+            { name: "Payment methods:", value: paymentMethods.join(", ") },
+          ],
+        });
+      });
     }
   }
 };

@@ -9,18 +9,24 @@ const savePaymentTracking = async (
   paymentMethods: string[],
 ) => {
   try {
-    const { error } = await analyticsDB.from("payments_tracking").insert({
-      creation_time: creationTime,
-      confirmation_time: confirmationTime,
-      confirmation_type: confirmationType,
-      amount,
-      product_types: productTypes,
-      payment_methods: paymentMethods,
-    });
+    const { data, error } = await analyticsDB
+      .from("payments_tracking")
+      .insert({
+        creation_time: creationTime,
+        confirmation_time: confirmationTime,
+        confirmation_type: confirmationType,
+        amount,
+        product_types: productTypes,
+        payment_methods: paymentMethods,
+      })
+      .select()
+      .single();
 
     if (error) {
       throw new Error(error.message);
     }
+
+    return data.id;
   } catch (error) {
     console.error(error);
   }
