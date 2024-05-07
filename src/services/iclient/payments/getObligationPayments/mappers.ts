@@ -80,7 +80,9 @@ const mapObligationPaymentApiToEntity = (
     title: String(obligationPayment.productName),
     group: EPaymentGroupType.CREDITS,
     paymentMethod,
-    status: obligationPayment.legalStatus as EPaymentStatusType,
+    status: inArrears
+      ? EPaymentStatusType.ARREARS
+      : EPaymentStatusType.ANYWHERE,
     options,
     tags,
     supportDocumentType: ESupportDocumentType.FINANCIALPORTFOLIO,
