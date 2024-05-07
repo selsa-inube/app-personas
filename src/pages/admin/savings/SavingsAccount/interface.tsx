@@ -152,7 +152,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 ))}
                 {selectedProduct.saving.type ===
                   EProductType.PROGRAMMEDSAVINGS &&
-                  reimbursementModal.data.length > 0 && (
+                  (reimbursementModal.data.length > 0 ? (
                     <BoxAttribute
                       label="Cuenta para reembolso:"
                       buttonIcon={<MdOpenInNew />}
@@ -160,7 +160,12 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       onClickButton={handleToggleReimbursementModal}
                       withButton
                     />
-                  )}
+                  ) : (
+                    <BoxAttribute
+                      label="Cuenta para reembolso:"
+                      value="Sin definir"
+                    />
+                  ))}
                 {selectedProduct.saving.type !== EProductType.VIEWSAVINGS &&
                   beneficiariesModal.data.length > 0 && (
                     <BoxAttribute

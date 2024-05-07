@@ -16,4 +16,13 @@ const interestPaymentValuesMock: Record<string, string> = {
   PeriodicPayment: "Periódico",
 };
 
-export { estateTypeValuesMock, gmfTypeValuesMock, interestPaymentValuesMock };
+const accountTypeValuesMock: Record<string, string> = {
+  SavingsAccount: "Cuenta de ahorros",
+};
+
+export {
+  estateTypeValuesMock,
+  gmfTypeValuesMock,
+  interestPaymentValuesMock,
+  accountTypeValuesMock,
+};
