@@ -57,17 +57,17 @@ function SavingsAccount() {
   const getReimbursement = () => {
     if (!selectedProduct) return;
 
-    const reimbursementAttribute = selectedProduct.saving.attributes.filter(
+    const reimbursementAttributes = selectedProduct.saving.attributes.filter(
       (attr) =>
         attr.id === "bank_entity" ||
         attr.id === "account_type" ||
         attr.id === "account_number",
     );
 
-    if (reimbursementAttribute && Object(reimbursementAttribute)) {
+    if (reimbursementAttributes) {
       setReimbursementModal({
         ...reimbursementModal,
-        data: Object(reimbursementAttribute),
+        data: reimbursementAttributes,
       });
     }
   };

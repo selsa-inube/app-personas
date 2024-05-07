@@ -18,6 +18,7 @@ const interestPaymentValuesMock: Record<string, string> = {
 
 const accountTypeValuesMock: Record<string, string> = {
   SavingsAccount: "Cuenta de ahorros",
+  CheckingAccount: "Cuenta corriente",
 };
 
 export {
