@@ -1,4 +1,5 @@
 import {
+  accountTypeValuesMock,
   estateTypeValuesMock,
   gmfTypeValuesMock,
   interestPaymentValuesMock,
@@ -196,6 +197,37 @@ const getProductAttributes = (
         label: "Fecha de apertura",
         value: formatPrimaryDate(new Date(String(saving.creationDate))),
       },
+      ...(saving.reimbursementEntity
+        ? [
+            {
+              id: "bank_entity",
+              label: "Cuenta",
+              value: String(saving.reimbursementEntity),
+            },
+          ]
+        : []),
+      ...(saving.reimbursementAccountNumber
+        ? [
+            {
+              id: "account_number",
+              label: "Número de cuenta",
+              value: Number(saving.reimbursementAccountNumber),
+            },
+          ]
+        : []),
+      ...(saving.typeOfReimbursementAccount &&
+      Object.keys(saving.typeOfReimbursementAccount).length !== 0
+        ? [
+            {
+              id: "account_type",
+              label: "Tipo de cuenta",
+              value:
+                accountTypeValuesMock[
+                  Object(saving.typeOfReimbursementAccount).code
+                ],
+            },
+          ]
+        : []),
     ],
   };
 
