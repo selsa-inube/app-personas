@@ -2,9 +2,10 @@ import { useAuth } from "@inube/auth";
 import { useEffect, useState } from "react";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHistory";
+import { equalArraysByProperty } from "src/utils/arrays";
 import { PaymentHistoryUI } from "./interface";
 
-const limitPayments = 1000; // TEMP
+const limitPayments = 5; // TEMP
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 
@@ -33,10 +34,13 @@ function PaymentHistory() {
       clearInterval(refreshInterval);
     }
 
-    handleGetPaymentHistory(0, limitPayments, true);
+    const limit =
+      paymentHistory.length > 0 ? paymentHistory.length : limitPayments;
+
+    handleGetPaymentHistory(1, limit, true);
 
     refreshInterval = setInterval(() => {
-      handleGetPaymentHistory(0, limitPayments, true);
+      handleGetPaymentHistory(1, limit, true);
     }, 60000);
   };
 
@@ -54,7 +58,22 @@ function PaymentHistory() {
             return;
           }
 
+          if (newPaymentHistory.length < limitPayments) {
+            setNoMorePayments(true);
+          }
+
           if (reset) {
+            const isEqualPayments = equalArraysByProperty(
+              paymentHistory,
+              newPaymentHistory,
+              "id",
+            );
+
+            if (!isEqualPayments) {
+              setPaymentHistory(newPaymentHistory.slice(0, limitPayments));
+              return;
+            }
+
             setPaymentHistory(newPaymentHistory);
             return;
           }
@@ -72,7 +91,8 @@ function PaymentHistory() {
   };
 
   const handleAddPayments = () => {
-    handleGetPaymentHistory(paymentHistory.length, limitPayments);
+    const page = paymentHistory.length / limitPayments + 1;
+    handleGetPaymentHistory(page, limitPayments);
   };
 
   const handleTogglePaymentHistoryModal = (payment: IPaymentHistory) => {

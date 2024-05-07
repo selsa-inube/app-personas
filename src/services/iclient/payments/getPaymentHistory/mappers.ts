@@ -56,9 +56,7 @@ const mapPaymentHistoryApiToEntity = (
 const mapPaymentHistoryApiToEntities = (
   paymentHistory: Record<string, string | number | object>[],
 ): IPaymentHistory[] => {
-  return paymentHistory
-    .map((payment) => mapPaymentHistoryApiToEntity(payment))
-    .sort((a, b) => b.paymentDate.getTime() - a.paymentDate.getTime());
+  return paymentHistory.map((payment) => mapPaymentHistoryApiToEntity(payment));
 };
 
 export { mapPaymentHistoryApiToEntities, mapPaymentHistoryApiToEntity };

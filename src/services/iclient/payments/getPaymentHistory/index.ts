@@ -19,6 +19,7 @@ const getPaymentHistory = async (
           developmentUsersMock[userIdentification] || userIdentification,
         page: String(page),
         per_page: String(limit),
+        sort: "desc.payDay",
       });
 
       const controller = new AbortController();

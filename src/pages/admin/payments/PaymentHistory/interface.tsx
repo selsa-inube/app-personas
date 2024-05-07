@@ -114,7 +114,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                   onClick={onAddPayments}
                   disabled={noMorePayments}
                 >
-                  Ver más movimientos
+                  Ver más pagos
                 </Button>
               </Stack>
             </>
