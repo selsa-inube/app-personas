@@ -18,8 +18,8 @@ const manifestPWA: VitePWAOptions = {
   includeManifestIcons: true,
   disable: false,
   manifest: {
-    name: "Personas",
-    short_name: "Personas",
+    name: "Fondecom",
+    short_name: "Fondecom",
     description: "Portal de clientes",
     lang: "en-ES",
     theme_color: "#fff",
