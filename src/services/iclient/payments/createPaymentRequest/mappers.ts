@@ -53,7 +53,7 @@ const mapPaymentRequestEntityToApi = (
           : undefined,
     })),
     paymentSource: paymentRequest.source,
-    paymentDate: paymentDate.toString(),
+    paymentDate: paymentDate.toISOString(),
   };
 };
 
