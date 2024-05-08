@@ -276,6 +276,7 @@ function CardUI(props: CardUIProps) {
                                     description={movement.description}
                                     totalValue={movement.totalValue || 0}
                                     date={movement.date}
+                                    reference={movement.reference}
                                   />
                                 </Stack>
                               ))}

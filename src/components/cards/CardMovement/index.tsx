@@ -1,17 +1,17 @@
 import { Icon } from "@design/data/Icon";
-import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
+import { Stack } from "@design/layout/Stack";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { getMovementDescriptionType } from "@pages/admin/cards/Card/config/product";
 import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineCached,
   MdOutlineCheck,
 } from "react-icons/md";
+import { EMovementType } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
-import { EMovementType } from "src/model/entity/product";
-import { getMovementDescriptionType } from "@pages/admin/cards/Card/config/product";
-import { useMediaQuery } from "@hooks/useMediaQuery";
 import { StyledCard } from "./styles";
 
 interface CardMovementProps {
@@ -19,12 +19,12 @@ interface CardMovementProps {
   description: string;
   totalValue: number;
   date: Date;
-  quotas?: string;
+  reference?: string;
   onClick?: () => void;
 }
 
 function CardMovement(props: CardMovementProps) {
-  const { movementType, description, totalValue, date, quotas, onClick } =
+  const { movementType, description, totalValue, date, reference, onClick } =
     props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
@@ -94,14 +94,15 @@ function CardMovement(props: CardMovementProps) {
           appearance="gray"
         >
           {formatPrimaryDate(date, false)}
+          {reference && !isMobile && ` - ${reference}`}
         </Text>
-        {quotas && (
+        {reference && isMobile && (
           <Text
             type="label"
             size={isMobile ? "small" : "medium"}
             appearance="gray"
           >
-            {quotas}
+            {reference}
           </Text>
         )}
       </Stack>
@@ -116,5 +117,5 @@ function CardMovement(props: CardMovementProps) {
   );
 }
 
-export type { CardMovementProps };
 export { CardMovement };
+export type { CardMovementProps };

@@ -13,26 +13,26 @@ import { capitalizeText } from "src/utils/texts";
 const mapCreditQuotaMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
-  const typeTransation = () => {
-    if (
-      Object(movement.typeOfTransation).code === "Consumption" &&
-      Object(movement.reverseTransaction).code === "Yes"
-    )
-      return EMovementType.REVERSE;
-    if (
-      Object(movement.typeOfTransation).code === "Consumption" &&
-      Object(movement.reverseTransaction).code === "No"
-    )
-      return EMovementType.PURCHASE;
-    return EMovementType.PAYMENT;
-  };
+  let transactionType = EMovementType.PAYMENT;
+  if (
+    Object(movement.typeOfTransation).code === "Consumption" &&
+    Object(movement.reverseTransaction).code === "Yes"
+  )
+    transactionType = EMovementType.REVERSE;
+  if (
+    Object(movement.typeOfTransation).code === "Consumption" &&
+    Object(movement.reverseTransaction).code === "No"
+  ) {
+    transactionType = EMovementType.PURCHASE;
+  }
 
   const buildMovement: IMovement = {
     id: String(movement.movementNumber),
     description: String(movement.movementDescription),
     totalValue: Number(movement.transactionValue),
     date: new Date(String(movement.movementDate)),
-    type: typeTransation(),
+    type: transactionType,
+    reference: String(movement.movementNumber),
   };
   return buildMovement;
 };
@@ -63,7 +63,9 @@ const mapCreditQuotaApiToEntity = (
     ? "Inmediato"
     : formatPrimaryDate(new Date(String(creditQuota.nextPaymentDay)));
 
-const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "Sin definir"
+  const nextPaymentDateValid = creditQuota.nextPaymentDay
+    ? nextPaymentFormat
+    : "Sin definir";
 
   const normalizedPaymentMediumName = capitalizeText(
     String(creditQuota.paymentMediumName).toLowerCase(),
@@ -162,4 +164,4 @@ const mapCreditQuotasApiToEntities = (
   );
 };
 
-export { mapCreditQuotasApiToEntities, mapCreditQuotaApiToEntity };
+export { mapCreditQuotaApiToEntity, mapCreditQuotasApiToEntities };
