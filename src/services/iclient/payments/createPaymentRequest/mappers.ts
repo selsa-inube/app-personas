@@ -26,6 +26,8 @@ const mapPaymentRequestApiToEntity = (
 const mapPaymentRequestEntityToApi = (
   paymentRequest: IPaymentRequest,
 ): Record<string, string | number | object> => {
+  const paymentDate = new Date();
+
   return {
     clientCode: paymentRequest.customerCode,
     clientName: paymentRequest.customerName,
@@ -51,6 +53,7 @@ const mapPaymentRequestEntityToApi = (
           : undefined,
     })),
     paymentSource: paymentRequest.source,
+    paymentDate: paymentDate.toISOString(),
   };
 };
 
