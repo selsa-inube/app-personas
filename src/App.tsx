@@ -36,7 +36,7 @@ import { PaymentsRoutes } from "./routes/payments";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route errorElement={<PageNotFound nav={nav}/>} />
+      <Route errorElement={<PageNotFound nav={nav} />} />
       <Route path="/" element={<Page nav={nav} />}>
         <Route path="/" element={<Home />} />
 
@@ -76,6 +76,8 @@ function App() {
   if (!isAuthenticated) {
     return null;
   }
+
+  console.log(import.meta.env.VITE_AUTH0_REDIRECT_URI);
 
   return (
     <>
