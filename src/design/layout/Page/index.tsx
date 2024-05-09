@@ -38,6 +38,8 @@ function Page() {
     withHolidaysRequest,
   );
 
+  console.log(getFlag("request.events.events.request-event"));
+
   const nav = getNav(
     withSavingRequest,
     withCreditRequest,
