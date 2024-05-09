@@ -88,6 +88,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
                         description={movement.description}
                         totalValue={movement.totalValue}
                         date={movement.date}
+                        reference={movement.reference}
                       />
                     </StyledItem>
                   </Stack>

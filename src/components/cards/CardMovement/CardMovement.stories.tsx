@@ -1,10 +1,10 @@
-import { StoryFn } from "@storybook/react";
-import { parameters, props } from "./props";
-import { CardMovement, CardMovementProps } from ".";
-import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
+import { BrowserRouter } from "react-router-dom";
 import { EMovementType } from "src/model/entity/product";
+import { ThemeProvider } from "styled-components";
+import { CardMovement, CardMovementProps } from ".";
+import { parameters, props } from "./props";
 
 const story = {
   title: "components/cards/CardMovement",
@@ -31,7 +31,6 @@ Default.args = {
   description: "GERÓNIMO MARTINS SAS",
   totalValue: 500000,
   date: new Date("21/Feb/2024 11:20 am"),
-  quotas: "a 12 meses",
 };
 
 const theme = {
