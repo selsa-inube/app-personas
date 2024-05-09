@@ -9,7 +9,6 @@ import { GlobalStyles } from "@design/styles";
 import { useFonts } from "@hooks/useFonts";
 import { ThemeProvider } from "styled-components";
 
-import { getNav } from "@config/nav";
 import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
