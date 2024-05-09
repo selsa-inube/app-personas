@@ -32,6 +32,7 @@ import { AppProvider } from "./context/app";
 import { SavingsProvider } from "./context/savings";
 import { MyCardsRoutes } from "./routes/myCards";
 import { PaymentsRoutes } from "./routes/payments";
+import { AidRoutes } from "./routes/aid";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +52,8 @@ const router = createBrowserRouter(
         <Route path="credit/*" element={<CreditRoutes />} />
 
         <Route path="savings/*" element={<SavingRoutes />} />
+
+        <Route path="aids/*" element={<AidRoutes />} />
 
         <Route path="/update-data-assisted" element={<UpdateData />} />
         <Route
