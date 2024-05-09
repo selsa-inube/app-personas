@@ -337,13 +337,13 @@ function HomeUI(props: HomeUIProps) {
   }, []);
 
   const withRequestSaving =
-    getFlag("admin.savings.savings.request-saving")?.value || false;
+    getFlag("admin.savings.savings.request-saving").value;
     
   const withRequestCredit =
-    getFlag("admin.credits.credits.request-credit")?.value || false;
+    getFlag("admin.credits.credits.request-credit").value;
     
   const withRequestCard =
-    getFlag("admin.cards.cards.request-card")?.value || false;
+    getFlag("admin.cards.cards.request-card").value;
 
   return (
     <>

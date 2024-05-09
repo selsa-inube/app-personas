@@ -25,7 +25,7 @@ function CreditRequest() {
     navigate(`/credit/${path}`);
   };
 
-  if (!getFlag("admin.credits.credits.request-credit")?.value) {
+  if (!getFlag("admin.credits.credits.request-credit").value) {
     return <Navigate to="/" />;
   }
 

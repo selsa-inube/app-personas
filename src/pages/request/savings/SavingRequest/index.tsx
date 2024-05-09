@@ -25,7 +25,7 @@ function SavingRequest() {
     navigate(`/savings/${path}`);
   };
 
-  if (!getFlag("admin.savings.savings.request-saving")?.value) {
+  if (!getFlag("admin.savings.savings.request-saving").value) {
     return <Navigate to="/" />;
   }
 

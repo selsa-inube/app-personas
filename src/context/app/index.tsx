@@ -42,7 +42,14 @@ function AppProvider(props: AppProviderProps) {
         return flag[scope]?.[category]?.[product]?.[flagCode];
       });
 
-      if (!foundFlag) return;
+      if (!foundFlag) {
+        return {
+          id: flagCode,
+          name: "",
+          description: "",
+          value: false,
+        };
+      }
 
       return foundFlag?.[scope][category][product][flagCode];
     },
