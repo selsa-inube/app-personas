@@ -1,40 +1,56 @@
-import { useContext } from "react";
-import { useLocation } from "react-router-dom";
-import { useAuth } from "@inube/auth";
-import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getHeader } from "@config/header";
-import { AppContext } from "src/context/app";
-import { Nav } from "@design/navigation/Nav";
-import { Header } from "@design/navigation/Header";
-import { Grid } from "@design/layout/Grid";
-import { INav } from "@design/layout/Page/types";
-import { Stack } from "@design/layout/Stack";
+import { getNav } from "@config/nav";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
+import { Header } from "@design/navigation/Header";
+import { Nav } from "@design/navigation/Nav";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useAuth } from "@inube/auth";
+import { useContext } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
+import { useLocation } from "react-router-dom";
+import { AppContext } from "src/context/app";
+import { capitalizeFirstLetters } from "src/utils/texts";
 import { StyledMain, StyledPage } from "./styles";
 
-interface PageNotFoundProps {
-  nav: INav;
-}
-
-function PageNotFound(props: PageNotFoundProps) {
+function PageNotFound() {
   const { pathname: currentLocation } = useLocation();
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
 
-  const { nav } = props;
   const { user } = useAuth();
   const { getFlag } = useContext(AppContext);
 
+  const withSavingRequest = getFlag(
+    "admin.savings.savings.request-saving",
+  ).value;
+  const withCreditRequest = getFlag(
+    "admin.credits.credits.request-credit",
+  ).value;
+  const withEventRequest = getFlag("request.events.events.request-event").value;
+  const withHolidaysRequest = getFlag(
+    "request.holidays.holidays.request-holidays",
+  ).value;
+
   const header = getHeader(
-    getFlag("general.links.update-data.update-data-with-assisted")?.value ||
-      false,
-    getFlag("general.links.update-data.update-data-without-assisted")?.value ||
-      false,
+    getFlag("general.links.update-data.update-data-with-assisted").value,
+    getFlag("general.links.update-data.update-data-without-assisted").value,
+    withSavingRequest,
+    withCreditRequest,
+    withEventRequest,
+    withHolidaysRequest,
   );
+
+  const nav = getNav(
+    withSavingRequest,
+    withCreditRequest,
+    withEventRequest,
+    withHolidaysRequest,
+  );
+
   return (
     <StyledPage>
       <Header
@@ -57,7 +73,6 @@ function PageNotFound(props: PageNotFoundProps) {
       >
         {isTablet && (
           <Nav
-            title={nav.title}
             sections={nav.sections}
             currentLocation={currentLocation}
             logoutTitle="Cerrar sesión"

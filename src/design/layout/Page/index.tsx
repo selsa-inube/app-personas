@@ -1,4 +1,5 @@
 import { getHeader } from "@config/header";
+import { getNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext } from "react";
@@ -9,25 +10,39 @@ import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
 import { Grid } from "../Grid";
 import { StyledMain, StyledPage } from "./styles";
-import { INav } from "./types";
 
-interface PageProps {
-  nav: INav;
-}
-
-function Page(props: PageProps) {
+function Page() {
   const currentLocation = useLocation().pathname;
   const isTablet = useMediaQuery("(min-width: 900px)");
 
-  const { nav } = props;
   const { user } = useAuth();
   const { getFlag } = useContext(AppContext);
 
+  const withSavingRequest = getFlag(
+    "admin.savings.savings.request-saving",
+  ).value;
+  const withCreditRequest = getFlag(
+    "admin.credits.credits.request-credit",
+  ).value;
+  const withEventRequest = getFlag("request.events.events.request-event").value;
+  const withHolidaysRequest = getFlag(
+    "request.holidays.holidays.request-holidays",
+  ).value;
+
   const header = getHeader(
-    getFlag("general.links.update-data.update-data-with-assisted")?.value ||
-      false,
-    getFlag("general.links.update-data.update-data-without-assisted")?.value ||
-      false,
+    getFlag("general.links.update-data.update-data-with-assisted").value,
+    getFlag("general.links.update-data.update-data-without-assisted").value,
+    withSavingRequest,
+    withCreditRequest,
+    withEventRequest,
+    withHolidaysRequest,
+  );
+
+  const nav = getNav(
+    withSavingRequest,
+    withCreditRequest,
+    withEventRequest,
+    withHolidaysRequest,
   );
 
   return (
@@ -52,7 +67,6 @@ function Page(props: PageProps) {
       >
         {isTablet && (
           <Nav
-            title={nav.title}
             sections={nav.sections}
             currentLocation={currentLocation}
             logoutTitle="Cerrar sesión"
@@ -67,4 +81,3 @@ function Page(props: PageProps) {
 }
 
 export { Page };
-export type { PageProps };

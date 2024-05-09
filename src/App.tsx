@@ -9,7 +9,7 @@ import { GlobalStyles } from "@design/styles";
 import { useFonts } from "@hooks/useFonts";
 import { ThemeProvider } from "styled-components";
 
-import { nav } from "@config/nav";
+import { getNav } from "@config/nav";
 import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
@@ -36,8 +36,8 @@ import { PaymentsRoutes } from "./routes/payments";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route errorElement={<PageNotFound nav={nav}/>} />
-      <Route path="/" element={<Page nav={nav} />}>
+      <Route errorElement={<PageNotFound />} />
+      <Route path="/" element={<Page />}>
         <Route path="/" element={<Home />} />
 
         <Route path="my-credits/*" element={<MyCreditsRoutes />} />
