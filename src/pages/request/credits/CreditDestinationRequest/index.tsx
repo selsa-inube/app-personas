@@ -123,7 +123,7 @@ function CreditDestinationRequest() {
     handleStepChange(currentStep - 1);
   };
 
-  if (!getFlag("admin.credits.credits.request-credit")?.value) {
+  if (!getFlag("admin.credits.credits.request-credit").value) {
     return <Navigate to="/" />;
   }
 

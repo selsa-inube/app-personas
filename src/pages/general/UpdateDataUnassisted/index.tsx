@@ -82,7 +82,7 @@ function UpdateDataUnassisted() {
   };
 
   if (
-    !getFlag("general.links.update-data.update-data-without-assisted")?.value
+    !getFlag("general.links.update-data.update-data-without-assisted").value
   ) {
     return <Navigate to="/" />;
   }

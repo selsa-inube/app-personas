@@ -185,7 +185,7 @@ function UpdateData() {
     handleStepChange(currentStep - 1);
   };
 
-  if (!getFlag("general.links.update-data.update-data-with-assisted")?.value) {
+  if (!getFlag("general.links.update-data.update-data-with-assisted").value) {
     return <Navigate to="/" />;
   }
 

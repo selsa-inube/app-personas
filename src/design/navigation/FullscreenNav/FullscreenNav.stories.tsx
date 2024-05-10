@@ -1,4 +1,3 @@
-import { nav } from "@config/nav";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { MdOutlineBadge } from "react-icons/md";
@@ -26,7 +25,6 @@ export const Default: StoryFn<FullscreenNavProps> = (args) => (
 Default.args = {
   logoutTitle: "Logout",
   portalId: "portal",
-  navigation: nav,
 };
 
 export const MultipleSections: StoryFn<FullscreenNavProps> = (args) => (
@@ -45,7 +43,6 @@ MultipleSections.args = {
       icon: <MdOutlineBadge />,
     },
   ],
-  navigation: nav,
 };
 
 const theme = {
