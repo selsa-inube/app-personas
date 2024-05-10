@@ -50,7 +50,7 @@ const mapPaymentRequestEntityToApi = (
       value: moneySource.value,
       savingProductNumber:
         moneySource.type === EMoneySourceType.SAVINGACCOUNT
-          ? parseInt(moneySource.id)
+          ? moneySource.id
           : undefined,
     })),
     paymentSource: paymentRequest.source,
