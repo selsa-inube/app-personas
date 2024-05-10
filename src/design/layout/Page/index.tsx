@@ -25,6 +25,7 @@ function Page() {
     "admin.credits.credits.request-credit",
   ).value;
   const withEventRequest = getFlag("request.events.events.request-event").value;
+  const withAidRequest = getFlag("request.aids.aids.request-aid").value;
   const withHolidaysRequest = getFlag(
     "request.holidays.holidays.request-holidays",
   ).value;
@@ -35,6 +36,7 @@ function Page() {
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
+    withAidRequest,
     withHolidaysRequest,
   );
 
@@ -44,6 +46,7 @@ function Page() {
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
+    withAidRequest,
     withHolidaysRequest,
   );
 

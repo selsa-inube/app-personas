@@ -1,6 +1,7 @@
 import {
   MdOutlineAccountBalance,
   MdOutlineAccountBalanceWallet,
+  MdOutlineAirplaneTicket,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
   MdOutlineHouse,
@@ -14,6 +15,7 @@ const getNav = (
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
   requestAidFlag: boolean,
+  requestHolidaysFlag: boolean,
 ) => {
   const sections = [
     {
@@ -52,7 +54,8 @@ const getNav = (
     requestSavingFlag ||
     requestCreditFlag ||
     requestEventFlag ||
-    requestAidFlag
+    requestAidFlag ||
+    requestHolidaysFlag
   ) {
     sections.push({
       title: "Solicitar",
@@ -88,6 +91,14 @@ const getNav = (
         label: "Auxilios",
         path: "/aids",
         icon: <MdOutlineSupport />,
+      });
+    }
+
+    if (requestHolidaysFlag) {
+      sections[1].links.push({
+        label: "Vacaciones",
+        path: "/holidays",
+        icon: <MdOutlineAirplaneTicket />,
       });
     }
   }
