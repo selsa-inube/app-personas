@@ -1,12 +1,14 @@
 import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth/dist/types/user";
 import { developmentUsersMock } from "@mocks/users/users.mocks";
+import { NavigateFunction } from "react-router-dom";
 import { IPaymentRequest } from "src/model/entity/payment";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
 import { paySteps } from "./config/assisted";
 import { mapPaymentMethod } from "./config/mappers";
+import { EMoneySourceType } from "./forms/PaymentMethodForm/types";
 import { IFormsPay, IFormsPayRefs } from "./types";
 
 const payStepsRules = (
@@ -63,6 +65,7 @@ const sendPaymentRequest = async (
   user: IUser,
   pay: IFormsPay,
   accessToken: string,
+  navigate: NavigateFunction,
 ) => {
   const filteredPayments = pay.obligations.values.payments.filter(
     (payment) => payment.valueToPay && payment.valueToPay > 0,
@@ -83,6 +86,13 @@ const sendPaymentRequest = async (
     source: "preliquidacion_web",
   };
 
+  const hasPSEMethod = filteredPaymentMethod.some(
+    (moneySource) => moneySource.type === EMoneySourceType.PSE,
+  );
+  const hasSavingAccountMethod = filteredPaymentMethod.some(
+    (moneySource) => moneySource.type === EMoneySourceType.SAVINGACCOUNT,
+  );
+
   const creationTime = new Date();
   let confirmationType = "succeed";
 
@@ -91,6 +101,11 @@ const sendPaymentRequest = async (
       paymentRequestData,
       accessToken,
     );
+
+    if (!hasPSEMethod && hasSavingAccountMethod) {
+      navigate("/payments/history");
+      return;
+    }
 
     if (paymentRequestResponse) {
       window.open(paymentRequestResponse.url, "_self");
@@ -107,16 +122,16 @@ const sendPaymentRequest = async (
 
     if (enviroment.IS_PRODUCTION) {
       const confirmationTime = new Date();
-      savePaymentTracking(
+      const trackId = await savePaymentTracking(
         creationTime,
         confirmationTime,
         confirmationType,
         totalPayment,
         filteredPayments.map((payment) => payment.group),
         paymentMethods,
-      ).then((trackId) => {
-        if (confirmationType !== "failed") return;
+      );
 
+      if (confirmationType === "failed") {
         sendTeamsMessage({
           type: "MessageCard",
           summary: "Payment failure",
@@ -130,7 +145,7 @@ const sendPaymentRequest = async (
             { name: "Payment methods:", value: paymentMethods.join(", ") },
           ],
         });
-      });
+      }
     }
   }
 };
