@@ -13,6 +13,6 @@ jobs:
       - name: Check branches
         run: |
           if [ ${{ github.head_ref }} != "develop" ] && [ ${{ github.base_ref }} == "testto" ]; then
-            echo "Merge requests to develop branch are only allowed from testfrom branch."
+            echo "Merge requests to main branch are only allowed from develop branch."
             exit 1
           fi
