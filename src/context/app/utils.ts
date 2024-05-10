@@ -9,6 +9,7 @@ const getAppFeatureFlags = async (): Promise<IFeatureFlag[]> => {
     "request-credit",
     "request-card",
     "request-event",
+    "request-aid",
     "request-holidays",
   ]);
 

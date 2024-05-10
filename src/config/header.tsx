@@ -7,6 +7,7 @@ const getHeader = (
   requestSavingFlag: boolean,
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
+  requestAidFlag: boolean,
   requestHolidaysFlag: boolean,
 ) => {
   const links = [];
@@ -38,6 +39,7 @@ const getHeader = (
       requestSavingFlag,
       requestCreditFlag,
       requestEventFlag,
+      requestAidFlag,
       requestHolidaysFlag,
     ),
     client: "",

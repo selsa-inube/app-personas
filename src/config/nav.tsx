@@ -6,13 +6,15 @@ import {
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlineSavings,
-  MdOutlineSportsCricket,
+  MdOutlineStarBorder,
+  MdOutlineSupport,
 } from "react-icons/md";
 
 const getNav = (
   requestSavingFlag: boolean,
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
+  requestAidFlag: boolean,
   requestHolidaysFlag: boolean,
 ) => {
   const sections = [
@@ -52,6 +54,7 @@ const getNav = (
     requestSavingFlag ||
     requestCreditFlag ||
     requestEventFlag ||
+    requestAidFlag ||
     requestHolidaysFlag
   ) {
     sections.push({
@@ -79,7 +82,15 @@ const getNav = (
       sections[1].links.push({
         label: "Eventos",
         path: "/events",
-        icon: <MdOutlineSportsCricket />,
+        icon: <MdOutlineStarBorder />,
+      });
+    }
+
+    if (requestAidFlag) {
+      sections[1].links.push({
+        label: "Auxilios",
+        path: "/aids",
+        icon: <MdOutlineSupport />,
       });
     }
 
