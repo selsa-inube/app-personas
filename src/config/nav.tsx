@@ -1,19 +1,19 @@
 import {
   MdOutlineAccountBalance,
   MdOutlineAccountBalanceWallet,
-  MdOutlineAirplaneTicket,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlineSavings,
-  MdOutlineSportsCricket,
+  MdOutlineStarBorder,
+  MdOutlineSupport,
 } from "react-icons/md";
 
 const getNav = (
   requestSavingFlag: boolean,
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
-  requestHolidaysFlag: boolean,
+  requestAidFlag: boolean,
 ) => {
   const sections = [
     {
@@ -52,7 +52,7 @@ const getNav = (
     requestSavingFlag ||
     requestCreditFlag ||
     requestEventFlag ||
-    requestHolidaysFlag
+    requestAidFlag
   ) {
     sections.push({
       title: "Solicitar",
@@ -79,15 +79,15 @@ const getNav = (
       sections[1].links.push({
         label: "Eventos",
         path: "/events",
-        icon: <MdOutlineSportsCricket />,
+        icon: <MdOutlineStarBorder />,
       });
     }
 
-    if (requestHolidaysFlag) {
+    if (requestAidFlag) {
       sections[1].links.push({
-        label: "Vacaciones",
-        path: "/holidays",
-        icon: <MdOutlineAirplaneTicket />,
+        label: "Auxilios",
+        path: "/aids",
+        icon: <MdOutlineSupport />,
       });
     }
   }
