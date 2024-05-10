@@ -8,8 +8,8 @@ const paymentTitleValuesMock: Record<string, string> = {
 };
 
 const paymentStatusValuesMock: Record<string, string> = {
-  en_tramite_con_pse: "En progreso PSE",
-  pago_pse_abortado: "Abandonado",
+  en_tramite_con_pse: "En progreso",
+  pago_pse_abortado: "Rechazado",
   pago_recibido_en_proceso_de_aplicacion: "En progreso",
   pago_finalizado: "Completado",
   pago_no_satisfactorio: "Rechazado",

@@ -17,6 +17,7 @@ import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { PayUI } from "./interface";
 import { IFormsPay, IFormsPayRefs } from "./types";
 import { payStepsRules, sendPaymentRequest } from "./utils";
+import { useNavigate } from "react-router-dom";
 
 function Pay() {
   const [currentStep, setCurrentStep] = useState(paySteps.obligations.id);
@@ -27,6 +28,7 @@ function Pay() {
   const { commitments } = useContext(SavingsContext);
   const [loadingSend, setLoadingSend] = useState(false);
   const [message, setMessage] = useState<IMessage>(initialMessageState);
+  const navigate = useNavigate();
 
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
@@ -120,7 +122,7 @@ function Pay() {
 
     setLoadingSend(true);
 
-    sendPaymentRequest(user, pay, accessToken).catch(() => {
+    sendPaymentRequest(user, pay, accessToken, navigate).catch(() => {
       setMessage({
         show: true,
         title: "El pago no pudo ser procesado",

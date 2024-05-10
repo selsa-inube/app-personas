@@ -1,13 +1,23 @@
 import {
   MdOutlineAccountBalance,
+  MdOutlineAccountBalanceWallet,
+  MdOutlineAirplaneTicket,
   MdOutlineAttachMoney,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlineSavings,
+  MdOutlineStarBorder,
+  MdOutlineSupport,
 } from "react-icons/md";
 
-const nav = {
-  sections: [
+const getNav = (
+  requestSavingFlag: boolean,
+  requestCreditFlag: boolean,
+  requestEventFlag: boolean,
+  requestAidFlag: boolean,
+  requestHolidaysFlag: boolean,
+) => {
+  const sections = [
     {
       title: "Administrar",
       links: [
@@ -38,7 +48,64 @@ const nav = {
         },
       ],
     },
-  ],
+  ];
+
+  if (
+    requestSavingFlag ||
+    requestCreditFlag ||
+    requestEventFlag ||
+    requestAidFlag ||
+    requestHolidaysFlag
+  ) {
+    sections.push({
+      title: "Solicitar",
+      links: [],
+    });
+
+    if (requestSavingFlag) {
+      sections[1].links.push({
+        label: "Ahorros",
+        path: "/savings",
+        icon: <MdOutlineAccountBalanceWallet />,
+      });
+    }
+
+    if (requestCreditFlag) {
+      sections[1].links.push({
+        label: "Créditos",
+        path: "/credit",
+        icon: <MdOutlineAttachMoney />,
+      });
+    }
+
+    if (requestEventFlag) {
+      sections[1].links.push({
+        label: "Eventos",
+        path: "/events",
+        icon: <MdOutlineStarBorder />,
+      });
+    }
+
+    if (requestAidFlag) {
+      sections[1].links.push({
+        label: "Auxilios",
+        path: "/aids",
+        icon: <MdOutlineSupport />,
+      });
+    }
+
+    if (requestHolidaysFlag) {
+      sections[1].links.push({
+        label: "Vacaciones",
+        path: "/holidays",
+        icon: <MdOutlineAirplaneTicket />,
+      });
+    }
+  }
+
+  return {
+    sections,
+  };
 };
 
-export { nav };
+export { getNav };

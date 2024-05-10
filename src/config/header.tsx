@@ -1,9 +1,14 @@
 import { MdOutlineBadge } from "react-icons/md";
-import { nav } from "./nav";
+import { getNav } from "./nav";
 
 const getHeader = (
   updateDataAssistedFlag: boolean,
   updateDataUnassistedFlag: boolean,
+  requestSavingFlag: boolean,
+  requestCreditFlag: boolean,
+  requestEventFlag: boolean,
+  requestAidFlag: boolean,
+  requestHolidaysFlag: boolean,
 ) => {
   const links = [];
 
@@ -30,7 +35,13 @@ const getHeader = (
     links,
     portalId: "portal",
     logoutTitle: "Cerrar sesión",
-    navigation: nav,
+    navigation: getNav(
+      requestSavingFlag,
+      requestCreditFlag,
+      requestEventFlag,
+      requestAidFlag,
+      requestHolidaysFlag,
+    ),
     client: "",
   };
 };
