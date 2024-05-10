@@ -48,7 +48,7 @@ interface IPaymentRequest {
 
 interface IPaymentRequestResponse {
   trackingCode: string;
-  url: string;
+  url?: string;
   state: string;
   message: string;
 }

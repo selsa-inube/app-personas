@@ -11,13 +11,14 @@ const mapPaymentRequestApiToEntity = (
   let state = "";
   let message = "";
 
-  if (Array.isArray(causes)) {
+  if (causes && Array.isArray(causes)) {
     state = String(causes[0].id);
     message = String(causes[0].message);
   }
+
   return {
     trackingCode: String(paymentRequest.trackingCode),
-    url: String(paymentRequest.url),
+    url: paymentRequest.url ? String(paymentRequest.url) : undefined,
     state,
     message,
   };
