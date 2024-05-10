@@ -18,7 +18,7 @@ const mapSavingProductsCommitmentsApiToEntities = (
 const mapSavingProductMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
-  const buildMovement: IMovement = {
+  return {
     id: String(movement.movementId),
     date: new Date(String(movement.movementDate)),
     reference: String(movement.movementNumber),
@@ -27,15 +27,22 @@ const mapSavingProductMovementsApiToEntity = (
       movement.creditMovementPesos || -movement.debitMovementPesos || 0,
     ),
   };
-  return buildMovement;
 };
 
 const mapSavingProductMovementsApiToEntities = (
   movements: Record<string, string | number | object>[],
 ): IMovement[] => {
-  return movements
-    .map(mapSavingProductMovementsApiToEntity)
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
+  return movements.map(mapSavingProductMovementsApiToEntity).sort((a, b) => {
+    const dateComparison = b.date.getTime() - a.date.getTime();
+    if (dateComparison !== 0) {
+      return dateComparison;
+    }
+
+    const referenceA = a.reference || "";
+    const referenceB = b.reference || "";
+
+    return referenceA.localeCompare(referenceB);
+  });
 };
 
 const mapSavingsApiToEntity = (
