@@ -1,6 +1,6 @@
 import { IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
 
-const crumbsMyAids: IBreadcrumbItem[] = [
+const crumbsAids: IBreadcrumbItem[] = [
   {
     id: "home",
     path: "/",
@@ -14,4 +14,4 @@ const crumbsMyAids: IBreadcrumbItem[] = [
   },
 ];
 
-export { crumbsMyAids };
+export { crumbsAids };

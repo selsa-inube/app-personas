@@ -8,7 +8,7 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
-import { crumbsMyAids } from "./config/navigation";
+import { crumbsAids } from "./config/navigation";
 
 function Aid() {
   const isDesktop = useMediaQuery("(min-width: 1440px)");
@@ -16,7 +16,7 @@ function Aid() {
   return (
     <>
       <Stack direction="column" gap="s300">
-        <Breadcrumbs crumbs={crumbsMyAids} />
+        <Breadcrumbs crumbs={crumbsAids} />
         <Title
           title="Solicitud de auxilio"
           subtitle="Genera tu solicitud de auxilios"
