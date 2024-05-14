@@ -12,6 +12,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { IPaymentHistory } from "src/model/entity/payment";
+import { EmptyRecords } from "./EmptyRecords";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
 
@@ -81,7 +82,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
             </Button>
           </Stack>
 
-          {paymentHistory.length > 0 && (
+          {!loading && paymentHistory.length > 0 ? (
             <>
               <StyledContainer>
                 {paymentHistory.map((payment, index) => (
@@ -118,6 +119,8 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                 </Button>
               </Stack>
             </>
+          ) : (
+            !loading && <EmptyRecords />
           )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
