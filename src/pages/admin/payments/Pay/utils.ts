@@ -82,7 +82,7 @@ const sendPaymentRequest = async (
     comments: pay.comments.values.comments,
     payments: filteredPayments,
     paymentMethod: filteredPaymentMethod,
-    urlRedirect: `${enviroment.REDIRECT_URI}/payments/history`,
+    urlRedirect: `${window.location.origin}/payments/history`,
     source: "preliquidacion_web",
   };
 
