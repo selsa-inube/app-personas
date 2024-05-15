@@ -1,4 +1,4 @@
-import { PaymentMethodCard } from "@components/cards/PaymentMethodCard";
+import { PaymentMethodCard } from "@components/cards/payments/PaymentMethodCard";
 import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
 import { Divider } from "@design/layout/Divider";

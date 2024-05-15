@@ -1,7 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { CardMovement } from "@components/cards/CardMovement";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { CardMovement } from "@components/cards/cards/CardMovement";
 import { HandlingFeeModal } from "@components/modals/cards/HandlingFeeModal";
 import { InfoModal } from "@components/modals/cards/InfoModal";
 import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
