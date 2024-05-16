@@ -1,5 +1,5 @@
-import { PaymentHistoryCard } from "@components/cards/PaymentHistoryCard";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { PaymentHistoryCard } from "@components/cards/payments/PaymentHistoryCard";
 import { PaymentHistoryModal } from "@components/modals/payments/PaymentHistoryModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";

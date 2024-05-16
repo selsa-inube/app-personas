@@ -1,4 +1,4 @@
-import { PaymentInformationCard } from "@components/cards/PaymentInformationCard";
+import { PaymentInformationCard } from "@components/cards/payments/PaymentInformationCard";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";

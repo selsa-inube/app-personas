@@ -1,7 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { QuotaDetailBox } from "@components/cards/QuotaDetailBox";
+import { QuotaDetailBox } from "@components/cards/cards/QuotaDetailBox";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
@@ -24,8 +24,8 @@ import {
 } from "./config/product";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
-import { CurrentConsumption } from "@components/cards/CurrentConsumption";
 import { IProduct } from "src/model/entity/product";
+import { CurrentConsumption } from "@components/cards/cards/CurrentConsumption";
 
 interface CreditQuotaUIProps {
   cardId?: string;
