@@ -1,8 +1,8 @@
 import { enviroment } from "@config/enviroment";
 import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IPaymentHistory } from "src/model/entity/payment";
-import { mapPaymentHistoryApiToEntities } from "./mappers";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
+import { mapPaymentHistoryApiToEntities } from "./mappers";
 
 const getPaymentHistory = async (
   userIdentification: string,
@@ -12,6 +12,8 @@ const getPaymentHistory = async (
 ): Promise<IPaymentHistory[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
+  const requestTime = new Date();
+  const startTime = performance.now();
 
   const queryParams = new URLSearchParams({
     clientCode: developmentUsersMock[userIdentification] || userIdentification,
@@ -22,57 +24,33 @@ const getPaymentHistory = async (
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/payment-history?${queryParams.toString()}`;
 
-  const options: RequestInit = {
-    method: "GET",
-    headers: {
-      Realm: enviroment.REALM,
-      Authorization: `Bearer ${accessToken}`,
-      "X-Action": "SearchAllPaymentHistory",
-      "X-Business-Unit": enviroment.BUSINESS_UNIT,
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  };
-
-  const trackNetworkRequest = async (
-    requestTime: Date,
-    responseStatusCode: number,
-    responseTimeMs: number,
-  ) => {
-    if (enviroment.IS_PRODUCTION) {
-      await saveNetworkTracking(
-        requestTime,
-        options.method || "GET",
-        requestUrl,
-        responseStatusCode,
-        responseTimeMs,
-      );
-    }
-  };
-
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    const startTime = performance.now();
-    const requestTime = new Date();
-    let responseTimeMs;
-    let responseStatusCode;
-
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
 
-      const res = await fetch(requestUrl, {
-        ...options,
+      const options: RequestInit = {
+        method: "GET",
+        headers: {
+          Realm: enviroment.REALM,
+          Authorization: `Bearer ${accessToken}`,
+          "X-Action": "SearchAllPaymentHistory",
+          "X-Business-Unit": enviroment.BUSINESS_UNIT,
+          "Content-type": "application/json; charset=UTF-8",
+        },
         signal: controller.signal,
-      });
+      };
+
+      const res = await fetch(requestUrl, options);
 
       clearTimeout(timeoutId);
 
-      responseTimeMs = Math.round(performance.now() - startTime);
-      responseStatusCode = res.status;
-
-      await trackNetworkRequest(
+      saveNetworkTracking(
         requestTime,
-        responseStatusCode,
-        responseTimeMs,
+        options.method || "GET",
+        requestUrl,
+        res.status,
+        Math.round(performance.now() - startTime),
       );
 
       if (res.status === 204) {
@@ -95,11 +73,14 @@ const getPaymentHistory = async (
       return normalizedPaymentHistory;
     } catch (error) {
       if (attempt === maxRetries) {
-        await trackNetworkRequest(
+        saveNetworkTracking(
           requestTime,
-          (responseStatusCode = 400),
-          (responseTimeMs = Math.round(performance.now() - startTime)),
+          "GET",
+          requestUrl,
+          (error as { status?: number }).status || 500,
+          Math.round(performance.now() - startTime),
         );
+
         throw new Error(
           "Todos los intentos fallaron. No se pudo obtener el historial de pagos.",
         );
