@@ -47,9 +47,7 @@ function AppProvider(props: AppProviderProps) {
       setFeatureFlags(flags);
     });
 
-    if (authUser && enviroment.IS_PRODUCTION) {
-      saveTrafficTracking(authUser?.identification);
-    }
+    saveTrafficTracking(user?.identification);
   }, []);
 
   const getFlag = useCallback(
