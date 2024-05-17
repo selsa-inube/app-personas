@@ -131,7 +131,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
           title="Solicitud por destinación"
           subtitle="Simula tu solicitud de crédito"
           icon={<MdArrowBack />}
-          navigatePage="/credit"
+          navigatePage="/credits"
         />
       </Stack>
 

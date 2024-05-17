@@ -9,7 +9,7 @@ import { MdAdd, MdDragHandle, MdRemove } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationtypedm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";

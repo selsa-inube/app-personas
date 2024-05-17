@@ -3,6 +3,7 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
 import { TextField } from "@design/input/TextField";
+import { InputState } from "@design/input/TextField/types";
 import { Blanket } from "@design/layout/Blanket";
 import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
@@ -66,7 +67,10 @@ function CustomValueModal(props: CustomValueModalProps) {
     onApplyPayOption,
   } = props;
   const [showResponse, setShowResponse] = useState(false);
-  const [inputValidation, setInputValidation] = useState({
+  const [inputValidation, setInputValidation] = useState<{
+    state: InputState;
+    errorMessage: string;
+  }>({
     state: "pending",
     errorMessage: "",
   });

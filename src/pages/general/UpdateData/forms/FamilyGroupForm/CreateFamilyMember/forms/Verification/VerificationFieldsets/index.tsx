@@ -3,8 +3,8 @@ import { TextField } from "@design/input/TextField";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationtypedm";
-import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipdm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { formatPrimaryDate } from "src/utils/dates";
 import { IFormsCreateFamilyMember } from "../../../types";
@@ -37,7 +37,7 @@ const renderIdentificationDataInfoVerification = (
         id="type"
         size="compact"
         options={identificationTypeDM.options}
-        value={values.type}
+        value={values.type.id}
         isFullWidth
         readOnly
       />

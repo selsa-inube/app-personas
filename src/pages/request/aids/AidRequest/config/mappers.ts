@@ -1,3 +1,4 @@
+import { beneficiariesMock } from "@mocks/users/users.mocks";
 import { IAmountEntry } from "../forms/AmountForm/types";
 import { IBeneficiariesEntry } from "../forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../forms/DetailsSituationForm/types";
@@ -7,7 +8,10 @@ import { IRegulationValidationsEntry } from "../forms/RegulationValidationsForm/
 
 const mapBeneficiaries = (): IBeneficiariesEntry => {
   return {
-    id: "",
+    beneficiaries: beneficiariesMock.map((beneficiary) => ({
+      ...beneficiary,
+      selected: false,
+    })),
   };
 };
 

@@ -1,9 +1,7 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import * as Yup from "yup";
+import { forwardRef, useImperativeHandle } from "react";
+import { BeneficiariesUIForm } from "./interface";
 import { IBeneficiariesEntry } from "./types";
-
-const validationSchema = Yup.object().shape({});
 
 interface BeneficiariesFormProps {
   initialValues: IBeneficiariesEntry;
@@ -14,28 +12,38 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   props: BeneficiariesFormProps,
   ref: React.Ref<FormikProps<IBeneficiariesEntry>>,
 ) {
-  const { initialValues, onFormValid } = props;
-
-  const [dynamicSchema] = useState(validationSchema);
+  const { initialValues } = props;
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicSchema,
     validateOnBlur: false,
     onSubmit: async () => true,
   });
 
   useImperativeHandle(ref, () => formik);
 
-  useEffect(() => {
-    if (onFormValid) {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
-    }
-  }, [formik.values]);
+  const handleCheckBeneficiary = (id: string) => {
+    const selectedBeneficiary = formik.values.beneficiaries.find(
+      (beneficiary) => beneficiary.identificationNumber === id,
+    );
 
-  return <></>;
+    if (selectedBeneficiary) {
+      const selectedBeneficiaries = formik.values.beneficiaries.map((beneficiary) =>
+        beneficiary.identificationNumber === id
+          ? { ...beneficiary, selected: !beneficiary.selected }
+          : beneficiary,
+      );
+
+      formik.setValues({ beneficiaries: selectedBeneficiaries });
+    }
+  };
+
+  return (
+    <BeneficiariesUIForm
+      formik={formik}
+      onCheckBeneficiary={handleCheckBeneficiary}
+    />
+  );
 });
 
 export { BeneficiariesForm };

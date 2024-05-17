@@ -1,4 +1,6 @@
-import { IThird } from "src/model/entity/user";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
+import { IBeneficiary, IThird } from "src/model/entity/user";
 
 const usersMock: IThird[] = [
   {
@@ -8,7 +10,7 @@ const usersMock: IThird[] = [
         secondName: "Leonardo",
         firstLastName: "Garzón",
         secondLastName: "Páramo",
-        type: "cc",
+        type: identificationTypeDM.CC,
         identificationNumber: 1013614213,
         country: "COL",
         departament: "cundinamarca",
@@ -53,7 +55,7 @@ const usersMock: IThird[] = [
           secondName: "Paola",
           firstLastName: "Ángel",
           secondLastName: "Marín",
-          type: "cc",
+          type: identificationTypeDM.CC,
           identificationNumber: 13156778,
           country: "COL",
           departament: "cundinamarca",
@@ -85,7 +87,7 @@ const usersMock: IThird[] = [
           secondName: "",
           firstLastName: "Páramo",
           secondLastName: "de Garzón",
-          type: "cc",
+          type: identificationTypeDM.CC,
           identificationNumber: 41739900,
           country: "COL",
           departament: "cundinamarca",
@@ -131,10 +133,31 @@ const usersMock: IThird[] = [
   },
 ];
 
+const beneficiariesMock: IBeneficiary[] = [
+  {
+    name: "CASTILLO RODRIGUEZ VICTOR OVIDIO",
+    identificationType: "C.C",
+    identificationNumber: "113697385",
+    relationship: relationshipDM.PARTNER,
+  },
+  {
+    name: "JOSE ANTONIO CASTILLO MAYANG",
+    identificationType: "C.C",
+    identificationNumber: "2605498",
+    relationship: relationshipDM.FATHER,
+  },
+  {
+    name: "GLORIA NANCY RODRIGUEZ CUADROS",
+    identificationType: "C.C",
+    identificationNumber: "26785452",
+    relationship: relationshipDM.MOTHER,
+  },
+];
+
 const developmentUsersMock: Record<string, string> = {
   "12340001": "66862673",
   "12340002": "1113697385",
   "12340003": "31577163",
 };
 
-export { developmentUsersMock, usersMock };
+export { beneficiariesMock, developmentUsersMock, usersMock };

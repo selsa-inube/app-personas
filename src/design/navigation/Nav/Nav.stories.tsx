@@ -99,7 +99,7 @@ MultipleSections.args = {
       links: [
         {
           label: "Credit",
-          path: "/credit",
+          path: "/credits",
           icon: <MdAttachMoney />,
         },
         {

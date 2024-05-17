@@ -6,7 +6,7 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
-import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipdm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
 import { getFieldState } from "src/utils/forms/forms";
