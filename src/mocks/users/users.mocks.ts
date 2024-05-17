@@ -1,5 +1,5 @@
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
-import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDMm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDMm";
 import { IBeneficiary, IThird } from "src/model/entity/user";
 
 const usersMock: IThird[] = [

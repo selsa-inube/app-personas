@@ -1,4 +1,4 @@
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDMm";
 import { IReferenceThird } from "src/model/entity/user";
 
 const referenceUsersMocks: IReferenceThird[] = [

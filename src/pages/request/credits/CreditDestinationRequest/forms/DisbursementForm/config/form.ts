@@ -7,7 +7,7 @@ import { IFormField, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { statusDM } from "src/model/domains/general/statusdm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDMm";
 import { EProductType } from "src/model/entity/product";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
