@@ -1,24 +1,24 @@
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
+import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Blanket } from "@design/layout/Blanket";
-import { Stack } from "@design/layout/Stack";
-import { Fieldset } from "@design/input/Fieldset";
-import { Grid } from "@design/layout/Grid";
 import { Divider } from "@design/layout/Divider";
+import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { StyledModal, StyledScrollbar } from "./styles";
-import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
-import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { activeDM } from "src/model/domains/general/activedm";
-import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationtypedm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipdm";
+import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
+import { StyledModal, StyledScrollbar } from "./styles";
 
 interface FamilyMemberViewModalProps {
   portalId: string;

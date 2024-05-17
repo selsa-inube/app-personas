@@ -15,12 +15,12 @@ import {
 } from "@mocks/users/economicActivities.mocks";
 import { FormikValues } from "formik";
 import { MdSearch } from "react-icons/md";
-import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
-import { contractTypeDM } from "src/model/domains/economicActivity/contracttypedm";
-import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydm";
-import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedm";
-import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
-import { countryDM } from "src/model/domains/financialOperations/countrydm";
+import { companyFormalityDM } from "src/model/domains/general/updateData/economicActivity/companyformalitydm";
+import { contractTypeDM } from "src/model/domains/general/updateData/economicActivity/contracttypedm";
+import { economicActivityDM } from "src/model/domains/general/updateData/economicActivity/economicactivitydm";
+import { severanceRegimeDM } from "src/model/domains/general/updateData/economicActivity/severanceregimedm";
+import { workdayDM } from "src/model/domains/general/updateData/economicActivity/workdaydm";
+import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface EconomicActivityFormUIProps {

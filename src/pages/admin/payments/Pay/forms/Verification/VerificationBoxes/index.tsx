@@ -14,6 +14,7 @@ import {
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
 import { StyledPayments } from "./styles";
+import { payBoxTitles } from "../config/box";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -132,7 +133,7 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
 
 interface VerificationBoxesProps {
   pay: IFormsPay;
-  stepKey: string;
+  stepKey: keyof typeof payBoxTitles;
   isTablet: boolean;
 }
 

@@ -6,17 +6,18 @@ import { useNavigate } from "react-router-dom";
 import { StyledCardContainer } from "./styles";
 
 interface AidCardProps {
+  id: string;
   title: string;
   description: string;
 }
 
 function AidCard(props: AidCardProps) {
-  const { title, description } = props;
+  const { id, title, description } = props;
 
   const navigate = useNavigate();
 
   const goToAid = () => {
-    navigate("/aids");
+    navigate(`/aids/${id}`);
   };
 
   return (

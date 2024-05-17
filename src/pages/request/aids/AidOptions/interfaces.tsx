@@ -47,6 +47,7 @@ function AidOptionsUI(props: AidOptionsUIProps) {
             {aids.map((aid) => (
               <AidCard
                 key={aid.id}
+                id={aid.id}
                 title={aid.title}
                 description={aid.description}
               />

@@ -8,8 +8,8 @@ import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
-import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { activeDM } from "src/model/domains/general/activedm";
+import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface FinancialOperationsFormUIProps {

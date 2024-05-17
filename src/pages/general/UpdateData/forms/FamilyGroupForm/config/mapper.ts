@@ -1,6 +1,6 @@
 import { IEntry } from "@design/data/Table/types";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipdm";
 import { IFamilyGroupEntry } from "../types";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
 
 const mapFamilyGroupTable = (entries: IFamilyGroupEntry[]): IEntry[] => {
   return entries.map((entry) => ({

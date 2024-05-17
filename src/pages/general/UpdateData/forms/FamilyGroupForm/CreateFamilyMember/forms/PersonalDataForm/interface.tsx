@@ -2,8 +2,8 @@ import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { FormikValues } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
-import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationtypedm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipdm";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface PersonalDataFormUIProps {
