@@ -3,6 +3,7 @@ import {
   IPaymentRequest,
   IPaymentRequestResponse,
 } from "src/model/entity/payment";
+import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import {
   mapPaymentRequestApiToEntity,
   mapPaymentRequestEntityToApi,
@@ -12,6 +13,11 @@ const createPaymentRequest = async (
   paymentRequest: IPaymentRequest,
   accessToken: string,
 ): Promise<IPaymentRequestResponse | undefined> => {
+  const requestTime = new Date();
+  const startTime = performance.now();
+
+  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/payments/manage-payment`;
+
   try {
     const options: RequestInit = {
       method: "POST",
@@ -25,9 +31,14 @@ const createPaymentRequest = async (
       body: JSON.stringify(mapPaymentRequestEntityToApi(paymentRequest)),
     };
 
-    const res = await fetch(
-      `${enviroment.ICLIENT_API_URL_PERSISTENCE}/payments/manage-payment`,
-      options,
+    const res = await fetch(requestUrl, options);
+
+    saveNetworkTracking(
+      requestTime,
+      options.method || "POST",
+      requestUrl,
+      res.status,
+      Math.round(performance.now() - startTime),
     );
 
     const data = await res.json();
@@ -46,8 +57,15 @@ const createPaymentRequest = async (
 
     return mapPaymentRequestApiToEntity(data);
   } catch (error) {
-    console.info(error);
+    saveNetworkTracking(
+      requestTime,
+      "POST",
+      requestUrl,
+      (error as { status?: number }).status || 500,
+      Math.round(performance.now() - startTime),
+    );
 
+    console.info(error);
     throw error;
   }
 };

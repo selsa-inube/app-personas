@@ -1,11 +1,17 @@
 import { enviroment } from "@config/enviroment";
 import { IMovement } from "src/model/entity/product";
+import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapCreditMovementsApiToEntities } from "./mappers";
 
 const getMovementsForCredit = async (
   creditId: string,
   accessToken: string,
 ): Promise<IMovement[]> => {
+  const requestTime = new Date();
+  const startTime = performance.now();
+
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/portfolio-obligations/${creditId}/last-movement`;
+
   try {
     const options = {
       method: "GET",
@@ -18,9 +24,14 @@ const getMovementsForCredit = async (
       },
     };
 
-    const res = await fetch(
-      `${enviroment.ICLIENT_API_URL_QUERY}/portfolio-obligations/${creditId}/last-movement`,
-      options,
+    const res = await fetch(requestUrl, options);
+
+    saveNetworkTracking(
+      requestTime,
+      options.method || "GET",
+      requestUrl,
+      res.status,
+      Math.round(performance.now() - startTime),
     );
 
     if (res.status === 204) {
@@ -39,6 +50,14 @@ const getMovementsForCredit = async (
 
     return Array.isArray(data) ? mapCreditMovementsApiToEntities(data) : [];
   } catch (error) {
+    saveNetworkTracking(
+      requestTime,
+      "GET",
+      requestUrl,
+      (error as { status?: number }).status || 500,
+      Math.round(performance.now() - startTime),
+    );
+
     console.error(error);
     throw error;
   }

@@ -1,6 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IProduct } from "src/model/entity/product";
+import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapCardsApiToEntities } from "./mappers";
 
 const getCardsForUser = async (
@@ -10,14 +11,18 @@ const getCardsForUser = async (
 ): Promise<IProduct[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
+  const requestTime = new Date();
+  const startTime = performance.now();
+
+  const queryParams = new URLSearchParams({
+    customerPublicCode:
+      developmentUsersMock[userIdentification] || userIdentification,
+  }).toString();
+
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/cards?${queryParams}`;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const queryParams = new URLSearchParams({
-        customerPublicCode:
-          developmentUsersMock[userIdentification] || userIdentification,
-      });
-
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
 
@@ -33,12 +38,17 @@ const getCardsForUser = async (
         signal: controller.signal,
       };
 
-      const res = await fetch(
-        `${enviroment.ICLIENT_API_URL_QUERY}/cards?${queryParams.toString()}`,
-        options,
-      );
+      const res = await fetch(requestUrl, options);
 
       clearTimeout(timeoutId);
+
+      saveNetworkTracking(
+        requestTime,
+        options.method || "GET",
+        requestUrl,
+        res.status,
+        Math.round(performance.now() - startTime),
+      );
 
       if (res.status === 204) {
         return [];
@@ -61,6 +71,14 @@ const getCardsForUser = async (
       return normalizedCredits;
     } catch (error) {
       if (attempt === maxRetries) {
+        saveNetworkTracking(
+          requestTime,
+          "GET",
+          requestUrl,
+          (error as { status?: number }).status || 500,
+          Math.round(performance.now() - startTime),
+        );
+
         throw new Error(
           "Todos los intentos fallaron. No se pudieron obtener las tarjetas del usuario.",
         );

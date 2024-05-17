@@ -1,4 +1,3 @@
-import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
 import {
   createContext,
@@ -29,7 +28,7 @@ function AppProvider(props: AppProviderProps) {
       setFeatureFlags(flags);
     });
 
-    if (user && enviroment.IS_PRODUCTION) {
+    if (user) {
       saveTrafficTracking(user?.identification);
     }
   }, []);

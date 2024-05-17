@@ -1,6 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IPaymentHistory } from "src/model/entity/payment";
+import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapPaymentHistoryApiToEntities } from "./mappers";
 
 const getPaymentHistory = async (
@@ -11,17 +12,20 @@ const getPaymentHistory = async (
 ): Promise<IPaymentHistory[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
+  const requestTime = new Date();
+  const startTime = performance.now();
+
+  const queryParams = new URLSearchParams({
+    clientCode: developmentUsersMock[userIdentification] || userIdentification,
+    page: String(page),
+    per_page: String(limit),
+    sort: "desc.payDay",
+  });
+
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/payment-history?${queryParams.toString()}`;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      const queryParams = new URLSearchParams({
-        clientCode:
-          developmentUsersMock[userIdentification] || userIdentification,
-        page: String(page),
-        per_page: String(limit),
-        sort: "desc.payDay",
-      });
-
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
 
@@ -37,14 +41,17 @@ const getPaymentHistory = async (
         signal: controller.signal,
       };
 
-      const res = await fetch(
-        `${
-          enviroment.ICLIENT_API_URL_QUERY
-        }/payment-history?${queryParams.toString()}`,
-        options,
-      );
+      const res = await fetch(requestUrl, options);
 
       clearTimeout(timeoutId);
+
+      saveNetworkTracking(
+        requestTime,
+        options.method || "GET",
+        requestUrl,
+        res.status,
+        Math.round(performance.now() - startTime),
+      );
 
       if (res.status === 204) {
         return [];
@@ -66,6 +73,14 @@ const getPaymentHistory = async (
       return normalizedPaymentHistory;
     } catch (error) {
       if (attempt === maxRetries) {
+        saveNetworkTracking(
+          requestTime,
+          "GET",
+          requestUrl,
+          (error as { status?: number }).status || 500,
+          Math.round(performance.now() - startTime),
+        );
+
         throw new Error(
           "Todos los intentos fallaron. No se pudo obtener el historial de pagos.",
         );
