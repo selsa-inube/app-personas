@@ -1,8 +1,8 @@
 import { IEntry } from "@design/data/Table/types";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
+import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
+import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
+import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import {
   IBankTransfersAccount,
   IContactData,
@@ -15,6 +15,7 @@ import {
 } from "src/model/entity/user";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
@@ -38,7 +39,6 @@ import {
 import { IPersonalResidenceEntry } from "../forms/PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../forms/RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../forms/SocioeconomicInformationForm/types";
-import { formatPrimaryDate } from "src/utils/dates";
 
 const mapPersonalInformation = (
   personalInfoData: IThird,

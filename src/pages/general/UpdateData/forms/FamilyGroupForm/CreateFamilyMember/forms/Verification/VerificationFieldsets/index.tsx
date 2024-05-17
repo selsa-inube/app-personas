@@ -1,16 +1,16 @@
-import { TextField } from "@design/input/TextField";
-import { IPersonalDataEntry } from "../../PersonalDataForm/types";
 import { Select } from "@design/input/Select";
-import { formatPrimaryDate } from "src/utils/dates";
-import { IContactDataEntry } from "../../ContactDataForm/types";
-import { IFormsCreateFamilyMember } from "../../../types";
-import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
-import { activeDM } from "src/model/domains/general/activedm";
-import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
+import { TextField } from "@design/input/TextField";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { genderDM } from "src/model/domains/personalInformation/genderdm";
+import { activeDM } from "src/model/domains/general/activedm";
+import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationtypedm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipdm";
+import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
+import { formatPrimaryDate } from "src/utils/dates";
+import { IFormsCreateFamilyMember } from "../../../types";
+import { IContactDataEntry } from "../../ContactDataForm/types";
 import { IInformationDataEntry } from "../../InformationDataForm/types";
+import { IPersonalDataEntry } from "../../PersonalDataForm/types";
 
 const renderIdentificationDataInfoVerification = (
   values: IPersonalDataEntry,

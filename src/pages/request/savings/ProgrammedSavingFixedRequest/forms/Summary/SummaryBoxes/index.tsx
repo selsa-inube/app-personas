@@ -1,9 +1,9 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { reimbursementTypeDM } from "src/model/domains/economicActivity/reimbursementType";
 import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { reimbursementTypeDM } from "src/model/domains/general/updateData/economicActivity/reimbursementType";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { ICommentsEntry } from "../../../../../../../shared/forms/CommentsForm/types";

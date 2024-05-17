@@ -1,14 +1,14 @@
-import { DateField } from "@design/input/DateField";
 import { Button } from "@design/input/Button";
+import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
-import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
-import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipdm";
+import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
+import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface PersonalResidenceFormUIProps {

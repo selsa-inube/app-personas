@@ -1,3 +1,4 @@
+import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
@@ -9,7 +10,6 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
-import { LoadingPayment } from "./LoadingPayment";
 import { paySteps } from "./config/assisted";
 import { crumbsPay } from "./config/navigation";
 import { ObligationsForm } from "./forms/ObligationsForm";
@@ -154,7 +154,12 @@ function PayUI(props: PayUIProps) {
         </Stack>
       </Stack>
 
-      {loadingSend && <LoadingPayment />}
+      {loadingSend && (
+        <LoadingModal
+          title="Procesando pago..."
+          message="Espera unos segundos, estamos procesando la transacción."
+        />
+      )}
 
       {message.show && (
         <SectionMessage

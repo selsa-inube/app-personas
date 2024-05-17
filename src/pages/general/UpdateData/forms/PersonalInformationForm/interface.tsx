@@ -1,19 +1,19 @@
 import { Button } from "@design/input/Button";
+import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { DateField } from "@design/input/DateField";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
-import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
-import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
-import { genderDM } from "src/model/domains/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
-import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
+import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
+import { bloodTypeDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
+import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
+import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
+import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationtypedm";
+import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface PersonalInformationFormUIProps {
