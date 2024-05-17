@@ -15,8 +15,8 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDMm";
-import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDMm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { StyledModal, StyledScrollbar } from "./styles";
 

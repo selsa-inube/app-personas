@@ -11,7 +11,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
-import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDMm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
 

@@ -12,7 +12,7 @@ import { bloodTypeDM } from "src/model/domains/general/updateData/personalInform
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDMm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
 import { getFieldState } from "src/utils/forms/forms";
 

@@ -24,7 +24,7 @@ import { cityDM } from "src/model/domains/general/updateData/personalInformation
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
-import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDMm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
