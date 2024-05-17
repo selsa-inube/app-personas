@@ -15,7 +15,7 @@ const getSavingsForUser = async (
     cdats: [],
     commitments: [],
   };
-  console.log(userIdentification);
+
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
