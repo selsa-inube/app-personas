@@ -22,26 +22,20 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
 
   useImperativeHandle(ref, () => formik);
 
-  const handleCheckBeneficiary = (id: string) => {
-    const selectedBeneficiary = formik.values.beneficiaries.find(
-      (beneficiary) => beneficiary.identificationNumber === id,
+  const handleSelectBeneficiary = (id: string) => {
+    formik.setFieldValue(
+      "beneficiaries",
+      formik.values.beneficiaries.map((beneficiary) => ({
+        ...beneficiary,
+        selected: beneficiary.identificationNumber === id,
+      })),
     );
-
-    if (selectedBeneficiary) {
-      const selectedBeneficiaries = formik.values.beneficiaries.map((beneficiary) =>
-        beneficiary.identificationNumber === id
-          ? { ...beneficiary, selected: !beneficiary.selected }
-          : beneficiary,
-      );
-
-      formik.setValues({ beneficiaries: selectedBeneficiaries });
-    }
   };
 
   return (
     <BeneficiariesUIForm
       formik={formik}
-      onCheckBeneficiary={handleCheckBeneficiary}
+      onSelectBeneficiary={handleSelectBeneficiary}
     />
   );
 });

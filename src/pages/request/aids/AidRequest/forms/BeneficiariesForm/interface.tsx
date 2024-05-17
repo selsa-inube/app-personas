@@ -6,11 +6,11 @@ import { IBeneficiariesEntry } from "./types";
 
 interface BeneficiariesFormUIProps {
   formik: FormikProps<IBeneficiariesEntry>;
-  onCheckBeneficiary: (id: string) => void;
+  onSelectBeneficiary: (id: string) => void;
 }
 
 function BeneficiariesUIForm(props: BeneficiariesFormUIProps) {
-  const { formik, onCheckBeneficiary } = props;
+  const { formik, onSelectBeneficiary } = props;
 
   return (
     <Fieldset title="Posibles beneficiarios">
@@ -26,7 +26,9 @@ function BeneficiariesUIForm(props: BeneficiariesFormUIProps) {
             description={`${beneficiary.identificationType} ${beneficiary.identificationNumber}`}
             secondDescription={beneficiary.relationship.value}
             checked={beneficiary.selected}
-            onClick={() => onCheckBeneficiary(beneficiary.identificationNumber)}
+            onClick={() =>
+              onSelectBeneficiary(beneficiary.identificationNumber)
+            }
           />
         ))}
       </Grid>
