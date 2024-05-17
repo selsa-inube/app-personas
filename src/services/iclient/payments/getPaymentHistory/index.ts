@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { mapPaymentHistoryApiToEntities } from "./mappers";
 
@@ -15,8 +14,7 @@ const getPaymentHistory = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        clientCode:
-          developmentUsersMock[userIdentification] || userIdentification,
+        clientCode: userIdentification,
         page: String(page),
         per_page: String(limit),
         sort: "desc.payDay",

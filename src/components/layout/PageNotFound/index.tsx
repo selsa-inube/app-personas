@@ -8,7 +8,6 @@ import { Stack } from "@design/layout/Stack";
 import { Header } from "@design/navigation/Header";
 import { Nav } from "@design/navigation/Nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useAuth } from "@inube/auth";
 import { useContext } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { useLocation } from "react-router-dom";
@@ -21,7 +20,7 @@ function PageNotFound() {
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
 
-  const { user } = useAuth();
+  const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
 
   const withSavingRequest = getFlag(
@@ -59,10 +58,10 @@ function PageNotFound() {
       <Header
         logoURL={header.logoURL}
         username={capitalizeFirstLetters(
-          `${user?.firstName} ${user?.firstLastName}`,
+          `${user.firstName} ${user.firstLastName}`,
         )}
         fullName={capitalizeFirstLetters(
-          `${user?.firstName} ${user?.secondName || ""} ${user?.firstLastName} ${user?.secondLastName || ""}`,
+          `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${user.secondLastName || ""}`,
         )}
         client={header.client}
         links={header.links}

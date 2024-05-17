@@ -14,7 +14,6 @@ import { StyledCommitmentsContainer } from "./styles";
 
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
-import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import {
   MdOutlineAccountBalanceWallet,
@@ -322,7 +321,7 @@ function HomeUI(props: HomeUIProps) {
     isTablet,
   } = props;
 
-  const { user } = useAuth();
+  const { user } = useContext(AppContext);
   const [currentTime, setCurrentTime] = useState(new Date());
   const { getFlag } = useContext(AppContext);
 
@@ -336,14 +335,15 @@ function HomeUI(props: HomeUIProps) {
     return () => clearInterval(currentTimeInterval);
   }, []);
 
-  const withRequestSaving =
-    getFlag("admin.savings.savings.request-saving").value;
-    
-  const withRequestCredit =
-    getFlag("admin.credits.credits.request-credit").value;
-    
-  const withRequestCard =
-    getFlag("admin.cards.cards.request-card").value;
+  const withRequestSaving = getFlag(
+    "admin.savings.savings.request-saving",
+  ).value;
+
+  const withRequestCredit = getFlag(
+    "admin.credits.credits.request-credit",
+  ).value;
+
+  const withRequestCard = getFlag("admin.cards.cards.request-card").value;
 
   return (
     <>
@@ -357,9 +357,7 @@ function HomeUI(props: HomeUIProps) {
           </Text>
         </Stack>
         <Title
-          title={`Bienvenido(a), ${
-            user && capitalizeFirstLetters(user?.firstName)
-          }`}
+          title={`Bienvenido(a), ${capitalizeFirstLetters(user.firstName)}`}
           subtitle="Aquí tienes un resumen de tus productos"
         />
       </Stack>

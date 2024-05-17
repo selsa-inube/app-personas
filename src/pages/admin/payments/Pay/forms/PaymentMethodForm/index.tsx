@@ -15,6 +15,7 @@ import { EPaymentMethodType } from "../../types";
 import { PaymentMethodFormUI } from "./interface";
 import { EMoneySourceType, IMoneySource, IPaymentMethodEntry } from "./types";
 import { mapMoneySources } from "./utils";
+import { AppContext } from "src/context/app";
 
 const validationSchema = Yup.object().shape({});
 
@@ -31,7 +32,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const [dynamicSchema] = useState(validationSchema);
   const { savings, setSavings } = useContext(SavingsContext);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,

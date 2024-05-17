@@ -1,5 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
+import { IUser } from "@inube/auth/dist/types/user";
+import { developmentUsersMock } from "@mocks/users/users.mocks";
 import {
   createContext,
   useCallback,
@@ -22,15 +24,31 @@ function AppProvider(props: AppProviderProps) {
   const { children } = props;
 
   const [featureFlags, setFeatureFlags] = useState<IFeatureFlag[]>([]);
-  const { user } = useAuth();
+
+  const { user: authUser } = useAuth();
+
+  const [user] = useState<IUser>({
+    company: authUser?.company || "",
+    email: authUser?.email || "",
+    identification: enviroment.IS_PRODUCTION
+      ? authUser?.identification || ""
+      : developmentUsersMock[authUser?.identification || ""],
+    phone: authUser?.phone || "",
+    firstLastName: authUser?.firstLastName || "",
+    secondLastName: authUser?.secondLastName || "",
+    firstName: authUser?.firstName || "",
+    secondName: authUser?.secondName || "",
+    id: authUser?.id || "",
+    type: authUser?.type || "",
+  });
 
   useEffect(() => {
     getAppFeatureFlags().then((flags) => {
       setFeatureFlags(flags);
     });
 
-    if (user && enviroment.IS_PRODUCTION) {
-      saveTrafficTracking(user?.identification);
+    if (authUser && enviroment.IS_PRODUCTION) {
+      saveTrafficTracking(authUser?.identification);
     }
   }, []);
 
@@ -58,10 +76,12 @@ function AppProvider(props: AppProviderProps) {
 
   const appContext = useMemo(
     () => ({
+      user,
+
       setFeatureFlags,
       getFlag,
     }),
-    [setFeatureFlags, getFlag],
+    [user, setFeatureFlags, getFlag],
   );
 
   return (

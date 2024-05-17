@@ -1,6 +1,7 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
+import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
@@ -16,7 +17,8 @@ function Home() {
   const { cards, setCards } = useContext(CardsContext);
   const { commitments, savings, setCommitments, setSavings } =
     useContext(SavingsContext);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const [loadingSavings, setLoadingSavings] = useState(false);
   const [loadingCredits, setLoadingCredits] = useState(false);
   const [loadingCards, setLoadingCards] = useState(false);

@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { ICommitment } from "src/model/entity/product";
 import { mapSavingsApiToEntities } from "./mappers";
 
@@ -14,8 +13,7 @@ const getSavingsCommitmentsForUser = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        customerCode:
-          developmentUsersMock[userIdentification] || userIdentification,
+        customerCode: userIdentification,
       });
 
       const controller = new AbortController();
