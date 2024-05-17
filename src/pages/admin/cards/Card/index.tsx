@@ -2,6 +2,7 @@ import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { SavingsContext } from "src/context/savings";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
@@ -25,7 +26,8 @@ function Card() {
   const { cards, setCards, creditQuotas, setCreditQuotas } =
     useContext(CardsContext);
   const { savings } = useContext(SavingsContext);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const navigate = useNavigate();
   const [loadingCards, setLoadingCards] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ISelectedProductState>(

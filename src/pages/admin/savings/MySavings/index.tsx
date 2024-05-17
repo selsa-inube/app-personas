@@ -1,6 +1,7 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
+import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
@@ -10,7 +11,8 @@ function MySavings() {
   const { commitments, savings, setCommitments, setSavings } =
     useContext(SavingsContext);
   const [loading, setLoading] = useState(false);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
@@ -21,7 +23,7 @@ function MySavings() {
       ...savings.cdats,
       ...savings.programmedSavings,
     ];
-    if (user && accessToken) {
+    if (accessToken) {
       if (combinedSavings.length === 0) {
         setLoading(true);
         getSavingsForUser(user.identification, accessToken)

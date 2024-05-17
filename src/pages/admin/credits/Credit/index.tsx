@@ -12,6 +12,7 @@ import {
   validateCredit,
   validateCreditMovementsAndAmortization,
 } from "./utils";
+import { AppContext } from "src/context/app";
 
 function Credit() {
   const { credit_id } = useParams();
@@ -24,7 +25,8 @@ function Credit() {
       show: false,
     });
   const { credits, setCredits } = useContext(CreditsContext);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -108,7 +110,6 @@ function Credit() {
       show: !prevState.show,
     }));
   };
-
 
   return (
     <CreditUI

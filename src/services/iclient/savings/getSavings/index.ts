@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { ISavingsState } from "src/context/savings/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapSavingsApiToEntities } from "./mappers";
@@ -21,8 +20,7 @@ const getSavingsForUser = async (
   const startTime = performance.now();
 
   const queryParams = new URLSearchParams({
-    customerCode:
-      developmentUsersMock[userIdentification] || userIdentification,
+    customerCode: userIdentification,
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/saving-products?${queryParams.toString()}`;
