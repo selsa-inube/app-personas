@@ -1,3 +1,4 @@
+import { AidCard } from "@components/cards/AidCard";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
@@ -8,9 +9,15 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
+import { IAid } from "src/model/entity/service";
 import { crumbsAids } from "./config/navigation";
 
-function Aid() {
+interface AidOptionsUIProps {
+  aids: IAid[];
+}
+
+function AidOptionsUI(props: AidOptionsUIProps) {
+  const { aids } = props;
   const isDesktop = useMediaQuery("(min-width: 1440px)");
 
   return (
@@ -36,6 +43,15 @@ function Aid() {
             Aquí encontraras las opciones que puedes usar para realizar tu
             solicitud de auxilio.
           </Text>
+          <Grid templateColumns="1fr 1fr" gap="s300">
+            {aids.map((aid) => (
+              <AidCard
+                key={aid.id}
+                title={aid.title}
+                description={aid.description}
+              />
+            ))}
+          </Grid>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
@@ -43,4 +59,4 @@ function Aid() {
   );
 }
 
-export { Aid };
+export { AidOptionsUI };

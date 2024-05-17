@@ -24,7 +24,7 @@ const story = {
 
 export const Default: StoryFn<AidCardProps> = (args) => <AidCard {...args} />;
 Default.args = {
-  aid: "Hospitalización y cirugía",
+  title: "Hospitalización y cirugía",
   description:
     "Obtén un beneficio para cubrir gastos tuyos o de tus beneficiarios durante dicha eventualidad. ",
 };
