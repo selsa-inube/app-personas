@@ -1,6 +1,7 @@
 import { Fieldset } from "@design/input/Fieldset";
 import { RadioCard } from "@design/input/RadioCard";
 import { Grid } from "@design/layout/Grid";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { IBeneficiariesEntry } from "./types";
 
@@ -12,9 +13,15 @@ interface BeneficiariesFormUIProps {
 function BeneficiariesUIForm(props: BeneficiariesFormUIProps) {
   const { formik, onSelectBeneficiary } = props;
 
+  const isTablet = useMediaQuery("(max-width: 1100px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
+
   return (
     <Fieldset title="Posibles beneficiarios">
-      <Grid templateColumns="repeat(3, 1fr)" gap="s200">
+      <Grid
+        templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+        gap="s200"
+      >
         {formik.values.beneficiaries.map((beneficiary) => (
           <RadioCard
             id={beneficiary.identificationNumber}

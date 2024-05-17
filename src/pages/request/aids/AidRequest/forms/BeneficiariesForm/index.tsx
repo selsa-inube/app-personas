@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { BeneficiariesUIForm } from "./interface";
 import { IBeneficiariesEntry } from "./types";
 
@@ -12,7 +12,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   props: BeneficiariesFormProps,
   ref: React.Ref<FormikProps<IBeneficiariesEntry>>,
 ) {
-  const { initialValues } = props;
+  const { initialValues, onFormValid } = props;
 
   const formik = useFormik({
     initialValues,
@@ -21,6 +21,14 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   });
 
   useImperativeHandle(ref, () => formik);
+
+  useEffect(() => {
+    const isFormValid = formik.values.beneficiaries.some(
+      (beneficiary) => beneficiary.selected,
+    );
+
+    onFormValid?.(isFormValid);
+  }, [formik.values.beneficiaries]);
 
   const handleSelectBeneficiary = (id: string) => {
     formik.setFieldValue(
