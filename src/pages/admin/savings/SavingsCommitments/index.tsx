@@ -7,6 +7,7 @@ import { SavingsContext } from "src/context/savings";
 import { SavingsCommitmentsUI } from "./interface";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
 import { getNextPaymentData, validateCommitment } from "./utils";
+import { AppContext } from "src/context/app";
 
 function SavingsCommitments() {
   const { commitment_id } = useParams();
@@ -21,7 +22,8 @@ function SavingsCommitments() {
     useState<ISelectedCommitmentState>();
   const isMobile = useMediaQuery("(max-width: 750px)");
   const navigate = useNavigate();
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const { commitments, savings, setCommitments } = useContext(SavingsContext);
 
   const combinedSavings = [

@@ -1,5 +1,4 @@
 import { enviroment } from "@config/enviroment";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapPaymentHistoryApiToEntities } from "./mappers";
@@ -16,7 +15,7 @@ const getPaymentHistory = async (
   const startTime = performance.now();
 
   const queryParams = new URLSearchParams({
-    clientCode: developmentUsersMock[userIdentification] || userIdentification,
+    clientCode: userIdentification,
     page: String(page),
     per_page: String(limit),
     sort: "desc.payDay",

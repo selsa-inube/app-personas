@@ -1,7 +1,6 @@
 import { getHeader } from "@config/header";
 import { getNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useAuth } from "@inube/auth";
 import { useContext } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -15,7 +14,7 @@ function Page() {
   const currentLocation = useLocation().pathname;
   const isTablet = useMediaQuery("(min-width: 900px)");
 
-  const { user } = useAuth();
+  const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
 
   const withSavingRequest = getFlag(
@@ -53,10 +52,10 @@ function Page() {
       <Header
         logoURL={header.logoURL}
         username={capitalizeFirstLetters(
-          `${user?.firstName} ${user?.firstLastName}`,
+          `${user.firstName} ${user.firstLastName}`,
         )}
         fullName={capitalizeFirstLetters(
-          `${user?.firstName} ${user?.secondName || ""} ${user?.firstLastName} ${user?.secondLastName || ""}`,
+          `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${user.secondLastName || ""}`,
         )}
         client={header.client}
         links={header.links}

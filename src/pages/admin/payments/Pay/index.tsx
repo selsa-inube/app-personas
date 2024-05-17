@@ -4,6 +4,7 @@ import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { MdSentimentNeutral } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
@@ -17,13 +18,14 @@ import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { PayUI } from "./interface";
 import { IFormsPay, IFormsPayRefs } from "./types";
 import { payStepsRules, sendPaymentRequest } from "./utils";
-import { useNavigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 
 function Pay() {
   const [currentStep, setCurrentStep] = useState(paySteps.obligations.id);
   const steps = Object.values(paySteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const { credits } = useContext(CreditsContext);
   const { commitments } = useContext(SavingsContext);
   const [loadingSend, setLoadingSend] = useState(false);
