@@ -47,7 +47,7 @@ function AppProvider(props: AppProviderProps) {
       setFeatureFlags(flags);
     });
 
-    saveTrafficTracking(user?.identification);
+    saveTrafficTracking(user.identification);
   }, []);
 
   const getFlag = useCallback(
