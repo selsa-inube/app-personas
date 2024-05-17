@@ -24,7 +24,7 @@ const aidsRequestMock: IAid[] = [
     id: aidRequestTypeDM.INITIAL_DISABILITY.id,
     title: "Incapacidad inicial",
     description:
-      "Incapacidad medica del asociado, entendida como imposibilidad en un periodo determinado, para realizar cualquier labor o actividad. *** IMPORTANTE *** En el valor de la solicitud debe ingresar los dias de incapacidad.",
+      "Incapacidad medica del asociado, entendida como imposibilidad en un periodo determinado, para realizar cualquier labor o actividad.",
   },
   {
     id: aidRequestTypeDM.DEATH_ASSOCIATE.id,
