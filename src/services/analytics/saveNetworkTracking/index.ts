@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { analyticsDB } from "src/services/config/supabase/config";
 
 const saveNetworkTracking = async (
@@ -8,6 +9,8 @@ const saveNetworkTracking = async (
   responseTimeMs: number,
 ) => {
   try {
+    if (!enviroment.IS_PRODUCTION) return;
+    
     const { data, error } = await analyticsDB
       .from("network_tracking")
       .insert({
