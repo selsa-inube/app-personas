@@ -48,7 +48,7 @@ const router = createBrowserRouter(
 
         <Route path="payments/*" element={<PaymentsRoutes />} />
 
-        <Route path="credit/*" element={<CreditRoutes />} />
+        <Route path="credits/*" element={<CreditRoutes />} />
 
         <Route path="savings/*" element={<SavingRoutes />} />
 
