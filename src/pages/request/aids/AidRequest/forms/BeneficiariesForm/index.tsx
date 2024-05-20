@@ -1,6 +1,6 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
-import { BeneficiariesUIForm } from "./interface";
+import { BeneficiariesFormUI } from "./interface";
 import { IBeneficiariesEntry } from "./types";
 
 interface BeneficiariesFormProps {
@@ -41,7 +41,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   };
 
   return (
-    <BeneficiariesUIForm
+    <BeneficiariesFormUI
       formik={formik}
       onSelectBeneficiary={handleSelectBeneficiary}
     />
