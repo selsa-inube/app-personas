@@ -6,7 +6,7 @@ const crumbsCreditDestinationRequest = [
   },
   {
     id: "creditRequest",
-    path: "/credit",
+    path: "/credits",
     label: "Solicitud de crédito",
   },
   {

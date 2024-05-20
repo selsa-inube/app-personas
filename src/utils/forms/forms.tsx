@@ -88,6 +88,7 @@ const generateFormFields = (
               isFullWidth={field.isFullWidth}
               readOnly={field.readOnly}
               isDisabled={disabled}
+              isRequired={field.isRequired}
             />
           </StyledInputForm>
         );
@@ -116,6 +117,7 @@ const generateFormFields = (
               isDisabled={disabled}
               maxLength={field.maxLength}
               withCounter={field.withCounter}
+              isRequired={field.isRequired}
             />
           </StyledInputForm>
         );
@@ -141,6 +143,7 @@ const generateFormFields = (
               maxLength={field.maxLength}
               withCounter={field.withCounter}
               isDisabled={disabled}
+              isRequired={field.isRequired}
             />
           </StyledInputForm>
         );

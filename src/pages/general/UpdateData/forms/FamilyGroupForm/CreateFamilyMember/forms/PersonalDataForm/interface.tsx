@@ -2,8 +2,8 @@ import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { FormikValues } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationtypedm";
-import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipdm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface PersonalDataFormUIProps {
@@ -44,7 +44,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         onBlur={formik.handleBlur}
         errorMessage={formik.errors.type}
         onChange={formik.handleChange}
-        value={formik.values.type || ""}
+        value={formik.values.type.id || ""}
         state={getFieldState(formik, "type")}
         isRequired={isRequired("type")}
         readOnly={readonly}

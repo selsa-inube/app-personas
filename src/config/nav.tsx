@@ -73,7 +73,7 @@ const getNav = (
     if (requestCreditFlag) {
       sections[1].links.push({
         label: "Créditos",
-        path: "/credit",
+        path: "/credits",
         icon: <MdOutlineAttachMoney />,
       });
     }

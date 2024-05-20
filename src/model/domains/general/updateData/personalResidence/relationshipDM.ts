@@ -41,6 +41,10 @@ const relationshipData = {
     id: "husband",
     value: "Esposo",
   },
+  PARTNER: {
+    id: "partner",
+    value: "Asociado",
+  },
 };
 
 const relationshipDMValueOf = (id: string) =>

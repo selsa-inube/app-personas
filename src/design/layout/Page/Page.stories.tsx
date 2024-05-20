@@ -51,7 +51,7 @@ const defaultArgs = {
         {
           title: "Request",
           links: [
-            { label: "Credit", path: "/credit", icon: <MdAttachMoney /> },
+            { label: "Credit", path: "/credits", icon: <MdAttachMoney /> },
             { label: "Savings", path: "/savings", icon: <MdOutlineAddCard /> },
             {
               label: "Holidays",
@@ -80,7 +80,7 @@ const defaultArgs = {
       {
         title: "Request",
         links: [
-          { label: "Credit", path: "/credit", icon: <MdAttachMoney /> },
+          { label: "Credit", path: "/credits", icon: <MdAttachMoney /> },
           { label: "Savings", path: "/savings", icon: <MdOutlineAddCard /> },
           {
             label: "Holidays",

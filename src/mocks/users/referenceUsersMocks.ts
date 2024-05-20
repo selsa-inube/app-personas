@@ -1,3 +1,4 @@
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { IReferenceThird } from "src/model/entity/user";
 
 const referenceUsersMocks: IReferenceThird[] = [
@@ -7,7 +8,7 @@ const referenceUsersMocks: IReferenceThird[] = [
       secondName: "Vicente",
       firstLastName: "Garzón",
       secondLastName: "Galeano",
-      type: "cc",
+      type: identificationTypeDM.CC,
       identificationNumber: 17128249,
       country: "COL",
       departament: "cundinamarca",
@@ -37,7 +38,7 @@ const referenceUsersMocks: IReferenceThird[] = [
       secondName: "Alexander",
       firstLastName: "Mozo",
       secondLastName: "Páramo",
-      type: "cc",
+      type: identificationTypeDM.CC,
       identificationNumber: 31253228,
       country: "COL",
       departament: "cundinamarca",
@@ -67,7 +68,7 @@ const referenceUsersMocks: IReferenceThird[] = [
       secondName: "Alejandra",
       firstLastName: "Garzón",
       secondLastName: "Páramo",
-      type: "cc",
+      type: identificationTypeDM.CC,
       identificationNumber: 10134879,
       country: "COL",
       departament: "cundinamarca",

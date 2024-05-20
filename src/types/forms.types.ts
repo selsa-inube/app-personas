@@ -15,6 +15,7 @@ interface IFormField {
   validMessage?: string;
   isFullWidth?: boolean;
   readOnly?: boolean;
+  isRequired?: boolean;
   maxLength?: number;
   withCounter?: boolean;
   gridColumn: string;
@@ -31,4 +32,4 @@ interface IDynamicFormOptions {
   [key: string]: string[];
 }
 
-export type { IFormField, IFormStructure, IDynamicFormOptions };
+export type { IDynamicFormOptions, IFormField, IFormStructure };

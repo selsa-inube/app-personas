@@ -9,7 +9,7 @@ import { directorsMock } from "@mocks/users/directors/directors.mocks";
 import { FormikValues } from "formik";
 import { MdSearch } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
-import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipdm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { IDirector } from "src/model/entity/user";
 import { getFieldState } from "src/utils/forms/forms";
 

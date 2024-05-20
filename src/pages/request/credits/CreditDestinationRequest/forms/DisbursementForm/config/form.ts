@@ -3,11 +3,11 @@ import { bankData } from "@mocks/domains/bank";
 import { suppliersTypeData } from "@mocks/domains/suppliersType";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
-import { IFormStructure } from "@ptypes/forms.types";
+import { IFormField, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { statusDM } from "src/model/domains/general/statusdm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationtypedm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { EProductType } from "src/model/entity/product";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
@@ -28,8 +28,8 @@ const commonFields = {
     validation: Yup.string()
       .required(validationMessages.required)
       .min(10, validationMessages.minCharacters(10)),
-  },
-  supplier: (gridColumn: string) => ({
+  } as IFormField,
+  supplier: (gridColumn: string): IFormField => ({
     name: "supplier",
     type: "select",
     label: "Proveedor",
@@ -55,7 +55,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
-  },
+  } as IFormField,
   identification: {
     name: "identification",
     type: "number",
@@ -68,8 +68,12 @@ const commonFields = {
     validation: validationRules.identification.required(
       validationMessages.required,
     ),
-  },
-  accountType: (gridColumn: string, value?: string, readOnly?: boolean) => ({
+  } as IFormField,
+  accountType: (
+    gridColumn: string,
+    value?: string,
+    readOnly?: boolean,
+  ): IFormField => ({
     name: "accountType",
     type: "select",
     label: "Tipo de cuenta",
@@ -101,12 +105,12 @@ const commonFields = {
     validation: Yup.string()
       .min(5, validationMessages.minNumbers(5))
       .required(validationMessages.required),
-  },
+  } as IFormField,
   writeAccountNumber: (
     gridColumn: string,
     value?: string,
     readOnly?: boolean,
-  ) => ({
+  ): IFormField => ({
     name: "writeAccountNumber",
     label: "Numero de cuenta",
     placeholder: "Escribe el numero de cuenta",
@@ -121,7 +125,11 @@ const commonFields = {
       .min(5, validationMessages.minNumbers(5))
       .required(validationMessages.required),
   }),
-  entity: (gridColumn: string, value?: string, readOnly?: boolean) => ({
+  entity: (
+    gridColumn: string,
+    value?: string,
+    readOnly?: boolean,
+  ): IFormField => ({
     name: "entity",
     type: "select",
     label: "Entidad",
@@ -146,7 +154,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
-  },
+  } as IFormField,
   firstName: {
     name: "firstName",
     type: "text",
@@ -157,7 +165,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.name.required(validationMessages.required),
-  },
+  } as IFormField,
   secondName: {
     name: "secondName",
     type: "text",
@@ -168,7 +176,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.name.required(validationMessages.required),
-  },
+  } as IFormField,
   firstLastName: {
     name: "firstLastName",
     type: "text",
@@ -179,7 +187,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.name.required(validationMessages.required),
-  },
+  } as IFormField,
   secondLastName: {
     name: "secondLastName",
     type: "text",
@@ -190,7 +198,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: validationRules.name.required(validationMessages.required),
-  },
+  } as IFormField,
   gender: {
     name: "gender",
     type: "select",
@@ -200,7 +208,7 @@ const commonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
-  },
+  } as IFormField,
 };
 
 const structureDisbursementForm = (formik: FormikValues): IFormStructure => {
