@@ -29,7 +29,21 @@ const mapDetailsSituation = (): IDetailsSituationEntry => {
 
 const mapRegulationValidations = (): IRegulationValidationsEntry => {
   return {
-    id: "",
+    validations: [
+      {
+        id: "1",
+        label: "Validación 1",
+        value: "pending",
+        failDetails: "Detalle de la validación 1",
+      },
+      {
+        id: "2",
+        label: "Validación 2",
+        value: "pending",
+        isRequired: true,
+        failDetails: "Detalle de la validación 2",
+      },
+    ],
   };
 };
 

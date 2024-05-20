@@ -2,6 +2,7 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 const StyledContainerCard = styled.div`
+  display: flex;
   background: #fff;
   border: 1px solid
     ${({ theme }) =>
@@ -10,5 +11,4 @@ const StyledContainerCard = styled.div`
   border-radius: ${inube.spacing.s100};
 `;
 
-
-export { StyledContainerCard}
+export { StyledContainerCard };
