@@ -8,7 +8,7 @@ import { StyledModal } from "./styles";
 
 interface ValidationDetailsModalProps {
   label: string;
-  description: string;
+  description?: string;
   portalId: string;
   onCloseModal: () => void;
 }
