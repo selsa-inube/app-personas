@@ -1,13 +1,13 @@
 interface IValidation {
   requiredDocuments: string[];
-  notes: string;
+  regulations: string[];
 }
 
 interface IAid {
   id: string;
   title: string;
   description: string;
-  validation: IValidation;
+  validations: IValidation;
 }
 
 export type { IAid };
