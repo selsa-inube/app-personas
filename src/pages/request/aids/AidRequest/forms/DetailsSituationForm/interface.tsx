@@ -13,14 +13,14 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
   return (
     <form>
       <Textarea
-        id="detailsSituation"
-        name="detailsSituation"
+        id="message"
+        name="message"
         label="Detalles adicionales"
         placeholder="Escribe los detalles que debemos tener en cuenta"
         maxLength={120}
-        value={formik.values.detailsSituation}
-        errorMessage={formik.errors.detailsSituation}
-        state={getFieldState(formik, "detailsSituation")}
+        value={formik.values.message}
+        errorMessage={formik.errors.message}
+        state={getFieldState(formik, "message")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         withCounter
