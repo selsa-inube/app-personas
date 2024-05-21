@@ -1,12 +1,4 @@
-interface IRequiredDocument {
-  id: string;
-  label: string;
-  failDetails?: string;
-  value: "fail" | "success" | "pending";
-  isRequired?: boolean;
-}
-
-interface IRegulation {
+interface IValidation {
   id: string;
   label: string;
   failDetails?: string;
@@ -15,8 +7,8 @@ interface IRegulation {
 }
 
 interface IValidations {
-  requiredDocuments: IRequiredDocument[];
-  regulations: IRegulation[];
+  requiredDocuments: IValidation[];
+  regulations: IValidation[];
 }
 
 interface IAid {
