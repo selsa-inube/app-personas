@@ -113,7 +113,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         id={moneySource.id}
         name={moneySource.id}
         placeholder=""
-        value={currencyFormat(moneySource.value)}
+        value={currencyFormat(moneySource.value, false)}
         onChange={onChangeMoneySource}
         isFullWidth
         isDisabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}

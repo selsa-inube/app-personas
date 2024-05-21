@@ -80,6 +80,7 @@ interface IStyledIcon {
   iconBefore?: React.ReactNode;
   iconAfter?: React.ReactNode;
   isDisabled: boolean;
+  readOnly?: boolean;
 }
 
 const StyledIcon = styled.div<IStyledIcon>`
@@ -88,8 +89,8 @@ const StyledIcon = styled.div<IStyledIcon>`
   align-items: center;
   height: ${inube.spacing.s300};
   width: ${inube.spacing.s300};
-  color: ${({ theme, isDisabled }) =>
-    isDisabled &&
+  color: ${({ theme, isDisabled, readOnly }) =>
+    (isDisabled || readOnly) &&
     (theme.color?.text?.dark?.hover || inube.color.text.dark.hover)};
 `;
 
