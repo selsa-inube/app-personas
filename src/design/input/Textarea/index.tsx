@@ -178,7 +178,7 @@ const Textarea = (props: TextareaProps) => {
           errorMessage={errorMessage}
         />
       )}
-      {transformedState === "valid" && isTouched && (
+      {transformedState === "valid" && isTouched && validMessage && (
         <Success
           isDisabled={isDisabled}
           state={transformedState}

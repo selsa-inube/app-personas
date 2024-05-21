@@ -1,9 +1,9 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { IDetailsSituationEntry } from "./types";
-
-const validationSchema = Yup.object().shape({});
+import { DetailsSituationFormUI } from "./interface";
 
 interface DetailsSituationFormProps {
   initialValues: IDetailsSituationEntry;
@@ -16,11 +16,13 @@ const DetailsSituationForm = forwardRef(function DetailsSituationForm(
 ) {
   const { initialValues, onFormValid } = props;
 
-  const [dynamicSchema] = useState(validationSchema);
+  const validationSchema = Yup.object().shape({
+    detailsSituation: Yup.string().required(validationMessages.required),
+  });
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicSchema,
+    validationSchema,
     validateOnBlur: false,
     onSubmit: async () => true,
   });
@@ -35,7 +37,7 @@ const DetailsSituationForm = forwardRef(function DetailsSituationForm(
     }
   }, [formik.values]);
 
-  return <></>;
+  return <DetailsSituationFormUI formik={formik} />;
 });
 
 export { DetailsSituationForm };
