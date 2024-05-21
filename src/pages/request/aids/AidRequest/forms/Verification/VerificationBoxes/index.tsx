@@ -35,9 +35,13 @@ const renderBeneficiariesVerification = (
   );
 };
 
-const renderAmountVerification = (values: IAmountEntry) => {
+const renderAmountVerification = (values: IAmountEntry, isTablet: boolean) => {
   return (
-    <Grid templateColumns="repeat(2, 1fr)" width="100%" gap="s100">
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      width="100%"
+      gap="s100"
+    >
       <BoxAttribute
         label="Valor de la solicitud:"
         value={currencyFormat(values.applicationValue)}
@@ -112,7 +116,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "amount" &&
-        renderAmountVerification(aidRequest.amount.values)}
+        renderAmountVerification(aidRequest.amount.values, isTablet)}
 
       {stepKey === "detailsSituation" && renderDetailsSituationVerification()}
 
