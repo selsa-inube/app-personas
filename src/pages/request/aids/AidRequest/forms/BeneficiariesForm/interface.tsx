@@ -10,7 +10,7 @@ interface BeneficiariesFormUIProps {
   onSelectBeneficiary: (id: string) => void;
 }
 
-function BeneficiariesUIForm(props: BeneficiariesFormUIProps) {
+function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
   const { formik, onSelectBeneficiary } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -43,4 +43,4 @@ function BeneficiariesUIForm(props: BeneficiariesFormUIProps) {
   );
 }
 
-export { BeneficiariesUIForm };
+export { BeneficiariesFormUI };

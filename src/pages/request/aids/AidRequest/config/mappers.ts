@@ -17,7 +17,8 @@ const mapBeneficiaries = (): IBeneficiariesEntry => {
 
 const mapAmount = (): IAmountEntry => {
   return {
-    id: "",
+    quotaAvailable: 2500000,
+    applicationValue: 0,
   };
 };
 

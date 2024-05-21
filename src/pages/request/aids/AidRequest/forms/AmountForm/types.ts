@@ -1,5 +1,6 @@
 interface IAmountEntry {
-  id: string;
+  quotaAvailable: number;
+  applicationValue: number;
 }
 
 export type { IAmountEntry };

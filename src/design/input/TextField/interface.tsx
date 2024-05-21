@@ -183,6 +183,7 @@ function TextFieldUI(props: TextFieldUIProps) {
             <StyledIcon
               iconAfter={iconAfter}
               isDisabled={isDisabled}
+              readOnly={readOnly}
               onClick={onIconClick}
             >
               {iconAfter}
