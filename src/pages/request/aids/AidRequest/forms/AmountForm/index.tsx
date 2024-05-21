@@ -1,9 +1,9 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
+import { AmountFormUI } from "./interface";
 import { IAmountEntry } from "./types";
-
-const validationSchema = Yup.object().shape({});
 
 interface AmountFormProps {
   initialValues: IAmountEntry;
@@ -16,11 +16,16 @@ const AmountForm = forwardRef(function AmountForm(
 ) {
   const { initialValues, onFormValid } = props;
 
-  const [dynamicSchema] = useState(validationSchema);
+  const validationSchema = Yup.object().shape({
+    applicationValue: Yup.number()
+      .min(1, "El valor de la solicitud debe ser mayor a 0")
+      .max(initialValues.quotaAvailable, "Has superado el cupo máximo")
+      .required(validationMessages.required),
+  });
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicSchema,
+    validationSchema,
     validateOnBlur: false,
     onSubmit: async () => true,
   });
@@ -35,7 +40,7 @@ const AmountForm = forwardRef(function AmountForm(
     }
   }, [formik.values]);
 
-  return <></>;
+  return <AmountFormUI formik={formik} />;
 });
 
 export { AmountForm };
