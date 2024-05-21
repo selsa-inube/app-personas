@@ -135,19 +135,19 @@ const usersMock: IThird[] = [
 
 const beneficiariesMock: IBeneficiary[] = [
   {
-    name: "CASTILLO RODRIGUEZ VICTOR OVIDIO",
+    name: "Castillo Rodriguez Victor Ovidio",
     identificationType: "C.C",
     identificationNumber: "113697385",
     relationship: relationshipDM.PARTNER,
   },
   {
-    name: "JOSE ANTONIO CASTILLO MAYANG",
+    name: "Jose Antonio Castillo Mayang",
     identificationType: "C.C",
     identificationNumber: "2605498",
     relationship: relationshipDM.FATHER,
   },
   {
-    name: "GLORIA NANCY RODRIGUEZ CUADROS",
+    name: "Gloria Nancy Rodriguez Cuadros",
     identificationType: "C.C",
     identificationNumber: "26785452",
     relationship: relationshipDM.MOTHER,
