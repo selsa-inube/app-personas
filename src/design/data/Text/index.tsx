@@ -17,6 +17,7 @@ interface TextProps {
   parentHover?: boolean;
   disabled?: boolean;
   ellipsis?: boolean;
+  onClick?: () => void;
 }
 
 function Text(props: TextProps) {
@@ -33,6 +34,7 @@ function Text(props: TextProps) {
     parentHover = false,
     disabled = false,
     ellipsis = false,
+    onClick,
   } = props;
   return (
     <StyledText
@@ -47,6 +49,7 @@ function Text(props: TextProps) {
       parentHover={parentHover}
       disabled={disabled}
       ellipsis={ellipsis}
+      onClick={onClick}
     >
       {children}
     </StyledText>

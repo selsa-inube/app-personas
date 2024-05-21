@@ -1,5 +1,7 @@
+import { IValidation } from "src/model/entity/service";
+
 interface IRegulationValidationsEntry {
-  id: string;
+  validations: IValidation[];
 }
 
 export type { IRegulationValidationsEntry };
