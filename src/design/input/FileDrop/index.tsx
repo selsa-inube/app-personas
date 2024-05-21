@@ -61,6 +61,7 @@ function FileDrop(props: FileDropProps) {
         accept="image/*,application/pdf"
         onChange={handleSelectFiles}
         hidden
+        multiple
       />
       <Button onClick={handleTriggerInputFile} spacing="compact">
         Elegir archivo

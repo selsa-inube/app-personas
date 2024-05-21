@@ -1,14 +1,18 @@
-import { FileDrop, FileDropProps } from ".";
+import { ThemeProvider } from "styled-components";
+import { FileCard, FileCardProps } from ".";
 
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
+import { props } from "./props";
 
 const story = {
-  title: "design/input/FileDrop",
-  component: [FileDrop],
+  title: "components/cards/FileCard",
+  components: [FileCard],
   tags: ["autodocs"],
+  argTypes: {
+    ...props,
+  },
   decorators: [
     (Story: StoryFn) => (
       <BrowserRouter>
@@ -18,24 +22,22 @@ const story = {
   ],
 };
 
-export const Default: StoryFn<FileDropProps> = (args) => <FileDrop {...args} />;
+export const Default: StoryFn<FileCardProps> = (args) => <FileCard {...args} />;
 Default.args = {
-  onSelectFiles: (files) => {
-    console.log([...files][0]);
-    alert(`Files selected: ${[...files].map((file) => file.name)}`);
-  },
+  id: "1",
+  name: "Factura original.pdf",
+  size: 72080,
 };
 
 const theme = {
   ...themes["fondecom"],
 };
 
-export const Themed: StoryFn<FileDropProps> = (args) => (
+export const Themed: StoryFn<FileCardProps> = (args) => (
   <ThemeProvider theme={theme}>
-    <FileDrop {...args} />
+    <FileCard {...args} />
   </ThemeProvider>
 );
-
 Themed.args = {
   ...Default.args,
 };
