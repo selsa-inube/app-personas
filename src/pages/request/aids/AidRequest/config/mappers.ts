@@ -1,4 +1,7 @@
+import { aidsRequestMock } from "@mocks/services/aids/aidsRequest.mocks";
 import { beneficiariesMock } from "@mocks/users/users.mocks";
+import { IDomainType } from "@ptypes/domain.types";
+import { IValidation } from "src/model/entity/service";
 import { IAmountEntry } from "../forms/AmountForm/types";
 import { IBeneficiariesEntry } from "../forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../forms/DetailsSituationForm/types";
@@ -28,23 +31,24 @@ const mapDetailsSituation = (): IDetailsSituationEntry => {
   };
 };
 
-const mapRegulationValidations = (): IRegulationValidationsEntry => {
+const mapRegulationValidations = (
+  aidType?: IDomainType,
+): IRegulationValidationsEntry => {
+  const selectedAid = aidsRequestMock.find((aid) => aid.id === aidType?.id);
+  const validations: IValidation[] = [];
+
+  if (selectedAid) {
+    selectedAid.validations.regulations.forEach((regulation) => {
+      validations.push({
+        id: regulation.id,
+        label: regulation.label,
+        value: "pending",
+        isRequired: regulation.isRequired,
+      });
+    });
+  }
   return {
-    validations: [
-      {
-        id: "1",
-        label: "Validación 1",
-        value: "pending",
-        failDetails: "Detalle de la validación 1",
-      },
-      {
-        id: "2",
-        label: "Validación 2",
-        value: "pending",
-        isRequired: true,
-        failDetails: "Detalle de la validación 2",
-      },
-    ],
+    validations,
   };
 };
 
