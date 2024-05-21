@@ -21,7 +21,6 @@ const story = {
 export const Default: StoryFn<FileDropProps> = (args) => <FileDrop {...args} />;
 Default.args = {
   onSelectFiles: (files) => {
-    console.log([...files][0]);
     alert(`Files selected: ${[...files].map((file) => file.name)}`);
   },
 };
