@@ -4,10 +4,12 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
+import { truncateFileName } from "src/utils/texts";
 import { IFormsAidRequest } from "../../../types";
 import { IAmountEntry } from "../../AmountForm/types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
+import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
 
@@ -103,8 +105,24 @@ const renderRegulationValidationsVerification = (
   );
 };
 
-const renderDocumentaryRequirementsVerification = () => {
-  return <></>;
+const renderDocumentaryRequirementsVerification = (
+  values: IDocumentaryRequirementsEntry,
+  isTablet: boolean,
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      width="100%"
+      gap="s100"
+    >
+      {values.selectedDocuments.map((document) => (
+        <BoxAttribute
+          key={document.name}
+          label={truncateFileName(document.name, 55)}
+        />
+      ))}
+    </Grid>
+  );
 };
 
 const renderDisbursementVerification = () => {
@@ -140,7 +158,10 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "documentaryRequirements" &&
-        renderDocumentaryRequirementsVerification()}
+        renderDocumentaryRequirementsVerification(
+          aidRequest.documentaryRequirements.values,
+          isTablet,
+        )}
 
       {stepKey === "disbursement" && renderDisbursementVerification()}
     </>

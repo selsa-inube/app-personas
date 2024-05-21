@@ -59,7 +59,7 @@ function AidRequest() {
     },
     documentaryRequirements: {
       isValid: true,
-      values: mapDocumentaryRequirements(),
+      values: mapDocumentaryRequirements(aidRequestType),
     },
     disbursement: {
       isValid: true,

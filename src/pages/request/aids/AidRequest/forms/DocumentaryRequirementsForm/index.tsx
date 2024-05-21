@@ -1,42 +1,67 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import * as Yup from "yup";
+import { DocumentaryRequirementsFormUI } from "./interface";
 import { IDocumentaryRequirementsEntry } from "./types";
-
-const validationSchema = Yup.object().shape({});
 
 interface DocumentaryRequirementsFormProps {
   initialValues: IDocumentaryRequirementsEntry;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DocumentaryRequirementsForm = forwardRef(function DocumentaryRequirementsForm(
-  props: DocumentaryRequirementsFormProps,
-  ref: React.Ref<FormikProps<IDocumentaryRequirementsEntry>>,
-) {
-  const { initialValues, onFormValid } = props;
+const DocumentaryRequirementsForm = forwardRef(
+  function DocumentaryRequirementsForm(
+    props: DocumentaryRequirementsFormProps,
+    ref: React.Ref<FormikProps<IDocumentaryRequirementsEntry>>,
+  ) {
+    const { initialValues, onFormValid } = props;
 
-  const [dynamicSchema] = useState(validationSchema);
+    const [showInfoModal, setShowInfoModal] = useState(false);
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema: dynamicSchema,
-    validateOnBlur: false,
-    onSubmit: async () => true,
-  });
+    const formik = useFormik({
+      initialValues,
+      validateOnBlur: false,
+      onSubmit: async () => true,
+    });
 
-  useImperativeHandle(ref, () => formik);
+    useImperativeHandle(ref, () => formik);
 
-  useEffect(() => {
-    if (onFormValid) {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
+    useEffect(() => {
+      if (onFormValid) {
+        onFormValid(formik.values.selectedDocuments.length > 0);
+      }
+    }, [formik.values.selectedDocuments]);
+
+    const handleSelectDocuments = (files: FileList) => {
+      formik.setFieldValue("selectedDocuments", [
+        ...formik.values.selectedDocuments,
+        ...Array.from(files),
+      ]);
+    };
+
+    const handleRemoveDocument = (id: string) => {
+      formik.setFieldValue(
+        "selectedDocuments",
+        formik.values.selectedDocuments.filter(
+          (document) => document.name !== id,
+        ),
+      );
+    };
+
+    const handleToggleInfoModal = () => {
+      setShowInfoModal(!showInfoModal);
     }
-  }, [formik.values]);
 
-  return <></>;
-});
+    return (
+      <DocumentaryRequirementsFormUI
+        formik={formik}
+        showInfoModal={showInfoModal}
+        onSelectDocuments={handleSelectDocuments}
+        onRemoveDocument={handleRemoveDocument}
+        onToggleInfoModal={handleToggleInfoModal}
+      />
+    );
+  },
+);
 
 export { DocumentaryRequirementsForm };
 export type { DocumentaryRequirementsFormProps };

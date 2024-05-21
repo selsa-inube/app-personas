@@ -15,4 +15,13 @@ const removeLastCharacters = (
   return Number(wordOfCell.slice(0, -numberCharactersRemove));
 };
 
-export { capitalizeFirstLetters, capitalizeText, removeLastCharacters };
+const truncateFileName = (name: string, maxLength: number) => {
+  return `${name.split(".")[0].slice(0, maxLength)}${name.length > maxLength ? "... " : ""}.${name.split(".")[1]}`;
+};
+
+export {
+  capitalizeFirstLetters,
+  capitalizeText,
+  removeLastCharacters,
+  truncateFileName,
+};
