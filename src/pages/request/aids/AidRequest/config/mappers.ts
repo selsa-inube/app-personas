@@ -27,7 +27,7 @@ const mapAmount = (): IAmountEntry => {
 
 const mapDetailsSituation = (): IDetailsSituationEntry => {
   return {
-    id: "",
+    message: "",
   };
 };
 

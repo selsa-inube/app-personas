@@ -1,5 +1,5 @@
 interface IDetailsSituationEntry {
-  id: string;
+  message: string;
 }
 
 export type { IDetailsSituationEntry };
