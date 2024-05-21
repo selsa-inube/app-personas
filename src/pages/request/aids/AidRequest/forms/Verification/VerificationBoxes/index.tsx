@@ -1,11 +1,13 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Icon } from "@design/data/Icon";
 import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsAidRequest } from "../../../types";
 import { IAmountEntry } from "../../AmountForm/types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
+import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
 
@@ -50,8 +52,18 @@ const renderAmountVerification = (values: IAmountEntry, isTablet: boolean) => {
   );
 };
 
-const renderDetailsSituationVerification = () => {
-  return <></>;
+const renderDetailsSituationVerification = (values: IDetailsSituationEntry) => {
+  return (
+    <Stack width="100%" direction="column">
+      {values.message !== "" && (
+        <BoxAttribute
+          label="Detalles adicionales:"
+          value={values.message}
+          direction="column"
+        />
+      )}
+    </Stack>
+  );
 };
 
 const renderRegulationValidationsVerification = (
@@ -118,7 +130,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "amount" &&
         renderAmountVerification(aidRequest.amount.values, isTablet)}
 
-      {stepKey === "detailsSituation" && renderDetailsSituationVerification()}
+      {stepKey === "detailsSituation" &&
+        renderDetailsSituationVerification(aidRequest.detailsSituation.values)}
 
       {stepKey === "regulationValidations" &&
         renderRegulationValidationsVerification(
