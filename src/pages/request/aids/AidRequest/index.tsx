@@ -36,6 +36,10 @@ function AidRequest() {
   const [loadingSend, setLoadingSend] = useState(false);
   const [message, setMessage] = useState<IMessage>(initialMessageState);
 
+  const aidRequestType = aid_type
+    ? aidRequestTypeDM.valueOf(aid_type)
+    : undefined;
+
   const [aidRequest, setAidRequest] = useState<IFormsAidRequest>({
     beneficiaries: {
       isValid: true,
@@ -51,7 +55,7 @@ function AidRequest() {
     },
     regulationValidations: {
       isValid: true,
-      values: mapRegulationValidations(),
+      values: mapRegulationValidations(aidRequestType),
     },
     documentaryRequirements: {
       isValid: true,
@@ -80,6 +84,10 @@ function AidRequest() {
     documentaryRequirements: documentaryRequirementsRef,
     disbursement: disbursementRef,
   };
+
+  if (!aid_type || !aidRequestType) {
+    return <Navigate to="/aids" />;
+  }
 
   const handleStepChange = (stepId: number) => {
     const newAidRequest = aidRequestStepsRules(
@@ -130,12 +138,6 @@ function AidRequest() {
   const handleCloseMessage = () => {
     setMessage(initialMessageState);
   };
-
-  const aidRequestType = aid_type && aidRequestTypeDM.valueOf(aid_type);
-
-  if (!aid_type || !aidRequestType) {
-    return <Navigate to="/aids" />;
-  }
 
   return (
     <AidRequestUI

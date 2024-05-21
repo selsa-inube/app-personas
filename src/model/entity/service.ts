@@ -18,4 +18,4 @@ interface IAid {
   validations: IValidations;
 }
 
-export type { IAid };
+export type { IAid, IValidation };

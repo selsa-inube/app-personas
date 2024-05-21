@@ -1,6 +1,7 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import * as Yup from "yup";
+import { RegulationValidationsFormUI } from "./interface";
 import { IRegulationValidationsEntry } from "./types";
 
 const validationSchema = Yup.object().shape({});
@@ -28,14 +29,28 @@ const RegulationValidationsForm = forwardRef(function RegulationValidationsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (onFormValid) {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
+    setTimeout(() => {
+      formik.setValues({
+        ...formik.values,
+        validations: formik.values.validations.map((validation) => ({
+          ...validation,
+          value: "success",
+        })),
       });
-    }
-  }, [formik.values]);
+    }, 1000);
+  }, []);
 
-  return <></>;
+  useEffect(() => {
+    if (onFormValid) {
+      onFormValid(
+        formik.values.validations
+          .filter((validation) => validation.isRequired)
+          .every((validation) => validation.value === "success"),
+      );
+    }
+  }, [formik.values.validations]);
+
+  return <RegulationValidationsFormUI formik={formik} />;
 });
 
 export { RegulationValidationsForm };
