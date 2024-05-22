@@ -50,6 +50,7 @@ function AppProvider(props: AppProviderProps) {
 
     console.log(enviroment.IS_PRODUCTION);
     console.log(enviroment.ICLIENT_API_URL_QUERY);
+    console.log(import.meta.env.MODE);
 
     saveTrafficTracking(user.identification);
   }, []);
