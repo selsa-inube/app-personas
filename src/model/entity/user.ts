@@ -67,7 +67,7 @@ interface IFamilyThird {
 interface IBankTransfersAccount {
   bankEntity: string;
   accountType: string;
-  accountNumber: number;
+  accountNumber: string;
   description: string;
 }
 

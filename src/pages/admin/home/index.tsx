@@ -26,7 +26,7 @@ function Home() {
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   const validateProducts = async () => {
-    if (!user || !accessToken) return;
+    if (!accessToken) return;
 
     const combinedSavings = [
       ...savings.savingsAccounts,

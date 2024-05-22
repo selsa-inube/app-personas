@@ -76,7 +76,10 @@ const mapDocumentaryRequirements = (
 
 const mapDisbursement = (): IDisbursementEntry => {
   return {
-    id: "",
+    accountOptions: [],
+    account: "",
+    disbursementMethod: "",
+    accountDescription: "",
   };
 };
 
