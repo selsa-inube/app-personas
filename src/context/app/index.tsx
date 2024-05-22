@@ -48,6 +48,7 @@ function AppProvider(props: AppProviderProps) {
       setFeatureFlags(flags);
     });
 
+    console.log(import.meta.env.VERCEL_ENV);
     console.log(enviroment.IS_PRODUCTION);
     console.log(enviroment.ICLIENT_API_URL_QUERY);
     console.log(import.meta.env.MODE);
