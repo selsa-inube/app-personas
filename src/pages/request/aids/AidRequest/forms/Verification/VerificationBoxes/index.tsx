@@ -3,12 +3,14 @@ import { Icon } from "@design/data/Icon";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
+import { reimbursementTypeDM } from "src/model/domains/general/updateData/economicActivity/reimbursementTypeDM";
 import { currencyFormat } from "src/utils/currency";
 import { truncateFileName } from "src/utils/texts";
 import { IFormsAidRequest } from "../../../types";
 import { IAmountEntry } from "../../AmountForm/types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
+import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
@@ -125,8 +127,16 @@ const renderDocumentaryRequirementsVerification = (
   );
 };
 
-const renderDisbursementVerification = () => {
-  return <></>;
+const renderDisbursementVerification = (values: IDisbursementEntry) => {
+  return (
+    <Stack width="100%" gap="s100" direction="column">
+      <BoxAttribute
+        label="Desembolso:"
+        value={reimbursementTypeDM.valueOf(values.disbursementMethod)?.value}
+      />
+      <BoxAttribute label="Cuenta:" value={values.accountDescription} />
+    </Stack>
+  );
 };
 
 interface VerificationBoxesProps {
@@ -163,7 +173,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet,
         )}
 
-      {stepKey === "disbursement" && renderDisbursementVerification()}
+      {stepKey === "disbursement" &&
+        renderDisbursementVerification(aidRequest.disbursement.values)}
     </>
   );
 }

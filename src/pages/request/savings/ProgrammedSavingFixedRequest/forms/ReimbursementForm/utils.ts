@@ -1,7 +1,7 @@
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikValues } from "formik";
-import { reimbursementTypeDM } from "src/model/domains/general/updateData/economicActivity/reimbursementType";
+import { reimbursementTypeDM } from "src/model/domains/general/updateData/economicActivity/reimbursementTypeDM";
 import { EProductType } from "src/model/entity/product";
 import { IReimbursementOptions } from "./types";
 

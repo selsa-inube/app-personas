@@ -7,6 +7,7 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
+import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { parseCurrencyString } from "src/utils/currency";
@@ -15,7 +16,6 @@ import { EPaymentMethodType } from "../../types";
 import { PaymentMethodFormUI } from "./interface";
 import { EMoneySourceType, IMoneySource, IPaymentMethodEntry } from "./types";
 import { mapMoneySources } from "./utils";
-import { AppContext } from "src/context/app";
 
 const validationSchema = Yup.object().shape({});
 
@@ -51,7 +51,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   }, [formik.values.pendingValue]);
 
   useEffect(() => {
-    if (!user || !accessToken) return;
+    if (!accessToken) return;
     if (savings.savingsAccounts.length === 0) {
       getSavingsForUser(user.identification, accessToken)
         .then((savings) => {
