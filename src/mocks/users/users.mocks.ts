@@ -117,7 +117,7 @@ const usersMock: IThird[] = [
     bankTransfersAccount: {
       bankEntity: "bancolombia",
       accountType: "savingsAccount",
-      accountNumber: 76454473406,
+      accountNumber: "76454473406",
       description: "Bancolombia - Ahorros - **3406",
     },
     financialOperations: {

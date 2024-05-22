@@ -1,7 +1,7 @@
 interface IBankTransfersEntry {
   bankEntity: string;
   accountType: string;
-  accountNumber: number;
+  accountNumber: string;
 }
 
 export type { IBankTransfersEntry };
