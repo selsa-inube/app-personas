@@ -30,9 +30,10 @@ function AppProvider(props: AppProviderProps) {
   const [user] = useState<IUser>({
     company: authUser?.company || "",
     email: authUser?.email || "",
-    identification: enviroment.IS_PRODUCTION
-      ? authUser?.identification || ""
-      : developmentUsersMock[authUser?.identification || ""],
+    identification:
+      developmentUsersMock[authUser?.identification || ""] ||
+      authUser?.identification ||
+      "",
     phone: authUser?.phone || "",
     firstLastName: authUser?.firstLastName || "",
     secondLastName: authUser?.secondLastName || "",
@@ -46,6 +47,9 @@ function AppProvider(props: AppProviderProps) {
     getAppFeatureFlags().then((flags) => {
       setFeatureFlags(flags);
     });
+
+    console.log(enviroment.IS_PRODUCTION);
+    console.log(enviroment.ICLIENT_API_URL_QUERY);
 
     saveTrafficTracking(user.identification);
   }, []);
