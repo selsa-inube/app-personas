@@ -6,7 +6,7 @@ import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHisto
 import { equalArraysByProperty } from "src/utils/arrays";
 import { PaymentHistoryUI } from "./interface";
 
-const limitPayments = 5; // TEMP
+const limitPayments = 5;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 
