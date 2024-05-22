@@ -49,29 +49,34 @@ function BoxAttribute(props: BoxAttributeProps) {
             {label}
           </Text>
         )}
-        <Stack
-          alignItems="center"
-          justifyContent={
-            direction === "column" || iconAfter ? "flex-start" : "flex-end"
-          }
-        >
-          {withButton ? (
-            <ButtonAttribute
-              icon={buttonIcon}
-              value={buttonValue}
-              onClick={onClickButton}
-            />
-          ) : (
-            <Text
-              type="body"
-              size={isMobile ? "small" : "medium"}
-              appearance="gray"
-              textAlign={direction === "column" || iconAfter ? "start" : "end"}
-            >
-              {String(value)}
-            </Text>
-          )}
-        </Stack>
+
+        {(withButton || value) && (
+          <Stack
+            alignItems="center"
+            justifyContent={
+              direction === "column" || iconAfter ? "flex-start" : "flex-end"
+            }
+          >
+            {withButton ? (
+              <ButtonAttribute
+                icon={buttonIcon}
+                value={buttonValue}
+                onClick={onClickButton}
+              />
+            ) : (
+              <Text
+                type="body"
+                size={isMobile ? "small" : "medium"}
+                appearance="gray"
+                textAlign={
+                  direction === "column" || iconAfter ? "start" : "end"
+                }
+              >
+                {String(value)}
+              </Text>
+            )}
+          </Stack>
+        )}
 
         {iconAfter && (
           <Stack alignItems="center" justifyContent="flex-end">

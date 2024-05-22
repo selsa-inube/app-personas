@@ -1,4 +1,4 @@
-import { InfoModalProps } from "@components/modals/cards/InfoModal";
+import { InfoModalProps } from "@components/modals/general/InfoModal";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 
 interface ISelectedProductState {

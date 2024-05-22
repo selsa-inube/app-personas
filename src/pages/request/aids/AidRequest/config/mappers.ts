@@ -52,9 +52,25 @@ const mapRegulationValidations = (
   };
 };
 
-const mapDocumentaryRequirements = (): IDocumentaryRequirementsEntry => {
+const mapDocumentaryRequirements = (
+  aidType?: IDomainType,
+): IDocumentaryRequirementsEntry => {
+  const selectedAid = aidsRequestMock.find((aid) => aid.id === aidType?.id);
+  const requiredDocuments: IValidation[] = [];
+
+  if (selectedAid) {
+    selectedAid.validations.requiredDocuments.forEach((document) => {
+      requiredDocuments.push({
+        id: document.id,
+        label: document.label,
+        isRequired: document.isRequired,
+      });
+    });
+  }
+
   return {
-    id: "",
+    requiredDocuments,
+    selectedDocuments: [],
   };
 };
 

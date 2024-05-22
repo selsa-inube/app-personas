@@ -2,6 +2,7 @@ import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { MdDeleteOutline, MdOutlineDescription } from "react-icons/md";
+import { truncateFileName } from "src/utils/texts";
 import { OutlineCard } from "../OutlineCard";
 
 interface FileCardProps {
@@ -14,7 +15,7 @@ interface FileCardProps {
 function FileCard(props: FileCardProps) {
   const { id, name, size, onRemove } = props;
 
-  const kilobytes = size / 1024;
+  const kilobytes = (size / 1024).toFixed(2);
 
   return (
     <OutlineCard>
@@ -34,8 +35,7 @@ function FileCard(props: FileCardProps) {
             alignItems="center"
           >
             <Text type="label" size="medium">
-              {name.split(".")[0].slice(0, 300)}
-              {name.length > 300 ? "... " : ""}.{name.split(".")[1]}
+              {truncateFileName(name, 25)}
             </Text>
 
             <Icon
