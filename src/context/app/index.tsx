@@ -1,4 +1,3 @@
-import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
 import { IUser } from "@inube/auth/dist/types/user";
 import { developmentUsersMock } from "@mocks/users/users.mocks";
@@ -47,13 +46,6 @@ function AppProvider(props: AppProviderProps) {
     getAppFeatureFlags().then((flags) => {
       setFeatureFlags(flags);
     });
-
-    console.log(import.meta.env.VITE_VERCEL_ENV);
-    console.log(import.meta.env.VERCEL_ENV);
-    console.log(import.meta.env.NODE_ENV);
-    console.log(enviroment.IS_PRODUCTION);
-    console.log(enviroment.ICLIENT_API_URL_QUERY);
-    console.log(import.meta.env.MODE);
 
     saveTrafficTracking(user.identification);
   }, []);

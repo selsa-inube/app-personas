@@ -25,7 +25,4 @@ export default defineConfig({
       "@forms": path.resolve(__dirname, "./src/forms"),
     },
   },
-  define: {
-    __APP_ENV__: process.env.VITE_VERCEL_ENV,
-  },
 });
