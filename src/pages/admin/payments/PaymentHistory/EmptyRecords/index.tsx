@@ -18,8 +18,9 @@ function EmptyRecords() {
         direction="column"
         padding="s250"
         gap="s250"
-        width="100"
         alignItems="center"
+        width="100%"
+        justifyContent="center"
       >
         <Icon
           icon={<MdSearch />}
