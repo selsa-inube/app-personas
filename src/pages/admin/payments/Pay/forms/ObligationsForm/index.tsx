@@ -1,4 +1,3 @@
-import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
 import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
 import { TagProps } from "@design/data/Tag";
@@ -14,6 +13,7 @@ import {
 import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 
 interface ObligationsFormProps {
   initialValues: IObligationsEntry;

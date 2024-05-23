@@ -23,9 +23,11 @@ const paymentOptionValues: Record<string, string> = {
   [EPaymentOptionType.NEXTVALUE]: "Próximo vencimiento",
   [EPaymentOptionType.TOTALVALUE]: "Pago total",
   [EPaymentOptionType.OTHERVALUE]: "Otro valor",
-  [EPaymentOptionType.REDUCETERM]: "Reducir plazo",
-  [EPaymentOptionType.REDUCEQUOTA]: "Reducir cuota",
-  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Pagar cuotas futuras",
+  [EPaymentOptionType.REPROGRAMMINGDEADLINE]:
+    "Reprogramación manteniendo el plazo",
+  [EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE]:
+    "Reprogramación manteniendo el valor de la cuota",
+  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Abono a cuotas futuras",
 };
 
 const mapObligations = (
@@ -36,12 +38,16 @@ const mapObligations = (
   const paymentMethodFilters: string[] = [];
 
   credits.forEach((credit) => {
-    /* const expiredValue = Number( // TEMP
+     const expiredValue = Number( 
       extractAttribute(credit.attributes, "expired_value")?.value || 0,
-    ); */
+    ); 
 
     const nextPaymentValue = Number(
       extractAttribute(credit.attributes, "next_payment_value")?.value || 0,
+    );
+
+    const nextPayment = String(
+      extractAttribute(credit.attributes, "next_payment")?.value,
     );
 
     const nextPaymentDate = String(
@@ -52,6 +58,14 @@ const mapObligations = (
       extractAttribute(credit.attributes, "payment_method")?.value,
     );
 
+    const lineCode = String(
+      extractAttribute(credit.attributes, "line_code")?.value,
+    );
+
+    const halfPayment = String(
+      extractAttribute(credit.attributes, "half_payment")?.value,
+    );
+
     if (
       !paymentMethodFilters.find(
         (filter) => filter.toLowerCase() === paymentMethod.toLowerCase(),
@@ -60,9 +74,9 @@ const mapObligations = (
       paymentMethodFilters.push(paymentMethod);
     }
 
-    /* const totalValue = Number( // TEMP
+     const totalValue = Number( 
       extractAttribute(credit.attributes, "net_value")?.value || 0,
-    ); */
+    ); 
 
     const inArrears =
       extractAttribute(credit.attributes, "in_arrears")?.value.toString() ==
@@ -85,22 +99,23 @@ const mapObligations = (
     }
 
     const options = [
-      /* { // TEMP
+       { 
         id: EPaymentOptionType.EXPIREDVALUE,
         label: "Valor vencido",
         value: expiredValue,
-      }, */
+      }, 
       {
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
-        description: nextPaymentDate,
+        description: nextPayment,
+        date: new Date(nextPaymentDate),
         value: nextPaymentValue,
       },
-      /* { // TEMP
+       { 
         id: EPaymentOptionType.TOTALVALUE,
         label: "Pago total",
         value: totalValue,
-      }, */
+      }, 
       {
         id: EPaymentOptionType.OTHERVALUE,
         label: "Otro valor",
@@ -121,17 +136,23 @@ const mapObligations = (
         options,
         tags,
         supportDocumentType: ESupportDocumentType.FINANCIALPORTFOLIO,
+        lineCode,
+        halfPayment,
       });
     }
   });
 
   commitments.forEach((commitment) => {
-    /* const expiredValue = Number( // TEMP
+     const expiredValue = Number( 
       extractAttribute(commitment.attributes, "expired_value")?.value || 0,
-    ); */
+    ); 
 
     const nextPaymentValue = Number(
       extractAttribute(commitment.attributes, "next_payment_value")?.value || 0,
+    );
+
+    const nextPayment = String(
+      extractAttribute(commitment.attributes, "next_payment")?.value,
     );
 
     const nextPaymentDate = String(
@@ -171,15 +192,16 @@ const mapObligations = (
     }
 
     const options = [
-      /* { // TEMP
+       { 
         id: EPaymentOptionType.EXPIREDVALUE,
         label: "Valor vencido",
         value: expiredValue,
-      }, */
+      }, 
       {
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
-        description: nextPaymentDate,
+        description: nextPayment,
+        date: new Date(nextPaymentDate),
         value: nextPaymentValue,
       },
     ];

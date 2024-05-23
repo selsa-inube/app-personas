@@ -8,7 +8,6 @@ import { Blanket } from "@design/layout/Blanket";
 import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -25,30 +24,15 @@ import {
   StyledApprovedValue,
   StyledModal,
 } from "./styles";
-
-interface IApplyPayOption {
-  id: string;
-  label: string;
-}
-
-const applyPayOptions: IApplyPayOption[] = [
-  {
-    id: EPaymentOptionType.REDUCETERM,
-    label: paymentOptionValues[EPaymentOptionType.REDUCETERM],
-  },
-  {
-    id: EPaymentOptionType.REDUCEQUOTA,
-    label: paymentOptionValues[EPaymentOptionType.REDUCEQUOTA],
-  },
-  {
-    id: EPaymentOptionType.REDUCEFUTUREQUOTA,
-    label: paymentOptionValues[EPaymentOptionType.REDUCEFUTUREQUOTA],
-  },
-];
+import { IApplyPayOption, applyPayOptions } from "./utils";
 
 interface CustomValueModalProps {
   portalId: string;
   value: number;
+  id: string;
+  nextPaymentDate?: Date;
+  lineCode: string;
+  halfPayment: string;
   nextPaymentValue: number;
   totalPaymentValue: number;
   onCloseModal: () => void;
@@ -62,6 +46,7 @@ function CustomValueModal(props: CustomValueModalProps) {
     value,
     nextPaymentValue,
     totalPaymentValue,
+    nextPaymentDate,
     onCloseModal,
     onChangeOtherValue,
     onApplyPayOption,
@@ -81,29 +66,45 @@ function CustomValueModal(props: CustomValueModalProps) {
   const node = document.getElementById(portalId);
 
   const handleValidateValue = () => {
+    const todayDate = new Date();
+    todayDate.setUTCHours(0, 0, 0, 0);
+
+    const nextExpirationDate = new Date(nextPaymentDate?.toISOString() || "");
+    const paymentDate = new Date(todayDate.toISOString());
+    const desicionRounding = 500;
+    const desicionLimitDaysNextQuote = 5;
+
     if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
       setInputValidation({
         state: "invalid",
         errorMessage: "(Valor superior al saldo total)",
       });
-
       return;
     }
 
-    setInputValidation({
-      state: "pending",
-      errorMessage: "",
-    });
+    setInputValidation({ state: "pending", errorMessage: "" });
 
-    if (customValue > nextPaymentValue) {
+    const daysUntilNextExpiration = Math.ceil(
+      (nextExpirationDate.getTime() - paymentDate.getTime()) /
+        (1000 * 60 * 60 * 24),
+    );
+
+    const exceedsNextPaymentValue = customValue > nextPaymentValue;
+    const isRounded =
+      Math.abs(customValue - nextPaymentValue) <= desicionRounding;
+
+    if (
+      exceedsNextPaymentValue &&
+      !isRounded &&
+      daysUntilNextExpiration > desicionLimitDaysNextQuote
+    ) {
       setShowResponse(true);
     } else {
       onChangeOtherValue({
         id: EPaymentOptionType.OTHERVALUE,
-        label: `Otro valor`,
+        label: "Otro valor",
         value: customValue,
       });
-
       onCloseModal();
     }
   };
@@ -259,4 +260,3 @@ function CustomValueModal(props: CustomValueModalProps) {
 }
 
 export { CustomValueModal };
-export type { IApplyPayOption };

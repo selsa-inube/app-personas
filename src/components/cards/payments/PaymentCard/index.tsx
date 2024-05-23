@@ -1,6 +1,5 @@
 import {
   CustomValueModal,
-  IApplyPayOption,
 } from "@components/modals/payments/CustomValueModal";
 import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
@@ -18,6 +17,7 @@ import {
   StyledInputContainer,
   StyledInputRadio,
 } from "./styles";
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 
 const renderOptions = (
   options: IPaymentOption[],
@@ -79,6 +79,8 @@ interface PaymentCardProps {
   tags: TagProps[];
   allowCustomValue?: boolean;
   selectedOption?: IPaymentOption;
+  lineCode: string;
+  halfPayment: string;
   onApplyPayOption: (
     payId: string,
     option: IPaymentOption,
@@ -96,6 +98,8 @@ function PaymentCard(props: PaymentCardProps) {
     tags,
     allowCustomValue,
     selectedOption,
+    lineCode,
+    halfPayment,
     onChangePaymentValue,
     onApplyPayOption,
     onRemovePayment,
@@ -138,6 +142,10 @@ function PaymentCard(props: PaymentCardProps) {
   const nextPaymentValue = options.find(
     (option) => option.id === EPaymentOptionType.NEXTVALUE,
   )?.value;
+
+  const nextPaymentDate = options.find(
+    (option) => option.id === EPaymentOptionType.NEXTVALUE,
+  )?.date;
 
   const totalPaymentValue =
     options.find((option) => option.id === EPaymentOptionType.TOTALVALUE)
@@ -196,6 +204,10 @@ function PaymentCard(props: PaymentCardProps) {
       {showModal && (
         <CustomValueModal
           portalId="modals"
+          id={id}
+          nextPaymentDate={nextPaymentDate}
+          lineCode={lineCode}
+          halfPayment={halfPayment}
           value={selectedOption?.value || 0}
           nextPaymentValue={nextPaymentValue || 0}
           totalPaymentValue={totalPaymentValue || 0}

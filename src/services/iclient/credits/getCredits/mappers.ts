@@ -72,7 +72,7 @@ const mapCreditApiToEntity = (
       value: String(credit.amount),
     },
     {
-      id: "next_payment_date",
+      id: "next_payment",
       label: "Fecha próximo pago",
       value: nextPayment,
     },
@@ -135,6 +135,21 @@ const mapCreditApiToEntity = (
       id: "in_arrears",
       label: "En mora",
       value: String(inArrears),
+    },
+    {
+      id: "line_code",
+      label: "Código de línea",
+      value: String(credit.lineCode),
+    },
+    {
+      id: "half_payment",
+      label: "Método de pago",
+      value: String(credit.paymentMethod),
+    },
+    {
+      id: "next_payment_date",
+      label: "Fecha de pago",
+      value: nextPaymentDate.toISOString(),
     },
   ];
 
