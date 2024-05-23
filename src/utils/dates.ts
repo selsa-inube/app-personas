@@ -1,32 +1,36 @@
 import { capitalizeText } from "./texts";
 
-const formatPrimaryDate = (date: Date, withTime?: boolean) => {
-  const options: Intl.DateTimeFormatOptions = {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  };
-  const dateString = date.toLocaleDateString("es-ES", options);
+const formatPrimaryDate = (date: Date, withTime?: boolean): string => {
+  const months = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
 
-  const [day, month, year] = dateString.split(" ");
-
-  let formattedDate = `${day}/${capitalizeText(month)}/${year}`;
+  const day = date.getUTCDate().toString().padStart(2, "0");
+  const month = months[date.getUTCMonth()];
+  const year = date.getUTCFullYear();
 
   if (withTime) {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
+    let hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12;
 
-    const period = hours >= 12 ? "pm" : "am";
-    const hour = hours % 12 || 12;
-    const minute = minutes < 10 ? `0${minutes}` : minutes;
-
-    const timeString = `${hour}:${minute} ${period}`;
-
-    formattedDate += ` ${timeString}`;
+    return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
+  } else {
+    return `${day}/${month}/${year}`;
   }
-
-  return formattedDate;
 };
 
 const formatTraceabilityDate = (date: Date) => {
