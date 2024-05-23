@@ -1,6 +1,8 @@
+import { IDomainType } from "@ptypes/domain.types";
+
 interface IPersonalDataEntry {
   identificationNumber?: string;
-  type?: string;
+  type?: IDomainType;
   firstName?: string;
   secondName?: string;
   firstLastName?: string;

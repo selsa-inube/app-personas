@@ -1,5 +1,6 @@
 import { enviroment } from "@config/enviroment";
 import { IProduct } from "src/model/entity/product";
+import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapCreditQuotasApiToEntities } from "./mappers";
 
 const getCreditQuotasForCard = async (
@@ -8,6 +9,10 @@ const getCreditQuotasForCard = async (
 ): Promise<IProduct[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
+  const requestTime = new Date();
+  const startTime = performance.now();
+
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${cardId}/summary`;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -26,12 +31,17 @@ const getCreditQuotasForCard = async (
         signal: controller.signal,
       };
 
-      const res = await fetch(
-        `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${cardId}/summary`,
-        options,
-      );
+      const res = await fetch(requestUrl, options);
 
       clearTimeout(timeoutId);
+
+      saveNetworkTracking(
+        requestTime,
+        options.method || "GET",
+        requestUrl,
+        res.status,
+        Math.round(performance.now() - startTime),
+      );
 
       if (res.status === 204) {
         return [];
@@ -54,6 +64,14 @@ const getCreditQuotasForCard = async (
       return normalizedCreditQuotas;
     } catch (error) {
       if (attempt === maxRetries) {
+        saveNetworkTracking(
+          requestTime,
+          "GET",
+          requestUrl,
+          (error as { status?: number }).status || 500,
+          Math.round(performance.now() - startTime),
+        );
+
         throw new Error(
           "Todos los intentos fallaron. No se pudieron obtener los cupos de credito del usuario.",
         );

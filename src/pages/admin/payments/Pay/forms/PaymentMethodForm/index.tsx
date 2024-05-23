@@ -7,6 +7,7 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
+import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { parseCurrencyString } from "src/utils/currency";
@@ -31,7 +32,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const [dynamicSchema] = useState(validationSchema);
   const { savings, setSavings } = useContext(SavingsContext);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,
@@ -49,7 +51,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   }, [formik.values.pendingValue]);
 
   useEffect(() => {
-    if (!user || !accessToken) return;
+    if (!accessToken) return;
     if (savings.savingsAccounts.length === 0) {
       getSavingsForUser(user.identification, accessToken)
         .then((savings) => {

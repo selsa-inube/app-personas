@@ -7,6 +7,7 @@ import { crumbsMovements } from "./config/navigation";
 import { CreditMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { addMovementsToCredit, validateCreditsAndMovements } from "./utils";
+import { AppContext } from "src/context/app";
 
 function CreditMovements() {
   const { credit_id } = useParams();
@@ -16,7 +17,8 @@ function CreditMovements() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { credits, setCredits } = useContext(CreditsContext);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;

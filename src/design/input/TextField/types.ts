@@ -1,10 +1,10 @@
-const inputTypes = ["text", "email", "number", "password", "search", "tel"];
+const inputTypes = ["text", "email", "number", "password", "search", "tel"] as const;
 type InputType = (typeof inputTypes)[number];
 
-const inputSizeTypes = ["wide", "compact"];
+const inputSizeTypes = ["wide", "compact"] as const;
 type InputSize = (typeof inputSizeTypes)[number];
 
-const inputStates = ["valid", "invalid", "pending"];
+const inputStates = ["valid", "invalid", "pending"] as const;
 type InputState = (typeof inputStates)[number];
 
 interface ITextFieldMessage {

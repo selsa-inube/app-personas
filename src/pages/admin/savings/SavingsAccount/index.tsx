@@ -12,6 +12,7 @@ import {
   ISelectedProductState,
 } from "./types";
 import { validateSaving } from "./utils";
+import { AppContext } from "src/context/app";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -19,7 +20,8 @@ function SavingsAccount() {
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const { savings, commitments, setSavings } = useContext(SavingsContext);
   const [beneficiariesModal, setBeneficiariesModal] =
     useState<IBeneficiariesModalState>({

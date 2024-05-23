@@ -4,4 +4,9 @@ interface IServerDomain {
   description?: string;
 }
 
-export type { IServerDomain };
+interface IDomainType {
+  id: string;
+  value: string;
+}
+
+export type { IServerDomain, IDomainType };

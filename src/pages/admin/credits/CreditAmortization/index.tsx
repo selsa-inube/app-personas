@@ -27,6 +27,7 @@ import {
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 import { validateCreditsAndAmortization } from "./utils";
+import { AppContext } from "src/context/app";
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -38,7 +39,8 @@ function CreditAmortization() {
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const { credits, setCredits } = useContext(CreditsContext);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const crumbsAmortization = [
     {

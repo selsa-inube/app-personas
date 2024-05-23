@@ -1,11 +1,11 @@
-import { Select } from "@design/input/Select";
 import { DateField } from "@design/input/DateField";
+import { Select } from "@design/input/Select";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
-import { genderDM } from "src/model/domains/personalInformation/genderdm";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
-import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
+import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
+import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface InformationDataFormUIProps {

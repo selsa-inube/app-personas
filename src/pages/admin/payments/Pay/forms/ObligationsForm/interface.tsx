@@ -1,4 +1,4 @@
-import { PaymentCard } from "@components/cards/PaymentCard";
+import { PaymentCard } from "@components/cards/payments/PaymentCard";
 import { Totalizer } from "@components/layout/Totalizer";
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
 import {

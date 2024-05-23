@@ -52,8 +52,6 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
           readOnly={
             buildReimbursementAccount(formik) &&
             buildReimbursementAccount(formik)?.length == 1
-              ? true
-              : false
           }
         />
       </Stack>

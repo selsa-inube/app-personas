@@ -12,6 +12,7 @@ import {
   validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
+import { AppContext } from "src/context/app";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
@@ -24,7 +25,8 @@ function CreditQuota() {
     show: false,
   });
   const navigate = useNavigate();
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 

@@ -1,5 +1,5 @@
-import { CardMovement } from "@components/cards/CardMovement";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { CardMovement } from "@components/cards/cards/CardMovement";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";

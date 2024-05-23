@@ -1,10 +1,11 @@
 import { Button } from "@design/input/Button";
 import { Textarea } from "@design/input/Textarea";
 import { Stack } from "@design/layout/Stack";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
+import { ICommentsEntry } from "./types";
 
 interface CommentsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<ICommentsEntry>;
   loading?: boolean;
   withSubmit?: boolean;
 }
@@ -26,7 +27,6 @@ function CommentsFormUI(props: CommentsFormUIProps) {
           value={formik.values.comments}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
-          onFocus={formik.isFocused}
           isFullWidth
         />
 

@@ -1,11 +1,12 @@
 import { useAuth } from "@inube/auth";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "src/context/app";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHistory";
 import { equalArraysByProperty } from "src/utils/arrays";
 import { PaymentHistoryUI } from "./interface";
 
-const limitPayments = 5; // TEMP
+const limitPayments = 5;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 
@@ -17,7 +18,8 @@ function PaymentHistory() {
     IPaymentHistory | undefined
   >();
   const [noMorePayments, setNoMorePayments] = useState(false);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   useEffect(() => {
     handleRefreshHistory();
@@ -49,7 +51,7 @@ function PaymentHistory() {
     limit: number,
     reset?: boolean,
   ) => {
-    if (user && accessToken) {
+    if (accessToken) {
       setLoading(true);
       getPaymentHistory(user.identification, accessToken, page, limit)
         .then((newPaymentHistory) => {

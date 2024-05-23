@@ -1,9 +1,11 @@
+import { IDomainType } from "@ptypes/domain.types";
+
 interface IPersonalInformationEntry {
   firstName: string;
   secondName: string;
   firstLastName: string;
   secondLastName: string;
-  identificationType: string;
+  identificationType: IDomainType;
   identification: number;
   expeditionCountry: string;
   expeditionDepartment: string;

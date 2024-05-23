@@ -1,6 +1,5 @@
 import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth/dist/types/user";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
 import { NavigateFunction } from "react-router-dom";
 import { IPaymentRequest } from "src/model/entity/payment";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
@@ -76,13 +75,12 @@ const sendPaymentRequest = async (
   ).filter((moneySource) => moneySource.value > 0);
 
   const paymentRequestData: IPaymentRequest = {
-    customerCode:
-      developmentUsersMock[user.identification] || user.identification,
+    customerCode: user.identification,
     customerName: `${user.firstName} ${user.firstLastName}`,
     comments: pay.comments.values.comments,
     payments: filteredPayments,
     paymentMethod: filteredPaymentMethod,
-    urlRedirect: `${enviroment.REDIRECT_URI}/payments/history`,
+    urlRedirect: `${window.location.origin}/payments/history`,
     source: "preliquidacion_web",
   };
 

@@ -8,7 +8,7 @@ const myCredits = {
   button: {
     label: "Solicitar crédito",
     icon: <MdAdd />,
-    path: "/credit",
+    path: "/credits",
   },
 };
 

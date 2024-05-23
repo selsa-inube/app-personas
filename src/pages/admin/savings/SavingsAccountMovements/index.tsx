@@ -7,6 +7,7 @@ import { validateSaving } from "../SavingsAccount/utils";
 import { SavingsAccountMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { addMovementsToSaving } from "./utils";
+import { AppContext } from "src/context/app";
 
 function SavingsAccountMovements() {
   const { product_id } = useParams();
@@ -15,7 +16,8 @@ function SavingsAccountMovements() {
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const { savings, setSavings } = useContext(SavingsContext);
 
   const handleSortProduct = async () => {

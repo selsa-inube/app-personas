@@ -17,7 +17,7 @@ root &&
         provider={enviroment.PROVIDER}
         realm={enviroment.REALM}
         authorizationParams={{
-          redirectUri: enviroment.REDIRECT_URI,
+          redirectUri: window.location.origin + window.location.pathname,
           scope: ["openid", "profile", "email"],
         }}
         isProduction={enviroment.IS_PRODUCTION}

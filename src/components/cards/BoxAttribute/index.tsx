@@ -7,12 +7,13 @@ import { ButtonAttribute } from "./ButtonAttribute";
 import { StyledBoxAttribute } from "./styles";
 
 interface BoxAttributeProps {
-  label: string;
+  label?: string;
   value?: number | string | IAttribute[];
   withButton?: boolean;
   buttonIcon?: React.JSX.Element;
   buttonValue?: string | number;
   direction?: "row" | "column";
+  iconAfter?: React.JSX.Element;
   onClickButton?: () => void;
 }
 
@@ -24,6 +25,7 @@ function BoxAttribute(props: BoxAttributeProps) {
     buttonIcon,
     buttonValue,
     direction,
+    iconAfter,
     onClickButton,
   } = props;
 
@@ -38,35 +40,49 @@ function BoxAttribute(props: BoxAttributeProps) {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Text
-          type="label"
-          size={isMobile ? "small" : "medium"}
-          appearance="dark"
-        >
-          {label}
-        </Text>
+        {label && (
+          <Text
+            type="label"
+            size={isMobile ? "small" : "medium"}
+            appearance="dark"
+          >
+            {label}
+          </Text>
+        )}
 
-        <Stack
-          alignItems="center"
-          justifyContent={direction === "column" ? "flex-start" : "flex-end"}
-        >
-          {withButton ? (
-            <ButtonAttribute
-              icon={buttonIcon}
-              value={buttonValue}
-              onClick={onClickButton}
-            />
-          ) : (
-            <Text
-              type="body"
-              size={isMobile ? "small" : "medium"}
-              appearance="gray"
-              textAlign={direction === "column" ? "start" : "end"}
-            >
-              {String(value)}
-            </Text>
-          )}
-        </Stack>
+        {(withButton || value) && (
+          <Stack
+            alignItems="center"
+            justifyContent={
+              direction === "column" || iconAfter ? "flex-start" : "flex-end"
+            }
+          >
+            {withButton ? (
+              <ButtonAttribute
+                icon={buttonIcon}
+                value={buttonValue}
+                onClick={onClickButton}
+              />
+            ) : (
+              <Text
+                type="body"
+                size={isMobile ? "small" : "medium"}
+                appearance="gray"
+                textAlign={
+                  direction === "column" || iconAfter ? "start" : "end"
+                }
+              >
+                {String(value)}
+              </Text>
+            )}
+          </Stack>
+        )}
+
+        {iconAfter && (
+          <Stack alignItems="center" justifyContent="flex-end">
+            {iconAfter}
+          </Stack>
+        )}
       </Grid>
     </StyledBoxAttribute>
   );

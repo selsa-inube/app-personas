@@ -4,6 +4,7 @@ import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Blanket } from "@design/layout/Blanket";
+import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
@@ -11,12 +12,11 @@ import { FormikValues } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose, MdOutlineModeEdit } from "react-icons/md";
-import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
-import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
+import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
+import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
+import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
-import { Divider } from "@design/layout/Divider";
 
 const referenceTypeDM = getDomainById("referenceType");
 

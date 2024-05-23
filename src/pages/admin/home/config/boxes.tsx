@@ -30,7 +30,7 @@ const creditsBox = (withRequestBtn: boolean) => ({
     ? {
         label: "Solicitar crédito",
         icon: <MdAdd />,
-        path: "/credit",
+        path: "/credits",
       }
     : undefined,
 });

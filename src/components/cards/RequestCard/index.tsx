@@ -28,26 +28,16 @@ function RequestCard(props: RequestCardProps) {
         </Text>
 
         <Stack direction="column" gap="s150">
-          {descriptions.map((description, index) => {
-            return (
-              <Stack gap="s100" key={index}>
-                {withListIndicators ? (
-                  <>
-                    <Icon
-                      icon={<MdOutlineStarBorder />}
-                      appearance="primary"
-                      size="12px"
-                      spacing="none"
-                    />
-                    <Text
-                      type="body"
-                      size={isMobile ? "small" : "medium"}
-                      appearance="gray"
-                    >
-                      {description}
-                    </Text>
-                  </>
-                ) : (
+          {descriptions.map((description, index) => (
+            <Stack gap="s100" key={index}>
+              {withListIndicators ? (
+                <>
+                  <Icon
+                    icon={<MdOutlineStarBorder />}
+                    appearance="primary"
+                    size="12px"
+                    spacing="none"
+                  />
                   <Text
                     type="body"
                     size={isMobile ? "small" : "medium"}
@@ -55,10 +45,18 @@ function RequestCard(props: RequestCardProps) {
                   >
                     {description}
                   </Text>
-                )}
-              </Stack>
-            );
-          })}
+                </>
+              ) : (
+                <Text
+                  type="body"
+                  size={isMobile ? "small" : "medium"}
+                  appearance="gray"
+                >
+                  {description}
+                </Text>
+              )}
+            </Stack>
+          ))}
         </Stack>
       </Stack>
 
