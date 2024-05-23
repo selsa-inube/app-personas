@@ -50,7 +50,7 @@ function BoxAttribute(props: BoxAttributeProps) {
           </Text>
         )}
 
-        {(withButton || value) && (
+        {(withButton || String(value)) && (
           <Stack
             alignItems="center"
             justifyContent={
