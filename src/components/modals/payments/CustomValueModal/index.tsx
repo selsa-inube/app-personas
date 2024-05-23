@@ -40,6 +40,9 @@ interface CustomValueModalProps {
   onApplyPayOption?: (applyPayOption: IApplyPayOption, value: number) => void;
 }
 
+const DECISION_ROUNDING = 500;
+const DECISION_LIMIT_DAYS_NEXT_QUOTE = 5;
+
 function CustomValueModal(props: CustomValueModalProps) {
   const {
     portalId,
@@ -66,37 +69,35 @@ function CustomValueModal(props: CustomValueModalProps) {
   const node = document.getElementById(portalId);
 
   const handleValidateValue = () => {
-    const todayDate = new Date();
-    todayDate.setUTCHours(0, 0, 0, 0);
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
 
-    const nextExpirationDate = new Date(nextPaymentDate?.toISOString() || "");
-    const paymentDate = new Date(todayDate.toISOString());
-    const desicionRounding = 500;
-    const desicionLimitDaysNextQuote = 5;
+    const paymentDate = new Date(today.toISOString());
 
-    if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
-      setInputValidation({
-        state: "invalid",
-        errorMessage: "(Valor superior al saldo total)",
-      });
-      return;
-    }
+    // if (totalPaymentValue !== 0 && customValue > totalPaymentValue) { // TEMP
+    //   setInputValidation({
+    //     state: "invalid",
+    //     errorMessage: "(Valor superior al saldo total)",
+    //   });
+    //   return;
+    // }
 
     setInputValidation({ state: "pending", errorMessage: "" });
 
     const daysUntilNextExpiration = Math.ceil(
-      (nextExpirationDate.getTime() - paymentDate.getTime()) /
-        (1000 * 60 * 60 * 24),
+      ((nextPaymentDate?.getTime() ?? 0) - paymentDate.getTime()) /
+      (1000 * 60 * 60 * 24),
     );
 
     const exceedsNextPaymentValue = customValue > nextPaymentValue;
     const isRounded =
-      Math.abs(customValue - nextPaymentValue) <= desicionRounding;
+      Math.abs(customValue - nextPaymentValue) <= DECISION_ROUNDING;
 
     if (
       exceedsNextPaymentValue &&
       !isRounded &&
-      daysUntilNextExpiration > desicionLimitDaysNextQuote
+      daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE &&
+      customValue === 0 // TEMP
     ) {
       setShowResponse(true);
     } else {

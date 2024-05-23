@@ -74,22 +74,6 @@ interface IPaymentHistory {
   products?: IProductPayment[];
 }
 
-interface IPaymentOptionRequest {
-  payValue: number;
-  totalExpiredValue: number;
-  creditLine: string;
-  halfPayment: string;
-  nextExpirationDate: string;
-  nextValueExpiration: number;
-  obligationNumber: string;
-  paymentDate: string;
-}
-
-interface IPaymentOptionRequestResponse {
-  isValid: string;
-  optionList: { code: string; description: string }[];
-}
-
 export type {
   IPayment,
   IPaymentHistory,
@@ -97,6 +81,4 @@ export type {
   IPaymentRequest,
   IPaymentRequestResponse,
   IProductPayment,
-  IPaymentOptionRequest,
-  IPaymentOptionRequestResponse,
 };

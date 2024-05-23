@@ -1,7 +1,4 @@
-import {
-  IPaymentOptionRequest,
-  IPaymentOptionRequestResponse,
-} from "src/model/entity/payment";
+import { IPaymentOptionRequest, IPaymentOptionRequestResponse } from "./types";
 
 const mapPaymentOptionsEntityToEntity = (
   paymentOption: Record<string, string | object>,

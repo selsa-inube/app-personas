@@ -1,12 +1,9 @@
 import { enviroment } from "@config/enviroment";
 import {
-  IPaymentOptionRequest,
-  IPaymentOptionRequestResponse,
-} from "src/model/entity/payment";
-import {
   mapPaymentOptionsEntityToApi,
   mapPaymentOptionsEntityToEntity,
 } from "./mappers";
+import { IPaymentOptionRequest, IPaymentOptionRequestResponse } from "./types";
 
 const getPaymentOptions = async (
   payment: IPaymentOptionRequest,

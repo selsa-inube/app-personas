@@ -38,9 +38,9 @@ const mapObligations = (
   const paymentMethodFilters: string[] = [];
 
   credits.forEach((credit) => {
-     const expiredValue = Number( 
+    /* const expiredValue = Number( // TEMP
       extractAttribute(credit.attributes, "expired_value")?.value || 0,
-    ); 
+    ); */
 
     const nextPaymentValue = Number(
       extractAttribute(credit.attributes, "next_payment_value")?.value || 0,
@@ -74,9 +74,9 @@ const mapObligations = (
       paymentMethodFilters.push(paymentMethod);
     }
 
-     const totalValue = Number( 
+    /* const totalValue = Number( // TEMP
       extractAttribute(credit.attributes, "net_value")?.value || 0,
-    ); 
+    ); */
 
     const inArrears =
       extractAttribute(credit.attributes, "in_arrears")?.value.toString() ==
@@ -99,11 +99,11 @@ const mapObligations = (
     }
 
     const options = [
-       { 
+      /* { // TEMP
         id: EPaymentOptionType.EXPIREDVALUE,
         label: "Valor vencido",
         value: expiredValue,
-      }, 
+      }, */
       {
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
@@ -111,11 +111,11 @@ const mapObligations = (
         date: new Date(nextPaymentDate),
         value: nextPaymentValue,
       },
-       { 
+      /* { // TEMP
         id: EPaymentOptionType.TOTALVALUE,
         label: "Pago total",
         value: totalValue,
-      }, 
+      }, */
       {
         id: EPaymentOptionType.OTHERVALUE,
         label: "Otro valor",
@@ -143,9 +143,9 @@ const mapObligations = (
   });
 
   commitments.forEach((commitment) => {
-     const expiredValue = Number( 
-      extractAttribute(commitment.attributes, "expired_value")?.value || 0,
-    ); 
+    // const expiredValue = Number( // TEMP
+    //   extractAttribute(commitment.attributes, "expired_value")?.value || 0,
+    // );
 
     const nextPaymentValue = Number(
       extractAttribute(commitment.attributes, "next_payment_value")?.value || 0,
@@ -192,11 +192,11 @@ const mapObligations = (
     }
 
     const options = [
-       { 
-        id: EPaymentOptionType.EXPIREDVALUE,
-        label: "Valor vencido",
-        value: expiredValue,
-      }, 
+      // { // TEMP
+      //   id: EPaymentOptionType.EXPIREDVALUE,
+      //   label: "Valor vencido",
+      //   value: expiredValue,
+      // },
       {
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],

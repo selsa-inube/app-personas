@@ -138,7 +138,7 @@ const mapCreditApiToEntity = (
     },
     {
       id: "line_code",
-      label: "Código de línea",
+      label: "Línea de crédito",
       value: String(credit.lineCode),
     },
     {
