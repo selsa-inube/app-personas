@@ -1,4 +1,3 @@
-import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
 import { IUser } from "@inube/auth/dist/types/user";
 import { developmentUsersMock } from "@mocks/users/users.mocks";
@@ -30,9 +29,10 @@ function AppProvider(props: AppProviderProps) {
   const [user] = useState<IUser>({
     company: authUser?.company || "",
     email: authUser?.email || "",
-    identification: enviroment.IS_PRODUCTION
-      ? authUser?.identification || ""
-      : developmentUsersMock[authUser?.identification || ""],
+    identification:
+      developmentUsersMock[authUser?.identification || ""] ||
+      authUser?.identification ||
+      "",
     phone: authUser?.phone || "",
     firstLastName: authUser?.firstLastName || "",
     secondLastName: authUser?.secondLastName || "",

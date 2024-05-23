@@ -13,16 +13,16 @@ export default defineConfig({
     port: 3000,
   },
   /* eslint-disable no-undef */
-    resolve: {
-      alias: {
-        "@design": path.resolve(__dirname, "./src/design"),
-        "@components": path.resolve(__dirname, "./src/components"),
-        "@config": path.resolve(__dirname, "./src/config"),
-        "@pages": path.resolve(__dirname, "./src/pages"),
-        "@hooks": path.resolve(__dirname, "./src/hooks"),
-        "@mocks": path.resolve(__dirname, "./src/mocks"),
-        "@ptypes": path.resolve(__dirname, "./src/types"),
-        "@forms": path.resolve(__dirname, "./src/forms"),
-      },
+  resolve: {
+    alias: {
+      "@design": path.resolve(__dirname, "./src/design"),
+      "@components": path.resolve(__dirname, "./src/components"),
+      "@config": path.resolve(__dirname, "./src/config"),
+      "@pages": path.resolve(__dirname, "./src/pages"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
+      "@mocks": path.resolve(__dirname, "./src/mocks"),
+      "@ptypes": path.resolve(__dirname, "./src/types"),
+      "@forms": path.resolve(__dirname, "./src/forms"),
     },
+  },
 });
