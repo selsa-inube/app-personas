@@ -13,6 +13,7 @@ function MySavings() {
   const [loading, setLoading] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const { getFlag } = useContext(AppContext);
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
@@ -49,6 +50,10 @@ function MySavings() {
     }
   }, [user, accessToken]);
 
+  const withRequestSaving = getFlag(
+    "admin.savings.savings.request-saving",
+  ).value;
+
   return (
     <MySavingsUI
       commitments={commitments}
@@ -58,6 +63,7 @@ function MySavings() {
       programmedSavings={savings.programmedSavings}
       loading={loading}
       isTablet={isTablet}
+      withRequestSaving={withRequestSaving}
     />
   );
 }
