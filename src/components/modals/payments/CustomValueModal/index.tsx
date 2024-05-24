@@ -35,6 +35,7 @@ interface CustomValueModalProps {
   halfPayment: string;
   nextPaymentValue: number;
   totalPaymentValue: number;
+  expiredValue: number;
   onCloseModal: () => void;
   onChangeOtherValue: (option: IPaymentOption) => void;
   onApplyPayOption?: (applyPayOption: IApplyPayOption, value: number) => void;
@@ -50,6 +51,7 @@ function CustomValueModal(props: CustomValueModalProps) {
     nextPaymentValue,
     totalPaymentValue,
     nextPaymentDate,
+    expiredValue,
     onCloseModal,
     onChangeOtherValue,
     onApplyPayOption,
@@ -74,19 +76,23 @@ function CustomValueModal(props: CustomValueModalProps) {
 
     const paymentDate = new Date(today.toISOString());
 
-    // if (totalPaymentValue !== 0 && customValue > totalPaymentValue) { // TEMP
-    //   setInputValidation({
-    //     state: "invalid",
-    //     errorMessage: "(Valor superior al saldo total)",
-    //   });
-    //   return;
-    // }
+    if (
+      totalPaymentValue !== 0 &&
+      customValue > totalPaymentValue &&
+      expiredValue !== 0
+    ) {
+      setInputValidation({
+        state: "invalid",
+        errorMessage: "(Valor superior al saldo total)",
+      });
+      return;
+    }
 
     setInputValidation({ state: "pending", errorMessage: "" });
 
     const daysUntilNextExpiration = Math.ceil(
       ((nextPaymentDate?.getTime() ?? 0) - paymentDate.getTime()) /
-      (1000 * 60 * 60 * 24),
+        (1000 * 60 * 60 * 24),
     );
 
     const exceedsNextPaymentValue = customValue > nextPaymentValue;
@@ -97,7 +103,7 @@ function CustomValueModal(props: CustomValueModalProps) {
       exceedsNextPaymentValue &&
       !isRounded &&
       daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE &&
-      customValue === 0 // TEMP
+      expiredValue !== 0
     ) {
       setShowResponse(true);
     } else {

@@ -1,6 +1,4 @@
-import {
-  CustomValueModal,
-} from "@components/modals/payments/CustomValueModal";
+import { CustomValueModal } from "@components/modals/payments/CustomValueModal";
 import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
@@ -151,6 +149,10 @@ function PaymentCard(props: PaymentCardProps) {
     options.find((option) => option.id === EPaymentOptionType.TOTALVALUE)
       ?.value || nextPaymentValue;
 
+  const expiredValue = options.find(
+    (option) => option.id === EPaymentOptionType.EXPIREDVALUE,
+  )?.value;
+
   return (
     <>
       <StyledCardContainer isMobile={isMobile} isTablet={isTablet}>
@@ -211,6 +213,7 @@ function PaymentCard(props: PaymentCardProps) {
           value={selectedOption?.value || 0}
           nextPaymentValue={nextPaymentValue || 0}
           totalPaymentValue={totalPaymentValue || 0}
+          expiredValue={expiredValue || 0}
           onCloseModal={handleToggleModal}
           onApplyPayOption={handleApplyPayOption}
           onChangeOtherValue={handleChangeOption}
