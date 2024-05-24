@@ -2,7 +2,7 @@ import { TagProps } from "@design/data/Tag";
 import { cardTypeValuesMock } from "@mocks/products/cards/utils.mocks";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
 
 const mapConsumptionApiToEntity = (
   consumption: Record<string, string | number | object>,
@@ -216,7 +216,7 @@ const mapCreditQuotaDetailApiToEntity = (
 
   return {
     id: String(creditQuota.creditProductCode),
-    title: "Crediexpress",
+    title: capitalizeFirstLetters(String(creditQuota.productDescription)),
     description: "Informe de movimientos",
     type: EProductType.CREDITCARD,
     attributes,

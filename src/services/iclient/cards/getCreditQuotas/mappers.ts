@@ -8,7 +8,7 @@ import {
   IProduct,
 } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
 
 const mapCreditQuotaMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
@@ -146,7 +146,7 @@ const mapCreditQuotaApiToEntity = (
 
   return {
     id: String(creditQuota.creditProductCode),
-    title: "Crediexpress",
+    title: capitalizeFirstLetters(String(creditQuota.productDescription)),
     description: String(creditQuota.creditProductCode),
     type: EProductType.CREDITCARD,
     attributes,
