@@ -18,8 +18,8 @@ const paymentFilters = (paymentMethodFilters: string[]) => ({
       value: "Todos",
     },
     {
-      id: EPaymentGroupType.SAVINGS,
-      value: "Ahorros",
+      id: EPaymentGroupType.SAVINGSCOMMITMENT,
+      value: "Compromisos de ahorro",
     },
     {
       id: EPaymentGroupType.CREDITS,
