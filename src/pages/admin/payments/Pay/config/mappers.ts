@@ -193,7 +193,7 @@ const mapObligations = (
       payments.push({
         id: commitment.id,
         title: commitment.title,
-        group: EPaymentGroupType.SAVINGS,
+        group: EPaymentGroupType.SAVINGSCOMMITMENT,
         paymentMethod,
         status: inArrears
           ? EPaymentStatusType.ARREARS
