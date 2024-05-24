@@ -31,10 +31,11 @@ import { IProduct } from "src/model/entity/product";
 interface MyCardsUIProps {
   loading: boolean;
   cards: IProduct[];
+  withRequestCard: boolean;
 }
 
 function MyCardsUI(props: MyCardsUIProps) {
-  const { loading, cards } = props;
+  const { loading, cards, withRequestCard } = props;
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   return (
@@ -60,7 +61,7 @@ function MyCardsUI(props: MyCardsUIProps) {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <Box {...myCards}>
+          <Box {...myCards(withRequestCard)}>
             <Stack direction="column" gap="s075">
               {loading ? (
                 <>

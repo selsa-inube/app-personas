@@ -11,6 +11,7 @@ function MyCredits() {
   const [loading, setLoading] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const { getFlag } = useContext(AppContext);
 
   useEffect(() => {
     if (accessToken && credits.length === 0) {
@@ -28,7 +29,17 @@ function MyCredits() {
     }
   }, [user, accessToken]);
 
-  return <MyCreditsUI loading={loading} credits={credits} />;
+  const withRequestCredit = getFlag(
+    "admin.credits.credits.request-credit",
+  ).value;
+
+  return (
+    <MyCreditsUI
+      loading={loading}
+      credits={credits}
+      withRequestCredit={withRequestCredit}
+    />
+  );
 }
 
 export { MyCredits };

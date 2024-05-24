@@ -12,6 +12,7 @@ function MyCards() {
   const [loading, setLoading] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const { getFlag } = useContext(AppContext);
 
   useEffect(() => {
     if (accessToken && cards.length === 0) {
@@ -29,7 +30,15 @@ function MyCards() {
     }
   }, [user, accessToken]);
 
-  return <MyCardsUI cards={cards} loading={loading} />;
+  const withRequestCard = getFlag("admin.cards.cards.request-card").value;
+
+  return (
+    <MyCardsUI
+      cards={cards}
+      loading={loading}
+      withRequestCard={withRequestCard}
+    />
+  );
 }
 
 export { MyCards };
