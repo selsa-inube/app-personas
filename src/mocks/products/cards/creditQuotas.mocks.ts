@@ -22,7 +22,7 @@ const creditQuotasMock: IProduct[] = [
         value: 2750420,
       },
       {
-        id: "next_payment_date",
+        id: "next_payment",
         label: "Fecha próximo pago",
         value: "15/Mar/2024",
       },
@@ -170,7 +170,7 @@ const creditQuotasMock: IProduct[] = [
         value: 60000000,
       },
       {
-        id: "next_payment_date",
+        id: "next_payment",
         label: "Fecha próximo pago",
         value: "Inmediato",
       },

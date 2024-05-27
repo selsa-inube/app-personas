@@ -23,9 +23,11 @@ const paymentOptionValues: Record<string, string> = {
   [EPaymentOptionType.NEXTVALUE]: "Próximo vencimiento",
   [EPaymentOptionType.TOTALVALUE]: "Pago total",
   [EPaymentOptionType.OTHERVALUE]: "Otro valor",
-  [EPaymentOptionType.REDUCETERM]: "Reducir plazo",
-  [EPaymentOptionType.REDUCEQUOTA]: "Reducir cuota",
-  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Pagar cuotas futuras",
+  [EPaymentOptionType.REPROGRAMMINGDEADLINE]:
+    "Reprogramación manteniendo el plazo",
+  [EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE]:
+    "Reprogramación manteniendo el valor de la cuota",
+  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Abono a cuotas futuras",
 };
 
 const mapObligations = (
@@ -44,12 +46,24 @@ const mapObligations = (
       extractAttribute(credit.attributes, "next_payment_value")?.value || 0,
     );
 
+    const nextPayment = String(
+      extractAttribute(credit.attributes, "next_payment")?.value,
+    );
+
     const nextPaymentDate = String(
       extractAttribute(credit.attributes, "next_payment_date")?.value,
     );
 
     const paymentMethod = String(
       extractAttribute(credit.attributes, "payment_method")?.value,
+    );
+
+    const lineCode = String(
+      extractAttribute(credit.attributes, "line_code")?.value,
+    );
+
+    const halfPayment = String(
+      extractAttribute(credit.attributes, "half_payment")?.value,
     );
 
     if (
@@ -93,7 +107,8 @@ const mapObligations = (
       {
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
-        description: nextPaymentDate,
+        description: nextPayment,
+        date: new Date(nextPaymentDate),
         value: nextPaymentValue,
       },
       /* { // TEMP
@@ -121,17 +136,23 @@ const mapObligations = (
         options,
         tags,
         supportDocumentType: ESupportDocumentType.FINANCIALPORTFOLIO,
+        lineCode,
+        halfPayment,
       });
     }
   });
 
   commitments.forEach((commitment) => {
-    /* const expiredValue = Number( // TEMP
-      extractAttribute(commitment.attributes, "expired_value")?.value || 0,
-    ); */
+    // const expiredValue = Number( // TEMP
+    //   extractAttribute(commitment.attributes, "expired_value")?.value || 0,
+    // );
 
     const nextPaymentValue = Number(
       extractAttribute(commitment.attributes, "next_payment_value")?.value || 0,
+    );
+
+    const nextPayment = String(
+      extractAttribute(commitment.attributes, "next_payment")?.value,
     );
 
     const nextPaymentDate = String(
@@ -171,15 +192,16 @@ const mapObligations = (
     }
 
     const options = [
-      /* { // TEMP
-        id: EPaymentOptionType.EXPIREDVALUE,
-        label: "Valor vencido",
-        value: expiredValue,
-      }, */
+      // { // TEMP
+      //   id: EPaymentOptionType.EXPIREDVALUE,
+      //   label: "Valor vencido",
+      //   value: expiredValue,
+      // },
       {
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
-        description: nextPaymentDate,
+        description: nextPayment,
+        date: new Date(nextPaymentDate),
         value: nextPaymentValue,
       },
     ];

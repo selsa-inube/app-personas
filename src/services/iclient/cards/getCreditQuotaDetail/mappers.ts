@@ -132,7 +132,7 @@ const mapCreditQuotaDetailApiToEntity = (
       value: Number(creditQuota.availableCredit || 0),
     },
     {
-      id: "next_payment_date",
+      id: "next_payment",
       label: "Fecha próximo pago",
       value: nextPaymentDateValid,
     },

@@ -1,6 +1,5 @@
 import { PaymentCard } from "@components/cards/payments/PaymentCard";
 import { Totalizer } from "@components/layout/Totalizer";
-import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
 import {
   IPaymentFilters,
   PaymentFilterModal,
@@ -26,6 +25,7 @@ import { paymentCardsBreakpoints } from "./config/cards";
 import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -178,6 +178,8 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   title={payment.title}
                   options={payment.options}
                   tags={payment.tags}
+                  lineCode={payment.lineCode || ""}
+                  halfPayment={payment.halfPayment || ""}
                   allowCustomValue={formik.values.allowCustomValue}
                   selectedOption={payment.options.find(
                     (option) => option.selected,

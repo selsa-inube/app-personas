@@ -12,7 +12,7 @@ const cardAttributes = [
 
 const creditQuotasAttributes = [
   "available_space",
-  "next_payment_date",
+  "next_payment",
   "next_payment_value",
   "type",
   "payment_method",
@@ -79,16 +79,15 @@ function getMovementDescriptionType(
   type: EMovementType,
   description: string,
 ): string {
-
   const text = description.toLowerCase();
-  
+
   switch (type) {
     case EMovementType.PURCHASE:
-    return text.includes("compra") || text.includes("retiro") ? "" : "Compra";
+      return text.includes("compra") || text.includes("retiro") ? "" : "Compra";
     case EMovementType.REVERSE:
       return text.includes("reverso") ? "" : "Reverso";
     case EMovementType.PAYMENT:
-      return text.includes("pago") ? "" : "Pago" ;
+      return text.includes("pago") ? "" : "Pago";
     default:
       return "";
   }

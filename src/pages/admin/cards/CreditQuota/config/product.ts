@@ -5,7 +5,7 @@ const quotaDetailsAttrs = [
   "available_space",
   "next_payment_value",
   "full_payment",
-  "next_payment_date",
+  "next_payment",
   "type",
   "payment_method",
   "assigned_quota",

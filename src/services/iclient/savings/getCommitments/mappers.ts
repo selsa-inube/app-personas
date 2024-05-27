@@ -115,9 +115,14 @@ const mapSavingsCommitmentsApiToEntity = (
 
   if (nextPaymentValue && nextPaymentDate) {
     attributes.push({
-      id: "next_payment_date",
+      id: "next_payment",
       label: "Fecha de pago",
       value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
+    });
+    attributes.push({
+      id: "next_payment_date",
+      label: "Fecha de pago",
+      value: nextPaymentDate.toISOString(),
     });
   }
 
