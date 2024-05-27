@@ -78,8 +78,7 @@ function CustomValueModal(props: CustomValueModalProps) {
 
     if (
       totalPaymentValue !== 0 &&
-      customValue > totalPaymentValue &&
-      expiredValue !== 0
+      customValue > totalPaymentValue
     ) {
       setInputValidation({
         state: "invalid",
