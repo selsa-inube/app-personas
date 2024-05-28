@@ -11,6 +11,10 @@ const getAppFeatureFlags = async (): Promise<IFeatureFlag[]> => {
     "request-event",
     "request-aid",
     "request-holidays",
+    "next-value-payment",
+    "other-value-payment",
+    "expired-value-payment",
+    "total-value-payment",
   ]);
 
   return foundFlags;
