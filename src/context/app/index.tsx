@@ -1,6 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { IUser } from "@inube/auth/dist/types/user";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
+import { superUsers } from "@pages/admin/switchUser/config/users";
 import {
   createContext,
   useCallback,
@@ -29,10 +29,7 @@ function AppProvider(props: AppProviderProps) {
   const [user] = useState<IUser>({
     company: authUser?.company || "",
     email: authUser?.email || "",
-    identification:
-      developmentUsersMock[authUser?.identification || ""] ||
-      authUser?.identification ||
-      "",
+    identification: authUser?.identification || "",
     phone: authUser?.phone || "",
     firstLastName: authUser?.firstLastName || "",
     secondLastName: authUser?.secondLastName || "",
@@ -49,6 +46,15 @@ function AppProvider(props: AppProviderProps) {
 
     saveTrafficTracking(user.identification);
   }, []);
+
+  useEffect(() => {
+    const location = window.location;
+    if (location.href.includes("switch-user")) return;
+
+    if (superUsers.includes(user.identification)) {
+      location.replace(`/switch-user?redirect_to=${location.pathname}`);
+    }
+  }, [user]);
 
   const getFlag = useCallback(
     (flagId: string) => {
