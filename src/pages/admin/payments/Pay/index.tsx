@@ -31,11 +31,32 @@ function Pay() {
   const [loadingSend, setLoadingSend] = useState(false);
   const [message, setMessage] = useState<IMessage>(initialMessageState);
   const navigate = useNavigate();
+  const { getFlag } = useContext(AppContext);
+
+  const withNextValueOption = getFlag(
+    "admin.payments.pay.next-value-payment",
+  ).value;
+  const withOtherValueOption = getFlag(
+    "admin.payments.pay.other-value-payment",
+  ).value;
+  const withExpiredValueOption = getFlag(
+    "admin.payments.pay.expired-value-payment",
+  ).value;
+  const withTotalValueOption = getFlag(
+    "admin.payments.pay.total-value-payment",
+  ).value;
 
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
       isValid: true,
-      values: mapObligations(credits, commitments),
+      values: mapObligations(
+        credits,
+        commitments,
+        withNextValueOption,
+        withOtherValueOption,
+        withExpiredValueOption,
+        withTotalValueOption
+      ),
     },
     paymentMethod: {
       isValid: true,
@@ -66,7 +87,14 @@ function Pay() {
         ...prev,
         obligations: {
           ...prev.obligations,
-          values: mapObligations(newCredits, commitments),
+          values: mapObligations(
+            newCredits,
+            commitments,
+            withNextValueOption,
+            withOtherValueOption,
+            withExpiredValueOption,
+            withTotalValueOption
+          ),
         },
       }));
     }
@@ -81,7 +109,14 @@ function Pay() {
         ...prev,
         obligations: {
           ...prev.obligations,
-          values: mapObligations(newCredits, newCommitments),
+          values: mapObligations(
+            newCredits,
+            newCommitments,
+            withNextValueOption,
+            withOtherValueOption,
+            withExpiredValueOption,
+            withTotalValueOption
+          ),
         },
       }));
     }
