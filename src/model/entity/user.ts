@@ -143,9 +143,16 @@ interface IBeneficiary {
   relationship: IDomainType;
 }
 
+interface IConsultingUser {
+  id: string;
+  name: string;
+  identificationType: string;
+}
+
 export type {
   IBankTransfersAccount,
   IBeneficiary,
+  IConsultingUser,
   IContactData,
   IDirector,
   IEconomicActivity,
