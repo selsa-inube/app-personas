@@ -6,6 +6,7 @@ import {
 } from "@mocks/products/savings/utils.mocks";
 import { EProductType, IAttribute } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
+import { capitalizeEachWord } from "src/utils/texts";
 
 const getProductDetails = (
   productTypeCode: EProductType,
@@ -41,11 +42,11 @@ const getProductAttributes = (
   productTypeCode: EProductType,
   saving: Record<string, string | number | object>,
 ): IAttribute[] => {
-  const beneficiaries = Array.isArray(saving.savingBeneficiaries)
-    ? saving.savingBeneficiaries.map((beneficiary) => ({
-        id: beneficiary.beneficiaryId,
-        label: beneficiary.beneficiaryName,
-        value: beneficiary.benefitPercentage + " %",
+  const beneficiaries = Array.isArray(saving.clientBeneficiaryContributions)
+    ? saving.clientBeneficiaryContributions.map((beneficiary) => ({
+        id: beneficiary.beneficiaryPublicCode,
+        label: capitalizeEachWord(beneficiary.beneficiaryName),
+        value: beneficiary.assignedSavingsContributionPercentage + " %",
       }))
     : [];
 
@@ -117,11 +118,6 @@ const getProductAttributes = (
           ],
       },
       {
-        id: "beneficiaries",
-        label: "Beneficiarios",
-        value: beneficiaries,
-      },
-      {
         id: "request_date",
         label: "Fecha de apertura",
         value: formatPrimaryDate(new Date(String(saving.creationDate))),
@@ -132,11 +128,6 @@ const getProductAttributes = (
         id: "net_value",
         label: "Saldo total",
         value: Number(saving.balanceSavings || 0),
-      },
-      {
-        id: "beneficiaries",
-        label: "Beneficiarios",
-        value: beneficiaries,
       },
       {
         id: "min_value",
@@ -187,11 +178,6 @@ const getProductAttributes = (
             },
           ]
         : []),
-      {
-        id: "beneficiaries",
-        label: "Beneficiarios",
-        value: beneficiaries,
-      },
       {
         id: "request_date",
         label: "Fecha de apertura",

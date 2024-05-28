@@ -2,7 +2,7 @@ import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import { capitalizeEachWord } from "src/utils/texts";
 
 import { Box } from "@components/cards/Box";
 import { QuickAccess } from "@components/cards/QuickAccess";
@@ -357,7 +357,7 @@ function HomeUI(props: HomeUIProps) {
           </Text>
         </Stack>
         <Title
-          title={`Bienvenido(a), ${capitalizeFirstLetters(user.firstName)}`}
+          title={`Bienvenido(a), ${capitalizeEachWord(user.firstName)}`}
           subtitle="Aquí tienes un resumen de tus productos"
         />
       </Stack>
