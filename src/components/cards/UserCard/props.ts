@@ -2,7 +2,7 @@ const props = {
   name: {
     description: "Corresponds to the username",
   },
-  documentType: {
+  identificationType: {
     description: "Corresponds to the user’s document type",
   },
   identification: {

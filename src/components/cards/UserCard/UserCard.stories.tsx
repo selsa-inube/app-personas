@@ -26,7 +26,7 @@ const story = {
 export const Default: StoryFn<UserCardProps> = (args) => <UserCard {...args} />;
 Default.args = {
   name: "David Leonardo Garzón Páramo",
-  documentType: "C.C",
+  identificationType: "C.C",
   identification: "1.013.614.213",
   onClick: action("Redirect to user"),
 };

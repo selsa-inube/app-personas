@@ -6,24 +6,24 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 
 interface UserCardProps {
   name: string;
-  documentType: string;
+  identificationType: string;
   identification: string;
   onClick: () => void;
 }
 
 function UserCard(props: UserCardProps) {
-  const { name, documentType, identification, onClick } = props;
+  const { name, identificationType, identification, onClick } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   return (
-    <StyledCardContainer smallScreen={isMobile}>
+    <StyledCardContainer isMobile={isMobile}>
       <Text type="title" size="medium">
         {name}
       </Text>
       <Stack gap="s050">
         <Text size="small" appearance="gray">
-          {documentType}
+          {identificationType}
         </Text>
         <Text size="small" appearance="gray">
           {identification}
