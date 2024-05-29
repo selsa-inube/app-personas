@@ -1,7 +1,3 @@
-import { useEffect, useState } from "react";
-import { IConsultingUser } from "src/model/entity/user";
-import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
-
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { TextField } from "@design/input/TextField";
@@ -9,6 +5,9 @@ import { Button } from "@design/input/Button";
 import { Divider } from "@design/layout/Divider";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { StyledContainer, StyledResultContainer } from "./styles";
+import { useEffect, useState } from "react";
+import { IConsultingUser } from "src/model/entity/user";
+import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
 
 function SwitchUser() {
   /* const urlParams = new URLSearchParams(window.location.search); */ // TEMP
@@ -17,7 +16,6 @@ function SwitchUser() {
   useEffect(() => {
     getConsultingUsers().then((users) => setUsers(users));
   }, []);
-
 
   const isTablet = useMediaQuery("(max-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 580px)");
