@@ -26,7 +26,7 @@ function AppProvider(props: AppProviderProps) {
 
   const { user: authUser } = useAuth();
 
-  const [user] = useState<IUser>({
+  const [user, setUser] = useState<IUser>({
     company: authUser?.company || "",
     email: authUser?.email || "",
     identification: authUser?.identification || "",
@@ -82,10 +82,11 @@ function AppProvider(props: AppProviderProps) {
     () => ({
       user,
 
+      setUser,
       setFeatureFlags,
       getFlag,
     }),
-    [user, setFeatureFlags, getFlag],
+    [user, setUser, setFeatureFlags, getFlag],
   );
 
   return (

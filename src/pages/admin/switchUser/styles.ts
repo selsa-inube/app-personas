@@ -25,10 +25,6 @@ const StyledResultContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${inube.spacing.s400};
-
-  & p {
-    padding-left: ${inube.spacing.s300};
-  }
 `;
 
 export { StyledContainer, StyledResultContainer };
