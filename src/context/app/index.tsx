@@ -62,7 +62,7 @@ function AppProvider(props: AppProviderProps) {
     if (superUsers.includes(user.identification)) {
       location.replace(`/switch-user?redirect_to=${location.pathname}`);
     }
-  }, [user]);
+  }, []);
 
   const getFlag = useCallback(
     (flagId: string) => {

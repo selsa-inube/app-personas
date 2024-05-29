@@ -1,11 +1,11 @@
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
+import { MdAndroid } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { MdAndroid } from "react-icons/md";
 import { MenuSection, MenuSectionProps } from ".";
-import { ISection } from "./types";
 import { props } from "./props";
+import { ISection } from "./types";
 
 const sections: ISection[] = [
   {
@@ -65,7 +65,6 @@ export const Default: StoryFn<MenuSectionProps> = (args) => (
 );
 Default.args = {
   sections: sections,
-  divider: false,
   spacing: "wide",
 };
 
