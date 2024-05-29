@@ -10,7 +10,12 @@ import { Nav } from "../../navigation/Nav";
 import { Grid } from "../Grid";
 import { StyledMain, StyledPage } from "./styles";
 
-function Page() {
+interface PageProps {
+  withNav?: boolean;
+}
+
+function Page(props: PageProps) {
+  const { withNav = true } = props;
   const currentLocation = useLocation().pathname;
   const isTablet = useMediaQuery("(min-width: 900px)");
 
@@ -61,21 +66,27 @@ function Page() {
         logoutTitle={header.logoutTitle}
         navigation={header.navigation}
       />
-      <Grid
-        templateColumns={isTablet ? "auto 1fr" : "1fr"}
-        height="calc(100vh - 53px)"
-      >
-        {isTablet && (
-          <Nav
-            sections={nav.sections}
-            currentLocation={currentLocation}
-            logoutTitle="Cerrar sesión"
-          />
-        )}
+      {withNav ? (
+        <Grid
+          templateColumns={isTablet ? "auto 1fr" : "1fr"}
+          height="calc(100vh - 53px)"
+        >
+          {isTablet && (
+            <Nav
+              sections={nav.sections}
+              currentLocation={currentLocation}
+              logoutTitle="Cerrar sesión"
+            />
+          )}
+          <StyledMain>
+            <Outlet />
+          </StyledMain>
+        </Grid>
+      ) : (
         <StyledMain>
           <Outlet />
         </StyledMain>
-      </Grid>
+      )}
     </StyledPage>
   );
 }

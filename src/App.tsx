@@ -38,10 +38,11 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route errorElement={<PageNotFound />} />
+      <Route path="switch-user" element={<Page withNav={false} />}>
+        <Route index element={<SwitchUser />} />
+      </Route>
       <Route path="/" element={<Page />}>
         <Route path="/" element={<Home />} />
-
-        <Route path="/switch-user" element={<SwitchUser />} />
 
         <Route path="my-credits/*" element={<MyCreditsRoutes />} />
 
