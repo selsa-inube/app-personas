@@ -12,7 +12,7 @@ import { useContext } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledPage } from "./styles";
 
 function PageNotFound() {
@@ -57,10 +57,8 @@ function PageNotFound() {
     <StyledPage>
       <Header
         logoURL={header.logoURL}
-        username={capitalizeFirstLetters(
-          `${user.firstName} ${user.firstLastName}`,
-        )}
-        fullName={capitalizeFirstLetters(
+        username={capitalizeEachWord(`${user.firstName} ${user.firstLastName}`)}
+        fullName={capitalizeEachWord(
           `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${user.secondLastName || ""}`,
         )}
         client={header.client}

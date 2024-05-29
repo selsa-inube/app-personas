@@ -1,6 +1,6 @@
 import { ISavingsState } from "src/context/savings/types";
 import { EProductType, IMovement, IProduct } from "src/model/entity/product";
-import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 import { getProductAttributes, getProductDetails } from "./utils";
 
 const mapSavingProductCommitmentApiToEntity = (
@@ -22,7 +22,7 @@ const mapSavingProductMovementsApiToEntity = (
     id: String(movement.movementId),
     date: new Date(String(movement.movementDate)),
     reference: String(movement.movementNumber),
-    description: capitalizeFirstLetters(String(movement.movementDescription)),
+    description: capitalizeEachWord(String(movement.movementDescription)),
     totalValue: Number(
       movement.creditMovementPesos || -movement.debitMovementPesos || 0,
     ),

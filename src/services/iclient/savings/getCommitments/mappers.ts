@@ -6,7 +6,7 @@ import {
   IMovement,
 } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapSavingProductCommitmentApiToEntity = (
   product: Record<string, string>,
@@ -27,7 +27,7 @@ const mapSavingCommitmentMovementApiToEntity = (
     id: String(movement.movementId),
     date: new Date(String(movement.movementDate)),
     reference: String(movement.movementNumber),
-    description: capitalizeFirstLetters(String(movement.movementDescription)),
+    description: capitalizeEachWord(String(movement.movementDescription)),
     totalValue: Number(
       movement.creditMovementPesos || movement.debitMovementPesos,
     ),
@@ -83,7 +83,7 @@ const mapSavingsCommitmentsApiToEntity = (
     {
       id: "payment_method",
       label: "Medio de pago",
-      value: capitalizeFirstLetters(String(commitment.paymentMediumName)),
+      value: capitalizeEachWord(String(commitment.paymentMediumName)),
     },
     {
       id: "expired_value",
