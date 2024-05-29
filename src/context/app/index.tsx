@@ -48,6 +48,14 @@ function AppProvider(props: AppProviderProps) {
   }, []);
 
   useEffect(() => {
+    const consultingUser = sessionStorage.getItem("consultingUser");
+
+    if (consultingUser) {
+      const consultingUserJson = JSON.parse(consultingUser);
+      setUser((prev) => ({ ...prev, identification: consultingUserJson.id }));
+      return;
+    }
+
     const location = window.location;
     if (location.href.includes("switch-user")) return;
 

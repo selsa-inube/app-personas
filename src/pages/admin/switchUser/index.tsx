@@ -50,6 +50,8 @@ function SwitchUser() {
     saveRecentUser(user);
     setRecentUsers(getRecentUsers());
 
+    sessionStorage.setItem("consultingUser", JSON.stringify(user));
+
     const redirectTo = urlParams.get("redirect_to");
     if (!redirectTo) return;
 
