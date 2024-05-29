@@ -26,6 +26,7 @@ import {
 const getMenuSections = (
   isConsultingUser: boolean,
   onToggleLogoutModal: () => void,
+  onToggleUserMenu: () => void,
 ): ISection[] => {
   const sections: ISection[] = [];
 
@@ -36,6 +37,7 @@ const getMenuSections = (
           title: "Cambiar cliente",
           iconBefore: <MdOutlineManageAccounts />,
           path: "/switch-user?redirect_to=/",
+          onClick: onToggleUserMenu,
         },
       ],
     });
@@ -104,7 +106,7 @@ function Header(props: HeaderProps) {
     };
   }, []);
 
-  const handleToggleuserMenu = () => {
+  const handleToggleUserMenu = () => {
     setShowUserMenu(!showUserMenu);
   };
 
@@ -158,7 +160,7 @@ function Header(props: HeaderProps) {
             username={username}
             client={client}
             onlyAvatar={isMobile}
-            onClick={handleToggleuserMenu}
+            onClick={handleToggleUserMenu}
           />
         </StyledUser>
       </StyledHeader>
@@ -170,6 +172,7 @@ function Header(props: HeaderProps) {
             sections={getMenuSections(
               isConsultingUser,
               handleToggleLogoutModal,
+              handleToggleUserMenu,
             )}
           />
         </StyledContainerMenu>
