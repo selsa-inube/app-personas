@@ -12,6 +12,7 @@ import { useAuth } from "@inube/auth";
 import { useEffect, useRef, useState } from "react";
 import { MdLogout, MdOutlineManageAccounts } from "react-icons/md";
 import { Menu } from "../Menu";
+import { ISection } from "../Menu/MenuSection/types";
 import {
   StyledContainer,
   StyledContainerMenu,
@@ -21,6 +22,38 @@ import {
   StyledLogoContainer,
   StyledUser,
 } from "./styles";
+
+const getMenuSections = (
+  isConsultingUser: boolean,
+  onToggleLogoutModal: () => void,
+): ISection[] => {
+  const sections: ISection[] = [];
+
+  if (isConsultingUser) {
+    sections.push({
+      links: [
+        {
+          title: "Cambiar cliente",
+          iconBefore: <MdOutlineManageAccounts />,
+          path: "/switch-user?redirect_to=/",
+        },
+      ],
+    });
+  }
+
+  sections.push({
+    links: [
+      {
+        title: "Cerrar sesión",
+        iconBefore: <MdLogout />,
+        onClick: onToggleLogoutModal,
+      },
+    ],
+    divider: true,
+  });
+
+  return sections;
+};
 
 interface HeaderProps {
   logoURL?: string;
@@ -85,6 +118,8 @@ function Header(props: HeaderProps) {
     sessionStorage.clear();
   };
 
+  const isConsultingUser = !!sessionStorage.getItem("consultingUser");
+
   return (
     <>
       <StyledHeader>
@@ -132,27 +167,10 @@ function Header(props: HeaderProps) {
         <StyledContainerMenu ref={userMenuRef}>
           <Menu
             userName={fullName}
-            sections={[
-              {
-                links: [
-                  {
-                    title: "Cambiar cliente",
-                    iconBefore: <MdOutlineManageAccounts />,
-                    path: "/switch-user?redirect_to=/",
-                  },
-                ],
-              },
-              {
-                links: [
-                  {
-                    title: "Cerrar sesión",
-                    iconBefore: <MdLogout />,
-                    onClick: handleToggleLogoutModal,
-                  },
-                ],
-                divider: true,
-              },
-            ]}
+            sections={getMenuSections(
+              isConsultingUser,
+              handleToggleLogoutModal,
+            )}
           />
         </StyledContainerMenu>
       )}
