@@ -1,25 +1,24 @@
-import { MenuItem } from "../MenuItem";
-import { MenuHeading } from "../MenuHeading";
-import { ISection } from "./types";
-import { MenuItemSpacingType } from "../MenuItem/types";
 import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
+import { MenuHeading } from "../MenuHeading";
+import { MenuItem } from "../MenuItem";
+import { MenuItemSpacingType } from "../MenuItem/types";
+import { ISection } from "./types";
 
 interface MenuSectionProps {
   sections: ISection[];
   spacing?: MenuItemSpacingType;
-  divider?: boolean;
 }
 
 function MenuSection(props: MenuSectionProps) {
-  const { sections, spacing = "wide", divider = false } = props;
+  const { sections, spacing = "wide" } = props;
 
   return (
     <>
       {sections.map((section, index) => (
         <Stack key={index} width="312px" direction="column">
-          {divider && (
+          {section.divider && (
             <Stack key={index} width="280px" margin="auto" direction="column">
               <Divider />
             </Stack>
@@ -51,5 +50,5 @@ function MenuSection(props: MenuSectionProps) {
   );
 }
 
-export type { MenuSectionProps };
 export { MenuSection };
+export type { MenuSectionProps };

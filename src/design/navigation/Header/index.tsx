@@ -10,7 +10,7 @@ import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { INav } from "@design/layout/Page/types";
 import { useAuth } from "@inube/auth";
 import { useEffect, useRef, useState } from "react";
-import { MdLogout } from "react-icons/md";
+import { MdLogout, MdOutlineManageAccounts } from "react-icons/md";
 import { Menu } from "../Menu";
 import {
   StyledContainer,
@@ -132,8 +132,16 @@ function Header(props: HeaderProps) {
         <StyledContainerMenu ref={userMenuRef}>
           <Menu
             userName={fullName}
-            divider
             sections={[
+              {
+                links: [
+                  {
+                    title: "Cambiar cliente",
+                    iconBefore: <MdOutlineManageAccounts />,
+                    path: "/switch-user?redirect_to=/",
+                  },
+                ],
+              },
               {
                 links: [
                   {
@@ -142,6 +150,7 @@ function Header(props: HeaderProps) {
                     onClick: handleToggleLogoutModal,
                   },
                 ],
+                divider: true,
               },
             ]}
           />
