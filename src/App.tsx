@@ -41,8 +41,6 @@ const router = createBrowserRouter(
       <Route path="/" element={<Page />}>
         <Route path="/" element={<Home />} />
 
-        {/* <Route path="/switch-user" element={<SwitchUser />} /> */}
-
         <Route path="my-credits/*" element={<MyCreditsRoutes />} />
 
         <Route path="my-savings/*" element={<MySavingsRoutes />} />
