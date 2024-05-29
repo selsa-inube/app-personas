@@ -38,6 +38,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route errorElement={<PageNotFound />} />
+      <Route path="switch-user" element={<Page withNav={false} />}>
+        <Route index element={<SwitchUser />} />
+      </Route>
       <Route path="/" element={<Page />}>
         <Route path="/" element={<Home />} />
 
@@ -60,9 +63,6 @@ const router = createBrowserRouter(
           path="/update-data-unassisted"
           element={<UpdateDataUnassisted />}
         />
-      </Route>
-      <Route path="switch-user" element={<Page withNav={false} />}>
-        <Route index element={<SwitchUser />} />
       </Route>
       ,
     </>,
