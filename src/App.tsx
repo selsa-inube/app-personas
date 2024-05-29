@@ -41,7 +41,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Page />}>
         <Route path="/" element={<Home />} />
 
-        <Route path="/switch-user" element={<SwitchUser />} />
+        {/* <Route path="/switch-user" element={<SwitchUser />} /> */}
 
         <Route path="my-credits/*" element={<MyCreditsRoutes />} />
 
@@ -62,6 +62,9 @@ const router = createBrowserRouter(
           path="/update-data-unassisted"
           element={<UpdateDataUnassisted />}
         />
+      </Route>
+      <Route path="switch-user" element={<Page withNav={false} />}>
+        <Route index element={<SwitchUser />} />
       </Route>
       ,
     </>,
