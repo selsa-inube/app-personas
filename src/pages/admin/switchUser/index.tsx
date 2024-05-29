@@ -12,17 +12,20 @@ import { AppContext } from "src/context/app";
 import { IConsultingUser } from "src/model/entity/user";
 import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
 import { StyledContainer, StyledResultContainer } from "./styles";
+import { getRecentUsers, saveRecentUser } from "./utils";
 
 function SwitchUser() {
   const urlParams = new URLSearchParams(window.location.search);
   const [users, setUsers] = useState<IConsultingUser[]>([]);
   const [filterUsers, setFilterUsers] = useState<IConsultingUser[]>([]);
+  const [recentUsers, setRecentUsers] = useState<IConsultingUser[]>([]);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(AppContext);
 
   useEffect(() => {
     getConsultingUsers().then((users) => setUsers(users));
+    setRecentUsers(getRecentUsers());
   }, []);
 
   const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,8 +44,13 @@ function SwitchUser() {
     setFilterUsers(filterUsers);
   };
 
-  const handleConsultUser = (id: string) => {
-    setUser((prev) => ({ ...prev, identification: id }));
+  const handleConsultUser = (user: IConsultingUser) => {
+    setUser((prev) => ({ ...prev, identification: user.id }));
+
+    saveRecentUser(user);
+    setRecentUsers(getRecentUsers());
+
+    sessionStorage.setItem("consultingUser", JSON.stringify(user));
 
     const redirectTo = urlParams.get("redirect_to");
     if (!redirectTo) return;
@@ -109,7 +117,7 @@ function SwitchUser() {
                   identification={user.id}
                   identificationType={user.identificationType}
                   name={user.name}
-                  onClick={() => handleConsultUser(user.id)}
+                  onClick={() => handleConsultUser(user)}
                 />
               ))}
             </Grid>
@@ -132,13 +140,31 @@ function SwitchUser() {
             Búsquedas recientes
           </Text>
           <Divider dashed />
-          <Text
-            appearance="gray"
-            size={isMobile ? "medium" : "large"}
-            padding="0 20px"
-          >
-            No posees búsquedas recientes
-          </Text>
+          {recentUsers.length > 0 ? (
+            <Grid
+              templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+              width="100%"
+              gap="s300"
+            >
+              {recentUsers.map((user) => (
+                <UserCard
+                  key={user.id}
+                  identification={user.id}
+                  identificationType={user.identificationType}
+                  name={user.name}
+                  onClick={() => handleConsultUser(user)}
+                />
+              ))}
+            </Grid>
+          ) : (
+            <Text
+              appearance="gray"
+              size={isMobile ? "medium" : "large"}
+              padding="0 20px"
+            >
+              No posees búsquedas recientes
+            </Text>
+          )}
         </Stack>
       </StyledResultContainer>
     </StyledContainer>
