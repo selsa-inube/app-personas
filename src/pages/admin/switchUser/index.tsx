@@ -7,7 +7,6 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { IConsultingUser } from "src/model/entity/user";
 import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
@@ -20,7 +19,6 @@ function SwitchUser() {
   const [filterUsers, setFilterUsers] = useState<IConsultingUser[]>([]);
   const [recentUsers, setRecentUsers] = useState<IConsultingUser[]>([]);
   const [search, setSearch] = useState("");
-  const navigate = useNavigate();
   const { setUser } = useContext(AppContext);
 
   useEffect(() => {
@@ -55,7 +53,7 @@ function SwitchUser() {
     const redirectTo = urlParams.get("redirect_to");
     if (!redirectTo) return;
 
-    navigate(redirectTo);
+    window.location.replace(redirectTo);
   };
 
   const isTablet = useMediaQuery("(max-width: 900px)");
