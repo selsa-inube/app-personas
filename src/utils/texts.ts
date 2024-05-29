@@ -2,7 +2,7 @@ const capitalizeText = (text: string) => {
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
-const capitalizeFirstLetters = (text: string) =>
+const capitalizeEachWord = (text: string) =>
   text
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
@@ -20,7 +20,7 @@ const truncateFileName = (name: string, maxLength: number) => {
 };
 
 export {
-  capitalizeFirstLetters,
+  capitalizeEachWord,
   capitalizeText,
   removeLastCharacters,
   truncateFileName,

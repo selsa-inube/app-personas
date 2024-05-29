@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { IConsultingUser } from "src/model/entity/user";
+import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
+
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { TextField } from "@design/input/TextField";
@@ -7,7 +11,13 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { StyledContainer, StyledResultContainer } from "./styles";
 
 function SwitchUser() {
-  /* const urlParams = new URLSearchParams(window.location.search); */ // TEMPS
+  /* const urlParams = new URLSearchParams(window.location.search); */ // TEMP
+  const [, setUsers] = useState<IConsultingUser[]>([]);
+
+  useEffect(() => {
+    getConsultingUsers().then((users) => setUsers(users));
+  }, []);
+
 
   const isTablet = useMediaQuery("(max-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 580px)");
