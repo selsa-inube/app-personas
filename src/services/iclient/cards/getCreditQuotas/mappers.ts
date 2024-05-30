@@ -105,9 +105,9 @@ const mapCreditQuotaApiToEntity = (
       value: Number(creditQuota.assignedCreditLimit),
     },
     {
-      id: "full_payment",
+      id: "total_payment",
       label: "Pago total",
-      value: Object(creditQuota.totalDebt)?.totalPending || "Sin definir",
+      value: Object(creditQuota.totalDebt)?.total || "Sin definir",
     },
     {
       id: "payment_method",

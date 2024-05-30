@@ -40,9 +40,13 @@ function Credit() {
     if (!selectedProduct) return;
 
     const {
-      nextPaymentCapital,
-      nextPaymentInterest,
-      nextPaymentArrearsInterest,
+      nextCapital,
+      nextInterest,
+      nextPastDueInterest,
+      nextPenaltyInterest,
+      nextLifeInsurance,
+      nextOtherConcepts,
+      nextCapitalization,
       nextPaymentValue,
     } = getNextPaymentData(selectedProduct.credit);
 
@@ -51,9 +55,13 @@ function Credit() {
     setNextPaymentModal({
       ...nextPaymentModal,
       data: {
-        nextPaymentCapital,
-        nextPaymentInterest,
-        nextPaymentArrearsInterest,
+        nextCapital,
+        nextInterest,
+        nextPastDueInterest,
+        nextPenaltyInterest,
+        nextLifeInsurance,
+        nextOtherConcepts,
+        nextCapitalization,
         nextPaymentValue,
       },
     });

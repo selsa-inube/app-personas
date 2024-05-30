@@ -4,7 +4,7 @@ import { currencyFormat } from "src/utils/currency";
 const quotaDetailsAttrs = [
   "available_space",
   "next_payment_value",
-  "full_payment",
+  "total_payment",
   "next_payment",
   "type",
   "payment_method",
@@ -14,18 +14,18 @@ const quotaDetailsAttrs = [
 const currentConsumptionAttrs = [
   "consumption_date",
   "consumption_value",
-  "current_interest",
+  "interest",
   "min_payment_quota_available",
   "total_payment_quota_available",
-  "capital_payment",
-  "min_capital_payment",
-  "total_capital_payment",
+  "capital",
+  "min_capital",
+  "total_payment",
 ];
 
 const quotaDetailsCurrencyAttrs = [
   "available_space",
   "next_payment_value",
-  "full_payment",
+  "total_capital",
   "assigned_quota",
 ];
 
@@ -33,8 +33,8 @@ const currentConsumptionCurrencyAttrs = [
   "consumption_value",
   "min_payment_quota_available",
   "total_payment_quota_available",
-  "min_capital_payment",
-  "total_capital_payment",
+  "min_capital",
+  "total_capital",
 ];
 
 function extractQuotaAttrs(quotaDetail: IProduct) {
@@ -65,9 +65,13 @@ function extractNextPaymentValueDetailsAttrs(quotaDetail: IProduct) {
   return quotaDetail.attributes.filter((attribute) => {
     if (
       [
-        "min_capital_payment",
-        "min_current_interest",
-        "min_arrears_interest",
+        "min_capital",
+        "min_interest",
+        "min_past_due_interest",
+        "min_penalty_interest",
+        "min_life_insurance",
+        "min_other_concepts",
+        "min_capitalization",
       ].includes(attribute.id)
     ) {
       return {
@@ -82,9 +86,13 @@ function extractQuotaTotalDetailsAttrs(quotaDetail: IProduct) {
   return quotaDetail.attributes.filter((attribute) => {
     if (
       [
-        "total_capital_payment",
-        "total_current_interest",
-        "total_arrears_interest",
+        "total_capital",
+        "total_interest",
+        "total_past_due_interest",
+        "total_penalty_interest",
+        "total_life_insurance",
+        "total_other_concepts",
+        "total_capitalization",
       ].includes(attribute.id)
     ) {
       return {

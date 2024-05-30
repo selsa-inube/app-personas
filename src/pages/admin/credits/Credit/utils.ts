@@ -65,16 +65,32 @@ const validateCreditMovementsAndAmortization = async (
 };
 
 const getNextPaymentData = (selectedProduct: IProduct) => {
-  const nextPaymentCapital = selectedProduct.attributes.find(
-    (attr) => attr.id === "next_capital_value",
+  const nextCapital = selectedProduct.attributes.find(
+    (attr) => attr.id === "next_capital",
   );
 
-  const nextPaymentInterest = selectedProduct.attributes.find(
-    (attr) => attr.id === "next_interest_balance",
+  const nextInterest = selectedProduct.attributes.find(
+    (attr) => attr.id === "next_interest",
   );
 
-  const nextPaymentArrearsInterest = selectedProduct.attributes.find(
+  const nextPastDueInterest = selectedProduct.attributes.find(
     (attr) => attr.id === "next_past_due_interest",
+  );
+
+  const nextPenaltyInterest = selectedProduct.attributes.find(
+    (attr) => attr.id === "next_penalty_interest",
+  );
+
+  const nextLifeInsurance = selectedProduct.attributes.find(
+    (attr) => attr.id === "next_life_insurance",
+  );
+
+  const nextOtherConcepts = selectedProduct.attributes.find(
+    (attr) => attr.id === "next_other_concepts",
+  );
+
+  const nextCapitalization = selectedProduct.attributes.find(
+    (attr) => attr.id === "next_capitalization",
   );
 
   const nextPaymentValue = selectedProduct.attributes.find(
@@ -82,12 +98,16 @@ const getNextPaymentData = (selectedProduct: IProduct) => {
   );
 
   return {
-    nextPaymentCapital: nextPaymentCapital && Number(nextPaymentCapital?.value),
-    nextPaymentInterest:
-      nextPaymentInterest && Number(nextPaymentInterest?.value),
-    nextPaymentArrearsInterest:
-      nextPaymentArrearsInterest && Number(nextPaymentArrearsInterest?.value),
-    nextPaymentValue: Number(nextPaymentValue?.value),
+    nextCapital: nextCapital && Number(nextCapital?.value),
+    nextInterest: nextInterest && Number(nextInterest?.value),
+    nextPastDueInterest:
+      nextPastDueInterest && Number(nextPastDueInterest?.value),
+    nextPenaltyInterest:
+      nextPenaltyInterest && Number(nextPenaltyInterest?.value),
+    nextLifeInsurance: nextLifeInsurance && Number(nextLifeInsurance?.value),
+    nextOtherConcepts: nextOtherConcepts && Number(nextOtherConcepts?.value),
+    nextCapitalization: nextCapitalization && Number(nextCapitalization?.value),
+    nextPaymentValue: Number(nextPaymentValue?.value || 0),
   };
 };
 

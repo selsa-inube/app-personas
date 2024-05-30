@@ -30,13 +30,9 @@ const mapCreditApiToEntity = (
   const differenceDays =
     (today.getTime() - nextPaymentDate.getTime()) / (1000 * 60 * 60 * 24);
 
-  const nextCapitalValue = Number(
-    Object(credit.nextPaymentValue).capitalValue || 0,
-  );
+  const nextCapital = Number(Object(credit.nextPaymentValue).capital || 0);
 
-  const nextInterestBalance = Number(
-    Object(credit.nextPaymentValue).interestValue || 0,
-  );
+  const nextInterest = Number(Object(credit.nextPaymentValue).interest || 0);
 
   const nextPastDueInterest = Number(
     Object(credit.nextPaymentValue)?.pastDueInterest || 0,
@@ -46,13 +42,21 @@ const mapCreditApiToEntity = (
     Object(credit.nextPaymentValue)?.penaltyInterest || 0,
   );
 
-  const expiredCapitalValue = Number(
-    Object(credit.valueExpired)?.capitalValue || 0,
+  const nextLifeInsurance = Number(
+    Object(credit.nextPaymentValue)?.lifeInsurance || 0,
   );
 
-  const expiredInterestBalance = Number(
-    Object(credit.valueExpired)?.interestValue || 0,
+  const nextOtherConcepts = Number(
+    Object(credit.nextPaymentValue)?.otherConcepts || 0,
   );
+
+  const nextCapitalization = Number(
+    Object(credit.nextPaymentValue)?.capitalization || 0,
+  );
+
+  const expiredCapital = Number(Object(credit.valueExpired)?.capital || 0);
+
+  const expiredInterest = Number(Object(credit.valueExpired)?.interest || 0);
 
   const expiredPastDueInterest = Number(
     Object(credit.valueExpired)?.pastDueInterest || 0,
@@ -62,17 +66,35 @@ const mapCreditApiToEntity = (
     Object(credit.valueExpired)?.penaltyInterest || 0,
   );
 
+  const expiredLifeInsurance = Number(
+    Object(credit.valueExpired)?.lifeInsurance || 0,
+  );
+
+  const expiredOtherConcepts = Number(
+    Object(credit.valueExpired)?.otherConcepts || 0,
+  );
+
+  const expiredCapitalization = Number(
+    Object(credit.valueExpired)?.capitalization || 0,
+  );
+
   const nextPaymentValue =
-    Number(nextCapitalValue >= 0 ? nextCapitalValue : 0) +
-    Number(nextInterestBalance >= 0 ? nextInterestBalance : 0) +
+    Number(nextCapital >= 0 ? nextCapital : 0) +
+    Number(nextInterest >= 0 ? nextInterest : 0) +
     Number(nextPastDueInterest >= 0 ? nextPastDueInterest : 0) +
     Number(nextPenaltyInterest >= 0 ? nextPenaltyInterest : 0);
+  Number(nextLifeInsurance >= 0 ? nextLifeInsurance : 0) +
+    Number(nextOtherConcepts >= 0 ? nextOtherConcepts : 0) +
+    Number(nextCapitalization >= 0 ? nextCapitalization : 0);
 
   const expiredValue =
-    Number(expiredCapitalValue >= 0 ? expiredCapitalValue : 0) +
-    Number(expiredInterestBalance >= 0 ? expiredInterestBalance : 0) +
+    Number(expiredCapital >= 0 ? expiredCapital : 0) +
+    Number(expiredInterest >= 0 ? expiredInterest : 0) +
     Number(expiredPastDueInterest >= 0 ? expiredPastDueInterest : 0) +
     Number(expiredPenaltyInterest >= 0 ? expiredPenaltyInterest : 0);
+  Number(expiredLifeInsurance >= 0 ? expiredLifeInsurance : 0) +
+    Number(expiredOtherConcepts >= 0 ? expiredOtherConcepts : 0) +
+    Number(expiredCapitalization >= 0 ? expiredCapitalization : 0);
 
   const normalizedPaymentMethodName = capitalizeText(
     String(credit.paymentMethodName).toLowerCase(),
@@ -128,7 +150,7 @@ const mapCreditApiToEntity = (
     {
       id: "net_value",
       label: "Saldo de capital",
-      value: Number(Object(credit.balanceObligation).capitalBalanceInPesos),
+      value: Number(Object(credit.balanceObligation).capital),
     },
     {
       id: "amortization_type",
@@ -185,25 +207,59 @@ const mapCreditApiToEntity = (
     });
   }
 
-  if (nextCapitalValue) {
+  if (nextCapital) {
     attributes.push({
-      id: "next_capital_value",
+      id: "next_capital",
       label: "Capital próximo pago",
-      value: nextCapitalValue,
+      value: nextCapital,
     });
   }
-  if (nextInterestBalance) {
+
+  if (nextInterest) {
     attributes.push({
-      id: "next_interest_balance",
+      id: "next_interest",
       label: "Interes próximo pago",
-      value: nextInterestBalance,
+      value: nextInterest,
     });
   }
+
   if (nextPastDueInterest) {
     attributes.push({
       id: "next_past_due_interest",
       label: "Interés de mora",
       value: nextPastDueInterest,
+    });
+  }
+
+  if (nextPenaltyInterest) {
+    attributes.push({
+      id: "next_penalty_interest",
+      label: "Interés de penalidad",
+      value: nextPenaltyInterest,
+    });
+  }
+
+  if (nextLifeInsurance) {
+    attributes.push({
+      id: "next_life_insurance",
+      label: "Seguro de vida",
+      value: nextLifeInsurance,
+    });
+  }
+
+  if (nextOtherConcepts) {
+    attributes.push({
+      id: "next_other_concepts",
+      label: "Otros conceptos",
+      value: nextOtherConcepts,
+    });
+  }
+
+  if (nextCapitalization) {
+    attributes.push({
+      id: "next_capitalization",
+      label: "Capitalización",
+      value: nextCapitalization,
     });
   }
 

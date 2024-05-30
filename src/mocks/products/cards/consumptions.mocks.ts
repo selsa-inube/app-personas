@@ -34,7 +34,7 @@ const consumptionsMocks: IProduct[] = [
         value: 52000,
       },
       {
-        id: "current_interest",
+        id: "interest",
         label: "Interés corriente",
         value: "% 2.51 MV",
       },
@@ -49,22 +49,22 @@ const consumptionsMocks: IProduct[] = [
         value: 50000,
       },
       {
-        id: "capital_payment",
+        id: "capital",
         label: "Pago de capital",
         value: "cuota 1/24",
       },
       {
-        id: "min_capital_payment",
+        id: "min_capital",
         label: "Pago de capital mínimo",
         value: 25000,
       },
       {
-        id: "total_capital_payment",
+        id: "total_capital",
         label: "Pago de capital total",
         value: 80000,
       },
       {
-        id: "arrears_interest",
+        id: "penalty_interest",
         label: "Interés de mora",
         value: 0,
       },
@@ -111,7 +111,7 @@ const consumptionsMocks: IProduct[] = [
         value: 52000,
       },
       {
-        id: "current_interest",
+        id: "interest",
         label: "Interés corriente",
         value: "% 2.51 MV",
       },
@@ -126,22 +126,22 @@ const consumptionsMocks: IProduct[] = [
         value: 50000,
       },
       {
-        id: "capital_payment",
+        id: "capital",
         label: "Pago de capital",
         value: "cuota 1/24",
       },
       {
-        id: "min_capital_payment",
+        id: "min_capital",
         label: "Pago de capital mínimo",
         value: 25000,
       },
       {
-        id: "total_capital_payment",
+        id: "total_capital",
         label: "Pago de capital total",
         value: 80000,
       },
       {
-        id: "arrears_interest",
+        id: "penalty_interest",
         label: "Interés de mora",
         value: 0,
       },
@@ -188,7 +188,7 @@ const consumptionsMocks: IProduct[] = [
         value: 52000,
       },
       {
-        id: "current_interest",
+        id: "interest",
         label: "Interés corriente",
         value: "% 2.51 MV",
       },
@@ -203,22 +203,22 @@ const consumptionsMocks: IProduct[] = [
         value: 50000,
       },
       {
-        id: "capital_payment",
+        id: "capital",
         label: "Pago de capital",
         value: "cuota 9/24",
       },
       {
-        id: "min_capital_payment",
+        id: "min_capital",
         label: "Pago de capital mínimo",
         value: 50000,
       },
       {
-        id: "total_capital_payment",
+        id: "total_capital",
         label: "Pago de capital total",
         value: 80000,
       },
       {
-        id: "arrears_interest",
+        id: "penalty_interest",
         label: "Interés de mora",
         value: 0,
       },
@@ -293,7 +293,7 @@ const consumptionsMocks: IProduct[] = [
         value: 752122,
       },
       {
-        id: "current_interest",
+        id: "interest",
         label: "Interés corriente",
         value: "% 1.96 MV",
       },
@@ -308,22 +308,22 @@ const consumptionsMocks: IProduct[] = [
         value: 1157380,
       },
       {
-        id: "capital_payment",
+        id: "capital",
         label: "Pago de capital",
         value: "cuota 1/47",
       },
       {
-        id: "min_capital_payment",
+        id: "min_capital",
         label: "Pago de capital mínimo",
         value: 752122,
       },
       {
-        id: "total_capital_payment",
+        id: "total_capital",
         label: "Pago de capital total",
         value: 766864,
       },
       {
-        id: "arrears_interest",
+        id: "penalty_interest",
         label: "Interés de mora",
         value: 10103,
       },

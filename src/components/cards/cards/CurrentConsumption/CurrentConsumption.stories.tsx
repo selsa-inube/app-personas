@@ -4,8 +4,8 @@ import { CurrentConsumption, CurrentConsumptionProps } from ".";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
-import { props } from "./props";
 import { EProductType } from "src/model/entity/product";
+import { props } from "./props";
 
 const story = {
   title: "components/cards/CurrentConsumption",
@@ -46,7 +46,7 @@ Default.args = {
           value: 250000,
         },
         {
-          id: "current_interest",
+          id: "interest",
           label: "Interés corriente",
           value: "% 2.51 MV",
         },
@@ -61,22 +61,22 @@ Default.args = {
           value: 50000,
         },
         {
-          id: "capital_payment",
+          id: "capital",
           label: "Pago de capital",
           value: "cuota 1/24",
         },
         {
-          id: "min_capital_payment",
+          id: "min_capital",
           label: "Pago de capital mínimo",
           value: 25000,
         },
         {
-          id: "total_capital_payment",
+          id: "total_capital",
           label: "Pago de capital total",
           value: 80000,
         },
         {
-          id: "arrears_interest",
+          id: "penalty_interest",
           label: "Interés de mora",
           value: 0,
         },

@@ -12,6 +12,7 @@ interface BoxAttributeProps {
   withButton?: boolean;
   buttonIcon?: React.JSX.Element;
   buttonValue?: string | number;
+  buttonDisabled?: boolean;
   direction?: "row" | "column";
   iconAfter?: React.JSX.Element;
   onClickButton?: () => void;
@@ -24,8 +25,10 @@ function BoxAttribute(props: BoxAttributeProps) {
     withButton,
     buttonIcon,
     buttonValue,
+    buttonDisabled,
     direction,
     iconAfter,
+    
     onClickButton,
   } = props;
 
@@ -62,6 +65,7 @@ function BoxAttribute(props: BoxAttributeProps) {
                 icon={buttonIcon}
                 value={buttonValue}
                 onClick={onClickButton}
+                disabled={buttonDisabled}
               />
             ) : (
               <Text
