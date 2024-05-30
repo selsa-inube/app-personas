@@ -22,16 +22,19 @@ function QuotaDetailBox(props: QuotaDetailBoxProps) {
           {title}
         </Text>
         <Stack direction="column" gap="s150">
-          {paymentItems.map((item, index) => (
-            <Stack key={index} justifyContent="space-between">
-              <Text type="label" size="medium">
-                {item.label}:
-              </Text>
-              <Text type="body" size="small" appearance="gray">
-                {currencyFormat(Number(item.value))}
-              </Text>
-            </Stack>
-          ))}
+          {paymentItems.map(
+            (item, index) =>
+              item.value !== 0 && (
+                <Stack key={index} justifyContent="space-between">
+                  <Text type="label" size="medium">
+                    {item.label}:
+                  </Text>
+                  <Text type="body" size="small" appearance="gray">
+                    {currencyFormat(Number(item.value))}
+                  </Text>
+                </Stack>
+              ),
+          )}
         </Stack>
         <Divider />
         <Stack justifyContent="space-between">
