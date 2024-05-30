@@ -31,7 +31,7 @@ const mapCreditApiToEntity = (
     (today.getTime() - nextPaymentDate.getTime()) / (1000 * 60 * 60 * 24);
 
   const nextCapitalValue = Number(
-    Object(credit.nextPaymentValue).capitalValuePending || 0,
+    Object(credit.nextPaymentValue).capitalValue || 0,
   );
 
   const nextInterestBalance = Number(
@@ -47,7 +47,7 @@ const mapCreditApiToEntity = (
   );
 
   const expiredCapitalValue = Number(
-    Object(credit.valueExpired)?.capitalValuePending || 0,
+    Object(credit.valueExpired)?.capitalValue || 0,
   );
 
   const expiredInterestBalance = Number(
