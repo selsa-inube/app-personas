@@ -1,11 +1,7 @@
 import { IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
-const creditAttributes = [
-  "net_value",
-  "next_payment_date",
-  "next_payment_value",
-];
+const creditAttributes = ["net_value", "next_payment", "next_payment_value"];
 
 const creditCurrencyAttributes = ["net_value", "next_payment_value"];
 

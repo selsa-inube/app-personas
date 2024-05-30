@@ -32,11 +32,15 @@ import { SavingsProvider } from "./context/savings";
 import { AidRoutes } from "./routes/aid";
 import { MyCardsRoutes } from "./routes/myCards";
 import { PaymentsRoutes } from "./routes/payments";
+import { SwitchUser } from "@pages/admin/switchUser";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route errorElement={<PageNotFound />} />
+      <Route path="switch-user" element={<Page withNav={false} />}>
+        <Route index element={<SwitchUser />} />
+      </Route>
       <Route path="/" element={<Page />}>
         <Route path="/" element={<Home />} />
 

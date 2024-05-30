@@ -7,14 +7,13 @@ import { StyledMenuContainer } from "./styles";
 interface MenuProps {
   userName: string;
   sections: ISection[];
-  divider?: boolean;
   businessUnit?: string;
   avatar?: boolean;
   spacing?: MenuItemSpacingType;
 }
 
 function Menu(props: MenuProps) {
-  const { userName, businessUnit, avatar, sections, spacing, divider } = props;
+  const { userName, businessUnit, avatar, sections, spacing } = props;
 
   return (
     <StyledMenuContainer>
@@ -23,7 +22,7 @@ function Menu(props: MenuProps) {
         businessUnit={businessUnit}
         avatar={avatar}
       />
-      <MenuSection sections={sections} spacing={spacing} divider={divider} />
+      <MenuSection sections={sections} spacing={spacing} />
     </StyledMenuContainer>
   );
 }

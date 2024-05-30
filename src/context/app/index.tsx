@@ -1,6 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { IUser } from "@inube/auth/dist/types/user";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
+import { superUsers } from "@pages/admin/switchUser/config/users";
 import {
   createContext,
   useCallback,
@@ -26,13 +26,10 @@ function AppProvider(props: AppProviderProps) {
 
   const { user: authUser } = useAuth();
 
-  const [user] = useState<IUser>({
+  const [user, setUser] = useState<IUser>({
     company: authUser?.company || "",
     email: authUser?.email || "",
-    identification:
-      developmentUsersMock[authUser?.identification || ""] ||
-      authUser?.identification ||
-      "",
+    identification: authUser?.identification || "",
     phone: authUser?.phone || "",
     firstLastName: authUser?.firstLastName || "",
     secondLastName: authUser?.secondLastName || "",
@@ -48,6 +45,23 @@ function AppProvider(props: AppProviderProps) {
     });
 
     saveTrafficTracking(user.identification);
+  }, []);
+
+  useEffect(() => {
+    const consultingUser = sessionStorage.getItem("consultingUser");
+
+    if (consultingUser) {
+      const consultingUserJson = JSON.parse(consultingUser);
+      setUser((prev) => ({ ...prev, identification: consultingUserJson.id }));
+      return;
+    }
+
+    const location = window.location;
+    if (location.href.includes("switch-user")) return;
+
+    if (superUsers.includes(user.identification)) {
+      location.replace(`/switch-user?redirect_to=${location.pathname}`);
+    }
   }, []);
 
   const getFlag = useCallback(
@@ -76,10 +90,11 @@ function AppProvider(props: AppProviderProps) {
     () => ({
       user,
 
+      setUser,
       setFeatureFlags,
       getFlag,
     }),
-    [user, setFeatureFlags, getFlag],
+    [user, setUser, setFeatureFlags, getFlag],
   );
 
   return (

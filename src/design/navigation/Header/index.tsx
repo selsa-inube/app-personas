@@ -10,8 +10,9 @@ import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { INav } from "@design/layout/Page/types";
 import { useAuth } from "@inube/auth";
 import { useEffect, useRef, useState } from "react";
-import { MdLogout } from "react-icons/md";
+import { MdLogout, MdOutlineManageAccounts } from "react-icons/md";
 import { Menu } from "../Menu";
+import { ISection } from "../Menu/MenuSection/types";
 import {
   StyledContainer,
   StyledContainerMenu,
@@ -21,6 +22,40 @@ import {
   StyledLogoContainer,
   StyledUser,
 } from "./styles";
+
+const getMenuSections = (
+  isConsultingUser: boolean,
+  onToggleLogoutModal: () => void,
+  onToggleUserMenu: () => void,
+): ISection[] => {
+  const sections: ISection[] = [];
+
+  if (isConsultingUser) {
+    sections.push({
+      links: [
+        {
+          title: "Cambiar cliente",
+          iconBefore: <MdOutlineManageAccounts />,
+          path: "/switch-user?redirect_to=/",
+          onClick: onToggleUserMenu,
+        },
+      ],
+    });
+  }
+
+  sections.push({
+    links: [
+      {
+        title: "Cerrar sesión",
+        iconBefore: <MdLogout />,
+        onClick: onToggleLogoutModal,
+      },
+    ],
+    divider: true,
+  });
+
+  return sections;
+};
 
 interface HeaderProps {
   logoURL?: string;
@@ -71,7 +106,7 @@ function Header(props: HeaderProps) {
     };
   }, []);
 
-  const handleToggleuserMenu = () => {
+  const handleToggleUserMenu = () => {
     setShowUserMenu(!showUserMenu);
   };
 
@@ -84,6 +119,8 @@ function Header(props: HeaderProps) {
     logout();
     sessionStorage.clear();
   };
+
+  const isConsultingUser = !!sessionStorage.getItem("consultingUser");
 
   return (
     <>
@@ -123,7 +160,7 @@ function Header(props: HeaderProps) {
             username={username}
             client={client}
             onlyAvatar={isMobile}
-            onClick={handleToggleuserMenu}
+            onClick={handleToggleUserMenu}
           />
         </StyledUser>
       </StyledHeader>
@@ -132,18 +169,11 @@ function Header(props: HeaderProps) {
         <StyledContainerMenu ref={userMenuRef}>
           <Menu
             userName={fullName}
-            divider
-            sections={[
-              {
-                links: [
-                  {
-                    title: "Cerrar sesión",
-                    iconBefore: <MdLogout />,
-                    onClick: handleToggleLogoutModal,
-                  },
-                ],
-              },
-            ]}
+            sections={getMenuSections(
+              isConsultingUser,
+              handleToggleLogoutModal,
+              handleToggleUserMenu,
+            )}
           />
         </StyledContainerMenu>
       )}

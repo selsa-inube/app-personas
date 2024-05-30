@@ -2,7 +2,7 @@ import { TagProps } from "@design/data/Tag";
 import { cardTypeValuesMock } from "@mocks/products/cards/utils.mocks";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapConsumptionApiToEntity = (
   consumption: Record<string, string | number | object>,
@@ -132,24 +132,26 @@ const mapCreditQuotaDetailApiToEntity = (
       value: Number(creditQuota.availableCredit || 0),
     },
     {
-      id: "next_payment_date",
+      id: "next_payment",
       label: "Fecha próximo pago",
       value: nextPaymentDateValid,
     },
     {
       id: "min_capital_payment",
       label: "Abono a capital",
-      value: Object(creditQuota.nextPaymentValue)?.capitalValue,
+      value: Number(Object(creditQuota.nextPaymentValue)?.capitalValue || 0),
     },
     {
       id: "min_current_interest",
       label: "Interés corriente",
-      value: Object(creditQuota.nextPaymentValue)?.interestValue,
+      value: Number(Object(creditQuota.nextPaymentValue)?.interestValue || 0),
     },
     {
       id: "min_arrears_interest",
       label: "Interés de mora",
-      value: Object(creditQuota.nextPaymentValue)?.penalityInterestValue,
+      value: Number(
+        Object(creditQuota.nextPaymentValue)?.penalityInterestValue || 0,
+      ),
     },
     {
       id: "next_payment_value",
@@ -170,22 +172,28 @@ const mapCreditQuotaDetailApiToEntity = (
     {
       id: "total_capital_payment",
       label: "Abono a capital",
-      value: Object(creditQuota.totalDebt)?.capitalBalanceInPesos,
+      value: Number(
+        Object(creditQuota.totalBalance)?.capitalBalanceInPesos || 0,
+      ),
     },
     {
       id: "total_current_interest",
       label: "Interés corriente",
-      value: Object(creditQuota.totalDebt)?.theBalanceOfRemunerativeInterest,
+      value: Number(
+        Object(creditQuota.totalBalance)?.theBalanceOfRemunerativeInterest || 0,
+      ),
     },
     {
       id: "total_arrears_interest",
       label: "Interés de mora",
-      value: Object(creditQuota.totalDebt)?.theBalanceOfDefaultInterest,
+      value: Number(
+        Object(creditQuota.totalBalance)?.theBalanceOfDefaultInterest || 0,
+      ),
     },
     {
       id: "full_payment",
       label: "Pago total",
-      value: Object(creditQuota.totalDebt)?.totalPending || "Sin definir",
+      value: Object(creditQuota.totalBalance)?.totalPending || "Sin definir",
     },
     {
       id: "payment_method",
@@ -196,7 +204,7 @@ const mapCreditQuotaDetailApiToEntity = (
     {
       id: "current_consumption",
       label: "Consumos vigentes",
-      value: Number(currentConsumption),
+      value: currentConsumption,
     },
     {
       id: "transactions_process",
@@ -216,7 +224,7 @@ const mapCreditQuotaDetailApiToEntity = (
 
   return {
     id: String(creditQuota.creditProductCode),
-    title: "Crediexpress",
+    title: capitalizeEachWord(String(creditQuota.productDescription)),
     description: "Informe de movimientos",
     type: EProductType.CREDITCARD,
     attributes,

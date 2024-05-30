@@ -27,10 +27,11 @@ import {
 interface MyCreditsUIProps {
   loading: boolean;
   credits: IProduct[];
+  withRequestCredit: boolean;
 }
 
 function MyCreditsUI(props: MyCreditsUIProps) {
-  const { loading, credits } = props;
+  const { loading, credits, withRequestCredit } = props;
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   return (
@@ -56,7 +57,7 @@ function MyCreditsUI(props: MyCreditsUIProps) {
           <Text type="title" size="medium">
             Tus productos
           </Text>
-          <Box {...myCredits}>
+          <Box {...myCredits(withRequestCredit)}>
             <Stack direction="column" gap="s075">
               {loading ? (
                 <>

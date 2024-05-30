@@ -1,7 +1,7 @@
 import { cardStatusValuesMock } from "@mocks/products/cards/utils.mocks";
 
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
-import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapCardApiToEntity = (
   card: Record<string, string | number | object>,
@@ -45,7 +45,7 @@ const mapCardApiToEntity = (
     {
       id: "cardholder",
       label: "Titular",
-      value: capitalizeFirstLetters(String(card.ownerName)),
+      value: capitalizeEachWord(String(card.ownerName)),
     },
     {
       id: "status",

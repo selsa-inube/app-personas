@@ -38,7 +38,6 @@ Default.args = {
       ],
     },
   ],
-  divider: true,
   avatar: true,
 };
 

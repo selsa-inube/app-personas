@@ -37,13 +37,14 @@ function renderMySavingsContent(
   cdats: IProduct[],
   programmedSavings: IProduct[],
   isTablet: boolean,
+  withRequestSaving: boolean,
 ) {
   return (
     <Stack direction="column" gap="s300">
       <Text type="title" size="medium">
         Tus productos
       </Text>
-      <Box {...mySavingsBox}>
+      <Box {...mySavingsBox(withRequestSaving)}>
         <Stack direction="column" gap="s100">
           {loading ? (
             <Stack direction="column" gap="s200">
@@ -194,9 +195,7 @@ function renderMySavingsContent(
                       Compromisos
                     </Text>
                     <StyledCommitmentsContainer isTablet={isTablet}>
-                      <ProductsCommitments
-                        commitments={commitments}
-                      />
+                      <ProductsCommitments commitments={commitments} />
                     </StyledCommitmentsContainer>
                   </Stack>
                 )}
@@ -217,6 +216,7 @@ interface MySavingsUIProps {
   programmedSavings: IProduct[];
   loading: boolean;
   isTablet: boolean;
+  withRequestSaving: boolean;
 }
 
 function MySavingsUI(props: MySavingsUIProps) {
@@ -228,8 +228,11 @@ function MySavingsUI(props: MySavingsUIProps) {
     programmedSavings,
     loading,
     isTablet,
+    withRequestSaving,
   } = props;
+
   const isDesktop = useMediaQuery("(min-width: 1440px)");
+
   return (
     <>
       <Stack direction="column" gap="s300">
@@ -252,6 +255,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             cdats,
             programmedSavings,
             isTablet,
+            withRequestSaving,
           )}
         </Stack>
       ) : (
@@ -268,6 +272,7 @@ function MySavingsUI(props: MySavingsUIProps) {
             cdats,
             programmedSavings,
             isTablet,
+            withRequestSaving,
           )}
           <QuickAccess links={quickLinks} />
         </Grid>

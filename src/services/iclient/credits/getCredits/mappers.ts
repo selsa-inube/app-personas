@@ -30,22 +30,49 @@ const mapCreditApiToEntity = (
   const differenceDays =
     (today.getTime() - nextPaymentDate.getTime()) / (1000 * 60 * 60 * 24);
 
-  const nextPaymentCapital =
-    Object(credit.valueExpired)?.capitalValuePending ||
-    Object(credit.nextPaymentValue).capitalValuePending;
+  const nextCapitalValue = Number(
+    Object(credit.nextPaymentValue).capitalValue || 0,
+  );
 
-  const nextPaymentInterest =
-    Object(credit.valueExpired)?.interestValuePending ||
-    Object(credit.nextPaymentValue).interestValuePending;
+  const nextInterestBalance = Number(
+    Object(credit.nextPaymentValue).interestBalance || 0,
+  );
 
-  const nextPaymentArrearsInterest =
-    Object(credit.valueExpired)?.penalityInterestPending ||
-    Object(credit.nextPaymentValue)?.penalityInterestPending;
+  const nextPastDueInterest = Number(
+    Object(credit.nextPaymentValue)?.pastDueInterest || 0,
+  );
+
+  const nextPenaltyInterest = Number(
+    Object(credit.nextPaymentValue)?.penaltyInterest || 0,
+  );
+
+  const expiredCapitalValue = Number(
+    Object(credit.valueExpired)?.capitalValue || 0,
+  );
+
+  const expiredInterestBalance = Number(
+    Object(credit.valueExpired)?.interestBalance || 0,
+  );
+
+  const expiredPastDueInterest = Number(
+    Object(credit.valueExpired)?.pastDueInterest || 0,
+  );
+
+  const expiredPenaltyInterest = Number(
+    Object(credit.expiredPayment)?.penaltyInterest || 0,
+  );
 
   const nextPaymentValue =
-    Number(nextPaymentCapital || 0) +
-    Number(nextPaymentInterest || 0) +
-    Number(nextPaymentArrearsInterest || 0);
+    Number(nextCapitalValue >= 0 ? nextCapitalValue : 0) +
+    Number(nextInterestBalance >= 0 ? nextInterestBalance : 0) +
+    Number(nextPastDueInterest >= 0 ? nextPastDueInterest : 0) +
+    Number(nextPenaltyInterest >= 0 ? nextPenaltyInterest : 0);
+
+  const expiredValue =
+    Number(expiredCapitalValue >= 0 ? expiredCapitalValue : 0) +
+    Number(expiredInterestBalance >= 0 ? expiredInterestBalance : 0) +
+    Number(expiredPastDueInterest >= 0 ? expiredPastDueInterest : 0) +
+    Number(expiredPenaltyInterest >= 0 ? expiredPenaltyInterest : 0);
 
   const normalizedPaymentMethodName = capitalizeText(
     String(credit.paymentMethodName).toLowerCase(),
@@ -56,9 +83,6 @@ const mapCreditApiToEntity = (
 
   const roundInteresRate =
     interesRate == 0 ? interesRate : interesRate.toFixed(2);
-
-  // TEMP
-  /*  const expiredValue = Object(credit.valueExpired)?.totalPending || 0; */
 
   const attributes: IAttribute[] = [
     {
@@ -72,7 +96,7 @@ const mapCreditApiToEntity = (
       value: String(credit.amount),
     },
     {
-      id: "next_payment_date",
+      id: "next_payment",
       label: "Fecha próximo pago",
       value: nextPayment,
     },
@@ -126,15 +150,30 @@ const mapCreditApiToEntity = (
       label: "Tasa de interés",
       value: `${roundInteresRate} % NAMV`,
     },
-    /* { // TEMP
+    {
       id: "expired_value",
       label: "Valor vencido",
       value: `${expiredValue}`,
-    }, */
+    },
     {
       id: "in_arrears",
       label: "En mora",
       value: String(inArrears),
+    },
+    {
+      id: "line_code",
+      label: "Línea de crédito",
+      value: String(credit.lineCode),
+    },
+    {
+      id: "half_payment",
+      label: "Método de pago",
+      value: String(credit.paymentMethod),
+    },
+    {
+      id: "next_payment_date",
+      label: "Fecha de pago",
+      value: nextPaymentDate.toISOString(),
     },
   ];
 
@@ -146,25 +185,25 @@ const mapCreditApiToEntity = (
     });
   }
 
-  if (nextPaymentCapital) {
+  if (nextCapitalValue) {
     attributes.push({
-      id: "next_payment_capital",
+      id: "next_capital_value",
       label: "Capital próximo pago",
-      value: nextPaymentCapital,
+      value: nextCapitalValue,
     });
   }
-  if (nextPaymentInterest) {
+  if (nextInterestBalance) {
     attributes.push({
-      id: "next_payment_interest",
+      id: "next_interest_balance",
       label: "Interes próximo pago",
-      value: nextPaymentInterest,
+      value: nextInterestBalance,
     });
   }
-  if (nextPaymentArrearsInterest) {
+  if (nextPastDueInterest) {
     attributes.push({
-      id: "next_payment_arrears_interest",
+      id: "next_past_due_interest",
       label: "Interés de mora",
-      value: nextPaymentArrearsInterest,
+      value: nextPastDueInterest,
     });
   }
 

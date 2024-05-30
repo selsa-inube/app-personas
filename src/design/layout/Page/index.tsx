@@ -4,13 +4,18 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useContext } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import { capitalizeEachWord } from "src/utils/texts";
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
 import { Grid } from "../Grid";
 import { StyledMain, StyledPage } from "./styles";
 
-function Page() {
+interface PageProps {
+  withNav?: boolean;
+}
+
+function Page(props: PageProps) {
+  const { withNav = true } = props;
   const currentLocation = useLocation().pathname;
   const isTablet = useMediaQuery("(min-width: 900px)");
 
@@ -51,10 +56,8 @@ function Page() {
     <StyledPage>
       <Header
         logoURL={header.logoURL}
-        username={capitalizeFirstLetters(
-          `${user.firstName} ${user.firstLastName}`,
-        )}
-        fullName={capitalizeFirstLetters(
+        username={capitalizeEachWord(`${user.firstName} ${user.firstLastName}`)}
+        fullName={capitalizeEachWord(
           `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${user.secondLastName || ""}`,
         )}
         client={header.client}
@@ -63,21 +66,27 @@ function Page() {
         logoutTitle={header.logoutTitle}
         navigation={header.navigation}
       />
-      <Grid
-        templateColumns={isTablet ? "auto 1fr" : "1fr"}
-        height="calc(100vh - 53px)"
-      >
-        {isTablet && (
-          <Nav
-            sections={nav.sections}
-            currentLocation={currentLocation}
-            logoutTitle="Cerrar sesión"
-          />
-        )}
+      {withNav ? (
+        <Grid
+          templateColumns={isTablet ? "auto 1fr" : "1fr"}
+          height="calc(100vh - 53px)"
+        >
+          {isTablet && (
+            <Nav
+              sections={nav.sections}
+              currentLocation={currentLocation}
+              logoutTitle="Cerrar sesión"
+            />
+          )}
+          <StyledMain>
+            <Outlet />
+          </StyledMain>
+        </Grid>
+      ) : (
         <StyledMain>
           <Outlet />
         </StyledMain>
-      </Grid>
+      )}
     </StyledPage>
   );
 }

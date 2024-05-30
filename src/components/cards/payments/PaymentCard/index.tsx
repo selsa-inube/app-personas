@@ -1,7 +1,4 @@
-import {
-  CustomValueModal,
-  IApplyPayOption,
-} from "@components/modals/payments/CustomValueModal";
+import { CustomValueModal } from "@components/modals/payments/CustomValueModal";
 import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
@@ -18,6 +15,7 @@ import {
   StyledInputContainer,
   StyledInputRadio,
 } from "./styles";
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 
 const renderOptions = (
   options: IPaymentOption[],
@@ -79,6 +77,8 @@ interface PaymentCardProps {
   tags: TagProps[];
   allowCustomValue?: boolean;
   selectedOption?: IPaymentOption;
+  lineCode: string;
+  halfPayment: string;
   onApplyPayOption: (
     payId: string,
     option: IPaymentOption,
@@ -96,6 +96,8 @@ function PaymentCard(props: PaymentCardProps) {
     tags,
     allowCustomValue,
     selectedOption,
+    lineCode,
+    halfPayment,
     onChangePaymentValue,
     onApplyPayOption,
     onRemovePayment,
@@ -139,9 +141,17 @@ function PaymentCard(props: PaymentCardProps) {
     (option) => option.id === EPaymentOptionType.NEXTVALUE,
   )?.value;
 
+  const nextPaymentDate = options.find(
+    (option) => option.id === EPaymentOptionType.NEXTVALUE,
+  )?.date;
+
   const totalPaymentValue =
     options.find((option) => option.id === EPaymentOptionType.TOTALVALUE)
       ?.value || nextPaymentValue;
+
+  const expiredValue = options.find(
+    (option) => option.id === EPaymentOptionType.EXPIREDVALUE,
+  )?.value;
 
   return (
     <>
@@ -196,9 +206,14 @@ function PaymentCard(props: PaymentCardProps) {
       {showModal && (
         <CustomValueModal
           portalId="modals"
+          id={id}
+          nextPaymentDate={nextPaymentDate}
+          lineCode={lineCode}
+          halfPayment={halfPayment}
           value={selectedOption?.value || 0}
           nextPaymentValue={nextPaymentValue || 0}
           totalPaymentValue={totalPaymentValue || 0}
+          expiredValue={expiredValue || 0}
           onCloseModal={handleToggleModal}
           onApplyPayOption={handleApplyPayOption}
           onChangeOtherValue={handleChangeOption}

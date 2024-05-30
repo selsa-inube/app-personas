@@ -19,29 +19,39 @@ import {
 const buAllowCustomValue = true;
 
 const paymentOptionValues: Record<string, string> = {
-  [EPaymentOptionType.EXPIREDVALUE]: "Valor vencido",
-  [EPaymentOptionType.NEXTVALUE]: "Próximo vencimiento",
-  [EPaymentOptionType.TOTALVALUE]: "Pago total",
-  [EPaymentOptionType.OTHERVALUE]: "Otro valor",
-  [EPaymentOptionType.REDUCETERM]: "Reducir plazo",
-  [EPaymentOptionType.REDUCEQUOTA]: "Reducir cuota",
-  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Pagar cuotas futuras",
+  [EPaymentOptionType.EXPIREDVALUE]: "Valor vencido", 
+  [EPaymentOptionType.NEXTVALUE]: "Próximo vencimiento", 
+  [EPaymentOptionType.TOTALVALUE]: "Pago total", 
+  [EPaymentOptionType.OTHERVALUE]: "Otro valor", 
+  [EPaymentOptionType.REPROGRAMMINGDEADLINE]:
+    "Reprogramación manteniendo el plazo",
+  [EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE]:
+    "Reprogramación manteniendo el valor de la cuota",
+  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Abono a cuotas futuras",
 };
 
 const mapObligations = (
   credits: IProduct[],
   commitments: ICommitment[],
+  withNextValueOption: boolean,
+  withOtherValueOption: boolean,
+  withExpiredValueOption: boolean,
+  withTotalValueOption: boolean,
 ): IObligationsEntry => {
   const payments: IPayment[] = [];
   const paymentMethodFilters: string[] = [];
 
   credits.forEach((credit) => {
-    /* const expiredValue = Number( // TEMP
+    const expiredValue = Number(
       extractAttribute(credit.attributes, "expired_value")?.value || 0,
-    ); */
+    );
 
     const nextPaymentValue = Number(
       extractAttribute(credit.attributes, "next_payment_value")?.value || 0,
+    );
+
+    const nextPayment = String(
+      extractAttribute(credit.attributes, "next_payment")?.value,
     );
 
     const nextPaymentDate = String(
@@ -52,6 +62,14 @@ const mapObligations = (
       extractAttribute(credit.attributes, "payment_method")?.value,
     );
 
+    const lineCode = String(
+      extractAttribute(credit.attributes, "line_code")?.value,
+    );
+
+    const halfPayment = String(
+      extractAttribute(credit.attributes, "half_payment")?.value,
+    );
+
     if (
       !paymentMethodFilters.find(
         (filter) => filter.toLowerCase() === paymentMethod.toLowerCase(),
@@ -60,9 +78,9 @@ const mapObligations = (
       paymentMethodFilters.push(paymentMethod);
     }
 
-    /* const totalValue = Number( // TEMP
+    const totalValue = Number(
       extractAttribute(credit.attributes, "net_value")?.value || 0,
-    ); */
+    );
 
     const inArrears =
       extractAttribute(credit.attributes, "in_arrears")?.value.toString() ==
@@ -84,30 +102,42 @@ const mapObligations = (
       });
     }
 
-    const options = [
-      /* { // TEMP
+    const options = [];
+
+    if (expiredValue && withExpiredValueOption) {
+      options.push({
         id: EPaymentOptionType.EXPIREDVALUE,
         label: "Valor vencido",
         value: expiredValue,
-      }, */
-      {
+      });
+    }
+
+    if (nextPaymentValue && withNextValueOption) {
+      options.push({
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
-        description: nextPaymentDate,
+        description: nextPayment,
+        date: new Date(nextPaymentDate),
         value: nextPaymentValue,
-      },
-      /* { // TEMP
-        id: EPaymentOptionType.TOTALVALUE,
-        label: "Pago total",
-        value: totalValue,
-      }, */
-      {
+      });
+    }
+
+    if (withOtherValueOption) {
+      options.push({
         id: EPaymentOptionType.OTHERVALUE,
         label: "Otro valor",
         value: 0,
         hidden: true,
-      },
-    ];
+      });
+    }
+
+    if (totalValue && withTotalValueOption) {
+      options.push({
+        id: EPaymentOptionType.TOTALVALUE,
+        label: "Pago total",
+        value: totalValue,
+      });
+    }
 
     if (options.some((option) => option.value > 0)) {
       payments.push({
@@ -121,17 +151,23 @@ const mapObligations = (
         options,
         tags,
         supportDocumentType: ESupportDocumentType.FINANCIALPORTFOLIO,
+        lineCode,
+        halfPayment,
       });
     }
   });
 
   commitments.forEach((commitment) => {
-    /* const expiredValue = Number( // TEMP
+    const expiredValue = Number(
       extractAttribute(commitment.attributes, "expired_value")?.value || 0,
-    ); */
+    );
 
     const nextPaymentValue = Number(
       extractAttribute(commitment.attributes, "next_payment_value")?.value || 0,
+    );
+
+    const nextPayment = String(
+      extractAttribute(commitment.attributes, "next_payment")?.value,
     );
 
     const nextPaymentDate = String(
@@ -170,19 +206,25 @@ const mapObligations = (
       });
     }
 
-    const options = [
-      /* { // TEMP
+    const options = [];
+
+    if (expiredValue && withExpiredValueOption) {
+      options.push({
         id: EPaymentOptionType.EXPIREDVALUE,
         label: "Valor vencido",
         value: expiredValue,
-      }, */
-      {
+      });
+    }
+
+    if (nextPaymentValue && withNextValueOption) {
+      options.push({
         id: EPaymentOptionType.NEXTVALUE,
         label: paymentOptionValues[EPaymentOptionType.NEXTVALUE],
-        description: nextPaymentDate,
+        description: nextPayment,
+        date: new Date(nextPaymentDate),
         value: nextPaymentValue,
-      },
-    ];
+      });
+    }
 
     let supportDocumentType = ESupportDocumentType.CONTRIBUTIONCOMMITMENT;
     if (commitment.type === ECommitmentType.SAVINGSPROGRAMMED) {
@@ -193,7 +235,7 @@ const mapObligations = (
       payments.push({
         id: commitment.id,
         title: commitment.title,
-        group: EPaymentGroupType.SAVINGS,
+        group: EPaymentGroupType.SAVINGSCOMMITMENT,
         paymentMethod,
         status: inArrears
           ? EPaymentStatusType.ARREARS

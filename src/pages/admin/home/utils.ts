@@ -7,10 +7,7 @@ const getCommitmentAttributes = (commitmentAttributes: IAttribute[]) => {
     commitmentAttributes,
     "next_payment_value",
   );
-  const nextPayDate = extractAttribute(
-    commitmentAttributes,
-    "next_payment_date",
-  );
+  const nextPayDate = extractAttribute(commitmentAttributes, "next_payment");
   const commitmentValue = extractAttribute(
     commitmentAttributes,
     "commitment_value",

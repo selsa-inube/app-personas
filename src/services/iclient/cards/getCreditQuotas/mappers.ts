@@ -8,7 +8,7 @@ import {
   IProduct,
 } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapCreditQuotaMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
@@ -84,7 +84,7 @@ const mapCreditQuotaApiToEntity = (
       value: Number(creditQuota.availableCredit || 0),
     },
     {
-      id: "next_payment_date",
+      id: "next_payment",
       label: "Fecha próximo pago",
       value: nextPaymentDateValid,
     },
@@ -146,7 +146,7 @@ const mapCreditQuotaApiToEntity = (
 
   return {
     id: String(creditQuota.creditProductCode),
-    title: "Crediexpress",
+    title: capitalizeEachWord(String(creditQuota.productDescription)),
     description: String(creditQuota.creditProductCode),
     type: EProductType.CREDITCARD,
     attributes,
