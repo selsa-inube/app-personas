@@ -125,17 +125,20 @@ function CreditUI(props: CreditUIProps) {
                         value={attr.value}
                       />
                     ))}
-                    {nextPaymentModal.data && (
-                      <BoxAttribute
-                        label="Total próximo pago:"
-                        buttonIcon={<MdOpenInNew />}
-                        buttonValue={currencyFormat(
-                          nextPaymentModal.data.nextPaymentValue,
-                        )}
-                        onClickButton={handleToggleNextPaymentModal}
-                        withButton
-                      />
-                    )}
+
+                    <BoxAttribute
+                      label="Total próximo pago:"
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue={currencyFormat(
+                        nextPaymentModal.data?.nextPaymentValue || 0,
+                      )}
+                      buttonDisabled={
+                        nextPaymentModal.data?.nextPaymentValue === 0 ||
+                        !nextPaymentModal.data
+                      }
+                      onClickButton={handleToggleNextPaymentModal}
+                      withButton
+                    />
 
                     {formatedAttributes.slice(3).map((attr) => (
                       <BoxAttribute

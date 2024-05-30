@@ -42,7 +42,7 @@ const creditQuotasMock: IProduct[] = [
         value: 8550420,
       },
       {
-        id: "full_payment",
+        id: "total_payment",
         label: "Pago total",
         value: 2775000,
       },
@@ -73,17 +73,17 @@ const creditQuotasMock: IProduct[] = [
         ],
       },
       {
-        id: "min_capital_payment",
+        id: "min_capital",
         label: "Abono a capital",
         value: 100000,
       },
       {
-        id: "min_current_interest",
+        id: "min_interest",
         label: "Interés corriente",
         value: 150000,
       },
       {
-        id: "min_arrears_interest",
+        id: "min_penalty_interest",
         label: "Interés de mora",
         value: 0,
       },
@@ -93,17 +93,17 @@ const creditQuotasMock: IProduct[] = [
         value: 7500,
       },
       {
-        id: "total_capital_payment",
+        id: "total_capital",
         label: "Abono a capital",
         value: 240000,
       },
       {
-        id: "total_current_interest",
+        id: "total_interest",
         label: "Interés corriente",
         value: 150000,
       },
       {
-        id: "total_arrears_interest",
+        id: "total_penalty_interest",
         label: "Interés de mora",
         value: 0,
       },
@@ -190,7 +190,7 @@ const creditQuotasMock: IProduct[] = [
         value: 70000000,
       },
       {
-        id: "full_payment",
+        id: "total_payment",
         label: "Pago total",
         value: 60000000,
       },
@@ -222,17 +222,17 @@ const creditQuotasMock: IProduct[] = [
       },
 
       {
-        id: "min_capital_payment",
+        id: "min_capital",
         label: "Abono a capital",
         value: 752122,
       },
       {
-        id: "min_current_interest",
+        id: "min_interest",
         label: "Interés corriente",
         value: 1157380,
       },
       {
-        id: "min_arrears_interest",
+        id: "min_penalty_interest",
         label: "Interés de mora",
         value: 10103,
       },
@@ -242,17 +242,17 @@ const creditQuotasMock: IProduct[] = [
         value: 7500,
       },
       {
-        id: "total_capital_payment",
+        id: "total_capital",
         label: "Abono a capital",
         value: 766864,
       },
       {
-        id: "total_current_interest",
+        id: "total_interest",
         label: "Interés corriente",
         value: 1157380,
       },
       {
-        id: "total_arrears_interest",
+        id: "total_penalty_interest",
         label: "Interés de mora",
         value: 10103,
       },

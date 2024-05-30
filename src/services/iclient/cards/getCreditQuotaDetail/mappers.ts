@@ -39,24 +39,22 @@ const mapConsumptionApiToEntity = (
     {
       id: "net_value",
       label: "Saldo de capital",
-      value: Number(
-        Object(consumption.balanceObligation).capitalBalanceInPesos,
-      ),
+      value: Number(Object(consumption.balanceObligation).capital),
     },
     {
-      id: "current_interest",
+      id: "interest",
       label: "Intéres corriente",
       value: `${Number(consumption.periodicRate)}% MV`,
     },
     {
-      id: "capital_payment",
+      id: "capital",
       label: "Abono capital",
-      value: `cuota ${currentAccount}`,
+      value: `Cuota ${currentAccount}`,
     },
     {
       id: "min_payment_quota_available",
       label: "Pago minimo de cuota",
-      value: nextPaymentValue.capitalValue,
+      value: nextPaymentValue.capital,
     },
     {
       id: "total_payment_quota_available",
@@ -64,14 +62,14 @@ const mapConsumptionApiToEntity = (
       value: nextPaymentValue.total,
     },
     {
-      id: "total_capital_payment",
+      id: "total_capital",
       label: "Pago capital total",
-      value: balanceObligation.totalPending,
+      value: balanceObligation.total,
     },
     {
-      id: "min_capital_payment",
+      id: "min_capital",
       label: "Pago capital minimo",
-      value: balanceObligation.capitalBalanceInPesos,
+      value: balanceObligation.capital,
     },
   ];
 
@@ -119,7 +117,7 @@ const mapCreditQuotaDetailApiToEntity = (
     Object(creditQuota.totalDebt).debtCapital || 0,
   );
 
-  const usedQuota = Number(Object(creditQuota.totalDebt).totalPending || 0);
+  const usedQuota = Number(Object(creditQuota.totalDebt).total || 0);
 
   const transactionProcess = Number(
     Object(creditQuota.totalDebt).transactionsInProcess || 0,
@@ -137,21 +135,41 @@ const mapCreditQuotaDetailApiToEntity = (
       value: nextPaymentDateValid,
     },
     {
-      id: "min_capital_payment",
+      id: "min_capital",
       label: "Abono a capital",
-      value: Number(Object(creditQuota.nextPaymentValue)?.capitalValue || 0),
+      value: Number(Object(creditQuota.nextPaymentValue)?.capital || 0),
     },
     {
-      id: "min_current_interest",
+      id: "min_interest",
       label: "Interés corriente",
-      value: Number(Object(creditQuota.nextPaymentValue)?.interestValue || 0),
+      value: Number(Object(creditQuota.nextPaymentValue)?.interest || 0),
     },
     {
-      id: "min_arrears_interest",
+      id: "min_past_due_interest",
+      label: "Interés vencido",
+      value: Number(Object(creditQuota.nextPaymentValue)?.pastDueInterest || 0),
+    },
+    {
+      id: "min_penalty_interest",
       label: "Interés de mora",
       value: Number(
-        Object(creditQuota.nextPaymentValue)?.penalityInterestValue || 0,
+        Object(creditQuota.nextPaymentValue)?.penaltyInterestValue || 0,
       ),
+    },
+    {
+      id: "min_life_insurance",
+      label: "Seguro de vida",
+      value: Number(Object(creditQuota.nextPaymentValue)?.lifeInsurance || 0),
+    },
+    {
+      id: "min_other_concepts",
+      label: "Otros conceptos",
+      value: Number(Object(creditQuota.nextPaymentValue)?.otherConcepts || 0),
+    },
+    {
+      id: "min_capitalization",
+      label: "Capitalización",
+      value: Number(Object(creditQuota.nextPaymentValue)?.capitalization || 0),
     },
     {
       id: "next_payment_value",
@@ -170,30 +188,44 @@ const mapCreditQuotaDetailApiToEntity = (
       value: Number(creditQuota.assignedCreditLimit),
     },
     {
-      id: "total_capital_payment",
+      id: "total_capital",
       label: "Abono a capital",
-      value: Number(
-        Object(creditQuota.totalBalance)?.capitalBalanceInPesos || 0,
-      ),
+      value: Number(Object(creditQuota.totalBalance)?.capital || 0),
     },
     {
-      id: "total_current_interest",
+      id: "total_interest",
       label: "Interés corriente",
-      value: Number(
-        Object(creditQuota.totalBalance)?.theBalanceOfRemunerativeInterest || 0,
-      ),
+      value: Number(Object(creditQuota.totalBalance)?.interest || 0),
     },
     {
-      id: "total_arrears_interest",
+      id: "total_past_due_interest",
+      label: "Interés vencido",
+      value: Number(Object(creditQuota.totalBalance)?.pastDueInterest || 0),
+    },
+    {
+      id: "total_penalty_interest",
       label: "Interés de mora",
-      value: Number(
-        Object(creditQuota.totalBalance)?.theBalanceOfDefaultInterest || 0,
-      ),
+      value: Number(Object(creditQuota.totalBalance)?.penaltyInterest || 0),
     },
     {
-      id: "full_payment",
+      id: "total_life_insurance",
+      label: "Seguro de vida",
+      value: Number(Object(creditQuota.totalBalance)?.lifeInsurance || 0),
+    },
+    {
+      id: "total_other_concepts",
+      label: "Otros conceptos",
+      value: Number(Object(creditQuota.totalBalance)?.otherConcepts || 0),
+    },
+    {
+      id: "total_capitalization",
+      label: "Capitalización",
+      value: Number(Object(creditQuota.totalBalance)?.capitalization || 0),
+    },
+    {
+      id: "total_payment",
       label: "Pago total",
-      value: Object(creditQuota.totalBalance)?.totalPending || "Sin definir",
+      value: Object(creditQuota.totalBalance)?.total || "Sin definir",
     },
     {
       id: "payment_method",

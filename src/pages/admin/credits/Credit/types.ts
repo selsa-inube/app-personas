@@ -8,14 +8,15 @@ interface ISelectedProductState {
 interface INextPaymentModalState {
   show: boolean;
   data?: {
-    nextPaymentCapital?: number;
-    nextPaymentInterest?: number;
-    nextPaymentArrearsInterest?: number;
+    nextCapital?: number;
+    nextInterest?: number;
+    nextPastDueInterest?: number;
+    nextPenaltyInterest?: number;
+    nextLifeInsurance?: number;
+    nextOtherConcepts?: number;
+    nextCapitalization?: number;
     nextPaymentValue: number;
   };
 }
 
-export type {
-  INextPaymentModalState,
-  ISelectedProductState,
-};
+export type { INextPaymentModalState, ISelectedProductState };
