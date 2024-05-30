@@ -4,8 +4,8 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { MdOpenInNew } from "react-icons/md";
-import { IAttribute } from "src/model/entity/product";
 import { useNavigate } from "react-router-dom";
+import { IAttribute } from "src/model/entity/product";
 
 function currentConsumptionAttrs(currentConsumption: IAttribute[]) {
   let consumptionDate;
@@ -24,10 +24,10 @@ function currentConsumptionAttrs(currentConsumption: IAttribute[]) {
     if (attr.id === "consumption_value") {
       consumptionValue = attr.value;
     }
-    if (attr.id === "current_interest") {
+    if (attr.id === "interest") {
       currentInterest = attr.value;
     }
-    if (attr.id === "capital_payment") {
+    if (attr.id === "capital") {
       capitalPayment = attr.value;
     }
     if (attr.id === "min_payment_quota_available") {
@@ -36,10 +36,10 @@ function currentConsumptionAttrs(currentConsumption: IAttribute[]) {
     if (attr.id === "total_payment_quota_available") {
       totalPaymentQuotaAvailable = attr.value;
     }
-    if (attr.id === "total_capital_payment") {
+    if (attr.id === "total_capital") {
       totalCapitalPayment = attr.value;
     }
-    if (attr.id === "min_capital_payment") {
+    if (attr.id === "min_capital") {
       minCapitalPayment = attr.value;
     }
   });

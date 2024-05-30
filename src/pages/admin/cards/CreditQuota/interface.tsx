@@ -24,8 +24,8 @@ import {
 } from "./config/product";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
-import { IProduct } from "src/model/entity/product";
 import { CurrentConsumption } from "@components/cards/cards/CurrentConsumption";
+import { IProduct } from "src/model/entity/product";
 
 interface CreditQuotaUIProps {
   cardId?: string;
@@ -64,7 +64,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
   )?.value;
 
   const totalPayment = selectedProduct.creditQuotaDetail.attributes.find(
-    (attr) => attr.id === "full_payment",
+    (attr) => attr.id === "total_payment",
   )?.value;
 
   const creditQuotaType = selectedProduct.creditQuotaDetail.attributes.find(
