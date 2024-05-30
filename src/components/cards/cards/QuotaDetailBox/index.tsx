@@ -36,6 +36,9 @@ function QuotaDetailBox(props: QuotaDetailBoxProps) {
               ),
           )}
         </Stack>
+      </Stack>
+
+      <Stack direction="column" gap="s250">
         <Divider />
         <Stack justifyContent="space-between">
           <Text type="title" size="medium" appearance="gray">

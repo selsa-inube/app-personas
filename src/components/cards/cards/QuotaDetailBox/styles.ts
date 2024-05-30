@@ -9,6 +9,10 @@ const StyledQuotaDetailBox = styled.section`
   border-color: ${({ theme }) =>
     theme.color?.stroke?.divider?.regular ||
     inube.color.stroke.divider.regular};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: ${inube.spacing.s250};
 `;
 
 export { StyledQuotaDetailBox };
