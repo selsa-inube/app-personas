@@ -35,7 +35,7 @@ const mapCreditApiToEntity = (
   );
 
   const nextInterestBalance = Number(
-    Object(credit.nextPaymentValue).interestBalance || 0,
+    Object(credit.nextPaymentValue).interestValue || 0,
   );
 
   const nextPastDueInterest = Number(
@@ -51,7 +51,7 @@ const mapCreditApiToEntity = (
   );
 
   const expiredInterestBalance = Number(
-    Object(credit.valueExpired)?.interestBalance || 0,
+    Object(credit.valueExpired)?.interestValue || 0,
   );
 
   const expiredPastDueInterest = Number(
