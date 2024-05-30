@@ -26,9 +26,13 @@ const renderTransactionSpecification = (label: string, value: number) => (
 interface NextPaymentModalProps {
   portalId: string;
   nextPaymentData: {
-    nextPaymentCapital?: number;
-    nextPaymentInterest?: number;
-    nextPaymentArrearsInterest?: number;
+    nextCapital?: number;
+    nextInterest?: number;
+    nextPastDueInterest?: number;
+    nextPenaltyInterest?: number;
+    nextLifeInsurance?: number;
+    nextOtherConcepts?: number;
+    nextCapitalization?: number;
     nextPaymentValue: number;
   };
   onCloseModal: () => void;
@@ -77,22 +81,46 @@ function NextPaymentModal(props: NextPaymentModalProps) {
           </Text>
 
           <Stack direction="column" gap="s200">
-            {nextPaymentData.nextPaymentCapital &&
+            {nextPaymentData.nextCapital &&
               renderTransactionSpecification(
                 "Abono capital:",
-                nextPaymentData.nextPaymentCapital,
+                nextPaymentData.nextCapital,
               )}
 
-            {nextPaymentData.nextPaymentInterest &&
+            {nextPaymentData.nextInterest &&
               renderTransactionSpecification(
                 "Interés corriente:",
-                nextPaymentData.nextPaymentInterest,
+                nextPaymentData.nextInterest,
               )}
 
-            {nextPaymentData.nextPaymentArrearsInterest &&
+            {nextPaymentData.nextPastDueInterest &&
+              renderTransactionSpecification(
+                "Interés vencido:",
+                nextPaymentData.nextPastDueInterest,
+              )}
+
+            {nextPaymentData.nextPenaltyInterest &&
               renderTransactionSpecification(
                 "Interés de mora:",
-                nextPaymentData.nextPaymentArrearsInterest,
+                nextPaymentData.nextPenaltyInterest,
+              )}
+
+            {nextPaymentData.nextLifeInsurance &&
+              renderTransactionSpecification(
+                "Seguro de vida:",
+                nextPaymentData.nextLifeInsurance,
+              )}
+
+            {nextPaymentData.nextOtherConcepts &&
+              renderTransactionSpecification(
+                "Otros conceptos:",
+                nextPaymentData.nextOtherConcepts,
+              )}
+
+            {nextPaymentData.nextCapitalization &&
+              renderTransactionSpecification(
+                "Capitalización:",
+                nextPaymentData.nextCapitalization,
               )}
           </Stack>
 

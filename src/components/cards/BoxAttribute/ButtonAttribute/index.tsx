@@ -3,18 +3,25 @@ import { Text } from "@design/data/Text";
 import { StyledContainer, StyledIcon } from "./styles";
 
 interface ButtonAttributeProps {
-  onClick?: () => void;
   icon?: React.JSX.Element;
   value?: string | number;
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
 function ButtonAttribute(props: ButtonAttributeProps) {
-  const { onClick, icon, value } = props;
+  const { icon, value, disabled, onClick } = props;
   return (
     <StyledContainer onClick={onClick}>
       {icon && (
         <StyledIcon>
-          <Icon icon={icon} appearance="primary" size="16px" spacing="none" />
+          <Icon
+            icon={icon}
+            appearance="primary"
+            size="16px"
+            spacing="none"
+            disabled={disabled}
+          />
         </StyledIcon>
       )}
 

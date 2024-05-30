@@ -7,7 +7,7 @@ const consumptionAttributes = [
   "dues_paid",
   "outstanding_dues",
   "net_value",
-  "current_interest",
+  "interest",
 ];
 
 const consumptionCurrencyAttributes = ["consumption_value", "net_value"];
