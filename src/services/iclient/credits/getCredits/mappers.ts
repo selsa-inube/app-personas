@@ -59,7 +59,7 @@ const mapCreditApiToEntity = (
   );
 
   const expiredPenaltyInterest = Number(
-    Object(credit.expiredPayment)?.penaltyInterest || 0,
+    Object(credit.valueExpired)?.penaltyInterest || 0,
   );
 
   const nextPaymentValue =
