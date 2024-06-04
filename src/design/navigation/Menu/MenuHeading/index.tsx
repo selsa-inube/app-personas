@@ -22,5 +22,5 @@ function MenuHeading(props: MenuHeadingProps) {
   );
 }
 
-export type { MenuHeadingProps };
 export { MenuHeading };
+export type { MenuHeadingProps };

@@ -150,7 +150,7 @@ const mapCreditApiToEntity = (
     {
       id: "net_value",
       label: "Saldo de capital",
-      value: Number(Object(credit.balanceObligation).capital),
+      value: Number(Object(credit.balanceObligation).capital || 0),
     },
     {
       id: "amortization_type",
