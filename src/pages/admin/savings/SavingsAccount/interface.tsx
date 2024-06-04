@@ -38,11 +38,14 @@ import { StyledMovementsContainer } from "./styles";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
-  IRechargeModalState,
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
 
+import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { RechargeModal } from "@components/modals/transfers/RechargeModal";
+import { SectionMessage } from "@design/feedback/SectionMessage";
+import { IMessage } from "@ptypes/messages.types";
 import { EProductType } from "src/model/entity/product";
 import {
   extractSavingAttributes,
@@ -55,7 +58,9 @@ interface SavingsAccountUIProps {
   productsOptions: ISelectOption[];
   beneficiariesModal: IBeneficiariesModalState;
   reimbursementModal: IReimbursementModalState;
-  rechargeModal: IRechargeModalState;
+  showRechargeModal: boolean;
+  loadingSend: boolean;
+  message: IMessage;
   productId?: string;
   commitmentsModal: ICommitmentsModalState;
   onToggleBeneficiariesModal: () => void;
@@ -63,6 +68,8 @@ interface SavingsAccountUIProps {
   onToggleCommitmentsModal: () => void;
   onToggleReimbursementModal: () => void;
   onToggleRechargeModal: () => void;
+  onSubmitRecharge: (savingAccount: string, value: number) => void;
+  onCloseMessage: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -72,7 +79,9 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     productsOptions,
     beneficiariesModal,
     reimbursementModal,
-    rechargeModal,
+    showRechargeModal,
+    loadingSend,
+    message,
     productId,
     commitmentsModal,
     onToggleBeneficiariesModal,
@@ -80,6 +89,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onToggleCommitmentsModal,
     onToggleReimbursementModal,
     onToggleRechargeModal,
+    onSubmitRecharge,
+    onCloseMessage,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -263,7 +274,31 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           commitmentsIcons={productsIcons}
         />
       )}
-      {rechargeModal.show && <></>}
+      {showRechargeModal && (
+        <RechargeModal
+          onCloseModal={onToggleRechargeModal}
+          savingAccounts={[selectedProduct.saving]}
+          onSubmit={onSubmitRecharge}
+        />
+      )}
+
+      {loadingSend && (
+        <LoadingModal
+          title="Procesando recarga..."
+          message="Espera unos segundos, estamos procesando la transacción."
+        />
+      )}
+
+      {message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          appearance={message.appearance}
+          icon={message.icon}
+          onClose={onCloseMessage}
+          duration={5000}
+        />
+      )}
     </>
   );
 }
