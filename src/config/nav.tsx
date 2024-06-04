@@ -46,6 +46,11 @@ const getNav = (
           path: "/payments",
           icon: <MdOutlineAttachMoney />,
         },
+        {
+          label: "Pagos",
+          path: "/payments",
+          icon: <MdOutlineAttachMoney />,
+        },
       ],
     },
   ];

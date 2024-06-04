@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-function RechargesRoutes() {
+function TransfersRoutes() {
   return (
     <Routes>
       <Route path="/" element={<></>} />
@@ -9,4 +9,4 @@ function RechargesRoutes() {
   );
 }
 
-export { RechargesRoutes };
+export { TransfersRoutes };
