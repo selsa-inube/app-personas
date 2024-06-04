@@ -20,6 +20,7 @@ import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineAssignmentTurnedIn,
+  MdOutlineAttachMoney,
 } from "react-icons/md";
 import {
   savingAccountMovementsNormalizeEntries,
@@ -37,6 +38,7 @@ import { StyledMovementsContainer } from "./styles";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
+  IRechargeModalState,
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
@@ -53,12 +55,14 @@ interface SavingsAccountUIProps {
   productsOptions: ISelectOption[];
   beneficiariesModal: IBeneficiariesModalState;
   reimbursementModal: IReimbursementModalState;
+  rechargeModal: IRechargeModalState;
   productId?: string;
-  handleToggleBeneficiariesModal: () => void;
-  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   commitmentsModal: ICommitmentsModalState;
-  handleToggleCommitmentsModal: () => void;
-  handleToggleReimbursementModal: () => void;
+  onToggleBeneficiariesModal: () => void;
+  onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onToggleCommitmentsModal: () => void;
+  onToggleReimbursementModal: () => void;
+  onToggleRechargeModal: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -68,12 +72,14 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     productsOptions,
     beneficiariesModal,
     reimbursementModal,
+    rechargeModal,
     productId,
-    handleToggleBeneficiariesModal,
-    handleChangeProduct,
     commitmentsModal,
-    handleToggleCommitmentsModal,
-    handleToggleReimbursementModal,
+    onToggleBeneficiariesModal,
+    onChangeProduct,
+    onToggleCommitmentsModal,
+    onToggleReimbursementModal,
+    onToggleRechargeModal,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -128,7 +134,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
         <Stack direction="column" gap="s300">
           <Select
             id="savingProducts"
-            onChange={handleChangeProduct}
+            onChange={onChangeProduct}
             label="Selección de producto"
             options={productsOptions}
             value={selectedProduct.option}
@@ -140,6 +146,17 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             subtitle={selectedProduct.saving.id}
             tags={selectedProduct.saving.tags}
             {...savingsAccountBox(selectedProduct.saving.type)}
+            button={
+              selectedProduct.saving.type === EProductType.VIEWSAVINGS
+                ? {
+                    label: "Recargar",
+                    icon: <MdOutlineAttachMoney />,
+                    onClick: onToggleRechargeModal,
+                    variant: "filled",
+                    appearance: "primary",
+                  }
+                : undefined
+            }
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
@@ -157,7 +174,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       label="Cuenta para reembolso:"
                       buttonIcon={<MdOpenInNew />}
                       buttonValue="Ver"
-                      onClickButton={handleToggleReimbursementModal}
+                      onClickButton={onToggleReimbursementModal}
                       withButton
                     />
                   ) : (
@@ -172,7 +189,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       label="Beneficiarios:"
                       buttonIcon={<MdOpenInNew />}
                       buttonValue={beneficiariesModal.data.length}
-                      onClickButton={handleToggleBeneficiariesModal}
+                      onClickButton={onToggleBeneficiariesModal}
                       withButton
                     />
                   )}
@@ -182,7 +199,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       label="Compromisos de ahorro:"
                       buttonIcon={<MdOpenInNew />}
                       buttonValue={commitmentsModal.data.length}
-                      onClickButton={handleToggleCommitmentsModal}
+                      onClickButton={onToggleCommitmentsModal}
                       withButton
                     />
                   )}
@@ -226,7 +243,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
         <ReimbursementModal
           portalId="modals"
           reimbursement={reimbursementModal.data}
-          onCloseModal={handleToggleReimbursementModal}
+          onCloseModal={onToggleReimbursementModal}
         />
       )}
       {beneficiariesModal.show && (
@@ -234,18 +251,19 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           portalId="modals"
           title="Beneficiarios"
           description="Porcentaje de participación"
-          onCloseModal={handleToggleBeneficiariesModal}
+          onCloseModal={onToggleBeneficiariesModal}
           attributes={beneficiariesModal.data}
         />
       )}
       {commitmentsModal.show && (
         <SavingCommitmentsModal
           portalId="modals"
-          onCloseModal={handleToggleCommitmentsModal}
+          onCloseModal={onToggleCommitmentsModal}
           commitments={commitmentsModal.data}
           commitmentsIcons={productsIcons}
         />
       )}
+      {rechargeModal.show && <></>}
     </>
   );
 }

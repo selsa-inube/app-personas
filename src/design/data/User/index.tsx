@@ -6,13 +6,13 @@ import { StyledUser } from "./styles";
 
 interface UserProps {
   username: string;
-  client?: string;
+  businessUnit?: string;
   onlyAvatar?: boolean;
   onClick?: () => void;
 }
 
 function User(props: UserProps) {
-  const { username, client, onlyAvatar, onClick } = props;
+  const { username, businessUnit, onlyAvatar, onClick } = props;
   const [isHovered, setIsHovered] = useState(false);
 
   function toggleHover(state: boolean) {
@@ -31,14 +31,14 @@ function User(props: UserProps) {
             <Text type="label" size="medium" textAlign="center">
               {username}
             </Text>
-            {client && (
+            {businessUnit && (
               <Text
                 type="body"
                 size="small"
                 appearance="gray"
                 textAlign="center"
               >
-                {client}
+                {businessUnit}
               </Text>
             )}
           </Stack>

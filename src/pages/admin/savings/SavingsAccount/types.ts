@@ -20,9 +20,15 @@ interface ICommitmentsModalState {
   data: ICommitment[];
 }
 
+interface IRechargeModalState {
+  show: boolean;
+  savingAccount?: IProduct;
+}
+
 export type {
   IBeneficiariesModalState,
   ICommitmentsModalState,
-  ISelectedProductState,
+  IRechargeModalState,
   IReimbursementModalState,
+  ISelectedProductState,
 };

@@ -26,7 +26,7 @@ export const Default: StoryFn<HeaderProps> = (args) => <Header {...args} />;
 Default.args = {
   logoURL: "http://www.sistemasenlinea.com.co/images/selsalogo-small-grey.png",
   username: "Leonardo Garzón",
-  client: "Fondecom",
+  businessUnit: "Fondecom",
   links: [
     {
       label: "Actualizar datos",
