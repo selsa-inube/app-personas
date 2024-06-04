@@ -3,16 +3,17 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
+  IRechargeModalState,
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
 import { validateSaving } from "./utils";
-import { AppContext } from "src/context/app";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -38,6 +39,10 @@ function SavingsAccount() {
       show: false,
       data: [],
     });
+
+  const [rechargeModal, setRechargeModal] = useState<IRechargeModalState>({
+    show: false,
+  });
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -94,7 +99,7 @@ function SavingsAccount() {
   const handleSortProduct = async () => {
     if (!product_id || !user || !accessToken) return;
 
-    const { selectedSavings, newSavings, combinedSavings } =
+    const { selectedSaving, newSavings, combinedSavings } =
       await validateSaving(
         savings,
         product_id,
@@ -104,11 +109,16 @@ function SavingsAccount() {
 
     setSavings(newSavings);
 
-    if (!selectedSavings) return;
+    if (!selectedSaving) return;
 
     setSelectedProduct({
-      saving: selectedSavings || [],
-      option: selectedSavings.id,
+      saving: selectedSaving || [],
+      option: selectedSaving.id,
+    });
+
+    setRechargeModal({
+      show: false,
+      savingAccount: selectedSaving,
     });
 
     setProductsOptions(
@@ -155,6 +165,13 @@ function SavingsAccount() {
     }));
   };
 
+  const handleToggleRechargeModal = () => {
+    setRechargeModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  }
+
   if (!selectedProduct) return null;
 
   return (
@@ -166,10 +183,12 @@ function SavingsAccount() {
       beneficiariesModal={beneficiariesModal}
       commitmentsModal={commitmentsModal}
       reimbursementModal={reimbursementModal}
-      handleToggleBeneficiariesModal={handleToggleBeneficiariesModal}
-      handleChangeProduct={handleChangeProduct}
-      handleToggleCommitmentsModal={handleToggleCommitmentsModal}
-      handleToggleReimbursementModal={handleToggleReimbursementModal}
+      rechargeModal={rechargeModal}
+      onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
+      onChangeProduct={handleChangeProduct}
+      onToggleCommitmentsModal={handleToggleCommitmentsModal}
+      onToggleReimbursementModal={handleToggleReimbursementModal}
+      onToggleRechargeModal={handleToggleRechargeModal}
     />
   );
 }
