@@ -1,14 +1,14 @@
 import { enviroment } from "@config/enviroment";
-import { IPaymentHistory } from "src/model/entity/payment";
+import { ITransfer } from "src/model/entity/transfer";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapPaymentsHistoryApiToEntities } from "./mappers";
+import { mapTransfersHistoryApiToEntities } from "./mappers";
 
-const getPaymentHistory = async (
+const getTransferHistory = async (
   userIdentification: string,
   accessToken: string,
   page: number,
   limit: number,
-): Promise<IPaymentHistory[]> => {
+): Promise<ITransfer[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
   const requestTime = new Date();
@@ -21,7 +21,7 @@ const getPaymentHistory = async (
     sort: "desc.payDay",
   });
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/payment-history?${queryParams.toString()}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/transfer-history?${queryParams.toString()}`;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -33,7 +33,7 @@ const getPaymentHistory = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchAllPaymentHistory",
+          "X-Action": "SearchAllTransferHistory",
           "X-Business-Unit": enviroment.BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -58,18 +58,19 @@ const getPaymentHistory = async (
 
       if (!res.ok) {
         throw {
-          message: "Error al obtener el historial de pagos del usuario.",
+          message:
+            "Error al obtener el historial de transferencias del usuario.",
           status: res.status,
         };
       }
 
       const data = await res.json();
 
-      const normalizedPaymentHistory = Array.isArray(data)
-        ? mapPaymentsHistoryApiToEntities(data)
+      const normalizedTransferHistory = Array.isArray(data)
+        ? mapTransfersHistoryApiToEntities(data)
         : [];
 
-      return normalizedPaymentHistory;
+      return normalizedTransferHistory;
     } catch (error) {
       if (attempt === maxRetries) {
         saveNetworkTracking(
@@ -81,7 +82,7 @@ const getPaymentHistory = async (
         );
 
         throw new Error(
-          "Todos los intentos fallaron. No se pudo obtener el historial de pagos.",
+          "Todos los intentos fallaron. No se pudo obtener el historial de transferencias.",
         );
       }
     }
@@ -90,4 +91,4 @@ const getPaymentHistory = async (
   return [];
 };
 
-export { getPaymentHistory };
+export { getTransferHistory };
