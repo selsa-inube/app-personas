@@ -27,12 +27,13 @@ import { CardsProvider } from "./context/cards";
 import { CreditsProvider } from "./context/credits";
 
 import { PageNotFound } from "@components/layout/PageNotFound";
+import { SwitchUser } from "@pages/admin/switchUser";
 import { AppProvider } from "./context/app";
 import { SavingsProvider } from "./context/savings";
 import { AidRoutes } from "./routes/aid";
 import { MyCardsRoutes } from "./routes/myCards";
 import { PaymentsRoutes } from "./routes/payments";
-import { SwitchUser } from "@pages/admin/switchUser";
+import { RechargesRoutes } from "./routes/recharges";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +52,8 @@ const router = createBrowserRouter(
         <Route path="my-cards/*" element={<MyCardsRoutes />} />
 
         <Route path="payments/*" element={<PaymentsRoutes />} />
+
+        <Route path="recharges/*" element={<RechargesRoutes />} />
 
         <Route path="credits/*" element={<CreditRoutes />} />
 
