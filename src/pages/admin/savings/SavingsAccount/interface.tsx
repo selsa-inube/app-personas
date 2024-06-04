@@ -68,7 +68,7 @@ interface SavingsAccountUIProps {
   onToggleCommitmentsModal: () => void;
   onToggleReimbursementModal: () => void;
   onToggleRechargeModal: () => void;
-  onSubmitRecharge: (savingAccount: string, value: number) => void;
+  onSubmitRecharge: (savingAccount: string, amount: number) => void;
   onCloseMessage: () => void;
 }
 

@@ -14,7 +14,7 @@ interface ITransferRequest {
   customerCode: string;
   customerName: string;
   savingAccount: string;
-  value: number;
+  amount: number;
   urlRedirect: string;
 }
 

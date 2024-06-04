@@ -8,7 +8,7 @@ import { sendTeamsMessage } from "src/services/teams/sendMessage";
 const sendTransferRequest = async (
   user: IUser,
   savingAccount: string,
-  value: number,
+  amount: number,
   accessToken: string,
 ) => {
   const transferRequestData: ITransferRequest = {
@@ -16,7 +16,7 @@ const sendTransferRequest = async (
     customerName: `${user.firstName} ${user.firstLastName}`,
     urlRedirect: `${window.location.origin}/transfers/history`,
     savingAccount,
-    value,
+    amount,
   };
 
   const creationTime = new Date();
@@ -42,7 +42,7 @@ const sendTransferRequest = async (
         creationTime,
         confirmationTime,
         confirmationType,
-        value,
+        amount,
         savingAccount,
       );
 
@@ -57,7 +57,7 @@ const sendTransferRequest = async (
             { name: "User ID:", value: user.identification },
             { name: "Saving Account:", value: savingAccount },
             { name: "Date:", value: confirmationTime },
-            { name: "Amount:", value: value },
+            { name: "Amount:", value: amount },
           ],
         });
       }

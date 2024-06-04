@@ -53,13 +53,13 @@ function TransferOptions() {
     navigate("/transfers/history");
   };
 
-  const handleSubmitRecharge = (savingAccount: string, value: number) => {
+  const handleSubmitRecharge = (savingAccount: string, amount: number) => {
     if (!accessToken) return;
 
     setShowRechargeModal(false);
     setLoadingSend(true);
 
-    sendTransferRequest(user, savingAccount, value, accessToken).catch(() => {
+    sendTransferRequest(user, savingAccount, amount, accessToken).catch(() => {
       setMessage({
         show: true,
         title: "La recarga no pudo ser procesada",

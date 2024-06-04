@@ -13,6 +13,10 @@ import { useFormik } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IProduct } from "src/model/entity/product";
+import {
+  handleChangeWithCurrency,
+  validateCurrencyField,
+} from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
@@ -28,13 +32,13 @@ const mapSavingAccounts = (savingAccounts: IProduct[]): ISelectOption[] => {
 
 const validationSchema = Yup.object().shape({
   savingAccount: Yup.string().required(validationMessages.required),
-  value: validationRules.money.required(validationMessages.required),
+  amount: validationRules.money.required(validationMessages.required),
 });
 
 interface RechargeModalProps {
   savingAccounts: IProduct[];
   onCloseModal: () => void;
-  onSubmit: (savingAccount: string, value: number) => void;
+  onSubmit: (savingAccount: string, amount: number) => void;
 }
 
 function RechargeModal(props: RechargeModalProps) {
@@ -43,12 +47,12 @@ function RechargeModal(props: RechargeModalProps) {
   const formik = useFormik({
     initialValues: {
       savingAccount: "",
-      value: "",
+      amount: "",
     },
     validationSchema,
     validateOnBlur: false,
     onSubmit: () => {
-      onSubmit(formik.values.savingAccount, parseInt(formik.values.value));
+      onSubmit(formik.values.savingAccount, parseInt(formik.values.amount));
     },
   });
 
@@ -104,17 +108,17 @@ function RechargeModal(props: RechargeModalProps) {
           />
           <TextField
             label="Valor de la recarga"
-            name="value"
-            id="value"
-            placeholder="Digita el nombre del activo"
-            value={formik.values.value || ""}
+            name="amount"
+            id="amount"
+            placeholder="Digita el valor de la recarga"
+            value={validateCurrencyField("amount", formik)}
             type="text"
-            errorMessage={formik.errors.value}
+            errorMessage={formik.errors.amount}
             size="compact"
             isFullWidth
-            state={getFieldState(formik, "value")}
+            state={getFieldState(formik, "amount")}
             onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
+            onChange={(e) => handleChangeWithCurrency(formik, e)}
             validMessage="El valor es válido"
             isRequired
           />
@@ -132,7 +136,7 @@ function RechargeModal(props: RechargeModalProps) {
           <Button
             spacing="compact"
             onClick={formik.handleSubmit}
-            disabled={!formik.isValid}
+            disabled={!formik.isValid || !formik.dirty}
           >
             Recargar
           </Button>

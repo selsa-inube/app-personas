@@ -30,7 +30,7 @@ const mapTransferRequestEntityToApi = (
 
   return {
     savingAccount: transferRequest.savingAccount,
-    value: transferRequest.value,
+    value: transferRequest.amount,
     transferDate,
   };
 };
