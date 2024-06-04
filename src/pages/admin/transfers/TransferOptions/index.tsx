@@ -8,17 +8,29 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useContext, useState } from "react";
 import { MdArrowBack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { SavingsContext } from "src/context/savings";
 import { crumbsTransferOptions } from "./config/navigation";
 
 function TransferOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
+  const { savings } = useContext(SavingsContext);
+
+  const [rechargeModal, setRechargeModal] = useState({
+    show: false,
+    accounts: savings.savingsAccounts,
+  });
+
   const navigate = useNavigate();
 
   const handleRecharge = () => {
-    navigate("/payments/pay");
+    setRechargeModal({
+      ...rechargeModal,
+      show: true,
+    });
   };
 
   const handleGoHistory = () => {
@@ -71,6 +83,8 @@ function TransferOptions() {
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
+
+      {rechargeModal.show && <></>}
     </>
   );
 }
