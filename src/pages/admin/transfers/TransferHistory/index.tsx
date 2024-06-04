@@ -10,6 +10,7 @@ import { TransferHistoryUI } from "./interface";
 const limitTransfers = 5;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
+let countdownInterval: ReturnType<typeof setInterval> | null = null;
 
 function TransferHistory() {
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,7 @@ function TransferHistory() {
   const [noMoreTransfers, setNoMoreTransfers] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const [refreshTime, setRefreshTime] = useState(30);
 
   useEffect(() => {
     handleRefreshHistory();
@@ -25,12 +27,33 @@ function TransferHistory() {
       if (refreshInterval) {
         clearInterval(refreshInterval);
       }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
     };
   }, []);
+
+  const startCountdown = () => {
+    setRefreshTime(30);
+
+    countdownInterval = setInterval(() => {
+      setRefreshTime((prevTime) => {
+        if (prevTime <= 1 && countdownInterval) {
+          clearInterval(countdownInterval);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+  };
 
   const handleRefreshHistory = () => {
     if (refreshInterval) {
       clearInterval(refreshInterval);
+    }
+
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
     }
 
     const limit =
@@ -38,8 +61,11 @@ function TransferHistory() {
 
     handleGetTransferHistory(1, limit, true);
 
+    startCountdown();
+
     refreshInterval = setInterval(() => {
       handleGetTransferHistory(1, limit, true);
+      startCountdown();
     }, 60000);
   };
 
@@ -100,6 +126,7 @@ function TransferHistory() {
       transferHistory={transferHistory}
       loading={loading}
       noMoreTransfers={noMoreTransfers}
+      refreshTime={refreshTime}
       onAddTransfers={handleAddTransfers}
       onRefreshHistory={handleRefreshHistory}
     />
