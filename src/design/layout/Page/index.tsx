@@ -52,15 +52,23 @@ function Page(props: PageProps) {
     withHolidaysRequest,
   );
 
+  const username = capitalizeEachWord(
+    `${user.firstName} ${user.firstLastName}`,
+  );
+
+  const fullName = capitalizeEachWord(
+    `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${
+      user.secondLastName || ""
+    }`,
+  );
+
   return (
     <StyledPage>
       <Header
         logoURL={header.logoURL}
-        username={capitalizeEachWord(`${user.firstName} ${user.firstLastName}`)}
-        fullName={capitalizeEachWord(
-          `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${user.secondLastName || ""}`,
-        )}
-        client={header.client}
+        username={username}
+        fullName={fullName}
+        businessUnit={header.businessUnit}
         links={header.links}
         portalId={header.portalId}
         logoutTitle={header.logoutTitle}

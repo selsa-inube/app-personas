@@ -39,7 +39,7 @@ const mapConsumptionApiToEntity = (
     {
       id: "net_value",
       label: "Saldo de capital",
-      value: Number(Object(consumption.balanceObligation).capital),
+      value: Number(Object(consumption.balanceObligation).capital || 0),
     },
     {
       id: "interest",

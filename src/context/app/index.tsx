@@ -52,7 +52,18 @@ function AppProvider(props: AppProviderProps) {
 
     if (consultingUser) {
       const consultingUserJson = JSON.parse(consultingUser);
-      setUser((prev) => ({ ...prev, identification: consultingUserJson.id }));
+
+      const splitName = consultingUserJson.name.split(" ");
+
+      setUser((prev) => ({
+        ...prev,
+        firstLastName: splitName[0] || "",
+        secondLastName: splitName[1] || "",
+        firstName: splitName[2] || splitName[1] || "",
+        secondName: splitName[3] || splitName[2] || "",
+        identification: consultingUserJson.id,
+      }));
+
       return;
     }
 
