@@ -53,11 +53,6 @@ const getNav = (
           path: "/transfers",
           icon: <MdOutlineCompareArrows />,
         },
-        {
-          label: "Transferencias",
-          path: "/transfers",
-          icon: <MdOutlineCompareArrows />,
-        },
       ],
     },
   ];
