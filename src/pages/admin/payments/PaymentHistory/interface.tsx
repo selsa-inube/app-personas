@@ -22,6 +22,7 @@ interface PaymentHistoryUIProps {
   loading: boolean;
   selectedPayment?: IPaymentHistory;
   noMorePayments: boolean;
+  refreshTime: number;
   onTogglePaymentHistoryModal: (payment: IPaymentHistory) => void;
   onAddPayments: () => void;
   onToggleClosePaymentHistoryModal: () => void;
@@ -35,6 +36,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
     loading,
     selectedPayment,
     noMorePayments,
+    refreshTime,
     onTogglePaymentHistoryModal,
     onAddPayments,
     onToggleClosePaymentHistoryModal,
@@ -77,8 +79,9 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               iconBefore={<MdHistory />}
               onClick={onRefreshHistory}
               load={loading}
+              disabled={!loading && refreshTime !== 0}
             >
-              Refrescar
+              {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
             </Button>
           </Stack>
 

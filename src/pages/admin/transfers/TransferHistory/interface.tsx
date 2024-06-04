@@ -19,6 +19,7 @@ interface TransferHistoryUIProps {
   transferHistory: ITransfer[];
   loading: boolean;
   noMoreTransfers: boolean;
+  refreshTime: number;
   onAddTransfers: () => void;
   onRefreshHistory: () => void;
 }
@@ -28,6 +29,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
     transferHistory,
     loading,
     noMoreTransfers,
+    refreshTime,
     onAddTransfers,
     onRefreshHistory,
   } = props;
@@ -68,8 +70,9 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
               iconBefore={<MdHistory />}
               onClick={onRefreshHistory}
               load={loading}
+              disabled={!loading && refreshTime !== 0}
             >
-              Refrescar
+              {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
             </Button>
           </Stack>
 
