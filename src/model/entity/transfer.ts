@@ -10,4 +10,19 @@ interface ITransfer {
   tag: TagProps;
 }
 
-export type { ITransfer };
+interface ITransferRequest {
+  customerCode: string;
+  customerName: string;
+  savingAccount: string;
+  amount: number;
+  urlRedirect: string;
+}
+
+interface ITransferRequestResponse {
+  trackingCode: string;
+  url?: string;
+  state: string;
+  message: string;
+}
+
+export type { ITransfer, ITransferRequest, ITransferRequestResponse };

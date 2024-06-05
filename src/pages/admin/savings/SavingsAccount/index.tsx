@@ -1,15 +1,18 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
+import { IMessage } from "@ptypes/messages.types";
 import { useContext, useEffect, useState } from "react";
+import { MdSentimentNeutral } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { initialMessageState } from "src/utils/messages";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
   ICommitmentsModalState,
-  IRechargeModalState,
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
@@ -40,9 +43,9 @@ function SavingsAccount() {
       data: [],
     });
 
-  const [rechargeModal, setRechargeModal] = useState<IRechargeModalState>({
-    show: false,
-  });
+  const [showRechargeModal, setShowRechargeModal] = useState(false);
+  const [loadingSend, setLoadingSend] = useState(false);
+  const [message, setMessage] = useState<IMessage>(initialMessageState);
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -116,11 +119,6 @@ function SavingsAccount() {
       option: selectedSaving.id,
     });
 
-    setRechargeModal({
-      show: false,
-      savingAccount: selectedSaving,
-    });
-
     setProductsOptions(
       combinedSavings.map((saving) => ({
         id: saving.id,
@@ -165,12 +163,33 @@ function SavingsAccount() {
     }));
   };
 
+  const handleSubmitRecharge = (savingAccount: string, amount: number) => {
+    if (!accessToken) return;
+
+    setShowRechargeModal(false);
+    setLoadingSend(true);
+
+    sendTransferRequest(user, savingAccount, amount, accessToken).catch(() => {
+      setMessage({
+        show: true,
+        title: "La recarga no pudo ser procesada",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        icon: <MdSentimentNeutral />,
+        appearance: "error",
+      });
+
+      setLoadingSend(false);
+    });
+  };
+
   const handleToggleRechargeModal = () => {
-    setRechargeModal((prevState) => ({
-      ...prevState,
-      show: !prevState.show,
-    }));
-  }
+    setShowRechargeModal(!showRechargeModal);
+  };
+
+  const handleCloseMessage = () => {
+    setMessage(initialMessageState);
+  };
 
   if (!selectedProduct) return null;
 
@@ -183,12 +202,16 @@ function SavingsAccount() {
       beneficiariesModal={beneficiariesModal}
       commitmentsModal={commitmentsModal}
       reimbursementModal={reimbursementModal}
-      rechargeModal={rechargeModal}
+      showRechargeModal={showRechargeModal}
+      loadingSend={loadingSend}
+      message={message}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}
       onToggleReimbursementModal={handleToggleReimbursementModal}
       onToggleRechargeModal={handleToggleRechargeModal}
+      onCloseMessage={handleCloseMessage}
+      onSubmitRecharge={handleSubmitRecharge}
     />
   );
 }

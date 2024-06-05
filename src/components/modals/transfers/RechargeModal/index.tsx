@@ -1,0 +1,151 @@
+import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
+import { Icon } from "@design/data/Icon";
+import { Text } from "@design/data/Text";
+import { Button } from "@design/input/Button";
+import { Select } from "@design/input/Select";
+import { ISelectOption } from "@design/input/Select/types";
+import { TextField } from "@design/input/TextField";
+import { Blanket } from "@design/layout/Blanket";
+import { Divider } from "@design/layout/Divider";
+import { Stack } from "@design/layout/Stack";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useFormik } from "formik";
+import { createPortal } from "react-dom";
+import { MdOutlineClose } from "react-icons/md";
+import { IProduct } from "src/model/entity/product";
+import {
+  handleChangeWithCurrency,
+  validateCurrencyField,
+} from "src/utils/currency";
+import { getFieldState } from "src/utils/forms/forms";
+import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
+import * as Yup from "yup";
+import { StyledModal } from "./styles";
+
+const mapSavingAccounts = (savingAccounts: IProduct[]): ISelectOption[] => {
+  return savingAccounts.map((savingAccount) => ({
+    id: savingAccount.id,
+    value: `${savingAccount.title} - ${savingAccount.id}`,
+  }));
+};
+
+const validationSchema = Yup.object().shape({
+  savingAccount: Yup.string().required(validationMessages.required),
+  amount: validationRules.money.required(validationMessages.required),
+});
+
+interface RechargeModalProps {
+  savingAccounts: IProduct[];
+  onCloseModal: () => void;
+  onSubmit: (savingAccount: string, amount: number) => void;
+}
+
+function RechargeModal(props: RechargeModalProps) {
+  const { savingAccounts, onCloseModal, onSubmit } = props;
+
+  const formik = useFormik({
+    initialValues: {
+      savingAccount: "",
+      amount: "",
+    },
+    validationSchema,
+    validateOnBlur: false,
+    onSubmit: () => {
+      onSubmit(formik.values.savingAccount, parseInt(formik.values.amount));
+    },
+  });
+
+  const isMobile = useMediaQuery("(max-width: 580px)");
+
+  const node = document.getElementById("modals");
+
+  if (node === null) {
+    throw new Error(
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
+    );
+  }
+
+  return createPortal(
+    <Blanket>
+      <StyledModal smallScreen={isMobile}>
+        <Stack direction="column" width="100%" gap="s100">
+          <Stack justifyContent="space-between" alignItems="center">
+            <Text type="title" size="medium">
+              Recargar
+            </Text>
+
+            <Icon
+              appearance="dark"
+              icon={<MdOutlineClose />}
+              onClick={onCloseModal}
+              cursorHover={true}
+              size="20px"
+              spacing="none"
+            />
+          </Stack>
+          <Text type="body" size="medium" appearance="gray">
+            Diligencia el formulario para recargar tu cuenta.
+          </Text>
+        </Stack>
+
+        <Divider dashed />
+
+        <Stack direction="column" gap="s150">
+          <Select
+            label="Cuenta de ahorros"
+            name="savingAccount"
+            id="savingAccount"
+            size="compact"
+            isFullWidth
+            options={mapSavingAccounts(savingAccounts)}
+            onBlur={formik.handleBlur}
+            errorMessage={formik.errors.savingAccount}
+            state={getFieldState(formik, "savingAccount")}
+            onChange={formik.handleChange}
+            value={formik.values.savingAccount || ""}
+            isRequired
+          />
+          <TextField
+            label="Valor de la recarga"
+            name="amount"
+            id="amount"
+            placeholder="Digita el valor de la recarga"
+            value={validateCurrencyField("amount", formik)}
+            type="text"
+            errorMessage={formik.errors.amount}
+            size="compact"
+            isFullWidth
+            state={getFieldState(formik, "amount")}
+            onBlur={formik.handleBlur}
+            onChange={(e) => handleChangeWithCurrency(formik, e)}
+            validMessage="El valor es válido"
+            isRequired
+          />
+        </Stack>
+
+        <Stack width="100%" justifyContent="flex-end" gap="s100">
+          <Button
+            appearance="gray"
+            variant="outlined"
+            spacing="compact"
+            onClick={onCloseModal}
+          >
+            Atrás
+          </Button>
+          <Button
+            spacing="compact"
+            onClick={formik.handleSubmit}
+            disabled={!formik.isValid || !formik.dirty}
+          >
+            Recargar
+          </Button>
+        </Stack>
+      </StyledModal>
+    </Blanket>,
+    node,
+  );
+}
+
+export { RechargeModal };
+export type { IHelpOption };
