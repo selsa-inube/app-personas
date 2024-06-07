@@ -2,23 +2,23 @@ import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const transferStatusDataDomain = {
   IN_PROGRESS_PSE: {
-    id: "en_tramite_con_pse",
+    id: "inProgressPSE",
     value: "En progreso",
   },
   REJECTED_PSE: {
-    id: "transferencia_pse_abortada",
+    id: "rejectedPse",
     value: "Rechazado",
   },
   IN_PROGRESS: {
-    id: "transferencia_recibida_en_proceso_de_aplicacion",
+    id: "inProgress",
     value: "En progreso",
   },
   COMPLETED: {
-    id: "transferencia_finalizada",
+    id: "completed",
     value: "Completado",
   },
   REJECTED: {
-    id: "transferencia_no_satisfactoria",
+    id: "rejected",
     value: "Rechazado",
   },
 };

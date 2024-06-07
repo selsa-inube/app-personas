@@ -29,9 +29,13 @@ const mapTransferRequestEntityToApi = (
   const transferDate = new Date();
 
   return {
-    savingAccount: transferRequest.savingAccount,
-    value: transferRequest.amount,
-    transferDate,
+    customerCode: transferRequest.customerCode,
+    customerName: transferRequest.customerName,
+    transferDate: transferDate.toISOString(),
+    source: transferRequest.source.id,
+    destination: transferRequest.destination,
+    amount: transferRequest.amount,
+    urlRedirect: transferRequest.urlRedirect,
   };
 };
 

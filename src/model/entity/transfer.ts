@@ -1,11 +1,12 @@
 import { TagProps } from "@design/data/Tag";
+import { IDomainType } from "@ptypes/domain.types";
 
 interface ITransfer {
   id: string;
   title: string;
   destination: string;
   value: number;
-  origin: string;
+  source: string;
   date: Date;
   tag: TagProps;
 }
@@ -13,7 +14,9 @@ interface ITransfer {
 interface ITransferRequest {
   customerCode: string;
   customerName: string;
-  savingAccount: string;
+  transferDate: Date;
+  source: IDomainType;
+  destination: string;
   amount: number;
   urlRedirect: string;
 }

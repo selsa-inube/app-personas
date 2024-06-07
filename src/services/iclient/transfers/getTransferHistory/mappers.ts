@@ -1,18 +1,19 @@
 import { TagAppearanceType } from "@design/data/Tag/types";
+import { transferSourceDM } from "src/model/domains/transfers/transferSourceDM";
 import { transferStatusDM } from "src/model/domains/transfers/transferStatusDM";
 
 import { ITransfer } from "src/model/entity/transfer";
 
 const transferTitleValues: Record<string, string> = {
-  recharge_saving_account: "Recarga CUENTA DE AHORROS",
+  rechargeSavingAccount: "Recarga CUENTA DE AHORROS",
 };
 
 const transferStatusAppearance: Record<string, TagAppearanceType> = {
-  en_tramite_con_pse: "warning",
-  pago_pse_abortado: "error",
-  pago_recibido_en_proceso_de_aplicacion: "warning",
-  pago_finalizado: "success",
-  pago_no_satisfactorio: "error",
+  inProgressPSE: "warning",
+  rejectedPse: "error",
+  inProgress: "warning",
+  completed: "success",
+  rejected: "error",
 };
 
 const mapTransferHistoryApiToEntity = (
@@ -24,7 +25,7 @@ const mapTransferHistoryApiToEntity = (
     value: Number(transfer.totalValuePaid),
     date: new Date(String(transfer.payDay)),
     destination: String(transfer.destination),
-    origin: String(transfer.origin),
+    source: transferSourceDM.valueOf(String(transfer.source))?.value || "",
     tag: {
       label:
         transferStatusDM.valueOf(String(transfer.transferStatus))?.value || "",

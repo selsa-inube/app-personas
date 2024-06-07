@@ -13,13 +13,13 @@ interface TransferHistoryCardProps {
   title: string;
   destination: string;
   value: number;
-  origin: string;
+  source: string;
   date: Date;
   tag: TagProps;
 }
 
 function TransferHistoryCard(props: TransferHistoryCardProps) {
-  const { title, value, date, destination, origin, tag } = props;
+  const { title, value, date, destination, source, tag } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
 
@@ -86,7 +86,7 @@ function TransferHistoryCard(props: TransferHistoryCardProps) {
               Origen:
             </Text>
             <Text type="body" size="small">
-              {origin}
+              {source}
             </Text>
           </Stack>
           <Stack justifyContent="space-between">

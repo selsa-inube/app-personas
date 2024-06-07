@@ -23,7 +23,7 @@ Default.args = {
   value: 645000,
   date: new Date("30/Mar/2024 11:20 am"),
   destination: "558907643",
-  origin: "558907643",
+  source: "558907643",
   tag: {
     label: "En progreso",
     appearance: "warning",

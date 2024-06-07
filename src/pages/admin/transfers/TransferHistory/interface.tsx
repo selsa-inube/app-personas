@@ -93,7 +93,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
                       tag={transfer.tag}
                       date={transfer.date}
                       destination={transfer.destination}
-                      origin={transfer.origin}
+                      source={transfer.source}
                     />
                     {index !== transferHistory.length - 1 && <Divider dashed />}
                   </Stack>
