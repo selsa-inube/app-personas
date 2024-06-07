@@ -31,9 +31,9 @@ function CardMovement(props: CardMovementProps) {
 
   return (
     <StyledCard smallScreen={isMobile}>
-      <Stack justifyContent="space-between" gap="s100">
-        <Stack gap="s100">
-          <Stack direction="column">
+      <Stack justifyContent="space-between" gap={isMobile ? "s200" : "s500"}>
+        <Stack gap="s150">
+          <Stack direction="column" justifyContent="center">
             {movementType === EMovementType.PURCHASE && (
               <Icon
                 icon={<MdArrowBack />}
@@ -66,7 +66,7 @@ function CardMovement(props: CardMovementProps) {
             )}
           </Stack>
           <Stack alignItems="center">
-            <Text type="label" size={isMobile ? "small" : "medium"}>
+            <Text type="label" size="medium">
               {`${getMovementDescriptionType(movementType, description)} ${description}`}
             </Text>
           </Stack>
@@ -76,32 +76,22 @@ function CardMovement(props: CardMovementProps) {
             {currencyFormat(totalValue)}
           </Text>
         ) : (
-          <Stack alignItems="center">
-            <Icon
-              icon={<MdOpenInNew />}
-              spacing="none"
-              size="16px"
-              onClick={onClick}
-              cursorHover
-            />
-          </Stack>
+          <Icon
+            icon={<MdOpenInNew />}
+            spacing="none"
+            size="16px"
+            onClick={onClick}
+            cursorHover
+          />
         )}
       </Stack>
       <Stack justifyContent="space-between">
-        <Text
-          type="label"
-          size={isMobile ? "small" : "medium"}
-          appearance="gray"
-        >
+        <Text type="body" size="small" appearance="gray">
           {formatPrimaryDate(date, false)}
           {reference && !isMobile && ` - ${reference}`}
         </Text>
         {reference && isMobile && (
-          <Text
-            type="label"
-            size={isMobile ? "small" : "medium"}
-            appearance="gray"
-          >
+          <Text type="body" size="small" appearance="gray">
             {reference}
           </Text>
         )}
