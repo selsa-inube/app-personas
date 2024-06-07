@@ -79,7 +79,7 @@ const mapObligations = (
     }
 
     const totalValue = Number(
-      extractAttribute(credit.attributes, "net_value")?.value || 0,
+      extractAttribute(credit.attributes, "total_value")?.value || 0,
     );
 
     const inArrears =
