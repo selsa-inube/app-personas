@@ -160,7 +160,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             button={
               selectedProduct.saving.type === EProductType.VIEWSAVINGS
                 ? {
-                    label: "Recargar",
+                    label: "Depositar",
                     icon: <MdOutlineAttachMoney />,
                     onClick: onToggleRechargeModal,
                     variant: "filled",
