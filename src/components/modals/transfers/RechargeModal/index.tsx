@@ -44,9 +44,12 @@ interface RechargeModalProps {
 function RechargeModal(props: RechargeModalProps) {
   const { savingAccounts, onCloseModal, onSubmit } = props;
 
+  const options = mapSavingAccounts(savingAccounts);
+  const initialSavingAccount = options.length === 1 ? options[0].id : "";
+
   const formik = useFormik({
     initialValues: {
-      savingAccount: "",
+      savingAccount: initialSavingAccount,
       amount: "",
     },
     validationSchema,
@@ -104,7 +107,8 @@ function RechargeModal(props: RechargeModalProps) {
             state={getFieldState(formik, "savingAccount")}
             onChange={formik.handleChange}
             value={formik.values.savingAccount || ""}
-            isRequired
+            readOnly={options.length === 1}
+            isRequired={options.length !== 1}
           />
           <TextField
             label="Valor de la recarga"
