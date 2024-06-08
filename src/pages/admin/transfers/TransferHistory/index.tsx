@@ -1,5 +1,4 @@
 import { useAuth } from "@inube/auth";
-import { transferHistoryMock } from "@mocks/transfers/transferHistory.mocks";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { ITransfer } from "src/model/entity/transfer";
@@ -106,8 +105,7 @@ function TransferHistory() {
           setTransferHistory([...transferHistory, ...newTransferHistory]);
         })
         .catch((error) => {
-          /* setNoMoreTransfers(true); */ // TEMP
-          setTransferHistory(transferHistoryMock);
+          setNoMoreTransfers(true);
           console.info(error.message);
         })
         .finally(() => {

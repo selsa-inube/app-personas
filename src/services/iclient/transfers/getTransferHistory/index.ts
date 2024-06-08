@@ -18,10 +18,10 @@ const getTransferHistory = async (
     clientCode: userIdentification,
     page: String(page),
     per_page: String(limit),
-    sort: "desc.payDay",
+    sort: "desc.transferDate",
   });
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/transfer-history?${queryParams.toString()}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/transfer?${queryParams.toString()}`;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -33,7 +33,7 @@ const getTransferHistory = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchAllTransferHistory",
+          "X-Action": "SearchAllTransfer",
           "X-Business-Unit": enviroment.BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
