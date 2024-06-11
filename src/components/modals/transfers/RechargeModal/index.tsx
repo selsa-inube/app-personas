@@ -75,7 +75,7 @@ function RechargeModal(props: RechargeModalProps) {
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium">
-              Recargar
+              Depositar
             </Text>
 
             <Icon
@@ -88,7 +88,7 @@ function RechargeModal(props: RechargeModalProps) {
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
-            Diligencia el formulario para recargar tu cuenta.
+            Diligencia el formulario para depositar tu cuenta
           </Text>
         </Stack>
 
@@ -142,7 +142,7 @@ function RechargeModal(props: RechargeModalProps) {
             onClick={formik.handleSubmit}
             disabled={!formik.isValid || !formik.dirty}
           >
-            Recargar
+            Enviar
           </Button>
         </Stack>
       </StyledModal>

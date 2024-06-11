@@ -110,9 +110,9 @@ function TransferOptions() {
             <RequestCard
               title="Recarga tu cuenta de ahorros"
               descriptions={[
-                "Realiza transferencias de dinero para recargar tu cuenta de ahorros.",
+                "Realiza transferencias de dinero para depositar tu cuenta de ahorros.",
               ]}
-              actionText="Recargar"
+              actionText="Depositar"
               onClick={handleToggleRechargeModal}
             />
             <RequestCard
