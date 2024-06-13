@@ -33,6 +33,9 @@ function Page(props: PageProps) {
   const withHolidaysRequest = getFlag(
     "request.holidays.holidays.request-holidays",
   ).value;
+  const withTransfers = getFlag(
+    "admin.transfers.deposit.deposit-accounts",
+  ).value;
 
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
@@ -42,6 +45,7 @@ function Page(props: PageProps) {
     withEventRequest,
     withAidRequest,
     withHolidaysRequest,
+    withTransfers,
   );
 
   const nav = getNav(
@@ -50,6 +54,7 @@ function Page(props: PageProps) {
     withEventRequest,
     withAidRequest,
     withHolidaysRequest,
+    withTransfers,
   );
 
   const username = capitalizeEachWord(

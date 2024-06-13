@@ -14,6 +14,7 @@ const getHeader = (
   requestEventFlag: boolean,
   requestAidFlag: boolean,
   requestHolidaysFlag: boolean,
+  requestTransfersFlag: boolean,
 ) => {
   const links = [];
 
@@ -50,6 +51,7 @@ const getHeader = (
       requestEventFlag,
       requestAidFlag,
       requestHolidaysFlag,
+      requestTransfersFlag,
     ),
     businessUnit,
   };
