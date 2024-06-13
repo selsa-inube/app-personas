@@ -46,6 +46,7 @@ function SavingsAccount() {
   const [showRechargeModal, setShowRechargeModal] = useState(false);
   const [loadingSend, setLoadingSend] = useState(false);
   const [message, setMessage] = useState<IMessage>(initialMessageState);
+  const { getFlag } = useContext(AppContext);
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -193,6 +194,10 @@ function SavingsAccount() {
 
   if (!selectedProduct) return null;
 
+  const withRechargeDeposit = getFlag(
+    "admin.transfers.recharge.recharge-deposit"
+  ).value;
+
   return (
     <SavingsAccountUI
       productsOptions={productsOptions}
@@ -205,6 +210,7 @@ function SavingsAccount() {
       showRechargeModal={showRechargeModal}
       loadingSend={loadingSend}
       message={message}
+      withRechargeDeposit={withRechargeDeposit}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}
@@ -217,3 +223,4 @@ function SavingsAccount() {
 }
 
 export { SavingsAccount };
+

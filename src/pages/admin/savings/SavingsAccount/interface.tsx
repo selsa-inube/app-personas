@@ -63,6 +63,7 @@ interface SavingsAccountUIProps {
   message: IMessage;
   productId?: string;
   commitmentsModal: ICommitmentsModalState;
+  withRechargeDeposit: boolean;
   onToggleBeneficiariesModal: () => void;
   onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleCommitmentsModal: () => void;
@@ -84,6 +85,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     message,
     productId,
     commitmentsModal,
+    withRechargeDeposit,
     onToggleBeneficiariesModal,
     onChangeProduct,
     onToggleCommitmentsModal,
@@ -158,6 +160,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             tags={selectedProduct.saving.tags}
             {...savingsAccountBox(selectedProduct.saving.type)}
             button={
+              withRechargeDeposit &&
               selectedProduct.saving.type === EProductType.VIEWSAVINGS
                 ? {
                     label: "Depositar",

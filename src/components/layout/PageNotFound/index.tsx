@@ -34,6 +34,9 @@ function PageNotFound() {
   const withHolidaysRequest = getFlag(
     "request.holidays.holidays.request-holidays",
   ).value;
+  const withRechargeDeposit = getFlag(
+    "admin.transfers.recharge.recharge-deposit"
+  ).value;
 
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
@@ -43,6 +46,7 @@ function PageNotFound() {
     withEventRequest,
     withAidRequest,
     withHolidaysRequest,
+    withRechargeDeposit
   );
 
   const nav = getNav(
@@ -51,6 +55,7 @@ function PageNotFound() {
     withEventRequest,
     withAidRequest,
     withHolidaysRequest,
+    withRechargeDeposit
   );
 
   const username = capitalizeEachWord(
