@@ -29,6 +29,11 @@ function CardMovement(props: CardMovementProps) {
 
   const isMobile = useMediaQuery("(max-width: 580px)");
 
+  const formattedValue =
+    movementType === EMovementType.PURCHASE
+      ? currencyFormat(totalValue)
+      : `-${currencyFormat(totalValue)}`;
+
   return (
     <StyledCard smallScreen={isMobile}>
       <Stack justifyContent="space-between" gap={isMobile ? "s200" : "s500"}>
@@ -73,7 +78,7 @@ function CardMovement(props: CardMovementProps) {
         </Stack>
         {!isMobile ? (
           <Text type="label" size="medium">
-            {currencyFormat(totalValue)}
+            {formattedValue}
           </Text>
         ) : (
           <Icon
@@ -99,7 +104,7 @@ function CardMovement(props: CardMovementProps) {
       {isMobile && (
         <Stack justifyContent="flex-end">
           <Text type="label" size="small">
-            {currencyFormat(totalValue)}
+            {formattedValue}
           </Text>
         </Stack>
       )}
