@@ -194,8 +194,8 @@ function SavingsAccount() {
 
   if (!selectedProduct) return null;
 
-  const withRechargeDeposit = getFlag(
-    "admin.transfers.recharge.recharge-deposit"
+  const withTransfers = getFlag(
+    "admin.transfers.deposit.deposit-accounts",
   ).value;
 
   return (
@@ -210,7 +210,7 @@ function SavingsAccount() {
       showRechargeModal={showRechargeModal}
       loadingSend={loadingSend}
       message={message}
-      withRechargeDeposit={withRechargeDeposit}
+      withTransfers={withTransfers}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}
@@ -223,4 +223,3 @@ function SavingsAccount() {
 }
 
 export { SavingsAccount };
-

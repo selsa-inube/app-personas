@@ -33,8 +33,8 @@ function Page(props: PageProps) {
   const withHolidaysRequest = getFlag(
     "request.holidays.holidays.request-holidays",
   ).value;
-  const withRechargeDeposit = getFlag(
-    "admin.transfers.recharge.recharge-deposit",
+  const withTransfers = getFlag(
+    "admin.transfers.deposit.deposit-accounts",
   ).value;
 
   const header = getHeader(
@@ -45,7 +45,7 @@ function Page(props: PageProps) {
     withEventRequest,
     withAidRequest,
     withHolidaysRequest,
-    withRechargeDeposit,
+    withTransfers,
   );
 
   const nav = getNav(
@@ -54,7 +54,7 @@ function Page(props: PageProps) {
     withEventRequest,
     withAidRequest,
     withHolidaysRequest,
-    withRechargeDeposit,
+    withTransfers,
   );
 
   const username = capitalizeEachWord(

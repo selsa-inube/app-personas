@@ -18,8 +18,7 @@ const getNav = (
   requestEventFlag: boolean,
   requestAidFlag: boolean,
   requestHolidaysFlag: boolean,
-  requestRechargeFlag: boolean
-
+  requestTransfersFlag: boolean,
 ) => {
   const sections = [
     {
@@ -50,7 +49,7 @@ const getNav = (
           path: "/payments",
           icon: <MdOutlinePayments />,
         },
-        ...(requestRechargeFlag
+        ...(requestTransfersFlag
           ? [
               {
                 label: "Transferencias",
