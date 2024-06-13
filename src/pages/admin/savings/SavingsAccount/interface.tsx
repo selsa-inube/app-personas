@@ -287,7 +287,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
 
       {loadingSend && (
         <LoadingModal
-          title="Procesando recarga..."
+          title="Procesando depósito..."
           message="Espera unos segundos, estamos procesando la transacción."
         />
       )}

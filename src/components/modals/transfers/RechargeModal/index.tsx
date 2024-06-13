@@ -111,10 +111,10 @@ function RechargeModal(props: RechargeModalProps) {
             isRequired={options.length !== 1}
           />
           <TextField
-            label="Valor de la recarga"
+            label="Valor del depósito"
             name="amount"
             id="amount"
-            placeholder="Digita el valor de la recarga"
+            placeholder="Digita el valor que vas a depositar"
             value={validateCurrencyField("amount", formik)}
             type="text"
             errorMessage={formik.errors.amount}
