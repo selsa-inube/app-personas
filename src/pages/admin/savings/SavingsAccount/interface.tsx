@@ -20,6 +20,7 @@ import {
   MdArrowBack,
   MdOpenInNew,
   MdOutlineAssignmentTurnedIn,
+  MdOutlineAttachMoney,
 } from "react-icons/md";
 import {
   savingAccountMovementsNormalizeEntries,
@@ -41,6 +42,10 @@ import {
   ISelectedProductState,
 } from "./types";
 
+import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { RechargeModal } from "@components/modals/transfers/RechargeModal";
+import { SectionMessage } from "@design/feedback/SectionMessage";
+import { IMessage } from "@ptypes/messages.types";
 import { EProductType } from "src/model/entity/product";
 import {
   extractSavingAttributes,
@@ -53,12 +58,19 @@ interface SavingsAccountUIProps {
   productsOptions: ISelectOption[];
   beneficiariesModal: IBeneficiariesModalState;
   reimbursementModal: IReimbursementModalState;
+  showRechargeModal: boolean;
+  loadingSend: boolean;
+  message: IMessage;
   productId?: string;
-  handleToggleBeneficiariesModal: () => void;
-  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   commitmentsModal: ICommitmentsModalState;
-  handleToggleCommitmentsModal: () => void;
-  handleToggleReimbursementModal: () => void;
+  withTransfers: boolean;
+  onToggleBeneficiariesModal: () => void;
+  onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onToggleCommitmentsModal: () => void;
+  onToggleReimbursementModal: () => void;
+  onToggleRechargeModal: () => void;
+  onSubmitRecharge: (savingAccount: string, amount: number) => void;
+  onCloseMessage: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -68,12 +80,19 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     productsOptions,
     beneficiariesModal,
     reimbursementModal,
+    showRechargeModal,
+    loadingSend,
+    message,
     productId,
-    handleToggleBeneficiariesModal,
-    handleChangeProduct,
     commitmentsModal,
-    handleToggleCommitmentsModal,
-    handleToggleReimbursementModal,
+    withTransfers,
+    onToggleBeneficiariesModal,
+    onChangeProduct,
+    onToggleCommitmentsModal,
+    onToggleReimbursementModal,
+    onToggleRechargeModal,
+    onSubmitRecharge,
+    onCloseMessage,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -128,7 +147,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
         <Stack direction="column" gap="s300">
           <Select
             id="savingProducts"
-            onChange={handleChangeProduct}
+            onChange={onChangeProduct}
             label="Selección de producto"
             options={productsOptions}
             value={selectedProduct.option}
@@ -140,6 +159,18 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             subtitle={selectedProduct.saving.id}
             tags={selectedProduct.saving.tags}
             {...savingsAccountBox(selectedProduct.saving.type)}
+            button={
+              withTransfers &&
+              selectedProduct.saving.type === EProductType.VIEWSAVINGS
+                ? {
+                    label: "Depositar",
+                    icon: <MdOutlineAttachMoney />,
+                    onClick: onToggleRechargeModal,
+                    variant: "filled",
+                    appearance: "primary",
+                  }
+                : undefined
+            }
           >
             <Stack direction="column" gap="s100">
               <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
@@ -157,7 +188,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       label="Cuenta para reembolso:"
                       buttonIcon={<MdOpenInNew />}
                       buttonValue="Ver"
-                      onClickButton={handleToggleReimbursementModal}
+                      onClickButton={onToggleReimbursementModal}
                       withButton
                     />
                   ) : (
@@ -172,7 +203,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       label="Beneficiarios:"
                       buttonIcon={<MdOpenInNew />}
                       buttonValue={beneficiariesModal.data.length}
-                      onClickButton={handleToggleBeneficiariesModal}
+                      onClickButton={onToggleBeneficiariesModal}
                       withButton
                     />
                   )}
@@ -182,7 +213,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       label="Compromisos de ahorro:"
                       buttonIcon={<MdOpenInNew />}
                       buttonValue={commitmentsModal.data.length}
-                      onClickButton={handleToggleCommitmentsModal}
+                      onClickButton={onToggleCommitmentsModal}
                       withButton
                     />
                   )}
@@ -226,7 +257,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
         <ReimbursementModal
           portalId="modals"
           reimbursement={reimbursementModal.data}
-          onCloseModal={handleToggleReimbursementModal}
+          onCloseModal={onToggleReimbursementModal}
         />
       )}
       {beneficiariesModal.show && (
@@ -234,16 +265,41 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           portalId="modals"
           title="Beneficiarios"
           description="Porcentaje de participación"
-          onCloseModal={handleToggleBeneficiariesModal}
+          onCloseModal={onToggleBeneficiariesModal}
           attributes={beneficiariesModal.data}
         />
       )}
       {commitmentsModal.show && (
         <SavingCommitmentsModal
           portalId="modals"
-          onCloseModal={handleToggleCommitmentsModal}
+          onCloseModal={onToggleCommitmentsModal}
           commitments={commitmentsModal.data}
           commitmentsIcons={productsIcons}
+        />
+      )}
+      {showRechargeModal && (
+        <RechargeModal
+          onCloseModal={onToggleRechargeModal}
+          savingAccounts={[selectedProduct.saving]}
+          onSubmit={onSubmitRecharge}
+        />
+      )}
+
+      {loadingSend && (
+        <LoadingModal
+          title="Procesando depósito..."
+          message="Espera unos segundos, estamos procesando la transacción."
+        />
+      )}
+
+      {message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          appearance={message.appearance}
+          icon={message.icon}
+          onClose={onCloseMessage}
+          duration={5000}
         />
       )}
     </>

@@ -34,6 +34,9 @@ function PageNotFound() {
   const withHolidaysRequest = getFlag(
     "request.holidays.holidays.request-holidays",
   ).value;
+  const withTransfers = getFlag(
+    "admin.transfers.deposit.deposit-accounts",
+  ).value;
 
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
@@ -43,6 +46,7 @@ function PageNotFound() {
     withEventRequest,
     withAidRequest,
     withHolidaysRequest,
+    withTransfers,
   );
 
   const nav = getNav(
@@ -51,17 +55,26 @@ function PageNotFound() {
     withEventRequest,
     withAidRequest,
     withHolidaysRequest,
+    withTransfers,
+  );
+
+  const username = capitalizeEachWord(
+    `${user.firstName} ${user.firstLastName}`,
+  );
+
+  const fullName = capitalizeEachWord(
+    `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${
+      user.secondLastName || ""
+    }`,
   );
 
   return (
     <StyledPage>
       <Header
         logoURL={header.logoURL}
-        username={capitalizeEachWord(`${user.firstName} ${user.firstLastName}`)}
-        fullName={capitalizeEachWord(
-          `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${user.secondLastName || ""}`,
-        )}
-        client={header.client}
+        username={username}
+        fullName={fullName}
+        businessUnit={header.businessUnit}
         links={header.links}
         portalId={header.portalId}
         logoutTitle={header.logoutTitle}

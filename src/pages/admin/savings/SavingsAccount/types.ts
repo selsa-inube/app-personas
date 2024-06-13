@@ -23,6 +23,6 @@ interface ICommitmentsModalState {
 export type {
   IBeneficiariesModalState,
   ICommitmentsModalState,
-  ISelectedProductState,
   IReimbursementModalState,
+  ISelectedProductState,
 };

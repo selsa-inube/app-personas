@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapPaymentHistoryApiToEntities } from "./mappers";
+import { mapPaymentsHistoryApiToEntities } from "./mappers";
 
 const getPaymentHistory = async (
   userIdentification: string,
@@ -66,7 +66,7 @@ const getPaymentHistory = async (
       const data = await res.json();
 
       const normalizedPaymentHistory = Array.isArray(data)
-        ? mapPaymentHistoryApiToEntities(data)
+        ? mapPaymentsHistoryApiToEntities(data)
         : [];
 
       return normalizedPaymentHistory;

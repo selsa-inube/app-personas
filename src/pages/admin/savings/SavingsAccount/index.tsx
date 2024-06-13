@@ -1,9 +1,14 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
+import { IMessage } from "@ptypes/messages.types";
 import { useContext, useEffect, useState } from "react";
+import { MdSentimentNeutral } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { initialMessageState } from "src/utils/messages";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -12,7 +17,6 @@ import {
   ISelectedProductState,
 } from "./types";
 import { validateSaving } from "./utils";
-import { AppContext } from "src/context/app";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -38,6 +42,11 @@ function SavingsAccount() {
       show: false,
       data: [],
     });
+
+  const [showRechargeModal, setShowRechargeModal] = useState(false);
+  const [loadingSend, setLoadingSend] = useState(false);
+  const [message, setMessage] = useState<IMessage>(initialMessageState);
+  const { getFlag } = useContext(AppContext);
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -94,7 +103,7 @@ function SavingsAccount() {
   const handleSortProduct = async () => {
     if (!product_id || !user || !accessToken) return;
 
-    const { selectedSavings, newSavings, combinedSavings } =
+    const { selectedSaving, newSavings, combinedSavings } =
       await validateSaving(
         savings,
         product_id,
@@ -104,11 +113,11 @@ function SavingsAccount() {
 
     setSavings(newSavings);
 
-    if (!selectedSavings) return;
+    if (!selectedSaving) return;
 
     setSelectedProduct({
-      saving: selectedSavings || [],
-      option: selectedSavings.id,
+      saving: selectedSaving || [],
+      option: selectedSaving.id,
     });
 
     setProductsOptions(
@@ -155,7 +164,39 @@ function SavingsAccount() {
     }));
   };
 
+  const handleSubmitRecharge = (savingAccount: string, amount: number) => {
+    if (!accessToken) return;
+
+    setShowRechargeModal(false);
+    setLoadingSend(true);
+
+    sendTransferRequest(user, savingAccount, amount, accessToken).catch(() => {
+      setMessage({
+        show: true,
+        title: "El depósito no pudo ser procesado",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        icon: <MdSentimentNeutral />,
+        appearance: "error",
+      });
+
+      setLoadingSend(false);
+    });
+  };
+
+  const handleToggleRechargeModal = () => {
+    setShowRechargeModal(!showRechargeModal);
+  };
+
+  const handleCloseMessage = () => {
+    setMessage(initialMessageState);
+  };
+
   if (!selectedProduct) return null;
+
+  const withTransfers = getFlag(
+    "admin.transfers.deposit.deposit-accounts",
+  ).value;
 
   return (
     <SavingsAccountUI
@@ -166,10 +207,17 @@ function SavingsAccount() {
       beneficiariesModal={beneficiariesModal}
       commitmentsModal={commitmentsModal}
       reimbursementModal={reimbursementModal}
-      handleToggleBeneficiariesModal={handleToggleBeneficiariesModal}
-      handleChangeProduct={handleChangeProduct}
-      handleToggleCommitmentsModal={handleToggleCommitmentsModal}
-      handleToggleReimbursementModal={handleToggleReimbursementModal}
+      showRechargeModal={showRechargeModal}
+      loadingSend={loadingSend}
+      message={message}
+      withTransfers={withTransfers}
+      onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
+      onChangeProduct={handleChangeProduct}
+      onToggleCommitmentsModal={handleToggleCommitmentsModal}
+      onToggleReimbursementModal={handleToggleReimbursementModal}
+      onToggleRechargeModal={handleToggleRechargeModal}
+      onCloseMessage={handleCloseMessage}
+      onSubmitRecharge={handleSubmitRecharge}
     />
   );
 }

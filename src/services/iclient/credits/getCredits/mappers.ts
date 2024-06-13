@@ -78,6 +78,26 @@ const mapCreditApiToEntity = (
     Object(credit.valueExpired)?.capitalization || 0,
   );
 
+  const totalCapital = Number(Object(credit.balanceObligation)?.capital || 0);
+
+  const totalLifeInsurance = Number(
+    Object(credit.balanceObligation)?.lifeInsurance || 0,
+  );
+
+  const totalOtherConcepts = Number(
+    Object(credit.balanceObligation)?.otherConcepts || 0,
+  );
+
+  const totalCapitalization = Number(
+    Object(credit.balanceObligation)?.capitalization || 0,
+  );
+
+  const totalInterest = Number(Object(credit.balanceObligation)?.interest || 0);
+
+  const totalPenaltyInterest = Number(
+    Object(credit.balanceObligation)?.penaltyInterest || 0,
+  );
+
   const nextPaymentValue =
     Number(nextCapital >= 0 ? nextCapital : 0) +
     Number(nextInterest >= 0 ? nextInterest : 0) +
@@ -95,6 +115,14 @@ const mapCreditApiToEntity = (
   Number(expiredLifeInsurance >= 0 ? expiredLifeInsurance : 0) +
     Number(expiredOtherConcepts >= 0 ? expiredOtherConcepts : 0) +
     Number(expiredCapitalization >= 0 ? expiredCapitalization : 0);
+
+  const totalValue =
+    Number(totalCapital >= 0 ? totalCapital : 0) +
+    Number(totalLifeInsurance >= 0 ? totalLifeInsurance : 0) +
+    Number(totalOtherConcepts >= 0 ? totalOtherConcepts : 0) +
+    Number(totalCapitalization >= 0 ? totalCapitalization : 0) +
+    Number(totalInterest >= 0 ? totalInterest : 0) +
+    Number(totalPenaltyInterest >= 0 ? totalPenaltyInterest : 0);
 
   const normalizedPaymentMethodName = capitalizeText(
     String(credit.paymentMethodName).toLowerCase(),
@@ -150,7 +178,7 @@ const mapCreditApiToEntity = (
     {
       id: "net_value",
       label: "Saldo de capital",
-      value: Number(Object(credit.balanceObligation).capital),
+      value: Number(Object(credit.balanceObligation).capital || 0),
     },
     {
       id: "amortization_type",
@@ -176,6 +204,11 @@ const mapCreditApiToEntity = (
       id: "expired_value",
       label: "Valor vencido",
       value: `${expiredValue}`,
+    },
+    {
+      id: "total_value",
+      label: "Valor total",
+      value: `${totalValue}`,
     },
     {
       id: "in_arrears",

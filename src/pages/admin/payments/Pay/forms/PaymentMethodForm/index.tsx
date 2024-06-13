@@ -1,23 +1,14 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
-import {
-  forwardRef,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { parseCurrencyString } from "src/utils/currency";
-import * as Yup from "yup";
 import { EPaymentMethodType } from "../../types";
 import { PaymentMethodFormUI } from "./interface";
 import { EMoneySourceType, IMoneySource, IPaymentMethodEntry } from "./types";
 import { mapMoneySources } from "./utils";
-
-const validationSchema = Yup.object().shape({});
 
 interface PaymentMethodFormProps {
   initialValues: IPaymentMethodEntry;
@@ -30,14 +21,12 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 ) {
   const { initialValues, onFormValid } = props;
 
-  const [dynamicSchema] = useState(validationSchema);
   const { savings, setSavings } = useContext(SavingsContext);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicSchema,
     validateOnBlur: false,
     onSubmit: async () => true,
   });

@@ -43,6 +43,17 @@ function SwitchUser() {
   };
 
   const handleConsultUser = (user: IConsultingUser) => {
+    const splitName = user.name.split(" ");
+
+    setUser((prev) => ({
+      ...prev,
+      firstLastName: splitName[0] || "",
+      secondLastName: splitName[1] || "",
+      firstName: splitName[2] || splitName[1] || "",
+      secondName: splitName[3] || splitName[2] || "",
+      identification: user.id,
+    }));
+
     setUser((prev) => ({ ...prev, identification: user.id }));
 
     saveRecentUser(user);

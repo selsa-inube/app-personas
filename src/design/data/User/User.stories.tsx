@@ -16,7 +16,7 @@ const story = {
 export const Default: StoryFn<UserProps> = (args) => <User {...args} />;
 Default.args = {
   username: "Leonardo Garzón",
-  client: "Fondecom",
+  businessUnit: "Fondecom",
 };
 
 const theme = {

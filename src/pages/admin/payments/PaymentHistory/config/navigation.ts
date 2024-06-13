@@ -12,7 +12,7 @@ const crumbsPaymentHistory: IBreadcrumbItem[] = [
     label: "Pagos",
   },
   {
-    id: "pay",
+    id: "paymentHistory",
     path: `/payments/history`,
     label: "Histórico de pagos",
     isActive: true,

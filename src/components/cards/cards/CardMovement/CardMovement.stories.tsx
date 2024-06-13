@@ -28,8 +28,10 @@ export const Default: StoryFn<CardMovementProps> = (args) => (
 );
 Default.args = {
   movementType: EMovementType.PURCHASE,
-  description: "GERÓNIMO MARTINS SAS",
+  description:
+    "Pago Contab. Descuentos de nomina mes FEB/21 Cta.Cobro 41-241000098 Nomina: 30 - Emp: FONDO DE EMPLEADOS DE LA CAJA DE COMPENSACION FAMILIAR DEL VALLE DEL CAUCA",
   totalValue: 500000,
+  reference: "CT1100428",
   date: new Date("21/Feb/2024 11:20 am"),
 };
 

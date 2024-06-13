@@ -3,8 +3,10 @@ import {
   MdOutlineAccountBalanceWallet,
   MdOutlineAirplaneTicket,
   MdOutlineAttachMoney,
+  MdOutlineCompareArrows,
   MdOutlineCreditCard,
   MdOutlineHouse,
+  MdOutlinePayments,
   MdOutlineSavings,
   MdOutlineStarBorder,
   MdOutlineSupport,
@@ -16,6 +18,7 @@ const getNav = (
   requestEventFlag: boolean,
   requestAidFlag: boolean,
   requestHolidaysFlag: boolean,
+  requestTransfersFlag: boolean,
 ) => {
   const sections = [
     {
@@ -44,8 +47,17 @@ const getNav = (
         {
           label: "Pagos",
           path: "/payments",
-          icon: <MdOutlineAttachMoney />,
+          icon: <MdOutlinePayments />,
         },
+        ...(requestTransfersFlag
+          ? [
+              {
+                label: "Transferencias",
+                path: "/transfers",
+                icon: <MdOutlineCompareArrows />,
+              },
+            ]
+          : []),
       ],
     },
   ];
