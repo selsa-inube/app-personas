@@ -54,22 +54,22 @@ const mapConsumptionApiToEntity = (
     {
       id: "min_payment_quota_available",
       label: "Pago minimo de cuota",
-      value: nextPaymentValue.capital,
+      value: Number(nextPaymentValue.capital || 0),
     },
     {
       id: "total_payment_quota_available",
       label: "Pago total de cuota",
-      value: nextPaymentValue.total,
+      value: Number(nextPaymentValue.total || 0),
     },
     {
       id: "total_capital",
       label: "Pago capital total",
-      value: balanceObligation.total,
+      value: Number(balanceObligation.total || 0),
     },
     {
       id: "min_capital",
       label: "Pago capital minimo",
-      value: balanceObligation.capital,
+      value: Number(balanceObligation.capital || 0),
     },
   ];
 
