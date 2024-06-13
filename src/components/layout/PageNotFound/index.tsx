@@ -35,7 +35,7 @@ function PageNotFound() {
     "request.holidays.holidays.request-holidays",
   ).value;
   const withTransfers = getFlag(
-    " admin.transfers.deposit.deposit-accounts",
+    "admin.transfers.deposit.deposit-accounts",
   ).value;
 
   const header = getHeader(
