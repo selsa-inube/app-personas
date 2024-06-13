@@ -27,6 +27,7 @@ const quotaDetailsCurrencyAttrs = [
   "next_payment_value",
   "total_capital",
   "assigned_quota",
+  "total_payment",
 ];
 
 const currentConsumptionCurrencyAttrs = [
