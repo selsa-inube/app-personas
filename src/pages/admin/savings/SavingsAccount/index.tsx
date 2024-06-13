@@ -172,7 +172,7 @@ function SavingsAccount() {
     sendTransferRequest(user, savingAccount, amount, accessToken).catch(() => {
       setMessage({
         show: true,
-        title: "La recarga no pudo ser procesada",
+        title: "El depósito no pudo ser procesado",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
         icon: <MdSentimentNeutral />,

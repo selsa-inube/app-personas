@@ -62,7 +62,7 @@ function TransferOptions() {
     sendTransferRequest(user, savingAccount, amount, accessToken).catch(() => {
       setMessage({
         show: true,
-        title: "La recarga no pudo ser procesada",
+        title: "El depósito no pudo ser procesado",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
         icon: <MdSentimentNeutral />,
@@ -108,9 +108,9 @@ function TransferOptions() {
 
           <Stack direction="column" gap="s300">
             <RequestCard
-              title="Recarga tu cuenta de ahorros"
+              title="Deposita en tu cuenta de ahorros"
               descriptions={[
-                "Realiza transferencias de dinero para depositar tu cuenta de ahorros.",
+                "Realiza transferencias de dinero para depositar en tu cuenta de ahorros.",
               ]}
               actionText="Depositar"
               onClick={handleToggleRechargeModal}
@@ -138,7 +138,7 @@ function TransferOptions() {
 
       {loadingSend && (
         <LoadingModal
-          title="Procesando recarga..."
+          title="Procesando depósito..."
           message="Espera unos segundos, estamos procesando la transacción."
         />
       )}

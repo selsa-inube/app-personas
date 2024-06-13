@@ -17,7 +17,7 @@ const mapTransferHistoryApiToEntity = (
 ): ITransfer => {
   let title = "Transferencia CUENTA DE AHORROS";
   if (transfer.source === transferSourceDM.PSE.value) {
-    title = "Recarga CUENTA DE AHORROS";
+    title = "Depósito CUENTA DE AHORROS";
   }
 
   return {
