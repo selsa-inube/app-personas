@@ -11,11 +11,11 @@ const paymentTitleValues: Record<string, string> = {
 };
 
 const paymentStatusAppearance: Record<string, TagAppearanceType> = {
-  en_tramite_con_pse: "warning",
-  pago_pse_abortado: "error",
-  pago_recibido_en_proceso_de_aplicacion: "warning",
-  pago_finalizado: "success",
-  pago_no_satisfactorio: "error",
+  InProgressPSE: "warning",
+  RejectedPse: "error",
+  InProgressLinix: "warning",
+  Completed: "success",
+  Rejected: "error",
 };
 
 const mapPaymentHistoryApiToEntity = (
@@ -71,4 +71,4 @@ const mapPaymentsHistoryApiToEntities = (
   return paymentHistory.map((payment) => mapPaymentHistoryApiToEntity(payment));
 };
 
-export { mapPaymentsHistoryApiToEntities, mapPaymentHistoryApiToEntity };
+export { mapPaymentHistoryApiToEntity, mapPaymentsHistoryApiToEntities };

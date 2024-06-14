@@ -1,13 +1,13 @@
 import { TagAppearanceType } from "@design/data/Tag/types";
+import { paymentStatusDM } from "src/model/domains/payments/paymentStatusDM";
 import { transferSourceDM } from "src/model/domains/transfers/transferSourceDM";
-import { transferStatusDM } from "src/model/domains/transfers/transferStatusDM";
 
 import { ITransfer } from "src/model/entity/transfer";
 
 const transferStatusAppearance: Record<string, TagAppearanceType> = {
   InProgressPSE: "warning",
   RejectedPse: "error",
-  InProgress: "warning",
+  InProgressLinix: "warning",
   Completed: "success",
   Rejected: "error",
 };
@@ -28,7 +28,7 @@ const mapTransferHistoryApiToEntity = (
     destination: `Cuenta de ahorros - ${transfer.destination}`,
     source: transferSourceDM.valueOf(String(transfer.source))?.value || "",
     tag: {
-      label: transferStatusDM.valueOf(String(transfer.status))?.value || "",
+      label: paymentStatusDM.valueOf(String(transfer.status))?.value || "",
       appearance: transferStatusAppearance[String(transfer.status)],
       textAppearance: transferStatusAppearance[String(transfer.status)],
       modifier: "clear",

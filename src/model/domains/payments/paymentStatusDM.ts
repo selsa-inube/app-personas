@@ -1,24 +1,24 @@
-import { convertDomainToOptions, convertDomainToList } from "../helper";
+import { convertDomainToList, convertDomainToOptions } from "../helper";
 
 const paymentStatusDataDomain = {
   IN_PROGRESS_PSE: {
-    id: "en_tramite_con_pse",
+    id: "InProgressPSE",
     value: "En progreso",
   },
   REJECTED_PSE: {
-    id: "pago_pse_abortado",
+    id: "RejectedPse",
     value: "Rechazado",
   },
   IN_PROGRESS: {
-    id: "pago_recibido_en_proceso_de_aplicacion",
+    id: "InProgressLinix",
     value: "En progreso",
   },
   COMPLETED: {
-    id: "pago_finalizado",
+    id: "Completed",
     value: "Completado",
   },
   REJECTED: {
-    id: "pago_no_satisfactorio",
+    id: "Rejected",
     value: "Rechazado",
   },
 };
