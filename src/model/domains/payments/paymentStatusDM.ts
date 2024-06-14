@@ -6,7 +6,7 @@ const paymentStatusDataDomain = {
     value: "En progreso",
   },
   REJECTED_PSE: {
-    id: "RejectedPse",
+    id: "RejectedPSE",
     value: "Rechazado",
   },
   IN_PROGRESS: {
@@ -18,7 +18,7 @@ const paymentStatusDataDomain = {
     value: "Completado",
   },
   REJECTED: {
-    id: "Rejected",
+    id: "RejectedLinix",
     value: "Rechazado",
   },
 };

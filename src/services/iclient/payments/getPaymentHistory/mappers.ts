@@ -12,10 +12,10 @@ const paymentTitleValues: Record<string, string> = {
 
 const paymentStatusAppearance: Record<string, TagAppearanceType> = {
   InProgressPSE: "warning",
-  RejectedPse: "error",
+  RejectedPSE: "error",
   InProgressLinix: "warning",
   Completed: "success",
-  Rejected: "error",
+  RejectedLinix: "error",
 };
 
 const mapPaymentHistoryApiToEntity = (
