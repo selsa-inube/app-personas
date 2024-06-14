@@ -93,6 +93,7 @@ const sendPaymentRequest = async (
 
   const creationTime = new Date();
   let confirmationType = "succeed";
+  const customerId = user.identification;
 
   try {
     const paymentRequestResponse = await createPaymentRequest(
@@ -127,6 +128,7 @@ const sendPaymentRequest = async (
         totalPayment,
         filteredPayments.map((payment) => payment.group),
         paymentMethods,
+        customerId,
       );
 
       if (confirmationType === "failed") {
