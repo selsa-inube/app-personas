@@ -127,6 +127,7 @@ const sendPaymentRequest = async (
         totalPayment,
         filteredPayments.map((payment) => payment.group),
         paymentMethods,
+        user.identification,
       );
 
       if (confirmationType === "failed") {
