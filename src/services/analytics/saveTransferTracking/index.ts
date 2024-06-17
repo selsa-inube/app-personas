@@ -6,6 +6,7 @@ const saveTransferTracking = async (
   confirmationType: string,
   amount: number,
   savingAccount: string,
+  customerId: string,
 ) => {
   try {
     const { data, error } = await analyticsDB
@@ -16,6 +17,7 @@ const saveTransferTracking = async (
         confirmation_type: confirmationType,
         amount,
         saving_account: savingAccount,
+        customer_id: customerId,
       })
       .select()
       .single();
