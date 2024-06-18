@@ -102,7 +102,7 @@ const mapCreditQuotaApiToEntity = (
     {
       id: "assigned_quota",
       label: "Cupo asignado",
-      value: Number(creditQuota.assignedCreditLimit),
+      value: Number(creditQuota.assignedCreditLimit || 0),
     },
     {
       id: "total_payment",

@@ -6,16 +6,44 @@ interface IApplyPayOption {
   label: string;
 }
 
-const applyPayOptions: IApplyPayOption[] = [
-  {
-    id: EPaymentOptionType.REPROGRAMMINGDEADLINE,
-    label: paymentOptionValues[EPaymentOptionType.REPROGRAMMINGDEADLINE],
-  },
-  {
-    id: EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE,
-    label: paymentOptionValues[EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE],
-  },
-];
+const getOptions = (
+  customValue: number,
+  nextPaymentValue: number,
+): IApplyPayOption[] => {
+  const options = [
+    {
+      id: EPaymentOptionType.REDUCEFUTUREQUOTA,
+      label: paymentOptionValues[EPaymentOptionType.REDUCEFUTUREQUOTA],
+    },
+  ];
 
-export { applyPayOptions };
+  if (customValue > nextPaymentValue) {
+    const addOptions = [
+      {
+        id: EPaymentOptionType.REPROGRAMMINGDEADLINE,
+        label: paymentOptionValues[EPaymentOptionType.REPROGRAMMINGDEADLINE],
+      },
+      {
+        id: EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE,
+        label:
+          paymentOptionValues[EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE],
+      },
+    ];
+
+    options.push(...addOptions);
+  } else if (customValue < nextPaymentValue) {
+    const addOptions = [
+      {
+        id: EPaymentOptionType.OTHERVALUE,
+        label: paymentOptionValues[EPaymentOptionType.OTHERVALUE],
+      },
+    ];
+
+    options.push(...addOptions);
+  }
+
+  return options;
+};
+
+export { getOptions };
 export type { IApplyPayOption };
