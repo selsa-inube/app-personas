@@ -24,7 +24,7 @@ import {
   StyledApprovedValue,
   StyledModal,
 } from "./styles";
-import { IApplyPayOption, applyPayOptions } from "./utils";
+import { IApplyPayOption, getOptions } from "./utils";
 
 interface CustomValueModalProps {
   portalId: string;
@@ -51,7 +51,6 @@ function CustomValueModal(props: CustomValueModalProps) {
     nextPaymentValue,
     totalPaymentValue,
     nextPaymentDate,
-    expiredValue,
     onCloseModal,
     onChangeOtherValue,
     onApplyPayOption,
@@ -66,6 +65,7 @@ function CustomValueModal(props: CustomValueModalProps) {
   });
   const [selectedOption, setSelectedOption] = useState<IApplyPayOption>();
   const [customValue, setCustomValue] = useState(value);
+  const [applyPayOptions, setApplyPayOptions] = useState<IApplyPayOption[]>([]);
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
@@ -74,41 +74,35 @@ function CustomValueModal(props: CustomValueModalProps) {
     const today = new Date();
     today.setUTCHours(0, 0, 0, 0);
 
-    const paymentDate = new Date(today.toISOString());
-
-    if (
-      totalPaymentValue !== 0 &&
-      customValue > totalPaymentValue
-    ) {
+    if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
       setInputValidation({
         state: "invalid",
         errorMessage: "(Valor superior al saldo total)",
       });
+
       return;
     }
 
     setInputValidation({ state: "pending", errorMessage: "" });
 
     const daysUntilNextExpiration = Math.ceil(
-      ((nextPaymentDate?.getTime() ?? 0) - paymentDate.getTime()) /
+      ((nextPaymentDate?.getTime() ?? 0) - today.getTime()) /
         (1000 * 60 * 60 * 24),
     );
 
-    const exceedsNextPaymentValue = customValue > nextPaymentValue;
     const isRounded =
       Math.abs(customValue - nextPaymentValue) <= DECISION_ROUNDING;
 
     if (
-      exceedsNextPaymentValue &&
       !isRounded &&
-      daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE &&
-      expiredValue !== 0
+      daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE
     ) {
+      setApplyPayOptions(getOptions(customValue, nextPaymentValue));
       setShowResponse(true);
     } else {
       onChangeOtherValue({
         id: EPaymentOptionType.OTHERVALUE,
-        label: "Otro valor",
+        label: "Abono a capital",
         value: customValue,
       });
       onCloseModal();
@@ -249,7 +243,7 @@ function CustomValueModal(props: CustomValueModalProps) {
                   spacing="compact"
                   onClick={handleApplyPayOption}
                   disabled={
-                    customValue < nextPaymentValue ||
+                    !selectedOption ||
                     (totalPaymentValue !== 0 && customValue > totalPaymentValue)
                   }
                 >
