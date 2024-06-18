@@ -1,4 +1,5 @@
 import { CustomValueModal } from "@components/modals/payments/CustomValueModal";
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
@@ -15,7 +16,6 @@ import {
   StyledInputContainer,
   StyledInputRadio,
 } from "./styles";
-import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 
 const renderOptions = (
   options: IPaymentOption[],
