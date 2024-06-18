@@ -3,12 +3,16 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { CreditsContext } from "src/context/credits";
-
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditUI } from "./interface";
-import { INextPaymentModalState, ISelectedProductState } from "./types";
 import {
+  INextPaymentModalState,
+  ISelectedProductState,
+  IExpiredPaymentModalState,
+} from "./types";
+import {
+  getExpiredPaymentData,
   getNextPaymentData,
   validateCredit,
   validateCreditMovementsAndAmortization,
@@ -21,15 +25,13 @@ function Credit() {
   const [loading, setLoading] = useState(true);
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const [nextPaymentModal, setNextPaymentModal] =
-    useState<INextPaymentModalState>({
-      show: false,
-    });
+    useState<INextPaymentModalState>({ show: false });
+  const [expiredPaymentModal, setExpiredPaymentModal] =
+    useState<IExpiredPaymentModalState>({ show: false });
   const { credits, setCredits } = useContext(CreditsContext);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-
   const navigate = useNavigate();
-
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   useEffect(() => {
@@ -50,21 +52,48 @@ function Credit() {
       nextPaymentValue,
     } = getNextPaymentData(selectedProduct.credit);
 
-    if (!nextPaymentValue) return;
+    if (nextPaymentValue) {
+      setNextPaymentModal({
+        ...nextPaymentModal,
+        data: {
+          nextCapital,
+          nextInterest,
+          nextPastDueInterest,
+          nextPenaltyInterest,
+          nextLifeInsurance,
+          nextOtherConcepts,
+          nextCapitalization,
+          nextPaymentValue,
+        },
+      });
+    }
 
-    setNextPaymentModal({
-      ...nextPaymentModal,
-      data: {
-        nextCapital,
-        nextInterest,
-        nextPastDueInterest,
-        nextPenaltyInterest,
-        nextLifeInsurance,
-        nextOtherConcepts,
-        nextCapitalization,
-        nextPaymentValue,
-      },
-    });
+    const {
+      expiredCapital,
+      expiredInterest,
+      expiredPastDueInterest,
+      expiredPenaltyInterest,
+      expiredLifeInsurance,
+      expiredOtherConcepts,
+      expiredCapitalization,
+      expiredValue,
+    } = getExpiredPaymentData(selectedProduct.credit);
+
+    if (expiredValue) {
+      setExpiredPaymentModal({
+        ...expiredPaymentModal,
+        data: {
+          expiredCapital,
+          expiredInterest,
+          expiredPastDueInterest,
+          expiredPenaltyInterest,
+          expiredLifeInsurance,
+          expiredOtherConcepts,
+          expiredCapitalization,
+          expiredValue,
+        },
+      });
+    }
   }, [selectedProduct]);
 
   const handleSortProduct = async () => {
@@ -119,6 +148,13 @@ function Credit() {
     }));
   };
 
+  const handleToggleExpiredPaymentModal = () => {
+    setExpiredPaymentModal((prevState) => ({
+      ...prevState,
+      show: !prevState.show,
+    }));
+  };
+
   return (
     <CreditUI
       productsOptions={productsOptions}
@@ -127,7 +163,9 @@ function Credit() {
       isMobile={isMobile}
       credit_id={credit_id}
       nextPaymentModal={nextPaymentModal}
+      expiredPaymentModal={expiredPaymentModal}
       handleToggleNextPaymentModal={handleToggleNextPaymentModal}
+      handleToggleExpiredPaymentModal={handleToggleExpiredPaymentModal}
       handleChangeProduct={handleChangeProduct}
     />
   );
