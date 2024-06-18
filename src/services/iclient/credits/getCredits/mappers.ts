@@ -17,9 +17,9 @@ const mapCreditApiToEntity = (
 
   today.setUTCHours(5, 5, 5, 5);
 
-  const duesPaid = credit.duesPaid;
+  const duesPaid = credit.paidQuotas;
 
-  const outstandingDues = credit.outstandingDues;
+  const outstandingDues = credit.pendingQuotas;
 
   const inArrears = today > nextPaymentDate;
 
