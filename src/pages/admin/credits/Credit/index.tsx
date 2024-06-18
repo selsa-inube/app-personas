@@ -41,60 +41,22 @@ function Credit() {
   useEffect(() => {
     if (!selectedProduct) return;
 
-    const {
-      nextCapital,
-      nextInterest,
-      nextPastDueInterest,
-      nextPenaltyInterest,
-      nextLifeInsurance,
-      nextOtherConcepts,
-      nextCapitalization,
-      nextPaymentValue,
-    } = getNextPaymentData(selectedProduct.credit);
-
-    if (nextPaymentValue) {
-      setNextPaymentModal({
-        ...nextPaymentModal,
-        data: {
-          nextCapital,
-          nextInterest,
-          nextPastDueInterest,
-          nextPenaltyInterest,
-          nextLifeInsurance,
-          nextOtherConcepts,
-          nextCapitalization,
-          nextPaymentValue,
-        },
-      });
-    }
-
-    const {
-      expiredCapital,
-      expiredInterest,
-      expiredPastDueInterest,
-      expiredPenaltyInterest,
-      expiredLifeInsurance,
-      expiredOtherConcepts,
-      expiredCapitalization,
-      expiredValue,
-    } = getExpiredPaymentData(selectedProduct.credit);
-
-    if (expiredValue) {
-      setExpiredPaymentModal({
-        ...expiredPaymentModal,
-        data: {
-          expiredCapital,
-          expiredInterest,
-          expiredPastDueInterest,
-          expiredPenaltyInterest,
-          expiredLifeInsurance,
-          expiredOtherConcepts,
-          expiredCapitalization,
-          expiredValue,
-        },
-      });
-    }
+    updatePaymentData(selectedProduct);
   }, [selectedProduct]);
+
+  const updatePaymentData = (selectedProduct: ISelectedProductState) => {
+    const nextPaymentData = getNextPaymentData(selectedProduct.credit);
+    setNextPaymentModal((prevState) => ({
+      ...prevState,
+      data: nextPaymentData,
+    }));
+
+    const expiredPaymentData = getExpiredPaymentData(selectedProduct.credit);
+    setExpiredPaymentModal((prevState) => ({
+      ...prevState,
+      data: expiredPaymentData,
+    }));
+  };
 
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;

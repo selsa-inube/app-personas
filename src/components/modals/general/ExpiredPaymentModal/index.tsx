@@ -129,7 +129,7 @@ function ExpiredPaymentModal(props: ExpiredPaymentModalProps) {
 
             <Stack justifyContent="space-between" alignItems="center">
               <Text type="title" size="medium" appearance="gray">
-                Pago total:
+                Valor vencido:
               </Text>
 
               <Text type="title" size="medium" appearance="dark">

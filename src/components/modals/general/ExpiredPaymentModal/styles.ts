@@ -17,19 +17,6 @@ const StyledModal = styled.div<IStyledModal>`
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
 `;
 
-const StyledBodyHead = styled.div`
-  display: flex;
-  padding: ${inube.spacing.s100};
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: ${inube.spacing.s075};
-  align-self: stretch;
-  border-radius: ${inube.spacing.s100};
-  background-color: ${({ theme }) =>
-    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
-`;
-
 const StyledBody = styled.div`
   display: flex;
   padding: ${inube.spacing.s200};
@@ -43,4 +30,4 @@ const StyledBody = styled.div`
       inube.color.stroke.divider.regular};
 `;
 
-export { StyledBody, StyledBodyHead, StyledModal };
+export { StyledBody, StyledModal };
