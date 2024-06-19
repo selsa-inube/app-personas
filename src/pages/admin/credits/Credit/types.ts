@@ -19,4 +19,22 @@ interface INextPaymentModalState {
   };
 }
 
-export type { INextPaymentModalState, ISelectedProductState };
+interface IExpiredPaymentModalState {
+  show: boolean;
+  data?: {
+    expiredCapital?: number;
+    expiredInterest?: number;
+    expiredPastDueInterest?: number;
+    expiredPenaltyInterest?: number;
+    expiredLifeInsurance?: number;
+    expiredOtherConcepts?: number;
+    expiredCapitalization?: number;
+    expiredValue: number;
+  };
+}
+
+export type {
+  INextPaymentModalState,
+  ISelectedProductState,
+  IExpiredPaymentModalState,
+};

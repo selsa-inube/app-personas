@@ -296,6 +296,62 @@ const mapCreditApiToEntity = (
     });
   }
 
+  if (expiredCapital) {
+    attributes.push({
+      id: "expired_capital",
+      label: "Capital expirado",
+      value: expiredCapital,
+    });
+  }
+
+  if (expiredInterest) {
+    attributes.push({
+      id: "expired_interest",
+      label: "Interes expirado",
+      value: expiredInterest,
+    });
+  }
+
+  if (expiredPastDueInterest) {
+    attributes.push({
+      id: "expired_past_due_interest",
+      label: "Interés de mora",
+      value: expiredPastDueInterest,
+    });
+  }
+
+  if (expiredPenaltyInterest) {
+    attributes.push({
+      id: "expired_penalty_interest",
+      label: "Interés de penalidad",
+      value: expiredPenaltyInterest,
+    });
+  }
+
+  if (expiredLifeInsurance) {
+    attributes.push({
+      id: "expired_life_insurance",
+      label: "Seguro de vida",
+      value: expiredLifeInsurance,
+    });
+  }
+
+  if (expiredOtherConcepts) {
+    attributes.push({
+      id: "expired_other_concepts",
+      label: "Otros conceptos",
+      value: expiredOtherConcepts,
+    });
+  }
+
+  if (expiredCapitalization) {
+    attributes.push({
+      id: "expired_capitalization",
+      label: "Capitalización",
+      value: expiredCapitalization,
+    });
+  }
+
   const tags: TagProps[] = inArrears
     ? [
         {

@@ -36,7 +36,12 @@ import {
   formatCreditCurrencyAttrs,
 } from "./config/product";
 import { StyledMovementsContainer } from "./styles";
-import { INextPaymentModalState, ISelectedProductState } from "./types";
+import {
+  IExpiredPaymentModalState,
+  INextPaymentModalState,
+  ISelectedProductState,
+} from "./types";
+import { ExpiredPaymentModal } from "@components/modals/general/ExpiredPaymentModal";
 
 interface CreditUIProps {
   isMobile?: boolean;
@@ -45,7 +50,9 @@ interface CreditUIProps {
   productsOptions: ISelectOption[];
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;
+  expiredPaymentModal: IExpiredPaymentModalState;
   handleToggleNextPaymentModal: () => void;
+  handleToggleExpiredPaymentModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -57,7 +64,9 @@ function CreditUI(props: CreditUIProps) {
     productsOptions,
     credit_id,
     nextPaymentModal,
+    expiredPaymentModal,
     handleToggleNextPaymentModal,
+    handleToggleExpiredPaymentModal,
     handleChangeProduct,
   } = props;
 
@@ -140,7 +149,29 @@ function CreditUI(props: CreditUIProps) {
                       withButton
                     />
 
-                    {formatedAttributes.slice(3).map((attr) => (
+                    {formatedAttributes.slice(3, 8).map((attr) => (
+                      <BoxAttribute
+                        key={attr.id}
+                        label={`${attr.label}: `}
+                        value={attr.value}
+                      />
+                    ))}
+
+                    <BoxAttribute
+                      label="Valor vencido:"
+                      buttonIcon={<MdOpenInNew />}
+                      buttonValue={currencyFormat(
+                        expiredPaymentModal.data?.expiredValue || 0,
+                      )}
+                      buttonDisabled={
+                        expiredPaymentModal.data?.expiredValue === 0 ||
+                        !expiredPaymentModal.data
+                      }
+                      onClickButton={handleToggleExpiredPaymentModal}
+                      withButton
+                    />
+
+                    {formatedAttributes.slice(8).map((attr) => (
                       <BoxAttribute
                         key={attr.id}
                         label={`${attr.label}: `}
@@ -190,6 +221,13 @@ function CreditUI(props: CreditUIProps) {
           portalId="modals"
           onCloseModal={handleToggleNextPaymentModal}
           nextPaymentData={nextPaymentModal.data}
+        />
+      )}
+      {expiredPaymentModal.show && expiredPaymentModal.data && (
+        <ExpiredPaymentModal
+          portalId="modals"
+          onCloseModal={handleToggleExpiredPaymentModal}
+          expiredPaymentData={expiredPaymentModal.data}
         />
       )}
     </>
