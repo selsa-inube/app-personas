@@ -73,7 +73,7 @@ const getProductAttributes = (
       {
         id: "net_value",
         label: "Saldo total",
-        value: Number(creditMovementPesos),
+        value: Number(saving.balanceSavings),
       },
       {
         id: "beneficiaries",
