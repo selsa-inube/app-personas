@@ -76,7 +76,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
             </Button>
           </Stack>
 
-          {!loading && transferHistory.length > 0 ? (
+          {transferHistory.length > 0 ? (
             <>
               <StyledContainer>
                 {transferHistory.map((transfer, index) => (

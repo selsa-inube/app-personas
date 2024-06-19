@@ -85,7 +85,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
             </Button>
           </Stack>
 
-          {!loading && paymentHistory.length > 0 ? (
+          {paymentHistory.length > 0 ? (
             <>
               <StyledContainer>
                 {paymentHistory.map((payment, index) => (

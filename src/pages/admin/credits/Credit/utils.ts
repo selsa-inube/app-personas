@@ -111,8 +111,59 @@ const getNextPaymentData = (selectedProduct: IProduct) => {
   };
 };
 
+const getExpiredPaymentData = (selectedProduct: IProduct) => {
+  const expiredCapital = selectedProduct.attributes.find(
+    (attr) => attr.id === "expired_capital",
+  );
+
+  const expiredInterest = selectedProduct.attributes.find(
+    (attr) => attr.id === "expired_interest",
+  );
+
+  const expiredPastDueInterest = selectedProduct.attributes.find(
+    (attr) => attr.id === "expired_past_due_interest",
+  );
+
+  const expiredPenaltyInterest = selectedProduct.attributes.find(
+    (attr) => attr.id === "expired_penalty_interest",
+  );
+
+  const expiredLifeInsurance = selectedProduct.attributes.find(
+    (attr) => attr.id === "expired_life_insurance",
+  );
+
+  const expiredOtherConcepts = selectedProduct.attributes.find(
+    (attr) => attr.id === "expired_other_concepts",
+  );
+
+  const expiredCapitalization = selectedProduct.attributes.find(
+    (attr) => attr.id === "expired_capitalization",
+  );
+
+  const expiredValue = selectedProduct.attributes.find(
+    (attr) => attr.id === "expired_value",
+  );
+
+  return {
+    expiredCapital: expiredCapital && Number(expiredCapital?.value),
+    expiredInterest: expiredInterest && Number(expiredInterest?.value),
+    expiredPastDueInterest:
+      expiredPastDueInterest && Number(expiredPastDueInterest?.value),
+    expiredPenaltyInterest:
+      expiredPenaltyInterest && Number(expiredPenaltyInterest?.value),
+    expiredLifeInsurance:
+      expiredLifeInsurance && Number(expiredLifeInsurance?.value),
+    expiredOtherConcepts:
+      expiredOtherConcepts && Number(expiredOtherConcepts?.value),
+    expiredCapitalization:
+      expiredCapitalization && Number(expiredCapitalization?.value),
+    expiredValue: Number(expiredValue?.value || 0),
+  };
+};
+
 export {
   getNextPaymentData,
+  getExpiredPaymentData,
   validateCredit,
   validateCreditMovementsAndAmortization,
 };

@@ -19,15 +19,13 @@ import {
 const buAllowCustomValue = true;
 
 const paymentOptionValues: Record<string, string> = {
-  [EPaymentOptionType.EXPIREDVALUE]: "Valor vencido", 
-  [EPaymentOptionType.NEXTVALUE]: "Próximo vencimiento", 
-  [EPaymentOptionType.TOTALVALUE]: "Pago total", 
-  [EPaymentOptionType.OTHERVALUE]: "Otro valor", 
-  [EPaymentOptionType.REPROGRAMMINGDEADLINE]:
-    "Reprogramación manteniendo el plazo",
-  [EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE]:
-    "Reprogramación manteniendo el valor de la cuota",
-  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Abono a cuotas futuras",
+  [EPaymentOptionType.EXPIREDVALUE]: "Valor vencido",
+  [EPaymentOptionType.NEXTVALUE]: "Próximo vencimiento",
+  [EPaymentOptionType.TOTALVALUE]: "Pago total",
+  [EPaymentOptionType.OTHERVALUE]: "Abono a capital",
+  [EPaymentOptionType.REPROGRAMMINGDEADLINE]: "Reducir cuota",
+  [EPaymentOptionType.REPROGRAMMINGMAINTAININGVALUE]: "Reducir plazo",
+  [EPaymentOptionType.REDUCEFUTUREQUOTA]: "Pagar cuotas futuras",
 };
 
 const mapObligations = (
@@ -125,7 +123,7 @@ const mapObligations = (
     if (withOtherValueOption) {
       options.push({
         id: EPaymentOptionType.OTHERVALUE,
-        label: "Otro valor",
+        label: "Abono a capital",
         value: 0,
         hidden: true,
       });

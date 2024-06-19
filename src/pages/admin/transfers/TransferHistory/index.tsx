@@ -7,6 +7,7 @@ import { equalArraysByProperty } from "src/utils/arrays";
 import { TransferHistoryUI } from "./interface";
 
 const limitTransfers = 5;
+const refreshSeconds = 30;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 let countdownInterval: ReturnType<typeof setInterval> | null = null;
@@ -17,7 +18,7 @@ function TransferHistory() {
   const [noMoreTransfers, setNoMoreTransfers] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-  const [refreshTime, setRefreshTime] = useState(30);
+  const [refreshTime, setRefreshTime] = useState(refreshSeconds);
 
   useEffect(() => {
     handleRefreshHistory();
@@ -33,7 +34,7 @@ function TransferHistory() {
   }, []);
 
   const startCountdown = () => {
-    setRefreshTime(30);
+    setRefreshTime(refreshSeconds);
 
     countdownInterval = setInterval(() => {
       setRefreshTime((prevTime) => {

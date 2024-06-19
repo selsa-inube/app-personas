@@ -7,6 +7,7 @@ import { equalArraysByProperty } from "src/utils/arrays";
 import { PaymentHistoryUI } from "./interface";
 
 const limitPayments = 5;
+const refreshSeconds = 30;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 let countdownInterval: ReturnType<typeof setInterval> | null = null;
@@ -21,7 +22,7 @@ function PaymentHistory() {
   const [noMorePayments, setNoMorePayments] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-  const [refreshTime, setRefreshTime] = useState(30);
+  const [refreshTime, setRefreshTime] = useState(refreshSeconds);
 
   useEffect(() => {
     handleRefreshHistory();
@@ -37,7 +38,7 @@ function PaymentHistory() {
   }, []);
 
   const startCountdown = () => {
-    setRefreshTime(30);
+    setRefreshTime(refreshSeconds);
 
     countdownInterval = setInterval(() => {
       setRefreshTime((prevTime) => {
