@@ -12,7 +12,7 @@ interface ButtonAttributeProps {
 function ButtonAttribute(props: ButtonAttributeProps) {
   const { icon, value, disabled, onClick } = props;
   return (
-    <StyledContainer onClick={onClick}>
+    <StyledContainer onClick={!disabled ? onClick : undefined}>
       {icon && (
         <StyledIcon>
           <Icon
