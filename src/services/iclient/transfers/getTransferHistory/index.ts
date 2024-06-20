@@ -15,7 +15,7 @@ const getTransferHistory = async (
   const startTime = performance.now();
 
   const queryParams = new URLSearchParams({
-    clientCode: userIdentification,
+    customerCode: userIdentification,
     page: String(page),
     per_page: String(limit),
     sort: "desc.transferDate",
