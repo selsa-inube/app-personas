@@ -10,9 +10,11 @@ const mapCreditMovementApiToEntity = (
     Number(movement.lifeInsuranceCreditPesos || 0) +
     Number(movement.capitalizationCreditPesos || 0);
 
+  const dateWithoutZone = String(movement.movementDate).replace("Z", "");
+
   const buildMovement: IMovement = {
     id: String(movement.movementId),
-    date: new Date(String(movement.movementDate)),
+    date: new Date(dateWithoutZone),
     reference: String(movement.movementNumber),
     description: String(
       movement.movementDescription ||

@@ -51,6 +51,7 @@ function CustomValueModal(props: CustomValueModalProps) {
     nextPaymentValue,
     totalPaymentValue,
     nextPaymentDate,
+    expiredValue,
     onCloseModal,
     onChangeOtherValue,
     onApplyPayOption,
@@ -72,7 +73,7 @@ function CustomValueModal(props: CustomValueModalProps) {
 
   const handleValidateValue = () => {
     const today = new Date();
-    today.setUTCHours(0, 0, 0, 0);
+    today.setUTCHours(5, 0, 0, 0);
 
     if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
       setInputValidation({
@@ -95,7 +96,9 @@ function CustomValueModal(props: CustomValueModalProps) {
 
     if (
       !isRounded &&
-      daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE
+      daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE &&
+      ((customValue > expiredValue && customValue < nextPaymentValue) ||
+        (customValue > nextPaymentValue && customValue < totalPaymentValue))
     ) {
       setApplyPayOptions(getOptions(customValue, nextPaymentValue));
       setShowResponse(true);

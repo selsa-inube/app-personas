@@ -100,7 +100,7 @@ function CardMovement(props: CardMovementProps) {
 
       <Stack justifyContent="space-between">
         <Text type="body" size="small" appearance="gray">
-          {formatPrimaryDate(date, false)}
+          {formatPrimaryDate(date)}
           {reference && !isMobile && ` - ${reference}`}
         </Text>
         {reference && isMobile && (

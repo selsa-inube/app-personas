@@ -55,7 +55,7 @@ function Pay() {
         withNextValueOption,
         withOtherValueOption,
         withExpiredValueOption,
-        withTotalValueOption
+        withTotalValueOption,
       ),
     },
     paymentMethod: {
@@ -79,52 +79,57 @@ function Pay() {
     if (!accessToken) return;
 
     let newCredits = credits;
+    let newCommitments = commitments;
 
     if (credits.length === 0) {
-      newCredits = await getCreditsForUser(user.identification, accessToken);
-
-      setPay((prev) => ({
-        ...prev,
-        obligations: {
-          ...prev.obligations,
-          values: mapObligations(
-            newCredits,
-            commitments,
-            withNextValueOption,
-            withOtherValueOption,
-            withExpiredValueOption,
-            withTotalValueOption
-          ),
-        },
-      }));
+      try {
+        newCredits = await getCreditsForUser(user.identification, accessToken);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.info(error.message);
+        }
+      }
     }
 
     if (commitments.length === 0) {
-      const newCommitments = await getSavingsCommitmentsForUser(
-        user.identification,
-        accessToken,
-      );
-
-      setPay((prev) => ({
-        ...prev,
-        obligations: {
-          ...prev.obligations,
-          values: mapObligations(
-            newCredits,
-            newCommitments,
-            withNextValueOption,
-            withOtherValueOption,
-            withExpiredValueOption,
-            withTotalValueOption
-          ),
-        },
-      }));
+      try {
+        newCommitments = await getSavingsCommitmentsForUser(
+          user.identification,
+          accessToken,
+        );
+      } catch (error) {
+        if (error instanceof Error) {
+          console.info(error.message);
+        }
+      }
     }
+
+    setPay((prev) => ({
+      ...prev,
+      obligations: {
+        ...prev.obligations,
+        values: mapObligations(
+          newCredits,
+          newCommitments,
+          withNextValueOption,
+          withOtherValueOption,
+          withExpiredValueOption,
+          withTotalValueOption,
+        ),
+      },
+    }));
   };
 
   useEffect(() => {
     validateObligations();
-  }, [user, accessToken]);
+  }, [
+    user,
+    accessToken,
+    withNextValueOption,
+    withOtherValueOption,
+    withExpiredValueOption,
+    withTotalValueOption,
+  ]);
 
   const handleStepChange = (stepId: number) => {
     const newPay = payStepsRules(

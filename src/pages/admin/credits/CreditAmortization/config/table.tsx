@@ -100,10 +100,10 @@ const amortizationTableBreakpoints = [
 const customAppearanceCallback = (columnId: string, entry: IEntry) => {
   if (columnId === "date") {
     const today = new Date();
-    today.setUTCHours(5, 5, 5, 5);
+    today.setUTCHours(5, 0, 0, 0);
 
     const entryDate = parseSpanishDate(entry.date);
-    entryDate.setUTCHours(5, 5, 5, 5);
+    entryDate.setUTCHours(5, 0, 0, 0);
 
     if (today > entryDate) {
       return "error";

@@ -23,9 +23,11 @@ const mapSavingProductsCommitmentsApiToEntities = (
 const mapSavingCommitmentMovementApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
+  const dateWithoutZone = String(movement.movementDate).replace("Z", "");
+
   const buildMovement: IMovement = {
     id: String(movement.movementId),
-    date: new Date(String(movement.movementDate)),
+    date: new Date(dateWithoutZone),
     reference: String(movement.movementNumber),
     description: capitalizeEachWord(String(movement.movementDescription)),
     totalValue: Number(
@@ -48,7 +50,7 @@ const mapSavingsCommitmentsApiToEntity = (
   commitment: Record<string, string | number | object>,
 ): ICommitment => {
   const today = new Date();
-  today.setUTCHours(5, 5, 5, 5);
+  today.setUTCHours(5, 0, 0, 0);
 
   const commitmentType: ECommitmentType = Object(
     commitment.commitmentType,
@@ -62,18 +64,21 @@ const mapSavingsCommitmentsApiToEntity = (
 
   const lastMovementTheSavingPlans = commitment.savingPaymentPlans;
 
+  const closeDateWithoutZone =
+    commitment.closePaymentDate &&
+    String(commitment.closePaymentDate).replace("Z", "");
+
   const lastSavingPlan =
     Array.isArray(lastMovementTheSavingPlans) &&
-    lastMovementTheSavingPlans.reduce((latest, current) => {
-      return !latest || new Date(current.quotaDate) > new Date(latest.quotaDate)
-        ? current
-        : latest;
-    }, null);
+    lastMovementTheSavingPlans.reduce((acc, curr) =>
+      acc.quotaDate > curr.quotaDate ? acc : curr,
+    );
 
-  const nextPaymentDate = commitment.closePaymentDate
-    ? new Date(String(commitment.closePaymentDate))
-    : new Date(String(lastSavingPlan.quotaDate));
-  nextPaymentDate.setUTCHours(5, 5, 5, 5);
+  const lastDateWithoutZone = String(lastSavingPlan.quotaDate).replace("Z", "");
+
+  const nextPaymentDate = closeDateWithoutZone
+    ? new Date(closeDateWithoutZone)
+    : new Date(lastDateWithoutZone);
 
   const nextPaymentValue = commitment.expiredValue || commitment.quotaValue;
 
