@@ -51,6 +51,7 @@ function CustomValueModal(props: CustomValueModalProps) {
     nextPaymentValue,
     totalPaymentValue,
     nextPaymentDate,
+    expiredValue,
     onCloseModal,
     onChangeOtherValue,
     onApplyPayOption,
@@ -95,7 +96,9 @@ function CustomValueModal(props: CustomValueModalProps) {
 
     if (
       !isRounded &&
-      daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE
+      daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE &&
+      ((customValue > expiredValue && customValue < nextPaymentValue) ||
+        (customValue > nextPaymentValue && customValue < totalPaymentValue))
     ) {
       setApplyPayOptions(getOptions(customValue, nextPaymentValue));
       setShowResponse(true);

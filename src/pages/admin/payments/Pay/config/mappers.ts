@@ -224,6 +224,15 @@ const mapObligations = (
       });
     }
 
+    if (withOtherValueOption) {
+      options.push({
+        id: EPaymentOptionType.OTHERVALUE,
+        label: "Abono a capital",
+        value: 0,
+        hidden: true,
+      });
+    }
+
     let supportDocumentType = ESupportDocumentType.CONTRIBUTIONCOMMITMENT;
     if (commitment.type === ECommitmentType.SAVINGSPROGRAMMED) {
       supportDocumentType = ESupportDocumentType.SAVINGCOMMITMENT;

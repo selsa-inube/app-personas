@@ -82,14 +82,26 @@ function Pay() {
     let newCommitments = commitments;
 
     if (credits.length === 0) {
-      newCredits = await getCreditsForUser(user.identification, accessToken);
+      try {
+        newCredits = await getCreditsForUser(user.identification, accessToken);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.info(error.message);
+        }
+      }
     }
 
     if (commitments.length === 0) {
-      newCommitments = await getSavingsCommitmentsForUser(
-        user.identification,
-        accessToken,
-      );
+      try {
+        newCommitments = await getSavingsCommitmentsForUser(
+          user.identification,
+          accessToken,
+        );
+      } catch (error) {
+        if (error instanceof Error) {
+          console.info(error.message);
+        }
+      }
     }
 
     setPay((prev) => ({
