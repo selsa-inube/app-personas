@@ -33,6 +33,7 @@ Default.args = {
   totalValue: 500000,
   reference: "CT1100428",
   date: new Date("21/Feb/2024 11:20 am"),
+  withExpandingIcon: true
 };
 
 const theme = {

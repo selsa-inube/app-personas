@@ -20,17 +20,26 @@ interface CardMovementProps {
   totalValue: number;
   date: Date;
   reference?: string;
+  withExpandingIcon?: boolean;
   onClick?: () => void;
 }
 
 function CardMovement(props: CardMovementProps) {
-  const { movementType, description, totalValue, date, reference, onClick } =
-    props;
+  const {
+    movementType,
+    description,
+    totalValue,
+    date,
+    reference,
+    withExpandingIcon = false,
+    onClick,
+  } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   const formattedValue =
-    movementType === EMovementType.PURCHASE
+    movementType === EMovementType.PURCHASE ||
+    movementType === EMovementType.CREDIT
       ? currencyFormat(totalValue)
       : `-${currencyFormat(totalValue)}`;
 
@@ -39,7 +48,8 @@ function CardMovement(props: CardMovementProps) {
       <Stack justifyContent="space-between" gap={isMobile ? "s200" : "s500"}>
         <Stack gap="s150">
           <Stack direction="column" justifyContent="center">
-            {movementType === EMovementType.PURCHASE && (
+            {(movementType === EMovementType.PURCHASE ||
+              movementType === EMovementType.DEBIT) && (
               <Icon
                 icon={<MdArrowBack />}
                 appearance="error"
@@ -59,7 +69,8 @@ function CardMovement(props: CardMovementProps) {
                 shape="circle"
               />
             )}
-            {movementType === EMovementType.PAYMENT && (
+            {(movementType === EMovementType.PAYMENT ||
+              movementType === EMovementType.CREDIT) && (
               <Icon
                 icon={<MdOutlineCheck />}
                 appearance="success"
@@ -76,11 +87,7 @@ function CardMovement(props: CardMovementProps) {
             </Text>
           </Stack>
         </Stack>
-        {!isMobile ? (
-          <Text type="label" size="medium">
-            {formattedValue}
-          </Text>
-        ) : (
+        {withExpandingIcon && (
           <Icon
             icon={<MdOpenInNew />}
             spacing="none"
@@ -90,6 +97,7 @@ function CardMovement(props: CardMovementProps) {
           />
         )}
       </Stack>
+
       <Stack justifyContent="space-between">
         <Text type="body" size="small" appearance="gray">
           {formatPrimaryDate(date, false)}
@@ -98,6 +106,11 @@ function CardMovement(props: CardMovementProps) {
         {reference && isMobile && (
           <Text type="body" size="small" appearance="gray">
             {reference}
+          </Text>
+        )}
+        {!isMobile && (
+          <Text type="label" size="medium">
+            {formattedValue}
           </Text>
         )}
       </Stack>

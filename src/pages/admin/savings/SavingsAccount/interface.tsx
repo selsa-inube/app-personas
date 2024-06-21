@@ -5,10 +5,8 @@ import { AttributesModal } from "@components/modals/general/AttributesModal";
 import { ReimbursementModal } from "@components/modals/saving/ReimbursementModal";
 import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { quickLinks } from "@config/quickLinks";
-import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
@@ -22,12 +20,6 @@ import {
   MdOutlineAssignmentTurnedIn,
   MdOutlineAttachMoney,
 } from "react-icons/md";
-import {
-  savingAccountMovementsNormalizeEntries,
-  savingsAccountMovementsTableActions,
-  savingsAccountMovementsTableBreakpoints,
-  savingsAccountMovementsTableTitles,
-} from "../SavingsAccountMovements/config/table";
 import { crumbsSaving } from "./config/navigation";
 import {
   investmentCommitmentsIcons,
@@ -44,9 +36,12 @@ import {
 
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
+import { CardMovement } from "@components/cards/cards/CardMovement";
+import { Divider } from "@design/layout/Divider";
+import { Button } from "@design/input/Button";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { IMessage } from "@ptypes/messages.types";
-import { EProductType } from "src/model/entity/product";
+import { EMovementType, EProductType } from "src/model/entity/product";
 import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
@@ -221,24 +216,44 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             </Stack>
           </Box>
           {showMovementsTable && (
-            <Stack direction="column" gap="s200" alignItems="flex-start">
-              <Text type="label" size="large">
+            <Stack direction="column" gap="s300" alignItems="flex-start">
+              <Text type="title" size="medium">
                 {selectedProduct.saving.type === EProductType.CDAT
                   ? "Pago de intereses"
                   : "Últimos movimientos"}
               </Text>
               <StyledMovementsContainer>
-                <Table
-                  portalId="modals"
-                  titles={savingsAccountMovementsTableTitles}
-                  breakpoints={savingsAccountMovementsTableBreakpoints}
-                  actions={savingsAccountMovementsTableActions}
-                  entries={savingAccountMovementsNormalizeEntries(
-                    selectedProduct.saving.movements || [],
-                  ).slice(0, 5)}
-                  pageLength={selectedProduct.saving.movements?.length || 0}
-                  hideMobileResume
-                />
+                <Stack direction="column" gap="s200" width="100%">
+                  {selectedProduct.saving.movements && (
+                    <Stack direction="column" gap="s500">
+                      <Stack direction="column" gap="s200">
+                        {selectedProduct.saving.movements &&
+                          selectedProduct.saving.movements
+                            .slice(0, 5)
+                            .map((movement, index) => (
+                              <Stack
+                                direction="column"
+                                gap="s200"
+                                key={movement.id}
+                              >
+                                {index !== 0 && <Divider dashed />}
+                                <CardMovement
+                                  movementType={
+                                    movement.type || EMovementType.CREDIT
+                                  }
+                                  description={movement.description}
+                                  totalValue={movement.totalValue || 0}
+                                  date={movement.date}
+                                  reference={movement.reference}
+                                />
+                              </Stack>
+                            ))}
+                      </Stack>
+                    </Stack>
+                  )}
+                </Stack>
+              </StyledMovementsContainer>
+              <Stack justifyContent="flex-end" width="100%">
                 <Button
                   spacing="compact"
                   iconBefore={<MdOutlineAssignmentTurnedIn />}
@@ -247,7 +262,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 >
                   Movimientos
                 </Button>
-              </StyledMovementsContainer>
+              </Stack>
             </Stack>
           )}
         </Stack>

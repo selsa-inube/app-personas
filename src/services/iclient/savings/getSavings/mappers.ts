@@ -1,5 +1,10 @@
 import { ISavingsState } from "src/context/savings/types";
-import { EProductType, IMovement, IProduct } from "src/model/entity/product";
+import {
+  EMovementType,
+  EProductType,
+  IMovement,
+  IProduct,
+} from "src/model/entity/product";
 import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 import { getProductAttributes, getProductDetails } from "./utils";
 
@@ -18,14 +23,28 @@ const mapSavingProductsCommitmentsApiToEntities = (
 const mapSavingProductMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
+  let type: EMovementType;
+  if (Object.prototype.hasOwnProperty.call(movement, "creditMovementPesos")) {
+    type = EMovementType.CREDIT;
+  } else if (
+    Object.prototype.hasOwnProperty.call(movement, "debitMovementPesos")
+  ) {
+    type = EMovementType.DEBIT;
+  } else {
+    throw new Error(
+      "El movimiento debe tener creditMovementPesos o debitMovementPesos",
+    );
+  }
+
   return {
     id: String(movement.movementId),
     date: new Date(String(movement.movementDate)),
     reference: String(movement.movementNumber),
     description: capitalizeEachWord(String(movement.movementDescription)),
     totalValue: Number(
-      movement.creditMovementPesos || -movement.debitMovementPesos || 0,
+      movement.creditMovementPesos || movement.debitMovementPesos || 0,
     ),
+    type: type,
   };
 };
 

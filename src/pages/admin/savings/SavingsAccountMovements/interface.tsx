@@ -1,6 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
-import { Table } from "@design/data/Table";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -9,17 +8,14 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { Divider } from "@design/layout/Divider";
+import { CardMovement } from "@components/cards/cards/CardMovement";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
-import {
-  savingAccountMovementsNormalizeEntries,
-  savingsAccountMovementsTableActions,
-  savingsAccountMovementsTableBreakpoints,
-  savingsAccountMovementsTableTitles,
-} from "./config/table";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { EMovementType } from "src/model/entity/product";
 
 interface SavingsAccountMovementsUIProps {
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -72,17 +68,29 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
             readOnly={productsOptions.length === 1}
           />
           <StyledMovementsContainer>
-            <Table
-              portalId="modals"
-              titles={savingsAccountMovementsTableTitles}
-              breakpoints={savingsAccountMovementsTableBreakpoints}
-              actions={savingsAccountMovementsTableActions}
-              entries={savingAccountMovementsNormalizeEntries(
-                selectedProduct.movements,
+            <Stack direction="column" gap="s200" width="100%">
+              {selectedProduct.movements && (
+                <Stack direction="column" gap="s500">
+                  <Stack direction="column" gap="s200">
+                    {selectedProduct.movements &&
+                      selectedProduct.movements.map((movement, index) => (
+                        <Stack direction="column" gap="s200" key={movement.id}>
+                          {index !== 0 && <Divider dashed />}
+                          <CardMovement
+                            movementType={movement.type || EMovementType.CREDIT}
+                            description={movement.description}
+                            totalValue={movement.totalValue || 0}
+                            date={movement.date}
+                            reference={movement.reference}
+                          />
+                        </Stack>
+                      ))}
+                  </Stack>
+                </Stack>
               )}
-              pageLength={selectedProduct.movements.length}
-              hideMobileResume
-            />
+            </Stack>
+          </StyledMovementsContainer>
+          <Stack justifyContent="center">
             <Button
               appearance="primary"
               variant="none"
@@ -96,7 +104,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
             >
               Ver más movimientos
             </Button>
-          </StyledMovementsContainer>
+          </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
