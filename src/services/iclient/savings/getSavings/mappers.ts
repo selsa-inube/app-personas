@@ -18,9 +18,11 @@ const mapSavingProductsCommitmentsApiToEntities = (
 const mapSavingProductMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
+  const dateWithoutZone = String(movement.movementDate).replace("Z", "");
+
   return {
     id: String(movement.movementId),
-    date: new Date(String(movement.movementDate)),
+    date: new Date(dateWithoutZone),
     reference: String(movement.movementNumber),
     description: capitalizeEachWord(String(movement.movementDescription)),
     totalValue: Number(
