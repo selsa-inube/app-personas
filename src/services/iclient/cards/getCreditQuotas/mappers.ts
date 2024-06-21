@@ -26,11 +26,13 @@ const mapCreditQuotaMovementsApiToEntity = (
     transactionType = EMovementType.PURCHASE;
   }
 
+  const dateWithoutZone = String(movement.movementDate).replace("Z", "");
+
   const buildMovement: IMovement = {
     id: String(movement.movementNumber),
     description: String(movement.movementDescription),
     totalValue: Number(movement.transactionValue),
-    date: new Date(String(movement.movementDate)),
+    date: new Date(dateWithoutZone),
     type: transactionType,
     reference: String(movement.movementNumber),
   };
@@ -50,18 +52,18 @@ const mapCreditQuotaApiToEntity = (
     ? mapCreditQuotaMovementsApiToEntities(creditQuota.listOfConsumerMovements)
     : [];
 
-  const nextPaymentDate = new Date(String(creditQuota.nextPaymentDay));
-  nextPaymentDate.setUTCHours(5, 5, 5, 5);
+  const dateWithoutZone = String(creditQuota.nextPaymentDay).replace("Z", "");
+
+  const nextPaymentDate = new Date(dateWithoutZone);
 
   const today = new Date();
-
-  today.setUTCHours(5, 5, 5, 5);
+  today.setUTCHours(5, 0, 0, 0);
 
   const inArrears = today > nextPaymentDate;
 
   const nextPaymentFormat = inArrears
     ? "Inmediato"
-    : formatPrimaryDate(new Date(String(creditQuota.nextPaymentDay)));
+    : formatPrimaryDate(nextPaymentDate);
 
   const nextPaymentDateValid = creditQuota.nextPaymentDay
     ? nextPaymentFormat

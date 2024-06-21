@@ -10,12 +10,11 @@ import { capitalizeText } from "src/utils/texts";
 const mapCreditApiToEntity = (
   credit: Record<string, string | number | object>,
 ): IProduct => {
-  const nextPaymentDate = new Date(String(credit.nextPaymentDate));
-  nextPaymentDate.setUTCHours(5, 5, 5, 5);
+  const nextDateWithoutZone = String(credit.nextPaymentDate).replace("Z", "");
+  const nextPaymentDate = new Date(nextDateWithoutZone);
 
   const today = new Date();
-
-  today.setUTCHours(5, 5, 5, 5);
+  today.setUTCHours(5, 0, 0, 0);
 
   const duesPaid = credit.paidQuotas;
 
@@ -134,11 +133,16 @@ const mapCreditApiToEntity = (
   const roundInteresRate =
     interesRate == 0 ? interesRate : interesRate.toFixed(2);
 
+  const obligationDateWithoutZone = String(credit.obligationDate).replace(
+    "Z",
+    "",
+  );
+
   const attributes: IAttribute[] = [
     {
       id: "loan_date",
       label: "Fecha de préstamo",
-      value: formatPrimaryDate(new Date(String(credit.obligationDate))),
+      value: formatPrimaryDate(new Date(obligationDateWithoutZone)),
     },
     {
       id: "loan_value",

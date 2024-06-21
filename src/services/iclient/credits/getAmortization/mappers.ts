@@ -12,9 +12,11 @@ const mapCreditAmortizationApiToEntity = (
   const totalInterest =
     Number(payment.fixedInterest || 0) + Number(payment.variableInterest || 0);
 
+  const dateWithoutZone = String(payment.quotaDate).replace("Z", "");
+
   const buildPayment: IAmortization = {
     id: String(payment.paymentPlanId),
-    date: new Date(String(payment.quotaDate)),
+    date: new Date(dateWithoutZone),
     type: amortizationTableValuesMock[Object(payment.quotaType).code],
     others,
     interest: totalInterest,
