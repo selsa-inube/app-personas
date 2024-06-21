@@ -72,7 +72,7 @@ function CustomValueModal(props: CustomValueModalProps) {
 
   const handleValidateValue = () => {
     const today = new Date();
-    today.setUTCHours(0, 0, 0, 0);
+    today.setUTCHours(5, 0, 0, 0);
 
     if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
       setInputValidation({

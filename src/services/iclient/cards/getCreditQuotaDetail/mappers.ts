@@ -14,12 +14,13 @@ const mapConsumptionApiToEntity = (
 
   const nextPaymentValue = Object(consumption.nextPaymentValue);
   const balanceObligation = Object(consumption.balanceObligation);
+  const dateWithoutZone = String(consumption.obligationDate).replace("Z", "");
 
   const attributes = [
     {
       id: "consumption_date",
       label: "Fecha de consumo",
-      value: formatPrimaryDate(new Date(String(consumption.obligationDate))),
+      value: formatPrimaryDate(new Date(dateWithoutZone)),
     },
     {
       id: "consumption_value",
@@ -93,17 +94,17 @@ const mapConsumptionsApiToEntities = (
 const mapCreditQuotaDetailApiToEntity = (
   creditQuota: Record<string, string | number | object>,
 ): IProduct => {
-  const nextPaymentDate = new Date(String(creditQuota.nextPaymentDay));
-  nextPaymentDate.setUTCHours(5, 5, 5, 5);
+  const dateWithoutZone = String(creditQuota.nextPaymentDay).replace("Z", "");
+  const nextPaymentDate = new Date(dateWithoutZone);
 
   const today = new Date();
-  today.setUTCHours(5, 5, 5, 5);
+  today.setUTCHours(5, 0, 0, 0);
 
   const inArrears = today > nextPaymentDate;
 
   const nextPaymentFormat = inArrears
     ? "Inmediato"
-    : formatPrimaryDate(new Date(String(creditQuota.nextPaymentDay)));
+    : formatPrimaryDate(nextPaymentDate);
 
   const nextPaymentDateValid = creditQuota.nextPaymentDay
     ? nextPaymentFormat
