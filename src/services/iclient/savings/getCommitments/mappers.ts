@@ -70,14 +70,9 @@ const mapSavingsCommitmentsApiToEntity = (
 
   const lastSavingPlan =
     Array.isArray(lastMovementTheSavingPlans) &&
-    lastMovementTheSavingPlans.reduce((latest, current) => {
-      const currentDateNoZome = String(current.quotaDate).replace("Z", "");
-      const latestDateNoZone = String(latest.quotaDate).replace("Z", "");
-
-      return !latest || new Date(currentDateNoZome) > new Date(latestDateNoZone)
-        ? current
-        : latest;
-    }, null);
+    lastMovementTheSavingPlans.reduce((acc, curr) =>
+      acc.quotaDate > curr.quotaDate ? acc : curr,
+    );
 
   const lastDateWithoutZone = String(lastSavingPlan.quotaDate).replace("Z", "");
 
