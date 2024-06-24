@@ -19,23 +19,21 @@ import { ISelectedProductState } from "./types";
 import { EMovementType, IMovement } from "src/model/entity/product";
 
 const renderMovements = (movements: IMovement[]) => (
-  <Stack direction="column" gap="s500">
-    <Stack direction="column" gap="s200">
-      {movements &&
-        movements.slice(0, 5).map((movement, index) => (
-          <Stack direction="column" gap="s200" key={movement.id}>
-            {index !== 0 && <Divider dashed />}
-            <CardMovement
-              movementType={movement.type || EMovementType.CREDIT}
-              description={movement.description}
-              totalValue={movement.totalValue || 0}
-              date={movement.date}
-              reference={movement.reference}
-            />
-          </Stack>
-        ))}
-    </Stack>
-  </Stack>
+  <>
+    {movements &&
+      movements.slice(0, 5).map((movement, index) => (
+        <Stack direction="column" gap="s200" key={movement.id}>
+          {index !== 0 && <Divider dashed />}
+          <CardMovement
+            movementType={movement.type || EMovementType.CREDIT}
+            description={movement.description}
+            totalValue={movement.totalValue || 0}
+            date={movement.date}
+            reference={movement.reference}
+          />
+        </Stack>
+      ))}
+  </>
 );
 
 interface SavingsAccountMovementsUIProps {

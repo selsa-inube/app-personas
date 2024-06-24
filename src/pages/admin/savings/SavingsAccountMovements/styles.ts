@@ -14,7 +14,7 @@ const StyledMovementsContainer = styled.div<IStyledMovementsContainer>`
   padding: ${({ isMobile }) =>
     isMobile
       ? `${inube.spacing.s300} ${inube.spacing.s150}`
-      : `${inube.spacing.s200} ${inube.spacing.s250}`};
+      : `${inube.spacing.s250}`};
   align-items: flex-end;
   border-radius: ${inube.spacing.s100};
   border: 1px solid
