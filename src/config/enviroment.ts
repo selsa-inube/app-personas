@@ -6,7 +6,7 @@ const enviroment = {
   PROVIDER: import.meta.env.VITE_AUTH_PROVIDER,
   ICLIENT_API_URL_QUERY: import.meta.env.VITE_ICLIENT_API_URL_QUERY,
   ICLIENT_API_URL_PERSISTENCE: import.meta.env.VITE_ICLIENT_API_URL_PERSISTENCE,
-  BUSINESS_UNIT: import.meta.env.PROD ? "fondecom" : "fondecom",
+  BUSINESS_UNIT: import.meta.env.PROD ? "fondecom" : "test",
   APP_CODE: "personas",
   FEATURE_FLAGS_URL: import.meta.env.VITE_FEATURE_FLAGS_URL,
   FEATURE_FLAGS_KEY: import.meta.env.VITE_FEATURE_FLAGS_KEY,
