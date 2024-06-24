@@ -41,14 +41,38 @@ import { Divider } from "@design/layout/Divider";
 import { Button } from "@design/input/Button";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { IMessage } from "@ptypes/messages.types";
-import { EMovementType, EProductType } from "src/model/entity/product";
+import {
+  EMovementType,
+  EProductType,
+  IMovement,
+} from "src/model/entity/product";
 import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
 
+const renderMovements = (movements: IMovement[]) => (
+  <Stack direction="column" gap="s500">
+    <Stack direction="column" gap="s200">
+      {movements &&
+        movements.slice(0, 5).map((movement, index) => (
+          <Stack direction="column" gap="s200" key={movement.id}>
+            {index !== 0 && <Divider dashed />}
+            <CardMovement
+              movementType={movement.type || EMovementType.CREDIT}
+              description={movement.description}
+              totalValue={movement.totalValue || 0}
+              date={movement.date}
+              reference={movement.reference}
+            />
+          </Stack>
+        ))}
+    </Stack>
+  </Stack>
+);
+
 interface SavingsAccountUIProps {
-  isMobile?: boolean;
+  isMobile: boolean;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
   beneficiariesModal: IBeneficiariesModalState;
@@ -112,7 +136,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     (attr) => attr.id === "payment_interest",
   );
 
-  const showMovementsTable =
+  const showMovements =
     selectedProduct.saving.type !== EProductType.CDAT ||
     interestPaymentValue?.value === "Periódico";
 
@@ -215,40 +239,35 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               </Grid>
             </Stack>
           </Box>
-          {showMovementsTable && (
+          {showMovements && (
             <Stack direction="column" gap="s300" alignItems="flex-start">
               <Text type="title" size="medium">
                 {selectedProduct.saving.type === EProductType.CDAT
                   ? "Pago de intereses"
                   : "Últimos movimientos"}
               </Text>
-              <StyledMovementsContainer>
+              <StyledMovementsContainer isMobile={isMobile}>
                 <Stack direction="column" gap="s200" width="100%">
-                  {selectedProduct.saving.movements && (
-                    <Stack direction="column" gap="s500">
-                      <Stack direction="column" gap="s200">
-                        {selectedProduct.saving.movements &&
-                          selectedProduct.saving.movements
-                            .slice(0, 5)
-                            .map((movement, index) => (
-                              <Stack
-                                direction="column"
-                                gap="s200"
-                                key={movement.id}
-                              >
-                                {index !== 0 && <Divider dashed />}
-                                <CardMovement
-                                  movementType={
-                                    movement.type || EMovementType.CREDIT
-                                  }
-                                  description={movement.description}
-                                  totalValue={movement.totalValue || 0}
-                                  date={movement.date}
-                                  reference={movement.reference}
-                                />
-                              </Stack>
-                            ))}
-                      </Stack>
+                  {selectedProduct.saving.movements &&
+                  selectedProduct.saving.movements.length > 0 ? (
+                    renderMovements(selectedProduct.saving.movements)
+                  ) : (
+                    <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      gap="s100"
+                    >
+                      <Text type="title" size="small" appearance="dark">
+                        No tienes movimientos
+                      </Text>
+                      <Text
+                        type="body"
+                        size={isMobile ? "small" : "medium"}
+                        appearance="gray"
+                      >
+                        Aun no posees movimientos en este producto.
+                      </Text>
                     </Stack>
                   )}
                 </Stack>
@@ -258,6 +277,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   spacing="compact"
                   iconBefore={<MdOutlineAssignmentTurnedIn />}
                   path={`/my-savings/account/${productId}/movements`}
+                  disabled={
+                    !selectedProduct.saving.movements ||
+                    selectedProduct.saving.movements.length === 0
+                  }
                   type="link"
                 >
                   Movimientos

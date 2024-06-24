@@ -3,6 +3,7 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
+import { Text } from "@design/data/Text";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
@@ -15,7 +16,27 @@ import { MdAdd, MdArrowBack } from "react-icons/md";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
-import { EMovementType } from "src/model/entity/product";
+import { EMovementType, IMovement } from "src/model/entity/product";
+
+const renderMovements = (movements: IMovement[]) => (
+  <Stack direction="column" gap="s500">
+    <Stack direction="column" gap="s200">
+      {movements &&
+        movements.slice(0, 5).map((movement, index) => (
+          <Stack direction="column" gap="s200" key={movement.id}>
+            {index !== 0 && <Divider dashed />}
+            <CardMovement
+              movementType={movement.type || EMovementType.CREDIT}
+              description={movement.description}
+              totalValue={movement.totalValue || 0}
+              date={movement.date}
+              reference={movement.reference}
+            />
+          </Stack>
+        ))}
+    </Stack>
+  </Stack>
+);
 
 interface SavingsAccountMovementsUIProps {
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -37,6 +58,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
     <>
@@ -67,25 +89,28 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
             isFullWidth
             readOnly={productsOptions.length === 1}
           />
-          <StyledMovementsContainer>
+          <StyledMovementsContainer isMobile={isMobile}>
             <Stack direction="column" gap="s200" width="100%">
-              {selectedProduct.movements && (
-                <Stack direction="column" gap="s500">
-                  <Stack direction="column" gap="s200">
-                    {selectedProduct.movements &&
-                      selectedProduct.movements.map((movement, index) => (
-                        <Stack direction="column" gap="s200" key={movement.id}>
-                          {index !== 0 && <Divider dashed />}
-                          <CardMovement
-                            movementType={movement.type || EMovementType.CREDIT}
-                            description={movement.description}
-                            totalValue={movement.totalValue || 0}
-                            date={movement.date}
-                            reference={movement.reference}
-                          />
-                        </Stack>
-                      ))}
-                  </Stack>
+              {selectedProduct.movements &&
+              selectedProduct.movements.length > 0 ? (
+                renderMovements(selectedProduct.movements)
+              ) : (
+                <Stack
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  gap="s100"
+                >
+                  <Text type="title" size="small" appearance="dark">
+                    No tienes movimientos
+                  </Text>
+                  <Text
+                    type="body"
+                    size={isMobile ? "small" : "medium"}
+                    appearance="gray"
+                  >
+                    Aun no posees movimientos en este producto.
+                  </Text>
                 </Stack>
               )}
             </Stack>
