@@ -1,4 +1,4 @@
-import { convertDomainToList, convertDomainToOptions } from "../helper";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const paymentStatusDataDomain = {
   IN_PROGRESS_PSE: {

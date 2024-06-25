@@ -1,7 +1,7 @@
-import { convertDomainToList, convertDomainToOptions } from "../helper";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const peridiocityData = {
-  SINGLE:{
+  SINGLE: {
     id: "single",
     value: "Pago único",
   },
