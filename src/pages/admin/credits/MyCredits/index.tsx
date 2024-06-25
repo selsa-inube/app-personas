@@ -14,7 +14,7 @@ function MyCredits() {
   const { getFlag } = useContext(AppContext);
 
   useEffect(() => {
-    if (accessToken && credits.length === 0) {
+    if (accessToken) {
       setLoading(true);
       getCreditsForUser(user.identification, accessToken)
         .then((credits) => {
