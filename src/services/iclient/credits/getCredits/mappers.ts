@@ -1,8 +1,7 @@
 import { TagProps } from "@design/data/Tag";
-import {
-  amortizationTypeValuesMock,
-  peridiocityValuesMock,
-} from "@mocks/products/credits/utils.mocks";
+import { creditAmortizationTypeDM } from "src/model/domains/credits/creditAmortizationTypeDM";
+import { creditPaymentTypeDM } from "src/model/domains/credits/creditPaymentTypeDM";
+
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
@@ -172,7 +171,9 @@ const mapCreditApiToEntity = (
     {
       id: "peridiocity",
       label: "Periodicidad",
-      value: peridiocityValuesMock[String(credit.periodicityOfQuota)],
+      value:
+        creditPaymentTypeDM.valueOf(String(credit.periodicityOfQuota))?.value ||
+        "",
     },
     {
       id: "payment_method",
@@ -187,7 +188,9 @@ const mapCreditApiToEntity = (
     {
       id: "amortization_type",
       label: "Tipo de amortización",
-      value: amortizationTypeValuesMock[Object(credit.amortization).code],
+      value:
+        creditAmortizationTypeDM.valueOf(Object(credit.amortization).code)
+          ?.value || "",
     },
     {
       id: "guarantee_type",

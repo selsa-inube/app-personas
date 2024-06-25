@@ -1,4 +1,4 @@
-import { amortizationTableValuesMock } from "@mocks/products/credits/utils.mocks";
+import { creditPaymentTypeDM } from "src/model/domains/credits/creditPaymentTypeDM";
 import { IAmortization } from "src/model/entity/product";
 
 const mapCreditAmortizationApiToEntity = (
@@ -17,7 +17,8 @@ const mapCreditAmortizationApiToEntity = (
   const buildPayment: IAmortization = {
     id: String(payment.paymentPlanId),
     date: new Date(dateWithoutZone),
-    type: amortizationTableValuesMock[Object(payment.quotaType).code],
+    type:
+      creditPaymentTypeDM.valueOf(Object(payment.quotaType).code)?.value || "",
     others,
     interest: totalInterest,
     totalMonthlyValue: Number(payment.quotaValue),
