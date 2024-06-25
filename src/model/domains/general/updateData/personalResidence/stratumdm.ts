@@ -1,4 +1,5 @@
-import { convertDomainToList, convertDomainToOptions } from "../../../helper";
+import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+
 const stratumData = {
   STRATUM_1: {
     id: "stratum_1",

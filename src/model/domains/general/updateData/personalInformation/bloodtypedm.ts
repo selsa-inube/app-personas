@@ -1,4 +1,4 @@
-import { convertDomainToList, convertDomainToOptions } from "../../../helper";
+import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
 
 const bloodTypeData = {
   O_POSITIVE: {
