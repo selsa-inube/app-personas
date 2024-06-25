@@ -18,35 +18,27 @@ function MySavings() {
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   useEffect(() => {
-    const combinedSavings = [
-      ...savings.savingsAccounts,
-      ...savings.savingsContributions,
-      ...savings.cdats,
-      ...savings.programmedSavings,
-    ];
     if (accessToken) {
-      if (combinedSavings.length === 0) {
-        setLoading(true);
-        getSavingsForUser(user.identification, accessToken)
-          .then((savings) => {
-            setSavings(savings);
-          })
-          .catch((error) => {
-            console.info(error.message);
-          })
-          .finally(() => {
-            setLoading(false);
-          });
-      }
-      if (commitments.length === 0) {
-        getSavingsCommitmentsForUser(user.identification, accessToken)
-          .then((commitments) => {
-            setCommitments(commitments);
-          })
-          .catch((error) => {
-            console.info(error.message);
-          });
-      }
+      setLoading(true);
+
+      getSavingsForUser(user.identification, accessToken)
+        .then((savings) => {
+          setSavings(savings);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+
+      getSavingsCommitmentsForUser(user.identification, accessToken)
+        .then((commitments) => {
+          setCommitments(commitments);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        });
     }
   }, [user, accessToken]);
 
