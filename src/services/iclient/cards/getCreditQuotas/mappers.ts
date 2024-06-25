@@ -1,5 +1,5 @@
 import { TagProps } from "@design/data/Tag";
-import { cardTypeValuesMock } from "@mocks/products/cards/utils.mocks";
+import { creditQuotaTypeDM } from "src/model/domains/cards/creditQuotaTypeDM.ts";
 import {
   EMovementType,
   EProductType,
@@ -99,7 +99,9 @@ const mapCreditQuotaApiToEntity = (
       id: "type",
       label: "Tipo",
       value:
-        cardTypeValuesMock[Object(creditQuota.wayToManageConsumption).code],
+        creditQuotaTypeDM.valueOf(
+          Object(creditQuota.wayToManageConsumption).code,
+        )?.value || "",
     },
     {
       id: "assigned_quota",
