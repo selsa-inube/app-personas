@@ -17,6 +17,7 @@ import { EMovementType, IMovement } from "src/model/entity/product";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { generateAttributes } from "./utils";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -24,24 +25,13 @@ const renderMovements = (movements: IMovement[]) =>
     <Stack direction="column" gap="s200" key={movement.id}>
       {index !== 0 && <Divider dashed />}
       <RecordCard
-        movementType={movement.type || EMovementType.CREDIT}
+        type={movement.type || EMovementType.CREDIT}
         description={movement.description}
         totalValue={movement.totalValue || 0}
         attributes={generateAttributes(movement)}
       />
     </Stack>
   ));
-
-const staticAttributes = [
-  { id: "date", label: "Fecha", value: "" },
-  { id: "reference", label: "Referencia", value: "" },
-];
-
-const generateAttributes = (movement: IMovement) =>
-  staticAttributes.map((attr) => ({
-    ...attr,
-    value: movement[attr.id as keyof IMovement] as string | number | Date,
-  }));
 
 interface SavingsAccountMovementsUIProps {
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;

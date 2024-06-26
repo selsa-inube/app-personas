@@ -75,7 +75,7 @@ function formatCreditQuotasCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function getMovementDescriptionType(
+function getRecordDescriptionType(
   type: EMovementType,
   description: string,
 ): string {
@@ -98,5 +98,5 @@ export {
   extractCreditQuotasAttributes,
   formatCardCurrencyAttrs,
   formatCreditQuotasCurrencyAttrs,
-  getMovementDescriptionType,
+  getRecordDescriptionType,
 };

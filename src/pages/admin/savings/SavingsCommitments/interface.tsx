@@ -32,6 +32,7 @@ import { StyledPaymentsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
 import { Divider } from "@design/layout/Divider";
 import { RecordCard } from "@components/cards/RecordCard";
+import { generateAttributes } from "./utils";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
@@ -62,27 +63,16 @@ function renderProducts(
 const renderMovements = (movements: IMovement[]) =>
   movements &&
   movements.slice(0, 5).map((movement, index) => (
-    <Stack direction="column" gap="s200" key={movement.id}>
+    <Stack direction="column" gap="s200" key={movement.id} width="100%">
       {index !== 0 && <Divider dashed />}
       <RecordCard
-        movementType={movement.type || EMovementType.CREDIT}
+        type={movement.type || EMovementType.CREDIT}
         description={movement.description}
         totalValue={movement.totalValue || 0}
         attributes={generateAttributes(movement)}
       />
     </Stack>
   ));
-
-const staticAttributes = [
-  { id: "date", label: "Fecha", value: "" },
-  { id: "reference", label: "Referencia", value: "" },
-];
-
-const generateAttributes = (movement: IMovement) =>
-  staticAttributes.map((attr) => ({
-    ...attr,
-    value: movement[attr.id as keyof IMovement] as string | number | Date,
-  }));
 
 interface SavingsCommitmentsUIProps {
   commitmentId?: string;
@@ -195,28 +185,29 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             Pagos recientes
           </Text>
           <StyledPaymentsContainer isMobile={isMobile}>
-              {selectedCommitment.commitment.movements &&
-              selectedCommitment.commitment.movements.length > 0 ? (
-                renderMovements(selectedCommitment.commitment.movements)
-              ) : (
-                <Stack
-                  direction="column"
-                  justifyContent="center"
-                  alignItems="center"
-                  gap="s100"
+            {selectedCommitment.commitment.movements &&
+            selectedCommitment.commitment.movements.length > 0 ? (
+              renderMovements(selectedCommitment.commitment.movements)
+            ) : (
+              <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                gap="s100"
+                width="100%"
+              >
+                <Text type="title" size="small" appearance="dark">
+                  No tienes movimientos
+                </Text>
+                <Text
+                  type="body"
+                  size={isMobile ? "small" : "medium"}
+                  appearance="gray"
                 >
-                  <Text type="title" size="small" appearance="dark">
-                    No tienes movimientos
-                  </Text>
-                  <Text
-                    type="body"
-                    size={isMobile ? "small" : "medium"}
-                    appearance="gray"
-                  >
-                    Aun no posees movimientos en este producto.
-                  </Text>
-                </Stack>
-              )}
+                  Aun no posees movimientos en este producto.
+                </Text>
+              </Stack>
+            )}
           </StyledPaymentsContainer>
         </Stack>
       </Grid>

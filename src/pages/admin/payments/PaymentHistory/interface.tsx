@@ -16,6 +16,7 @@ import { EMovementType } from "src/model/entity/product";
 import { EmptyRecords } from "./EmptyRecords";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
+import { generateAttributes } from "./utils";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
@@ -43,21 +44,6 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
     onToggleClosePaymentHistoryModal,
     onRefreshHistory,
   } = props;
-
-  const staticAttributes = [
-    { id: "paymentDate", label: "Fecha", value: "" },
-    { id: "paymentMethod", label: "Forma de pago", value: "" },
-    { id: "cus", label: "CUS", value: "" },
-  ];
-
-  const generateAttributes = (payment: IPaymentHistory) =>
-    staticAttributes.map((attr) => ({
-      ...attr,
-      value: payment[attr.id as keyof IPaymentHistory] as
-        | string
-        | number
-        | Date,
-    }));
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -112,7 +98,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                     gap="s200"
                   >
                     <RecordCard
-                      movementType={EMovementType.RECORD}
+                      type={EMovementType.RECORD}
                       description={payment.title}
                       totalValue={payment.value}
                       tag={payment.tag}

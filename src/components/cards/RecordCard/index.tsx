@@ -2,7 +2,7 @@ import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { getMovementDescriptionType } from "@pages/admin/cards/Card/config/product";
+import { getRecordDescriptionType } from "@pages/admin/cards/Card/config/product";
 import {
   MdArrowBack,
   MdOpenInNew,
@@ -15,11 +15,11 @@ import { currencyFormat } from "src/utils/currency";
 import { Tag, TagProps } from "@design/data/Tag";
 import { formatPrimaryDate } from "src/utils/dates";
 
-const getIconForMovementType = (movementType: EMovementType) => {
+const getIconForRecordType = (type: EMovementType) => {
   return (
     <Stack direction="column" justifyContent="center">
-      {(movementType === EMovementType.PURCHASE ||
-        movementType === EMovementType.DEBIT) && (
+      {(type === EMovementType.PURCHASE ||
+        type === EMovementType.DEBIT) && (
         <Icon
           icon={<MdArrowBack />}
           appearance="error"
@@ -29,7 +29,7 @@ const getIconForMovementType = (movementType: EMovementType) => {
           shape="circle"
         />
       )}
-      {movementType === EMovementType.REVERSE && (
+      {type === EMovementType.REVERSE && (
         <Icon
           icon={<MdOutlineCached />}
           appearance="success"
@@ -39,8 +39,8 @@ const getIconForMovementType = (movementType: EMovementType) => {
           shape="circle"
         />
       )}
-      {(movementType === EMovementType.PAYMENT ||
-        movementType === EMovementType.CREDIT) && (
+      {(type === EMovementType.PAYMENT ||
+        type === EMovementType.CREDIT) && (
         <Icon
           icon={<MdOutlineCheck />}
           appearance="success"
@@ -50,7 +50,7 @@ const getIconForMovementType = (movementType: EMovementType) => {
           shape="circle"
         />
       )}
-      {movementType === EMovementType.RECORD && (
+      {type === EMovementType.RECORD && (
         <Icon
           icon={<MdOutlineAssignment />}
           appearance="gray"
@@ -63,7 +63,7 @@ const getIconForMovementType = (movementType: EMovementType) => {
 };
 
 interface RecordCardProps {
-  movementType: EMovementType;
+  type: EMovementType;
   description: string;
   totalValue: number;
   withExpandingIcon?: boolean;
@@ -74,7 +74,7 @@ interface RecordCardProps {
 
 function RecordCard(props: RecordCardProps) {
   const {
-    movementType,
+    type,
     description,
     totalValue,
     attributes,
@@ -86,9 +86,9 @@ function RecordCard(props: RecordCardProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   const formattedValue =
-    movementType === EMovementType.PURCHASE ||
-    movementType === EMovementType.CREDIT ||
-    movementType === EMovementType.RECORD
+    type === EMovementType.PURCHASE ||
+    type === EMovementType.CREDIT ||
+    type === EMovementType.RECORD
       ? currencyFormat(totalValue)
       : `-${currencyFormat(totalValue)}`;
 
@@ -96,9 +96,9 @@ function RecordCard(props: RecordCardProps) {
     <Stack direction="column" gap="s100">
       <Stack justifyContent="space-between" gap={isMobile ? "s150" : "s500"}>
         <Stack gap="s150">
-          {getIconForMovementType(movementType)}
+          {getIconForRecordType(type)}
           <Text type="label" size="medium">
-            {`${getMovementDescriptionType(movementType, description)} ${description}`}
+            {`${getRecordDescriptionType(type, description)} ${description}`}
           </Text>
           {tag && !isMobile && (
             <Tag

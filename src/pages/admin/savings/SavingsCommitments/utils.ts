@@ -1,4 +1,4 @@
-import { ICommitment } from "src/model/entity/product";
+import { ICommitment, IMovement } from "src/model/entity/product";
 import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 
 const validateCommitment = async (
@@ -36,4 +36,15 @@ const getNextPaymentData = (selectedProduct: ICommitment) => {
   };
 };
 
-export { getNextPaymentData, validateCommitment };
+const staticAttributes = [
+  { id: "date", label: "Fecha", value: "" },
+  { id: "reference", label: "Referencia", value: "" },
+];
+
+const generateAttributes = (movement: IMovement) =>
+  staticAttributes.map((attr) => ({
+    ...attr,
+    value: movement[attr.id as keyof IMovement] as string | number | Date,
+  }));
+
+export { getNextPaymentData, validateCommitment, generateAttributes };

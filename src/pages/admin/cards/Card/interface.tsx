@@ -26,7 +26,7 @@ import {
   MdOutlineDescription,
   MdQuestionMark,
 } from "react-icons/md";
-import { EMovementType, IMovement, IProduct } from "src/model/entity/product";
+import { EMovementType, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
 import { cardBox, myQuotas } from "./config/card";
@@ -44,17 +44,7 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
-
-const staticAttributes = [
-  { id: "date", label: "Fecha", value: "" },
-  { id: "reference", label: "Referencia", value: "" },
-];
-
-const generateAttributes = (movement: IMovement) =>
-  staticAttributes.map((attr) => ({
-    ...attr,
-    value: movement[attr.id as keyof IMovement] as string | number | Date,
-  }));
+import { generateAttributes } from "./utils";
 
 interface CardUIProps {
   cardId?: string;
@@ -281,7 +271,7 @@ function CardUI(props: CardUIProps) {
                                 >
                                   {index !== 0 && <Divider dashed />}
                                   <RecordCard
-                                    movementType={
+                                    type={
                                       movement.type || EMovementType.PAYMENT
                                     }
                                     description={movement.description}

@@ -12,10 +12,11 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack } from "react-icons/md";
-import { EMovementType, IMovement } from "src/model/entity/product";
+import { EMovementType } from "src/model/entity/product";
 import { crumbsCardMovements } from "./config/navigation";
 import { StyledContainer, StyledItem } from "./styles";
 import { ISelectedProductState } from "./types";
+import { generateAttributes } from "./utils";
 
 interface CardMovementsUIProps {
   cardId?: string;
@@ -26,17 +27,6 @@ interface CardMovementsUIProps {
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handleAddMovements: () => void;
 }
-
-const staticAttributes = [
-  { id: "date", label: "Fecha", value: "" },
-  { id: "reference", label: "Referencia", value: "" },
-];
-
-const generateAttributes = (movement: IMovement) =>
-  staticAttributes.map((attr) => ({
-    ...attr,
-    value: movement[attr.id as keyof IMovement] as string | number | Date,
-  }));
 
 function CardMovementsUI(props: CardMovementsUIProps) {
   const {
@@ -95,7 +85,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
                     {index !== 0 && <Divider dashed />}
                     <StyledItem>
                       <RecordCard
-                        movementType={movement.type as EMovementType}
+                        type={movement.type as EMovementType}
                         description={movement.description}
                         totalValue={movement.totalValue}
                         attributes={generateAttributes(movement)}

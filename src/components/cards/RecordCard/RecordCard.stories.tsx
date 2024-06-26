@@ -27,7 +27,7 @@ export const Default: StoryFn<RecordCardProps> = (args) => (
   <RecordCard {...args} />
 );
 Default.args = {
-  movementType: EMovementType.RECORD,
+  type: EMovementType.RECORD,
   description:
     "Pago Contab. Descuentos de nomina mes FEB/21 Cta.Cobro 41-241000098 Nomina: 30",
 

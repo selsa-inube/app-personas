@@ -15,6 +15,7 @@ import { ITransfer } from "src/model/entity/transfer";
 import { EmptyRecords } from "./EmptyRecords";
 import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
+import { generateAttributes } from "./utils";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];
@@ -34,18 +35,6 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
     onAddTransfers,
     onRefreshHistory,
   } = props;
-
-  const staticAttributes = [
-    { id: "destination", label: "Destino", value: "" },
-    { id: "source", label: "Origen", value: "" },
-    { id: "date", label: "Fecha", value: "" },
-  ];
-
-  const generateAttributes = (transfer: ITransfer) =>
-    staticAttributes.map((attr) => ({
-      ...attr,
-      value: transfer[attr.id as keyof ITransfer] as string | number | Date,
-    }));
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -100,7 +89,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
                     gap="s200"
                   >
                     <RecordCard
-                      movementType={EMovementType.RECORD}
+                      type={EMovementType.RECORD}
                       description={transfer.title}
                       totalValue={transfer.value}
                       tag={transfer.tag}
