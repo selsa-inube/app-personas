@@ -1,6 +1,7 @@
 import { TagProps } from "@design/data/Tag";
 import {
   ECommitmentType,
+  EMovementType,
   IAttribute,
   ICommitment,
   IMovement,
@@ -25,6 +26,18 @@ const mapSavingCommitmentMovementApiToEntity = (
 ): IMovement => {
   const dateWithoutZone = String(movement.movementDate).replace("Z", "");
 
+  let type: EMovementType | undefined;
+
+  if (Object.prototype.hasOwnProperty.call(movement, "creditMovementPesos")) {
+    type = EMovementType.CREDIT;
+  } else if (
+    Object.prototype.hasOwnProperty.call(movement, "debitMovementPesos")
+  ) {
+    type = EMovementType.DEBIT;
+  } else {
+    type = undefined;
+  }
+
   const buildMovement: IMovement = {
     id: String(movement.movementId),
     date: new Date(dateWithoutZone),
@@ -33,6 +46,7 @@ const mapSavingCommitmentMovementApiToEntity = (
     totalValue: Number(
       movement.creditMovementPesos || movement.debitMovementPesos,
     ),
+    type: type,
   };
   return buildMovement;
 };

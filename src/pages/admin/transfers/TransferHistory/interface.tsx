@@ -1,5 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { TransferHistoryCard } from "@components/cards/transfers/TransferHistoryCard";
+import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
@@ -10,6 +10,7 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
+import { EMovementType } from "src/model/entity/product";
 import { ITransfer } from "src/model/entity/transfer";
 import { EmptyRecords } from "./EmptyRecords";
 import { crumbsTransferHistory } from "./config/navigation";
@@ -33,6 +34,18 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
     onAddTransfers,
     onRefreshHistory,
   } = props;
+
+  const staticAttributes = [
+    { id: "destination", label: "Destino", value: "" },
+    { id: "source", label: "Origen", value: "" },
+    { id: "date", label: "Fecha", value: "" },
+  ];
+
+  const generateAttributes = (transfer: ITransfer) =>
+    staticAttributes.map((attr) => ({
+      ...attr,
+      value: transfer[attr.id as keyof ITransfer] as string | number | Date,
+    }));
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -86,14 +99,12 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
                     key={transfer.id}
                     gap="s200"
                   >
-                    <TransferHistoryCard
-                      id={transfer.id}
-                      title={transfer.title}
-                      value={transfer.value}
+                    <RecordCard
+                      movementType={EMovementType.RECORD}
+                      description={transfer.title}
+                      totalValue={transfer.value}
                       tag={transfer.tag}
-                      date={transfer.date}
-                      destination={transfer.destination}
-                      source={transfer.source}
+                      attributes={generateAttributes(transfer)}
                     />
                     {index !== transferHistory.length - 1 && <Divider dashed />}
                   </Stack>

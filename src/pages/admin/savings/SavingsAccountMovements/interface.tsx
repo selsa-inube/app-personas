@@ -1,40 +1,47 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
+import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
-import { Text } from "@design/data/Text";
 import { ISelectOption } from "@design/input/Select/types";
+import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
-import { Divider } from "@design/layout/Divider";
-import { CardMovement } from "@components/cards/cards/CardMovement";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack } from "react-icons/md";
+import { EMovementType, IMovement } from "src/model/entity/product";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
-import { EMovementType, IMovement } from "src/model/entity/product";
 
-const renderMovements = (movements: IMovement[]) => (
-  <>
-    {movements &&
-      movements.slice(0, 5).map((movement, index) => (
-        <Stack direction="column" gap="s200" key={movement.id}>
-          {index !== 0 && <Divider dashed />}
-          <CardMovement
-            movementType={movement.type || EMovementType.CREDIT}
-            description={movement.description}
-            totalValue={movement.totalValue || 0}
-            date={movement.date}
-            reference={movement.reference}
-          />
-        </Stack>
-      ))}
-  </>
-);
+const renderMovements = (movements: IMovement[]) =>
+  movements &&
+  movements.map((movement, index) => (
+    <Stack direction="column" gap="s200" key={movement.id}>
+      {index !== 0 && <Divider dashed />}
+      <RecordCard
+        movementType={movement.type || EMovementType.CREDIT}
+        description={movement.description}
+        totalValue={movement.totalValue || 0}
+        attributes={generateAttributes(movement)}
+      />
+    </Stack>
+  ));
+
+const staticAttributes = [
+  { id: "date", label: "Fecha", value: "" },
+  { id: "reference", label: "Referencia", value: "" },
+];
+
+const generateAttributes = (movement: IMovement) =>
+  staticAttributes.map((attr) => ({
+    ...attr,
+    value: movement[attr.id as keyof IMovement] as string | number | Date,
+  }));
 
 interface SavingsAccountMovementsUIProps {
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;

@@ -34,12 +34,12 @@ import {
   ISelectedProductState,
 } from "./types";
 
+import { RecordCard } from "@components/cards/RecordCard";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
-import { CardMovement } from "@components/cards/cards/CardMovement";
-import { Divider } from "@design/layout/Divider";
-import { Button } from "@design/input/Button";
 import { SectionMessage } from "@design/feedback/SectionMessage";
+import { Button } from "@design/input/Button";
+import { Divider } from "@design/layout/Divider";
 import { IMessage } from "@ptypes/messages.types";
 import {
   EMovementType,
@@ -51,23 +51,30 @@ import {
   formatSavingCurrencyAttrs,
 } from "./config/product";
 
-const renderMovements = (movements: IMovement[]) => (
-  <>
-    {movements &&
-      movements.slice(0, 5).map((movement, index) => (
-        <Stack direction="column" gap="s200" key={movement.id}>
-          {index !== 0 && <Divider dashed />}
-          <CardMovement
-            movementType={movement.type || EMovementType.CREDIT}
-            description={movement.description}
-            totalValue={movement.totalValue || 0}
-            date={movement.date}
-            reference={movement.reference}
-          />
-        </Stack>
-      ))}
-  </>
-);
+const renderMovements = (movements: IMovement[]) =>
+  movements &&
+  movements.slice(0, 5).map((movement, index) => (
+    <Stack direction="column" gap="s200" key={movement.id}>
+      {index !== 0 && <Divider dashed />}
+      <RecordCard
+        movementType={movement.type || EMovementType.CREDIT}
+        description={movement.description}
+        totalValue={movement.totalValue || 0}
+        attributes={generateAttributes(movement)}
+      />
+    </Stack>
+  ));
+
+const staticAttributes = [
+  { id: "date", label: "Fecha", value: "" },
+  { id: "reference", label: "Referencia", value: "" },
+];
+
+const generateAttributes = (movement: IMovement) =>
+  staticAttributes.map((attr) => ({
+    ...attr,
+    value: movement[attr.id as keyof IMovement] as string | number | Date,
+  }));
 
 interface SavingsAccountUIProps {
   isMobile: boolean;

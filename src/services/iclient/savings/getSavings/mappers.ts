@@ -25,7 +25,8 @@ const mapSavingProductMovementsApiToEntity = (
 ): IMovement => {
   const dateWithoutZone = String(movement.movementDate).replace("Z", "");
 
-  let type: EMovementType;
+  let type: EMovementType | undefined;
+
   if (Object.prototype.hasOwnProperty.call(movement, "creditMovementPesos")) {
     type = EMovementType.CREDIT;
   } else if (
@@ -33,9 +34,7 @@ const mapSavingProductMovementsApiToEntity = (
   ) {
     type = EMovementType.DEBIT;
   } else {
-    throw new Error(
-      "El movimiento debe tener creditMovementPesos o debitMovementPesos",
-    );
+    type = undefined;
   }
 
   return {

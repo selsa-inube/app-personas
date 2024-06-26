@@ -1,7 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { CardMovement } from "@components/cards/cards/CardMovement";
+import { RecordCard } from "@components/cards/RecordCard";
 import { HandlingFeeModal } from "@components/modals/cards/HandlingFeeModal";
 import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
@@ -26,7 +26,7 @@ import {
   MdOutlineDescription,
   MdQuestionMark,
 } from "react-icons/md";
-import { EMovementType, IProduct } from "src/model/entity/product";
+import { EMovementType, IMovement, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
 import { cardBox, myQuotas } from "./config/card";
@@ -44,6 +44,17 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
+
+const staticAttributes = [
+  { id: "date", label: "Fecha", value: "" },
+  { id: "reference", label: "Referencia", value: "" },
+];
+
+const generateAttributes = (movement: IMovement) =>
+  staticAttributes.map((attr) => ({
+    ...attr,
+    value: movement[attr.id as keyof IMovement] as string | number | Date,
+  }));
 
 interface CardUIProps {
   cardId?: string;
@@ -269,14 +280,13 @@ function CardUI(props: CardUIProps) {
                                   key={movement.id}
                                 >
                                   {index !== 0 && <Divider dashed />}
-                                  <CardMovement
+                                  <RecordCard
                                     movementType={
                                       movement.type || EMovementType.PAYMENT
                                     }
                                     description={movement.description}
-                                    totalValue={movement.totalValue || 0}
-                                    date={movement.date}
-                                    reference={movement.reference}
+                                    totalValue={movement.totalValue}
+                                    attributes={generateAttributes(movement)}
                                   />
                                 </Stack>
                               ))}

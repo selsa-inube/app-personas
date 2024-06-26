@@ -11,7 +11,8 @@ enum EMovementType {
   REVERSE = "REVERSE",
   PAYMENT = "PAYMENT",
   CREDIT = "CREDIT",
-  DEBIT = "DEBIT"
+  DEBIT = "DEBIT",
+  RECORD = "RECORD",
 }
 
 interface IMovement {
