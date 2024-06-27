@@ -167,7 +167,7 @@ function CustomValueModal(props: CustomValueModalProps) {
               <Icon icon={<MdAttachMoney />} appearance="dark" size="18px" />
             }
             placeholder=""
-            value={currencyFormat(customValue, false)}
+            value={customValue ? currencyFormat(customValue, false) : ""}
             onChange={handleChangeCustomValue}
             isFullWidth
             state={inputValidation.state}
