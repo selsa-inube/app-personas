@@ -37,7 +37,7 @@ function SavingsAccountMovements() {
 
     setSelectedProduct({
       totalMovements: selectedSaving.movements?.length || 0,
-      movements: selectedSaving.movements?.slice(0, 10) || [],
+      movements: selectedSaving.movements?.slice(0, 7) || [],
       option: selectedSaving.id,
     });
 

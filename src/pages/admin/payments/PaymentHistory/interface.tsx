@@ -1,5 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { PaymentHistoryCard } from "@components/cards/payments/PaymentHistoryCard";
+import { RecordCard } from "@components/cards/RecordCard";
 import { PaymentHistoryModal } from "@components/modals/payments/PaymentHistoryModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
@@ -12,9 +12,11 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { IPaymentHistory } from "src/model/entity/payment";
+import { EMovementType } from "src/model/entity/product";
 import { EmptyRecords } from "./EmptyRecords";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
+import { generateAttributes } from "./config/attributeRecord";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
@@ -95,15 +97,14 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                     key={payment.id}
                     gap="s200"
                   >
-                    <PaymentHistoryCard
-                      id={payment.id}
-                      title={payment.title}
-                      value={payment.value}
+                    <RecordCard
+                      type={EMovementType.RECORD}
+                      description={payment.title}
+                      totalValue={payment.value}
                       tag={payment.tag}
-                      paymentDate={payment.paymentDate}
-                      paymentMethod={payment.paymentMethod}
-                      cus={payment.cus}
+                      attributes={generateAttributes(payment)}
                       onClick={() => onTogglePaymentHistoryModal(payment)}
+                      withExpandingIcon
                     />
                     {index !== paymentHistory.length - 1 && <Divider dashed />}
                   </Stack>

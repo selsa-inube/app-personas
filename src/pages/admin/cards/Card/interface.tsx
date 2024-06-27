@@ -1,7 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { CardMovement } from "@components/cards/cards/CardMovement";
+import { RecordCard } from "@components/cards/RecordCard";
 import { HandlingFeeModal } from "@components/modals/cards/HandlingFeeModal";
 import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
@@ -44,6 +44,7 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
+import { generateAttributes } from "./config/attributeRecord";
 
 interface CardUIProps {
   cardId?: string;
@@ -269,14 +270,13 @@ function CardUI(props: CardUIProps) {
                                   key={movement.id}
                                 >
                                   {index !== 0 && <Divider dashed />}
-                                  <CardMovement
-                                    movementType={
+                                  <RecordCard
+                                    type={
                                       movement.type || EMovementType.PAYMENT
                                     }
                                     description={movement.description}
-                                    totalValue={movement.totalValue || 0}
-                                    date={movement.date}
-                                    reference={movement.reference}
+                                    totalValue={movement.totalValue}
+                                    attributes={generateAttributes(movement)}
                                   />
                                 </Stack>
                               ))}

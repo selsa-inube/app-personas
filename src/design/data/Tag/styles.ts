@@ -18,6 +18,8 @@ const StyledTag = styled.div<IStyledTag>`
   border-radius: 4px;
   gap: ${inube.spacing.s050};
   width: fit-content;
+  white-space: nowrap;
+  height: fit-content;
 `;
 
 export { StyledTag };
