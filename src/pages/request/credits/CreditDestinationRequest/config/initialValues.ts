@@ -1,27 +1,35 @@
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { IPreliquidationEntry } from "../forms/PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
-import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 
 const destination: IDestinationEntry = {
   creditDestination: "",
-  product: "",
+  products: [],
 };
 
 const creditConditions: ICreditConditionsEntry = {
   creditDestination: "",
-  product: "",
+  product: {
+    id: "",
+    title: "",
+    description: "",
+    maxRate: 0,
+    maxDeadline: 0,
+    maxAmount: 0,
+  },
   amount: "",
   peridiocity: peridiocityDM.MONTHLY.id,
   deadline: "",
   simulationWithQuota: false,
-  quota: "",
-  cycleInterest: "",
-  netValue: "",
+  quota: 0,
+  cycleInterest: 0,
+  netValue: 0,
   interestRate: "",
+  hasResult: false,
 };
 
 const preliquidation: IPreliquidationEntry = {

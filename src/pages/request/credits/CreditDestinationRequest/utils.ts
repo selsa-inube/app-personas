@@ -1,4 +1,3 @@
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
 import {
@@ -27,14 +26,15 @@ const creditDestinationStepsRules = (
 
       if (
         JSON.stringify(values) !==
-        JSON.stringify(currentCreditDestinationRequest.destination.values)
+          JSON.stringify(currentCreditDestinationRequest.destination.values) &&
+        values.selectedProduct
       ) {
         newCreditDestinationRequest.creditConditions = {
           isValid: false,
           values: {
             ...initalValuesCreditDestination.creditConditions,
             creditDestination: values.creditDestination,
-            product: values.product,
+            product: values.selectedProduct,
           },
         };
       }
@@ -90,9 +90,4 @@ const creditDestinationStepsRules = (
   });
 };
 
-const productGenerateRecommendation = getValueOfDomain(
-  "generateRecommendation",
-  "creditProductType",
-);
-
-export { creditDestinationStepsRules, productGenerateRecommendation };
+export { creditDestinationStepsRules };

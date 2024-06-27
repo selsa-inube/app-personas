@@ -1,33 +1,33 @@
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-
-const productFreeInvestment = getValueOfDomain(
-  "freeInvestment",
-  "creditProductType",
-);
-const productVehicleOrMotorcycle = getValueOfDomain(
-  "vehicleOrMotorcycle",
-  "creditProductType",
-);
-
-const productGenerateRecommendation = getValueOfDomain(
-  "generateRecommendation",
-  "creditProductType",
-);
+const products = {
+  freeInvestment: {
+    id: "freeInvestment",
+    title: "Libre inversión",
+    description: "Financia cualquiera de tus proyectos.",
+    maxRate: 10,
+    maxDeadline: 24,
+    maxAmount: 15000000,
+  },
+  vehicleOrMotorcycle: {
+    id: "vehicleOrMotorcycle",
+    title: "Compra de vehículo o moto",
+    description: "Compra de vehículo nuevo o usado.",
+    maxRate: 10,
+    maxDeadline: 24,
+    maxAmount: 15000000,
+  },
+  // { // TEMP
+  //   id: "generateRecommendation",
+  //   value: "Generar recomendación",
+  //   description: "El sistema genera la mejor opción de crédito para ti.",
+  // },
+};
 
 const destinationProductsMock = {
-  buyVehicle: [
-    productFreeInvestment,
-    productVehicleOrMotorcycle,
-    productGenerateRecommendation,
-  ],
-  buyMotorcycle: [
-    productFreeInvestment,
-    productVehicleOrMotorcycle,
-    productGenerateRecommendation,
-  ],
-  buyProperty: [productFreeInvestment, productGenerateRecommendation],
-  travel: [productFreeInvestment, productGenerateRecommendation],
-  study: [productFreeInvestment, productGenerateRecommendation],
+  buyVehicle: [products.freeInvestment, products.vehicleOrMotorcycle],
+  buyMotorcycle: [products.freeInvestment, products.vehicleOrMotorcycle],
+  buyProperty: [products.freeInvestment],
+  travel: [products.freeInvestment],
+  study: [products.freeInvestment],
 };
 
 const maximumQuotasAvailableMock = {
@@ -56,6 +56,12 @@ const maximumQuotasAvailableMock = {
     realWarranty: 45000000,
   },
   study: {
+    noWarranty: 8300000,
+    withCoDebtors: 12500000,
+    withStrengthening: 25000000,
+    realWarranty: 45000000,
+  },
+  other: {
     noWarranty: 8300000,
     withCoDebtors: 12500000,
     withStrengthening: 25000000,
