@@ -14,7 +14,6 @@ import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsCreditDestinationRequest } from "../../../types";
-import { productGenerateRecommendation } from "../../../utils";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
@@ -32,10 +31,7 @@ const renderDestinationVerification = (
         getValueOfDomain(values.creditDestination, "creditDestination")?.value
       }
     />
-    <BoxAttribute
-      label="Producto:"
-      value={getValueOfDomain(values.product, "creditProductType")?.value}
-    />
+    <BoxAttribute label="Producto:" value={values.selectedProduct?.title} />
   </Grid>
 );
 
@@ -44,7 +40,7 @@ const renderCreditConditionsVerification = (
   isTablet: boolean,
 ) => (
   <>
-    {values.product === productGenerateRecommendation?.id ? (
+    {values.product.id === "generateRecommendation" ? (
       <Grid templateColumns="1fr" gap="s100" width="100%">
         <BoxAttribute
           label="¿Cuánto dinero necesitas?"

@@ -1,4 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { OutlineCard } from "@components/cards/OutlineCard";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
@@ -10,12 +11,9 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import {
-  getDomainById,
-  getValueOfDomain,
-} from "@mocks/domains/domainService.mocks";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { maximumQuotasAvailableMock } from "@mocks/products/credits/request.mocks";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdAttachMoney } from "react-icons/md";
 import { peridiocityDM } from "src/model/domains/general/peridiocity";
 import {
@@ -25,16 +23,12 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledList } from "./styles";
-
-const productGenerateRecommendation = getValueOfDomain(
-  "generateRecommendation",
-  "creditProductType",
-);
+import { ICreditConditionsEntry } from "./types";
 
 const creditDestinationDM = getDomainById("creditDestination");
-const creditProductTypeDM = getDomainById("creditProductType");
+
 interface CreditConditionsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<ICreditConditionsEntry>;
   loading?: boolean;
   interestRate: number;
   loadingSimulation?: boolean;
@@ -93,18 +87,20 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                 readOnly
               />
 
-              <Select
-                label="Producto"
-                name="product"
-                id="product"
-                placeholder=""
-                value={formik.values.product}
-                options={creditProductTypeDM}
-                isDisabled={loading}
-                size="compact"
-                isFullWidth
-                readOnly
-              />
+              <OutlineCard>
+                <Stack
+                  direction="column"
+                  padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
+                  gap="s025"
+                >
+                  <Text type="label" size="medium">
+                    Producto:
+                  </Text>
+                  <Text type="body" size="medium" appearance="gray">
+                    {formik.values.product.title}
+                  </Text>
+                </Stack>
+              </OutlineCard>
             </Grid>
 
             <Stack direction="column" gap="s250">
@@ -161,7 +157,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
 
         <Fieldset
           title={
-            formik.values.product === productGenerateRecommendation?.id
+            formik.values.product.id === "generateRecommendation"
               ? "Valor de crédito"
               : "Simulador de crédito"
           }
@@ -170,7 +166,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
         >
           <Stack direction="column" gap="s250">
             <Stack direction="column" gap="s200">
-              {formik.values.product !== productGenerateRecommendation?.id && (
+              {formik.values.product.id !== "generateRecommendation" && (
                 <Stack
                   padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
                   gap="s100"
@@ -203,13 +199,11 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                   isFullWidth
                   state={getFieldState(formik, "amount")}
                   onBlur={formik.handleBlur}
-                  onFocus={formik.handleFocus}
                   onChange={handleChangeWithCurrency}
                   validMessage="El valor es válido"
                   isRequired
                 />
-                {formik.values.product !==
-                  productGenerateRecommendation?.id && (
+                {formik.values.product.id !== "generateRecommendation" && (
                   <>
                     <Select
                       label="Periodicidad"
@@ -265,7 +259,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                   </>
                 )}
               </Grid>
-              {formik.values.product !== productGenerateRecommendation?.id && (
+              {formik.values.product.id !== "generateRecommendation" && (
                 <Stack width="100%" justifyContent="flex-end">
                   <Button
                     variant="outlined"
@@ -276,9 +270,9 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       !formik.values.amount ||
                       !formik.values.peridiocity ||
                       (!formik.values.deadline && !formik.values.quota) ||
-                      formik.errors.amount ||
-                      formik.errors.deadline ||
-                      formik.errors.quota
+                      !!formik.errors.amount ||
+                      !!formik.errors.deadline ||
+                      !!formik.errors.quota
                     }
                   >
                     Simular

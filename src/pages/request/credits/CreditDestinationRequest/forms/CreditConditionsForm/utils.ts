@@ -6,7 +6,6 @@ import { FormikValues } from "formik";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { productGenerateRecommendation } from "../../utils";
 
 const validationSchema = Yup.object({
   amount: validationRules.money.required(validationMessages.required),
@@ -29,8 +28,7 @@ const getInitialCreditContidionValidations = (formik: FormikValues) => {
       formik.values.creditDestination as keyof typeof maximumQuotasAvailableMock
     ];
 
-  const withRecommendation =
-    formik.values.product === productGenerateRecommendation?.id;
+  const withRecommendation = formik.values.product === "generateRecommendation";
 
   return validationSchema.concat(
     Yup.object({
