@@ -50,7 +50,7 @@ import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
-import { generateAttributes } from "./utils";
+import { generateAttributes } from "./config/attributeRecord";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&

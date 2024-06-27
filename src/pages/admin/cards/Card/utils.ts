@@ -1,4 +1,4 @@
-import { IMovement, IProduct } from "src/model/entity/product";
+import { IProduct } from "src/model/entity/product";
 import { getCardsForUser } from "src/services/iclient/cards/getCards";
 import { getCreditQuotasForCard } from "src/services/iclient/cards/getCreditQuotas";
 
@@ -76,20 +76,4 @@ const getUsedQuotaData = (creditQuotas: IProduct[]) => {
   };
 };
 
-const staticAttributes = [
-  { id: "date", label: "Fecha", value: "" },
-  { id: "reference", label: "Referencia", value: "" },
-];
-
-const generateAttributes = (movement: IMovement) =>
-  staticAttributes.map((attr) => ({
-    ...attr,
-    value: movement[attr.id as keyof IMovement] as string | number | Date,
-  }));
-
-export {
-  getUsedQuotaData,
-  validateCard,
-  validateCreditQuotasInCards,
-  generateAttributes,
-};
+export { getUsedQuotaData, validateCard, validateCreditQuotasInCards };

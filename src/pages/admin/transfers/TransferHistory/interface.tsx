@@ -15,7 +15,7 @@ import { ITransfer } from "src/model/entity/transfer";
 import { EmptyRecords } from "./EmptyRecords";
 import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { generateAttributes } from "./utils";
+import { generateAttributes } from "./config/attributeRecord";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];

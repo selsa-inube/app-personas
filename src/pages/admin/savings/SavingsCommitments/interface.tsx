@@ -32,7 +32,7 @@ import { StyledPaymentsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
 import { Divider } from "@design/layout/Divider";
 import { RecordCard } from "@components/cards/RecordCard";
-import { generateAttributes } from "./utils";
+import { generateAttributes } from "./config/attributeRecord";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],

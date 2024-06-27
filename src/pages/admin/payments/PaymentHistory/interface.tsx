@@ -16,7 +16,7 @@ import { EMovementType } from "src/model/entity/product";
 import { EmptyRecords } from "./EmptyRecords";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { generateAttributes } from "./utils";
+import { generateAttributes } from "./config/attributeRecord";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;

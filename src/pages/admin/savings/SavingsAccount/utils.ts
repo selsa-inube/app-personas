@@ -1,5 +1,4 @@
 import { ISavingsState } from "src/context/savings/types";
-import { IMovement } from "src/model/entity/product";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 
 const validateSaving = async (
@@ -39,15 +38,4 @@ const validateSaving = async (
   };
 };
 
-const staticAttributes = [
-  { id: "date", label: "Fecha", value: "" },
-  { id: "reference", label: "Referencia", value: "" },
-];
-
-const generateAttributes = (movement: IMovement) =>
-  staticAttributes.map((attr) => ({
-    ...attr,
-    value: movement[attr.id as keyof IMovement] as string | number | Date,
-  }));
-
-export { validateSaving, generateAttributes };
+export { validateSaving };

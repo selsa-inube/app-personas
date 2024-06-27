@@ -44,7 +44,7 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
-import { generateAttributes } from "./utils";
+import { generateAttributes } from "./config/attributeRecord";
 
 interface CardUIProps {
   cardId?: string;

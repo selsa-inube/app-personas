@@ -17,7 +17,7 @@ import { EMovementType, IMovement } from "src/model/entity/product";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
-import { generateAttributes } from "./utils";
+import { generateAttributes } from "./config/attributeRecord";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&

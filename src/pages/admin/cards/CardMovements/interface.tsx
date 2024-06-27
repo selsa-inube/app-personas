@@ -16,7 +16,7 @@ import { EMovementType } from "src/model/entity/product";
 import { crumbsCardMovements } from "./config/navigation";
 import { StyledContainer, StyledItem } from "./styles";
 import { ISelectedProductState } from "./types";
-import { generateAttributes } from "./utils";
+import { generateAttributes } from "./config/attributeRecord";
 
 interface CardMovementsUIProps {
   cardId?: string;
