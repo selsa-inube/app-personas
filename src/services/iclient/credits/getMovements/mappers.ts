@@ -1,5 +1,5 @@
-import { movementDescriptionMock } from "@mocks/products/credits/utils.mocks";
 import { IMovement } from "src/model/entity/product";
+import { getCreditMovementDescription } from "./utils";
 
 const mapCreditMovementApiToEntity = (
   movement: Record<string, string | number | object>,
@@ -18,7 +18,7 @@ const mapCreditMovementApiToEntity = (
     reference: String(movement.movementNumber),
     description: String(
       movement.movementDescription ||
-        movementDescriptionMock(Object(movement.movementNumber).code),
+        getCreditMovementDescription(Object(movement.movementNumber).code),
     ),
     totalValue: totalPay,
   };

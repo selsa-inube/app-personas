@@ -1,5 +1,4 @@
-import { cardStatusValuesMock } from "@mocks/products/cards/utils.mocks";
-
+import { cardStatusDM } from "src/model/domains/cards/cardStatusDM";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
@@ -50,7 +49,7 @@ const mapCardApiToEntity = (
     {
       id: "status",
       label: "Estado",
-      value: cardStatusValuesMock[Object(card.cardStatus).code],
+      value: cardStatusDM.valueOf(Object(card.cardStatus).code)?.value || "",
     },
     {
       id: "savings_accounts",

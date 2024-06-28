@@ -1,5 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { TransferHistoryCard } from "@components/cards/transfers/TransferHistoryCard";
+import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
@@ -10,10 +10,12 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
+import { EMovementType } from "src/model/entity/product";
 import { ITransfer } from "src/model/entity/transfer";
 import { EmptyRecords } from "./EmptyRecords";
 import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
+import { generateAttributes } from "./config/attributeRecord";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];
@@ -86,14 +88,12 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
                     key={transfer.id}
                     gap="s200"
                   >
-                    <TransferHistoryCard
-                      id={transfer.id}
-                      title={transfer.title}
-                      value={transfer.value}
+                    <RecordCard
+                      type={EMovementType.RECORD}
+                      description={transfer.title}
+                      totalValue={transfer.value}
                       tag={transfer.tag}
-                      date={transfer.date}
-                      destination={transfer.destination}
-                      source={transfer.source}
+                      attributes={generateAttributes(transfer)}
                     />
                     {index !== transferHistory.length - 1 && <Divider dashed />}
                   </Stack>

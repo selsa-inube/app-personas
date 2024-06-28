@@ -15,7 +15,7 @@ function MyCards() {
   const { getFlag } = useContext(AppContext);
 
   useEffect(() => {
-    if (accessToken && cards.length === 0) {
+    if (accessToken) {
       setLoading(true);
       getCardsForUser(user.identification, accessToken, savings.savingsAccounts)
         .then((credits) => {

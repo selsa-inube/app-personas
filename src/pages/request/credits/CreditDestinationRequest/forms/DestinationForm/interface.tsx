@@ -1,26 +1,30 @@
+import { DestinationCard } from "@components/cards/credits/DestinationCard";
 import { Text } from "@design/data/Text";
-import { RadioCard } from "@design/input/RadioCard";
 import { Select } from "@design/input/Select";
+import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { destinationProductsMock } from "@mocks/products/credits/request.mocks";
-import { FormikValues } from "formik";
-import { MdOutlineAutoAwesome } from "react-icons/md";
+import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
-import { productGenerateRecommendation } from "../../utils";
-
-const creditDestinationDM = getDomainById("creditDestination");
+import { IDestinationEntry, IDestinationProduct } from "./types";
 
 interface DestinationFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IDestinationEntry>;
   loading?: boolean;
-  handleChangeRadio: (fieldName: string, value: string) => void;
+  destinations: ISelectOption[];
+  onChangeProduct: (value: IDestinationProduct) => void;
+  onChangeDestination: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 function DestinationFormUI(props: DestinationFormUIProps) {
-  const { formik, loading, handleChangeRadio } = props;
+  const {
+    formik,
+    loading,
+    destinations,
+    onChangeProduct,
+    onChangeDestination,
+  } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -37,47 +41,44 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             value={formik.values.creditDestination}
             size="compact"
             isFullWidth
-            options={creditDestinationDM}
+            options={destinations}
             onBlur={formik.handleBlur}
             errorMessage={formik.errors.creditDestination}
             isDisabled={loading}
             state={getFieldState(formik, "creditDestination")}
-            onChange={formik.handleChange}
+            onChange={onChangeDestination}
           />
         </Stack>
         <Stack direction="column" gap="s200">
-          {formik.values.creditDestination && (
-            <>
-              <Text type="title" size="small">
-                ¿Cuál es el producto que deseas?
-              </Text>
+          {formik.values.creditDestination &&
+            formik.values.creditDestination !== "other" && (
+              <>
+                <Text type="title" size="small">
+                  ¿Cuál es el producto que deseas?
+                </Text>
 
-              <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s200">
-                {destinationProductsMock[
-                  formik.values
-                    .creditDestination as keyof typeof destinationProductsMock
-                ].map(
-                  (product) =>
-                    product && (
-                      <RadioCard
-                        id={formik.values.creditDestination}
-                        name={formik.values.creditDestination}
-                        icon={
-                          product.id === productGenerateRecommendation?.id ? (
-                            <MdOutlineAutoAwesome />
-                          ) : undefined
-                        }
-                        title={product.value}
-                        description={product.description || ""}
-                        checked={formik.values.product === product.id}
-                        key={product.id}
-                        onClick={() => handleChangeRadio("product", product.id)}
-                      />
-                    ),
-                )}
-              </Grid>
-            </>
-          )}
+                <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s200">
+                  {formik.values.products.map(
+                    (product) =>
+                      product && (
+                        <DestinationCard
+                          id={formik.values.creditDestination}
+                          title={product.title}
+                          description={product.description || ""}
+                          checked={
+                            formik.values.selectedProduct?.id === product.id
+                          }
+                          maxAmount={product.maxAmount}
+                          maxRate={product.maxRate}
+                          maxDeadline={product.maxDeadline}
+                          key={product.id}
+                          onClick={() => onChangeProduct(product)}
+                        />
+                      ),
+                  )}
+                </Grid>
+              </>
+            )}
         </Stack>
       </Stack>
     </form>

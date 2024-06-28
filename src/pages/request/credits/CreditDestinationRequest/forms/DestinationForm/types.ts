@@ -1,6 +1,16 @@
-interface IDestinationEntry {
-  creditDestination: string;
-  product: string;
+interface IDestinationProduct {
+  id: string;
+  title: string;
+  description: string;
+  maxRate: number;
+  maxDeadline: number;
+  maxAmount: number;
 }
 
-export type { IDestinationEntry };
+interface IDestinationEntry {
+  creditDestination: string;
+  products: IDestinationProduct[];
+  selectedProduct?: IDestinationProduct;
+}
+
+export type { IDestinationEntry, IDestinationProduct };

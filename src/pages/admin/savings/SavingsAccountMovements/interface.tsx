@@ -1,25 +1,37 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
-import { Table } from "@design/data/Table";
+import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
+import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack } from "react-icons/md";
+import { EMovementType, IMovement } from "src/model/entity/product";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
-import {
-  savingAccountMovementsNormalizeEntries,
-  savingsAccountMovementsTableActions,
-  savingsAccountMovementsTableBreakpoints,
-  savingsAccountMovementsTableTitles,
-} from "./config/table";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import { generateAttributes } from "./config/attributeRecord";
+
+const renderMovements = (movements: IMovement[]) =>
+  movements &&
+  movements.map((movement, index) => (
+    <Stack direction="column" gap="s200" key={movement.id}>
+      {index !== 0 && <Divider dashed />}
+      <RecordCard
+        type={movement.type || EMovementType.CREDIT}
+        description={movement.description}
+        totalValue={movement.totalValue || 0}
+        attributes={generateAttributes(movement)}
+      />
+    </Stack>
+  ));
 
 interface SavingsAccountMovementsUIProps {
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -41,6 +53,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
+  const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
     <>
@@ -71,18 +84,33 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
             isFullWidth
             readOnly={productsOptions.length === 1}
           />
-          <StyledMovementsContainer>
-            <Table
-              portalId="modals"
-              titles={savingsAccountMovementsTableTitles}
-              breakpoints={savingsAccountMovementsTableBreakpoints}
-              actions={savingsAccountMovementsTableActions}
-              entries={savingAccountMovementsNormalizeEntries(
-                selectedProduct.movements,
+          <StyledMovementsContainer isMobile={isMobile}>
+            <Stack direction="column" gap="s200" width="100%">
+              {selectedProduct.movements &&
+              selectedProduct.movements.length > 0 ? (
+                renderMovements(selectedProduct.movements)
+              ) : (
+                <Stack
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  gap="s100"
+                >
+                  <Text type="title" size="small" appearance="dark">
+                    No tienes movimientos
+                  </Text>
+                  <Text
+                    type="body"
+                    size={isMobile ? "small" : "medium"}
+                    appearance="gray"
+                  >
+                    Aun no posees movimientos en este producto.
+                  </Text>
+                </Stack>
               )}
-              pageLength={selectedProduct.movements.length}
-              hideMobileResume
-            />
+            </Stack>
+          </StyledMovementsContainer>
+          <Stack justifyContent="center">
             <Button
               appearance="primary"
               variant="none"
@@ -96,7 +124,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
             >
               Ver más movimientos
             </Button>
-          </StyledMovementsContainer>
+          </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>

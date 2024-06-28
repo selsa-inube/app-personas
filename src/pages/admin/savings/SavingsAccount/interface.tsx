@@ -5,10 +5,8 @@ import { AttributesModal } from "@components/modals/general/AttributesModal";
 import { ReimbursementModal } from "@components/modals/saving/ReimbursementModal";
 import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { quickLinks } from "@config/quickLinks";
-import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
@@ -22,12 +20,6 @@ import {
   MdOutlineAssignmentTurnedIn,
   MdOutlineAttachMoney,
 } from "react-icons/md";
-import {
-  savingAccountMovementsNormalizeEntries,
-  savingsAccountMovementsTableActions,
-  savingsAccountMovementsTableBreakpoints,
-  savingsAccountMovementsTableTitles,
-} from "../SavingsAccountMovements/config/table";
 import { crumbsSaving } from "./config/navigation";
 import {
   investmentCommitmentsIcons,
@@ -42,18 +34,40 @@ import {
   ISelectedProductState,
 } from "./types";
 
+import { RecordCard } from "@components/cards/RecordCard";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { SectionMessage } from "@design/feedback/SectionMessage";
+import { Button } from "@design/input/Button";
+import { Divider } from "@design/layout/Divider";
 import { IMessage } from "@ptypes/messages.types";
-import { EProductType } from "src/model/entity/product";
+import {
+  EMovementType,
+  EProductType,
+  IMovement,
+} from "src/model/entity/product";
 import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
+import { generateAttributes } from "./config/attributeRecord";
+
+const renderMovements = (movements: IMovement[]) =>
+  movements &&
+  movements.slice(0, 5).map((movement, index) => (
+    <Stack direction="column" gap="s200" key={movement.id}>
+      {index !== 0 && <Divider dashed />}
+      <RecordCard
+        type={movement.type || EMovementType.CREDIT}
+        description={movement.description}
+        totalValue={movement.totalValue || 0}
+        attributes={generateAttributes(movement)}
+      />
+    </Stack>
+  ));
 
 interface SavingsAccountUIProps {
-  isMobile?: boolean;
+  isMobile: boolean;
   selectedProduct: ISelectedProductState;
   productsOptions: ISelectOption[];
   beneficiariesModal: IBeneficiariesModalState;
@@ -117,7 +131,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     (attr) => attr.id === "payment_interest",
   );
 
-  const showMovementsTable =
+  const showMovements =
     selectedProduct.saving.type !== EProductType.CDAT ||
     interestPaymentValue?.value === "Periódico";
 
@@ -220,34 +234,53 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               </Grid>
             </Stack>
           </Box>
-          {showMovementsTable && (
-            <Stack direction="column" gap="s200" alignItems="flex-start">
-              <Text type="label" size="large">
+          {showMovements && (
+            <Stack direction="column" gap="s300" alignItems="flex-start">
+              <Text type="title" size="medium">
                 {selectedProduct.saving.type === EProductType.CDAT
                   ? "Pago de intereses"
                   : "Últimos movimientos"}
               </Text>
-              <StyledMovementsContainer>
-                <Table
-                  portalId="modals"
-                  titles={savingsAccountMovementsTableTitles}
-                  breakpoints={savingsAccountMovementsTableBreakpoints}
-                  actions={savingsAccountMovementsTableActions}
-                  entries={savingAccountMovementsNormalizeEntries(
-                    selectedProduct.saving.movements || [],
-                  ).slice(0, 5)}
-                  pageLength={selectedProduct.saving.movements?.length || 0}
-                  hideMobileResume
-                />
+              <StyledMovementsContainer isMobile={isMobile}>
+                <Stack direction="column" gap="s200" width="100%">
+                  {selectedProduct.saving.movements &&
+                  selectedProduct.saving.movements.length > 0 ? (
+                    renderMovements(selectedProduct.saving.movements)
+                  ) : (
+                    <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      gap="s100"
+                    >
+                      <Text type="title" size="small" appearance="dark">
+                        No tienes movimientos
+                      </Text>
+                      <Text
+                        type="body"
+                        size={isMobile ? "small" : "medium"}
+                        appearance="gray"
+                      >
+                        Aun no posees movimientos en este producto.
+                      </Text>
+                    </Stack>
+                  )}
+                </Stack>
+              </StyledMovementsContainer>
+              <Stack justifyContent="flex-end" width="100%">
                 <Button
                   spacing="compact"
                   iconBefore={<MdOutlineAssignmentTurnedIn />}
                   path={`/my-savings/account/${productId}/movements`}
+                  disabled={
+                    !selectedProduct.saving.movements ||
+                    selectedProduct.saving.movements.length === 0
+                  }
                   type="link"
                 >
                   Movimientos
                 </Button>
-              </StyledMovementsContainer>
+              </Stack>
             </Stack>
           )}
         </Stack>

@@ -3,8 +3,7 @@ import { EMovementType } from "src/model/entity/product";
 const parameters = {
   docs: {
     description: {
-      component:
-        "This component is responsible for displaying the movements made by a card.",
+      component: "This component is responsible for displaying the movements.",
     },
   },
 };
@@ -23,12 +22,16 @@ const props = {
   totalValue: {
     description: "This corresponds to the total value of the movement.",
   },
-  date: {
-    description: "This corresponds to the date when the movement was made.",
-  },
-  quotas: {
+  withExpandingIcon: {
     description:
-      "This corresponds to the number of installments in which the movement was arranged.",
+      "Corresponds to the visualization of an icon to have a better appreciation of the movement.",
+  },
+  tag: {
+    description: "Corresponds to the display of a tag in movement.",
+  },
+  attributes: {
+    description:
+      "Corresponds to an array of attributes to display on the card.",
   },
 };
 

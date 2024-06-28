@@ -1,6 +1,7 @@
 import { TagProps } from "@design/data/Tag";
 import {
   ECommitmentType,
+  EMovementType,
   IAttribute,
   ICommitment,
   IMovement,
@@ -25,6 +26,18 @@ const mapSavingCommitmentMovementApiToEntity = (
 ): IMovement => {
   const dateWithoutZone = String(movement.movementDate).replace("Z", "");
 
+  let type: EMovementType | undefined;
+
+  if (Object.prototype.hasOwnProperty.call(movement, "creditMovementPesos")) {
+    type = EMovementType.CREDIT;
+  } else if (
+    Object.prototype.hasOwnProperty.call(movement, "debitMovementPesos")
+  ) {
+    type = EMovementType.DEBIT;
+  } else {
+    type = undefined;
+  }
+
   const buildMovement: IMovement = {
     id: String(movement.movementId),
     date: new Date(dateWithoutZone),
@@ -33,6 +46,7 @@ const mapSavingCommitmentMovementApiToEntity = (
     totalValue: Number(
       movement.creditMovementPesos || movement.debitMovementPesos,
     ),
+    type: type,
   };
   return buildMovement;
 };
@@ -80,7 +94,9 @@ const mapSavingsCommitmentsApiToEntity = (
     ? new Date(closeDateWithoutZone)
     : new Date(lastDateWithoutZone);
 
-  const nextPaymentValue = commitment.expiredValue || commitment.quotaValue;
+  const nextPaymentValue = commitment.quotaValue;
+
+  const expiredValue = commitment.expiredValue;
 
   const inArrears = today > nextPaymentDate;
 
@@ -93,7 +109,7 @@ const mapSavingsCommitmentsApiToEntity = (
     {
       id: "expired_value",
       label: "Valor vencido",
-      value: Number(commitment.expiredValue),
+      value: Number(expiredValue),
     },
     {
       id: "in_arrears",
@@ -110,24 +126,31 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
-  if (nextPaymentDate && nextPaymentValue) {
+  if (nextPaymentDate && (nextPaymentValue || expiredValue)) {
     attributes.push({
-      id: "next_payment_value",
+      id: "quota_value",
       label: "Próximo pago",
-      value: Number(nextPaymentValue),
+      value: Number(nextPaymentValue || 0) + Number(expiredValue || 0),
     });
-  }
 
-  if (nextPaymentValue && nextPaymentDate) {
     attributes.push({
       id: "next_payment",
       label: "Fecha de pago",
       value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
     });
+
     attributes.push({
       id: "next_payment_date",
       label: "Fecha de pago",
       value: nextPaymentDate.toISOString(),
+    });
+  }
+
+  if (nextPaymentDate && nextPaymentValue) {
+    attributes.push({
+      id: "next_payment_value",
+      label: "Próximo pago",
+      value: Number(nextPaymentValue),
     });
   }
 

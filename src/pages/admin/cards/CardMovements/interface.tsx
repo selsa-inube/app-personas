@@ -1,5 +1,5 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { CardMovement } from "@components/cards/cards/CardMovement";
+import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
@@ -16,6 +16,7 @@ import { EMovementType } from "src/model/entity/product";
 import { crumbsCardMovements } from "./config/navigation";
 import { StyledContainer, StyledItem } from "./styles";
 import { ISelectedProductState } from "./types";
+import { generateAttributes } from "./config/attributeRecord";
 
 interface CardMovementsUIProps {
   cardId?: string;
@@ -83,12 +84,11 @@ function CardMovementsUI(props: CardMovementsUIProps) {
                   <Stack direction="column" key={movement.id}>
                     {index !== 0 && <Divider dashed />}
                     <StyledItem>
-                      <CardMovement
-                        movementType={movement.type as EMovementType}
+                      <RecordCard
+                        type={movement.type as EMovementType}
                         description={movement.description}
                         totalValue={movement.totalValue}
-                        date={movement.date}
-                        reference={movement.reference}
+                        attributes={generateAttributes(movement)}
                       />
                     </StyledItem>
                   </Stack>
