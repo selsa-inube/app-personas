@@ -33,27 +33,8 @@ interface IExpiredPaymentModalState {
   };
 }
 
-interface ICreditMovementModalState {
-  show: boolean;
-  data?: {
-    id: string;
-  date: Date;
-  reference?: string;
-  description: string;
-  type: string;
-  totalValue: number;
-  capitalPayment?: number | undefined;
-  interest?: number | undefined;
-  lifeInsurance?: number | undefined;
-  patrimonialInsurance?: number | undefined;
-  capitalization?: number | undefined;
-  commission?: number | undefined;
-  };
-}
-
 export type {
   INextPaymentModalState,
   ISelectedProductState,
   IExpiredPaymentModalState,
-  ICreditMovementModalState,
 };
