@@ -30,9 +30,7 @@ function Credit() {
   const [expiredPaymentModal, setExpiredPaymentModal] =
     useState<IExpiredPaymentModalState>({ show: false });
   const [creditMovementModal, setCreditMovementModal] = useState(false);
-  const [selectedMovement, setSelectedMovement] = useState<
-    IMovement | undefined
-  >(undefined);
+  const [selectedMovement, setSelectedMovement] = useState<IMovement>();
   const { credits, setCredits } = useContext(CreditsContext);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);

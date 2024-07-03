@@ -16,9 +16,7 @@ function CreditMovements() {
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const [creditMovementModal, setCreditMovementModal] = useState(false);
-  const [selectedMovement, setSelectedMovement] = useState<
-    IMovement | undefined
-  >(undefined);
+  const [selectedMovement, setSelectedMovement] = useState<IMovement>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { credits, setCredits } = useContext(CreditsContext);

@@ -35,7 +35,7 @@ const props = {
   },
   loading: {
     description:
-      "orresponds to the display when the card is loading.",
+      "Corresponds to the display when the card is loading.",
   },
 };
 

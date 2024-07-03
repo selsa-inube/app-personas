@@ -49,6 +49,7 @@ const renderMovements = (
     <Stack direction="column" gap="s200" key={movement.id}>
       {index !== 0 && <Divider dashed />}
       <RecordCard
+        id={movement.id}
         type={movement.type || EMovementType.CREDIT}
         description={movement.description}
         totalValue={movement.totalValue || 0}
@@ -69,7 +70,7 @@ interface CreditUIProps {
   nextPaymentModal: INextPaymentModalState;
   expiredPaymentModal: IExpiredPaymentModalState;
   creditMovementModal: boolean;
-  selectedMovement: IMovement | undefined;
+  selectedMovement?: IMovement;
   handleToggleNextPaymentModal: () => void;
   handleToggleExpiredPaymentModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;

@@ -62,6 +62,7 @@ const getIconForRecordType = (type: EMovementType) => {
 };
 
 interface RecordCardProps {
+  id: string;
   type: EMovementType;
   description: string;
   totalValue: number;
@@ -69,11 +70,12 @@ interface RecordCardProps {
   tag?: TagProps;
   loading?: boolean;
   attributes: { id: string; label: string; value: number | string | Date }[];
-  onClick?: (movement: string) => void;
+  onClick?: (movementId: string) => void;
 }
 
 function RecordCard(props: RecordCardProps) {
   const {
+    id,
     type,
     description,
     totalValue,
@@ -95,12 +97,12 @@ function RecordCard(props: RecordCardProps) {
 
   const handleClick = () => {
     if (onClick) {
-      onClick(attributes[0].id);
+      onClick(id);
     }
   };
 
   return (
-    <Stack direction="column" gap="s100">
+    <Stack direction="column" gap="s100" key={id}>
       <Stack justifyContent="space-between" gap={isMobile ? "s150" : "s500"}>
         {loading ? (
           <>
