@@ -1,4 +1,4 @@
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
@@ -7,12 +7,11 @@ import { IPreliquidationEntry } from "../forms/PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
 const destination: IDestinationEntry = {
-  creditDestination: "",
   products: [],
+  destinations: [],
 };
 
 const creditConditions: ICreditConditionsEntry = {
-  creditDestination: "",
   product: {
     id: "",
     title: "",
@@ -21,15 +20,15 @@ const creditConditions: ICreditConditionsEntry = {
     maxDeadline: 0,
     maxAmount: 0,
   },
-  amount: "",
+  amount: 0,
   peridiocity: peridiocityDM.MONTHLY.id,
   deadline: "",
   simulationWithQuota: false,
   quota: 0,
-  cycleInterest: 0,
   netValue: 0,
   interestRate: "",
   hasResult: false,
+  minWarrantyRequired: "",
 };
 
 const preliquidation: IPreliquidationEntry = {

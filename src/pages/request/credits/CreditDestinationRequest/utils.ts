@@ -29,6 +29,7 @@ const creditDestinationStepsRules = (
           JSON.stringify(currentCreditDestinationRequest.destination.values) &&
         values.selectedProduct
       ) {
+
         newCreditDestinationRequest.creditConditions = {
           isValid: false,
           values: {

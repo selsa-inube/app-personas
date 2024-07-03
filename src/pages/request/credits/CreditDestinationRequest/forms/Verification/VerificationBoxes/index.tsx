@@ -7,7 +7,7 @@ import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdAdd, MdDragHandle, MdRemove } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -27,9 +27,7 @@ const renderDestinationVerification = (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
     <BoxAttribute
       label="Destinación:"
-      value={
-        getValueOfDomain(values.creditDestination, "creditDestination")?.value
-      }
+      value={values.creditDestination?.value}
     />
     <BoxAttribute label="Producto:" value={values.selectedProduct?.title} />
   </Grid>
@@ -54,35 +52,25 @@ const renderCreditConditionsVerification = (
         width="100%"
       >
         <BoxAttribute
-          label="Simular con el valor de la cuota:"
-          value={
-            values.simulationWithQuota ? activeDM.Y.value : activeDM.N.value
-          }
-        />
-        <BoxAttribute
           label="Valor simulado:"
-          value={currencyFormat(Number(values.amount))}
-        />
-        <BoxAttribute
-          label="Periodicidad:"
-          value={peridiocityDM.valueOf(values.peridiocity)?.value}
+          value={currencyFormat(values.amount)}
         />
         <BoxAttribute label="Plazo:" value={`${values.deadline} Meses`} />
         <BoxAttribute
-          label="Cuota mensual:"
-          value={currencyFormat(Number(values.quota))}
+          label="Cuota:"
+          value={`${currencyFormat(values.quota)} / ${peridiocityDM.valueOf(values.peridiocity)?.value}`}
         />
         <BoxAttribute
           label="Tasa de interés:"
           value={`${values.interestRate} % N.M.V`}
         />
         <BoxAttribute
-          label="Intereses de ajuste al ciclo:"
-          value={currencyFormat(Number(values.cycleInterest))}
+          label="Garantía mínima requerida:"
+          value={values.minWarrantyRequired}
         />
         <BoxAttribute
           label="Valor neto a recibir:"
-          value={currencyFormat(Number(values.netValue))}
+          value={currencyFormat(values.netValue)}
         />
       </Grid>
     )}
