@@ -26,6 +26,8 @@ const creditConditions: ICreditConditionsEntry = {
   simulationWithQuota: false,
   quota: 0,
   netValue: 0,
+  cycleInterest: 0,
+  discounts: 0,
   interestRate: "",
   hasResult: false,
   minWarrantyRequired: "",
