@@ -48,6 +48,7 @@ Default.args = {
     { id: "cus", label: "CUS", value: "0000000115" },
   ],
   withExpandingIcon: true,
+  loading: false
 };
 
 const theme = {

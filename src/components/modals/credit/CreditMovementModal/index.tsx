@@ -1,5 +1,4 @@
 import { Icon } from "@design/data/Icon";
-import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Divider } from "@design/layout/Divider";
@@ -8,6 +7,8 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledBody, StyledBodyHead, StyledModal } from "./styles";
+import { formatPrimaryDate } from "src/utils/dates";
+import { currencyFormat } from "src/utils/currency";
 
 const renderTransactionSpecification = (label: string, value?: number) => (
   <Stack gap="s100" alignItems="center">
@@ -17,7 +18,7 @@ const renderTransactionSpecification = (label: string, value?: number) => (
       </Text>
 
       <Text type="body" size="small" appearance="gray">
-        {value}
+        {typeof value === "number" ? currencyFormat(value) : value}
       </Text>
     </Stack>
   </Stack>
@@ -26,7 +27,20 @@ const renderTransactionSpecification = (label: string, value?: number) => (
 interface CreditMovementModalProps {
   portalId: string;
   onCloseModal: () => void;
-  movement: IEntry;
+  movement: {
+    id?: string;
+    date: Date;
+    reference?: string;
+    description?: string;
+    totalValue: number;
+    type?: string;
+    capitalPayment?: number;
+    interest?: number;
+    lifeInsurance?: number;
+    patrimonialInsurance?: number;
+    capitalization?: number;
+    commission?: number;
+  };
 }
 
 function CreditMovementModal(props: CreditMovementModalProps) {
@@ -68,7 +82,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
 
         <StyledBodyHead>
           <Text type="title" size="medium" appearance="dark">
-            {movement.reference} - {movement.date}
+            {`${movement.reference} - ${formatPrimaryDate(movement.date)}`}
           </Text>
 
           <Stack gap="s100" alignItems="center">
@@ -77,7 +91,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
             </Text>
 
             <Text type="body" size="small" appearance="gray">
-              {movement.description}
+              {movement?.description}
             </Text>
           </Stack>
         </StyledBodyHead>
@@ -88,32 +102,32 @@ function CreditMovementModal(props: CreditMovementModalProps) {
           </Text>
 
           <Stack direction="column" gap="s200">
-            {movement.capitalPayment &&
+            {movement?.capitalPayment &&
               renderTransactionSpecification(
                 "Abono capital:",
                 movement.capitalPayment,
               )}
-            {movement.interest &&
+            {movement?.interest &&
               renderTransactionSpecification(
                 "Interés corriente:",
                 movement.interest,
               )}
-            {movement.lifeInsurance &&
+            {movement?.lifeInsurance &&
               renderTransactionSpecification(
                 "Seguro de vida:",
                 movement.lifeInsurance,
               )}
-            {movement.patrimonialInsurance &&
+            {movement?.patrimonialInsurance &&
               renderTransactionSpecification(
                 "Seguro patrimonial:",
                 movement.patrimonialInsurance,
               )}
-            {movement.capitalization &&
+            {movement?.capitalization &&
               renderTransactionSpecification(
                 "Capitalización:",
                 movement.capitalization,
               )}
-            {movement.commission &&
+            {movement?.commission &&
               renderTransactionSpecification("Comisión:", movement.commission)}
           </Stack>
 
@@ -126,7 +140,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
               </Text>
 
               <Text type="title" size="medium" appearance="dark">
-                {movement.totalValue}
+                {currencyFormat(movement?.totalValue)}
               </Text>
             </Stack>
           </Stack>

@@ -33,6 +33,10 @@ const props = {
     description:
       "Corresponds to an array of attributes to display on the card.",
   },
+  loading: {
+    description:
+      "orresponds to the display when the card is loading.",
+  },
 };
 
 export { parameters, props };

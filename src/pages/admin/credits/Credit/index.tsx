@@ -6,6 +6,7 @@ import { CreditsContext } from "src/context/credits";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditUI } from "./interface";
+import { IMovement } from "src/model/entity/product";
 import {
   INextPaymentModalState,
   ISelectedProductState,
@@ -28,6 +29,10 @@ function Credit() {
     useState<INextPaymentModalState>({ show: false });
   const [expiredPaymentModal, setExpiredPaymentModal] =
     useState<IExpiredPaymentModalState>({ show: false });
+  const [creditMovementModal, setCreditMovementModal] = useState(false);
+  const [selectedMovement, setSelectedMovement] = useState<
+    IMovement | undefined
+  >(undefined);
   const { credits, setCredits } = useContext(CreditsContext);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
@@ -117,6 +122,16 @@ function Credit() {
     }));
   };
 
+  const handleOpenModal = (movement: IMovement) => {
+    setSelectedMovement(movement);
+    setCreditMovementModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setCreditMovementModal(false);
+    setSelectedMovement(undefined);
+  };
+
   return (
     <CreditUI
       productsOptions={productsOptions}
@@ -126,9 +141,13 @@ function Credit() {
       credit_id={credit_id}
       nextPaymentModal={nextPaymentModal}
       expiredPaymentModal={expiredPaymentModal}
+      creditMovementModal={creditMovementModal}
+      selectedMovement={selectedMovement}
       handleToggleNextPaymentModal={handleToggleNextPaymentModal}
       handleToggleExpiredPaymentModal={handleToggleExpiredPaymentModal}
       handleChangeProduct={handleChangeProduct}
+      handleOpenModal={handleOpenModal}
+      handleCloseModal={handleCloseModal}
     />
   );
 }
