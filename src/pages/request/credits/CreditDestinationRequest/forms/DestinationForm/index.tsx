@@ -1,4 +1,3 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { creditDestinationData } from "@mocks/domains/creditDestination";
 import { destinationProductsMock } from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
@@ -9,7 +8,7 @@ import { DestinationFormUI } from "./interface";
 import { IDestinationEntry, IDestinationProduct } from "./types";
 
 const validationSchema = Yup.object({
-  creditDestination: Yup.string().required(validationMessages.required),
+  creditDestination: Yup.object().required(validationMessages.required),
   selectedProduct: Yup.object(),
 });
 
@@ -27,7 +26,6 @@ const DestinationForm = forwardRef(function DestinationForm(
   const { initialValues, onFormValid, onSubmit, loading } = props;
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     React.useState(validationSchema);
-  const [destinations, setDestinations] = React.useState<ISelectOption[]>([]);
 
   const formik = useFormik({
     initialValues,
@@ -45,13 +43,21 @@ const DestinationForm = forwardRef(function DestinationForm(
   }, [formik.values]);
 
   useEffect(() => {
-    setDestinations(creditDestinationData);
+    formik.setFieldValue("destinations", creditDestinationData);
   }, []);
 
   const handleChangeDestination = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    formik.handleChange(event);
+    const destination = formik.values.destinations.find(
+      (destination) => destination.id === event.target.value,
+    );
+
+    formik.setFieldValue("creditDestination", {
+      id: destination?.id,
+      value: destination?.value,
+    });
+
     formik.setFieldValue("selectedProduct", undefined);
 
     const { value } = event.target;
@@ -90,7 +96,6 @@ const DestinationForm = forwardRef(function DestinationForm(
     <DestinationFormUI
       loading={loading}
       formik={formik}
-      destinations={destinations}
       onChangeProduct={handleChangeProduct}
       onChangeDestination={handleChangeDestination}
     />
