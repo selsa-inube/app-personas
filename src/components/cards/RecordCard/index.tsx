@@ -102,7 +102,7 @@ function RecordCard(props: RecordCardProps) {
   };
 
   return (
-    <Stack direction="column" gap="s100" key={id}>
+    <Stack direction="column" gap="s100">
       <Stack justifyContent="space-between" gap={isMobile ? "s150" : "s500"}>
         {loading ? (
           <>
