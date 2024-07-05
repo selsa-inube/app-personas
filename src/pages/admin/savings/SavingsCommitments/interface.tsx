@@ -66,6 +66,7 @@ const renderMovements = (movements: IMovement[]) =>
     <Stack direction="column" gap="s200" key={movement.id} width="100%">
       {index !== 0 && <Divider dashed />}
       <RecordCard
+        id={movement.id}
         type={movement.type || EMovementType.CREDIT}
         description={movement.description}
         totalValue={movement.totalValue || 0}
