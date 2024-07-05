@@ -1,17 +1,32 @@
+import { ISelectOption } from "@design/input/Select/types";
 import { IDestinationProduct } from "../DestinationForm/types";
 
+interface IDisbursementModalState {
+  show: boolean;
+  data?: {
+    spec: {
+      amount: number;
+      cycleInterest: number;
+      discounts: number;
+    };
+    approximateValue: number;
+  };
+}
+
 interface ICreditConditionsEntry {
-  creditDestination: string;
+  creditDestination?: ISelectOption;
   product: IDestinationProduct;
   simulationWithQuota: boolean;
-  amount: string;
+  amount: number;
   peridiocity: string;
   deadline: string;
   quota: number;
   cycleInterest: number;
+  discounts: number;
+  minWarrantyRequired: string;
   netValue: number;
   interestRate: string;
   hasResult: boolean;
 }
 
-export type { ICreditConditionsEntry };
+export type { ICreditConditionsEntry, IDisbursementModalState };

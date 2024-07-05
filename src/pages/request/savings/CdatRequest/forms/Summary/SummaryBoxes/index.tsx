@@ -1,7 +1,7 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
 import { activeDM } from "src/model/domains/general/activedm";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsCdatRequest } from "../../../types";
 import { IConditionsEntry } from "../../ConditionsForm/types";

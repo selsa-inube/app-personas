@@ -1,3 +1,5 @@
+import { ISelectOption } from "@design/input/Select/types";
+
 interface IDestinationProduct {
   id: string;
   title: string;
@@ -8,7 +10,8 @@ interface IDestinationProduct {
 }
 
 interface IDestinationEntry {
-  creditDestination: string;
+  destinations: ISelectOption[];
+  creditDestination?: ISelectOption;
   products: IDestinationProduct[];
   selectedProduct?: IDestinationProduct;
 }

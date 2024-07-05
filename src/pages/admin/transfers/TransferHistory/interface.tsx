@@ -89,6 +89,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
                     gap="s200"
                   >
                     <RecordCard
+                      id={transfer.id}
                       type={EMovementType.RECORD}
                       description={transfer.title}
                       totalValue={transfer.value}

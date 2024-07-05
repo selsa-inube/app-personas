@@ -1,7 +1,6 @@
 import { DestinationCard } from "@components/cards/credits/DestinationCard";
 import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -12,19 +11,12 @@ import { IDestinationEntry, IDestinationProduct } from "./types";
 interface DestinationFormUIProps {
   formik: FormikProps<IDestinationEntry>;
   loading?: boolean;
-  destinations: ISelectOption[];
   onChangeProduct: (value: IDestinationProduct) => void;
   onChangeDestination: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 function DestinationFormUI(props: DestinationFormUIProps) {
-  const {
-    formik,
-    loading,
-    destinations,
-    onChangeProduct,
-    onChangeDestination,
-  } = props;
+  const { formik, loading, onChangeProduct, onChangeDestination } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -38,10 +30,10 @@ function DestinationFormUI(props: DestinationFormUIProps) {
           <Select
             name="creditDestination"
             id="creditDestination"
-            value={formik.values.creditDestination}
+            value={formik.values.creditDestination?.id || ""}
             size="compact"
             isFullWidth
-            options={destinations}
+            options={formik.values.destinations}
             onBlur={formik.handleBlur}
             errorMessage={formik.errors.creditDestination}
             isDisabled={loading}
@@ -51,7 +43,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
         </Stack>
         <Stack direction="column" gap="s200">
           {formik.values.creditDestination &&
-            formik.values.creditDestination !== "other" && (
+            formik.values.creditDestination.id !== "other" && (
               <>
                 <Text type="title" size="small">
                   ¿Cuál es el producto que deseas?
@@ -62,7 +54,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                     (product) =>
                       product && (
                         <DestinationCard
-                          id={formik.values.creditDestination}
+                          id={product.id}
                           title={product.title}
                           description={product.description || ""}
                           checked={

@@ -85,6 +85,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
                     {index !== 0 && <Divider dashed />}
                     <StyledItem>
                       <RecordCard
+                        id={movement.id}
                         type={movement.type as EMovementType}
                         description={movement.description}
                         totalValue={movement.totalValue}
