@@ -4,8 +4,8 @@ import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
-import { IPreliquidationEntry } from "../forms/PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
+import { ISystemValidationsEntry } from "../forms/SystemValidationsForm/types";
 
 const destination: IDestinationEntry = {
   products: [],
@@ -34,11 +34,8 @@ const creditConditions: ICreditConditionsEntry = {
   minWarrantyRequired: "",
 };
 
-const systemValidations: IPreliquidationEntry = {
-  amount: 0,
-  interestAdjustmentCycle: 0,
-  chargesAndDiscounts: 0,
-  netValue: 0,
+const systemValidations: ISystemValidationsEntry = {
+  validations: [],
 };
 
 const documentaryRequirements: IDocumentaryRequirementsEntry = {

@@ -28,7 +28,7 @@ function BoxAttribute(props: BoxAttributeProps) {
     buttonDisabled,
     direction,
     iconAfter,
-    
+
     onClickButton,
   } = props;
 
@@ -68,16 +68,18 @@ function BoxAttribute(props: BoxAttributeProps) {
                 disabled={buttonDisabled}
               />
             ) : (
-              <Text
-                type="body"
-                size={isMobile ? "small" : "medium"}
-                appearance="gray"
-                textAlign={
-                  direction === "column" || iconAfter ? "start" : "end"
-                }
-              >
-                {String(value)}
-              </Text>
+              value && (
+                <Text
+                  type="body"
+                  size={isMobile ? "small" : "medium"}
+                  appearance="gray"
+                  textAlign={
+                    direction === "column" || iconAfter ? "start" : "end"
+                  }
+                >
+                  {String(value)}
+                </Text>
+              )
             )}
           </Stack>
         )}

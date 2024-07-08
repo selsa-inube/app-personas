@@ -11,7 +11,8 @@ import { initalValuesCreditDestination } from "./config/initialValues";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";
-import { IPreliquidationEntry } from "./forms/PreliquidationForm/types";
+import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
+import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CreditDestinationRequestUI } from "./interface";
 import {
@@ -19,7 +20,6 @@ import {
   IFormsCreditDestinationRequestRefs,
 } from "./types";
 import { creditDestinationStepsRules } from "./utils";
-import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
 
 function CreditDestinationRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -68,7 +68,8 @@ function CreditDestinationRequest() {
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const creditConditionsRef = useRef<FormikProps<ICreditConditionsEntry>>(null);
-  const systemValidationsRef = useRef<FormikProps<IPreliquidationEntry>>(null);
+  const systemValidationsRef =
+    useRef<FormikProps<ISystemValidationsEntry>>(null);
   const documentaryRequirementsRef =
     useRef<FormikProps<IDocumentaryRequirementsEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);

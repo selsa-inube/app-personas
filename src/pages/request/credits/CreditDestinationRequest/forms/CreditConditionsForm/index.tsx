@@ -28,7 +28,17 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
   const [disbursementModal, setDisbursementModal] =
-    useState<IDisbursementModalState>({ show: false });
+    useState<IDisbursementModalState>({
+      show: false,
+      data: {
+        spec: {
+          amount: initialValues.amount,
+          cycleInterest: initialValues.cycleInterest,
+          discounts: initialValues.discounts,
+        },
+        approximateValue: initialValues.netValue,
+      },
+    });
 
   const formik = useFormik({
     initialValues,
