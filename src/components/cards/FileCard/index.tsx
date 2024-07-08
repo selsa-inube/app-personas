@@ -35,7 +35,7 @@ function FileCard(props: FileCardProps) {
             alignItems="center"
           >
             <Text type="label" size="medium">
-              {truncateFileName(name, 25)}
+              {truncateFileName(name, 10)}
             </Text>
 
             <Icon

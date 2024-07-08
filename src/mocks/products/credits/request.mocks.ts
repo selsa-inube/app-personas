@@ -1,4 +1,6 @@
-const products = {
+import { IValidation } from "src/model/entity/service";
+
+const productsMock = {
   freeInvestment: {
     id: "freeInvestment",
     title: "Libre inversión",
@@ -23,11 +25,14 @@ const products = {
 };
 
 const destinationProductsMock = {
-  buyVehicle: [products.freeInvestment, products.vehicleOrMotorcycle],
-  buyMotorcycle: [products.freeInvestment, products.vehicleOrMotorcycle],
-  buyProperty: [products.freeInvestment],
-  travel: [products.freeInvestment],
-  study: [products.freeInvestment],
+  buyVehicle: [productsMock.freeInvestment, productsMock.vehicleOrMotorcycle],
+  buyMotorcycle: [
+    productsMock.freeInvestment,
+    productsMock.vehicleOrMotorcycle,
+  ],
+  buyProperty: [productsMock.freeInvestment],
+  travel: [productsMock.freeInvestment],
+  study: [productsMock.freeInvestment],
 };
 
 const maximumQuotasAvailableMock = {
@@ -82,8 +87,23 @@ const maxDeadlineMock = {
   vehicleOrMotorcycle: 14,
 };
 
+const documentaryRequirementsMock: IValidation[] = [
+  {
+    id: "original_invoice",
+    label: "Factura original",
+    value: "pending",
+    isRequired: true,
+  },
+  {
+    id: "medical_prescription_copy",
+    label: "Fotocopia de la fórmula médica",
+    value: "pending",
+  },
+];
+
 export {
   destinationProductsMock,
+  documentaryRequirementsMock,
   interestRatesMock,
   maxDeadlineMock,
   maximumQuotasAvailableMock,

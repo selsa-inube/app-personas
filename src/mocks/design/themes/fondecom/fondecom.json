@@ -843,33 +843,33 @@
       "p50": "#EAE6FF"
     }
   },
-  "sectionMessage": {
+  "flag": {
     "primary": {
       "background": {
         "color": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.primary.background.color",
+          "Reference": "fondecom.flag.primary.background.color",
           "Token": "fondecom.palette.blue.b50"
         }
       },
       "countdownBar": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.primary.countdownBar.appearance",
+          "Reference": "fondecom.flag.primary.countdownBar.appearance",
           "Token": "primary"
         }
       },
       "icon": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.primary.icon.appearance",
+          "Reference": "fondecom.flag.primary.icon.appearance",
           "Token": "primary"
         }
       },
       "content": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.primary.content.appearance",
+          "Reference": "fondecom.flag.primary.content.appearance",
           "Token": "dark"
         }
       }
@@ -878,28 +878,28 @@
       "background": {
         "color": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.success.background.color",
+          "Reference": "fondecom.flag.success.background.color",
           "Token": "fondecom.palette.green.g50"
         }
       },
       "countdownBar": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.success.countdownBar.appearance",
+          "Reference": "fondecom.flag.success.countdownBar.appearance",
           "Token": "success"
         }
       },
       "icon": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.success.icon.appearance",
+          "Reference": "fondecom.flag.success.icon.appearance",
           "Token": "success"
         }
       },
       "content": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.success.content.appearance",
+          "Reference": "fondecom.flag.success.content.appearance",
           "Token": "dark"
         }
       }
@@ -908,28 +908,28 @@
       "background": {
         "color": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.warning.background.color",
+          "Reference": "fondecom.flag.warning.background.color",
           "Token": "fondecom.palette.yellow.y50"
         }
       },
       "countdownBar": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.warning.countdownBar.appearance",
+          "Reference": "fondecom.flag.warning.countdownBar.appearance",
           "Token": "warning"
         }
       },
       "icon": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.warning.icon.appearance",
+          "Reference": "fondecom.flag.warning.icon.appearance",
           "Token": "warning"
         }
       },
       "content": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.warning.content.appearance",
+          "Reference": "fondecom.flag.warning.content.appearance",
           "Token": "dark"
         }
       }
@@ -938,28 +938,28 @@
       "background": {
         "color": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.danger.background.color",
+          "Reference": "fondecom.flag.danger.background.color",
           "Token": "fondecom.palette.red.r50"
         }
       },
       "countdownBar": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.danger.countdownBar.appearance",
+          "Reference": "fondecom.flag.danger.countdownBar.appearance",
           "Token": "danger"
         }
       },
       "icon": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.danger.icon.appearance",
+          "Reference": "fondecom.flag.danger.icon.appearance",
           "Token": "danger"
         }
       },
       "content": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.danger.content.appearance",
+          "Reference": "fondecom.flag.danger.content.appearance",
           "Token": "dark"
         }
       }
@@ -968,28 +968,28 @@
       "background": {
         "color": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.help.background.color",
+          "Reference": "fondecom.flag.help.background.color",
           "Token": "fondecom.palette.purple.p50"
         }
       },
       "countdownBar": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.help.countdownBar.appearance",
+          "Reference": "fondecom.flag.help.countdownBar.appearance",
           "Token": "help"
         }
       },
       "icon": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.help.icon.appearance",
+          "Reference": "fondecom.flag.help.icon.appearance",
           "Token": "help"
         }
       },
       "content": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.help.content.appearance",
+          "Reference": "fondecom.flag.help.content.appearance",
           "Token": "dark"
         }
       }
@@ -998,28 +998,28 @@
       "background": {
         "color": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.dark.background.color",
+          "Reference": "fondecom.flag.dark.background.color",
           "Token": "fondecom.palette.neutral.n30"
         }
       },
       "countdownBar": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.dark.countdownBar.appearance",
+          "Reference": "fondecom.flag.dark.countdownBar.appearance",
           "Token": "dark"
         }
       },
       "icon": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.dark.icon.appearance",
+          "Reference": "fondecom.flag.dark.icon.appearance",
           "Token": "dark"
         }
       },
       "content": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.dark.content.appearance",
+          "Reference": "fondecom.flag.dark.content.appearance",
           "Token": "dark"
         }
       }
@@ -1028,28 +1028,28 @@
       "background": {
         "color": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.gray.background.color",
+          "Reference": "fondecom.flag.gray.background.color",
           "Token": "fondecom.palette.neutral.n10"
         }
       },
       "countdownBar": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.gray.countdownBar.appearance",
+          "Reference": "fondecom.flag.gray.countdownBar.appearance",
           "Token": "gray"
         }
       },
       "icon": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.gray.icon.appearance",
+          "Reference": "fondecom.flag.gray.icon.appearance",
           "Token": "gray"
         }
       },
       "content": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.gray.content.appearance",
+          "Reference": "fondecom.flag.gray.content.appearance",
           "Token": "dark"
         }
       }
@@ -1058,28 +1058,28 @@
       "background": {
         "color": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.light.background.color",
+          "Reference": "fondecom.flag.light.background.color",
           "Token": "fondecom.palette.neutral.n0"
         }
       },
       "countdownBar": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.light.countdownBar.appearance",
+          "Reference": "fondecom.flag.light.countdownBar.appearance",
           "Token": "dark"
         }
       },
       "icon": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.light.icon.appearance",
+          "Reference": "fondecom.flag.light.icon.appearance",
           "Token": "dark"
         }
       },
       "content": {
         "appearance": {
           "Value": "",
-          "Reference": "fondecom.sectionMessage.light.content.appearance",
+          "Reference": "fondecom.flag.light.content.appearance",
           "Token": "dark"
         }
       }

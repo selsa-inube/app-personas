@@ -17,6 +17,7 @@ import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { DisbursementForm } from "./forms/DisbursementForm";
+import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
 import { PreliquidationForm } from "./forms/PreliquidationForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CreditDestinationRequestVerification } from "./forms/Verification";
@@ -48,10 +49,20 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.preliquidation.id && (
+      {currentStep === creditDestinationRequestSteps.systemValidations.id && (
         <PreliquidationForm
-          initialValues={creditDestinationRequest.preliquidation.values}
-          ref={formReferences.preliquidation}
+          initialValues={creditDestinationRequest.systemValidations.values}
+          ref={formReferences.systemValidations}
+        />
+      )}
+      {currentStep ===
+        creditDestinationRequestSteps.documentaryRequirements.id && (
+        <DocumentaryRequirementsForm
+          initialValues={
+            creditDestinationRequest.documentaryRequirements.values
+          }
+          ref={formReferences.documentaryRequirements}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === creditDestinationRequestSteps.disbursement.id && (

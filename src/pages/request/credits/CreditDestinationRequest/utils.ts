@@ -1,3 +1,4 @@
+import { documentaryRequirementsMock } from "@mocks/products/credits/request.mocks";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
 import {
@@ -29,7 +30,6 @@ const creditDestinationStepsRules = (
           JSON.stringify(currentCreditDestinationRequest.destination.values) &&
         values.selectedProduct
       ) {
-
         newCreditDestinationRequest.creditConditions = {
           isValid: false,
           values: {
@@ -59,10 +59,10 @@ const creditDestinationStepsRules = (
         const tempChargesAndDiscounts = Math.floor(
           Number(values.amount) * 0.4880866,
         );
-        newCreditDestinationRequest.preliquidation = {
+        newCreditDestinationRequest.systemValidations = {
           isValid: true,
           values: {
-            ...initalValuesCreditDestination.preliquidation,
+            ...initalValuesCreditDestination.systemValidations,
             amount: Number(values.amount),
             interestAdjustmentCycle: 49250,
             chargesAndDiscounts: tempChargesAndDiscounts,
@@ -70,6 +70,26 @@ const creditDestinationStepsRules = (
           },
         };
       }
+
+      return newCreditDestinationRequest;
+    }
+    case creditDestinationRequestSteps.systemValidations.id: {
+      const values = formReferences.systemValidations.current?.values;
+
+      if (!values) return currentCreditDestinationRequest;
+
+      newCreditDestinationRequest.systemValidations = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      newCreditDestinationRequest.documentaryRequirements = {
+        isValid: true,
+        values: {
+          ...initalValuesCreditDestination.documentaryRequirements,
+          requiredDocuments: documentaryRequirementsMock,
+        },
+      };
 
       return newCreditDestinationRequest;
     }
