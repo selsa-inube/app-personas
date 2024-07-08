@@ -32,6 +32,7 @@ import { AppProvider } from "./context/app";
 import { SavingsProvider } from "./context/savings";
 import { AidRoutes } from "./routes/aid";
 import { MyCardsRoutes } from "./routes/myCards";
+import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
 import { TransfersRoutes } from "./routes/transfers";
 
@@ -50,6 +51,8 @@ const router = createBrowserRouter(
         <Route path="my-savings/*" element={<MySavingsRoutes />} />
 
         <Route path="my-cards/*" element={<MyCardsRoutes />} />
+
+        <Route path="my-requests/*" element={<MyRequestsRoutes />} />
 
         <Route path="payments/*" element={<PaymentsRoutes />} />
 

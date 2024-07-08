@@ -1,7 +1,9 @@
+import { INav } from "@design/layout/Page/types";
 import {
   MdOutlineAccountBalance,
   MdOutlineAccountBalanceWallet,
   MdOutlineAirplaneTicket,
+  MdOutlineAssignment,
   MdOutlineAttachMoney,
   MdOutlineCompareArrows,
   MdOutlineCreditCard,
@@ -19,7 +21,8 @@ const getNav = (
   requestAidFlag: boolean,
   requestHolidaysFlag: boolean,
   requestTransfersFlag: boolean,
-) => {
+  myRequestsFlag: boolean,
+): INav => {
   const sections = [
     {
       title: "Administrar",
@@ -44,6 +47,15 @@ const getNav = (
           path: "/my-cards",
           icon: <MdOutlineCreditCard />,
         },
+        ...(myRequestsFlag
+          ? [
+              {
+                label: "Mis solicitudes",
+                path: "/my-requests",
+                icon: <MdOutlineAssignment />,
+              },
+            ]
+          : []),
         {
           label: "Pagos",
           path: "/payments",
