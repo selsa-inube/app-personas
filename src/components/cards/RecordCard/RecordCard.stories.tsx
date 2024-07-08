@@ -27,6 +27,7 @@ export const Default: StoryFn<RecordCardProps> = (args) => (
   <RecordCard {...args} />
 );
 Default.args = {
+  id: "1",
   type: EMovementType.RECORD,
   description:
     "Pago Contab. Descuentos de nomina mes FEB/21 Cta.Cobro 41-241000098 Nomina: 30",
@@ -48,6 +49,7 @@ Default.args = {
     { id: "cus", label: "CUS", value: "0000000115" },
   ],
   withExpandingIcon: true,
+  loading: false
 };
 
 const theme = {

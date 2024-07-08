@@ -271,6 +271,7 @@ function CardUI(props: CardUIProps) {
                                 >
                                   {index !== 0 && <Divider dashed />}
                                   <RecordCard
+                                    id={movement.id}
                                     type={
                                       movement.type || EMovementType.PAYMENT
                                     }

@@ -98,6 +98,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                     gap="s200"
                   >
                     <RecordCard
+                      id={payment.id}
                       type={EMovementType.RECORD}
                       description={payment.title}
                       totalValue={payment.value}
