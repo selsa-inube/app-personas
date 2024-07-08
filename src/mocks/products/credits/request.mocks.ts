@@ -1,4 +1,4 @@
-const products = {
+const productsMock = {
   freeInvestment: {
     id: "freeInvestment",
     title: "Libre inversión",
@@ -6,19 +6,6 @@ const products = {
     maxRate: 10,
     maxDeadline: 24,
     maxAmount: 15000000,
-    requiredDocuments: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_history_copy",
-        label: "Fotocopia de la historia clínica",
-        value: "pending",
-      },
-    ],
   },
   vehicleOrMotorcycle: {
     id: "vehicleOrMotorcycle",
@@ -27,19 +14,6 @@ const products = {
     maxRate: 10,
     maxDeadline: 24,
     maxAmount: 15000000,
-    requiredDocuments: [
-      {
-        id: "disability_copy",
-        label: "Fotocopia de la incapacidad",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_history_copy",
-        label: "Fotocopia de la historia clínica",
-        value: "pending",
-      },
-    ],
   },
   // { // TEMP
   //   id: "generateRecommendation",
@@ -49,11 +23,14 @@ const products = {
 };
 
 const destinationProductsMock = {
-  buyVehicle: [products.freeInvestment, products.vehicleOrMotorcycle],
-  buyMotorcycle: [products.freeInvestment, products.vehicleOrMotorcycle],
-  buyProperty: [products.freeInvestment],
-  travel: [products.freeInvestment],
-  study: [products.freeInvestment],
+  buyVehicle: [productsMock.freeInvestment, productsMock.vehicleOrMotorcycle],
+  buyMotorcycle: [
+    productsMock.freeInvestment,
+    productsMock.vehicleOrMotorcycle,
+  ],
+  buyProperty: [productsMock.freeInvestment],
+  travel: [productsMock.freeInvestment],
+  study: [productsMock.freeInvestment],
 };
 
 const maximumQuotasAvailableMock = {
@@ -108,9 +85,39 @@ const maxDeadlineMock = {
   vehicleOrMotorcycle: 14,
 };
 
+const documentaryRequirementsMock = {
+  freeInvestment: [
+    {
+      id: "original_invoice",
+      label: "Factura original",
+      value: "pending",
+      isRequired: true,
+    },
+    {
+      id: "medical_prescription_copy",
+      label: "Fotocopia de la fórmula médica",
+      value: "pending",
+    },
+  ],
+  vehicleOrMotorcycle: [
+    {
+      id: "original_invoice",
+      label: "Factura original",
+      value: "pending",
+      isRequired: true,
+    },
+    {
+      id: "medical_order_copy",
+      label: "Fotocopia de la orden médica",
+      value: "pending",
+    },
+  ],
+};
+
 export {
   destinationProductsMock,
   interestRatesMock,
   maxDeadlineMock,
   maximumQuotasAvailableMock,
+  documentaryRequirementsMock,
 };
