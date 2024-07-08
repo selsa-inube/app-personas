@@ -11,7 +11,7 @@ import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 interface IFormsCreditDestinationRequest {
   destination: { isValid: boolean; values: IDestinationEntry };
   creditConditions: { isValid: boolean; values: ICreditConditionsEntry };
-  preliquidation: { isValid: boolean; values: IPreliquidationEntry };
+  systemValidations: { isValid: boolean; values: IPreliquidationEntry };
   documentaryRequirements: {
     isValid: boolean;
     values: IDocumentaryRequirementsEntry;
@@ -28,7 +28,7 @@ interface IFormsCreditDestinationRequest {
 interface IFormsCreditDestinationRequestRefs {
   destination: React.RefObject<FormikProps<IDestinationEntry>>;
   creditConditions: React.RefObject<FormikProps<ICreditConditionsEntry>>;
-  preliquidation: React.RefObject<FormikProps<IPreliquidationEntry>>;
+  systemValidations: React.RefObject<FormikProps<IPreliquidationEntry>>;
   documentaryRequirements: React.RefObject<
     FormikProps<IDocumentaryRequirementsEntry>
   >;

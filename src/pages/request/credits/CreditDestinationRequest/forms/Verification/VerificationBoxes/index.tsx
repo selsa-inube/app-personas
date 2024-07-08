@@ -80,7 +80,7 @@ const renderCreditConditionsVerification = (
   </>
 );
 
-const renderPreliquidationVerification = (
+const renderSystemValidationsVerification = (
   values: IPreliquidationEntry,
   isTablet: boolean,
 ) => (
@@ -296,9 +296,9 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet,
         )}
 
-      {stepKey === "preliquidation" &&
-        renderPreliquidationVerification(
-          creditDestinationRequest.preliquidation.values,
+      {stepKey === "systemValidations" &&
+        renderSystemValidationsVerification(
+          creditDestinationRequest.systemValidations.values,
           isTablet,
         )}
 

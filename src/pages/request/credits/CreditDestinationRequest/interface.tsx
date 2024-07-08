@@ -49,10 +49,10 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.preliquidation.id && (
+      {currentStep === creditDestinationRequestSteps.systemValidations.id && (
         <PreliquidationForm
-          initialValues={creditDestinationRequest.preliquidation.values}
-          ref={formReferences.preliquidation}
+          initialValues={creditDestinationRequest.systemValidations.values}
+          ref={formReferences.systemValidations}
         />
       )}
       {currentStep ===

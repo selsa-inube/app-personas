@@ -34,7 +34,7 @@ const creditConditions: ICreditConditionsEntry = {
   minWarrantyRequired: "",
 };
 
-const preliquidation: IPreliquidationEntry = {
+const systemValidations: IPreliquidationEntry = {
   amount: 0,
   interestAdjustmentCycle: 0,
   chargesAndDiscounts: 0,
@@ -44,6 +44,7 @@ const preliquidation: IPreliquidationEntry = {
 const documentaryRequirements: IDocumentaryRequirementsEntry = {
   requiredDocuments: [],
   selectedDocuments: [],
+  withDocumentaryRequirements: true,
 };
 
 const disbursement: IDisbursementEntry = {
@@ -76,7 +77,7 @@ const termsAndConditions: ITermsAndConditionsEntry = {
 const initalValuesCreditDestination = {
   destination,
   creditConditions,
-  preliquidation,
+  systemValidations,
   documentaryRequirements,
   disbursement,
   comments,
@@ -84,4 +85,3 @@ const initalValuesCreditDestination = {
 };
 
 export { initalValuesCreditDestination };
-

@@ -1,20 +1,24 @@
 import { FileCard } from "@components/cards/FileCard";
+import { InfoCard } from "@components/cards/InfoCard";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { FileDrop } from "@design/input/FileDrop";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
-import { MdQuestionMark } from "react-icons/md";
+import { MdHelpOutline, MdQuestionMark } from "react-icons/md";
 import { IDocumentaryRequirementsEntry } from "./types";
 
 function renderRequirement(label: string, id: string) {
   return (
     <OutlineCard key={id}>
-      <Stack padding="8px 20px">
+      <Stack padding={`${inube.spacing.s100} ${inube.spacing.s250}`}>
         <Text type="body" size="medium">
           {label}
         </Text>
@@ -26,9 +30,12 @@ function renderRequirement(label: string, id: string) {
 interface DocumentaryRequirementsFormUIProps {
   formik: FormikProps<IDocumentaryRequirementsEntry>;
   showInfoModal: boolean;
+  maxFileSize: number;
+  message: IMessage;
   onSelectDocuments: (files: FileList) => void;
   onRemoveDocument: (id: string) => void;
   onToggleInfoModal: () => void;
+  onCloseMessage: () => void;
 }
 
 function DocumentaryRequirementsFormUI(
@@ -37,13 +44,29 @@ function DocumentaryRequirementsFormUI(
   const {
     formik,
     showInfoModal,
+    maxFileSize,
+    message,
     onSelectDocuments,
     onRemoveDocument,
     onToggleInfoModal,
+    onCloseMessage,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 580px)");
+
+  if (!formik.values.withDocumentaryRequirements) {
+    return (
+      <Stack>
+        <InfoCard
+          title="Requisitos documentales"
+          description="Actualmente, te encuentras utilizando un software externo para cargar los requisitos documentales. Luego de crear la solicitud, podrás adjuntar tus documentos."
+          appearance="help"
+          icon={<MdHelpOutline />}
+        />
+      </Stack>
+    );
+  }
 
   return (
     <>
@@ -77,7 +100,13 @@ function DocumentaryRequirementsFormUI(
             Adjuntar documentos
           </Text>
 
-          <FileDrop onSelectFiles={onSelectDocuments} />
+          <Stack direction="column" gap="s150">
+            <FileDrop onSelectFiles={onSelectDocuments} />
+
+            <Text type="body" size="medium" appearance="gray">
+              Peso máximo por archivo: {maxFileSize}MB
+            </Text>
+          </Stack>
         </Stack>
 
         {formik.values.selectedDocuments.length > 0 && (
@@ -110,6 +139,17 @@ function DocumentaryRequirementsFormUI(
           buttonText="Aceptar"
           portalId="modals"
           onCloseModal={onToggleInfoModal}
+        />
+      )}
+
+      {message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          appearance={message.appearance}
+          icon={message.icon}
+          onClose={onCloseMessage}
+          duration={5000}
         />
       )}
     </>

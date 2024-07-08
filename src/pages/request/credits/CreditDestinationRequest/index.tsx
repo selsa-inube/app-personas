@@ -40,9 +40,9 @@ function CreditDestinationRequest() {
         isValid: false,
         values: initalValuesCreditDestination.creditConditions,
       },
-      preliquidation: {
+      systemValidations: {
         isValid: true,
-        values: initalValuesCreditDestination.preliquidation,
+        values: initalValuesCreditDestination.systemValidations,
       },
       documentaryRequirements: {
         isValid: false,
@@ -68,7 +68,7 @@ function CreditDestinationRequest() {
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const creditConditionsRef = useRef<FormikProps<ICreditConditionsEntry>>(null);
-  const preliquidationRef = useRef<FormikProps<IPreliquidationEntry>>(null);
+  const systemValidationsRef = useRef<FormikProps<IPreliquidationEntry>>(null);
   const documentaryRequirementsRef =
     useRef<FormikProps<IDocumentaryRequirementsEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
@@ -80,7 +80,7 @@ function CreditDestinationRequest() {
   const formReferences: IFormsCreditDestinationRequestRefs = {
     destination: destinationRef,
     creditConditions: creditConditionsRef,
-    preliquidation: preliquidationRef,
+    systemValidations: systemValidationsRef,
     documentaryRequirements: documentaryRequirementsRef,
     disbursement: disbursementRef,
     comments: commentsRef,

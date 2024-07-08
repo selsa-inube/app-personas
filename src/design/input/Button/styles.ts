@@ -128,7 +128,7 @@ const StyledButtonGeneral = css<IStyledButtonGeneral>`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<IStyledButtonGeneral>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,7 +136,7 @@ const StyledLink = styled(Link)`
   ${StyledButtonGeneral}
 `;
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<IStyledButtonGeneral>`
   ${StyledButtonGeneral}
 `;
 

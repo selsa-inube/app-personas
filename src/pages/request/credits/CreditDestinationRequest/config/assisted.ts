@@ -9,11 +9,11 @@ const creditDestinationRequestSteps = {
     name: "Condiciones del crédito",
     description: "Ingresa los valores para simular tu crédito.",
   },
-  preliquidation: {
+  systemValidations: {
     id: 3,
-    name: "Preliquidación",
+    name: "Validaciones del sistema",
     description:
-      "Revisa el proceso de amortización de tu solicitud de crédito.",
+      "Revisas cuales son los requisitos necesarios para realizar la solicitud de crédito.",
   },
   documentaryRequirements: {
     id: 4,

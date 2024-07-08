@@ -93,7 +93,7 @@ const palette = {
     P200: "#8777D9",
     P100: "#998DD9",
     P75: "#C0B6F2",
-    P50: "#E6FCFF",
+    P50: "#EAE6FF",
   },
 };
 
