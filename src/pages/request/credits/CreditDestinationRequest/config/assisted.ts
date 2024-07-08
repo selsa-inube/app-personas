@@ -15,30 +15,36 @@ const creditDestinationRequestSteps = {
     description:
       "Revisa el proceso de amortización de tu solicitud de crédito.",
   },
-  disbursement: {
+  documentaryRequirements: {
     id: 4,
+    name: "Requisitos documentales",
+    description:
+      "Adjunta la documentación para cumplir con los requisitos y continuar con tu solicitud.",
+  },
+  disbursement: {
+    id: 5,
     name: "Desembolso",
     description: "Selecciona la forma de desembolso.",
   },
   comments: {
-    id: 5,
+    id: 6,
     name: "Comentarios",
     description:
       "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
   },
   termsAndConditions: {
-    id: 6,
+    id: 7,
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
   },
   contactChannels: {
-    id: 7,
+    id: 8,
     name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
   verification: {
-    id: 8,
+    id: 9,
     name: "Verificación",
     description:
       "Verifica la información que diligenciaste en tu solicitud de crédito.",

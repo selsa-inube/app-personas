@@ -13,12 +13,15 @@ import { identificationTypeDM } from "src/model/domains/general/updateData/perso
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
+import { truncateFileName } from "src/utils/texts";
 import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
+import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 import { IPreliquidationEntry } from "../../PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
+import { creditDestinationRequestBoxTitles } from "../config/box";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -143,6 +146,26 @@ const renderPreliquidationVerification = (
   </Stack>
 );
 
+const renderDocumentaryRequirementsVerification = (
+  values: IDocumentaryRequirementsEntry,
+  isTablet: boolean,
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      width="100%"
+      gap="s100"
+    >
+      {values.selectedDocuments.map((document) => (
+        <BoxAttribute
+          key={document.name}
+          label={truncateFileName(document.name, 55)}
+        />
+      ))}
+    </Grid>
+  );
+};
+
 const getAccountDescription = (accountId: string) => {
   return savingsMock.find((saving) => saving.id === accountId)?.description;
 };
@@ -265,7 +288,7 @@ const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
 
 interface VerificationBoxesProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
-  stepKey: string;
+  stepKey: keyof typeof creditDestinationRequestBoxTitles;
   isTablet: boolean;
 }
 
@@ -294,6 +317,12 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
           creditDestinationRequest.disbursement.values,
+        )}
+
+      {stepKey === "documentaryRequirements" &&
+        renderDocumentaryRequirementsVerification(
+          creditDestinationRequest.documentaryRequirements.values,
+          isTablet,
         )}
 
       {stepKey === "comments" &&

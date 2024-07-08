@@ -6,6 +6,19 @@ const products = {
     maxRate: 10,
     maxDeadline: 24,
     maxAmount: 15000000,
+    requiredDocuments: [
+      {
+        id: "original_invoice",
+        label: "Factura original",
+        value: "pending",
+        isRequired: true,
+      },
+      {
+        id: "medical_history_copy",
+        label: "Fotocopia de la historia clínica",
+        value: "pending",
+      },
+    ],
   },
   vehicleOrMotorcycle: {
     id: "vehicleOrMotorcycle",
@@ -14,6 +27,19 @@ const products = {
     maxRate: 10,
     maxDeadline: 24,
     maxAmount: 15000000,
+    requiredDocuments: [
+      {
+        id: "disability_copy",
+        label: "Fotocopia de la incapacidad",
+        value: "pending",
+        isRequired: true,
+      },
+      {
+        id: "medical_history_copy",
+        label: "Fotocopia de la historia clínica",
+        value: "pending",
+      },
+    ],
   },
   // { // TEMP
   //   id: "generateRecommendation",

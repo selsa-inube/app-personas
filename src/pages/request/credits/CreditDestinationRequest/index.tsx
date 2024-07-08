@@ -1,6 +1,8 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
@@ -17,8 +19,7 @@ import {
   IFormsCreditDestinationRequestRefs,
 } from "./types";
 import { creditDestinationStepsRules } from "./utils";
-import { Navigate } from "react-router-dom";
-import { AppContext } from "src/context/app";
+import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
 
 function CreditDestinationRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -43,6 +44,10 @@ function CreditDestinationRequest() {
         isValid: true,
         values: initalValuesCreditDestination.preliquidation,
       },
+      documentaryRequirements: {
+        isValid: false,
+        values: initalValuesCreditDestination.documentaryRequirements,
+      },
       disbursement: {
         isValid: false,
         values: initalValuesCreditDestination.disbursement,
@@ -64,6 +69,8 @@ function CreditDestinationRequest() {
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const creditConditionsRef = useRef<FormikProps<ICreditConditionsEntry>>(null);
   const preliquidationRef = useRef<FormikProps<IPreliquidationEntry>>(null);
+  const documentaryRequirementsRef =
+    useRef<FormikProps<IDocumentaryRequirementsEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
@@ -74,6 +81,7 @@ function CreditDestinationRequest() {
     destination: destinationRef,
     creditConditions: creditConditionsRef,
     preliquidation: preliquidationRef,
+    documentaryRequirements: documentaryRequirementsRef,
     disbursement: disbursementRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,

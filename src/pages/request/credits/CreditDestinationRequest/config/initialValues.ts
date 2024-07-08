@@ -3,6 +3,7 @@ import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 import { IDisbursementEntry } from "../forms/DisbursementForm/types";
+import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
 import { IPreliquidationEntry } from "../forms/PreliquidationForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
@@ -39,6 +40,11 @@ const preliquidation: IPreliquidationEntry = {
   netValue: 0,
 };
 
+const documentaryRequirements: IDocumentaryRequirementsEntry = {
+  requiredDocuments: [],
+  selectedDocuments: [],
+};
+
 const disbursement: IDisbursementEntry = {
   disbursementType: "",
   accountNumber: "",
@@ -70,9 +76,11 @@ const initalValuesCreditDestination = {
   destination,
   creditConditions,
   preliquidation,
+  documentaryRequirements,
   disbursement,
   comments,
   termsAndConditions,
 };
 
 export { initalValuesCreditDestination };
+
