@@ -7,7 +7,7 @@ import {
 } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { monthlyPayDayDM } from "src/model/domains/general/monthlyPayDay";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
 import { weeklyPayDayDM } from "src/model/domains/general/weeklyPayDay";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";

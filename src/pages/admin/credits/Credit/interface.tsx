@@ -3,7 +3,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
-import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
@@ -21,14 +20,6 @@ import {
   MdOutlineAssignmentTurnedIn,
 } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
-import {
-  creditMovementsNormalizeEntries,
-  creditMovementsTableActions,
-} from "../CreditMovements/config/table";
-import {
-  movementsTableBreakpoints,
-  movementsTableTitles,
-} from "../MyCredits/config/tables";
 import { creditBox } from "./config/credit";
 import { crumbsCredit } from "./config/navigation";
 import {
@@ -42,18 +33,49 @@ import {
   ISelectedProductState,
 } from "./types";
 import { ExpiredPaymentModal } from "@components/modals/general/ExpiredPaymentModal";
+import { EMovementType, IMovement } from "src/model/entity/product";
+import { RecordCard } from "@components/cards/RecordCard";
+import { Divider } from "@design/layout/Divider";
+import { generateAttributes } from "./config/attributeRecord";
+import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
+
+const renderMovements = (
+  movements: IMovement[],
+  loading: boolean,
+  handleOpenModal: (movement: IMovement) => void,
+) =>
+  movements &&
+  movements.slice(0, 5).map((movement, index) => (
+    <Stack direction="column" gap="s200" key={movement.id}>
+      {index !== 0 && <Divider dashed />}
+      <RecordCard
+        id={movement.id}
+        type={movement.type || EMovementType.CREDIT}
+        description={movement.description}
+        totalValue={movement.totalValue || 0}
+        loading={loading}
+        attributes={generateAttributes(movement)}
+        onClick={() => handleOpenModal(movement)}
+        withExpandingIcon
+      />
+    </Stack>
+  ));
 
 interface CreditUIProps {
-  isMobile?: boolean;
+  isMobile: boolean;
   selectedProduct?: ISelectedProductState;
   loading: boolean;
   productsOptions: ISelectOption[];
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;
   expiredPaymentModal: IExpiredPaymentModalState;
+  creditMovementModal: boolean;
+  selectedMovement?: IMovement;
   handleToggleNextPaymentModal: () => void;
   handleToggleExpiredPaymentModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleOpenModal: (movement: IMovement) => void;
+  handleCloseModal: () => void;
 }
 
 function CreditUI(props: CreditUIProps) {
@@ -65,9 +87,13 @@ function CreditUI(props: CreditUIProps) {
     credit_id,
     nextPaymentModal,
     expiredPaymentModal,
+    creditMovementModal,
+    selectedMovement,
     handleToggleNextPaymentModal,
     handleToggleExpiredPaymentModal,
     handleChangeProduct,
+    handleOpenModal,
+    handleCloseModal,
   } = props;
 
   const attributes =
@@ -185,23 +211,41 @@ function CreditUI(props: CreditUIProps) {
           )}
 
           {selectedProduct && selectedProduct.credit.movements && (
-            <Stack direction="column" gap="s200" alignItems="flex-start">
+            <Stack direction="column" gap="s300">
               <Text type="title" size="medium">
                 Últimos movimientos
               </Text>
-              <StyledMovementsContainer>
-                <Table
-                  portalId="modals"
-                  titles={movementsTableTitles}
-                  breakpoints={movementsTableBreakpoints}
-                  actions={creditMovementsTableActions}
-                  entries={creditMovementsNormalizeEntries(
-                    selectedProduct.credit.movements || [],
+              <StyledMovementsContainer isMobile={isMobile}>
+                <Stack direction="column" gap="s200" width="100%">
+                  {selectedProduct.credit.movements &&
+                  selectedProduct.credit.movements.length > 0 ? (
+                    renderMovements(
+                      selectedProduct.credit.movements,
+                      loading,
+                      handleOpenModal,
+                    )
+                  ) : (
+                    <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      gap="s100"
+                    >
+                      <Text type="title" size="small" appearance="dark">
+                        No tienes movimientos
+                      </Text>
+                      <Text
+                        type="body"
+                        size={isMobile ? "small" : "medium"}
+                        appearance="gray"
+                      >
+                        Aun no posees movimientos en este producto.
+                      </Text>
+                    </Stack>
                   )}
-                  loading={loading}
-                  pageLength={selectedProduct.credit.movements?.length || 0}
-                  hideMobileResume
-                />
+                </Stack>
+              </StyledMovementsContainer>
+              <Stack justifyContent="flex-end">
                 <Button
                   type="link"
                   spacing="compact"
@@ -210,7 +254,7 @@ function CreditUI(props: CreditUIProps) {
                 >
                   Movimientos
                 </Button>
-              </StyledMovementsContainer>
+              </Stack>
             </Stack>
           )}
         </Stack>
@@ -228,6 +272,13 @@ function CreditUI(props: CreditUIProps) {
           portalId="modals"
           onCloseModal={handleToggleExpiredPaymentModal}
           expiredPaymentData={expiredPaymentModal.data}
+        />
+      )}
+      {creditMovementModal && selectedMovement && (
+        <CreditMovementModal
+          portalId="modals"
+          onCloseModal={handleCloseModal}
+          movement={selectedMovement}
         />
       )}
     </>
