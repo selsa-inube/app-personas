@@ -37,17 +37,7 @@ function PageNotFound() {
   const withTransfers = getFlag(
     "admin.transfers.deposit.deposit-accounts",
   ).value;
-
-  const header = getHeader(
-    getFlag("general.links.update-data.update-data-with-assisted").value,
-    getFlag("general.links.update-data.update-data-without-assisted").value,
-    withSavingRequest,
-    withCreditRequest,
-    withEventRequest,
-    withAidRequest,
-    withHolidaysRequest,
-    withTransfers,
-  );
+  const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
 
   const nav = getNav(
     withSavingRequest,
@@ -56,6 +46,13 @@ function PageNotFound() {
     withAidRequest,
     withHolidaysRequest,
     withTransfers,
+    withMyRequests,
+  );
+
+  const header = getHeader(
+    getFlag("general.links.update-data.update-data-with-assisted").value,
+    getFlag("general.links.update-data.update-data-without-assisted").value,
+    nav,
   );
 
   const username = capitalizeEachWord(

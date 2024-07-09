@@ -1,20 +1,15 @@
+import { INav } from "@design/layout/Page/types";
 import { ISection } from "@design/navigation/Menu/MenuSection/types";
 import {
   MdLogout,
   MdOutlineBadge,
   MdOutlineManageAccounts,
 } from "react-icons/md";
-import { getNav } from "./nav";
 
 const getHeader = (
   updateDataAssistedFlag: boolean,
   updateDataUnassistedFlag: boolean,
-  requestSavingFlag: boolean,
-  requestCreditFlag: boolean,
-  requestEventFlag: boolean,
-  requestAidFlag: boolean,
-  requestHolidaysFlag: boolean,
-  requestTransfersFlag: boolean,
+  nav: INav,
 ) => {
   const links = [];
 
@@ -45,14 +40,7 @@ const getHeader = (
     links,
     portalId: "portal",
     logoutTitle: "Cerrar sesión",
-    navigation: getNav(
-      requestSavingFlag,
-      requestCreditFlag,
-      requestEventFlag,
-      requestAidFlag,
-      requestHolidaysFlag,
-      requestTransfersFlag,
-    ),
+    navigation: nav,
     businessUnit,
   };
 };
