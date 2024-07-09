@@ -37,8 +37,8 @@ function ValidationDetailsModal(props: ValidationDetailsModalProps) {
         </Text>
 
         <Stack gap="s200" justifyContent="flex-end" width="100%">
-          <Button spacing="compact" onClick={onCloseModal}>
-            Aceptar
+          <Button spacing="compact" onClick={onCloseModal} appearance="error">
+            Cerrar
           </Button>
         </Stack>
       </StyledModal>

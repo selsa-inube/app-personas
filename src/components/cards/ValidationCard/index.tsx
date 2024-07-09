@@ -3,6 +3,7 @@ import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Spinner } from "@design/feedback/Spinner";
 import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 import { useState } from "react";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { IValidation } from "src/model/entity/service";
@@ -20,24 +21,30 @@ function ValidationCard(props: IValidation) {
   return (
     <>
       <OutlineCard>
-        <Stack padding="12px 20px" gap="s200" alignItems="center">
-          {value === "success" ? (
-            <Icon
-              appearance="success"
-              icon={<MdOutlineCheckCircle />}
-              size="20px"
-              spacing="none"
-            />
-          ) : value === "fail" ? (
-            <Icon
-              appearance="error"
-              icon={<MdOutlineHighlightOff />}
-              size="20px"
-              spacing="none"
-            />
-          ) : (
-            <Spinner />
-          )}
+        <Stack
+          padding={`${inube.spacing.s150} ${inube.spacing.s250}`}
+          gap="s200"
+          alignItems="center"
+        >
+          <Stack>
+            {value === "success" ? (
+              <Icon
+                appearance="success"
+                icon={<MdOutlineCheckCircle />}
+                size="20px"
+                spacing="none"
+              />
+            ) : value === "fail" ? (
+              <Icon
+                appearance="error"
+                icon={<MdOutlineHighlightOff />}
+                size="20px"
+                spacing="none"
+              />
+            ) : (
+              <Spinner />
+            )}
+          </Stack>
 
           <Stack direction="column" gap="s075">
             <Text type="label" size="large">
@@ -47,7 +54,7 @@ function ValidationCard(props: IValidation) {
               <Text
                 type="body"
                 size="small"
-                appearance="primary"
+                appearance="error"
                 cursorHover
                 onClick={handleToggleModal}
               >

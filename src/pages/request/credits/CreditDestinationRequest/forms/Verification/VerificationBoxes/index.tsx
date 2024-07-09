@@ -1,11 +1,8 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { TextField } from "@design/input/TextField";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { MdAdd, MdDragHandle, MdRemove } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
@@ -19,9 +16,11 @@ import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
-import { IPreliquidationEntry } from "../../PreliquidationForm/types";
+import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";
+import { Icon } from "@design/data/Icon";
+import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -81,58 +80,41 @@ const renderCreditConditionsVerification = (
 );
 
 const renderSystemValidationsVerification = (
-  values: IPreliquidationEntry,
+  values: ISystemValidationsEntry,
   isTablet: boolean,
-) => (
-  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
-    <TextField
-      label="Monto"
-      placeholder="Monto"
-      name="amount"
-      id="amount"
-      value={currencyFormat(values.amount)}
-      iconBefore={<MdAdd />}
-      size="compact"
-      isFullWidth
-      readOnly
-    />
-    <TextField
-      label="Intereses anticipados de ajuste al ciclo"
-      placeholder="Intereses anticipados de ajuste al ciclo"
-      name="interestAdjustmentCycle"
-      id="interestAdjustmentCycle"
-      value={currencyFormat(values.interestAdjustmentCycle)}
-      iconBefore={<MdRemove />}
-      size="compact"
-      isFullWidth
-      readOnly
-    />
-    <TextField
-      label="Cargos y descuentos"
-      placeholder="Cargos y descuentos"
-      name="chargesAndDiscounts"
-      id="chargesAndDiscounts"
-      value={currencyFormat(values.chargesAndDiscounts)}
-      iconBefore={<MdRemove />}
-      size="compact"
-      isFullWidth
-      readOnly
-    />
-
-    <Divider dashed />
-    <TextField
-      label="Valor neto a girar"
-      placeholder="Valor neto a girar"
-      name="netValue"
-      id="netValue"
-      value={currencyFormat(values.netValue)}
-      iconBefore={<MdDragHandle />}
-      size="compact"
-      isFullWidth
-      readOnly
-    />
-  </Stack>
-);
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      width="100%"
+      gap="s100"
+    >
+      {values.validations.map((validation) => (
+        <BoxAttribute
+          key={validation.id}
+          value={validation.label}
+          iconAfter={
+            validation.value === "success" ? (
+              <Icon
+                appearance="success"
+                icon={<MdOutlineCheckCircle />}
+                size="20px"
+                spacing="none"
+              />
+            ) : (
+              <Icon
+                appearance="error"
+                icon={<MdOutlineHighlightOff />}
+                size="20px"
+                spacing="none"
+              />
+            )
+          }
+        />
+      ))}
+    </Grid>
+  );
+};
 
 const renderDocumentaryRequirementsVerification = (
   values: IDocumentaryRequirementsEntry,

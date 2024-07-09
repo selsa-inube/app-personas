@@ -1,4 +1,7 @@
-import { documentaryRequirementsMock } from "@mocks/products/credits/request.mocks";
+import {
+  documentaryRequirementsMock,
+  systemValidationsMock,
+} from "@mocks/products/credits/request.mocks";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
 import {
@@ -56,17 +59,11 @@ const creditDestinationStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentCreditDestinationRequest.creditConditions.values)
       ) {
-        const tempChargesAndDiscounts = Math.floor(
-          Number(values.amount) * 0.4880866,
-        );
         newCreditDestinationRequest.systemValidations = {
           isValid: true,
           values: {
             ...initalValuesCreditDestination.systemValidations,
-            amount: Number(values.amount),
-            interestAdjustmentCycle: 49250,
-            chargesAndDiscounts: tempChargesAndDiscounts,
-            netValue: Number(values.amount) - 49250 - tempChargesAndDiscounts,
+            validations: systemValidationsMock,
           },
         };
       }
