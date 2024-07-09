@@ -4,7 +4,7 @@ const iconAppearance = [
   "primary",
   "success",
   "warning",
-  "error",
+  "danger",
   "help",
   "dark",
   "gray",

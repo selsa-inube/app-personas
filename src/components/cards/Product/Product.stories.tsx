@@ -53,7 +53,7 @@ Default.args = {
   tags: [
     {
       label: "En mora",
-      appearance: "error",
+      appearance: "danger",
     },
   ],
   icon: <MdOutlineAccountBalanceWallet />,

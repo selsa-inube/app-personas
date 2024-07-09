@@ -272,7 +272,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
         </StyledScrollbar>
         <Stack gap="s150">
           <Button
-            appearance="error"
+            appearance="danger"
             variant="outlined"
             spacing="compact"
             onClick={onDelete}

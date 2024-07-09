@@ -117,7 +117,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
                     type="title"
                     size="medium"
                     appearance={
-                      formik.values.pendingValue < 0 ? "error" : "gray"
+                      formik.values.pendingValue < 0 ? "danger" : "gray"
                     }
                   >
                     {currencyFormat(formik.values.pendingValue)}

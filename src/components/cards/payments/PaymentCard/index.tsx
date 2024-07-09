@@ -178,7 +178,7 @@ function PaymentCard(props: PaymentCardProps) {
             onClick={resetValues}
             variant="outlined"
             disabled={(selectedOption?.value || 0) === 0}
-            appearance="error"
+            appearance="danger"
             spacing="compact"
             iconBefore={<MdOutlineDelete />}
           >

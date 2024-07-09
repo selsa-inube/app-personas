@@ -43,7 +43,7 @@ WhitTag.args = {
   ...Default.args,
   tag: {
     label: "Text",
-    appearance: "error",
+    appearance: "danger",
   },
 };
 

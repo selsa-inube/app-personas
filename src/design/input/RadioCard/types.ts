@@ -3,7 +3,7 @@ const radioCardAppearance = [
   "primary",
   "success",
   "warning",
-  "error",
+  "danger",
   "help",
   "dark",
   "gray",

@@ -20,7 +20,7 @@ function Invalid(props: ITextFieldMessage) {
   return (
     <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
       <MdOutlineWarning />
-      <Text type="body" size="small" appearance="error" disabled={isDisabled}>
+      <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
         {errorMessage}
       </Text>
     </StyledErrorMessageContainer>
@@ -96,7 +96,7 @@ const Textarea = (props: TextareaProps) => {
     truncatedValue.length < maxLength
       ? "warning"
       : truncatedValue.length === maxLength
-        ? "error"
+        ? "danger"
         : "gray";
 
   const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {

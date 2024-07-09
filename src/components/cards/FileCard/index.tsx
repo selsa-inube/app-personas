@@ -40,7 +40,7 @@ function FileCard(props: FileCardProps) {
 
             <Icon
               icon={<MdDeleteOutline />}
-              appearance="error"
+              appearance="danger"
               size="16px"
               spacing="none"
               cursorHover

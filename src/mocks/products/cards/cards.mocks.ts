@@ -64,8 +64,8 @@ const cardsMock: IProduct[] = [
     tags: [
       {
         label: "Cupo en mora",
-        appearance: "error",
-        textAppearance: "error",
+        appearance: "danger",
+        textAppearance: "danger",
         modifier: "clear",
       },
     ],
