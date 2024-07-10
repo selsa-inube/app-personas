@@ -2,38 +2,38 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledModal {
-  smallScreen: boolean;
+  $smallScreen: boolean;
 }
 
 const StyledModal = styled.div<IStyledModal>`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: ${({ smallScreen }) => (smallScreen ? "312px" : "598px")};
-  height: ${({ smallScreen }) => (smallScreen ? "596px" : "752px")};
+  width: ${({ $smallScreen }) => ($smallScreen ? "312px" : "598px")};
+  height: ${({ $smallScreen }) => ($smallScreen ? "596px" : "752px")};
   border-radius: ${inube.spacing.s200};
-  padding: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s200 : inube.spacing.s300};
-  gap: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s200 : inube.spacing.s250};
+  padding: ${({ $smallScreen }) =>
+    $smallScreen ? inube.spacing.s200 : inube.spacing.s300};
+  gap: ${({ $smallScreen }) =>
+    $smallScreen ? inube.spacing.s200 : inube.spacing.s250};
   background-color: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
 `;
 
 interface IStyledContainer {
-  smallScreen: boolean;
+  $smallScreen: boolean;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: ${({ smallScreen }) => (smallScreen ? "280px" : "550px")};
-  height: ${({ smallScreen }) => (smallScreen ? "392px" : "612px")};
-  gap: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s150 : inube.spacing.s200};
-  padding: ${({ smallScreen }) =>
-    smallScreen
+  width: ${({ $smallScreen }) => ($smallScreen ? "280px" : "550px")};
+  height: ${({ $smallScreen }) => ($smallScreen ? "392px" : "612px")};
+  gap: ${({ $smallScreen }) =>
+    $smallScreen ? inube.spacing.s150 : inube.spacing.s200};
+  padding: ${({ $smallScreen }) =>
+    $smallScreen
       ? `${inube.spacing.s150} ${inube.spacing.s200}`
       : `${inube.spacing.s200} ${inube.spacing.s250}`};
 
@@ -75,7 +75,7 @@ const StyledContainerItems = styled.div`
 `;
 
 interface IStyledItem {
-  smallScreen: boolean;
+  $smallScreen: boolean;
 }
 
 const StyledItem = styled.div<IStyledItem>`
@@ -85,8 +85,8 @@ const StyledItem = styled.div<IStyledItem>`
   align-items: center;
   flex-wrap: wrap;
   border-radius: ${inube.spacing.s100};
-  padding: ${({ smallScreen }) =>
-    smallScreen
+  padding: ${({ $smallScreen }) =>
+    $smallScreen
       ? `${inube.spacing.s100}`
       : `${inube.spacing.s075} ${inube.spacing.s200}`};
   background-color: ${({ theme }) =>

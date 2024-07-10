@@ -32,7 +32,7 @@ const renderOptions = (
       <StyledInputContainer
         key={index}
         onClick={() => !valueIsZero && onChangeOption(option)}
-        disabled={valueIsZero}
+        $disabled={valueIsZero}
       >
         <Stack gap="s150">
           <StyledInputRadio
@@ -105,7 +105,6 @@ function PaymentCard(props: PaymentCardProps) {
 
   const [showModal, setShowModal] = useState(false);
 
-  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   const handleChangeOption = (option: IPaymentOption) => {
@@ -155,7 +154,7 @@ function PaymentCard(props: PaymentCardProps) {
 
   return (
     <>
-      <StyledCardContainer isMobile={isMobile} isTablet={isTablet}>
+      <StyledCardContainer>
         <Stack direction="column" gap="s050">
           <Text type="label" size="large" ellipsis>
             {title}

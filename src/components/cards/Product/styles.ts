@@ -27,15 +27,15 @@ const StyledProduct = styled(Link)<IStyledProduct>`
 `;
 
 interface IStyledSkeletonContainer {
-  isMobile: boolean;
+  $isMobile: boolean;
 }
 
 const StyledSkeletonContainer = styled.div<IStyledSkeletonContainer>`
   width: 100%;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: ${({ isMobile }) =>
-    isMobile
+  grid-template-columns: ${({ $isMobile }) =>
+    $isMobile
       ? "repeat(auto-fill, minmax(100%, 1fr))"
       : "repeat(auto-fill, minmax(100px, 1fr))"};
   direction: rtl;

@@ -28,7 +28,7 @@ function Tag(props: TagProps) {
   } = props;
 
   return (
-    <StyledTag appearance={appearance} modifier={modifier}>
+    <StyledTag $appearance={appearance} $modifier={modifier}>
       <Text
         type="label"
         size="small"

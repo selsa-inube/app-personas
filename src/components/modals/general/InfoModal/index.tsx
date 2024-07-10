@@ -36,7 +36,7 @@ function InfoModal(props: InfoModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack alignItems="center" justifyContent="space-between">
           <Stack gap="s100">
             <Icon

@@ -2,13 +2,13 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledContainer {
-  isMobile: boolean;
+  $isMobile: boolean;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
   display: flex;
-  padding: ${({ isMobile }) =>
-    isMobile
+  padding: ${({ $isMobile }) =>
+    $isMobile
       ? `${inube.spacing.s150} ${inube.spacing.s200}`
       : `${inube.spacing.s200} ${inube.spacing.s250}`};
   flex-direction: column;

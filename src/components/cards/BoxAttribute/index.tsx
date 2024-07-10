@@ -35,7 +35,7 @@ function BoxAttribute(props: BoxAttributeProps) {
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
-    <StyledBoxAttribute smallScreen={isMobile}>
+    <StyledBoxAttribute $smallScreen={isMobile}>
       <Grid
         templateColumns={direction === "column" ? "1fr" : "auto 1fr"}
         width="100%"

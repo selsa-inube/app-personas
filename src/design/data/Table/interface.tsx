@@ -186,16 +186,16 @@ const TableUI = (props: TableUIProps) => {
   const numberActions = actions ? actions.length : 0;
 
   return (
-    <StyledTable colsSameWidth={colsSameWidth}>
+    <StyledTable $colsSameWidth={colsSameWidth}>
       <StyledThead>
         <StyledTr>
           {titleColumns.map((title) => (
             <StyledThTitle
               key={`title-${title.id}`}
               aria-label={title.titleName}
-              countColumns={titleColumns.length}
-              colsSameWidth={colsSameWidth}
-              withActions={withActions}
+              $countColumns={titleColumns.length}
+              $colsSameWidth={colsSameWidth}
+              $withActions={withActions}
             >
               <Text type="label" size="medium" appearance="dark">
                 {title.titleName}
@@ -221,10 +221,10 @@ const TableUI = (props: TableUIProps) => {
                 <StyledTr
                   key={`entry-${entry.id}`}
                   aria-labelledby={`entry-${entry.id}`}
-                  isLastTr={index === entries.length - 1}
+                  $isLastTr={index === entries.length - 1}
                 >
                   {titleColumns.map((title) => (
-                    <StyledTd key={`e-${title.id}`} withActions={withActions}>
+                    <StyledTd key={`e-${title.id}`} $withActions={withActions}>
                       <Text
                         type="body"
                         size="small"
@@ -254,7 +254,7 @@ const TableUI = (props: TableUIProps) => {
                 </StyledTr>
               ))
             ) : (
-              <StyledTr aria-labelledby={`no-data`} isLastTr>
+              <StyledTr aria-labelledby={`no-data`} $isLastTr>
                 <StyledTd colSpan={titleColumns.length + 1}>
                   <Text type="body" size="small" appearance="dark" ellipsis>
                     No se encontró información

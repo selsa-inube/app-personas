@@ -37,7 +37,7 @@ const renderAttribute = (
   }
 
   return (
-    <StyledItem smallScreen={isMobile}>
+    <StyledItem $smallScreen={isMobile}>
       <Text type="label" size={isMobile ? "small" : "medium"}>
         {formattedLabel}
       </Text>
@@ -62,7 +62,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text
@@ -110,7 +110,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
             </Stack>
           </StyledResume>
         )}
-        <StyledContainer smallScreen={isMobile}>
+        <StyledContainer $smallScreen={isMobile}>
           {!isMobile && (
             <Stack justifyContent="space-between">
               <Text type="label" size="large" appearance="dark">

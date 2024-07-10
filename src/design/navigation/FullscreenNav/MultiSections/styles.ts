@@ -2,7 +2,7 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledCollapseIcon {
-  collapse?: boolean;
+  $collapse?: boolean;
 }
 
 const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
@@ -13,12 +13,12 @@ const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
   height: 24px;
   margin: auto 0;
   transition: all 500ms ease;
-  transform: ${({ collapse }) =>
-    collapse ? "rotate(-90deg)" : "rotate(90deg)"};
+  transform: ${({ $collapse }) =>
+    $collapse ? "rotate(-90deg)" : "rotate(90deg)"};
 `;
 
 interface IStyledSectionContainer {
-  selected?: boolean;
+  $selected?: boolean;
 }
 
 const StyledSectionContainer = styled.div<IStyledSectionContainer>`
@@ -26,8 +26,8 @@ const StyledSectionContainer = styled.div<IStyledSectionContainer>`
   justify-content: space-between;
   align-items: center;
   padding: ${inube.spacing.s200} ${inube.spacing.s300};
-  background-color: ${({ theme, selected }) =>
-    selected
+  background-color: ${({ theme, $selected }) =>
+    $selected
       ? theme.color?.surface?.navLink?.hover ||
         inube.color.surface.navLink.hover
       : theme.color?.surface?.navLink?.regular ||

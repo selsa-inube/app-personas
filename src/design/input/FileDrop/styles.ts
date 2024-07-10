@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { inube } from "../../tokens";
 
 interface IStyledFileDrop {
-  isDragOver: boolean;
+  $isDragOver: boolean;
 }
 
 const StyledFileDrop = styled.div<IStyledFileDrop>`
@@ -11,8 +11,8 @@ const StyledFileDrop = styled.div<IStyledFileDrop>`
   align-items: center;
   flex-direction: column;
   border: 1px dashed
-    ${({ isDragOver, theme }) =>
-      isDragOver
+    ${({ $isDragOver, theme }) =>
+      $isDragOver
         ? theme?.color?.stroke?.primary?.hover ||
           inube.color.stroke.primary.hover
         : theme?.color?.stroke?.dark?.regular ||

@@ -185,7 +185,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
           <Text type="label" size="large">
             Pagos recientes
           </Text>
-          <StyledPaymentsContainer isMobile={isMobile}>
+          <StyledPaymentsContainer $isMobile={isMobile}>
             {selectedCommitment.commitment.movements &&
             selectedCommitment.commitment.movements.length > 0 ? (
               renderMovements(selectedCommitment.commitment.movements)

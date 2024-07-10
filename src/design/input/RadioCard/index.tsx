@@ -32,7 +32,7 @@ function RadioCard(props: RadioCardProps) {
   } = props;
 
   return (
-    <StyledCardContainer size={size} appearance={appearance} onClick={onClick}>
+    <StyledCardContainer $size={size} $appearance={appearance} onClick={onClick}>
       <StyledInputRadio
         id={id}
         name={name}

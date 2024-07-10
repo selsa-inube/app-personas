@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import { inube } from "../../tokens";
 
 interface IStyledNavLink {
-  selected?: boolean;
+  $selected?: boolean;
 }
 
 interface IStyledLink {
-  selected?: boolean;
+  $selected?: boolean;
 }
 
 const StyledNavLink = styled.li<IStyledNavLink>`
   list-style: none;
   height: 40px;
-  background-color: ${({ theme, selected }) => {
-    if (selected) {
+  background-color: ${({ theme, $selected }) => {
+    if ($selected) {
       return (
         theme.color?.surface?.navLink?.selected ||
         inube.color.surface.navLink.selected
@@ -26,7 +26,7 @@ const StyledNavLink = styled.li<IStyledNavLink>`
     );
   }};
 
-  border-left-width: ${({ selected }) => (selected ? "4px" : "0px")};
+  border-left-width: ${({ $selected }) => ($selected ? "4px" : "0px")};
   border-left-style: solid;
   border-left-color: ${({ theme }) =>
     theme.color?.stroke?.dark?.regular || inube.color.stroke.dark.regular};
@@ -43,7 +43,7 @@ const StyledLink = styled(Link)<IStyledLink>`
   width: 100%;
   height: inherit;
   display: flex;
-  padding: ${({ selected }) => (selected ? "0 16px 0 12px" : "0 16px")};
+  padding: ${({ $selected }) => ($selected ? "0 16px 0 12px" : "0 16px")};
   text-decoration: none;
   cursor: pointer;
   color: ${({ theme }) =>

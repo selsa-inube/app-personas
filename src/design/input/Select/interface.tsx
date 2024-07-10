@@ -21,7 +21,7 @@ function Invalid(props: ISelectMessage) {
   const { isDisabled, state, errorMessage } = props;
 
   return (
-    <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
+    <StyledErrorMessageContainer $isDisabled={isDisabled} $state={state}>
       <MdOutlineWarning />
       <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
         {errorMessage}
@@ -70,14 +70,14 @@ function SelectUI(props: SelectUIProps) {
     <StyledContainer
       id={id}
       tabIndex={0}
-      isFullWidth={isFullWidth}
-      isDisabled={isDisabled}
+      $isFullWidth={isFullWidth}
+      $isDisabled={isDisabled}
       ref={selectRef}
       onClick={onClick}
       onFocus={onFocus}
       onBlur={onBlur}
     >
-      <StyledContainerLabel alignItems="center" isDisabled={isDisabled}>
+      <StyledContainerLabel $alignItems="center" $isDisabled={isDisabled}>
         {label && (
           <Label
             htmlFor={id}
@@ -98,10 +98,10 @@ function SelectUI(props: SelectUIProps) {
       </StyledContainerLabel>
 
       <StyledInputContainer
-        isDisabled={isDisabled}
-        isFocused={isFocused}
-        state={state}
-        readOnly={readOnly}
+        $isDisabled={isDisabled}
+        $isFocused={isFocused}
+        $state={state}
+        $readOnly={readOnly}
       >
         <StyledInput
           autoComplete="off"
@@ -111,16 +111,16 @@ function SelectUI(props: SelectUIProps) {
           name={name}
           id={id}
           placeholder={placeholder}
-          isDisabled={isDisabled}
+          $isDisabled={isDisabled}
           required={isRequired}
-          state={state}
-          isFullWidth={isFullWidth}
-          isFocused={isFocused}
+          $state={state}
+          $isFullWidth={isFullWidth}
+          $isFocused={isFocused}
           $size={size}
         />
 
         {!readOnly && (
-          <StyledIcon isDisabled={isDisabled} readOnly={readOnly}>
+          <StyledIcon $isDisabled={isDisabled} $readOnly={readOnly}>
             <MdExpandMore />
           </StyledIcon>
         )}

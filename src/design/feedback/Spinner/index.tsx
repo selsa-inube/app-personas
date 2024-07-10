@@ -10,7 +10,7 @@ interface SpinnerProps {
 function Spinner(props: SpinnerProps) {
   const { appearance = "primary", size = "small", track = true } = props;
 
-  return <StyledSpinner appearance={appearance} size={size} track={track} />;
+  return <StyledSpinner $appearance={appearance} $size={size} $track={track} />;
 }
 
 export { Spinner };

@@ -27,7 +27,7 @@ function ValidationDetailsModal(props: ValidationDetailsModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal isMobile={isMobile}>
+      <StyledModal $isMobile={isMobile}>
         <Text type="title" size="medium">
           {label}
         </Text>

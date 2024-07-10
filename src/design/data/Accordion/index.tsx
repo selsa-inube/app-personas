@@ -21,7 +21,7 @@ function Accordion(props: AccordionProps) {
   const isMobile = useMediaQuery("(max-width: 450px)");
 
   return (
-    <StyledContainer isMobile={isMobile}>
+    <StyledContainer $isMobile={isMobile}>
       <StyledHead onClick={handleToggleOpen}>
         <Text type="label" size={isMobile ? "medium" : "large"}>
           {title}

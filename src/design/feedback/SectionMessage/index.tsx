@@ -36,10 +36,10 @@ const SectionMessage = (props: SectionMessageProps) => {
 
   return (
     <StyledSectionMessage
-      appearance={appearance}
+      $appearance={appearance}
+      $isMessageResponsive={isMobile}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      isMessageResponsive={isMobile}
     >
       <Stack justifyContent="space-between" padding="s200">
         <Stack

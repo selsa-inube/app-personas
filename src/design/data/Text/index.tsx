@@ -39,16 +39,16 @@ function Text(props: TextProps) {
   return (
     <StyledText
       as={as}
-      margin={margin}
-      padding={padding}
-      appearance={appearance}
-      type={type}
-      size={size}
-      textAlign={textAlign}
-      cursorHover={cursorHover}
-      parentHover={parentHover}
-      disabled={disabled}
-      ellipsis={ellipsis}
+      $margin={margin}
+      $padding={padding}
+      $appearance={appearance}
+      $type={type}
+      $size={size}
+      $textAlign={textAlign}
+      $cursorHover={cursorHover}
+      $parentHover={parentHover}
+      $disabled={disabled}
+      $ellipsis={ellipsis}
       onClick={onClick}
     >
       {children}

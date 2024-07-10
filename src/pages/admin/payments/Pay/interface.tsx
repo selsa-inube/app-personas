@@ -125,7 +125,7 @@ function PayUI(props: PayUIProps) {
           )}
 
           <StyledButtonsContainer
-            fixed={
+            $fixed={
               isMobile &&
               [paySteps.obligations.id, paySteps.paymentMethod.id].includes(
                 currentStep,

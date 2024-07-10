@@ -19,7 +19,7 @@ function PaymentInformationCard(props: PaymentInformationCardProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   return (
-    <StyledCard smallScreen={isMobile} key={id}>
+    <StyledCard $smallScreen={isMobile} key={id}>
       <Stack direction="column">
         <Stack
           justifyContent="space-between"

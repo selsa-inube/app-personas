@@ -216,7 +216,7 @@ function renderHomeContent(
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
-                    <StyledCommitmentsContainer isTablet={isTablet}>
+                    <StyledCommitmentsContainer $isTablet={isTablet}>
                       <ProductsCommitments commitments={commitments} />
                     </StyledCommitmentsContainer>
                   </Stack>

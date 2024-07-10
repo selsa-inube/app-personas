@@ -109,7 +109,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
       />
 
       <Stack direction="column" gap="s300">
-        <StyledScroller smallScreen={isMobile}>
+        <StyledScroller $smallScreen={isMobile}>
           {renderStepContent(
             currentStep,
             formReferences,

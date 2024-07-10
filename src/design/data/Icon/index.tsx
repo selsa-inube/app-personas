@@ -41,14 +41,14 @@ function Icon(props: IconProps) {
 
   return (
     <StyledIcon
-      appearance={appearance}
-      spacing={spacing}
-      variant={variant}
-      shape={shape}
-      size={size}
-      cursorHover={cursorHover}
-      parentHover={parentHover}
-      disabled={disabled}
+      $appearance={appearance}
+      $spacing={spacing}
+      $variant={variant}
+      $shape={shape}
+      $size={size}
+      $cursorHover={cursorHover}
+      $parentHover={parentHover}
+      $disabled={disabled}
       onClick={handleClick}
     >
       {icon}

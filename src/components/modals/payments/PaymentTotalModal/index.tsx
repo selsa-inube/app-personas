@@ -29,7 +29,6 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
-  const isTablet = useMediaQuery("(max-width: 1100px)");
   const node = document.getElementById("modals");
 
   if (node === null) {
@@ -51,7 +50,7 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile} tabletScreen={isTablet}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size={isMobile ? "small" : "medium"}>

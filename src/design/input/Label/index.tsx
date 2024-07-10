@@ -23,11 +23,11 @@ const Label = (props: LabelProps) => {
 
   return (
     <StyledLabel
-      isDisabled={isDisabled}
-      isFocused={isFocused}
+      $isDisabled={isDisabled}
+      $isFocused={isFocused}
       htmlFor={htmlFor}
-      isInvalid={isInvalid}
-      size={size}
+      $isInvalid={isInvalid}
+      $size={size}
     >
       {children}
     </StyledLabel>

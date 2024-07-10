@@ -48,7 +48,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" gap="24px">
           <Stack direction="column" gap="16px">
             <Stack alignItems="center" justifyContent="space-between">

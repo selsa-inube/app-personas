@@ -56,7 +56,7 @@ function DecisionModal(props: DecisionModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
           <Stack alignItems="center" justifyContent="space-between">
             <Text
               type="title"

@@ -63,7 +63,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text

@@ -42,9 +42,9 @@ function DropdownItem(props: DropdownItemProps) {
   return (
     <StyledDropdownItem
       id={id}
-      isDisabled={isDisabled}
-      isFocused={isFocused}
-      isSelected={select}
+      $isDisabled={isDisabled}
+      $isFocused={isFocused}
+      $isSelected={select}
       onClick={() => handleOptionClick(value)}
       ref={itemRef}
       onBlur={interceptorOnBlur}
