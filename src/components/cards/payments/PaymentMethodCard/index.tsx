@@ -83,7 +83,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           </Text>
 
           {moneySource.value > moneySource.balance && (
-            <Tag label="Fondos insuficientes" appearance="error" />
+            <Tag label="Fondos insuficientes" appearance="danger" />
           )}
         </Stack>
       </Stack>
@@ -140,7 +140,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
             onClick={handleRemove}
             variant="outlined"
             disabled={moneySource.value === 0}
-            appearance="error"
+            appearance="danger"
             spacing="compact"
             iconBefore={<MdOutlineDelete />}
           >

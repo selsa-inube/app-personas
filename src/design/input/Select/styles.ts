@@ -68,7 +68,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
       }
       if (state === "invalid") {
         return (
-          theme.color?.text?.error?.regular || inube.color.text.error.regular
+          theme.color?.text?.error?.regular || inube.color.text.danger.regular
         );
       }
       return (
@@ -188,7 +188,7 @@ const StyledErrorMessageContainer = styled.div<IStyledMessageContainer>`
     }
     if (state === "invalid") {
       return (
-        theme.color?.text?.error?.regular || inube.color.text.error.regular
+        theme.color?.text?.error?.regular || inube.color.text.danger.regular
       );
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;

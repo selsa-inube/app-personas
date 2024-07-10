@@ -8,7 +8,7 @@ const buttonAppearance = [
   "primary",
   "success",
   "warning",
-  "error",
+  "danger",
   "help",
   "dark",
   "gray",

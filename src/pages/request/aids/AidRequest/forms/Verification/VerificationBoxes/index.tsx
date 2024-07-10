@@ -94,7 +94,7 @@ const renderRegulationValidationsVerification = (
               />
             ) : (
               <Icon
-                appearance="error"
+                appearance="danger"
                 icon={<MdOutlineHighlightOff />}
                 size="20px"
                 spacing="none"

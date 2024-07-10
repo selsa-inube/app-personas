@@ -43,7 +43,7 @@ const StyledLabel = styled.label<IStyledLabel>`
     }
     if (isInvalid) {
       return (
-        theme.color?.text?.error?.regular || inube.color.text.error.regular
+        theme.color?.text?.error?.regular || inube.color.text.danger.regular
       );
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;

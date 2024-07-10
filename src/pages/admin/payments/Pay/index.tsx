@@ -171,7 +171,7 @@ function Pay() {
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
         icon: <MdSentimentNeutral />,
-        appearance: "error",
+        appearance: "danger",
       });
       setLoadingSend(false);
     });

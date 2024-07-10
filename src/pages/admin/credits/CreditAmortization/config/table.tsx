@@ -106,7 +106,7 @@ const customAppearanceCallback = (columnId: string, entry: IEntry) => {
     entryDate.setUTCHours(5, 0, 0, 0);
 
     if (today > entryDate) {
-      return "error";
+      return "danger";
     }
   }
 

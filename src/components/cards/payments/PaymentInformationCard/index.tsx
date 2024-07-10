@@ -31,7 +31,7 @@ function PaymentInformationCard(props: PaymentInformationCardProps) {
           </Text>
           <Icon
             icon={<MdOutlineDelete />}
-            appearance="error"
+            appearance="danger"
             size="20px"
             spacing="none"
             onClick={() => removePaymentCard(id, value)}

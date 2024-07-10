@@ -1,7 +1,7 @@
 const tagAppearance = [
   "primary",
   "success",
-  "error",
+  "danger",
   "warning",
   "help",
   "dark",

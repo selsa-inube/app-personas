@@ -23,7 +23,7 @@ function Invalid(props: ISelectMessage) {
   return (
     <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
       <MdOutlineWarning />
-      <Text type="body" size="small" appearance="error" disabled={isDisabled}>
+      <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
         {errorMessage}
       </Text>
     </StyledErrorMessageContainer>

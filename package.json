@@ -16,6 +16,7 @@
   "dependencies": {
     "@inube/auth": "^1.0.17",
     "@inube/design-system": "^5.15.0",
+    "@inubekit/countdownbar": "^2.5.0",
     "@inubekit/divider": "^0.4.0",
     "@supabase/supabase-js": "^2.42.0",
     "formik": "^2.4.5",

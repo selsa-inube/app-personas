@@ -4,7 +4,7 @@ import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdClear } from "react-icons/md";
-import { CountdownBar } from "../CountdownBar";
+import { CountdownBar } from "@inubekit/countdownbar";
 import { StyledSectionMessage } from "./styles";
 
 import { Icon } from "@design/data/Icon";

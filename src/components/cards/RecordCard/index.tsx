@@ -22,7 +22,7 @@ const getIconForRecordType = (type: EMovementType) => {
       {(type === EMovementType.PURCHASE || type === EMovementType.DEBIT) && (
         <Icon
           icon={<MdArrowBack />}
-          appearance="error"
+          appearance="danger"
           spacing="none"
           size="16px"
           variant="outlined"

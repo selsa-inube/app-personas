@@ -96,7 +96,7 @@ const mapObligations = (
     if (inArrears) {
       tags.push({
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       });
     }
 
@@ -200,7 +200,7 @@ const mapObligations = (
     if (inArrears) {
       tags.push({
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       });
     }
 

@@ -47,7 +47,7 @@ const DocumentaryRequirementsForm = forwardRef(
             title: "Peso máximo excedido",
             description: `No se ha podido cargar el documento porque excede el límite de ${MAX_SIZE_PER_FILE}MB por archivo.`,
             icon: <MdOutlineSentimentNeutral />,
-            appearance: "error",
+            appearance: "danger",
           });
         } else {
           filesUpload.push(file);

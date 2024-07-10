@@ -6,10 +6,10 @@ import { ITransfer } from "src/model/entity/transfer";
 
 const transferStatusAppearance: Record<string, TagAppearanceType> = {
   InProgressPSE: "warning",
-  RejectedPSE: "error",
+  RejectedPSE: "danger",
   InProgressLinix: "warning",
   Completed: "success",
-  RejectedLinix: "error",
+  RejectedLinix: "danger",
 };
 
 const mapTransferHistoryApiToEntity = (
