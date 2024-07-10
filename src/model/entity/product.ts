@@ -94,7 +94,7 @@ interface IRate {
   annualEffectiveRate: string;
 }
 
-export { ECommitmentType, EProductType, EMovementType };
+export { ECommitmentType, EMovementType, EProductType };
 
 export type {
   IAmortization,

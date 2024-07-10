@@ -28,7 +28,9 @@ import {
 } from "react-icons/md";
 import { EMovementType, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { extractAttribute } from "src/utils/products";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
+import { generateAttributes } from "./config/attributeRecord";
 import { cardBox, myQuotas } from "./config/card";
 import { infoModalData } from "./config/modals";
 import { crumbsCard } from "./config/navigation";
@@ -44,7 +46,6 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
-import { generateAttributes } from "./config/attributeRecord";
 
 interface CardUIProps {
   cardId?: string;
@@ -89,6 +90,8 @@ function CardUI(props: CardUIProps) {
 
   const formatedAttributes = attributes && formatCardCurrencyAttrs(attributes);
 
+  const cardNumber = extractAttribute(attributes, "card_number")?.value || "";
+
   return (
     <>
       <Stack direction="column" gap="s300">
@@ -122,7 +125,7 @@ function CardUI(props: CardUIProps) {
                 />
                 <Box
                   title={selectedProduct.card.title}
-                  subtitle={selectedProduct.card.id}
+                  subtitle={cardNumber.toString()}
                   tags={selectedProduct.card.tags}
                   loading={loadingCards}
                   {...cardBox}
