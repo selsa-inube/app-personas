@@ -1,8 +1,8 @@
 import { Text } from "@design/data/Text";
-import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
+import { Divider } from "@inubekit/divider";
 
 interface DestinationCardProps {
   id: string;

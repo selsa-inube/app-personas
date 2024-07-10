@@ -14,10 +14,10 @@ import { MdAdd, MdArrowBack } from "react-icons/md";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 import { EMovementType, IMovement } from "src/model/entity/product";
-import { Divider } from "@design/layout/Divider";
 import { RecordCard } from "@components/cards/RecordCard";
 import { generateAttributes } from "./config/attributeRecord";
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
+import { Divider } from "@inubekit/divider";
 
 const renderMovements = (
   movements: IMovement[],

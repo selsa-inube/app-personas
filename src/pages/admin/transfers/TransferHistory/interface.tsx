@@ -3,7 +3,6 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
@@ -16,6 +15,7 @@ import { EmptyRecords } from "./EmptyRecords";
 import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
 import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];

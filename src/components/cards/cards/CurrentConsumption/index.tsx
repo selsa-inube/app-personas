@@ -2,11 +2,11 @@ import { Stack } from "@design/layout/Stack";
 import { CurrentConsumptionBox } from "./CurrentConsumptionBox";
 import { IProduct } from "src/model/entity/product";
 import { StyledContainer } from "./styles";
-import { Divider } from "@design/layout/Divider";
 import {
   extractConsumptionAttrs,
   formatCurrentConsumptionAttrs,
 } from "@pages/admin/cards/CreditQuota/config/product";
+import { Divider } from "@inubekit/divider";
 
 interface CurrentConsumptionProps {
   isTablet: boolean;

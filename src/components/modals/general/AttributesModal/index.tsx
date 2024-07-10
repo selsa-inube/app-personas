@@ -8,7 +8,7 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { StyledModal } from "./styles";
-import { Divider } from "@design/layout/Divider";
+import { Divider } from "@inubekit/divider";
 
 interface AttributesModalProps {
   title: string;

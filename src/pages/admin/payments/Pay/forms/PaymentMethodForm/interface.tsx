@@ -1,7 +1,6 @@
 import { PaymentMethodCard } from "@components/cards/payments/PaymentMethodCard";
 import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -10,6 +9,7 @@ import { currencyFormat } from "src/utils/currency";
 import { paymentMethods } from "./config/payment";
 import { StyledPendingValueContainer, StyledSummaryContainer } from "./styles";
 import { IMoneySource, IPaymentMethodEntry } from "./types";
+import { Divider } from "@inubekit/divider";
 
 const renderMoneySources = (
   moneySources: IMoneySource,

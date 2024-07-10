@@ -5,13 +5,13 @@ import { Blanket } from "@design/layout/Blanket";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { Icon } from "@design/data/Icon";
-import { Divider } from "@design/layout/Divider";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { CreateFamilyMember } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember";
 import { IIdentificationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/IdentificationDataForm/types";
 import { IPersonalDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/PersonalDataForm/types";
 import { IContactDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/ContactDataForm/types";
 import { IInformationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/InformationDataForm/types";
+import { Divider } from "@inubekit/divider";
 
 
 interface FamilyMemberCreateModalProps {

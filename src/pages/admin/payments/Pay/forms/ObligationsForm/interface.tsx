@@ -13,7 +13,6 @@ import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { ISelectOption } from "@design/input/Select/types";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQueries } from "@hooks/useMediaQueries";
@@ -26,6 +25,7 @@ import { paymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
+import { Divider } from "@inubekit/divider";
 
 const renderFilters = (
   filters: IPaymentFilters,

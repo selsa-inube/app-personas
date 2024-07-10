@@ -13,7 +13,6 @@ import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
@@ -45,6 +44,7 @@ import {
   ISelectedProductState,
 } from "./types";
 import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
 
 interface CardUIProps {
   cardId?: string;
