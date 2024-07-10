@@ -1,5 +1,5 @@
 const creditDestinationRequestBoxTitles: Record<string, string> = {
-  destination: "Destinación del dinero",
+  destination: "Destino del dinero",
   creditConditions: "Condiciones del crédito",
   systemValidations: "Validaciones del sistema",
   documentaryRequirements: "Requisitos documentales",

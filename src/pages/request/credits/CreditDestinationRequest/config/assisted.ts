@@ -1,7 +1,7 @@
 const creditDestinationRequestSteps = {
   destination: {
     id: 1,
-    name: "Destinación del dinero",
+    name: "Destino del dinero",
     description: "Cuéntanos cuál es el propósito de tu crédito.",
   },
   creditConditions: {
