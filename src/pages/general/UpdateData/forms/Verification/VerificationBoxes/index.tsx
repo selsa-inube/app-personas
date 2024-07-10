@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Text } from "@design/data/Text";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
@@ -47,6 +46,7 @@ import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
+import { Divider } from "@inubekit/divider";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,

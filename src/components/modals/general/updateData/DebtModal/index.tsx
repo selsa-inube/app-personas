@@ -18,7 +18,7 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
-import { Divider } from "@design/layout/Divider";
+import { Divider } from "@inubekit/divider";
 
 const liabilityTypeDM = getDomainById("liabilityType");
 

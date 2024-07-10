@@ -3,7 +3,6 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
 import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
@@ -15,6 +14,7 @@ import {
   StyledModal,
   StyledOptionsContainer,
 } from "./styles";
+import { Divider } from "@inubekit/divider";
 
 interface IHelpOption {
   id: string;

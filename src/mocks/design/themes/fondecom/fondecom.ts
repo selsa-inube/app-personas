@@ -344,9 +344,7 @@ const fondecomTheme = {
   },
   divider: {
     stroke: {
-      color: {
-        "fondecom.divider.stroke.color": "fondecom.palette.neutral.n40",
-      },
+      color: palette.neutral.n40,
     },
   },
   fieldset: {

@@ -39,7 +39,6 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
-import { Divider } from "@design/layout/Divider";
 import { IMessage } from "@ptypes/messages.types";
 import {
   EMovementType,
@@ -51,6 +50,7 @@ import {
   formatSavingCurrencyAttrs,
 } from "./config/product";
 import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&

@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Totalizer } from "@components/layout/Totalizer";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Fragment } from "react";
@@ -15,6 +14,7 @@ import {
 } from "../../PaymentMethodForm/types";
 import { StyledPayments } from "./styles";
 import { payBoxTitles } from "../config/box";
+import { Divider } from "@inubekit/divider";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,

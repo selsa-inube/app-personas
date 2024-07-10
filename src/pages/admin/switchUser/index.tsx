@@ -2,7 +2,6 @@ import { UserCard } from "@components/cards/UserCard";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -12,6 +11,7 @@ import { IConsultingUser } from "src/model/entity/user";
 import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
 import { StyledContainer, StyledResultContainer } from "./styles";
 import { getRecentUsers, saveRecentUser } from "./utils";
+import { Divider } from "@inubekit/divider";
 
 function SwitchUser() {
   const urlParams = new URLSearchParams(window.location.search);
