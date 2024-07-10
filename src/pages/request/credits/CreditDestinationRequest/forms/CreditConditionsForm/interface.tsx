@@ -7,7 +7,6 @@ import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
@@ -22,6 +21,7 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
+import { Divider } from "@inubekit/divider";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;

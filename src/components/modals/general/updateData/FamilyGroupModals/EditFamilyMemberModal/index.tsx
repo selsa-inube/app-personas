@@ -3,7 +3,6 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
@@ -14,6 +13,7 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
+import { Divider } from "@inubekit/divider";
 
 interface EditFamilyMemberModalProps {
   portalId: string;

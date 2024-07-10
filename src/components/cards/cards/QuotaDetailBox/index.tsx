@@ -1,10 +1,10 @@
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 
-import { Divider } from "@design/layout/Divider";
 import { IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { StyledQuotaDetailBox } from "./styles";
+import { Divider } from "@inubekit/divider";
 
 interface QuotaDetailBoxProps {
   title: string;

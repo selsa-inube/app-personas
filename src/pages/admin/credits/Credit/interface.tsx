@@ -35,9 +35,9 @@ import {
 import { ExpiredPaymentModal } from "@components/modals/general/ExpiredPaymentModal";
 import { EMovementType, IMovement } from "src/model/entity/product";
 import { RecordCard } from "@components/cards/RecordCard";
-import { Divider } from "@design/layout/Divider";
 import { generateAttributes } from "./config/attributeRecord";
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
+import { Divider } from "@inubekit/divider";
 
 const renderMovements = (
   movements: IMovement[],

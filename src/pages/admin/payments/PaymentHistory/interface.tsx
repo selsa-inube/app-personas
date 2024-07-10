@@ -4,7 +4,6 @@ import { PaymentHistoryModal } from "@components/modals/payments/PaymentHistoryM
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
@@ -17,6 +16,7 @@ import { EmptyRecords } from "./EmptyRecords";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
 import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;

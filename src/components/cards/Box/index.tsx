@@ -11,9 +11,9 @@ import {
   ButtonAppearanceType,
   ButtonVariantType,
 } from "@design/input/Button/types";
-import { Divider } from "@design/layout/Divider";
 import { SkeletonLine } from "@inube/design-system";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
+import { Divider } from "@inubekit/divider";
 
 interface BoxProps {
   icon?: React.JSX.Element;
