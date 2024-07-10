@@ -1,5 +1,6 @@
 import { PaymentCard } from "@components/cards/payments/PaymentCard";
 import { Totalizer } from "@components/layout/Totalizer";
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import {
   IPaymentFilters,
   PaymentFilterModal,
@@ -19,13 +20,14 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
+import { useContext } from "react";
 import { MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
+import { AppContext } from "src/context/app";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { paymentCardsBreakpoints } from "./config/cards";
-import { paymentFilters, paymentInitialFilters } from "./config/filters";
+import { getPaymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
-import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -104,6 +106,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     onRemovePayment,
     onUpdateTotalPayment,
   } = props;
+  const { getFlag } = useContext(AppContext);
 
   const isMobile = useMediaQuery("(max-width: 700px)");
 
@@ -118,6 +121,25 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
 
   const selectedPayments = formik.values.payments.filter(
     (payment) => payment.valueToPay && payment.valueToPay > 0,
+  );
+
+  const withInsurances = getFlag(
+    "admin.filters.payments.insurances-payments",
+  ).value;
+
+  const withAccountsPayable = getFlag(
+    "admin.filters.payments.accounts-payable-payments",
+  ).value;
+
+  const withCreditQuotas = getFlag(
+    "admin.filters.payments.credit-quotas-payments",
+  ).value;
+
+  const paymentFilters = getPaymentFilters(
+    formik.values.paymentMethodFilters,
+    withInsurances,
+    withAccountsPayable,
+    withCreditQuotas,
   );
 
   return (
@@ -153,11 +175,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                 Filtros:
               </Text>
               <Stack direction="row" gap="s150" alignItems="center">
-                {renderFilters(
-                  filters,
-                  paymentFilters(formik.values.paymentMethodFilters),
-                  onRemoveFilter,
-                )}
+                {renderFilters(filters, paymentFilters, onRemoveFilter)}
               </Stack>
             </StyledFiltersContainer>
           </Stack>
@@ -223,7 +241,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               ? paymentInitialFilters
               : filters
           }
-          allowedFilters={paymentFilters(formik.values.paymentMethodFilters)}
+          allowedFilters={paymentFilters}
           onCloseModal={onToggleFiltersModal}
           onApplyFilters={onApplyFilters}
         />
