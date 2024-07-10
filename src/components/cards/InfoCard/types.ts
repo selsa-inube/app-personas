@@ -2,7 +2,7 @@ const infoCardAppearance = [
   "primary",
   "success",
   "warning",
-  "error",
+  "danger",
   "help",
   "dark",
   "gray",

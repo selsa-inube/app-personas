@@ -160,7 +160,7 @@ const paymentsMock: IPayment[] = [
     tags: [
       {
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       },
       {
         label: "Fondecom mensual",

@@ -7,7 +7,7 @@ const deleteFamilyMemberModal: IDecisionModalOptions = {
   description: (member: string) =>
     `¿Deseas eliminar a ${member} como familiar?`,
   actionText: "Eliminar",
-  appearance: "error",
+  appearance: "danger",
   portalId: "modals",
 };
 
@@ -26,7 +26,7 @@ const deleteFamilyMemberMsgs: IMessageCases = {
     title: "¡Uy, algo salió mal!",
     description: (member?: string) =>
       `Hemos presentado problemas eliminando el familiar "${member}".`,
-    appearance: "error",
+    appearance: "danger",
   },
 };
 

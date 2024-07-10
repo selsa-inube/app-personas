@@ -36,7 +36,7 @@ function ValidationCard(props: IValidation) {
               />
             ) : value === "fail" ? (
               <Icon
-                appearance="error"
+                appearance="danger"
                 icon={<MdOutlineHighlightOff />}
                 size="20px"
                 spacing="none"
@@ -54,7 +54,7 @@ function ValidationCard(props: IValidation) {
               <Text
                 type="body"
                 size="small"
-                appearance="error"
+                appearance="danger"
                 cursorHover
                 onClick={handleToggleModal}
               >

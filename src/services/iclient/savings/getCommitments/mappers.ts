@@ -157,7 +157,7 @@ const mapSavingsCommitmentsApiToEntity = (
   const tag: TagProps | undefined = inArrears
     ? {
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       }
     : undefined;
 

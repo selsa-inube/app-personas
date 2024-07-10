@@ -42,8 +42,8 @@ const paymentHistoryMock: IPaymentHistory[] = [
     cus: "558907643",
     tag: {
       label: "Rechazado",
-      appearance: "error",
-      textAppearance: "error",
+      appearance: "danger",
+      textAppearance: "danger",
       modifier: "clear",
     },
     products: [
@@ -165,8 +165,8 @@ const paymentHistoryMock: IPaymentHistory[] = [
     cus: "558907643",
     tag: {
       label: "Rechazado",
-      appearance: "error",
-      textAppearance: "error",
+      appearance: "danger",
+      textAppearance: "danger",
       modifier: "clear",
     },
     products: [
@@ -219,8 +219,8 @@ const paymentHistoryMock: IPaymentHistory[] = [
     cus: "558907643",
     tag: {
       label: "Rechazado",
-      appearance: "error",
-      textAppearance: "error",
+      appearance: "danger",
+      textAppearance: "danger",
       modifier: "clear",
     },
     products: [

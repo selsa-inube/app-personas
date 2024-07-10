@@ -7,7 +7,7 @@ const surface = {
     clear: palette.blue.B50,
     disabled: palette.neutral.N20,
   },
-  error: {
+  danger: {
     regular: palette.red.R400,
     hover: palette.red.R300,
     clear: palette.red.R50,

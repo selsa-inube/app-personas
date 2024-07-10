@@ -35,7 +35,7 @@ const savingsCommitmentsMock: ICommitment[] = [
     ],
     tag: {
       label: "En mora",
-      appearance: "error",
+      appearance: "danger",
     },
     products: ["201-91214069", "200-91214069"],
   },

@@ -1348,7 +1348,7 @@ const creditsMock: IProduct[] = [
     tags: [
       {
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       },
     ],
   },

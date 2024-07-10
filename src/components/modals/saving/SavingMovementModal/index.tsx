@@ -31,7 +31,7 @@ const renderTransactionSpecification = (
           key={index}
           type={value >= 0 ? "body" : "label"}
           size={value >= 0 ? "medium" : "large"}
-          appearance={value >= 0 ? "gray" : "error"}
+          appearance={value >= 0 ? "gray" : "danger"}
         >
           {currencyFormat(value)}
         </Text>
