@@ -3,11 +3,11 @@ import { Text } from "@design/data/Text";
 import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledModal } from "./styles";
-import { Divider } from "@inubekit/divider";
 
 const renderTransactionSpecification = (label: string, value: number) => (
   <Stack gap="s100" alignItems="center">
@@ -129,7 +129,7 @@ function NextPaymentModal(props: NextPaymentModalProps) {
 
             <Stack justifyContent="space-between" alignItems="center">
               <Text type="title" size="medium" appearance="gray">
-                Pago total:
+                Total:
               </Text>
 
               <Text type="title" size="medium" appearance="dark">
