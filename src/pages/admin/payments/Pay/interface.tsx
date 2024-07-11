@@ -1,3 +1,4 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
@@ -9,6 +10,7 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
+import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { paySteps } from "./config/assisted";
 import { crumbsPay } from "./config/navigation";
@@ -63,6 +65,7 @@ interface PayUIProps {
   formReferences: IFormsPayRefs;
   loadingSend: boolean;
   message: IMessage;
+  blocker: Blocker;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
@@ -80,6 +83,7 @@ function PayUI(props: PayUIProps) {
     formReferences,
     loadingSend,
     message,
+    blocker,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
@@ -169,6 +173,18 @@ function PayUI(props: PayUIProps) {
           icon={message.icon}
           onClose={handleCloseMessage}
           duration={5000}
+        />
+      )}
+
+      {blocker.state === "blocked" && (
+        <DecisionModal
+          title="Salir del proceso de pago"
+          description="¿Estás seguro? Se perderá todo el proceso de pago."
+          cancelText="Continuar"
+          actionText="Salir"
+          onCloseModal={() => blocker.reset()}
+          onClick={() => blocker.proceed()}
+          portalId="modals"
         />
       )}
     </>

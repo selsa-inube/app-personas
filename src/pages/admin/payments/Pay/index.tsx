@@ -4,7 +4,7 @@ import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { MdSentimentNeutral } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
@@ -131,6 +131,11 @@ function Pay() {
     withTotalValueOption,
   ]);
 
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname,
+  );
+
   const handleStepChange = (stepId: number) => {
     const newPay = payStepsRules(
       currentStep,
@@ -202,6 +207,7 @@ function Pay() {
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
       message={message}
+      blocker={blocker}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}
