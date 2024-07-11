@@ -19,9 +19,17 @@ const truncateFileName = (name: string, maxLength: number) => {
   return `${name.split(".")[0].slice(0, maxLength)}${name.length > maxLength ? "... " : ""}.${name.split(".")[1]}`;
 };
 
+const obfuscateText = (text: string, start: number, end: number) => {
+  return text.replace(
+    new RegExp(`(\\w{${start}})(\\w+)(\\w{${end}})`),
+    (_, first, middle, last) => first + "*".repeat(middle.length) + last,
+  );
+}
+
 export {
   capitalizeEachWord,
   capitalizeText,
   removeLastCharacters,
   truncateFileName,
+  obfuscateText,
 };

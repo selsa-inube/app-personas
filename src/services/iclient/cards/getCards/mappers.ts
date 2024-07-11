@@ -1,6 +1,10 @@
 import { cardStatusDM } from "src/model/domains/cards/cardStatusDM";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
-import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
+import {
+  capitalizeEachWord,
+  capitalizeText,
+  obfuscateText,
+} from "src/utils/texts";
 
 const mapCardApiToEntity = (
   card: Record<string, string | number | object>,
@@ -60,10 +64,12 @@ const mapCardApiToEntity = (
 
   const normalizedProductName = `Tarjeta - Banco ${capitalizeText(String(card.issuingEntityName).toLowerCase())}`;
 
+  const obfuscatedCardNumber = obfuscateText(String(card.cardNumber), 0, 4);
+
   return {
-    id: String(card.cardNumber),
+    id: String(card.cardId),
     title: normalizedProductName,
-    description: `${normalizedProductName} ${card.cardNumber}`,
+    description: `${normalizedProductName} ${obfuscatedCardNumber}`,
     type: EProductType.CREDITCARD,
     attributes,
     tags: [],

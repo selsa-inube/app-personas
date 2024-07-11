@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { SavingsContext } from "src/context/savings";
+import { extractAttribute } from "src/utils/products";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
 import { infoModalData } from "./config/modals";
 import { CardUI } from "./interface";
@@ -84,9 +85,12 @@ function Card() {
 
     setCards(newCards);
 
+    const cardNumber =
+      extractAttribute(selectedCard.attributes, "card_number")?.value || "";
+
     const { newCreditQuotas } = await validateCreditQuotasInCards(
       creditQuotas,
-      card_id,
+      cardNumber.toString(),
       accessToken,
     );
 

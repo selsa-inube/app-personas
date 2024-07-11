@@ -1,5 +1,6 @@
 import { EMovementType, IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { obfuscateText } from "src/utils/texts";
 
 const cardAttributes = [
   "card_number",
@@ -32,7 +33,17 @@ function extractCardAttributes(credit: IProduct) {
     cardAttributes.includes(attribute.id),
   );
 
-  return foundAttributes.sort(
+  const formattedAttributes = foundAttributes.map((attribute) => {
+    if (attribute.id === "card_number") {
+      return {
+        ...attribute,
+        value: obfuscateText(attribute.value.toString(), 0, 4),
+      };
+    }
+    return attribute;
+  });
+
+  return formattedAttributes.sort(
     (a, b) => cardAttributes.indexOf(a.id) - cardAttributes.indexOf(b.id),
   );
 }
