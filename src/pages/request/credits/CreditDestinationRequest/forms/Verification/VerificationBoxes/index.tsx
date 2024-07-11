@@ -1,8 +1,10 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { Icon } from "@design/data/Icon";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
+import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
@@ -19,18 +21,13 @@ import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm
 import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";
-import { Icon } from "@design/data/Icon";
-import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
   isTablet: boolean,
 ) => (
   <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
-    <BoxAttribute
-      label="Destinación:"
-      value={values.creditDestination?.value}
-    />
+    <BoxAttribute label="Destino:" value={values.creditDestination?.value} />
     <BoxAttribute label="Producto:" value={values.selectedProduct?.title} />
   </Grid>
 );

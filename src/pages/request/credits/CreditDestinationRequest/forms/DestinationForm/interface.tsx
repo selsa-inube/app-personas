@@ -25,7 +25,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
       <Stack direction="column" gap="s300">
         <Stack direction="column" gap="s200">
           <Text type="title" size="small">
-            ¿Cuál es la destinación del crédito?
+            ¿Cuál es el destino del crédito?
           </Text>
           <Select
             name="creditDestination"
