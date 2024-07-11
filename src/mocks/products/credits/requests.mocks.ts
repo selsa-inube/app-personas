@@ -18,6 +18,12 @@ const requestsMock: IRequest[] = [
     deadline: "15 Meses",
     interestRate: 2.84,
     netValue: 4750000,
+    tag: {
+      label: requestStatusDM.CREATED.value,
+      appearance: "warning",
+      textAppearance: "warning",
+      modifier: "clear",
+    },
     validations: [
       {
         id: "minimum_associate_seniority",
@@ -85,6 +91,12 @@ const requestsMock: IRequest[] = [
     deadline: "15 Meses",
     interestRate: 2.84,
     netValue: 4750000,
+    tag: {
+      label: requestStatusDM.IN_STUDY.value,
+      appearance: "warning",
+      textAppearance: "warning",
+      modifier: "clear",
+    },
     validations: [
       {
         id: "minimum_associate_seniority",
@@ -152,6 +164,12 @@ const requestsMock: IRequest[] = [
     deadline: "15 Meses",
     interestRate: 2.84,
     netValue: 4750000,
+    tag: {
+      label: requestStatusDM.IN_PROGRESS.value,
+      appearance: "warning",
+      textAppearance: "warning",
+      modifier: "clear",
+    },
     validations: [
       {
         id: "minimum_associate_seniority",
@@ -219,6 +237,12 @@ const requestsMock: IRequest[] = [
     deadline: "15 Meses",
     interestRate: 2.84,
     netValue: 4750000,
+    tag: {
+      label: requestStatusDM.IN_DISBURSEMENT.value,
+      appearance: "warning",
+      textAppearance: "warning",
+      modifier: "clear",
+    },
     validations: [
       {
         id: "minimum_associate_seniority",
@@ -286,6 +310,12 @@ const requestsMock: IRequest[] = [
     deadline: "15 Meses",
     interestRate: 2.84,
     netValue: 4750000,
+    tag: {
+      label: requestStatusDM.COMPLETED.value,
+      appearance: "success",
+      textAppearance: "success",
+      modifier: "clear",
+    },
     validations: [
       {
         id: "minimum_associate_seniority",
@@ -353,6 +383,12 @@ const requestsMock: IRequest[] = [
     deadline: "15 Meses",
     interestRate: 2.84,
     netValue: 4750000,
+    tag: {
+      label: requestStatusDM.REJECTED.value,
+      appearance: "danger",
+      textAppearance: "danger",
+      modifier: "clear",
+    },
     validations: [
       {
         id: "minimum_associate_seniority",
