@@ -34,7 +34,7 @@ function AttributesModal(props: AttributesModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">

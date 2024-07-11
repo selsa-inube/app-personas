@@ -44,8 +44,8 @@ function AssistedUI(props: AssistedUIProps) {
 
   return (
     <StyledAssistedContainer
-      smallScreen={isMobile}
-      showButtonsLabels={showButtonsLabels}
+      $smallScreen={isMobile}
+      $showButtonsLabels={showButtonsLabels}
     >
       <Stack
         justifyContent="space-between"
@@ -109,13 +109,13 @@ function AssistedUI(props: AssistedUIProps) {
                 gap="s100"
               >
                 <StyledBarContainer
-                  smallScreen={isMobile}
-                  showButtonsLabels={showButtonsLabels}
+                  $smallScreen={isMobile}
+                  $showButtonsLabels={showButtonsLabels}
                 >
                   <StyledBar
-                    smallScreen={isMobile}
-                    width={barWidth}
-                    showButtonsLabels={showButtonsLabels}
+                    $smallScreen={isMobile}
+                    $width={barWidth}
+                    $showButtonsLabels={showButtonsLabels}
                   />
                 </StyledBarContainer>
                 <Text type="label" size="small">
@@ -154,13 +154,13 @@ function AssistedUI(props: AssistedUIProps) {
       {(!showButtonsLabels || (isMobile && showButtonsLabels)) && (
         <>
           <StyledBarContainer
-            smallScreen={isMobile}
-            showButtonsLabels={showButtonsLabels}
+            $smallScreen={isMobile}
+            $showButtonsLabels={showButtonsLabels}
           >
             <StyledBar
-              smallScreen={isMobile}
-              width={barWidth}
-              showButtonsLabels={showButtonsLabels}
+              $smallScreen={isMobile}
+              $width={barWidth}
+              $showButtonsLabels={showButtonsLabels}
             />
           </StyledBarContainer>
           <Text type="label" size="small" appearance="gray">

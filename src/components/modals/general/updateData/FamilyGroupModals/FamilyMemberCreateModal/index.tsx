@@ -39,7 +39,7 @@ function FamilyMemberCreateModal(props: FamilyMemberCreateModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s200">
           <Stack
             direction="column"

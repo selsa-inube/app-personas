@@ -17,7 +17,7 @@ function UserCard(props: UserCardProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   return (
-    <StyledCardContainer isMobile={isMobile}>
+    <StyledCardContainer $isMobile={isMobile}>
       <Text type="title" size="medium">
         {name}
       </Text>

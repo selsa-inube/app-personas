@@ -57,7 +57,7 @@ function ReferenceModal(props: ReferenceModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap={isMobile ? "s050" : "s100"}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text

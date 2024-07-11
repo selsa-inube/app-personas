@@ -2,13 +2,13 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledCardContainer {
-  isMobile: boolean;
+  $isMobile: boolean;
 }
 
 const StyledCardContainer = styled.div<IStyledCardContainer>`
   display: flex;
   flex-direction: column;
-  width: ${({ isMobile }) => (isMobile ? "272px" : "256px")};
+  width: ${({ $isMobile }) => ($isMobile ? "272px" : "256px")};
   padding: ${inube.spacing.s250};
   background-color: ${({ theme }) =>
     theme?.color?.surface?.light?.clear || inube.color.surface.light.clear};

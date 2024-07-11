@@ -16,12 +16,12 @@ const StyledCardContainer = styled.div`
 `;
 
 interface IStyledInputRadio {
-  cursorPointer?: boolean;
+  $cursorPointer?: boolean;
 }
 
 const StyledInputRadio = styled.input<IStyledInputRadio>`
   margin: 0;
-  cursor: ${({ cursorPointer }) => (cursorPointer ? "pointer" : "default")};
+  cursor: ${({ $cursorPointer }) => ($cursorPointer ? "pointer" : "default")};
   accent-color: ${({ theme }) =>
     theme.color?.surface?.primary?.regular ||
     inube.color.surface.primary.regular};

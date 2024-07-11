@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { SwitchSizeType } from "./types";
 
 interface IStyledSpan {
-  size?: SwitchSizeType;
-  disabled?: boolean;
-  checked?: boolean;
+  $size?: SwitchSizeType;
+  $disabled?: boolean;
 }
 
 const StyledSpan = styled.span<IStyledSpan>`
@@ -16,17 +15,17 @@ const StyledSpan = styled.span<IStyledSpan>`
   bottom: ${inube.spacing.s0};
   transition: 0.1s;
   border-radius: 30px;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  background: ${({ disabled, theme }) =>
-    disabled
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
+  background: ${({ $disabled, theme }) =>
+    $disabled
       ? theme.color?.surface?.gray?.disabled ||
         inube.color.surface.gray.disabled
       : theme.color?.surface?.gray?.regular ||
         inube.color.surface.gray.regular};
 
   &:hover {
-    background-color: ${({ disabled, theme }) =>
-      disabled
+    background-color: ${({ $disabled, theme }) =>
+      $disabled
         ? theme.color?.surface?.gray?.disabled ||
           inube.color.surface.gray.disabled
         : theme.color?.surface?.gray?.hover || inube.color.surface.gray.hover};
@@ -41,36 +40,34 @@ const StyledSpan = styled.span<IStyledSpan>`
     background-color: ${({ theme }) =>
       theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
     box-sizing: border-box;
-    border: ${({ disabled, theme }) =>
-      disabled &&
+    border: ${({ $disabled, theme }) =>
+      $disabled &&
       `0.5px solid ${
         theme.color?.stroke?.light?.disabled || inube.color.stroke.gray.disabled
       }`};
-    width: ${({ size }) => (size === "small" ? "12px" : "16px")};
-    height: ${({ size }) => (size === "small" ? "12px" : "16px")};
-    bottom: ${({ size }) =>
-      size === "small"
+    width: ${({ $size }) => ($size === "small" ? "12px" : "16px")};
+    height: ${({ $size }) => ($size === "small" ? "12px" : "16px")};
+    bottom: ${({ $size }) =>
+      $size === "small"
         ? `calc((${inube.spacing.s200} - ${inube.spacing.s150}) / 2)`
         : `calc((${inube.spacing.s250} - ${inube.spacing.s200}) / 2)`};
   }
 `;
 
 interface IStyledContainer {
-  size?: SwitchSizeType;
+  $size?: SwitchSizeType;
 }
 
 const StyledContainer = styled.label<IStyledContainer>`
   position: relative;
   display: inline-block;
-  min-width: ${({ size }) => (size === "small" ? "32px" : "40px")};
-  max-width: ${({ size }) => (size === "small" ? "32px" : "40px")};
-  height: ${({ size }) => (size === "small" ? "16px" : "20px")};
+  min-width: ${({ $size }) => ($size === "small" ? "32px" : "40px")};
+  max-width: ${({ $size }) => ($size === "small" ? "32px" : "40px")};
+  height: ${({ $size }) => ($size === "small" ? "16px" : "20px")};
 `;
 
 interface IStyledInput {
   $size?: SwitchSizeType;
-  disabled?: boolean;
-  checked?: boolean;
 }
 
 const StyledInput = styled.input<IStyledInput>`
@@ -104,29 +101,29 @@ const StyledInput = styled.input<IStyledInput>`
 `;
 
 interface IStyledIcon {
-  size?: SwitchSizeType;
-  disabled?: boolean;
-  checked?: boolean;
+  $size?: SwitchSizeType;
+  $disabled?: boolean;
+  $checked?: boolean;
 }
 
 const StyledIcon = styled.div<IStyledIcon>`
   & svg {
     position: absolute;
-    color: ${({ theme, disabled }) =>
-      !disabled
+    color: ${({ theme, $disabled }) =>
+      !$disabled
         ? theme.color?.surface?.light?.regular ||
           inube.color.surface.light.regular
         : theme.color?.stroke?.gray?.disabled ||
           inube.color.stroke.gray.disabled};
-    width: ${({ size }) => (size === "small" ? "10px" : "14px")};
-    height: ${({ size }) => (size === "small" ? "10px" : "14px")};
-    padding-left: ${({ size }) =>
-      size === "small" ? inube.spacing.s025 : "none"};
+    width: ${({ $size }) => ($size === "small" ? "10px" : "14px")};
+    height: ${({ $size }) => ($size === "small" ? "10px" : "14px")};
+    padding-left: ${({ $size }) =>
+      $size === "small" ? inube.spacing.s025 : "none"};
     top: calc(${inube.spacing.s075} / 2);
-    left: ${({ size, checked }) =>
-      size === "small" && checked
+    left: ${({ $size, $checked }) =>
+      $size === "small" && $checked
         ? `calc(${inube.spacing.s075} / 2)`
-        : size === "large" && checked
+        : $size === "large" && $checked
         ? `${inube.spacing.s050}`
         : `${inube.spacing.s250}`};
   }

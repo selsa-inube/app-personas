@@ -37,16 +37,16 @@ function Stack(props: StackProps) {
   } = props;
   return (
     <StyledStack
-      direction={direction}
-      justifyContent={justifyContent}
-      alignItems={alignItems}
-      alignContent={alignContent}
-      gap={gap}
-      height={height}
-      width={width}
-      padding={padding}
-      margin={margin}
-      wrap={wrap}
+      $direction={direction}
+      $justifyContent={justifyContent}
+      $alignItems={alignItems}
+      $alignContent={alignContent}
+      $gap={gap}
+      $height={height}
+      $width={width}
+      $padding={padding}
+      $margin={margin}
+      $wrap={wrap}
     >
       {children}
     </StyledStack>

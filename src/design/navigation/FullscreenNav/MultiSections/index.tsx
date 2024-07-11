@@ -52,7 +52,7 @@ function MultiSections(props: MultiSectionsProps) {
       {combinedSectionValues.map((sectionValue) => (
         <Stack key={sectionValue.title} direction="column">
           <StyledSectionContainer
-            selected={sectionCollapse[sectionValue.title]}
+            $selected={sectionCollapse[sectionValue.title]}
             onClick={() => handleCollapse(sectionValue.title)}
           >
             <Text
@@ -64,7 +64,7 @@ function MultiSections(props: MultiSectionsProps) {
             >
               {sectionValue.title.toUpperCase()}
             </Text>
-            <StyledCollapseIcon collapse={sectionCollapse[sectionValue.title]}>
+            <StyledCollapseIcon $collapse={sectionCollapse[sectionValue.title]}>
               <Icon
                 icon={<MdOutlineChevronRight />}
                 spacing="compact"

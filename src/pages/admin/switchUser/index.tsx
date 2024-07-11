@@ -71,7 +71,7 @@ function SwitchUser() {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   return (
-    <StyledContainer isTablet={isTablet} isMobile={isMobile}>
+    <StyledContainer $isTablet={isTablet} $isMobile={isMobile}>
       <Stack direction="column" gap="s400">
         <Stack direction="column" gap="s300">
           <Text

@@ -44,7 +44,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal isMobile={isMobile} isTablet={isTablet}>
+      <StyledModal $isMobile={isMobile} $isTablet={isTablet}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">
@@ -63,7 +63,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             Detalles de la información
           </Text>
         </Stack>
-        <StyledScrollbar isMobile={isMobile}>
+        <StyledScrollbar $isMobile={isMobile}>
           <Divider dashed />
           <Fieldset
             title="Identificación"

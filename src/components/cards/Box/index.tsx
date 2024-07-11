@@ -98,7 +98,7 @@ function Box(props: BoxProps) {
             </Stack>
           </StyledLink>
           {collapsing.allow && (
-            <StyledCollapseIcon collapse={collapse} onClick={handleCollapse}>
+            <StyledCollapseIcon $collapse={collapse} onClick={handleCollapse}>
               <Icon
                 icon={<MdOutlineChevronRight />}
                 appearance="dark"

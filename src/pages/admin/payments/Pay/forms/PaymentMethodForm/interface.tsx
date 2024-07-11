@@ -100,7 +100,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
               )}
             </Grid>
 
-            <StyledSummaryContainer fixed={isMobile}>
+            <StyledSummaryContainer $fixed={isMobile}>
               <Divider dashed />
 
               <Stack
@@ -108,7 +108,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
                 justifyContent={isMobile ? "center" : "flex-end"}
                 width="100%"
               >
-                <StyledPendingValueContainer isMobile={isMobile}>
+                <StyledPendingValueContainer $isMobile={isMobile}>
                   <Text type="title" size="medium" appearance="dark">
                     Valor pendiente:
                   </Text>

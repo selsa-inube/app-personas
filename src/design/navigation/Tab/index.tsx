@@ -20,8 +20,8 @@ function Tab(props: TabProps) {
 
   return (
     <StyledTab
-      isDisabled={isDisabled}
-      isSelected={isSelected}
+      $isDisabled={isDisabled}
+      $isSelected={isSelected}
       id={id}
       onClick={handleClick}
     >

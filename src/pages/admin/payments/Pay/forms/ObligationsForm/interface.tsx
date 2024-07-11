@@ -209,7 +209,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               ))}
             </Grid>
 
-            <StyledTotalPaymentContainer fixed={isMobile}>
+            <StyledTotalPaymentContainer $fixed={isMobile}>
               <Divider dashed />
 
               <Stack justifyContent="flex-end" width="100%">

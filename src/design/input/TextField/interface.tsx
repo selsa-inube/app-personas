@@ -22,7 +22,7 @@ function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
 
   return (
-    <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
+    <StyledErrorMessageContainer $isDisabled={isDisabled} $state={state}>
       <MdOutlineWarning />
       <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
         {errorMessage}
@@ -35,7 +35,7 @@ function Success(props: ITextFieldMessage) {
   const { isDisabled, state, validMessage } = props;
 
   return (
-    <StyledValidMessageContainer isDisabled={isDisabled} state={state}>
+    <StyledValidMessageContainer $isDisabled={isDisabled} $state={state}>
       <MdCheckCircle />
       <Text type="body" size="small" appearance="success" disabled={isDisabled}>
         {validMessage}
@@ -98,7 +98,7 @@ function TextFieldUI(props: TextFieldUIProps) {
         : "gray";
 
   return (
-    <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
+    <StyledContainer $isFullWidth={isFullWidth} $isDisabled={isDisabled}>
       <Stack direction="column" gap="s050">
         {(label || isRequired || (!isDisabled && maxLength && withCounter)) && (
           <Stack justifyContent="space-between" alignItems="center">
@@ -143,17 +143,17 @@ function TextFieldUI(props: TextFieldUIProps) {
         )}
 
         <StyledInputContainer
-          isDisabled={isDisabled}
-          isFocused={isFocused}
-          state={state}
-          iconBefore={iconBefore}
-          iconAfter={iconAfter}
-          readOnly={readOnly}
+          $isDisabled={isDisabled}
+          $isFocused={isFocused}
+          $state={state}
+          $iconBefore={iconBefore}
+          $iconAfter={iconAfter}
+          $readOnly={readOnly}
         >
           {iconBefore && (
             <StyledIcon
-              isDisabled={isDisabled}
-              iconBefore={iconBefore}
+              $isDisabled={isDisabled}
+              $iconBefore={iconBefore}
               onClick={onIconClick}
             >
               {iconBefore}
@@ -161,12 +161,12 @@ function TextFieldUI(props: TextFieldUIProps) {
           )}
 
           <StyledInput
-            label={label}
+            $label={label}
             name={name}
             id={id}
             placeholder={isDisabled ? undefined : placeholder}
-            isDisabled={isDisabled}
-            isFullWidth={isFullWidth}
+            $isDisabled={isDisabled}
+            $isFullWidth={isFullWidth}
             type={type}
             value={value}
             maxLength={maxLength}
@@ -181,9 +181,9 @@ function TextFieldUI(props: TextFieldUIProps) {
           />
           {iconAfter && (
             <StyledIcon
-              iconAfter={iconAfter}
-              isDisabled={isDisabled}
-              readOnly={readOnly}
+              $iconAfter={iconAfter}
+              $isDisabled={isDisabled}
+              $readOnly={readOnly}
               onClick={onIconClick}
             >
               {iconAfter}

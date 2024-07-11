@@ -18,7 +18,7 @@ function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
 
   return (
-    <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
+    <StyledErrorMessageContainer $isDisabled={isDisabled} $state={state}>
       <MdOutlineWarning />
       <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
         {errorMessage}
@@ -31,7 +31,7 @@ function Success(props: ITextFieldMessage) {
   const { isDisabled, state, validMessage } = props;
 
   return (
-    <StyledValidMessageContainer isDisabled={isDisabled} state={state}>
+    <StyledValidMessageContainer $isDisabled={isDisabled} $state={state}>
       <MdCheckCircle />
       <Text type="body" size="small" appearance="success" disabled={isDisabled}>
         {validMessage}
@@ -116,7 +116,7 @@ const Textarea = (props: TextareaProps) => {
     (isFocused || isTouched) && inputStates.includes(state) ? state : "pending";
 
   return (
-    <StyledContainer isFullwidth={isFullWidth} isDisabled={isDisabled}>
+    <StyledContainer $isFullwidth={isFullWidth} $isDisabled={isDisabled}>
       <Stack width="100%" margin={`0px 0px ${inube.spacing.s050} 0px`}>
         {(label || isRequired) && (
           <Stack
@@ -159,13 +159,13 @@ const Textarea = (props: TextareaProps) => {
         name={name}
         id={id}
         placeholder={placeholder}
-        isDisabled={isDisabled}
-        isRequired={isRequired}
-        isFullwidth={isFullWidth}
-        isFocused={isFocused}
+        $isDisabled={isDisabled}
+        $isRequired={isRequired}
+        $isFullwidth={isFullWidth}
+        $isFocused={isFocused}
         readOnly={readOnly}
         value={truncatedValue}
-        isMobile={isMobile}
+        $isMobile={isMobile}
         onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}

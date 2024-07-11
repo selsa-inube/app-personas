@@ -45,7 +45,7 @@ function FileDrop(props: FileDropProps) {
 
   return (
     <StyledFileDrop
-      isDragOver={isDragOver}
+      $isDragOver={isDragOver}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}

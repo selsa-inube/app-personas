@@ -215,7 +215,7 @@ function CreditUI(props: CreditUIProps) {
               <Text type="title" size="medium">
                 Últimos movimientos
               </Text>
-              <StyledMovementsContainer isMobile={isMobile}>
+              <StyledMovementsContainer $isMobile={isMobile}>
                 <Stack direction="column" gap="s200" width="100%">
                   {selectedProduct.credit.movements &&
                   selectedProduct.credit.movements.length > 0 ? (

@@ -64,7 +64,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
                 readOnly
                 value={valueToPay}
                 onClick={() => onSelectMoneySource(moneySource.id)}
-                cursorPointer={
+                $cursorPointer={
                   moneySource.type === EMoneySourceType.SAVINGACCOUNT &&
                   paymentMethod === EPaymentMethodType.DEBIT
                 }

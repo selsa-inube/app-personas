@@ -2,7 +2,7 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledMovementsContainer {
-  isMobile: boolean;
+  $isMobile: boolean;
 }
 
 const StyledMovementsContainer = styled.div<IStyledMovementsContainer>`
@@ -11,8 +11,8 @@ const StyledMovementsContainer = styled.div<IStyledMovementsContainer>`
   flex-direction: column;
   width: 100%;
   gap: ${inube.spacing.s200};
-  padding: ${({ isMobile }) =>
-    isMobile
+  padding: ${({ $isMobile }) =>
+    $isMobile
       ? `${inube.spacing.s300} ${inube.spacing.s150}`
       : `${inube.spacing.s250}`};
   align-items: flex-end;

@@ -30,8 +30,8 @@ function MenuItem(props: MenuItemProps) {
 
   return (
     <StyledMenuItemContainer
-      spacing={spacing}
-      disabled={isDisabled}
+      $spacing={spacing}
+      $disabled={isDisabled}
       to={path}
       onClick={onClick}
     >

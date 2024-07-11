@@ -22,11 +22,11 @@ function Totalizer(props: TotalizerProps) {
   } = props;
 
   return (
-    <StyledTotalPayment isMobile={isMobile} onClick={onClick}>
+    <StyledTotalPayment $isMobile={isMobile} onClick={onClick}>
       <Text type="title" size="medium">
         Total a pagar hoy:
       </Text>
-      <StyledTagValue isExpandable={isExpandable}>
+      <StyledTagValue $isExpandable={isExpandable}>
         {isExpandable && (
           <Icon
             icon={<MdOpenInNew />}

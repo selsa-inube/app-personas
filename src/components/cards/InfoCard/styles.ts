@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { InfoCardAppearanceType } from "./types";
 
 interface IStyledCardContainer {
-  appearance: InfoCardAppearanceType;
+  $appearance: InfoCardAppearanceType;
 }
 
 const StyledCardContainer = styled.div<IStyledCardContainer>`
@@ -14,9 +14,9 @@ const StyledCardContainer = styled.div<IStyledCardContainer>`
 
   border-radius: ${inube.spacing.s050};
   box-shadow: 0px 1px 3px 1px rgba(9, 30, 66, 0.13);
-  background-color: ${({ theme, appearance }) =>
-    theme?.color?.surface?.[appearance]?.clear ||
-    inube.color.surface[appearance].clear};
+  background-color: ${({ theme, $appearance }) =>
+    theme?.color?.surface?.[$appearance]?.clear ||
+    inube.color.surface[$appearance].clear};
 `;
 
 export { StyledCardContainer };

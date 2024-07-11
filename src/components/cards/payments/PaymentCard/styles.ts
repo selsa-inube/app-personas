@@ -1,12 +1,7 @@
 import { inube } from "@design/tokens";
 import styled from "styled-components";
 
-interface IStyledCardContainer {
-  isMobile: boolean;
-  isTablet: boolean;
-}
-
-const StyledCardContainer = styled.div<IStyledCardContainer>`
+const StyledCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -22,7 +17,7 @@ const StyledCardContainer = styled.div<IStyledCardContainer>`
 `;
 
 interface IStyledInputContainer {
-  disabled?: boolean;
+  $disabled?: boolean;
 }
 
 const StyledInputContainer = styled.div<IStyledInputContainer>`
@@ -34,7 +29,7 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   padding: ${inube.spacing.s100} ${inube.spacing.s150};
   background: ${({ theme }) =>
     theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
 `;
 
 const StyledInputRadio = styled.input`

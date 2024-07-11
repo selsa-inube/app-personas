@@ -52,7 +52,7 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">

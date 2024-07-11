@@ -48,20 +48,20 @@ function Grid(props: GridProps) {
 
   return (
     <StyledGrid
-      templateColumns={templateColumns}
-      templateRows={templateRows}
-      gap={gap}
-      justifyItems={justifyItems}
-      alignItems={alignItems}
-      justifyContent={justifyContent}
-      alignContent={alignContent}
-      autoColumns={autoColumns}
-      autoRows={autoRows}
-      autoFlow={autoFlow}
-      margin={margin}
-      padding={padding}
-      height={height}
-      width={width}
+      $templateColumns={templateColumns}
+      $templateRows={templateRows}
+      $gap={gap}
+      $justifyItems={justifyItems}
+      $alignItems={alignItems}
+      $justifyContent={justifyContent}
+      $alignContent={alignContent}
+      $autoColumns={autoColumns}
+      $autoRows={autoRows}
+      $autoFlow={autoFlow}
+      $margin={margin}
+      $padding={padding}
+      $height={height}
+      $width={width}
     >
       {children}
     </StyledGrid>

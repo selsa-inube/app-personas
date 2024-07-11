@@ -27,7 +27,7 @@ function Fieldset(props: FieldsetProps) {
   const isMobile = useMediaQuery("(max-width: 740px)");
 
   return (
-    <StyledFieldset isMobile={isMobile} width={width} height={height}>
+    <StyledFieldset $isMobile={isMobile} $width={width} $height={height}>
       <legend>
         <Stack padding={inube.spacing.s050}>
           <Text type={type} size={size}>

@@ -9,14 +9,14 @@ import {
 
 const filledAppearancesWithGrayIcon = ["gray", "light"];
 interface IStyledIcon {
-  appearance: IconAppearanceType;
-  spacing: IconSpacingType;
-  variant: IconVariantType;
-  shape: IconShapeType;
-  size: string;
-  cursorHover: boolean;
-  parentHover: boolean;
-  disabled: boolean;
+  $appearance: IconAppearanceType;
+  $spacing: IconSpacingType;
+  $variant: IconVariantType;
+  $shape: IconShapeType;
+  $size: string;
+  $cursorHover: boolean;
+  $parentHover: boolean;
+  $disabled: boolean;
 }
 
 const StyledIcon = styled.figure<IStyledIcon>`
@@ -24,68 +24,68 @@ const StyledIcon = styled.figure<IStyledIcon>`
   padding: 0;
   margin: 0;
 
-  border-radius: ${({ shape }) => (shape === "circle" ? "50%" : "8px")};
-  border-width: ${({ variant }) => (variant === "outlined" ? "1px" : "0px")};
+  border-radius: ${({ $shape }) => ($shape === "circle" ? "50%" : "8px")};
+  border-width: ${({ $variant }) => ($variant === "outlined" ? "1px" : "0px")};
   border-style: solid;
-  border-color: ${({ theme, appearance, parentHover, disabled }) => {
-    if (disabled) {
+  border-color: ${({ theme, $appearance, $parentHover, $disabled }) => {
+    if ($disabled) {
       return (
-        theme.color?.stroke?.[appearance]?.disabled ||
-        inube.color.stroke[appearance].disabled
+        theme.color?.stroke?.[$appearance]?.disabled ||
+        inube.color.stroke[$appearance].disabled
       );
     }
 
-    if (parentHover) {
+    if ($parentHover) {
       return (
-        theme.color?.stroke?.[appearance]?.hover ||
-        inube.color.stroke[appearance].hover
+        theme.color?.stroke?.[$appearance]?.hover ||
+        inube.color.stroke[$appearance].hover
       );
     }
 
     return (
-      theme.color?.stroke?.[appearance]?.regular ||
-      inube.color.stroke[appearance].regular
+      theme.color?.stroke?.[$appearance]?.regular ||
+      inube.color.stroke[$appearance].regular
     );
   }};
 
   background-color: ${({
     theme,
-    variant,
-    appearance,
-    parentHover,
-    disabled,
+    $variant,
+    $appearance,
+    $parentHover,
+    $disabled,
   }) => {
-    if (variant === "filled") {
-      if (disabled) {
+    if ($variant === "filled") {
+      if ($disabled) {
         return (
-          theme.color?.surface?.[appearance]?.disabled ||
-          inube.color.surface[appearance].disabled
+          theme.color?.surface?.[$appearance]?.disabled ||
+          inube.color.surface[$appearance].disabled
         );
       }
 
-      if (parentHover) {
+      if ($parentHover) {
         return (
-          theme.color?.surface?.[appearance]?.hover ||
-          inube.color.surface[appearance].hover
+          theme.color?.surface?.[$appearance]?.hover ||
+          inube.color.surface[$appearance].hover
         );
       }
 
       return (
-        theme.color?.surface?.[appearance]?.regular ||
-        inube.color.surface[appearance].regular
+        theme.color?.surface?.[$appearance]?.regular ||
+        inube.color.surface[$appearance].regular
       );
     }
   }};
 
-  color: ${({ theme, variant, appearance, parentHover, disabled }) => {
-    if (disabled) {
+  color: ${({ theme, $variant, $appearance, $parentHover, $disabled }) => {
+    if ($disabled) {
       return (
         theme.color?.text?.light?.disabled || inube.color.text.light.disabled
       );
     }
 
-    if (variant === "filled") {
-      if (!filledAppearancesWithGrayIcon.includes(appearance)) {
+    if ($variant === "filled") {
+      if (!filledAppearancesWithGrayIcon.includes($appearance)) {
         return (
           theme.color?.text?.light?.regular || inube.color.text.light.regular
         );
@@ -93,31 +93,31 @@ const StyledIcon = styled.figure<IStyledIcon>`
       return theme.color?.text?.gray?.regular || inube.color.text.gray.regular;
     }
 
-    if (parentHover) {
+    if ($parentHover) {
       return (
-        theme.color?.text?.[appearance]?.hover ||
-        inube.color.text[appearance].hover
+        theme.color?.text?.[$appearance]?.hover ||
+        inube.color.text[$appearance].hover
       );
     }
 
     return (
-      theme.color?.text?.[appearance]?.regular ||
-      inube.color.text[appearance].regular
+      theme.color?.text?.[$appearance]?.regular ||
+      inube.color.text[$appearance].regular
     );
   }};
 
   & svg {
     display: block;
-    width: ${({ size }) => size};
-    height: ${({ size }) => size};
-    padding: ${({ spacing }) => {
-      if (spacing === "wide") {
+    width: ${({ $size }) => $size};
+    height: ${({ $size }) => $size};
+    padding: ${({ $spacing }) => {
+      if ($spacing === "wide") {
         return inube.spacing.s100;
       }
-      if (spacing === "compact") {
+      if ($spacing === "compact") {
         return inube.spacing.s050;
       }
-      if (spacing === "none") {
+      if ($spacing === "none") {
         return inube.spacing.s0;
       }
       return inube.spacing.s025;
@@ -125,20 +125,20 @@ const StyledIcon = styled.figure<IStyledIcon>`
   }
 
   &:hover {
-    cursor: ${({ cursorHover, disabled }) => {
-      if (!disabled) {
-        if (cursorHover) {
+    cursor: ${({ $cursorHover, $disabled }) => {
+      if (!$disabled) {
+        if ($cursorHover) {
           return "pointer";
         }
       }
     }};
 
-    border-color: ${({ theme, cursorHover, appearance, disabled }) => {
-      if (!disabled) {
-        if (cursorHover) {
+    border-color: ${({ theme, $cursorHover, $appearance, $disabled }) => {
+      if (!$disabled) {
+        if ($cursorHover) {
           return (
-            theme.color?.text?.[appearance]?.hover ||
-            inube.color.text[appearance].hover
+            theme.color?.text?.[$appearance]?.hover ||
+            inube.color.text[$appearance].hover
           );
         }
       }
@@ -146,17 +146,17 @@ const StyledIcon = styled.figure<IStyledIcon>`
 
     background-color: ${({
       theme,
-      variant,
-      appearance,
-      cursorHover,
-      disabled,
+      $variant,
+      $appearance,
+      $cursorHover,
+      $disabled,
     }) => {
-      if (!disabled) {
-        if (variant === "filled") {
-          if (cursorHover) {
+      if (!$disabled) {
+        if ($variant === "filled") {
+          if ($cursorHover) {
             return (
-              theme.color?.surface?.[appearance]?.hover ||
-              inube.color.surface[appearance].hover
+              theme.color?.surface?.[$appearance]?.hover ||
+              inube.color.surface[$appearance].hover
             );
           }
         }
@@ -165,11 +165,11 @@ const StyledIcon = styled.figure<IStyledIcon>`
   }
 
   &:hover svg {
-    color: ${({ theme, cursorHover, variant, appearance, disabled }) => {
-      if (!disabled) {
-        if (cursorHover) {
-          if (variant === "filled") {
-            if (!filledAppearancesWithGrayIcon.includes(appearance)) {
+    color: ${({ theme, $cursorHover, $variant, $appearance, $disabled }) => {
+      if (!$disabled) {
+        if ($cursorHover) {
+          if ($variant === "filled") {
+            if (!filledAppearancesWithGrayIcon.includes($appearance)) {
               return (
                 theme.color?.text?.light?.hover || inube.color.text.light.hover
               );
@@ -179,8 +179,8 @@ const StyledIcon = styled.figure<IStyledIcon>`
             );
           } else {
             return (
-              theme.color?.text?.[appearance]?.hover ||
-              inube.color.text[appearance].hover
+              theme.color?.text?.[$appearance]?.hover ||
+              inube.color.text[$appearance].hover
             );
           }
         }

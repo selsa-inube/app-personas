@@ -7,7 +7,7 @@ interface RectangleProps {
 
 function Rectangle(props: RectangleProps) {
   const { height = "80px", width } = props;
-  return <StyledRectangle height={height} width={width} />;
+  return <StyledRectangle $height={height} $width={width} />;
 }
 
 export { Rectangle };

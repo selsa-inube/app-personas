@@ -85,7 +85,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
             isFullWidth
             readOnly={productsOptions.length === 1}
           />
-          <StyledMovementsContainer isMobile={isMobile}>
+          <StyledMovementsContainer $isMobile={isMobile}>
             <Stack direction="column" gap="s200" width="100%">
               {selectedProduct.movements &&
               selectedProduct.movements.length > 0 ? (

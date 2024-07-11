@@ -15,7 +15,7 @@ function InfoCard(props: InfoCardProps) {
   const { title, description, icon, appearance = "primary" } = props;
 
   return (
-    <StyledCardContainer appearance={appearance}>
+    <StyledCardContainer $appearance={appearance}>
       <Icon icon={icon} appearance={appearance} size="24px" spacing="none" />
 
       <Stack direction="column" width="100%" gap="s075">

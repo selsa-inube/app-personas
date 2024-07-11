@@ -242,7 +242,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   ? "Pago de intereses"
                   : "Últimos movimientos"}
               </Text>
-              <StyledMovementsContainer isMobile={isMobile}>
+              <StyledMovementsContainer $isMobile={isMobile}>
                 <Stack direction="column" gap="s200" width="100%">
                   {selectedProduct.saving.movements &&
                   selectedProduct.saving.movements.length > 0 ? (
