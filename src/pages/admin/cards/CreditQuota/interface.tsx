@@ -158,7 +158,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
                 )}
                 {!isNaN(Number(totalPayment)) && (
                   <QuotaDetailBox
-                    title="Pago total"
+                    title="Total"
                     paymentItems={extractQuotaTotalDetailsAttrs(
                       selectedProduct.creditQuotaDetail,
                     )}
