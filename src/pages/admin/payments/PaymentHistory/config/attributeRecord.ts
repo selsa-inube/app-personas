@@ -3,7 +3,7 @@ import { IPaymentHistory } from "src/model/entity/payment";
 const staticAttributes = [
   { id: "paymentDate", label: "Fecha", value: "" },
   { id: "paymentMethod", label: "Forma de pago", value: "" },
-  { id: "cus", label: "CUS", value: "" },
+  { id: "cus", label: "Código de seguimiento", value: "" },
 ];
 
 const generateAttributes = (payment: IPaymentHistory) =>

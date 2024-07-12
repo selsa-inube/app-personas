@@ -1,7 +1,7 @@
 import { IMovement } from "src/model/entity/product";
 
 const staticAttributes = [
-  { id: "reference", label: "CUS", value: "" },
+  { id: "reference", label: "Código de seguimiento", value: "" },
   { id: "date", label: "Fecha de solicitud", value: "" },
 ];
 
