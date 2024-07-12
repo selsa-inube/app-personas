@@ -1,7 +1,6 @@
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
@@ -10,6 +9,7 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledBody, StyledItem, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface ItemProps {
   id: string;

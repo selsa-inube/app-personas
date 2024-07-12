@@ -1,7 +1,6 @@
 import { PaymentInformationCard } from "@components/cards/payments/PaymentInformationCard";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
@@ -10,6 +9,7 @@ import { IPayment } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledModal, StyledTotalPayment } from "./styles";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface PaymentTotalModalProps {
   totalPayment: number;
