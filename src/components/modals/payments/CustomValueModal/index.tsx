@@ -6,6 +6,8 @@ import { TextField } from "@design/input/TextField";
 import { InputState } from "@design/input/TextField/types";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Divider } from "@inubekit/divider";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -23,8 +25,6 @@ import {
   StyledModal,
 } from "./styles";
 import { IApplyPayOption, getOptions } from "./utils";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
 
 interface CustomValueModalProps {
   portalId: string;
@@ -32,7 +32,6 @@ interface CustomValueModalProps {
   id: string;
   nextPaymentDate?: Date;
   lineCode: string;
-  halfPayment: string;
   nextPaymentValue: number;
   totalPaymentValue: number;
   expiredValue: number;

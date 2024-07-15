@@ -22,7 +22,8 @@ interface IPayment {
   id: string;
   title: string;
   group: EPaymentGroupType;
-  paymentMethod: string;
+  paymentMethod?: string;
+  paymentMethodName: string;
   status: EPaymentStatusType;
   options: IPaymentOption[];
   tags: TagProps[];
@@ -30,7 +31,7 @@ interface IPayment {
   valueToPay?: number;
   applyPayOption?: IApplyPayOption;
   lineCode?: string;
-  halfPayment?: string;
+  allowCustomValue?: boolean;
 }
 
 interface IPaymentRequest {

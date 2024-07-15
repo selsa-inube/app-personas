@@ -11,7 +11,7 @@ const paymentsMock: IPayment[] = [
     id: "10-241000476",
     title: "CREDI-APORTES GASTOS PERSONALES",
     group: EPaymentGroupType.CREDITS,
-    paymentMethod: "monthly",
+    paymentMethodName: "monthly",
     status: EPaymentStatusType.ANYWHERE,
     options: [
       {
@@ -51,7 +51,7 @@ const paymentsMock: IPayment[] = [
     id: "10-241000477",
     title: "TEMPORADA GASTOS PERSONALES",
     group: EPaymentGroupType.SAVINGSCOMMITMENT,
-    paymentMethod: "automaticDebit",
+    paymentMethodName: "automaticDebit",
     status: EPaymentStatusType.ANYWHERE,
     options: [
       {
@@ -91,7 +91,7 @@ const paymentsMock: IPayment[] = [
     id: "10-241000478",
     title: "TEMPORADA GASTOS PERSONALES",
     group: EPaymentGroupType.SAVINGSCOMMITMENT,
-    paymentMethod: "window",
+    paymentMethodName: "window",
     status: EPaymentStatusType.ANYWHERE,
     options: [
       {
@@ -131,7 +131,7 @@ const paymentsMock: IPayment[] = [
     id: "10-241000479",
     title: "CREDI-APORTES GASTOS PERSONALES",
     group: EPaymentGroupType.CREDITS,
-    paymentMethod: "monthly",
+    paymentMethodName: "monthly",
     status: EPaymentStatusType.ARREARS,
     options: [
       {

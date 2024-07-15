@@ -1,11 +1,14 @@
 import { enviroment } from "@config/enviroment";
-import { developmentUsersMock } from "@mocks/users/users.mocks";
-import { mapObligationPaymentsApiToEntities } from "./mappers";
 import { IPayment } from "src/model/entity/payment";
+import { mapCreditPaymentsApiToEntities } from "./mappers";
 
-const getObligationPayments = async (
+const getCreditPayments = async (
   userIdentification: string,
   accessToken: string,
+  withNextValueOption: boolean,
+  withOtherValueOption: boolean,
+  withExpiredValueOption: boolean,
+  withTotalValueOption: boolean,
 ): Promise<IPayment[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
@@ -13,8 +16,7 @@ const getObligationPayments = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        customerPublicCode:
-          developmentUsersMock[userIdentification] || userIdentification,
+        customerPublicCode: userIdentification,
       });
 
       const controller = new AbortController();
@@ -54,11 +56,17 @@ const getObligationPayments = async (
 
       const data = await res.json();
 
-      const normalizedObligationPayments = Array.isArray(data)
-        ? mapObligationPaymentsApiToEntities(data)
+      const normalizedCreditPayments = Array.isArray(data)
+        ? mapCreditPaymentsApiToEntities(
+            data,
+            withNextValueOption,
+            withOtherValueOption,
+            withExpiredValueOption,
+            withTotalValueOption,
+          )
         : [];
 
-      return normalizedObligationPayments;
+      return normalizedCreditPayments;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
@@ -71,4 +79,4 @@ const getObligationPayments = async (
   return [];
 };
 
-export { getObligationPayments };
+export { getCreditPayments };

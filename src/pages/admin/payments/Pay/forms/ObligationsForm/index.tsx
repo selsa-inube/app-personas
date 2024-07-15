@@ -1,3 +1,4 @@
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
 import { TagProps } from "@design/data/Tag";
@@ -13,7 +14,6 @@ import {
 import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
-import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 
 interface ObligationsFormProps {
   initialValues: IObligationsEntry;
@@ -62,7 +62,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
         (filters.group === EPaymentGroupType.ALL ||
           payment.group === filters.group) &&
         (filters.paymentMethod === EPaymentMethodFilterType.ALL ||
-          payment.paymentMethod.toLowerCase() ===
+          payment.paymentMethodName.toLowerCase() ===
             filters.paymentMethod.toLowerCase()) &&
         (filters.status === EPaymentStatusType.ANYWHERE ||
           payment.status === filters.status)
@@ -179,7 +179,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
         (filters.group === EPaymentGroupType.ALL ||
           payment.group === filters.group) &&
         (filters.paymentMethod === EPaymentMethodFilterType.ALL ||
-          payment.paymentMethod.toLowerCase() ===
+          payment.paymentMethodName.toLowerCase() ===
             filters.paymentMethod.toLowerCase()) &&
         (filters.status === EPaymentStatusType.ANYWHERE ||
           payment.status === filters.status)
