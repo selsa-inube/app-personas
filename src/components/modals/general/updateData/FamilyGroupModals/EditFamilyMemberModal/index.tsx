@@ -2,7 +2,6 @@ import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
@@ -14,6 +13,7 @@ import { relationshipDM } from "src/model/domains/general/updateData/personalRes
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface EditFamilyMemberModalProps {
   portalId: string;

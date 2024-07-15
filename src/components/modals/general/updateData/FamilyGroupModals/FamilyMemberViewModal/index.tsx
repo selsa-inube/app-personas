@@ -4,7 +4,6 @@ import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Blanket } from "@design/layout/Blanket";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -19,6 +18,7 @@ import { relationshipDM } from "src/model/domains/general/updateData/personalRes
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { StyledModal, StyledScrollbar } from "./styles";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface FamilyMemberViewModalProps {
   portalId: string;

@@ -1,7 +1,6 @@
 import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import React from "react";
@@ -17,6 +16,7 @@ import {
   StyledResume,
 } from "./styles";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 const renderAttribute = (
   label: string,

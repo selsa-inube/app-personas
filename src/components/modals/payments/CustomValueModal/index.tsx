@@ -4,7 +4,6 @@ import { Button } from "@design/input/Button";
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
 import { TextField } from "@design/input/TextField";
 import { InputState } from "@design/input/TextField/types";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
@@ -25,6 +24,7 @@ import {
 } from "./styles";
 import { IApplyPayOption, getOptions } from "./utils";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface CustomValueModalProps {
   portalId: string;

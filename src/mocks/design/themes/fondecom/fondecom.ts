@@ -156,10 +156,7 @@ const fondecomTheme = {
   },
   blanket: {
     background: {
-      color: {
-        "fondecom.blanket.background.color":
-          "fondecom.palette.neutralAlpha.n100a",
-      },
+      color: palette.neutralAlpha.n100a,
     },
   },
   button: {
