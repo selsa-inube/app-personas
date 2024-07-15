@@ -18,6 +18,7 @@ import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
 import { FormikProps } from "formik";
 import { useContext } from "react";
 import { MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
@@ -27,7 +28,6 @@ import { paymentCardsBreakpoints } from "./config/cards";
 import { getPaymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
-import { Divider } from "@inubekit/divider";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -197,8 +197,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   options={payment.options}
                   tags={payment.tags}
                   lineCode={payment.lineCode || ""}
-                  halfPayment={payment.halfPayment || ""}
-                  allowCustomValue={formik.values.allowCustomValue}
+                  allowCustomValue={payment.allowCustomValue}
                   selectedOption={payment.options.find(
                     (option) => option.selected,
                   )}

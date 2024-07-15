@@ -78,7 +78,6 @@ interface PaymentCardProps {
   allowCustomValue?: boolean;
   selectedOption?: IPaymentOption;
   lineCode: string;
-  halfPayment: string;
   onApplyPayOption: (
     payId: string,
     option: IPaymentOption,
@@ -97,7 +96,6 @@ function PaymentCard(props: PaymentCardProps) {
     allowCustomValue,
     selectedOption,
     lineCode,
-    halfPayment,
     onChangePaymentValue,
     onApplyPayOption,
     onRemovePayment,
@@ -208,7 +206,6 @@ function PaymentCard(props: PaymentCardProps) {
           id={id}
           nextPaymentDate={nextPaymentDate}
           lineCode={lineCode}
-          halfPayment={halfPayment}
           value={selectedOption?.value || 0}
           nextPaymentValue={nextPaymentValue || 0}
           totalPaymentValue={totalPaymentValue || 0}
