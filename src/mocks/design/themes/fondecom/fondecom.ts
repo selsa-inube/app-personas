@@ -156,10 +156,7 @@ const fondecomTheme = {
   },
   blanket: {
     background: {
-      color: {
-        "fondecom.blanket.background.color":
-          "fondecom.palette.neutralAlpha.n100a",
-      },
+      color: palette.neutralAlpha.n100a,
     },
   },
   button: {
@@ -1098,240 +1095,144 @@ const fondecomTheme = {
     primary: {
       solid: {
         spin: {
-          color: {
-            "fondecom.spinner.primary.solid.spin.color":
-              "fondecom.palette.blue.b400",
-          },
+          color: palette.blue.b400,
         },
         track: {
-          color: {
-            "fondecom.spinner.primary.solid.track.color":
-              "fondecom.palette.neutral.n30",
-          },
+          color: palette.neutral.n30,
         },
       },
       transparent: {
         spin: {
-          color: {
-            "fondecom.spinner.primary.transparent.spin.color":
-              "fondecom.palette.blue.b400",
-          },
+          color: palette.blue.b400,
         },
         track: {
-          color: {
-            "fondecom.spinner.primary.transparent.track.color":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          color: palette.neutralAlpha.n0a,
         },
       },
     },
     success: {
       solid: {
         spin: {
-          color: {
-            "fondecom.spinner.success.solid.spin.color":
-              "fondecom.palette.green.g400",
-          },
+          color: palette.green.g400,
         },
         track: {
-          color: {
-            "fondecom.spinner.success.solid.track.color":
-              "fondecom.palette.neutral.n30",
-          },
+          color: palette.neutral.n30,
         },
       },
       transparent: {
         spin: {
-          color: {
-            "fondecom.spinner.success.transparent.spin.color":
-              "fondecom.palette.green.g400",
-          },
+          color: palette.green.g400,
         },
         track: {
-          color: {
-            "fondecom.spinner.success.transparent.track.color":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          color: palette.neutralAlpha.n0a,
         },
       },
     },
     warning: {
       solid: {
         spin: {
-          color: {
-            "fondecom.spinner.warning.solid.spin.color":
-              "fondecom.palette.yellow.y400",
-          },
+          color: palette.yellow.y400,
         },
         track: {
-          color: {
-            "fondecom.spinner.warning.solid.track.color":
-              "fondecom.palette.neutral.n30",
-          },
+          color: palette.neutral.n30,
         },
       },
       transparent: {
         spin: {
-          color: {
-            "fondecom.spinner.warning.transparent.spin.color":
-              "fondecom.palette.yellow.y400",
-          },
+          color: palette.yellow.y400,
         },
         track: {
-          color: {
-            "fondecom.spinner.warning.transparent.track.color":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          color: palette.neutralAlpha.n0a,
         },
       },
     },
     danger: {
       solid: {
         spin: {
-          color: {
-            "fondecom.spinner.danger.solid.spin.color":
-              "fondecom.palette.red.r400",
-          },
+          color: palette.red.r400,
         },
         track: {
-          color: {
-            "fondecom.spinner.danger.solid.track.color":
-              "fondecom.palette.neutral.n30",
-          },
+          color: palette.neutral.n30,
         },
       },
       transparent: {
         spin: {
-          color: {
-            "fondecom.spinner.danger.transparent.spin.color":
-              "fondecom.palette.red.r400",
-          },
+          color: palette.red.r400,
         },
         track: {
-          color: {
-            "fondecom.spinner.danger.transparent.track.color":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          color: palette.neutralAlpha.n0a,
         },
       },
     },
     help: {
       solid: {
         spin: {
-          color: {
-            "fondecom.spinner.help.solid.spin.color":
-              "fondecom.palette.purple.p400",
-          },
+          color: palette.purple.p400,
         },
         track: {
-          color: {
-            "fondecom.spinner.help.solid.track.color":
-              "fondecom.palette.neutral.n30",
-          },
+          color: palette.neutral.n30,
         },
       },
       transparent: {
         spin: {
-          color: {
-            "fondecom.spinner.help.transparent.spin.color":
-              "fondecom.palette.purple.p400",
-          },
+          color: palette.purple.p400,
         },
         track: {
-          color: {
-            "fondecom.spinner.help.transparent.track.color":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          color: palette.neutralAlpha.n0a,
         },
       },
     },
     dark: {
       solid: {
         spin: {
-          color: {
-            "fondecom.spinner.dark.solid.spin.color":
-              "fondecom.palette.neutral.n900",
-          },
+          color: palette.neutral.n900,
         },
         track: {
-          color: {
-            "fondecom.spinner.dark.solid.track.color":
-              "fondecom.palette.neutral.n30",
-          },
+          color: palette.neutral.n30,
         },
       },
       transparent: {
         spin: {
-          color: {
-            "fondecom.spinner.dark.transparent.spin.color":
-              "fondecom.palette.neutral.n900",
-          },
+          color: palette.neutral.n900,
         },
         track: {
-          color: {
-            "fondecom.spinner.dark.transparent.track.color":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          color: palette.neutralAlpha.n0a,
         },
       },
     },
     gray: {
       solid: {
         spin: {
-          color: {
-            "fondecom.spinner.gray.solid.spin.color":
-              "fondecom.palette.neutral.n100",
-          },
+          color: palette.neutral.n100,
         },
         track: {
-          color: {
-            "fondecom.spinner.gray.solid.track.color":
-              "fondecom.palette.neutral.n30",
-          },
+          color: palette.neutral.n30,
         },
       },
       transparent: {
         spin: {
-          color: {
-            "fondecom.spinner.gray.transparent.spin.color":
-              "fondecom.palette.neutral.n100",
-          },
+          color: palette.neutral.n100,
         },
         track: {
-          color: {
-            "fondecom.spinner.gray.transparent.track.color":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          color: palette.neutralAlpha.n0a,
         },
       },
     },
     light: {
       solid: {
         spin: {
-          color: {
-            "fondecom.spinner.light.solid.spin.color":
-              "fondecom.palette.neutral.n10",
-          },
+          color: palette.neutral.n10,
         },
         track: {
-          color: {
-            "fondecom.spinner.light.solid.track.color":
-              "fondecom.palette.neutral.n30",
-          },
+          color: palette.neutral.n30,
         },
       },
       transparent: {
         spin: {
-          color: {
-            "fondecom.spinner.light.transparent.spin.color":
-              "fondecom.palette.neutral.n10",
-          },
+          color: palette.neutral.n10,
         },
         track: {
-          color: {
-            "fondecom.spinner.light.transparent.track.color":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          color: palette.neutralAlpha.n0a,
         },
       },
     },
