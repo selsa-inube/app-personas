@@ -8,7 +8,7 @@ const StyledUser = styled.div`
   padding: ${inube.spacing.s150} ${inube.spacing.s200};
   cursor: pointer;
 
-  figure {
+  > figure {
     display: flex;
     width: 32px;
     height: 32px;
