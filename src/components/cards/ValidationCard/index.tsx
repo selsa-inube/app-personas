@@ -1,13 +1,13 @@
 import { ValidationDetailsModal } from "@components/modals/general/ValidationDetailsModal";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Spinner } from "@design/feedback/Spinner";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useState } from "react";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { IValidation } from "src/model/entity/service";
 import { OutlineCard } from "../OutlineCard";
+import { Spinner } from "@inubekit/spinner";
 
 function ValidationCard(props: IValidation) {
   const { label, failDetails, value } = props;
@@ -42,7 +42,7 @@ function ValidationCard(props: IValidation) {
                 spacing="none"
               />
             ) : (
-              <Spinner />
+              <Spinner appearance="primary" size="small" transparent />
             )}
           </Stack>
 
