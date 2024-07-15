@@ -1,7 +1,7 @@
 import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
-import { Avatar } from "@design/data/Avatar";
-import { inube } from "@design/tokens";
+import { Avatar } from "@inubekit/avatar";
+import { StyledUser } from "./styles";
 
 interface MenuUserProps {
   userName: string;
@@ -13,7 +13,7 @@ function MenuUser(props: MenuUserProps) {
   const { userName, businessUnit, avatar = true } = props;
 
   return (
-    <Stack gap="s150" padding={`${inube.spacing.s150} ${inube.spacing.s200}`}>
+    <StyledUser>
       {avatar && (
         <Stack direction="column" justifyContent="center">
           <Avatar />
@@ -27,7 +27,7 @@ function MenuUser(props: MenuUserProps) {
           {businessUnit}
         </Text>
       </Stack>
-    </Stack>
+    </StyledUser>
   );
 }
 

@@ -5,7 +5,6 @@ import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useFormik } from "formik";
@@ -22,6 +21,7 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 const mapSavingAccounts = (savingAccounts: IProduct[]): ISelectOption[] => {
   return savingAccounts.map((savingAccount) => ({

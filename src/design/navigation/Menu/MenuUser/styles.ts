@@ -3,8 +3,9 @@ import { inube } from "@design/tokens";
 
 const StyledUser = styled.div`
   display: grid;
-  grid-template-columns: 1fr 32px;
-  gap: ${inube.spacing.s200};
+  grid-template-columns: 32px 1fr;
+  gap: ${inube.spacing.s150};
+  padding: ${inube.spacing.s150} ${inube.spacing.s200};
   cursor: pointer;
 
   > figure {

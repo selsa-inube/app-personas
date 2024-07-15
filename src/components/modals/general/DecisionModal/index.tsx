@@ -1,13 +1,13 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { ButtonAppearanceType } from "@design/input/Button/types";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
+import { Blanket } from "@inubekit/blanket";
 
 interface DecisionModalProps {
   title: string;

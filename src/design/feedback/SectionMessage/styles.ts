@@ -9,10 +9,11 @@ interface IStyledSectionMessage {
 
 const StyledSectionMessage = styled.div<IStyledSectionMessage>`
   position: fixed;
-  right: ${($isMessageResponsive) =>
-    $isMessageResponsive? inube.spacing.s300 : inube.spacing.s800};
-  left: ${($isMessageResponsive) => ($isMessageResponsive ? inube.spacing.s300 : "auto")};
-  bottom: ${($isMessageResponsive) =>
+  right: ${({ $isMessageResponsive }) =>
+    $isMessageResponsive ? inube.spacing.s300 : inube.spacing.s800};
+  left: ${({ $isMessageResponsive }) =>
+    $isMessageResponsive ? inube.spacing.s300 : "auto"};
+  bottom: ${({ $isMessageResponsive }) =>
     $isMessageResponsive ? inube.spacing.s300 : inube.spacing.s400};
   background-color: ${({ theme, $appearance }) => {
     return (
@@ -20,7 +21,8 @@ const StyledSectionMessage = styled.div<IStyledSectionMessage>`
       inube.color.surface[$appearance].clear
     );
   }};
-  width: ${($isMessageResponsive) => ($isMessageResponsive ? "auto" : "400px")};
+  width: ${({ $isMessageResponsive }) =>
+    $isMessageResponsive ? "auto" : "400px"};
   height: auto;
   border-radius: ${inube.spacing.s050};
   box-shadow:

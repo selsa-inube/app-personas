@@ -1,7 +1,6 @@
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledModal } from "./styles";
-import { Blanket } from "@design/layout/Blanket";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { Icon } from "@design/data/Icon";
@@ -12,6 +11,7 @@ import { IPersonalDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupF
 import { IContactDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/ContactDataForm/types";
 import { IInformationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/InformationDataForm/types";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 
 interface FamilyMemberCreateModalProps {
