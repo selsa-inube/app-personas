@@ -1,12 +1,12 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Icon } from "@design/data/Icon";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdClear, MdQuestionMark } from "react-icons/md";
 import { StyledModal } from "./styles";
+import { Blanket } from "@inubekit/blanket";
 
 interface InfoModalProps {
   title: string;

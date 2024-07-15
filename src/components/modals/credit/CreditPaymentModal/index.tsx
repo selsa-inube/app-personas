@@ -1,7 +1,6 @@
 import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
@@ -9,6 +8,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { parseCurrencyString } from "src/utils/currency";
 import { StyledBody, StyledBodyHead, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 const renderTransactionSpecification = (
   label: string,

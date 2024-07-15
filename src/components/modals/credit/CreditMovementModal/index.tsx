@@ -1,6 +1,5 @@
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
@@ -9,6 +8,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { StyledBody, StyledBodyHead, StyledModal } from "./styles";
+import { Blanket } from "@inubekit/blanket";
 
 const renderTransactionSpecification = (label: string, value?: number) => (
   <Stack gap="s100" alignItems="center">

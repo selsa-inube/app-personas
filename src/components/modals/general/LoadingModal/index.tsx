@@ -1,7 +1,7 @@
 import { Text } from "@design/data/Text";
 import { Spinner } from "@design/feedback/Spinner";
-import { Blanket } from "@design/layout/Blanket";
 import { StyledLoadingCard } from "./styles";
+import { Blanket } from "@inubekit/blanket";
 
 interface LoadingModalProps {
   title: string;

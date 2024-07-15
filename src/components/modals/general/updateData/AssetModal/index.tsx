@@ -4,7 +4,6 @@ import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
@@ -19,6 +18,7 @@ import {
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 const assetTypeDM = getDomainById("assetType");
 

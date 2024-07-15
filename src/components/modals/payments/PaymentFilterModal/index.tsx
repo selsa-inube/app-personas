@@ -3,7 +3,6 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
@@ -11,6 +10,7 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledModal, StyledOptionsContainer } from "./styles";
 import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface IPaymentFilters {
   group: string;
