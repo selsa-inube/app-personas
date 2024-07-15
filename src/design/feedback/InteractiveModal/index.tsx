@@ -1,13 +1,13 @@
 import { IAction, IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
 import { ILabel } from "./types";
+import { Blanket } from "@inubekit/blanket";
 
 interface InteractiveModalProps {
   portalId: string;
@@ -48,7 +48,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" gap="24px">
           <Stack direction="column" gap="16px">
             <Stack alignItems="center" justifyContent="space-between">

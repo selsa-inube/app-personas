@@ -6,9 +6,9 @@ import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { countryDM } from "src/model/domains/financialOperations/countrydm";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
-import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
+import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
+import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
+import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface ContactDataFormUIProps {

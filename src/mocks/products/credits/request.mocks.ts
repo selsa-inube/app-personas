@@ -1,33 +1,38 @@
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { IValidation } from "src/model/entity/service";
 
-const productFreeInvestment = getValueOfDomain(
-  "freeInvestment",
-  "creditProductType",
-);
-const productVehicleOrMotorcycle = getValueOfDomain(
-  "vehicleOrMotorcycle",
-  "creditProductType",
-);
-
-const productGenerateRecommendation = getValueOfDomain(
-  "generateRecommendation",
-  "creditProductType",
-);
+const productsMock = {
+  freeInvestment: {
+    id: "freeInvestment",
+    title: "Libre inversión",
+    description: "Financia cualquiera de tus proyectos.",
+    maxRate: 2.84,
+    maxDeadline: 30,
+    maxAmount: 8300000,
+  },
+  vehicleOrMotorcycle: {
+    id: "vehicleOrMotorcycle",
+    title: "Compra de vehículo o moto",
+    description: "Compra de vehículo nuevo o usado.",
+    maxRate: 2.84,
+    maxDeadline: 14,
+    maxAmount: 15000000,
+  },
+  // { // TEMP
+  //   id: "generateRecommendation",
+  //   value: "Generar recomendación",
+  //   description: "El sistema genera la mejor opción de crédito para ti.",
+  // },
+};
 
 const destinationProductsMock = {
-  buyVehicle: [
-    productFreeInvestment,
-    productVehicleOrMotorcycle,
-    productGenerateRecommendation,
-  ],
+  buyVehicle: [productsMock.freeInvestment, productsMock.vehicleOrMotorcycle],
   buyMotorcycle: [
-    productFreeInvestment,
-    productVehicleOrMotorcycle,
-    productGenerateRecommendation,
+    productsMock.freeInvestment,
+    productsMock.vehicleOrMotorcycle,
   ],
-  buyProperty: [productFreeInvestment, productGenerateRecommendation],
-  travel: [productFreeInvestment, productGenerateRecommendation],
-  study: [productFreeInvestment, productGenerateRecommendation],
+  buyProperty: [productsMock.freeInvestment],
+  travel: [productsMock.freeInvestment],
+  study: [productsMock.freeInvestment],
 };
 
 const maximumQuotasAvailableMock = {
@@ -61,6 +66,12 @@ const maximumQuotasAvailableMock = {
     withStrengthening: 25000000,
     realWarranty: 45000000,
   },
+  other: {
+    noWarranty: 8300000,
+    withCoDebtors: 12500000,
+    withStrengthening: 25000000,
+    realWarranty: 45000000,
+  },
 };
 
 const interestRatesMock = {
@@ -76,9 +87,63 @@ const maxDeadlineMock = {
   vehicleOrMotorcycle: 14,
 };
 
+const documentaryRequirementsMock: IValidation[] = [
+  {
+    id: "original_invoice",
+    label: "Factura original",
+    value: "pending",
+    isRequired: true,
+  },
+  {
+    id: "medical_prescription_copy",
+    label: "Fotocopia de la fórmula médica",
+    value: "pending",
+  },
+];
+
+const systemValidationsMock: IValidation[] = [
+  {
+    id: "minimum_associate_seniority",
+    label: "Antigüedad mínima como asociado",
+    value: "pending",
+    isRequired: true,
+  },
+  {
+    id: "up_to_date_obligations",
+    label: "Estar al día con sus obligaciones Fondecom",
+    value: "pending",
+    isRequired: true,
+  },
+  {
+    id: "request_value_per_formula",
+    label:
+      "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
+    value: "pending",
+  },
+  {
+    id: "have_savings_in_sight",
+    label:
+      "Poseer ahorro a la vista (Si no posee acérquese a la oficina fondecom)",
+    value: "pending",
+  },
+  {
+    id: "available_assistance_quota",
+    label: "Cupo disponible auxilios",
+    value: "pending",
+    isRequired: true,
+  },
+  {
+    id: "beneficiary_validity_by_age",
+    label: "Valida beneficiario edad",
+    value: "pending",
+  },
+];
+
 export {
   destinationProductsMock,
+  documentaryRequirementsMock,
   interestRatesMock,
   maxDeadlineMock,
   maximumQuotasAvailableMock,
+  systemValidationsMock,
 };

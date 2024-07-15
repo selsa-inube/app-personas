@@ -4,6 +4,8 @@ import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { MdSentimentNeutral } from "react-icons/md";
+import { useBlocker, useNavigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
@@ -22,16 +24,39 @@ function Pay() {
   const [currentStep, setCurrentStep] = useState(paySteps.obligations.id);
   const steps = Object.values(paySteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const { credits } = useContext(CreditsContext);
   const { commitments } = useContext(SavingsContext);
   const [loadingSend, setLoadingSend] = useState(false);
   const [message, setMessage] = useState<IMessage>(initialMessageState);
+  const navigate = useNavigate();
+  const { getFlag } = useContext(AppContext);
+
+  const withNextValueOption = getFlag(
+    "admin.payments.pay.next-value-payment",
+  ).value;
+  const withOtherValueOption = getFlag(
+    "admin.payments.pay.other-value-payment",
+  ).value;
+  const withExpiredValueOption = getFlag(
+    "admin.payments.pay.expired-value-payment",
+  ).value;
+  const withTotalValueOption = getFlag(
+    "admin.payments.pay.total-value-payment",
+  ).value;
 
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
       isValid: true,
-      values: mapObligations(credits, commitments),
+      values: mapObligations(
+        credits,
+        commitments,
+        withNextValueOption,
+        withOtherValueOption,
+        withExpiredValueOption,
+        withTotalValueOption,
+      ),
     },
     paymentMethod: {
       isValid: true,
@@ -51,41 +76,65 @@ function Pay() {
   };
 
   const validateObligations = async () => {
-    if (!user || !accessToken) return;
+    if (!accessToken) return;
 
     let newCredits = credits;
+    let newCommitments = commitments;
 
     if (credits.length === 0) {
-      newCredits = await getCreditsForUser(user.identification, accessToken);
-
-      setPay((prev) => ({
-        ...prev,
-        obligations: {
-          ...prev.obligations,
-          values: mapObligations(newCredits, commitments),
-        },
-      }));
+      try {
+        newCredits = await getCreditsForUser(user.identification, accessToken);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.info(error.message);
+        }
+      }
     }
 
     if (commitments.length === 0) {
-      const newCommitments = await getSavingsCommitmentsForUser(
-        user.identification,
-        accessToken,
-      );
-
-      setPay((prev) => ({
-        ...prev,
-        obligations: {
-          ...prev.obligations,
-          values: mapObligations(newCredits, newCommitments),
-        },
-      }));
+      try {
+        newCommitments = await getSavingsCommitmentsForUser(
+          user.identification,
+          accessToken,
+        );
+      } catch (error) {
+        if (error instanceof Error) {
+          console.info(error.message);
+        }
+      }
     }
+
+    setPay((prev) => ({
+      ...prev,
+      obligations: {
+        ...prev.obligations,
+        values: mapObligations(
+          newCredits,
+          newCommitments,
+          withNextValueOption,
+          withOtherValueOption,
+          withExpiredValueOption,
+          withTotalValueOption,
+        ),
+      },
+    }));
   };
 
   useEffect(() => {
     validateObligations();
-  }, [user, accessToken]);
+  }, [
+    user,
+    accessToken,
+    withNextValueOption,
+    withOtherValueOption,
+    withExpiredValueOption,
+    withTotalValueOption,
+  ]);
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname,
+  );
 
   const handleStepChange = (stepId: number) => {
     const newPay = payStepsRules(
@@ -120,14 +169,14 @@ function Pay() {
 
     setLoadingSend(true);
 
-    sendPaymentRequest(user, pay, accessToken).catch(() => {
+    sendPaymentRequest(user, pay, accessToken, navigate).catch(() => {
       setMessage({
         show: true,
         title: "El pago no pudo ser procesado",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
         icon: <MdSentimentNeutral />,
-        appearance: "error",
+        appearance: "danger",
       });
       setLoadingSend(false);
     });
@@ -158,6 +207,7 @@ function Pay() {
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
       message={message}
+      blocker={blocker}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}

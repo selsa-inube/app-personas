@@ -4,20 +4,19 @@ import { currencyFormat } from "src/utils/currency";
 const creditAttributes = [
   "loan_date",
   "loan_value",
-  "next_payment_date",
+  "next_payment",
   "dues_paid",
   "outstanding_dues",
   "payment_method",
   "peridiocity",
   "net_value",
-  "expired_value",
   "days_past_due",
   "guarantee_type",
   "amortization_type",
   "interest_rate",
 ];
 
-const creditCurrencyAttributes = ["loan_value", "net_value", "expired_value"];
+const creditCurrencyAttributes = ["loan_value", "net_value"];
 
 function extractCreditAttributes(credit: IProduct) {
   const foundAttributes = credit.attributes.filter((attribute) =>

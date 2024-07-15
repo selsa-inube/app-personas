@@ -1,24 +1,24 @@
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
+import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Blanket } from "@design/layout/Blanket";
-import { Stack } from "@design/layout/Stack";
-import { Fieldset } from "@design/input/Fieldset";
 import { Grid } from "@design/layout/Grid";
-import { Divider } from "@design/layout/Divider";
+import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
-import { StyledModal, StyledScrollbar } from "./styles";
-import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
-import { genderDM } from "src/model/domains/personalInformation/genderdm";
 import { activeDM } from "src/model/domains/general/activedm";
-import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
+import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
+import { StyledModal, StyledScrollbar } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface FamilyMemberViewModalProps {
   portalId: string;
@@ -44,7 +44,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal isMobile={isMobile} isTablet={isTablet}>
+      <StyledModal $isMobile={isMobile} $isTablet={isTablet}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">
@@ -63,7 +63,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             Detalles de la información
           </Text>
         </Stack>
-        <StyledScrollbar isMobile={isMobile}>
+        <StyledScrollbar $isMobile={isMobile}>
           <Divider dashed />
           <Fieldset
             title="Identificación"
@@ -84,7 +84,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 options={identificationTypeDM.options}
                 size="compact"
                 isFullWidth
-                value={formik.values.type}
+                value={formik.values.type.id}
                 readOnly
               />
               <TextField
@@ -272,7 +272,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
         </StyledScrollbar>
         <Stack gap="s150">
           <Button
-            appearance="error"
+            appearance="danger"
             variant="outlined"
             spacing="compact"
             onClick={onDelete}

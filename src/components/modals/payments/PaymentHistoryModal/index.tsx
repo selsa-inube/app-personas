@@ -1,8 +1,6 @@
 import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import React from "react";
@@ -17,6 +15,8 @@ import {
   StyledModal,
   StyledResume,
 } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 const renderAttribute = (
   label: string,
@@ -37,7 +37,7 @@ const renderAttribute = (
   }
 
   return (
-    <StyledItem smallScreen={isMobile}>
+    <StyledItem $smallScreen={isMobile}>
       <Text type="label" size={isMobile ? "small" : "medium"}>
         {formattedLabel}
       </Text>
@@ -62,7 +62,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text
@@ -110,7 +110,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
             </Stack>
           </StyledResume>
         )}
-        <StyledContainer smallScreen={isMobile}>
+        <StyledContainer $smallScreen={isMobile}>
           {!isMobile && (
             <Stack justifyContent="space-between">
               <Text type="label" size="large" appearance="dark">

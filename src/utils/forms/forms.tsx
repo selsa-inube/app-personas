@@ -70,7 +70,7 @@ const generateFormFields = (
       case "select":
         return (
           <StyledInputForm
-            gridColumn={fullColumns ? "span 2" : field.gridColumn}
+            $gridColumn={fullColumns ? "span 2" : field.gridColumn}
             key={field.name}
           >
             <Select
@@ -88,6 +88,7 @@ const generateFormFields = (
               isFullWidth={field.isFullWidth}
               readOnly={field.readOnly}
               isDisabled={disabled}
+              isRequired={field.isRequired}
             />
           </StyledInputForm>
         );
@@ -95,7 +96,7 @@ const generateFormFields = (
       case "number":
         return (
           <StyledInputForm
-            gridColumn={fullColumns ? "span 2" : field.gridColumn}
+            $gridColumn={fullColumns ? "span 2" : field.gridColumn}
             key={field.name}
           >
             <TextField
@@ -116,13 +117,14 @@ const generateFormFields = (
               isDisabled={disabled}
               maxLength={field.maxLength}
               withCounter={field.withCounter}
+              isRequired={field.isRequired}
             />
           </StyledInputForm>
         );
       case "textarea":
         return (
           <StyledInputForm
-            gridColumn={fullColumns ? "span 2" : field.gridColumn}
+            $gridColumn={fullColumns ? "span 2" : field.gridColumn}
             key={field.name}
           >
             <Textarea
@@ -141,6 +143,7 @@ const generateFormFields = (
               maxLength={field.maxLength}
               withCounter={field.withCounter}
               isDisabled={disabled}
+              isRequired={field.isRequired}
             />
           </StyledInputForm>
         );

@@ -1,11 +1,10 @@
-import { CardMovement } from "@components/cards/CardMovement";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
@@ -16,6 +15,8 @@ import { EMovementType } from "src/model/entity/product";
 import { crumbsCardMovements } from "./config/navigation";
 import { StyledContainer, StyledItem } from "./styles";
 import { ISelectedProductState } from "./types";
+import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
 
 interface CardMovementsUIProps {
   cardId?: string;
@@ -83,11 +84,12 @@ function CardMovementsUI(props: CardMovementsUIProps) {
                   <Stack direction="column" key={movement.id}>
                     {index !== 0 && <Divider dashed />}
                     <StyledItem>
-                      <CardMovement
-                        movementType={movement.type as EMovementType}
+                      <RecordCard
+                        id={movement.id}
+                        type={movement.type as EMovementType}
                         description={movement.description}
                         totalValue={movement.totalValue}
-                        date={movement.date}
+                        attributes={generateAttributes(movement)}
                       />
                     </StyledItem>
                   </Stack>

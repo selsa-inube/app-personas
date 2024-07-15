@@ -50,7 +50,7 @@ const paymentsMock: IPayment[] = [
   {
     id: "10-241000477",
     title: "TEMPORADA GASTOS PERSONALES",
-    group: EPaymentGroupType.SAVINGS,
+    group: EPaymentGroupType.SAVINGSCOMMITMENT,
     paymentMethod: "automaticDebit",
     status: EPaymentStatusType.ANYWHERE,
     options: [
@@ -90,7 +90,7 @@ const paymentsMock: IPayment[] = [
   {
     id: "10-241000478",
     title: "TEMPORADA GASTOS PERSONALES",
-    group: EPaymentGroupType.SAVINGS,
+    group: EPaymentGroupType.SAVINGSCOMMITMENT,
     paymentMethod: "window",
     status: EPaymentStatusType.ANYWHERE,
     options: [
@@ -160,7 +160,7 @@ const paymentsMock: IPayment[] = [
     tags: [
       {
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       },
       {
         label: "Fondecom mensual",

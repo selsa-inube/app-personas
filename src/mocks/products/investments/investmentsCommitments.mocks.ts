@@ -8,7 +8,7 @@ const investmentsCommitmentsMock: ICommitment[] = [
     type: ECommitmentType.SAVINGSPROGRAMMED,
     attributes: [
       {
-        id: "next_payment_date",
+        id: "next_payment",
         label: "Fecha de pago",
         value: "23/Sep/2023",
       },

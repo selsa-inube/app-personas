@@ -1,9 +1,11 @@
+import { IDomainType } from "@ptypes/domain.types";
+
 interface IIdentification {
   firstName: string;
   secondName?: string;
   firstLastName: string;
   secondLastName?: string;
-  type: string;
+  type: IDomainType;
   identificationNumber: number;
   country: string;
   departament: string;
@@ -65,7 +67,7 @@ interface IFamilyThird {
 interface IBankTransfersAccount {
   bankEntity: string;
   accountType: string;
-  accountNumber: number;
+  accountNumber: string;
   description: string;
 }
 
@@ -129,14 +131,28 @@ interface IThird {
   economicActivity?: IEconomicActivity;
   relationshipWithDirectors?: IRelationshipWithDirectors;
 }
-
 interface IDirector {
   id: string;
   name: string;
 }
 
+interface IBeneficiary {
+  name: string;
+  identificationType: string;
+  identificationNumber: string;
+  relationship: IDomainType;
+}
+
+interface IConsultingUser {
+  id: string;
+  name: string;
+  identificationType: string;
+}
+
 export type {
   IBankTransfersAccount,
+  IBeneficiary,
+  IConsultingUser,
   IContactData,
   IDirector,
   IEconomicActivity,

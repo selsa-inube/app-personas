@@ -2,22 +2,21 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledModal {
-  smallScreen: boolean;
-  tabletScreen: boolean;
+  $smallScreen: boolean;
 }
 
 const StyledModal = styled.div<IStyledModal>`
   position: fixed;
   top: ${inube.spacing.s300};
   bottom: ${inube.spacing.s300};
-  right: ${({ smallScreen }) => (smallScreen ? "none" : inube.spacing.s300)};
+  right: ${({ $smallScreen }) => ($smallScreen ? "none" : inube.spacing.s300)};
   display: flex;
   box-sizing: border-box;
-  width: ${({ smallScreen }) => (smallScreen ? "90%" : "400px")};
+  width: ${({ $smallScreen }) => ($smallScreen ? "90%" : "400px")};
   padding: ${inube.spacing.s300};
   flex-direction: column;
-  gap: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s200 : inube.spacing.s250};
+  gap: ${({ $smallScreen }) =>
+    $smallScreen ? inube.spacing.s200 : inube.spacing.s250};
   border-radius: ${inube.spacing.s200};
   background-color: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};

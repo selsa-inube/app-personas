@@ -18,9 +18,9 @@ function Invalid(props: IDateFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
 
   return (
-    <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
+    <StyledErrorMessageContainer $isDisabled={isDisabled} $state={state}>
       <MdOutlineWarning />
-      <Text type="body" size="small" appearance="error" disabled={isDisabled}>
+      <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
         {errorMessage}
       </Text>
     </StyledErrorMessageContainer>
@@ -31,7 +31,7 @@ function Success(props: IDateFieldMessage) {
   const { isDisabled, state, validMessage } = props;
 
   return (
-    <StyledValidMessageContainer isDisabled={isDisabled} state={state}>
+    <StyledValidMessageContainer $isDisabled={isDisabled} $state={state}>
       <MdCheckCircle />
       <Text type="body" size="small" appearance="success" disabled={isDisabled}>
         {validMessage}
@@ -73,9 +73,9 @@ function DateFieldUI(props: DateFieldUIProps) {
 
   return (
     <StyledContainer
-      isFullWidth={isFullWidth}
-      isDisabled={isDisabled}
-      readOnly={readOnly}
+      $isFullWidth={isFullWidth}
+      $isDisabled={isDisabled}
+      $readOnly={readOnly}
       $size={size}
     >
       <Stack direction="column" gap="s050">
@@ -108,10 +108,10 @@ function DateFieldUI(props: DateFieldUIProps) {
           )}
         </Stack>
         <StyledInputContainer
-          isDisabled={isDisabled}
-          isFocused={isFocused}
-          state={state}
-          readOnly={readOnly}
+          $isDisabled={isDisabled}
+          $isFocused={isFocused}
+          $state={state}
+          $readOnly={readOnly}
         >
           <StyledInput
             id={id}
@@ -120,13 +120,13 @@ function DateFieldUI(props: DateFieldUIProps) {
             min={min}
             max={max}
             step={step}
-            isDisabled={isDisabled}
+            $isDisabled={isDisabled}
             value={normalizedValue || ""}
             required={isRequired}
             onFocus={onFocus}
             onBlur={onBlur}
             onChange={onChange}
-            isFullWidth={isFullWidth}
+            $isFullWidth={isFullWidth}
             readOnly={readOnly}
             $size={size}
           />

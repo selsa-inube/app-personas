@@ -7,16 +7,21 @@ import { crumbsMovements } from "./config/navigation";
 import { CreditMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { addMovementsToCredit, validateCreditsAndMovements } from "./utils";
+import { AppContext } from "src/context/app";
+import { IMovement } from "src/model/entity/product";
 
 function CreditMovements() {
   const { credit_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [creditMovementModal, setCreditMovementModal] = useState(false);
+  const [selectedMovement, setSelectedMovement] = useState<IMovement>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { credits, setCredits } = useContext(CreditsContext);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const handleSortProduct = async () => {
     if (!credit_id || !user || !accessToken) return;
@@ -34,7 +39,7 @@ function CreditMovements() {
 
     setSelectedProduct({
       totalMovements: selectedCredit.movements?.length || 0,
-      movements: selectedCredit.movements?.slice(0, 10) || [],
+      movements: selectedCredit.movements?.slice(0, 7) || [],
       option: selectedCredit.id,
     });
 
@@ -80,15 +85,29 @@ function CreditMovements() {
     }, 500);
   };
 
+  const handleOpenModal = (movement: IMovement) => {
+    setSelectedMovement(movement);
+    setCreditMovementModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setCreditMovementModal(false);
+    setSelectedMovement(undefined);
+  };
+
   return (
     <CreditMovementsUI
-      crumbsMovements={crumbsMovements(credit_id)}
-      handleAddMovements={handleAddMovements}
-      handleChangeProduct={handleChangeProduct}
       loading={loading}
       productsOptions={productsOptions}
       selectedProduct={selectedProduct}
       credit_id={credit_id}
+      creditMovementModal={creditMovementModal}
+      selectedMovement={selectedMovement}
+      crumbsMovements={crumbsMovements(credit_id)}
+      handleAddMovements={handleAddMovements}
+      handleChangeProduct={handleChangeProduct}
+      handleOpenModal={handleOpenModal}
+      handleCloseModal={handleCloseModal}
     />
   );
 }

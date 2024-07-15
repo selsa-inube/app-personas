@@ -35,7 +35,7 @@ Default.args = {
       value: "$500.000",
     },
     {
-      id: "next_payment_date",
+      id: "next_payment",
       label: "Próxima fecha",
       value: "02/ABR/2023",
     },
@@ -53,7 +53,7 @@ Default.args = {
   tags: [
     {
       label: "En mora",
-      appearance: "error",
+      appearance: "danger",
     },
   ],
   icon: <MdOutlineAccountBalanceWallet />,

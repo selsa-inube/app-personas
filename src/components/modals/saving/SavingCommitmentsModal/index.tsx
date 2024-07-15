@@ -1,8 +1,6 @@
 import { Product } from "@components/cards/Product";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
@@ -10,6 +8,8 @@ import { MdOutlineClose } from "react-icons/md";
 import { IAttribute, ICommitment } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { StyledModal } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface SavingCommitmentsModalProps {
   portalId: string;
@@ -52,7 +52,7 @@ function SavingCommitmentsModal(props: SavingCommitmentsModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">

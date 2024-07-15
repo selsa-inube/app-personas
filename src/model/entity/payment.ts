@@ -1,4 +1,4 @@
-import { IApplyPayOption } from "@components/modals/payments/CustomValueModal";
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { TagProps } from "@design/data/Tag";
 import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import {
@@ -12,6 +12,7 @@ interface IPaymentOption {
   id: EPaymentOptionType;
   label: string;
   description?: string;
+  date?: Date;
   value: number;
   selected?: boolean;
   hidden?: boolean;
@@ -28,6 +29,8 @@ interface IPayment {
   supportDocumentType: ESupportDocumentType;
   valueToPay?: number;
   applyPayOption?: IApplyPayOption;
+  lineCode?: string;
+  halfPayment?: string;
 }
 
 interface IPaymentRequest {
@@ -48,7 +51,7 @@ interface IPaymentRequest {
 
 interface IPaymentRequestResponse {
   trackingCode: string;
-  url: string;
+  url?: string;
   state: string;
   message: string;
 }

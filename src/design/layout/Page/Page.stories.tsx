@@ -1,7 +1,5 @@
-import { BrowserRouter } from "react-router-dom";
-import { StoryFn } from "@storybook/react";
-import { ThemeProvider } from "styled-components";
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
 import {
   MdAccountBalanceWallet,
   MdAttachMoney,
@@ -10,7 +8,9 @@ import {
   MdOutlineAddCard,
   MdOutlineAirplaneTicket,
 } from "react-icons/md";
-import { Page, PageProps } from ".";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { Page } from ".";
 import { props } from "./props";
 
 const story = {
@@ -51,7 +51,7 @@ const defaultArgs = {
         {
           title: "Request",
           links: [
-            { label: "Credit", path: "/credit", icon: <MdAttachMoney /> },
+            { label: "Credit", path: "/credits", icon: <MdAttachMoney /> },
             { label: "Savings", path: "/savings", icon: <MdOutlineAddCard /> },
             {
               label: "Holidays",
@@ -80,7 +80,7 @@ const defaultArgs = {
       {
         title: "Request",
         links: [
-          { label: "Credit", path: "/credit", icon: <MdAttachMoney /> },
+          { label: "Credit", path: "/credits", icon: <MdAttachMoney /> },
           { label: "Savings", path: "/savings", icon: <MdOutlineAddCard /> },
           {
             label: "Holidays",
@@ -93,7 +93,7 @@ const defaultArgs = {
   },
 };
 
-export const Default: StoryFn<PageProps> = (args) => (
+export const Default: StoryFn = (args) => (
   <BrowserRouter>
     <Page {...args} />
   </BrowserRouter>
@@ -112,7 +112,7 @@ const themedArgs = {
 
 const theme = { ...themes["fondecom"] };
 
-export const Themed: StoryFn<PageProps> = (args) => (
+export const Themed: StoryFn = (args) => (
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Page {...args} />

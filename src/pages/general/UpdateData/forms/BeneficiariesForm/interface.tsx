@@ -65,7 +65,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
           <Text
             type="title"
             size="medium"
-            appearance={percentage > 100 ? "error" : "dark"}
+            appearance={percentage > 100 ? "danger" : "dark"}
           >
             {percentage} %
           </Text>

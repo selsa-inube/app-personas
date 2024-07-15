@@ -1,10 +1,8 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Text } from "@design/data/Text";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { formatPrimaryDate } from "src/utils/dates";
 import { usersMock } from "@mocks/users/users.mocks";
 import {
   mapPersonalAsset,
@@ -13,25 +11,25 @@ import {
 } from "@pages/general/UpdateData/config/mappers";
 import { IFormsUpdateData } from "@pages/general/UpdateData/types";
 import React from "react";
-import { companyFormalityDM } from "src/model/domains/economicActivity/companyformalitydm";
-import { contractTypeDM } from "src/model/domains/economicActivity/contracttypedm";
-import { economicActivityDM } from "src/model/domains/economicActivity/economicactivitydm";
-import { severanceRegimeDM } from "src/model/domains/economicActivity/severanceregimedm";
-import { workdayDM } from "src/model/domains/economicActivity/workdaydm";
-import { countryDM } from "src/model/domains/financialOperations/countrydm";
 import { activeDM } from "src/model/domains/general/activedm";
-import { bloodTypeDM } from "src/model/domains/personalInformation/bloodtypedm";
-import { cityDM } from "src/model/domains/personalInformation/citydm";
-import { departmentDM } from "src/model/domains/personalInformation/departamentdm";
-import { genderDM } from "src/model/domains/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/personalInformation/identificationtypedm";
-import { maritalStatusDM } from "src/model/domains/personalInformation/maritalstatusdm";
-import { relationshipDM } from "src/model/domains/personalResidence/relationshipdm";
-import { residenceTypeDM } from "src/model/domains/personalResidence/residencetypedm";
-import { stratumDM } from "src/model/domains/personalResidence/stratumdm";
-import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
+import { companyFormalityDM } from "src/model/domains/general/updateData/economicActivity/companyformalitydm";
+import { contractTypeDM } from "src/model/domains/general/updateData/economicActivity/contracttypedm";
+import { economicActivityDM } from "src/model/domains/general/updateData/economicActivity/economicactivitydm";
+import { severanceRegimeDM } from "src/model/domains/general/updateData/economicActivity/severanceregimedm";
+import { workdayDM } from "src/model/domains/general/updateData/economicActivity/workdaydm";
+import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
+import { bloodTypeDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
+import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
+import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
+import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
+import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
+import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
+import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
+import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
+import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import { IBankTransfersEntry } from "../../BankTransfersForm/types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IContactDataEntry } from "../../ContactDataForm/types";
@@ -48,6 +46,7 @@ import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
+import { Divider } from "@inubekit/divider";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -60,7 +59,7 @@ const renderPersonalInfoVerification = (
     <BoxAttribute label="Segundo apellido:" value={values.secondLastName} />
     <BoxAttribute
       label="Tipo de identificación:"
-      value={identificationTypeDM.valueOf(values.identificationType)?.value}
+      value={values.identificationType.value}
     />
     <BoxAttribute
       label="Numero de identificación:"

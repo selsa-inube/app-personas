@@ -8,12 +8,12 @@ import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useContext } from "react";
 import { MdArrowBack } from "react-icons/md";
 import { Navigate, useNavigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { creditRequestCards } from "./config/cards";
 import { crumbsCreditRequest } from "./config/navigation";
-import { useContext } from "react";
-import { AppContext } from "src/context/app";
 
 function CreditRequest() {
   const navigate = useNavigate();
@@ -22,10 +22,10 @@ function CreditRequest() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   const handleCardNavigate = (path: string) => {
-    navigate(`/credit/${path}`);
+    navigate(`/credits/${path}`);
   };
 
-  if (!getFlag("admin.credits.credits.request-credit")?.value) {
+  if (!getFlag("admin.credits.credits.request-credit").value) {
     return <Navigate to="/" />;
   }
 

@@ -39,11 +39,11 @@ function renderButtonContent(
   getAppearance: () => ButtonAppearanceType,
   hover: boolean,
   iconAfter?: React.JSX.Element,
-  iconBefore?: React.JSX.Element
+  iconBefore?: React.JSX.Element,
 ) {
   if (load && !disabled) {
     return (
-      <StyledSpinnerContainer variant={variant}>
+      <StyledSpinnerContainer $variant={variant}>
         <Stack justifyContent="center" alignItems="center" height="inherit">
           <Spinner appearance={getAppearance()} track={false} />
         </Stack>
@@ -52,7 +52,7 @@ function renderButtonContent(
   }
 
   return (
-    <StyledButtonContent load={load} disabled={disabled}>
+    <StyledButtonContent $load={load} $disabled={disabled}>
       <Stack alignItems="center" justifyContent="center" gap="s075">
         {iconBefore && (
           <Icon
@@ -132,12 +132,12 @@ function Button(props: ButtonProps) {
     return (
       <StyledLink
         to={path}
-        appearance={appearance}
-        spacing={spacing}
-        variant={variant}
+        $appearance={appearance}
+        $spacing={spacing}
+        $variant={variant}
         $fullwidth={fullwidth}
         $load={load}
-        disabled={disabled}
+        $disabled={disabled}
         onMouseEnter={() => toggleHover(true)}
         onMouseLeave={() => toggleHover(false)}
       >
@@ -149,7 +149,7 @@ function Button(props: ButtonProps) {
           getAppearance,
           hover,
           iconAfter,
-          iconBefore
+          iconBefore,
         )}
       </StyledLink>
     );
@@ -158,12 +158,12 @@ function Button(props: ButtonProps) {
   return (
     <StyledButton
       type={type}
-      appearance={appearance}
-      spacing={spacing}
-      variant={variant}
+      $appearance={appearance}
+      $spacing={spacing}
+      $variant={variant}
       $fullwidth={fullwidth}
       $load={load}
-      disabled={disabled}
+      $disabled={disabled}
       onClick={onClick}
       onMouseEnter={() => toggleHover(true)}
       onMouseLeave={() => toggleHover(false)}
@@ -176,7 +176,7 @@ function Button(props: ButtonProps) {
         getAppearance,
         hover,
         iconAfter,
-        iconBefore
+        iconBefore,
       )}
     </StyledButton>
   );

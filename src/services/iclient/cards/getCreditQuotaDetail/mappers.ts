@@ -1,25 +1,26 @@
 import { TagProps } from "@design/data/Tag";
-import { cardTypeValuesMock } from "@mocks/products/cards/utils.mocks";
+import { creditQuotaTypeDM } from "src/model/domains/cards/creditQuotaTypeDM.ts";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapConsumptionApiToEntity = (
   consumption: Record<string, string | number | object>,
 ): IProduct => {
-  const paidDues = consumption.duesPaid;
+  const paidDues = consumption.paidQuotas;
   const outstandingDues =
-    Number(consumption.duesPaid) + Number(consumption.outstandingDues);
+    Number(consumption.paidQuotas) + Number(consumption.pendingQuotas);
   const currentAccount = `${paidDues}/${outstandingDues}`;
 
   const nextPaymentValue = Object(consumption.nextPaymentValue);
   const balanceObligation = Object(consumption.balanceObligation);
+  const dateWithoutZone = String(consumption.obligationDate).replace("Z", "");
 
   const attributes = [
     {
       id: "consumption_date",
       label: "Fecha de consumo",
-      value: formatPrimaryDate(new Date(String(consumption.obligationDate))),
+      value: formatPrimaryDate(new Date(dateWithoutZone)),
     },
     {
       id: "consumption_value",
@@ -39,39 +40,37 @@ const mapConsumptionApiToEntity = (
     {
       id: "net_value",
       label: "Saldo de capital",
-      value: Number(
-        Object(consumption.balanceObligation).capitalBalanceInPesos,
-      ),
+      value: Number(Object(consumption.balanceObligation).capital || 0),
     },
     {
-      id: "current_interest",
+      id: "interest",
       label: "Intéres corriente",
       value: `${Number(consumption.periodicRate)}% MV`,
     },
     {
-      id: "capital_payment",
+      id: "capital",
       label: "Abono capital",
-      value: `cuota ${currentAccount}`,
+      value: `Cuota ${currentAccount}`,
     },
     {
       id: "min_payment_quota_available",
       label: "Pago minimo de cuota",
-      value: nextPaymentValue.capitalValue,
+      value: Number(nextPaymentValue.capital || 0),
     },
     {
       id: "total_payment_quota_available",
       label: "Pago total de cuota",
-      value: nextPaymentValue.total,
+      value: Number(nextPaymentValue.total || 0),
     },
     {
-      id: "total_capital_payment",
+      id: "total_capital",
       label: "Pago capital total",
-      value: balanceObligation.totalPending,
+      value: Number(balanceObligation.total || 0),
     },
     {
-      id: "min_capital_payment",
+      id: "min_capital",
       label: "Pago capital minimo",
-      value: balanceObligation.capitalBalanceInPesos,
+      value: Number(balanceObligation.capital || 0),
     },
   ];
 
@@ -95,17 +94,17 @@ const mapConsumptionsApiToEntities = (
 const mapCreditQuotaDetailApiToEntity = (
   creditQuota: Record<string, string | number | object>,
 ): IProduct => {
-  const nextPaymentDate = new Date(String(creditQuota.nextPaymentDay));
-  nextPaymentDate.setUTCHours(5, 5, 5, 5);
+  const dateWithoutZone = String(creditQuota.nextPaymentDay).replace("Z", "");
+  const nextPaymentDate = new Date(dateWithoutZone);
 
   const today = new Date();
-  today.setUTCHours(5, 5, 5, 5);
+  today.setUTCHours(5, 0, 0, 0);
 
   const inArrears = today > nextPaymentDate;
 
   const nextPaymentFormat = inArrears
     ? "Inmediato"
-    : formatPrimaryDate(new Date(String(creditQuota.nextPaymentDay)));
+    : formatPrimaryDate(nextPaymentDate);
 
   const nextPaymentDateValid = creditQuota.nextPaymentDay
     ? nextPaymentFormat
@@ -119,7 +118,7 @@ const mapCreditQuotaDetailApiToEntity = (
     Object(creditQuota.totalDebt).debtCapital || 0,
   );
 
-  const usedQuota = Number(Object(creditQuota.totalDebt).totalPending || 0);
+  const usedQuota = Number(Object(creditQuota.totalDebt).total || 0);
 
   const transactionProcess = Number(
     Object(creditQuota.totalDebt).transactionsInProcess || 0,
@@ -132,24 +131,46 @@ const mapCreditQuotaDetailApiToEntity = (
       value: Number(creditQuota.availableCredit || 0),
     },
     {
-      id: "next_payment_date",
+      id: "next_payment",
       label: "Fecha próximo pago",
       value: nextPaymentDateValid,
     },
     {
-      id: "min_capital_payment",
+      id: "min_capital",
       label: "Abono a capital",
-      value: Object(creditQuota.nextPaymentValue)?.capitalValue,
+      value: Number(Object(creditQuota.nextPaymentValue)?.capital || 0),
     },
     {
-      id: "min_current_interest",
+      id: "min_interest",
       label: "Interés corriente",
-      value: Object(creditQuota.nextPaymentValue)?.interestValue,
+      value: Number(Object(creditQuota.nextPaymentValue)?.interest || 0),
     },
     {
-      id: "min_arrears_interest",
+      id: "min_past_due_interest",
+      label: "Interés vencido",
+      value: Number(Object(creditQuota.nextPaymentValue)?.pastDueInterest || 0),
+    },
+    {
+      id: "min_penalty_interest",
       label: "Interés de mora",
-      value: Object(creditQuota.nextPaymentValue)?.penalityInterestValue,
+      value: Number(
+        Object(creditQuota.nextPaymentValue)?.penaltyInterestValue || 0,
+      ),
+    },
+    {
+      id: "min_life_insurance",
+      label: "Seguro de vida",
+      value: Number(Object(creditQuota.nextPaymentValue)?.lifeInsurance || 0),
+    },
+    {
+      id: "min_other_concepts",
+      label: "Otros conceptos",
+      value: Number(Object(creditQuota.nextPaymentValue)?.otherConcepts || 0),
+    },
+    {
+      id: "min_capitalization",
+      label: "Capitalización",
+      value: Number(Object(creditQuota.nextPaymentValue)?.capitalization || 0),
     },
     {
       id: "next_payment_value",
@@ -160,32 +181,54 @@ const mapCreditQuotaDetailApiToEntity = (
       id: "type",
       label: "Tipo",
       value:
-        cardTypeValuesMock[Object(creditQuota.wayToManageConsumption).code],
+        creditQuotaTypeDM.valueOf(
+          Object(creditQuota.wayToManageConsumption).code,
+        )?.value || "",
     },
     {
       id: "assigned_quota",
       label: "Cupo asignado",
-      value: Number(creditQuota.assignedCreditLimit),
+      value: Number(creditQuota.assignedCreditLimit || 0),
     },
     {
-      id: "total_capital_payment",
+      id: "total_capital",
       label: "Abono a capital",
-      value: Object(creditQuota.totalDebt)?.capitalBalanceInPesos,
+      value: Number(Object(creditQuota.totalBalance)?.capital || 0),
     },
     {
-      id: "total_current_interest",
+      id: "total_interest",
       label: "Interés corriente",
-      value: Object(creditQuota.totalDebt)?.theBalanceOfRemunerativeInterest,
+      value: Number(Object(creditQuota.totalBalance)?.interest || 0),
     },
     {
-      id: "total_arrears_interest",
+      id: "total_past_due_interest",
+      label: "Interés vencido",
+      value: Number(Object(creditQuota.totalBalance)?.pastDueInterest || 0),
+    },
+    {
+      id: "total_penalty_interest",
       label: "Interés de mora",
-      value: Object(creditQuota.totalDebt)?.theBalanceOfDefaultInterest,
+      value: Number(Object(creditQuota.totalBalance)?.penaltyInterest || 0),
     },
     {
-      id: "full_payment",
+      id: "total_life_insurance",
+      label: "Seguro de vida",
+      value: Number(Object(creditQuota.totalBalance)?.lifeInsurance || 0),
+    },
+    {
+      id: "total_other_concepts",
+      label: "Otros conceptos",
+      value: Number(Object(creditQuota.totalBalance)?.otherConcepts || 0),
+    },
+    {
+      id: "total_capitalization",
+      label: "Capitalización",
+      value: Number(Object(creditQuota.totalBalance)?.capitalization || 0),
+    },
+    {
+      id: "total_payment",
       label: "Pago total",
-      value: Object(creditQuota.totalDebt)?.totalPending || "Sin definir",
+      value: Object(creditQuota.totalBalance)?.total || "Sin definir",
     },
     {
       id: "payment_method",
@@ -196,7 +239,7 @@ const mapCreditQuotaDetailApiToEntity = (
     {
       id: "current_consumption",
       label: "Consumos vigentes",
-      value: Number(currentConsumption),
+      value: currentConsumption,
     },
     {
       id: "transactions_process",
@@ -207,7 +250,7 @@ const mapCreditQuotaDetailApiToEntity = (
   ];
 
   const tags: TagProps[] = inArrears
-    ? [{ label: "En mora", appearance: "error" }]
+    ? [{ label: "En mora", appearance: "danger" }]
     : [];
 
   const consumptions = Array.isArray(creditQuota.listObligationProducts)
@@ -216,7 +259,7 @@ const mapCreditQuotaDetailApiToEntity = (
 
   return {
     id: String(creditQuota.creditProductCode),
-    title: "Crediexpress",
+    title: capitalizeEachWord(String(creditQuota.productDescription)),
     description: "Informe de movimientos",
     type: EProductType.CREDITCARD,
     attributes,

@@ -1,7 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
-import { QuotaDetailBox } from "@components/cards/QuotaDetailBox";
+import { QuotaDetailBox } from "@components/cards/cards/QuotaDetailBox";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
@@ -24,7 +24,7 @@ import {
 } from "./config/product";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
-import { CurrentConsumption } from "@components/cards/CurrentConsumption";
+import { CurrentConsumption } from "@components/cards/cards/CurrentConsumption";
 import { IProduct } from "src/model/entity/product";
 
 interface CreditQuotaUIProps {
@@ -64,7 +64,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
   )?.value;
 
   const totalPayment = selectedProduct.creditQuotaDetail.attributes.find(
-    (attr) => attr.id === "full_payment",
+    (attr) => attr.id === "total_payment",
   )?.value;
 
   const creditQuotaType = selectedProduct.creditQuotaDetail.attributes.find(
@@ -158,7 +158,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
                 )}
                 {!isNaN(Number(totalPayment)) && (
                   <QuotaDetailBox
-                    title="Pago total"
+                    title="Total"
                     paymentItems={extractQuotaTotalDetailsAttrs(
                       selectedProduct.creditQuotaDetail,
                     )}

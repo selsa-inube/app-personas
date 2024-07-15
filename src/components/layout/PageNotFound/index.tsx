@@ -1,51 +1,77 @@
-import { useContext } from "react";
-import { useLocation } from "react-router-dom";
-import { useAuth } from "@inube/auth";
-import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getHeader } from "@config/header";
-import { AppContext } from "src/context/app";
-import { Nav } from "@design/navigation/Nav";
-import { Header } from "@design/navigation/Header";
-import { Grid } from "@design/layout/Grid";
-import { INav } from "@design/layout/Page/types";
-import { Stack } from "@design/layout/Stack";
+import { getNav } from "@config/nav";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
+import { Header } from "@design/navigation/Header";
+import { Nav } from "@design/navigation/Nav";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useContext } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
+import { useLocation } from "react-router-dom";
+import { AppContext } from "src/context/app";
+import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledPage } from "./styles";
 
-interface PageNotFoundProps {
-  nav: INav;
-}
-
-function PageNotFound(props: PageNotFoundProps) {
+function PageNotFound() {
   const { pathname: currentLocation } = useLocation();
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
 
-  const { nav } = props;
-  const { user } = useAuth();
+  const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
 
-  const header = getHeader(
-    getFlag("general.links.update-data.update-data-with-assisted")?.value ||
-      false,
-    getFlag("general.links.update-data.update-data-without-assisted")?.value ||
-      false,
+  const withSavingRequest = getFlag(
+    "admin.savings.savings.request-saving",
+  ).value;
+  const withCreditRequest = getFlag(
+    "admin.credits.credits.request-credit",
+  ).value;
+  const withEventRequest = getFlag("request.events.events.request-event").value;
+  const withAidRequest = getFlag("request.aids.aids.request-aid").value;
+  const withHolidaysRequest = getFlag(
+    "request.holidays.holidays.request-holidays",
+  ).value;
+  const withTransfers = getFlag(
+    "admin.transfers.deposit.deposit-accounts",
+  ).value;
+  const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
+
+  const nav = getNav(
+    withSavingRequest,
+    withCreditRequest,
+    withEventRequest,
+    withAidRequest,
+    withHolidaysRequest,
+    withTransfers,
+    withMyRequests,
   );
+
+  const header = getHeader(
+    getFlag("general.links.update-data.update-data-with-assisted").value,
+    getFlag("general.links.update-data.update-data-without-assisted").value,
+    nav,
+  );
+
+  const username = capitalizeEachWord(
+    `${user.firstName} ${user.firstLastName}`,
+  );
+
+  const fullName = capitalizeEachWord(
+    `${user.firstName} ${user.secondName || ""} ${user.firstLastName} ${
+      user.secondLastName || ""
+    }`,
+  );
+
   return (
     <StyledPage>
       <Header
         logoURL={header.logoURL}
-        username={capitalizeFirstLetters(
-          `${user?.firstName} ${user?.firstLastName}`,
-        )}
-        fullName={capitalizeFirstLetters(
-          `${user?.firstName} ${user?.secondName || ""} ${user?.firstLastName} ${user?.secondLastName || ""}`,
-        )}
-        client={header.client}
+        username={username}
+        fullName={fullName}
+        businessUnit={header.businessUnit}
         links={header.links}
         portalId={header.portalId}
         logoutTitle={header.logoutTitle}
@@ -57,7 +83,6 @@ function PageNotFound(props: PageNotFoundProps) {
       >
         {isTablet && (
           <Nav
-            title={nav.title}
             sections={nav.sections}
             currentLocation={currentLocation}
             logoutTitle="Cerrar sesión"

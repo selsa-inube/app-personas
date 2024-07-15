@@ -1,22 +1,22 @@
-import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
-import { Fieldset } from "@design/input/Fieldset";
-import { Grid } from "@design/layout/Grid";
-import { Switch } from "@design/input/Switch";
-import { Button } from "@design/input/Button";
-import { inube } from "@design/tokens";
-import { Select } from "@design/input/Select";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Text } from "@design/data/Text";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
-import { FormikValues } from "formik";
-import { currencyFormat, validateCurrencyField } from "src/utils/currency";
-import { Divider } from "@design/layout/Divider";
 import { Table } from "@design/data/Table";
-import { currentIntRateTableTitles } from "./config/table";
+import { Text } from "@design/data/Text";
+import { Button } from "@design/input/Button";
+import { Fieldset } from "@design/input/Fieldset";
+import { Select } from "@design/input/Select";
+import { Switch } from "@design/input/Switch";
+import { TextField } from "@design/input/TextField";
+import { Grid } from "@design/layout/Grid";
+import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
+import { FormikValues } from "formik";
+import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
+import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
+import { currentIntRateTableTitles } from "./config/table";
+import { Divider } from "@inubekit/divider";
 
 interface ConditionsFormUIProps {
   formik: FormikValues;
@@ -24,7 +24,7 @@ interface ConditionsFormUIProps {
   loadingSimulation?: boolean;
   simulateCDAT: () => void;
   customHandleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -148,7 +148,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         !formik.values.deadlineDate) ||
                       (formik.errors.deadlineDays &&
                         !formik.values.deadlineDate) ||
-                      (formik.errors.deadlineDate && 
+                      (formik.errors.deadlineDate &&
                         !formik.values.deadlineDays)
                     }
                   >
@@ -176,7 +176,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         <BoxAttribute
                           label="Intereses totales:"
                           value={`${currencyFormat(
-                            formik.values.totalInterest
+                            formik.values.totalInterest,
                           )}`}
                         />
                       </Stack>
@@ -189,7 +189,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         <BoxAttribute
                           label="Retención en la fuente:"
                           value={`${currencyFormat(
-                            formik.values.withholdingTax
+                            formik.values.withholdingTax,
                           )}`}
                         />
                       </Stack>

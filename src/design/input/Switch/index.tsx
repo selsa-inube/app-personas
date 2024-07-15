@@ -42,7 +42,7 @@ const Switch = (props: SwitchProps) => {
       margin={margin}
       padding={padding}
     >
-      <StyledContainer size={size}>
+      <StyledContainer $size={size}>
         <StyledInput
           id={id}
           type="checkbox"
@@ -53,13 +53,13 @@ const Switch = (props: SwitchProps) => {
           disabled={disabled}
           name={name}
         />
-        <StyledSpan size={size} disabled={disabled} checked={checked}>
+        <StyledSpan $size={size} $disabled={disabled}>
           {checked ? (
-            <StyledIcon checked={checked} size={size} disabled={disabled}>
+            <StyledIcon $checked={checked} $size={size} $disabled={disabled}>
               <MdDone />
             </StyledIcon>
           ) : (
-            <StyledIcon checked={checked} size={size} disabled={disabled}>
+            <StyledIcon $checked={checked} $size={size} $disabled={disabled}>
               <MdClose />
             </StyledIcon>
           )}

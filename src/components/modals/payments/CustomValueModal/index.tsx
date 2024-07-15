@@ -3,11 +3,9 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
 import { TextField } from "@design/input/TextField";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
+import { InputState } from "@design/input/TextField/types";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -24,36 +22,27 @@ import {
   StyledApprovedValue,
   StyledModal,
 } from "./styles";
-
-interface IApplyPayOption {
-  id: string;
-  label: string;
-}
-
-const applyPayOptions: IApplyPayOption[] = [
-  {
-    id: EPaymentOptionType.REDUCETERM,
-    label: paymentOptionValues[EPaymentOptionType.REDUCETERM],
-  },
-  {
-    id: EPaymentOptionType.REDUCEQUOTA,
-    label: paymentOptionValues[EPaymentOptionType.REDUCEQUOTA],
-  },
-  {
-    id: EPaymentOptionType.REDUCEFUTUREQUOTA,
-    label: paymentOptionValues[EPaymentOptionType.REDUCEFUTUREQUOTA],
-  },
-];
+import { IApplyPayOption, getOptions } from "./utils";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface CustomValueModalProps {
   portalId: string;
   value: number;
+  id: string;
+  nextPaymentDate?: Date;
+  lineCode: string;
+  halfPayment: string;
   nextPaymentValue: number;
   totalPaymentValue: number;
+  expiredValue: number;
   onCloseModal: () => void;
   onChangeOtherValue: (option: IPaymentOption) => void;
   onApplyPayOption?: (applyPayOption: IApplyPayOption, value: number) => void;
 }
+
+const DECISION_ROUNDING = 500;
+const DECISION_LIMIT_DAYS_NEXT_QUOTE = 5;
 
 function CustomValueModal(props: CustomValueModalProps) {
   const {
@@ -61,22 +50,31 @@ function CustomValueModal(props: CustomValueModalProps) {
     value,
     nextPaymentValue,
     totalPaymentValue,
+    nextPaymentDate,
+    expiredValue,
     onCloseModal,
     onChangeOtherValue,
     onApplyPayOption,
   } = props;
   const [showResponse, setShowResponse] = useState(false);
-  const [inputValidation, setInputValidation] = useState({
+  const [inputValidation, setInputValidation] = useState<{
+    state: InputState;
+    errorMessage: string;
+  }>({
     state: "pending",
     errorMessage: "",
   });
   const [selectedOption, setSelectedOption] = useState<IApplyPayOption>();
   const [customValue, setCustomValue] = useState(value);
+  const [applyPayOptions, setApplyPayOptions] = useState<IApplyPayOption[]>([]);
 
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
 
   const handleValidateValue = () => {
+    const today = new Date();
+    today.setUTCHours(5, 0, 0, 0);
+
     if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
       setInputValidation({
         state: "invalid",
@@ -86,20 +84,30 @@ function CustomValueModal(props: CustomValueModalProps) {
       return;
     }
 
-    setInputValidation({
-      state: "pending",
-      errorMessage: "",
-    });
+    setInputValidation({ state: "pending", errorMessage: "" });
 
-    if (customValue > nextPaymentValue) {
+    const daysUntilNextExpiration = Math.ceil(
+      ((nextPaymentDate?.getTime() ?? 0) - today.getTime()) /
+        (1000 * 60 * 60 * 24),
+    );
+
+    const isRounded =
+      Math.abs(customValue - nextPaymentValue) <= DECISION_ROUNDING;
+
+    if (
+      !isRounded &&
+      daysUntilNextExpiration > DECISION_LIMIT_DAYS_NEXT_QUOTE &&
+      ((customValue > expiredValue && customValue < nextPaymentValue) ||
+        (customValue > nextPaymentValue && customValue < totalPaymentValue))
+    ) {
+      setApplyPayOptions(getOptions(customValue, nextPaymentValue));
       setShowResponse(true);
     } else {
       onChangeOtherValue({
         id: EPaymentOptionType.OTHERVALUE,
-        label: `Otro valor`,
+        label: "Abono a capital",
         value: customValue,
       });
-
       onCloseModal();
     }
   };
@@ -127,7 +135,7 @@ function CustomValueModal(props: CustomValueModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium">
@@ -159,7 +167,7 @@ function CustomValueModal(props: CustomValueModalProps) {
               <Icon icon={<MdAttachMoney />} appearance="dark" size="18px" />
             }
             placeholder=""
-            value={currencyFormat(customValue)}
+            value={customValue ? currencyFormat(customValue, false) : ""}
             onChange={handleChangeCustomValue}
             isFullWidth
             state={inputValidation.state}
@@ -238,7 +246,7 @@ function CustomValueModal(props: CustomValueModalProps) {
                   spacing="compact"
                   onClick={handleApplyPayOption}
                   disabled={
-                    customValue < nextPaymentValue ||
+                    !selectedOption ||
                     (totalPaymentValue !== 0 && customValue > totalPaymentValue)
                   }
                 >
@@ -255,4 +263,3 @@ function CustomValueModal(props: CustomValueModalProps) {
 }
 
 export { CustomValueModal };
-export type { IApplyPayOption };

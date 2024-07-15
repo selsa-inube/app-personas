@@ -4,13 +4,18 @@ import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/type
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";
-import { IPreliquidationEntry } from "./forms/PreliquidationForm/types";
+import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
+import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 
 interface IFormsCreditDestinationRequest {
   destination: { isValid: boolean; values: IDestinationEntry };
   creditConditions: { isValid: boolean; values: ICreditConditionsEntry };
-  preliquidation: { isValid: boolean; values: IPreliquidationEntry };
+  systemValidations: { isValid: boolean; values: ISystemValidationsEntry };
+  documentaryRequirements: {
+    isValid: boolean;
+    values: IDocumentaryRequirementsEntry;
+  };
   disbursement: { isValid: boolean; values: IDisbursementEntry };
   comments: { isValid: boolean; values: ICommentsEntry };
   termsAndConditions: { isValid: boolean; values: ITermsAndConditionsEntry };
@@ -23,7 +28,10 @@ interface IFormsCreditDestinationRequest {
 interface IFormsCreditDestinationRequestRefs {
   destination: React.RefObject<FormikProps<IDestinationEntry>>;
   creditConditions: React.RefObject<FormikProps<ICreditConditionsEntry>>;
-  preliquidation: React.RefObject<FormikProps<IPreliquidationEntry>>;
+  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
+  documentaryRequirements: React.RefObject<
+    FormikProps<IDocumentaryRequirementsEntry>
+  >;
   disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
   comments: React.RefObject<FormikProps<ICommentsEntry>>;
   termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;

@@ -1,12 +1,16 @@
 import { useAuth } from "@inube/auth";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "src/context/app";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { getPaymentHistory } from "src/services/iclient/payments/getPaymentHistory";
+import { equalArraysByProperty } from "src/utils/arrays";
 import { PaymentHistoryUI } from "./interface";
 
-const limitPayments = 1000; // TEMP
+const limitPayments = 5;
+const refreshSeconds = 30;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
+let countdownInterval: ReturnType<typeof setInterval> | null = null;
 
 function PaymentHistory() {
   const [showPaymentHistoryModal, setShowPaymentHistoryModal] = useState(false);
@@ -16,7 +20,9 @@ function PaymentHistory() {
     IPaymentHistory | undefined
   >();
   const [noMorePayments, setNoMorePayments] = useState(false);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
+  const [refreshTime, setRefreshTime] = useState(refreshSeconds);
 
   useEffect(() => {
     handleRefreshHistory();
@@ -25,18 +31,45 @@ function PaymentHistory() {
       if (refreshInterval) {
         clearInterval(refreshInterval);
       }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
     };
   }, []);
+
+  const startCountdown = () => {
+    setRefreshTime(refreshSeconds);
+
+    countdownInterval = setInterval(() => {
+      setRefreshTime((prevTime) => {
+        if (prevTime <= 1 && countdownInterval) {
+          clearInterval(countdownInterval);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+  };
 
   const handleRefreshHistory = () => {
     if (refreshInterval) {
       clearInterval(refreshInterval);
     }
 
-    handleGetPaymentHistory(0, limitPayments, true);
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+    }
+
+    const limit =
+      paymentHistory.length > 0 ? paymentHistory.length : limitPayments;
+
+    handleGetPaymentHistory(1, limit, true);
+
+    startCountdown();
 
     refreshInterval = setInterval(() => {
-      handleGetPaymentHistory(0, limitPayments, true);
+      handleGetPaymentHistory(1, limit, true);
+      startCountdown();
     }, 60000);
   };
 
@@ -45,7 +78,7 @@ function PaymentHistory() {
     limit: number,
     reset?: boolean,
   ) => {
-    if (user && accessToken) {
+    if (accessToken) {
       setLoading(true);
       getPaymentHistory(user.identification, accessToken, page, limit)
         .then((newPaymentHistory) => {
@@ -54,7 +87,22 @@ function PaymentHistory() {
             return;
           }
 
+          if (newPaymentHistory.length < limitPayments) {
+            setNoMorePayments(true);
+          }
+
           if (reset) {
+            const isEqualPayments = equalArraysByProperty(
+              paymentHistory,
+              newPaymentHistory,
+              "id",
+            );
+
+            if (!isEqualPayments) {
+              setPaymentHistory(newPaymentHistory.slice(0, limitPayments));
+              return;
+            }
+
             setPaymentHistory(newPaymentHistory);
             return;
           }
@@ -72,7 +120,8 @@ function PaymentHistory() {
   };
 
   const handleAddPayments = () => {
-    handleGetPaymentHistory(paymentHistory.length, limitPayments);
+    const page = paymentHistory.length / limitPayments + 1;
+    handleGetPaymentHistory(page, limitPayments);
   };
 
   const handleTogglePaymentHistoryModal = (payment: IPaymentHistory) => {
@@ -91,6 +140,7 @@ function PaymentHistory() {
       loading={loading}
       selectedPayment={selectedPayment}
       noMorePayments={noMorePayments}
+      refreshTime={refreshTime}
       onTogglePaymentHistoryModal={handleTogglePaymentHistoryModal}
       onAddPayments={handleAddPayments}
       onToggleClosePaymentHistoryModal={handleToggleClosePaymentHistoryModal}

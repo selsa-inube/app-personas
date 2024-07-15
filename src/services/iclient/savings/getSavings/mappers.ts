@@ -1,6 +1,11 @@
 import { ISavingsState } from "src/context/savings/types";
-import { EProductType, IMovement, IProduct } from "src/model/entity/product";
-import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
+import {
+  EMovementType,
+  EProductType,
+  IMovement,
+  IProduct,
+} from "src/model/entity/product";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 import { getProductAttributes, getProductDetails } from "./utils";
 
 const mapSavingProductCommitmentApiToEntity = (
@@ -18,24 +23,46 @@ const mapSavingProductsCommitmentsApiToEntities = (
 const mapSavingProductMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
-  const buildMovement: IMovement = {
+  const dateWithoutZone = String(movement.movementDate).replace("Z", "");
+
+  let type: EMovementType | undefined;
+
+  if (Object.prototype.hasOwnProperty.call(movement, "creditMovementPesos")) {
+    type = EMovementType.CREDIT;
+  } else if (
+    Object.prototype.hasOwnProperty.call(movement, "debitMovementPesos")
+  ) {
+    type = EMovementType.DEBIT;
+  } else {
+    type = undefined;
+  }
+
+  return {
     id: String(movement.movementId),
-    date: new Date(String(movement.movementDate)),
+    date: new Date(dateWithoutZone),
     reference: String(movement.movementNumber),
-    description: capitalizeFirstLetters(String(movement.movementDescription)),
+    description: capitalizeEachWord(String(movement.movementDescription)),
     totalValue: Number(
-      movement.creditMovementPesos || -movement.debitMovementPesos || 0,
+      movement.creditMovementPesos || movement.debitMovementPesos || 0,
     ),
+    type: type,
   };
-  return buildMovement;
 };
 
 const mapSavingProductMovementsApiToEntities = (
   movements: Record<string, string | number | object>[],
 ): IMovement[] => {
-  return movements
-    .map(mapSavingProductMovementsApiToEntity)
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
+  return movements.map(mapSavingProductMovementsApiToEntity).sort((a, b) => {
+    const dateComparison = b.date.getTime() - a.date.getTime();
+    if (dateComparison !== 0) {
+      return dateComparison;
+    }
+
+    const referenceA = a.reference || "";
+    const referenceB = b.reference || "";
+
+    return referenceA.localeCompare(referenceB);
+  });
 };
 
 const mapSavingsApiToEntity = (

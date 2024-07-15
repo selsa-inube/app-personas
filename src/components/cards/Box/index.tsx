@@ -11,9 +11,9 @@ import {
   ButtonAppearanceType,
   ButtonVariantType,
 } from "@design/input/Button/types";
-import { Divider } from "@design/layout/Divider";
-import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 import { SkeletonLine } from "@inube/design-system";
+import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
+import { Divider } from "@inubekit/divider";
 
 interface BoxProps {
   icon?: React.JSX.Element;
@@ -23,7 +23,8 @@ interface BoxProps {
   button?: {
     label: string;
     icon: React.JSX.Element;
-    path: string;
+    path?: string;
+    onClick?: () => void;
     appearance?: ButtonAppearanceType;
     variant?: ButtonVariantType;
   };
@@ -97,7 +98,7 @@ function Box(props: BoxProps) {
             </Stack>
           </StyledLink>
           {collapsing.allow && (
-            <StyledCollapseIcon collapse={collapse} onClick={handleCollapse}>
+            <StyledCollapseIcon $collapse={collapse} onClick={handleCollapse}>
               <Icon
                 icon={<MdOutlineChevronRight />}
                 appearance="dark"
@@ -118,6 +119,7 @@ function Box(props: BoxProps) {
             <Button
               type={button.path ? "link" : "button"}
               path={button.path}
+              onClick={button.onClick}
               iconBefore={button.icon}
               variant={button.variant || "none"}
               spacing="compact"

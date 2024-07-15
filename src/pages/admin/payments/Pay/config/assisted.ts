@@ -19,7 +19,7 @@ const paySteps = {
   verification: {
     id: 4,
     name: "Verificación",
-    description: "Confirma la información diligencias en pasos anteriores.",
+    description: "Confirma la información diligenciada en pasos anteriores.",
   },
 };
 

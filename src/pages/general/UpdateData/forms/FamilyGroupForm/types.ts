@@ -1,9 +1,11 @@
+import { IDomainType } from "@ptypes/domain.types";
+
 interface IFamilyGroupEntry {
   firstName?: string;
   secondName?: string;
   firstLastName?: string;
   secondLastName?: string;
-  type?: string;
+  type?: IDomainType;
   identificationNumber?: number;
   expeditionCountry?: string;
   city?: string;

@@ -8,14 +8,33 @@ interface ISelectedProductState {
 interface INextPaymentModalState {
   show: boolean;
   data?: {
-    nextPaymentCapital?: number;
-    nextPaymentInterest?: number;
-    nextPaymentArrearsInterest?: number;
+    nextCapital?: number;
+    nextInterest?: number;
+    nextPastDueInterest?: number;
+    nextPenaltyInterest?: number;
+    nextLifeInsurance?: number;
+    nextOtherConcepts?: number;
+    nextCapitalization?: number;
     nextPaymentValue: number;
+  };
+}
+
+interface IExpiredPaymentModalState {
+  show: boolean;
+  data?: {
+    expiredCapital?: number;
+    expiredInterest?: number;
+    expiredPastDueInterest?: number;
+    expiredPenaltyInterest?: number;
+    expiredLifeInsurance?: number;
+    expiredOtherConcepts?: number;
+    expiredCapitalization?: number;
+    expiredValue: number;
   };
 }
 
 export type {
   INextPaymentModalState,
   ISelectedProductState,
+  IExpiredPaymentModalState,
 };

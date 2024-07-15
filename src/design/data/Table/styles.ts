@@ -12,7 +12,7 @@ const StyledTableContainer = styled.div`
 `;
 
 interface IStyledTable {
-  colsSameWidth?: boolean;
+  $colsSameWidth?: boolean;
 }
 
 const StyledTable = styled.table<IStyledTable>`
@@ -22,7 +22,7 @@ const StyledTable = styled.table<IStyledTable>`
       inube.color.stroke.divider.regular};
   box-sizing: border-box;
   border-collapse: collapse;
-  table-layout: ${({ colsSameWidth }) => (colsSameWidth ? "fixed" : "auto")};
+  table-layout: ${({ $colsSameWidth }) => ($colsSameWidth ? "fixed" : "auto")};
   width: 100%;
 `;
 
@@ -41,13 +41,13 @@ const StyledTbody = styled.tbody`
 `;
 
 interface IStyledTr {
-  isLastTr?: boolean;
+  $isLastTr?: boolean;
 }
 
 const StyledTr = styled.tr<IStyledTr>`
   border-bottom: solid 1px
-    ${({ isLastTr, theme }) => {
-      if (isLastTr) return "transparent";
+    ${({ $isLastTr, theme }) => {
+      if ($isLastTr) return "transparent";
       return (
         theme.color?.stroke?.divider?.regular ||
         inube.color.stroke.divider.regular
@@ -57,18 +57,18 @@ const StyledTr = styled.tr<IStyledTr>`
 `;
 
 interface IStyledThTitle {
-  countColumns: number;
-  colsSameWidth?: boolean;
-  withActions?: boolean;
+  $countColumns: number;
+  $colsSameWidth?: boolean;
+  $withActions?: boolean;
 }
 
 const StyledThTitle = styled.th<IStyledThTitle>`
   padding: 12px 16px;
-  min-width: ${({ countColumns, colsSameWidth }) =>
-    colsSameWidth ? `${100 / countColumns}%` : "auto"};
+  min-width: ${({ $countColumns, $colsSameWidth }) =>
+    $colsSameWidth ? `${100 / $countColumns}%` : "auto"};
 
   p {
-    text-align: ${({ withActions }) => (withActions ? "left" : "center")};
+    text-align: ${({ $withActions }) => ($withActions ? "left" : "center")};
   }
 `;
 
@@ -80,7 +80,7 @@ const StyledThAction = styled.th`
 `;
 
 interface IStyledTd {
-  withActions?: boolean;
+  $withActions?: boolean;
 }
 
 const StyledTd = styled.td<IStyledTd>`
@@ -90,7 +90,7 @@ const StyledTd = styled.td<IStyledTd>`
   white-space: nowrap;
 
   p {
-    text-align: ${({ withActions }) => (withActions ? "left" : "center")};
+    text-align: ${({ $withActions }) => ($withActions ? "left" : "center")};
   }
 `;
 

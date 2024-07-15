@@ -1,42 +1,44 @@
-import { amortizationTableValuesMock } from "@mocks/products/credits/utils.mocks";
+import { creditPaymentTypeDM } from "src/model/domains/credits/creditPaymentTypeDM";
 import { IAmortization } from "src/model/entity/product";
 
 const mapCreditAmortizationApiToEntity = (
   payment: Record<string, string | number | object>,
 ): IAmortization => {
   const others =
-    Number(payment.lifeInsuranceValue || 0) +
-    Number(payment.otherConceptValue || 0) +
-    Number(payment.capitalizationValue || 0);
+    Number(payment.lifeInsurance || 0) +
+    Number(payment.otherConcept || 0) +
+    Number(payment.capitalization || 0);
 
   const totalInterest =
-    Number(payment.fixedInterestValue || 0) +
-    Number(payment.variableInterestValue || 0);
+    Number(payment.fixedInterest || 0) + Number(payment.variableInterest || 0);
+
+  const dateWithoutZone = String(payment.quotaDate).replace("Z", "");
 
   const buildPayment: IAmortization = {
     id: String(payment.paymentPlanId),
-    date: new Date(String(payment.quotaDate)),
-    type: amortizationTableValuesMock[Object(payment.quotaType).code],
+    date: new Date(dateWithoutZone),
+    type:
+      creditPaymentTypeDM.valueOf(Object(payment.quotaType).code)?.value || "",
     others,
     interest: totalInterest,
     totalMonthlyValue: Number(payment.quotaValue),
     projectedBalance: Number(payment.projectedBalance || 0),
   };
 
-  if (payment.capitalValue) {
-    buildPayment.capitalPayment = Number(payment.capitalValue);
+  if (payment.capital) {
+    buildPayment.capitalPayment = Number(payment.capital);
   }
 
-  if (payment.lifeInsuranceValue) {
-    buildPayment.lifeInsurance = Number(payment.lifeInsuranceValue);
+  if (payment.lifeInsurance) {
+    buildPayment.lifeInsurance = Number(payment.lifeInsurance);
   }
 
-  if (payment.otherConceptValue) {
-    buildPayment.patrimonialInsurance = Number(payment.otherConceptValue);
+  if (payment.otherConcept) {
+    buildPayment.patrimonialInsurance = Number(payment.otherConcept);
   }
 
-  if (payment.capitalizationValue) {
-    buildPayment.capitalization = Number(payment.capitalizationValue);
+  if (payment.capitalization) {
+    buildPayment.capitalization = Number(payment.capitalization);
   }
 
   return buildPayment;

@@ -1,5 +1,5 @@
-import { movementDescriptionMock } from "@mocks/products/credits/utils.mocks";
 import { IMovement } from "src/model/entity/product";
+import { getCreditMovementDescription } from "./utils";
 
 const mapCreditMovementApiToEntity = (
   movement: Record<string, string | number | object>,
@@ -10,13 +10,15 @@ const mapCreditMovementApiToEntity = (
     Number(movement.lifeInsuranceCreditPesos || 0) +
     Number(movement.capitalizationCreditPesos || 0);
 
+  const dateWithoutZone = String(movement.movementDate).replace("Z", "");
+
   const buildMovement: IMovement = {
     id: String(movement.movementId),
-    date: new Date(String(movement.movementDate)),
+    date: new Date(dateWithoutZone),
     reference: String(movement.movementNumber),
     description: String(
       movement.movementDescription ||
-        movementDescriptionMock(Object(movement.movementNumber).code),
+        getCreditMovementDescription(Object(movement.movementNumber).code),
     ),
     totalValue: totalPay,
   };

@@ -4,7 +4,6 @@ import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
-import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
@@ -15,7 +14,7 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack, MdOpenInNew, MdSyncAlt } from "react-icons/md";
-import { IProduct } from "src/model/entity/product";
+import { EMovementType, IMovement, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
 import {
@@ -29,14 +28,11 @@ import {
 } from "../SavingsAccount/config/saving";
 import { extractSavingsCommitmentsAttributes } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
-import {
-  savingAccountPaymentsNormalizeEntries,
-  savingsAccountPaymentsTableActions,
-  savingsAccountPaymentsTableBreakpoints,
-  savingsAccountPaymentsTableTitles,
-} from "./config/table";
 import { StyledPaymentsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
+import { RecordCard } from "@components/cards/RecordCard";
+import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
@@ -63,6 +59,21 @@ function renderProducts(
     }
   });
 }
+
+const renderMovements = (movements: IMovement[]) =>
+  movements &&
+  movements.slice(0, 5).map((movement, index) => (
+    <Stack direction="column" gap="s200" key={movement.id} width="100%">
+      {index !== 0 && <Divider dashed />}
+      <RecordCard
+        id={movement.id}
+        type={movement.type || EMovementType.CREDIT}
+        description={movement.description}
+        totalValue={movement.totalValue || 0}
+        attributes={generateAttributes(movement)}
+      />
+    </Stack>
+  ));
 
 interface SavingsCommitmentsUIProps {
   commitmentId?: string;
@@ -174,18 +185,30 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
           <Text type="label" size="large">
             Pagos recientes
           </Text>
-          <StyledPaymentsContainer>
-            <Table
-              portalId="modals"
-              titles={savingsAccountPaymentsTableTitles}
-              breakpoints={savingsAccountPaymentsTableBreakpoints}
-              actions={savingsAccountPaymentsTableActions}
-              entries={savingAccountPaymentsNormalizeEntries(
-                selectedCommitment.commitment.movements || [],
-              ).slice(0, 5)}
-              pageLength={selectedCommitment.commitment.movements?.length || 0}
-              hideMobileResume
-            />
+          <StyledPaymentsContainer $isMobile={isMobile}>
+            {selectedCommitment.commitment.movements &&
+            selectedCommitment.commitment.movements.length > 0 ? (
+              renderMovements(selectedCommitment.commitment.movements)
+            ) : (
+              <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                gap="s100"
+                width="100%"
+              >
+                <Text type="title" size="small" appearance="dark">
+                  No tienes movimientos
+                </Text>
+                <Text
+                  type="body"
+                  size={isMobile ? "small" : "medium"}
+                  appearance="gray"
+                >
+                  Aun no posees movimientos en este producto.
+                </Text>
+              </Stack>
+            )}
           </StyledPaymentsContainer>
         </Stack>
       </Grid>

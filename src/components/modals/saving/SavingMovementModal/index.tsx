@@ -1,14 +1,14 @@
 import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBodyItem, StyledModal } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface SavingMovementModalProps {
   portalId: string;
@@ -31,7 +31,7 @@ const renderTransactionSpecification = (
           key={index}
           type={value >= 0 ? "body" : "label"}
           size={value >= 0 ? "medium" : "large"}
-          appearance={value >= 0 ? "gray" : "error"}
+          appearance={value >= 0 ? "gray" : "danger"}
         >
           {currencyFormat(value)}
         </Text>
@@ -67,7 +67,7 @@ function SavingMovementModal(props: SavingMovementModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">

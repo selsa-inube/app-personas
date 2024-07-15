@@ -1,5 +1,6 @@
 import { EMovementType, IAttribute, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { obfuscateText } from "src/utils/texts";
 
 const cardAttributes = [
   "card_number",
@@ -12,7 +13,7 @@ const cardAttributes = [
 
 const creditQuotasAttributes = [
   "available_space",
-  "next_payment_date",
+  "next_payment",
   "next_payment_value",
   "type",
   "payment_method",
@@ -32,7 +33,17 @@ function extractCardAttributes(credit: IProduct) {
     cardAttributes.includes(attribute.id),
   );
 
-  return foundAttributes.sort(
+  const formattedAttributes = foundAttributes.map((attribute) => {
+    if (attribute.id === "card_number") {
+      return {
+        ...attribute,
+        value: obfuscateText(attribute.value.toString(), 0, 4),
+      };
+    }
+    return attribute;
+  });
+
+  return formattedAttributes.sort(
     (a, b) => cardAttributes.indexOf(a.id) - cardAttributes.indexOf(b.id),
   );
 }
@@ -75,20 +86,19 @@ function formatCreditQuotasCurrencyAttrs(attributes: IAttribute[]) {
   });
 }
 
-function getMovementDescriptionType(
+function getRecordDescriptionType(
   type: EMovementType,
   description: string,
 ): string {
-
   const text = description.toLowerCase();
-  
+
   switch (type) {
     case EMovementType.PURCHASE:
-    return text.includes("compra") || text.includes("retiro") ? "" : "Compra";
+      return text.includes("compra") || text.includes("retiro") ? "" : "Compra";
     case EMovementType.REVERSE:
       return text.includes("reverso") ? "" : "Reverso";
     case EMovementType.PAYMENT:
-      return text.includes("pago") ? "" : "Pago" ;
+      return text.includes("pago") ? "" : "Pago";
     default:
       return "";
   }
@@ -99,5 +109,5 @@ export {
   extractCreditQuotasAttributes,
   formatCardCurrencyAttrs,
   formatCreditQuotasCurrencyAttrs,
-  getMovementDescriptionType,
+  getRecordDescriptionType,
 };

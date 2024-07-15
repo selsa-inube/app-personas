@@ -8,6 +8,7 @@ import { CardsContext } from "src/context/cards";
 import { ConsumptionUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { validateConsumption, validateConsumptionMovements } from "./utils";
+import { AppContext } from "src/context/app";
 
 function Consumption() {
   const { card_id, credit_quota_id, consumption_id } = useParams();
@@ -16,7 +17,8 @@ function Consumption() {
   const [loading, setLoading] = useState(true);
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const { creditQuotaDetail, setCreditQuotaDetail } = useContext(CardsContext);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const navigate = useNavigate();
 

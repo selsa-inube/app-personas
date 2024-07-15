@@ -2,7 +2,7 @@ import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { capitalizeFirstLetters } from "src/utils/texts";
+import { capitalizeEachWord } from "src/utils/texts";
 
 import { Box } from "@components/cards/Box";
 import { QuickAccess } from "@components/cards/QuickAccess";
@@ -14,7 +14,6 @@ import { StyledCommitmentsContainer } from "./styles";
 
 import { Product } from "@components/cards/Product";
 import { Title } from "@design/data/Title";
-import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import {
   MdOutlineAccountBalanceWallet,
@@ -217,7 +216,7 @@ function renderHomeContent(
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
-                    <StyledCommitmentsContainer isTablet={isTablet}>
+                    <StyledCommitmentsContainer $isTablet={isTablet}>
                       <ProductsCommitments commitments={commitments} />
                     </StyledCommitmentsContainer>
                   </Stack>
@@ -322,7 +321,7 @@ function HomeUI(props: HomeUIProps) {
     isTablet,
   } = props;
 
-  const { user } = useAuth();
+  const { user } = useContext(AppContext);
   const [currentTime, setCurrentTime] = useState(new Date());
   const { getFlag } = useContext(AppContext);
 
@@ -336,14 +335,15 @@ function HomeUI(props: HomeUIProps) {
     return () => clearInterval(currentTimeInterval);
   }, []);
 
-  const withRequestSaving =
-    getFlag("admin.savings.savings.request-saving")?.value || false;
-    
-  const withRequestCredit =
-    getFlag("admin.credits.credits.request-credit")?.value || false;
-    
-  const withRequestCard =
-    getFlag("admin.cards.cards.request-card")?.value || false;
+  const withRequestSaving = getFlag(
+    "admin.savings.savings.request-saving",
+  ).value;
+
+  const withRequestCredit = getFlag(
+    "admin.credits.credits.request-credit",
+  ).value;
+
+  const withRequestCard = getFlag("admin.cards.cards.request-card").value;
 
   return (
     <>
@@ -357,9 +357,7 @@ function HomeUI(props: HomeUIProps) {
           </Text>
         </Stack>
         <Title
-          title={`Bienvenido(a), ${
-            user && capitalizeFirstLetters(user?.firstName)
-          }`}
+          title={`Bienvenido(a), ${capitalizeEachWord(user.firstName)}`}
           subtitle="Aquí tienes un resumen de tus productos"
         />
       </Stack>

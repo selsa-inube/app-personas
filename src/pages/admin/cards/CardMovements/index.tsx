@@ -1,12 +1,13 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { CardMovementsUI } from "./interface";
-import { useContext, useEffect, useState } from "react";
 import { ISelectOption } from "@design/input/Select/types";
-import { ISelectedProductState } from "./types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { CardsContext } from "src/context/cards";
+import { CardMovementsUI } from "./interface";
+import { ISelectedProductState } from "./types";
 import { addMovementsToCard, validateCreditQuotas } from "./utils";
-import { CardsContext } from 'src/context/cards';
+import { AppContext } from "src/context/app";
 
 function CardMovements() {
   const { card_id, credit_quota_id } = useParams();
@@ -16,7 +17,8 @@ function CardMovements() {
   const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -61,9 +63,9 @@ function CardMovements() {
 
   const handleAddMovements = () => {
     if (!selectedProduct || !credit_quota_id) return;
-  
+
     setLoading(true);
-  
+
     setTimeout(() => {
       try {
         const newMovements = addMovementsToCard(
@@ -71,15 +73,12 @@ function CardMovements() {
           creditQuotas,
           credit_quota_id,
         );
-  
+
         if (newMovements) {
-            setSelectedProduct({
-                ...selectedProduct,
-                movements: [
-                    ...selectedProduct.movements, 
-                    ...newMovements
-                ],
-            });
+          setSelectedProduct({
+            ...selectedProduct,
+            movements: [...selectedProduct.movements, ...newMovements],
+          });
         }
       } finally {
         setLoading(false);

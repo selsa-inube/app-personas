@@ -1,13 +1,13 @@
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledModal } from "./styles";
+import { Blanket } from "@inubekit/blanket";
 
 const renderTransactionSpecification = (label: string, value: number) => (
   <Stack gap="s100" alignItems="center">
@@ -26,9 +26,13 @@ const renderTransactionSpecification = (label: string, value: number) => (
 interface NextPaymentModalProps {
   portalId: string;
   nextPaymentData: {
-    nextPaymentCapital?: number;
-    nextPaymentInterest?: number;
-    nextPaymentArrearsInterest?: number;
+    nextCapital?: number;
+    nextInterest?: number;
+    nextPastDueInterest?: number;
+    nextPenaltyInterest?: number;
+    nextLifeInsurance?: number;
+    nextOtherConcepts?: number;
+    nextCapitalization?: number;
     nextPaymentValue: number;
   };
   onCloseModal: () => void;
@@ -48,7 +52,7 @@ function NextPaymentModal(props: NextPaymentModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
@@ -77,22 +81,46 @@ function NextPaymentModal(props: NextPaymentModalProps) {
           </Text>
 
           <Stack direction="column" gap="s200">
-            {nextPaymentData.nextPaymentCapital &&
+            {nextPaymentData.nextCapital &&
               renderTransactionSpecification(
                 "Abono capital:",
-                nextPaymentData.nextPaymentCapital,
+                nextPaymentData.nextCapital,
               )}
 
-            {nextPaymentData.nextPaymentInterest &&
+            {nextPaymentData.nextInterest &&
               renderTransactionSpecification(
                 "Interés corriente:",
-                nextPaymentData.nextPaymentInterest,
+                nextPaymentData.nextInterest,
               )}
 
-            {nextPaymentData.nextPaymentArrearsInterest &&
+            {nextPaymentData.nextPastDueInterest &&
+              renderTransactionSpecification(
+                "Interés vencido:",
+                nextPaymentData.nextPastDueInterest,
+              )}
+
+            {nextPaymentData.nextPenaltyInterest &&
               renderTransactionSpecification(
                 "Interés de mora:",
-                nextPaymentData.nextPaymentArrearsInterest,
+                nextPaymentData.nextPenaltyInterest,
+              )}
+
+            {nextPaymentData.nextLifeInsurance &&
+              renderTransactionSpecification(
+                "Seguro de vida:",
+                nextPaymentData.nextLifeInsurance,
+              )}
+
+            {nextPaymentData.nextOtherConcepts &&
+              renderTransactionSpecification(
+                "Otros conceptos:",
+                nextPaymentData.nextOtherConcepts,
+              )}
+
+            {nextPaymentData.nextCapitalization &&
+              renderTransactionSpecification(
+                "Capitalización:",
+                nextPaymentData.nextCapitalization,
               )}
           </Stack>
 
@@ -101,7 +129,7 @@ function NextPaymentModal(props: NextPaymentModalProps) {
 
             <Stack justifyContent="space-between" alignItems="center">
               <Text type="title" size="medium" appearance="gray">
-                Pago total:
+                Total:
               </Text>
 
               <Text type="title" size="medium" appearance="dark">

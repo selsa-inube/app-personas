@@ -108,7 +108,7 @@ function CdatRequest() {
     handleStepChange(currentStep - 1);
   };
 
-  if (!getFlag("admin.savings.savings.request-saving")?.value) {
+  if (!getFlag("admin.savings.savings.request-saving").value) {
     return <Navigate to="/" />;
   }
 

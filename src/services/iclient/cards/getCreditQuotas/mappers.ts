@@ -1,5 +1,5 @@
 import { TagProps } from "@design/data/Tag";
-import { cardTypeValuesMock } from "@mocks/products/cards/utils.mocks";
+import { creditQuotaTypeDM } from "src/model/domains/cards/creditQuotaTypeDM.ts";
 import {
   EMovementType,
   EProductType,
@@ -8,31 +8,33 @@ import {
   IProduct,
 } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapCreditQuotaMovementsApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
-  const typeTransation = () => {
-    if (
-      Object(movement.typeOfTransation).code === "Consumption" &&
-      Object(movement.reverseTransaction).code === "Yes"
-    )
-      return EMovementType.REVERSE;
-    if (
-      Object(movement.typeOfTransation).code === "Consumption" &&
-      Object(movement.reverseTransaction).code === "No"
-    )
-      return EMovementType.PURCHASE;
-    return EMovementType.PAYMENT;
-  };
+  let transactionType = EMovementType.PAYMENT;
+  if (
+    Object(movement.typeOfTransation).code === "Consumption" &&
+    Object(movement.reverseTransaction).code === "Yes"
+  )
+    transactionType = EMovementType.REVERSE;
+  if (
+    Object(movement.typeOfTransation).code === "Consumption" &&
+    Object(movement.reverseTransaction).code === "No"
+  ) {
+    transactionType = EMovementType.PURCHASE;
+  }
+
+  const dateWithoutZone = String(movement.movementDate).replace("Z", "");
 
   const buildMovement: IMovement = {
     id: String(movement.movementNumber),
     description: String(movement.movementDescription),
     totalValue: Number(movement.transactionValue),
-    date: new Date(String(movement.movementDate)),
-    type: typeTransation(),
+    date: new Date(dateWithoutZone),
+    type: transactionType,
+    reference: String(movement.movementNumber),
   };
   return buildMovement;
 };
@@ -50,20 +52,22 @@ const mapCreditQuotaApiToEntity = (
     ? mapCreditQuotaMovementsApiToEntities(creditQuota.listOfConsumerMovements)
     : [];
 
-  const nextPaymentDate = new Date(String(creditQuota.nextPaymentDay));
-  nextPaymentDate.setUTCHours(5, 5, 5, 5);
+  const dateWithoutZone = String(creditQuota.nextPaymentDay).replace("Z", "");
+
+  const nextPaymentDate = new Date(dateWithoutZone);
 
   const today = new Date();
-
-  today.setUTCHours(5, 5, 5, 5);
+  today.setUTCHours(5, 0, 0, 0);
 
   const inArrears = today > nextPaymentDate;
 
   const nextPaymentFormat = inArrears
     ? "Inmediato"
-    : formatPrimaryDate(new Date(String(creditQuota.nextPaymentDay)));
+    : formatPrimaryDate(nextPaymentDate);
 
-const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "Sin definir"
+  const nextPaymentDateValid = creditQuota.nextPaymentDay
+    ? nextPaymentFormat
+    : "Sin definir";
 
   const normalizedPaymentMediumName = capitalizeText(
     String(creditQuota.paymentMediumName).toLowerCase(),
@@ -82,7 +86,7 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
       value: Number(creditQuota.availableCredit || 0),
     },
     {
-      id: "next_payment_date",
+      id: "next_payment",
       label: "Fecha próximo pago",
       value: nextPaymentDateValid,
     },
@@ -95,17 +99,19 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
       id: "type",
       label: "Tipo",
       value:
-        cardTypeValuesMock[Object(creditQuota.wayToManageConsumption).code],
+        creditQuotaTypeDM.valueOf(
+          Object(creditQuota.wayToManageConsumption).code,
+        )?.value || "",
     },
     {
       id: "assigned_quota",
       label: "Cupo asignado",
-      value: Number(creditQuota.assignedCreditLimit),
+      value: Number(creditQuota.assignedCreditLimit || 0),
     },
     {
-      id: "full_payment",
+      id: "total_payment",
       label: "Pago total",
-      value: Object(creditQuota.totalDebt)?.totalPending || "Sin definir",
+      value: Object(creditQuota.totalDebt)?.total || "Sin definir",
     },
     {
       id: "payment_method",
@@ -137,14 +143,14 @@ const nextPaymentDateValid = creditQuota.nextPaymentDay ? nextPaymentFormat : "S
     ? [
         {
           label: "En mora",
-          appearance: "error",
+          appearance: "danger",
         },
       ]
     : [];
 
   return {
     id: String(creditQuota.creditProductCode),
-    title: "Crediexpress",
+    title: capitalizeEachWord(String(creditQuota.productDescription)),
     description: String(creditQuota.creditProductCode),
     type: EProductType.CREDITCARD,
     attributes,
@@ -162,4 +168,4 @@ const mapCreditQuotasApiToEntities = (
   );
 };
 
-export { mapCreditQuotasApiToEntities, mapCreditQuotaApiToEntity };
+export { mapCreditQuotaApiToEntity, mapCreditQuotasApiToEntities };

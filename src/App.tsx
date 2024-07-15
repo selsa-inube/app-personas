@@ -9,7 +9,6 @@ import { GlobalStyles } from "@design/styles";
 import { useFonts } from "@hooks/useFonts";
 import { ThemeProvider } from "styled-components";
 
-import { nav } from "@config/nav";
 import { theme } from "@config/theme";
 
 import { Page } from "@design/layout/Page";
@@ -28,16 +27,23 @@ import { CardsProvider } from "./context/cards";
 import { CreditsProvider } from "./context/credits";
 
 import { PageNotFound } from "@components/layout/PageNotFound";
+import { SwitchUser } from "@pages/admin/switchUser";
 import { AppProvider } from "./context/app";
 import { SavingsProvider } from "./context/savings";
+import { AidRoutes } from "./routes/aid";
 import { MyCardsRoutes } from "./routes/myCards";
+import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
+import { TransfersRoutes } from "./routes/transfers";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route errorElement={<PageNotFound nav={nav}/>} />
-      <Route path="/" element={<Page nav={nav} />}>
+      <Route errorElement={<PageNotFound />} />
+      <Route path="switch-user" element={<Page withNav={false} />}>
+        <Route index element={<SwitchUser />} />
+      </Route>
+      <Route path="/" element={<Page />}>
         <Route path="/" element={<Home />} />
 
         <Route path="my-credits/*" element={<MyCreditsRoutes />} />
@@ -46,11 +52,17 @@ const router = createBrowserRouter(
 
         <Route path="my-cards/*" element={<MyCardsRoutes />} />
 
+        <Route path="my-requests/*" element={<MyRequestsRoutes />} />
+
         <Route path="payments/*" element={<PaymentsRoutes />} />
 
-        <Route path="credit/*" element={<CreditRoutes />} />
+        <Route path="transfers/*" element={<TransfersRoutes />} />
+
+        <Route path="credits/*" element={<CreditRoutes />} />
 
         <Route path="savings/*" element={<SavingRoutes />} />
+
+        <Route path="aids/*" element={<AidRoutes />} />
 
         <Route path="/update-data-assisted" element={<UpdateData />} />
         <Route

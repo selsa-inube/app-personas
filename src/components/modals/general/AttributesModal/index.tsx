@@ -1,14 +1,14 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { StyledModal } from "./styles";
-import { Divider } from "@design/layout/Divider";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
 
 interface AttributesModalProps {
   title: string;
@@ -34,7 +34,7 @@ function AttributesModal(props: AttributesModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">

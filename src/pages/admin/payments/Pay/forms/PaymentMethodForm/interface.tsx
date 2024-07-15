@@ -1,7 +1,6 @@
-import { PaymentMethodCard } from "@components/cards/PaymentMethodCard";
+import { PaymentMethodCard } from "@components/cards/payments/PaymentMethodCard";
 import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -10,6 +9,7 @@ import { currencyFormat } from "src/utils/currency";
 import { paymentMethods } from "./config/payment";
 import { StyledPendingValueContainer, StyledSummaryContainer } from "./styles";
 import { IMoneySource, IPaymentMethodEntry } from "./types";
+import { Divider } from "@inubekit/divider";
 
 const renderMoneySources = (
   moneySources: IMoneySource,
@@ -100,7 +100,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
               )}
             </Grid>
 
-            <StyledSummaryContainer fixed={isMobile}>
+            <StyledSummaryContainer $fixed={isMobile}>
               <Divider dashed />
 
               <Stack
@@ -108,7 +108,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
                 justifyContent={isMobile ? "center" : "flex-end"}
                 width="100%"
               >
-                <StyledPendingValueContainer isMobile={isMobile}>
+                <StyledPendingValueContainer $isMobile={isMobile}>
                   <Text type="title" size="medium" appearance="dark">
                     Valor pendiente:
                   </Text>
@@ -117,7 +117,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
                     type="title"
                     size="medium"
                     appearance={
-                      formik.values.pendingValue < 0 ? "error" : "gray"
+                      formik.values.pendingValue < 0 ? "danger" : "gray"
                     }
                   >
                     {currencyFormat(formik.values.pendingValue)}

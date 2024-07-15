@@ -7,8 +7,8 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
-import { educationLevelTypeDM } from "src/model/domains/socioeconomicInformation/educationLeveldm";
-import { vulnerablePopulationTypeDM } from "src/model/domains/socioeconomicInformation/vulnerablePopulationdm";
+import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
+import { vulnerablePopulationTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/vulnerablePopulationdm";
 import { getFieldState } from "src/utils/forms/forms";
 
 interface SocioeconomicInformationFormUIProps {

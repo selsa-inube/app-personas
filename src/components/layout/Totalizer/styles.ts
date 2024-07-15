@@ -2,7 +2,7 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledTotalPayment {
-  isMobile: boolean;
+  $isMobile: boolean;
 }
 
 const StyledTotalPayment = styled.div<IStyledTotalPayment>`
@@ -17,12 +17,12 @@ const StyledTotalPayment = styled.div<IStyledTotalPayment>`
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
-  width: ${({ isMobile }) => (isMobile ? "100%" : "auto")};
-  justify-content: ${({ isMobile }) => (isMobile ? "center" : "left")};
+  width: ${({ $isMobile }) => ($isMobile ? "100%" : "auto")};
+  justify-content: ${({ $isMobile }) => ($isMobile ? "center" : "left")};
 `;
 
 interface IStyledTagValue {
-  isExpandable: boolean;
+  $isExpandable: boolean;
 }
 
 const StyledTagValue = styled.div<IStyledTagValue>`
@@ -31,8 +31,8 @@ const StyledTagValue = styled.div<IStyledTagValue>`
   gap: ${inube.spacing.s025};
   padding: ${inube.spacing.s0} ${inube.spacing.s050};
   border-radius: ${inube.spacing.s050};
-  background: ${({ theme, isExpandable }) =>
-    isExpandable
+  background: ${({ theme, $isExpandable }) =>
+    $isExpandable
       ? theme.color?.surface?.gray?.regular || inube.color.surface.gray.regular
       : `transparent`};
 `;

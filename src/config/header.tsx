@@ -1,9 +1,15 @@
-import { MdOutlineBadge } from "react-icons/md";
-import { nav } from "./nav";
+import { INav } from "@design/layout/Page/types";
+import { ISection } from "@design/navigation/Menu/MenuSection/types";
+import {
+  MdLogout,
+  MdOutlineBadge,
+  MdOutlineManageAccounts,
+} from "react-icons/md";
 
 const getHeader = (
   updateDataAssistedFlag: boolean,
   updateDataUnassistedFlag: boolean,
+  nav: INav,
 ) => {
   const links = [];
 
@@ -23,16 +29,54 @@ const getHeader = (
     });
   }
 
+  const consultingUser = sessionStorage.getItem("consultingUser");
+
+  const businessUnit = consultingUser ? "Desarrollo" : "Fondecom";
+
   return {
     logoURL:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbrWOwST-34PyX9rqlHzqEjqunO1PcMzpHJVUIV-7lL4HJ7tcEeNHaj6Redj1lFAOr4Q&usqp=CAU",
-    username: "Leonardo Garzón",
+    username: "Fake",
     links,
     portalId: "portal",
     logoutTitle: "Cerrar sesión",
     navigation: nav,
-    client: "",
+    businessUnit,
   };
 };
 
-export { getHeader };
+const getMenuSections = (
+  isConsultingUser: boolean,
+  onToggleLogoutModal: () => void,
+  onToggleUserMenu: () => void,
+): ISection[] => {
+  const sections: ISection[] = [];
+
+  if (isConsultingUser) {
+    sections.push({
+      links: [
+        {
+          title: "Cambiar cliente",
+          iconBefore: <MdOutlineManageAccounts />,
+          path: "/switch-user?redirect_to=/",
+          onClick: onToggleUserMenu,
+        },
+      ],
+    });
+  }
+
+  sections.push({
+    links: [
+      {
+        title: "Cerrar sesión",
+        iconBefore: <MdLogout />,
+        onClick: onToggleLogoutModal,
+      },
+    ],
+    divider: true,
+  });
+
+  return sections;
+};
+
+export { getHeader, getMenuSections };

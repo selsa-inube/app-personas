@@ -25,8 +25,8 @@ function NavLink(props: NavLinkProps) {
   }
 
   return (
-    <StyledNavLink selected={selected} onClick={onClick}>
-      <StyledLink to={path} selected={selected}>
+    <StyledNavLink $selected={selected} onClick={onClick}>
+      <StyledLink to={path} $selected={selected}>
         <Stack width="100%" alignItems="center" justifyContent="space-between">
           <Stack alignItems="center" gap="24px">
             <Icon icon={icon} appearance={getIconAppearance()} />

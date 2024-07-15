@@ -2,44 +2,44 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledContainer {
-  isDisabled?: boolean;
-  isFullwidth?: boolean;
+  $isDisabled?: boolean;
+  $isFullwidth?: boolean;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
-  cursor: ${({ isDisabled }) => isDisabled && "not-allowed"};
-  width: ${({ isFullwidth }) => (isFullwidth ? "100%" : "fit-content")};
+  cursor: ${({ $isDisabled }) => $isDisabled && "not-allowed"};
+  width: ${({ $isFullwidth }) => ($isFullwidth ? "100%" : "fit-content")};
 `;
 
 interface IStyledTextarea {
-  isFullwidth?: boolean;
-  isFocused?: boolean;
-  isMobile?: boolean;
-  isDisabled?: boolean;
-  isRequired?: boolean;
+  $isFullwidth?: boolean;
+  $isFocused?: boolean;
+  $isMobile?: boolean;
+  $isDisabled?: boolean;
+  $isRequired?: boolean;
 }
 
 const StyledTextarea = styled.textarea<IStyledTextarea>`
   border-radius: ${`${inube.spacing.s100}`};
   padding: ${() => `${inube.spacing.s100} ${inube.spacing.s150} ${inube.spacing.s100}
     ${inube.spacing.s200}`};
-  width: ${({ isFullwidth }) => (isFullwidth ? "calc(100% - 32px)" : "452px")};
-  resize: ${({ isFullwidth }) => (isFullwidth ? "none" : "both")};
-  height: ${({ isMobile }) => (isMobile ? "140px" : "76px")};
-  color: ${({ isDisabled, theme }) =>
-    isDisabled
+  width: ${({ $isFullwidth }) => ($isFullwidth ? "calc(100% - 32px)" : "452px")};
+  resize: ${({ $isFullwidth }) => ($isFullwidth ? "none" : "both")};
+  height: ${({ $isMobile }) => ($isMobile ? "140px" : "76px")};
+  color: ${({ $isDisabled, theme }) =>
+    $isDisabled
       ? theme?.color?.text?.gray?.disabled || inube.color.text.gray.disabled
       : theme?.color?.text?.dark?.regular || inube.color.text.dark.regular};
   border: 1px solid
-    ${({ isDisabled, isFocused, theme }) => {
-      if (isDisabled) {
+    ${({ $isDisabled, $isFocused, theme }) => {
+      if ($isDisabled) {
         return (
           theme?.color?.stroke?.gray?.disabled ||
           inube.color.stroke.gray.disabled
         );
       }
 
-      if (isFocused) {
+      if ($isFocused) {
         return (
           theme?.color?.stroke?.primary?.hover ||
           inube.color.stroke.primary.hover
@@ -50,7 +50,7 @@ const StyledTextarea = styled.textarea<IStyledTextarea>`
         inube.color.stroke.divider.regular
       );
     }};
-  ${({ isDisabled }) => isDisabled && "pointer-events: none; opacity: 0.5;"}
+  ${({ $isDisabled }) => $isDisabled && "pointer-events: none; opacity: 0.5;"}
 
   ::placeholder {
     color: ${({ theme }) =>

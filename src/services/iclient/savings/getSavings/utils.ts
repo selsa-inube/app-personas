@@ -1,10 +1,10 @@
-import {
-  estateTypeValuesMock,
-  gmfTypeValuesMock,
-  interestPaymentValuesMock,
-} from "@mocks/products/savings/utils.mocks";
+import { savingAccountTypeDM } from "src/model/domains/savings/savingAccountTypeDM";
+import { savingGmfTypeDM } from "src/model/domains/savings/savingGmfTypeDM";
+import { savingInterestDM } from "src/model/domains/savings/savingInterestDM";
+import { savingStatusDM } from "src/model/domains/savings/savingStatusDM";
 import { EProductType, IAttribute } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
+import { capitalizeEachWord } from "src/utils/texts";
 
 const getProductDetails = (
   productTypeCode: EProductType,
@@ -40,11 +40,11 @@ const getProductAttributes = (
   productTypeCode: EProductType,
   saving: Record<string, string | number | object>,
 ): IAttribute[] => {
-  const beneficiaries = Array.isArray(saving.savingBeneficiaries)
-    ? saving.savingBeneficiaries.map((beneficiary) => ({
-        id: beneficiary.beneficiaryId,
-        label: beneficiary.beneficiaryName,
-        value: beneficiary.benefitPercentage + " %",
+  const beneficiaries = Array.isArray(saving.clientBeneficiaryContributions)
+    ? saving.clientBeneficiaryContributions.map((beneficiary) => ({
+        id: beneficiary.beneficiaryPublicCode,
+        label: capitalizeEachWord(beneficiary.beneficiaryName),
+        value: beneficiary.assignedSavingsContributionPercentage + " %",
       }))
     : [];
 
@@ -71,7 +71,7 @@ const getProductAttributes = (
       {
         id: "net_value",
         label: "Saldo total",
-        value: Number(creditMovementPesos),
+        value: Number(saving.balanceSavings),
       },
       {
         id: "beneficiaries",
@@ -111,14 +111,9 @@ const getProductAttributes = (
         id: "payment_interest",
         label: "Pago de intereses",
         value:
-          interestPaymentValuesMock[
-            Object(saving.performancePaymentOpportunity).code
-          ],
-      },
-      {
-        id: "beneficiaries",
-        label: "Beneficiarios",
-        value: beneficiaries,
+          savingInterestDM.valueOf(
+            Object(saving.performancePaymentOpportunity).code,
+          )?.value || "",
       },
       {
         id: "request_date",
@@ -133,11 +128,6 @@ const getProductAttributes = (
         value: Number(saving.balanceSavings || 0),
       },
       {
-        id: "beneficiaries",
-        label: "Beneficiarios",
-        value: beneficiaries,
-      },
-      {
         id: "min_value",
         label: "Saldo mínimo",
         value: Number(saving.minimumSavingsBalanceView || 0),
@@ -145,7 +135,9 @@ const getProductAttributes = (
       {
         id: "account_state",
         label: "Estado",
-        value: estateTypeValuesMock[Object(saving.savingsStatus).code],
+        value:
+          savingStatusDM.valueOf(Object(saving.savingsStatus).code)?.value ||
+          "",
       },
       {
         id: "request_date",
@@ -157,7 +149,9 @@ const getProductAttributes = (
             {
               id: "account_gmf",
               label: "GMF",
-              value: gmfTypeValuesMock[Object(saving.engravedWithGmf).code],
+              value:
+                savingGmfTypeDM.valueOf(Object(saving.engravedWithGmf).code)
+                  ?.value || "",
             },
           ]
         : []),
@@ -187,15 +181,41 @@ const getProductAttributes = (
           ]
         : []),
       {
-        id: "beneficiaries",
-        label: "Beneficiarios",
-        value: beneficiaries,
-      },
-      {
         id: "request_date",
         label: "Fecha de apertura",
         value: formatPrimaryDate(new Date(String(saving.creationDate))),
       },
+      ...(saving.reimbursementEntity
+        ? [
+            {
+              id: "bank_entity",
+              label: "Cuenta",
+              value: String(saving.reimbursementEntity),
+            },
+          ]
+        : []),
+      ...(saving.reimbursementAccountNumber
+        ? [
+            {
+              id: "account_number",
+              label: "Número de cuenta",
+              value: Number(saving.reimbursementAccountNumber),
+            },
+          ]
+        : []),
+      ...(saving.typeOfReimbursementAccount &&
+      Object.keys(saving.typeOfReimbursementAccount).length !== 0
+        ? [
+            {
+              id: "account_type",
+              label: "Tipo de cuenta",
+              value:
+                savingAccountTypeDM.valueOf(
+                  Object(saving.typeOfReimbursementAccount).code,
+                )?.value || "",
+            },
+          ]
+        : []),
     ],
   };
 

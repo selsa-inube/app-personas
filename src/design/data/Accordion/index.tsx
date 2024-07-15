@@ -1,10 +1,10 @@
-import { Divider } from "@design/layout/Divider";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { Icon } from "../Icon";
 import { Text } from "../Text";
 import { StyledContainer, StyledHead } from "./styles";
+import { Divider } from "@inubekit/divider";
 
 interface AccordionProps {
   title: string;
@@ -21,7 +21,7 @@ function Accordion(props: AccordionProps) {
   const isMobile = useMediaQuery("(max-width: 450px)");
 
   return (
-    <StyledContainer isMobile={isMobile}>
+    <StyledContainer $isMobile={isMobile}>
       <StyledHead onClick={handleToggleOpen}>
         <Text type="label" size={isMobile ? "medium" : "large"}>
           {title}

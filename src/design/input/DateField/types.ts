@@ -1,7 +1,7 @@
-const inputSizeTypes = ["wide", "compact"];
+const inputSizeTypes = ["wide", "compact"] as const;
 type InputSize = (typeof inputSizeTypes)[number];
 
-const inputStates = ["valid", "invalid", "pending"];
+const inputStates = ["valid", "invalid", "pending"] as const;
 type InputState = (typeof inputStates)[number];
 
 interface IDateFieldMessage {

@@ -1,5 +1,6 @@
-import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
+import { IUser } from "@inube/auth/dist/types/user";
+import { superUsers } from "@pages/admin/switchUser/config/users";
 import {
   createContext,
   useCallback,
@@ -22,15 +23,55 @@ function AppProvider(props: AppProviderProps) {
   const { children } = props;
 
   const [featureFlags, setFeatureFlags] = useState<IFeatureFlag[]>([]);
-  const { user } = useAuth();
+
+  const { user: authUser } = useAuth();
+
+  const [user, setUser] = useState<IUser>({
+    company: authUser?.company || "",
+    email: authUser?.email || "",
+    identification: authUser?.identification || "",
+    phone: authUser?.phone || "",
+    firstLastName: authUser?.firstLastName || "",
+    secondLastName: authUser?.secondLastName || "",
+    firstName: authUser?.firstName || "",
+    secondName: authUser?.secondName || "",
+    id: authUser?.id || "",
+    type: authUser?.type || "",
+  });
 
   useEffect(() => {
     getAppFeatureFlags().then((flags) => {
       setFeatureFlags(flags);
     });
 
-    if (user && enviroment.IS_PRODUCTION) {
-      saveTrafficTracking(user?.identification);
+    saveTrafficTracking(user.identification);
+  }, []);
+
+  useEffect(() => {
+    const consultingUser = sessionStorage.getItem("consultingUser");
+
+    if (consultingUser) {
+      const consultingUserJson = JSON.parse(consultingUser);
+
+      const splitName = consultingUserJson.name.split(" ");
+
+      setUser((prev) => ({
+        ...prev,
+        firstLastName: splitName[0] || "",
+        secondLastName: splitName[1] || "",
+        firstName: splitName[2] || splitName[1] || "",
+        secondName: splitName[3] || splitName[2] || "",
+        identification: consultingUserJson.id,
+      }));
+
+      return;
+    }
+
+    const location = window.location;
+    if (location.href.includes("switch-user")) return;
+
+    if (superUsers.includes(user.identification)) {
+      location.replace(`/switch-user?redirect_to=${location.pathname}`);
     }
   }, []);
 
@@ -42,7 +83,14 @@ function AppProvider(props: AppProviderProps) {
         return flag[scope]?.[category]?.[product]?.[flagCode];
       });
 
-      if (!foundFlag) return;
+      if (!foundFlag) {
+        return {
+          id: flagCode,
+          name: "",
+          description: "",
+          value: false,
+        };
+      }
 
       return foundFlag?.[scope][category][product][flagCode];
     },
@@ -51,10 +99,13 @@ function AppProvider(props: AppProviderProps) {
 
   const appContext = useMemo(
     () => ({
+      user,
+
+      setUser,
       setFeatureFlags,
       getFlag,
     }),
-    [setFeatureFlags, getFlag],
+    [user, setUser, setFeatureFlags, getFlag],
   );
 
   return (

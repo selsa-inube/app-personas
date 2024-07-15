@@ -9,7 +9,6 @@ const identificationData: IIdentificationDataEntry = {
 
 const personalData: IPersonalDataEntry = {
   identificationNumber: "",
-  type: "",
   firstName: "",
   secondName: "",
   firstLastName: "",

@@ -7,6 +7,7 @@ const savePaymentTracking = async (
   amount: number,
   productTypes: string[],
   paymentMethods: string[],
+  customerId: string,
 ) => {
   try {
     const { data, error } = await analyticsDB
@@ -18,6 +19,7 @@ const savePaymentTracking = async (
         amount,
         product_types: productTypes,
         payment_methods: paymentMethods,
+        customer_id: customerId,
       })
       .select()
       .single();

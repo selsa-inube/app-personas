@@ -9,7 +9,7 @@ const creditsMock: IProduct[] = [
     attributes: [
       { id: "net_value", label: "Saldo total", value: 7025550 },
       {
-        id: "next_payment_date",
+        id: "next_payment",
         label: "Fecha próximo pago",
         value: "02/Abr/2023",
       },
@@ -656,7 +656,7 @@ const creditsMock: IProduct[] = [
     attributes: [
       { id: "net_value", label: "Saldo total", value: 1500000 },
       {
-        id: "next_payment_date",
+        id: "next_payment",
         label: "Fecha próximo pago",
         value: "02/Mar/2023",
       },
@@ -1348,7 +1348,7 @@ const creditsMock: IProduct[] = [
     tags: [
       {
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       },
     ],
   },

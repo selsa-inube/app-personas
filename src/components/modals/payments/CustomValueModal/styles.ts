@@ -2,12 +2,12 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledModal {
-  smallScreen: boolean;
+  $smallScreen: boolean;
 }
 
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
-  width: ${({ smallScreen }) => (smallScreen ? "312px" : "450px")};
+  width: ${({ $smallScreen }) => ($smallScreen ? "312px" : "450px")};
   padding: ${inube.spacing.s300};
   flex-direction: column;
   gap: ${inube.spacing.s250};

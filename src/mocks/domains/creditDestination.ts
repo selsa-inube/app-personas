@@ -19,6 +19,10 @@ const creditDestinationData = [
     id: "study",
     value: "Estudiar",
   },
+  {
+    id: "other",
+    value: "Otros destinos",
+  },
 ];
 
 export { creditDestinationData };

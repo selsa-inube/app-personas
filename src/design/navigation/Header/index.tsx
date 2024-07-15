@@ -10,7 +10,6 @@ import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { INav } from "@design/layout/Page/types";
 import { useAuth } from "@inube/auth";
 import { useEffect, useRef, useState } from "react";
-import { MdLogout } from "react-icons/md";
 import { Menu } from "../Menu";
 import {
   StyledContainer,
@@ -21,12 +20,13 @@ import {
   StyledLogoContainer,
   StyledUser,
 } from "./styles";
+import { getMenuSections } from "@config/header";
 
 interface HeaderProps {
   logoURL?: string;
   username: string;
+  businessUnit?: string;
   fullName: string;
-  client?: string;
   links?: IHeaderLink[];
   portalId: string;
   logoutTitle: string;
@@ -37,8 +37,8 @@ function Header(props: HeaderProps) {
   const {
     logoURL,
     username,
+    businessUnit,
     fullName,
-    client,
     links,
     portalId,
     logoutTitle,
@@ -71,7 +71,7 @@ function Header(props: HeaderProps) {
     };
   }, []);
 
-  const handleToggleuserMenu = () => {
+  const handleToggleUserMenu = () => {
     setShowUserMenu(!showUserMenu);
   };
 
@@ -84,6 +84,8 @@ function Header(props: HeaderProps) {
     logout();
     sessionStorage.clear();
   };
+
+  const isConsultingUser = !!sessionStorage.getItem("consultingUser");
 
   return (
     <>
@@ -121,9 +123,9 @@ function Header(props: HeaderProps) {
         <StyledUser>
           <User
             username={username}
-            client={client}
+            businessUnit={businessUnit}
             onlyAvatar={isMobile}
-            onClick={handleToggleuserMenu}
+            onClick={handleToggleUserMenu}
           />
         </StyledUser>
       </StyledHeader>
@@ -132,18 +134,12 @@ function Header(props: HeaderProps) {
         <StyledContainerMenu ref={userMenuRef}>
           <Menu
             userName={fullName}
-            divider
-            sections={[
-              {
-                links: [
-                  {
-                    title: "Cerrar sesión",
-                    iconBefore: <MdLogout />,
-                    onClick: handleToggleLogoutModal,
-                  },
-                ],
-              },
-            ]}
+            businessUnit={businessUnit}
+            sections={getMenuSections(
+              isConsultingUser,
+              handleToggleLogoutModal,
+              handleToggleUserMenu,
+            )}
           />
         </StyledContainerMenu>
       )}

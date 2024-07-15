@@ -1,12 +1,13 @@
 import { TagProps } from "@design/data/Tag";
 import {
   ECommitmentType,
+  EMovementType,
   IAttribute,
   ICommitment,
   IMovement,
 } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeFirstLetters, capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapSavingProductCommitmentApiToEntity = (
   product: Record<string, string>,
@@ -23,14 +24,29 @@ const mapSavingProductsCommitmentsApiToEntities = (
 const mapSavingCommitmentMovementApiToEntity = (
   movement: Record<string, string | number | object>,
 ): IMovement => {
+  const dateWithoutZone = String(movement.movementDate).replace("Z", "");
+
+  let type: EMovementType | undefined;
+
+  if (Object.prototype.hasOwnProperty.call(movement, "creditMovementPesos")) {
+    type = EMovementType.CREDIT;
+  } else if (
+    Object.prototype.hasOwnProperty.call(movement, "debitMovementPesos")
+  ) {
+    type = EMovementType.DEBIT;
+  } else {
+    type = undefined;
+  }
+
   const buildMovement: IMovement = {
     id: String(movement.movementId),
-    date: new Date(String(movement.movementDate)),
+    date: new Date(dateWithoutZone),
     reference: String(movement.movementNumber),
-    description: capitalizeFirstLetters(String(movement.movementDescription)),
+    description: capitalizeEachWord(String(movement.movementDescription)),
     totalValue: Number(
       movement.creditMovementPesos || movement.debitMovementPesos,
     ),
+    type: type,
   };
   return buildMovement;
 };
@@ -48,7 +64,7 @@ const mapSavingsCommitmentsApiToEntity = (
   commitment: Record<string, string | number | object>,
 ): ICommitment => {
   const today = new Date();
-  today.setUTCHours(5, 5, 5, 5);
+  today.setUTCHours(5, 0, 0, 0);
 
   const commitmentType: ECommitmentType = Object(
     commitment.commitmentType,
@@ -62,20 +78,25 @@ const mapSavingsCommitmentsApiToEntity = (
 
   const lastMovementTheSavingPlans = commitment.savingPaymentPlans;
 
+  const closeDateWithoutZone =
+    commitment.closePaymentDate &&
+    String(commitment.closePaymentDate).replace("Z", "");
+
   const lastSavingPlan =
     Array.isArray(lastMovementTheSavingPlans) &&
-    lastMovementTheSavingPlans.reduce((latest, current) => {
-      return !latest || new Date(current.quotaDate) > new Date(latest.quotaDate)
-        ? current
-        : latest;
-    }, null);
+    lastMovementTheSavingPlans.reduce((acc, curr) =>
+      acc.quotaDate > curr.quotaDate ? acc : curr,
+    );
 
-  const nextPaymentDate = commitment.closePaymentDate
-    ? new Date(String(commitment.closePaymentDate))
-    : new Date(String(lastSavingPlan.quotaDate));
-  nextPaymentDate.setUTCHours(5, 5, 5, 5);
+  const lastDateWithoutZone = String(lastSavingPlan.quotaDate).replace("Z", "");
 
-  const nextPaymentValue = commitment.expiredValue || commitment.quotaValue;
+  const nextPaymentDate = closeDateWithoutZone
+    ? new Date(closeDateWithoutZone)
+    : new Date(lastDateWithoutZone);
+
+  const nextPaymentValue = commitment.quotaValue;
+
+  const expiredValue = commitment.expiredValue;
 
   const inArrears = today > nextPaymentDate;
 
@@ -83,12 +104,12 @@ const mapSavingsCommitmentsApiToEntity = (
     {
       id: "payment_method",
       label: "Medio de pago",
-      value: capitalizeFirstLetters(String(commitment.paymentMediumName)),
+      value: capitalizeEachWord(String(commitment.paymentMediumName)),
     },
     {
       id: "expired_value",
       label: "Valor vencido",
-      value: Number(commitment.expiredValue),
+      value: Number(expiredValue),
     },
     {
       id: "in_arrears",
@@ -105,6 +126,26 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
+  if (nextPaymentDate && (nextPaymentValue || expiredValue)) {
+    attributes.push({
+      id: "quota_value",
+      label: "Próximo pago",
+      value: Number(nextPaymentValue || 0) + Number(expiredValue || 0),
+    });
+
+    attributes.push({
+      id: "next_payment",
+      label: "Fecha de pago",
+      value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
+    });
+
+    attributes.push({
+      id: "next_payment_date",
+      label: "Fecha de pago",
+      value: nextPaymentDate.toISOString(),
+    });
+  }
+
   if (nextPaymentDate && nextPaymentValue) {
     attributes.push({
       id: "next_payment_value",
@@ -113,18 +154,10 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
-  if (nextPaymentValue && nextPaymentDate) {
-    attributes.push({
-      id: "next_payment_date",
-      label: "Fecha de pago",
-      value: inArrears ? "Inmediato" : formatPrimaryDate(nextPaymentDate),
-    });
-  }
-
   const tag: TagProps | undefined = inArrears
     ? {
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       }
     : undefined;
 

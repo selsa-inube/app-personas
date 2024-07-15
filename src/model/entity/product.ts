@@ -10,6 +10,9 @@ enum EMovementType {
   PURCHASE = "PURCHASE",
   REVERSE = "REVERSE",
   PAYMENT = "PAYMENT",
+  CREDIT = "CREDIT",
+  DEBIT = "DEBIT",
+  RECORD = "RECORD",
 }
 
 interface IMovement {
@@ -91,7 +94,7 @@ interface IRate {
   annualEffectiveRate: string;
 }
 
-export { ECommitmentType, EProductType, EMovementType };
+export { ECommitmentType, EMovementType, EProductType };
 
 export type {
   IAmortization,

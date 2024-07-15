@@ -2,18 +2,18 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledModal {
-  smallScreen: boolean;
+  $smallScreen: boolean;
 }
 
 const StyledModal = styled.div<IStyledModal>`
   display: flex;
   flex-direction: column;
-  width: ${({ smallScreen }) => (smallScreen ? "100%" : "402px")};
-  padding: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s200 : inube.spacing.s300};
+  width: ${({ $smallScreen }) => ($smallScreen ? "100%" : "402px")};
+  padding: ${({ $smallScreen }) =>
+    $smallScreen ? inube.spacing.s200 : inube.spacing.s300};
   margin: ${inube.spacing.s200} ${inube.spacing.s300};
-  gap: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s200 : inube.spacing.s250};
+  gap: ${({ $smallScreen }) =>
+    $smallScreen ? inube.spacing.s200 : inube.spacing.s250};
   border-radius: ${inube.spacing.s200};
   background-color: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};

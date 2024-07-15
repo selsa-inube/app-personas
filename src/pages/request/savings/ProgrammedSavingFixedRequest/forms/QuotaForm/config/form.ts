@@ -1,11 +1,15 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IDynamicFormOptions, IFormStructure } from "@ptypes/forms.types";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
+import {
+  IDynamicFormOptions,
+  IFormField,
+  IFormStructure,
+} from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { monthlyPayDayDM } from "src/model/domains/general/monthlyPayDay";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
 import { weeklyPayDayDM } from "src/model/domains/general/weeklyPayDay";
 import { validationMessages } from "src/validations/validationMessages";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 
@@ -71,7 +75,11 @@ const filterPeriodicityOptions = (paymentMethod: string) => {
 };
 
 const commonFields = {
-  periodicity: (gridColumn: string, paymentMethod: string, value?: string) => {
+  periodicity: (
+    gridColumn: string,
+    paymentMethod: string,
+    value?: string,
+  ): IFormField => {
     const filteredOptions = filterPeriodicityOptions(paymentMethod);
     const isSingleOption = filteredOptions.length === 1;
 
@@ -88,7 +96,7 @@ const commonFields = {
       validation: Yup.string().required(validationMessages.required),
     };
   },
-  paydayTypeToSelect: (options: ISelectOption[]) => ({
+  paydayTypeToSelect: (options: ISelectOption[]): IFormField => ({
     name: "payDayType",
     type: "select",
     label: "Día de pago",
@@ -98,7 +106,7 @@ const commonFields = {
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
   }),
-  paydayByDate: (readOnly: boolean) => ({
+  paydayByDate: (readOnly: boolean): IFormField => ({
     name: "paydayByDate",
     type: "text",
     label: "Día de pago",
@@ -114,7 +122,7 @@ const commonFields = {
   accountToDebit: (
     options: ISelectOption[],
     savingOptions: ISelectOption[],
-  ) => ({
+  ): IFormField => ({
     name: "accountToDebit",
     type: "select",
     label: "Cuenta a debitar",
@@ -125,7 +133,7 @@ const commonFields = {
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
   }),
-  accountType: (options: ISelectOption[]) => ({
+  accountType: (options: ISelectOption[]): IFormField => ({
     name: "accountType",
     type: "select",
     label: "Tipo de cuenta",
@@ -135,7 +143,7 @@ const commonFields = {
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
   }),
-  bankEntity: (options: ISelectOption[]) => ({
+  bankEntity: (options: ISelectOption[]): IFormField => ({
     name: "bankEntity",
     type: "select",
     label: "Entidad bancaria",
@@ -148,7 +156,7 @@ const commonFields = {
   accountNumberSelect: (
     formik: FormikValues,
     savingOptions: ISelectOption[],
-  ) => ({
+  ): IFormField => ({
     name: "accountNumber",
     type: "select",
     label: "Numero de cuenta",
@@ -164,7 +172,7 @@ const commonFields = {
     readOnly: savingOptions.length === 1 || !formik.values.accountToDebit,
     isRequired: true,
   }),
-  accountNumberTextField: () => ({
+  accountNumberTextField: (): IFormField => ({
     name: "accountNumber",
     type: "text",
     label: "Numero de cuenta",
@@ -217,4 +225,4 @@ const structureQuotaForm = (
   };
 };
 
-export { structureQuotaForm, filterPeriodicityOptions };
+export { filterPeriodicityOptions, structureQuotaForm };

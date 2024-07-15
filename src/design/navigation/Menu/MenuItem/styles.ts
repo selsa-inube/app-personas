@@ -4,8 +4,8 @@ import { inube } from "@design/tokens";
 import { MenuItemSpacingType } from "./types";
 
 interface IStyledMenuItemContainer {
-  spacing: MenuItemSpacingType;
-  disabled: boolean;
+  $spacing: MenuItemSpacingType;
+  $disabled: boolean;
 }
 
 const StyledMenuItemContainer = styled(Link)<IStyledMenuItemContainer>`
@@ -13,22 +13,22 @@ const StyledMenuItemContainer = styled(Link)<IStyledMenuItemContainer>`
   justify-content: space-between;
   text-decoration: none;
   align-items: center;
-  height: ${(props) => (props.spacing === "wide" ? "40px" : "36px")};
+  height: ${(props) => (props.$spacing === "wide" ? "40px" : "36px")};
   padding: ${(props) =>
-    props.spacing === "wide"
+    props.$spacing === "wide"
       ? `${inube.spacing.s100} ${inube.spacing.s200}`
       : `${inube.spacing.s050} ${inube.spacing.s200}`};
   background-color: ${(props) =>
-    props.disabled
+    props.$disabled
       ? props.theme.color?.surface?.gray?.disabled ||
         inube.color.surface.gray.disabled
       : props.theme.color?.surface?.light?.clear ||
         inube.color.surface.light.clear};
 
   &:hover {
-    cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-    background-color: ${({ theme }) =>
-      theme.color?.surface?.gray?.hover || inube.color.surface.gray.hover};
+    cursor: ${(props) => (props.$disabled ? "not-allowed" : "pointer")};
+    background-color: ${(props) =>
+      props.theme.color?.surface?.gray?.hover || inube.color.surface.gray.hover};
   }
 `;
 

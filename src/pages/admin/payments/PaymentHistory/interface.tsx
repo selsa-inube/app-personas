@@ -1,10 +1,9 @@
-import { PaymentHistoryCard } from "@components/cards/PaymentHistoryCard";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { RecordCard } from "@components/cards/RecordCard";
 import { PaymentHistoryModal } from "@components/modals/payments/PaymentHistoryModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
@@ -12,8 +11,12 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { IPaymentHistory } from "src/model/entity/payment";
+import { EMovementType } from "src/model/entity/product";
+import { EmptyRecords } from "./EmptyRecords";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
+import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
@@ -21,6 +24,7 @@ interface PaymentHistoryUIProps {
   loading: boolean;
   selectedPayment?: IPaymentHistory;
   noMorePayments: boolean;
+  refreshTime: number;
   onTogglePaymentHistoryModal: (payment: IPaymentHistory) => void;
   onAddPayments: () => void;
   onToggleClosePaymentHistoryModal: () => void;
@@ -34,6 +38,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
     loading,
     selectedPayment,
     noMorePayments,
+    refreshTime,
     onTogglePaymentHistoryModal,
     onAddPayments,
     onToggleClosePaymentHistoryModal,
@@ -76,12 +81,13 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               iconBefore={<MdHistory />}
               onClick={onRefreshHistory}
               load={loading}
+              disabled={!loading && refreshTime !== 0}
             >
-              Refrescar
+              {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
             </Button>
           </Stack>
 
-          {paymentHistory.length > 0 && (
+          {paymentHistory.length > 0 ? (
             <>
               <StyledContainer>
                 {paymentHistory.map((payment, index) => (
@@ -91,15 +97,15 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                     key={payment.id}
                     gap="s200"
                   >
-                    <PaymentHistoryCard
+                    <RecordCard
                       id={payment.id}
-                      title={payment.title}
-                      value={payment.value}
+                      type={EMovementType.RECORD}
+                      description={payment.title}
+                      totalValue={payment.value}
                       tag={payment.tag}
-                      paymentDate={payment.paymentDate}
-                      paymentMethod={payment.paymentMethod}
-                      cus={payment.cus}
+                      attributes={generateAttributes(payment)}
                       onClick={() => onTogglePaymentHistoryModal(payment)}
+                      withExpandingIcon
                     />
                     {index !== paymentHistory.length - 1 && <Divider dashed />}
                   </Stack>
@@ -114,10 +120,12 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                   onClick={onAddPayments}
                   disabled={noMorePayments}
                 >
-                  Ver más movimientos
+                  Ver más pagos
                 </Button>
               </Stack>
             </>
+          ) : (
+            !loading && <EmptyRecords />
           )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}

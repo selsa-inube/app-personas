@@ -1,13 +1,13 @@
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledModal } from "./styles";
+import { Blanket } from "@inubekit/blanket";
 
 const renderTransactionSpecification = (label: string, value: number) => (
   <Stack gap="s100" alignItems="center">
@@ -47,7 +47,7 @@ function UsedQuotaModal(props: UsedQuotaModalProps) {
   }
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
+      <StyledModal $smallScreen={isMobile}>
         <Stack direction="column" width="100%" gap="s100">
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
@@ -101,7 +101,7 @@ function UsedQuotaModal(props: UsedQuotaModalProps) {
 
             <Stack justifyContent="space-between" alignItems="center">
               <Text type="title" size="medium" appearance="gray">
-                Pago total:
+                Total:
               </Text>
 
               <Text type="title" size="medium" appearance="dark">
@@ -117,3 +117,4 @@ function UsedQuotaModal(props: UsedQuotaModalProps) {
 }
 
 export { UsedQuotaModal };
+

@@ -1,3 +1,3 @@
-type CounterAppearence = "error" | "warning" | "gray";
+type CounterAppearence = "danger" | "warning" | "gray";
 
 export type { CounterAppearence };

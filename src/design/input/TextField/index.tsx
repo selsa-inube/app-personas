@@ -7,7 +7,7 @@ interface TextFieldProps {
   label?: string;
   name: string;
   id: string;
-  placeholder: string;
+  placeholder?: string;
   isDisabled?: boolean;
   value?: string | number;
   iconBefore?: React.JSX.Element;
@@ -42,7 +42,7 @@ function TextField(props: TextFieldProps) {
     label,
     name,
     id,
-    placeholder,
+    placeholder = "",
     isDisabled = false,
     type = "text",
     state = "pending",
@@ -104,7 +104,6 @@ function TextField(props: TextFieldProps) {
     onChange && onChange(event);
     setShowDropdown(false);
   };
-  
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!readOnly) {

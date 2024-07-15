@@ -1,6 +1,8 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
@@ -9,7 +11,8 @@ import { initalValuesCreditDestination } from "./config/initialValues";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";
-import { IPreliquidationEntry } from "./forms/PreliquidationForm/types";
+import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
+import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CreditDestinationRequestUI } from "./interface";
 import {
@@ -17,8 +20,6 @@ import {
   IFormsCreditDestinationRequestRefs,
 } from "./types";
 import { creditDestinationStepsRules } from "./utils";
-import { Navigate } from "react-router-dom";
-import { AppContext } from "src/context/app";
 
 function CreditDestinationRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -39,9 +40,13 @@ function CreditDestinationRequest() {
         isValid: false,
         values: initalValuesCreditDestination.creditConditions,
       },
-      preliquidation: {
+      systemValidations: {
         isValid: true,
-        values: initalValuesCreditDestination.preliquidation,
+        values: initalValuesCreditDestination.systemValidations,
+      },
+      documentaryRequirements: {
+        isValid: false,
+        values: initalValuesCreditDestination.documentaryRequirements,
       },
       disbursement: {
         isValid: false,
@@ -63,7 +68,10 @@ function CreditDestinationRequest() {
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const creditConditionsRef = useRef<FormikProps<ICreditConditionsEntry>>(null);
-  const preliquidationRef = useRef<FormikProps<IPreliquidationEntry>>(null);
+  const systemValidationsRef =
+    useRef<FormikProps<ISystemValidationsEntry>>(null);
+  const documentaryRequirementsRef =
+    useRef<FormikProps<IDocumentaryRequirementsEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
@@ -73,7 +81,8 @@ function CreditDestinationRequest() {
   const formReferences: IFormsCreditDestinationRequestRefs = {
     destination: destinationRef,
     creditConditions: creditConditionsRef,
-    preliquidation: preliquidationRef,
+    systemValidations: systemValidationsRef,
+    documentaryRequirements: documentaryRequirementsRef,
     disbursement: disbursementRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
@@ -123,7 +132,7 @@ function CreditDestinationRequest() {
     handleStepChange(currentStep - 1);
   };
 
-  if (!getFlag("admin.credits.credits.request-credit")?.value) {
+  if (!getFlag("admin.credits.credits.request-credit").value) {
     return <Navigate to="/" />;
   }
 

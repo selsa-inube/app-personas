@@ -27,12 +27,12 @@ const validateSaving = async (
     ...currentSaving.cdats,
   ];
 
-  const selectedSavings = combinedSavings.find((saving) => {
+  const selectedSaving = combinedSavings.find((saving) => {
     return saving.id === savingId;
   });
 
   return {
-    selectedSavings,
+    selectedSaving,
     newSavings: currentSaving,
     combinedSavings,
   };

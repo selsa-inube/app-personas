@@ -1,11 +1,11 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { CardMovement } from "@components/cards/CardMovement";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { RecordCard } from "@components/cards/RecordCard";
 import { HandlingFeeModal } from "@components/modals/cards/HandlingFeeModal";
-import { InfoModal } from "@components/modals/cards/InfoModal";
 import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModal";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
+import { InfoModal } from "@components/modals/general/InfoModal";
 import { quickLinks } from "@config/quickLinks";
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
@@ -13,12 +13,12 @@ import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Divider } from "@design/layout/Divider";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
 import {
   MdArrowBack,
   MdOpenInNew,
@@ -28,7 +28,9 @@ import {
 } from "react-icons/md";
 import { EMovementType, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { extractAttribute } from "src/utils/products";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
+import { generateAttributes } from "./config/attributeRecord";
 import { cardBox, myQuotas } from "./config/card";
 import { infoModalData } from "./config/modals";
 import { crumbsCard } from "./config/navigation";
@@ -88,6 +90,8 @@ function CardUI(props: CardUIProps) {
 
   const formatedAttributes = attributes && formatCardCurrencyAttrs(attributes);
 
+  const cardNumber = extractAttribute(attributes, "card_number")?.value || "";
+
   return (
     <>
       <Stack direction="column" gap="s300">
@@ -121,7 +125,7 @@ function CardUI(props: CardUIProps) {
                 />
                 <Box
                   title={selectedProduct.card.title}
-                  subtitle={selectedProduct.card.id}
+                  subtitle={cardNumber.toString()}
                   tags={selectedProduct.card.tags}
                   loading={loadingCards}
                   {...cardBox}
@@ -269,13 +273,14 @@ function CardUI(props: CardUIProps) {
                                   key={movement.id}
                                 >
                                   {index !== 0 && <Divider dashed />}
-                                  <CardMovement
-                                    movementType={
+                                  <RecordCard
+                                    id={movement.id}
+                                    type={
                                       movement.type || EMovementType.PAYMENT
                                     }
                                     description={movement.description}
-                                    totalValue={movement.totalValue || 0}
-                                    date={movement.date}
+                                    totalValue={movement.totalValue}
+                                    attributes={generateAttributes(movement)}
                                   />
                                 </Stack>
                               ))}

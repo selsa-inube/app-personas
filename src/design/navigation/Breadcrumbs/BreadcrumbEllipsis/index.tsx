@@ -48,7 +48,7 @@ function BreadcrumbEllipsis(props: BreadcrumbEllipsisProps) {
     <StyledRelativeContainer ref={containerRef} onClick={toggleEllipsisMenu}>
       <StyledContainerEllipsis>
         <Text type="label" size={size} appearance="dark">
-          <StyledBreadcrumbEllipsis cursorHover={cursorHover}>
+          <StyledBreadcrumbEllipsis $cursorHover={cursorHover}>
             ...
           </StyledBreadcrumbEllipsis>
         </Text>

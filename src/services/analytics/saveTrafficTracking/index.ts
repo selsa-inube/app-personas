@@ -1,6 +1,9 @@
+import { enviroment } from "@config/enviroment";
 import { analyticsDB } from "src/services/config/supabase/config";
 
 const saveTrafficTracking = async (uid: string) => {
+  if (!enviroment.IS_PRODUCTION) return;
+
   const userAgent = navigator.userAgent;
 
   try {

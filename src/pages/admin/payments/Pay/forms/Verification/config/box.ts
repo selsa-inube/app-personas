@@ -1,4 +1,4 @@
-const payBoxTitles: Record<string, string> = {
+const payBoxTitles = {
   obligations: "Obligaciones",
   paymentMethod: "Formas de pago",
   comments: "Comentarios",

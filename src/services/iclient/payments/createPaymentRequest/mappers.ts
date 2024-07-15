@@ -11,13 +11,14 @@ const mapPaymentRequestApiToEntity = (
   let state = "";
   let message = "";
 
-  if (Array.isArray(causes)) {
+  if (causes && Array.isArray(causes)) {
     state = String(causes[0].id);
     message = String(causes[0].message);
   }
+
   return {
     trackingCode: String(paymentRequest.trackingCode),
-    url: String(paymentRequest.url),
+    url: paymentRequest.url ? String(paymentRequest.url) : undefined,
     state,
     message,
   };
@@ -26,6 +27,8 @@ const mapPaymentRequestApiToEntity = (
 const mapPaymentRequestEntityToApi = (
   paymentRequest: IPaymentRequest,
 ): Record<string, string | number | object> => {
+  const paymentDate = new Date();
+
   return {
     clientCode: paymentRequest.customerCode,
     clientName: paymentRequest.customerName,
@@ -47,10 +50,11 @@ const mapPaymentRequestEntityToApi = (
       value: moneySource.value,
       savingProductNumber:
         moneySource.type === EMoneySourceType.SAVINGACCOUNT
-          ? parseInt(moneySource.id)
+          ? moneySource.id
           : undefined,
     })),
     paymentSource: paymentRequest.source,
+    paymentDate: paymentDate.toISOString(),
   };
 };
 

@@ -34,8 +34,8 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
         alignItems="flex-start"
         gap={isMobile ? "s200" : "s300"}
       >
-        <StyledTermsAndConditionsContainer isMobile={isMobile}>
-          <StyledTermsAndConditionsInfo isMobile={isMobile}>
+        <StyledTermsAndConditionsContainer $isMobile={isMobile}>
+          <StyledTermsAndConditionsInfo $isMobile={isMobile}>
             {generateTermsAndConditionsParagraphs(termsAndConditionsTexts)}
           </StyledTermsAndConditionsInfo>
         </StyledTermsAndConditionsContainer>

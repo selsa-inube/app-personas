@@ -28,7 +28,11 @@ function PayVerification(props: PayVerificationProps) {
             alignItems="flex-end"
             gap={isTablet ? "s150" : "s200"}
           >
-            <VerificationBoxes isTablet={isTablet} pay={pay} stepKey={key} />
+            <VerificationBoxes
+              isTablet={isTablet}
+              pay={pay}
+              stepKey={key as keyof typeof payBoxTitles}
+            />
 
             <Button
               iconBefore={<MdOutlineArrowBack />}
