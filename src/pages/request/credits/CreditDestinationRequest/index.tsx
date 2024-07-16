@@ -1,13 +1,16 @@
+import { useAuth } from "@inube/auth";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
+import { getDestinationsForUser } from "src/services/iclient/credits/getDestinations";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
+import { mapDestination } from "./config/mappers";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";
@@ -22,6 +25,8 @@ import {
 import { creditDestinationStepsRules } from "./utils";
 
 function CreditDestinationRequest() {
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
     creditDestinationRequestSteps.destination.id,
   );
@@ -88,6 +93,27 @@ function CreditDestinationRequest() {
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,
   };
+
+  const validateDestinations = async () => {
+    if (!accessToken) return;
+
+    const destinations = await getDestinationsForUser(
+      user.identification,
+      accessToken,
+    );
+
+    setCreditDestinationRequest((prev) => ({
+      ...prev,
+      destination: {
+        ...prev.destination,
+        values: mapDestination(destinations),
+      },
+    }));
+  };
+
+  useEffect(() => {
+    validateDestinations();
+  }, [user, accessToken]);
 
   const handleStepChange = (stepId: number) => {
     const newCreditDestinationRequest = creditDestinationStepsRules(
