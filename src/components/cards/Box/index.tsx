@@ -5,15 +5,15 @@ import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
+import { Divider } from "@inubekit/divider";
+import { SkeletonLine } from "@inubekit/skeleton";
 
 import { Tag, TagProps } from "@design/data/Tag";
 import {
   ButtonAppearanceType,
   ButtonVariantType,
 } from "@design/input/Button/types";
-import { SkeletonLine } from "@inube/design-system";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
-import { Divider } from "@inubekit/divider";
 
 interface BoxProps {
   icon?: React.JSX.Element;

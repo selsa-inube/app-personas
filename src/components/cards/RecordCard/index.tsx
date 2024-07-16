@@ -1,6 +1,7 @@
 import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
+import { SkeletonLine } from "@inubekit/skeleton";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getRecordDescriptionType } from "@pages/admin/cards/Card/config/product";
 import {
@@ -14,7 +15,6 @@ import { EMovementType } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { Tag, TagProps } from "@design/data/Tag";
 import { formatPrimaryDate } from "src/utils/dates";
-import { SkeletonLine } from "@inube/design-system";
 
 const getIconForRecordType = (type: EMovementType) => {
   return (
