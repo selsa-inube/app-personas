@@ -96,7 +96,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
 
       const amount = Number(formik.values.amount);
       const interestRate = formik.values.product.maxRate;
-      const interestRateDecimal = interestRate / 100;
+      const interestRateDecimal = interestRate || 0 / 100;
 
       const newValidationSchema = dynamicValidationSchema.concat(
         Yup.object({
@@ -120,7 +120,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     setTimeout(() => {
       const interestRate = formik.values.product.maxRate;
       const amount = Number(formik.values.amount);
-      const interestRateDecimal = interestRate / 100;
+      const interestRateDecimal = interestRate || 0 / 100;
 
       if (formik.values.simulationWithQuota) {
         const quota = Number(formik.values.quota);

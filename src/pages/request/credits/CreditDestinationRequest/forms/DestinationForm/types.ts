@@ -4,8 +4,8 @@ interface IDestinationProduct {
   id: string;
   title: string;
   description: string;
-  maxRate: number;
-  maxDeadline: number;
+  maxRate?: number;
+  maxDeadline?: number;
   maxAmount: number;
 }
 

@@ -28,7 +28,7 @@ const getInitialCreditContidionValidations = (
       deadline: Yup.number()
         .min(1, validationMessages.minNumbers(10))
         .max(
-          formik.values.product.maxDeadline,
+          formik.values.product.maxDeadline || 0,
           `El plazo máximo para este producto es de ${formik.values.product.maxDeadline} meses`,
         ),
       amount: Yup.number()

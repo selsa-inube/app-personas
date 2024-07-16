@@ -20,6 +20,7 @@
     "@inubekit/blanket": "^2.5.0",
     "@inubekit/countdownbar": "^2.5.0",
     "@inubekit/divider": "^0.4.0",
+    "@inubekit/skeleton": "^2.3.0",
     "@inubekit/spinner": "^2.3.0",
     "@supabase/supabase-js": "^2.42.0",
     "formik": "^2.4.5",
