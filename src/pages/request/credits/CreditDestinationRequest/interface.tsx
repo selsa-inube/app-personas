@@ -18,13 +18,13 @@ import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { DisbursementForm } from "./forms/DisbursementForm";
 import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
+import { SystemValidationsForm } from "./forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CreditDestinationRequestVerification } from "./forms/Verification";
 import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
-import { SystemValidationsForm } from "./forms/SystemValidationsForm";
 
 const renderStepContent = (
   currentStep: number,

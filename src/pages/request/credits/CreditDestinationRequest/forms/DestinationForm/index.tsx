@@ -1,4 +1,3 @@
-import { creditDestinationData } from "@mocks/domains/creditDestination";
 import { destinationProductsMock } from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
 import React, { forwardRef, useEffect, useImperativeHandle } from "react";
@@ -14,9 +13,9 @@ const validationSchema = Yup.object({
 
 interface DestinationFormProps {
   initialValues: IDestinationEntry;
+  loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IDestinationEntry) => void;
-  loading?: boolean;
 }
 
 const DestinationForm = forwardRef(function DestinationForm(
@@ -32,6 +31,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     validationSchema: dynamicValidationSchema,
     validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
+    enableReinitialize: true,
   });
 
   useImperativeHandle(ref, () => formik);
@@ -41,10 +41,6 @@ const DestinationForm = forwardRef(function DestinationForm(
       onFormValid(Object.keys(errors).length === 0);
     });
   }, [formik.values]);
-
-  useEffect(() => {
-    formik.setFieldValue("destinations", creditDestinationData);
-  }, []);
 
   const handleChangeDestination = (
     event: React.ChangeEvent<HTMLSelectElement>,
@@ -81,6 +77,9 @@ const DestinationForm = forwardRef(function DestinationForm(
 
       setDynamicValidationSchema(newValidationSchema);
     }
+
+    if (!destinationProductsMock[value as keyof typeof destinationProductsMock])
+      return;
 
     formik.setFieldValue(
       "products",
