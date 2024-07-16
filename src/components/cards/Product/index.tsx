@@ -3,7 +3,7 @@ import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
-import { SkeletonIcon, SkeletonLine } from "@inube/design-system";
+import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";

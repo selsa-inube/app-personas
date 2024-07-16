@@ -1085,10 +1085,10 @@ const fondecomTheme = {
   },
   skeleton: {
     background: {
-      color: "fondecom.palette.neutral.n30",
+      color: palette.neutral.n30,
     },
     animation: {
-      color: "fondecom.palette.neutral.n10",
+      color: palette.neutral.n10,
     },
   },
   spinner: {
