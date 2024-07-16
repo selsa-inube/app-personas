@@ -11,14 +11,14 @@ import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeText } from "src/utils/texts";
 
-const mapObligationPaymentApiToEntity = (
-  creditPayment: Record<string, string | number | object>,
+const mapCardPaymentApiToEntity = (
+  cardPayment: Record<string, string | number | object>,
   withNextValueOption: boolean,
   withOtherValueOption: boolean,
   withExpiredValueOption: boolean,
   withTotalValueOption: boolean,
 ): IPayment => {
-  const dateWithoutZone = String(creditPayment.nextPaymentDate).replace(
+  const dateWithoutZone = String(cardPayment.nextPaymentDate).replace(
     "Z",
     "",
   );
@@ -31,83 +31,83 @@ const mapObligationPaymentApiToEntity = (
   const inArrears = today > nextPaymentDate;
 
   const nextCapital = Number(
-    Object(creditPayment.nextPaymentValue).capital || 0,
+    Object(cardPayment.nextPaymentValue).capital || 0,
   );
 
   const nextInterest = Number(
-    Object(creditPayment.nextPaymentValue).interest || 0,
+    Object(cardPayment.nextPaymentValue).interest || 0,
   );
 
   const nextPastDueInterest = Number(
-    Object(creditPayment.nextPaymentValue)?.pastDueInterest || 0,
+    Object(cardPayment.nextPaymentValue)?.pastDueInterest || 0,
   );
 
   const nextPenaltyInterest = Number(
-    Object(creditPayment.nextPaymentValue)?.penaltyInterest || 0,
+    Object(cardPayment.nextPaymentValue)?.penaltyInterest || 0,
   );
 
   const nextLifeInsurance = Number(
-    Object(creditPayment.nextPaymentValue)?.lifeInsurance || 0,
+    Object(cardPayment.nextPaymentValue)?.lifeInsurance || 0,
   );
 
   const nextOtherConcepts = Number(
-    Object(creditPayment.nextPaymentValue)?.otherConcepts || 0,
+    Object(cardPayment.nextPaymentValue)?.otherConcepts || 0,
   );
 
   const nextCapitalization = Number(
-    Object(creditPayment.nextPaymentValue)?.capitalization || 0,
+    Object(cardPayment.nextPaymentValue)?.capitalization || 0,
   );
 
   const expiredCapital = Number(
-    Object(creditPayment.valueExpired)?.capital || 0,
+    Object(cardPayment.valueExpired)?.capital || 0,
   );
 
   const expiredInterest = Number(
-    Object(creditPayment.valueExpired)?.interest || 0,
+    Object(cardPayment.valueExpired)?.interest || 0,
   );
 
   const expiredPastDueInterest = Number(
-    Object(creditPayment.valueExpired)?.pastDueInterest || 0,
+    Object(cardPayment.valueExpired)?.pastDueInterest || 0,
   );
 
   const expiredPenaltyInterest = Number(
-    Object(creditPayment.valueExpired)?.penaltyInterest || 0,
+    Object(cardPayment.valueExpired)?.penaltyInterest || 0,
   );
 
   const expiredLifeInsurance = Number(
-    Object(creditPayment.valueExpired)?.lifeInsurance || 0,
+    Object(cardPayment.valueExpired)?.lifeInsurance || 0,
   );
 
   const expiredOtherConcepts = Number(
-    Object(creditPayment.valueExpired)?.otherConcepts || 0,
+    Object(cardPayment.valueExpired)?.otherConcepts || 0,
   );
 
   const expiredCapitalization = Number(
-    Object(creditPayment.valueExpired)?.capitalization || 0,
+    Object(cardPayment.valueExpired)?.capitalization || 0,
   );
 
   const totalCapital = Number(
-    Object(creditPayment.balanceObligation)?.capital || 0,
+    Object(cardPayment.balanceObligation)?.capital || 0,
   );
 
   const totalLifeInsurance = Number(
-    Object(creditPayment.balanceObligation)?.lifeInsurance || 0,
+    Object(cardPayment.balanceObligation)?.lifeInsurance || 0,
   );
 
   const totalOtherConcepts = Number(
-    Object(creditPayment.balanceObligation)?.otherConcepts || 0,
+    Object(cardPayment.balanceObligation)?.otherConcepts || 0,
   );
 
   const totalCapitalization = Number(
-    Object(creditPayment.balanceObligation)?.capitalization || 0,
+    Object(cardPayment.balanceObligation)?.capitalization || 0,
   );
 
   const totalInterest = Number(
-    Object(creditPayment.balanceObligation)?.interest || 0,
+    Object(cardPayment.balanceObligation)?.interest || 0,
   );
 
   const totalPenaltyInterest = Number(
-    Object(creditPayment.balanceObligation)?.penaltyInterest || 0,
+    Object(cardPayment.balanceObligation)?.penaltyInterest || 0,
   );
 
   const nextPaymentValue =
@@ -136,7 +136,7 @@ const mapObligationPaymentApiToEntity = (
     Number(totalInterest >= 0 ? totalInterest : 0) +
     Number(totalPenaltyInterest >= 0 ? totalPenaltyInterest : 0);
 
-  const paymentMethodName = String(creditPayment.paymentMethodName);
+  const paymentMethodName = String(cardPayment.paymentMethodName);
 
   const tags: TagProps[] = [
     {
@@ -175,7 +175,7 @@ const mapObligationPaymentApiToEntity = (
   }
 
   const otherValueAvailable = otherValueAvailableDM.valueOf(
-    String(creditPayment.paymentOtherValueAvailable),
+    String(cardPayment.paymentOtherValueAvailable),
   )?.id;
 
   if (
@@ -199,9 +199,9 @@ const mapObligationPaymentApiToEntity = (
   }
 
   return {
-    id: String(creditPayment.obligationNumber),
-    title: capitalizeText(String(creditPayment.productName).toLowerCase()),
-    group: EPaymentGroupType.CREDITS,
+    id: String(cardPayment.obligationNumber),
+    title: capitalizeText(String(cardPayment.productName).toLowerCase()),
+    group: EPaymentGroupType.CREDITQUOTAS,
     paymentMethodName,
     status: inArrears
       ? EPaymentStatusType.ARREARS
@@ -209,22 +209,22 @@ const mapObligationPaymentApiToEntity = (
     options,
     tags,
     supportDocumentType: ESupportDocumentType.FINANCIALPORTFOLIO,
-    lineCode: String(creditPayment.lineCode),
-    paymentMethod: String(creditPayment.paymentMethod),
+    lineCode: String(cardPayment.lineCode),
+    paymentMethod: String(cardPayment.paymentMethod),
     allowCustomValue:
       otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id,
   };
 };
 
-const mapCreditPaymentsApiToEntities = (
-  creditPayments: Record<string, string | number | object>[],
+const mapCardPaymentsApiToEntities = (
+  cardPayments: Record<string, string | number | object>[],
   withNextValueOption: boolean,
   withOtherValueOption: boolean,
   withExpiredValueOption: boolean,
   withTotalValueOption: boolean,
 ): IPayment[] => {
-  return creditPayments.map((payment) =>
-    mapObligationPaymentApiToEntity(
+  return cardPayments.map((payment) =>
+    mapCardPaymentApiToEntity(
       payment,
       withNextValueOption,
       withOtherValueOption,
@@ -234,4 +234,4 @@ const mapCreditPaymentsApiToEntities = (
   );
 };
 
-export { mapCreditPaymentsApiToEntities, mapObligationPaymentApiToEntity };
+export { mapCardPaymentsApiToEntities, mapCardPaymentApiToEntity };

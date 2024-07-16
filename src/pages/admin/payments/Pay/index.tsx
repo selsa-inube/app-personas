@@ -6,10 +6,10 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { MdSentimentNeutral } from "react-icons/md";
 import { useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { SavingsContext } from "src/context/savings";
 import { IPayment } from "src/model/entity/payment";
+import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
+import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
 import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
-import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { initialMessageState } from "src/utils/messages";
 import { paySteps } from "./config/assisted";
@@ -26,7 +26,6 @@ function Pay() {
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-  const { commitments } = useContext(SavingsContext);
   const [loadingSend, setLoadingSend] = useState(false);
   const [message, setMessage] = useState<IMessage>(initialMessageState);
   const navigate = useNavigate();
@@ -75,7 +74,8 @@ function Pay() {
     if (!accessToken) return;
 
     let newCredits: IPayment[] = [];
-    let newCommitments = commitments;
+    let newCommitments: IPayment[] = [];
+    let newCards: IPayment[] = [];
 
     try {
       newCredits = await getCreditPayments(
@@ -92,16 +92,32 @@ function Pay() {
       }
     }
 
-    if (commitments.length === 0) {
-      try {
-        newCommitments = await getSavingsCommitmentsForUser(
-          user.identification,
-          accessToken,
-        );
-      } catch (error) {
-        if (error instanceof Error) {
-          console.info(error.message);
-        }
+    try {
+      newCommitments = await getCommitmentPayments(
+        user.identification,
+        accessToken,
+        withNextValueOption,
+        withOtherValueOption,
+        withExpiredValueOption,
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        console.info(error.message);
+      }
+    }
+
+    try {
+      newCards = await getCardPayments(
+        user.identification,
+        accessToken,
+        withNextValueOption,
+        withOtherValueOption,
+        withExpiredValueOption,
+        withTotalValueOption,
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        console.info(error.message);
       }
     }
 
@@ -109,13 +125,7 @@ function Pay() {
       ...prev,
       obligations: {
         ...prev.obligations,
-        values: mapObligations(
-          newCredits,
-          newCommitments,
-          withNextValueOption,
-          withOtherValueOption,
-          withExpiredValueOption,
-        ),
+        values: mapObligations(newCredits, newCommitments, newCards),
       },
     }));
   };
