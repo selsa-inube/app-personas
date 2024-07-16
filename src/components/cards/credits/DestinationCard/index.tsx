@@ -1,7 +1,7 @@
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
-import { SkeletonLine } from "@inube/design-system";
 import { Divider } from "@inubekit/divider";
+import { SkeletonLine } from "@inubekit/skeleton";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
 
@@ -99,7 +99,6 @@ function DestinationCard(props: DestinationCardProps) {
             checked={checked}
             readOnly
           />
-
           <Text type="label" size="medium">
             {title}
           </Text>
