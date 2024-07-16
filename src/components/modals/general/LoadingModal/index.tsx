@@ -1,7 +1,7 @@
 import { Text } from "@design/data/Text";
-import { Spinner } from "@design/feedback/Spinner";
 import { StyledLoadingCard } from "./styles";
 import { Blanket } from "@inubekit/blanket";
+import { Spinner } from "@inubekit/spinner";
 
 interface LoadingModalProps {
   title: string;
@@ -14,7 +14,7 @@ function LoadingModal(props: LoadingModalProps) {
   return (
     <Blanket>
       <StyledLoadingCard>
-        <Spinner size="large" />
+        <Spinner appearance="primary" size="large" transparent />
         <Text type="title" size="large">
           {title}
         </Text>
