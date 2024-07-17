@@ -5,7 +5,7 @@ const mapDestinationApiToEntity = (
   destination: Record<string, string | number | object>,
 ): ISelectOption => {
   return {
-    id: String(destination.reference),
+    id: String(destination.destinationId),
     value: capitalizeText(String(destination.name).toLowerCase()),
   };
 };

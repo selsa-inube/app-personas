@@ -23,14 +23,20 @@ const StyledInputRadio = styled.input`
   margin: 0;
 `;
 
-const StyledBody = styled.div`
+interface IStyledBody {
+  $loading?: boolean;
+}
+
+const StyledBody = styled.div<IStyledBody>`
   display: flex;
   flex-direction: column;
   padding: ${inube.spacing.s100};
   gap: ${inube.spacing.s050};
   border-radius: ${inube.spacing.s100};
-  background: ${({ theme }) =>
-    theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
+  background: ${({ theme, $loading }) =>
+    $loading
+      ? "transparent"
+      : theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear};
   width: 100%;
 `;
 
