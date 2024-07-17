@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
@@ -10,6 +9,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { StyledBody, StyledItem, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
 
 interface ItemProps {
   id: string;
@@ -77,7 +77,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
             <Icon
               appearance="dark"
               size="20px"
-              spacing="none"
+              spacing="narrow"
               icon={<MdOutlineClose />}
               onClick={onCloseModal}
               cursorHover

@@ -1,9 +1,9 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { StyledMenuItemContainer } from "./styles";
 
 import { MenuItemSpacingType } from "./types";
+import { Icon } from "@inubekit/icon";
 
 interface MenuItemProps {
   title: string;
@@ -39,7 +39,7 @@ function MenuItem(props: MenuItemProps) {
         {iconBefore && (
           <Icon
             icon={iconBefore}
-            spacing="none"
+            spacing="narrow"
             size="24px"
             appearance="dark"
             disabled={isDisabled}
@@ -62,7 +62,7 @@ function MenuItem(props: MenuItemProps) {
       {iconAfter && (
         <Icon
           icon={iconAfter}
-          spacing="none"
+          spacing="narrow"
           size="24px"
           appearance="dark"
           disabled={isDisabled}

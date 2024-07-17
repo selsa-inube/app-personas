@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
@@ -14,6 +13,7 @@ import {
   ButtonVariantType,
 } from "@design/input/Button/types";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface BoxProps {
   icon?: React.JSX.Element;
@@ -72,7 +72,16 @@ function Box(props: BoxProps) {
       <Stack direction="column" gap="s200">
         <Stack justifyContent="space-between" alignItems="center">
           <StyledLink to={navigateTo}>
-            {icon && <Icon icon={icon} variant="filled" cursorHover />}
+            {icon && (
+              <Icon
+                appearance="primary"
+                icon={icon}
+                variant="filled"
+                spacing="wide"
+                size="42px"
+                cursorHover
+              />
+            )}
             <Stack direction="column" gap="s025">
               {loading ? (
                 <SkeletonLine animated width="200px" />

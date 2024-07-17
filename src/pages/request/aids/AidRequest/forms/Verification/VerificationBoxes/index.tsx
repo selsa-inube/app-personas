@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Icon } from "@design/data/Icon";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
@@ -14,6 +13,7 @@ import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
+import { Icon } from "@inubekit/icon";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -90,14 +90,14 @@ const renderRegulationValidationsVerification = (
                 appearance="success"
                 icon={<MdOutlineCheckCircle />}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
               />
             ) : (
               <Icon
                 appearance="danger"
                 icon={<MdOutlineHighlightOff />}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
               />
             )
           }

@@ -7,8 +7,8 @@ import { MdClear } from "react-icons/md";
 import { CountdownBar } from "@inubekit/countdownbar";
 import { StyledSectionMessage } from "./styles";
 
-import { Icon } from "@design/data/Icon";
 import { MessageAppearanceType } from "./types";
+import { Icon } from "@inubekit/icon";
 
 interface SectionMessageProps {
   icon: React.JSX.Element;
@@ -61,7 +61,7 @@ const SectionMessage = (props: SectionMessageProps) => {
                 </Text>
                 <Icon
                   size="16px"
-                  spacing="none"
+                  spacing="narrow"
                   onClick={onClose}
                   appearance="dark"
                   icon={<MdClear />}

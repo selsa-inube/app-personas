@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
@@ -19,6 +18,7 @@ import { educationLevelTypeDM } from "src/model/domains/general/updateData/socio
 import { StyledModal, StyledScrollbar } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
 
 interface FamilyMemberViewModalProps {
   portalId: string;
@@ -55,7 +55,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               icon={<MdOutlineClose />}
               onClick={onCloseModal}
               size="20px"
-              spacing="none"
+              spacing="narrow"
               cursorHover
             />
           </Stack>

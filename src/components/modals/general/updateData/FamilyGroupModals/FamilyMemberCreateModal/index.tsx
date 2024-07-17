@@ -3,7 +3,6 @@ import { MdOutlineClose } from "react-icons/md";
 import { StyledModal } from "./styles";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
-import { Icon } from "@design/data/Icon";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { CreateFamilyMember } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember";
 import { IIdentificationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/IdentificationDataForm/types";
@@ -12,6 +11,7 @@ import { IContactDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupFo
 import { IInformationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/InformationDataForm/types";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
 
 
 interface FamilyMemberCreateModalProps {
@@ -59,7 +59,7 @@ function FamilyMemberCreateModal(props: FamilyMemberCreateModalProps) {
                 icon={<MdOutlineClose />}
                 onClick={onCloseModal}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
                 cursorHover
               />
             </Stack>

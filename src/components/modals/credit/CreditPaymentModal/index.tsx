@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
@@ -9,6 +8,7 @@ import { parseCurrencyString } from "src/utils/currency";
 import { StyledBody, StyledBodyHead, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
 
 const renderTransactionSpecification = (
   label: string,
@@ -60,7 +60,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">

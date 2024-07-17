@@ -1,6 +1,5 @@
 import { CustomValueModal } from "@components/modals/payments/CustomValueModal";
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
-import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
@@ -16,6 +15,7 @@ import {
   StyledInputContainer,
   StyledInputRadio,
 } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 const renderOptions = (
   options: IPaymentOption[],

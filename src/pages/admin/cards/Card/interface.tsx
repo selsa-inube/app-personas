@@ -7,7 +7,6 @@ import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModa
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { quickLinks } from "@config/quickLinks";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
@@ -46,6 +45,7 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
+import { Icon } from "@inubekit/icon";
 
 interface CardUIProps {
   cardId?: string;
@@ -255,7 +255,7 @@ function CardUI(props: CardUIProps) {
                             <Icon
                               icon={<MdQuestionMark />}
                               appearance="help"
-                              spacing="none"
+                              spacing="narrow"
                               size="16px"
                               variant="filled"
                               shape="circle"

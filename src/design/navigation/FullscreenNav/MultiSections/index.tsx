@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { INav } from "@design/layout/Page/types";
 import { Stack } from "@design/layout/Stack";
@@ -7,6 +6,7 @@ import { NavLink } from "@design/navigation/NavLink";
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 import { StyledCollapseIcon, StyledSectionContainer } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface MultiSectionsProps {
   navigation: INav;

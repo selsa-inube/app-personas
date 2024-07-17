@@ -1,9 +1,9 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { MdDeleteOutline, MdOutlineDescription } from "react-icons/md";
 import { truncateFileName } from "src/utils/texts";
 import { OutlineCard } from "../OutlineCard";
+import { Icon } from "@inubekit/icon";
 
 interface FileCardProps {
   id: string;
@@ -24,7 +24,7 @@ function FileCard(props: FileCardProps) {
           icon={<MdOutlineDescription />}
           appearance="dark"
           size="24px"
-          spacing="none"
+          spacing="narrow"
           cursorHover
         />
 
@@ -42,7 +42,7 @@ function FileCard(props: FileCardProps) {
               icon={<MdDeleteOutline />}
               appearance="danger"
               size="16px"
-              spacing="none"
+              spacing="narrow"
               cursorHover
               onClick={() => onRemove(id)}
             />

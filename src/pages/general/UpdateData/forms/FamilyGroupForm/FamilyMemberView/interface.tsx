@@ -1,11 +1,11 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { EditFamilyMemberModal } from "@components/modals/general/updateData/FamilyGroupModals/EditFamilyMemberModal";
 import { FamilyMemberViewModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberViewModal";
-import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
 import { FormikValues } from "formik";
 import { MdOpenInNew } from "react-icons/md";
 import { deleteFamilyMemberModal } from "../config/deleteMember";
+import { Icon } from "@inubekit/icon";
 
 interface FamilyMemberViewUIProps {
   showModal: boolean;
@@ -51,7 +51,7 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
         appearance="dark"
         icon={<MdOpenInNew />}
         size="16px"
-        spacing="none"
+        spacing="narrow"
         onClick={onShowModal}
         cursorHover
       />

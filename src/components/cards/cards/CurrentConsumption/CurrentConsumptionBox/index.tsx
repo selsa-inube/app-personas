@@ -1,8 +1,8 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
+import { Icon } from "@inubekit/icon";
 import { MdOpenInNew } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { IAttribute } from "src/model/entity/product";
@@ -101,9 +101,10 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
               </Text>
               <Icon
                 icon={<MdOpenInNew />}
+                appearance="primary"
                 size="16px"
                 cursorHover={true}
-                spacing="none"
+                spacing="narrow"
                 onClick={handleDetailsConsumption}
               />
             </Stack>
@@ -228,6 +229,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
           <Stack alignItems="center">
             <Icon
               icon={<MdOpenInNew />}
+              appearance="primary"
               size="16px"
               cursorHover={true}
               onClick={handleDetailsConsumption}

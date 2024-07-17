@@ -1,8 +1,8 @@
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
-import { Icon } from "../Icon";
 import { Text } from "../Text";
+import { Icon } from "@inubekit/icon";
 
 interface TitleProps {
   title: string;
@@ -32,7 +32,7 @@ function Title(props: TitleProps) {
             icon={icon}
             cursorHover={true}
             size="20px"
-            spacing="none"
+            spacing="narrow"
           />
         )}
 

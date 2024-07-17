@@ -1,8 +1,8 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { StyledCardContainer } from "./styles";
 import { InfoCardAppearanceType } from "./types";
+import { Icon } from "@inubekit/icon";
 
 interface InfoCardProps {
   title: string;
@@ -16,7 +16,7 @@ function InfoCard(props: InfoCardProps) {
 
   return (
     <StyledCardContainer $appearance={appearance}>
-      <Icon icon={icon} appearance={appearance} size="24px" spacing="none" />
+      <Icon icon={icon} appearance={appearance} size="24px" spacing="narrow" />
 
       <Stack direction="column" width="100%" gap="s075">
         <Text type="label" size="large">

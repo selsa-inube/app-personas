@@ -1,5 +1,4 @@
 import { ValidationDetailsModal } from "@components/modals/general/ValidationDetailsModal";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
@@ -8,6 +7,7 @@ import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { IValidation } from "src/model/entity/service";
 import { OutlineCard } from "../OutlineCard";
 import { Spinner } from "@inubekit/spinner";
+import { Icon } from "@inubekit/icon";
 
 function ValidationCard(props: IValidation) {
   const { label, failDetails, value } = props;
@@ -32,14 +32,14 @@ function ValidationCard(props: IValidation) {
                 appearance="success"
                 icon={<MdOutlineCheckCircle />}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
               />
             ) : value === "fail" ? (
               <Icon
                 appearance="danger"
                 icon={<MdOutlineHighlightOff />}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
               />
             ) : (
               <Spinner appearance="primary" size="small" transparent />

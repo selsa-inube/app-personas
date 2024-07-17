@@ -1,8 +1,8 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { MdOpenInNew } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledTagValue, StyledTotalPayment } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface TotalizerProps {
   isMobile: boolean;
@@ -32,7 +32,7 @@ function Totalizer(props: TotalizerProps) {
             icon={<MdOpenInNew />}
             appearance="primary"
             size="16px"
-            spacing="none"
+            spacing="narrow"
             cursorHover
             disabled={isDisabled}
           />

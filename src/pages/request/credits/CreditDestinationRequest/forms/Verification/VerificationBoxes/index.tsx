@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Icon } from "@design/data/Icon";
 import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
@@ -21,6 +20,7 @@ import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm
 import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";
+import { Icon } from "@inubekit/icon";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -96,14 +96,14 @@ const renderSystemValidationsVerification = (
                 appearance="success"
                 icon={<MdOutlineCheckCircle />}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
               />
             ) : (
               <Icon
                 appearance="danger"
                 icon={<MdOutlineHighlightOff />}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
               />
             )
           }

@@ -1,5 +1,5 @@
 import { EditFamilyMemberModal } from "@components/modals/general/updateData/FamilyGroupModals/EditFamilyMemberModal";
-import { Icon } from "@design/data/Icon";
+import { Icon } from "@inubekit/icon";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 
@@ -28,7 +28,7 @@ function EditFamilyMemberUI(props: EditFamilyMemberUIProps) {
         appearance="dark"
         icon={<MdOutlineModeEdit />}
         size="16px"
-        spacing="none"
+        spacing="narrow"
         cursorHover
         onClick={onEditModal}
       />
