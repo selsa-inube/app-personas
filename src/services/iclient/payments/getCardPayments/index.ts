@@ -1,8 +1,8 @@
 import { enviroment } from "@config/enviroment";
 import { IPayment } from "src/model/entity/payment";
-import { mapCreditPaymentsApiToEntities } from "./mappers";
+import { mapCardPaymentsApiToEntities } from "./mappers";
 
-const getCreditPayments = async (
+const getCardPayments = async (
   userIdentification: string,
   accessToken: string,
   withNextValueOption: boolean,
@@ -27,7 +27,7 @@ const getCreditPayments = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchAllPortfolioObligationPayment",
+          "X-Action": "SearchAllCardProductsPayment",
           "X-Business-Unit": enviroment.BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -37,7 +37,7 @@ const getCreditPayments = async (
       const res = await fetch(
         `${
           enviroment.ICLIENT_API_URL_QUERY
-        }/portfolio-obligations/payment?${queryParams.toString()}`,
+        }/credit-card-products/payment?${queryParams.toString()}`,
         options,
       );
 
@@ -56,8 +56,8 @@ const getCreditPayments = async (
 
       const data = await res.json();
 
-      const normalizedCreditPayments = Array.isArray(data)
-        ? mapCreditPaymentsApiToEntities(
+      const normalizedCardPayments = Array.isArray(data)
+        ? mapCardPaymentsApiToEntities(
             data,
             withNextValueOption,
             withOtherValueOption,
@@ -66,7 +66,7 @@ const getCreditPayments = async (
           )
         : [];
 
-      return normalizedCreditPayments;
+      return normalizedCardPayments;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
@@ -79,4 +79,4 @@ const getCreditPayments = async (
   return [];
 };
 
-export { getCreditPayments };
+export { getCardPayments };

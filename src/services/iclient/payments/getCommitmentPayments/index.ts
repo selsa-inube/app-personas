@@ -1,14 +1,13 @@
 import { enviroment } from "@config/enviroment";
 import { IPayment } from "src/model/entity/payment";
-import { mapCreditPaymentsApiToEntities } from "./mappers";
+import { mapCommitmentPaymentsApiToEntities } from "./mappers";
 
-const getCreditPayments = async (
+const getCommitmentPayments = async (
   userIdentification: string,
   accessToken: string,
   withNextValueOption: boolean,
   withOtherValueOption: boolean,
   withExpiredValueOption: boolean,
-  withTotalValueOption: boolean,
 ): Promise<IPayment[]> => {
   const maxRetries = 5;
   const fetchTimeout = 3000;
@@ -16,7 +15,7 @@ const getCreditPayments = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        customerPublicCode: userIdentification,
+        customerCode: userIdentification,
       });
 
       const controller = new AbortController();
@@ -27,7 +26,7 @@ const getCreditPayments = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchAllPortfolioObligationPayment",
+          "X-Action": "SearchAllSavingPlanPayment",
           "X-Business-Unit": enviroment.BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -37,7 +36,7 @@ const getCreditPayments = async (
       const res = await fetch(
         `${
           enviroment.ICLIENT_API_URL_QUERY
-        }/portfolio-obligations/payment?${queryParams.toString()}`,
+        }/saving-plans/payment?${queryParams.toString()}`,
         options,
       );
 
@@ -56,17 +55,16 @@ const getCreditPayments = async (
 
       const data = await res.json();
 
-      const normalizedCreditPayments = Array.isArray(data)
-        ? mapCreditPaymentsApiToEntities(
+      const normalizedCommitmentPayments = Array.isArray(data)
+        ? mapCommitmentPaymentsApiToEntities(
             data,
             withNextValueOption,
             withOtherValueOption,
             withExpiredValueOption,
-            withTotalValueOption,
           )
         : [];
 
-      return normalizedCreditPayments;
+      return normalizedCommitmentPayments;
     } catch (error) {
       if (attempt === maxRetries) {
         throw new Error(
@@ -79,4 +77,4 @@ const getCreditPayments = async (
   return [];
 };
 
-export { getCreditPayments };
+export { getCommitmentPayments };
