@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
@@ -13,6 +12,7 @@ import {
   StyledCircleId,
 } from "./styles";
 import { IStep } from "./types";
+import { Icon } from "@inubekit/icon";
 
 interface AssistedUIProps {
   steps: IStep[];
@@ -67,10 +67,10 @@ function AssistedUI(props: AssistedUIProps) {
           </StyledButton>
         ) : (
           <Icon
-            variant="none"
+            variant="empty"
             icon={<MdArrowBack />}
             size="20px"
-            spacing="none"
+            spacing="narrow"
             onClick={handlePreviousStep}
             appearance="primary"
             disabled={currentStepIndex === 0}
@@ -142,10 +142,11 @@ function AssistedUI(props: AssistedUIProps) {
           </StyledButton>
         ) : (
           <Icon
-            variant="none"
+            variant="empty"
             icon={<MdArrowForward />}
+            appearance="primary"
             size="20px"
-            spacing="none"
+            spacing="narrow"
             onClick={handleNextStep}
             disabled={disableNextStep}
           />

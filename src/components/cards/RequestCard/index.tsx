@@ -1,10 +1,10 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdOutlineStarBorder } from "react-icons/md";
 import { StyledCardContainer } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface RequestCardProps {
   title: string;
@@ -36,7 +36,7 @@ function RequestCard(props: RequestCardProps) {
                     icon={<MdOutlineStarBorder />}
                     appearance="primary"
                     size="12px"
-                    spacing="none"
+                    spacing="narrow"
                   />
                   <Text
                     type="body"

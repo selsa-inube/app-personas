@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -14,6 +13,7 @@ import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
 
 interface EditFamilyMemberModalProps {
   portalId: string;
@@ -57,7 +57,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
               appearance="dark"
               icon={<MdOutlineClose />}
               size="20px"
-              spacing="none"
+              spacing="narrow"
               cursorHover
               onClick={onCloseModal}
             />

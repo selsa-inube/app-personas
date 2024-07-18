@@ -1,9 +1,9 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 
 import { StyledContainer, StyledLink, StyledQuickAccess } from "./styles";
 import { ILink } from "./types";
+import { Icon } from "@inubekit/icon";
 
 interface QuickAccessProps {
   links: ILink[];
@@ -20,7 +20,7 @@ function QuickAccess(props: QuickAccessProps) {
           {links.map((link) => (
             <StyledLink key={link.label} to={link.path}>
               <Stack alignItems="center" gap="24px" padding="8px 16px">
-                <Icon icon={link.icon} spacing="none" appearance="dark" />
+                <Icon icon={link.icon} spacing="narrow" appearance="dark" size="28px" />
                 <Text size="medium">{link.label}</Text>
               </Stack>
             </StyledLink>

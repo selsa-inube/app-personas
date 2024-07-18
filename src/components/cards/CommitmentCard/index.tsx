@@ -1,10 +1,10 @@
-import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { MdCalendarMonth } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { StyledCardContainer } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface CommitmentCardProps {
   onClick: () => void;
@@ -21,7 +21,7 @@ function CommitmentCard(props: CommitmentCardProps) {
   return (
     <StyledCardContainer onClick={onClick}>
       <Stack alignItems="flex-start" gap="s075">
-        <Icon size="16px" icon={<MdCalendarMonth />} spacing="none" />
+        <Icon size="16px" appearance="primary" icon={<MdCalendarMonth />} spacing="narrow" />
         <Stack direction="column" alignItems="flex-start" gap="s075">
           <Text type="label" size="medium">
             {title}

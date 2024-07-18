@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
@@ -25,6 +24,7 @@ import {
   StyledModal,
 } from "./styles";
 import { IApplyPayOption, getOptions } from "./utils";
+import { Icon } from "@inubekit/icon";
 
 interface CustomValueModalProps {
   portalId: string;
@@ -147,7 +147,7 @@ function CustomValueModal(props: CustomValueModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">

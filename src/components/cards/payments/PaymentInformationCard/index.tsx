@@ -1,10 +1,10 @@
 import { Text } from "@design/data/Text";
 import { MdOutlineDelete } from "react-icons/md";
-import { Icon } from "@design/data/Icon";
 import { StyledCard } from "./styles";
 import { Stack } from "@design/layout/Stack";
 import { currencyFormat } from "src/utils/currency";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Icon } from "@inubekit/icon";
 
 interface PaymentInformationCardProps {
   id: string;
@@ -33,7 +33,7 @@ function PaymentInformationCard(props: PaymentInformationCardProps) {
             icon={<MdOutlineDelete />}
             appearance="danger"
             size="20px"
-            spacing="none"
+            spacing="narrow"
             onClick={() => removePaymentCard(id, value)}
             cursorHover
           />

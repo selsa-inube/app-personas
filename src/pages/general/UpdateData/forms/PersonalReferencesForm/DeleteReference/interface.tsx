@@ -1,8 +1,8 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteReferenceModal } from "../config/deleteReference.config";
+import { Icon } from "@inubekit/icon";
 
 interface DeleteReferenceUIProps {
   reference: IEntry;
@@ -31,7 +31,7 @@ function DeleteReferenceUI(props: DeleteReferenceUIProps) {
         icon={<MdDeleteOutline />}
         cursorHover={true}
         size="16px"
-        spacing="none"
+        spacing="narrow"
         onClick={handleShowModal}
       />
 

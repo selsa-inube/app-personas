@@ -159,8 +159,8 @@ const StyledIcon = styled.div<IStyledIcon>`
     (theme.color?.text?.dark?.hover || inube.color.text.dark.hover)};
 
   & svg {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
   }
 `;
 

@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { SkeletonLine } from "@inubekit/skeleton";
@@ -15,6 +14,7 @@ import { EMovementType } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { Tag, TagProps } from "@design/data/Tag";
 import { formatPrimaryDate } from "src/utils/dates";
+import { Icon } from "@inubekit/icon";
 
 const getIconForRecordType = (type: EMovementType) => {
   return (
@@ -23,7 +23,7 @@ const getIconForRecordType = (type: EMovementType) => {
         <Icon
           icon={<MdArrowBack />}
           appearance="danger"
-          spacing="none"
+          spacing="narrow"
           size="16px"
           variant="outlined"
           shape="circle"
@@ -33,7 +33,7 @@ const getIconForRecordType = (type: EMovementType) => {
         <Icon
           icon={<MdOutlineCached />}
           appearance="success"
-          spacing="none"
+          spacing="narrow"
           size="16px"
           variant="outlined"
           shape="circle"
@@ -43,7 +43,7 @@ const getIconForRecordType = (type: EMovementType) => {
         <Icon
           icon={<MdOutlineCheck />}
           appearance="success"
-          spacing="none"
+          spacing="narrow"
           size="16px"
           variant="outlined"
           shape="circle"
@@ -53,7 +53,7 @@ const getIconForRecordType = (type: EMovementType) => {
         <Icon
           icon={<MdOutlineAssignment />}
           appearance="gray"
-          spacing="none"
+          spacing="narrow"
           size="16px"
         />
       )}
@@ -140,7 +140,8 @@ function RecordCard(props: RecordCardProps) {
               {withExpandingIcon && (
                 <Icon
                   icon={<MdOpenInNew />}
-                  spacing="none"
+                  appearance="primary"
+                  spacing="narrow"
                   size="16px"
                   onClick={handleClick}
                   cursorHover

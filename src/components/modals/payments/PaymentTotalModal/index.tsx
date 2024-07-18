@@ -1,5 +1,4 @@
 import { PaymentInformationCard } from "@components/cards/payments/PaymentInformationCard";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -10,6 +9,7 @@ import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledModal, StyledTotalPayment } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
 
 interface PaymentTotalModalProps {
   totalPayment: number;
@@ -61,7 +61,7 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
               icon={<MdOutlineClose />}
               onClick={onCloseModal}
               size="20px"
-              spacing="none"
+              spacing="narrow"
               cursorHover
             />
           </Stack>

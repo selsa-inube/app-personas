@@ -1,5 +1,4 @@
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -22,6 +21,7 @@ import * as Yup from "yup";
 import { StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
 
 const mapSavingAccounts = (savingAccounts: IProduct[]): ISelectOption[] => {
   return savingAccounts.map((savingAccount) => ({
@@ -84,7 +84,7 @@ function RechargeModal(props: RechargeModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">

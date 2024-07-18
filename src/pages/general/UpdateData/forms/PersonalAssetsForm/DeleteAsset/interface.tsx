@@ -1,8 +1,8 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteAssetModal } from "../config/deleteAsset.config";
+import { Icon } from "@inubekit/icon";
 
 interface DeleteAssetUIProps {
   asset: IEntry;
@@ -26,7 +26,7 @@ function DeleteAssetUI(props: DeleteAssetUIProps) {
         icon={<MdDeleteOutline />}
         cursorHover={true}
         size="16px"
-        spacing="none"
+        spacing="narrow"
         onClick={handleShowModal}
       />
 

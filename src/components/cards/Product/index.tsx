@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
@@ -9,6 +8,7 @@ import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "src/model/entity/product";
 import { StyledProduct, StyledSkeletonContainer } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface ProductProps {
   title?: string;
@@ -56,6 +56,7 @@ function Product(props: ProductProps) {
             icon && (
               <Icon
                 icon={icon}
+                size="34px"
                 variant="filled"
                 spacing="compact"
                 appearance={empty ? "gray" : "primary"}

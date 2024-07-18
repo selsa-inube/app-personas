@@ -1,10 +1,10 @@
-import { Icon } from "../../data/Icon";
 import { Text } from "../../data/Text";
 import { Stack } from "../../layout/Stack";
 
 import { MdChevronRight } from "react-icons/md";
 
 import { StyledLink, StyledNavLink } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface NavLinkProps {
   icon: React.JSX.Element;

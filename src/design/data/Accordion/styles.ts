@@ -36,8 +36,8 @@ const StyledHead = styled.button`
 
 const StyledIcon = styled.div`
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 26px;
+  height: 26px;
 `;
 
 export { StyledContainer, StyledHead, StyledIcon };

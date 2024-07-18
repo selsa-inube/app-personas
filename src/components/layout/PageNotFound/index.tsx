@@ -1,6 +1,5 @@
 import { getHeader } from "@config/header";
 import { getNav } from "@config/nav";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Grid } from "@design/layout/Grid";
@@ -14,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledPage } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 function PageNotFound() {
   const { pathname: currentLocation } = useLocation();
@@ -99,7 +99,7 @@ function PageNotFound() {
               appearance="gray"
               icon={<MdOutlineSentimentNeutral />}
               size={isMobile ? "40px" : "60px"}
-              spacing="none"
+              spacing="narrow"
             />
             <Stack
               direction="column"

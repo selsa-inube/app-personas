@@ -1,12 +1,12 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Icon } from "@design/data/Icon";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdClear, MdQuestionMark } from "react-icons/md";
 import { StyledModal } from "./styles";
 import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
 
 interface InfoModalProps {
   title: string;
@@ -42,7 +42,7 @@ function InfoModal(props: InfoModalProps) {
             <Icon
               icon={<MdQuestionMark />}
               appearance="help"
-              spacing="none"
+              spacing="narrow"
               size="24px"
               variant="filled"
               shape="circle"

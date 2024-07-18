@@ -1,6 +1,6 @@
 import { CreditPaymentModal } from "@components/modals/credit/CreditPaymentModal";
-import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
+import { Icon } from "@inubekit/icon";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
 
@@ -25,7 +25,7 @@ function ViewPayment(props: ViewPaymentProps) {
         icon={<MdOpenInNew />}
         cursorHover={true}
         size="16px"
-        spacing="none"
+        spacing="narrow"
       />
       {showModal && (
         <CreditPaymentModal

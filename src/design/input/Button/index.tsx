@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Icon } from "../../data/Icon";
 import { Text } from "../../data/Text";
 import { Stack } from "../../layout/Stack";
 import {
@@ -15,6 +14,7 @@ import {
   ButtonVariantType,
 } from "./types";
 import { Spinner } from "@inubekit/spinner";
+import { Icon } from "@inubekit/icon";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -61,7 +61,7 @@ function renderButtonContent(
         {iconBefore && (
           <Icon
             icon={iconBefore}
-            spacing="none"
+            spacing="narrow"
             size="18px"
             appearance={getAppearance()}
             disabled={disabled}
@@ -81,7 +81,7 @@ function renderButtonContent(
         {iconAfter && (
           <Icon
             icon={iconAfter}
-            spacing="none"
+            spacing="narrow"
             size="18px"
             appearance={getAppearance()}
             disabled={disabled}

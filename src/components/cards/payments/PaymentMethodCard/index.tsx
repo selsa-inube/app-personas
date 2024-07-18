@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
@@ -10,6 +9,7 @@ import { useState } from "react";
 import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface PaymentMethodCardProps {
   moneySource: {
@@ -124,7 +124,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
             icon={<MdAttachMoney />}
             appearance="dark"
             size="18px"
-            spacing="none"
+            spacing="narrow"
           />
         }
       />

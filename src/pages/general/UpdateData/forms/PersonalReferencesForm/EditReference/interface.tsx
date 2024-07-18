@@ -1,5 +1,5 @@
 import { ReferenceModal } from "@components/modals/general/updateData/ReferenceModal";
-import { Icon } from "@design/data/Icon";
+import { Icon } from "@inubekit/icon";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 
@@ -27,7 +27,7 @@ function EditReferenceUI(props: EditReferenceUIProps) {
         icon={<MdOutlineModeEdit />}
         cursorHover={true}
         size="16px"
-        spacing="none"
+        spacing="narrow"
         onClick={handleEditModal}
       />
 

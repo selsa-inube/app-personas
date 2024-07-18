@@ -1,6 +1,6 @@
 import { SavingMovementModal } from "@components/modals/saving/SavingMovementModal";
-import { Icon } from "@design/data/Icon";
 import { IEntry } from "@design/data/Table/types";
+import { Icon } from "@inubekit/icon";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
 
@@ -25,7 +25,7 @@ function ViewMovement(props: ViewMovementProps) {
         icon={<MdOpenInNew />}
         cursorHover={true}
         size="16px"
-        spacing="none"
+        spacing="narrow"
       />
       {showModal && (
         <SavingMovementModal

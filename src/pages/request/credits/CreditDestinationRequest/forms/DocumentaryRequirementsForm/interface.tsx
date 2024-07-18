@@ -2,7 +2,6 @@ import { FileCard } from "@components/cards/FileCard";
 import { InfoCard } from "@components/cards/InfoCard";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { InfoModal } from "@components/modals/general/InfoModal";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { FileDrop } from "@design/input/FileDrop";
@@ -14,6 +13,7 @@ import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { MdHelpOutline, MdQuestionMark } from "react-icons/md";
 import { IDocumentaryRequirementsEntry } from "./types";
+import { Icon } from "@inubekit/icon";
 
 function renderRequirement(label: string, id: string) {
   return (
@@ -79,7 +79,7 @@ function DocumentaryRequirementsFormUI(
             <Icon
               icon={<MdQuestionMark />}
               appearance="help"
-              spacing="none"
+              spacing="narrow"
               size="16px"
               variant="filled"
               shape="circle"

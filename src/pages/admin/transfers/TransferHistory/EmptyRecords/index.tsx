@@ -1,7 +1,7 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
+import { Icon } from "@inubekit/icon";
 import { MdSearch } from "react-icons/md";
 
 function EmptyRecords() {
@@ -19,7 +19,7 @@ function EmptyRecords() {
           icon={<MdSearch />}
           appearance="gray"
           size="40px"
-          spacing="none"
+          spacing="narrow"
         />
         <Text type="title" size="medium">
           Sin registros

@@ -1,4 +1,3 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -8,6 +7,7 @@ import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
 
 const renderSpecification = (
   label: string,
@@ -16,7 +16,7 @@ const renderSpecification = (
 ) => (
   <Stack justifyContent="space-between" width="100%" alignItems="center">
     <Stack gap="s100" alignItems="center">
-      <Icon icon={icon} appearance="dark" size="16px" spacing="none" />
+      <Icon icon={icon} appearance="dark" size="16px" spacing="narrow" />
       <Text type="label" size="medium" appearance="dark">
         {label}
       </Text>
@@ -66,7 +66,7 @@ function CreditDisbursementModal(props: CreditDisbursementModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
