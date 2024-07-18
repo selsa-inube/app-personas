@@ -18,23 +18,9 @@ const mapCommitmentPaymentApiToEntity = (
   withOtherValueOption: boolean,
   withExpiredValueOption: boolean,
 ): IPayment => {
-  const lastMovementTheSavingPlans = commitmentPayment.savingPaymentPlans;
-
-  const closeDateWithoutZone =
-    commitmentPayment.closePaymentDate &&
-    String(commitmentPayment.closePaymentDate).replace("Z", "");
-
-  const lastSavingPlan =
-    Array.isArray(lastMovementTheSavingPlans) &&
-    lastMovementTheSavingPlans.reduce((acc, curr) =>
-      acc.quotaDate > curr.quotaDate ? acc : curr,
-    );
-
-  const lastDateWithoutZone = String(lastSavingPlan.quotaDate).replace("Z", "");
-
-  const nextPaymentDate = closeDateWithoutZone
-    ? new Date(closeDateWithoutZone)
-    : new Date(lastDateWithoutZone);
+  const nextPaymentDate = new Date(
+    String(commitmentPayment.closePaymentDate).replace("Z", ""),
+  );
 
   const today = new Date();
 
@@ -42,7 +28,7 @@ const mapCommitmentPaymentApiToEntity = (
 
   const inArrears = today > nextPaymentDate;
 
-  const nextPaymentValue = Number(commitmentPayment.quotaValue || 0);
+  const nextPaymentValue = Number(commitmentPayment.nextPaymentValue || 0);
 
   const expiredValue = Number(commitmentPayment.expiredValue || 0);
 
@@ -102,8 +88,12 @@ const mapCommitmentPaymentApiToEntity = (
     });
   }
 
+  const commitmentType = String(
+    Object(commitmentPayment.commitmentType).code,
+  ).toUpperCase();
+
   let supportDocumentType = ESupportDocumentType.CONTRIBUTIONCOMMITMENT;
-  if (commitmentPayment.type === ECommitmentType.SAVINGSPROGRAMMED) {
+  if (commitmentType === ECommitmentType.SAVINGSPROGRAMMED) {
     supportDocumentType = ESupportDocumentType.SAVINGCOMMITMENT;
   }
 

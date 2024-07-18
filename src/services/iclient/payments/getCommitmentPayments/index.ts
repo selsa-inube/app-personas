@@ -15,7 +15,7 @@ const getCommitmentPayments = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        customerPublicCode: userIdentification,
+        customerCode: userIdentification,
       });
 
       const controller = new AbortController();
@@ -36,7 +36,7 @@ const getCommitmentPayments = async (
       const res = await fetch(
         `${
           enviroment.ICLIENT_API_URL_QUERY
-        }/saving-plans?${queryParams.toString()}`,
+        }/saving-plans/payment?${queryParams.toString()}`,
         options,
       );
 

@@ -9,7 +9,7 @@ import {
 import { otherValueAvailableDM } from "src/model/domains/payments/otherValueAvailableDM";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapCardPaymentApiToEntity = (
   cardPayment: Record<string, string | number | object>,
@@ -18,10 +18,7 @@ const mapCardPaymentApiToEntity = (
   withExpiredValueOption: boolean,
   withTotalValueOption: boolean,
 ): IPayment => {
-  const dateWithoutZone = String(cardPayment.nextPaymentDate).replace(
-    "Z",
-    "",
-  );
+  const dateWithoutZone = String(cardPayment.nextPaymentDate).replace("Z", "");
   const nextPaymentDate = new Date(dateWithoutZone);
 
   const today = new Date();
@@ -30,9 +27,7 @@ const mapCardPaymentApiToEntity = (
 
   const inArrears = today > nextPaymentDate;
 
-  const nextCapital = Number(
-    Object(cardPayment.nextPaymentValue).capital || 0,
-  );
+  const nextCapital = Number(Object(cardPayment.nextPaymentValue).capital || 0);
 
   const nextInterest = Number(
     Object(cardPayment.nextPaymentValue).interest || 0,
@@ -58,9 +53,7 @@ const mapCardPaymentApiToEntity = (
     Object(cardPayment.nextPaymentValue)?.capitalization || 0,
   );
 
-  const expiredCapital = Number(
-    Object(cardPayment.valueExpired)?.capital || 0,
-  );
+  const expiredCapital = Number(Object(cardPayment.valueExpired)?.capital || 0);
 
   const expiredInterest = Number(
     Object(cardPayment.valueExpired)?.interest || 0,
@@ -136,7 +129,9 @@ const mapCardPaymentApiToEntity = (
     Number(totalInterest >= 0 ? totalInterest : 0) +
     Number(totalPenaltyInterest >= 0 ? totalPenaltyInterest : 0);
 
-  const paymentMethodName = String(cardPayment.paymentMethodName);
+  const paymentMethodName = capitalizeEachWord(
+    String(cardPayment.paymentMethodName),
+  );
 
   const tags: TagProps[] = [
     {
@@ -209,7 +204,6 @@ const mapCardPaymentApiToEntity = (
     options,
     tags,
     supportDocumentType: ESupportDocumentType.FINANCIALPORTFOLIO,
-    lineCode: String(cardPayment.lineCode),
     paymentMethod: String(cardPayment.paymentMethod),
     allowCustomValue:
       otherValueAvailable !== otherValueAvailableDM.NOT_ALLOW.id,
@@ -223,7 +217,9 @@ const mapCardPaymentsApiToEntities = (
   withExpiredValueOption: boolean,
   withTotalValueOption: boolean,
 ): IPayment[] => {
-  return cardPayments.map((payment) =>
+  const payments = Object.values(cardPayments).flat();
+
+  return payments.map((payment) =>
     mapCardPaymentApiToEntity(
       payment,
       withNextValueOption,
@@ -234,4 +230,4 @@ const mapCardPaymentsApiToEntities = (
   );
 };
 
-export { mapCardPaymentsApiToEntities, mapCardPaymentApiToEntity };
+export { mapCardPaymentApiToEntity, mapCardPaymentsApiToEntities };

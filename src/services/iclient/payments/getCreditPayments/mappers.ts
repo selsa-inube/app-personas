@@ -9,7 +9,7 @@ import {
 import { otherValueAvailableDM } from "src/model/domains/payments/otherValueAvailableDM";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { formatPrimaryDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
 const mapObligationPaymentApiToEntity = (
   creditPayment: Record<string, string | number | object>,
@@ -136,7 +136,9 @@ const mapObligationPaymentApiToEntity = (
     Number(totalInterest >= 0 ? totalInterest : 0) +
     Number(totalPenaltyInterest >= 0 ? totalPenaltyInterest : 0);
 
-  const paymentMethodName = String(creditPayment.paymentMethodName);
+  const paymentMethodName = capitalizeEachWord(
+    String(creditPayment.paymentMethodName),
+  );
 
   const tags: TagProps[] = [
     {

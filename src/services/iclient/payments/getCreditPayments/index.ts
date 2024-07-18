@@ -37,7 +37,7 @@ const getCreditPayments = async (
       const res = await fetch(
         `${
           enviroment.ICLIENT_API_URL_QUERY
-        }/portfolio-obligations?${queryParams.toString()}`,
+        }/portfolio-obligations/payment?${queryParams.toString()}`,
         options,
       );
 

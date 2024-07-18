@@ -37,7 +37,7 @@ const getCardPayments = async (
       const res = await fetch(
         `${
           enviroment.ICLIENT_API_URL_QUERY
-        }/credit-card-products?${queryParams.toString()}`,
+        }/credit-card-products/payment?${queryParams.toString()}`,
         options,
       );
 
