@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
@@ -21,12 +20,19 @@ import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";
 import { Icon } from "@inubekit/icon";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     <BoxAttribute label="Destino:" value={values.creditDestination?.value} />
     <BoxAttribute label="Producto:" value={values.selectedProduct?.title} />
   </Grid>
@@ -38,7 +44,7 @@ const renderCreditConditionsVerification = (
 ) => (
   <>
     {values.product.id === "generateRecommendation" ? (
-      <Grid templateColumns="1fr" gap="s100" width="100%">
+      <Grid templateColumns="1fr" gap={inube.spacing.s100} width="100%">
         <BoxAttribute
           label="¿Cuánto dinero necesitas?"
           value={currencyFormat(Number(values.amount))}
@@ -46,8 +52,9 @@ const renderCreditConditionsVerification = (
       </Grid>
     ) : (
       <Grid
-        templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-        gap="s100"
+        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+        autoRows="auto"
+        gap={inube.spacing.s100}
         width="100%"
       >
         <BoxAttribute
@@ -83,8 +90,9 @@ const renderSystemValidationsVerification = (
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
       width="100%"
-      gap="s100"
     >
       {values.validations.map((validation) => (
         <BoxAttribute
@@ -120,8 +128,9 @@ const renderDocumentaryRequirementsVerification = (
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
       width="100%"
-      gap="s100"
     >
       {values.selectedDocuments.map((document) => (
         <BoxAttribute

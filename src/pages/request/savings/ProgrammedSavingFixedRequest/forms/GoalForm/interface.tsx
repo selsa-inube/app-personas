@@ -2,7 +2,6 @@ import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -10,6 +9,7 @@ import { programmedSavingsRatesMocks } from "@mocks/products/savings/programmedS
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { goalRatesTableTitles } from "./config/table";
+import { Grid } from "@inubekit/grid";
 
 interface GoalFormUIProps {
   formik: FormikValues;
@@ -40,8 +40,9 @@ function GoalFormUI(props: GoalFormUIProps) {
           />
 
           <Grid
-            gap="s300"
-            templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+            gap={inube.spacing.s300}
+            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+            autoRows="auto"
             width="100%"
           >
             <TextField

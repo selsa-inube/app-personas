@@ -14,7 +14,6 @@ import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { ISelectOption } from "@design/input/Select/types";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -28,6 +27,8 @@ import { paymentCardsBreakpoints } from "./config/cards";
 import { getPaymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -187,7 +188,8 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
           >
             <Grid
               templateColumns={`repeat(${cardsPerRow}, minmax(262px, 1fr))`}
-              gap={isMobile ? "s200" : "s300"}
+              gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+              autoRows="auto"
             >
               {filteredPayments.map((payment: IPayment) => (
                 <PaymentCard

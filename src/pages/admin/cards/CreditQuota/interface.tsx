@@ -8,7 +8,6 @@ import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -26,6 +25,7 @@ import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
 import { CurrentConsumption } from "@components/cards/cards/CurrentConsumption";
 import { IProduct } from "src/model/entity/product";
+import { Grid } from "@inubekit/grid";
 
 interface CreditQuotaUIProps {
   cardId?: string;
@@ -84,11 +84,11 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
       </Stack>
 
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s400">
           <Stack direction="column" gap="s300">
@@ -109,7 +109,11 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
               icon={<MdOutlineAttachMoney size={34} />}
               collapsing={{ start: true, allow: false }}
             >
-              <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100">
+              <Grid
+                templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+                gap={inube.spacing.s100}
+                autoRows="auto"
+              >
                 {formatedAttributes.slice(0, 1).map((quotaDetail) => (
                   <BoxAttribute
                     key={quotaDetail.id}
@@ -146,7 +150,11 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
                 Detalles
               </Text>
 
-              <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+              <Grid
+                templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                gap={inube.spacing.s200}
+                autoRows="auto"
+              >
                 {!isNaN(Number(minPayment)) && (
                   <QuotaDetailBox
                     title="Valor próximo pago"

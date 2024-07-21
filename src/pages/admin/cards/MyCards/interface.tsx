@@ -7,7 +7,6 @@ import {
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
 import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 
 import { Box } from "@components/cards/Box";
@@ -27,6 +26,7 @@ import {
   extractCardAttributes,
 } from "@pages/admin/home/config/products";
 import { IProduct } from "src/model/entity/product";
+import { Grid } from "@inubekit/grid";
 
 interface MyCardsUIProps {
   loading: boolean;
@@ -51,11 +51,11 @@ function MyCardsUI(props: MyCardsUIProps) {
       </Stack>
 
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s300">
           <Text type="title" size="medium">

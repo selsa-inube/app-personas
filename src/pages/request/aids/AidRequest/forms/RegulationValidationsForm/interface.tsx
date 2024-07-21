@@ -1,8 +1,9 @@
 import { ValidationCard } from "@components/cards/ValidationCard";
-import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { IRegulationValidationsEntry } from "./types";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 interface RegulationValidationsFormUIProps {
   formik: FormikProps<IRegulationValidationsEntry>;
@@ -16,7 +17,8 @@ function RegulationValidationsFormUI(props: RegulationValidationsFormUIProps) {
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      gap="s200"
+      autoRows="auto"
+      gap={inube.spacing.s200}
       width="100%"
     >
       {formik.values.validations.map((validation) => (

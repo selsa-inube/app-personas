@@ -1,5 +1,4 @@
 import { Select } from "@design/input/Select";
-import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { ChangeEvent } from "react";
@@ -7,6 +6,8 @@ import { IProduct } from "src/model/entity/product";
 import { getFieldState } from "src/utils/forms/forms";
 import { IDisbursementEntry } from "./types";
 import { getDisbursementMethodOptions } from "./utils";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 interface DisbursementFormUIProps {
   formik: FormikProps<IDisbursementEntry>;
@@ -21,7 +22,11 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
 
   return (
     <form>
-      <Grid templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`} gap="s200">
+      <Grid
+        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+        autoRows="auto"
+        gap={inube.spacing.s200}
+      >
         <Select
           label="Forma de desembolso"
           name="disbursementMethod"

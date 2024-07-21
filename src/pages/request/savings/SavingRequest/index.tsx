@@ -3,7 +3,6 @@ import { RequestCard } from "@components/cards/RequestCard";
 import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -14,6 +13,7 @@ import { savingRequestCards } from "./config/cards";
 import { crumbsSavingRequest } from "./config/navigation";
 import { useContext } from "react";
 import { AppContext } from "src/context/app";
+import { Grid } from "@inubekit/grid";
 
 function SavingRequest() {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ function SavingRequest() {
       </Stack>
 
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }

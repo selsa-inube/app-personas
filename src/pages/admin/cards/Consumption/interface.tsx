@@ -7,7 +7,6 @@ import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -27,6 +26,7 @@ import {
   movementsTableTitles,
 } from "./config/table";
 import { ISelectedProductState } from "./types";
+import { Grid } from "@inubekit/grid";
 
 interface ConsumptionUIProps {
   isMobile?: boolean;
@@ -75,7 +75,7 @@ function ConsumptionUI(props: ConsumptionUIProps) {
       </Stack>
 
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
@@ -100,8 +100,9 @@ function ConsumptionUI(props: ConsumptionUIProps) {
               >
                 <Stack direction="column" gap="s100">
                   <Grid
-                    templateColumns={isMobile ? "1fr" : "1fr 1fr"}
-                    gap="s100"
+                    templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                    gap={inube.spacing.s100}
+                    autoRows="auto"
                   >
                     {formatedAttributes.map((attr) => (
                       <BoxAttribute

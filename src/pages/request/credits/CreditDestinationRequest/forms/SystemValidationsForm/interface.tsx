@@ -1,10 +1,11 @@
 import { ValidationCard } from "@components/cards/ValidationCard";
 import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { ISystemValidationsEntry } from "./types";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 interface SystemValidationsFormUIProps {
   formik: FormikProps<ISystemValidationsEntry>;
@@ -24,7 +25,8 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
 
         <Grid
           templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-          gap="s200"
+          autoRows="auto"
+          gap={inube.spacing.s300}
           width="100%"
         >
           {formik.values.validations
@@ -48,7 +50,8 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
 
         <Grid
           templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-          gap="s200"
+          autoRows="auto"
+          gap={inube.spacing.s300}
           width="100%"
         >
           {formik.values.validations

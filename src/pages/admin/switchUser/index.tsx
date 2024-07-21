@@ -2,7 +2,6 @@ import { UserCard } from "@components/cards/UserCard";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useContext, useEffect, useState } from "react";
@@ -12,6 +11,8 @@ import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers
 import { StyledContainer, StyledResultContainer } from "./styles";
 import { getRecentUsers, saveRecentUser } from "./utils";
 import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 function SwitchUser() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -117,8 +118,9 @@ function SwitchUser() {
           {filterUsers.length > 0 ? (
             <Grid
               templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+              gap={inube.spacing.s300}
+              autoRows="auto"
               width="100%"
-              gap="s300"
             >
               {filterUsers.map((user) => (
                 <UserCard
@@ -152,8 +154,9 @@ function SwitchUser() {
           {recentUsers.length > 0 ? (
             <Grid
               templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+              gap={inube.spacing.s300}
+              autoRows="auto"
               width="100%"
-              gap="s300"
             >
               {recentUsers.map((user) => (
                 <UserCard

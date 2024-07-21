@@ -1,5 +1,4 @@
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { MdAttachMoney } from "react-icons/md";
@@ -10,6 +9,8 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { IAmountEntry } from "./types";
+import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
 
 interface AmountFormUIProps {
   formik: FormikProps<IAmountEntry>;
@@ -25,7 +26,8 @@ function AmountFormUI(props: AmountFormUIProps) {
       <Grid
         width="100%"
         templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-        gap="s300"
+        autoRows="auto"
+        gap={inube.spacing.s300}
       >
         <TextField
           label="Cupo disponible"

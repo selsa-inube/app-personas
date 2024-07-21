@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { capitalizeEachWord } from "src/utils/texts";
@@ -44,6 +43,7 @@ import {
   savingAttributeBreakpoints,
   sumNetValue,
 } from "./config/products";
+import { Grid } from "@inubekit/grid";
 
 function renderHomeContent(
   savingsAccounts: IProduct[],
@@ -382,7 +382,7 @@ function HomeUI(props: HomeUIProps) {
         </Stack>
       ) : (
         <Grid
-          gap="s600"
+          gap={inube.spacing.s600}
           margin={`${inube.spacing.s600} 0 0`}
           templateColumns="1fr 250px"
         >

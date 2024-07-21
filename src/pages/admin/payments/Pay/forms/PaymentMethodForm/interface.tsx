@@ -1,7 +1,6 @@
 import { PaymentMethodCard } from "@components/cards/payments/PaymentMethodCard";
 import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
@@ -10,6 +9,8 @@ import { paymentMethods } from "./config/payment";
 import { StyledPendingValueContainer, StyledSummaryContainer } from "./styles";
 import { IMoneySource, IPaymentMethodEntry } from "./types";
 import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 const renderMoneySources = (
   moneySources: IMoneySource,
@@ -64,8 +65,9 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
         margin={isMobile ? "0 0 210px 0" : "0"}
       >
         <Grid
-          templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-          gap={isMobile ? "s200" : "s300"}
+          templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+          gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
         >
           <Select
             label="Formas de pago"
@@ -84,10 +86,9 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
         {formik.values.paymentMethod && formik.values.moneySources && (
           <>
             <Grid
-              templateColumns={
-                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-              }
-              gap={isMobile ? "s200" : "s300"}
+              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+              gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+              autoRows="auto"
             >
               {renderMoneySources(
                 formik.values.moneySources,
