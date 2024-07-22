@@ -4,6 +4,7 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Title } from "@design/data/Title";
+import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Stack } from "@design/layout/Stack";
@@ -12,8 +13,13 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
-import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
+import {
+  MdArrowBack,
+  MdOutlineAttachMoney,
+  MdOutlineFileDownload,
+} from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import {
@@ -26,7 +32,6 @@ import {
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 import { validateCreditsAndAmortization } from "./utils";
-import { AppContext } from "src/context/app";
 import { Grid } from "@inubekit/grid";
 
 function CreditAmortization() {
@@ -173,6 +178,12 @@ function CreditAmortization() {
                 hideMobileResume
               />
             </StyledAmortizationContainer>
+
+            <Stack width="100%" justifyContent="flex-end">
+              <Button iconBefore={<MdOutlineFileDownload />} spacing="compact">
+                Descargar
+              </Button>
+            </Stack>
           </Stack>
         )}
 
