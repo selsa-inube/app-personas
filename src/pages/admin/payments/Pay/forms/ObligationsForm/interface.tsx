@@ -15,7 +15,6 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
@@ -28,6 +27,8 @@ import { paymentCardsBreakpoints } from "./config/cards";
 import { getPaymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -145,10 +146,13 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
   return (
     <>
       <form>
-        <Stack direction="column" gap={isMobile ? "s300" : "s400"}>
-          <Stack direction="column" gap="s200">
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
+        >
+          <Stack direction="column" gap={inube.spacing.s200}>
             <Stack
-              gap="s150"
+              gap={inube.spacing.s150}
               alignItems="center"
               justifyContent="flex-end"
               width="100%"
@@ -174,7 +178,11 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               <Text type="title" size="small">
                 Filtros:
               </Text>
-              <Stack direction="row" gap="s150" alignItems="center">
+              <Stack
+                direction="row"
+                gap={inube.spacing.s150}
+                alignItems="center"
+              >
                 {renderFilters(filters, paymentFilters, onRemoveFilter)}
               </Stack>
             </StyledFiltersContainer>
@@ -182,7 +190,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
 
           <Stack
             direction="column"
-            gap="s300"
+            gap={inube.spacing.s300}
             margin={isMobile ? "0 0 130px 0" : "0"}
           >
             <Grid

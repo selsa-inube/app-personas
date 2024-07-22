@@ -1,8 +1,9 @@
 import { Button } from "@design/input/Button";
 import { Textarea } from "@design/input/Textarea";
-import { Stack } from "@design/layout/Stack";
 import { FormikProps } from "formik";
 import { ICommentsEntry } from "./types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface CommentsFormUIProps {
   formik: FormikProps<ICommentsEntry>;
@@ -15,7 +16,7 @@ function CommentsFormUI(props: CommentsFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" alignItems="flex-end" gap="s300">
+      <Stack direction="column" alignItems="flex-end" gap={inube.spacing.s300}>
         <Textarea
           id="comments"
           name="comments"
@@ -31,7 +32,7 @@ function CommentsFormUI(props: CommentsFormUIProps) {
         />
 
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

@@ -8,7 +8,6 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 
 import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
@@ -27,6 +26,7 @@ import {
   extractCardAttributes,
 } from "@pages/admin/home/config/products";
 import { IProduct } from "src/model/entity/product";
+import { Stack } from "@inubekit/stack";
 
 interface MyCardsUIProps {
   loading: boolean;
@@ -40,7 +40,7 @@ function MyCardsUI(props: MyCardsUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsMyCards} />
         <Title
           title="Mis tarjetas"
@@ -57,12 +57,12 @@ function MyCardsUI(props: MyCardsUIProps) {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Text type="title" size="medium">
             Tus productos
           </Text>
           <Box {...myCards(withRequestCard)}>
-            <Stack direction="column" gap="s075">
+            <Stack direction="column" gap={inube.spacing.s075}>
               {loading ? (
                 <>
                   <Product loading />

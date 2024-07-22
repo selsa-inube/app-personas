@@ -1,6 +1,5 @@
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
 import { useState } from "react";
@@ -10,6 +9,8 @@ import { StyledBody, StyledItem, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface ItemProps {
   id: string;
@@ -21,7 +22,7 @@ function Item(props: ItemProps) {
   const { id, description, onClick } = props;
   return (
     <StyledItem onClick={onClick}>
-      <Stack direction="column" gap="s050">
+      <Stack direction="column" gap={inube.spacing.s050}>
         <Text type="label" size="medium">
           {id}
         </Text>
@@ -64,7 +65,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" gap="s100">
+        <Stack direction="column" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
@@ -106,7 +107,10 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
           )}
 
         <Divider dashed />
-        <Stack direction="column" gap={isMobile ? "s200" : "s250"}>
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s200 : inube.spacing.s250}
+        >
           <Text type="body" size={isMobile ? "small" : "medium"}>
             Digita una palabra clave o código.
           </Text>

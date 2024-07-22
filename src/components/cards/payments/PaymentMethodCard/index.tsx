@@ -2,7 +2,6 @@ import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
 import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import { EPaymentMethodType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
@@ -10,6 +9,8 @@ import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface PaymentMethodCardProps {
   moneySource: {
@@ -53,7 +54,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
 
   return (
     <StyledCardContainer>
-      <Stack gap="s100" alignItems="flex-start" width="100%">
+      <Stack gap={inube.spacing.s100} alignItems="flex-start" width="100%">
         {moneySource.type === EMoneySourceType.SAVINGACCOUNT &&
           paymentMethod === EPaymentMethodType.DEBIT && (
             <Stack padding="3px 0 0 0">
@@ -89,7 +90,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
       </Stack>
 
       {moneySource.type === EMoneySourceType.SAVINGACCOUNT && (
-        <Stack direction="column" gap="s100">
+        <Stack direction="column" gap={inube.spacing.s100}>
           <StyledLabel>
             <Text type="label" size="medium" appearance="gray">
               Numero de cuenta:
@@ -131,7 +132,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
 
       {paymentMethod === EPaymentMethodType.MULTIPLE && (
         <Stack
-          gap="s150"
+          gap={inube.spacing.s150}
           width="100%"
           alignItems="center"
           justifyContent="flex-end"

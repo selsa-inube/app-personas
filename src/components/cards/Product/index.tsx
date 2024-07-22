@@ -1,7 +1,6 @@
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
@@ -9,6 +8,8 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "src/model/entity/product";
 import { StyledProduct, StyledSkeletonContainer } from "./styles";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface ProductProps {
   title?: string;
@@ -49,7 +50,7 @@ function Product(props: ProductProps) {
   return (
     <StyledProduct $empty={empty} to={navigateTo}>
       <Grid templateColumns="auto 1fr" gap="s100">
-        <Stack gap="s100" alignItems="center">
+        <Stack gap={inube.spacing.s100} alignItems="center">
           {loading ? (
             <SkeletonIcon animated size="32px" />
           ) : (
@@ -64,9 +65,9 @@ function Product(props: ProductProps) {
             )
           )}
 
-          <Stack direction="column" gap="s025">
+          <Stack direction="column" gap={inube.spacing.s025}>
             {loading ? (
-              <Stack direction="column" gap="s050" width="100px">
+              <Stack direction="column" gap={inube.spacing.s050} width="100px">
                 <SkeletonLine animated />
                 <SkeletonLine animated />
               </Stack>
@@ -80,11 +81,14 @@ function Product(props: ProductProps) {
                   {!empty ? title : "No tienes productos"}
                 </Text>
                 {!empty && (
-                  <Stack gap={!isMobile ? "s100" : "0px"} alignItems="center">
+                  <Stack
+                    gap={!isMobile ? inube.spacing.s100 : inube.spacing.s0}
+                    alignItems="center"
+                  >
                     <Text size="small" appearance="gray">
                       {!isMobile && description}
                     </Text>
-                    <Stack gap="s050">
+                    <Stack gap={inube.spacing.s050}>
                       {tags.length > 0 &&
                         tags.map((tag) => <Tag {...tag} key={tag.label} />)}
                     </Stack>
@@ -96,15 +100,15 @@ function Product(props: ProductProps) {
         </Stack>
         {loading ? (
           <StyledSkeletonContainer $isMobile={isMobile}>
-            <Stack direction="column" gap="s050">
+            <Stack direction="column" gap={inube.spacing.s050}>
               <SkeletonLine animated />
               <SkeletonLine animated />
             </Stack>
-            <Stack direction="column" gap="s050">
+            <Stack direction="column" gap={inube.spacing.s050}>
               <SkeletonLine animated />
               <SkeletonLine animated />
             </Stack>
-            <Stack direction="column" gap="s050">
+            <Stack direction="column" gap={inube.spacing.s050}>
               <SkeletonLine animated />
               <SkeletonLine animated />
             </Stack>
@@ -121,7 +125,11 @@ function Product(props: ProductProps) {
                 alignContent="center"
               >
                 {visibleAttributes.map((attribute) => (
-                  <Stack key={attribute.label} direction="column" gap="s025">
+                  <Stack
+                    key={attribute.label}
+                    direction="column"
+                    gap={inube.spacing.s025}
+                  >
                     <Text
                       type="label"
                       size={isMobile ? "small" : "medium"}

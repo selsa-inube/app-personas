@@ -15,7 +15,7 @@ import {
   StyledInput,
   StyledInputContainer,
 } from "./styles";
-import { Stack } from "@design/layout/Stack";
+import { Stack } from "@inubekit/stack";
 
 function Invalid(props: ISelectMessage) {
   const { isDisabled, state, errorMessage } = props;

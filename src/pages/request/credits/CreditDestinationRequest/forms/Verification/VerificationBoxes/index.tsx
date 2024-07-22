@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
@@ -21,6 +20,8 @@ import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -138,7 +139,7 @@ const getAccountDescription = (accountId: string) => {
 };
 
 const renderDisbursementVerification = (values: IDisbursementEntry) => (
-  <Stack direction="column" gap="s100" width="100%">
+  <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <BoxAttribute
       label="Forma de desembolso:"
       value={
@@ -238,7 +239,7 @@ const renderTermsAndConditionsVerification = (
 );
 
 const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
-  <Stack width="100%" direction="column" gap="s100">
+  <Stack width="100%" direction="column" gap={inube.spacing.s100}>
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
     <BoxAttribute label="Correo:" value={values.email} />

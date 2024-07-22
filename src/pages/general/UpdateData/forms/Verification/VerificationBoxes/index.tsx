@@ -1,7 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
 import {
@@ -47,6 +46,8 @@ import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -138,7 +139,7 @@ const renderFamilyGroupVerification = (
 ) => {
   const transformedEntries = mapFamilyGroupTable(values.entries);
   return (
-    <Stack direction="column" gap="s250" width="100%">
+    <Stack direction="column" gap={inube.spacing.s250} width="100%">
       <Grid
         templateColumns={isTablet ? "1fr" : "1fr 1fr"}
         gap="s100"
@@ -207,7 +208,7 @@ const renderPersonalAssetsVerification = (
   values: IPersonalAssetEntries,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap="s250" width="100%">
+  <Stack direction="column" gap={inube.spacing.s250} width="100%">
     {values.entries.map((entry, index) => {
       const personalAsset = mapPersonalAsset(entry, index);
       return (
@@ -243,7 +244,7 @@ const renderPersonalDebtVerification = (
   values: IPersonalDebtEntries,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap="s250" width="100%">
+  <Stack direction="column" gap={inube.spacing.s250} width="100%">
     {values.entries.map((entry, index) => {
       const personalDebt = mapPersonalDebt(entry, index);
       return (
@@ -282,7 +283,7 @@ const renderPersonalReferencesVerification = (
   values: IPersonalReferenceEntries,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap="s250" width="100%">
+  <Stack direction="column" gap={inube.spacing.s250} width="100%">
     {values.entries.map((entry, index) => {
       const personalReference = mapPersonalReference(entry, index);
       return (
@@ -319,7 +320,7 @@ const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap="s100" width="100%">
+  <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <Grid
       templateColumns={isTablet ? "1fr" : "1fr 1fr"}
       gap="s100"
@@ -466,7 +467,7 @@ const renderEconomicActivityVerification = (
   values: IEconomicActivityEntry,
   isTablet: boolean,
 ) => (
-  <Stack width="100%" direction="column" gap="s250">
+  <Stack width="100%" direction="column" gap={inube.spacing.s250}>
     {values.economicActivity !== "" && (
       <Text type="label" size="medium">
         Clasificación económica

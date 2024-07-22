@@ -5,7 +5,6 @@ import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -28,6 +27,7 @@ import {
 } from "../SavingsAccount/config/saving";
 import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
+import { Stack } from "@inubekit/stack";
 
 function renderMySavingsContent(
   commitments: ICommitment[],
@@ -40,20 +40,20 @@ function renderMySavingsContent(
   withRequestSaving: boolean,
 ) {
   return (
-    <Stack direction="column" gap="s300">
+    <Stack direction="column" gap={inube.spacing.s300}>
       <Text type="title" size="medium">
         Tus productos
       </Text>
       <Box {...mySavingsBox(withRequestSaving)}>
-        <Stack direction="column" gap="s100">
+        <Stack direction="column" gap={inube.spacing.s100}>
           {loading ? (
-            <Stack direction="column" gap="s200">
+            <Stack direction="column" gap={inube.spacing.s200}>
               <Product loading />
               <Product loading />
             </Stack>
           ) : (
             <>
-              <Stack direction="column" gap="s200">
+              <Stack direction="column" gap={inube.spacing.s200}>
                 {!loading &&
                   savingsAccounts &&
                   savingsAccounts.length === 0 &&
@@ -69,13 +69,13 @@ function renderMySavingsContent(
                   )}
               </Stack>
 
-              <Stack direction="column" gap="s250">
+              <Stack direction="column" gap={inube.spacing.s250}>
                 {savingsAccounts && savingsAccounts.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       Cuentas
                     </Text>
-                    <Stack direction="column" gap="s100">
+                    <Stack direction="column" gap={inube.spacing.s100}>
                       {savingsAccounts.map((saving) => (
                         <Product
                           key={saving.id}
@@ -95,11 +95,11 @@ function renderMySavingsContent(
                 )}
 
                 {savingsContributions && savingsContributions.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       Aportes estatutarios
                     </Text>
-                    <Stack direction="column" gap="s100">
+                    <Stack direction="column" gap={inube.spacing.s100}>
                       {savingsContributions.map((saving) => (
                         <Product
                           key={saving.id}
@@ -119,11 +119,11 @@ function renderMySavingsContent(
                 )}
 
                 {cdats && cdats.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       CDAT
                     </Text>
-                    <Stack direction="column" gap="s100">
+                    <Stack direction="column" gap={inube.spacing.s100}>
                       {cdats.map((investment) => (
                         <Product
                           key={investment.id}
@@ -143,11 +143,11 @@ function renderMySavingsContent(
                 )}
 
                 {programmedSavings && programmedSavings.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       Ahorros programados
                     </Text>
-                    <Stack direction="column" gap="s100">
+                    <Stack direction="column" gap={inube.spacing.s100}>
                       {programmedSavings.map((investment) => (
                         <Product
                           key={investment.id}
@@ -172,7 +172,7 @@ function renderMySavingsContent(
                   (programmedSavings && programmedSavings.length > 0)) && (
                   <Stack
                     justifyContent="flex-end"
-                    gap="s100"
+                    gap={inube.spacing.s100}
                     padding={`0 ${inube.spacing.s100} 0`}
                   >
                     <Text type="label" size="large">
@@ -190,7 +190,7 @@ function renderMySavingsContent(
                 )}
 
                 {commitments.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
@@ -235,7 +235,7 @@ function MySavingsUI(props: MySavingsUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsMySavings} />
         <Title
           title="Mis ahorros"

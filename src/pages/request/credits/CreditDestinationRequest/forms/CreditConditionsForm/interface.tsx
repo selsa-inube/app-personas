@@ -8,7 +8,6 @@ import { Select } from "@design/input/Select";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
@@ -22,6 +21,7 @@ import {
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -60,14 +60,14 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
   return (
     <>
       <form>
-        <Stack direction="column" gap="s400">
+        <Stack direction="column" gap={inube.spacing.s400}>
           <Fieldset
             title="Simulador de crédito"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
-            <Stack direction="column" gap="s300">
-              <Stack direction="column" gap="s200">
+            <Stack direction="column" gap={inube.spacing.s300}>
+              <Stack direction="column" gap={inube.spacing.s200}>
                 <Text type="title" size="small" appearance="gray">
                   Información del crédito
                 </Text>
@@ -77,7 +77,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     <Stack
                       direction="column"
                       padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-                      gap="s025"
+                      gap={inube.spacing.s025}
                     >
                       <Text type="label" size="medium">
                         Destinación:
@@ -92,7 +92,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     <Stack
                       direction="column"
                       padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-                      gap="s025"
+                      gap={inube.spacing.s025}
                     >
                       <Text type="label" size="medium">
                         Producto:
@@ -107,7 +107,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     <Stack
                       direction="column"
                       padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-                      gap="s025"
+                      gap={inube.spacing.s025}
                     >
                       <Text type="label" size="medium">
                         Cupo máximo sin garantía:
@@ -122,16 +122,16 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
 
               <Divider dashed />
 
-              <Stack direction="column" gap="s200">
+              <Stack direction="column" gap={inube.spacing.s200}>
                 <Text type="title" size="small" appearance="gray">
                   Valores de la simulación
                 </Text>
 
-                <Stack direction="column" gap="s200">
+                <Stack direction="column" gap={inube.spacing.s200}>
                   {formik.values.product.id !== "generateRecommendation" && (
                     <Stack
                       padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
-                      gap="s100"
+                      gap={inube.spacing.s100}
                     >
                       <Switch
                         id="simulationWithQuota"
@@ -250,7 +250,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                 <>
                   <Divider dashed />
 
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="title" size="small" appearance="gray">
                       Resultados de la simulación
                     </Text>

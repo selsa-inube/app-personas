@@ -2,12 +2,13 @@ import { DestinationCard } from "@components/cards/credits/DestinationCard";
 import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { loadingProductsData } from "./config/loading";
 import { IDestinationEntry, IDestinationProduct } from "./types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface DestinationFormUIProps {
   formik: FormikProps<IDestinationEntry>;
@@ -30,8 +31,8 @@ function DestinationFormUI(props: DestinationFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
-        <Stack direction="column" gap="s200">
+      <Stack direction="column" gap={inube.spacing.s300}>
+        <Stack direction="column" gap={inube.spacing.s200}>
           <Text type="title" size="small">
             ¿Cuál es el destino del crédito?
           </Text>
@@ -49,7 +50,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             onChange={onChangeDestination}
           />
         </Stack>
-        <Stack direction="column" gap="s200">
+        <Stack direction="column" gap={inube.spacing.s200}>
           {formik.values.creditDestination &&
             formik.values.creditDestination.id !== "other" && (
               <>

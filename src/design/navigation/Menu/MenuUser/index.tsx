@@ -1,7 +1,7 @@
-import { Stack } from "@design/layout/Stack";
 import { Text } from "@design/data/Text";
 import { Avatar } from "@inubekit/avatar";
 import { StyledUser } from "./styles";
+import { Stack } from "@inubekit/stack";
 
 interface MenuUserProps {
   userName: string;

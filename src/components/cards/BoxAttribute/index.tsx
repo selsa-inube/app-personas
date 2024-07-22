@@ -1,10 +1,10 @@
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "src/model/entity/product";
 import { ButtonAttribute } from "./ButtonAttribute";
 import { StyledBoxAttribute } from "./styles";
+import { Stack } from "@inubekit/stack";
 
 interface BoxAttributeProps {
   label?: string;

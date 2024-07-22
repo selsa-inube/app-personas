@@ -5,7 +5,6 @@ import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { Button } from "@design/input/Button";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -23,6 +22,7 @@ import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
+import { Stack } from "@inubekit/stack";
 
 const renderStepContent = (
   currentStep: number,
@@ -120,7 +120,7 @@ function ProgrammedSavingFixedRequestUI(
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsProgrammedSavingFixedRequest} />
         <Title
           title="Ahorro programado"
@@ -137,7 +137,10 @@ function ProgrammedSavingFixedRequestUI(
         gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap={isMobile ? "s300" : "s500"}>
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
+        >
           <Assisted
             steps={steps}
             currentStep={currentStep}
@@ -146,7 +149,7 @@ function ProgrammedSavingFixedRequestUI(
             disableNextStep={!isCurrentFormValid}
           />
 
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             {renderStepContent(
               currentStep,
               formReferences,
@@ -155,7 +158,7 @@ function ProgrammedSavingFixedRequestUI(
               handleStepChange,
             )}
 
-            <Stack gap="s150" justifyContent="flex-end">
+            <Stack gap={inube.spacing.s150} justifyContent="flex-end">
               <Button
                 onClick={handlePreviousStep}
                 type="button"
@@ -169,7 +172,7 @@ function ProgrammedSavingFixedRequestUI(
 
               <Button
                 onClick={handleNextStep}
-                spacing= "compact"
+                spacing="compact"
                 disabled={!isCurrentFormValid}
               >
                 {currentStep === steps.length ? "Enviar" : "Siguiente"}

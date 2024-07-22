@@ -3,8 +3,9 @@ import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { directorsMock } from "@mocks/users/directors/directors.mocks";
 import { FormikValues } from "formik";
 import { MdSearch } from "react-icons/md";
@@ -41,7 +42,7 @@ function RelationshipWithDirectorsFormUI(
   return (
     <>
       <form>
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Grid
             templateColumns={isMobile ? "1fr" : "1fr 1fr"}
             gap={isMobile ? "s150" : "s300"}
@@ -104,7 +105,7 @@ function RelationshipWithDirectorsFormUI(
             )}
           </Grid>
           {withSubmit && (
-            <Stack gap="s150" justifyContent="flex-end">
+            <Stack gap={inube.spacing.s150} justifyContent="flex-end">
               <Button
                 onClick={formik.handleReset}
                 type="button"

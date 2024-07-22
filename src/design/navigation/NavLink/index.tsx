@@ -1,10 +1,11 @@
 import { Text } from "../../data/Text";
-import { Stack } from "../../layout/Stack";
 
 import { MdChevronRight } from "react-icons/md";
 
 import { StyledLink, StyledNavLink } from "./styles";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface NavLinkProps {
   icon: React.JSX.Element;
@@ -28,7 +29,7 @@ function NavLink(props: NavLinkProps) {
     <StyledNavLink $selected={selected} onClick={onClick}>
       <StyledLink to={path} $selected={selected}>
         <Stack width="100%" alignItems="center" justifyContent="space-between">
-          <Stack alignItems="center" gap="24px">
+          <Stack alignItems="center" gap={inube.spacing.s300}>
             <Icon icon={icon} appearance={getIconAppearance()} />
             <Text size="medium">{children}</Text>
           </Stack>

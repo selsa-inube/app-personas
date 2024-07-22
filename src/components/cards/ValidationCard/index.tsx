@@ -1,6 +1,5 @@
 import { ValidationDetailsModal } from "@components/modals/general/ValidationDetailsModal";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useState } from "react";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
@@ -8,6 +7,7 @@ import { IValidation } from "src/model/entity/service";
 import { OutlineCard } from "../OutlineCard";
 import { Spinner } from "@inubekit/spinner";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 
 function ValidationCard(props: IValidation) {
   const { label, failDetails, value } = props;
@@ -23,7 +23,7 @@ function ValidationCard(props: IValidation) {
       <OutlineCard>
         <Stack
           padding={`${inube.spacing.s150} ${inube.spacing.s250}`}
-          gap="s200"
+          gap={inube.spacing.s200}
           alignItems="center"
         >
           <Stack>
@@ -46,7 +46,7 @@ function ValidationCard(props: IValidation) {
             )}
           </Stack>
 
-          <Stack direction="column" gap="s075">
+          <Stack direction="column" gap={inube.spacing.s075}>
             <Text type="label" size="large">
               {label}
             </Text>

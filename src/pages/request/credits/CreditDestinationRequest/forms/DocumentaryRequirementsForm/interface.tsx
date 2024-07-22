@@ -6,7 +6,6 @@ import { Text } from "@design/data/Text";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { FileDrop } from "@design/input/FileDrop";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IMessage } from "@ptypes/messages.types";
@@ -14,6 +13,7 @@ import { FormikProps } from "formik";
 import { MdHelpOutline, MdQuestionMark } from "react-icons/md";
 import { IDocumentaryRequirementsEntry } from "./types";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 
 function renderRequirement(label: string, id: string) {
   return (
@@ -70,9 +70,9 @@ function DocumentaryRequirementsFormUI(
 
   return (
     <>
-      <Stack direction="column" gap="s400">
-        <Stack direction="column" gap="s300">
-          <Stack gap="s200" alignItems="center">
+      <Stack direction="column" gap={inube.spacing.s400}>
+        <Stack direction="column" gap={inube.spacing.s300}>
+          <Stack gap={inube.spacing.s200} alignItems="center">
             <Text type="title" size="medium">
               Requisitos documentales
             </Text>
@@ -95,12 +95,12 @@ function DocumentaryRequirementsFormUI(
           </Grid>
         </Stack>
 
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Text type="title" size="medium">
             Adjuntar documentos
           </Text>
 
-          <Stack direction="column" gap="s150">
+          <Stack direction="column" gap={inube.spacing.s150}>
             <FileDrop onSelectFiles={onSelectDocuments} />
 
             <Text type="body" size="medium" appearance="gray">
@@ -110,7 +110,7 @@ function DocumentaryRequirementsFormUI(
         </Stack>
 
         {formik.values.selectedDocuments.length > 0 && (
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <Text type="title" size="medium">
               Documentos adjuntos
             </Text>

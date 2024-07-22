@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { User } from "../../data/User";
 import { IHeaderLink } from "./types";
@@ -21,6 +20,8 @@ import {
   StyledUser,
 } from "./styles";
 import { getMenuSections } from "@config/header";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface HeaderProps {
   logoURL?: string;
@@ -91,7 +92,11 @@ function Header(props: HeaderProps) {
     <>
       <StyledHeader>
         {!isTablet ? (
-          <Stack gap="s200" justifyContent="center" alignItems="center">
+          <Stack
+            gap={inube.spacing.s200}
+            justifyContent="center"
+            alignItems="center"
+          >
             <FullscreenNav
               portalId={portalId}
               logoutTitle={logoutTitle}

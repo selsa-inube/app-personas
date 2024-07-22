@@ -1,8 +1,9 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
@@ -32,7 +33,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Grid gap="s300" templateColumns={isTablet ? "1fr" : "repeat(2, 1fr)"}>
           <TextField
             label="Valor periódico del ahorro"

@@ -2,8 +2,9 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
@@ -24,7 +25,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Grid
           templateColumns={
             isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
@@ -112,7 +113,11 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             validMessage="El valor de otros gastos es válido"
           />
         </Grid>
-        <Stack justifyContent="flex-end" alignItems="center" gap="s150">
+        <Stack
+          justifyContent="flex-end"
+          alignItems="center"
+          gap={inube.spacing.s150}
+        >
           <Text type="body" size="medium">
             Total gastos reportados:
           </Text>
@@ -121,7 +126,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
           </Text>
         </Stack>
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

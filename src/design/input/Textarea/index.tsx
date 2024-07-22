@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
@@ -13,6 +12,7 @@ import { ITextFieldMessage, InputState, inputStates } from "../TextField/types";
 import { Counter } from "./Counter";
 import { StyledContainer, StyledTextarea } from "./styles";
 import { CounterAppearence } from "./types";
+import { Stack } from "@inubekit/stack";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -121,7 +121,7 @@ const Textarea = (props: TextareaProps) => {
         {(label || isRequired) && (
           <Stack
             width="100%"
-            gap="4px"
+            gap={inube.spacing.s050}
             alignItems="center"
             padding={`0px 0px 0px ${inube.spacing.s200}`}
           >

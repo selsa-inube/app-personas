@@ -4,7 +4,6 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -16,6 +15,7 @@ import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
 import { generateAttributes } from "./config/attributeRecord";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];
@@ -44,9 +44,9 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
     <>
       <Stack
         direction="column"
-        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+        gap={isMobile ? inube.spacing.s300 : isTablet ? inube.spacing.s500 : inube.spacing.s600}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsTransferHistory} />
           <Title
             title="Histórico de transferencias"
@@ -63,7 +63,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Stack direction="column" alignItems="flex-end">
             <Button
               appearance="primary"
@@ -86,7 +86,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
                     direction="column"
                     width="100%"
                     key={transfer.id}
-                    gap="s200"
+                    gap={inube.spacing.s200}
                   >
                     <RecordCard
                       id={transfer.id}

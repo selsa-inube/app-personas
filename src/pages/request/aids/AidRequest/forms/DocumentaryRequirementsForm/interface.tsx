@@ -4,17 +4,18 @@ import { InfoModal } from "@components/modals/general/InfoModal";
 import { Text } from "@design/data/Text";
 import { FileDrop } from "@design/input/FileDrop";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { MdQuestionMark } from "react-icons/md";
 import { IDocumentaryRequirementsEntry } from "./types";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 function renderRequirement(label: string, id: string) {
   return (
     <OutlineCard key={id}>
-      <Stack padding="8px 20px">
+      <Stack padding={`${inube.spacing.s100} ${inube.spacing.s250}`}>
         <Text type="body" size="medium">
           {label}
         </Text>
@@ -47,9 +48,9 @@ function DocumentaryRequirementsFormUI(
 
   return (
     <>
-      <Stack direction="column" gap="s400">
-        <Stack direction="column" gap="s300">
-          <Stack gap="s200" alignItems="center">
+      <Stack direction="column" gap={inube.spacing.s400}>
+        <Stack direction="column" gap={inube.spacing.s300}>
+          <Stack gap={inube.spacing.s200} alignItems="center">
             <Text type="title" size="medium">
               Requisitos documentales
             </Text>
@@ -72,7 +73,7 @@ function DocumentaryRequirementsFormUI(
           </Grid>
         </Stack>
 
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Text type="title" size="medium">
             Adjuntar documentos
           </Text>
@@ -81,7 +82,7 @@ function DocumentaryRequirementsFormUI(
         </Stack>
 
         {formik.values.selectedDocuments.length > 0 && (
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <Text type="title" size="medium">
               Documentos adjuntos
             </Text>

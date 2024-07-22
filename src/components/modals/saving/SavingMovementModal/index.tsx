@@ -1,6 +1,5 @@
 import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -9,6 +8,8 @@ import { StyledBodyItem, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface SavingMovementModalProps {
   portalId: string;
@@ -89,7 +90,11 @@ function SavingMovementModal(props: SavingMovementModalProps) {
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" alignItems="flex-start" gap="s075">
+        <Stack
+          direction="column"
+          alignItems="flex-start"
+          gap={inube.spacing.s075}
+        >
           {renderTransactionSpecification("Valor", [movement.totalValue])}
           {renderTransactionSpecification("Fecha", [movement.date])}
           {renderTransactionSpecification("Descripción", [

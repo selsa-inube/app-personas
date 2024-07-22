@@ -4,13 +4,13 @@ import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { IAid } from "src/model/entity/service";
 import { crumbsAids } from "./config/navigation";
+import { Stack } from "@inubekit/stack";
 
 interface AidOptionsUIProps {
   aids: IAid[];
@@ -22,7 +22,7 @@ function AidOptionsUI(props: AidOptionsUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsAids} />
         <Title
           title="Solicitud de auxilio"
@@ -38,7 +38,7 @@ function AidOptionsUI(props: AidOptionsUIProps) {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Text type="title" size="small">
             Aquí encontraras las opciones que puedes usar para realizar tu
             solicitud de auxilio.

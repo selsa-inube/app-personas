@@ -5,7 +5,6 @@ import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -17,6 +16,7 @@ import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsMyRequests } from "./config/navigation";
 import { StyledContainer } from "./styles";
+import { Stack } from "@inubekit/stack";
 
 interface MyRequestsUIProps {
   requests: IRequest[];
@@ -38,9 +38,15 @@ function MyRequestsUI(props: MyRequestsUIProps) {
     <>
       <Stack
         direction="column"
-        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsMyRequests} />
           <Title
             title="Mis solicitudes"
@@ -57,7 +63,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Stack direction="column">
             <Text type="title" size="medium">
               Tus solicitudes más recientes
@@ -72,7 +78,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
                     direction="column"
                     width="100%"
                     key={request.id}
-                    gap="s200"
+                    gap={inube.spacing.s200}
                   >
                     <RecordCard
                       id={request.id}

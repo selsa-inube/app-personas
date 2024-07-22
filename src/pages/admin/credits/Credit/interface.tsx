@@ -9,7 +9,6 @@ import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -38,6 +37,7 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { generateAttributes } from "./config/attributeRecord";
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 
 const renderMovements = (
   movements: IMovement[],
@@ -46,7 +46,7 @@ const renderMovements = (
 ) =>
   movements &&
   movements.slice(0, 5).map((movement, index) => (
-    <Stack direction="column" gap="s200" key={movement.id}>
+    <Stack direction="column" gap={inube.spacing.s200} key={movement.id}>
       {index !== 0 && <Divider dashed />}
       <RecordCard
         id={movement.id}
@@ -106,7 +106,7 @@ function CreditUI(props: CreditUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsCredit(credit_id)} />
         <Title
           title="Consulta de créditos"
@@ -123,7 +123,7 @@ function CreditUI(props: CreditUIProps) {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           {selectedProduct && formatedAttributes && (
             <>
               <Select
@@ -148,7 +148,7 @@ function CreditUI(props: CreditUIProps) {
                 }}
                 {...creditBox}
               >
-                <Stack direction="column" gap="s100">
+                <Stack direction="column" gap={inube.spacing.s100}>
                   <Grid
                     templateColumns={isMobile ? "1fr" : "1fr 1fr"}
                     gap="s100"
@@ -211,12 +211,12 @@ function CreditUI(props: CreditUIProps) {
           )}
 
           {selectedProduct && selectedProduct.credit.movements && (
-            <Stack direction="column" gap="s300">
+            <Stack direction="column" gap={inube.spacing.s300}>
               <Text type="title" size="medium">
                 Últimos movimientos
               </Text>
               <StyledMovementsContainer $isMobile={isMobile}>
-                <Stack direction="column" gap="s200" width="100%">
+                <Stack direction="column" gap={inube.spacing.s200} width="100%">
                   {selectedProduct.credit.movements &&
                   selectedProduct.credit.movements.length > 0 ? (
                     renderMovements(
@@ -229,7 +229,7 @@ function CreditUI(props: CreditUIProps) {
                       direction="column"
                       justifyContent="center"
                       alignItems="center"
-                      gap="s100"
+                      gap={inube.spacing.s100}
                     >
                       <Text type="title" size="small" appearance="dark">
                         No tienes movimientos

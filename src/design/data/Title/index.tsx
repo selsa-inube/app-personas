@@ -1,8 +1,9 @@
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
 import { Text } from "../Text";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface TitleProps {
   title: string;
@@ -23,8 +24,8 @@ function Title(props: TitleProps) {
   };
 
   return (
-    <Stack gap="s050" direction="column">
-      <Stack gap="s150" alignItems="center">
+    <Stack gap={inube.spacing.s050} direction="column">
+      <Stack gap={inube.spacing.s150} alignItems="center">
         {icon && (
           <Icon
             appearance="dark"

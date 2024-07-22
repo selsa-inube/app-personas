@@ -8,7 +8,6 @@ import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -33,6 +32,7 @@ import {
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 import { validateCreditsAndAmortization } from "./utils";
+import { Stack } from "@inubekit/stack";
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -116,7 +116,7 @@ function CreditAmortization() {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsAmortization} />
         <Title
           title="Plan de pagos"
@@ -134,7 +134,7 @@ function CreditAmortization() {
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         {selectedProduct && selectedProduct.credit.amortization && (
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <Select
               id="creditProducts"
               onChange={handleChangeProduct}

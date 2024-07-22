@@ -2,8 +2,9 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikValues } from "formik";
 import { MdPercent } from "react-icons/md";
@@ -24,7 +25,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" alignItems="flex-end" gap="s300">
+      <Stack direction="column" alignItems="flex-end" gap={inube.spacing.s300}>
         <Grid
           templateColumns={isTablet ? "1fr" : "1fr 1fr"}
           gap={isMobile ? "s150" : "s300"}
@@ -58,7 +59,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
               />
             ))}
         </Grid>
-        <Stack gap="s150" alignItems="center">
+        <Stack gap={inube.spacing.s150} alignItems="center">
           <Text type="body" size="medium">
             Total porcentaje de participación:
           </Text>
@@ -72,7 +73,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
         </Stack>
 
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

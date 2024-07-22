@@ -1,10 +1,11 @@
 import { ValidationCard } from "@components/cards/ValidationCard";
 import { Text } from "@design/data/Text";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { ISystemValidationsEntry } from "./types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface SystemValidationsFormUIProps {
   formik: FormikProps<ISystemValidationsEntry>;
@@ -16,8 +17,8 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
-    <Stack direction="column" gap="s400">
-      <Stack direction="column" gap="s200">
+    <Stack direction="column" gap={inube.spacing.s400}>
+      <Stack direction="column" gap={inube.spacing.s200}>
         <Text type="title" size="medium" appearance="gray">
           Validaciones obligatorias
         </Text>
@@ -41,7 +42,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
         </Grid>
       </Stack>
 
-      <Stack direction="column" gap="s200">
+      <Stack direction="column" gap={inube.spacing.s200}>
         <Text type="title" size="medium" appearance="gray">
           Validaciones opcionales
         </Text>

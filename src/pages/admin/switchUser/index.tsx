@@ -3,7 +3,6 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
@@ -12,6 +11,8 @@ import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers
 import { StyledContainer, StyledResultContainer } from "./styles";
 import { getRecentUsers, saveRecentUser } from "./utils";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 function SwitchUser() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -72,8 +73,8 @@ function SwitchUser() {
 
   return (
     <StyledContainer $isTablet={isTablet} $isMobile={isMobile}>
-      <Stack direction="column" gap="s400">
-        <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s400}>
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Text
             type={isMobile ? "title" : "headline"}
             size={isMobile ? "medium" : "large"}
@@ -90,7 +91,7 @@ function SwitchUser() {
           direction={isMobile ? "column" : "row"}
           justifyContent={isMobile ? "center" : "space-between"}
           alignItems={isMobile ? "flex-end" : "center"}
-          gap="s200"
+          gap={inube.spacing.s200}
         >
           <TextField
             name="searchUser"
@@ -105,7 +106,7 @@ function SwitchUser() {
         </Stack>
       </Stack>
       <StyledResultContainer>
-        <Stack direction="column" gap="s150" width="100%">
+        <Stack direction="column" gap={inube.spacing.s150} width="100%">
           <Text
             type="title"
             size={isMobile ? "small" : "medium"}
@@ -140,7 +141,7 @@ function SwitchUser() {
             </Text>
           )}
         </Stack>
-        <Stack direction="column" gap="s150" width="100%">
+        <Stack direction="column" gap={inube.spacing.s150} width="100%">
           <Text
             type="title"
             size={isMobile ? "small" : "medium"}

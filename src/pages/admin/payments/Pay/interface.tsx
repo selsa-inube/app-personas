@@ -5,7 +5,6 @@ import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IMessage } from "@ptypes/messages.types";
@@ -19,6 +18,8 @@ import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { PayVerification } from "./forms/Verification";
 import { StyledButtonsContainer } from "./styles";
 import { IFormsPay, IFormsPayRefs } from "./types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderStepContent = (
   currentStep: number,
@@ -99,9 +100,15 @@ function PayUI(props: PayUIProps) {
     <>
       <Stack
         direction="column"
-        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsPay} />
           <Title
             title="Realizar pagos"
@@ -119,7 +126,7 @@ function PayUI(props: PayUIProps) {
           onStepChange={handleStepChange}
         />
 
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           {renderStepContent(
             currentStep,
             formReferences,

@@ -9,7 +9,6 @@ import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -33,6 +32,7 @@ import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
 import { RecordCard } from "@components/cards/RecordCard";
 import { generateAttributes } from "./config/attributeRecord";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
@@ -63,7 +63,12 @@ function renderProducts(
 const renderMovements = (movements: IMovement[]) =>
   movements &&
   movements.slice(0, 5).map((movement, index) => (
-    <Stack direction="column" gap="s200" key={movement.id} width="100%">
+    <Stack
+      direction="column"
+      gap={inube.spacing.s200}
+      key={movement.id}
+      width="100%"
+    >
       {index !== 0 && <Divider dashed />}
       <RecordCard
         id={movement.id}
@@ -102,7 +107,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsSavingsCommitments(commitmentId)} />
         <Title
           title="Consulta de compromisos"
@@ -118,7 +123,10 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap={isMobile ? "s200" : "s300"}>
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+        >
           <Select
             id="savingCommitments"
             onChange={handleChangeCommitment}
@@ -127,7 +135,10 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             value={selectedCommitment.option}
             isFullWidth
           />
-          <Stack direction="column" gap={isMobile ? "s250" : "s400"}>
+          <Stack
+            direction="column"
+            gap={isMobile ? inube.spacing.s250 : inube.spacing.s400}
+          >
             <Box
               title={selectedCommitment.commitment.title}
               subtitle={selectedCommitment.commitment.id}
@@ -138,7 +149,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
                 ]
               }
             >
-              <Stack direction="column" gap="s100">
+              <Stack direction="column" gap={inube.spacing.s100}>
                 <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
                   {nextPaymentModal.data && (
                     <BoxAttribute
@@ -171,7 +182,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               subtitle="Productos que reciben dinero de este compromiso de ahorro"
               collapsing={{ start: true, allow: false }}
             >
-              <Stack direction="column" gap="s100">
+              <Stack direction="column" gap={inube.spacing.s100}>
                 {renderProducts(
                   selectedCommitment.commitment.products,
                   savingProducts,
@@ -181,7 +192,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
           </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
-        <Stack direction="column" gap="s200" alignItems="flex-start">
+        <Stack direction="column" gap={inube.spacing.s200} alignItems="flex-start">
           <Text type="label" size="large">
             Pagos recientes
           </Text>
@@ -194,7 +205,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                gap="s100"
+                gap={inube.spacing.s100}
                 width="100%"
               >
                 <Text type="title" size="small" appearance="dark">

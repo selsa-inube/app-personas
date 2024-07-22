@@ -1,8 +1,9 @@
-import { Stack } from "@design/layout/Stack";
 import { MdClose, MdDone } from "react-icons/md";
 import { Label } from "../Label";
 import { StyledContainer, StyledIcon, StyledInput, StyledSpan } from "./styles";
 import { SwitchSizeType } from "./types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface SwitchProps {
   id: string;
@@ -38,7 +39,7 @@ const Switch = (props: SwitchProps) => {
       direction={"row"}
       justifyContent={label ? "center" : "center"}
       alignItems="center"
-      gap={label ? "s100" : "0px"}
+      gap={label ? inube.spacing.s100 : inube.spacing.s0}
       margin={margin}
       padding={padding}
     >

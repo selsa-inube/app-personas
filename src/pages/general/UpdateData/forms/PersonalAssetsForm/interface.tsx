@@ -3,7 +3,6 @@ import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlineAddHome } from "react-icons/md";
@@ -12,6 +11,8 @@ import {
   personalAssetsTableBreakpoints,
   personalAssetsTableTitles,
 } from "./config/table";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface PersonalAssetsFormUIProps {
   formik: FormikValues;
@@ -40,7 +41,12 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
+      <Stack
+        direction="column"
+        gap={inube.spacing.s300}
+        alignItems="flex-end"
+        width="100%"
+      >
         <Button
           iconBefore={<MdOutlineAddHome />}
           variant="none"
@@ -59,7 +65,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
           colsSameWidth
         />
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

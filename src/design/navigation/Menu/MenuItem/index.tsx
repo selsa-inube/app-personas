@@ -1,9 +1,10 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { StyledMenuItemContainer } from "./styles";
 
 import { MenuItemSpacingType } from "./types";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface MenuItemProps {
   title: string;
@@ -35,7 +36,7 @@ function MenuItem(props: MenuItemProps) {
       to={path}
       onClick={onClick}
     >
-      <Stack gap="s150" alignItems="center">
+      <Stack gap={inube.spacing.s150} alignItems="center">
         {iconBefore && (
           <Icon
             icon={iconBefore}
@@ -45,7 +46,7 @@ function MenuItem(props: MenuItemProps) {
             disabled={isDisabled}
           />
         )}
-        <Stack direction="column" gap="s050">
+        <Stack direction="column" gap={inube.spacing.s050}>
           <Text type="label" size="large" disabled={isDisabled}>
             {title}
           </Text>

@@ -8,7 +8,6 @@ import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -27,6 +26,7 @@ import {
   movementsTableTitles,
 } from "./config/table";
 import { ISelectedProductState } from "./types";
+import { Stack } from "@inubekit/stack";
 
 interface ConsumptionUIProps {
   isMobile?: boolean;
@@ -62,7 +62,7 @@ function ConsumptionUI(props: ConsumptionUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs
           crumbs={crumbsConsumption(cardId, creditQuotaId, consumptionId)}
         />
@@ -81,7 +81,7 @@ function ConsumptionUI(props: ConsumptionUIProps) {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           {selectedProduct && formatedAttributes && (
             <>
               <Select
@@ -98,7 +98,7 @@ function ConsumptionUI(props: ConsumptionUIProps) {
                 tags={selectedProduct.consumption.tags}
                 {...consumptionBox}
               >
-                <Stack direction="column" gap="s100">
+                <Stack direction="column" gap={inube.spacing.s100}>
                   <Grid
                     templateColumns={isMobile ? "1fr" : "1fr 1fr"}
                     gap="s100"
@@ -117,7 +117,11 @@ function ConsumptionUI(props: ConsumptionUIProps) {
           )}
 
           {selectedProduct && selectedProduct.consumption.movements && (
-            <Stack direction="column" gap="s200" alignItems="flex-start">
+            <Stack
+              direction="column"
+              gap={inube.spacing.s200}
+              alignItems="flex-start"
+            >
               <Text type="title" size="medium">
                 Últimos movimientos
               </Text>

@@ -4,13 +4,13 @@ import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { crumbsPaymentOptions } from "./config/navigation";
+import { Stack } from "@inubekit/stack";
 
 function PaymentOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -27,7 +27,7 @@ function PaymentOptions() {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsPaymentOptions} />
         <Title
           title="Pagos"
@@ -44,13 +44,13 @@ function PaymentOptions() {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s400">
+        <Stack direction="column" gap={inube.spacing.s400}>
           <Text type="title" size="small">
             Aquí encontraras las opciones que puedes usar para gestionar tus
             pagos.
           </Text>
 
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <RequestCard
               title="Realizar pagos"
               descriptions={[
