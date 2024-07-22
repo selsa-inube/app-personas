@@ -22,6 +22,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
+import { AmortizationDocument } from "./AmortizationDocument";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import {
   amortizationNormalizeEntries,
@@ -33,6 +34,24 @@ import {
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 import { validateCreditsAndAmortization } from "./utils";
+
+const renderAmortizationTable = (selectedProduct?: ISelectedProductState) => {
+  if (!selectedProduct || !selectedProduct.credit.amortization) return;
+
+  return (
+    <Table
+      portalId="modals"
+      titles={amortizationTableTitles}
+      breakpoints={amortizationTableBreakpoints}
+      actions={creditAmortizationTableActions}
+      entries={amortizationNormalizeEntries(
+        selectedProduct.credit.amortization,
+      )}
+      customAppearance={customAppearanceCallback}
+      hideMobileResume
+    />
+  );
+};
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -114,6 +133,8 @@ function CreditAmortization() {
   const attributes =
     selectedProduct && extractCreditAmortizationAttrs(selectedProduct.credit);
 
+  const amortizationTable = renderAmortizationTable(selectedProduct);
+
   return (
     <>
       <Stack direction="column" gap="s300">
@@ -162,17 +183,7 @@ function CreditAmortization() {
               </Grid>
             </Box>
             <StyledAmortizationContainer>
-              <Table
-                portalId="modals"
-                titles={amortizationTableTitles}
-                breakpoints={amortizationTableBreakpoints}
-                actions={creditAmortizationTableActions}
-                entries={amortizationNormalizeEntries(
-                  selectedProduct.credit.amortization,
-                )}
-                customAppearance={customAppearanceCallback}
-                hideMobileResume
-              />
+              {amortizationTable}
             </StyledAmortizationContainer>
 
             <Stack width="100%" justifyContent="flex-end">
@@ -180,6 +191,18 @@ function CreditAmortization() {
                 Descargar
               </Button>
             </Stack>
+
+            <AmortizationDocument
+              productName="FANÁTICOS VIAJEROS"
+              productNumber="10 - 231016759"
+              date={new Date("2021-10-01")}
+              nextPaymentDate={new Date("2021-10-01")}
+              amount={8300000}
+              nextPaymentValue={500000}
+              periodicity="Mensual"
+              paymentMethod="Grúas de occidente"
+              tableElement={amortizationTable}
+            />
           </Stack>
         )}
 
