@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Totalizer } from "@components/layout/Totalizer";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Fragment } from "react";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -15,6 +14,8 @@ import {
 import { StyledPayments } from "./styles";
 import { payBoxTitles } from "../config/box";
 import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -37,7 +38,11 @@ const renderObligationsVerification = (
 
           return (
             <Fragment key={payment.id}>
-              <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100">
+              <Grid
+                templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+                gap={inube.spacing.s100}
+                autoRows="auto"
+              >
                 <BoxAttribute
                   label="Nombre de la obligación:"
                   value={payment.title}
@@ -74,7 +79,12 @@ const renderPaymentMethodVerification = (
   values: IPaymentMethodEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    gap={inube.spacing.s100}
+    autoRows="auto"
+    width="100%"
+  >
     {values.paymentMethod === EPaymentMethodType.PSE ? (
       <BoxAttribute
         label="Forma de recaudo:"

@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { reimbursementTypeDM } from "src/model/domains/general/updateData/economicActivity/reimbursementTypeDM";
@@ -14,6 +13,8 @@ import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
 import { Icon } from "@inubekit/icon";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -25,8 +26,9 @@ const renderBeneficiariesVerification = (
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
       width="100%"
-      gap="s100"
+      gap={inube.spacing.s100}
     >
       <BoxAttribute label="Nombre:" value={selectedBeneficiary?.name} />
       <BoxAttribute
@@ -45,8 +47,9 @@ const renderAmountVerification = (values: IAmountEntry, isTablet: boolean) => {
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
       width="100%"
-      gap="s100"
+      gap={inube.spacing.s100}
     >
       <BoxAttribute
         label="Valor de la solicitud:"
@@ -77,8 +80,9 @@ const renderRegulationValidationsVerification = (
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
       width="100%"
-      gap="s100"
+      gap={inube.spacing.s100}
     >
       {values.validations.map((validation) => (
         <BoxAttribute
@@ -114,8 +118,9 @@ const renderDocumentaryRequirementsVerification = (
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
       width="100%"
-      gap="s100"
+      gap={inube.spacing.s100}
     >
       {values.selectedDocuments.map((document) => (
         <BoxAttribute

@@ -5,7 +5,6 @@ import { InfoModal } from "@components/modals/general/InfoModal";
 import { Text } from "@design/data/Text";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { FileDrop } from "@design/input/FileDrop";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -14,6 +13,7 @@ import { FormikProps } from "formik";
 import { MdHelpOutline, MdQuestionMark } from "react-icons/md";
 import { IDocumentaryRequirementsEntry } from "./types";
 import { Icon } from "@inubekit/icon";
+import { Grid } from "@inubekit/grid";
 
 function renderRequirement(label: string, id: string) {
   return (
@@ -88,7 +88,11 @@ function DocumentaryRequirementsFormUI(
             />
           </Stack>
 
-          <Grid templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`} gap="s200">
+          <Grid
+            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+            autoRows="auto"
+            gap={inube.spacing.s200}
+          >
             {formik.values.requiredDocuments.map((document) =>
               renderRequirement(document.label, document.id),
             )}
@@ -117,7 +121,8 @@ function DocumentaryRequirementsFormUI(
 
             <Grid
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-              gap="s200"
+              autoRows="auto"
+            gap={inube.spacing.s200}
             >
               {formik.values.selectedDocuments.map((document) => (
                 <FileCard

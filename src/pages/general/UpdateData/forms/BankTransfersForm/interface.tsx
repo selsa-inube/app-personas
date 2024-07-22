@@ -1,9 +1,10 @@
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
@@ -25,8 +26,9 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
     <form>
       <Stack direction="column" alignItems="flex-end" gap="s300">
         <Grid
-          templateColumns={isTablet ? "1fr" : "1fr 1fr 1fr"}
-          gap={isMobile ? "s150" : "s300"}
+          templateColumns={`repeat(${isTablet ? 1 : 3}, 1fr)`}
+          autoRows="auto"
+          gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
           width="100%"
         >
           <Select

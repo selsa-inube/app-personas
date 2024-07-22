@@ -1,7 +1,7 @@
 import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
 import { MdOpenInNew } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -85,8 +85,8 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
   return (
     <Grid
       templateColumns={isTablet ? "1fr" : "0.6fr 3fr 0.5fr 0.5fr 0.1fr"}
-      gap="s075"
-      padding={`${inube.spacing.s200} 0px ${inube.spacing.s200} 0px`}
+      gap={inube.spacing.s075}
+      padding={`${inube.spacing.s200} ${inube.spacing.s0}`}
     >
       {isTablet ? (
         <>

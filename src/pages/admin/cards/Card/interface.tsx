@@ -12,7 +12,6 @@ import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -46,6 +45,7 @@ import {
   ISelectedProductState,
 } from "./types";
 import { Icon } from "@inubekit/icon";
+import { Grid } from "@inubekit/grid";
 
 interface CardUIProps {
   cardId?: string;
@@ -104,11 +104,11 @@ function CardUI(props: CardUIProps) {
         />
       </Stack>
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s400">
           <Stack direction="column" gap="s300">
@@ -132,8 +132,9 @@ function CardUI(props: CardUIProps) {
                 >
                   <Stack direction="column" gap="s100">
                     <Grid
-                      templateColumns={isMobile ? "1fr" : "1fr 1fr"}
-                      gap="s100"
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      gap={inube.spacing.s100}
+                      autoRows="auto"
                     >
                       {formatedAttributes.slice(0, 3).map((attr) => (
                         <BoxAttribute
@@ -196,8 +197,9 @@ function CardUI(props: CardUIProps) {
                         alignItems="flex-end"
                       >
                         <Grid
-                          templateColumns={!isDesktop ? "1fr" : "1fr 1fr"}
-                          gap="s100"
+                          templateColumns={`repeat(${!isDesktop ? 1 : 2}, 1fr)`}
+                          gap={inube.spacing.s100}
+                          autoRows="auto"
                           width="100%"
                         >
                           {formatCreditQuotasCurrencyAttrs(

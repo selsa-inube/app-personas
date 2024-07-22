@@ -4,7 +4,6 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { Button } from "@design/input/Button";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -25,6 +24,7 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
+import { Grid } from "@inubekit/grid";
 
 const renderStepContent = (
   currentStep: number,
@@ -147,11 +147,17 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
       </Stack>
 
       <Grid
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
         <Stack direction="column" gap={isMobile ? "s300" : "s500"}>
           <Assisted

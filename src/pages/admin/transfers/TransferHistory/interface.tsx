@@ -3,7 +3,6 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
-import { Grid } from "@design/layout/Grid";
 import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -16,6 +15,7 @@ import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
 import { generateAttributes } from "./config/attributeRecord";
 import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];
@@ -57,11 +57,11 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
         </Stack>
       </Stack>
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap="s300">
           <Stack direction="column" alignItems="flex-end">
