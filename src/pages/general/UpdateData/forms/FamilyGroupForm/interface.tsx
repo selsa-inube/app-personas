@@ -3,7 +3,6 @@ import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { usersMock } from "@mocks/users/users.mocks";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
@@ -18,6 +17,8 @@ import {
   familyGroupTableBreakpoints,
   familyGroupTableTitles,
 } from "./config/table";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface FamilyGroupFormUIProps {
   formik: FormikValues;
@@ -55,7 +56,12 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
+      <Stack
+        direction="column"
+        gap={inube.spacing.s300}
+        alignItems="flex-end"
+        width="100%"
+      >
         <Button
           iconBefore={<MdOutlinePersonAddAlt />}
           variant="none"
@@ -73,7 +79,7 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           hideMobileResume
         />
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

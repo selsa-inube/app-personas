@@ -1,5 +1,4 @@
 import { Title } from "@design/data/Title";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { Tabs } from "@design/navigation/Tabs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -23,6 +22,8 @@ import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderTabContent = (
   selectedTab: string,
@@ -136,9 +137,15 @@ function UpdateDataUnassistedUI(props: UpdateDataUnassistedUIProps) {
   return (
     <Stack
       direction="column"
-      gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+      gap={
+        isMobile
+          ? inube.spacing.s300
+          : isTablet
+            ? inube.spacing.s500
+            : inube.spacing.s600
+      }
     >
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsUpdateData} />
         <Title
           title="Actualización de datos"
@@ -152,7 +159,7 @@ function UpdateDataUnassistedUI(props: UpdateDataUnassistedUIProps) {
         selectedTab={selectedTab}
         tabs={Object.values(updateDataTabs)}
       />
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         {renderTabContent(selectedTab, updateData)}
       </Stack>
     </Stack>

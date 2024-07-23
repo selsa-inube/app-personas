@@ -3,7 +3,6 @@ import { RequestCard } from "@components/cards/RequestCard";
 import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -13,6 +12,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { creditRequestCards } from "./config/cards";
 import { crumbsCreditRequest } from "./config/navigation";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 
 function CreditRequest() {
@@ -31,7 +31,7 @@ function CreditRequest() {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsCreditRequest} />
         <Title
           title="Solicitud de crédito"
@@ -48,13 +48,16 @@ function CreditRequest() {
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
       >
-        <Stack direction="column" gap={isDesktop ? "s400" : "s250"}>
+        <Stack
+          direction="column"
+          gap={isDesktop ? inube.spacing.s400 : inube.spacing.s250}
+        >
           <Text type="title" size="small">
             Aquí encontraras las opciones que puedes usar para realizar tu
             solicitud de crédito.
           </Text>
 
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             {creditRequestCards.map((card, index) => (
               <RequestCard
                 key={index}

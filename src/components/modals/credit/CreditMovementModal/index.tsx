@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
 import { createPortal } from "react-dom";
@@ -9,9 +8,11 @@ import { formatPrimaryDate } from "src/utils/dates";
 import { StyledBody, StyledBodyHead, StyledModal } from "./styles";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderTransactionSpecification = (label: string, value?: number) => (
-  <Stack gap="s100" alignItems="center">
+  <Stack gap={inube.spacing.s100} alignItems="center">
     <Stack justifyContent="space-between" width="100%">
       <Text type="label" size="medium" appearance="dark">
         {label}
@@ -85,7 +86,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
             {`${movement.reference} - ${formatPrimaryDate(movement.date)}`}
           </Text>
 
-          <Stack gap="s100" alignItems="center">
+          <Stack gap={inube.spacing.s100} alignItems="center">
             <Text type="label" size="medium" appearance="dark">
               Descripción:
             </Text>
@@ -101,7 +102,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
             Especificación de la transacción
           </Text>
 
-          <Stack direction="column" gap="s200">
+          <Stack direction="column" gap={inube.spacing.s200}>
             {movement?.capitalPayment &&
               renderTransactionSpecification(
                 "Abono capital:",
@@ -131,7 +132,7 @@ function CreditMovementModal(props: CreditMovementModalProps) {
               renderTransactionSpecification("Comisión:", movement.commission)}
           </Stack>
 
-          <Stack direction="column" gap="s150">
+          <Stack direction="column" gap={inube.spacing.s150}>
             <Divider />
 
             <Stack justifyContent="space-between" alignItems="center">

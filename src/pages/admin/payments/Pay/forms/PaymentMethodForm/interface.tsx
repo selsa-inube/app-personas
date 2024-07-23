@@ -1,7 +1,6 @@
 import { PaymentMethodCard } from "@components/cards/payments/PaymentMethodCard";
 import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { currencyFormat } from "src/utils/currency";
@@ -9,6 +8,7 @@ import { paymentMethods } from "./config/payment";
 import { StyledPendingValueContainer, StyledSummaryContainer } from "./styles";
 import { IMoneySource, IPaymentMethodEntry } from "./types";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
 
@@ -60,7 +60,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
   return (
     <form>
       <Stack
-        gap={isMobile ? "s200" : "s300"}
+        gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
         direction="column"
         margin={isMobile ? "0 0 210px 0" : "0"}
       >

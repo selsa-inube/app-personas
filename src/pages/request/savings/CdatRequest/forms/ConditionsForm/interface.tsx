@@ -6,11 +6,11 @@ import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 import { FormikValues } from "formik";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
@@ -42,14 +42,17 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap={isMobile ? "s200" : "s300"}>
-        <Stack direction="column" gap="s200">
+      <Stack
+        direction="column"
+        gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+      >
+        <Stack direction="column" gap={inube.spacing.s200}>
           <Fieldset
             title="Simulador"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
-            <Stack direction="column" gap="s300">
+            <Stack direction="column" gap={inube.spacing.s300}>
               <Grid
                 gap={inube.spacing.s300}
                 templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
@@ -84,11 +87,11 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                 />
               </Grid>
 
-              <Stack direction="column" gap="s250">
+              <Stack direction="column" gap={inube.spacing.s250}>
                 <Stack
                   padding={
                     isMobile
-                      ? "s0"
+                      ? inube.spacing.s0
                       : `${inube.spacing.s050} ${inube.spacing.s200}`
                   }
                 >
@@ -168,7 +171,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                 <>
                   <Divider dashed />
 
-                  <Stack direction="column" gap="s300">
+                  <Stack direction="column" gap={inube.spacing.s300}>
                     <Text type="title" size="small">
                       Resultados de la simulación
                     </Text>
@@ -177,7 +180,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
                       autoRows="auto"
                     >
-                      <Stack direction="column" gap="s150">
+                      <Stack direction="column" gap={inube.spacing.s150}>
                         <BoxAttribute
                           label="Tasa efectiva anual:"
                           value={`${formik.values.effectiveAnnualRate} %`}
@@ -190,7 +193,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         />
                       </Stack>
 
-                      <Stack direction="column" gap="s150">
+                      <Stack direction="column" gap={inube.spacing.s150}>
                         <BoxAttribute
                           label="Plazo en número de días:"
                           value={`${formik.values.deadlineDays}`}
@@ -210,7 +213,11 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
           </Fieldset>
         </Stack>
 
-        <Stack direction="column" gap="s100" alignItems="flex-start">
+        <Stack
+          direction="column"
+          gap={inube.spacing.s100}
+          alignItems="flex-start"
+        >
           <Text type="title" size="small">
             Tasas de interés vigentes
           </Text>

@@ -1,9 +1,9 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { TypographySizeType, TypographyType } from "@ptypes/typography.types";
 import { StyledFieldset } from "./styles";
+import { Stack } from "@inubekit/stack";
 
 interface FieldsetProps {
   title: string;

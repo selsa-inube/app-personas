@@ -1,9 +1,10 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { Divider } from "@inubekit/divider";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface DestinationCardProps {
   id: string;
@@ -33,8 +34,8 @@ function DestinationCard(props: DestinationCardProps) {
   if (loading) {
     return (
       <StyledCardContainer>
-        <Stack direction="column" width="100%" gap="s050">
-          <Stack gap="s100">
+        <Stack direction="column" width="100%" gap={inube.spacing.s050}>
+          <Stack gap={inube.spacing.s100}>
             <StyledInputRadio
               id={id}
               name={id}
@@ -90,7 +91,7 @@ function DestinationCard(props: DestinationCardProps) {
   return (
     <StyledCardContainer onClick={onClick}>
       <Stack direction="column" width="100%">
-        <Stack gap="s100">
+        <Stack gap={inube.spacing.s100}>
           <StyledInputRadio
             id={id}
             name={id}

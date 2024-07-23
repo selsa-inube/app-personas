@@ -1,10 +1,10 @@
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
-import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
@@ -24,7 +24,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" alignItems="flex-end" gap="s300">
+      <Stack direction="column" alignItems="flex-end" gap={inube.spacing.s300}>
         <Grid
           templateColumns={`repeat(${isTablet ? 1 : 3}, 1fr)`}
           autoRows="auto"
@@ -78,7 +78,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
         </Grid>
 
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

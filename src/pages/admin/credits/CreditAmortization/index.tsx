@@ -7,12 +7,12 @@ import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { useContext, useEffect, useRef, useState } from "react";
 import {
   MdArrowBack,
@@ -181,7 +181,7 @@ function CreditAmortization() {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsAmortization} />
         <Title
           title="Plan de pagos"
@@ -199,7 +199,7 @@ function CreditAmortization() {
         }
       >
         {selectedProduct && selectedProduct.credit.amortization && (
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <Select
               id="creditProducts"
               onChange={handleChangeProduct}

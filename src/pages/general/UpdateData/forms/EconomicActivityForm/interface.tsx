@@ -4,10 +4,10 @@ import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
-import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 import { companiesData } from "@mocks/domains/companies";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import {
@@ -53,7 +53,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
   return (
     <>
       <form>
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Fieldset
             title="Clasificación económica"
             type={isMobile ? "label" : "title"}
@@ -457,7 +457,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
             </Fieldset>
           )}
           {withSubmit && (
-            <Stack gap="s150" justifyContent="flex-end">
+            <Stack gap={inube.spacing.s150} justifyContent="flex-end">
               <Button
                 onClick={formik.handleReset}
                 type="button"

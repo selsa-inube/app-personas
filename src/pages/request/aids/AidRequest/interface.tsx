@@ -4,7 +4,6 @@ import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IDomainType } from "@ptypes/domain.types";
@@ -20,6 +19,8 @@ import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm
 import { RegulationValidationsForm } from "./forms/RegulationValidationsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderStepContent = (
   currentStep: number,
@@ -130,9 +131,15 @@ function AidRequestUI(props: AidRequestUIProps) {
     <>
       <Stack
         direction="column"
-        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsAidRequest(aidType)} />
           <Title
             title={aidType.value}
@@ -150,7 +157,7 @@ function AidRequestUI(props: AidRequestUIProps) {
           onStepChange={handleStepChange}
         />
 
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           {renderStepContent(
             currentStep,
             formReferences,
@@ -159,7 +166,7 @@ function AidRequestUI(props: AidRequestUIProps) {
             handleStepChange,
           )}
 
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={handlePreviousStep}
               type="button"

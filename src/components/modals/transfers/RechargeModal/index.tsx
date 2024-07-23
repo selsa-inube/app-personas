@@ -4,7 +4,6 @@ import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useFormik } from "formik";
 import { createPortal } from "react-dom";
@@ -22,6 +21,8 @@ import { StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const mapSavingAccounts = (savingAccounts: IProduct[]): ISelectOption[] => {
   return savingAccounts.map((savingAccount) => ({
@@ -72,7 +73,7 @@ function RechargeModal(props: RechargeModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium">
               Depositar
@@ -94,7 +95,7 @@ function RechargeModal(props: RechargeModalProps) {
 
         <Divider dashed />
 
-        <Stack direction="column" gap="s150">
+        <Stack direction="column" gap={inube.spacing.s150}>
           <Select
             label="Cuenta de ahorros"
             name="savingAccount"
@@ -128,7 +129,7 @@ function RechargeModal(props: RechargeModalProps) {
           />
         </Stack>
 
-        <Stack width="100%" justifyContent="flex-end" gap="s100">
+        <Stack width="100%" justifyContent="flex-end" gap={inube.spacing.s100}>
           <Button
             appearance="gray"
             variant="outlined"

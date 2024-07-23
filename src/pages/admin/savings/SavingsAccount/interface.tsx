@@ -9,7 +9,6 @@ import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -50,12 +49,13 @@ import {
 } from "./config/product";
 import { generateAttributes } from "./config/attributeRecord";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
   movements.slice(0, 5).map((movement, index) => (
-    <Stack direction="column" gap="s200" key={movement.id}>
+    <Stack direction="column" gap={inube.spacing.s200} key={movement.id}>
       {index !== 0 && <Divider dashed />}
       <RecordCard
         id={movement.id}
@@ -138,7 +138,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsSaving(productId)} />
         <Title
           title="Consulta de ahorros"
@@ -159,7 +159,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Select
             id="savingProducts"
             onChange={onChangeProduct}
@@ -187,7 +187,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 : undefined
             }
           >
-            <Stack direction="column" gap="s100">
+            <Stack direction="column" gap={inube.spacing.s100}>
               <Grid
                 templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
                 gap={inube.spacing.s100}
@@ -240,14 +240,18 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             </Stack>
           </Box>
           {showMovements && (
-            <Stack direction="column" gap="s300" alignItems="flex-start">
+            <Stack
+              direction="column"
+              gap={inube.spacing.s300}
+              alignItems="flex-start"
+            >
               <Text type="title" size="medium">
                 {selectedProduct.saving.type === EProductType.CDAT
                   ? "Pago de intereses"
                   : "Últimos movimientos"}
               </Text>
               <StyledMovementsContainer $isMobile={isMobile}>
-                <Stack direction="column" gap="s200" width="100%">
+                <Stack direction="column" gap={inube.spacing.s200} width="100%">
                   {selectedProduct.saving.movements &&
                   selectedProduct.saving.movements.length > 0 ? (
                     renderMovements(selectedProduct.saving.movements)
@@ -256,7 +260,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       direction="column"
                       justifyContent="center"
                       alignItems="center"
-                      gap="s100"
+                      gap={inube.spacing.s100}
                     >
                       <Text type="title" size="small" appearance="dark">
                         No tienes movimientos

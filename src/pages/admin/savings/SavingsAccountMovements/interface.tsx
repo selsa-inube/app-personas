@@ -6,7 +6,6 @@ import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -17,12 +16,13 @@ import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 import { generateAttributes } from "./config/attributeRecord";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
   movements.map((movement, index) => (
-    <Stack direction="column" gap="s200" key={movement.id}>
+    <Stack direction="column" gap={inube.spacing.s200} key={movement.id}>
       {index !== 0 && <Divider dashed />}
       <RecordCard
         id={movement.id}
@@ -58,7 +58,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsSavingsAccountMovements(productId)} />
         <Title
           title="Movimientos"
@@ -75,7 +75,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Select
             id="creditProducts"
             onChange={handleChangeProduct}
@@ -86,7 +86,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
             readOnly={productsOptions.length === 1}
           />
           <StyledMovementsContainer $isMobile={isMobile}>
-            <Stack direction="column" gap="s200" width="100%">
+            <Stack direction="column" gap={inube.spacing.s200} width="100%">
               {selectedProduct.movements &&
               selectedProduct.movements.length > 0 ? (
                 renderMovements(selectedProduct.movements)
@@ -95,7 +95,7 @@ function SavingsAccountMovementsUI(props: SavingsAccountMovementsUIProps) {
                   direction="column"
                   justifyContent="center"
                   alignItems="center"
-                  gap="s100"
+                  gap={inube.spacing.s100}
                 >
                   <Text type="title" size="small" appearance="dark">
                     No tienes movimientos

@@ -3,7 +3,6 @@ import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
@@ -18,6 +17,7 @@ import { StyledModal, StyledScrollbar } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
 
@@ -46,7 +46,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $isMobile={isMobile} $isTablet={isTablet}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">
               Ver familiar
@@ -268,7 +268,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             </Grid>
           </Fieldset>
         </StyledScrollbar>
-        <Stack gap="s150">
+        <Stack gap={inube.spacing.s150}>
           <Button
             appearance="danger"
             variant="outlined"

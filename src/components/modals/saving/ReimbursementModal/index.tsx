@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -8,6 +7,8 @@ import { StyledBodyItem, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface ReimbursementModalProps {
   portalId: string;
@@ -30,7 +31,7 @@ function ReimbursementModal(props: ReimbursementModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s050">
+        <Stack direction="column" width="100%" gap={inube.spacing.s050}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
               Cuenta para reembolso
@@ -51,7 +52,11 @@ function ReimbursementModal(props: ReimbursementModalProps) {
         </Stack>
 
         <Divider />
-        <Stack direction="column" alignItems="flex-start" gap="s075">
+        <Stack
+          direction="column"
+          alignItems="flex-start"
+          gap={inube.spacing.s075}
+        >
           {reimbursement.map((attr) => (
             <StyledBodyItem key={attr.id}>
               <Text type="label" size="large" appearance="dark">

@@ -1,4 +1,4 @@
-import { Stack } from "../../layout/Stack";
+import { Stack } from "@inubekit/stack";
 import { Text } from "../Text";
 import { StyledUser } from "./styles";
 import { Avatar } from "@inubekit/avatar";

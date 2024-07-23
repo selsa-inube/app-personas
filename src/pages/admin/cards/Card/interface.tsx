@@ -12,7 +12,6 @@ import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -45,6 +44,7 @@ import {
   ISelectedProductState,
 } from "./types";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 
 interface CardUIProps {
@@ -94,7 +94,7 @@ function CardUI(props: CardUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsCard(cardId)} />
         <Title
           title="Consulta de tarjetas"
@@ -110,8 +110,8 @@ function CardUI(props: CardUIProps) {
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
       >
-        <Stack direction="column" gap="s400">
-          <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s400}>
+          <Stack direction="column" gap={inube.spacing.s300}>
             {selectedProduct && (
               <>
                 <Select
@@ -130,7 +130,7 @@ function CardUI(props: CardUIProps) {
                   loading={loadingCards}
                   {...cardBox}
                 >
-                  <Stack direction="column" gap="s100">
+                  <Stack direction="column" gap={inube.spacing.s100}>
                     <Grid
                       templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
                       gap={inube.spacing.s100}
@@ -174,7 +174,7 @@ function CardUI(props: CardUIProps) {
               </>
             )}
           </Stack>
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <Text type="title" size="medium">
               Cupos de crédito
             </Text>
@@ -189,11 +189,11 @@ function CardUI(props: CardUIProps) {
                   tags={quota.tags}
                   {...myQuotas}
                 >
-                  <Stack direction="column" gap="s075">
-                    <Stack direction="column" gap="s300">
+                  <Stack direction="column" gap={inube.spacing.s075}>
+                    <Stack direction="column" gap={inube.spacing.s300}>
                       <Stack
                         direction="column"
-                        gap="s200"
+                        gap={inube.spacing.s200}
                         alignItems="flex-end"
                       >
                         <Grid
@@ -246,8 +246,8 @@ function CardUI(props: CardUIProps) {
                         </Button>
                       </Stack>
                       {quota.movements && quota.movements?.length > 0 && (
-                        <Stack direction="column" gap="s200">
-                          <Stack gap="s100" alignItems="center">
+                        <Stack direction="column" gap={inube.spacing.s200}>
+                          <Stack gap={inube.spacing.s100} alignItems="center">
                             <Text
                               type="title"
                               size={isMobile ? "small" : "medium"}
@@ -265,13 +265,13 @@ function CardUI(props: CardUIProps) {
                               onClick={handleShowMovementsInfoModal}
                             />
                           </Stack>
-                          <Stack direction="column" gap="s200">
+                          <Stack direction="column" gap={inube.spacing.s200}>
                             {quota.movements
                               .slice(0, 5)
                               .map((movement, index) => (
                                 <Stack
                                   direction="column"
-                                  gap="s200"
+                                  gap={inube.spacing.s200}
                                   key={movement.id}
                                 >
                                   {index !== 0 && <Divider dashed />}

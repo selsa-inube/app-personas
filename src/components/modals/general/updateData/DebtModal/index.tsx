@@ -3,7 +3,6 @@ import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
@@ -19,6 +18,8 @@ import { StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const liabilityTypeDM = getDomainById("liabilityType");
 
@@ -60,7 +61,11 @@ function DebtModal(props: DebtModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap={isMobile ? "s050" : "s100"}>
+        <Stack
+          direction="column"
+          width="100%"
+          gap={isMobile ? inube.spacing.s050 : inube.spacing.s100}
+        >
           <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
@@ -88,7 +93,7 @@ function DebtModal(props: DebtModalProps) {
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" gap="s150" width="100%">
+        <Stack direction="column" gap={inube.spacing.s150} width="100%">
           <Select
             label="Tipo de pasivo"
             name="liabilityType"
@@ -200,7 +205,7 @@ function DebtModal(props: DebtModalProps) {
           />
         </Stack>
 
-        <Stack gap="s100" justifyContent="flex-end">
+        <Stack gap={inube.spacing.s100} justifyContent="flex-end">
           <Button
             spacing="compact"
             variant="outlined"

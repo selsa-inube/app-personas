@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Text } from "../../data/Text";
-import { Stack } from "../../layout/Stack";
 import {
   StyledButton,
   StyledButtonContent,
@@ -15,6 +14,8 @@ import {
 } from "./types";
 import { Spinner } from "@inubekit/spinner";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -57,7 +58,11 @@ function renderButtonContent(
 
   return (
     <StyledButtonContent $load={load} $disabled={disabled}>
-      <Stack alignItems="center" justifyContent="center" gap="s075">
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        gap={inube.spacing.s075}
+      >
         {iconBefore && (
           <Icon
             icon={iconBefore}

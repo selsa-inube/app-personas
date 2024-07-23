@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdClear } from "react-icons/md";
 import { CountdownBar } from "@inubekit/countdownbar";
@@ -9,6 +8,8 @@ import { StyledSectionMessage } from "./styles";
 
 import { MessageAppearanceType } from "./types";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface SectionMessageProps {
   icon: React.JSX.Element;
@@ -41,20 +42,20 @@ const SectionMessage = (props: SectionMessageProps) => {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <Stack justifyContent="space-between" padding="s200">
+      <Stack justifyContent="space-between" padding={inube.spacing.s200}>
         <Stack
-          gap="16px"
+          gap={inube.spacing.s200}
           alignItems={isMobile ? "center" : undefined}
           width="100%"
         >
-          <Stack alignItems="center" gap="16px" width="100%">
+          <Stack alignItems="center" gap={inube.spacing.s200} width="100%">
             <Icon
               size="24px"
               spacing="wide"
               appearance={appearance}
               icon={icon}
             />
-            <Stack direction="column" gap="6px" width="100%">
+            <Stack direction="column" gap={inube.spacing.s075} width="100%">
               <Stack justifyContent="space-between" alignItems="center">
                 <Text size="large" type="label">
                   {title}

@@ -1,6 +1,5 @@
 import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -10,6 +9,8 @@ import { IDirector } from "src/model/entity/user";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface ItemProps {
   description: string;
@@ -20,7 +21,7 @@ function Item(props: ItemProps) {
   const { description, onClick } = props;
   return (
     <StyledItem onClick={onClick}>
-      <Stack direction="column" gap="s050">
+      <Stack direction="column" gap={inube.spacing.s050}>
         <Text type="body" size="medium">
           {description}
         </Text>
@@ -58,7 +59,7 @@ function RelationshipWithDirectorsModal(
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" gap="s100">
+        <Stack direction="column" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
@@ -87,7 +88,10 @@ function RelationshipWithDirectorsModal(
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" gap={isMobile ? "s200" : "s250"}>
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s200 : inube.spacing.s250}
+        >
           <Text type="body" size={isMobile ? "small" : "medium"}>
             Busca el funcionario por nombre o apellido
           </Text>

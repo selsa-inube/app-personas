@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { activeDM } from "src/model/domains/general/activedm";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
@@ -12,9 +11,11 @@ import { IGoalEntry } from "../../GoalForm/types";
 import { IPlanNameEntry } from "../../PlanNameForm/types";
 import { IQuotaEntry } from "../../QuotaForm/types";
 import { IReimbursementEntry } from "../../ReimbursementForm/types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderQuotaSummary = (values: IQuotaEntry) => (
-  <Stack direction="column" gap="s100" width="100%">
+  <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <BoxAttribute
       label="Valor periódico del ahorro:"
       value={currencyFormat(Number(values.periodicValue))}
@@ -66,7 +67,7 @@ const renderQuotaSummary = (values: IQuotaEntry) => (
 );
 
 const renderGoalSummary = (values: IGoalEntry) => (
-  <Stack direction="column" gap="s100" width="100%">
+  <Stack direction="column" gap={inube.spacing.s100} width="100%">
     {values.daysNumber !== "" && (
       <BoxAttribute
         label="Reembolso en número de días:"
@@ -81,7 +82,7 @@ const renderGoalSummary = (values: IGoalEntry) => (
 );
 
 const renderReimbursementSummary = (values: IReimbursementEntry) => (
-  <Stack width="100%" direction="column" gap="s100">
+  <Stack width="100%" direction="column" gap={inube.spacing.s100}>
     <BoxAttribute
       label="Forma de reembolso:"
       value={reimbursementTypeDM.valueOf(values.reimbursementType)?.value}
@@ -91,13 +92,17 @@ const renderReimbursementSummary = (values: IReimbursementEntry) => (
 );
 
 const renderPlanNameSummary = (values: IPlanNameEntry, isTablet: boolean) => (
-  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+  <Stack
+    direction="column"
+    gap={isTablet ? inube.spacing.s200 : inube.spacing.s250}
+    width="100%"
+  >
     <BoxAttribute label="Nombre:" value={values.productName} />
   </Stack>
 );
 
 const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
-  <Stack width="100%" direction="column" gap="s100">
+  <Stack width="100%" direction="column" gap={inube.spacing.s100}>
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
     <BoxAttribute label="Correo:" value={values.email} />

@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { IDateFieldMessage } from "../DateField/types";
@@ -13,6 +12,7 @@ import {
 } from "./styles";
 
 import { DateFieldProps } from ".";
+import { Stack } from "@inubekit/stack";
 
 function Invalid(props: IDateFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -78,12 +78,12 @@ function DateFieldUI(props: DateFieldUIProps) {
       $readOnly={readOnly}
       $size={size}
     >
-      <Stack direction="column" gap="s050">
+      <Stack direction="column" gap={inube.spacing.s050}>
         <Stack justifyContent="space-between" alignItems="center">
           {(label || isRequired) && (
             <Stack
               width="100%"
-              gap="4px"
+              gap={inube.spacing.s050}
               alignItems="center"
               padding={`0px 0px 0px ${inube.spacing.s200}`}
             >

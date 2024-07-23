@@ -1,8 +1,9 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { MdSearch } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -16,8 +17,8 @@ function EmptyRecords() {
     <OutlineCard>
       <Stack
         direction="column"
-        padding="s250"
-        gap="s250"
+        padding={inube.spacing.s250}
+        gap={inube.spacing.s250}
         alignItems="center"
         width="100%"
         justifyContent="center"

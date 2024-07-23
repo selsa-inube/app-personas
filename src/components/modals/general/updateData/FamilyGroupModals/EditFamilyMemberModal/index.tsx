@@ -1,7 +1,6 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { useState } from "react";
@@ -14,6 +13,8 @@ import { StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface EditFamilyMemberModalProps {
   portalId: string;
@@ -48,7 +49,11 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap={isMobile ? "s050" : "s100"}>
+        <Stack
+          direction="column"
+          width="100%"
+          gap={isMobile ? inube.spacing.s050 : inube.spacing.s100}
+        >
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size={isMobile ? "small" : "medium"}>
               Editar familiar
@@ -72,7 +77,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" gap="s150" width="100%">
+        <Stack direction="column" gap={inube.spacing.s150} width="100%">
           <>
             <Select
               label="Parentesco"
@@ -107,7 +112,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
           </>
         </Stack>
 
-        <Stack gap="s100">
+        <Stack gap={inube.spacing.s100}>
           <Button
             spacing="compact"
             appearance="gray"

@@ -1,5 +1,6 @@
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
+import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 
@@ -14,7 +15,7 @@ function InvestmentNameFormUI(props: InvestmentNameFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <TextField
           label="Nombre del producto"
           placeholder="Ingresa un nombre para tu producto"

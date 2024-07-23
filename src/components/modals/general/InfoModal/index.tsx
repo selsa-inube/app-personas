@@ -1,12 +1,13 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdClear, MdQuestionMark } from "react-icons/md";
 import { StyledModal } from "./styles";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface InfoModalProps {
   title: string;
@@ -38,7 +39,7 @@ function InfoModal(props: InfoModalProps) {
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
         <Stack alignItems="center" justifyContent="space-between">
-          <Stack gap="s100">
+          <Stack gap={inube.spacing.s100}>
             <Icon
               icon={<MdQuestionMark />}
               appearance="help"
@@ -60,7 +61,7 @@ function InfoModal(props: InfoModalProps) {
         <Text type="body" appearance="gray" size={isMobile ? "small" : "large"}>
           {description}
         </Text>
-        <Stack justifyContent="flex-end" gap="8px">
+        <Stack justifyContent="flex-end" gap={inube.spacing.s100}>
           <Button appearance="help" onClick={onCloseModal} spacing="compact">
             {buttonText}
           </Button>

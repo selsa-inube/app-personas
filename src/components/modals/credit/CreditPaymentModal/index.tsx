@@ -1,6 +1,5 @@
 import { IEntry } from "@design/data/Table/types";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -9,12 +8,14 @@ import { StyledBody, StyledBodyHead, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderTransactionSpecification = (
   label: string,
   value: string | number,
 ) => (
-  <Stack gap="s100" alignItems="center">
+  <Stack gap={inube.spacing.s100} alignItems="center">
     <Stack justifyContent="space-between" width="100%">
       <Text type="label" size="medium" appearance="dark">
         {label}
@@ -48,7 +49,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
               Pago
@@ -71,11 +72,11 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
         <Divider dashed />
 
         <StyledBodyHead>
-          <Stack direction="column" gap="s050">
+          <Stack direction="column" gap={inube.spacing.s050}>
             <Text type="title" size="medium" appearance="dark">
               Cuota {payment.date}
             </Text>
-            <Stack gap="s100">
+            <Stack gap={inube.spacing.s100}>
               <Text type="label" size={isMobile ? "small" : "medium"}>
                 Tipo:
               </Text>
@@ -91,7 +92,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
             Detalle
           </Text>
 
-          <Stack direction="column" gap="s200">
+          <Stack direction="column" gap={inube.spacing.s200}>
             {payment.capitalPayment &&
               renderTransactionSpecification(
                 "Abono capital:",
@@ -119,7 +120,7 @@ function CreditPaymentModal(props: CreditPaymentModalProps) {
               )}
           </Stack>
 
-          <Stack direction="column" gap="s150">
+          <Stack direction="column" gap={inube.spacing.s150}>
             <Divider />
 
             <Stack justifyContent="space-between" alignItems="center">

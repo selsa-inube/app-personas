@@ -2,7 +2,6 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
@@ -26,6 +25,8 @@ import { RelationshipWithDirectorsForm } from "./forms/RelationshipWithDirectors
 import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
 import { UpdateDataVerification } from "./forms/Verification";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderStepContent = (
   currentStep: number,
@@ -187,9 +188,15 @@ function UpdateDataUI(props: UpdateDataUIProps) {
   return (
     <Stack
       direction="column"
-      gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+      gap={
+        isMobile
+          ? inube.spacing.s300
+          : isTablet
+            ? inube.spacing.s500
+            : inube.spacing.s600
+      }
     >
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsUpdateData} />
         <Title
           title="Actualización de datos"
@@ -207,7 +214,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
         disableNextStep={!isCurrentFormValid}
       />
 
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         {renderStepContent(
           currentStep,
           formReferences,
@@ -216,7 +223,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
           handleStepChange,
         )}
 
-        <Stack gap="s150" justifyContent="flex-end">
+        <Stack gap={inube.spacing.s150} justifyContent="flex-end">
           <Button
             onClick={handlePreviousStep}
             type="button"

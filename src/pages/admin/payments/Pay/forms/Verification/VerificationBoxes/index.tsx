@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Totalizer } from "@components/layout/Totalizer";
-import { Stack } from "@design/layout/Stack";
 import { Fragment } from "react";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
@@ -14,6 +13,7 @@ import {
 import { StyledPayments } from "./styles";
 import { payBoxTitles } from "../config/box";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
 
@@ -26,7 +26,7 @@ const renderObligationsVerification = (
   );
 
   return (
-    <Stack width="100%" direction="column" gap="s200">
+    <Stack width="100%" direction="column" gap={inube.spacing.s200}>
       <StyledPayments>
         {filteredPayments.map((payment) => {
           const selectedPayment = payment.options.find(
