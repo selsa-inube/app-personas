@@ -6,6 +6,7 @@ import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { generateFormFields, getFieldState } from "src/utils/forms/forms";
+import { inube } from "@design/tokens";
 
 interface DisbursementFormUIProps {
   formik: FormikValues;

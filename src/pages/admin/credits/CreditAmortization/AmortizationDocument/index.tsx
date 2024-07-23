@@ -1,10 +1,10 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { logoUrl } from "@config/header";
 import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 
