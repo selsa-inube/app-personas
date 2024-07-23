@@ -1,18 +1,19 @@
 import { ValidationCard } from "@components/cards/ValidationCard";
 import { Text } from "@design/data/Text";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { FormikProps } from "formik";
 import { ISystemValidationsEntry } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { inube } from "@design/tokens";
 
 interface SystemValidationsFormUIProps {
+  loadingValids: boolean;
   formik: FormikProps<ISystemValidationsEntry>;
 }
 
 function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
-  const { formik } = props;
+  const { loadingValids, formik } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
@@ -20,7 +21,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
     <Stack direction="column" gap={inube.spacing.s400}>
       <Stack direction="column" gap={inube.spacing.s200}>
         <Text type="title" size="medium" appearance="gray">
-          Validaciones obligatorias
+          Obligatorias en la solicitud
         </Text>
 
         <Grid
@@ -38,6 +39,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
                 failDetails={validation.failDetails}
                 value={validation.value}
                 key={validation.id}
+                pending={loadingValids}
               />
             ))}
         </Grid>
@@ -45,7 +47,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
 
       <Stack direction="column" gap={inube.spacing.s200}>
         <Text type="title" size="medium" appearance="gray">
-          Validaciones opcionales
+          Por validar durante el trámite
         </Text>
 
         <Grid
@@ -63,6 +65,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
                 failDetails={validation.failDetails}
                 value={validation.value}
                 key={validation.id}
+                pending={loadingValids}
               />
             ))}
         </Grid>

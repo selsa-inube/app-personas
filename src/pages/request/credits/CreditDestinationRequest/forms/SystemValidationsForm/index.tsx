@@ -19,6 +19,8 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
 
   const [dynamicSchema] = useState(validationSchema);
 
+  const [loadingValids, setLoadingValids] = useState(true);
+
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicSchema,
@@ -29,6 +31,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
+    setLoadingValids(true);
     setTimeout(() => {
       formik.setValues({
         ...formik.values,
@@ -37,6 +40,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
           value: "success",
         })),
       });
+      setLoadingValids(false);
     }, 1000);
   }, []);
 
@@ -50,7 +54,8 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
     }
   }, [formik.values.validations]);
 
-  return <SystemValidationsFormUI formik={formik} />;
+  return <SystemValidationsFormUI loadingValids={loadingValids}
+   formik={formik} />;
 });
 
 export { SystemValidationsForm };
