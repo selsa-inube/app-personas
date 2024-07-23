@@ -1,16 +1,15 @@
 import { ValidationDetailsModal } from "@components/modals/general/ValidationDetailsModal";
+import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
+import { SkeletonLine } from "@inubekit/skeleton";
+import { Stack } from "@inubekit/stack";
 import { useState } from "react";
-import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { IValidation } from "src/model/entity/service";
 import { OutlineCard } from "../OutlineCard";
-import { Spinner } from "@inubekit/spinner";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
 
 function ValidationCard(props: IValidation) {
-  const { label, failDetails, value } = props;
+  const { label, failDetails, value, pending } = props;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -18,49 +17,71 @@ function ValidationCard(props: IValidation) {
     setShowModal(!showModal);
   };
 
+  if (pending) {
+    return (
+      <OutlineCard>
+        <Stack
+          padding={`${inube.spacing.s200} ${inube.spacing.s250}`}
+          gap={inube.spacing.s100}
+          direction="column"
+          width="100%"
+        >
+          <SkeletonLine width="100%" animated />
+          <SkeletonLine width="40px" animated />
+        </Stack>
+      </OutlineCard>
+    );
+  }
+
   return (
     <>
       <OutlineCard>
         <Stack
-          padding={`${inube.spacing.s150} ${inube.spacing.s250}`}
+          padding={`${inube.spacing.s200} ${inube.spacing.s250}`}
           gap={inube.spacing.s200}
           alignItems="center"
         >
-          <Stack>
-            {value === "success" ? (
-              <Icon
-                appearance="success"
-                icon={<MdOutlineCheckCircle />}
-                size="20px"
-                spacing="narrow"
-              />
-            ) : value === "fail" ? (
-              <Icon
-                appearance="danger"
-                icon={<MdOutlineHighlightOff />}
-                size="20px"
-                spacing="narrow"
-              />
-            ) : (
-              <Spinner appearance="primary" size="small" transparent />
-            )}
-          </Stack>
-
           <Stack direction="column" gap={inube.spacing.s075}>
             <Text type="label" size="large">
               {label}
             </Text>
-            {value === "fail" && (
-              <Text
-                type="body"
-                size="small"
-                appearance="danger"
-                cursorHover
-                onClick={handleToggleModal}
-              >
-                Ver detalles
-              </Text>
-            )}
+
+            <Stack
+              wrap="wrap"
+              direction="row"
+              width="100%"
+              gap={inube.spacing.s100}
+            >
+              {value === "success" ? (
+                <Tag
+                  label="Cumple"
+                  appearance="success"
+                  modifier="clear"
+                  textAppearance="success"
+                />
+              ) : (
+                value === "fail" && (
+                  <Tag
+                    label="No cumple"
+                    appearance="danger"
+                    modifier="clear"
+                    textAppearance="danger"
+                  />
+                )
+              )}
+
+              {value === "fail" && (
+                <Text
+                  type="body"
+                  size="small"
+                  appearance="danger"
+                  cursorHover
+                  onClick={handleToggleModal}
+                >
+                  Ver detalles
+                </Text>
+              )}
+            </Stack>
           </Stack>
         </Stack>
       </OutlineCard>

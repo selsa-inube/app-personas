@@ -4,6 +4,7 @@ interface IValidation {
   failDetails?: string;
   value?: "fail" | "success" | "pending";
   isRequired?: boolean;
+  pending?: boolean;
 }
 
 interface IValidations {
