@@ -18,7 +18,7 @@ interface ICreditConditionsEntry {
   product: IDestinationProduct;
   simulationWithQuota: boolean;
   amount: number;
-  peridiocity: string;
+  periodicity: string;
   deadline: string;
   quota: number;
   cycleInterest: number;

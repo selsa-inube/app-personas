@@ -13,4 +13,19 @@ const StyledAmortizationContainer = styled.div`
   }
 `;
 
-export { StyledAmortizationContainer };
+const StyledAmortizationDocument = styled.iframe`
+  @page {
+    size: letter;
+    margin: 0;
+  }
+
+  @media print {
+    body {
+      -webkit-print-color-adjust: exact;
+    }
+  }
+
+  display: none;
+`;
+
+export { StyledAmortizationContainer, StyledAmortizationDocument };

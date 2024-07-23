@@ -1,7 +1,7 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
 import { activeDM } from "src/model/domains/general/activedm";
-import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsCdatRequest } from "../../../types";
 import { IConditionsEntry } from "../../ConditionsForm/types";
@@ -29,7 +29,7 @@ const renderConditionsSummary = (values: IConditionsEntry) => (
   <Stack direction="column" gap="s100" width="100%">
     <BoxAttribute
       label="Pago de intereses:"
-      value={peridiocityDM.valueOf(values.interestPayment)?.value}
+      value={periodicityDM.valueOf(values.interestPayment)?.value}
     />
     <BoxAttribute label="Número de días:" value={values.deadlineDays} />
   </Stack>

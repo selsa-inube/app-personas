@@ -10,9 +10,11 @@ import { TextField } from "@design/input/TextField";
 import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
-import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import {
   currencyFormat,
   parseCurrencyString,
@@ -20,8 +22,6 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -213,16 +213,16 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
 
                         <Select
                           label="Periodicidad"
-                          name="peridiocity"
-                          id="peridiocity"
-                          value={formik.values.peridiocity}
+                          name="periodicity"
+                          id="periodicity"
+                          value={formik.values.periodicity}
                           size="compact"
                           isFullWidth
-                          options={peridiocityDM.options}
+                          options={periodicityDM.options}
                           onBlur={formik.handleBlur}
-                          errorMessage={formik.errors.peridiocity}
+                          errorMessage={formik.errors.periodicity}
                           isDisabled={loading}
-                          state={getFieldState(formik, "peridiocity")}
+                          state={getFieldState(formik, "periodicity")}
                           onChange={customHandleChange}
                           readOnly
                         />
@@ -239,7 +239,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         load={loadingSimulation}
                         disabled={
                           !formik.values.amount ||
-                          !formik.values.peridiocity ||
+                          !formik.values.periodicity ||
                           (!formik.values.deadline && !formik.values.quota) ||
                           !!formik.errors.deadline
                         }
@@ -268,7 +268,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       <BoxAttribute
                         label="Cuota:"
                         value={`${currencyFormat(formik.values.quota)} / ${
-                          peridiocityDM.valueOf(formik.values.peridiocity)
+                          periodicityDM.valueOf(formik.values.periodicity)
                             ?.value
                         }`}
                       />

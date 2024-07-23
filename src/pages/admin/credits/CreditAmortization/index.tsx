@@ -12,7 +12,8 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { useContext, useEffect, useState } from "react";
+import { Grid } from "@inubekit/grid";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   MdArrowBack,
   MdOutlineAttachMoney,
@@ -21,6 +22,8 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
+import { copyElementToIFrame } from "src/utils/print";
+import { extractAttribute } from "src/utils/products";
 import { AmortizationDocument } from "./AmortizationDocument";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import {
@@ -30,10 +33,12 @@ import {
   creditAmortizationTableActions,
   customAppearanceCallback,
 } from "./config/table";
-import { StyledAmortizationContainer } from "./styles";
+import {
+  StyledAmortizationContainer,
+  StyledAmortizationDocument,
+} from "./styles";
 import { ISelectedProductState } from "./types";
 import { validateCreditsAndAmortization } from "./utils";
-import { Grid } from "@inubekit/grid";
 
 const renderAmortizationTable = (selectedProduct?: ISelectedProductState) => {
   if (!selectedProduct || !selectedProduct.credit.amortization) return;
@@ -65,6 +70,7 @@ function CreditAmortization() {
   const { credits, setCredits } = useContext(CreditsContext);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const amortizationDocRef = useRef<HTMLIFrameElement>(null);
 
   const crumbsAmortization = [
     {
@@ -130,10 +136,48 @@ function CreditAmortization() {
     navigate(`/my-credits/${id}/credit-amortization`);
   };
 
+  const amortizationTable = renderAmortizationTable(selectedProduct);
+
+  const handlePrintDocument = () => {
+    if (!amortizationDocRef.current || !selectedProduct?.credit) return;
+
+    const documentAttributes = selectedProduct.credit.attributes;
+
+    const loanDate = extractAttribute(documentAttributes, "loan_date");
+    const nextPayment = extractAttribute(documentAttributes, "next_payment");
+    const nextPaymentValue = extractAttribute(
+      documentAttributes,
+      "next_payment_value",
+    );
+    const loanValue = extractAttribute(documentAttributes, "loan_value");
+    const periodicity = extractAttribute(documentAttributes, "periodicity");
+    const paymentMethod = extractAttribute(
+      documentAttributes,
+      "payment_method",
+    );
+
+    copyElementToIFrame(
+      <AmortizationDocument
+        productName={selectedProduct.option.title}
+        productNumber={selectedProduct.option.id}
+        loanDate={loanDate?.value.toString() || ""}
+        nextPaymentDate={nextPayment?.value.toString() || ""}
+        loanValue={Number(loanValue?.value || 0)}
+        nextPaymentValue={Number(nextPaymentValue?.value || 0)}
+        periodicity={periodicity?.value.toString() || ""}
+        paymentMethod={paymentMethod?.value.toString() || ""}
+        tableElement={amortizationTable}
+      />,
+      amortizationDocRef.current,
+    );
+
+    setTimeout(() => {
+      amortizationDocRef?.current?.contentWindow?.print();
+    }, 500);
+  };
+
   const attributes =
     selectedProduct && extractCreditAmortizationAttrs(selectedProduct.credit);
-
-  const amortizationTable = renderAmortizationTable(selectedProduct);
 
   return (
     <>
@@ -191,22 +235,16 @@ function CreditAmortization() {
             </StyledAmortizationContainer>
 
             <Stack width="100%" justifyContent="flex-end">
-              <Button iconBefore={<MdOutlineFileDownload />} spacing="compact">
+              <Button
+                iconBefore={<MdOutlineFileDownload />}
+                spacing="compact"
+                onClick={handlePrintDocument}
+              >
                 Descargar
               </Button>
             </Stack>
 
-            <AmortizationDocument
-              productName="FANÁTICOS VIAJEROS"
-              productNumber="10 - 231016759"
-              date={new Date("2021-10-01")}
-              nextPaymentDate={new Date("2021-10-01")}
-              amount={8300000}
-              nextPaymentValue={500000}
-              periodicity="Mensual"
-              paymentMethod="Grúas de occidente"
-              tableElement={amortizationTable}
-            />
+            <StyledAmortizationDocument ref={amortizationDocRef} />
           </Stack>
         )}
 

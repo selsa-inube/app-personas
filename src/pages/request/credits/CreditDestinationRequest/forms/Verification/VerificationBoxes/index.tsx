@@ -1,10 +1,13 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
-import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -19,9 +22,6 @@ import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm
 import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";
-import { Icon } from "@inubekit/icon";
-import { Grid } from "@inubekit/grid";
-import { inube } from "@design/tokens";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -64,7 +64,7 @@ const renderCreditConditionsVerification = (
         <BoxAttribute label="Plazo:" value={`${values.deadline} Meses`} />
         <BoxAttribute
           label="Cuota:"
-          value={`${currencyFormat(values.quota)} / ${peridiocityDM.valueOf(values.peridiocity)?.value}`}
+          value={`${currencyFormat(values.quota)} / ${periodicityDM.valueOf(values.periodicity)?.value}`}
         />
         <BoxAttribute
           label="Tasa de interés:"

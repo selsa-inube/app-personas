@@ -1,4 +1,4 @@
-import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
@@ -22,7 +22,7 @@ const creditConditions: ICreditConditionsEntry = {
     maxAmount: 0,
   },
   amount: 0,
-  peridiocity: peridiocityDM.MONTHLY.id,
+  periodicity: periodicityDM.MONTHLY.id,
   deadline: "",
   simulationWithQuota: false,
   quota: 0,

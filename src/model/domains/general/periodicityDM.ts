@@ -1,6 +1,6 @@
 import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
-const peridiocityDataDomain = {
+const periodicityDataDomain = {
   SINGLE: {
     id: "single",
     value: "Pago único",
@@ -31,14 +31,14 @@ const peridiocityDataDomain = {
   },
 };
 
-const peridiocityDMValueOf = (id: string) =>
-  convertDomainToOptions(peridiocityDataDomain).find((city) => city.id === id);
+const periodicityDMValueOf = (id: string) =>
+  convertDomainToOptions(periodicityDataDomain).find((city) => city.id === id);
 
-const peridiocityDM = {
-  ...peridiocityDataDomain,
-  list: convertDomainToList(peridiocityDataDomain),
-  options: convertDomainToOptions(peridiocityDataDomain),
-  valueOf: peridiocityDMValueOf,
+const periodicityDM = {
+  ...periodicityDataDomain,
+  list: convertDomainToList(periodicityDataDomain),
+  options: convertDomainToOptions(periodicityDataDomain),
+  valueOf: periodicityDMValueOf,
 };
 
-export { peridiocityDM };
+export { periodicityDM };
