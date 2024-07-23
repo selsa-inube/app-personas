@@ -61,6 +61,7 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
       <OutlineCard>
         <Grid
           templateColumns="1fr 1fr"
+          autoRows="auto"
           gap={inube.spacing.s100}
           padding={inube.spacing.s150}
           width="100%"
