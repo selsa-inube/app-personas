@@ -1,6 +1,7 @@
-import { Stack } from "@design/layout/Stack";
+import { Stack } from "@inubekit/stack";
 import { Tab, TabProps } from "../Tab";
 import { StyledTabs } from "./styles";
+import { inube } from "@design/tokens";
 
 interface TabsProps {
   tabs: TabProps[];
@@ -20,7 +21,7 @@ function Tabs(props: TabsProps) {
 
   return (
     <StyledTabs>
-      <Stack gap="24px">
+      <Stack gap={inube.spacing.s300}>
         {tabs.map((tab) => (
           <Tab
             key={tab.id}

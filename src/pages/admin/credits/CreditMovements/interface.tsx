@@ -5,7 +5,6 @@ import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs, IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -17,6 +16,7 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { generateAttributes } from "./config/attributeRecord";
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
 import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 
 const renderMovements = (
@@ -25,7 +25,7 @@ const renderMovements = (
   handleOpenModal: (movement: IMovement) => void,
 ) =>
   movements.map((movement, index) => (
-    <Stack direction="column" gap="s200" key={movement.id}>
+    <Stack direction="column" gap={inube.spacing.s200} key={movement.id}>
       {index !== 0 && <Divider dashed />}
       <RecordCard
         id={movement.id}
@@ -74,7 +74,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsMovements} />
         <Title
           title="Movimientos"
@@ -91,7 +91,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Select
             id="creditProducts"
             onChange={handleChangeProduct}
@@ -102,7 +102,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
             readOnly={productsOptions.length === 1}
           />
           <StyledMovementsContainer $isMobile={isMobile}>
-            <Stack direction="column" gap="s200" width="100%">
+            <Stack direction="column" gap={inube.spacing.s200} width="100%">
               {selectedProduct && selectedProduct.movements.length > 0 ? (
                 renderMovements(
                   selectedProduct.movements,
@@ -114,7 +114,7 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
                   direction="column"
                   justifyContent="center"
                   alignItems="center"
-                  gap="s100"
+                  gap={inube.spacing.s100}
                 >
                   <Text type="title" size="small" appearance="dark">
                     No tienes movimientos

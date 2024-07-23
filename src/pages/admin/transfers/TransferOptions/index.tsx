@@ -6,7 +6,6 @@ import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -21,6 +20,7 @@ import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { initialMessageState } from "src/utils/messages";
 import { crumbsTransferOptions } from "./config/navigation";
 import { sendTransferRequest } from "./utils";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 
 function TransferOptions() {
@@ -83,7 +83,7 @@ function TransferOptions() {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsTransferOptions} />
         <Title
           title="Transferencias"
@@ -100,13 +100,13 @@ function TransferOptions() {
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s400">
+        <Stack direction="column" gap={inube.spacing.s400}>
           <Text type="title" size="small">
             Aquí encontraras las opciones que puedes usar para gestionar tus
             transferencias.
           </Text>
 
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <RequestCard
               title="Deposita en tu cuenta de ahorros"
               descriptions={[

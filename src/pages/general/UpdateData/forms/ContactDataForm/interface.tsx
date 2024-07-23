@@ -1,10 +1,10 @@
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
-import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
@@ -27,7 +27,10 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap={isMobile ? "s300" : "s400"}>
+      <Stack
+        direction="column"
+        gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
+      >
         <Fieldset title="Dirección" size={isMobile ? "small" : "medium"}>
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
@@ -245,7 +248,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         </Fieldset>
 
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

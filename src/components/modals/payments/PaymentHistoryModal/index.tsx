@@ -1,6 +1,5 @@
 import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import React from "react";
 import { createPortal } from "react-dom";
@@ -17,6 +16,8 @@ import {
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderAttribute = (
   label: string,
@@ -63,7 +64,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
@@ -146,7 +147,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
             </StyledResume>
           )}
           {isMobile && (
-            <Stack direction="column" gap="s100">
+            <Stack direction="column" gap={inube.spacing.s100}>
               <Stack justifyContent="space-between">
                 <Stack width="64%">
                   <Text type="label" size="medium" appearance="dark" ellipsis>
@@ -167,7 +168,11 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
             {paymentHistoryData.products &&
               paymentHistoryData.products.map((product, index) => (
                 <React.Fragment key={index}>
-                  <Stack key={index} direction="column" gap="s100">
+                  <Stack
+                    key={index}
+                    direction="column"
+                    gap={inube.spacing.s100}
+                  >
                     {Object.entries(product).map(
                       ([label, value], innerIndex) => (
                         <React.Fragment key={innerIndex}>

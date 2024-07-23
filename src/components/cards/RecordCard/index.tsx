@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getRecordDescriptionType } from "@pages/admin/cards/Card/config/product";
@@ -15,6 +14,8 @@ import { currencyFormat } from "src/utils/currency";
 import { Tag, TagProps } from "@design/data/Tag";
 import { formatPrimaryDate } from "src/utils/dates";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const getIconForRecordType = (type: EMovementType) => {
   return (
@@ -102,22 +103,22 @@ function RecordCard(props: RecordCardProps) {
   };
 
   return (
-    <Stack direction="column" gap="s100">
-      <Stack justifyContent="space-between" gap={isMobile ? "s150" : "s500"}>
+    <Stack direction="column" gap={inube.spacing.s100}>
+      <Stack justifyContent="space-between" gap={isMobile ? inube.spacing.s150 : inube.spacing.s500}>
         {loading ? (
           <>
-            <Stack gap="s150">
+            <Stack gap={inube.spacing.s150}>
               <SkeletonLine animated width="16px" />
               <SkeletonLine animated width={isMobile ? "232px" : "582px"} />
             </Stack>
-            <Stack gap="s150">
+            <Stack gap={inube.spacing.s150}>
               {!isMobile && <SkeletonLine animated width="80px" />}
               <SkeletonLine animated width="16px" />
             </Stack>
           </>
         ) : (
           <>
-            <Stack gap="s150">
+            <Stack gap={inube.spacing.s150}>
               {getIconForRecordType(type)}
               <Text type="label" size="medium">
                 {`${getRecordDescriptionType(type, description)} ${description}`}
@@ -131,7 +132,7 @@ function RecordCard(props: RecordCardProps) {
                 />
               )}
             </Stack>
-            <Stack gap="s150">
+            <Stack gap={inube.spacing.s150}>
               {!isMobile && (
                 <Text type="label" size="medium">
                   {formattedValue}
@@ -151,7 +152,7 @@ function RecordCard(props: RecordCardProps) {
           </>
         )}
       </Stack>
-      <Stack direction="column" gap="s050">
+      <Stack direction="column" gap={inube.spacing.s050}>
         {loading ? (
           <>
             <SkeletonLine animated width="150px" />
@@ -161,7 +162,7 @@ function RecordCard(props: RecordCardProps) {
         ) : (
           attributes.map((attribute, index) => (
             <Stack key={attribute.id} justifyContent="space-between">
-              <Stack gap="s075">
+              <Stack gap={inube.spacing.s075}>
                 <Text type="label" size="medium" appearance="gray">
                   {attribute.label}:
                 </Text>

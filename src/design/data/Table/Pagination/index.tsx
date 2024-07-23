@@ -6,8 +6,9 @@ import {
 } from "react-icons/md";
 
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { StyledButton } from "./styles";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface PaginationProps {
   firstEntryInPage: number;
@@ -44,7 +45,7 @@ const Pagination = (props: PaginationProps) => {
         alignItems="center"
         padding="0px 25px 0px"
         margin="0px 0px 0px 16px"
-        gap="8px"
+        gap={inube.spacing.s100}
       >
         <StyledButton onClick={onStartPage} aria-label="go to the first page">
           <MdFirstPage />

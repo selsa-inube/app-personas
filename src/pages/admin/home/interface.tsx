@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { capitalizeEachWord } from "src/utils/texts";
 
@@ -43,6 +42,7 @@ import {
   savingAttributeBreakpoints,
   sumNetValue,
 } from "./config/products";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 
 function renderHomeContent(
@@ -62,20 +62,20 @@ function renderHomeContent(
   requestCard: boolean,
 ) {
   return (
-    <Stack direction="column" gap="s300">
+    <Stack direction="column" gap={inube.spacing.s300}>
       <Text type="title" size="medium">
         Tus productos
       </Text>
       <Box {...savingsBox(requestSaving)}>
         <Stack direction="column">
           {loadingSavings ? (
-            <Stack direction="column" gap="s200">
+            <Stack direction="column" gap={inube.spacing.s200}>
               <Product loading />
               <Product loading />
             </Stack>
           ) : (
             <>
-              <Stack direction="column" gap="s200">
+              <Stack direction="column" gap={inube.spacing.s200}>
                 {!loadingSavings &&
                   savingsAccounts &&
                   savingsAccounts.length === 0 &&
@@ -91,13 +91,13 @@ function renderHomeContent(
                   )}
               </Stack>
 
-              <Stack direction="column" gap="s250">
+              <Stack direction="column" gap={inube.spacing.s250}>
                 {savingsAccounts && savingsAccounts.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       Cuentas
                     </Text>
-                    <Stack direction="column" gap="s100">
+                    <Stack direction="column" gap={inube.spacing.s100}>
                       {savingsAccounts.map((saving) => (
                         <Product
                           key={saving.id}
@@ -117,11 +117,11 @@ function renderHomeContent(
                 )}
 
                 {savingsContributions && savingsContributions.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       Aportes estatutarios
                     </Text>
-                    <Stack direction="column" gap="s100">
+                    <Stack direction="column" gap={inube.spacing.s100}>
                       {savingsContributions.map((saving) => (
                         <Product
                           key={saving.id}
@@ -141,11 +141,11 @@ function renderHomeContent(
                 )}
 
                 {cdats && cdats.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       CDAT
                     </Text>
-                    <Stack direction="column" gap="s100">
+                    <Stack direction="column" gap={inube.spacing.s100}>
                       {cdats.map((investment) => (
                         <Product
                           key={investment.id}
@@ -165,11 +165,11 @@ function renderHomeContent(
                 )}
 
                 {programmedSavings && programmedSavings.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       Ahorros programados
                     </Text>
-                    <Stack direction="column" gap="s100">
+                    <Stack direction="column" gap={inube.spacing.s100}>
                       {programmedSavings.map((investment) => (
                         <Product
                           key={investment.id}
@@ -194,7 +194,7 @@ function renderHomeContent(
                   (programmedSavings && programmedSavings.length > 0)) && (
                   <Stack
                     justifyContent="flex-end"
-                    gap="s100"
+                    gap={inube.spacing.s100}
                     padding={`0 ${inube.spacing.s100} 0`}
                   >
                     <Text type="label" size="large">
@@ -212,7 +212,7 @@ function renderHomeContent(
                 )}
 
                 {commitments.length > 0 && (
-                  <Stack direction="column" gap="s200">
+                  <Stack direction="column" gap={inube.spacing.s200}>
                     <Text type="label" size="medium">
                       Compromisos
                     </Text>
@@ -228,7 +228,7 @@ function renderHomeContent(
       </Box>
 
       <Box {...creditsBox(requestCredit)}>
-        <Stack direction="column" gap="s100">
+        <Stack direction="column" gap={inube.spacing.s100}>
           {loadingCredits ? (
             <>
               <Product loading />
@@ -260,7 +260,7 @@ function renderHomeContent(
       </Box>
 
       <Box {...cardsBox(requestCard)}>
-        <Stack direction="column" gap="s100">
+        <Stack direction="column" gap={inube.spacing.s100}>
           {loadingCards ? (
             <>
               <Product loading />
@@ -347,8 +347,8 @@ function HomeUI(props: HomeUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s200">
-        <Stack gap="s100">
+      <Stack direction="column" gap={inube.spacing.s200}>
+        <Stack gap={inube.spacing.s100}>
           <Text type="label" size="medium" appearance="gray">
             Fecha y hora:
           </Text>

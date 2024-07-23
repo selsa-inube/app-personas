@@ -1,8 +1,8 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { MdOpenInNew } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { IAttribute } from "src/model/entity/product";
@@ -92,7 +92,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
         <>
           <Stack direction="column">
             <Stack
-              gap="s075"
+              gap={inube.spacing.s075}
               justifyContent="space-between"
               padding={`0px 0px ${inube.spacing.s075} 0px`}
             >
@@ -122,7 +122,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
 
             <Stack
               justifyContent="end"
-              gap="s075"
+              gap={inube.spacing.s075}
               padding={`0px 0px ${inube.spacing.s075} 0px`}
             >
               <Text type="label" size="medium">
@@ -193,7 +193,7 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
             </Text>
           </Stack>
 
-          <Stack direction="column" gap="s100">
+          <Stack direction="column" gap={inube.spacing.s100}>
             <Text type="label" size="medium">
               {`${title} (${consumptionValue})`}
             </Text>
@@ -204,7 +204,11 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
               {`Abono capital (${capitalPayment})`}
             </Text>
           </Stack>
-          <Stack direction="column" alignItems="center" gap="s100">
+          <Stack
+            direction="column"
+            alignItems="center"
+            gap={inube.spacing.s100}
+          >
             <Text type="label" size="medium">
               Próximo pago
             </Text>
@@ -215,7 +219,11 @@ function CurrentConsumptionBox(props: CurrentConsumptionProps) {
               {minCapitalPayment}
             </Text>
           </Stack>
-          <Stack direction="column" alignItems="center" gap="s100">
+          <Stack
+            direction="column"
+            alignItems="center"
+            gap={inube.spacing.s100}
+          >
             <Text type="label" size="medium">
               Próximo total
             </Text>

@@ -3,7 +3,6 @@ import { Button } from "@design/input/Button";
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
 import { TextField } from "@design/input/TextField";
 import { InputState } from "@design/input/TextField/types";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
 import { Divider } from "@inubekit/divider";
@@ -25,6 +24,8 @@ import {
 } from "./styles";
 import { IApplyPayOption, getOptions } from "./utils";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface CustomValueModalProps {
   portalId: string;
@@ -135,7 +136,7 @@ function CustomValueModal(props: CustomValueModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium">
               Pagar otro valor
@@ -157,7 +158,7 @@ function CustomValueModal(props: CustomValueModalProps) {
 
         <Divider dashed />
 
-        <Stack gap="s200" direction="column">
+        <Stack gap={inube.spacing.s200} direction="column">
           <TextField
             id="customValue"
             name="customValue"
@@ -192,7 +193,7 @@ function CustomValueModal(props: CustomValueModalProps) {
           <>
             <Divider dashed />
 
-            <Stack gap="s200" direction="column">
+            <Stack gap={inube.spacing.s200} direction="column">
               <StyledApprovedValue>
                 <Icon appearance="success" icon={<MdOutlineCheckCircle />} />
                 <Text type="label" size="large">
@@ -232,7 +233,11 @@ function CustomValueModal(props: CustomValueModalProps) {
                 </>
               )}
 
-              <Stack width="100%" justifyContent="flex-end" gap="s100">
+              <Stack
+                width="100%"
+                justifyContent="flex-end"
+                gap={inube.spacing.s100}
+              >
                 <Button
                   appearance="gray"
                   variant="outlined"

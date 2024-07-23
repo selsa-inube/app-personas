@@ -1,6 +1,5 @@
 import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
 import { termsAndConditionsTexts } from "./config/termsAndConditions";
@@ -8,6 +7,8 @@ import {
   StyledTermsAndConditionsContainer,
   StyledTermsAndConditionsInfo,
 } from "./styles";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 function generateTermsAndConditionsParagraphs(texts: string[]) {
   return texts.map((text, index) => (
@@ -32,7 +33,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
       <Stack
         direction="column"
         alignItems="flex-start"
-        gap={isMobile ? "s200" : "s300"}
+        gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
       >
         <StyledTermsAndConditionsContainer $isMobile={isMobile}>
           <StyledTermsAndConditionsInfo $isMobile={isMobile}>

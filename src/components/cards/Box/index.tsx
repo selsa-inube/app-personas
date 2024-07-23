@@ -3,7 +3,6 @@ import { MdOutlineChevronRight } from "react-icons/md";
 
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { Divider } from "@inubekit/divider";
 import { SkeletonLine } from "@inubekit/skeleton";
 
@@ -14,6 +13,8 @@ import {
 } from "@design/input/Button/types";
 import { Icon } from "@inubekit/icon";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface BoxProps {
   icon?: React.JSX.Element;
@@ -69,7 +70,7 @@ function Box(props: BoxProps) {
 
   return (
     <StyledBox>
-      <Stack direction="column" gap="s200">
+      <Stack direction="column" gap={inube.spacing.s200}>
         <Stack justifyContent="space-between" alignItems="center">
           <StyledLink to={navigateTo}>
             {icon && (
@@ -82,7 +83,7 @@ function Box(props: BoxProps) {
                 cursorHover
               />
             )}
-            <Stack direction="column" gap="s025">
+            <Stack direction="column" gap={inube.spacing.s025}>
               {loading ? (
                 <SkeletonLine animated width="200px" />
               ) : (
@@ -91,7 +92,7 @@ function Box(props: BoxProps) {
                 </Text>
               )}
 
-              <Stack gap="s100" alignItems="center">
+              <Stack gap={inube.spacing.s100} alignItems="center">
                 {loading ? (
                   <SkeletonLine animated width="200px" />
                 ) : (
@@ -99,7 +100,7 @@ function Box(props: BoxProps) {
                     {subtitle}
                   </Text>
                 )}
-                <Stack gap="s050">
+                <Stack gap={inube.spacing.s050}>
                   {tags.length > 0 &&
                     tags.map((tag) => <Tag {...tag} key={tag.label} />)}
                 </Stack>

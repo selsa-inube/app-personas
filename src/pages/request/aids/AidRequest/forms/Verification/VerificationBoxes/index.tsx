@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Stack } from "@design/layout/Stack";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { reimbursementTypeDM } from "src/model/domains/general/updateData/economicActivity/reimbursementTypeDM";
 import { currencyFormat } from "src/utils/currency";
@@ -13,6 +12,7 @@ import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
 
@@ -134,7 +134,7 @@ const renderDocumentaryRequirementsVerification = (
 
 const renderDisbursementVerification = (values: IDisbursementEntry) => {
   return (
-    <Stack width="100%" gap="s100" direction="column">
+    <Stack width="100%" gap={inube.spacing.s100} direction="column">
       <BoxAttribute
         label="Desembolso:"
         value={reimbursementTypeDM.valueOf(values.disbursementMethod)?.value}

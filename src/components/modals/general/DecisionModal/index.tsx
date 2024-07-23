@@ -1,13 +1,14 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { ButtonAppearanceType } from "@design/input/Button/types";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
 import { Blanket } from "@inubekit/blanket";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface DecisionModalProps {
   title: string;
@@ -71,7 +72,7 @@ function DecisionModal(props: DecisionModalProps) {
         <Text type="body" appearance="gray" size={isMobile ? "small" : "large"}>
           {description}
         </Text>
-        <Stack justifyContent="flex-end" gap="8px">
+        <Stack justifyContent="flex-end" gap={inube.spacing.s100}>
           <Button
             appearance="gray"
             onClick={onCloseModal}

@@ -1,9 +1,9 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
-import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
@@ -33,7 +33,7 @@ function QuotaFormUI(props: QuotaFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Grid
           gap={inube.spacing.s300}
           templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}

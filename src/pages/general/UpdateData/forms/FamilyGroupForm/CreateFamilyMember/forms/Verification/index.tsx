@@ -2,8 +2,8 @@ import { Fieldset } from "@design/input/Fieldset";
 import { IFormsCreateFamilyMember } from "../../types";
 import { VerificationFieldsets } from "./VerificationFieldsets";
 import { updateDataFieldsetTitles } from "./config/fieldset";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
+import { Stack } from "@inubekit/stack";
 
 interface VerificationProps {
   updatedData: IFormsCreateFamilyMember;

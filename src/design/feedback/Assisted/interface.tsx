@@ -1,6 +1,5 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack, MdArrowForward, MdCheckCircle } from "react-icons/md";
@@ -13,6 +12,7 @@ import {
 } from "./styles";
 import { IStep } from "./types";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 
 interface AssistedUIProps {
   steps: IStep[];
@@ -76,8 +76,8 @@ function AssistedUI(props: AssistedUIProps) {
             disabled={currentStepIndex === 0}
           />
         )}
-        <Stack direction="column" width="100%" gap="s150">
-          <Stack gap="s100" alignItems="center">
+        <Stack direction="column" width="100%" gap={inube.spacing.s150}>
+          <Stack gap={inube.spacing.s100} alignItems="center">
             <StyledCircleId>
               <Text
                 type="label"
@@ -106,7 +106,7 @@ function AssistedUI(props: AssistedUIProps) {
               <Stack
                 justifyContent="space-between"
                 alignItems="center"
-                gap="s100"
+                gap={inube.spacing.s100}
               >
                 <StyledBarContainer
                   $smallScreen={isMobile}

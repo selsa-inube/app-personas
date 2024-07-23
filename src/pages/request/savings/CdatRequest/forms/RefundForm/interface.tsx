@@ -1,10 +1,11 @@
 import { Select } from "@design/input/Select";
-import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { ISelectOption } from "@design/input/Select/types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface RefundFormUIProps {
   formik: FormikValues;
@@ -13,7 +14,7 @@ interface RefundFormUIProps {
   savingOptions: ISelectOption[];
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   customHandleRefundMethod: (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => void;
   customHandleAccount: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -32,7 +33,10 @@ function RefundFormUI(props: RefundFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap={isMobile ? "s150" : "s300"}>
+      <Stack
+        direction="column"
+        gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+      >
         <Select
           label="Forma de reembolso"
           name="refundMethod"

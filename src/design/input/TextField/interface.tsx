@@ -3,7 +3,6 @@ import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { Label } from "../Label";
 import { ITextFieldMessage } from "./types";
 
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { TextFieldProps } from ".";
 import { DropdownMenu } from "../DropdownMenu";
@@ -17,6 +16,7 @@ import {
   StyledInputContainer,
   StyledValidMessageContainer,
 } from "./styles";
+import { Stack } from "@inubekit/stack";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -99,13 +99,13 @@ function TextFieldUI(props: TextFieldUIProps) {
 
   return (
     <StyledContainer $isFullWidth={isFullWidth} $isDisabled={isDisabled}>
-      <Stack direction="column" gap="s050">
+      <Stack direction="column" gap={inube.spacing.s050}>
         {(label || isRequired || (!isDisabled && maxLength && withCounter)) && (
           <Stack justifyContent="space-between" alignItems="center">
             {(label || isRequired) && (
               <Stack
                 width="100%"
-                gap="4px"
+                gap={inube.spacing.s050}
                 alignItems="center"
                 padding={`0px 0px 0px ${inube.spacing.s200}`}
               >

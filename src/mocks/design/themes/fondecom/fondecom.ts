@@ -604,7 +604,7 @@ const fondecomTheme = {
       },
       contrast: {
         color: {
-          regular: palette.neutral.n900,
+          regular: palette.neutral.n300,
           disabled: palette.neutral.n70,
           hover: palette.neutral.n900,
         },

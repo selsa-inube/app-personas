@@ -1,10 +1,10 @@
 import { Text } from "@design/data/Text";
 import { MdOutlineDelete } from "react-icons/md";
 import { StyledCard } from "./styles";
-import { Stack } from "@design/layout/Stack";
 import { currencyFormat } from "src/utils/currency";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 
 interface PaymentInformationCardProps {
   id: string;

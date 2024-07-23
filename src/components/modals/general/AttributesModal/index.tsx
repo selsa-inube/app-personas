@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -9,6 +8,8 @@ import { StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface AttributesModalProps {
   title: string;
@@ -35,7 +36,7 @@ function AttributesModal(props: AttributesModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
               {title}
@@ -56,7 +57,7 @@ function AttributesModal(props: AttributesModalProps) {
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" gap="s150">
+        <Stack direction="column" gap={inube.spacing.s150}>
           {attributes.length === 0
             ? "No se han encontrado resultados"
             : limitedAttributes.map((attribute, index) => (

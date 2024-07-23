@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineAdd, MdOutlineClose, MdOutlineRemove } from "react-icons/md";
@@ -8,6 +7,8 @@ import { StyledBody, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderSpecification = (
   label: string,
@@ -15,7 +16,7 @@ const renderSpecification = (
   icon: React.JSX.Element,
 ) => (
   <Stack justifyContent="space-between" width="100%" alignItems="center">
-    <Stack gap="s100" alignItems="center">
+    <Stack gap={inube.spacing.s100} alignItems="center">
       <Icon icon={icon} appearance="dark" size="16px" spacing="narrow" />
       <Text type="label" size="medium" appearance="dark">
         {label}
@@ -54,7 +55,7 @@ function CreditDisbursementModal(props: CreditDisbursementModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">
               Desembolso aproximado
@@ -81,7 +82,7 @@ function CreditDisbursementModal(props: CreditDisbursementModalProps) {
             Especificación del desembolso
           </Text>
 
-          <Stack direction="column" gap="s100">
+          <Stack direction="column" gap={inube.spacing.s100}>
             {spec.amount !== 0 &&
               renderSpecification(
                 "Monto",

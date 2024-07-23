@@ -3,7 +3,6 @@ import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/ut
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
@@ -16,6 +15,8 @@ import {
   StyledInputRadio,
 } from "./styles";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderOptions = (
   options: IPaymentOption[],
@@ -34,7 +35,7 @@ const renderOptions = (
         onClick={() => !valueIsZero && onChangeOption(option)}
         $disabled={valueIsZero}
       >
-        <Stack gap="s150">
+        <Stack gap={inube.spacing.s150}>
           <StyledInputRadio
             id={option.id}
             type="radio"
@@ -45,7 +46,7 @@ const renderOptions = (
             value={option.id}
             disabled={valueIsZero}
           />
-          <Stack direction="column" gap="s0">
+          <Stack direction="column" gap={inube.spacing.s0}>
             <Text type="label" size="medium" disabled={valueIsZero}>
               {option.label}:
             </Text>
@@ -153,20 +154,20 @@ function PaymentCard(props: PaymentCardProps) {
   return (
     <>
       <StyledCardContainer>
-        <Stack direction="column" gap="s050">
+        <Stack direction="column" gap={inube.spacing.s050}>
           <Text type="label" size="large" ellipsis>
             {title}
           </Text>
           <Text type="body" size="medium" appearance="gray">
             {id}
           </Text>
-          <Stack gap="s100" wrap="wrap">
+          <Stack gap={inube.spacing.s100} wrap="wrap">
             {tags.length > 0 &&
               tags.map((tag) => <Tag {...tag} key={tag.label} />)}
           </Stack>
         </Stack>
 
-        <Stack direction="column" gap="s100">
+        <Stack direction="column" gap={inube.spacing.s100}>
           {renderOptions(options, isMobile, handleChangeOption, selectedOption)}
         </Stack>
 
@@ -182,7 +183,7 @@ function PaymentCard(props: PaymentCardProps) {
             Eliminar
           </Button>
 
-          <Stack gap="s100" alignItems="center">
+          <Stack gap={inube.spacing.s100} alignItems="center">
             {allowCustomValue && hastOtherValue && (
               <Icon
                 icon={<MdOutlineEdit />}

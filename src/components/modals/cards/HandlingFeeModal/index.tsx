@@ -1,5 +1,4 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -9,6 +8,8 @@ import { StyledBody, StyledModal } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface HandlingFeeModalProps {
   portalId: string;
@@ -53,7 +54,7 @@ function HandlingFeeModal(props: HandlingFeeModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
@@ -84,12 +85,12 @@ function HandlingFeeModal(props: HandlingFeeModalProps) {
         <Divider dashed />
 
         <StyledBody>
-          <Stack direction="column" gap="s200">
-            <Stack gap="s200" direction="column">
+          <Stack direction="column" gap={inube.spacing.s200}>
+            <Stack gap={inube.spacing.s200} direction="column">
               {formatAndFilterHandlingFeeAttributes(handlingFee).map(
                 (quota) => (
                   <Stack
-                    gap="s100"
+                    gap={inube.spacing.s100}
                     alignItems="center"
                     width="100%"
                     key={quota.id}

@@ -2,13 +2,13 @@ import { Table } from "@design/data/Table";
 import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { programmedSavingsRatesMocks } from "@mocks/products/savings/programmedSavingsRates.mocks";
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { goalRatesTableTitles } from "./config/table";
+import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 
 interface GoalFormUIProps {
@@ -26,8 +26,12 @@ function GoalFormUI(props: GoalFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s400">
-        <Stack direction="column" gap="s200" alignItems="flex-start">
+      <Stack direction="column" gap={inube.spacing.s400}>
+        <Stack
+          direction="column"
+          gap={inube.spacing.s200}
+          alignItems="flex-start"
+        >
           <Switch
             label="Prefiero ingresar la fecha"
             id="goalWithDate"
@@ -89,7 +93,11 @@ function GoalFormUI(props: GoalFormUIProps) {
           </Grid>
         </Stack>
 
-        <Stack direction="column" gap="s100" alignItems="flex-start">
+        <Stack
+          direction="column"
+          gap={inube.spacing.s100}
+          alignItems="flex-start"
+        >
           <Text type="title" size="small">
             Tasas de interés vigentes
           </Text>
