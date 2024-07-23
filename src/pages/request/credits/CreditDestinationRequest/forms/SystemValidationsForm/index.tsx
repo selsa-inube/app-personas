@@ -54,8 +54,9 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
     }
   }, [formik.values.validations]);
 
-  return <SystemValidationsFormUI loadingValids={loadingValids}
-   formik={formik} />;
+  return (
+    <SystemValidationsFormUI loadingValids={loadingValids} formik={formik} />
+  );
 });
 
 export { SystemValidationsForm };
