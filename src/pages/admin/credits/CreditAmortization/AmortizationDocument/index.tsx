@@ -6,14 +6,13 @@ import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
 
 interface AmortizationDocumentProps {
   productName: string;
   productNumber: string;
-  date: Date;
-  nextPaymentDate: Date;
-  amount: number;
+  loanDate: string;
+  nextPaymentDate: string;
+  loanValue: number;
   nextPaymentValue: number;
   periodicity: string;
   paymentMethod: string;
@@ -24,9 +23,9 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
   const {
     productName,
     productNumber,
-    date,
+    loanDate,
     nextPaymentDate,
-    amount,
+    loanValue,
     nextPaymentValue,
     periodicity,
     paymentMethod,
@@ -37,7 +36,7 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
     <Stack
       padding={`${inube.spacing.s600} ${inube.spacing.s800}`}
       gap={inube.spacing.s250}
-      width="100%"
+      width="21cm"
       direction="column"
     >
       <Stack justifyContent="flex-start" width="100%">
@@ -72,7 +71,7 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
             </Text>
 
             <Text type="body" size="small" appearance="gray">
-              {formatPrimaryDate(date)}
+              {loanDate}
             </Text>
           </Stack>
 
@@ -82,7 +81,7 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
             </Text>
 
             <Text type="body" size="small" appearance="gray">
-              {formatPrimaryDate(nextPaymentDate)}
+              {nextPaymentDate}
             </Text>
           </Stack>
 
@@ -92,7 +91,7 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
             </Text>
 
             <Text type="body" size="small" appearance="gray">
-              {currencyFormat(amount)}
+              {currencyFormat(loanValue)}
             </Text>
           </Stack>
 

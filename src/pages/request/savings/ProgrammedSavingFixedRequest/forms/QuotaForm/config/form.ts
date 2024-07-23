@@ -7,7 +7,7 @@ import {
 } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { monthlyPayDayDM } from "src/model/domains/general/monthlyPayDay";
-import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { weeklyPayDayDM } from "src/model/domains/general/weeklyPayDay";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
@@ -29,47 +29,47 @@ const payDay = (periodicityId: string) => {
 
 const forbiddenOptionsMap: IDynamicFormOptions = {
   physicalCollectionChannels: [
-    peridiocityDM.SINGLE.id,
-    peridiocityDM.QUARTERLY.id,
+    periodicityDM.SINGLE.id,
+    periodicityDM.QUARTERLY.id,
   ],
-  automaticDebit: [peridiocityDM.SINGLE.id, peridiocityDM.QUARTERLY.id],
+  automaticDebit: [periodicityDM.SINGLE.id, periodicityDM.QUARTERLY.id],
   payrollDiscount: [
-    peridiocityDM.SINGLE.id,
-    peridiocityDM.QUARTERLY.id,
-    peridiocityDM.SEMIANNUAL.id,
-    peridiocityDM.ANNUAL.id,
+    periodicityDM.SINGLE.id,
+    periodicityDM.QUARTERLY.id,
+    periodicityDM.SEMIANNUAL.id,
+    periodicityDM.ANNUAL.id,
   ],
   northCranes: [
-    peridiocityDM.SINGLE.id,
-    peridiocityDM.WEEKLY.id,
-    peridiocityDM.QUARTERLY.id,
+    periodicityDM.SINGLE.id,
+    periodicityDM.WEEKLY.id,
+    periodicityDM.QUARTERLY.id,
   ],
   westernCranes: [
-    peridiocityDM.SINGLE.id,
-    peridiocityDM.WEEKLY.id,
-    peridiocityDM.QUARTERLY.id,
-    peridiocityDM.ANNUAL.id,
+    periodicityDM.SINGLE.id,
+    periodicityDM.WEEKLY.id,
+    periodicityDM.QUARTERLY.id,
+    periodicityDM.ANNUAL.id,
   ],
   easternCranes: [
-    peridiocityDM.SINGLE.id,
-    peridiocityDM.WEEKLY.id,
-    peridiocityDM.QUARTERLY.id,
-    peridiocityDM.SEMIANNUAL.id,
-    peridiocityDM.ANNUAL.id,
+    periodicityDM.SINGLE.id,
+    periodicityDM.WEEKLY.id,
+    periodicityDM.QUARTERLY.id,
+    periodicityDM.SEMIANNUAL.id,
+    periodicityDM.ANNUAL.id,
   ],
   southCranes: [
-    peridiocityDM.SINGLE.id,
-    peridiocityDM.WEEKLY.id,
-    peridiocityDM.BIWEEKLY.id,
-    peridiocityDM.QUARTERLY.id,
-    peridiocityDM.SEMIANNUAL.id,
-    peridiocityDM.ANNUAL.id,
+    periodicityDM.SINGLE.id,
+    periodicityDM.WEEKLY.id,
+    periodicityDM.BIWEEKLY.id,
+    periodicityDM.QUARTERLY.id,
+    periodicityDM.SEMIANNUAL.id,
+    periodicityDM.ANNUAL.id,
   ],
 };
 
 const filterPeriodicityOptions = (paymentMethod: string) => {
   const forbiddenOptions = forbiddenOptionsMap[paymentMethod] || [];
-  return peridiocityDM.options.filter(
+  return periodicityDM.options.filter(
     (option) => !forbiddenOptions.includes(option.id),
   );
 };

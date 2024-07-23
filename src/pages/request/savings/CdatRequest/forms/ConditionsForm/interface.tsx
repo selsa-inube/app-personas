@@ -8,15 +8,15 @@ import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 import { FormikValues } from "formik";
-import { peridiocityDM } from "src/model/domains/general/peridiocityDM";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles } from "./config/table";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 
 interface ConditionsFormUIProps {
   formik: FormikValues;
@@ -77,7 +77,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                   value={formik.values.interestPayment}
                   size="compact"
                   isFullWidth
-                  options={peridiocityDM.options}
+                  options={periodicityDM.options}
                   onBlur={formik.handleBlur}
                   errorMessage={formik.errors.interestPayment}
                   isDisabled={loading}
@@ -176,9 +176,9 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       Resultados de la simulación
                     </Text>
                     <Grid
-                       gap={inube.spacing.s300}
-                       templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-                       autoRows="auto"
+                      gap={inube.spacing.s300}
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      autoRows="auto"
                     >
                       <Stack direction="column" gap={inube.spacing.s150}>
                         <BoxAttribute
@@ -213,7 +213,11 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
           </Fieldset>
         </Stack>
 
-        <Stack direction="column" gap={inube.spacing.s100} alignItems="flex-start">
+        <Stack
+          direction="column"
+          gap={inube.spacing.s100}
+          alignItems="flex-start"
+        >
           <Text type="title" size="small">
             Tasas de interés vigentes
           </Text>

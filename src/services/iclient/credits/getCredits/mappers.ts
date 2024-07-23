@@ -1,6 +1,6 @@
 import { TagProps } from "@design/data/Tag";
 import { creditAmortizationTypeDM } from "src/model/domains/credits/creditAmortizationTypeDM";
-import { creditPaymentTypeDM } from "src/model/domains/credits/creditPaymentTypeDM";
+import { creditPeriodicityDM } from "src/model/domains/credits/creditPeriodicityDM";
 
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
@@ -169,10 +169,10 @@ const mapCreditApiToEntity = (
       value: Number(outstandingDues || 0),
     },
     {
-      id: "peridiocity",
+      id: "periodicity",
       label: "Periodicidad",
       value:
-        creditPaymentTypeDM.valueOf(String(credit.periodicityOfQuota))?.value ||
+        creditPeriodicityDM.valueOf(String(credit.periodicityOfQuota))?.value ||
         "",
     },
     {
