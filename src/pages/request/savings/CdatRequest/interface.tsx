@@ -4,7 +4,6 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { Button } from "@design/input/Button";
-import { Grid } from "@design/layout/Grid";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -20,6 +19,7 @@ import { RefundForm } from "./forms/RefundForm";
 import { CdatRequestSummary } from "./forms/Summary";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 const renderStepContent = (
   currentStep: number,
@@ -129,7 +129,13 @@ function CdatRequestUI(props: CdatRequestUIProps) {
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack

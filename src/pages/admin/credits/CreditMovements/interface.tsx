@@ -5,7 +5,6 @@ import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Grid } from "@design/layout/Grid";
 import { Breadcrumbs, IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -18,6 +17,7 @@ import { generateAttributes } from "./config/attributeRecord";
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 const renderMovements = (
   movements: IMovement[],
@@ -85,11 +85,11 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
       </Stack>
 
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap={inube.spacing.s300}>
           <Select

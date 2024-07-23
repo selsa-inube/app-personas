@@ -6,7 +6,6 @@ import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Grid } from "@design/layout/Grid";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -22,6 +21,7 @@ import { initialMessageState } from "src/utils/messages";
 import { crumbsTransferOptions } from "./config/navigation";
 import { sendTransferRequest } from "./utils";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 function TransferOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -94,7 +94,7 @@ function TransferOptions() {
       </Stack>
 
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }

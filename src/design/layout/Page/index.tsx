@@ -7,8 +7,8 @@ import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
-import { Grid } from "../Grid";
 import { StyledMain, StyledPage } from "./styles";
+import { Grid } from "@inubekit/grid";
 
 interface PageProps {
   withNav?: boolean;

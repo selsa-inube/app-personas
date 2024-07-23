@@ -1,6 +1,5 @@
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
@@ -10,6 +9,7 @@ import { StyledProduct, StyledSkeletonContainer } from "./styles";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
 
 interface ProductProps {
   title?: string;
@@ -49,7 +49,7 @@ function Product(props: ProductProps) {
 
   return (
     <StyledProduct $empty={empty} to={navigateTo}>
-      <Grid templateColumns="auto 1fr" gap="s100">
+      <Grid templateColumns="auto 1fr" gap={inube.spacing.s100}>
         <Stack gap={inube.spacing.s100} alignItems="center">
           {loading ? (
             <SkeletonIcon animated size="32px" />
@@ -119,7 +119,7 @@ function Product(props: ProductProps) {
               <Grid
                 autoFlow="column"
                 templateColumns={`repeat(${visibleAttributes.length}, minmax(100px, max-content))`}
-                gap="s300"
+                gap={inube.spacing.s300}
                 justifyContent="end"
                 alignItems="center"
                 alignContent="center"

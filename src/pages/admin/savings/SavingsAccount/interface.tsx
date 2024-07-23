@@ -9,7 +9,6 @@ import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Grid } from "@design/layout/Grid";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -51,6 +50,7 @@ import {
 import { generateAttributes } from "./config/attributeRecord";
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -153,11 +153,11 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
       </Stack>
 
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack direction="column" gap={inube.spacing.s300}>
           <Select
@@ -188,7 +188,11 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             }
           >
             <Stack direction="column" gap={inube.spacing.s100}>
-              <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
+              <Grid
+                templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                gap={inube.spacing.s100}
+                autoRows="auto"
+              >
                 {formatedAttributes.map((attr) => (
                   <BoxAttribute
                     key={attr.id}

@@ -1,10 +1,10 @@
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
-import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
@@ -33,10 +33,15 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
       >
         <Fieldset title="Dirección" size={isMobile ? "small" : "medium"}>
           <Grid
-            templateColumns={
-              isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
+            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            autoRows="auto"
+            gap={
+              isMobile
+                ? inube.spacing.s150
+                : isTablet
+                  ? inube.spacing.s200
+                  : inube.spacing.s300
             }
-            gap={isMobile ? "s150" : isTablet ? "s200" : "s300"}
           >
             <TextField
               label="País"
@@ -158,10 +163,15 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         </Fieldset>
         <Fieldset title="Teléfono" size={isMobile ? "small" : "medium"}>
           <Grid
-            templateColumns={
-              isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
+            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            autoRows="auto"
+            gap={
+              isMobile
+                ? inube.spacing.s150
+                : isTablet
+                  ? inube.spacing.s200
+                  : inube.spacing.s300
             }
-            gap={isMobile ? "s150" : isTablet ? "s200" : "s300"}
           >
             <TextField
               label="Teléfono"
@@ -207,10 +217,15 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
           size={isMobile ? "small" : "medium"}
         >
           <Grid
-            templateColumns={
-              isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
+            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            autoRows="auto"
+            gap={
+              isMobile
+                ? inube.spacing.s150
+                : isTablet
+                  ? inube.spacing.s200
+                  : inube.spacing.s300
             }
-            gap={isMobile ? "s150" : isTablet ? "s200" : "s300"}
           >
             <TextField
               label="Correo electronico"

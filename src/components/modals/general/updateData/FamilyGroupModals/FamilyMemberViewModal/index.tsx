@@ -3,7 +3,6 @@ import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
@@ -19,6 +18,7 @@ import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
 
 interface FamilyMemberViewModalProps {
@@ -72,10 +72,9 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             size={isMobile ? "medium" : "small"}
           >
             <Grid
-              gap="s200"
-              templateColumns={
-                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-              }
+              gap={inube.spacing.s200}
+              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+              autoRows="auto"
             >
               <Select
                 label="Tipo de documento"
@@ -151,10 +150,9 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             size={isMobile ? "medium" : "small"}
           >
             <Grid
-              gap="s200"
-              templateColumns={
-                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-              }
+              gap={inube.spacing.s200}
+              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+              autoRows="auto"
             >
               <TextField
                 label="Celular"
@@ -186,10 +184,9 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             size={isMobile ? "medium" : "small"}
           >
             <Grid
-              gap="s200"
-              templateColumns={
-                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-              }
+              gap={inube.spacing.s200}
+              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+              autoRows="auto"
             >
               <Select
                 label="Parentesco"

@@ -11,8 +11,8 @@ import {
   ButtonAppearanceType,
   ButtonVariantType,
 } from "@design/input/Button/types";
-import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 import { Icon } from "@inubekit/icon";
+import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 

@@ -2,7 +2,6 @@ import { getHeader } from "@config/header";
 import { getNav } from "@config/nav";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Grid } from "@design/layout/Grid";
 import { Header } from "@design/navigation/Header";
 import { Nav } from "@design/navigation/Nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -15,6 +14,7 @@ import { StyledMain, StyledPage } from "./styles";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
 
 function PageNotFound() {
   const { pathname: currentLocation } = useLocation();

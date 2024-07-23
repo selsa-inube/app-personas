@@ -4,7 +4,6 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
-import { Grid } from "@design/layout/Grid";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -28,6 +27,7 @@ import {
 import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 function renderMySavingsContent(
   commitments: ICommitment[],
@@ -260,7 +260,7 @@ function MySavingsUI(props: MySavingsUIProps) {
         </Stack>
       ) : (
         <Grid
-          gap="s600"
+          gap={inube.spacing.s600}
           margin={`${inube.spacing.s600} 0 0`}
           templateColumns="1fr 250px"
         >

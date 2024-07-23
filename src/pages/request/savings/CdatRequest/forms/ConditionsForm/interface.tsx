@@ -6,7 +6,6 @@ import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
@@ -17,6 +16,7 @@ import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles } from "./config/table";
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 interface ConditionsFormUIProps {
   formik: FormikValues;
@@ -53,7 +53,11 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
             size={isMobile ? "medium" : "small"}
           >
             <Stack direction="column" gap={inube.spacing.s300}>
-              <Grid gap="s300" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+              <Grid
+                gap={inube.spacing.s300}
+                templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                autoRows="auto"
+              >
                 <TextField
                   label="Valor de la inversión"
                   placeholder=""
@@ -102,7 +106,11 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                     size="large"
                   />
                 </Stack>
-                <Grid gap="s300" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+                <Grid
+                  gap={inube.spacing.s300}
+                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                  autoRows="auto"
+                >
                   {formik.values.simulationWithDate ? (
                     <TextField
                       label="Fecha"
@@ -168,8 +176,9 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       Resultados de la simulación
                     </Text>
                     <Grid
-                      gap="s300"
-                      templateColumns={isMobile ? "1fr" : "1fr 1fr"}
+                       gap={inube.spacing.s300}
+                       templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                       autoRows="auto"
                     >
                       <Stack direction="column" gap={inube.spacing.s150}>
                         <BoxAttribute

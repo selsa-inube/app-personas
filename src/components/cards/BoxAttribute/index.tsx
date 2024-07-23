@@ -1,10 +1,11 @@
 import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IAttribute } from "src/model/entity/product";
 import { ButtonAttribute } from "./ButtonAttribute";
 import { StyledBoxAttribute } from "./styles";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 interface BoxAttributeProps {
   label?: string;
@@ -37,11 +38,11 @@ function BoxAttribute(props: BoxAttributeProps) {
   return (
     <StyledBoxAttribute $smallScreen={isMobile}>
       <Grid
-        templateColumns={direction === "column" ? "1fr" : "auto 1fr"}
         width="100%"
-        gap="s100"
         alignItems="center"
+        gap={inube.spacing.s100}
         justifyContent="space-between"
+        templateColumns={direction === "column" ? "1fr" : "auto 1fr"}
       >
         {label && (
           <Text

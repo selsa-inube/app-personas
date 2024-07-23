@@ -1,13 +1,13 @@
 import { DestinationCard } from "@components/cards/credits/DestinationCard";
 import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
-import { Grid } from "@design/layout/Grid";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { loadingProductsData } from "./config/loading";
 import { IDestinationEntry, IDestinationProduct } from "./types";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
 
 interface DestinationFormUIProps {
@@ -58,7 +58,11 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                   ¿Cuál es el producto que deseas?
                 </Text>
 
-                <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s200">
+                <Grid
+                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                  autoRows="auto"
+                  gap={inube.spacing.s200}
+                >
                   {loadingProducts &&
                     loadingProductsData.map((product) => (
                       <DestinationCard

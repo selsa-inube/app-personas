@@ -1,9 +1,9 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
-import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
@@ -34,7 +34,11 @@ function QuotaFormUI(props: QuotaFormUIProps) {
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
-        <Grid gap="s300" templateColumns={isTablet ? "1fr" : "repeat(2, 1fr)"}>
+        <Grid
+          gap={inube.spacing.s300}
+          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+        >
           <TextField
             label="Valor periódico del ahorro"
             placeholder="Ingresa el valor a ahorrar"
@@ -72,7 +76,11 @@ function QuotaFormUI(props: QuotaFormUIProps) {
           />
         </Grid>
 
-        <Grid gap="s300" templateColumns={isTablet ? "1fr" : "repeat(2, 1fr)"}>
+        <Grid
+          gap={inube.spacing.s300}
+          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+        >
           {!formik.values.paymentMethod ? (
             <TextField
               label="Periodicidad"

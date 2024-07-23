@@ -7,7 +7,6 @@ import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
@@ -22,6 +21,7 @@ import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -72,7 +72,11 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                   Información del crédito
                 </Text>
 
-                <Grid gap="s200" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+                <Grid
+                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                  autoRows="auto"
+                  gap={inube.spacing.s200}
+                >
                   <OutlineCard>
                     <Stack
                       direction="column"
@@ -147,8 +151,9 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                   )}
 
                   <Grid
-                    gap="s200"
-                    templateColumns={isMobile ? "1fr" : "1fr 1fr"}
+                    templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                    autoRows="auto"
+                    gap={inube.spacing.s200}
                   >
                     <TextField
                       label="¿Cuánto dinero necesitas?"
@@ -256,8 +261,9 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     </Text>
 
                     <Grid
-                      templateColumns={isMobile ? "1fr" : "1fr 1fr"}
-                      gap="s200"
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      autoRows="auto"
+                      gap={inube.spacing.s100}
                     >
                       <BoxAttribute
                         label="Cuota:"
