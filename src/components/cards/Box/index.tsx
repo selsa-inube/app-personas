@@ -12,8 +12,8 @@ import {
   ButtonAppearanceType,
   ButtonVariantType,
 } from "@design/input/Button/types";
-import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 import { Icon } from "@inubekit/icon";
+import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 
 interface BoxProps {
   icon?: React.JSX.Element;
