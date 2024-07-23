@@ -40,14 +40,17 @@ import {
 import { ISelectedProductState } from "./types";
 import { validateCreditsAndAmortization } from "./utils";
 
-const renderAmortizationTable = (selectedProduct?: ISelectedProductState) => {
+const renderAmortizationTable = (
+  selectedProduct?: ISelectedProductState,
+  allColumns?: boolean,
+) => {
   if (!selectedProduct || !selectedProduct.credit.amortization) return;
 
   return (
     <Table
       portalId="modals"
       titles={amortizationTableTitles}
-      breakpoints={amortizationTableBreakpoints}
+      breakpoints={allColumns ? undefined : amortizationTableBreakpoints}
       actions={creditAmortizationTableActions}
       entries={amortizationNormalizeEntries(
         selectedProduct.credit.amortization,
@@ -136,11 +139,9 @@ function CreditAmortization() {
     navigate(`/my-credits/${id}/credit-amortization`);
   };
 
-  const amortizationTable = renderAmortizationTable(selectedProduct);
-
   const handlePrintDocument = () => {
     if (!amortizationDocRef.current || !selectedProduct?.credit) return;
-
+    const amortizationTable = renderAmortizationTable(selectedProduct, true);
     const documentAttributes = selectedProduct.credit.attributes;
 
     const loanDate = extractAttribute(documentAttributes, "loan_date");
@@ -175,6 +176,8 @@ function CreditAmortization() {
       amortizationDocRef?.current?.contentWindow?.print();
     }, 500);
   };
+
+  const amortizationTable = renderAmortizationTable(selectedProduct, false);
 
   const attributes =
     selectedProduct && extractCreditAmortizationAttrs(selectedProduct.credit);
