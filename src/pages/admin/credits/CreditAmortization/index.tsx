@@ -3,7 +3,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { ExportModal } from "@components/modals/general/ExportModal";
 import { quickLinks } from "@config/quickLinks";
-import { Table } from "@design/data/Table";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -20,47 +19,22 @@ import { MdArrowBack, MdInput, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
+import { formatSecondaryDate } from "src/utils/dates";
 import { convertJSXToHTML } from "src/utils/print";
-import { extractAttribute } from "src/utils/products";
-import { AmortizationDocument } from "./AmortizationDocument";
 import { extractCreditAmortizationAttrs } from "./config/product";
-import {
-  amortizationNormalizeEntries,
-  amortizationTableBreakpoints,
-  amortizationTableTitles,
-  creditAmortizationTableActions,
-  customAppearanceCallback,
-} from "./config/table";
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import {
+  getAmortizationDocument,
+  renderAmortizationTable,
+} from "./utilRenders";
 import { validateCreditsAndAmortization } from "./utils";
 
-const renderAmortizationTable = (
-  selectedProduct?: ISelectedProductState,
-  allColumns?: boolean,
-) => {
-  if (!selectedProduct || !selectedProduct.credit.amortization) return;
-
-  const duplicatedActions = [...creditAmortizationTableActions];
-
-  if (allColumns) {
-    duplicatedActions.pop();
-  }
-
-  return (
-    <Table
-      portalId="modals"
-      titles={amortizationTableTitles}
-      breakpoints={allColumns ? undefined : amortizationTableBreakpoints}
-      actions={duplicatedActions}
-      entries={amortizationNormalizeEntries(
-        selectedProduct.credit.amortization,
-      )}
-      customAppearance={customAppearanceCallback}
-      hideMobileResume
-    />
-  );
-};
+const doc = new jsPDF({
+  orientation: "portrait",
+  unit: "px",
+  format: "letter",
+});
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -143,45 +117,10 @@ function CreditAmortization() {
   const handleDownloadDocument = () => {
     if (!selectedProduct?.credit) return;
 
-    const amortizationTable = renderAmortizationTable(selectedProduct, true);
-    const documentAttributes = selectedProduct.credit.attributes;
-
-    const loanDate = extractAttribute(documentAttributes, "loan_date");
-    const nextPayment = extractAttribute(documentAttributes, "next_payment");
-    const nextPaymentValue = extractAttribute(
-      documentAttributes,
-      "next_payment_value",
-    );
-    const loanValue = extractAttribute(documentAttributes, "loan_value");
-    const periodicity = extractAttribute(documentAttributes, "periodicity");
-    const paymentMethod = extractAttribute(
-      documentAttributes,
-      "payment_method",
-    );
-
-    const amortizationDocument = (
-      <AmortizationDocument
-        productName={selectedProduct.option.title}
-        productNumber={selectedProduct.option.id}
-        loanDate={loanDate?.value.toString() || ""}
-        nextPaymentDate={nextPayment?.value.toString() || ""}
-        loanValue={Number(loanValue?.value || 0)}
-        nextPaymentValue={Number(nextPaymentValue?.value || 0)}
-        periodicity={periodicity?.value.toString() || ""}
-        paymentMethod={paymentMethod?.value.toString() || ""}
-        tableElement={amortizationTable}
-      />
-    );
-
-    const doc = new jsPDF({
-      orientation: "portrait",
-      unit: "px",
-      format: "letter",
-    });
-
-    doc.html(convertJSXToHTML(amortizationDocument), {
+    const today = new Date();
+    doc.html(convertJSXToHTML(getAmortizationDocument(selectedProduct)), {
       callback: (pdf) => {
-        pdf.save("document.pdf");
+        pdf.save(`plan-de-pagos-${formatSecondaryDate(today)}.pdf`);
       },
       width: 397,
       windowWidth: 816,
@@ -192,57 +131,24 @@ function CreditAmortization() {
 
   const handleShareDocument = () => {
     if (!selectedProduct?.credit) return;
+    const today = new Date();
 
-    const amortizationTable = renderAmortizationTable(selectedProduct, true);
-    const documentAttributes = selectedProduct.credit.attributes;
-
-    const loanDate = extractAttribute(documentAttributes, "loan_date");
-    const nextPayment = extractAttribute(documentAttributes, "next_payment");
-    const nextPaymentValue = extractAttribute(
-      documentAttributes,
-      "next_payment_value",
-    );
-    const loanValue = extractAttribute(documentAttributes, "loan_value");
-    const periodicity = extractAttribute(documentAttributes, "periodicity");
-    const paymentMethod = extractAttribute(
-      documentAttributes,
-      "payment_method",
-    );
-
-    const amortizationDocument = (
-      <AmortizationDocument
-        productName={selectedProduct.option.title}
-        productNumber={selectedProduct.option.id}
-        loanDate={loanDate?.value.toString() || ""}
-        nextPaymentDate={nextPayment?.value.toString() || ""}
-        loanValue={Number(loanValue?.value || 0)}
-        nextPaymentValue={Number(nextPaymentValue?.value || 0)}
-        periodicity={periodicity?.value.toString() || ""}
-        paymentMethod={paymentMethod?.value.toString() || ""}
-        tableElement={amortizationTable}
-      />
-    );
-
-    const doc = new jsPDF({
-      orientation: "portrait",
-      unit: "px",
-      format: "letter",
-    });
-
-    doc.html(convertJSXToHTML(amortizationDocument), {
+    doc.html(convertJSXToHTML(getAmortizationDocument(selectedProduct)), {
       callback: (pdf) => {
-        // Convert PDF to Blob
         const pdfBlob = pdf.output("blob");
 
-        // Check if the Web Share API is supported
         if (navigator.share) {
           navigator.share({
-            title: "Amortization Document",
-            text: "Here is the amortization document you requested.",
+            title: "Plan de pagos",
+            text: "Comparte tu plan de pagos en formato PDF",
             files: [
-              new File([pdfBlob], "document.pdf", {
-                type: "application/pdf",
-              }),
+              new File(
+                [pdfBlob],
+                `plan-de-pagos-${formatSecondaryDate(today)}.pdf`,
+                {
+                  type: "application/pdf",
+                },
+              ),
             ],
           });
         } else {

@@ -82,4 +82,27 @@ const parseSpanishDate = (spanishDate: string) => {
   return new Date(parseInt(year), numberMonth, parseInt(day));
 };
 
-export { formatPrimaryDate, formatTraceabilityDate, parseSpanishDate };
+const formatSecondaryDate = (date: Date, withTime?: boolean): string => {
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = date.getMonth().toString().padStart(2, "0");
+  const year = date.getFullYear();
+
+  if (withTime) {
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    return `${day}-${month}-${year}-${hours}-${minutes}-${ampm}`;
+  } else {
+    return `${day}-${month}-${year}`;
+  }
+};
+
+export {
+  formatPrimaryDate,
+  formatSecondaryDate,
+  formatTraceabilityDate,
+  parseSpanishDate,
+};
