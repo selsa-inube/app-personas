@@ -42,4 +42,8 @@ const copyElementToIFrame = (
   });
 };
 
-export { copyElementToIFrame };
+const convertJSXToHTML = (element: React.ReactElement) => {
+  return ReactDOMServer.renderToString(element);
+}
+
+export { copyElementToIFrame, convertJSXToHTML };

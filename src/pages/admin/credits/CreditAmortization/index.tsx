@@ -1,6 +1,7 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { ExportModal } from "@components/modals/general/ExportModal";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Title } from "@design/data/Title";
@@ -13,16 +14,13 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
-import { useContext, useEffect, useRef, useState } from "react";
-import {
-  MdArrowBack,
-  MdOutlineAttachMoney,
-  MdOutlineFileDownload,
-} from "react-icons/md";
+import jsPDF from "jspdf";
+import { useContext, useEffect, useState } from "react";
+import { MdArrowBack, MdInput, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
-import { copyElementToIFrame } from "src/utils/print";
+import { convertJSXToHTML } from "src/utils/print";
 import { extractAttribute } from "src/utils/products";
 import { AmortizationDocument } from "./AmortizationDocument";
 import { extractCreditAmortizationAttrs } from "./config/product";
@@ -33,10 +31,7 @@ import {
   creditAmortizationTableActions,
   customAppearanceCallback,
 } from "./config/table";
-import {
-  StyledAmortizationContainer,
-  StyledAmortizationDocument,
-} from "./styles";
+import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
 import { validateCreditsAndAmortization } from "./utils";
 
@@ -46,12 +41,18 @@ const renderAmortizationTable = (
 ) => {
   if (!selectedProduct || !selectedProduct.credit.amortization) return;
 
+  const duplicatedActions = [...creditAmortizationTableActions];
+
+  if (allColumns) {
+    duplicatedActions.pop();
+  }
+
   return (
     <Table
       portalId="modals"
       titles={amortizationTableTitles}
       breakpoints={allColumns ? undefined : amortizationTableBreakpoints}
-      actions={creditAmortizationTableActions}
+      actions={duplicatedActions}
       entries={amortizationNormalizeEntries(
         selectedProduct.credit.amortization,
       )}
@@ -73,7 +74,7 @@ function CreditAmortization() {
   const { credits, setCredits } = useContext(CreditsContext);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-  const amortizationDocRef = useRef<HTMLIFrameElement>(null);
+  const [showExportModal, setShowExportModal] = useState(false);
 
   const crumbsAmortization = [
     {
@@ -139,8 +140,9 @@ function CreditAmortization() {
     navigate(`/my-credits/${id}/credit-amortization`);
   };
 
-  const handlePrintDocument = () => {
-    if (!amortizationDocRef.current || !selectedProduct?.credit) return;
+  const handleDownloadDocument = () => {
+    if (!selectedProduct?.credit) return;
+
     const amortizationTable = renderAmortizationTable(selectedProduct, true);
     const documentAttributes = selectedProduct.credit.attributes;
 
@@ -157,7 +159,7 @@ function CreditAmortization() {
       "payment_method",
     );
 
-    copyElementToIFrame(
+    const amortizationDocument = (
       <AmortizationDocument
         productName={selectedProduct.option.title}
         productNumber={selectedProduct.option.id}
@@ -168,13 +170,94 @@ function CreditAmortization() {
         periodicity={periodicity?.value.toString() || ""}
         paymentMethod={paymentMethod?.value.toString() || ""}
         tableElement={amortizationTable}
-      />,
-      amortizationDocRef.current,
+      />
     );
 
-    setTimeout(() => {
-      amortizationDocRef?.current?.contentWindow?.print();
-    }, 500);
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+    });
+
+    doc.html(convertJSXToHTML(amortizationDocument), {
+      callback: (pdf) => {
+        pdf.save("document.pdf");
+      },
+      width: 397,
+      windowWidth: 816,
+      x: 0,
+      y: 0,
+    });
+  };
+
+  const handleShareDocument = () => {
+    if (!selectedProduct?.credit) return;
+
+    const amortizationTable = renderAmortizationTable(selectedProduct, true);
+    const documentAttributes = selectedProduct.credit.attributes;
+
+    const loanDate = extractAttribute(documentAttributes, "loan_date");
+    const nextPayment = extractAttribute(documentAttributes, "next_payment");
+    const nextPaymentValue = extractAttribute(
+      documentAttributes,
+      "next_payment_value",
+    );
+    const loanValue = extractAttribute(documentAttributes, "loan_value");
+    const periodicity = extractAttribute(documentAttributes, "periodicity");
+    const paymentMethod = extractAttribute(
+      documentAttributes,
+      "payment_method",
+    );
+
+    const amortizationDocument = (
+      <AmortizationDocument
+        productName={selectedProduct.option.title}
+        productNumber={selectedProduct.option.id}
+        loanDate={loanDate?.value.toString() || ""}
+        nextPaymentDate={nextPayment?.value.toString() || ""}
+        loanValue={Number(loanValue?.value || 0)}
+        nextPaymentValue={Number(nextPaymentValue?.value || 0)}
+        periodicity={periodicity?.value.toString() || ""}
+        paymentMethod={paymentMethod?.value.toString() || ""}
+        tableElement={amortizationTable}
+      />
+    );
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+    });
+
+    doc.html(convertJSXToHTML(amortizationDocument), {
+      callback: (pdf) => {
+        // Convert PDF to Blob
+        const pdfBlob = pdf.output("blob");
+
+        // Check if the Web Share API is supported
+        if (navigator.share) {
+          navigator.share({
+            title: "Amortization Document",
+            text: "Here is the amortization document you requested.",
+            files: [
+              new File([pdfBlob], "document.pdf", {
+                type: "application/pdf",
+              }),
+            ],
+          });
+        } else {
+          console.warn("Web Share API is not supported in this browser");
+        }
+      },
+      width: 397,
+      windowWidth: 816,
+      x: 0,
+      y: 0,
+    });
+  };
+
+  const handleToggleExportModal = () => {
+    setShowExportModal(!showExportModal);
   };
 
   const amortizationTable = renderAmortizationTable(selectedProduct, false);
@@ -239,20 +322,27 @@ function CreditAmortization() {
 
             <Stack width="100%" justifyContent="flex-end">
               <Button
-                iconBefore={<MdOutlineFileDownload />}
+                iconBefore={<MdInput />}
                 spacing="compact"
-                onClick={handlePrintDocument}
+                onClick={handleToggleExportModal}
               >
-                Descargar
+                Exportar
               </Button>
             </Stack>
-
-            <StyledAmortizationDocument ref={amortizationDocRef} />
           </Stack>
         )}
 
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
+
+      {showExportModal && (
+        <ExportModal
+          portalId="modals"
+          onDownload={handleDownloadDocument}
+          onShare={handleShareDocument}
+          onCloseModal={handleToggleExportModal}
+        />
+      )}
     </>
   );
 }
