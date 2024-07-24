@@ -120,7 +120,7 @@ function CreditAmortization() {
     const today = new Date();
     doc.html(convertJSXToHTML(getAmortizationDocument(selectedProduct)), {
       callback: (pdf) => {
-        pdf.save(`plan-de-pagos-${formatSecondaryDate(today)}.pdf`);
+        pdf.save(`plan-de-pagos-${formatSecondaryDate(today, true)}.pdf`);
       },
       width: 397,
       windowWidth: 816,
@@ -144,7 +144,7 @@ function CreditAmortization() {
             files: [
               new File(
                 [pdfBlob],
-                `plan-de-pagos-${formatSecondaryDate(today)}.pdf`,
+                `plan-de-pagos-${formatSecondaryDate(today, true)}.pdf`,
                 {
                   type: "application/pdf",
                 },

@@ -48,7 +48,11 @@ function ExportModal(props: ExportModalProps) {
           <OutlineCard>
             <Stack
               justifyContent="space-between"
-              padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
+              padding={
+                isMobile
+                  ? `${inube.spacing.s100} ${inube.spacing.s150}`
+                  : `${inube.spacing.s150} ${inube.spacing.s200}`
+              }
               alignItems="center"
               width="100%"
             >
