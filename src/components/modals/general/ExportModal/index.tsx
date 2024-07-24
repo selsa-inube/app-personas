@@ -58,7 +58,7 @@ function ExportModal(props: ExportModalProps) {
                 </Text>
 
                 <Text type="body" size="small" appearance="gray">
-                  Guardar reporte localmente en formato PDF.
+                  Guardar localmente en formato PDF.
                 </Text>
               </Stack>
 
