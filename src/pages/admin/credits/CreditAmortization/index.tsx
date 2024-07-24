@@ -30,12 +30,6 @@ import {
 } from "./utilRenders";
 import { validateCreditsAndAmortization } from "./utils";
 
-const doc = new jsPDF({
-  orientation: "portrait",
-  unit: "px",
-  format: "letter",
-});
-
 function CreditAmortization() {
   const { credit_id } = useParams();
   const navigate = useNavigate();
@@ -118,9 +112,20 @@ function CreditAmortization() {
     if (!selectedProduct?.credit) return;
 
     const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
     doc.html(convertJSXToHTML(getAmortizationDocument(selectedProduct)), {
       callback: (pdf) => {
         pdf.save(`plan-de-pagos-${formatSecondaryDate(today, true)}.pdf`);
+      },
+      html2canvas: {
+        scale: 0.5,
       },
       width: 397,
       windowWidth: 816,
@@ -131,7 +136,15 @@ function CreditAmortization() {
 
   const handleShareDocument = () => {
     if (!selectedProduct?.credit) return;
+
     const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
 
     doc.html(convertJSXToHTML(getAmortizationDocument(selectedProduct)), {
       callback: (pdf) => {
@@ -140,7 +153,7 @@ function CreditAmortization() {
         if (navigator.share) {
           navigator.share({
             title: "Plan de pagos",
-            text: "Comparte tu plan de pagos en formato PDF",
+            text: `Plan de pagos ${formatSecondaryDate(today, true)}`,
             files: [
               new File(
                 [pdfBlob],
@@ -154,6 +167,9 @@ function CreditAmortization() {
         } else {
           console.warn("Web Share API is not supported in this browser");
         }
+      },
+      html2canvas: {
+        scale: 0.5,
       },
       width: 397,
       windowWidth: 816,
