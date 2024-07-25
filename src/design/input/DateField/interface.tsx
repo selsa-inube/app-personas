@@ -2,7 +2,6 @@ import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { IDateFieldMessage } from "../DateField/types";
-import { Label } from "../Label";
 import {
   StyledContainer,
   StyledErrorMessageContainer,
@@ -13,6 +12,7 @@ import {
 
 import { DateFieldProps } from ".";
 import { Stack } from "@inubekit/stack";
+import { Label } from "@inubekit/label";
 
 function Invalid(props: IDateFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -90,9 +90,9 @@ function DateFieldUI(props: DateFieldUIProps) {
               {label && (
                 <Label
                   htmlFor={id}
-                  isDisabled={isDisabled}
-                  isFocused={isFocused && state !== "invalid"}
-                  isInvalid={state === "invalid"}
+                  disabled={isDisabled}
+                  focused={isFocused && state !== "invalid"}
+                  invalid={state === "invalid"}
                   size="medium"
                 >
                   {label}

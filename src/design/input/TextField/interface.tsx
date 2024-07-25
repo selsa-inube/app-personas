@@ -1,6 +1,5 @@
 import { Text } from "@design/data/Text";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
-import { Label } from "../Label";
 import { ITextFieldMessage } from "./types";
 
 import { inube } from "@design/tokens";
@@ -17,6 +16,7 @@ import {
   StyledValidMessageContainer,
 } from "./styles";
 import { Stack } from "@inubekit/stack";
+import { Label } from "@inubekit/label";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -112,9 +112,9 @@ function TextFieldUI(props: TextFieldUIProps) {
                 {label && (
                   <Label
                     htmlFor={id}
-                    isDisabled={isDisabled}
-                    isFocused={isFocused && state !== "invalid"}
-                    isInvalid={state === "invalid"}
+                    disabled={isDisabled}
+                    focused={isFocused && state !== "invalid"}
+                    invalid={state === "invalid"}
                     size="medium"
                   >
                     {label}
