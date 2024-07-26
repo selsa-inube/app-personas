@@ -1,8 +1,8 @@
 import { IProduct } from "src/model/entity/product";
 
-import { addMovementsToCredit } from "../CreditMovements/utils";
 import { getAmortizationForCredit } from "src/services/iclient/credits/getAmortization";
 import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
+import { addMovementsToCredit } from "../CreditMovements/utils";
 
 const validateCreditsAndAmortization = async (
   credits: IProduct[],
