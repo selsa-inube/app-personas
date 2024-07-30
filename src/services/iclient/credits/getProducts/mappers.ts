@@ -5,10 +5,16 @@ const mapProductApiToEntity = (
   product: Record<string, string | number | object>,
 ): IDestinationProduct => {
   return {
-    id: String(product.creditProductId),
-    title: capitalizeText(String(product.name).toLowerCase()),
-    description: capitalizeText(String(product.description).toLowerCase()),
-    maxRate: product.maxRate ? Number(product.maxRate) : undefined,
+    id: String(product.productId),
+    title: product.name
+      ? capitalizeText(String(product.name).toLowerCase())
+      : "",
+    description: product.description
+      ? capitalizeText(String(product.description).toLowerCase())
+      : "",
+    maxRate: product.maxRate
+      ? Number(Number(product.maxRate).toFixed(2))
+      : undefined,
     maxDeadline: product.maxDeadline ? Number(product.maxDeadline) : undefined,
     maxAmount: Number(product.maxAmount || 0),
   };

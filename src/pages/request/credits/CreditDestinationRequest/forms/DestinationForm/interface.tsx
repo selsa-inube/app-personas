@@ -45,7 +45,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             options={formik.values.destinations}
             onBlur={formik.handleBlur}
             errorMessage={formik.errors.creditDestination}
-            isDisabled={loading}
+            isDisabled={loading || formik.values.destinations.length === 0}
             state={getFieldState(formik, "creditDestination")}
             onChange={onChangeDestination}
           />
@@ -64,7 +64,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                   gap={inube.spacing.s200}
                 >
                   {loadingProducts &&
-                    loadingProductsData.map((product) => (
+                    loadingProductsData.map((product, index) => (
                       <DestinationCard
                         id={product.id}
                         title={product.title}
@@ -73,7 +73,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                         maxAmount={product.maxAmount}
                         maxRate={product.maxRate}
                         maxDeadline={product.maxDeadline}
-                        key={product.id}
+                        key={index}
                         onClick={() => true}
                         loading
                       />
