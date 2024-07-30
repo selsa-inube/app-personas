@@ -45,7 +45,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             options={formik.values.destinations}
             onBlur={formik.handleBlur}
             errorMessage={formik.errors.creditDestination}
-            isDisabled={loading || formik.values.destinations.length === 0}
+            isDisabled={loading}
             state={getFieldState(formik, "creditDestination")}
             onChange={onChangeDestination}
           />
