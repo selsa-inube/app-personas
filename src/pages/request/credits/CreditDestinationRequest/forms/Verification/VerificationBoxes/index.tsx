@@ -134,8 +134,8 @@ const renderDocumentaryRequirementsVerification = (
     >
       {values.selectedDocuments.map((document) => (
         <BoxAttribute
-          key={document.name}
-          label={truncateFileName(document.name, 55)}
+          key={document.file.name}
+          label={truncateFileName(document.file.name, 55)}
         />
       ))}
     </Grid>

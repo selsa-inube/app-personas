@@ -1,9 +1,6 @@
-import {
-  documentaryRequirementsMock,
-  systemValidationsMock,
-} from "@mocks/products/credits/request.mocks";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
+import { loadingValidations } from "./forms/SystemValidationsForm/utils";
 import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
@@ -60,10 +57,26 @@ const creditDestinationStepsRules = (
         JSON.stringify(currentCreditDestinationRequest.creditConditions.values)
       ) {
         newCreditDestinationRequest.systemValidations = {
-          isValid: true,
+          isValid: false,
           values: {
             ...initalValuesCreditDestination.systemValidations,
-            validations: systemValidationsMock,
+            validations: loadingValidations,
+            destinationId: values.creditDestination?.id || "",
+            destinationName: values.creditDestination?.value || "",
+            productId: values.product.id,
+            productName: values.product.title,
+            paymentMethodCode: "10",
+            paymentMethodName: "Name",
+            requestAmount: values.amount,
+            creditAmount: values.netValue,
+            capitalPaymentPeriod: "10000",
+            numQuotas: parseInt(values.deadline),
+            nominalRate: values.interestRate,
+            amortizationType: "AT",
+            interestPaymentPeriod: values.cycleInterest.toString(),
+            periodicity: values.periodicity,
+            quotaValue: values.quota,
+            amountToTurn: values.netValue,
           },
         };
       }
@@ -81,10 +94,10 @@ const creditDestinationStepsRules = (
       };
 
       newCreditDestinationRequest.documentaryRequirements = {
-        isValid: true,
+        isValid: false,
         values: {
           ...initalValuesCreditDestination.documentaryRequirements,
-          requiredDocuments: documentaryRequirementsMock,
+          requiredDocuments: values.documents,
         },
       };
 

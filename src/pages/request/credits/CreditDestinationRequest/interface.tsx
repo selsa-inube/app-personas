@@ -7,6 +7,8 @@ import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
@@ -23,8 +25,6 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 
 const renderStepContent = (
   currentStep: number,
@@ -53,6 +53,7 @@ const renderStepContent = (
         <SystemValidationsForm
           initialValues={creditDestinationRequest.systemValidations.values}
           ref={formReferences.systemValidations}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep ===

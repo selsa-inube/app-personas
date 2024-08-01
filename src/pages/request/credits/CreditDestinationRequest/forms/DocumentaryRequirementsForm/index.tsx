@@ -22,6 +22,10 @@ const DocumentaryRequirementsForm = forwardRef(
 
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [message, setMessage] = useState<IMessage>(initialMessageState);
+    const [attachModal, setAttachModal] = useState({
+      show: false,
+      id: "",
+    });
 
     const formik = useFormik({
       initialValues,
@@ -33,44 +37,64 @@ const DocumentaryRequirementsForm = forwardRef(
 
     useEffect(() => {
       if (onFormValid) {
-        onFormValid(formik.values.selectedDocuments.length > 0);
+        onFormValid(
+          formik.values.selectedDocuments.length ===
+            formik.values.requiredDocuments.length,
+        );
       }
     }, [formik.values.selectedDocuments]);
 
-    const handleSelectDocuments = (files: FileList) => {
-      const filesUpload: File[] = [];
+    const handleSelectDocument = (file: File, id: string) => {
+      if (file.size > MAX_SIZE_PER_FILE * 1024 * 1024) {
+        setMessage({
+          show: true,
+          title: "Peso máximo excedido",
+          description: `No se ha podido cargar el documento porque excede el límite de ${MAX_SIZE_PER_FILE}MB por archivo.`,
+          icon: <MdOutlineSentimentNeutral />,
+          appearance: "danger",
+        });
 
-      for (const file of Array.from(files)) {
-        if (file.size > MAX_SIZE_PER_FILE * 1024 * 1024) {
-          setMessage({
-            show: true,
-            title: "Peso máximo excedido",
-            description: `No se ha podido cargar el documento porque excede el límite de ${MAX_SIZE_PER_FILE}MB por archivo.`,
-            icon: <MdOutlineSentimentNeutral />,
-            appearance: "danger",
-          });
-        } else {
-          filesUpload.push(file);
-        }
+        return;
       }
-
       formik.setFieldValue("selectedDocuments", [
         ...formik.values.selectedDocuments,
-        ...filesUpload,
+        {
+          file,
+          id,
+        },
       ]);
+
+      setAttachModal({
+        show: false,
+        id: "",
+      });
     };
 
     const handleRemoveDocument = (id: string) => {
       formik.setFieldValue(
         "selectedDocuments",
         formik.values.selectedDocuments.filter(
-          (document) => document.name !== id,
+          (document) => document.id !== id,
         ),
       );
     };
 
     const handleToggleInfoModal = () => {
       setShowInfoModal(!showInfoModal);
+    };
+
+    const handleOpenAttachModal = (id: string) => {
+      setAttachModal({
+        show: true,
+        id,
+      });
+    };
+
+    const handleCloseAttachModal = () => {
+      setAttachModal({
+        show: false,
+        id: "",
+      });
     };
 
     const handleCloseMessage = () => {
@@ -83,10 +107,13 @@ const DocumentaryRequirementsForm = forwardRef(
         showInfoModal={showInfoModal}
         maxFileSize={MAX_SIZE_PER_FILE}
         message={message}
-        onSelectDocuments={handleSelectDocuments}
+        attachModal={attachModal}
+        onSelectDocument={handleSelectDocument}
         onRemoveDocument={handleRemoveDocument}
         onToggleInfoModal={handleToggleInfoModal}
         onCloseMessage={handleCloseMessage}
+        onOpenAttachModal={handleOpenAttachModal}
+        onCloseAttachModal={handleCloseAttachModal}
       />
     );
   },
