@@ -1,5 +1,4 @@
 import { useAuth } from "@inube/auth";
-import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -46,11 +45,11 @@ function CreditDestinationRequest() {
         values: initalValuesCreditDestination.creditConditions,
       },
       systemValidations: {
-        isValid: true,
+        isValid: false,
         values: initalValuesCreditDestination.systemValidations,
       },
       documentaryRequirements: {
-        isValid: false,
+        isValid: true,
         values: initalValuesCreditDestination.documentaryRequirements,
       },
       disbursement: {
@@ -67,7 +66,10 @@ function CreditDestinationRequest() {
       },
       contactChannels: {
         isValid: false,
-        values: mapContactChannels(usersMock[0].contact[0]),
+        values: mapContactChannels({
+          cellPhone: parseInt(user.phone) || 0,
+          email: user.email || "",
+        }),
       },
     });
 
