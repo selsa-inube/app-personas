@@ -94,7 +94,7 @@ const creditDestinationStepsRules = (
       };
 
       newCreditDestinationRequest.documentaryRequirements = {
-        isValid: false,
+        isValid: true,
         values: {
           ...initalValuesCreditDestination.documentaryRequirements,
           requiredDocuments: values.documents,

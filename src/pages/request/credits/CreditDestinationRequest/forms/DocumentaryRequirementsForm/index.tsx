@@ -1,6 +1,6 @@
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { initialMessageState } from "src/utils/messages";
 import { DocumentaryRequirementsFormUI } from "./interface";
@@ -18,7 +18,7 @@ const DocumentaryRequirementsForm = forwardRef(
     props: DocumentaryRequirementsFormProps,
     ref: React.Ref<FormikProps<IDocumentaryRequirementsEntry>>,
   ) {
-    const { initialValues, onFormValid } = props;
+    const { initialValues } = props;
 
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [message, setMessage] = useState<IMessage>(initialMessageState);
@@ -34,15 +34,6 @@ const DocumentaryRequirementsForm = forwardRef(
     });
 
     useImperativeHandle(ref, () => formik);
-
-    useEffect(() => {
-      if (onFormValid) {
-        onFormValid(
-          formik.values.selectedDocuments.length ===
-            formik.values.requiredDocuments.length,
-        );
-      }
-    }, [formik.values.selectedDocuments]);
 
     const handleSelectDocument = (file: File, id: string) => {
       if (file.size > MAX_SIZE_PER_FILE * 1024 * 1024) {
