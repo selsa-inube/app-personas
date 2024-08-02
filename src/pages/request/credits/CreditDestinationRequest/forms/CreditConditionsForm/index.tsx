@@ -159,6 +159,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     }
   };
 
+  
   const simulateCredit = async () => {
     setLoadingSimulation(true);
     try {
