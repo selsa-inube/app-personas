@@ -44,6 +44,7 @@ const creditConditions: ICreditConditionsEntry = {
   charges: 0,
   calculatedQuotaValue: 0,
   quotaDeadlineInMonths: "",
+  calculatedQuotaDeadline: 0
 };
 
 const systemValidations: ISystemValidationsEntry = {
