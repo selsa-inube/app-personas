@@ -1,8 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Totalizer } from "@components/layout/Totalizer";
-import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Fragment } from "react";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
@@ -15,6 +12,10 @@ import {
 } from "../../PaymentMethodForm/types";
 import { StyledPayments } from "./styles";
 import { payBoxTitles } from "../config/box";
+import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -25,7 +26,7 @@ const renderObligationsVerification = (
   );
 
   return (
-    <Stack width="100%" direction="column" gap="s200">
+    <Stack width="100%" direction="column" gap={inube.spacing.s200}>
       <StyledPayments>
         {filteredPayments.map((payment) => {
           const selectedPayment = payment.options.find(
@@ -37,7 +38,11 @@ const renderObligationsVerification = (
 
           return (
             <Fragment key={payment.id}>
-              <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100">
+              <Grid
+                templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+                gap={inube.spacing.s100}
+                autoRows="auto"
+              >
                 <BoxAttribute
                   label="Nombre de la obligación:"
                   value={payment.title}
@@ -74,7 +79,12 @@ const renderPaymentMethodVerification = (
   values: IPaymentMethodEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    gap={inube.spacing.s100}
+    autoRows="auto"
+    width="100%"
+  >
     {values.paymentMethod === EPaymentMethodType.PSE ? (
       <BoxAttribute
         label="Forma de recaudo:"

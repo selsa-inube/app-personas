@@ -1,10 +1,10 @@
 import { Text } from "@design/data/Text";
 import { MdOutlineDelete } from "react-icons/md";
-import { Icon } from "@design/data/Icon";
 import { StyledCard } from "./styles";
-import { Stack } from "@design/layout/Stack";
 import { currencyFormat } from "src/utils/currency";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 
 interface PaymentInformationCardProps {
   id: string;
@@ -19,7 +19,7 @@ function PaymentInformationCard(props: PaymentInformationCardProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   return (
-    <StyledCard smallScreen={isMobile} key={id}>
+    <StyledCard $smallScreen={isMobile} key={id}>
       <Stack direction="column">
         <Stack
           justifyContent="space-between"
@@ -31,9 +31,9 @@ function PaymentInformationCard(props: PaymentInformationCardProps) {
           </Text>
           <Icon
             icon={<MdOutlineDelete />}
-            appearance="error"
+            appearance="danger"
             size="20px"
-            spacing="none"
+            spacing="narrow"
             onClick={() => removePaymentCard(id, value)}
             cursorHover
           />

@@ -1,10 +1,11 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Blanket } from "@design/layout/Blanket";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { StyledModal } from "./styles";
+import { Blanket } from "@inubekit/blanket";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface ValidationDetailsModalProps {
   label: string;
@@ -27,7 +28,7 @@ function ValidationDetailsModal(props: ValidationDetailsModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal isMobile={isMobile}>
+      <StyledModal $isMobile={isMobile}>
         <Text type="title" size="medium">
           {label}
         </Text>
@@ -36,9 +37,9 @@ function ValidationDetailsModal(props: ValidationDetailsModalProps) {
           {description}
         </Text>
 
-        <Stack gap="s200" justifyContent="flex-end" width="100%">
-          <Button spacing="compact" onClick={onCloseModal}>
-            Aceptar
+        <Stack gap={inube.spacing.s200} justifyContent="flex-end" width="100%">
+          <Button spacing="compact" onClick={onCloseModal} appearance="danger">
+            Cerrar
           </Button>
         </Stack>
       </StyledModal>

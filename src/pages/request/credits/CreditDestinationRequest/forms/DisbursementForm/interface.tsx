@@ -1,11 +1,12 @@
 import { Select } from "@design/input/Select";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { generateFormFields, getFieldState } from "src/utils/forms/forms";
+import { inube } from "@design/tokens";
 
 interface DisbursementFormUIProps {
   formik: FormikValues;
@@ -27,7 +28,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Select
           name="disbursementType"
           id="disbursementType"
@@ -42,7 +43,11 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
           errorMessage={formik.errors.disbursementType}
           isFullWidth
         />
-        <Grid templateColumns="repeat(2, 1fr)" gap="s300">
+        <Grid
+          templateColumns="repeat(2, 1fr)"
+          autoRows="auto"
+          gap={inube.spacing.s300}
+        >
           {generateFormFields(
             renderFields,
             formik,

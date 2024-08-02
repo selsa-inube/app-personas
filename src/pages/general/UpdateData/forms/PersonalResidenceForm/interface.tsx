@@ -2,9 +2,10 @@ import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 import { FormikValues } from "formik";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
@@ -24,10 +25,11 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Grid
-          templateColumns={isMobile ? "1fr" : "1fr 1fr "}
-          gap={isMobile ? "s200" : "s300"}
+          templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+          gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
         >
           <Select
             label="Tipo de vivienda"
@@ -171,7 +173,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
           )}
         </Grid>
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

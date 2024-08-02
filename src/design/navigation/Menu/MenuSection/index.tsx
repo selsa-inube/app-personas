@@ -1,10 +1,10 @@
-import { Divider } from "@design/layout/Divider";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { MenuHeading } from "../MenuHeading";
 import { MenuItem } from "../MenuItem";
 import { MenuItemSpacingType } from "../MenuItem/types";
 import { ISection } from "./types";
+import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
 
 interface MenuSectionProps {
   sections: ISection[];

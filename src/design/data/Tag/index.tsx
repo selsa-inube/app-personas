@@ -1,9 +1,9 @@
 import { MdOutlineClose } from "react-icons/md";
-import { Icon } from "../Icon";
 import { Text } from "../Text";
 
 import { StyledTag } from "./styles";
 import { TagAppearanceType, TagModifierType } from "./types";
+import { Icon } from "@inubekit/icon";
 
 const darkTextAppearances = ["warning", "gray", "light"];
 
@@ -28,7 +28,7 @@ function Tag(props: TagProps) {
   } = props;
 
   return (
-    <StyledTag appearance={appearance} modifier={modifier}>
+    <StyledTag $appearance={appearance} $modifier={modifier}>
       <Text
         type="label"
         size="small"
@@ -53,7 +53,7 @@ function Tag(props: TagProps) {
           }
           icon={<MdOutlineClose />}
           size="12px"
-          spacing="none"
+          spacing="narrow"
           cursorHover
           onClick={onRemove}
         />

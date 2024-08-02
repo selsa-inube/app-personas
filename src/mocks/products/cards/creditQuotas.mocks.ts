@@ -43,7 +43,7 @@ const creditQuotasMock: IProduct[] = [
       },
       {
         id: "total_payment",
-        label: "Pago total",
+        label: "Total",
         value: 2775000,
       },
       {
@@ -67,7 +67,7 @@ const creditQuotasMock: IProduct[] = [
           },
           {
             id: "used_quota_value",
-            label: "Pago total",
+            label: "Total",
             value: 2600000,
           },
         ],
@@ -191,7 +191,7 @@ const creditQuotasMock: IProduct[] = [
       },
       {
         id: "total_payment",
-        label: "Pago total",
+        label: "Total",
         value: 60000000,
       },
       {
@@ -215,7 +215,7 @@ const creditQuotasMock: IProduct[] = [
           },
           {
             id: "used_quota_value",
-            label: "Pago total",
+            label: "Total",
             value: 60000000,
           },
         ],
@@ -275,7 +275,7 @@ const creditQuotasMock: IProduct[] = [
     tags: [
       {
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       },
     ],
   },

@@ -1,8 +1,9 @@
 import { Text } from "@design/data/Text";
 import { StyledCardContainer } from "./styles";
-import { Stack } from "@design/layout/Stack";
 import { Button } from "@design/input/Button";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface UserCardProps {
   name: string;
@@ -17,11 +18,11 @@ function UserCard(props: UserCardProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   return (
-    <StyledCardContainer isMobile={isMobile}>
+    <StyledCardContainer $isMobile={isMobile}>
       <Text type="title" size="medium">
         {name}
       </Text>
-      <Stack gap="s050">
+      <Stack gap={inube.spacing.s050}>
         <Text size="small" appearance="gray">
           {identificationType}
         </Text>

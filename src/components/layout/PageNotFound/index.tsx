@@ -1,10 +1,7 @@
 import { getHeader } from "@config/header";
 import { getNav } from "@config/nav";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Header } from "@design/navigation/Header";
 import { Nav } from "@design/navigation/Nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -14,6 +11,10 @@ import { useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledPage } from "./styles";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
 
 function PageNotFound() {
   const { pathname: currentLocation } = useLocation();
@@ -37,17 +38,7 @@ function PageNotFound() {
   const withTransfers = getFlag(
     "admin.transfers.deposit.deposit-accounts",
   ).value;
-
-  const header = getHeader(
-    getFlag("general.links.update-data.update-data-with-assisted").value,
-    getFlag("general.links.update-data.update-data-without-assisted").value,
-    withSavingRequest,
-    withCreditRequest,
-    withEventRequest,
-    withAidRequest,
-    withHolidaysRequest,
-    withTransfers,
-  );
+  const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
 
   const nav = getNav(
     withSavingRequest,
@@ -56,6 +47,13 @@ function PageNotFound() {
     withAidRequest,
     withHolidaysRequest,
     withTransfers,
+    withMyRequests,
+  );
+
+  const header = getHeader(
+    getFlag("general.links.update-data.update-data-with-assisted").value,
+    getFlag("general.links.update-data.update-data-without-assisted").value,
+    nav,
   );
 
   const username = capitalizeEachWord(
@@ -96,17 +94,17 @@ function PageNotFound() {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            gap={isMobile ? "s300" : "s400"}
+            gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
           >
             <Icon
               appearance="gray"
               icon={<MdOutlineSentimentNeutral />}
               size={isMobile ? "40px" : "60px"}
-              spacing="none"
+              spacing="narrow"
             />
             <Stack
               direction="column"
-              gap="s200"
+              gap={inube.spacing.s200}
               alignItems="center"
               width={isMobile ? "312px" : "500px"}
             >

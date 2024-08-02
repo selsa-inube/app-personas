@@ -1,9 +1,9 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { MdChevronRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { StyledCardContainer } from "./styles";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 
 interface AidCardProps {
   id: string;
@@ -30,7 +30,7 @@ function AidCard(props: AidCardProps) {
           icon={<MdChevronRight />}
           appearance="primary"
           size="24px"
-          spacing="none"
+          spacing="narrow"
           cursorHover
           onClick={goToAid}
         />

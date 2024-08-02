@@ -1,16 +1,17 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledModal, StyledOptionsContainer } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface IPaymentFilters {
   group: string;
@@ -60,8 +61,8 @@ function PaymentFilterModal(props: PaymentFilterModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+      <StyledModal $smallScreen={isMobile}>
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium">
               Filtros aplicados
@@ -73,7 +74,7 @@ function PaymentFilterModal(props: PaymentFilterModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
@@ -118,7 +119,7 @@ function PaymentFilterModal(props: PaymentFilterModalProps) {
           />
         </StyledOptionsContainer>
 
-        <Stack width="100%" justifyContent="flex-end" gap="s100">
+        <Stack width="100%" justifyContent="flex-end" gap={inube.spacing.s100}>
           <Button
             appearance="gray"
             variant="outlined"

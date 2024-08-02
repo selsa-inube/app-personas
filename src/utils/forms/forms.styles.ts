@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 interface IStyledInputFormProps {
-  gridColumn: string;
+  $gridColumn: string;
 }
 
 const StyledInputForm = styled.div<IStyledInputFormProps>`
-  grid-column: ${({ gridColumn }) => gridColumn};
+  grid-column: ${({ $gridColumn }) => $gridColumn};
 `;
 
 export { StyledInputForm };

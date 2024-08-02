@@ -1,7 +1,8 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { MdSearch } from "react-icons/md";
 
 function EmptyRecords() {
@@ -9,8 +10,8 @@ function EmptyRecords() {
     <OutlineCard>
       <Stack
         direction="column"
-        padding="s250"
-        gap="s250"
+        padding={inube.spacing.s250}
+        gap={inube.spacing.s250}
         alignItems="center"
         width="100%"
         justifyContent="center"
@@ -19,7 +20,7 @@ function EmptyRecords() {
           icon={<MdSearch />}
           appearance="gray"
           size="40px"
-          spacing="none"
+          spacing="narrow"
         />
         <Text type="title" size="medium">
           Sin registros

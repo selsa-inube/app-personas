@@ -2,13 +2,13 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledContainer {
-  isMobile: boolean;
+  $isMobile: boolean;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
   display: flex;
-  padding: ${({ isMobile }) =>
-    isMobile
+  padding: ${({ $isMobile }) =>
+    $isMobile
       ? `${inube.spacing.s150} ${inube.spacing.s200}`
       : `${inube.spacing.s200} ${inube.spacing.s250}`};
   flex-direction: column;
@@ -36,8 +36,8 @@ const StyledHead = styled.button`
 
 const StyledIcon = styled.div`
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 26px;
+  height: 26px;
 `;
 
 export { StyledContainer, StyledHead, StyledIcon };

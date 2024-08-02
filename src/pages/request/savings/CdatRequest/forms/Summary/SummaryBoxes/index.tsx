@@ -1,7 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Stack } from "@design/layout/Stack";
 import { activeDM } from "src/model/domains/general/activedm";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsCdatRequest } from "../../../types";
 import { IConditionsEntry } from "../../ConditionsForm/types";
@@ -12,12 +11,18 @@ import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+  <Stack
+    direction="column"
+    gap={isTablet ? inube.spacing.s200 : inube.spacing.s250}
+    width="100%"
+  >
     <BoxAttribute
       label="Valor de la inversión:"
       value={currencyFormat(Number(values.valueInvestment))}
@@ -26,10 +31,10 @@ const renderInvestmentSummary = (
 );
 
 const renderConditionsSummary = (values: IConditionsEntry) => (
-  <Stack direction="column" gap="s100" width="100%">
+  <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <BoxAttribute
       label="Pago de intereses:"
-      value={peridiocityDM.valueOf(values.interestPayment)?.value}
+      value={periodicityDM.valueOf(values.interestPayment)?.value}
     />
     <BoxAttribute label="Número de días:" value={values.deadlineDays} />
   </Stack>
@@ -37,7 +42,7 @@ const renderConditionsSummary = (values: IConditionsEntry) => (
 
 const renderRefundSummary = (values: IRefundEntry) => {
   return (
-    <Stack direction="column" gap="s100" width="100%">
+    <Stack direction="column" gap={inube.spacing.s100} width="100%">
       <BoxAttribute
         label="Forma de reembolso:"
         value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
@@ -51,13 +56,17 @@ const renderInvestmentNameSummary = (
   values: IInvestmentNameEntry,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
+  <Stack
+    direction="column"
+    gap={isTablet ? inube.spacing.s200 : inube.spacing.s250}
+    width="100%"
+  >
     <BoxAttribute label="Nombre del producto:" value={values.productName} />
   </Stack>
 );
 
 const renderContactChannelsSummary = (values: IContactChannelsEntry) => (
-  <Stack width="100%" direction="column" gap="s100">
+  <Stack width="100%" direction="column" gap={inube.spacing.s100}>
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
     <BoxAttribute label="Correo:" value={values.email} />

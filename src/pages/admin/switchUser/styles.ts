@@ -2,8 +2,8 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledContainer {
-  isTablet: boolean;
-  isMobile: boolean;
+  $isTablet: boolean;
+  $isMobile: boolean;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
@@ -11,12 +11,12 @@ const StyledContainer = styled.div<IStyledContainer>`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  width: ${({ isMobile, isTablet }) =>
-    isMobile ? "312px" : isTablet ? "616px" : "744px"};
-  gap: ${({ isMobile }) =>
-    isMobile ? `${inube.spacing.s300}` : `${inube.spacing.s600}`};
-  padding: ${({ isTablet }) =>
-    isTablet
+  width: ${({ $isMobile, $isTablet }) =>
+    $isMobile ? "312px" : $isTablet ? "616px" : "744px"};
+  gap: ${({ $isMobile }) =>
+    $isMobile ? `${inube.spacing.s300}` : `${inube.spacing.s600}`};
+  padding: ${({ $isTablet }) =>
+    $isTablet
       ? `${inube.spacing.s300} ${inube.spacing.s0}`
       : `68px ${inube.spacing.s800} 100px`};
 `;

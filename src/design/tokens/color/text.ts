@@ -6,7 +6,7 @@ const text = {
     hover: palette.blue.B300,
     disabled: palette.neutral.N70,
   },
-  error: {
+  danger: {
     regular: palette.red.R400,
     hover: palette.red.R300,
     disabled: palette.neutral.N70,

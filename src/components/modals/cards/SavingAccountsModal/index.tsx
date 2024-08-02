@@ -1,14 +1,15 @@
 import { Product } from "@components/cards/Product";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineAccountBalanceWallet, MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { StyledModal } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface SavingAccountsModalProps {
   portalId: string;
@@ -45,8 +46,8 @@ function SavingAccountsModal(props: SavingAccountsModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+      <StyledModal $smallScreen={isMobile}>
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">
               Cuentas de ahorro
@@ -57,7 +58,7 @@ function SavingAccountsModal(props: SavingAccountsModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
@@ -65,7 +66,7 @@ function SavingAccountsModal(props: SavingAccountsModalProps) {
           </Text>
         </Stack>
         <Divider dashed />
-        <Stack direction="column" gap="s150">
+        <Stack direction="column" gap={inube.spacing.s150}>
           {savingAccounts.length === 0
             ? "No se han encontrado resultados"
             : savingAccounts.map((account) => (

@@ -1,17 +1,20 @@
 import { Text } from "@design/data/Text";
-import { Divider } from "@design/layout/Divider";
-import { Stack } from "@design/layout/Stack";
+import { Divider } from "@inubekit/divider";
+import { SkeletonLine } from "@inubekit/skeleton";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface DestinationCardProps {
   id: string;
   title: string;
   description: string;
   checked: boolean;
-  maxRate: number;
-  maxDeadline: number;
+  maxRate?: number;
+  maxDeadline?: number;
   maxAmount: number;
+  loading?: boolean;
   onClick: () => void;
 }
 
@@ -24,13 +27,71 @@ function DestinationCard(props: DestinationCardProps) {
     maxRate,
     maxDeadline,
     maxAmount,
+    loading,
     onClick,
   } = props;
+
+  if (loading) {
+    return (
+      <StyledCardContainer>
+        <Stack direction="column" width="100%" gap={inube.spacing.s050}>
+          <Stack gap={inube.spacing.s100}>
+            <StyledInputRadio
+              id={id}
+              name={id}
+              type="radio"
+              value={id}
+              checked={checked}
+              readOnly
+              disabled
+            />
+
+            <SkeletonLine animated width="86px" />
+          </Stack>
+          <SkeletonLine animated width="108px" />
+        </Stack>
+
+        <Divider dashed />
+
+        <StyledBody $loading>
+          <Stack
+            alignItems="center"
+            justifyContent="space-between"
+            width="100%"
+          >
+            <SkeletonLine animated width="100px" />
+
+            <SkeletonLine animated width="50px" />
+          </Stack>
+
+          <Stack
+            alignItems="center"
+            justifyContent="space-between"
+            width="100%"
+          >
+            <SkeletonLine animated width="100px" />
+
+            <SkeletonLine animated width="50px" />
+          </Stack>
+
+          <Stack
+            alignItems="center"
+            justifyContent="space-between"
+            width="100%"
+          >
+            <SkeletonLine animated width="100px" />
+
+            <SkeletonLine animated width="50px" />
+          </Stack>
+        </StyledBody>
+      </StyledCardContainer>
+    );
+  }
 
   return (
     <StyledCardContainer onClick={onClick}>
       <Stack direction="column" width="100%">
-        <Stack gap="s100">
+        <Stack gap={inube.spacing.s100}>
           <StyledInputRadio
             id={id}
             name={id}
@@ -39,7 +100,6 @@ function DestinationCard(props: DestinationCardProps) {
             checked={checked}
             readOnly
           />
-
           <Text type="label" size="medium">
             {title}
           </Text>
@@ -52,25 +112,37 @@ function DestinationCard(props: DestinationCardProps) {
       <Divider dashed />
 
       <StyledBody>
-        <Stack alignItems="center" justifyContent="space-between" width="100%">
-          <Text type="label" size="small" appearance="gray">
-            Tasa máxima:
-          </Text>
+        {maxRate && (
+          <Stack
+            alignItems="center"
+            justifyContent="space-between"
+            width="100%"
+          >
+            <Text type="label" size="small" appearance="gray">
+              Tasa máxima:
+            </Text>
 
-          <Text type="body" size="small">
-            {maxRate}%
-          </Text>
-        </Stack>
+            <Text type="body" size="small">
+              {maxRate}%
+            </Text>
+          </Stack>
+        )}
 
-        <Stack alignItems="center" justifyContent="space-between" width="100%">
-          <Text type="label" size="small" appearance="gray">
-            Plazo máximo:
-          </Text>
+        {maxDeadline && (
+          <Stack
+            alignItems="center"
+            justifyContent="space-between"
+            width="100%"
+          >
+            <Text type="label" size="small" appearance="gray">
+              Plazo máximo:
+            </Text>
 
-          <Text type="body" size="small">
-            {maxDeadline} meses
-          </Text>
-        </Stack>
+            <Text type="body" size="small">
+              {maxDeadline} meses
+            </Text>
+          </Stack>
+        )}
 
         <Stack alignItems="center" justifyContent="space-between" width="100%">
           <Text type="label" size="small" appearance="gray">

@@ -1,16 +1,17 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
+import { Icon } from "@inubekit/icon";
 import { useRef, useState } from "react";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { Button } from "../Button";
 import { StyledFileDrop } from "./styles";
 
 interface FileDropProps {
+  multiple?: boolean;
   onSelectFiles: (file: FileList) => void;
 }
 
 function FileDrop(props: FileDropProps) {
-  const { onSelectFiles } = props;
+  const { multiple, onSelectFiles } = props;
 
   const [isDragOver, setIsDragOver] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -45,7 +46,7 @@ function FileDrop(props: FileDropProps) {
 
   return (
     <StyledFileDrop
-      isDragOver={isDragOver}
+      $isDragOver={isDragOver}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -61,7 +62,7 @@ function FileDrop(props: FileDropProps) {
         accept="image/*,application/pdf"
         onChange={handleSelectFiles}
         hidden
-        multiple
+        multiple={multiple}
       />
       <Button onClick={handleTriggerInputFile} spacing="compact">
         Elegir archivo

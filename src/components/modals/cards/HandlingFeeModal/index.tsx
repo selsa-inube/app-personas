@@ -1,14 +1,15 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledModal } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface HandlingFeeModalProps {
   portalId: string;
@@ -52,8 +53,8 @@ function HandlingFeeModal(props: HandlingFeeModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+      <StyledModal $smallScreen={isMobile}>
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
@@ -69,7 +70,7 @@ function HandlingFeeModal(props: HandlingFeeModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text
@@ -84,12 +85,12 @@ function HandlingFeeModal(props: HandlingFeeModalProps) {
         <Divider dashed />
 
         <StyledBody>
-          <Stack direction="column" gap="s200">
-            <Stack gap="s200" direction="column">
+          <Stack direction="column" gap={inube.spacing.s200}>
+            <Stack gap={inube.spacing.s200} direction="column">
               {formatAndFilterHandlingFeeAttributes(handlingFee).map(
                 (quota) => (
                   <Stack
-                    gap="s100"
+                    gap={inube.spacing.s100}
                     alignItems="center"
                     width="100%"
                     key={quota.id}

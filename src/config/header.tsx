@@ -1,20 +1,18 @@
+import { INav } from "@design/layout/Page/types";
 import { ISection } from "@design/navigation/Menu/MenuSection/types";
 import {
   MdLogout,
   MdOutlineBadge,
   MdOutlineManageAccounts,
 } from "react-icons/md";
-import { getNav } from "./nav";
+
+const logoUrl =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbrWOwST-34PyX9rqlHzqEjqunO1PcMzpHJVUIV-7lL4HJ7tcEeNHaj6Redj1lFAOr4Q&usqp=CAU";
 
 const getHeader = (
   updateDataAssistedFlag: boolean,
   updateDataUnassistedFlag: boolean,
-  requestSavingFlag: boolean,
-  requestCreditFlag: boolean,
-  requestEventFlag: boolean,
-  requestAidFlag: boolean,
-  requestHolidaysFlag: boolean,
-  requestTransfersFlag: boolean,
+  nav: INav,
 ) => {
   const links = [];
 
@@ -39,20 +37,12 @@ const getHeader = (
   const businessUnit = consultingUser ? "Desarrollo" : "Fondecom";
 
   return {
-    logoURL:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbrWOwST-34PyX9rqlHzqEjqunO1PcMzpHJVUIV-7lL4HJ7tcEeNHaj6Redj1lFAOr4Q&usqp=CAU",
+    logoURL: logoUrl,
     username: "Fake",
     links,
     portalId: "portal",
     logoutTitle: "Cerrar sesión",
-    navigation: getNav(
-      requestSavingFlag,
-      requestCreditFlag,
-      requestEventFlag,
-      requestAidFlag,
-      requestHolidaysFlag,
-      requestTransfersFlag,
-    ),
+    navigation: nav,
     businessUnit,
   };
 };
@@ -91,4 +81,4 @@ const getMenuSections = (
   return sections;
 };
 
-export { getHeader, getMenuSections };
+export { getHeader, getMenuSections, logoUrl };

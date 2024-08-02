@@ -7,8 +7,8 @@ import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
-import { Grid } from "../Grid";
 import { StyledMain, StyledPage } from "./styles";
+import { Grid } from "@inubekit/grid";
 
 interface PageProps {
   withNav?: boolean;
@@ -36,17 +36,7 @@ function Page(props: PageProps) {
   const withTransfers = getFlag(
     "admin.transfers.deposit.deposit-accounts",
   ).value;
-
-  const header = getHeader(
-    getFlag("general.links.update-data.update-data-with-assisted").value,
-    getFlag("general.links.update-data.update-data-without-assisted").value,
-    withSavingRequest,
-    withCreditRequest,
-    withEventRequest,
-    withAidRequest,
-    withHolidaysRequest,
-    withTransfers,
-  );
+  const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
 
   const nav = getNav(
     withSavingRequest,
@@ -55,6 +45,13 @@ function Page(props: PageProps) {
     withAidRequest,
     withHolidaysRequest,
     withTransfers,
+    withMyRequests,
+  );
+
+  const header = getHeader(
+    getFlag("general.links.update-data.update-data-with-assisted").value,
+    getFlag("general.links.update-data.update-data-without-assisted").value,
+    nav,
   );
 
   const username = capitalizeEachWord(

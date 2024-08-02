@@ -1,14 +1,15 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
+import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { paySteps } from "./config/assisted";
 import { crumbsPay } from "./config/navigation";
@@ -17,6 +18,8 @@ import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { PayVerification } from "./forms/Verification";
 import { StyledButtonsContainer } from "./styles";
 import { IFormsPay, IFormsPayRefs } from "./types";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderStepContent = (
   currentStep: number,
@@ -63,6 +66,7 @@ interface PayUIProps {
   formReferences: IFormsPayRefs;
   loadingSend: boolean;
   message: IMessage;
+  blocker: Blocker;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
@@ -80,6 +84,7 @@ function PayUI(props: PayUIProps) {
     formReferences,
     loadingSend,
     message,
+    blocker,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
@@ -95,9 +100,15 @@ function PayUI(props: PayUIProps) {
     <>
       <Stack
         direction="column"
-        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsPay} />
           <Title
             title="Realizar pagos"
@@ -115,7 +126,7 @@ function PayUI(props: PayUIProps) {
           onStepChange={handleStepChange}
         />
 
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           {renderStepContent(
             currentStep,
             formReferences,
@@ -125,7 +136,7 @@ function PayUI(props: PayUIProps) {
           )}
 
           <StyledButtonsContainer
-            fixed={
+            $fixed={
               isMobile &&
               [paySteps.obligations.id, paySteps.paymentMethod.id].includes(
                 currentStep,
@@ -169,6 +180,18 @@ function PayUI(props: PayUIProps) {
           icon={message.icon}
           onClose={handleCloseMessage}
           duration={5000}
+        />
+      )}
+
+      {blocker.state === "blocked" && (
+        <DecisionModal
+          title="Salir del proceso de pago"
+          description="¿Estás seguro? Se perderá todo el proceso de pago."
+          cancelText="Continuar"
+          actionText="Salir"
+          onCloseModal={() => blocker.reset()}
+          onClick={() => blocker.proceed()}
+          portalId="modals"
         />
       )}
     </>

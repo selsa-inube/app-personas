@@ -24,7 +24,7 @@ const creditsMock: IProduct[] = [
         value: "15/May/2023",
       },
       { id: "quote", label: "Cuota", value: "8 de 24" },
-      { id: "peridiocity", label: "Periodicidad", value: "Mensual" },
+      { id: "periodicity", label: "Periodicidad", value: "Mensual" },
       {
         id: "payment_method",
         label: "Medio de pago",
@@ -671,7 +671,7 @@ const creditsMock: IProduct[] = [
         value: "15/Abr/2023",
       },
       { id: "quote", label: "Cuota", value: "10 de 30" },
-      { id: "peridiocity", label: "Periodicidad", value: "Mensual" },
+      { id: "periodicity", label: "Periodicidad", value: "Mensual" },
       {
         id: "payment_method",
         label: "Medio de pago",
@@ -1348,7 +1348,7 @@ const creditsMock: IProduct[] = [
     tags: [
       {
         label: "En mora",
-        appearance: "error",
+        appearance: "danger",
       },
     ],
   },

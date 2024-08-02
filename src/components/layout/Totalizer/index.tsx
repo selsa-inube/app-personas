@@ -1,8 +1,8 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { MdOpenInNew } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledTagValue, StyledTotalPayment } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface TotalizerProps {
   isMobile: boolean;
@@ -22,17 +22,17 @@ function Totalizer(props: TotalizerProps) {
   } = props;
 
   return (
-    <StyledTotalPayment isMobile={isMobile} onClick={onClick}>
+    <StyledTotalPayment $isMobile={isMobile} onClick={onClick}>
       <Text type="title" size="medium">
         Total a pagar hoy:
       </Text>
-      <StyledTagValue isExpandable={isExpandable}>
+      <StyledTagValue $isExpandable={isExpandable}>
         {isExpandable && (
           <Icon
             icon={<MdOpenInNew />}
             appearance="primary"
             size="16px"
-            spacing="none"
+            spacing="narrow"
             cursorHover
             disabled={isDisabled}
           />

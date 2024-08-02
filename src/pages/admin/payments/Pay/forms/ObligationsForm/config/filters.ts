@@ -11,7 +11,12 @@ const paymentInitialFilters: IPaymentFilters = {
   status: EPaymentStatusType.ANYWHERE,
 };
 
-const paymentFilters = (paymentMethodFilters: string[]) => ({
+const getPaymentFilters = (
+  paymentMethodFilters: string[],
+  insurancesFlag: boolean,
+  accountsPayableFlag: boolean,
+  creditQuotasFlag: boolean,
+) => ({
   group: [
     {
       id: EPaymentGroupType.ALL,
@@ -25,18 +30,30 @@ const paymentFilters = (paymentMethodFilters: string[]) => ({
       id: EPaymentGroupType.CREDITS,
       value: "Créditos",
     },
-    {
-      id: EPaymentGroupType.CREDITQUOTAS,
-      value: "Cupos de crédito",
-    },
-    {
-      id: EPaymentGroupType.INSURANCES,
-      value: "Seguros",
-    },
-    {
-      id: EPaymentGroupType.ACCOUNTSPAYABLE,
-      value: "Cuentas por pagar",
-    },
+    ...(creditQuotasFlag
+      ? [
+          {
+            id: EPaymentGroupType.CREDITQUOTAS,
+            value: "Cupos de crédito",
+          },
+        ]
+      : []),
+    ...(insurancesFlag
+      ? [
+          {
+            id: EPaymentGroupType.INSURANCES,
+            value: "Seguros",
+          },
+        ]
+      : []),
+    ...(accountsPayableFlag
+      ? [
+          {
+            id: EPaymentGroupType.ACCOUNTSPAYABLE,
+            value: "Cuentas por pagar",
+          },
+        ]
+      : []),
   ],
   paymentMethod: [
     {
@@ -60,4 +77,4 @@ const paymentFilters = (paymentMethodFilters: string[]) => ({
   ],
 });
 
-export { paymentFilters, paymentInitialFilters };
+export { getPaymentFilters, paymentInitialFilters };

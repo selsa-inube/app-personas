@@ -1,11 +1,11 @@
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
-import { Icon } from "@design/data/Icon";
-import { IEntry } from "@design/data/Table/types";
+import { Icon } from "@inubekit/icon";
 import { useState } from "react";
 import { MdOpenInNew } from "react-icons/md";
+import { IMovement } from "src/model/entity/product";
 
 interface ViewMovementProps {
-  movement: IEntry;
+  movement: IMovement;
 }
 
 function ViewMovement(props: ViewMovementProps) {
@@ -25,7 +25,7 @@ function ViewMovement(props: ViewMovementProps) {
         icon={<MdOpenInNew />}
         cursorHover={true}
         size="16px"
-        spacing="none"
+        spacing="narrow"
       />
       {showModal && (
         <CreditMovementModal

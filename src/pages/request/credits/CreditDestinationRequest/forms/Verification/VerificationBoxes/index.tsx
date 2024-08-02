@@ -1,36 +1,39 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { TextField } from "@design/input/TextField";
-import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
+import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
-import { MdAdd, MdDragHandle, MdRemove } from "react-icons/md";
+import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
+import { truncateFileName } from "src/utils/texts";
 import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
-import { IPreliquidationEntry } from "../../PreliquidationForm/types";
+import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
+import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
+import { creditDestinationRequestBoxTitles } from "../config/box";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
-    <BoxAttribute
-      label="Destinación:"
-      value={
-        getValueOfDomain(values.creditDestination, "creditDestination")?.value
-      }
-    />
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
+    <BoxAttribute label="Destino:" value={values.creditDestination?.value} />
     <BoxAttribute label="Producto:" value={values.selectedProduct?.title} />
   </Grid>
 );
@@ -41,7 +44,7 @@ const renderCreditConditionsVerification = (
 ) => (
   <>
     {values.product.id === "generateRecommendation" ? (
-      <Grid templateColumns="1fr" gap="s100" width="100%">
+      <Grid templateColumns="1fr" gap={inube.spacing.s100} width="100%">
         <BoxAttribute
           label="¿Cuánto dinero necesitas?"
           value={currencyFormat(Number(values.amount))}
@@ -49,106 +52,102 @@ const renderCreditConditionsVerification = (
       </Grid>
     ) : (
       <Grid
-        templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-        gap="s100"
+        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+        autoRows="auto"
+        gap={inube.spacing.s100}
         width="100%"
       >
         <BoxAttribute
-          label="Simular con el valor de la cuota:"
-          value={
-            values.simulationWithQuota ? activeDM.Y.value : activeDM.N.value
-          }
-        />
-        <BoxAttribute
           label="Valor simulado:"
-          value={currencyFormat(Number(values.amount))}
-        />
-        <BoxAttribute
-          label="Periodicidad:"
-          value={peridiocityDM.valueOf(values.peridiocity)?.value}
+          value={currencyFormat(values.amount)}
         />
         <BoxAttribute label="Plazo:" value={`${values.deadline} Meses`} />
         <BoxAttribute
-          label="Cuota mensual:"
-          value={currencyFormat(Number(values.quota))}
+          label="Cuota:"
+          value={`${currencyFormat(values.quota)} / ${periodicityDM.valueOf(values.periodicity)?.value}`}
         />
         <BoxAttribute
           label="Tasa de interés:"
           value={`${values.interestRate} % N.M.V`}
         />
         <BoxAttribute
-          label="Intereses de ajuste al ciclo:"
-          value={currencyFormat(Number(values.cycleInterest))}
+          label="Garantía mínima requerida:"
+          value={values.minWarrantyRequired}
         />
         <BoxAttribute
           label="Valor neto a recibir:"
-          value={currencyFormat(Number(values.netValue))}
+          value={currencyFormat(values.netValue)}
         />
       </Grid>
     )}
   </>
 );
 
-const renderPreliquidationVerification = (
-  values: IPreliquidationEntry,
+const renderSystemValidationsVerification = (
+  values: ISystemValidationsEntry,
   isTablet: boolean,
-) => (
-  <Stack direction="column" gap={isTablet ? "s200" : "s250"} width="100%">
-    <TextField
-      label="Monto"
-      placeholder="Monto"
-      name="amount"
-      id="amount"
-      value={currencyFormat(values.amount)}
-      iconBefore={<MdAdd />}
-      size="compact"
-      isFullWidth
-      readOnly
-    />
-    <TextField
-      label="Intereses anticipados de ajuste al ciclo"
-      placeholder="Intereses anticipados de ajuste al ciclo"
-      name="interestAdjustmentCycle"
-      id="interestAdjustmentCycle"
-      value={currencyFormat(values.interestAdjustmentCycle)}
-      iconBefore={<MdRemove />}
-      size="compact"
-      isFullWidth
-      readOnly
-    />
-    <TextField
-      label="Cargos y descuentos"
-      placeholder="Cargos y descuentos"
-      name="chargesAndDiscounts"
-      id="chargesAndDiscounts"
-      value={currencyFormat(values.chargesAndDiscounts)}
-      iconBefore={<MdRemove />}
-      size="compact"
-      isFullWidth
-      readOnly
-    />
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {values.validations.map((validation) => (
+        <BoxAttribute
+          key={validation.id}
+          value={validation.label}
+          iconAfter={
+            validation.value === "success" ? (
+              <Icon
+                appearance="success"
+                icon={<MdOutlineCheckCircle />}
+                size="20px"
+                spacing="narrow"
+              />
+            ) : (
+              <Icon
+                appearance="danger"
+                icon={<MdOutlineHighlightOff />}
+                size="20px"
+                spacing="narrow"
+              />
+            )
+          }
+        />
+      ))}
+    </Grid>
+  );
+};
 
-    <Divider dashed />
-    <TextField
-      label="Valor neto a girar"
-      placeholder="Valor neto a girar"
-      name="netValue"
-      id="netValue"
-      value={currencyFormat(values.netValue)}
-      iconBefore={<MdDragHandle />}
-      size="compact"
-      isFullWidth
-      readOnly
-    />
-  </Stack>
-);
+const renderDocumentaryRequirementsVerification = (
+  values: IDocumentaryRequirementsEntry,
+  isTablet: boolean,
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {values.selectedDocuments.map((document) => (
+        <BoxAttribute
+          key={document.file.name}
+          label={truncateFileName(document.file.name, 55)}
+        />
+      ))}
+    </Grid>
+  );
+};
 
 const getAccountDescription = (accountId: string) => {
   return savingsMock.find((saving) => saving.id === accountId)?.description;
 };
 
 const renderDisbursementVerification = (values: IDisbursementEntry) => (
-  <Stack direction="column" gap="s100" width="100%">
+  <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <BoxAttribute
       label="Forma de desembolso:"
       value={
@@ -248,7 +247,7 @@ const renderTermsAndConditionsVerification = (
 );
 
 const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
-  <Stack width="100%" direction="column" gap="s100">
+  <Stack width="100%" direction="column" gap={inube.spacing.s100}>
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
     <BoxAttribute label="Correo:" value={values.email} />
@@ -265,7 +264,7 @@ const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
 
 interface VerificationBoxesProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
-  stepKey: string;
+  stepKey: keyof typeof creditDestinationRequestBoxTitles;
   isTablet: boolean;
 }
 
@@ -285,15 +284,21 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet,
         )}
 
-      {stepKey === "preliquidation" &&
-        renderPreliquidationVerification(
-          creditDestinationRequest.preliquidation.values,
+      {stepKey === "systemValidations" &&
+        renderSystemValidationsVerification(
+          creditDestinationRequest.systemValidations.values,
           isTablet,
         )}
 
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
           creditDestinationRequest.disbursement.values,
+        )}
+
+      {stepKey === "documentaryRequirements" &&
+        renderDocumentaryRequirementsVerification(
+          creditDestinationRequest.documentaryRequirements.values,
+          isTablet,
         )}
 
       {stepKey === "comments" &&

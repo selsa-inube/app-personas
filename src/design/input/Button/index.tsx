@@ -1,8 +1,9 @@
+import { inube } from "@design/tokens";
+import { Icon } from "@inubekit/icon";
+import { Spinner } from "@inubekit/spinner";
+import { Stack } from "@inubekit/stack";
 import { useState } from "react";
-import { Icon } from "../../data/Icon";
 import { Text } from "../../data/Text";
-import { Spinner } from "../../feedback/Spinner";
-import { Stack } from "../../layout/Stack";
 import {
   StyledButton,
   StyledButtonContent,
@@ -39,25 +40,33 @@ function renderButtonContent(
   getAppearance: () => ButtonAppearanceType,
   hover: boolean,
   iconAfter?: React.JSX.Element,
-  iconBefore?: React.JSX.Element
+  iconBefore?: React.JSX.Element,
 ) {
   if (load && !disabled) {
     return (
-      <StyledSpinnerContainer variant={variant}>
+      <StyledSpinnerContainer $variant={variant}>
         <Stack justifyContent="center" alignItems="center" height="inherit">
-          <Spinner appearance={getAppearance()} track={false} />
+          <Spinner
+            appearance={getAppearance()}
+            size="small"
+            transparent={false}
+          />
         </Stack>
       </StyledSpinnerContainer>
     );
   }
 
   return (
-    <StyledButtonContent load={load} disabled={disabled}>
-      <Stack alignItems="center" justifyContent="center" gap="s075">
+    <StyledButtonContent $load={load} $disabled={disabled}>
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        gap={inube.spacing.s075}
+      >
         {iconBefore && (
           <Icon
             icon={iconBefore}
-            spacing="none"
+            spacing="narrow"
             size="18px"
             appearance={getAppearance()}
             disabled={disabled}
@@ -77,7 +86,7 @@ function renderButtonContent(
         {iconAfter && (
           <Icon
             icon={iconAfter}
-            spacing="none"
+            spacing="narrow"
             size="18px"
             appearance={getAppearance()}
             disabled={disabled}
@@ -132,12 +141,12 @@ function Button(props: ButtonProps) {
     return (
       <StyledLink
         to={path}
-        appearance={appearance}
-        spacing={spacing}
-        variant={variant}
+        $appearance={appearance}
+        $spacing={spacing}
+        $variant={variant}
         $fullwidth={fullwidth}
         $load={load}
-        disabled={disabled}
+        $disabled={disabled}
         onMouseEnter={() => toggleHover(true)}
         onMouseLeave={() => toggleHover(false)}
       >
@@ -149,7 +158,7 @@ function Button(props: ButtonProps) {
           getAppearance,
           hover,
           iconAfter,
-          iconBefore
+          iconBefore,
         )}
       </StyledLink>
     );
@@ -158,13 +167,13 @@ function Button(props: ButtonProps) {
   return (
     <StyledButton
       type={type}
-      appearance={appearance}
-      spacing={spacing}
-      variant={variant}
+      $appearance={appearance}
+      $spacing={spacing}
+      $variant={variant}
       $fullwidth={fullwidth}
       $load={load}
-      disabled={disabled}
-      onClick={onClick}
+      $disabled={disabled}
+      onClick={disabled ? undefined : onClick}
       onMouseEnter={() => toggleHover(true)}
       onMouseLeave={() => toggleHover(false)}
     >
@@ -176,7 +185,7 @@ function Button(props: ButtonProps) {
         getAppearance,
         hover,
         iconAfter,
-        iconBefore
+        iconBefore,
       )}
     </StyledButton>
   );

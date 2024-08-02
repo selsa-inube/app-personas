@@ -5,9 +5,6 @@ import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -17,6 +14,9 @@ import { crumbsCardMovements } from "./config/navigation";
 import { StyledContainer, StyledItem } from "./styles";
 import { ISelectedProductState } from "./types";
 import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 interface CardMovementsUIProps {
   cardId?: string;
@@ -43,7 +43,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsCardMovements(cardId, creditQuotaId)} />
         <Title
           title="Movimientos"
@@ -53,14 +53,14 @@ function CardMovementsUI(props: CardMovementsUIProps) {
         />
       </Stack>
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s400">
-          <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s400}>
+          <Stack direction="column" gap={inube.spacing.s300}>
             <Select
               id="movements"
               onChange={handleChangeProduct}
@@ -71,7 +71,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
               isFullWidth
             />
           </Stack>
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <StyledContainer>
               {selectedProduct.movements
                 .filter(
@@ -85,6 +85,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
                     {index !== 0 && <Divider dashed />}
                     <StyledItem>
                       <RecordCard
+                        id={movement.id}
                         type={movement.type as EMovementType}
                         description={movement.description}
                         totalValue={movement.totalValue}

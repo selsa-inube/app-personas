@@ -1,12 +1,8 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
@@ -19,6 +15,11 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const assetTypeDM = getDomainById("assetType");
 
@@ -58,8 +59,12 @@ function AssetModal(props: AssetModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap={isMobile ? "s050" : "s100"}>
+      <StyledModal $smallScreen={isMobile}>
+        <Stack
+          direction="column"
+          width="100%"
+          gap={isMobile ? inube.spacing.s050 : inube.spacing.s100}
+        >
           <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
@@ -74,7 +79,7 @@ function AssetModal(props: AssetModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text
@@ -87,7 +92,7 @@ function AssetModal(props: AssetModalProps) {
         </Stack>
 
         <Divider dashed />
-        <Stack direction="column" gap="s150" width="100%">
+        <Stack direction="column" gap={inube.spacing.s150} width="100%">
           <Select
             label="Tipo de activo"
             name="assetType"
@@ -196,7 +201,7 @@ function AssetModal(props: AssetModalProps) {
           />
         </Stack>
 
-        <Stack gap="s100" justifyContent="flex-end">
+        <Stack gap={inube.spacing.s100} justifyContent="flex-end">
           <Button
             spacing="compact"
             variant="outlined"

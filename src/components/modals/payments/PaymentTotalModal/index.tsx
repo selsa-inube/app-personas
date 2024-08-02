@@ -1,15 +1,16 @@
 import { PaymentInformationCard } from "@components/cards/payments/PaymentInformationCard";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IPayment } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledModal, StyledTotalPayment } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface PaymentTotalModalProps {
   totalPayment: number;
@@ -29,7 +30,6 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
-  const isTablet = useMediaQuery("(max-width: 1100px)");
   const node = document.getElementById("modals");
 
   if (node === null) {
@@ -51,8 +51,8 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile} tabletScreen={isTablet}>
-        <Stack direction="column" width="100%" gap="s100">
+      <StyledModal $smallScreen={isMobile}>
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size={isMobile ? "small" : "medium"}>
               Total a pagar hoy
@@ -62,7 +62,7 @@ function PaymentTotalModal(props: PaymentTotalModalProps) {
               icon={<MdOutlineClose />}
               onClick={onCloseModal}
               size="20px"
-              spacing="none"
+              spacing="narrow"
               cursorHover
             />
           </Stack>

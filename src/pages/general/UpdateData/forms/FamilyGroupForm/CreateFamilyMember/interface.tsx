@@ -7,13 +7,14 @@ import {
 } from "./types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Assisted } from "@design/feedback/Assisted";
-import { Stack } from "@design/layout/Stack";
 import { StyledScroller } from "./styles";
 import { Button } from "@design/input/Button";
 import { PersonalDataForm } from "./forms/PersonalDataForm";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { InformationDataForm } from "./forms/InformationDataForm";
 import { UpdateDataVerification } from "./forms/Verification";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderStepContent = (
   currentStep: number,
@@ -108,8 +109,8 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
         showButtonsLabels={false}
       />
 
-      <Stack direction="column" gap="s300">
-        <StyledScroller smallScreen={isMobile}>
+      <Stack direction="column" gap={inube.spacing.s300}>
+        <StyledScroller $smallScreen={isMobile}>
           {renderStepContent(
             currentStep,
             formReferences,
@@ -120,7 +121,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
           )}
         </StyledScroller>
 
-        <Stack gap="s150" justifyContent="flex-end">
+        <Stack gap={inube.spacing.s150} justifyContent="flex-end">
           <Button
             onClick={handlePreviousStep}
             type="button"

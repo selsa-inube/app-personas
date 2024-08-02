@@ -1,9 +1,10 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikValues } from "formik";
 import { MdPercent } from "react-icons/md";
@@ -24,10 +25,11 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" alignItems="flex-end" gap="s300">
+      <Stack direction="column" alignItems="flex-end" gap={inube.spacing.s300}>
         <Grid
-          templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-          gap={isMobile ? "s150" : "s300"}
+          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+          gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
           width="100%"
         >
           {usersMock.length > 0 &&
@@ -58,21 +60,21 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
               />
             ))}
         </Grid>
-        <Stack gap="s150" alignItems="center">
+        <Stack gap={inube.spacing.s150} alignItems="center">
           <Text type="body" size="medium">
             Total porcentaje de participación:
           </Text>
           <Text
             type="title"
             size="medium"
-            appearance={percentage > 100 ? "error" : "dark"}
+            appearance={percentage > 100 ? "danger" : "dark"}
           >
             {percentage} %
           </Text>
         </Stack>
 
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

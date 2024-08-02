@@ -1,5 +1,6 @@
 import { PaymentCard } from "@components/cards/payments/PaymentCard";
 import { Totalizer } from "@components/layout/Totalizer";
+import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import {
   IPaymentFilters,
   PaymentFilterModal,
@@ -13,19 +14,21 @@ import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { ISelectOption } from "@design/input/Select/types";
-import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
 import { FormikProps } from "formik";
+import { useContext } from "react";
 import { MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
+import { AppContext } from "src/context/app";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
 import { paymentCardsBreakpoints } from "./config/cards";
-import { paymentFilters, paymentInitialFilters } from "./config/filters";
+import { getPaymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
-import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -104,6 +107,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     onRemovePayment,
     onUpdateTotalPayment,
   } = props;
+  const { getFlag } = useContext(AppContext);
 
   const isMobile = useMediaQuery("(max-width: 700px)");
 
@@ -120,13 +124,35 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
     (payment) => payment.valueToPay && payment.valueToPay > 0,
   );
 
+  const withInsurances = getFlag(
+    "admin.filters.payments.insurances-payments",
+  ).value;
+
+  const withAccountsPayable = getFlag(
+    "admin.filters.payments.accounts-payable-payments",
+  ).value;
+
+  const withCreditQuotas = getFlag(
+    "admin.filters.payments.credit-quotas-payments",
+  ).value;
+
+  const paymentFilters = getPaymentFilters(
+    formik.values.paymentMethodFilters,
+    withInsurances,
+    withAccountsPayable,
+    withCreditQuotas,
+  );
+
   return (
     <>
       <form>
-        <Stack direction="column" gap={isMobile ? "s300" : "s400"}>
-          <Stack direction="column" gap="s200">
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
+        >
+          <Stack direction="column" gap={inube.spacing.s200}>
             <Stack
-              gap="s150"
+              gap={inube.spacing.s150}
               alignItems="center"
               justifyContent="flex-end"
               width="100%"
@@ -152,24 +178,25 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               <Text type="title" size="small">
                 Filtros:
               </Text>
-              <Stack direction="row" gap="s150" alignItems="center">
-                {renderFilters(
-                  filters,
-                  paymentFilters(formik.values.paymentMethodFilters),
-                  onRemoveFilter,
-                )}
+              <Stack
+                direction="row"
+                gap={inube.spacing.s150}
+                alignItems="center"
+              >
+                {renderFilters(filters, paymentFilters, onRemoveFilter)}
               </Stack>
             </StyledFiltersContainer>
           </Stack>
 
           <Stack
             direction="column"
-            gap="s300"
+            gap={inube.spacing.s300}
             margin={isMobile ? "0 0 130px 0" : "0"}
           >
             <Grid
               templateColumns={`repeat(${cardsPerRow}, minmax(262px, 1fr))`}
-              gap={isMobile ? "s200" : "s300"}
+              gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+              autoRows="auto"
             >
               {filteredPayments.map((payment: IPayment) => (
                 <PaymentCard
@@ -179,8 +206,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                   options={payment.options}
                   tags={payment.tags}
                   lineCode={payment.lineCode || ""}
-                  halfPayment={payment.halfPayment || ""}
-                  allowCustomValue={formik.values.allowCustomValue}
+                  allowCustomValue={payment.allowCustomValue}
                   selectedOption={payment.options.find(
                     (option) => option.selected,
                   )}
@@ -191,7 +217,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               ))}
             </Grid>
 
-            <StyledTotalPaymentContainer fixed={isMobile}>
+            <StyledTotalPaymentContainer $fixed={isMobile}>
               <Divider dashed />
 
               <Stack justifyContent="flex-end" width="100%">
@@ -223,7 +249,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
               ? paymentInitialFilters
               : filters
           }
-          allowedFilters={paymentFilters(formik.values.paymentMethodFilters)}
+          allowedFilters={paymentFilters}
           onCloseModal={onToggleFiltersModal}
           onApplyFilters={onApplyFilters}
         />

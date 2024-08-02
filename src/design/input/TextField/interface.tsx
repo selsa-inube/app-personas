@@ -3,7 +3,6 @@ import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { Label } from "../Label";
 import { ITextFieldMessage } from "./types";
 
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { TextFieldProps } from ".";
 import { DropdownMenu } from "../DropdownMenu";
@@ -17,14 +16,15 @@ import {
   StyledInputContainer,
   StyledValidMessageContainer,
 } from "./styles";
+import { Stack } from "@inubekit/stack";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
 
   return (
-    <StyledErrorMessageContainer isDisabled={isDisabled} state={state}>
+    <StyledErrorMessageContainer $isDisabled={isDisabled} $state={state}>
       <MdOutlineWarning />
-      <Text type="body" size="small" appearance="error" disabled={isDisabled}>
+      <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
         {errorMessage}
       </Text>
     </StyledErrorMessageContainer>
@@ -35,7 +35,7 @@ function Success(props: ITextFieldMessage) {
   const { isDisabled, state, validMessage } = props;
 
   return (
-    <StyledValidMessageContainer isDisabled={isDisabled} state={state}>
+    <StyledValidMessageContainer $isDisabled={isDisabled} $state={state}>
       <MdCheckCircle />
       <Text type="body" size="small" appearance="success" disabled={isDisabled}>
         {validMessage}
@@ -94,18 +94,18 @@ function TextFieldUI(props: TextFieldUIProps) {
     truncatedValue.length < maxLength
       ? "warning"
       : truncatedValue.length === maxLength
-        ? "error"
+        ? "danger"
         : "gray";
 
   return (
-    <StyledContainer isFullWidth={isFullWidth} isDisabled={isDisabled}>
-      <Stack direction="column" gap="s050">
+    <StyledContainer $isFullWidth={isFullWidth} $isDisabled={isDisabled}>
+      <Stack direction="column" gap={inube.spacing.s050}>
         {(label || isRequired || (!isDisabled && maxLength && withCounter)) && (
           <Stack justifyContent="space-between" alignItems="center">
             {(label || isRequired) && (
               <Stack
                 width="100%"
-                gap="4px"
+                gap={inube.spacing.s050}
                 alignItems="center"
                 padding={`0px 0px 0px ${inube.spacing.s200}`}
               >
@@ -143,17 +143,17 @@ function TextFieldUI(props: TextFieldUIProps) {
         )}
 
         <StyledInputContainer
-          isDisabled={isDisabled}
-          isFocused={isFocused}
-          state={state}
-          iconBefore={iconBefore}
-          iconAfter={iconAfter}
-          readOnly={readOnly}
+          $isDisabled={isDisabled}
+          $isFocused={isFocused}
+          $state={state}
+          $iconBefore={iconBefore}
+          $iconAfter={iconAfter}
+          $readOnly={readOnly}
         >
           {iconBefore && (
             <StyledIcon
-              isDisabled={isDisabled}
-              iconBefore={iconBefore}
+              $isDisabled={isDisabled}
+              $iconBefore={iconBefore}
               onClick={onIconClick}
             >
               {iconBefore}
@@ -161,12 +161,12 @@ function TextFieldUI(props: TextFieldUIProps) {
           )}
 
           <StyledInput
-            label={label}
+            $label={label}
             name={name}
             id={id}
             placeholder={isDisabled ? undefined : placeholder}
-            isDisabled={isDisabled}
-            isFullWidth={isFullWidth}
+            $isDisabled={isDisabled}
+            $isFullWidth={isFullWidth}
             type={type}
             value={value}
             maxLength={maxLength}
@@ -181,9 +181,9 @@ function TextFieldUI(props: TextFieldUIProps) {
           />
           {iconAfter && (
             <StyledIcon
-              iconAfter={iconAfter}
-              isDisabled={isDisabled}
-              readOnly={readOnly}
+              $iconAfter={iconAfter}
+              $isDisabled={isDisabled}
+              $readOnly={readOnly}
               onClick={onIconClick}
             >
               {iconAfter}

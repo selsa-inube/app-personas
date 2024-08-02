@@ -1,6 +1,6 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { StyledContainer, StyledIcon } from "./styles";
+import { Icon } from "@inubekit/icon";
 
 interface ButtonAttributeProps {
   icon?: React.JSX.Element;
@@ -19,7 +19,7 @@ function ButtonAttribute(props: ButtonAttributeProps) {
             icon={icon}
             appearance="primary"
             size="16px"
-            spacing="none"
+            spacing="narrow"
             disabled={disabled}
           />
         </StyledIcon>

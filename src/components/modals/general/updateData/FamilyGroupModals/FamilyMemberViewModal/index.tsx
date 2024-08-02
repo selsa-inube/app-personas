@@ -1,13 +1,8 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
@@ -19,6 +14,12 @@ import { identificationTypeDM } from "src/model/domains/general/updateData/perso
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { StyledModal, StyledScrollbar } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 interface FamilyMemberViewModalProps {
   portalId: string;
@@ -44,8 +45,8 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal isMobile={isMobile} isTablet={isTablet}>
-        <Stack direction="column" width="100%" gap="s100">
+      <StyledModal $isMobile={isMobile} $isTablet={isTablet}>
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium" appearance="dark">
               Ver familiar
@@ -55,7 +56,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               icon={<MdOutlineClose />}
               onClick={onCloseModal}
               size="20px"
-              spacing="none"
+              spacing="narrow"
               cursorHover
             />
           </Stack>
@@ -63,7 +64,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             Detalles de la información
           </Text>
         </Stack>
-        <StyledScrollbar isMobile={isMobile}>
+        <StyledScrollbar $isMobile={isMobile}>
           <Divider dashed />
           <Fieldset
             title="Identificación"
@@ -71,10 +72,9 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             size={isMobile ? "medium" : "small"}
           >
             <Grid
-              gap="s200"
-              templateColumns={
-                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-              }
+              gap={inube.spacing.s200}
+              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+              autoRows="auto"
             >
               <Select
                 label="Tipo de documento"
@@ -150,10 +150,9 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             size={isMobile ? "medium" : "small"}
           >
             <Grid
-              gap="s200"
-              templateColumns={
-                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-              }
+              gap={inube.spacing.s200}
+              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+              autoRows="auto"
             >
               <TextField
                 label="Celular"
@@ -185,10 +184,9 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             size={isMobile ? "medium" : "small"}
           >
             <Grid
-              gap="s200"
-              templateColumns={
-                isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-              }
+              gap={inube.spacing.s200}
+              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+              autoRows="auto"
             >
               <Select
                 label="Parentesco"
@@ -270,9 +268,9 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             </Grid>
           </Fieldset>
         </StyledScrollbar>
-        <Stack gap="s150">
+        <Stack gap={inube.spacing.s150}>
           <Button
-            appearance="error"
+            appearance="danger"
             variant="outlined"
             spacing="compact"
             onClick={onDelete}

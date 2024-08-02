@@ -2,9 +2,6 @@ import { UserCard } from "@components/cards/UserCard";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
-import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
@@ -12,6 +9,10 @@ import { IConsultingUser } from "src/model/entity/user";
 import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
 import { StyledContainer, StyledResultContainer } from "./styles";
 import { getRecentUsers, saveRecentUser } from "./utils";
+import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 function SwitchUser() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -71,9 +72,9 @@ function SwitchUser() {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   return (
-    <StyledContainer isTablet={isTablet} isMobile={isMobile}>
-      <Stack direction="column" gap="s400">
-        <Stack direction="column" gap="s300">
+    <StyledContainer $isTablet={isTablet} $isMobile={isMobile}>
+      <Stack direction="column" gap={inube.spacing.s400}>
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Text
             type={isMobile ? "title" : "headline"}
             size={isMobile ? "medium" : "large"}
@@ -90,7 +91,7 @@ function SwitchUser() {
           direction={isMobile ? "column" : "row"}
           justifyContent={isMobile ? "center" : "space-between"}
           alignItems={isMobile ? "flex-end" : "center"}
-          gap="s200"
+          gap={inube.spacing.s200}
         >
           <TextField
             name="searchUser"
@@ -105,7 +106,7 @@ function SwitchUser() {
         </Stack>
       </Stack>
       <StyledResultContainer>
-        <Stack direction="column" gap="s150" width="100%">
+        <Stack direction="column" gap={inube.spacing.s150} width="100%">
           <Text
             type="title"
             size={isMobile ? "small" : "medium"}
@@ -117,8 +118,9 @@ function SwitchUser() {
           {filterUsers.length > 0 ? (
             <Grid
               templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+              gap={inube.spacing.s300}
+              autoRows="auto"
               width="100%"
-              gap="s300"
             >
               {filterUsers.map((user) => (
                 <UserCard
@@ -140,7 +142,7 @@ function SwitchUser() {
             </Text>
           )}
         </Stack>
-        <Stack direction="column" gap="s150" width="100%">
+        <Stack direction="column" gap={inube.spacing.s150} width="100%">
           <Text
             type="title"
             size={isMobile ? "small" : "medium"}
@@ -152,8 +154,9 @@ function SwitchUser() {
           {recentUsers.length > 0 ? (
             <Grid
               templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+              gap={inube.spacing.s300}
+              autoRows="auto"
               width="100%"
-              gap="s300"
             >
               {recentUsers.map((user) => (
                 <UserCard

@@ -1,9 +1,10 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { MdDeleteOutline, MdOutlineDescription } from "react-icons/md";
 import { truncateFileName } from "src/utils/texts";
 import { OutlineCard } from "../OutlineCard";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface FileCardProps {
   id: string;
@@ -19,30 +20,35 @@ function FileCard(props: FileCardProps) {
 
   return (
     <OutlineCard>
-      <Stack padding="s200" gap="s150" alignItems="center" width="100%">
+      <Stack
+        padding={inube.spacing.s200}
+        gap={inube.spacing.s150}
+        alignItems="center"
+        width="100%"
+      >
         <Icon
           icon={<MdOutlineDescription />}
           appearance="dark"
           size="24px"
-          spacing="none"
+          spacing="narrow"
           cursorHover
         />
 
-        <Stack direction="column" gap="s050" width="100%">
+        <Stack direction="column" gap={inube.spacing.s050} width="100%">
           <Stack
             justifyContent="space-between"
             width="100%"
             alignItems="center"
           >
             <Text type="label" size="medium">
-              {truncateFileName(name, 25)}
+              {truncateFileName(name, 10)}
             </Text>
 
             <Icon
               icon={<MdDeleteOutline />}
-              appearance="error"
+              appearance="danger"
               size="16px"
-              spacing="none"
+              spacing="narrow"
               cursorHover
               onClick={() => onRemove(id)}
             />

@@ -4,12 +4,12 @@ import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { MdSentimentNeutral } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { CreditsContext } from "src/context/credits";
-import { SavingsContext } from "src/context/savings";
-import { getCreditsForUser } from "src/services/iclient/credits/getCredits";
-import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
+import { IPayment } from "src/model/entity/payment";
+import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
+import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
+import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { initialMessageState } from "src/utils/messages";
 import { paySteps } from "./config/assisted";
@@ -26,8 +26,6 @@ function Pay() {
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-  const { credits } = useContext(CreditsContext);
-  const { commitments } = useContext(SavingsContext);
   const [loadingSend, setLoadingSend] = useState(false);
   const [message, setMessage] = useState<IMessage>(initialMessageState);
   const navigate = useNavigate();
@@ -49,14 +47,11 @@ function Pay() {
   const [pay, setPay] = useState<IFormsPay>({
     obligations: {
       isValid: true,
-      values: mapObligations(
-        credits,
-        commitments,
-        withNextValueOption,
-        withOtherValueOption,
-        withExpiredValueOption,
-        withTotalValueOption,
-      ),
+      values: {
+        paymentMethodFilters: [],
+        payments: [],
+        totalPayment: 0,
+      },
     },
     paymentMethod: {
       isValid: true,
@@ -78,29 +73,51 @@ function Pay() {
   const validateObligations = async () => {
     if (!accessToken) return;
 
-    let newCredits = credits;
-    let newCommitments = commitments;
+    let newCredits: IPayment[] = [];
+    let newCommitments: IPayment[] = [];
+    let newCards: IPayment[] = [];
 
-    if (credits.length === 0) {
-      try {
-        newCredits = await getCreditsForUser(user.identification, accessToken);
-      } catch (error) {
-        if (error instanceof Error) {
-          console.info(error.message);
-        }
+    try {
+      newCredits = await getCreditPayments(
+        user.identification,
+        accessToken,
+        withNextValueOption,
+        withOtherValueOption,
+        withExpiredValueOption,
+        withTotalValueOption,
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        console.info(error.message);
       }
     }
 
-    if (commitments.length === 0) {
-      try {
-        newCommitments = await getSavingsCommitmentsForUser(
-          user.identification,
-          accessToken,
-        );
-      } catch (error) {
-        if (error instanceof Error) {
-          console.info(error.message);
-        }
+    try {
+      newCommitments = await getCommitmentPayments(
+        user.identification,
+        accessToken,
+        withNextValueOption,
+        withOtherValueOption,
+        withExpiredValueOption,
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        console.info(error.message);
+      }
+    }
+
+    try {
+      newCards = await getCardPayments(
+        user.identification,
+        accessToken,
+        withNextValueOption,
+        withOtherValueOption,
+        withExpiredValueOption,
+        withTotalValueOption,
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        console.info(error.message);
       }
     }
 
@@ -108,14 +125,7 @@ function Pay() {
       ...prev,
       obligations: {
         ...prev.obligations,
-        values: mapObligations(
-          newCredits,
-          newCommitments,
-          withNextValueOption,
-          withOtherValueOption,
-          withExpiredValueOption,
-          withTotalValueOption,
-        ),
+        values: mapObligations(newCredits, newCommitments, newCards),
       },
     }));
   };
@@ -130,6 +140,11 @@ function Pay() {
     withExpiredValueOption,
     withTotalValueOption,
   ]);
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname,
+  );
 
   const handleStepChange = (stepId: number) => {
     const newPay = payStepsRules(
@@ -171,7 +186,7 @@ function Pay() {
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
         icon: <MdSentimentNeutral />,
-        appearance: "error",
+        appearance: "danger",
       });
       setLoadingSend(false);
     });
@@ -202,6 +217,7 @@ function Pay() {
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
       message={message}
+      blocker={blocker}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}

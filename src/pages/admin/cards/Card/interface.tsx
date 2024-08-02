@@ -7,18 +7,15 @@ import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModa
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { quickLinks } from "@config/quickLinks";
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
 import {
   MdArrowBack,
   MdOpenInNew,
@@ -28,7 +25,9 @@ import {
 } from "react-icons/md";
 import { EMovementType, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { extractAttribute } from "src/utils/products";
 import { IUsedQuotaModalState } from "../CreditQuota/types";
+import { generateAttributes } from "./config/attributeRecord";
 import { cardBox, myQuotas } from "./config/card";
 import { infoModalData } from "./config/modals";
 import { crumbsCard } from "./config/navigation";
@@ -44,7 +43,9 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
-import { generateAttributes } from "./config/attributeRecord";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 interface CardUIProps {
   cardId?: string;
@@ -89,9 +90,11 @@ function CardUI(props: CardUIProps) {
 
   const formatedAttributes = attributes && formatCardCurrencyAttrs(attributes);
 
+  const cardNumber = extractAttribute(attributes, "card_number")?.value || "";
+
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsCard(cardId)} />
         <Title
           title="Consulta de tarjetas"
@@ -101,14 +104,14 @@ function CardUI(props: CardUIProps) {
         />
       </Stack>
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s400">
-          <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s400}>
+          <Stack direction="column" gap={inube.spacing.s300}>
             {selectedProduct && (
               <>
                 <Select
@@ -122,15 +125,16 @@ function CardUI(props: CardUIProps) {
                 />
                 <Box
                   title={selectedProduct.card.title}
-                  subtitle={selectedProduct.card.id}
+                  subtitle={cardNumber.toString()}
                   tags={selectedProduct.card.tags}
                   loading={loadingCards}
                   {...cardBox}
                 >
-                  <Stack direction="column" gap="s100">
+                  <Stack direction="column" gap={inube.spacing.s100}>
                     <Grid
-                      templateColumns={isMobile ? "1fr" : "1fr 1fr"}
-                      gap="s100"
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      gap={inube.spacing.s100}
+                      autoRows="auto"
                     >
                       {formatedAttributes.slice(0, 3).map((attr) => (
                         <BoxAttribute
@@ -170,7 +174,7 @@ function CardUI(props: CardUIProps) {
               </>
             )}
           </Stack>
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <Text type="title" size="medium">
               Cupos de crédito
             </Text>
@@ -185,16 +189,17 @@ function CardUI(props: CardUIProps) {
                   tags={quota.tags}
                   {...myQuotas}
                 >
-                  <Stack direction="column" gap="s075">
-                    <Stack direction="column" gap="s300">
+                  <Stack direction="column" gap={inube.spacing.s075}>
+                    <Stack direction="column" gap={inube.spacing.s300}>
                       <Stack
                         direction="column"
-                        gap="s200"
+                        gap={inube.spacing.s200}
                         alignItems="flex-end"
                       >
                         <Grid
-                          templateColumns={!isDesktop ? "1fr" : "1fr 1fr"}
-                          gap="s100"
+                          templateColumns={`repeat(${!isDesktop ? 1 : 2}, 1fr)`}
+                          gap={inube.spacing.s100}
+                          autoRows="auto"
                           width="100%"
                         >
                           {formatCreditQuotasCurrencyAttrs(
@@ -241,8 +246,8 @@ function CardUI(props: CardUIProps) {
                         </Button>
                       </Stack>
                       {quota.movements && quota.movements?.length > 0 && (
-                        <Stack direction="column" gap="s200">
-                          <Stack gap="s100" alignItems="center">
+                        <Stack direction="column" gap={inube.spacing.s200}>
+                          <Stack gap={inube.spacing.s100} alignItems="center">
                             <Text
                               type="title"
                               size={isMobile ? "small" : "medium"}
@@ -252,7 +257,7 @@ function CardUI(props: CardUIProps) {
                             <Icon
                               icon={<MdQuestionMark />}
                               appearance="help"
-                              spacing="none"
+                              spacing="narrow"
                               size="16px"
                               variant="filled"
                               shape="circle"
@@ -260,17 +265,18 @@ function CardUI(props: CardUIProps) {
                               onClick={handleShowMovementsInfoModal}
                             />
                           </Stack>
-                          <Stack direction="column" gap="s200">
+                          <Stack direction="column" gap={inube.spacing.s200}>
                             {quota.movements
                               .slice(0, 5)
                               .map((movement, index) => (
                                 <Stack
                                   direction="column"
-                                  gap="s200"
+                                  gap={inube.spacing.s200}
                                   key={movement.id}
                                 >
                                   {index !== 0 && <Divider dashed />}
                                   <RecordCard
+                                    id={movement.id}
                                     type={
                                       movement.type || EMovementType.PAYMENT
                                     }

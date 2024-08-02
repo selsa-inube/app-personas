@@ -1,23 +1,29 @@
-import { ISelectOption } from "@design/input/Select/types";
-import { creditDestinationData } from "@mocks/domains/creditDestination";
-import { destinationProductsMock } from "@mocks/products/credits/request.mocks";
+import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
-import React, { forwardRef, useEffect, useImperativeHandle } from "react";
+import React, {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
+import { AppContext } from "src/context/app";
+import { getProductsForDestination } from "src/services/iclient/credits/getProducts";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { DestinationFormUI } from "./interface";
 import { IDestinationEntry, IDestinationProduct } from "./types";
 
 const validationSchema = Yup.object({
-  creditDestination: Yup.string().required(validationMessages.required),
+  creditDestination: Yup.object().required(validationMessages.required),
   selectedProduct: Yup.object(),
 });
 
 interface DestinationFormProps {
   initialValues: IDestinationEntry;
+  loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IDestinationEntry) => void;
-  loading?: boolean;
 }
 
 const DestinationForm = forwardRef(function DestinationForm(
@@ -26,14 +32,17 @@ const DestinationForm = forwardRef(function DestinationForm(
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
   const [dynamicValidationSchema, setDynamicValidationSchema] =
-    React.useState(validationSchema);
-  const [destinations, setDestinations] = React.useState<ISelectOption[]>([]);
+    useState(validationSchema);
+  const [loadingProducts, setLoadingProducts] = useState(false);
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicValidationSchema,
     validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
+    enableReinitialize: true,
   });
 
   useImperativeHandle(ref, () => formik);
@@ -44,17 +53,21 @@ const DestinationForm = forwardRef(function DestinationForm(
     });
   }, [formik.values]);
 
-  useEffect(() => {
-    setDestinations(creditDestinationData);
-  }, []);
-
-  const handleChangeDestination = (
+  const handleChangeDestination = async (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    formik.handleChange(event);
-    formik.setFieldValue("selectedProduct", undefined);
-
     const { value } = event.target;
+
+    const destination = formik.values.destinations.find(
+      (destination) => destination.id === value,
+    );
+
+    formik.setFieldValue("creditDestination", {
+      id: destination?.id,
+      value: destination?.value,
+    });
+
+    formik.setFieldValue("selectedProduct", undefined);
 
     if (value === "other") {
       const newValidationSchema = dynamicValidationSchema.concat(
@@ -76,10 +89,25 @@ const DestinationForm = forwardRef(function DestinationForm(
       setDynamicValidationSchema(newValidationSchema);
     }
 
-    formik.setFieldValue(
-      "products",
-      destinationProductsMock[value as keyof typeof destinationProductsMock],
+    if (!destination?.id || !accessToken) return;
+
+    setLoadingProducts(true);
+
+    const products = await getProductsForDestination(
+      user.identification,
+      accessToken,
+      destination?.id,
     );
+
+    if (products.length === 0) {
+      formik.setFieldValue("products", []);
+      setLoadingProducts(false);
+      return;
+    }
+
+    formik.setFieldValue("products", products);
+
+    setLoadingProducts(false);
   };
 
   const handleChangeProduct = (value: IDestinationProduct) => {
@@ -90,7 +118,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     <DestinationFormUI
       loading={loading}
       formik={formik}
-      destinations={destinations}
+      loadingProducts={loadingProducts}
       onChangeProduct={handleChangeProduct}
       onChangeDestination={handleChangeDestination}
     />

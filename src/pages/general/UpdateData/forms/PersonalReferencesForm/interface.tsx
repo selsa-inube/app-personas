@@ -3,7 +3,6 @@ import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
@@ -12,6 +11,8 @@ import {
   personalReferencesTableBreakpoints,
   personalReferencesTableTitles,
 } from "./config/table";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface PersonalReferencesFormUIProps {
   formik: FormikValues;
@@ -40,7 +41,12 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300" alignItems="flex-end" width="100%">
+      <Stack
+        direction="column"
+        gap={inube.spacing.s300}
+        alignItems="flex-end"
+        width="100%"
+      >
         <Button
           iconBefore={<MdOutlinePersonAddAlt />}
           variant="none"
@@ -58,7 +64,7 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           hideMobileResume
         />
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

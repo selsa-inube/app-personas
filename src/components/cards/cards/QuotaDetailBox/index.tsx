@@ -1,10 +1,11 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 
-import { Divider } from "@design/layout/Divider";
 import { IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { StyledQuotaDetailBox } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface QuotaDetailBoxProps {
   title: string;
@@ -17,11 +18,11 @@ function QuotaDetailBox(props: QuotaDetailBoxProps) {
 
   return (
     <StyledQuotaDetailBox>
-      <Stack direction="column" gap="s250">
+      <Stack direction="column" gap={inube.spacing.s250}>
         <Text type="title" size="small">
           {title}
         </Text>
-        <Stack direction="column" gap="s150">
+        <Stack direction="column" gap={inube.spacing.s150}>
           {paymentItems.map(
             (item, index) =>
               item.value !== 0 && (
@@ -38,7 +39,7 @@ function QuotaDetailBox(props: QuotaDetailBoxProps) {
         </Stack>
       </Stack>
 
-      <Stack direction="column" gap="s250">
+      <Stack direction="column" gap={inube.spacing.s250}>
         <Divider />
         <Stack justifyContent="space-between">
           <Text type="title" size="medium" appearance="gray">

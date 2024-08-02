@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { inube } from "@design/tokens";
 
 interface IStyledBreadcrumbEllipsis {
-  cursorHover: boolean;
+  $cursorHover: boolean;
 }
 
 const StyledContainerEllipsis = styled.li`
@@ -15,18 +15,18 @@ const StyledBreadcrumbEllipsis = styled.span<IStyledBreadcrumbEllipsis>`
   color: ${({ theme }) =>
     theme.color?.text?.gray?.regular || inube.color.text.gray.regular};
   &:hover {
-    cursor: ${({ cursorHover }) => {
-      if (cursorHover) {
+    cursor: ${({ $cursorHover }) => {
+      if ($cursorHover) {
         return "pointer";
       }
     }};
-    text-decoration: ${({ cursorHover }) => {
-      if (cursorHover) {
+    text-decoration: ${({ $cursorHover }) => {
+      if ($cursorHover) {
         return "underline";
       }
     }};
-    text-decoration-color: ${({ theme, cursorHover }) => {
-      if (cursorHover) {
+    text-decoration-color: ${({ theme, $cursorHover }) => {
+      if ($cursorHover) {
         return (
           theme.color?.stroke?.gray?.hover || inube.color.stroke.gray.hover
         );

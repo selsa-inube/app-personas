@@ -1,10 +1,11 @@
-import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { MdCalendarMonth } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { StyledCardContainer } from "./styles";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface CommitmentCardProps {
   onClick: () => void;
@@ -20,9 +21,9 @@ function CommitmentCard(props: CommitmentCardProps) {
 
   return (
     <StyledCardContainer onClick={onClick}>
-      <Stack alignItems="flex-start" gap="s075">
-        <Icon size="16px" icon={<MdCalendarMonth />} spacing="none" />
-        <Stack direction="column" alignItems="flex-start" gap="s075">
+      <Stack alignItems="flex-start" gap={inube.spacing.s075}>
+        <Icon size="16px" appearance="primary" icon={<MdCalendarMonth />} spacing="narrow" />
+        <Stack direction="column" alignItems="flex-start" gap={inube.spacing.s075}>
           <Text type="label" size="medium">
             {title}
           </Text>
@@ -32,7 +33,7 @@ function CommitmentCard(props: CommitmentCardProps) {
 
       <Stack direction="column">
         {truncatedAttributes.map((attribute, index) => (
-          <Stack gap="s075" key={index}>
+          <Stack gap={inube.spacing.s075} key={index}>
             <Text type="label" size="small">
               {attribute.label}:
             </Text>

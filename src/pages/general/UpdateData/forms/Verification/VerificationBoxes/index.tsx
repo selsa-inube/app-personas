@@ -1,8 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Text } from "@design/data/Text";
-import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
 import {
@@ -47,12 +44,21 @@ import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
+import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     <BoxAttribute label="Primer nombre:" value={values.firstName} />
     <BoxAttribute label="Segundo nombre:" value={values.secondName} />
     <BoxAttribute label="Primer apellido:" value={values.firstLastName} />
@@ -108,7 +114,12 @@ const renderContactDataVerification = (
   values: IContactDataEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     <BoxAttribute
       label="País:"
       value={countryDM.valueOf(values.country)?.value || values.country}
@@ -138,10 +149,11 @@ const renderFamilyGroupVerification = (
 ) => {
   const transformedEntries = mapFamilyGroupTable(values.entries);
   return (
-    <Stack direction="column" gap="s250" width="100%">
+    <Stack direction="column" gap={inube.spacing.s250} width="100%">
       <Grid
-        templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-        gap="s100"
+        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+        autoRows="auto"
+        gap={inube.spacing.s100}
         width="100%"
       >
         {transformedEntries.map((entry) => {
@@ -164,8 +176,9 @@ const renderBeneficiariesVerification = (
 ) => {
   return (
     <Grid
-      templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-      gap="s250"
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s250}
       width="100%"
     >
       {usersMock.length > 0 &&
@@ -190,7 +203,12 @@ const renderBankTransfersVerification = (
   values: IBankTransfersEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     <BoxAttribute
       label="Entidad bancaria:"
       value={getValueOfDomain(values.bankEntity, "bank")?.value}
@@ -207,15 +225,16 @@ const renderPersonalAssetsVerification = (
   values: IPersonalAssetEntries,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap="s250" width="100%">
+  <Stack direction="column" gap={inube.spacing.s250} width="100%">
     {values.entries.map((entry, index) => {
       const personalAsset = mapPersonalAsset(entry, index);
       return (
         <React.Fragment key={entry.id}>
           {index !== 0 && <Divider dashed />}
           <Grid
-            templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-            gap="s100"
+            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+            autoRows="auto"
+            gap={inube.spacing.s100}
             width="100%"
           >
             <BoxAttribute
@@ -243,15 +262,16 @@ const renderPersonalDebtVerification = (
   values: IPersonalDebtEntries,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap="s250" width="100%">
+  <Stack direction="column" gap={inube.spacing.s250} width="100%">
     {values.entries.map((entry, index) => {
       const personalDebt = mapPersonalDebt(entry, index);
       return (
         <React.Fragment key={entry.id}>
           {index !== 0 && <Divider dashed />}
           <Grid
-            templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-            gap="s100"
+            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+            autoRows="auto"
+            gap={inube.spacing.s100}
             width="100%"
           >
             <BoxAttribute
@@ -282,15 +302,16 @@ const renderPersonalReferencesVerification = (
   values: IPersonalReferenceEntries,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap="s250" width="100%">
+  <Stack direction="column" gap={inube.spacing.s250} width="100%">
     {values.entries.map((entry, index) => {
       const personalReference = mapPersonalReference(entry, index);
       return (
         <React.Fragment key={entry.id}>
           {index !== 0 && <Divider dashed />}
           <Grid
-            templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-            gap="s100"
+            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+            autoRows="auto"
+            gap={inube.spacing.s100}
             width="100%"
           >
             <BoxAttribute
@@ -319,10 +340,11 @@ const renderFinancialOperationsVerification = (
   values: IFinancialOperationsEntry,
   isTablet: boolean,
 ) => (
-  <Stack direction="column" gap="s100" width="100%">
+  <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <Grid
-      templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-      gap="s100"
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
       width="100%"
     >
       {values.hasForeignCurrencyTransactions && (
@@ -346,8 +368,9 @@ const renderFinancialOperationsVerification = (
       />
     )}
     <Grid
-      templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-      gap="s100"
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
       width="100%"
     >
       {values.country && (
@@ -373,7 +396,12 @@ const renderPersonalResidenceVerification = (
   values: IPersonalResidenceEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     {values.type && (
       <BoxAttribute
         label="Tipo de vivienda:"
@@ -410,7 +438,12 @@ const renderSocioeconomicInfoVerification = (
   values: ISocioeconomicInformationEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     {values.educationLevel !== "" && (
       <BoxAttribute
         label="Nivel de estudios:"
@@ -466,7 +499,7 @@ const renderEconomicActivityVerification = (
   values: IEconomicActivityEntry,
   isTablet: boolean,
 ) => (
-  <Stack width="100%" direction="column" gap="s250">
+  <Stack width="100%" direction="column" gap={inube.spacing.s250}>
     {values.economicActivity !== "" && (
       <Text type="label" size="medium">
         Clasificación económica
@@ -474,8 +507,9 @@ const renderEconomicActivityVerification = (
     )}
 
     <Grid
-      templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-      gap="s100"
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
       width="100%"
     >
       {values.economicActivity !== "" && (
@@ -539,8 +573,9 @@ const renderEconomicActivityVerification = (
         </Text>
 
         <Grid
-          templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-          gap="s100"
+          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+          gap={inube.spacing.s100}
           width="100%"
         >
           {values.company && (
@@ -654,7 +689,12 @@ const renderIncomesVerification = (
   values: IIncomesEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     {values.basicSalary !== "" && (
       <BoxAttribute
         label="Salario básico:"
@@ -710,7 +750,12 @@ const renderExpensesVerification = (
   values: IExpensesEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     {values.personalExpenses !== "" && (
       <BoxAttribute
         label="Gastos personales:"
@@ -752,7 +797,12 @@ const renderRelationshipWithDirectorsVerification = (
   values: IRelationshipWithDirectorsEntry,
   isTablet: boolean,
 ) => (
-  <Grid templateColumns={isTablet ? "1fr" : "1fr 1fr"} gap="s100" width="100%">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     {values.hasRelationshipWithDirectors !== "" && (
       <BoxAttribute
         label="Parentesco con directivos de la entidad:"

@@ -1,9 +1,12 @@
+type ValidationValueType = "fail" | "success" | "pending";
+
 interface IValidation {
   id: string;
   label: string;
   failDetails?: string;
-  value?: "fail" | "success" | "pending";
+  value?: ValidationValueType;
   isRequired?: boolean;
+  pending?: boolean;
 }
 
 interface IValidations {
@@ -18,4 +21,4 @@ interface IAid {
   validations: IValidations;
 }
 
-export type { IAid, IValidation };
+export type { IAid, IValidation, ValidationValueType };

@@ -8,8 +8,6 @@ import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -30,9 +28,11 @@ import { extractSavingsCommitmentsAttributes } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
 import { StyledPaymentsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
-import { Divider } from "@design/layout/Divider";
 import { RecordCard } from "@components/cards/RecordCard";
 import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
@@ -63,9 +63,15 @@ function renderProducts(
 const renderMovements = (movements: IMovement[]) =>
   movements &&
   movements.slice(0, 5).map((movement, index) => (
-    <Stack direction="column" gap="s200" key={movement.id} width="100%">
+    <Stack
+      direction="column"
+      gap={inube.spacing.s200}
+      key={movement.id}
+      width="100%"
+    >
       {index !== 0 && <Divider dashed />}
       <RecordCard
+        id={movement.id}
         type={movement.type || EMovementType.CREDIT}
         description={movement.description}
         totalValue={movement.totalValue || 0}
@@ -101,7 +107,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsSavingsCommitments(commitmentId)} />
         <Title
           title="Consulta de compromisos"
@@ -111,13 +117,16 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
         />
       </Stack>
       <Grid
-        gap="s300"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap={isMobile ? "s200" : "s300"}>
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+        >
           <Select
             id="savingCommitments"
             onChange={handleChangeCommitment}
@@ -126,7 +135,10 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
             value={selectedCommitment.option}
             isFullWidth
           />
-          <Stack direction="column" gap={isMobile ? "s250" : "s400"}>
+          <Stack
+            direction="column"
+            gap={isMobile ? inube.spacing.s250 : inube.spacing.s400}
+          >
             <Box
               title={selectedCommitment.commitment.title}
               subtitle={selectedCommitment.commitment.id}
@@ -137,8 +149,12 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
                 ]
               }
             >
-              <Stack direction="column" gap="s100">
-                <Grid templateColumns={isMobile ? "1fr" : "1fr 1fr"} gap="s100">
+              <Stack direction="column" gap={inube.spacing.s100}>
+                <Grid
+                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                  gap={inube.spacing.s100}
+                  autoRows="auto"
+                >
                   {nextPaymentModal.data && (
                     <BoxAttribute
                       label="Valor próximo pago:"
@@ -170,7 +186,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
               subtitle="Productos que reciben dinero de este compromiso de ahorro"
               collapsing={{ start: true, allow: false }}
             >
-              <Stack direction="column" gap="s100">
+              <Stack direction="column" gap={inube.spacing.s100}>
                 {renderProducts(
                   selectedCommitment.commitment.products,
                   savingProducts,
@@ -180,11 +196,11 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
           </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
-        <Stack direction="column" gap="s200" alignItems="flex-start">
+        <Stack direction="column" gap={inube.spacing.s200} alignItems="flex-start">
           <Text type="label" size="large">
             Pagos recientes
           </Text>
-          <StyledPaymentsContainer isMobile={isMobile}>
+          <StyledPaymentsContainer $isMobile={isMobile}>
             {selectedCommitment.commitment.movements &&
             selectedCommitment.commitment.movements.length > 0 ? (
               renderMovements(selectedCommitment.commitment.movements)
@@ -193,7 +209,7 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
-                gap="s100"
+                gap={inube.spacing.s100}
                 width="100%"
               >
                 <Text type="title" size="small" appearance="dark">

@@ -1,7 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Icon } from "@design/data/Icon";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { reimbursementTypeDM } from "src/model/domains/general/updateData/economicActivity/reimbursementTypeDM";
 import { currencyFormat } from "src/utils/currency";
@@ -14,6 +11,10 @@ import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -25,8 +26,9 @@ const renderBeneficiariesVerification = (
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
       width="100%"
-      gap="s100"
+      gap={inube.spacing.s100}
     >
       <BoxAttribute label="Nombre:" value={selectedBeneficiary?.name} />
       <BoxAttribute
@@ -45,8 +47,9 @@ const renderAmountVerification = (values: IAmountEntry, isTablet: boolean) => {
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
       width="100%"
-      gap="s100"
+      gap={inube.spacing.s100}
     >
       <BoxAttribute
         label="Valor de la solicitud:"
@@ -77,8 +80,9 @@ const renderRegulationValidationsVerification = (
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
       width="100%"
-      gap="s100"
+      gap={inube.spacing.s100}
     >
       {values.validations.map((validation) => (
         <BoxAttribute
@@ -90,14 +94,14 @@ const renderRegulationValidationsVerification = (
                 appearance="success"
                 icon={<MdOutlineCheckCircle />}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
               />
             ) : (
               <Icon
-                appearance="error"
+                appearance="danger"
                 icon={<MdOutlineHighlightOff />}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
               />
             )
           }
@@ -114,8 +118,9 @@ const renderDocumentaryRequirementsVerification = (
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
       width="100%"
-      gap="s100"
+      gap={inube.spacing.s100}
     >
       {values.selectedDocuments.map((document) => (
         <BoxAttribute
@@ -129,7 +134,7 @@ const renderDocumentaryRequirementsVerification = (
 
 const renderDisbursementVerification = (values: IDisbursementEntry) => {
   return (
-    <Stack width="100%" gap="s100" direction="column">
+    <Stack width="100%" gap={inube.spacing.s100} direction="column">
       <BoxAttribute
         label="Desembolso:"
         value={reimbursementTypeDM.valueOf(values.disbursementMethod)?.value}

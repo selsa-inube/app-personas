@@ -3,8 +3,6 @@ import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
 import { Text } from "@design/data/Text";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 
 import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
@@ -23,6 +21,8 @@ import {
   formatCreditCurrencyAttrs,
   extractCreditAttributes,
 } from "../../home/config/products";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 interface MyCreditsUIProps {
   loading: boolean;
@@ -36,7 +36,7 @@ function MyCreditsUI(props: MyCreditsUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsMyCredits} />
         <Title
           title="Mis créditos"
@@ -47,18 +47,18 @@ function MyCreditsUI(props: MyCreditsUIProps) {
       </Stack>
 
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Text type="title" size="medium">
             Tus productos
           </Text>
           <Box {...myCredits(withRequestCredit)}>
-            <Stack direction="column" gap="s075">
+            <Stack direction="column" gap={inube.spacing.s075}>
               {loading ? (
                 <>
                   <Product loading />

@@ -2,17 +2,17 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledScroller {
-  smallScreen: boolean;
+  $smallScreen: boolean;
 }
 
 const StyledScroller = styled.div<IStyledScroller>`
-  max-height: ${({ smallScreen }) => (smallScreen ? "288px" : "652px")};
+  max-height: ${({ $smallScreen }) => ($smallScreen ? "288px" : "652px")};
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: ${inube.spacing.s200};
-  padding: ${({ smallScreen }) =>
-    smallScreen ? inube.spacing.s050 : inube.spacing.s0};
+  padding: ${({ $smallScreen }) =>
+    $smallScreen ? inube.spacing.s050 : inube.spacing.s0};
 
   ::-webkit-scrollbar {
     width: 4px;

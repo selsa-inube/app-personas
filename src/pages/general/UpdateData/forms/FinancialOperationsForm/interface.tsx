@@ -3,10 +3,10 @@ import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 import { FormikValues } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
@@ -33,13 +33,16 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Grid
-          templateColumns={isTablet ? "1fr" : "1fr 1fr"}
-          gap={
-            isTablet ? "s200" : `${inube.spacing.s200} ${inube.spacing.s300}`
-          }
+          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+          autoRows="auto"
           width="100%"
+          gap={
+            isTablet
+              ? inube.spacing.s200
+              : `${inube.spacing.s200} ${inube.spacing.s300}`
+          }
         >
           <Select
             label="¿Realiza operaciones en moneda extrajera?"
@@ -108,10 +111,11 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               size="medium"
             >
               <Grid
-                templateColumns={isTablet ? "1fr" : "1fr 1fr"}
+                templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+                autoRows="auto"
                 gap={
                   isTablet
-                    ? "s150"
+                    ? inube.spacing.s150
                     : `${inube.spacing.s200} ${inube.spacing.s300}`
                 }
               >
@@ -188,7 +192,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         )}
 
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

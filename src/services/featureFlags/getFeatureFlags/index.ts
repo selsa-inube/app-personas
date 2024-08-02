@@ -3,13 +3,9 @@ import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { featureFlagsDB } from "src/services/config/supabase/config";
 import { mapFeatureFlagsApiToEntities } from "./mappers";
 
-const getFeatureFlagsByModule = async (
-  scope: string,
-  category: string,
-  product: string,
+const getFeatureFlagsByBunit = async (
+  businessUnit: string,
 ): Promise<IFeatureFlag[]> => {
-  const TEMP_CLIENT = "fondecom";
-
   try {
     const { data: instanceData } = await featureFlagsDB
       .from("instances")
@@ -21,7 +17,7 @@ const getFeatureFlagsByModule = async (
       )
       .eq("is_production", enviroment.IS_PRODUCTION)
       .eq("app.public_code", enviroment.APP_CODE)
-      .eq("business_unit.public_code", TEMP_CLIENT)
+      .eq("business_unit.public_code", businessUnit)
       .single();
 
     if (!instanceData) {
@@ -36,10 +32,7 @@ const getFeatureFlagsByModule = async (
         `,
       )
       .eq("app_id", "app_id" in instanceData.app && instanceData.app.app_id)
-      .eq("flags.instance_id", instanceData.instance_id)
-      .eq("scope", scope)
-      .eq("category", category)
-      .eq("product", product);
+      .eq("flags.instance_id", instanceData.instance_id);
 
     if (!flagsData) {
       throw new Error("No se encontraron las feature flags.");
@@ -101,4 +94,4 @@ const getFeatureFlagsByCodes = async (
   }
 };
 
-export { getFeatureFlagsByCodes, getFeatureFlagsByModule };
+export { getFeatureFlagsByCodes, getFeatureFlagsByBunit };

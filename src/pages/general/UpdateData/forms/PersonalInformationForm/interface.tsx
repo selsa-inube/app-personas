@@ -3,9 +3,10 @@ import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
+import { inube } from "@design/tokens";
 import { FormikValues } from "formik";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { bloodTypeDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
@@ -30,17 +31,16 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Fieldset
           title="Nombres"
           type={isMobile ? "label" : "title"}
           size={isMobile ? "medium" : "small"}
         >
           <Grid
-            templateColumns={
-              isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-            }
-            gap={isMobile ? "s150" : "s300"}
+            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            autoRows="auto"
+            gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
           >
             <TextField
               label="Primer nombre"
@@ -94,10 +94,9 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size={isMobile ? "medium" : "small"}
         >
           <Grid
-            templateColumns={
-              isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-            }
-            gap={isMobile ? "s150" : "s300"}
+             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+             autoRows="auto"
+             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
           >
             <Select
               label="Tipo de identificación"
@@ -187,10 +186,9 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size={isTablet ? "medium" : "small"}
         >
           <Grid
-            templateColumns={
-              isMobile ? "1fr" : isTablet ? "1fr 1fr" : "1fr 1fr 1fr"
-            }
-            gap={isMobile ? "s150" : "s300"}
+             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+             autoRows="auto"
+             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
           >
             <Select
               label="País de nacimiento"
@@ -269,7 +267,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         </Fieldset>
 
         {withSubmit && (
-          <Stack gap="s150" justifyContent="flex-end">
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
               onClick={formik.handleReset}
               type="button"

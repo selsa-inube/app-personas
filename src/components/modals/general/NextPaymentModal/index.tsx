@@ -1,16 +1,17 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledModal } from "./styles";
+import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderTransactionSpecification = (label: string, value: number) => (
-  <Stack gap="s100" alignItems="center">
+  <Stack gap={inube.spacing.s100} alignItems="center">
     <Stack justifyContent="space-between" width="100%">
       <Text type="label" size="medium" appearance="dark">
         {label}
@@ -52,8 +53,8 @@ function NextPaymentModal(props: NextPaymentModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+      <StyledModal $smallScreen={isMobile}>
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="large" appearance="dark">
               Total próximo pago
@@ -65,7 +66,7 @@ function NextPaymentModal(props: NextPaymentModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
@@ -80,7 +81,7 @@ function NextPaymentModal(props: NextPaymentModalProps) {
             Especificación del pago
           </Text>
 
-          <Stack direction="column" gap="s200">
+          <Stack direction="column" gap={inube.spacing.s200}>
             {nextPaymentData.nextCapital &&
               renderTransactionSpecification(
                 "Abono capital:",
@@ -124,12 +125,12 @@ function NextPaymentModal(props: NextPaymentModalProps) {
               )}
           </Stack>
 
-          <Stack direction="column" gap="s150">
+          <Stack direction="column" gap={inube.spacing.s150}>
             <Divider />
 
             <Stack justifyContent="space-between" alignItems="center">
               <Text type="title" size="medium" appearance="gray">
-                Pago total:
+                Total:
               </Text>
 
               <Text type="title" size="medium" appearance="dark">

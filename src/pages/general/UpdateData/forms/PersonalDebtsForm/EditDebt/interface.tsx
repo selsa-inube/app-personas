@@ -1,5 +1,5 @@
 import { DebtModal } from "@components/modals/general/updateData/DebtModal";
-import { Icon } from "@design/data/Icon";
+import { Icon } from "@inubekit/icon";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 
@@ -22,7 +22,7 @@ function EditDebtUI(props: EditDebtUIProps) {
         icon={<MdOutlineModeEdit />}
         cursorHover={true}
         size="16px"
-        spacing="none"
+        spacing="narrow"
         onClick={handleEditModal}
       />
 

@@ -1,8 +1,9 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 import { StyledCardContainer, StyledInputRadio } from "./styles";
 import { RadioCardAppearanceType, RadioCardSizeType } from "./types";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface RadioCardProps {
   id: string;
@@ -32,7 +33,11 @@ function RadioCard(props: RadioCardProps) {
   } = props;
 
   return (
-    <StyledCardContainer size={size} appearance={appearance} onClick={onClick}>
+    <StyledCardContainer
+      $size={size}
+      $appearance={appearance}
+      onClick={onClick}
+    >
       <StyledInputRadio
         id={id}
         name={name}
@@ -43,14 +48,21 @@ function RadioCard(props: RadioCardProps) {
       />
       <Stack
         direction="column"
-        gap={size === "compact" ? "s0" : "s075"}
+        gap={size === "compact" ? inube.spacing.s0 : inube.spacing.s075}
         width="100%"
       >
         <Stack alignItems="center" justifyContent="space-between">
           <Text type="label" size={size === "compact" ? "small" : "medium"}>
             {title}
           </Text>
-          {icon && <Icon icon={icon} spacing="none" size="16px" />}
+          {icon && (
+            <Icon
+              icon={icon}
+              appearance="primary"
+              spacing="narrow"
+              size="16px"
+            />
+          )}
         </Stack>
         <Text type="body" size="small" appearance="gray">
           {description}

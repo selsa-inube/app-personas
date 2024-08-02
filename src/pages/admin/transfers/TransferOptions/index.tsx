@@ -6,8 +6,6 @@ import { quickLinks } from "@config/quickLinks";
 import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -22,6 +20,8 @@ import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { initialMessageState } from "src/utils/messages";
 import { crumbsTransferOptions } from "./config/navigation";
 import { sendTransferRequest } from "./utils";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 function TransferOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -66,7 +66,7 @@ function TransferOptions() {
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
         icon: <MdSentimentNeutral />,
-        appearance: "error",
+        appearance: "danger",
       });
 
       setLoadingSend(false);
@@ -83,7 +83,7 @@ function TransferOptions() {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsTransferOptions} />
         <Title
           title="Transferencias"
@@ -94,19 +94,19 @@ function TransferOptions() {
       </Stack>
 
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
         templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s400">
+        <Stack direction="column" gap={inube.spacing.s400}>
           <Text type="title" size="small">
             Aquí encontraras las opciones que puedes usar para gestionar tus
             transferencias.
           </Text>
 
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             <RequestCard
               title="Deposita en tu cuenta de ahorros"
               descriptions={[

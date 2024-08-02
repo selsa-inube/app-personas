@@ -1,10 +1,6 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
-import { Blanket } from "@design/layout/Blanket";
-import { Divider } from "@design/layout/Divider";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
@@ -15,6 +11,11 @@ import {
   StyledModal,
   StyledOptionsContainer,
 } from "./styles";
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface IHelpOption {
   id: string;
@@ -70,8 +71,8 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s100">
+      <StyledModal $smallScreen={isMobile}>
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
           <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium">
               Ayudas
@@ -83,7 +84,7 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
               onClick={onCloseModal}
               cursorHover={true}
               size="20px"
-              spacing="none"
+              spacing="narrow"
             />
           </Stack>
           <Text type="body" size="medium" appearance="gray">
@@ -115,7 +116,7 @@ function PaymentHelpModal(props: PaymentHelpModalProps) {
           ))}
         </StyledOptionsContainer>
 
-        <Stack width="100%" justifyContent="flex-end" gap="s100">
+        <Stack width="100%" justifyContent="flex-end" gap={inube.spacing.s100}>
           <Button
             appearance="gray"
             variant="outlined"

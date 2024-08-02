@@ -1,22 +1,22 @@
-import { TextField } from "@design/input/TextField";
-import { Stack } from "@design/layout/Stack";
-import { Fieldset } from "@design/input/Fieldset";
-import { Grid } from "@design/layout/Grid";
-import { Switch } from "@design/input/Switch";
-import { Button } from "@design/input/Button";
-import { inube } from "@design/tokens";
-import { Select } from "@design/input/Select";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Text } from "@design/data/Text";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { peridiocityDM } from "src/model/domains/general/peridiocity";
-import { FormikValues } from "formik";
-import { currencyFormat, validateCurrencyField } from "src/utils/currency";
-import { Divider } from "@design/layout/Divider";
 import { Table } from "@design/data/Table";
-import { currentIntRateTableTitles } from "./config/table";
+import { Text } from "@design/data/Text";
+import { Button } from "@design/input/Button";
+import { Fieldset } from "@design/input/Fieldset";
+import { Select } from "@design/input/Select";
+import { Switch } from "@design/input/Switch";
+import { TextField } from "@design/input/TextField";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
+import { FormikValues } from "formik";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
+import { currentIntRateTableTitles } from "./config/table";
 
 interface ConditionsFormUIProps {
   formik: FormikValues;
@@ -24,7 +24,7 @@ interface ConditionsFormUIProps {
   loadingSimulation?: boolean;
   simulateCDAT: () => void;
   customHandleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -42,15 +42,22 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap={isMobile ? "s200" : "s300"}>
-        <Stack direction="column" gap="s200">
+      <Stack
+        direction="column"
+        gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+      >
+        <Stack direction="column" gap={inube.spacing.s200}>
           <Fieldset
             title="Simulador"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
-            <Stack direction="column" gap="s300">
-              <Grid gap="s300" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+            <Stack direction="column" gap={inube.spacing.s300}>
+              <Grid
+                gap={inube.spacing.s300}
+                templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                autoRows="auto"
+              >
                 <TextField
                   label="Valor de la inversión"
                   placeholder=""
@@ -70,7 +77,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                   value={formik.values.interestPayment}
                   size="compact"
                   isFullWidth
-                  options={peridiocityDM.options}
+                  options={periodicityDM.options}
                   onBlur={formik.handleBlur}
                   errorMessage={formik.errors.interestPayment}
                   isDisabled={loading}
@@ -80,11 +87,11 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                 />
               </Grid>
 
-              <Stack direction="column" gap="s250">
+              <Stack direction="column" gap={inube.spacing.s250}>
                 <Stack
                   padding={
                     isMobile
-                      ? "s0"
+                      ? inube.spacing.s0
                       : `${inube.spacing.s050} ${inube.spacing.s200}`
                   }
                 >
@@ -99,7 +106,11 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                     size="large"
                   />
                 </Stack>
-                <Grid gap="s300" templateColumns={isMobile ? "1fr" : "1fr 1fr"}>
+                <Grid
+                  gap={inube.spacing.s300}
+                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                  autoRows="auto"
+                >
                   {formik.values.simulationWithDate ? (
                     <TextField
                       label="Fecha"
@@ -148,7 +159,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         !formik.values.deadlineDate) ||
                       (formik.errors.deadlineDays &&
                         !formik.values.deadlineDate) ||
-                      (formik.errors.deadlineDate && 
+                      (formik.errors.deadlineDate &&
                         !formik.values.deadlineDays)
                     }
                   >
@@ -160,15 +171,16 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                 <>
                   <Divider dashed />
 
-                  <Stack direction="column" gap="s300">
+                  <Stack direction="column" gap={inube.spacing.s300}>
                     <Text type="title" size="small">
                       Resultados de la simulación
                     </Text>
                     <Grid
-                      gap="s300"
-                      templateColumns={isMobile ? "1fr" : "1fr 1fr"}
+                      gap={inube.spacing.s300}
+                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      autoRows="auto"
                     >
-                      <Stack direction="column" gap="s150">
+                      <Stack direction="column" gap={inube.spacing.s150}>
                         <BoxAttribute
                           label="Tasa efectiva anual:"
                           value={`${formik.values.effectiveAnnualRate} %`}
@@ -176,12 +188,12 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         <BoxAttribute
                           label="Intereses totales:"
                           value={`${currencyFormat(
-                            formik.values.totalInterest
+                            formik.values.totalInterest,
                           )}`}
                         />
                       </Stack>
 
-                      <Stack direction="column" gap="s150">
+                      <Stack direction="column" gap={inube.spacing.s150}>
                         <BoxAttribute
                           label="Plazo en número de días:"
                           value={`${formik.values.deadlineDays}`}
@@ -189,7 +201,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         <BoxAttribute
                           label="Retención en la fuente:"
                           value={`${currencyFormat(
-                            formik.values.withholdingTax
+                            formik.values.withholdingTax,
                           )}`}
                         />
                       </Stack>
@@ -201,7 +213,11 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
           </Fieldset>
         </Stack>
 
-        <Stack direction="column" gap="s100" alignItems="flex-start">
+        <Stack
+          direction="column"
+          gap={inube.spacing.s100}
+          alignItems="flex-start"
+        >
           <Text type="title" size="small">
             Tasas de interés vigentes
           </Text>

@@ -1,6 +1,5 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
+import { SkeletonLine } from "@inubekit/skeleton";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getRecordDescriptionType } from "@pages/admin/cards/Card/config/product";
 import {
@@ -14,16 +13,18 @@ import { EMovementType } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { Tag, TagProps } from "@design/data/Tag";
 import { formatPrimaryDate } from "src/utils/dates";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const getIconForRecordType = (type: EMovementType) => {
   return (
     <Stack direction="column" justifyContent="center">
-      {(type === EMovementType.PURCHASE ||
-        type === EMovementType.DEBIT) && (
+      {(type === EMovementType.PURCHASE || type === EMovementType.DEBIT) && (
         <Icon
           icon={<MdArrowBack />}
-          appearance="error"
-          spacing="none"
+          appearance="danger"
+          spacing="narrow"
           size="16px"
           variant="outlined"
           shape="circle"
@@ -33,18 +34,17 @@ const getIconForRecordType = (type: EMovementType) => {
         <Icon
           icon={<MdOutlineCached />}
           appearance="success"
-          spacing="none"
+          spacing="narrow"
           size="16px"
           variant="outlined"
           shape="circle"
         />
       )}
-      {(type === EMovementType.PAYMENT ||
-        type === EMovementType.CREDIT) && (
+      {(type === EMovementType.PAYMENT || type === EMovementType.CREDIT) && (
         <Icon
           icon={<MdOutlineCheck />}
           appearance="success"
-          spacing="none"
+          spacing="narrow"
           size="16px"
           variant="outlined"
           shape="circle"
@@ -54,7 +54,7 @@ const getIconForRecordType = (type: EMovementType) => {
         <Icon
           icon={<MdOutlineAssignment />}
           appearance="gray"
-          spacing="none"
+          spacing="narrow"
           size="16px"
         />
       )}
@@ -63,22 +63,26 @@ const getIconForRecordType = (type: EMovementType) => {
 };
 
 interface RecordCardProps {
+  id: string;
   type: EMovementType;
   description: string;
   totalValue: number;
   withExpandingIcon?: boolean;
   tag?: TagProps;
+  loading?: boolean;
   attributes: { id: string; label: string; value: number | string | Date }[];
-  onClick?: () => void;
+  onClick?: (movementId: string) => void;
 }
 
 function RecordCard(props: RecordCardProps) {
   const {
+    id,
     type,
     description,
     totalValue,
     attributes,
     withExpandingIcon = false,
+    loading,
     onClick,
     tag,
   } = props;
@@ -92,69 +96,103 @@ function RecordCard(props: RecordCardProps) {
       ? currencyFormat(totalValue)
       : `-${currencyFormat(totalValue)}`;
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick(id);
+    }
+  };
+
   return (
-    <Stack direction="column" gap="s100">
-      <Stack justifyContent="space-between" gap={isMobile ? "s150" : "s500"}>
-        <Stack gap="s150">
-          {getIconForRecordType(type)}
-          <Text type="label" size="medium">
-            {`${getRecordDescriptionType(type, description)} ${description}`}
-          </Text>
-          {tag && !isMobile && (
-            <Tag
-              label={tag.label}
-              appearance={tag.appearance}
-              textAppearance={tag.textAppearance}
-              modifier={tag.modifier}
-            />
-          )}
-        </Stack>
-        <Stack gap="s150">
-          {!isMobile && (
+    <Stack direction="column" gap={inube.spacing.s100}>
+      <Stack justifyContent="space-between" gap={isMobile ? inube.spacing.s150 : inube.spacing.s500}>
+        {loading ? (
+          <>
+            <Stack gap={inube.spacing.s150}>
+              <SkeletonLine animated width="16px" />
+              <SkeletonLine animated width={isMobile ? "232px" : "582px"} />
+            </Stack>
+            <Stack gap={inube.spacing.s150}>
+              {!isMobile && <SkeletonLine animated width="80px" />}
+              <SkeletonLine animated width="16px" />
+            </Stack>
+          </>
+        ) : (
+          <>
+            <Stack gap={inube.spacing.s150}>
+              {getIconForRecordType(type)}
+              <Text type="label" size="medium">
+                {`${getRecordDescriptionType(type, description)} ${description}`}
+              </Text>
+              {tag && !isMobile && (
+                <Tag
+                  label={tag.label}
+                  appearance={tag.appearance}
+                  textAppearance={tag.textAppearance}
+                  modifier={tag.modifier}
+                />
+              )}
+            </Stack>
+            <Stack gap={inube.spacing.s150}>
+              {!isMobile && (
+                <Text type="label" size="medium">
+                  {formattedValue}
+                </Text>
+              )}
+              {withExpandingIcon && (
+                <Icon
+                  icon={<MdOpenInNew />}
+                  appearance="primary"
+                  spacing="narrow"
+                  size="16px"
+                  onClick={handleClick}
+                  cursorHover
+                />
+              )}
+            </Stack>
+          </>
+        )}
+      </Stack>
+      <Stack direction="column" gap={inube.spacing.s050}>
+        {loading ? (
+          <>
+            <SkeletonLine animated width="150px" />
+            <SkeletonLine animated width="150px" />
+            <SkeletonLine animated width="150px" />
+          </>
+        ) : (
+          attributes.map((attribute, index) => (
+            <Stack key={attribute.id} justifyContent="space-between">
+              <Stack gap={inube.spacing.s075}>
+                <Text type="label" size="medium" appearance="gray">
+                  {attribute.label}:
+                </Text>
+                <Text type="body" size="small">
+                  {attribute.value instanceof Date
+                    ? formatPrimaryDate(attribute.value)
+                    : attribute.value}
+                </Text>
+              </Stack>
+              {index === 0 && tag && isMobile && (
+                <Tag
+                  label={tag.label}
+                  appearance={tag.appearance}
+                  textAppearance={tag.textAppearance}
+                  modifier={tag.modifier}
+                />
+              )}
+            </Stack>
+          ))
+        )}
+      </Stack>
+      {isMobile && (
+        <Stack justifyContent="flex-end">
+          {loading ? (
+            <SkeletonLine animated width="80px" />
+          ) : (
             <Text type="label" size="medium">
               {formattedValue}
             </Text>
           )}
-          {withExpandingIcon && (
-            <Icon
-              icon={<MdOpenInNew />}
-              spacing="none"
-              size="16px"
-              onClick={onClick}
-              cursorHover
-            />
-          )}
-        </Stack>
-      </Stack>
-      <Stack direction="column" gap="s050">
-        {attributes.map((attribute, index) => (
-          <Stack key={attribute.id} justifyContent="space-between">
-            <Stack gap="s075">
-              <Text type="label" size="medium" appearance="gray">
-                {attribute.label}:
-              </Text>
-              <Text type="body" size="small">
-                {attribute.value instanceof Date
-                  ? formatPrimaryDate(attribute.value)
-                  : attribute.value}
-              </Text>
-            </Stack>
-            {index === 0 && tag && isMobile && (
-              <Tag
-                label={tag.label}
-                appearance={tag.appearance}
-                textAppearance={tag.textAppearance}
-                modifier={tag.modifier}
-              />
-            )}
-          </Stack>
-        ))}
-      </Stack>
-      {isMobile && (
-        <Stack justifyContent="flex-end">
-          <Text type="label" size="medium">
-            {formattedValue}
-          </Text>
         </Stack>
       )}
     </Stack>

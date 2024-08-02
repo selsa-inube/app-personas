@@ -1,11 +1,12 @@
 import { Select } from "@design/input/Select";
-import { Stack } from "@design/layout/Stack";
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import {
   buildReimbursementAccount,
   filteredOptionsFormReimbursement,
 } from "./utils";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface ReimbursementFormUIProps {
   formik: FormikValues;
@@ -20,7 +21,7 @@ function ReimbursementFormUI(props: ReimbursementFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Select
           name="reimbursementType"
           id="reimbursementType"

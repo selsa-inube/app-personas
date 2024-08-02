@@ -3,24 +3,26 @@ import styled from "styled-components";
 import { MessageAppearanceType } from "./types";
 
 interface IStyledSectionMessage {
-  isMessageResponsive: boolean;
-  appearance: MessageAppearanceType;
+  $isMessageResponsive: boolean;
+  $appearance: MessageAppearanceType;
 }
 
 const StyledSectionMessage = styled.div<IStyledSectionMessage>`
   position: fixed;
-  right: ${(props) =>
-    props.isMessageResponsive ? inube.spacing.s300 : inube.spacing.s800};
-  left: ${(props) => (props.isMessageResponsive ? inube.spacing.s300 : "auto")};
-  bottom: ${(props) =>
-    props.isMessageResponsive ? inube.spacing.s300 : inube.spacing.s400};
-  background-color: ${({ theme, appearance }) => {
+  right: ${({ $isMessageResponsive }) =>
+    $isMessageResponsive ? inube.spacing.s300 : inube.spacing.s800};
+  left: ${({ $isMessageResponsive }) =>
+    $isMessageResponsive ? inube.spacing.s300 : "auto"};
+  bottom: ${({ $isMessageResponsive }) =>
+    $isMessageResponsive ? inube.spacing.s300 : inube.spacing.s400};
+  background-color: ${({ theme, $appearance }) => {
     return (
-      theme?.color?.surface?.[appearance]?.clear ||
-      inube.color.surface[appearance].clear
+      theme?.color?.surface?.[$appearance]?.clear ||
+      inube.color.surface[$appearance].clear
     );
   }};
-  width: ${(props) => (props.isMessageResponsive ? "auto" : "400px")};
+  width: ${({ $isMessageResponsive }) =>
+    $isMessageResponsive ? "auto" : "400px"};
   height: auto;
   border-radius: ${inube.spacing.s050};
   box-shadow:

@@ -1,12 +1,12 @@
-import { Icon } from "@design/data/Icon";
 import { Text } from "@design/data/Text";
 import { INav } from "@design/layout/Page/types";
-import { Stack } from "@design/layout/Stack";
 import { IHeaderLink } from "@design/navigation/Header/types";
 import { NavLink } from "@design/navigation/NavLink";
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 import { StyledCollapseIcon, StyledSectionContainer } from "./styles";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 
 interface MultiSectionsProps {
   navigation: INav;
@@ -52,7 +52,7 @@ function MultiSections(props: MultiSectionsProps) {
       {combinedSectionValues.map((sectionValue) => (
         <Stack key={sectionValue.title} direction="column">
           <StyledSectionContainer
-            selected={sectionCollapse[sectionValue.title]}
+            $selected={sectionCollapse[sectionValue.title]}
             onClick={() => handleCollapse(sectionValue.title)}
           >
             <Text
@@ -64,7 +64,7 @@ function MultiSections(props: MultiSectionsProps) {
             >
               {sectionValue.title.toUpperCase()}
             </Text>
-            <StyledCollapseIcon collapse={sectionCollapse[sectionValue.title]}>
+            <StyledCollapseIcon $collapse={sectionCollapse[sectionValue.title]}>
               <Icon
                 icon={<MdOutlineChevronRight />}
                 spacing="compact"

@@ -1,18 +1,18 @@
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledModal } from "./styles";
-import { Blanket } from "@design/layout/Blanket";
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
-import { Icon } from "@design/data/Icon";
-import { Divider } from "@design/layout/Divider";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { CreateFamilyMember } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember";
 import { IIdentificationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/IdentificationDataForm/types";
 import { IPersonalDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/PersonalDataForm/types";
 import { IContactDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/ContactDataForm/types";
 import { IInformationDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/InformationDataForm/types";
-
+import { Divider } from "@inubekit/divider";
+import { Blanket } from "@inubekit/blanket";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 interface FamilyMemberCreateModalProps {
   portalId: string;
@@ -21,7 +21,7 @@ interface FamilyMemberCreateModalProps {
     identification: IIdentificationDataEntry,
     personalData: IPersonalDataEntry,
     contactData: IContactDataEntry,
-    InformationData: IInformationDataEntry
+    InformationData: IInformationDataEntry,
   ) => void;
 }
 
@@ -33,18 +33,18 @@ function FamilyMemberCreateModal(props: FamilyMemberCreateModalProps) {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
   return createPortal(
     <Blanket>
-      <StyledModal smallScreen={isMobile}>
-        <Stack direction="column" width="100%" gap="s200">
+      <StyledModal $smallScreen={isMobile}>
+        <Stack direction="column" width="100%" gap={inube.spacing.s200}>
           <Stack
             direction="column"
             width="100%"
-            gap={isMobile ? "s050" : "s100"}
+            gap={isMobile ? inube.spacing.s050 : inube.spacing.s100}
           >
             <Stack justifyContent="space-between" alignItems="center">
               <Text
@@ -59,7 +59,7 @@ function FamilyMemberCreateModal(props: FamilyMemberCreateModalProps) {
                 icon={<MdOutlineClose />}
                 onClick={onCloseModal}
                 size="20px"
-                spacing="none"
+                spacing="narrow"
                 cursorHover
               />
             </Stack>
@@ -73,12 +73,12 @@ function FamilyMemberCreateModal(props: FamilyMemberCreateModalProps) {
           </Stack>
           <Divider dashed />
         </Stack>
-        <Stack direction="column" width="100%" gap="s150">
+        <Stack direction="column" width="100%" gap={inube.spacing.s150}>
           <CreateFamilyMember onAddMember={onAddMember} />
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 }
 

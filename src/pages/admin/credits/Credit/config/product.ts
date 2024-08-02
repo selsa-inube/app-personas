@@ -8,7 +8,7 @@ const creditAttributes = [
   "dues_paid",
   "outstanding_dues",
   "payment_method",
-  "peridiocity",
+  "periodicity",
   "net_value",
   "days_past_due",
   "guarantee_type",

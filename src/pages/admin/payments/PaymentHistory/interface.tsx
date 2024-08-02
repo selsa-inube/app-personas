@@ -4,9 +4,6 @@ import { PaymentHistoryModal } from "@components/modals/payments/PaymentHistoryM
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
-import { Divider } from "@design/layout/Divider";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -17,6 +14,9 @@ import { EmptyRecords } from "./EmptyRecords";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
 import { generateAttributes } from "./config/attributeRecord";
+import { Divider } from "@inubekit/divider";
+import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
@@ -53,9 +53,15 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
     <>
       <Stack
         direction="column"
-        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsPaymentHistory} />
           <Title
             title="Histórico de pagos"
@@ -66,13 +72,13 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
         </Stack>
       </Stack>
       <Grid
-        gap="s600"
+        gap={inube.spacing.s600}
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack direction="column" gap="s300">
+        <Stack direction="column" gap={inube.spacing.s300}>
           <Stack direction="column" alignItems="flex-end">
             <Button
               appearance="primary"
@@ -95,9 +101,10 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                     direction="column"
                     width="100%"
                     key={payment.id}
-                    gap="s200"
+                    gap={inube.spacing.s200}
                   >
                     <RecordCard
+                      id={payment.id}
                       type={EMovementType.RECORD}
                       description={payment.title}
                       totalValue={payment.value}

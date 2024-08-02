@@ -1,18 +1,20 @@
-const products = {
+import { IValidation } from "src/model/entity/service";
+
+const productsMock = {
   freeInvestment: {
     id: "freeInvestment",
     title: "Libre inversión",
     description: "Financia cualquiera de tus proyectos.",
-    maxRate: 10,
-    maxDeadline: 24,
-    maxAmount: 15000000,
+    maxRate: 2.84,
+    maxDeadline: 30,
+    maxAmount: 8300000,
   },
   vehicleOrMotorcycle: {
     id: "vehicleOrMotorcycle",
     title: "Compra de vehículo o moto",
     description: "Compra de vehículo nuevo o usado.",
-    maxRate: 10,
-    maxDeadline: 24,
+    maxRate: 2.84,
+    maxDeadline: 14,
     maxAmount: 15000000,
   },
   // { // TEMP
@@ -23,11 +25,14 @@ const products = {
 };
 
 const destinationProductsMock = {
-  buyVehicle: [products.freeInvestment, products.vehicleOrMotorcycle],
-  buyMotorcycle: [products.freeInvestment, products.vehicleOrMotorcycle],
-  buyProperty: [products.freeInvestment],
-  travel: [products.freeInvestment],
-  study: [products.freeInvestment],
+  buyVehicle: [productsMock.freeInvestment, productsMock.vehicleOrMotorcycle],
+  buyMotorcycle: [
+    productsMock.freeInvestment,
+    productsMock.vehicleOrMotorcycle,
+  ],
+  buyProperty: [productsMock.freeInvestment],
+  travel: [productsMock.freeInvestment],
+  study: [productsMock.freeInvestment],
 };
 
 const maximumQuotasAvailableMock = {
@@ -82,9 +87,63 @@ const maxDeadlineMock = {
   vehicleOrMotorcycle: 14,
 };
 
+const documentaryRequirementsMock: IValidation[] = [
+  {
+    id: "original_invoice",
+    label: "Factura original",
+    value: "pending",
+    isRequired: true,
+  },
+  {
+    id: "medical_prescription_copy",
+    label: "Fotocopia de la fórmula médica",
+    value: "pending",
+  },
+];
+
+const systemValidationsMock: IValidation[] = [
+  {
+    id: "minimum_associate_seniority",
+    label: "Antigüedad mínima como asociado",
+    value: "pending",
+    isRequired: true,
+  },
+  {
+    id: "up_to_date_obligations",
+    label: "Estar al día con sus obligaciones Fondecom",
+    value: "pending",
+    isRequired: true,
+  },
+  {
+    id: "request_value_per_formula",
+    label:
+      "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
+    value: "pending",
+  },
+  {
+    id: "have_savings_in_sight",
+    label:
+      "Poseer ahorro a la vista (Si no posee acérquese a la oficina fondecom)",
+    value: "pending",
+  },
+  {
+    id: "available_assistance_quota",
+    label: "Cupo disponible auxilios",
+    value: "pending",
+    isRequired: true,
+  },
+  {
+    id: "beneficiary_validity_by_age",
+    label: "Valida beneficiario edad",
+    value: "pending",
+  },
+];
+
 export {
   destinationProductsMock,
+  documentaryRequirementsMock,
   interestRatesMock,
   maxDeadlineMock,
   maximumQuotasAvailableMock,
+  systemValidationsMock,
 };

@@ -4,11 +4,11 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { Button } from "@design/input/Button";
-import { Grid } from "@design/layout/Grid";
-import { Stack } from "@design/layout/Stack";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
@@ -17,7 +17,8 @@ import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { DisbursementForm } from "./forms/DisbursementForm";
-import { PreliquidationForm } from "./forms/PreliquidationForm";
+import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
+import { SystemValidationsForm } from "./forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CreditDestinationRequestVerification } from "./forms/Verification";
 import {
@@ -48,10 +49,21 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.preliquidation.id && (
-        <PreliquidationForm
-          initialValues={creditDestinationRequest.preliquidation.values}
-          ref={formReferences.preliquidation}
+      {currentStep === creditDestinationRequestSteps.systemValidations.id && (
+        <SystemValidationsForm
+          initialValues={creditDestinationRequest.systemValidations.values}
+          ref={formReferences.systemValidations}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep ===
+        creditDestinationRequestSteps.documentaryRequirements.id && (
+        <DocumentaryRequirementsForm
+          initialValues={
+            creditDestinationRequest.documentaryRequirements.values
+          }
+          ref={formReferences.documentaryRequirements}
+          onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === creditDestinationRequestSteps.disbursement.id && (
@@ -125,7 +137,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap="s300">
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsCreditDestinationRequest} />
         <Title
           title="Solicitud por destinación"
@@ -136,13 +148,22 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
       </Stack>
 
       <Grid
+        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
-        gap={isMobile ? "s300" : isTablet ? "s500" : "s600"}
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
-        <Stack direction="column" gap={isMobile ? "s300" : "s500"}>
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
+        >
           <Assisted
             steps={steps}
             currentStep={currentStep}
@@ -151,7 +172,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
             disableNextStep={!isCurrentFormValid}
           />
 
-          <Stack direction="column" gap="s300">
+          <Stack direction="column" gap={inube.spacing.s300}>
             {renderStepContent(
               currentStep,
               formReferences,
@@ -160,7 +181,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
               handleStepChange,
             )}
 
-            <Stack gap="s150" justifyContent="flex-end">
+            <Stack gap={inube.spacing.s150} justifyContent="flex-end">
               <Button
                 onClick={handlePreviousStep}
                 type="button"

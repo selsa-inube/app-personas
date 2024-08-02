@@ -1,5 +1,6 @@
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
+import { loadingValidations } from "./forms/SystemValidationsForm/utils";
 import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
@@ -55,20 +56,50 @@ const creditDestinationStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentCreditDestinationRequest.creditConditions.values)
       ) {
-        const tempChargesAndDiscounts = Math.floor(
-          Number(values.amount) * 0.4880866,
-        );
-        newCreditDestinationRequest.preliquidation = {
-          isValid: true,
+        newCreditDestinationRequest.systemValidations = {
+          isValid: false,
           values: {
-            ...initalValuesCreditDestination.preliquidation,
-            amount: Number(values.amount),
-            interestAdjustmentCycle: 49250,
-            chargesAndDiscounts: tempChargesAndDiscounts,
-            netValue: Number(values.amount) - 49250 - tempChargesAndDiscounts,
+            ...initalValuesCreditDestination.systemValidations,
+            validations: loadingValidations,
+            destinationId: values.creditDestination?.id || "",
+            destinationName: values.creditDestination?.value || "",
+            productId: values.product.id,
+            productName: values.product.title,
+            paymentMethodCode: "30",
+            paymentMethodName: "FONDECOM MENSUAL",
+            requestAmount: values.amount,
+            creditAmount: values.netValue,
+            capitalPaymentPeriod: "100000",
+            numQuotas: parseInt(values.deadline),
+            nominalRate: values.interestRate,
+            amortizationType: "AT",
+            interestPaymentPeriod: values.cycleInterest.toString(),
+            periodicity: values.periodicity,
+            quotaValue: values.quota,
+            amountToTurn: values.netValue,
           },
         };
       }
+
+      return newCreditDestinationRequest;
+    }
+    case creditDestinationRequestSteps.systemValidations.id: {
+      const values = formReferences.systemValidations.current?.values;
+
+      if (!values) return currentCreditDestinationRequest;
+
+      newCreditDestinationRequest.systemValidations = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      newCreditDestinationRequest.documentaryRequirements = {
+        isValid: false,
+        values: {
+          ...initalValuesCreditDestination.documentaryRequirements,
+          requiredDocuments: values.documents,
+        },
+      };
 
       return newCreditDestinationRequest;
     }

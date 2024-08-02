@@ -1,10 +1,8 @@
 import { CustomValueModal } from "@components/modals/payments/CustomValueModal";
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
-import { Icon } from "@design/data/Icon";
 import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
-import { Stack } from "@design/layout/Stack";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
@@ -16,6 +14,9 @@ import {
   StyledInputContainer,
   StyledInputRadio,
 } from "./styles";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { inube } from "@design/tokens";
 
 const renderOptions = (
   options: IPaymentOption[],
@@ -32,9 +33,9 @@ const renderOptions = (
       <StyledInputContainer
         key={index}
         onClick={() => !valueIsZero && onChangeOption(option)}
-        disabled={valueIsZero}
+        $disabled={valueIsZero}
       >
-        <Stack gap="s150">
+        <Stack gap={inube.spacing.s150}>
           <StyledInputRadio
             id={option.id}
             type="radio"
@@ -45,7 +46,7 @@ const renderOptions = (
             value={option.id}
             disabled={valueIsZero}
           />
-          <Stack direction="column" gap="s0">
+          <Stack direction="column" gap={inube.spacing.s0}>
             <Text type="label" size="medium" disabled={valueIsZero}>
               {option.label}:
             </Text>
@@ -78,7 +79,6 @@ interface PaymentCardProps {
   allowCustomValue?: boolean;
   selectedOption?: IPaymentOption;
   lineCode: string;
-  halfPayment: string;
   onApplyPayOption: (
     payId: string,
     option: IPaymentOption,
@@ -97,7 +97,6 @@ function PaymentCard(props: PaymentCardProps) {
     allowCustomValue,
     selectedOption,
     lineCode,
-    halfPayment,
     onChangePaymentValue,
     onApplyPayOption,
     onRemovePayment,
@@ -105,7 +104,6 @@ function PaymentCard(props: PaymentCardProps) {
 
   const [showModal, setShowModal] = useState(false);
 
-  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   const handleChangeOption = (option: IPaymentOption) => {
@@ -155,21 +153,21 @@ function PaymentCard(props: PaymentCardProps) {
 
   return (
     <>
-      <StyledCardContainer isMobile={isMobile} isTablet={isTablet}>
-        <Stack direction="column" gap="s050">
+      <StyledCardContainer>
+        <Stack direction="column" gap={inube.spacing.s050}>
           <Text type="label" size="large" ellipsis>
             {title}
           </Text>
           <Text type="body" size="medium" appearance="gray">
             {id}
           </Text>
-          <Stack gap="s100" wrap="wrap">
+          <Stack gap={inube.spacing.s100} wrap="wrap">
             {tags.length > 0 &&
               tags.map((tag) => <Tag {...tag} key={tag.label} />)}
           </Stack>
         </Stack>
 
-        <Stack direction="column" gap="s100">
+        <Stack direction="column" gap={inube.spacing.s100}>
           {renderOptions(options, isMobile, handleChangeOption, selectedOption)}
         </Stack>
 
@@ -178,14 +176,14 @@ function PaymentCard(props: PaymentCardProps) {
             onClick={resetValues}
             variant="outlined"
             disabled={(selectedOption?.value || 0) === 0}
-            appearance="error"
+            appearance="danger"
             spacing="compact"
             iconBefore={<MdOutlineDelete />}
           >
             Eliminar
           </Button>
 
-          <Stack gap="s100" alignItems="center">
+          <Stack gap={inube.spacing.s100} alignItems="center">
             {allowCustomValue && hastOtherValue && (
               <Icon
                 icon={<MdOutlineEdit />}
@@ -209,7 +207,6 @@ function PaymentCard(props: PaymentCardProps) {
           id={id}
           nextPaymentDate={nextPaymentDate}
           lineCode={lineCode}
-          halfPayment={halfPayment}
           value={selectedOption?.value || 0}
           nextPaymentValue={nextPaymentValue || 0}
           totalPaymentValue={totalPaymentValue || 0}

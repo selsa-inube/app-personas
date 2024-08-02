@@ -1,8 +1,8 @@
 import { Text } from "@design/data/Text";
-import { Stack } from "@design/layout/Stack";
 
 import { StyledBreadcrumbMenuLink, StyledContainerLink } from "./styles";
 import { breadcrumbSize, BreadcrumbSizeType } from "../types";
+import { Stack } from "@inubekit/stack";
 
 interface BreadcrumbMenuLinkProps {
   label: string;

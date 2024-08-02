@@ -13,14 +13,14 @@ const StyledBox = styled.section`
 `;
 
 interface IStyledCollapseIcon {
-  collapse: boolean;
+  $collapse: boolean;
 }
 
 const StyledCollapseIcon = styled.div<IStyledCollapseIcon>`
   display: flex;
   transition: all 500ms ease;
-  transform: ${({ collapse }) =>
-    collapse ? "rotate(90deg)" : "rotate(-90deg)"};
+  transform: ${({ $collapse }) =>
+    $collapse ? "rotate(90deg)" : "rotate(-90deg)"};
 `;
 
 const StyledLink = styled(Link)`
