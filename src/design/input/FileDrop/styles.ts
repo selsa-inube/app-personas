@@ -10,13 +10,13 @@ const StyledFileDrop = styled.div<IStyledFileDrop>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px dashed
+  border: 2px dashed
     ${({ $isDragOver, theme }) =>
       $isDragOver
         ? theme?.color?.stroke?.primary?.hover ||
           inube.color.stroke.primary.hover
-        : theme?.color?.stroke?.dark?.regular ||
-          inube.color.stroke.dark.regular};
+        : theme?.color?.stroke?.divider?.regular ||
+          inube.color.stroke.divider.regular};
   border-radius: ${inube.spacing.s100};
   transition: border-color 0.3s ease;
   padding: ${inube.spacing.s300};

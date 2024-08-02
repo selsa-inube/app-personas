@@ -36,6 +36,23 @@ const creditConditions: ICreditConditionsEntry = {
 
 const systemValidations: ISystemValidationsEntry = {
   validations: [],
+  documents: [],
+  productId: "",
+  productName: "",
+  destinationId: "",
+  destinationName: "",
+  paymentMethodCode: "",
+  paymentMethodName: "",
+  requestAmount: 0,
+  creditAmount: 0,
+  capitalPaymentPeriod: "",
+  numQuotas: 0,
+  nominalRate: "",
+  amortizationType: "",
+  interestPaymentPeriod: "",
+  periodicity: "",
+  quotaValue: 0,
+  amountToTurn: 0,
 };
 
 const documentaryRequirements: IDocumentaryRequirementsEntry = {

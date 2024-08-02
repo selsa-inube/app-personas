@@ -1,5 +1,5 @@
 const capitalizeText = (text: string) => {
-  return text.charAt(0).toUpperCase() + text.slice(1);
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 };
 
 const capitalizeEachWord = (text: string) =>
@@ -24,12 +24,12 @@ const obfuscateText = (text: string, start: number, end: number) => {
     new RegExp(`(\\w{${start}})(\\w+)(\\w{${end}})`),
     (_, first, middle, last) => first + "*".repeat(middle.length) + last,
   );
-}
+};
 
 export {
   capitalizeEachWord,
   capitalizeText,
+  obfuscateText,
   removeLastCharacters,
   truncateFileName,
-  obfuscateText,
 };
