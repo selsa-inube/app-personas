@@ -21,6 +21,7 @@ const getNav = (
   requestAidFlag: boolean,
   requestHolidaysFlag: boolean,
   requestTransfersFlag: boolean,
+  requestPaymentsFlag: boolean,
   myRequestsFlag: boolean,
 ): INav => {
   const sections = [
@@ -56,11 +57,15 @@ const getNav = (
               },
             ]
           : []),
-        {
-          label: "Pagos",
-          path: "/payments",
-          icon: <MdOutlinePayments />,
-        },
+        ...(requestPaymentsFlag
+          ? [
+              {
+                label: "Pagos",
+                path: "/payments",
+                icon: <MdOutlinePayments />,
+              },
+            ]
+          : []),
         ...(requestTransfersFlag
           ? [
               {

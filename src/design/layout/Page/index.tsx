@@ -1,6 +1,7 @@
 import { getHeader } from "@config/header";
 import { getNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
 import { useContext } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -8,7 +9,6 @@ import { capitalizeEachWord } from "src/utils/texts";
 import { Header } from "../../navigation/Header";
 import { Nav } from "../../navigation/Nav";
 import { StyledMain, StyledPage } from "./styles";
-import { Grid } from "@inubekit/grid";
 
 interface PageProps {
   withNav?: boolean;
@@ -36,6 +36,7 @@ function Page(props: PageProps) {
   const withTransfers = getFlag(
     "admin.transfers.deposit.deposit-accounts",
   ).value;
+  const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
 
   const nav = getNav(
@@ -45,6 +46,7 @@ function Page(props: PageProps) {
     withAidRequest,
     withHolidaysRequest,
     withTransfers,
+    withPayments,
     withMyRequests,
   );
 
