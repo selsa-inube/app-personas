@@ -68,7 +68,7 @@ function ValidationCard(props: IValidation) {
                 />
               ) : (
                 <Tag
-                  label="Pendiente"
+                  label="Por evaluar"
                   appearance="warning"
                   modifier="clear"
                   textAppearance="warning"

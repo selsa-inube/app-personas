@@ -1,5 +1,9 @@
 const capitalizeText = (text: string) => {
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  const textWithoutSpaces = text.trim();
+  return (
+    textWithoutSpaces.trim().charAt(0).toUpperCase() +
+    textWithoutSpaces.slice(1).toLowerCase()
+  );
 };
 
 const capitalizeEachWord = (text: string) =>
@@ -26,9 +30,35 @@ const obfuscateText = (text: string, start: number, end: number) => {
   );
 };
 
+const correctSpecialCharacters = (text: string): string => {
+  const substitutionMap: { [key: string]: string } = {
+    "ã³": "ó",
+    "ã¡": "á",
+    "ã©": "é",
+    "ã­": "í",
+    ãº: "ú",
+    "ã±": "ñ",
+    "ã¼": "ü",
+    "Ã¡": "Á",
+    "Ã©": "É",
+    "Ã­": "Í",
+    "Ã³": "Ó",
+    Ãº: "Ú",
+    "Ã±": "Ñ",
+    "Ã¼": "Ü",
+  };
+
+  for (const [incorrect, correct] of Object.entries(substitutionMap)) {
+    text = text.replace(new RegExp(incorrect, "g"), correct);
+  }
+
+  return text;
+};
+
 export {
   capitalizeEachWord,
   capitalizeText,
+  correctSpecialCharacters,
   obfuscateText,
   removeLastCharacters,
   truncateFileName,

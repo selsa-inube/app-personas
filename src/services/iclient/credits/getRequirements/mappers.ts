@@ -3,7 +3,7 @@ import {
   IRequirementRequestResponse,
 } from "src/model/entity/request";
 import { IValidation, ValidationValueType } from "src/model/entity/service";
-import { capitalizeText } from "src/utils/texts";
+import { capitalizeText, correctSpecialCharacters } from "src/utils/texts";
 
 const mapRequirementEntityToApi = (
   requirement: IRequirementRequest,
@@ -43,8 +43,12 @@ const mapRequirementApiToEntity = (
 
   return {
     id: String(requirement.requirementCode),
-    label: capitalizeText(String(requirement.requirementName)),
-    failDetails: capitalizeText(String(requirement.errorDescription)),
+    label: capitalizeText(
+      correctSpecialCharacters(String(requirement.requirementName)),
+    ),
+    failDetails: capitalizeText(
+      correctSpecialCharacters(String(requirement.errorDescription)),
+    ),
     value: resultValues[String(requirement.responseCode)] || "pending",
   };
 };
