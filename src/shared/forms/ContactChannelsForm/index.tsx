@@ -7,13 +7,11 @@ import { ContactChannelsFormUI } from "./interface";
 import { IContactChannelsEntry } from "./types";
 
 const validationSchema = Yup.object({
-  landlinePhone: validationRules.landlinePhone.required(
-    validationMessages.required,
-  ),
+  landlinePhone: validationRules.landlinePhone,
   cellPhone: validationRules.phone.required(validationMessages.required),
   email: validationRules.email.required(validationMessages.required),
-  acceptDataPolicy: Yup.bool().oneOf([true]),
-  acceptNotifications: Yup.bool().oneOf([true]),
+  acceptDataPolicy: Yup.boolean().test((value) => value === true),
+  acceptNotifications: Yup.boolean().test((value) => value === true),
 });
 
 interface ContactChannelsFormProps {
@@ -42,7 +40,7 @@ const ContactChannelsForm = forwardRef(function ContactChannelsForm(
     formik.validateForm().then((errors) => {
       onFormValid(Object.keys(errors).length === 0);
     });
-  }, []);
+  }, [formik.values]);
 
   return <ContactChannelsFormUI loading={loading} formik={formik} />;
 });
