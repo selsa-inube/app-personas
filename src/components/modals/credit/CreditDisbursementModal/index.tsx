@@ -35,6 +35,7 @@ interface CreditDisbursementModalProps {
     amount: number;
     cycleInterest: number;
     discounts: number;
+    charges: number;
   };
   approximateValue: number;
   onCloseModal: () => void;
@@ -83,26 +84,29 @@ function CreditDisbursementModal(props: CreditDisbursementModalProps) {
           </Text>
 
           <Stack direction="column" gap={inube.spacing.s100}>
-            {spec.amount !== 0 &&
-              renderSpecification(
-                "Monto",
-                currencyFormat(spec.amount),
-                <MdOutlineAdd />,
-              )}
+            {renderSpecification(
+              "Monto",
+              currencyFormat(spec.amount),
+              <MdOutlineAdd />,
+            )}
 
-            {spec.cycleInterest !== 0 &&
-              renderSpecification(
-                "Intereses anticipados ajuste al ciclo",
-                currencyFormat(spec.cycleInterest),
-                <MdOutlineRemove />,
-              )}
+            {renderSpecification(
+              "Intereses anticipados ajuste al ciclo",
+              currencyFormat(spec.cycleInterest),
+              <MdOutlineRemove />,
+            )}
 
-            {spec.discounts !== 0 &&
-              renderSpecification(
-                "Cargos y descuentos",
-                currencyFormat(spec.discounts),
-                <MdOutlineRemove />,
-              )}
+            {renderSpecification(
+              "Descuentos",
+              currencyFormat(spec.discounts),
+              <MdOutlineRemove />,
+            )}
+
+            {renderSpecification(
+              "Cargos",
+              currencyFormat(spec.charges),
+              <MdOutlineAdd />,
+            )}
           </Stack>
 
           <Divider />
