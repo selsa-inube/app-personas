@@ -1,4 +1,5 @@
 import { inube } from "@design/tokens";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface IStyledTermsAndConditionsContainer {
@@ -45,4 +46,18 @@ const StyledTermsAndConditionsInfo = styled.div<IStyledTermsAndConditionsInfo>`
     $isMobile ? inube.spacing.s150 : inube.spacing.s200};
 `;
 
-export { StyledTermsAndConditionsContainer, StyledTermsAndConditionsInfo };
+const StyledLinkPolicy = styled(Link)`
+  color: ${({ theme }) =>
+    theme.color?.text?.link?.regular || inube.color.text.link.regular};
+
+  &:hover {
+    color: ${({ theme }) =>
+      theme.color?.text?.link?.hover || inube.color.text.link.hover};
+  }
+`;
+
+export {
+  StyledLinkPolicy,
+  StyledTermsAndConditionsContainer,
+  StyledTermsAndConditionsInfo,
+};

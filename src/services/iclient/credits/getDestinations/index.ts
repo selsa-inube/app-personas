@@ -12,7 +12,7 @@ const getDestinationsForUser = async (
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/credit-destination/customer/${userIdentification}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/destination/customer/${userIdentification}`;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {

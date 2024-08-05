@@ -1,8 +1,8 @@
 import { Box } from "@components/cards/Box";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
+import { ExportModal } from "@components/modals/general/ExportModal";
 import { quickLinks } from "@config/quickLinks";
-import { Table } from "@design/data/Table";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -13,53 +13,22 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
-import { useContext, useEffect, useRef, useState } from "react";
-import {
-  MdArrowBack,
-  MdOutlineAttachMoney,
-  MdOutlineFileDownload,
-} from "react-icons/md";
+import jsPDF from "jspdf";
+import { useContext, useEffect, useState } from "react";
+import { MdArrowBack, MdInput, MdOutlineAttachMoney } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
-import { copyElementToIFrame } from "src/utils/print";
-import { extractAttribute } from "src/utils/products";
-import { AmortizationDocument } from "./AmortizationDocument";
+import { formatSecondaryDate } from "src/utils/dates";
+import { convertJSXToHTML } from "src/utils/print";
 import { extractCreditAmortizationAttrs } from "./config/product";
-import {
-  amortizationNormalizeEntries,
-  amortizationTableBreakpoints,
-  amortizationTableTitles,
-  creditAmortizationTableActions,
-  customAppearanceCallback,
-} from "./config/table";
-import {
-  StyledAmortizationContainer,
-  StyledAmortizationDocument,
-} from "./styles";
+import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
+import {
+  getAmortizationDocument,
+  renderAmortizationTable,
+} from "./utilRenders";
 import { validateCreditsAndAmortization } from "./utils";
-
-const renderAmortizationTable = (
-  selectedProduct?: ISelectedProductState,
-  allColumns?: boolean,
-) => {
-  if (!selectedProduct || !selectedProduct.credit.amortization) return;
-
-  return (
-    <Table
-      portalId="modals"
-      titles={amortizationTableTitles}
-      breakpoints={allColumns ? undefined : amortizationTableBreakpoints}
-      actions={creditAmortizationTableActions}
-      entries={amortizationNormalizeEntries(
-        selectedProduct.credit.amortization,
-      )}
-      customAppearance={customAppearanceCallback}
-      hideMobileResume
-    />
-  );
-};
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -73,7 +42,7 @@ function CreditAmortization() {
   const { credits, setCredits } = useContext(CreditsContext);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-  const amortizationDocRef = useRef<HTMLIFrameElement>(null);
+  const [showExportModal, setShowExportModal] = useState(false);
 
   const crumbsAmortization = [
     {
@@ -139,42 +108,78 @@ function CreditAmortization() {
     navigate(`/my-credits/${id}/credit-amortization`);
   };
 
-  const handlePrintDocument = () => {
-    if (!amortizationDocRef.current || !selectedProduct?.credit) return;
-    const amortizationTable = renderAmortizationTable(selectedProduct, true);
-    const documentAttributes = selectedProduct.credit.attributes;
+  const handleDownloadDocument = () => {
+    if (!selectedProduct?.credit) return;
 
-    const loanDate = extractAttribute(documentAttributes, "loan_date");
-    const nextPayment = extractAttribute(documentAttributes, "next_payment");
-    const nextPaymentValue = extractAttribute(
-      documentAttributes,
-      "next_payment_value",
-    );
-    const loanValue = extractAttribute(documentAttributes, "loan_value");
-    const periodicity = extractAttribute(documentAttributes, "periodicity");
-    const paymentMethod = extractAttribute(
-      documentAttributes,
-      "payment_method",
-    );
+    const today = new Date();
 
-    copyElementToIFrame(
-      <AmortizationDocument
-        productName={selectedProduct.option.title}
-        productNumber={selectedProduct.option.id}
-        loanDate={loanDate?.value.toString() || ""}
-        nextPaymentDate={nextPayment?.value.toString() || ""}
-        loanValue={Number(loanValue?.value || 0)}
-        nextPaymentValue={Number(nextPaymentValue?.value || 0)}
-        periodicity={periodicity?.value.toString() || ""}
-        paymentMethod={paymentMethod?.value.toString() || ""}
-        tableElement={amortizationTable}
-      />,
-      amortizationDocRef.current,
-    );
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
 
-    setTimeout(() => {
-      amortizationDocRef?.current?.contentWindow?.print();
-    }, 500);
+    doc.html(convertJSXToHTML(getAmortizationDocument(selectedProduct)), {
+      callback: (pdf) => {
+        pdf.save(`plan-de-pagos-${formatSecondaryDate(today, true)}.pdf`);
+      },
+      html2canvas: {
+        scale: 0.5,
+      },
+      width: 397,
+      windowWidth: 816,
+      x: 0,
+      y: 0,
+    });
+  };
+
+  const handleShareDocument = () => {
+    if (!selectedProduct?.credit) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    doc.html(convertJSXToHTML(getAmortizationDocument(selectedProduct)), {
+      callback: (pdf) => {
+        const pdfBlob = pdf.output("blob");
+
+        if (navigator.share) {
+          navigator.share({
+            title: "Plan de pagos",
+            text: `Plan de pagos ${formatSecondaryDate(today, true)}`,
+            files: [
+              new File(
+                [pdfBlob],
+                `plan-de-pagos-${formatSecondaryDate(today, true)}.pdf`,
+                {
+                  type: "application/pdf",
+                },
+              ),
+            ],
+          });
+        } else {
+          console.warn("Web Share API is not supported in this browser");
+        }
+      },
+      html2canvas: {
+        scale: 0.5,
+      },
+      width: 397,
+      windowWidth: 816,
+      x: 0,
+      y: 0,
+    });
+  };
+
+  const handleToggleExportModal = () => {
+    setShowExportModal(!showExportModal);
   };
 
   const amortizationTable = renderAmortizationTable(selectedProduct, false);
@@ -239,20 +244,27 @@ function CreditAmortization() {
 
             <Stack width="100%" justifyContent="flex-end">
               <Button
-                iconBefore={<MdOutlineFileDownload />}
+                iconBefore={<MdInput />}
                 spacing="compact"
-                onClick={handlePrintDocument}
+                onClick={handleToggleExportModal}
               >
-                Descargar
+                Exportar
               </Button>
             </Stack>
-
-            <StyledAmortizationDocument ref={amortizationDocRef} />
           </Stack>
         )}
 
         {isDesktop && <QuickAccess links={quickLinks} />}
       </Grid>
+
+      {showExportModal && (
+        <ExportModal
+          portalId="modals"
+          onDownload={handleDownloadDocument}
+          onShare={handleShareDocument}
+          onCloseModal={handleToggleExportModal}
+        />
+      )}
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { initialMessageState } from "src/utils/messages";
 import { DocumentaryRequirementsFormUI } from "./interface";
@@ -18,10 +18,14 @@ const DocumentaryRequirementsForm = forwardRef(
     props: DocumentaryRequirementsFormProps,
     ref: React.Ref<FormikProps<IDocumentaryRequirementsEntry>>,
   ) {
-    const { initialValues, onFormValid } = props;
+    const { initialValues } = props;
 
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [message, setMessage] = useState<IMessage>(initialMessageState);
+    const [attachModal, setAttachModal] = useState({
+      show: false,
+      id: "",
+    });
 
     const formik = useFormik({
       initialValues,
@@ -31,46 +35,57 @@ const DocumentaryRequirementsForm = forwardRef(
 
     useImperativeHandle(ref, () => formik);
 
-    useEffect(() => {
-      if (onFormValid) {
-        onFormValid(formik.values.selectedDocuments.length > 0);
+    const handleSelectDocument = (file: File, id: string) => {
+      if (file.size > MAX_SIZE_PER_FILE * 1024 * 1024) {
+        setMessage({
+          show: true,
+          title: "Peso máximo excedido",
+          description: `No se ha podido cargar el documento porque excede el límite de ${MAX_SIZE_PER_FILE}MB por archivo.`,
+          icon: <MdOutlineSentimentNeutral />,
+          appearance: "danger",
+        });
+
+        return;
       }
-    }, [formik.values.selectedDocuments]);
-
-    const handleSelectDocuments = (files: FileList) => {
-      const filesUpload: File[] = [];
-
-      for (const file of Array.from(files)) {
-        if (file.size > MAX_SIZE_PER_FILE * 1024 * 1024) {
-          setMessage({
-            show: true,
-            title: "Peso máximo excedido",
-            description: `No se ha podido cargar el documento porque excede el límite de ${MAX_SIZE_PER_FILE}MB por archivo.`,
-            icon: <MdOutlineSentimentNeutral />,
-            appearance: "danger",
-          });
-        } else {
-          filesUpload.push(file);
-        }
-      }
-
       formik.setFieldValue("selectedDocuments", [
         ...formik.values.selectedDocuments,
-        ...filesUpload,
+        {
+          file,
+          id,
+        },
       ]);
+
+      setAttachModal({
+        show: false,
+        id: "",
+      });
     };
 
     const handleRemoveDocument = (id: string) => {
       formik.setFieldValue(
         "selectedDocuments",
         formik.values.selectedDocuments.filter(
-          (document) => document.name !== id,
+          (document) => document.id !== id,
         ),
       );
     };
 
     const handleToggleInfoModal = () => {
       setShowInfoModal(!showInfoModal);
+    };
+
+    const handleOpenAttachModal = (id: string) => {
+      setAttachModal({
+        show: true,
+        id,
+      });
+    };
+
+    const handleCloseAttachModal = () => {
+      setAttachModal({
+        show: false,
+        id: "",
+      });
     };
 
     const handleCloseMessage = () => {
@@ -83,10 +98,13 @@ const DocumentaryRequirementsForm = forwardRef(
         showInfoModal={showInfoModal}
         maxFileSize={MAX_SIZE_PER_FILE}
         message={message}
-        onSelectDocuments={handleSelectDocuments}
+        attachModal={attachModal}
+        onSelectDocument={handleSelectDocument}
         onRemoveDocument={handleRemoveDocument}
         onToggleInfoModal={handleToggleInfoModal}
         onCloseMessage={handleCloseMessage}
+        onOpenAttachModal={handleOpenAttachModal}
+        onCloseAttachModal={handleCloseAttachModal}
       />
     );
   },

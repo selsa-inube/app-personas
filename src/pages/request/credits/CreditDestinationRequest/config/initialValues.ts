@@ -1,4 +1,3 @@
-import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
@@ -22,8 +21,8 @@ const creditConditions: ICreditConditionsEntry = {
     maxAmount: 0,
   },
   amount: 0,
-  periodicity: periodicityDM.MONTHLY.id,
   deadline: "",
+  deadlineTerm: "",
   simulationWithQuota: false,
   quota: 0,
   netValue: 0,
@@ -32,10 +31,41 @@ const creditConditions: ICreditConditionsEntry = {
   interestRate: "",
   hasResult: false,
   minWarrantyRequired: "",
+  paymentMethods: [],
+  periodicity: {
+    code: "",
+    description: "",
+    periodicityInMonths: 0,
+    periodicityInDays: 0,
+  },
+  periodicities: [],
+  periodicityInMonths: 0,
+  rate: 0,
+  charges: 0,
+  calculatedQuotaValue: 0,
+  quotaDeadlineInMonths: "",
+  calculatedQuotaDeadline: 0,
 };
 
 const systemValidations: ISystemValidationsEntry = {
   validations: [],
+  documents: [],
+  productId: "",
+  productName: "",
+  destinationId: "",
+  destinationName: "",
+  paymentMethodCode: "",
+  paymentMethodName: "",
+  requestAmount: 0,
+  creditAmount: 0,
+  capitalPaymentPeriod: "",
+  numQuotas: 0,
+  nominalRate: "",
+  amortizationType: "",
+  interestPaymentPeriod: "",
+  periodicity: "",
+  quotaValue: 0,
+  amountToTurn: 0,
 };
 
 const documentaryRequirements: IDocumentaryRequirementsEntry = {
@@ -69,6 +99,7 @@ const comments: ICommentsEntry = {
 
 const termsAndConditions: ITermsAndConditionsEntry = {
   accept: false,
+  acceptDataPolicy: false,
 };
 
 const initalValuesCreditDestination = {

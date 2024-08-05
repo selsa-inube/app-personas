@@ -6,7 +6,7 @@ import { ICreditConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
   amount: validationRules.money.required(validationMessages.required),
-  deadline: Yup.number()
+  deadlineTerm: Yup.number()
     .min(1, validationMessages.minNumbers(10))
     .max(1000, validationMessages.maxNumbers(1000)),
   quota: validationRules.money,
@@ -14,6 +14,7 @@ const validationSchema = Yup.object({
   cycleInterest: Yup.number(),
   netValue: Yup.number(),
   hasResult: Yup.boolean(),
+  selectedProduct: Yup.object(),
 });
 
 const getInitialCreditContidionValidations = (
@@ -25,7 +26,7 @@ const getInitialCreditContidionValidations = (
 
   return validationSchema.concat(
     Yup.object({
-      deadline: Yup.number()
+      deadlineTerm: Yup.number()
         .min(1, validationMessages.minNumbers(10))
         .max(
           formik.values.product.maxDeadline || 0,
@@ -36,9 +37,6 @@ const getInitialCreditContidionValidations = (
         .max(maxDeadline, "Has superado el cupo máximo")
         .required(validationMessages.required),
 
-      interestRate: withRecommendation
-        ? Yup.number()
-        : Yup.number().required(validationMessages.required),
       netValue: withRecommendation
         ? Yup.number()
         : Yup.number().required(validationMessages.required),
