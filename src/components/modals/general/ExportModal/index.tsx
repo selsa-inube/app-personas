@@ -4,6 +4,8 @@ import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
+import { Divider } from "@inubekit/divider";
+import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { createPortal } from "react-dom";
 import { MdClear, MdOutlineFileDownload, MdOutlineShare } from "react-icons/md";
@@ -31,18 +33,32 @@ function ExportModal(props: ExportModalProps) {
   return createPortal(
     <Blanket>
       <StyledModal $smallScreen={isMobile}>
-        <Stack alignItems="center" justifyContent="space-between">
-          <Stack gap={inube.spacing.s100}>
+        <Stack direction="column" width="100%" gap={inube.spacing.s100}>
+          <Stack justifyContent="space-between" alignItems="center">
             <Text
               type="title"
               appearance="dark"
               size={isMobile ? "small" : "medium"}
             >
-              Exportar reporte
+              Exportar
             </Text>
+
+            <Icon
+              appearance="dark"
+              icon={<MdClear />}
+              onClick={onCloseModal}
+              cursorHover={true}
+              size="24px"
+              spacing="narrow"
+            />
           </Stack>
-          <MdClear size={24} cursor="pointer" onClick={onCloseModal} />
+
+          <Text type="body" size="medium" appearance="gray">
+            Exporta y comparte tus documentos.
+          </Text>
         </Stack>
+
+        <Divider dashed />
 
         <Stack direction="column" gap={inube.spacing.s200}>
           <OutlineCard>
@@ -50,13 +66,15 @@ function ExportModal(props: ExportModalProps) {
               justifyContent="space-between"
               padding={
                 isMobile
-                  ? `${inube.spacing.s100} ${inube.spacing.s150}`
-                  : `${inube.spacing.s150} ${inube.spacing.s200}`
+                  ? `${inube.spacing.s200} ${inube.spacing.s150}`
+                  : inube.spacing.s200
               }
-              alignItems="center"
+              alignItems={isMobile ? "flex-start" : "center"}
               width="100%"
+              gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+              direction={isMobile ? "column" : "row"}
             >
-              <Stack direction="column">
+              <Stack direction="column" gap={inube.spacing.s050}>
                 <Text type="title" size="small">
                   Descargar como PDF
                 </Text>
@@ -71,6 +89,7 @@ function ExportModal(props: ExportModalProps) {
                 iconBefore={<MdOutlineFileDownload />}
                 spacing="compact"
                 onClick={onDownload}
+                fullwidth={isMobile}
               >
                 Descargar
               </Button>
@@ -80,17 +99,19 @@ function ExportModal(props: ExportModalProps) {
           <OutlineCard>
             <Stack
               justifyContent="space-between"
-              padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-              alignItems="center"
+              padding={inube.spacing.s200}
               width="100%"
+              direction={isMobile ? "column" : "row"}
+              alignItems={isMobile ? "flex-start" : "center"}
+              gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
             >
-              <Stack direction="column">
+              <Stack direction="column" gap={inube.spacing.s050}>
                 <Text type="title" size="small">
-                  Compartir reporte
+                  Compartir
                 </Text>
 
                 <Text type="body" size="small" appearance="gray">
-                  Enviar reporte a otra aplicación.
+                  Comparte el reporte mediante otra aplicación.
                 </Text>
               </Stack>
 
@@ -99,6 +120,7 @@ function ExportModal(props: ExportModalProps) {
                 iconBefore={<MdOutlineShare />}
                 spacing="compact"
                 onClick={onShare}
+                fullwidth={isMobile}
               >
                 Compartir
               </Button>

@@ -14,8 +14,8 @@ const StyledModal = styled.div<IStyledModal>`
   padding: ${({ $smallScreen }) =>
     $smallScreen ? inube.spacing.s200 : inube.spacing.s300};
   gap: ${({ $smallScreen }) =>
-    $smallScreen ? inube.spacing.s200 : inube.spacing.s300};
-  border-radius: ${inube.spacing.s100};
+    $smallScreen ? inube.spacing.s200 : inube.spacing.s250};
+  border-radius: ${inube.spacing.s200};
 `;
 
 export { StyledModal };
