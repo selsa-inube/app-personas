@@ -1,5 +1,4 @@
 import { Box } from "@components/cards/Box";
-import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
@@ -8,18 +7,6 @@ import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";
 import { MdOutlinePerson } from "react-icons/md";
 import { getFieldState } from "src/utils/forms/forms";
-import { StyledLinkPolicy } from "./styles";
-
-function CustomLabelPolicy() {
-  return (
-    <Text type="label" size="large">
-      Acepto la{" "}
-      <StyledLinkPolicy to="about:blank" target="_blank" rel="noreferrer">
-        Política de tratamiento de datos
-      </StyledLinkPolicy>
-    </Text>
-  );
-}
 
 interface ContactChannelsFormUIProps {
   formik: FormikValues;
@@ -102,16 +89,6 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
           alignItems="flex-start"
           gap={inube.spacing.s150}
         >
-          <Switch
-            id="acceptDataPolicy"
-            name="acceptDataPolicy"
-            customLabel={<CustomLabelPolicy />}
-            label="Acepto la Política de tratamiento de datos"
-            size={isMobile ? "small" : "large"}
-            onChange={formik.handleChange}
-            checked={formik.values.acceptDataPolicy}
-            disabled={loading}
-          />
           <Switch
             id="acceptNotifications"
             name="acceptNotifications"

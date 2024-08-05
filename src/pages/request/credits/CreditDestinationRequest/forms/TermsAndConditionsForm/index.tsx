@@ -6,6 +6,7 @@ import { ITermsAndConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
   accept: Yup.boolean().test((value) => value === true),
+  acceptDataPolicy: Yup.boolean().test((value) => value === true),
 });
 
 interface TermsAndConditionsFormProps {

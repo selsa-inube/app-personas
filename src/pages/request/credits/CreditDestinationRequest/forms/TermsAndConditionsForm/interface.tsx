@@ -1,21 +1,33 @@
 import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";
 import { termsAndConditionsTexts } from "./config/termsAndConditions";
 import {
+  StyledLinkPolicy,
   StyledTermsAndConditionsContainer,
   StyledTermsAndConditionsInfo,
 } from "./styles";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 
-function generateTermsAndConditionsParagraphs(texts: string[]) {
+const getTermsAndConditionsParag = (texts: string[]) => {
   return texts.map((text, index) => (
     <Text key={index} type="body" size="small">
       {text}
     </Text>
   ));
+};
+
+function CustomLabelPolicy() {
+  return (
+    <Text type="label" size="large">
+      Acepto la{" "}
+      <StyledLinkPolicy to="about:blank" target="_blank" rel="noreferrer">
+        Política de tratamiento de datos
+      </StyledLinkPolicy>
+    </Text>
+  );
 }
 
 interface TermsAndConditionsFormUIProps {
@@ -37,7 +49,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
       >
         <StyledTermsAndConditionsContainer $isMobile={isMobile}>
           <StyledTermsAndConditionsInfo $isMobile={isMobile}>
-            {generateTermsAndConditionsParagraphs(termsAndConditionsTexts)}
+            {getTermsAndConditionsParag(termsAndConditionsTexts)}
           </StyledTermsAndConditionsInfo>
         </StyledTermsAndConditionsContainer>
         <Switch
@@ -47,6 +59,16 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
           size={isMobile ? "small" : "large"}
           onChange={formik.handleChange}
           checked={formik.values.accept}
+          disabled={loading}
+        />
+        <Switch
+          id="acceptDataPolicy"
+          name="acceptDataPolicy"
+          customLabel={<CustomLabelPolicy />}
+          label="Acepto la Política de tratamiento de datos"
+          size={isMobile ? "small" : "large"}
+          onChange={formik.handleChange}
+          checked={formik.values.acceptDataPolicy}
           disabled={loading}
         />
       </Stack>
