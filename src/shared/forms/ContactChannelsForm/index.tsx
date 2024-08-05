@@ -10,7 +10,6 @@ const validationSchema = Yup.object({
   landlinePhone: validationRules.landlinePhone,
   cellPhone: validationRules.phone.required(validationMessages.required),
   email: validationRules.email.required(validationMessages.required),
-  acceptDataPolicy: Yup.boolean().test((value) => value === true),
   acceptNotifications: Yup.boolean().test((value) => value === true),
 });
 
