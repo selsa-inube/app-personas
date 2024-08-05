@@ -44,7 +44,7 @@ const creditConditions: ICreditConditionsEntry = {
   charges: 0,
   calculatedQuotaValue: 0,
   quotaDeadlineInMonths: "",
-  calculatedQuotaDeadline: 0
+  calculatedQuotaDeadline: 0,
 };
 
 const systemValidations: ISystemValidationsEntry = {
@@ -99,6 +99,7 @@ const comments: ICommentsEntry = {
 
 const termsAndConditions: ITermsAndConditionsEntry = {
   accept: false,
+  acceptDataPolicy: false,
 };
 
 const initalValuesCreditDestination = {

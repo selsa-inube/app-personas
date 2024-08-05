@@ -9,7 +9,6 @@ const mapContactChannels = (contactChannelsData: {
     landlinePhone: contactChannelsData.landlinePhone || "",
     cellPhone: contactChannelsData.cellPhone,
     email: contactChannelsData.email || "",
-    acceptDataPolicy: false,
     acceptNotifications: false,
   };
 };

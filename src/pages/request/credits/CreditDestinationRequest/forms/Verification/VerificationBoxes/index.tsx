@@ -237,6 +237,10 @@ const renderTermsAndConditionsVerification = (
       label="Acepta términos y condiciones:"
       value={values.accept ? activeDM.Y.value : activeDM.N.value}
     />
+    <BoxAttribute
+      label="Acepta política de tratamiento de datos:"
+      value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
+    />
   </Stack>
 );
 
@@ -245,10 +249,6 @@ const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
     <BoxAttribute label="Correo:" value={values.email} />
-    <BoxAttribute
-      label="Acepta política de tratamiento de datos:"
-      value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
-    />
     <BoxAttribute
       label="Autoriza recibir información:"
       value={values.acceptNotifications ? activeDM.Y.value : activeDM.N.value}
