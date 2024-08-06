@@ -4,7 +4,6 @@ import { MdExpandMore, MdOutlineWarning } from "react-icons/md";
 import { SelectProps } from ".";
 import { Text } from "../../data/Text";
 import { DropdownMenu } from "../DropdownMenu";
-import { Label } from "../Label";
 import { ISelectMessage } from "./types";
 
 import {
@@ -16,6 +15,7 @@ import {
   StyledInputContainer,
 } from "./styles";
 import { Stack } from "@inubekit/stack";
+import { Label } from "@inubekit/label";
 
 function Invalid(props: ISelectMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -81,9 +81,9 @@ function SelectUI(props: SelectUIProps) {
         {label && (
           <Label
             htmlFor={id}
-            isDisabled={isDisabled}
-            isFocused={isFocused}
-            isInvalid={state === "invalid"}
+            disabled={isDisabled}
+            focused={isFocused}
+            invalid={state === "invalid"}
             size="medium"
           >
             {label}

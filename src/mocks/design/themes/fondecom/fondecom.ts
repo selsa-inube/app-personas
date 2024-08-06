@@ -604,7 +604,7 @@ const fondecomTheme = {
       },
       contrast: {
         color: {
-          regular: palette.neutral.n300,
+          regular: palette.neutral.n900,
           disabled: palette.neutral.n70,
           hover: palette.neutral.n900,
         },
@@ -685,10 +685,10 @@ const fondecomTheme = {
   label: {
     content: {
       color: {
-        regular: "fondecom.palette.neutral.n900",
-        disabled: "fondecom.palette.neutral.n70",
-        focus: "fondecom.palette.blue.b300",
-        invalid: "fondecom.palette.red.r400",
+        regular: palette.neutral.n900,
+        disabled: palette.neutral.n70,
+        focus: palette.blue.b300,
+        invalid: palette.red.r400,
       },
     },
   },
@@ -1746,7 +1746,25 @@ const fondecomTheme = {
       },
     },
   },
-  typographyTheme: {
+  typography: {
+    fonts: [
+      {
+        family: "Open Sans",
+        url: "https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-muw.woff2",
+        options: {
+          weight: "400",
+          style: "normal",
+        },
+      },
+      {
+        family: "Open Sans",
+        url: "https://fonts.gstatic.com/s/opensans/v35/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTS-muw.woff2",
+        options: {
+          weight: "500",
+          style: "normal",
+        },
+      },
+    ],
     display: {
       large: {
         font: "Open Sans",
