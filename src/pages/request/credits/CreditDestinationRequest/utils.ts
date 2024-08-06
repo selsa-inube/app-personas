@@ -70,7 +70,10 @@ const creditDestinationStepsRules = (
             requestAmount: values.amount,
             creditAmount: values.netValue,
             capitalPaymentPeriod: "100000",
-            numQuotas: parseInt(values.deadline),
+            numQuotas:
+              !values.deadline || parseInt(values.deadline) === 0
+                ? parseInt(values.deadlineTerm)
+                : parseInt(values.deadline),
             nominalRate: Number(values.interestRate),
             amortizationType: "AT",
             interestPaymentPeriod: values.cycleInterest.toString(),

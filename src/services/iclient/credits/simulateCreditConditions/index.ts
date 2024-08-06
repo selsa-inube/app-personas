@@ -1,25 +1,28 @@
 import { enviroment } from "@config/enviroment";
 import {
-  mapConditionsEntityToApi,
-  mapConditionsEntityToEntity,
+  mapSimulationEntityToApi,
+  mapSimulationEntityToEntity,
 } from "./mappers";
-import { IConditionRequest, IConditionRequestResponse } from "./types";
+import {
+  ISimulateCreditRequest,
+  ISimulateCreditRequestResponse,
+} from "./types";
 
-const getConditionsCalculation = async (
-  conditions: IConditionRequest,
+const simulateCreditConditions = async (
+  simulationValues: ISimulateCreditRequest,
   accessToken: string,
-): Promise<IConditionRequestResponse | undefined> => {
+): Promise<ISimulateCreditRequestResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "CalculateConditions",
+        "X-Action": "CreditSimulation",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapConditionsEntityToApi(conditions)),
+      body: JSON.stringify(mapSimulationEntityToApi(simulationValues)),
     };
 
     const res = await fetch(
@@ -27,26 +30,25 @@ const getConditionsCalculation = async (
       options,
     );
 
-    const data = await res.json();
-
     if (res.status === 204) {
       return;
     }
 
     if (!res.ok) {
+      const data = await res.json();
       throw {
-        message: "Error al obtener opciones de pago",
+        message: "Error al realizar la simulación",
         status: res.status,
         data,
       };
     }
 
-    return mapConditionsEntityToEntity(data);
+    const data = await res.json();
+    return mapSimulationEntityToEntity(data);
   } catch (error) {
-    console.info(error);
-
+    console.info("Error en la simulación:", error);
     throw error;
   }
 };
 
-export { getConditionsCalculation };
+export { simulateCreditConditions };

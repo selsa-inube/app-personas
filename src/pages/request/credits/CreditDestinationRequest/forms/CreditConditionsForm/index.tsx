@@ -1,3 +1,4 @@
+import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -6,18 +7,17 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
+import { AppContext } from "src/context/app";
+import { getCalculatedConditionsForProduct } from "src/services/iclient/credits/getCalculatedConditionsForProduct";
+import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
 import { CreditConditionsFormUI } from "./interface";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
 import {
   getInitialCreditContidionValidations,
+  getValuesForSimulate,
   validationSchema,
 } from "./utils";
-import { useAuth } from "@inube/auth";
-import { AppContext } from "src/context/app";
-import { getPaymentMethodsForUser } from "src/services/iclient/credits/getPaymentMethods";
-import { getPeriodicityForUser } from "src/services/iclient/credits/getPeriodicity";
-import { getConditionsCalculation } from "src/services/iclient/credits/getConditionsCalculation";
-import { getSimulation } from "src/services/iclient/credits/getSimulation";
+import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCalculatedConditionsForProduct/types";
 
 interface CreditConditionsFormProps {
   initialValues: ICreditConditionsEntry;
@@ -61,9 +61,15 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    formik.validateForm().then((errors) => {
-      onFormValid(Object.keys(errors).length === 0);
-    });
+    if (formik.dirty) {
+      formik.validateForm().then((errors) => {
+        onFormValid(
+          errors.amount
+            ? Object.keys(errors).length === 1
+            : Object.keys(errors).length === 0,
+        );
+      });
+    }
   }, [formik.values]);
 
   useEffect(() => {
@@ -72,22 +78,8 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
 
   useEffect(() => {
     const fetchData = async () => {
-      if (accessToken) {
-        const products = await getPaymentMethodsForUser(
-          user.identification,
-          accessToken,
-          formik.values.product.id,
-        );
-        formik.setFieldValue("paymentMethods", products);
-
-        if (formik.values.paymentMethod) {
-          const periodicities = await getPeriodicityForUser(
-            accessToken,
-            formik.values.product.id,
-            formik.values.paymentMethod.id,
-          );
-          formik.setFieldValue("periodicities", periodicities);
-        }
+      if (accessToken && user?.identification) {
+        await getValuesForSimulate(formik, accessToken, user.identification);
       }
     };
 
@@ -116,16 +108,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         value: selectedMethod.value,
       });
     }
-
-    const methods = await getPaymentMethodsForUser(
-      user.identification,
-      accessToken,
-      formik.values.product.id,
-    );
-
-    if (methods.length > 0) {
-      formik.setFieldValue("paymentMethods", methods);
-    }
   };
 
   const handleChangePeriodicity = async (
@@ -147,25 +129,13 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         periodicityInDays: selectedPeriodicity.periodicityInDays,
       });
     }
-
-    const periodicities = await getPeriodicityForUser(
-      accessToken,
-      formik.values.product.id,
-      formik.values.paymentMethod.id,
-    );
-
-    if (periodicities.length > 0) {
-      formik.setFieldValue("periodicities", periodicities);
-    }
   };
 
-  
   const simulateCredit = async () => {
     setLoadingSimulation(true);
     try {
       const productId = formik.values.product?.id;
       const paymentMethodId = formik.values.paymentMethod?.id;
-      const customerCode = user.identification;
       const amount = Number(formik.values.amount);
       const periodicityInMonthsCapital = Number(
         formik.values.periodicity.periodicityInMonths,
@@ -183,23 +153,25 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         return;
       }
 
-      const calculationResponse = await getConditionsCalculation(
-        {
-          productId,
-          paymentMethodId,
-          customerCode,
-          amount,
-        },
+      const calculateConditionsRequestData: ICalculatedConditionsRequest = {
+        productId,
+        paymentMethodId,
+        customerCode: user.identification,
+        amount,
+      };
+
+      const calculationResponse = await getCalculatedConditionsForProduct(
+        calculateConditionsRequestData,
         accessToken,
       );
 
       const rate = calculationResponse?.rate ?? 0;
 
-      const simulationResponse = await getSimulation(
+      const simulationResponse = await simulateCreditConditions(
         {
           productId,
           paymentMethodCapitalId: paymentMethodId,
-          customerCode,
+          customerCode: user.identification,
           amount,
           periodicityInMonthsCapital,
           quotaDeadlineInMonths,

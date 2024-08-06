@@ -1,25 +1,28 @@
 import { enviroment } from "@config/enviroment";
-import { ISimulationRequest, ISimulationRequestResponse } from "./types";
 import {
-  mapSimulationEntityToApi,
-  mapSimulationEntityToEntity,
+  mapConditionsEntityToApi,
+  mapConditionsEntityToEntity,
 } from "./mappers";
+import {
+  ICalculatedConditionsRequest,
+  ICalculatedConditionsRequestResponse,
+} from "./types";
 
-const getSimulation = async (
-  simulationValues: ISimulationRequest,
+const getCalculatedConditionsForProduct = async (
+  conditions: ICalculatedConditionsRequest,
   accessToken: string,
-): Promise<ISimulationRequestResponse | undefined> => {
+): Promise<ICalculatedConditionsRequestResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "CreditSimulation",
+        "X-Action": "CalculateConditions",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapSimulationEntityToApi(simulationValues)),
+      body: JSON.stringify(mapConditionsEntityToApi(conditions)),
     };
 
     const res = await fetch(
@@ -27,25 +30,26 @@ const getSimulation = async (
       options,
     );
 
+    const data = await res.json();
+
     if (res.status === 204) {
-      return; 
+      return;
     }
 
     if (!res.ok) {
-      const data = await res.json();
       throw {
-        message: "Error al realizar la simulación",
+        message: "Error al calcular las condiciones del producto.",
         status: res.status,
         data,
       };
     }
 
-    const data = await res.json();
-    return mapSimulationEntityToEntity(data);
+    return mapConditionsEntityToEntity(data);
   } catch (error) {
-    console.info("Error en la simulación:", error);
+    console.info(error);
+
     throw error;
   }
 };
 
-export { getSimulation };
+export { getCalculatedConditionsForProduct };

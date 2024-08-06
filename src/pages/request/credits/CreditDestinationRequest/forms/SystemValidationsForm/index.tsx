@@ -62,7 +62,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       requestAmount: formik.values.requestAmount,
       creditAmount: formik.values.creditAmount,
       capitalPaymentPeriod: formik.values.capitalPaymentPeriod,
-      numQuotas: formik.values.numQuotas,
+      numQuotas: formik.values.numQuotas || formik.values.quotaValue,
       nominalRate:
         formik.values.nominalRate === 0 ? 1 : formik.values.nominalRate,
       amortizationType: formik.values.amortizationType,
