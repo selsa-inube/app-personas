@@ -47,6 +47,8 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   const getRequirements = () => {
     if (!accessToken) return;
 
+    const requestDate = new Date().toISOString();
+
     setLoadingValids(true);
     const requirementsRequest: IRequirementRequest = {
       productId: formik.values.productId,
@@ -61,12 +63,14 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       creditAmount: formik.values.creditAmount,
       capitalPaymentPeriod: formik.values.capitalPaymentPeriod,
       numQuotas: formik.values.numQuotas,
-      nominalRate: formik.values.nominalRate,
+      nominalRate:
+        formik.values.nominalRate === 0 ? 1 : formik.values.nominalRate,
       amortizationType: formik.values.amortizationType,
       interestPaymentPeriod: formik.values.interestPaymentPeriod,
       periodicity: formik.values.periodicity,
       quotaValue: formik.values.quotaValue,
       amountToTurn: formik.values.amountToTurn,
+      requestDate,
     };
 
     getRequirementsForProduct(requirementsRequest, accessToken).then(

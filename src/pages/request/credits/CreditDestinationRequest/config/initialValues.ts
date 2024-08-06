@@ -60,12 +60,13 @@ const systemValidations: ISystemValidationsEntry = {
   creditAmount: 0,
   capitalPaymentPeriod: "",
   numQuotas: 0,
-  nominalRate: "",
+  nominalRate: 0,
   amortizationType: "",
   interestPaymentPeriod: "",
   periodicity: "",
   quotaValue: 0,
   amountToTurn: 0,
+  requestDate: "",
 };
 
 const documentaryRequirements: IDocumentaryRequirementsEntry = {
