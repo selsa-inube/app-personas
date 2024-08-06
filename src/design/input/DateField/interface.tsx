@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { IDateFieldMessage } from "../DateField/types";
@@ -13,6 +12,7 @@ import {
 
 import { DateFieldProps } from ".";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 
 function Invalid(props: IDateFieldMessage) {
   const { isDisabled, state, errorMessage } = props;

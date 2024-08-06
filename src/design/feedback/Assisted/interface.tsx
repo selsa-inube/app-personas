@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -13,6 +12,7 @@ import {
 import { IStep } from "./types";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 
 interface AssistedUIProps {
   steps: IStep[];
@@ -82,7 +82,7 @@ function AssistedUI(props: AssistedUIProps) {
               <Text
                 type="label"
                 size="medium"
-                appearance="information"
+                appearance="primary"
                 margin="auto"
               >
                 {currentStepIndex === lastStepIndex ? (

@@ -2,7 +2,6 @@ import { FileCard } from "@components/cards/FileCard";
 import { InfoCard } from "@components/cards/InfoCard";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { InfoModal } from "@components/modals/general/InfoModal";
-import { Text } from "@design/data/Text";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { FileDrop } from "@design/input/FileDrop";
 import { inube } from "@design/tokens";
@@ -14,6 +13,7 @@ import { IDocumentaryRequirementsEntry } from "./types";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 function renderRequirement(label: string, id: string) {
   return (

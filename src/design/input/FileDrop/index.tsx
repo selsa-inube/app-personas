@@ -1,9 +1,9 @@
-import { Text } from "@design/data/Text";
 import { useRef, useState } from "react";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { Button } from "../Button";
 import { StyledFileDrop } from "./styles";
 import { Icon } from "@inubekit/icon";
+import { Text } from "@inubekit/text";
 
 interface FileDropProps {
   onSelectFiles: (file: FileList) => void;

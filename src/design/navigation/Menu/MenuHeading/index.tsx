@@ -1,4 +1,4 @@
-import { Text } from "@design/data/Text";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface MenuHeadingProps {
@@ -8,14 +8,12 @@ interface MenuHeadingProps {
 function MenuHeading(props: MenuHeadingProps) {
   const { title } = props;
 
-  const { s100, s200 } = inube.spacing;
-
   return (
     <Text
       type="title"
       size="small"
       appearance="gray"
-      padding={`${s200} ${s200} ${s100} ${s200}`}
+      padding={`${inube.spacing.s100} ${inube.spacing.s200} ${inube.spacing.s100} ${inube.spacing.s200}`}
     >
       {title}
     </Text>

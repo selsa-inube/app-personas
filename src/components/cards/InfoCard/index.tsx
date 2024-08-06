@@ -1,8 +1,8 @@
-import { Text } from "@design/data/Text";
 import { StyledCardContainer } from "./styles";
 import { InfoCardAppearanceType } from "./types";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface InfoCardProps {

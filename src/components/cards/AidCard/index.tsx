@@ -1,9 +1,9 @@
-import { Text } from "@design/data/Text";
 import { MdChevronRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { StyledCardContainer } from "./styles";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 
 interface AidCardProps {
   id: string;

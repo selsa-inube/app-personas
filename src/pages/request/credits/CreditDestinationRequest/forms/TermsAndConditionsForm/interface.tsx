@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
@@ -8,6 +7,7 @@ import {
   StyledTermsAndConditionsInfo,
 } from "./styles";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 function generateTermsAndConditionsParagraphs(texts: string[]) {

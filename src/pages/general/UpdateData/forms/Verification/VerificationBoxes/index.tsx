@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Text } from "@design/data/Text";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
 import {
@@ -47,6 +46,7 @@ import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationFo
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 const renderPersonalInfoVerification = (

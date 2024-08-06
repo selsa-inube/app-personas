@@ -1,9 +1,9 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { MdSearch } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 

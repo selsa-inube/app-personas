@@ -1,9 +1,9 @@
-import { Text } from "@design/data/Text";
 import { Divider } from "@inubekit/divider";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface DestinationCardProps {

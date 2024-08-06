@@ -1,6 +1,5 @@
 import { getHeader } from "@config/header";
 import { getNav } from "@config/nav";
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Header } from "@design/navigation/Header";
 import { Nav } from "@design/navigation/Nav";
@@ -15,6 +14,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 function PageNotFound() {
   const { pathname: currentLocation } = useLocation();

@@ -1,9 +1,9 @@
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikValues } from "formik";

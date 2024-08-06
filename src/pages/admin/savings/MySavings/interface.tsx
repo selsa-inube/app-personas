@@ -2,7 +2,6 @@ import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -28,6 +27,7 @@ import { mySavingsBox } from "./config/boxes";
 import { crumbsMySavings } from "./config/navigation";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 function renderMySavingsContent(
   commitments: ICommitment[],

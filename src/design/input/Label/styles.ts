@@ -37,8 +37,8 @@ const StyledLabel = styled.label<IStyledLabel>`
     }
     if ($isFocused) {
       return (
-        theme.color?.text?.information?.hover ||
-        inube.color.text.information.hover
+        theme.color?.text?.primary?.hover ||
+        inube.color.text.primary.hover
       );
     }
     if ($isInvalid) {

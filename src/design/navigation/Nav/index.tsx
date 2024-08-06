@@ -1,5 +1,4 @@
 import { MdLogout } from "react-icons/md";
-import { Text } from "../../data/Text";
 import { NavLink } from "../NavLink";
 
 import { DecisionModal } from "@components/modals/general/DecisionModal";
@@ -13,6 +12,8 @@ import {
   StyledNav,
   StyledSeparatorLine,
 } from "./styles";
+import { Text } from "@inubekit/text";
+import { inube } from "@design/tokens";
 
 const year = new Date().getFullYear();
 
@@ -53,7 +54,7 @@ function Nav(props: NavProps) {
             <StyledList key={section.title}>
               {sections.length > 1 && (
                 <Text
-                  padding="s200"
+                  padding={inube.spacing.s200}
                   type="title"
                   size="small"
                   appearance="gray"

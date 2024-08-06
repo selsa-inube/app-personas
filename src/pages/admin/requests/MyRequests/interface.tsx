@@ -1,7 +1,6 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
@@ -17,6 +16,7 @@ import { crumbsMyRequests } from "./config/navigation";
 import { StyledContainer } from "./styles";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 interface MyRequestsUIProps {
   requests: IRequest[];

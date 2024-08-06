@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Text } from "../../data/Text";
 import {
   StyledButton,
   StyledButtonContent,
@@ -15,6 +14,7 @@ import {
 import { Spinner } from "@inubekit/spinner";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface ButtonProps {
