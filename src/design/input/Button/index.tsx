@@ -1,3 +1,7 @@
+import { inube } from "@design/tokens";
+import { Icon } from "@inubekit/icon";
+import { Spinner } from "@inubekit/spinner";
+import { Stack } from "@inubekit/stack";
 import { useState } from "react";
 import {
   StyledButton,
@@ -11,11 +15,7 @@ import {
   ButtonTypesType,
   ButtonVariantType,
 } from "./types";
-import { Spinner } from "@inubekit/spinner";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -173,7 +173,7 @@ function Button(props: ButtonProps) {
       $fullwidth={fullwidth}
       $load={load}
       $disabled={disabled}
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
       onMouseEnter={() => toggleHover(true)}
       onMouseLeave={() => toggleHover(false)}
     >

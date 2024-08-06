@@ -12,13 +12,13 @@ import { ISelectedProductState } from "./types";
 
 const renderAmortizationTable = (
   selectedProduct?: ISelectedProductState,
-  allColumns?: boolean,
+  toExport?: boolean,
 ) => {
   if (!selectedProduct || !selectedProduct.credit.amortization) return;
 
   const duplicatedActions = [...creditAmortizationTableActions];
 
-  if (allColumns) {
+  if (toExport) {
     duplicatedActions.pop();
   }
 
@@ -26,13 +26,16 @@ const renderAmortizationTable = (
     <Table
       portalId="modals"
       titles={amortizationTableTitles}
-      breakpoints={allColumns ? undefined : amortizationTableBreakpoints}
+      breakpoints={toExport ? undefined : amortizationTableBreakpoints}
       actions={duplicatedActions}
       entries={amortizationNormalizeEntries(
         selectedProduct.credit.amortization,
       )}
       customAppearance={customAppearanceCallback}
       hideMobileResume
+      pageLength={
+        toExport ? selectedProduct.credit.amortization.length : undefined
+      }
     />
   );
 };

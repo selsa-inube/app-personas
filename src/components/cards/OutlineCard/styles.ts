@@ -9,6 +9,7 @@ const StyledContainerCard = styled.div`
       theme?.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
   border-radius: ${inube.spacing.s100};
+  height: fit-content;
 `;
 
 export { StyledContainerCard };

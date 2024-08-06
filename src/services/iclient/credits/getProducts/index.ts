@@ -13,7 +13,7 @@ const getProductsForDestination = async (
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/credit-products/destination/${destinationId}/customer/${userIdentification}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/product/destination/${destinationId}/customer/${userIdentification}`;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -25,7 +25,7 @@ const getProductsForDestination = async (
         headers: {
           Realm: enviroment.REALM,
           Authorization: `Bearer ${accessToken}`,
-          "X-Action": "SearchCreditProductsByDestinationId",
+          "X-Action": "SearchProductsByDestination",
           "X-Business-Unit": enviroment.BUSINESS_UNIT,
           "Content-type": "application/json; charset=UTF-8",
         },

@@ -59,15 +59,20 @@ function ValidationCard(props: IValidation) {
                   modifier="clear"
                   textAppearance="success"
                 />
+              ) : value === "fail" ? (
+                <Tag
+                  label="No cumple"
+                  appearance="danger"
+                  modifier="clear"
+                  textAppearance="danger"
+                />
               ) : (
-                value === "fail" && (
-                  <Tag
-                    label="No cumple"
-                    appearance="danger"
-                    modifier="clear"
-                    textAppearance="danger"
-                  />
-                )
+                <Tag
+                  label="Por evaluar"
+                  appearance="warning"
+                  modifier="clear"
+                  textAppearance="warning"
+                />
               )}
 
               {value === "fail" && (

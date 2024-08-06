@@ -64,7 +64,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                   gap={inube.spacing.s200}
                 >
                   {loadingProducts &&
-                    loadingProductsData.map((product) => (
+                    loadingProductsData.map((product, index) => (
                       <DestinationCard
                         id={product.id}
                         title={product.title}
@@ -73,7 +73,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                         maxAmount={product.maxAmount}
                         maxRate={product.maxRate}
                         maxDeadline={product.maxDeadline}
-                        key={product.id}
+                        key={index}
                         onClick={() => true}
                         loading
                       />

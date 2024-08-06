@@ -1,9 +1,9 @@
 import { MdClose, MdDone } from "react-icons/md";
-import { Label } from "../Label";
 import { StyledContainer, StyledIcon, StyledInput, StyledSpan } from "./styles";
 import { SwitchSizeType } from "./types";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { Label } from "@inubekit/label";
 
 interface SwitchProps {
   id: string;
@@ -67,7 +67,7 @@ const Switch = (props: SwitchProps) => {
         </StyledSpan>
       </StyledContainer>
       {(customLabel || label) && (
-        <Label htmlFor={id} isDisabled={disabled}>
+        <Label htmlFor={id} disabled={disabled}>
           {customLabel || label}
         </Label>
       )}

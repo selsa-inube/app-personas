@@ -7,7 +7,6 @@ import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
-import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -58,24 +57,19 @@ const renderCreditConditionsVerification = (
         width="100%"
       >
         <BoxAttribute
-          label="Valor simulado:"
-          value={currencyFormat(values.amount)}
-        />
-        <BoxAttribute label="Plazo:" value={`${values.deadline} Meses`} />
-        <BoxAttribute
           label="Cuota:"
-          value={`${currencyFormat(values.quota)} / ${periodicityDM.valueOf(values.periodicity)?.value}`}
+          value={`${currencyFormat(values.quota)} / Mensual`}
+        />
+        <BoxAttribute
+          label="Plazo en meses:"
+          value={`${values.deadlineTerm || values.calculatedQuotaDeadline} Meses`}
         />
         <BoxAttribute
           label="Tasa de interés:"
-          value={`${values.interestRate} % N.M.V`}
+          value={`${values.product.maxRate} % N.A.M.V`}
         />
         <BoxAttribute
-          label="Garantía mínima requerida:"
-          value={values.minWarrantyRequired}
-        />
-        <BoxAttribute
-          label="Valor neto a recibir:"
+          label="Desembolso aproximado:"
           value={currencyFormat(values.netValue)}
         />
       </Grid>
@@ -134,8 +128,8 @@ const renderDocumentaryRequirementsVerification = (
     >
       {values.selectedDocuments.map((document) => (
         <BoxAttribute
-          key={document.name}
-          label={truncateFileName(document.name, 55)}
+          key={document.file.name}
+          label={truncateFileName(document.file.name, 55)}
         />
       ))}
     </Grid>
@@ -243,6 +237,10 @@ const renderTermsAndConditionsVerification = (
       label="Acepta términos y condiciones:"
       value={values.accept ? activeDM.Y.value : activeDM.N.value}
     />
+    <BoxAttribute
+      label="Acepta política de tratamiento de datos:"
+      value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
+    />
   </Stack>
 );
 
@@ -251,10 +249,6 @@ const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
     <BoxAttribute label="Correo:" value={values.email} />
-    <BoxAttribute
-      label="Acepta política de tratamiento de datos:"
-      value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
-    />
     <BoxAttribute
       label="Autoriza recibir información:"
       value={values.acceptNotifications ? activeDM.Y.value : activeDM.N.value}

@@ -3,17 +3,17 @@ import { getNav } from "@config/nav";
 import { Button } from "@design/input/Button";
 import { Header } from "@design/navigation/Header";
 import { Nav } from "@design/navigation/Nav";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { useContext } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledPage } from "./styles";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
-import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
 
 function PageNotFound() {
@@ -38,6 +38,7 @@ function PageNotFound() {
   const withTransfers = getFlag(
     "admin.transfers.deposit.deposit-accounts",
   ).value;
+  const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
 
   const nav = getNav(
@@ -47,6 +48,7 @@ function PageNotFound() {
     withAidRequest,
     withHolidaysRequest,
     withTransfers,
+    withPayments,
     withMyRequests,
   );
 

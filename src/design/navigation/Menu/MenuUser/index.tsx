@@ -1,7 +1,7 @@
 import { Avatar } from "@inubekit/avatar";
-import { StyledUser } from "./styles";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { StyledUser } from "./styles";
 
 interface MenuUserProps {
   userName: string;
@@ -15,7 +15,7 @@ function MenuUser(props: MenuUserProps) {
   return (
     <StyledUser>
       {avatar && (
-        <Stack direction="column" justifyContent="center">
+        <Stack direction="column" justifyContent="center" alignItems="center">
           <Avatar />
         </Stack>
       )}
@@ -31,5 +31,5 @@ function MenuUser(props: MenuUserProps) {
   );
 }
 
-export type { MenuUserProps };
 export { MenuUser };
+export type { MenuUserProps };

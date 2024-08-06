@@ -15,7 +15,11 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
-import { MdArrowBack, MdInput, MdOutlineAttachMoney } from "react-icons/md";
+import {
+  MdArrowBack,
+  MdOutlineAttachMoney,
+  MdOutlineIosShare,
+} from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
@@ -244,7 +248,7 @@ function CreditAmortization() {
 
             <Stack width="100%" justifyContent="flex-end">
               <Button
-                iconBefore={<MdInput />}
+                iconBefore={<MdOutlineIosShare />}
                 spacing="compact"
                 onClick={handleToggleExportModal}
               >

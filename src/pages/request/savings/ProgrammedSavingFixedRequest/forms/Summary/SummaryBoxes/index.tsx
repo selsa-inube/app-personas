@@ -1,4 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { inube } from "@design/tokens";
+import { Stack } from "@inubekit/stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { activeDM } from "src/model/domains/general/activedm";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
@@ -11,8 +13,6 @@ import { IGoalEntry } from "../../GoalForm/types";
 import { IPlanNameEntry } from "../../PlanNameForm/types";
 import { IQuotaEntry } from "../../QuotaForm/types";
 import { IReimbursementEntry } from "../../ReimbursementForm/types";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 
 const renderQuotaSummary = (values: IQuotaEntry) => (
   <Stack direction="column" gap={inube.spacing.s100} width="100%">
@@ -106,10 +106,6 @@ const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
     <BoxAttribute label="Correo:" value={values.email} />
-    <BoxAttribute
-      label="Acepta política de tratamiento de datos:"
-      value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
-    />
     <BoxAttribute
       label="Autoriza recibir información:"
       value={values.acceptNotifications ? activeDM.Y.value : activeDM.N.value}
