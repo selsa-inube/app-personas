@@ -1,13 +1,10 @@
 import { enviroment } from "@config/enviroment";
-import {
-  IPaymentRequest,
-  IPaymentRequestResponse,
-} from "src/model/entity/payment";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import {
   mapPaymentRequestApiToEntity,
   mapPaymentRequestEntityToApi,
 } from "./mappers";
+import { IPaymentRequest, IPaymentRequestResponse } from "./types";
 
 const createPaymentRequest = async (
   paymentRequest: IPaymentRequest,

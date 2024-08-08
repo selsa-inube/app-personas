@@ -1,9 +1,6 @@
-import {
-  IRequirementRequest,
-  IRequirementRequestResponse,
-} from "src/model/entity/request";
 import { IValidation, ValidationValueType } from "src/model/entity/service";
 import { capitalizeText, correctSpecialCharacters } from "src/utils/texts";
+import { IRequirementRequest, IRequirementResponse } from "./types";
 
 const mapRequirementEntityToApi = (
   requirement: IRequirementRequest,
@@ -55,7 +52,7 @@ const mapRequirementApiToEntity = (
 
 const mapRequirementsApiToEntities = (
   requirements: Record<string, string | number | object>[],
-): IRequirementRequestResponse => {
+): IRequirementResponse => {
   const validations = Array.isArray(Object(requirements).validations)
     ? Object(requirements).validations
     : [];

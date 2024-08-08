@@ -1,9 +1,9 @@
 import { enviroment } from "@config/enviroment";
 import { IUser } from "@inube/auth/dist/types/user";
 import { NavigateFunction } from "react-router-dom";
-import { IPaymentRequest } from "src/model/entity/payment";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createPaymentRequest } from "src/services/iclient/payments/createPaymentRequest";
+import { IPaymentRequest } from "src/services/iclient/payments/createPaymentRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
 import { paySteps } from "./config/assisted";
 import { mapPaymentMethod } from "./config/mappers";

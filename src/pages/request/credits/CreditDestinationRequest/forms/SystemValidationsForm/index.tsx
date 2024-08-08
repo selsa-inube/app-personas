@@ -8,12 +8,12 @@ import {
   useState,
 } from "react";
 import { AppContext } from "src/context/app";
-import { IRequirementRequest } from "src/model/entity/request";
 import { getRequirementsForProduct } from "src/services/iclient/credits/getRequirements";
 import * as Yup from "yup";
 import { SystemValidationsFormUI } from "./interface";
 import { ISystemValidationsEntry } from "./types";
 import { loadingValidations } from "./utils";
+import { IRequirementRequest } from "src/services/iclient/credits/getRequirements/types";
 
 const validationSchema = Yup.object().shape({});
 
