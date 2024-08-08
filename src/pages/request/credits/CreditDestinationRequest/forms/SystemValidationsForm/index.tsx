@@ -66,10 +66,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
         formik.values.deadlineTerm === 0
           ? formik.values.calculatedQuotaDeadline
           : formik.values.deadlineTerm,
-      nominalRate:
-        formik.values.nominalRate === 0
-          ? formik.values.rate
-          : formik.values.nominalRate,
+      nominalRate:formik.values.nominalRate,
       amortizationType: formik.values.amortizationType,
       interestPaymentPeriod: formik.values.interestPaymentPeriod,
       periodicity: formik.values.periodicity,

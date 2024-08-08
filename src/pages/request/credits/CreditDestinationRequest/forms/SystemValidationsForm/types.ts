@@ -20,7 +20,6 @@ interface ISystemValidationsEntry {
   quotaValue: number;
   amountToTurn: number;
   requestDate: string;
-  rate: number;
   deadlineTerm: number;
   calculatedQuotaDeadline: number;
 }

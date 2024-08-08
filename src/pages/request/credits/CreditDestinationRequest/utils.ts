@@ -74,13 +74,12 @@ const creditDestinationStepsRules = (
               !values.deadline || parseInt(values.deadline) === 0
                 ? parseInt(values.deadlineTerm)
                 : parseInt(values.deadline),
-            nominalRate: Number(values.interestRate),
+            nominalRate: Number(values.rate),
             amortizationType: "AT",
             interestPaymentPeriod: values.cycleInterest.toString(),
             periodicity: values.periodicity.code,
             quotaValue: values.quota,
             amountToTurn: values.netValue,
-            rate: values.rate,
             deadlineTerm: Number(values.deadlineTerm),
             calculatedQuotaDeadline: values.calculatedQuotaDeadline,
           },

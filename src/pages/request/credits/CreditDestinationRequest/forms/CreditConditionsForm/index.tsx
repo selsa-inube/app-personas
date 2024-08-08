@@ -169,7 +169,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
 
       const rate = calculationResponse?.rate ?? 0;
 
-      const simulationResponseRequestData: ISimulateCreditRequest = {
+      const simulationRequestData: ISimulateCreditRequest = {
         productId,
         paymentMethodCapitalId: paymentMethodId,
         customerCode: user.identification,
@@ -181,7 +181,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       };
 
       const simulationResponse = await simulateCreditConditions(
-        simulationResponseRequestData,
+        simulationRequestData,
         accessToken,
       );
 
