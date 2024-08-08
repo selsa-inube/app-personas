@@ -5,13 +5,13 @@ import {
 } from "./mappers";
 import {
   ISimulateCreditRequest,
-  ISimulateCreditRequestResponse,
+  ISimulateCreditResponse,
 } from "./types";
 
 const simulateCreditConditions = async (
   simulationValues: ISimulateCreditRequest,
   accessToken: string,
-): Promise<ISimulateCreditRequestResponse | undefined> => {
+): Promise<ISimulateCreditResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",

@@ -20,7 +20,7 @@ interface IRequirementRequest {
   periodicity: string;
   quotaValue: number;
   amountToTurn: number;
-  requestDate: string;
+  requestDate: Date;
 }
 
 interface IRequirementRequestResponse {

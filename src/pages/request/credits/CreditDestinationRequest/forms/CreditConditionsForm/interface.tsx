@@ -21,13 +21,14 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
-import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { ISelectOption } from "@design/input/Select/types";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
   loading?: boolean;
   loadingSimulation?: boolean;
   disbursementModal: IDisbursementModalState;
+  periodicityOptions: ISelectOption[];
   simulateCredit: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -44,6 +45,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     loading,
     loadingSimulation,
     disbursementModal,
+    periodicityOptions,
     simulateCredit,
     customHandleChange,
     onFormValid,
@@ -60,13 +62,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     formik.setFieldValue("hasResult", false);
     onFormValid(false);
   };
-
-  const periodicityOptions = formik.values.periodicities.map((option) => {
-    const matchedDomain = periodicityDM.valueOf(option.code);
-    return matchedDomain
-      ? { id: matchedDomain.id, value: matchedDomain.value }
-      : { id: option.code, value: option.code };
-  });
 
   return (
     <>

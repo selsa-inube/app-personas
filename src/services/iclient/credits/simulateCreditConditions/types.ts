@@ -9,7 +9,7 @@ interface ISimulateCreditRequest {
   rate: number;
 }
 
-interface ISimulateCreditRequestResponse {
+interface ISimulateCreditResponse {
   productId: string;
   paymentMethodCapitalId: string;
   customerCode: string;
@@ -28,4 +28,4 @@ interface ISimulateCreditRequestResponse {
   amountToBeDrawn: number;
 }
 
-export type { ISimulateCreditRequest, ISimulateCreditRequestResponse };
+export type { ISimulateCreditRequest, ISimulateCreditResponse };

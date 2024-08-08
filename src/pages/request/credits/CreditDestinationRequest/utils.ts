@@ -80,6 +80,9 @@ const creditDestinationStepsRules = (
             periodicity: values.periodicity.code,
             quotaValue: values.quota,
             amountToTurn: values.netValue,
+            rate: values.rate,
+            deadlineTerm: Number(values.deadlineTerm),
+            calculatedQuotaDeadline: values.calculatedQuotaDeadline,
           },
         };
       }

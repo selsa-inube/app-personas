@@ -5,7 +5,7 @@ interface ICalculatedConditionsRequest {
   amount: number;
 }
 
-interface ICalculatedConditionsRequestResponse {
+interface ICalculatedConditionsResponse {
   productId: string;
   paymentMethodId: string;
   customerCode: string;
@@ -17,5 +17,5 @@ interface ICalculatedConditionsRequestResponse {
 
 export type {
   ICalculatedConditionsRequest,
-  ICalculatedConditionsRequestResponse,
+  ICalculatedConditionsResponse,
 };

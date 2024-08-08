@@ -1,11 +1,11 @@
 import {
   ICalculatedConditionsRequest,
-  ICalculatedConditionsRequestResponse,
+  ICalculatedConditionsResponse,
 } from "./types";
 
 const mapConditionsEntityToEntity = (
   conditionOption: Record<string, string | object>,
-): ICalculatedConditionsRequestResponse => {
+): ICalculatedConditionsResponse => {
   return {
     productId: String(conditionOption.productId),
     paymentMethodId: String(conditionOption.paymentMethodId),

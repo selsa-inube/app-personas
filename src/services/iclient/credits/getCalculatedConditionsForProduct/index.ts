@@ -5,13 +5,13 @@ import {
 } from "./mappers";
 import {
   ICalculatedConditionsRequest,
-  ICalculatedConditionsRequestResponse,
+  ICalculatedConditionsResponse,
 } from "./types";
 
 const getCalculatedConditionsForProduct = async (
   conditions: ICalculatedConditionsRequest,
   accessToken: string,
-): Promise<ICalculatedConditionsRequestResponse | undefined> => {
+): Promise<ICalculatedConditionsResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",

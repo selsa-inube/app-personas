@@ -27,7 +27,7 @@ const mapRequirementEntityToApi = (
     periodicity: requirement.periodicity,
     quotaValue: requirement.quotaValue,
     amountToTurn: requirement.amountToTurn,
-    requestDate: requirement.requestDate,
+    requestDate: requirement.requestDate.toISOString(),
   };
 };
 

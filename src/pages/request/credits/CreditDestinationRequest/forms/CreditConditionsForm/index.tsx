@@ -18,6 +18,8 @@ import {
   validationSchema,
 } from "./utils";
 import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCalculatedConditionsForProduct/types";
+import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 
 interface CreditConditionsFormProps {
   initialValues: ICreditConditionsEntry;
@@ -77,13 +79,9 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (accessToken && user?.identification) {
-        await getValuesForSimulate(formik, accessToken, user.identification);
-      }
-    };
-
-    fetchData();
+    if (accessToken && user?.identification) {
+      getValuesForSimulate(formik, accessToken, user.identification);
+    }
   }, [
     accessToken,
     user.identification,
@@ -165,19 +163,25 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         accessToken,
       );
 
+      if (calculationResponse) {
+        formik.setFieldValue("rate", calculationResponse.rate);
+      }
+
       const rate = calculationResponse?.rate ?? 0;
 
+      const simulationResponseRequestData: ISimulateCreditRequest = {
+        productId,
+        paymentMethodCapitalId: paymentMethodId,
+        customerCode: user.identification,
+        amount,
+        periodicityInMonthsCapital,
+        quotaDeadlineInMonths,
+        quotaValue,
+        rate,
+      };
+
       const simulationResponse = await simulateCreditConditions(
-        {
-          productId,
-          paymentMethodCapitalId: paymentMethodId,
-          customerCode: user.identification,
-          amount,
-          periodicityInMonthsCapital,
-          quotaDeadlineInMonths,
-          quotaValue,
-          rate,
-        },
+        simulationResponseRequestData,
         accessToken,
       );
 
@@ -270,12 +274,20 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     });
   };
 
+  const periodicityOptions = formik.values.periodicities.map((option) => {
+    const matchedDomain = periodicityDM.valueOf(option.code);
+    return matchedDomain
+      ? { id: matchedDomain.id, value: matchedDomain.value }
+      : { id: option.code, value: option.code };
+  });
+
   return (
     <CreditConditionsFormUI
       loading={loading}
       formik={formik}
       loadingSimulation={loadingSimulation}
       disbursementModal={disbursementModal}
+      periodicityOptions={periodicityOptions}
       simulateCredit={simulateCredit}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}

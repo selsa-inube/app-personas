@@ -1,8 +1,8 @@
-import { ISimulateCreditRequest, ISimulateCreditRequestResponse } from "./types";
+import { ISimulateCreditRequest, ISimulateCreditResponse } from "./types";
 
 const mapSimulationEntityToEntity = (
   simulationOption: Record<string, string | object>,
-): ISimulateCreditRequestResponse => {
+): ISimulateCreditResponse => {
   return {
     productId: String(simulationOption.productId),
     paymentMethodCapitalId: String(simulationOption.paymentMethodId),

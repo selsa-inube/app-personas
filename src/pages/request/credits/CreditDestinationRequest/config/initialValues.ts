@@ -67,6 +67,9 @@ const systemValidations: ISystemValidationsEntry = {
   quotaValue: 0,
   amountToTurn: 0,
   requestDate: "",
+  rate: 0,
+  deadlineTerm: 0,
+  calculatedQuotaDeadline: 0,
 };
 
 const documentaryRequirements: IDocumentaryRequirementsEntry = {
