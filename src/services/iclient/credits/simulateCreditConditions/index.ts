@@ -1,14 +1,17 @@
 import { enviroment } from "@config/enviroment";
-import { ISimulationRequest, ISimulationRequestResponse } from "./types";
 import {
   mapSimulationEntityToApi,
   mapSimulationEntityToEntity,
 } from "./mappers";
+import {
+  ISimulateCreditRequest,
+  ISimulateCreditResponse,
+} from "./types";
 
-const getSimulation = async (
-  simulationValues: ISimulationRequest,
+const simulateCreditConditions = async (
+  simulationValues: ISimulateCreditRequest,
   accessToken: string,
-): Promise<ISimulationRequestResponse | undefined> => {
+): Promise<ISimulateCreditResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",
@@ -28,7 +31,7 @@ const getSimulation = async (
     );
 
     if (res.status === 204) {
-      return; 
+      return;
     }
 
     if (!res.ok) {
@@ -48,4 +51,4 @@ const getSimulation = async (
   }
 };
 
-export { getSimulation };
+export { simulateCreditConditions };
