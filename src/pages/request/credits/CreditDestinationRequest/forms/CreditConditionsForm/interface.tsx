@@ -22,6 +22,8 @@ import {
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
 import { ISelectOption } from "@design/input/Select/types";
+import { IMessage } from "@ptypes/messages.types";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -29,6 +31,7 @@ interface CreditConditionsFormUIProps {
   loadingSimulation?: boolean;
   disbursementModal: IDisbursementModalState;
   periodicityOptions: ISelectOption[];
+  message: IMessage;
   simulateCredit: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -37,6 +40,7 @@ interface CreditConditionsFormUIProps {
   onChangePaymentMethod: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleDisbursementModal: () => void;
+  handleCloseMessage: () => void;
 }
 
 function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
@@ -46,12 +50,14 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     loadingSimulation,
     disbursementModal,
     periodicityOptions,
+    message,
     simulateCredit,
     customHandleChange,
     onFormValid,
     onChangePaymentMethod,
     onChangePeriodicity,
     onToggleDisbursementModal,
+    handleCloseMessage,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
@@ -308,6 +314,17 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
           </Fieldset>
         </Stack>
       </form>
+
+      {message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          appearance={message.appearance}
+          icon={message.icon}
+          onClose={handleCloseMessage}
+          duration={5000}
+        />
+      )}
 
       {disbursementModal.show && disbursementModal.data && (
         <CreditDisbursementModal

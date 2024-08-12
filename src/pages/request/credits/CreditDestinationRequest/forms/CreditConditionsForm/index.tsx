@@ -20,6 +20,9 @@ import {
 import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCalculatedConditionsForProduct/types";
 import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { IMessage } from "@ptypes/messages.types";
+import { initialMessageState } from "src/utils/messages";
+import { MdErrorOutline } from "react-icons/md";
 
 interface CreditConditionsFormProps {
   initialValues: ICreditConditionsEntry;
@@ -35,6 +38,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const [loadingSimulation, setLoadingSimulation] = useState(false);
+  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
@@ -216,11 +220,21 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
           },
         });
       }
+
+      onFormValid(true);
     } catch (error) {
-      console.error("Error during simulation:", error);
+      setMessage({
+        show: true,
+        title: "La simulación no pudo ser procesada",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        icon: <MdErrorOutline />,
+        appearance: "danger",
+      });
+
+      onFormValid(false);
     } finally {
       setLoadingSimulation(false);
-      onFormValid(true);
     }
   };
 
@@ -274,6 +288,10 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     });
   };
 
+  const handleCloseMessage = () => {
+    setMessage(initialMessageState);
+  };
+
   const periodicityOptions = formik.values.periodicities.map((option) => {
     const matchedDomain = periodicityDM.valueOf(option.code);
     return matchedDomain
@@ -288,12 +306,14 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       loadingSimulation={loadingSimulation}
       disbursementModal={disbursementModal}
       periodicityOptions={periodicityOptions}
+      message={message}
       simulateCredit={simulateCredit}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}
       onToggleDisbursementModal={handleToggleDisbursementModal}
       onChangePaymentMethod={handleChangePaymentMethod}
       onChangePeriodicity={handleChangePeriodicity}
+      handleCloseMessage={handleCloseMessage}
     />
   );
 });
