@@ -3,12 +3,15 @@ import {
   mapConditionsEntityToApi,
   mapConditionsEntityToEntity,
 } from "./mappers";
-import { IConditionRequest, IConditionRequestResponse } from "./types";
+import {
+  ICalculatedConditionsRequest,
+  ICalculatedConditionsResponse,
+} from "./types";
 
-const getConditionsCalculation = async (
-  conditions: IConditionRequest,
+const getCalculatedConditionsForProduct = async (
+  conditions: ICalculatedConditionsRequest,
   accessToken: string,
-): Promise<IConditionRequestResponse | undefined> => {
+): Promise<ICalculatedConditionsResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",
@@ -35,7 +38,7 @@ const getConditionsCalculation = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener opciones de pago",
+        message: "Error al calcular las condiciones del producto.",
         status: res.status,
         data,
       };
@@ -49,4 +52,4 @@ const getConditionsCalculation = async (
   }
 };
 
-export { getConditionsCalculation };
+export { getCalculatedConditionsForProduct };

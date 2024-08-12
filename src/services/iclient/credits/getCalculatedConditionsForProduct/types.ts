@@ -1,11 +1,11 @@
-interface IConditionRequest {
+interface ICalculatedConditionsRequest {
   productId: string;
   paymentMethodId: string;
   customerCode: string;
   amount: number;
 }
 
-interface IConditionRequestResponse {
+interface ICalculatedConditionsResponse {
   productId: string;
   paymentMethodId: string;
   customerCode: string;
@@ -15,4 +15,7 @@ interface IConditionRequestResponse {
   rate: number;
 }
 
-export type { IConditionRequest, IConditionRequestResponse };
+export type {
+  ICalculatedConditionsRequest,
+  ICalculatedConditionsResponse,
+};

@@ -1,8 +1,8 @@
-import { ISimulationRequest, ISimulationRequestResponse } from "./types";
+import { ISimulateCreditRequest, ISimulateCreditResponse } from "./types";
 
 const mapSimulationEntityToEntity = (
   simulationOption: Record<string, string | object>,
-): ISimulationRequestResponse => {
+): ISimulateCreditResponse => {
   return {
     productId: String(simulationOption.productId),
     paymentMethodCapitalId: String(simulationOption.paymentMethodId),
@@ -26,7 +26,7 @@ const mapSimulationEntityToEntity = (
 };
 
 const mapSimulationEntityToApi = (
-  simulationValues: ISimulationRequest,
+  simulationValues: ISimulateCreditRequest,
 ): Record<string, string | number> => {
   return {
     productId: simulationValues.productId,

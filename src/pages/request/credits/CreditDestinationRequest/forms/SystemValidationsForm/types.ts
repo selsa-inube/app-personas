@@ -13,12 +13,15 @@ interface ISystemValidationsEntry {
   creditAmount: number;
   capitalPaymentPeriod: string;
   numQuotas: number;
-  nominalRate: string;
+  nominalRate: number;
   amortizationType: string;
   interestPaymentPeriod: string;
   periodicity: string;
   quotaValue: number;
   amountToTurn: number;
+  requestDate: string;
+  deadlineTerm: number;
+  calculatedQuotaDeadline: number;
 }
 
 export type { ISystemValidationsEntry };

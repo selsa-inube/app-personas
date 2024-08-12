@@ -5,8 +5,6 @@ import { IRequirementRequest, IRequirementResponse } from "./types";
 const mapRequirementEntityToApi = (
   requirement: IRequirementRequest,
 ): Record<string, string | number | object> => {
-  const requestDate = new Date();
-
   return {
     productId: requirement.productId,
     productName: requirement.productName,
@@ -26,7 +24,7 @@ const mapRequirementEntityToApi = (
     periodicity: requirement.periodicity,
     quotaValue: requirement.quotaValue,
     amountToTurn: requirement.amountToTurn,
-    requestDate,
+    requestDate: requirement.requestDate.toISOString(),
   };
 };
 

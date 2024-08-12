@@ -1,4 +1,6 @@
 import { FormikProps } from "formik";
+import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethodsForProduct";
+import { getPeriodicityForProduct } from "src/services/iclient/credits/getPeriodicityForProduct";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -14,7 +16,6 @@ const validationSchema = Yup.object({
   cycleInterest: Yup.number(),
   netValue: Yup.number(),
   hasResult: Yup.boolean(),
-  selectedProduct: Yup.object(),
 });
 
 const getInitialCreditContidionValidations = (
@@ -49,4 +50,32 @@ const getInitialCreditContidionValidations = (
   );
 };
 
-export { getInitialCreditContidionValidations, validationSchema };
+const getValuesForSimulate = async (
+  formik: FormikProps<ICreditConditionsEntry>,
+  accessToken: string,
+  userIdentification: string,
+) => {
+  if (accessToken) {
+    const products = await getPaymentMethodsForProduct(
+      userIdentification,
+      accessToken,
+      formik.values.product.id,
+    );
+    formik.setFieldValue("paymentMethods", products);
+
+    if (formik.values.paymentMethod) {
+      const periodicities = await getPeriodicityForProduct(
+        accessToken,
+        formik.values.product.id,
+        formik.values.paymentMethod.id,
+      );
+      formik.setFieldValue("periodicities", periodicities);
+    }
+  }
+};
+
+export {
+  getInitialCreditContidionValidations,
+  getValuesForSimulate,
+  validationSchema,
+};

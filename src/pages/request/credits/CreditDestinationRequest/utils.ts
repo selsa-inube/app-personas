@@ -70,13 +70,18 @@ const creditDestinationStepsRules = (
             requestAmount: values.amount,
             creditAmount: values.netValue,
             capitalPaymentPeriod: "100000",
-            numQuotas: parseInt(values.deadline),
-            nominalRate: values.interestRate,
+            numQuotas:
+              !values.deadline || parseInt(values.deadline) === 0
+                ? parseInt(values.deadlineTerm)
+                : parseInt(values.deadline),
+            nominalRate: Number(values.rate),
             amortizationType: "AT",
             interestPaymentPeriod: values.cycleInterest.toString(),
             periodicity: values.periodicity.code,
             quotaValue: values.quota,
             amountToTurn: values.netValue,
+            deadlineTerm: Number(values.deadlineTerm),
+            calculatedQuotaDeadline: values.calculatedQuotaDeadline,
           },
         };
       }

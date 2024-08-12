@@ -1,8 +1,11 @@
-import { IConditionRequest, IConditionRequestResponse } from "./types";
+import {
+  ICalculatedConditionsRequest,
+  ICalculatedConditionsResponse,
+} from "./types";
 
 const mapConditionsEntityToEntity = (
   conditionOption: Record<string, string | object>,
-): IConditionRequestResponse => {
+): ICalculatedConditionsResponse => {
   return {
     productId: String(conditionOption.productId),
     paymentMethodId: String(conditionOption.paymentMethodId),
@@ -15,7 +18,7 @@ const mapConditionsEntityToEntity = (
 };
 
 const mapConditionsEntityToApi = (
-  condition: IConditionRequest,
+  condition: ICalculatedConditionsRequest,
 ): Record<string, string | number> => {
   return {
     productId: condition.productId,
