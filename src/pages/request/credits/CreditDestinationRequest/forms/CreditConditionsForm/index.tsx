@@ -139,7 +139,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       const productId = formik.values.product?.id;
       const paymentMethodId = formik.values.paymentMethod?.id;
       const amount = formik.values.amount;
-
       const deadline = formik.values.deadline;
       const quota = formik.values.quota;
 
@@ -170,7 +169,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       }
 
       const rate = calculationResponse?.rate ?? 0;
-      console.log(quota);
+
       const simulationRequestData: ISimulateCreditRequest = {
         productId,
         paymentMethodId,
