@@ -1,28 +1,5 @@
 import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
-import {
-  IPaymentRequest,
-  IPaymentRequestResponse,
-} from "src/model/entity/payment";
-
-const mapPaymentRequestApiToEntity = (
-  paymentRequest: Record<string, string | number | object>,
-): IPaymentRequestResponse => {
-  const causes = paymentRequest.causas;
-  let state = "";
-  let message = "";
-
-  if (causes && Array.isArray(causes)) {
-    state = String(causes[0].id);
-    message = String(causes[0].message);
-  }
-
-  return {
-    trackingCode: String(paymentRequest.trackingCode),
-    url: paymentRequest.url ? String(paymentRequest.url) : undefined,
-    state,
-    message,
-  };
-};
+import { IPaymentRequest, IPaymentRequestResponse } from "./types";
 
 const mapPaymentRequestEntityToApi = (
   paymentRequest: IPaymentRequest,
@@ -55,6 +32,26 @@ const mapPaymentRequestEntityToApi = (
     })),
     paymentSource: paymentRequest.source,
     paymentDate: paymentDate.toISOString(),
+  };
+};
+
+const mapPaymentRequestApiToEntity = (
+  paymentRequest: Record<string, string | number | object>,
+): IPaymentRequestResponse => {
+  const causes = paymentRequest.causas;
+  let state = "";
+  let message = "";
+
+  if (causes && Array.isArray(causes)) {
+    state = String(causes[0].id);
+    message = String(causes[0].message);
+  }
+
+  return {
+    trackingCode: String(paymentRequest.trackingCode),
+    url: paymentRequest.url ? String(paymentRequest.url) : undefined,
+    state,
+    message,
   };
 };
 

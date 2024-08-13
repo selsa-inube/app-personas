@@ -3,13 +3,24 @@ import {
   ICalculatedConditionsResponse,
 } from "./types";
 
+const mapConditionsEntityToApi = (
+  condition: ICalculatedConditionsRequest,
+): Record<string, string | number> => {
+  return {
+    productId: condition.productId,
+    paymentMethodId: condition.paymentMethodId,
+    customerCode: condition.userIdentification,
+    amount: condition.amount,
+  };
+};
+
 const mapConditionsEntityToEntity = (
   conditionOption: Record<string, string | object>,
 ): ICalculatedConditionsResponse => {
   return {
     productId: String(conditionOption.productId),
     paymentMethodId: String(conditionOption.paymentMethodId),
-    customerCode: String(conditionOption.customerCode),
+    userIdentification: String(conditionOption.customerCode),
     amount: Number(conditionOption.amount),
     cutOffDate: String(conditionOption.cutOffDate),
     deadline: Number(conditionOption.deadline),
@@ -17,15 +28,4 @@ const mapConditionsEntityToEntity = (
   };
 };
 
-const mapConditionsEntityToApi = (
-  condition: ICalculatedConditionsRequest,
-): Record<string, string | number> => {
-  return {
-    productId: condition.productId,
-    paymentMethodId: condition.paymentMethodId,
-    customerCode: condition.customerCode,
-    amount: condition.amount,
-  };
-};
-
-export { mapConditionsEntityToEntity, mapConditionsEntityToApi };
+export { mapConditionsEntityToApi, mapConditionsEntityToEntity };

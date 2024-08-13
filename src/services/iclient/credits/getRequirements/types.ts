@@ -1,21 +1,28 @@
 import { IValidation } from "src/model/entity/service";
 
-interface ISystemValidationsEntry {
-  validations: IValidation[];
-  documents: IValidation[];
+interface IRequirementRequest {
   productId: string;
   productName: string;
   destinationId: string;
   destinationName: string;
+  customerCode: string;
+  customerName: string;
   paymentMethodCode: string;
   paymentMethodName: string;
   amount: number;
-  periodicity: string;
   deadline: number;
   rate: number;
   amortizationType: string;
+  interestPaymentPeriod: string;
+  periodicity: string;
   quota: number;
   netValue: number;
+  requestDate: Date;
 }
 
-export type { ISystemValidationsEntry };
+interface IRequirementResponse {
+  validations: IValidation[];
+  documents: IValidation[];
+}
+
+export type { IRequirementRequest, IRequirementResponse };

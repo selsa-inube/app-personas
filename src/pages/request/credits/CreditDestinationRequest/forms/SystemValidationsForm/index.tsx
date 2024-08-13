@@ -8,8 +8,8 @@ import {
   useState,
 } from "react";
 import { AppContext } from "src/context/app";
-import { IRequirementRequest } from "src/model/entity/request";
 import { getRequirementsForProduct } from "src/services/iclient/credits/getRequirements";
+import { IRequirementRequest } from "src/services/iclient/credits/getRequirements/types";
 import * as Yup from "yup";
 import { SystemValidationsFormUI } from "./interface";
 import { ISystemValidationsEntry } from "./types";
@@ -59,19 +59,14 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
       paymentMethodCode: formik.values.paymentMethodCode,
       paymentMethodName: formik.values.paymentMethodName,
-      requestAmount: formik.values.requestAmount,
-      creditAmount: formik.values.creditAmount,
-      capitalPaymentPeriod: formik.values.capitalPaymentPeriod,
-      numQuotas:
-        formik.values.deadlineTerm === 0
-          ? formik.values.calculatedQuotaDeadline
-          : formik.values.deadlineTerm,
-      nominalRate:formik.values.nominalRate,
+      amount: formik.values.amount,
+      deadline: formik.values.deadline,
+      rate: formik.values.rate,
       amortizationType: formik.values.amortizationType,
-      interestPaymentPeriod: formik.values.interestPaymentPeriod,
+      interestPaymentPeriod: formik.values.periodicity,
       periodicity: formik.values.periodicity,
-      quotaValue: formik.values.quotaValue,
-      amountToTurn: formik.values.amountToTurn,
+      quota: formik.values.quota,
+      netValue: formik.values.netValue,
       requestDate,
     };
 

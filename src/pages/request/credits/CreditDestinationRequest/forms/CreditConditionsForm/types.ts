@@ -1,13 +1,13 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IDestinationProduct } from "../DestinationForm/types";
 import { IPeriodicity } from "src/model/entity/periodicity";
+import { IDestinationProduct } from "../DestinationForm/types";
 
 interface IDisbursementModalState {
   show: boolean;
   data?: {
     spec: {
       amount: number;
-      cycleInterest: number;
+      anticipatedInterest: number;
       discounts: number;
       charges: number;
     };
@@ -19,26 +19,21 @@ interface ICreditConditionsEntry {
   creditDestination?: ISelectOption;
   product: IDestinationProduct;
   simulationWithQuota: boolean;
-  amount: number;
-  deadline: string;
-  deadlineTerm: string;
-  quota: number;
-  cycleInterest: number;
+  amount?: number;
+  deadline?: number;
+  quota?: number;
+  anticipatedInterest: number;
   discounts: number;
   minWarrantyRequired: string;
   netValue: number;
-  interestRate: string;
+  rate: number;
   hasResult: boolean;
   paymentMethod?: ISelectOption;
   paymentMethods: ISelectOption[];
   periodicity: IPeriodicity;
   periodicities: IPeriodicity[];
   periodicityInMonths: number;
-  rate: number;
   charges: number;
-  calculatedQuotaValue: number;
-  quotaDeadlineInMonths: string;
-  calculatedQuotaDeadline: number;
 }
 
 export type { ICreditConditionsEntry, IDisbursementModalState };
