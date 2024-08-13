@@ -1,7 +1,5 @@
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { initialMessageState } from "src/utils/messages";
 import { DocumentaryRequirementsFormUI } from "./interface";
 import { IDocumentaryRequirementsEntry } from "./types";
 
@@ -20,7 +18,6 @@ const DocumentaryRequirementsForm = forwardRef(
     const { initialValues } = props;
 
     const [showInfoModal, setShowInfoModal] = useState(false);
-    const [message, setMessage] = useState<IMessage>(initialMessageState);
     const [attachModal, setAttachModal] = useState({
       show: false,
       id: "",
@@ -71,21 +68,15 @@ const DocumentaryRequirementsForm = forwardRef(
       });
     };
 
-    const handleCloseMessage = () => {
-      setMessage(initialMessageState);
-    };
-
     return (
       <DocumentaryRequirementsFormUI
         formik={formik}
         showInfoModal={showInfoModal}
         maxFileSize={MAX_SIZE_PER_FILE}
-        message={message}
         attachModal={attachModal}
         onSelectDocument={handleSelectDocument}
         onRemoveDocument={handleRemoveDocument}
         onToggleInfoModal={handleToggleInfoModal}
-        onCloseMessage={handleCloseMessage}
         onOpenAttachModal={handleOpenAttachModal}
         onCloseAttachModal={handleCloseAttachModal}
       />

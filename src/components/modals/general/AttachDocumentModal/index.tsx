@@ -168,6 +168,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
               <Grid
                 templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
                 gap={inube.spacing.s200}
+                autoRows="auto"
               >
                 {tempfiles.map((file) => (
                   <FileCard

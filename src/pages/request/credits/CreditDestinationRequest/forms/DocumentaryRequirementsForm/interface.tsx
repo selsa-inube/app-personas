@@ -3,7 +3,6 @@ import { OutlineCard } from "@components/cards/OutlineCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { Text } from "@design/data/Text";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -11,7 +10,6 @@ import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import {
   MdDeleteOutline,
@@ -105,7 +103,6 @@ interface DocumentaryRequirementsFormUIProps {
   formik: FormikProps<IDocumentaryRequirementsEntry>;
   showInfoModal: boolean;
   maxFileSize: number;
-  message: IMessage;
   attachModal: {
     show: boolean;
     id: string;
@@ -113,7 +110,6 @@ interface DocumentaryRequirementsFormUIProps {
   onSelectDocument: (file: File, id: string) => void;
   onRemoveDocument: (id: string) => void;
   onToggleInfoModal: () => void;
-  onCloseMessage: () => void;
   onOpenAttachModal: (id: string) => void;
   onCloseAttachModal: () => void;
 }
@@ -125,12 +121,10 @@ function DocumentaryRequirementsFormUI(
     formik,
     showInfoModal,
     maxFileSize,
-    message,
     attachModal,
     onSelectDocument,
     onRemoveDocument,
     onToggleInfoModal,
-    onCloseMessage,
     onOpenAttachModal,
     onCloseAttachModal,
   } = props;
@@ -207,17 +201,6 @@ function DocumentaryRequirementsFormUI(
             onSelectDocument(files[0], attachModal.id)
           }
           onCloseModal={onCloseAttachModal}
-        />
-      )}
-
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={onCloseMessage}
-          duration={5000}
         />
       )}
     </>
