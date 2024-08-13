@@ -9,16 +9,14 @@ interface IRequirementRequest {
   customerName: string;
   paymentMethodCode: string;
   paymentMethodName: string;
-  requestAmount: number;
-  creditAmount: number;
-  capitalPaymentPeriod: string;
-  numQuotas: number;
-  nominalRate: number;
+  amount: number;
+  deadline: number;
+  rate: number;
   amortizationType: string;
   interestPaymentPeriod: string;
   periodicity: string;
-  quotaValue: number;
-  amountToTurn: number;
+  quota: number;
+  netValue: number;
   requestDate: Date;
 }
 

@@ -9,19 +9,13 @@ interface ISystemValidationsEntry {
   destinationName: string;
   paymentMethodCode: string;
   paymentMethodName: string;
-  requestAmount: number;
-  creditAmount: number;
-  capitalPaymentPeriod: string;
-  numQuotas: number;
-  nominalRate: number;
-  amortizationType: string;
-  interestPaymentPeriod: string;
+  amount: number;
   periodicity: string;
-  quotaValue: number;
-  amountToTurn: number;
-  requestDate: string;
-  deadlineTerm: number;
-  calculatedQuotaDeadline: number;
+  deadline: number;
+  rate: number;
+  amortizationType: string;
+  quota: number;
+  netValue: number;
 }
 
 export type { ISystemValidationsEntry };

@@ -58,11 +58,11 @@ const renderCreditConditionsVerification = (
       >
         <BoxAttribute
           label="Cuota:"
-          value={`${currencyFormat(values.quota)} / Mensual`}
+          value={`${currencyFormat(values.quota || 0)} / Mensual`}
         />
         <BoxAttribute
           label="Plazo en meses:"
-          value={`${values.deadlineTerm || values.calculatedQuotaDeadline} Meses`}
+          value={`${values.deadline} Meses`}
         />
         <BoxAttribute
           label="Tasa de interés:"

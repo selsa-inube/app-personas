@@ -23,7 +23,6 @@ const saveDocument = async (
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SaveDocumentManagement",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
-        "Content-type": "application/form-data; charset=UTF-8",
       },
       body: mapSaveDocumentEntityToApi(saveDocumentRequest),
     };
@@ -42,14 +41,15 @@ const saveDocument = async (
       return;
     }
 
+    const data = await res.json();
+
     if (!res.ok) {
       throw {
         message: "Error al guardar el documento",
         status: res.status,
+        data,
       };
     }
-
-    const data = await res.json();
 
     return mapSaveDocumentApiToEntity(data);
   } catch (error) {

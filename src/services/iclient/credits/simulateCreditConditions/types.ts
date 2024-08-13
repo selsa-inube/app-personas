@@ -1,31 +1,30 @@
 interface ISimulateCreditRequest {
   productId: string;
-  paymentMethodCapitalId: string;
-  customerCode: string;
+  paymentMethodId: string;
+  userIdentification: string;
   amount: number;
-  periodicityInMonthsCapital: number;
-  quotaDeadlineInMonths: number;
-  quotaValue: number;
+  periodicityInMonths: number;
+  deadline: number;
+  quota: number;
   rate: number;
 }
 
 interface ISimulateCreditResponse {
   productId: string;
-  paymentMethodCapitalId: string;
-  customerCode: string;
+  paymentMethodId: string;
+  userIdentification: string;
   amount: number;
   cutOffDate: string;
-  periodicityInMonthsCapital: number;
-  quotaDeadlineInMonths: number;
+  periodicityInMonths: number;
   rate: number;
-  calculatedQuotaValue: number;
-  calculatedQuotaDeadline: number;
+  quota: number;
+  deadline: number;
   anticipatedInterest: number;
   chargeName: string;
   discountName: string;
   chargeValue: number;
   discountValue: number;
-  amountToBeDrawn: number;
+  netValue: number;
 }
 
 export type { ISimulateCreditRequest, ISimulateCreditResponse };

@@ -89,13 +89,13 @@ const maxDeadlineMock = {
 
 const documentaryRequirementsMock: IValidation[] = [
   {
-    id: "original_invoice",
+    id: "113",
     label: "Factura original",
     value: "pending",
     isRequired: true,
   },
   {
-    id: "medical_prescription_copy",
+    id: "114",
     label: "Fotocopia de la fórmula médica",
     value: "pending",
   },

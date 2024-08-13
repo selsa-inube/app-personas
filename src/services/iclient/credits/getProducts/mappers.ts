@@ -17,6 +17,7 @@ const mapProductApiToEntity = (
       : undefined,
     maxDeadline: product.maxDeadline ? Number(product.maxDeadline) : undefined,
     maxAmount: Number(product.maxAmount || 0),
+    amortizationType: "IntegralFixedQuota",
   };
 };
 

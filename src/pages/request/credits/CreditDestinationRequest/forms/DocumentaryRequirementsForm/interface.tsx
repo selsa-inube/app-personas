@@ -32,7 +32,7 @@ function renderRequirement(
   const selectedFile = selectedDocuments.find((doc) => doc.id === id);
 
   return (
-    <OutlineCard key={id} >
+    <OutlineCard key={id}>
       <Stack
         padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
         direction="column"
@@ -202,7 +202,7 @@ function DocumentaryRequirementsFormUI(
         <AttachDocumentModal
           portalId="modals"
           maxFileSize={maxFileSize}
-          onRemoveDocument={onRemoveDocument}
+          requirementId={attachModal.id}
           onSelectDocuments={(files) =>
             onSelectDocument(files[0], attachModal.id)
           }

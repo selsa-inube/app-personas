@@ -1,7 +1,6 @@
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { initialMessageState } from "src/utils/messages";
 import { DocumentaryRequirementsFormUI } from "./interface";
 import { IDocumentaryRequirementsEntry } from "./types";
@@ -35,18 +34,7 @@ const DocumentaryRequirementsForm = forwardRef(
 
     useImperativeHandle(ref, () => formik);
 
-    const handleSelectDocument = (file: File, id: string) => {
-      if (file.size > MAX_SIZE_PER_FILE * 1024 * 1024) {
-        setMessage({
-          show: true,
-          title: "Peso máximo excedido",
-          description: `No se ha podido cargar el documento porque excede el límite de ${MAX_SIZE_PER_FILE}MB por archivo.`,
-          icon: <MdOutlineSentimentNeutral />,
-          appearance: "danger",
-        });
-
-        return;
-      }
+    const handleSelectDocument = async (file: File, id: string) => {
       formik.setFieldValue("selectedDocuments", [
         ...formik.values.selectedDocuments,
         {
@@ -54,11 +42,6 @@ const DocumentaryRequirementsForm = forwardRef(
           id,
         },
       ]);
-
-      setAttachModal({
-        show: false,
-        id: "",
-      });
     };
 
     const handleRemoveDocument = (id: string) => {
