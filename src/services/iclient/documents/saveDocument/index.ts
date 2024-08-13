@@ -1,19 +1,19 @@
 import { enviroment } from "@config/enviroment";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import {
-  mapRequirementEntityToApi,
-  mapRequirementsApiToEntities,
+  mapSaveDocumentApiToEntity,
+  mapSaveDocumentEntityToApi,
 } from "./mappers";
-import { IRequirementRequest, IRequirementResponse } from "./types";
+import { ISaveDocumentRequest, ISaveDocumentResponse } from "./types";
 
-const getRequirementsForProduct = async (
-  requirementRequest: IRequirementRequest,
+const saveDocument = async (
+  saveDocumentRequest: ISaveDocumentRequest,
   accessToken: string,
-): Promise<IRequirementResponse | undefined> => {
+): Promise<ISaveDocumentResponse | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-request`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/document-management`;
 
   try {
     const options: RequestInit = {
@@ -21,11 +21,10 @@ const getRequirementsForProduct = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "RequirementList",
+        "X-Action": "SaveDocumentManagement",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
-        "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapRequirementEntityToApi(requirementRequest)),
+      body: mapSaveDocumentEntityToApi(saveDocumentRequest),
     };
 
     const res = await fetch(requestUrl, options);
@@ -46,13 +45,13 @@ const getRequirementsForProduct = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los requerimientos de crédito del producto.",
+        message: "Error al guardar el documento",
         status: res.status,
         data,
       };
     }
 
-    return mapRequirementsApiToEntities(data);
+    return mapSaveDocumentApiToEntity(data);
   } catch (error) {
     saveNetworkTracking(
       requestTime,
@@ -62,12 +61,8 @@ const getRequirementsForProduct = async (
       Math.round(performance.now() - startTime),
     );
 
-    console.error(error);
-
-    throw new Error(
-      "No se pudieron obtener los requerimientos de crédito del producto.",
-    );
+    throw new Error("No se pudo guardar el documento");
   }
 };
 
-export { getRequirementsForProduct };
+export { saveDocument };

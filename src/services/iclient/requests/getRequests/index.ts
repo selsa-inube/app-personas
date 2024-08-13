@@ -65,11 +65,11 @@ const getRequests = async (
 
       const data = await res.json();
 
-      const normalizedRequest = Array.isArray(data)
+      const normalizedResponse = Array.isArray(data)
         ? mapRequestsApiToEntities(data)
         : [];
 
-      return normalizedRequest;
+      return normalizedResponse;
     } catch (error) {
       if (attempt === maxRetries) {
         saveNetworkTracking(
