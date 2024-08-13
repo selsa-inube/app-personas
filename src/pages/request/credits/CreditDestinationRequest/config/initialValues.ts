@@ -30,7 +30,7 @@ const creditConditions: ICreditConditionsEntry = {
   minWarrantyRequired: "",
   paymentMethods: [],
   periodicity: {
-    code: "",
+    id: "",
     description: "",
     periodicityInMonths: 0,
     periodicityInDays: 0,

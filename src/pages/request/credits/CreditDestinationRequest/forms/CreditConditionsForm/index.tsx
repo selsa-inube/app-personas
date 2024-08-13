@@ -120,12 +120,12 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     if (!accessToken || !formik.values.paymentMethod) return;
 
     const selectedPeriodicity = formik.values.periodicities.find(
-      (periodicity) => periodicity.code === value,
+      (periodicity) => periodicity.id === value,
     );
 
     if (selectedPeriodicity) {
       formik.setFieldValue("periodicity", {
-        code: selectedPeriodicity.code,
+        id: selectedPeriodicity.id,
         description: selectedPeriodicity.description,
         periodicityInMonths: selectedPeriodicity.periodicityInMonths,
         periodicityInDays: selectedPeriodicity.periodicityInDays,
@@ -274,11 +274,11 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     setMessage(initialMessageState);
   };
 
-  const periodicityOptions = formik.values.periodicities.map((option) => {
-    const matchedDomain = periodicityDM.valueOf(option.code);
+  const periodicityOptions = formik.values.periodicities.map((periodicity) => {
+    const matchedDomain = periodicityDM.valueOf(periodicity.id);
     return matchedDomain
       ? { id: matchedDomain.id, value: matchedDomain.value }
-      : { id: option.code, value: option.code };
+      : { id: periodicity.id, value: periodicity.id };
   });
 
   return (

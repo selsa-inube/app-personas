@@ -184,15 +184,16 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       label="Periodicidad"
                       name="periodicity"
                       id="periodicity"
-                      value={formik.values.periodicity.code}
+                      value={formik.values.periodicity.id}
                       size="compact"
                       isFullWidth
                       options={periodicityOptions}
                       onBlur={formik.handleBlur}
-                      errorMessage={formik.errors.periodicity?.code}
+                      errorMessage={formik.errors.periodicity?.id}
                       isDisabled={!formik.values.paymentMethod?.value}
                       state={getFieldState(formik, "periodicity")}
                       onChange={onChangePeriodicity}
+                      readOnly={periodicityOptions.length === 1}
                     />
                     {formik.values.product.id !== "generateRecommendation" && (
                       <>
@@ -260,9 +261,13 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         onClick={simulateCredit}
                         load={loadingSimulation}
                         disabled={
-                          formik.values.amount === 0 ||
-                          formik.values.paymentMethod?.id === undefined ||
-                          formik.values.periodicity.code === ""
+                          !formik.values.amount ||
+                          !formik.values.paymentMethod?.id ||
+                          formik.values.periodicity.id === "" ||
+                          (formik.values.simulationWithQuota &&
+                            !formik.values.quota) ||
+                          (!formik.values.simulationWithQuota &&
+                            !formik.values.deadline)
                         }
                       >
                         Simular

@@ -1,6 +1,6 @@
 import { FormikProps } from "formik";
 import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethodsForProduct";
-import { getPeriodicityForProduct } from "src/services/iclient/credits/getPeriodicityForProduct";
+import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicitiesForProduct";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -64,12 +64,17 @@ const getValuesForSimulate = async (
     formik.setFieldValue("paymentMethods", products);
 
     if (formik.values.paymentMethod) {
-      const periodicities = await getPeriodicityForProduct(
+      const periodicities = await getPeriodicitiesForProduct(
         accessToken,
         formik.values.product.id,
         formik.values.paymentMethod.id,
       );
+
       formik.setFieldValue("periodicities", periodicities);
+
+      if (periodicities.length === 1) {
+        formik.setFieldValue("periodicity", periodicities[0]);
+      }
     }
   }
 };

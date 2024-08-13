@@ -71,7 +71,7 @@ const creditDestinationStepsRules = (
             deadline: values.deadline || 0,
             rate: values.rate,
             amortizationType: values.product.amortizationType,
-            periodicity: values.periodicity.code,
+            periodicity: values.periodicity.id,
             quota: values.quota || 0,
             netValue: values.netValue,
           },

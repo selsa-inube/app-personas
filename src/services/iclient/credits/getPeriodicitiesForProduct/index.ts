@@ -3,7 +3,7 @@ import { IPeriodicity } from "src/model/entity/periodicity";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapPeriodicitiesApiToEntities } from "./mappers";
 
-const getPeriodicityForProduct = async (
+const getPeriodicitiesForProduct = async (
   accessToken: string,
   productId: string,
   paymentId: string,
@@ -76,4 +76,4 @@ const getPeriodicityForProduct = async (
   }
 };
 
-export { getPeriodicityForProduct };
+export { getPeriodicitiesForProduct };
