@@ -2,9 +2,11 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
 import { Text } from "@design/data/Text";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
+import { ISelectOption } from "@design/input/Select/types";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
@@ -12,6 +14,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
 import {
@@ -21,9 +24,6 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
-import { ISelectOption } from "@design/input/Select/types";
-import { IMessage } from "@ptypes/messages.types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -184,15 +184,16 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       label="Periodicidad"
                       name="periodicity"
                       id="periodicity"
-                      value={formik.values.periodicity.code}
+                      value={formik.values.periodicity.id}
                       size="compact"
                       isFullWidth
                       options={periodicityOptions}
                       onBlur={formik.handleBlur}
-                      errorMessage={formik.errors.periodicity?.code}
+                      errorMessage={formik.errors.periodicity?.id}
                       isDisabled={!formik.values.paymentMethod?.value}
                       state={getFieldState(formik, "periodicity")}
                       onChange={onChangePeriodicity}
+                      readOnly={periodicityOptions.length === 1}
                     />
                     {formik.values.product.id !== "generateRecommendation" && (
                       <>
@@ -262,7 +263,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         disabled={
                           formik.values.amount === 0 ||
                           formik.values.paymentMethod?.id === undefined ||
-                          formik.values.periodicity.code === ""
+                          formik.values.periodicity.id === ""
                         }
                       >
                         Simular

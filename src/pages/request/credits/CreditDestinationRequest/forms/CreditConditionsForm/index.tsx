@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -7,9 +8,13 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
+import { MdErrorOutline } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { getCalculatedConditionsForProduct } from "src/services/iclient/credits/getCalculatedConditionsForProduct";
+import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCalculatedConditionsForProduct/types";
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
+import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
+import { initialMessageState } from "src/utils/messages";
 import { CreditConditionsFormUI } from "./interface";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
 import {
@@ -17,12 +22,6 @@ import {
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
-import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCalculatedConditionsForProduct/types";
-import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
-import { periodicityDM } from "src/model/domains/general/periodicityDM";
-import { IMessage } from "@ptypes/messages.types";
-import { initialMessageState } from "src/utils/messages";
-import { MdErrorOutline } from "react-icons/md";
 
 interface CreditConditionsFormProps {
   initialValues: ICreditConditionsEntry;
@@ -120,12 +119,12 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     if (!accessToken || !formik.values.paymentMethod) return;
 
     const selectedPeriodicity = formik.values.periodicities.find(
-      (periodicity) => periodicity.code === value,
+      (periodicity) => periodicity.id === value,
     );
 
     if (selectedPeriodicity) {
       formik.setFieldValue("periodicity", {
-        code: selectedPeriodicity.code,
+        id: selectedPeriodicity.id,
         description: selectedPeriodicity.description,
         periodicityInMonths: selectedPeriodicity.periodicityInMonths,
         periodicityInDays: selectedPeriodicity.periodicityInDays,
@@ -292,12 +291,10 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     setMessage(initialMessageState);
   };
 
-  const periodicityOptions = formik.values.periodicities.map((option) => {
-    const matchedDomain = periodicityDM.valueOf(option.code);
-    return matchedDomain
-      ? { id: matchedDomain.id, value: matchedDomain.value }
-      : { id: option.code, value: option.code };
-  });
+  const periodicityOptions = formik.values.periodicities.map((periodicity) => ({
+    id: periodicity.id,
+    value: periodicity.description || "",
+  }));
 
   return (
     <CreditConditionsFormUI

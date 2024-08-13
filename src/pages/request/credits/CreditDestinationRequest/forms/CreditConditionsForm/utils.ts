@@ -1,6 +1,7 @@
 import { FormikProps } from "formik";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethodsForProduct";
-import { getPeriodicityForProduct } from "src/services/iclient/credits/getPeriodicityForProduct";
+import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicitiesForProduct";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -64,12 +65,24 @@ const getValuesForSimulate = async (
     formik.setFieldValue("paymentMethods", products);
 
     if (formik.values.paymentMethod) {
-      const periodicities = await getPeriodicityForProduct(
+      const periodicities = await getPeriodicitiesForProduct(
         accessToken,
         formik.values.product.id,
         formik.values.paymentMethod.id,
       );
-      formik.setFieldValue("periodicities", periodicities);
+
+      const mappedPeriodicities = periodicities.map((periodicity) => {
+        const matchedDomain = periodicityDM.valueOf(periodicity.id);
+        return matchedDomain
+          ? { id: matchedDomain.id, value: matchedDomain.value }
+          : { id: periodicity.id, value: periodicity.id };
+      });
+
+      formik.setFieldValue("periodicities", mappedPeriodicities);
+
+      if (periodicities.length === 1) {
+        formik.setFieldValue("periodicity", mappedPeriodicities[0]);
+      }
     }
   }
 };

@@ -5,7 +5,7 @@ const mapPeriodicityApiToEntity = (
   periodicity: Record<string, string | number | object>,
 ): IPeriodicity => {
   return {
-    code: String(periodicity.code).toLowerCase(),
+    id: String(periodicity.code).toLowerCase(),
     description: capitalizeText(String(periodicity.description)),
     periodicityInMonths: Number(periodicity.periodicityInMonths),
     periodicityInDays: Number(periodicity.periodicityInDays),
@@ -20,4 +20,4 @@ const mapPeriodicitiesApiToEntities = (
   );
 };
 
-export { mapPeriodicityApiToEntity, mapPeriodicitiesApiToEntities };
+export { mapPeriodicitiesApiToEntities, mapPeriodicityApiToEntity };

@@ -77,7 +77,7 @@ const creditDestinationStepsRules = (
             nominalRate: Number(values.rate),
             amortizationType: "AT",
             interestPaymentPeriod: values.cycleInterest.toString(),
-            periodicity: values.periodicity.code,
+            periodicity: values.periodicity.id,
             quotaValue: values.quota,
             amountToTurn: values.netValue,
             deadlineTerm: Number(values.deadlineTerm),
