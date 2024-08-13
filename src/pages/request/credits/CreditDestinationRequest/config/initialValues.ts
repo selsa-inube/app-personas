@@ -78,6 +78,7 @@ const documentaryRequirements: IDocumentaryRequirementsEntry = {
 };
 
 const disbursement: IDisbursementEntry = {
+  disbursements: [],
   disbursementType: "",
   accountNumber: "",
   writeAccountNumber: "",
