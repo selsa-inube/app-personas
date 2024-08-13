@@ -1,13 +1,13 @@
 import { Text } from "@design/data/Text";
-import { StyledCardContainer } from "./styles";
-import { InfoCardAppearanceType } from "./types";
+import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
+import { StyledCardContainer } from "./styles";
+import { InfoCardAppearanceType } from "./types";
 
 interface InfoCardProps {
   title: string;
-  description: string;
+  description?: string;
   icon: React.JSX.Element;
   appearance?: InfoCardAppearanceType;
 }
@@ -24,9 +24,11 @@ function InfoCard(props: InfoCardProps) {
           {title}
         </Text>
 
-        <Text type="body" size="medium">
-          {description}
-        </Text>
+        {description && (
+          <Text type="body" size="medium">
+            {description}
+          </Text>
+        )}
       </Stack>
     </StyledCardContainer>
   );

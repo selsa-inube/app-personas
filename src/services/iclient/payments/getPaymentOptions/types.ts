@@ -9,9 +9,9 @@ interface IPaymentOptionRequest {
   paymentDate: string;
 }
 
-interface IPaymentOptionRequestResponse {
+interface IPaymentOptionResponse {
   isValid: string;
   optionList: { code: string; description: string }[];
 }
 
-export type { IPaymentOptionRequest, IPaymentOptionRequestResponse };
+export type { IPaymentOptionRequest, IPaymentOptionResponse };

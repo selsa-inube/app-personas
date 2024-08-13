@@ -13,7 +13,7 @@ const validationSchema = Yup.object({
     .max(1000, validationMessages.maxNumbers(1000)),
   quota: validationRules.money,
   interestRate: Yup.number(),
-  cycleInterest: Yup.number(),
+  anticipatedInterest: Yup.number(),
   netValue: Yup.number(),
   hasResult: Yup.boolean(),
 });

@@ -2,9 +2,11 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
 import { Text } from "@design/data/Text";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
+import { ISelectOption } from "@design/input/Select/types";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
@@ -12,6 +14,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
 import {
@@ -21,9 +24,6 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
-import { ISelectOption } from "@design/input/Select/types";
-import { IMessage } from "@ptypes/messages.types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -155,7 +155,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       name="amount"
                       id="amount"
                       iconAfter={<MdAttachMoney size={18} />}
-                      value={validateCurrencyField("amount", formik)}
+                      value={validateCurrencyField("amount", formik) || ""}
                       type="text"
                       errorMessage={formik.errors.amount}
                       isDisabled={loading}
@@ -202,7 +202,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                             placeholder="Ingresa el valor de la cuota"
                             name="quota"
                             id="quota"
-                            value={validateCurrencyField("quota", formik)}
+                            value={validateCurrencyField("quota", formik) || ""}
                             type="text"
                             errorMessage={formik.errors.quota}
                             isDisabled={loading}
@@ -217,15 +217,15 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                           <TextField
                             label="Plazo en meses"
                             placeholder="Ingresa la cantidad de meses"
-                            name="deadlineTerm"
-                            id="deadlineTerm"
-                            value={formik.values.deadlineTerm}
+                            name="deadline"
+                            id="deadline"
+                            value={formik.values.deadline}
                             type="number"
-                            errorMessage={formik.errors.deadlineTerm}
+                            errorMessage={formik.errors.deadline}
                             isDisabled={loading}
                             size="compact"
                             isFullWidth
-                            state={getFieldState(formik, "deadlineTerm")}
+                            state={getFieldState(formik, "deadline")}
                             onBlur={formik.handleBlur}
                             onChange={customHandleChange}
                             validMessage="El plazo es válido"
@@ -288,11 +288,11 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     >
                       <BoxAttribute
                         label="Cuota:"
-                        value={`${currencyFormat(formik.values.quota)} / Mensual`}
+                        value={`${currencyFormat(formik.values.quota || 0)} / Mensual`}
                       />
                       <BoxAttribute
                         label="Plazo en meses:"
-                        value={`${formik.values.deadlineTerm || formik.values.calculatedQuotaDeadline} Meses`}
+                        value={`${formik.values.deadline} Meses`}
                       />
                       <BoxAttribute
                         label="Tasa de interés:"
@@ -332,7 +332,8 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
           portalId="modals"
           spec={{
             amount: disbursementModal.data.spec.amount,
-            cycleInterest: disbursementModal.data.spec.cycleInterest,
+            anticipatedInterest:
+              disbursementModal.data.spec.anticipatedInterest,
             discounts: disbursementModal.data.spec.discounts,
             charges: disbursementModal.data.spec.charges,
           }}
