@@ -1,5 +1,4 @@
 import { FormikProps } from "formik";
-import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethodsForProduct";
 import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicitiesForProduct";
 import { validationMessages } from "src/validations/validationMessages";
@@ -71,17 +70,10 @@ const getValuesForSimulate = async (
         formik.values.paymentMethod.id,
       );
 
-      const mappedPeriodicities = periodicities.map((periodicity) => {
-        const matchedDomain = periodicityDM.valueOf(periodicity.id);
-        return matchedDomain
-          ? { id: matchedDomain.id, value: matchedDomain.value }
-          : { id: periodicity.id, value: periodicity.id };
-      });
-
-      formik.setFieldValue("periodicities", mappedPeriodicities);
+      formik.setFieldValue("periodicities", periodicities);
 
       if (periodicities.length === 1) {
-        formik.setFieldValue("periodicity", mappedPeriodicities[0]);
+        formik.setFieldValue("periodicity", periodicities[0]);
       }
     }
   }

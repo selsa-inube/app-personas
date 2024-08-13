@@ -10,6 +10,7 @@ import {
 } from "react";
 import { MdErrorOutline } from "react-icons/md";
 import { AppContext } from "src/context/app";
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { getCalculatedConditionsForProduct } from "src/services/iclient/credits/getCalculatedConditionsForProduct";
 import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCalculatedConditionsForProduct/types";
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
@@ -273,10 +274,12 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     setMessage(initialMessageState);
   };
 
-  const periodicityOptions = formik.values.periodicities.map((periodicity) => ({
-    id: periodicity.id,
-    value: periodicity.description || "",
-  }));
+  const periodicityOptions = formik.values.periodicities.map((periodicity) => {
+    const matchedDomain = periodicityDM.valueOf(periodicity.id);
+    return matchedDomain
+      ? { id: matchedDomain.id, value: matchedDomain.value }
+      : { id: periodicity.id, value: periodicity.id };
+  });
 
   return (
     <CreditConditionsFormUI

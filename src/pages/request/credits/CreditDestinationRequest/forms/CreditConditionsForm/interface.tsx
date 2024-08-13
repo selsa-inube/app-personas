@@ -261,9 +261,13 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         onClick={simulateCredit}
                         load={loadingSimulation}
                         disabled={
-                          formik.values.amount === 0 ||
-                          formik.values.paymentMethod?.id === undefined ||
-                          formik.values.periodicity.id === ""
+                          !formik.values.amount ||
+                          !formik.values.paymentMethod?.id ||
+                          formik.values.periodicity.id === "" ||
+                          (formik.values.simulationWithQuota &&
+                            !formik.values.quota) ||
+                          (!formik.values.simulationWithQuota &&
+                            !formik.values.deadline)
                         }
                       >
                         Simular
