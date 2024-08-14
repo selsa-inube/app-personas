@@ -53,30 +53,30 @@ const mapCardPaymentApiToEntity = (
     Object(cardPayment.nextPaymentValue)?.capitalization || 0,
   );
 
-  const expiredCapital = Number(Object(cardPayment.valueExpired)?.capital || 0);
+  const expiredCapital = Number(Object(cardPayment.expiredValue)?.capital || 0);
 
   const expiredInterest = Number(
-    Object(cardPayment.valueExpired)?.interest || 0,
+    Object(cardPayment.expiredValue)?.interest || 0,
   );
 
   const expiredPastDueInterest = Number(
-    Object(cardPayment.valueExpired)?.pastDueInterest || 0,
+    Object(cardPayment.expiredValue)?.pastDueInterest || 0,
   );
 
   const expiredPenaltyInterest = Number(
-    Object(cardPayment.valueExpired)?.penaltyInterest || 0,
+    Object(cardPayment.expiredValue)?.penaltyInterest || 0,
   );
 
   const expiredLifeInsurance = Number(
-    Object(cardPayment.valueExpired)?.lifeInsurance || 0,
+    Object(cardPayment.expiredValue)?.lifeInsurance || 0,
   );
 
   const expiredOtherConcepts = Number(
-    Object(cardPayment.valueExpired)?.otherConcepts || 0,
+    Object(cardPayment.expiredValue)?.otherConcepts || 0,
   );
 
   const expiredCapitalization = Number(
-    Object(cardPayment.valueExpired)?.capitalization || 0,
+    Object(cardPayment.expiredValue)?.capitalization || 0,
   );
 
   const totalCapital = Number(

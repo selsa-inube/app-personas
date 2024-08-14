@@ -59,31 +59,31 @@ const mapObligationPaymentApiToEntity = (
   );
 
   const expiredCapital = Number(
-    Object(creditPayment.valueExpired)?.capital || 0,
+    Object(creditPayment.expiredValue)?.capital || 0,
   );
 
   const expiredInterest = Number(
-    Object(creditPayment.valueExpired)?.interest || 0,
+    Object(creditPayment.expiredValue)?.interest || 0,
   );
 
   const expiredPastDueInterest = Number(
-    Object(creditPayment.valueExpired)?.pastDueInterest || 0,
+    Object(creditPayment.expiredValue)?.pastDueInterest || 0,
   );
 
   const expiredPenaltyInterest = Number(
-    Object(creditPayment.valueExpired)?.penaltyInterest || 0,
+    Object(creditPayment.expiredValue)?.penaltyInterest || 0,
   );
 
   const expiredLifeInsurance = Number(
-    Object(creditPayment.valueExpired)?.lifeInsurance || 0,
+    Object(creditPayment.expiredValue)?.lifeInsurance || 0,
   );
 
   const expiredOtherConcepts = Number(
-    Object(creditPayment.valueExpired)?.otherConcepts || 0,
+    Object(creditPayment.expiredValue)?.otherConcepts || 0,
   );
 
   const expiredCapitalization = Number(
-    Object(creditPayment.valueExpired)?.capitalization || 0,
+    Object(creditPayment.expiredValue)?.capitalization || 0,
   );
 
   const totalCapital = Number(
