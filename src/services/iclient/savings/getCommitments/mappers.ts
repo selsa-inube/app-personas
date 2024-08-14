@@ -79,8 +79,8 @@ const mapSavingsCommitmentsApiToEntity = (
   const lastMovementTheSavingPlans = commitment.savingPaymentPlans;
 
   const closeDateWithoutZone =
-    commitment.closePaymentDate &&
-    String(commitment.closePaymentDate).replace("Z", "");
+    commitment.nextPaymentDate &&
+    String(commitment.nextPaymentDate).replace("Z", "");
 
   const lastSavingPlan =
     Array.isArray(lastMovementTheSavingPlans) &&
@@ -104,7 +104,7 @@ const mapSavingsCommitmentsApiToEntity = (
     {
       id: "payment_method",
       label: "Medio de pago",
-      value: capitalizeEachWord(String(commitment.paymentMediumName)),
+      value: capitalizeEachWord(String(commitment.paymentMethodName)),
     },
     {
       id: "expired_value",

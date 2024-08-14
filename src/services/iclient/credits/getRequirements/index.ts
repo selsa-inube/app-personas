@@ -1,18 +1,15 @@
 import { enviroment } from "@config/enviroment";
-import {
-  IRequirementRequest,
-  IRequirementRequestResponse,
-} from "src/model/entity/request";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import {
   mapRequirementEntityToApi,
   mapRequirementsApiToEntities,
 } from "./mappers";
+import { IRequirementRequest, IRequirementResponse } from "./types";
 
 const getRequirementsForProduct = async (
   requirementRequest: IRequirementRequest,
   accessToken: string,
-): Promise<IRequirementRequestResponse | undefined> => {
+): Promise<IRequirementResponse | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
@@ -65,8 +62,10 @@ const getRequirementsForProduct = async (
       Math.round(performance.now() - startTime),
     );
 
+    console.error(error);
+
     throw new Error(
-      "Todos los intentos fallaron. No se pudieron obtener los requerimientos de crédito del producto.",
+      "No se pudieron obtener los requerimientos de crédito del producto.",
     );
   }
 };

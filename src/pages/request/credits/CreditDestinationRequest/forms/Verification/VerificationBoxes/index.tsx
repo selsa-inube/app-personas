@@ -4,7 +4,6 @@ import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
@@ -58,11 +57,11 @@ const renderCreditConditionsVerification = (
       >
         <BoxAttribute
           label="Cuota:"
-          value={`${currencyFormat(values.quota)} / Mensual`}
+          value={`${currencyFormat(values.quota || 0)} / Mensual`}
         />
         <BoxAttribute
           label="Plazo en meses:"
-          value={`${values.deadlineTerm || values.calculatedQuotaDeadline} Meses`}
+          value={`${values.deadline} Meses`}
         />
         <BoxAttribute
           label="Tasa de interés:"
@@ -137,7 +136,7 @@ const renderDocumentaryRequirementsVerification = (
 };
 
 const getAccountDescription = (accountId: string) => {
-  return savingsMock.find((saving) => saving.id === accountId)?.description;
+  return `Ahorros ${accountId}`;
 };
 
 const renderDisbursementVerification = (values: IDisbursementEntry) => (
@@ -231,8 +230,14 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
 
 const renderTermsAndConditionsVerification = (
   values: ITermsAndConditionsEntry,
+  isTablet: boolean,
 ) => (
-  <Stack width="100%" direction="column">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     <BoxAttribute
       label="Acepta términos y condiciones:"
       value={values.accept ? activeDM.Y.value : activeDM.N.value}
@@ -241,7 +246,7 @@ const renderTermsAndConditionsVerification = (
       label="Acepta política de tratamiento de datos:"
       value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
     />
-  </Stack>
+  </Grid>
 );
 
 const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
@@ -301,6 +306,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "termsAndConditions" &&
         renderTermsAndConditionsVerification(
           creditDestinationRequest.termsAndConditions.values,
+          isTablet,
         )}
 
       {stepKey === "contactChannels" &&

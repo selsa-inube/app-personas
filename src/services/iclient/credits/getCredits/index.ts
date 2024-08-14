@@ -13,7 +13,7 @@ const getCreditsForUser = async (
   const startTime = performance.now();
 
   const queryParams = new URLSearchParams({
-    customerPublicCode: userIdentification,
+    customerCode: userIdentification,
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/portfolio-obligations?${queryParams.toString()}`;

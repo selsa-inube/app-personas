@@ -3,7 +3,6 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
-import { Label } from "../Label";
 import {
   StyledErrorMessageContainer,
   StyledValidMessageContainer,
@@ -13,6 +12,7 @@ import { Counter } from "./Counter";
 import { StyledContainer, StyledTextarea } from "./styles";
 import { CounterAppearence } from "./types";
 import { Stack } from "@inubekit/stack";
+import { Label } from "@inubekit/label";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -128,8 +128,8 @@ const Textarea = (props: TextareaProps) => {
             {label && (
               <Label
                 htmlFor={id}
-                isDisabled={isDisabled}
-                isFocused={isFocused}
+                disabled={isDisabled}
+                focused={isFocused}
                 size={isMobile ? "medium" : "large"}
               >
                 {label}

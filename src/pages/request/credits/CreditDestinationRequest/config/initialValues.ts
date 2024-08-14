@@ -19,32 +19,25 @@ const creditConditions: ICreditConditionsEntry = {
     maxRate: 0,
     maxDeadline: 0,
     maxAmount: 0,
+    amortizationType: "",
   },
-  amount: 0,
-  deadline: "",
-  deadlineTerm: "",
   simulationWithQuota: false,
-  quota: 0,
   netValue: 0,
-  cycleInterest: 0,
+  anticipatedInterest: 0,
   discounts: 0,
-  interestRate: "",
+  rate: 0,
   hasResult: false,
   minWarrantyRequired: "",
   paymentMethods: [],
   periodicity: {
-    code: "",
+    id: "",
     description: "",
     periodicityInMonths: 0,
     periodicityInDays: 0,
   },
   periodicities: [],
   periodicityInMonths: 0,
-  rate: 0,
   charges: 0,
-  calculatedQuotaValue: 0,
-  quotaDeadlineInMonths: "",
-  calculatedQuotaDeadline: 0,
 };
 
 const systemValidations: ISystemValidationsEntry = {
@@ -56,16 +49,13 @@ const systemValidations: ISystemValidationsEntry = {
   destinationName: "",
   paymentMethodCode: "",
   paymentMethodName: "",
-  requestAmount: 0,
-  creditAmount: 0,
-  capitalPaymentPeriod: "",
-  numQuotas: 0,
-  nominalRate: "",
-  amortizationType: "",
-  interestPaymentPeriod: "",
+  amount: 0,
   periodicity: "",
-  quotaValue: 0,
-  amountToTurn: 0,
+  deadline: 0,
+  rate: 0,
+  amortizationType: "",
+  quota: 0,
+  netValue: 0,
 };
 
 const documentaryRequirements: IDocumentaryRequirementsEntry = {
@@ -75,6 +65,7 @@ const documentaryRequirements: IDocumentaryRequirementsEntry = {
 };
 
 const disbursement: IDisbursementEntry = {
+  disbursements: [],
   disbursementType: "",
   accountNumber: "",
   writeAccountNumber: "",

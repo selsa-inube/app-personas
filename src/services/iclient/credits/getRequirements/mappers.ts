@@ -1,15 +1,10 @@
-import {
-  IRequirementRequest,
-  IRequirementRequestResponse,
-} from "src/model/entity/request";
 import { IValidation, ValidationValueType } from "src/model/entity/service";
 import { capitalizeText, correctSpecialCharacters } from "src/utils/texts";
+import { IRequirementRequest, IRequirementResponse } from "./types";
 
 const mapRequirementEntityToApi = (
   requirement: IRequirementRequest,
 ): Record<string, string | number | object> => {
-  const requestDate = new Date();
-
   return {
     productId: requirement.productId,
     productName: requirement.productName,
@@ -19,17 +14,17 @@ const mapRequirementEntityToApi = (
     customerName: requirement.customerName,
     paymentMethodCode: requirement.paymentMethodCode,
     paymentMethodName: requirement.paymentMethodName,
-    requestAmount: requirement.requestAmount,
-    creditAmount: requirement.creditAmount,
-    capitalPaymentPeriod: requirement.capitalPaymentPeriod,
-    numQuotas: requirement.numQuotas,
-    nominalRate: requirement.nominalRate,
+    requestAmount: requirement.amount,
+    creditAmount: requirement.amount,
+    capitalPaymentPeriod: requirement.periodicity,
+    numQuotas: requirement.deadline,
+    nominalRate: requirement.rate,
     amortizationType: requirement.amortizationType,
-    interestPaymentPeriod: requirement.interestPaymentPeriod,
+    interestPaymentPeriod: "",
     periodicity: requirement.periodicity,
-    quotaValue: requirement.quotaValue,
-    amountToTurn: requirement.amountToTurn,
-    requestDate,
+    quotaValue: requirement.quota,
+    amountToTurn: requirement.netValue,
+    requestDate: requirement.requestDate.toISOString(),
   };
 };
 
@@ -55,7 +50,7 @@ const mapRequirementApiToEntity = (
 
 const mapRequirementsApiToEntities = (
   requirements: Record<string, string | number | object>[],
-): IRequirementRequestResponse => {
+): IRequirementResponse => {
   const validations = Array.isArray(Object(requirements).validations)
     ? Object(requirements).validations
     : [];

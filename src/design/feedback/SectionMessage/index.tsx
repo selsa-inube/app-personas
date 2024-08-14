@@ -51,7 +51,6 @@ const SectionMessage = (props: SectionMessageProps) => {
           <Stack alignItems="center" gap={inube.spacing.s200} width="100%">
             <Icon
               size="24px"
-              spacing="wide"
               appearance={appearance}
               icon={icon}
             />

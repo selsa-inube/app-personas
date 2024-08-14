@@ -1,6 +1,17 @@
+import { useAuth } from "@inube/auth";
+import { disbursementTypeData } from "@mocks/domains/disbursementType";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
+import { AppContext } from "src/context/app";
+import { SavingsContext } from "src/context/savings";
+import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
@@ -25,6 +36,9 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   ref: React.Ref<FormikProps<IDisbursementEntry>>,
 ) {
   const { initialValues, onSubmit, onFormValid, loading } = props;
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
+  const { savings, setSavings } = useContext(SavingsContext);
 
   const [dynamicForm, setDynamicForm] = useState<{
     renderFields: IFormField[];
@@ -53,10 +67,11 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   }, [formik.values]);
 
   useEffect(() => {
+    formik.setFieldValue("disbursements", disbursementTypeData);
     if (formik.values.disbursementType) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
-        structureDisbursementForm(formik),
+        structureDisbursementForm(formik, savings.savingsAccounts),
       );
 
       setDynamicForm({
@@ -65,6 +80,19 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (!accessToken) return;
+    if (savings.savingsAccounts.length === 0) {
+      getSavingsForUser(user.identification, accessToken)
+        .then((savings) => {
+          setSavings(savings);
+        })
+        .catch((error) => {
+          console.info(error.message);
+        });
+    }
+  }, [user, accessToken]);
 
   const customHandleChange = (
     event: React.ChangeEvent<
@@ -81,11 +109,13 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     if (name === "disbursementType") {
       formik.setValues({
         ...initalValuesCreditDestination.disbursement,
+        disbursements: formik.values.disbursements,
         disbursementType: value,
       });
 
       updatedFormikValues = {
         ...initalValuesCreditDestination.disbursement,
+        disbursements: formik.values.disbursements,
         disbursementType: value,
       };
     } else {
@@ -97,7 +127,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
         ...formik,
         values: updatedFormikValues,
       },
-      structureDisbursementForm(formik),
+      structureDisbursementForm(formik, savings.savingsAccounts),
     );
 
     setDynamicForm({

@@ -1,19 +1,18 @@
 import { accountTypeData } from "@mocks/domains/accountType";
 import { bankData } from "@mocks/domains/bank";
 import { suppliersTypeData } from "@mocks/domains/suppliersType";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { usersMock } from "@mocks/users/users.mocks";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import { statusDM } from "src/model/domains/general/statusdm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
-import { EProductType } from "src/model/entity/product";
+import { IProduct } from "src/model/entity/product";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 
-const commonFields = {
+const getCommonFields = (savingsAccounts: IProduct[]) => ({
   observations: {
     name: "observations",
     type: "textarea",
@@ -94,12 +93,10 @@ const commonFields = {
     type: "select",
     label: "Numero de cuenta",
     size: "compact",
-    options: savingsMock
-      .filter((product) => product.type === EProductType.VIEWSAVINGS)
-      .map((product) => ({
-        value: product.description,
-        id: product.id,
-      })),
+    options: savingsAccounts.map((product) => ({
+      value: product.description,
+      id: product.id,
+    })),
     isFullWidth: true,
     gridColumn: "span 2",
     validation: Yup.string()
@@ -209,9 +206,14 @@ const commonFields = {
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
   } as IFormField,
-};
+});
 
-const structureDisbursementForm = (formik: FormikValues): IFormStructure => {
+const structureDisbursementForm = (
+  formik: FormikValues,
+  savingsAccounts: IProduct[],
+): IFormStructure => {
+  const commonFields = getCommonFields(savingsAccounts);
+
   return {
     disbursementType: {
       localSavingsDeposit: [commonFields.accountNumber],

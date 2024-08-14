@@ -7,6 +7,7 @@ interface IDestinationProduct {
   maxRate?: number;
   maxDeadline?: number;
   maxAmount: number;
+  amortizationType: string;
 }
 
 interface IDestinationEntry {
