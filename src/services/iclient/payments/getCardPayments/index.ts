@@ -16,7 +16,7 @@ const getCardPayments = async (
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const queryParams = new URLSearchParams({
-        customerPublicCode: userIdentification,
+        customerCode: userIdentification,
       });
 
       const controller = new AbortController();

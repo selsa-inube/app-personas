@@ -111,7 +111,7 @@ const mapCreditQuotaDetailApiToEntity = (
     : "Sin definir";
 
   const normalizedPaymentMediumName = capitalizeText(
-    String(creditQuota.paymentMediumName).toLowerCase(),
+    String(creditQuota.paymentMethodName).toLowerCase(),
   );
 
   const currentConsumption = Number(
