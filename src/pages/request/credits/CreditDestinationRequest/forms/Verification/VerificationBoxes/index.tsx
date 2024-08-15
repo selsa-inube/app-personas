@@ -20,6 +20,7 @@ import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm
 import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";
+import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -75,6 +76,70 @@ const renderCreditConditionsVerification = (
     )}
   </>
 );
+
+const renderPaymentMethodVerification = (
+  values: IPaymentMethodEntry,
+  isTablet: boolean,
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      <BoxAttribute
+        label="Medio de pago:"
+        value={
+          values.paymentMethods.find(
+            (method) => method.id === values.paymentMethodType,
+          )?.value
+        }
+      />
+      {values.accountToDebit && (
+        <BoxAttribute
+          label="Cuenta a debitar:"
+          value={
+            getValueOfDomain(values.accountToDebit, "accountDebitType")?.value
+          }
+        />
+      )}
+      {values.accountSelection && (
+        <BoxAttribute
+          label="Selección de cuenta:"
+          value={
+            getValueOfDomain(values.accountSelection, "accountSelectionType")
+              ?.value
+          }
+        />
+      )}
+      {values.accountNumberSelect && !values.accountSelection && (
+        <BoxAttribute
+          label="Número de cuenta:"
+          value={values.accountNumberSelect}
+        />
+      )}
+      {values.accountNumberTextField && values.accountSelection && (
+        <BoxAttribute
+          label="Número de cuenta:"
+          value={values.accountNumberTextField}
+        />
+      )}
+      {values.accountType && (
+        <BoxAttribute
+          label="Tipo de cuenta:"
+          value={getValueOfDomain(values.accountType, "accountType")?.value}
+        />
+      )}
+      {values.bankEntity && (
+        <BoxAttribute
+          label="Entidad:"
+          value={getValueOfDomain(values.bankEntity, "bank")?.value}
+        />
+      )}
+    </Grid>
+  );
+};
 
 const renderSystemValidationsVerification = (
   values: ISystemValidationsEntry,
@@ -280,6 +345,12 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "creditConditions" &&
         renderCreditConditionsVerification(
           creditDestinationRequest.creditConditions.values,
+          isTablet,
+        )}
+
+      {stepKey === "paymentMethod" &&
+        renderPaymentMethodVerification(
+          creditDestinationRequest.paymentMethod.values,
           isTablet,
         )}
 

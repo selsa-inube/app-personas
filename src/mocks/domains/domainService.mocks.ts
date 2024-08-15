@@ -17,6 +17,7 @@ import { professionData } from "./profession";
 import { referenceTypeData } from "./referenceType";
 import { refundMethodData } from "./refundMethod";
 import { suppliersTypeData } from "./suppliersType";
+import { accountSelectionTypeData } from "./accountSelectionType";
 
 const domains: Record<string, IServerDomain[]> = {
   assetType: assetTypeData,
@@ -37,6 +38,7 @@ const domains: Record<string, IServerDomain[]> = {
   refundMethod: refundMethodData,
   paymentMethod: paymentMethodData,
   accountDebitType: accountDebitTypeData,
+  accountSelectionType: accountSelectionTypeData
 };
 
 function getDomainById(domainId: string) {

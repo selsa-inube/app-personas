@@ -22,6 +22,7 @@ import {
   IFormsCreditDestinationRequestRefs,
 } from "./types";
 import { creditDestinationStepsRules } from "./utils";
+import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 
 function CreditDestinationRequest() {
   const { accessToken } = useAuth();
@@ -43,6 +44,10 @@ function CreditDestinationRequest() {
       creditConditions: {
         isValid: false,
         values: initalValuesCreditDestination.creditConditions,
+      },
+      paymentMethod: {
+        isValid: false,
+        values: initalValuesCreditDestination.paymentMethod,
       },
       systemValidations: {
         isValid: false,
@@ -75,6 +80,7 @@ function CreditDestinationRequest() {
 
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const creditConditionsRef = useRef<FormikProps<ICreditConditionsEntry>>(null);
+  const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
   const documentaryRequirementsRef =
@@ -88,6 +94,7 @@ function CreditDestinationRequest() {
   const formReferences: IFormsCreditDestinationRequestRefs = {
     destination: destinationRef,
     creditConditions: creditConditionsRef,
+    paymentMethod: paymentMethodRef,
     systemValidations: systemValidationsRef,
     documentaryRequirements: documentaryRequirementsRef,
     disbursement: disbursementRef,
