@@ -18,7 +18,7 @@ const mapRequirementEntityToApi = (
     creditAmount: requirement.amount,
     capitalPaymentPeriod: requirement.periodicity,
     numQuotas: requirement.deadline,
-    nominalRate: requirement.rate,
+    nominalRate: Number(requirement.rate.toFixed(2)),
     amortizationType: requirement.amortizationType,
     interestPaymentPeriod: "",
     periodicity: requirement.periodicity,
