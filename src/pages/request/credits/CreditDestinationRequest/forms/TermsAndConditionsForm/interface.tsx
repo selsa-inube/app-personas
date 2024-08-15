@@ -23,7 +23,11 @@ function CustomLabelPolicy() {
   return (
     <Text type="label" size="large">
       Acepto la{" "}
-      <StyledLinkPolicy to="about:blank" target="_blank" rel="noreferrer">
+      <StyledLinkPolicy
+        to="https://fondecom.coop/wp-content/uploads/2023/10/EGSI-RI-MN-005_Manual_De_Politicas_Y_Procedimientos_De_Proteccion_V4.pdf"
+        target="_blank"
+        rel="noreferrer"
+      >
         Política de tratamiento de datos
       </StyledLinkPolicy>
     </Text>
