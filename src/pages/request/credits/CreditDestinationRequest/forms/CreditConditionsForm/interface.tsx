@@ -220,7 +220,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                             placeholder="Ingresa la cantidad de meses"
                             name="deadline"
                             id="deadline"
-                            value={formik.values.deadline}
+                            value={formik.values.deadline || ""}
                             type="number"
                             errorMessage={formik.errors.deadline}
                             isDisabled={loading}

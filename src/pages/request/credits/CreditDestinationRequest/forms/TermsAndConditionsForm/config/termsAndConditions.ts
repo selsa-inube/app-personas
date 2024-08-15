@@ -1,54 +1,15 @@
 const termsAndConditionsTexts = [
-  `1. Me comprometo a diligenciar la declaración de asegurabilidad, con toda la información veraz acerca de mi condición
-  de salud para incorporarla a los documentos que manejara la entidad que ofrezca el seguro de vida deudores que
-  Fondecom tiene establecido y a formalizar las garantías que Fondecom exija para el respaldo de este préstamo. En caso
-  de que la compañía seguradora solicite información de mi historia clínica, así como la realización de exámenes y
-  chequeos médicos, los hare de forma inmediata e informare a Fondecom tan pronto asista al requerimiento.
-  Declaro(amos) y certifico (amos) que conozco (emos) con anticipación los datos relacionados con el crédito como son:
-  monto, tasa de interés nominal y efectivo anual, plazo de amortización, modalidad y periodicidad de la cuota, forma de
-  pago, tipo de cobertura y garantía, condiciones de prepago y recargos en caso de mora, así como el procedimiento de
-  cobranza, tal como exige la norma respectiva de la Superintendencia de Economía Solidaría.
+  `Me comprometo a diligenciar la Declaración de Asegurabilidad, con toda la información veraz acerca de mi condición de salud para incorporarla a los documentos que manejara la entidad que ofrezca el seguro de vida deudores que Fondecom tiene establecido y a formalizar las garantías que Fondecom exija para el respaldo de este préstamo. En caso de que la compañía seguradora solicite información de mi historia clínica, así como la realización de exámenes y chequeos médicos, los hare de forma inmediata e informare a Fondecom tan pronto asista al requerimiento. Declaro (amos) y certifico (amos) que conozco (emos) con anticipación los datos relacionados con el crédito como son: monto, tasa de interés nominal y efectivo anual, plazo de amortización, modalidad y periodicidad de la cuota, forma de pago, tipo de cobertura y garantía, condiciones de prepago y recargos en caso de mora, así como el procedimiento de cobranza, tal como exige la norma respectiva de la Superintendencia de la Economía Solidaria.
   `,
-  `2. Me comprometo a diligenciar la declaración de asegurabilidad, con toda la información veraz acerca de mi condición
-  de salud para incorporarla a los documentos que manejara la entidad que ofrezca el seguro de vida deudores que
-  Fondecom tiene establecido y a formalizar las garantías que Fondecom exija para el respaldo de este préstamo. En caso
-  de que la compañía seguradora solicite información de mi historia clínica, así como la realización de exámenes y
-  chequeos médicos, los hare de forma inmediata e informare a Fondecom tan pronto asista al requerimiento.
-  Declaro(amos) y certifico (amos) que conozco (emos) con anticipación los datos relacionados con el crédito como son:
-  monto, tasa de interés nominal y efectivo anual, plazo de amortización, modalidad y periodicidad de la cuota, forma de
-  pago, tipo de cobertura y garantía, condiciones de prepago y recargos en caso de mora, así como el procedimiento de
-  cobranza, tal como exige la norma respectiva de la Superintendencia de Economía Solidaría.
+  `Autorizo(amos) con carácter permanente y de manera irrevocable a FONDECOM o a quien dicha entidad autorice, para obtener, consultar y reportar a las centrales de información crediticia o cualquier fuente o base de datos, la información y referencias relativas a mi(nuestros) documento(s) de identificación comportamiento crediticio y comercial y al producto de toda clase de operaciones que efectué(mos) o haya(mos) efectuado con entidades del sector financiero u otros sectores y el comportamiento de pago durante su vigencia. Así mismos, declaro(amos) que conozco(cemos) y acepto(amos) el actual Reglamento de Crédito de Fondecom. Certifico(amos) que Fondecom me(nos) ha suministrado toda la información referente a los términos y condiciones del contrato de crédito bajo las cuales se efectuara el análisis del mismo, certifico(amos) que entiendo(entendemos) y acepto(amos) estas condiciones, especialmente en lo relacionado con: tasa de interés, plazo del crédito, monto, cuota y garantía.
   `,
-  `3. Me comprometo a diligenciar la declaración de asegurabilidad, con toda la información veraz acerca de mi condición
-  de salud para incorporarla a los documentos que manejara la entidad que ofrezca el seguro de vida deudores que
-  Fondecom tiene establecido y a formalizar las garantías que Fondecom exija para el respaldo de este préstamo. En caso
-  de que la compañía seguradora solicite información de mi historia clínica, así como la realización de exámenes y
-  chequeos médicos, los hare de forma inmediata e informare a Fondecom tan pronto asista al requerimiento.
-  Declaro(amos) y certifico (amos) que conozco (emos) con anticipación los datos relacionados con el crédito como son:
-  monto, tasa de interés nominal y efectivo anual, plazo de amortización, modalidad y periodicidad de la cuota, forma de
-  pago, tipo de cobertura y garantía, condiciones de prepago y recargos en caso de mora, así como el procedimiento de
-  cobranza, tal como exige la norma respectiva de la Superintendencia de Economía Solidaría.
+  `Declaro(amos) bajo juramento que los recursos que me entrega Fondecom, no serán destinados a financiar actividades ilícitas como las contempladas en el Código Penal Colombiano, la Ley599 de 2000(artículo 323) o cualquier norma legal que lo modifique o lo adicione, que no estoy (amos) ni relacionado (s) ni pretenderé (mos) involucrar a Fondecom con actividades ilícitas que puedan servir de instrumento para cometer el delito de LA/FT. Eximo a Fondecom de toda responsabilidad que se derive por la información errónea, falsa o inexacta que yo (nosotros) hubiere (mos) proporcionado en este documento.
   `,
-  `4. Me comprometo a diligenciar la declaración de asegurabilidad, con toda la información veraz acerca de mi condición
-  de salud para incorporarla a los documentos que manejara la entidad que ofrezca el seguro de vida deudores que
-  Fondecom tiene establecido y a formalizar las garantías que Fondecom exija para el respaldo de este préstamo. En caso
-  de que la compañía seguradora solicite información de mi historia clínica, así como la realización de exámenes y
-  chequeos médicos, los hare de forma inmediata e informare a Fondecom tan pronto asista al requerimiento.
-  Declaro(amos) y certifico (amos) que conozco (emos) con anticipación los datos relacionados con el crédito como son:
-  monto, tasa de interés nominal y efectivo anual, plazo de amortización, modalidad y periodicidad de la cuota, forma de
-  pago, tipo de cobertura y garantía, condiciones de prepago y recargos en caso de mora, así como el procedimiento de
-  cobranza, tal como exige la norma respectiva de la Superintendencia de Economía Solidaría.
+  `En caso de que se produzca mi retiro de las empresas en las que llegare a laborar, sin haber cancelado la totalidad del préstamo recibido, autorizo expresa e irrevocablemente, para que deduzcan de mis salarios, prestaciones sociales, indemnizaciones y de cualquier otra suma que se me adeudare a la fecha de mi retiro, la suma de dinero que Fondecom les comunique, destinado al abono o cancelación total de la referida obligación, así como aquellos valores correspondientes a seguros, cuotas por fondos mutuales y otros servicios que haya adquirido con terceros a través de Fondecom y que se deriven de mi desvinculación como asociado(a) al Fondo. Así mismo, autorizo a Fondecom para que, en caso de quedar en mora, debite el valor del saldo en mora de mi obligación de los ahorros voluntarios que tenga constituidos o cualquier otro valor que resultare a mi favor y aplicar la tasa de mora correspondiente. En caso de retiro como asociado, autorizo a Fondecom para que realice el cargo a mi nombre del valor de los seguros que me correspondan y se incremente la tasa de interés de mis obligaciones, en tantos puntos como lo establezca el procedimiento de crédito vigente en dicho momento, suma que cancelare con la misma periodicidad de la cuota quincenal o mensual de las demás obligaciones que posea con el Fondo.
   `,
-  `5. Me comprometo a diligenciar la declaración de asegurabilidad, con toda la información veraz acerca de mi condición
-  de salud para incorporarla a los documentos que manejara la entidad que ofrezca el seguro de vida deudores que
-  Fondecom tiene establecido y a formalizar las garantías que Fondecom exija para el respaldo de este préstamo. En caso
-  de que la compañía seguradora solicite información de mi historia clínica, así como la realización de exámenes y
-  chequeos médicos, los hare de forma inmediata e informare a Fondecom tan pronto asista al requerimiento.
-  Declaro(amos) y certifico (amos) que conozco (emos) con anticipación los datos relacionados con el crédito como son:
-  monto, tasa de interés nominal y efectivo anual, plazo de amortización, modalidad y periodicidad de la cuota, forma de
-  pago, tipo de cobertura y garantía, condiciones de prepago y recargos en caso de mora, así como el procedimiento de
-  cobranza, tal como exige la norma respectiva de la Superintendencia de Economía Solidaría.
+  `De conformidad con lo previsto en el articulo 10 del Decreto 1377 de 2013, reglamentario de la Ley 1581 de 2012, Fondecom, como responsable del tratamiento de los datos personales obtenidos a través de diferentes medios, solicita a sus asociados autorización para procesar, recolectar, almacenar, usar, circular, suprimir, compartir, actualizar y transmitir la información suministrada, según sea aplicable dentro del marco del objeto social de la entidad y de acuerdo con los términos y condiciones de su política de protección de datos. Fondecom cuenta con mecanismos tecnológicos seguros y confidenciales, garantizando la custodia de los datos tratados, de conformidad con los procedimientos contenidos en la Ley. Los titulares podrán ejercer sus derechos de conocer, actualizar, rectificar y suprimir sus datos personales enviando su solicitud a contacto@fondecom.com.co o al teléfono 5146161 ext. 77120.
   `,
+  `Autorizo expresa e irrevocablemente para que de mi salario o pensión, anticipo de salario, honorarios, remuneraciones por prestación de servicios, bonificaciones, prestaciones legales o extralegales, mesadas pensionales adicionales o de cualquier suma de dinero que se genere a mi favor, me sean descontadas las cuotas del plan de pagos de la presente obligación, para el pago del crédito del cual soy deudor de FONDECOM, aún en el evento de encontrarme disfrutando de vacaciones, licencias e incapacidades para lo cual autorizo descontar las cuotas anticipadamente del monto que se cause a mi favor antes de comenzar a disfrutarlas. Igualmente autorizo, que las sumas descontadas quincenalmente o mensualmente en los términos aquí establecidos sean giradas y entregadas en forma quincenal o mensual a FONDECOM, y así sucesivamente hasta completar la cancelación de la deuda vigente con FONDECOM, amortizando de esta forma el crédito que me fue concedido. Autorizo a que se efectúen descuentos mayores a los valores relacionados en el plan de pagos de la presente obligación, en caso de que se causen a favor de FONDECOM intereses moratorios, comisiones, honorarios, seguros, o cualquier otro concepto por razón del préstamo que ha sido otorgado a mi favor, los cuales en todo caso siempre serán indicados por FONDECOM.`,
 ];
 
 export { termsAndConditionsTexts };

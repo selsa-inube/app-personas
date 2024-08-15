@@ -5,13 +5,16 @@ const mapSimulationEntityToApi = (
 ): Record<string, string | number> => {
   return {
     productId: simulationValues.productId,
-    paymentMethodCapitalId: simulationValues.paymentMethodId,
+    paymentMethodId: simulationValues.paymentMethodId,
     customerCode: simulationValues.userIdentification,
     amount: simulationValues.amount,
-    periodicityInMonthsCapital: simulationValues.periodicityInMonths,
+    periodicityInMonths: simulationValues.periodicityInMonths,
     quotaDeadlineInMonths: simulationValues.deadline,
     quotaValue: simulationValues.quota,
     rate: simulationValues.rate,
+    simulationParameter: simulationValues.deadline
+      ? "QuotaDeadline"
+      : "QuotaValue",
   };
 };
 
@@ -20,7 +23,7 @@ const mapSimulationEntityToEntity = (
 ): ISimulateCreditResponse => {
   return {
     productId: String(simulationOption.productId),
-    paymentMethodId: String(simulationOption.paymentMethodId),
+    paymentMethodId: String(simulationOption.paymentMethodCapitalId),
     userIdentification: String(simulationOption.customerCode),
     amount: Number(simulationOption.amount),
     cutOffDate: String(simulationOption.cutOffDate),

@@ -5,6 +5,7 @@ import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
 import { ISystemValidationsEntry } from "../forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
+import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 
 const destination: IDestinationEntry = {
   products: [],
@@ -38,6 +39,11 @@ const creditConditions: ICreditConditionsEntry = {
   periodicities: [],
   periodicityInMonths: 0,
   charges: 0,
+};
+
+const paymentMethod: IPaymentMethodEntry = {
+  paymentMethods: [],
+  paymentMethodType: "",
 };
 
 const systemValidations: ISystemValidationsEntry = {
@@ -96,6 +102,7 @@ const termsAndConditions: ITermsAndConditionsEntry = {
 const initalValuesCreditDestination = {
   destination,
   creditConditions,
+  paymentMethod,
   systemValidations,
   documentaryRequirements,
   disbursement,

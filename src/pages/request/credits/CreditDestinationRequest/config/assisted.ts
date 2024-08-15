@@ -9,42 +9,47 @@ const creditDestinationRequestSteps = {
     name: "Condiciones del crédito",
     description: "Ingresa los valores para simular tu crédito.",
   },
-  systemValidations: {
+  paymentMethod: {
     id: 3,
+    name: "Forma de pago",
+    description: "Completa los detalles de la forma de pago.",
+  },
+  systemValidations: {
+    id: 4,
     name: "Validaciones del sistema",
     description:
       "Revisas cuales son los requisitos necesarios para realizar la solicitud de crédito.",
   },
   documentaryRequirements: {
-    id: 4,
+    id: 5,
     name: "Requisitos documentales",
     description:
       "Adjunta la documentación para cumplir con los requisitos y continuar con tu solicitud.",
   },
   disbursement: {
-    id: 5,
+    id: 6,
     name: "Desembolso",
     description: "Selecciona la forma de desembolso.",
   },
   comments: {
-    id: 6,
+    id: 7,
     name: "Comentarios",
     description:
       "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
   },
   termsAndConditions: {
-    id: 7,
+    id: 8,
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
   },
   contactChannels: {
-    id: 8,
+    id: 9,
     name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
   verification: {
-    id: 9,
+    id: 10,
     name: "Verificación",
     description:
       "Verifica la información que diligenciaste en tu solicitud de crédito.",
