@@ -23,6 +23,7 @@ const saveDocument = async (
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SaveDocumentManagement",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
+        Accept: "*/*",
       },
       body: mapSaveDocumentEntityToApi(saveDocumentRequest),
     };
