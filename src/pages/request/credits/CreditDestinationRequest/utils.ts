@@ -76,6 +76,15 @@ const creditDestinationStepsRules = (
             netValue: values.netValue,
           },
         };
+
+        newCreditDestinationRequest.paymentMethod = {
+          isValid: false,
+          values: {
+            ...initalValuesCreditDestination.paymentMethod,
+            paymentMethodType: values.paymentMethod?.id || "",
+            paymentMethods: values.paymentMethods
+          },
+        };
       }
 
       return newCreditDestinationRequest;
