@@ -13,9 +13,9 @@ const mapDestinationApiToEntity = (
 const mapDestinationsApiToEntities = (
   destinations: Record<string, string | number | object>[],
 ): ISelectOption[] => {
-  return destinations.map((destination) =>
-    mapDestinationApiToEntity(destination),
-  );
+  return destinations
+    .filter((destination) => Boolean(destination.publishStatus) === true)
+    .map((destination) => mapDestinationApiToEntity(destination));
 };
 
 export { mapDestinationApiToEntity, mapDestinationsApiToEntities };

@@ -1,4 +1,6 @@
 import { FormikProps } from "formik";
+import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethodsForProduct";
+import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicitiesForProduct";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -11,10 +13,9 @@ const validationSchema = Yup.object({
     .max(1000, validationMessages.maxNumbers(1000)),
   quota: validationRules.money,
   interestRate: Yup.number(),
-  cycleInterest: Yup.number(),
+  anticipatedInterest: Yup.number(),
   netValue: Yup.number(),
   hasResult: Yup.boolean(),
-  selectedProduct: Yup.object(),
 });
 
 const getInitialCreditContidionValidations = (
@@ -49,4 +50,37 @@ const getInitialCreditContidionValidations = (
   );
 };
 
-export { getInitialCreditContidionValidations, validationSchema };
+const getValuesForSimulate = async (
+  formik: FormikProps<ICreditConditionsEntry>,
+  accessToken: string,
+  userIdentification: string,
+) => {
+  if (accessToken) {
+    const products = await getPaymentMethodsForProduct(
+      userIdentification,
+      accessToken,
+      formik.values.product.id,
+    );
+    formik.setFieldValue("paymentMethods", products);
+
+    if (formik.values.paymentMethod) {
+      const periodicities = await getPeriodicitiesForProduct(
+        accessToken,
+        formik.values.product.id,
+        formik.values.paymentMethod.id,
+      );
+
+      formik.setFieldValue("periodicities", periodicities);
+
+      if (periodicities.length === 1) {
+        formik.setFieldValue("periodicity", periodicities[0]);
+      }
+    }
+  }
+};
+
+export {
+  getInitialCreditContidionValidations,
+  getValuesForSimulate,
+  validationSchema,
+};

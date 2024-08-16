@@ -65,18 +65,24 @@ const creditDestinationStepsRules = (
             destinationName: values.creditDestination?.value || "",
             productId: values.product.id,
             productName: values.product.title,
-            paymentMethodCode: "30",
-            paymentMethodName: "FONDECOM MENSUAL",
-            requestAmount: values.amount,
-            creditAmount: values.netValue,
-            capitalPaymentPeriod: "100000",
-            numQuotas: parseInt(values.deadline),
-            nominalRate: values.interestRate,
-            amortizationType: "AT",
-            interestPaymentPeriod: values.cycleInterest.toString(),
-            periodicity: values.periodicity.code,
-            quotaValue: values.quota,
-            amountToTurn: values.netValue,
+            paymentMethodCode: values.paymentMethod?.id || "",
+            paymentMethodName: values.paymentMethod?.value || "",
+            amount: values.amount || 0,
+            deadline: values.deadline || 0,
+            rate: values.rate,
+            amortizationType: values.product.amortizationType,
+            periodicity: values.periodicity.id,
+            quota: values.quota || 0,
+            netValue: values.netValue,
+          },
+        };
+
+        newCreditDestinationRequest.paymentMethod = {
+          isValid: false,
+          values: {
+            ...initalValuesCreditDestination.paymentMethod,
+            paymentMethodType: values.paymentMethod?.id || "",
+            paymentMethods: values.paymentMethods
           },
         };
       }

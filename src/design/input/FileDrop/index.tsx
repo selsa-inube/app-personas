@@ -29,6 +29,10 @@ function FileDrop(props: FileDropProps) {
     const files = event.target.files;
     if (files) {
       onSelectFiles(files);
+
+      if (fileRef.current) {
+        fileRef.current.value = "";
+      }
     }
   };
 
@@ -36,6 +40,9 @@ function FileDrop(props: FileDropProps) {
     event.preventDefault();
     setIsDragOver(false);
     onSelectFiles(event.dataTransfer.files);
+    if (fileRef.current) {
+      fileRef.current.value = "";
+    }
   };
 
   const handleTriggerInputFile = () => {

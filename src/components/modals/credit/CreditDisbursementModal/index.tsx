@@ -1,14 +1,14 @@
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Divider } from "@inubekit/divider";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { createPortal } from "react-dom";
 import { MdOutlineAdd, MdOutlineClose, MdOutlineRemove } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledModal } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 const renderSpecification = (
   label: string,
@@ -33,7 +33,7 @@ interface CreditDisbursementModalProps {
   portalId: string;
   spec: {
     amount: number;
-    cycleInterest: number;
+    anticipatedInterest: number;
     discounts: number;
     charges: number;
   };
@@ -92,7 +92,7 @@ function CreditDisbursementModal(props: CreditDisbursementModalProps) {
 
             {renderSpecification(
               "Intereses anticipados ajuste al ciclo",
-              currencyFormat(spec.cycleInterest),
+              currencyFormat(spec.anticipatedInterest),
               <MdOutlineRemove />,
             )}
 
@@ -105,7 +105,7 @@ function CreditDisbursementModal(props: CreditDisbursementModalProps) {
             {renderSpecification(
               "Cargos",
               currencyFormat(spec.charges),
-              <MdOutlineAdd />,
+              <MdOutlineRemove />,
             )}
           </Stack>
 

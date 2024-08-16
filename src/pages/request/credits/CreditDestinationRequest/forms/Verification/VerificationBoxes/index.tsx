@@ -4,7 +4,6 @@ import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
@@ -21,6 +20,7 @@ import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm
 import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";
+import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -58,11 +58,11 @@ const renderCreditConditionsVerification = (
       >
         <BoxAttribute
           label="Cuota:"
-          value={`${currencyFormat(values.quota)} / Mensual`}
+          value={`${currencyFormat(values.quota || 0)} / Mensual`}
         />
         <BoxAttribute
           label="Plazo en meses:"
-          value={`${values.deadlineTerm || values.calculatedQuotaDeadline} Meses`}
+          value={`${values.deadline} Meses`}
         />
         <BoxAttribute
           label="Tasa de interés:"
@@ -76,6 +76,70 @@ const renderCreditConditionsVerification = (
     )}
   </>
 );
+
+const renderPaymentMethodVerification = (
+  values: IPaymentMethodEntry,
+  isTablet: boolean,
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      <BoxAttribute
+        label="Medio de pago:"
+        value={
+          values.paymentMethods.find(
+            (method) => method.id === values.paymentMethodType,
+          )?.value
+        }
+      />
+      {values.accountToDebit && (
+        <BoxAttribute
+          label="Cuenta a debitar:"
+          value={
+            getValueOfDomain(values.accountToDebit, "accountDebitType")?.value
+          }
+        />
+      )}
+      {values.accountSelection && (
+        <BoxAttribute
+          label="Selección de cuenta:"
+          value={
+            getValueOfDomain(values.accountSelection, "accountSelectionType")
+              ?.value
+          }
+        />
+      )}
+      {values.accountNumberSelect && !values.accountSelection && (
+        <BoxAttribute
+          label="Número de cuenta:"
+          value={values.accountNumberSelect}
+        />
+      )}
+      {values.accountNumberTextField && values.accountSelection && (
+        <BoxAttribute
+          label="Número de cuenta:"
+          value={values.accountNumberTextField}
+        />
+      )}
+      {values.accountType && (
+        <BoxAttribute
+          label="Tipo de cuenta:"
+          value={getValueOfDomain(values.accountType, "accountType")?.value}
+        />
+      )}
+      {values.bankEntity && (
+        <BoxAttribute
+          label="Entidad:"
+          value={getValueOfDomain(values.bankEntity, "bank")?.value}
+        />
+      )}
+    </Grid>
+  );
+};
 
 const renderSystemValidationsVerification = (
   values: ISystemValidationsEntry,
@@ -137,7 +201,7 @@ const renderDocumentaryRequirementsVerification = (
 };
 
 const getAccountDescription = (accountId: string) => {
-  return savingsMock.find((saving) => saving.id === accountId)?.description;
+  return `Ahorros ${accountId}`;
 };
 
 const renderDisbursementVerification = (values: IDisbursementEntry) => (
@@ -231,8 +295,14 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
 
 const renderTermsAndConditionsVerification = (
   values: ITermsAndConditionsEntry,
+  isTablet: boolean,
 ) => (
-  <Stack width="100%" direction="column">
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     <BoxAttribute
       label="Acepta términos y condiciones:"
       value={values.accept ? activeDM.Y.value : activeDM.N.value}
@@ -241,7 +311,7 @@ const renderTermsAndConditionsVerification = (
       label="Acepta política de tratamiento de datos:"
       value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
     />
-  </Stack>
+  </Grid>
 );
 
 const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
@@ -278,6 +348,12 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet,
         )}
 
+      {stepKey === "paymentMethod" &&
+        renderPaymentMethodVerification(
+          creditDestinationRequest.paymentMethod.values,
+          isTablet,
+        )}
+
       {stepKey === "systemValidations" &&
         renderSystemValidationsVerification(
           creditDestinationRequest.systemValidations.values,
@@ -301,6 +377,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "termsAndConditions" &&
         renderTermsAndConditionsVerification(
           creditDestinationRequest.termsAndConditions.values,
+          isTablet,
         )}
 
       {stepKey === "contactChannels" &&

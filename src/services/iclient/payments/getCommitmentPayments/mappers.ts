@@ -19,7 +19,7 @@ const mapCommitmentPaymentApiToEntity = (
   withExpiredValueOption: boolean,
 ): IPayment => {
   const nextPaymentDate = new Date(
-    String(commitmentPayment.closePaymentDate).replace("Z", ""),
+    String(commitmentPayment.nextPaymentDate).replace("Z", ""),
   );
 
   const today = new Date();
@@ -33,7 +33,7 @@ const mapCommitmentPaymentApiToEntity = (
   const expiredValue = Number(commitmentPayment.expiredValue || 0);
 
   const paymentMethodName = capitalizeEachWord(
-    String(commitmentPayment.paymentMediumName),
+    String(commitmentPayment.paymentMethodName),
   );
 
   const tags: TagProps[] = [

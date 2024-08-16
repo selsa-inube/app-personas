@@ -1,9 +1,11 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
+import { ISelectOption } from "@design/input/Select/types";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
@@ -12,6 +14,7 @@ import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
 import {
@@ -21,13 +24,14 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
-import { periodicityDM } from "src/model/domains/general/periodicityDM";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
   loading?: boolean;
   loadingSimulation?: boolean;
   disbursementModal: IDisbursementModalState;
+  periodicityOptions: ISelectOption[];
+  message: IMessage;
   simulateCredit: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -36,6 +40,7 @@ interface CreditConditionsFormUIProps {
   onChangePaymentMethod: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleDisbursementModal: () => void;
+  handleCloseMessage: () => void;
 }
 
 function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
@@ -44,12 +49,15 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     loading,
     loadingSimulation,
     disbursementModal,
+    periodicityOptions,
+    message,
     simulateCredit,
     customHandleChange,
     onFormValid,
     onChangePaymentMethod,
     onChangePeriodicity,
     onToggleDisbursementModal,
+    handleCloseMessage,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
@@ -60,13 +68,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     formik.setFieldValue("hasResult", false);
     onFormValid(false);
   };
-
-  const periodicityOptions = formik.values.periodicities.map((option) => {
-    const matchedDomain = periodicityDM.valueOf(option.code);
-    return matchedDomain
-      ? { id: matchedDomain.id, value: matchedDomain.value }
-      : { id: option.code, value: option.code };
-  });
 
   return (
     <>
@@ -154,7 +155,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       name="amount"
                       id="amount"
                       iconAfter={<MdAttachMoney size={18} />}
-                      value={validateCurrencyField("amount", formik)}
+                      value={validateCurrencyField("amount", formik) || ""}
                       type="text"
                       errorMessage={formik.errors.amount}
                       isDisabled={loading}
@@ -183,15 +184,16 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       label="Periodicidad"
                       name="periodicity"
                       id="periodicity"
-                      value={formik.values.periodicity.code}
+                      value={formik.values.periodicity.id}
                       size="compact"
                       isFullWidth
                       options={periodicityOptions}
                       onBlur={formik.handleBlur}
-                      errorMessage={formik.errors.periodicity?.code}
+                      errorMessage={formik.errors.periodicity?.id}
                       isDisabled={!formik.values.paymentMethod?.value}
                       state={getFieldState(formik, "periodicity")}
                       onChange={onChangePeriodicity}
+                      readOnly={periodicityOptions.length === 1}
                     />
                     {formik.values.product.id !== "generateRecommendation" && (
                       <>
@@ -201,7 +203,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                             placeholder="Ingresa el valor de la cuota"
                             name="quota"
                             id="quota"
-                            value={validateCurrencyField("quota", formik)}
+                            value={validateCurrencyField("quota", formik) || ""}
                             type="text"
                             errorMessage={formik.errors.quota}
                             isDisabled={loading}
@@ -216,15 +218,15 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                           <TextField
                             label="Plazo en meses"
                             placeholder="Ingresa la cantidad de meses"
-                            name="deadlineTerm"
-                            id="deadlineTerm"
-                            value={formik.values.deadlineTerm}
+                            name="deadline"
+                            id="deadline"
+                            value={formik.values.deadline || ""}
                             type="number"
-                            errorMessage={formik.errors.deadlineTerm}
+                            errorMessage={formik.errors.deadline}
                             isDisabled={loading}
                             size="compact"
                             isFullWidth
-                            state={getFieldState(formik, "deadlineTerm")}
+                            state={getFieldState(formik, "deadline")}
                             onBlur={formik.handleBlur}
                             onChange={customHandleChange}
                             validMessage="El plazo es válido"
@@ -259,9 +261,13 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         onClick={simulateCredit}
                         load={loadingSimulation}
                         disabled={
-                          !!formik.errors.amount ||
-                          formik.values.paymentMethod?.id === undefined ||
-                          formik.values.periodicity.code === ""
+                          !formik.values.amount ||
+                          !formik.values.paymentMethod?.id ||
+                          formik.values.periodicity.id === "" ||
+                          (formik.values.simulationWithQuota &&
+                            !formik.values.quota) ||
+                          (!formik.values.simulationWithQuota &&
+                            !formik.values.deadline)
                         }
                       >
                         Simular
@@ -287,11 +293,11 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                     >
                       <BoxAttribute
                         label="Cuota:"
-                        value={`${currencyFormat(formik.values.quota)} / Mensual`}
+                        value={`${currencyFormat(formik.values.quota || 0)} / Mensual`}
                       />
                       <BoxAttribute
                         label="Plazo en meses:"
-                        value={`${formik.values.deadlineTerm || formik.values.calculatedQuotaDeadline} Meses`}
+                        value={`${formik.values.deadline} Meses`}
                       />
                       <BoxAttribute
                         label="Tasa de interés:"
@@ -314,13 +320,25 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
         </Stack>
       </form>
 
+      {message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          appearance={message.appearance}
+          icon={message.icon}
+          onClose={handleCloseMessage}
+          duration={5000}
+        />
+      )}
+
       {disbursementModal.show && disbursementModal.data && (
         <CreditDisbursementModal
           approximateValue={disbursementModal.data.approximateValue}
           portalId="modals"
           spec={{
             amount: disbursementModal.data.spec.amount,
-            cycleInterest: disbursementModal.data.spec.cycleInterest,
+            anticipatedInterest:
+              disbursementModal.data.spec.anticipatedInterest,
             discounts: disbursementModal.data.spec.discounts,
             charges: disbursementModal.data.spec.charges,
           }}

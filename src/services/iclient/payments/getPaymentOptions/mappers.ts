@@ -1,8 +1,8 @@
-import { IPaymentOptionRequest, IPaymentOptionRequestResponse } from "./types";
+import { IPaymentOptionRequest, IPaymentOptionResponse } from "./types";
 
 const mapPaymentOptionsEntityToEntity = (
   paymentOption: Record<string, string | object>,
-): IPaymentOptionRequestResponse => {
+): IPaymentOptionResponse => {
   const options = paymentOption.paymentOptions;
   const optionArray =
     Array.isArray(options) &&
@@ -18,18 +18,18 @@ const mapPaymentOptionsEntityToEntity = (
 };
 
 const mapPaymentOptionsEntityToApi = (
-  payment: IPaymentOptionRequest,
+  paymentOption: IPaymentOptionRequest,
 ): Record<string, string | number> => {
   return {
-    payValue: payment.payValue,
-    totalExpiredValue: payment.totalExpiredValue,
-    creditLine: payment.creditLine,
-    halfPayment: payment.halfPayment,
-    nextExpirationDate: payment.nextExpirationDate,
-    nextValueExpiration: payment.nextValueExpiration,
-    obligationNumber: payment.obligationNumber,
-    paymentDate: payment.paymentDate,
+    payValue: paymentOption.payValue,
+    totalExpiredValue: paymentOption.totalExpiredValue,
+    creditLine: paymentOption.creditLine,
+    halfPayment: paymentOption.halfPayment,
+    nextExpirationDate: paymentOption.nextExpirationDate,
+    nextValueExpiration: paymentOption.nextValueExpiration,
+    obligationNumber: paymentOption.obligationNumber,
+    paymentDate: paymentOption.paymentDate,
   };
 };
 
-export { mapPaymentOptionsEntityToEntity, mapPaymentOptionsEntityToApi };
+export { mapPaymentOptionsEntityToApi, mapPaymentOptionsEntityToEntity };

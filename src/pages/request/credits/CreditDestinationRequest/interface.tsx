@@ -25,6 +25,7 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
+import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -46,6 +47,13 @@ const renderStepContent = (
         <CreditConditionsForm
           initialValues={creditDestinationRequest.creditConditions.values}
           ref={formReferences.creditConditions}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === creditDestinationRequestSteps.paymentMethod.id && (
+        <PaymentMethodForm
+          initialValues={creditDestinationRequest.paymentMethod.values}
+          ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}

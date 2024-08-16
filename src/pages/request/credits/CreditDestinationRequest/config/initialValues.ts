@@ -5,6 +5,7 @@ import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
 import { ISystemValidationsEntry } from "../forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
+import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 
 const destination: IDestinationEntry = {
   products: [],
@@ -19,32 +20,30 @@ const creditConditions: ICreditConditionsEntry = {
     maxRate: 0,
     maxDeadline: 0,
     maxAmount: 0,
+    amortizationType: "",
   },
-  amount: 0,
-  deadline: "",
-  deadlineTerm: "",
   simulationWithQuota: false,
-  quota: 0,
   netValue: 0,
-  cycleInterest: 0,
+  anticipatedInterest: 0,
   discounts: 0,
-  interestRate: "",
+  rate: 0,
   hasResult: false,
   minWarrantyRequired: "",
   paymentMethods: [],
   periodicity: {
-    code: "",
+    id: "",
     description: "",
     periodicityInMonths: 0,
     periodicityInDays: 0,
   },
   periodicities: [],
   periodicityInMonths: 0,
-  rate: 0,
   charges: 0,
-  calculatedQuotaValue: 0,
-  quotaDeadlineInMonths: "",
-  calculatedQuotaDeadline: 0,
+};
+
+const paymentMethod: IPaymentMethodEntry = {
+  paymentMethods: [],
+  paymentMethodType: "",
 };
 
 const systemValidations: ISystemValidationsEntry = {
@@ -56,16 +55,13 @@ const systemValidations: ISystemValidationsEntry = {
   destinationName: "",
   paymentMethodCode: "",
   paymentMethodName: "",
-  requestAmount: 0,
-  creditAmount: 0,
-  capitalPaymentPeriod: "",
-  numQuotas: 0,
-  nominalRate: "",
-  amortizationType: "",
-  interestPaymentPeriod: "",
+  amount: 0,
   periodicity: "",
-  quotaValue: 0,
-  amountToTurn: 0,
+  deadline: 0,
+  rate: 0,
+  amortizationType: "",
+  quota: 0,
+  netValue: 0,
 };
 
 const documentaryRequirements: IDocumentaryRequirementsEntry = {
@@ -75,6 +71,7 @@ const documentaryRequirements: IDocumentaryRequirementsEntry = {
 };
 
 const disbursement: IDisbursementEntry = {
+  disbursements: [],
   disbursementType: "",
   accountNumber: "",
   writeAccountNumber: "",
@@ -105,6 +102,7 @@ const termsAndConditions: ITermsAndConditionsEntry = {
 const initalValuesCreditDestination = {
   destination,
   creditConditions,
+  paymentMethod,
   systemValidations,
   documentaryRequirements,
   disbursement,

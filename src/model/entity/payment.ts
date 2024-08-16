@@ -1,6 +1,5 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { TagProps } from "@design/data/Tag";
-import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import {
   EPaymentGroupType,
   EPaymentOptionType,
@@ -34,29 +33,6 @@ interface IPayment {
   allowCustomValue?: boolean;
 }
 
-interface IPaymentRequest {
-  customerCode: string;
-  customerName: string;
-  comments: string;
-  payments: IPayment[];
-  paymentMethod: {
-    id: string;
-    label: string;
-    value: number;
-    balance: number;
-    type: EMoneySourceType;
-  }[];
-  urlRedirect: string;
-  source: string;
-}
-
-interface IPaymentRequestResponse {
-  trackingCode: string;
-  url?: string;
-  state: string;
-  message: string;
-}
-
 interface IProductPayment {
   productName: string;
   productNumber: string;
@@ -75,11 +51,4 @@ interface IPaymentHistory {
   products?: IProductPayment[];
 }
 
-export type {
-  IPayment,
-  IPaymentHistory,
-  IPaymentOption,
-  IPaymentRequest,
-  IPaymentRequestResponse,
-  IProductPayment,
-};
+export type { IPayment, IPaymentHistory, IPaymentOption, IProductPayment };

@@ -96,7 +96,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     const products = await getProductsForDestination(
       user.identification,
       accessToken,
-      destination?.id,
+      destination.id,
     );
 
     if (products.length === 0) {

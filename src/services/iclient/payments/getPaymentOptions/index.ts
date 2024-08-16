@@ -3,12 +3,12 @@ import {
   mapPaymentOptionsEntityToApi,
   mapPaymentOptionsEntityToEntity,
 } from "./mappers";
-import { IPaymentOptionRequest, IPaymentOptionRequestResponse } from "./types";
+import { IPaymentOptionRequest, IPaymentOptionResponse } from "./types";
 
 const getPaymentOptions = async (
   payment: IPaymentOptionRequest,
   accessToken: string,
-): Promise<IPaymentOptionRequestResponse | undefined> => {
+): Promise<IPaymentOptionResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",

@@ -1,5 +1,5 @@
 interface IPeriodicity {
-  code: string;
+  id: string;
   description?: string;
   periodicityInMonths?: number;
   periodicityInDays?: number;
