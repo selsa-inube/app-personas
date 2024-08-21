@@ -1,15 +1,16 @@
 import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { getFieldState } from "src/utils/forms/forms";
+import { IInformationDataEntry } from "./types";
 
 interface InformationDataFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IInformationDataEntry>;
   loading?: boolean;
   readonly?: boolean;
   isRequired: (fieldName: string) => boolean;

@@ -15,7 +15,6 @@ import {
 } from "src/model/entity/user";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
-import { formatPrimaryDate } from "src/utils/dates";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
 import { IEconomicActivityEntry } from "../forms/EconomicActivityForm/types";
@@ -163,9 +162,7 @@ const mapPersonalDebt = (
       "liabilityType",
     )?.value,
     debtName: personalDebt.debtName,
-    terminationDate: formatPrimaryDate(
-      new Date(String(personalDebt.terminationDate)),
-    ),
+    terminationDate: personalDebt.terminationDate,
     debtBalance: currencyFormat(Number(personalDebt.debtBalance)),
     financialEntity: personalDebt.financialEntity,
     quota: currencyFormat(Number(personalDebt.quota)),

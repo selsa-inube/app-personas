@@ -2,7 +2,12 @@ import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Divider } from "@inubekit/divider";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { useState } from "react";
@@ -13,11 +18,6 @@ import { cityDM } from "src/model/domains/general/updateData/personalInformation
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 
 const referenceTypeDM = getDomainById("referenceType");
 
@@ -268,12 +268,9 @@ function ReferenceModal(props: ReferenceModalProps) {
             spacing="compact"
             onClick={onConfirm}
             disabled={
-              (withCustomDirty
+              withCustomDirty
                 ? JSON.stringify(customDirty) === JSON.stringify(formik.values)
-                : !formik.dirty || !formik.isValid) ||
-              !Object.values(cityDM.options).some(
-                (option) => option.id === formik.values.city,
-              )
+                : !formik.dirty || !formik.isValid
             }
             appearance="primary"
           >

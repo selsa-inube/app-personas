@@ -1,11 +1,11 @@
 import { Text } from "@design/data/Text";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { IAttribute } from "src/model/entity/product";
 import { ButtonAttribute } from "./ButtonAttribute";
 import { StyledBoxAttribute } from "./styles";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { inube } from "@design/tokens";
 
 interface BoxAttributeProps {
   label?: string;
@@ -43,6 +43,7 @@ function BoxAttribute(props: BoxAttributeProps) {
         gap={inube.spacing.s100}
         justifyContent="space-between"
         templateColumns={direction === "column" ? "1fr" : "auto 1fr"}
+        autoRows="auto"
       >
         {label && (
           <Text
