@@ -16,7 +16,9 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   ref: React.Ref<FormikProps<IBeneficiariesEntry>>,
 ) {
   const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
-  const [percentage, setPercentage] = useState(0);
+  const [percentage, setPercentage] = useState(
+    Object.values(initialValues).reduce((acc, curr) => acc + Number(curr), 0),
+  );
 
   const formik = useFormik({
     initialValues,
@@ -34,10 +36,10 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
       [event.target.name]: event.target.value,
     };
 
-    let total = 0;
-    for (const key in updatedValues) {
-      total += Number(updatedValues[key]);
-    }
+    const total = Object.values(updatedValues).reduce(
+      (acc, curr) => acc + Number(curr),
+      0,
+    );
     setPercentage(total);
 
     onFormValid && onFormValid(!(total > 100));

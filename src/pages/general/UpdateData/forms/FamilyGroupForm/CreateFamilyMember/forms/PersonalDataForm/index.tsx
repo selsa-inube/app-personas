@@ -1,11 +1,11 @@
+import { FormikProps, useFormik } from "formik";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { familyGroupRequiredFields } from "../../../config/formConfig";
-import { validationRules } from "src/validations/validationRules";
-import { validationMessages } from "src/validations/validationMessages";
-import { IPersonalDataEntry } from "./types";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { FormikProps, useFormik } from "formik";
 import { PersonalDataFormUI } from "./interface";
+import { IPersonalDataEntry } from "./types";
 
 const validationSchema = Yup.object().shape({
   identificationNumber: familyGroupRequiredFields.identificationNumber

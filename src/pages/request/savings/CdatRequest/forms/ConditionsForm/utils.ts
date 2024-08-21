@@ -6,7 +6,7 @@ import { validationMessages } from "src/validations/validationMessages";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 
 const validationSchema = Yup.object({
-  deadlineDate: validationRules.oldNotPastDate,
+  deadlineDate: validationRules.notPastDate,
   deadlineDays: Yup.number()
     .min(1, validationMessages.minNumbers(10))
     .max(1000, validationMessages.maxNumbers(1000)),
@@ -20,7 +20,7 @@ const validationSchema = Yup.object({
 const getInitialCdatContidionValidations = () => {
   return validationSchema.concat(
     Yup.object({
-      deadlineDate: validationRules.oldNotPastDate,
+      deadlineDate: validationRules.notPastDate,
       deadlineDays: Yup.number()
         .min(
           minDeadlineDays(investmentsRatesMocks),

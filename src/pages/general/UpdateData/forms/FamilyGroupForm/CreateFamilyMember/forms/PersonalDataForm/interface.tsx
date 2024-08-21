@@ -1,13 +1,14 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { getFieldState } from "src/utils/forms/forms";
+import { IPersonalDataEntry } from "./types";
 
 interface PersonalDataFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IPersonalDataEntry>;
   loading?: boolean;
   readonly?: boolean;
   isRequired: (fieldName: string) => boolean;
@@ -44,7 +45,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         onBlur={formik.handleBlur}
         errorMessage={formik.errors.type}
         onChange={formik.handleChange}
-        value={formik.values.type.id || ""}
+        value={formik.values.type || ""}
         state={getFieldState(formik, "type")}
         isRequired={isRequired("type")}
         readOnly={readonly}

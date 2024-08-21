@@ -17,7 +17,7 @@ const initValidationSchema = Yup.object({
   paymentMethod: Yup.string().required(validationMessages.required),
   periodicity: Yup.string().required(validationMessages.required),
   payDayType: Yup.string(),
-  paydayByDate: validationRules.oldNotPastDate,
+  paydayByDate: validationRules.notPastDate,
   accountToDebit: Yup.string(),
   accountType: Yup.string(),
   bankEntity: Yup.string(),
@@ -106,7 +106,7 @@ const QuotaForm = forwardRef(function QuotaForm(
           formik.values.paymentMethod === "automaticDebit"
             ? Yup.string().required(validationMessages.required)
             : Yup.string(),
-        paydayByDate: validationRules.oldNotPastDate,
+        paydayByDate: validationRules.notPastDate,
         accountType:
           formik.values.paymentMethod === "automaticDebit" &&
           formik.values.accountToDebit === "externalOwnAccountDebit"
