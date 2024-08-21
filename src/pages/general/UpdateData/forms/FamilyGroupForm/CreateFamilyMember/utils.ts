@@ -47,7 +47,7 @@ const createFamilyMemberStepsRules = (
             values: {
               ...initialValuesCreateFamilyMember.personalData,
               identificationNumber: values?.identificationNumber,
-              type: selectedReferenceUser.identification.type,
+              type: selectedReferenceUser.identification.type.id,
               firstName: selectedReferenceUser.identification.firstName,
               secondName: selectedReferenceUser.identification.secondName,
               firstLastName: selectedReferenceUser.identification.firstLastName,

@@ -37,7 +37,7 @@ const renderIdentificationDataInfoVerification = (
         id="type"
         size="compact"
         options={identificationTypeDM.options}
-        value={values.type.id}
+        value={values.type}
         isFullWidth
         readOnly
       />

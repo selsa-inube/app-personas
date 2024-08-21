@@ -45,7 +45,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         onBlur={formik.handleBlur}
         errorMessage={formik.errors.type}
         onChange={formik.handleChange}
-        value={formik.values.type?.id || ""}
+        value={formik.values.type || ""}
         state={getFieldState(formik, "type")}
         isRequired={isRequired("type")}
         readOnly={readonly}
