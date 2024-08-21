@@ -1,14 +1,14 @@
 import { DestinationCard } from "@components/cards/credits/DestinationCard";
 import { Select } from "@design/input/Select";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { loadingProductsData } from "./config/loading";
 import { IDestinationEntry, IDestinationProduct } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface DestinationFormUIProps {
   formik: FormikProps<IDestinationEntry>;
@@ -48,6 +48,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             isDisabled={loading}
             state={getFieldState(formik, "creditDestination")}
             onChange={onChangeDestination}
+            placeholder="Selecciona el destino del dinero"
           />
         </Stack>
         <Stack direction="column" gap={inube.spacing.s200}>

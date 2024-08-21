@@ -14,6 +14,7 @@ import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDisbursementEntry } from "./forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
+import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CreditDestinationRequestUI } from "./interface";
@@ -22,7 +23,6 @@ import {
   IFormsCreditDestinationRequestRefs,
 } from "./types";
 import { creditDestinationStepsRules } from "./utils";
-import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 
 function CreditDestinationRequest() {
   const { accessToken } = useAuth();
