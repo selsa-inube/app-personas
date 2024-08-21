@@ -1,4 +1,5 @@
 import { IAction } from "@design/data/Table/types";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { EMessageType, IMessage } from "@ptypes/messages.types";
 import { FormikProps, FormikValues, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
@@ -16,7 +17,6 @@ import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
-import { useMediaQuery } from "@hooks/useMediaQuery";
 
 const validationSchema = Yup.object().shape({
   firstName: familyGroupRequiredFields.firstName
@@ -206,7 +206,6 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     await formik.validateForm();
 
     formik.setFieldValue("entries", [
-      ...formik.values.entries,
       {
         id: identificationData.identificationNumber,
         firstName: personalData.firstName,
@@ -219,12 +218,13 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
         email: contactData.email,
         birthDate: informationData.birthDate,
         gender: informationData.gender,
-        relationship: informationData.relationship ?? personalData.relationship,
-        isDependent: informationData.isDependent ?? personalData.isDependent,
+        relationship: informationData.relationship,
+        isDependent: informationData.isDependent,
         educationLevel: informationData.educationLevel,
         businessActivity: informationData.businessActivity,
         profession: informationData.profession,
       },
+      ...formik.values.entries,
     ]);
 
     setShowAddMemberModal(false);
