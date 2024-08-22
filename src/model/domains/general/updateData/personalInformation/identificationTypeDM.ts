@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const identificationTypeData = {
   CC: {
@@ -24,6 +24,10 @@ const identificationTypeData = {
   NIT: {
     id: "nit",
     value: "NIT",
+  },
+  NUIP: {
+    id: "nuip",
+    value: "NUIP",
   },
 };
 
