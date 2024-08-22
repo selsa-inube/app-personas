@@ -7,7 +7,7 @@ interface IRequirementRequest {
   destinationName: string;
   customerCode: string;
   customerName: string;
-  paymentMethodCode: string;
+  paymentMethod: string;
   paymentMethodName: string;
   amount: number;
   deadline: number;

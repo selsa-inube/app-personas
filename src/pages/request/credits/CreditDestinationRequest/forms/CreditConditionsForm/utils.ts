@@ -1,6 +1,8 @@
+import { ISelectOption } from "@design/input/Select/types";
 import { FormikProps } from "formik";
 import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethodsForProduct";
 import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicitiesForProduct";
+import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -50,37 +52,67 @@ const getInitialCreditContidionValidations = (
   );
 };
 
+const getPeriodicities = async (
+  formik: FormikProps<ICreditConditionsEntry>,
+  accessToken: string,
+  paymentMethodId: string,
+) => {
+  const periodicities = await getPeriodicitiesForProduct(
+    accessToken,
+    formik.values.product.id,
+    paymentMethodId,
+  );
+
+  formik.setFieldValue("periodicities", periodicities);
+
+  if (periodicities.length === 1) {
+    formik.setFieldValue("periodicity", periodicities[0]);
+  }
+};
+
 const getValuesForSimulate = async (
   formik: FormikProps<ICreditConditionsEntry>,
   accessToken: string,
   userIdentification: string,
 ) => {
   if (accessToken) {
-    const products = await getPaymentMethodsForProduct(
-      userIdentification,
-      accessToken,
-      formik.values.product.id,
-    );
-    formik.setFieldValue("paymentMethods", products);
+    const userData = await getCustomer(userIdentification, accessToken);
 
-    if (formik.values.paymentMethod) {
-      const periodicities = await getPeriodicitiesForProduct(
+    const newPaymentMethods: ISelectOption[] = [];
+    if (
+      userData &&
+      userData.financialOperations &&
+      userData.financialOperations.paymentMethod
+    ) {
+      newPaymentMethods.push(userData.financialOperations.paymentMethod);
+    } else {
+      const paymentMethods = await getPaymentMethodsForProduct(
+        userIdentification,
         accessToken,
         formik.values.product.id,
-        formik.values.paymentMethod.id,
       );
+      newPaymentMethods.push(...paymentMethods);
+    }
 
-      formik.setFieldValue("periodicities", periodicities);
+    formik.setFieldValue("paymentMethods", newPaymentMethods);
 
-      if (periodicities.length === 1) {
-        formik.setFieldValue("periodicity", periodicities[0]);
-      }
+    if (newPaymentMethods.length === 1) {
+      formik.setFieldValue("paymentMethod", newPaymentMethods[0]);
+    }
+
+    const paymentMethod =
+      userData?.financialOperations.paymentMethod ||
+      formik.values.paymentMethod;
+
+    if (paymentMethod) {
+      await getPeriodicities(formik, accessToken, paymentMethod.id);
     }
   }
 };
 
 export {
   getInitialCreditContidionValidations,
+  getPeriodicities,
   getValuesForSimulate,
   validationSchema,
 };
