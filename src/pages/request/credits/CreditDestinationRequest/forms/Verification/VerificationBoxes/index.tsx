@@ -17,10 +17,10 @@ import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
+import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";
-import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -60,10 +60,7 @@ const renderCreditConditionsVerification = (
           label="Cuota:"
           value={`${currencyFormat(values.quota || 0)} / Mensual`}
         />
-        <BoxAttribute
-          label="Plazo en meses:"
-          value={`${values.deadline} Meses`}
-        />
+        <BoxAttribute label="Numero de cuotas:" value={values.deadline} />
         <BoxAttribute
           label="Tasa de interés:"
           value={`${values.product.maxRate} % N.A.M.V`}

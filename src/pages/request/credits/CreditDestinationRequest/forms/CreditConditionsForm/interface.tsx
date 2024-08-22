@@ -216,7 +216,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                           />
                         ) : (
                           <TextField
-                            label="Plazo en meses"
+                            label="¿Cuántas cuotas?"
                             placeholder="Ingresa la cantidad de meses"
                             name="deadline"
                             id="deadline"
@@ -296,7 +296,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         value={`${currencyFormat(formik.values.quota || 0)} / Mensual`}
                       />
                       <BoxAttribute
-                        label="Plazo en meses:"
+                        label="Numero de cuotas:"
                         value={`${formik.values.deadline} Meses`}
                       />
                       <BoxAttribute
