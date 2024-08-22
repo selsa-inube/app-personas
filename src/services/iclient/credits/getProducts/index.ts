@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
+import { IDestinationProduct } from "@pages/request/credits/CreditDestinationRequest/forms/DestinationForm/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapProductsApiToEntities } from "./mappers";
-import { IDestinationProduct } from "@pages/request/credits/CreditDestinationRequest/forms/DestinationForm/types";
 
 const getProductsForDestination = async (
   userIdentification: string,

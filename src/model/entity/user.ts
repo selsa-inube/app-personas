@@ -1,3 +1,4 @@
+import { ISelectOption } from "@design/input/Select/types";
 import { IDomainType } from "@ptypes/domain.types";
 
 interface IIdentification {
@@ -91,6 +92,7 @@ interface IFinancialOperations {
   bankEntity: string;
   currency: string;
   accountNumber: number;
+  paymentMethod?: ISelectOption;
 }
 
 interface IEconomicActivity {

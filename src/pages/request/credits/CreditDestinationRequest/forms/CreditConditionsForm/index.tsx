@@ -20,6 +20,7 @@ import { CreditConditionsFormUI } from "./interface";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
 import {
   getInitialCreditContidionValidations,
+  getPeriodicities,
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
@@ -86,12 +87,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     if (accessToken && user?.identification) {
       getValuesForSimulate(formik, accessToken, user.identification);
     }
-  }, [
-    accessToken,
-    user.identification,
-    formik.values.product.id,
-    formik.values.paymentMethod,
-  ]);
+  }, [accessToken, user.identification, formik.values.product.id]);
 
   const handleChangePaymentMethod = async (
     event: React.ChangeEvent<HTMLSelectElement>,
@@ -109,6 +105,8 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         id: selectedMethod.id,
         value: selectedMethod.value,
       });
+
+      await getPeriodicities(formik, accessToken, selectedMethod.id);
     }
   };
 
