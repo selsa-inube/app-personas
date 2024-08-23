@@ -1,20 +1,20 @@
+import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
+import { Button } from "@design/input/Button";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { createFamilyMemberSteps } from "./config/assisted";
+import { ContactDataForm } from "./forms/ContactDataForm";
 import { IdentificationDataForm } from "./forms/IdentificationDataForm";
+import { InformationDataForm } from "./forms/InformationDataForm";
+import { PersonalDataForm } from "./forms/PersonalDataForm";
+import { UpdateDataVerification } from "./forms/Verification";
+import { StyledScroller } from "./styles";
 import {
   IFormsCreateFamilyMember,
   IFormsCreateFamilyMemberRefs,
 } from "./types";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Assisted } from "@design/feedback/Assisted";
-import { StyledScroller } from "./styles";
-import { Button } from "@design/input/Button";
-import { PersonalDataForm } from "./forms/PersonalDataForm";
-import { ContactDataForm } from "./forms/ContactDataForm";
-import { InformationDataForm } from "./forms/InformationDataForm";
-import { UpdateDataVerification } from "./forms/Verification";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 
 const renderStepContent = (
   currentStep: number,
@@ -99,7 +99,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
-    <>
+    <Stack direction="column" width="100%" gap={inube.spacing.s300}>
       <Assisted
         steps={steps}
         currentStep={currentStep}
@@ -109,41 +109,39 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
         showButtonsLabels={false}
       />
 
-      <Stack direction="column" gap={inube.spacing.s300}>
-        <StyledScroller $smallScreen={isMobile}>
-          {renderStepContent(
-            currentStep,
-            formReferences,
-            createFamilyMember,
-            isMobile,
-            readOnly,
-            setIsCurrentFormValid,
-          )}
-        </StyledScroller>
+      <StyledScroller $smallScreen={isMobile}>
+        {renderStepContent(
+          currentStep,
+          formReferences,
+          createFamilyMember,
+          isMobile,
+          readOnly,
+          setIsCurrentFormValid,
+        )}
+      </StyledScroller>
 
-        <Stack gap={inube.spacing.s150} justifyContent="flex-end">
-          <Button
-            onClick={handlePreviousStep}
-            type="button"
-            disabled={currentStep === steps[0].id}
-            spacing="compact"
-            variant="outlined"
-            appearance="gray"
-          >
-            Atrás
-          </Button>
+      <Stack gap={inube.spacing.s150} justifyContent="flex-end">
+        <Button
+          onClick={handlePreviousStep}
+          type="button"
+          disabled={currentStep === steps[0].id}
+          spacing="compact"
+          variant="outlined"
+          appearance="gray"
+        >
+          Atrás
+        </Button>
 
-          <Button
-            onClick={handleNextStep}
-            spacing="compact"
-            disabled={!isCurrentFormValid}
-            load={loading}
-          >
-            {currentStep === steps.length ? "Adicionar" : "Siguiente"}
-          </Button>
-        </Stack>
+        <Button
+          onClick={handleNextStep}
+          spacing="compact"
+          disabled={!isCurrentFormValid}
+          load={loading}
+        >
+          {currentStep === steps.length ? "Adicionar" : "Siguiente"}
+        </Button>
       </Stack>
-    </>
+    </Stack>
   );
 }
 

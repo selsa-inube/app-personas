@@ -11,8 +11,7 @@ const StyledScroller = styled.div<IStyledScroller>`
   display: flex;
   flex-direction: column;
   gap: ${inube.spacing.s200};
-  padding: ${({ $smallScreen }) =>
-    $smallScreen ? inube.spacing.s050 : inube.spacing.s0};
+  padding: ${inube.spacing.s050};
 
   ::-webkit-scrollbar {
     width: 4px;
