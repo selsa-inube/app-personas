@@ -65,7 +65,7 @@ const creditDestinationStepsRules = (
             destinationName: values.creditDestination?.value || "",
             productId: values.product.id,
             productName: values.product.title,
-            paymentMethodCode: values.paymentMethod?.id || "",
+            paymentMethod: values.paymentMethod?.id || "",
             paymentMethodName: values.paymentMethod?.value || "",
             amount: values.amount || 0,
             deadline: values.deadline || 0,

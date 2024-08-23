@@ -179,6 +179,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       onChange={onChangePaymentMethod}
                       state={getFieldState(formik, "paymentMethod")}
                       isFullWidth
+                      readOnly={periodicityOptions.length === 1}
                     />
                     <Select
                       label="Periodicidad"
@@ -216,8 +217,8 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                           />
                         ) : (
                           <TextField
-                            label="Plazo en meses"
-                            placeholder="Ingresa la cantidad de meses"
+                            label="¿Cuántas cuotas?"
+                            placeholder="Ingresa la cantidad de cuotas"
                             name="deadline"
                             id="deadline"
                             value={formik.values.deadline || ""}
@@ -296,7 +297,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         value={`${currencyFormat(formik.values.quota || 0)} / Mensual`}
                       />
                       <BoxAttribute
-                        label="Plazo en meses:"
+                        label="Numero de cuotas:"
                         value={`${formik.values.deadline} Meses`}
                       />
                       <BoxAttribute
