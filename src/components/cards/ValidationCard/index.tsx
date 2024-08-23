@@ -81,7 +81,7 @@ function ValidationCard(props: IValidation) {
                   size="small"
                   appearance="danger"
                   cursorHover
-                  // onClick={handleToggleModal} 
+                  onClick={handleToggleModal} 
                 >
                   Ver detalles
                 </Text>
