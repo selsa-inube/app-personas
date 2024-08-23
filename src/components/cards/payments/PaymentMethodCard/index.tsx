@@ -1,4 +1,3 @@
-import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
@@ -11,6 +10,7 @@ import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { Tag } from "@inubekit/tag";
 
 interface PaymentMethodCardProps {
   moneySource: {
@@ -84,7 +84,11 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           </Text>
 
           {moneySource.value > moneySource.balance && (
-            <Tag label="Fondos insuficientes" appearance="danger" />
+            <Tag
+              label="Fondos insuficientes"
+              appearance="danger"
+              weight="strong"
+            />
           )}
         </Stack>
       </Stack>

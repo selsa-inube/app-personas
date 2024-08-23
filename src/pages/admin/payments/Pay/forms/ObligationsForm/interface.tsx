@@ -10,7 +10,6 @@ import {
   PaymentHelpModal,
 } from "@components/modals/payments/PaymentHelpModal";
 import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
-import { Tag } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { ISelectOption } from "@design/input/Select/types";
@@ -29,6 +28,7 @@ import { IObligationsEntry } from "./types";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
+import { Tag } from "@inubekit/tag";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -54,9 +54,8 @@ const renderFilters = (
           key={key}
           label={filterLabel}
           appearance="gray"
-          modifier="regular"
           removable
-          onRemove={() => onRemove(key)}
+          onClose={() => onRemove(key)}
         />
       )
     );

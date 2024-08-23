@@ -1,4 +1,3 @@
-import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { MdCalendarMonth } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
@@ -6,12 +5,13 @@ import { StyledCardContainer } from "./styles";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { ITag, Tag } from "@inubekit/tag";
 
 interface CommitmentCardProps {
   onClick: () => void;
   title: string;
   attributes: IAttribute[];
-  tag?: TagProps;
+  tag?: ITag;
 }
 
 function CommitmentCard(props: CommitmentCardProps) {
@@ -22,12 +22,27 @@ function CommitmentCard(props: CommitmentCardProps) {
   return (
     <StyledCardContainer onClick={onClick}>
       <Stack alignItems="flex-start" gap={inube.spacing.s075}>
-        <Icon size="16px" appearance="primary" icon={<MdCalendarMonth />} spacing="narrow" />
-        <Stack direction="column" alignItems="flex-start" gap={inube.spacing.s075}>
+        <Icon
+          size="16px"
+          appearance="primary"
+          icon={<MdCalendarMonth />}
+          spacing="narrow"
+        />
+        <Stack
+          direction="column"
+          alignItems="flex-start"
+          gap={inube.spacing.s075}
+        >
           <Text type="label" size="medium">
             {title}
           </Text>
-          {tag && <Tag label={tag.label} appearance={tag.appearance} />}
+          {tag && (
+            <Tag
+              label={tag.label}
+              appearance={tag.appearance}
+              weight="strong"
+            />
+          )}
         </Stack>
       </Stack>
 

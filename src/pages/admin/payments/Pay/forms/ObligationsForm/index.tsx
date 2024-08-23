@@ -1,7 +1,6 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { IPaymentFilters } from "@components/modals/payments/PaymentFilterModal";
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
-import { TagProps } from "@design/data/Tag";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { IPayment, IPaymentOption } from "src/model/entity/payment";
@@ -14,6 +13,7 @@ import {
 import { paymentInitialFilters } from "./config/filters";
 import { ObligationsFormUI } from "./interface";
 import { IObligationsEntry } from "./types";
+import { ITag } from "@inubekit/tag";
 
 interface ObligationsFormProps {
   initialValues: IObligationsEntry;
@@ -77,16 +77,13 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   ) => {
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === payId) {
-        const tags: TagProps[] = payment.tags.filter(
-          (tag) => tag.id !== "payOption",
+        const tags: ITag[] = payment.tags.filter(
+          (tag) => tag.label !== "payOption",
         );
 
         tags.push({
-          id: "payOption",
           label: applyPayOption.label,
           appearance: "dark",
-          modifier: "clear",
-          textAppearance: "dark",
         });
 
         return {
@@ -129,8 +126,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const handleChangePaymentValue = (payId: string, option: IPaymentOption) => {
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === payId) {
-        const tags: TagProps[] = payment.tags.filter(
-          (tag) => tag.id !== "payOption",
+        const tags: ITag[] = payment.tags.filter(
+          (tag) => tag.label !== "payOption",
         );
 
         return {
@@ -231,8 +228,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
         return { ...payOption, selected };
       });
 
-      const tags: TagProps[] = payment.tags.filter(
-        (tag) => tag.id !== "payOption",
+      const tags: ITag[] = payment.tags.filter(
+        (tag) => tag.label !== "payOption",
       );
 
       return {
@@ -262,8 +259,8 @@ const ObligationsForm = forwardRef(function ObligationsForm(
   const handleRemovePayment = (paymentId: string) => {
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === paymentId) {
-        const tags: TagProps[] = payment.tags.filter(
-          (tag) => tag.id !== "payOption",
+        const tags: ITag[] = payment.tags.filter(
+          (tag) => tag.label !== "payOption",
         );
 
         return {

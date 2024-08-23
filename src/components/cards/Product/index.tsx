@@ -1,4 +1,3 @@
-import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
@@ -10,6 +9,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
+import { ITag, Tag } from "@inubekit/tag";
 
 interface ProductProps {
   title?: string;
@@ -17,7 +17,7 @@ interface ProductProps {
   icon?: React.JSX.Element;
   attributes?: IAttribute[];
   breakpoints?: Record<string, number>;
-  tags?: TagProps[];
+  tags?: ITag[];
   empty?: boolean;
   navigateTo?: string;
   loading?: boolean;
@@ -90,7 +90,9 @@ function Product(props: ProductProps) {
                     </Text>
                     <Stack gap={inube.spacing.s050}>
                       {tags.length > 0 &&
-                        tags.map((tag) => <Tag {...tag} key={tag.label} />)}
+                        tags.map((tag) => (
+                          <Tag {...tag} key={tag.label} weight="strong" />
+                        ))}
                     </Stack>
                   </Stack>
                 )}

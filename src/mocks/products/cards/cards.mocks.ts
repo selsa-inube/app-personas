@@ -65,8 +65,6 @@ const cardsMock: IProduct[] = [
       {
         label: "Cupo en mora",
         appearance: "danger",
-        textAppearance: "danger",
-        modifier: "clear",
       },
     ],
     quotaDetails: ["590030780132"],

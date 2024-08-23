@@ -45,6 +45,12 @@ Default.args = {
   ),
   icon: <MdOutlineSavings />,
   loading: false,
+  tags: [
+    {
+      appearance: "danger",
+      label: "Tag",
+    },
+  ],
 };
 
 const theme = {

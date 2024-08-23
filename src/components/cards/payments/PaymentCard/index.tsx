@@ -1,6 +1,5 @@
 import { CustomValueModal } from "@components/modals/payments/CustomValueModal";
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
-import { Tag, TagProps } from "@design/data/Tag";
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -17,6 +16,7 @@ import {
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { ITag, Tag } from "@inubekit/tag";
 
 const renderOptions = (
   options: IPaymentOption[],
@@ -75,7 +75,7 @@ interface PaymentCardProps {
   id: string;
   title: string;
   options: IPaymentOption[];
-  tags: TagProps[];
+  tags: ITag[];
   allowCustomValue?: boolean;
   selectedOption?: IPaymentOption;
   lineCode: string;
