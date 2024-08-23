@@ -112,7 +112,7 @@ const ConditionsForm = forwardRef(function ConditionsForm(
 
       const newValidationSchema = dynamicValidationSchema.concat(
         Yup.object({
-          deadlineDate: validationRules.oldNotPastDate.required(
+          deadlineDate: validationRules.notPastDate.required(
             validationMessages.required,
           ),
         }),

@@ -18,7 +18,7 @@ const getHeader = (
 
   if (updateDataAssistedFlag) {
     links.push({
-      label: "Actualiza tus datos (Con)",
+      label: "Actualiza tus datos",
       path: "/update-data-assisted",
       icon: <MdOutlineBadge />,
     });

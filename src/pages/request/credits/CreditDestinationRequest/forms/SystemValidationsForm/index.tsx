@@ -57,7 +57,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       destinationName: formik.values.destinationName,
       customerCode: user.identification,
       customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
-      paymentMethodCode: formik.values.paymentMethodCode,
+      paymentMethod: formik.values.paymentMethod,
       paymentMethodName: formik.values.paymentMethodName,
       amount: formik.values.amount,
       deadline: formik.values.deadline,

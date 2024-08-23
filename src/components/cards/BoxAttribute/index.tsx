@@ -43,6 +43,7 @@ function BoxAttribute(props: BoxAttributeProps) {
         gap={inube.spacing.s100}
         justifyContent="space-between"
         templateColumns={direction === "column" ? "1fr" : "auto 1fr"}
+        autoRows="auto"
       >
         {label && (
           <Text

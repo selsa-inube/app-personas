@@ -14,6 +14,7 @@ const personalData: IPersonalDataEntry = {
   firstLastName: "",
   secondLastName: "",
   relationship: "",
+  type: "",
 };
 
 const contactData: IContactDataEntry = {

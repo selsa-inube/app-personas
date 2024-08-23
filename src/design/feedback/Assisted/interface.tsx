@@ -1,6 +1,8 @@
 import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { MdArrowBack, MdArrowForward, MdCheckCircle } from "react-icons/md";
 import {
   StyledAssistedContainer,
@@ -10,8 +12,6 @@ import {
   StyledCircleId,
 } from "./styles";
 import { IStep } from "./types";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 
 interface AssistedUIProps {
@@ -74,6 +74,7 @@ function AssistedUI(props: AssistedUIProps) {
             onClick={handlePreviousStep}
             appearance="primary"
             disabled={currentStepIndex === 0}
+            cursorHover={true}
           />
         )}
         <Stack direction="column" width="100%" gap={inube.spacing.s150}>
@@ -149,6 +150,7 @@ function AssistedUI(props: AssistedUIProps) {
             spacing="narrow"
             onClick={handleNextStep}
             disabled={disableNextStep}
+            cursorHover={true}
           />
         )}
       </Stack>

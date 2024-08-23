@@ -214,7 +214,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
         disableNextStep={!isCurrentFormValid}
       />
 
-      <Stack direction="column" gap={inube.spacing.s300}>
+      <Stack direction="column" gap={inube.spacing.s300} margin={`0 0 320px 0`}>
         {renderStepContent(
           currentStep,
           formReferences,
