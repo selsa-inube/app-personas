@@ -1,9 +1,9 @@
-import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { StyledCardContainer } from "./styles";
 import { InfoCardAppearanceType } from "./types";
+import { Text } from "@inubekit/text";
 
 interface InfoCardProps {
   title: string;

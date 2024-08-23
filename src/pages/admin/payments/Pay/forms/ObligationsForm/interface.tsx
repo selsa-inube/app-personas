@@ -11,7 +11,6 @@ import {
 } from "@components/modals/payments/PaymentHelpModal";
 import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
 import { Tag } from "@design/data/Tag";
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQueries } from "@hooks/useMediaQueries";
@@ -28,6 +27,7 @@ import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 const renderFilters = (

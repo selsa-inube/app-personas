@@ -1,9 +1,9 @@
 import { MdOutlineClose } from "react-icons/md";
-import { Text } from "../Text";
 
 import { StyledTag } from "./styles";
 import { TagAppearanceType, TagModifierType } from "./types";
 import { Icon } from "@inubekit/icon";
+import { Text } from "@inubekit/text";
 
 const darkTextAppearances = ["warning", "gray", "light"];
 

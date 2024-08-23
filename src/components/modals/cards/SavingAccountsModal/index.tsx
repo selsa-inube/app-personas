@@ -1,5 +1,4 @@
 import { Product } from "@components/cards/Product";
-import { Text } from "@design/data/Text";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
 import { MdOutlineAccountBalanceWallet, MdOutlineClose } from "react-icons/md";
@@ -9,6 +8,7 @@ import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface SavingAccountsModalProps {

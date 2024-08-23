@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { capitalizeEachWord } from "src/utils/texts";
 
@@ -44,6 +43,7 @@ import {
 } from "./config/products";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 function renderHomeContent(
   savingsAccounts: IProduct[],

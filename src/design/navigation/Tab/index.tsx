@@ -1,4 +1,4 @@
-import { Text } from "@design/data/Text";
+import { Text } from "@inubekit/text";
 import { StyledTab } from "./styles";
 
 interface TabProps {

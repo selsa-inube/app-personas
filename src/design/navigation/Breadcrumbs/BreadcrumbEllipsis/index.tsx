@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Text } from "@design/data/Text";
 import { BreadcrumbMenu } from "../BreadcrumbMenu";
 
 import {
@@ -10,6 +9,7 @@ import {
 } from "./styles";
 import { IBreadcrumbRoute } from "../types";
 import { BreadcrumbEllipsisSizeType } from "./types";
+import { Text } from "@inubekit/text";
 
 interface BreadcrumbEllipsisProps {
   size?: BreadcrumbEllipsisSizeType;

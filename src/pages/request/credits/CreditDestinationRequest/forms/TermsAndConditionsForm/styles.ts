@@ -48,11 +48,11 @@ const StyledTermsAndConditionsInfo = styled.div<IStyledTermsAndConditionsInfo>`
 
 const StyledLinkPolicy = styled(Link)`
   color: ${({ theme }) =>
-    theme.color?.text?.link?.regular || inube.color.text.link.regular};
+    theme.color?.text?.primary?.regular || inube.color.text.primary.regular};
 
   &:hover {
     color: ${({ theme }) =>
-      theme.color?.text?.link?.hover || inube.color.text.link.hover};
+      theme.color?.text?.primary?.hover || inube.color.text.primary.hover};
   }
 `;
 

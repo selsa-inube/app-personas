@@ -1,10 +1,10 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { logoUrl } from "@config/header";
-import { Text } from "@design/data/Text";
 import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { currencyFormat } from "src/utils/currency";
 
 interface AmortizationDocumentProps {

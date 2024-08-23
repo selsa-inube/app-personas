@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -10,6 +9,7 @@ import {
   StyledTermsAndConditionsContainer,
   StyledTermsAndConditionsInfo,
 } from "./styles";
+import { Text } from "@inubekit/text";
 
 const getTermsAndConditionsParag = (texts: string[]) => {
   return texts.map((text, index) => (

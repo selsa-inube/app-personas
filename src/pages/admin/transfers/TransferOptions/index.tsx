@@ -3,7 +3,6 @@ import { RequestCard } from "@components/cards/RequestCard";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
@@ -22,6 +21,7 @@ import { crumbsTransferOptions } from "./config/navigation";
 import { sendTransferRequest } from "./utils";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 function TransferOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");

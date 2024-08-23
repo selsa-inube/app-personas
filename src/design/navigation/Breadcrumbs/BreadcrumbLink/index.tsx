@@ -1,6 +1,6 @@
-import { Text } from "@design/data/Text";
 import { StyledBreadcrumbLink, StyledContainerLink } from "./styles";
 import { breadcrumbSize, BreadcrumbSizeType } from "../types";
+import { Text } from "@inubekit/text";
 
 interface BreadcrumbLinkProps {
   isActive?: boolean;

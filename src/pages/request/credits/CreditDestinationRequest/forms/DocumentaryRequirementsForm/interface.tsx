@@ -2,7 +2,6 @@ import { InfoCard } from "@components/cards/InfoCard";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -19,6 +18,7 @@ import {
 } from "react-icons/md";
 import { truncateFileName } from "src/utils/texts";
 import { IDocumentaryRequirementsEntry, ISelectedDocument } from "./types";
+import { Text } from "@inubekit/text";
 
 function renderRequirement(
   label: string,

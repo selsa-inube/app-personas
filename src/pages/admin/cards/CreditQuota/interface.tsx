@@ -4,7 +4,6 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { QuotaDetailBox } from "@components/cards/cards/QuotaDetailBox";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
@@ -26,6 +25,7 @@ import { CurrentConsumption } from "@components/cards/cards/CurrentConsumption";
 import { IProduct } from "src/model/entity/product";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 interface CreditQuotaUIProps {
   cardId?: string;

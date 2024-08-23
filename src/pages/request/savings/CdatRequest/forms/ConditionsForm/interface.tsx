@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Table } from "@design/data/Table";
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
@@ -11,6 +10,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 import { FormikValues } from "formik";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";

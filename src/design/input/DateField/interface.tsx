@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { IDateFieldMessage } from "../DateField/types";
@@ -12,6 +11,7 @@ import {
 
 import { DateFieldProps } from ".";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { Label } from "@inubekit/label";
 
 function Invalid(props: IDateFieldMessage) {
