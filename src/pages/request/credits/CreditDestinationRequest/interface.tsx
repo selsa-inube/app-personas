@@ -1,3 +1,4 @@
+import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
@@ -115,6 +116,7 @@ interface CreditDestinationRequestUIProps {
   isCurrentFormValid: boolean;
   creditDestinationRequest: IFormsCreditDestinationRequest;
   formReferences: IFormsCreditDestinationRequestRefs;
+  loadingSend: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
@@ -129,6 +131,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
     isCurrentFormValid,
     creditDestinationRequest,
     formReferences,
+    loadingSend,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
@@ -193,6 +196,13 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
           </Stack>
         </Stack>
       </Stack>
+
+      {loadingSend && (
+        <LoadingModal
+          title="Generando solicitud..."
+          message="Espera unos segundos, estamos generando la solicitud."
+        />
+      )}
     </>
   );
 }

@@ -27,7 +27,7 @@ function Assisted(props: AssistedProps) {
     : steps;
 
   const currentStepIndex = activeSteps.findIndex(
-    (step) => step.id === currentStep
+    (step) => step.id === currentStep,
   );
 
   const currentStepInfo = activeSteps.find((step) => step.id === currentStep);

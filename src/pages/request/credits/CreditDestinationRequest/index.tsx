@@ -27,6 +27,8 @@ import { creditDestinationStepsRules } from "./utils";
 function CreditDestinationRequest() {
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const [loadingSend, setLoadingSend] = useState(false);
+
   const [currentStep, setCurrentStep] = useState(
     creditDestinationRequestSteps.destination.id,
   );
@@ -154,13 +156,15 @@ function CreditDestinationRequest() {
   };
 
   const handleFinishAssisted = () => {
-    return true;
+    setLoadingSend(true);
   };
 
   const handleNextStep = () => {
     if (currentStep + 1 <= steps.length) {
       handleStepChange(currentStep + 1);
+      return;
     }
+    handleFinishAssisted();
   };
 
   const handlePreviousStep = () => {
@@ -178,6 +182,7 @@ function CreditDestinationRequest() {
       creditDestinationRequest={creditDestinationRequest}
       currentStep={currentStep}
       formReferences={formReferences}
+      loadingSend={loadingSend}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
