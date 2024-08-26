@@ -1,9 +1,4 @@
-import { IValidation } from "src/model/entity/service";
-
-interface ISelectedDocument {
-  file: File;
-  id: string;
-}
+import { ISelectedDocument, IValidation } from "src/model/entity/service";
 
 interface IDocumentaryRequirementsEntry {
   requiredDocuments: IValidation[];
@@ -11,4 +6,4 @@ interface IDocumentaryRequirementsEntry {
   withDocumentaryRequirements: boolean;
 }
 
-export type { IDocumentaryRequirementsEntry, ISelectedDocument };
+export type { IDocumentaryRequirementsEntry };

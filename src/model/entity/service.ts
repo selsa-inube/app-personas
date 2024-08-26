@@ -14,6 +14,11 @@ interface IValidations {
   regulations: IValidation[];
 }
 
+interface ISelectedDocument {
+  file: File;
+  id: string;
+}
+
 interface IAid {
   id: string;
   title: string;
@@ -21,4 +26,4 @@ interface IAid {
   validations: IValidations;
 }
 
-export type { IAid, IValidation, ValidationValueType };
+export type { IAid, IValidation, ValidationValueType, ISelectedDocument };

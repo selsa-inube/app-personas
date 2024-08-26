@@ -1,7 +1,9 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { DocumentaryRequirementsFormUI } from "./interface";
 import { IDocumentaryRequirementsEntry } from "./types";
+
+const MAX_SIZE_PER_FILE = 2.5;
 
 interface DocumentaryRequirementsFormProps {
   initialValues: IDocumentaryRequirementsEntry;
@@ -13,9 +15,14 @@ const DocumentaryRequirementsForm = forwardRef(
     props: DocumentaryRequirementsFormProps,
     ref: React.Ref<FormikProps<IDocumentaryRequirementsEntry>>,
   ) {
-    const { initialValues, onFormValid } = props;
+    const { initialValues } = props;
 
     const [showInfoModal, setShowInfoModal] = useState(false);
+
+    const [attachModal, setAttachModal] = useState({
+      show: false,
+      id: "",
+    });
 
     const formik = useFormik({
       initialValues,
@@ -25,16 +32,13 @@ const DocumentaryRequirementsForm = forwardRef(
 
     useImperativeHandle(ref, () => formik);
 
-    useEffect(() => {
-      if (onFormValid) {
-        onFormValid(formik.values.selectedDocuments.length > 0);
-      }
-    }, [formik.values.selectedDocuments]);
-
-    const handleSelectDocuments = (files: FileList) => {
+    const handleSelectDocument = async (file: File, id: string) => {
       formik.setFieldValue("selectedDocuments", [
         ...formik.values.selectedDocuments,
-        ...Array.from(files),
+        {
+          file,
+          id,
+        },
       ]);
     };
 
@@ -42,22 +46,40 @@ const DocumentaryRequirementsForm = forwardRef(
       formik.setFieldValue(
         "selectedDocuments",
         formik.values.selectedDocuments.filter(
-          (document) => document.name !== id,
+          (document) => document.id !== id,
         ),
       );
     };
 
     const handleToggleInfoModal = () => {
       setShowInfoModal(!showInfoModal);
-    }
+    };
+
+    const handleOpenAttachModal = (id: string) => {
+      setAttachModal({
+        show: true,
+        id,
+      });
+    };
+
+    const handleCloseAttachModal = () => {
+      setAttachModal({
+        show: false,
+        id: "",
+      });
+    };
 
     return (
       <DocumentaryRequirementsFormUI
         formik={formik}
         showInfoModal={showInfoModal}
-        onSelectDocuments={handleSelectDocuments}
+        maxFileSize={MAX_SIZE_PER_FILE}
+        attachModal={attachModal}
+        onSelectDocument={handleSelectDocument}
         onRemoveDocument={handleRemoveDocument}
         onToggleInfoModal={handleToggleInfoModal}
+        onOpenAttachModal={handleOpenAttachModal}
+        onCloseAttachModal={handleCloseAttachModal}
       />
     );
   },
