@@ -5,7 +5,7 @@ import { mapTermsConditionsApiToEntity } from "./mappers";
 const getTermsConditions = async (
   accessToken: string,
   productId: string,
-): Promise<string | undefined> => {
+): Promise<string[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
@@ -34,7 +34,7 @@ const getTermsConditions = async (
     );
 
     if (res.status === 204) {
-      return;
+      return [];
     }
 
     const data = await res.json();

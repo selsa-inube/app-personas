@@ -96,7 +96,7 @@ const comments: ICommentsEntry = {
 
 const termsAndConditions: ITermsAndConditionsEntry = {
   productId: "",
-  termsConditions: "",
+  termsConditions: [],
   accept: false,
   acceptDataPolicy: false,
 };

@@ -11,6 +11,14 @@ import {
 } from "./styles";
 import { ITermsAndConditionsEntry } from "./types";
 
+const getTermsAndConditionsParag = (texts: string[]) => {
+  return texts.map((text, index) => (
+    <Text key={index} type="body" size="small">
+      {text}
+    </Text>
+  ));
+};
+
 function CustomLabelPolicy() {
   return (
     <Text type="label" size="large">
@@ -45,9 +53,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
       >
         <StyledTermsAndConditionsContainer $isMobile={isMobile}>
           <StyledTermsAndConditionsInfo $isMobile={isMobile}>
-            <Text type="body" size="small">
-              {formik.values.termsConditions}
-            </Text>
+            {getTermsAndConditionsParag(formik.values.termsConditions)}
           </StyledTermsAndConditionsInfo>
         </StyledTermsAndConditionsContainer>
         <Switch
