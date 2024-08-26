@@ -51,6 +51,10 @@ function CreditDestinationRequest() {
         isValid: false,
         values: initalValuesCreditDestination.paymentMethod,
       },
+      disbursement: {
+        isValid: false,
+        values: initalValuesCreditDestination.disbursement,
+      },
       systemValidations: {
         isValid: false,
         values: initalValuesCreditDestination.systemValidations,
@@ -58,10 +62,6 @@ function CreditDestinationRequest() {
       documentaryRequirements: {
         isValid: true,
         values: initalValuesCreditDestination.documentaryRequirements,
-      },
-      disbursement: {
-        isValid: false,
-        values: initalValuesCreditDestination.disbursement,
       },
       comments: {
         isValid: true,
@@ -83,11 +83,11 @@ function CreditDestinationRequest() {
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const creditConditionsRef = useRef<FormikProps<ICreditConditionsEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
+  const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
   const documentaryRequirementsRef =
     useRef<FormikProps<IDocumentaryRequirementsEntry>>(null);
-  const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
@@ -97,9 +97,9 @@ function CreditDestinationRequest() {
     destination: destinationRef,
     creditConditions: creditConditionsRef,
     paymentMethod: paymentMethodRef,
+    disbursement: disbursementRef,
     systemValidations: systemValidationsRef,
     documentaryRequirements: documentaryRequirementsRef,
-    disbursement: disbursementRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,

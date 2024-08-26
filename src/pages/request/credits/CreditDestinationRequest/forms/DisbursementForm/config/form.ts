@@ -1,9 +1,9 @@
-import { accountTypeData } from "@mocks/domains/accountType";
-import { bankData } from "@mocks/domains/bank";
 import { suppliersTypeData } from "@mocks/domains/suppliersType";
-import { usersMock } from "@mocks/users/users.mocks";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
+import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
+import { bankDM } from "src/model/domains/general/bankDM";
+import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
 import { statusDM } from "src/model/domains/general/statusdm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
@@ -68,21 +68,13 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
       validationMessages.required,
     ),
   } as IFormField,
-  accountType: (
-    gridColumn: string,
-    value?: string,
-    readOnly?: boolean,
-  ): IFormField => ({
+  accountType: (gridColumn: string, readOnly?: boolean): IFormField => ({
     name: "accountType",
     type: "select",
     label: "Tipo de cuenta",
     placeholder: "Escribe el numero de cuenta",
     size: "compact",
-    options: accountTypeData.map((accountType) => ({
-      value: accountType.value,
-      id: accountType.id,
-    })),
-    value,
+    options: accountTypeDM.options,
     isFullWidth: true,
     gridColumn,
     readOnly,
@@ -103,17 +95,12 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
       .min(5, validationMessages.minNumbers(5))
       .required(validationMessages.required),
   } as IFormField,
-  writeAccountNumber: (
-    gridColumn: string,
-    value?: string,
-    readOnly?: boolean,
-  ): IFormField => ({
+  writeAccountNumber: (gridColumn: string, readOnly?: boolean): IFormField => ({
     name: "writeAccountNumber",
     label: "Numero de cuenta",
     placeholder: "Escribe el numero de cuenta",
     size: "compact",
     type: "number",
-    value,
     validMessage: "El número de cuenta ingresado es válido",
     isFullWidth: true,
     gridColumn,
@@ -122,20 +109,12 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
       .min(5, validationMessages.minNumbers(5))
       .required(validationMessages.required),
   }),
-  entity: (
-    gridColumn: string,
-    value?: string,
-    readOnly?: boolean,
-  ): IFormField => ({
+  entity: (gridColumn: string, readOnly?: boolean): IFormField => ({
     name: "entity",
     type: "select",
     label: "Entidad",
     size: "compact",
-    options: bankData.map((bank) => ({
-      value: bank.value,
-      id: bank.id,
-    })),
-    value,
+    options: bankDM.options,
     isFullWidth: true,
     gridColumn,
     readOnly,
@@ -216,14 +195,16 @@ const structureDisbursementForm = (
 
   return {
     disbursementType: {
-      localSavingsDeposit: [commonFields.accountNumber],
+      [disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id]: [
+        commonFields.accountNumber,
+      ],
       multiplePaymentRecipients: [commonFields.observations],
       supplierManagerCheck: [commonFields.supplier("span 2")],
       thirdPartManagerCheck: [commonFields.identificationType],
       supplierPayeeCheck: [commonFields.supplier("span 1")],
       thirdPartPayeeCheck: [commonFields.identificationType],
       others: [commonFields.observations],
-      ownAccountTransfer: [
+      [disbursementTypeDM.OWN_ACCOUNT_TRANSFER.id]: [
         {
           name: "accountStatus",
           type: "select",
@@ -241,11 +222,14 @@ const structureDisbursementForm = (
         commonFields.accountType("span 2"),
         commonFields.writeAccountNumber("span 2"),
       ],
-      thirdPartExternalTransfer: [commonFields.identificationType],
+      [disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id]: [
+        commonFields.identificationType,
+      ],
     },
     identificationType: {
       [identificationTypeDM.NIT.id]:
-        formik.values.disbursementType === "thirdPartExternalTransfer"
+        formik.values.disbursementType ===
+        disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id
           ? [
               commonFields.identification,
               commonFields.socialReason,
@@ -255,7 +239,8 @@ const structureDisbursementForm = (
             ]
           : [commonFields.identification, commonFields.socialReason],
       [identificationTypeDM.CC.id]:
-        formik.values.disbursementType === "thirdPartExternalTransfer"
+        formik.values.disbursementType ===
+        disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id
           ? [
               commonFields.identification,
               commonFields.firstName,
@@ -276,7 +261,8 @@ const structureDisbursementForm = (
               commonFields.gender,
             ],
       [identificationTypeDM.CE.id]:
-        formik.values.disbursementType === "thirdPartExternalTransfer"
+        formik.values.disbursementType ===
+        disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id
           ? [
               commonFields.identification,
               commonFields.firstName,
@@ -297,7 +283,8 @@ const structureDisbursementForm = (
               commonFields.gender,
             ],
       [identificationTypeDM.PA.id]:
-        formik.values.disbursementType === "thirdPartExternalTransfer"
+        formik.values.disbursementType ===
+        disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id
           ? [
               commonFields.identification,
               commonFields.firstName,
@@ -325,21 +312,9 @@ const structureDisbursementForm = (
         commonFields.writeAccountNumber("span 1"),
       ],
       [statusDM.REGISTERED.id]: [
-        commonFields.entity(
-          "span 1",
-          usersMock[0].bankTransfersAccount.bankEntity,
-          true,
-        ),
-        commonFields.accountType(
-          "span 1",
-          usersMock[0].bankTransfersAccount.accountType,
-          true,
-        ),
-        commonFields.writeAccountNumber(
-          "span 1",
-          String(usersMock[0].bankTransfersAccount.accountNumber),
-          true,
-        ),
+        commonFields.entity("span 1", true),
+        commonFields.accountType("span 1", true),
+        commonFields.writeAccountNumber("span 1", true),
       ],
     },
   };

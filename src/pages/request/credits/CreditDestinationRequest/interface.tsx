@@ -57,6 +57,13 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
+      {currentStep === creditDestinationRequestSteps.disbursement.id && (
+        <DisbursementForm
+          initialValues={creditDestinationRequest.disbursement.values}
+          ref={formReferences.disbursement}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep === creditDestinationRequestSteps.systemValidations.id && (
         <SystemValidationsForm
           initialValues={creditDestinationRequest.systemValidations.values}
@@ -71,13 +78,6 @@ const renderStepContent = (
             creditDestinationRequest.documentaryRequirements.values
           }
           ref={formReferences.documentaryRequirements}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
-      {currentStep === creditDestinationRequestSteps.disbursement.id && (
-        <DisbursementForm
-          initialValues={creditDestinationRequest.disbursement.values}
-          ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
         />
       )}
