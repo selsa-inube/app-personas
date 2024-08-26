@@ -1,16 +1,15 @@
 import { TextField } from "@design/input/TextField";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
 import { FormikProps } from "formik";
 import { MdAttachMoney } from "react-icons/md";
 import {
-  currencyFormat,
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { IAmountEntry } from "./types";
-import { inube } from "@design/tokens";
-import { Grid } from "@inubekit/grid";
 
 interface AmountFormUIProps {
   formik: FormikProps<IAmountEntry>;
@@ -24,8 +23,7 @@ function AmountFormUI(props: AmountFormUIProps) {
   return (
     <form>
       <Grid
-        width="100%"
-        templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+        templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}
         autoRows="auto"
         gap={inube.spacing.s300}
       >
@@ -33,8 +31,8 @@ function AmountFormUI(props: AmountFormUIProps) {
           label="Cupo disponible"
           name="quotaAvailable"
           id="quotaAvailable"
-          placeholder=""
-          value={currencyFormat(formik.values.quotaAvailable, false)}
+          placeholder="Ingresa el valor del auxilio"
+          value={validateCurrencyField("quotaAvailable", formik) || ""}
           type="text"
           size="compact"
           isFullWidth

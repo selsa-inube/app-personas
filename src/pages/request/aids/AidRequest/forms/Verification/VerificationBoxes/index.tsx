@@ -1,4 +1,8 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
 import { reimbursementTypeDM } from "src/model/domains/general/updateData/economicActivity/reimbursementTypeDM";
 import { currencyFormat } from "src/utils/currency";
@@ -11,10 +15,6 @@ import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { inube } from "@design/tokens";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -53,7 +53,7 @@ const renderAmountVerification = (values: IAmountEntry, isTablet: boolean) => {
     >
       <BoxAttribute
         label="Valor de la solicitud:"
-        value={currencyFormat(values.applicationValue)}
+        value={currencyFormat(values.applicationValue || 0)}
       />
     </Grid>
   );
