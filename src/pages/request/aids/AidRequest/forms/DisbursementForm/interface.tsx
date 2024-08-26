@@ -23,7 +23,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
   return (
     <form>
       <Grid
-        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+        templateColumns={`repeat(${isTablet ? 1 : 3}, 1fr)`}
         autoRows="auto"
         gap={inube.spacing.s200}
       >
