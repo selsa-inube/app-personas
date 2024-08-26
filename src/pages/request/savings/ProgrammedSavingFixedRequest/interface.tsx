@@ -1,5 +1,3 @@
-import { QuickAccess } from "@components/cards/QuickAccess";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
@@ -7,6 +5,7 @@ import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { CommentsForm } from "../../../../shared/forms/CommentsForm";
@@ -21,8 +20,6 @@ import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 
 const renderStepContent = (
   currentStep: number,
@@ -130,7 +127,9 @@ function ProgrammedSavingFixedRequestUI(
         />
       </Stack>
 
-      <Grid
+      <Stack
+        width="100%"
+        direction="column"
         margin={
           isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
         }
@@ -141,7 +140,6 @@ function ProgrammedSavingFixedRequestUI(
               ? inube.spacing.s500
               : inube.spacing.s600
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
         <Stack
           direction="column"
@@ -186,8 +184,7 @@ function ProgrammedSavingFixedRequestUI(
             </Stack>
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
-      </Grid>
+      </Stack>
     </>
   );
 }
