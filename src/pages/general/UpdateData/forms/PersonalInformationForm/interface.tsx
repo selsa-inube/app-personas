@@ -3,10 +3,10 @@ import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { bloodTypeDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
@@ -94,9 +94,9 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size={isMobile ? "medium" : "small"}
         >
           <Grid
-             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-             autoRows="auto"
-             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            autoRows="auto"
+            gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
           >
             <Select
               label="Tipo de identificación"
@@ -138,7 +138,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             />
 
             <Select
-              label="Estado / Departamento de expedición"
+              label="Estado de expedición"
               name="expeditionDepartment"
               id="expeditionDepartment"
               value={formik.values.expeditionDepartment}
@@ -186,9 +186,9 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           size={isTablet ? "medium" : "small"}
         >
           <Grid
-             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-             autoRows="auto"
-             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            autoRows="auto"
+            gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
           >
             <Select
               label="País de nacimiento"
