@@ -1,4 +1,4 @@
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 import { creditAmortizationTypeDM } from "src/model/domains/credits/creditAmortizationTypeDM";
 import { creditPeriodicityDM } from "src/model/domains/credits/creditPeriodicityDM";
 
@@ -359,11 +359,12 @@ const mapCreditApiToEntity = (
     });
   }
 
-  const tags: TagProps[] = inArrears
+  const tags: ITag[] = inArrears
     ? [
         {
           label: "En mora",
           appearance: "danger",
+          weight: "strong",
         },
       ]
     : [];

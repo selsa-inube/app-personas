@@ -1,9 +1,9 @@
-import { TagAppearanceType } from "@design/data/Tag/types";
+import { ITag } from "@inubekit/tag";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
 import { IRequest } from "src/model/entity/request";
 
-const requestStatusAppearance: Record<string, TagAppearanceType> = {
+const requestStatusAppearance: Record<string, ITag["appearance"]> = {
   Created: "warning",
   InStudy: "warning",
   InProgress: "warning",
@@ -33,8 +33,6 @@ const mapRequestApiToEntity = (
     tag: {
       label: requestStatusDM.valueOf(String(request.status))?.value || "",
       appearance: requestStatusAppearance[String(request.status)],
-      textAppearance: requestStatusAppearance[String(request.status)],
-      modifier: "clear",
     },
     validations: [],
     documentaryRequirements: [],

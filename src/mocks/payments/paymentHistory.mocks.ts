@@ -11,8 +11,6 @@ const paymentHistoryMock: IPaymentHistory[] = [
     tag: {
       label: "En progreso",
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
     products: [
       {
@@ -43,8 +41,6 @@ const paymentHistoryMock: IPaymentHistory[] = [
     tag: {
       label: "Rechazado",
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
     products: [
       {
@@ -64,8 +60,6 @@ const paymentHistoryMock: IPaymentHistory[] = [
     tag: {
       label: "Completado",
       appearance: "success",
-      textAppearance: "success",
-      modifier: "clear",
     },
     products: [
       {
@@ -85,8 +79,6 @@ const paymentHistoryMock: IPaymentHistory[] = [
     tag: {
       label: "Completado",
       appearance: "success",
-      textAppearance: "success",
-      modifier: "clear",
     },
     products: [
       {
@@ -112,8 +104,6 @@ const paymentHistoryMock: IPaymentHistory[] = [
     tag: {
       label: "Completado",
       appearance: "success",
-      textAppearance: "success",
-      modifier: "clear",
     },
     products: [
       {
@@ -144,8 +134,6 @@ const paymentHistoryMock: IPaymentHistory[] = [
     tag: {
       label: "Completado",
       appearance: "success",
-      textAppearance: "success",
-      modifier: "clear",
     },
     products: [
       {
@@ -166,8 +154,6 @@ const paymentHistoryMock: IPaymentHistory[] = [
     tag: {
       label: "Rechazado",
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
     products: [
       {
@@ -188,8 +174,6 @@ const paymentHistoryMock: IPaymentHistory[] = [
     tag: {
       label: "Completado",
       appearance: "success",
-      textAppearance: "success",
-      modifier: "clear",
     },
     products: [
       {
@@ -220,8 +204,6 @@ const paymentHistoryMock: IPaymentHistory[] = [
     tag: {
       label: "Rechazado",
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
     products: [
       {

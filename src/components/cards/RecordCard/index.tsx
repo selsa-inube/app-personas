@@ -10,12 +10,12 @@ import {
 } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
-import { Tag, TagProps } from "@design/data/Tag";
 import { formatPrimaryDate } from "src/utils/dates";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { ITag, Tag } from "@inubekit/tag";
 
 const getIconForRecordType = (type: EMovementType) => {
   return (
@@ -68,7 +68,7 @@ interface RecordCardProps {
   description: string;
   totalValue: number;
   withExpandingIcon?: boolean;
-  tag?: TagProps;
+  tag?: ITag;
   loading?: boolean;
   attributes: { id: string; label: string; value: number | string | Date }[];
   onClick?: (movementId: string) => void;
@@ -104,7 +104,10 @@ function RecordCard(props: RecordCardProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s100}>
-      <Stack justifyContent="space-between" gap={isMobile ? inube.spacing.s150 : inube.spacing.s500}>
+      <Stack
+        justifyContent="space-between"
+        gap={isMobile ? inube.spacing.s150 : inube.spacing.s500}
+      >
         {loading ? (
           <>
             <Stack gap={inube.spacing.s150}>
@@ -127,8 +130,7 @@ function RecordCard(props: RecordCardProps) {
                 <Tag
                   label={tag.label}
                   appearance={tag.appearance}
-                  textAppearance={tag.textAppearance}
-                  modifier={tag.modifier}
+                  weight="normal"
                 />
               )}
             </Stack>
@@ -176,8 +178,6 @@ function RecordCard(props: RecordCardProps) {
                 <Tag
                   label={tag.label}
                   appearance={tag.appearance}
-                  textAppearance={tag.textAppearance}
-                  modifier={tag.modifier}
                 />
               )}
             </Stack>

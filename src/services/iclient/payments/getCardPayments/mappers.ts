@@ -1,4 +1,4 @@
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import {
   EPaymentGroupType,
@@ -133,12 +133,10 @@ const mapCardPaymentApiToEntity = (
     String(cardPayment.paymentMethodName),
   );
 
-  const tags: TagProps[] = [
+  const tags: ITag[] = [
     {
       label: paymentMethodName,
       appearance: "gray",
-      modifier: "clear",
-      textAppearance: "gray",
     },
   ];
 

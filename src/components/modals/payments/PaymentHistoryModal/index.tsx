@@ -1,4 +1,3 @@
-import { Tag } from "@design/data/Tag";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import React from "react";
 import { createPortal } from "react-dom";
@@ -18,6 +17,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Tag } from "@inubekit/tag";
 
 const renderAttribute = (
   label: string,
@@ -119,9 +119,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
               </Text>
               <Tag
                 label={paymentHistoryData.tag.label}
-                appearance={paymentHistoryData.tag.appearance}
-                textAppearance={paymentHistoryData.tag.textAppearance}
-                modifier={paymentHistoryData.tag.modifier}
+                appearance={paymentHistoryData.tag.appearance || "warning"}
               />
             </Stack>
           )}
@@ -156,9 +154,7 @@ function PaymentHistoryModal(props: PaymentHistoryModalProps) {
                 </Stack>
                 <Tag
                   label={paymentHistoryData.tag.label}
-                  appearance={paymentHistoryData.tag.appearance}
-                  textAppearance={paymentHistoryData.tag.textAppearance}
-                  modifier={paymentHistoryData.tag.modifier}
+                  appearance={paymentHistoryData.tag.appearance || "warning"}
                 />
               </Stack>
               <Divider dashed />
