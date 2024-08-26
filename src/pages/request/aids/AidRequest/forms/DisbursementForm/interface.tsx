@@ -43,7 +43,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
         />
 
         <Select
-          label="Cuenta"
+          label="Número de cuenta"
           name="account"
           id="account"
           size="compact"
