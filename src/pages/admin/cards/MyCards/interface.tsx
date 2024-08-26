@@ -76,7 +76,7 @@ function MyCardsUI(props: MyCardsUIProps) {
                       <Product
                         key={card.id}
                         title={card.title}
-                        description={card.id}
+                        description={card.description}
                         attributes={extractCardAttributes(card)}
                         breakpoints={cardAttributeBreakpoints}
                         tags={card.tags}
