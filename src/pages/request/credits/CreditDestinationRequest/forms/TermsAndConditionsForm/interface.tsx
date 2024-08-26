@@ -5,11 +5,11 @@ import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";
 import { termsAndConditionsTexts } from "./config/termsAndConditions";
 import {
-  StyledLinkPolicy,
   StyledTermsAndConditionsContainer,
   StyledTermsAndConditionsInfo,
 } from "./styles";
 import { Text } from "@inubekit/text";
+import { Link } from "@inubekit/link";
 
 const getTermsAndConditionsParag = (texts: string[]) => {
   return texts.map((text, index) => (
@@ -23,13 +23,15 @@ function CustomLabelPolicy() {
   return (
     <Text type="label" size="large">
       Acepto la{" "}
-      <StyledLinkPolicy
-        to="https://fondecom.coop/wp-content/uploads/2023/10/EGSI-RI-MN-005_Manual_De_Politicas_Y_Procedimientos_De_Proteccion_V4.pdf"
+      <Link
+        type="label"
+        size="large"
+        path="https://fondecom.coop/wp-content/uploads/2023/10/EGSI-RI-MN-005_Manual_De_Politicas_Y_Procedimientos_De_Proteccion_V4.pdf"
         target="_blank"
         rel="noreferrer"
       >
         Política de tratamiento de datos
-      </StyledLinkPolicy>
+      </Link>
     </Text>
   );
 }
