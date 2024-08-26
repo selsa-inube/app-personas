@@ -1,5 +1,3 @@
-import { QuickAccess } from "@components/cards/QuickAccess";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
@@ -7,6 +5,7 @@ import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { CommentsForm } from "../../../../shared/forms/CommentsForm";
@@ -21,8 +20,6 @@ import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 
 const renderStepContent = (
   currentStep: number,
@@ -114,9 +111,7 @@ function ProgrammedSavingFixedRequestUI(
     handlePreviousStep,
   } = props;
 
-  const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
-  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
     <>
@@ -130,64 +125,49 @@ function ProgrammedSavingFixedRequestUI(
         />
       </Stack>
 
-      <Grid
-        margin={
-          isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
-        }
-        gap={
-          isMobile
-            ? inube.spacing.s300
-            : isTablet
-              ? inube.spacing.s500
-              : inube.spacing.s600
-        }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
+      <Stack
+        direction="column"
+        gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
       >
-        <Stack
-          direction="column"
-          gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
-        >
-          <Assisted
-            steps={steps}
-            currentStep={currentStep}
-            onFinishAssisted={handleFinishAssisted}
-            onStepChange={handleStepChange}
-            disableNextStep={!isCurrentFormValid}
-          />
+        <Assisted
+          steps={steps}
+          currentStep={currentStep}
+          onFinishAssisted={handleFinishAssisted}
+          onStepChange={handleStepChange}
+          disableNextStep={!isCurrentFormValid}
+        />
 
-          <Stack direction="column" gap={inube.spacing.s300}>
-            {renderStepContent(
-              currentStep,
-              formReferences,
-              programmedSavingFixedRequest,
-              setIsCurrentFormValid,
-              handleStepChange,
-            )}
+        <Stack direction="column" gap={inube.spacing.s300}>
+          {renderStepContent(
+            currentStep,
+            formReferences,
+            programmedSavingFixedRequest,
+            setIsCurrentFormValid,
+            handleStepChange,
+          )}
 
-            <Stack gap={inube.spacing.s150} justifyContent="flex-end">
-              <Button
-                onClick={handlePreviousStep}
-                type="button"
-                disabled={currentStep === steps[0].id}
-                spacing="compact"
-                variant="outlined"
-                appearance="gray"
-              >
-                Atrás
-              </Button>
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
+            <Button
+              onClick={handlePreviousStep}
+              type="button"
+              disabled={currentStep === steps[0].id}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Atrás
+            </Button>
 
-              <Button
-                onClick={handleNextStep}
-                spacing="compact"
-                disabled={!isCurrentFormValid}
-              >
-                {currentStep === steps.length ? "Enviar" : "Siguiente"}
-              </Button>
-            </Stack>
+            <Button
+              onClick={handleNextStep}
+              spacing="compact"
+              disabled={!isCurrentFormValid}
+            >
+              {currentStep === steps.length ? "Enviar" : "Siguiente"}
+            </Button>
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
-      </Grid>
+      </Stack>
     </>
   );
 }
