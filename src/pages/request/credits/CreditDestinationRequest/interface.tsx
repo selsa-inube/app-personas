@@ -144,23 +144,30 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
+  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
     <>
-      <Stack direction="column" gap={inube.spacing.s300}>
-        <Breadcrumbs crumbs={crumbsCreditDestinationRequest} />
-        <Title
-          title="Solicitud por destinación"
-          subtitle="Simula tu solicitud de crédito"
-          icon={<MdArrowBack />}
-          navigatePage="/credits"
-        />
-      </Stack>
-
       <Stack
         direction="column"
-        gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
+        <Stack direction="column" gap={inube.spacing.s300}>
+          <Breadcrumbs crumbs={crumbsCreditDestinationRequest} />
+          <Title
+            title="Solicitud por destinación"
+            subtitle="Simula tu solicitud de crédito"
+            icon={<MdArrowBack />}
+            navigatePage="/credits"
+          />
+        </Stack>
+
         <Assisted
           steps={steps}
           currentStep={currentStep}
