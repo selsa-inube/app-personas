@@ -1,4 +1,4 @@
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 import {
   ECommitmentType,
   EMovementType,
@@ -154,10 +154,11 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
-  const tag: TagProps | undefined = inArrears
+  const tag: ITag | undefined = inArrears
     ? {
         label: "En mora",
         appearance: "danger",
+        weight: "strong",
       }
     : undefined;
 

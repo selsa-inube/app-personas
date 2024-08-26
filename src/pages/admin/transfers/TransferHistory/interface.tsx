@@ -44,7 +44,13 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
     <>
       <Stack
         direction="column"
-        gap={isMobile ? inube.spacing.s300 : isTablet ? inube.spacing.s500 : inube.spacing.s600}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
         <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsTransferHistory} />
@@ -93,7 +99,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
                       type={EMovementType.RECORD}
                       description={transfer.title}
                       totalValue={transfer.value}
-                      tag={transfer.tag}
+                      tag={transfer.tag.label !== "" ? transfer.tag : undefined}
                       attributes={generateAttributes(transfer)}
                     />
                     {index !== transferHistory.length - 1 && <Divider dashed />}

@@ -108,7 +108,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                       type={EMovementType.RECORD}
                       description={payment.title}
                       totalValue={payment.value}
-                      tag={payment.tag}
+                      tag={payment.tag.label !== "" ? payment.tag : undefined}
                       attributes={generateAttributes(payment)}
                       onClick={() => onTogglePaymentHistoryModal(payment)}
                       withExpandingIcon

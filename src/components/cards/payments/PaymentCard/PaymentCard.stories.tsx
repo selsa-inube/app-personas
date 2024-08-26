@@ -43,8 +43,6 @@ Default.args = {
     {
       label: "Fondecom mensual",
       appearance: "primary",
-      modifier: "clear",
-      textAppearance: "primary",
     },
   ],
   allowCustomValue: true,

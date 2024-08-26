@@ -1,4 +1,4 @@
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 import { IValidation } from "./service";
 interface IRequest {
   id: string;
@@ -15,7 +15,7 @@ interface IRequest {
   deadline: string;
   interestRate: number;
   netValue: number;
-  tag: TagProps;
+  tag: ITag;
   validations: IValidation[];
   documentaryRequirements: IValidation[];
 }

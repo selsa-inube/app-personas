@@ -41,8 +41,6 @@ const paymentsMock: IPayment[] = [
       {
         label: "Fondecom mensual",
         appearance: "primary",
-        modifier: "clear",
-        textAppearance: "primary",
       },
     ],
     supportDocumentType: ESupportDocumentType.FINANCIALPORTFOLIO,
@@ -81,8 +79,6 @@ const paymentsMock: IPayment[] = [
       {
         label: "Debito automático",
         appearance: "primary",
-        modifier: "clear",
-        textAppearance: "primary",
       },
     ],
     supportDocumentType: ESupportDocumentType.ACCOUNTSPAYABLE,
@@ -121,8 +117,6 @@ const paymentsMock: IPayment[] = [
       {
         label: "Ventanilla",
         appearance: "primary",
-        modifier: "clear",
-        textAppearance: "primary",
       },
     ],
     supportDocumentType: ESupportDocumentType.ACCOUNTSPAYABLE,
@@ -165,8 +159,6 @@ const paymentsMock: IPayment[] = [
       {
         label: "Fondecom mensual",
         appearance: "primary",
-        modifier: "clear",
-        textAppearance: "primary",
       },
     ],
     supportDocumentType: ESupportDocumentType.FINANCIALPORTFOLIO,

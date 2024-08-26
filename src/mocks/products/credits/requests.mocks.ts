@@ -21,8 +21,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.CREATED.value,
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
     validations: [
       {
@@ -94,8 +92,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.IN_STUDY.value,
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
     validations: [
       {
@@ -167,8 +163,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.IN_PROGRESS.value,
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
     validations: [
       {
@@ -240,8 +234,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.IN_DISBURSEMENT.value,
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
     validations: [
       {
@@ -313,8 +305,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.COMPLETED.value,
       appearance: "success",
-      textAppearance: "success",
-      modifier: "clear",
     },
     validations: [
       {
@@ -386,8 +376,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.REJECTED.value,
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
     validations: [
       {

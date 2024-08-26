@@ -1251,7 +1251,7 @@ const fondecomTheme = {
     primary: {
       normal: {
         background: {
-          color: "fondecom.palette.blue.b50",
+          color: palette.blue.b50,
         },
         content: {
           appearance: "primary",
@@ -1259,7 +1259,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.blue.b400",
+          color: palette.blue.b400,
         },
         content: {
           appearance: "light",
@@ -1269,7 +1269,7 @@ const fondecomTheme = {
     success: {
       normal: {
         background: {
-          color: "fondecom.palette.green.g50",
+          color: palette.green.g50,
         },
         content: {
           appearance: "success",
@@ -1277,7 +1277,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.green.g400",
+          color: palette.green.g400,
         },
         content: {
           appearance: "light",
@@ -1287,7 +1287,7 @@ const fondecomTheme = {
     warning: {
       normal: {
         background: {
-          color: "fondecom.palette.yellow.y50",
+          color: palette.yellow.y50,
         },
         content: {
           appearance: "warning",
@@ -1295,7 +1295,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.yellow.y400",
+          color: palette.yellow.y400,
         },
         content: {
           appearance: "dark",
@@ -1305,7 +1305,7 @@ const fondecomTheme = {
     danger: {
       normal: {
         background: {
-          color: "fondecom.palette.red.r50",
+          color: palette.red.r50,
         },
         content: {
           appearance: "danger",
@@ -1313,7 +1313,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.red.r400",
+          color: palette.red.r400,
         },
         content: {
           appearance: "light",
@@ -1323,7 +1323,7 @@ const fondecomTheme = {
     help: {
       normal: {
         background: {
-          color: "fondecom.palette.purple.p50",
+          color: palette.purple.p50,
         },
         content: {
           appearance: "help",
@@ -1331,7 +1331,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.purple.p400",
+          color: palette.purple.p400,
         },
         content: {
           appearance: "light",
@@ -1341,7 +1341,7 @@ const fondecomTheme = {
     dark: {
       normal: {
         background: {
-          color: "fondecom.palette.neutral.n30",
+          color: palette.neutral.n30,
         },
         content: {
           appearance: "dark",
@@ -1349,7 +1349,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.neutral.n900",
+          color: palette.neutral.n900,
         },
         content: {
           appearance: "light",
@@ -1359,7 +1359,7 @@ const fondecomTheme = {
     gray: {
       normal: {
         background: {
-          color: "fondecom.palette.neutral.n10",
+          color: palette.neutral.n10,
         },
         content: {
           appearance: "gray",
@@ -1367,7 +1367,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.neutral.n30",
+          color: palette.neutral.n30,
         },
         content: {
           appearance: "gray",
@@ -1377,7 +1377,7 @@ const fondecomTheme = {
     light: {
       normal: {
         background: {
-          color: "fondecom.palette.neutral.n0",
+          color: palette.neutral.n0,
         },
         content: {
           appearance: "dark",
@@ -1385,7 +1385,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.neutral.n10",
+          color: palette.neutral.n10,
         },
         content: {
           appearance: "dark",

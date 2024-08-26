@@ -5,7 +5,6 @@ import { Button } from "@design/input/Button";
 import { Divider } from "@inubekit/divider";
 import { SkeletonLine } from "@inubekit/skeleton";
 
-import { Tag, TagProps } from "@design/data/Tag";
 import {
   ButtonAppearanceType,
   ButtonVariantType,
@@ -15,6 +14,7 @@ import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { ITag, Tag } from "@inubekit/tag";
 
 interface BoxProps {
   icon?: React.JSX.Element;
@@ -34,7 +34,7 @@ interface BoxProps {
     allow: boolean;
     start: boolean;
   };
-  tags?: TagProps[];
+  tags?: ITag[];
   withCustomCollapse?: boolean;
   loading?: boolean;
   onCustomCollapse?: () => void;
@@ -102,7 +102,9 @@ function Box(props: BoxProps) {
                 )}
                 <Stack gap={inube.spacing.s050}>
                   {tags.length > 0 &&
-                    tags.map((tag) => <Tag {...tag} key={tag.label} />)}
+                    tags.map((tag) => (
+                      <Tag {...tag} key={tag.label} weight="strong" />
+                    ))}
                 </Stack>
               </Stack>
             </Stack>

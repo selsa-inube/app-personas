@@ -1,4 +1,4 @@
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 import { creditQuotaTypeDM } from "src/model/domains/cards/creditQuotaTypeDM.ts";
 import {
   EMovementType,
@@ -139,11 +139,12 @@ const mapCreditQuotaApiToEntity = (
       value: usedQuota,
     },
   ];
-  const tags: TagProps[] = inArrears
+  const tags: ITag[] = inArrears
     ? [
         {
           label: "En mora",
           appearance: "danger",
+          weight: "strong",
         },
       ]
     : [];
