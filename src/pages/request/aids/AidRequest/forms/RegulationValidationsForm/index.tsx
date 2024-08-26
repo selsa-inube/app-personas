@@ -1,10 +1,7 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import * as Yup from "yup";
 import { RegulationValidationsFormUI } from "./interface";
 import { IRegulationValidationsEntry } from "./types";
-
-const validationSchema = Yup.object().shape({});
 
 interface RegulationValidationsFormProps {
   initialValues: IRegulationValidationsEntry;
@@ -17,11 +14,10 @@ const RegulationValidationsForm = forwardRef(function RegulationValidationsForm(
 ) {
   const { initialValues, onFormValid } = props;
 
-  const [dynamicSchema] = useState(validationSchema);
+  const [loadingValids, setLoadingValids] = useState(false);
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicSchema,
     validateOnBlur: false,
     onSubmit: async () => true,
   });
@@ -29,6 +25,7 @@ const RegulationValidationsForm = forwardRef(function RegulationValidationsForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
+    setLoadingValids(true);
     setTimeout(() => {
       formik.setValues({
         ...formik.values,
@@ -37,6 +34,8 @@ const RegulationValidationsForm = forwardRef(function RegulationValidationsForm(
           value: "success",
         })),
       });
+
+      setLoadingValids(false);
     }, 1000);
   }, []);
 
@@ -50,7 +49,12 @@ const RegulationValidationsForm = forwardRef(function RegulationValidationsForm(
     }
   }, [formik.values.validations]);
 
-  return <RegulationValidationsFormUI formik={formik} />;
+  return (
+    <RegulationValidationsFormUI
+      formik={formik}
+      loadingValids={loadingValids}
+    />
+  );
 });
 
 export { RegulationValidationsForm };

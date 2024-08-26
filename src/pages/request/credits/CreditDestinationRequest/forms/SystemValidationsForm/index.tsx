@@ -10,12 +10,9 @@ import {
 import { AppContext } from "src/context/app";
 import { getRequirementsForProduct } from "src/services/iclient/credits/getRequirements";
 import { IRequirementRequest } from "src/services/iclient/credits/getRequirements/types";
-import * as Yup from "yup";
 import { SystemValidationsFormUI } from "./interface";
 import { ISystemValidationsEntry } from "./types";
 import { loadingValidations } from "./utils";
-
-const validationSchema = Yup.object().shape({});
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
@@ -28,8 +25,6 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
 ) {
   const { initialValues, onFormValid } = props;
 
-  const [dynamicSchema] = useState(validationSchema);
-
   const [loadingValids, setLoadingValids] = useState(false);
 
   const { accessToken } = useAuth();
@@ -37,7 +32,6 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicSchema,
     validateOnBlur: false,
     onSubmit: async () => true,
   });
