@@ -3,13 +3,13 @@ import { Switch } from "@design/input/Switch";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
-import { FormikValues } from "formik";
-import { termsAndConditionsTexts } from "./config/termsAndConditions";
+import { FormikProps } from "formik";
 import {
   StyledLinkPolicy,
   StyledTermsAndConditionsContainer,
   StyledTermsAndConditionsInfo,
 } from "./styles";
+import { ITermsAndConditionsEntry } from "./types";
 
 const getTermsAndConditionsParag = (texts: string[]) => {
   return texts.map((text, index) => (
@@ -35,7 +35,7 @@ function CustomLabelPolicy() {
 }
 
 interface TermsAndConditionsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<ITermsAndConditionsEntry>;
   loading?: boolean;
 }
 
@@ -53,7 +53,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
       >
         <StyledTermsAndConditionsContainer $isMobile={isMobile}>
           <StyledTermsAndConditionsInfo $isMobile={isMobile}>
-            {getTermsAndConditionsParag(termsAndConditionsTexts)}
+            {getTermsAndConditionsParag(formik.values.termsConditions)}
           </StyledTermsAndConditionsInfo>
         </StyledTermsAndConditionsContainer>
         <Switch
