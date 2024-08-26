@@ -1,6 +1,6 @@
 interface IAmountEntry {
   quotaAvailable: number;
-  applicationValue: number;
+  applicationValue?: number;
 }
 
 export type { IAmountEntry };
