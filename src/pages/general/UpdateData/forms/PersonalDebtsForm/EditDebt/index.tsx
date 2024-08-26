@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { EditDebtUI } from "./interface";
 import { IEntry } from "@design/data/Table/types";
-import { FormikValues } from "formik";
-import { IPersonalDebtEntry } from "../types";
+import { FormikProps, FormikValues } from "formik";
+import { useState } from "react";
+import { IPersonalDebtEntries, IPersonalDebtEntry } from "../types";
+import { EditDebtUI } from "./interface";
 
 interface EditDebtProps {
   debt: IEntry;
-  formik: FormikValues;
+  formik: FormikProps<IPersonalDebtEntries>;
 }
 
 const getEditDebt = (debt: IPersonalDebtEntry, formik: FormikValues) => {
   const debtToEdit: IPersonalDebtEntry = formik.values.entries.find(
-    (entry: IPersonalDebtEntry) => entry.id === debt.id
+    (entry: IPersonalDebtEntry) => entry.id === debt.id,
   );
 
   if (debtToEdit) {
@@ -32,7 +32,7 @@ function EditDebt(props: EditDebtProps) {
 
     if (formik.isValid && formik.values.liabilityType) {
       setShowModal(false);
-      const updatedEntries: IPersonalDebtEntry = formik.values.entries.map(
+      const updatedEntries: IPersonalDebtEntry[] = formik.values.entries.map(
         (entry: IPersonalDebtEntry) => {
           if (entry.id === debt.id) {
             return {
@@ -47,7 +47,7 @@ function EditDebt(props: EditDebtProps) {
             };
           }
           return entry;
-        }
+        },
       );
 
       formik.setFieldValue("entries", updatedEntries);

@@ -3,19 +3,20 @@ import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
+import { inube } from "@design/tokens";
+import { Stack } from "@inubekit/stack";
 import { IMessage } from "@ptypes/messages.types";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlineAccountBalance } from "react-icons/md";
 import { mapPersonalDebts } from "../../config/mappers";
 import {
   personalDebtsTableBreakpoints,
   personalDebtsTableTitles,
 } from "./config/table";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
+import { IPersonalDebtEntries } from "./types";
 
 interface PersonalDebtsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IPersonalDebtEntries>;
   showAddDebtModal: boolean;
   personalDebtsTableActions: IAction[];
   loading?: boolean;
