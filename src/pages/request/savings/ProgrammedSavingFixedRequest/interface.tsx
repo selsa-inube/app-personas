@@ -111,9 +111,7 @@ function ProgrammedSavingFixedRequestUI(
     handlePreviousStep,
   } = props;
 
-  const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
-  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
     <>
@@ -128,60 +126,45 @@ function ProgrammedSavingFixedRequestUI(
       </Stack>
 
       <Stack
-        width="100%"
         direction="column"
-        margin={
-          isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
-        }
-        gap={
-          isMobile
-            ? inube.spacing.s300
-            : isTablet
-              ? inube.spacing.s500
-              : inube.spacing.s600
-        }
+        gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
       >
-        <Stack
-          direction="column"
-          gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
-        >
-          <Assisted
-            steps={steps}
-            currentStep={currentStep}
-            onFinishAssisted={handleFinishAssisted}
-            onStepChange={handleStepChange}
-            disableNextStep={!isCurrentFormValid}
-          />
+        <Assisted
+          steps={steps}
+          currentStep={currentStep}
+          onFinishAssisted={handleFinishAssisted}
+          onStepChange={handleStepChange}
+          disableNextStep={!isCurrentFormValid}
+        />
 
-          <Stack direction="column" gap={inube.spacing.s300}>
-            {renderStepContent(
-              currentStep,
-              formReferences,
-              programmedSavingFixedRequest,
-              setIsCurrentFormValid,
-              handleStepChange,
-            )}
+        <Stack direction="column" gap={inube.spacing.s300}>
+          {renderStepContent(
+            currentStep,
+            formReferences,
+            programmedSavingFixedRequest,
+            setIsCurrentFormValid,
+            handleStepChange,
+          )}
 
-            <Stack gap={inube.spacing.s150} justifyContent="flex-end">
-              <Button
-                onClick={handlePreviousStep}
-                type="button"
-                disabled={currentStep === steps[0].id}
-                spacing="compact"
-                variant="outlined"
-                appearance="gray"
-              >
-                Atrás
-              </Button>
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
+            <Button
+              onClick={handlePreviousStep}
+              type="button"
+              disabled={currentStep === steps[0].id}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Atrás
+            </Button>
 
-              <Button
-                onClick={handleNextStep}
-                spacing="compact"
-                disabled={!isCurrentFormValid}
-              >
-                {currentStep === steps.length ? "Enviar" : "Siguiente"}
-              </Button>
-            </Stack>
+            <Button
+              onClick={handleNextStep}
+              spacing="compact"
+              disabled={!isCurrentFormValid}
+            >
+              {currentStep === steps.length ? "Enviar" : "Siguiente"}
+            </Button>
           </Stack>
         </Stack>
       </Stack>
