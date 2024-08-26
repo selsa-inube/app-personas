@@ -38,6 +38,14 @@ const creditDestinationStepsRules = (
             product: values.selectedProduct,
           },
         };
+
+        newCreditDestinationRequest.termsAndConditions = {
+          isValid: false,
+          values: {
+            ...initalValuesCreditDestination.termsAndConditions,
+            productId: values.selectedProduct.id,
+          },
+        };
       }
 
       return newCreditDestinationRequest;
@@ -82,7 +90,7 @@ const creditDestinationStepsRules = (
           values: {
             ...initalValuesCreditDestination.paymentMethod,
             paymentMethodType: values.paymentMethod?.id || "",
-            paymentMethods: values.paymentMethods
+            paymentMethods: values.paymentMethods,
           },
         };
       }

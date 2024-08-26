@@ -11,7 +11,7 @@ const mapSimulationEntityToApi = (
     periodicityInMonths: simulationValues.periodicityInMonths,
     quotaDeadlineInMonths: simulationValues.deadline,
     quotaValue: simulationValues.quota,
-    rate: simulationValues.rate,
+    rate: Number(simulationValues.rate.toFixed(2)),
     simulationParameter: simulationValues.deadline
       ? "QuotaDeadline"
       : "QuotaValue",

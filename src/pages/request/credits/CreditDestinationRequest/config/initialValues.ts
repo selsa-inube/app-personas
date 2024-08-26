@@ -95,6 +95,8 @@ const comments: ICommentsEntry = {
 };
 
 const termsAndConditions: ITermsAndConditionsEntry = {
+  productId: "",
+  termsConditions: "",
   accept: false,
   acceptDataPolicy: false,
 };
