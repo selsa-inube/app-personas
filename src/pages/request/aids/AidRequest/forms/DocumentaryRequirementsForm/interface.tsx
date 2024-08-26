@@ -1,24 +1,100 @@
-import { FileCard } from "@components/cards/FileCard";
+import { InfoCard } from "@components/cards/InfoCard";
 import { OutlineCard } from "@components/cards/OutlineCard";
+import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { Text } from "@design/data/Text";
-import { FileDrop } from "@design/input/FileDrop";
+import { Button } from "@design/input/Button";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { FormikProps } from "formik";
-import { MdQuestionMark } from "react-icons/md";
-import { IDocumentaryRequirementsEntry } from "./types";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { inube } from "@design/tokens";
+import { FormikProps } from "formik";
+import {
+  MdDeleteOutline,
+  MdHelpOutline,
+  MdOutlineDescription,
+  MdQuestionMark,
+} from "react-icons/md";
+import { truncateFileName } from "src/utils/texts";
+import { IDocumentaryRequirementsEntry } from "./types";
+import { ISelectedDocument } from "src/model/entity/service";
 
-function renderRequirement(label: string, id: string) {
+function renderRequirement(
+  label: string,
+  id: string,
+  selectedDocuments: ISelectedDocument[],
+  onAttachDocument: (id: string) => void,
+  onRemove: (id: string) => void,
+) {
+  const selectedFile = selectedDocuments.find((doc) => doc.id === id);
+
   return (
     <OutlineCard key={id}>
-      <Stack padding={`${inube.spacing.s100} ${inube.spacing.s250}`}>
-        <Text type="body" size="medium">
-          {label}
-        </Text>
+      <Stack
+        padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
+        direction="column"
+        gap={inube.spacing.s150}
+        width="100%"
+      >
+        <Stack
+          justifyContent="space-between"
+          alignItems="center"
+          height="fit-content"
+        >
+          <Text type="label" size="large">
+            {label}
+          </Text>
+
+          <Button
+            variant="none"
+            onClick={() => onAttachDocument(id)}
+            disabled={!!selectedFile}
+          >
+            Adjuntar
+          </Button>
+        </Stack>
+
+        {selectedFile && (
+          <>
+            <Divider dashed />
+            <Stack gap={inube.spacing.s150} alignItems="center" width="100%">
+              <Icon
+                icon={<MdOutlineDescription />}
+                appearance="dark"
+                size="24px"
+                spacing="narrow"
+                cursorHover
+              />
+
+              <Stack
+                justifyContent="space-between"
+                width="100%"
+                alignItems="center"
+              >
+                <Stack direction="column" gap={inube.spacing.s050} width="100%">
+                  <Text type="label" size="medium">
+                    {truncateFileName(selectedFile.file.name, 20)}
+                  </Text>
+
+                  <Text type="body" size="small" appearance="gray">
+                    {(selectedFile.file.size / 1024).toFixed(2)} KB
+                  </Text>
+                </Stack>
+
+                <Icon
+                  icon={<MdDeleteOutline />}
+                  appearance="danger"
+                  size="20px"
+                  spacing="narrow"
+                  cursorHover
+                  onClick={() => onRemove(id)}
+                />
+              </Stack>
+            </Stack>
+          </>
+        )}
       </Stack>
     </OutlineCard>
   );
@@ -27,9 +103,16 @@ function renderRequirement(label: string, id: string) {
 interface DocumentaryRequirementsFormUIProps {
   formik: FormikProps<IDocumentaryRequirementsEntry>;
   showInfoModal: boolean;
-  onSelectDocuments: (files: FileList) => void;
+  maxFileSize: number;
+  attachModal: {
+    show: boolean;
+    id: string;
+  };
+  onSelectDocument: (file: File, id: string) => void;
   onRemoveDocument: (id: string) => void;
   onToggleInfoModal: () => void;
+  onOpenAttachModal: (id: string) => void;
+  onCloseAttachModal: () => void;
 }
 
 function DocumentaryRequirementsFormUI(
@@ -38,13 +121,29 @@ function DocumentaryRequirementsFormUI(
   const {
     formik,
     showInfoModal,
-    onSelectDocuments,
+    maxFileSize,
+    attachModal,
+    onSelectDocument,
     onRemoveDocument,
     onToggleInfoModal,
+    onOpenAttachModal,
+    onCloseAttachModal,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
-  const isMobile = useMediaQuery("(max-width: 580px)");
+
+  if (!formik.values.withDocumentaryRequirements) {
+    return (
+      <Stack>
+        <InfoCard
+          title="Requisitos documentales"
+          description="Actualmente, te encuentras utilizando un software externo para cargar los requisitos documentales. Luego de crear la solicitud, podrás adjuntar tus documentos."
+          appearance="help"
+          icon={<MdHelpOutline />}
+        />
+      </Stack>
+    );
+  }
 
   return (
     <>
@@ -72,43 +171,18 @@ function DocumentaryRequirementsFormUI(
             gap={inube.spacing.s200}
           >
             {formik.values.requiredDocuments.map((document) =>
-              renderRequirement(document.label, document.id),
+              renderRequirement(
+                document.label,
+                document.id,
+                formik.values.selectedDocuments,
+                onOpenAttachModal,
+                onRemoveDocument,
+              ),
             )}
           </Grid>
         </Stack>
-
-        <Stack direction="column" gap={inube.spacing.s300}>
-          <Text type="title" size="medium">
-            Adjuntar documentos
-          </Text>
-
-          <FileDrop onSelectFiles={onSelectDocuments} />
-        </Stack>
-
-        {formik.values.selectedDocuments.length > 0 && (
-          <Stack direction="column" gap={inube.spacing.s300}>
-            <Text type="title" size="medium">
-              Documentos adjuntos
-            </Text>
-
-            <Grid
-              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-              autoRows="auto"
-              gap={inube.spacing.s200}
-            >
-              {formik.values.selectedDocuments.map((document) => (
-                <FileCard
-                  id={document.name}
-                  key={document.name}
-                  name={document.name}
-                  onRemove={onRemoveDocument}
-                  size={document.size}
-                />
-              ))}
-            </Grid>
-          </Stack>
-        )}
       </Stack>
+
       {showInfoModal && (
         <InfoModal
           title="Requisitos documentales"
@@ -116,6 +190,18 @@ function DocumentaryRequirementsFormUI(
           buttonText="Aceptar"
           portalId="modals"
           onCloseModal={onToggleInfoModal}
+        />
+      )}
+
+      {attachModal.show && (
+        <AttachDocumentModal
+          portalId="modals"
+          maxFileSize={maxFileSize}
+          requirementId={attachModal.id}
+          onSelectDocuments={(files) =>
+            onSelectDocument(files[0], attachModal.id)
+          }
+          onCloseModal={onCloseAttachModal}
         />
       )}
     </>

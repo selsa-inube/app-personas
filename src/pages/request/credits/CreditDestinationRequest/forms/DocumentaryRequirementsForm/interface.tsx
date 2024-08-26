@@ -18,7 +18,8 @@ import {
   MdQuestionMark,
 } from "react-icons/md";
 import { truncateFileName } from "src/utils/texts";
-import { IDocumentaryRequirementsEntry, ISelectedDocument } from "./types";
+import { IDocumentaryRequirementsEntry } from "./types";
+import { ISelectedDocument } from "src/model/entity/service";
 
 function renderRequirement(
   label: string,

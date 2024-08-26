@@ -30,7 +30,7 @@ const aidRequestSteps = {
   },
   disbursement: {
     id: 6,
-    name: "Desembolso",
+    name: "Forma de desembolso",
     description:
       "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
   },

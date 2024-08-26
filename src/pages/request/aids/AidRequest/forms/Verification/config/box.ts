@@ -4,7 +4,7 @@ const aidRequestBoxTitles = {
   detailsSituation: "Detalles de la situación",
   regulationValidations: "Validaciones del reglamento",
   documentaryRequirements: "Requisitos documentales",
-  disbursement: "Desembolso",
+  disbursement: "Forma de desembolso",
 };
 
 export { aidRequestBoxTitles };
