@@ -39,7 +39,13 @@ function UpdateDataUnassisted() {
       isValid: true,
       values: { entries: mapFamilyGroups(usersMock[0].familyGroup || []) },
     },
-    beneficiaries: { isValid: true, values: {} },
+    beneficiaries: {
+      isValid: true,
+      values: {
+        beneficiaries: [],
+        totalPercentage: 0,
+      },
+    },
     bankTransfers: {
       isValid: true,
       values: mapBankTransfers(usersMock[0].bankTransfersAccount),

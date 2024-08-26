@@ -1,5 +1,10 @@
 interface IBeneficiariesEntry {
-  [key: string]: string;
+  beneficiaries: {
+    id: string;
+    name: string;
+    percentage?: number;
+  }[];
+  totalPercentage: number;
 }
 
 export type { IBeneficiariesEntry };

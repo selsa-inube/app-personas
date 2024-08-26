@@ -1,3 +1,4 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
@@ -8,6 +9,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
+import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { creditDestinationRequestSteps } from "./config/assisted";
@@ -117,6 +119,7 @@ interface CreditDestinationRequestUIProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
   formReferences: IFormsCreditDestinationRequestRefs;
   loadingSend: boolean;
+  blocker: Blocker;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
@@ -132,6 +135,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
     creditDestinationRequest,
     formReferences,
     loadingSend,
+    blocker,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
@@ -201,6 +205,18 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
         <LoadingModal
           title="Generando solicitud..."
           message="Espera unos segundos, estamos generando la solicitud."
+        />
+      )}
+
+      {blocker.state === "blocked" && (
+        <DecisionModal
+          title="Salir de la solicitud de crédito"
+          description="¿Estás seguro? Se perderá todo el proceso de solicitud."
+          cancelText="Continuar"
+          actionText="Salir"
+          onCloseModal={() => blocker.reset()}
+          onClick={() => blocker.proceed()}
+          portalId="modals"
         />
       )}
     </>

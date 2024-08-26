@@ -1,7 +1,7 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useBlocker } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { getDestinationsForUser } from "src/services/iclient/credits/getDestinations";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -126,6 +126,11 @@ function CreditDestinationRequest() {
     validateDestinations();
   }, [user, accessToken]);
 
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname,
+  );
+
   const handleStepChange = (stepId: number) => {
     const newCreditDestinationRequest = creditDestinationStepsRules(
       currentStep,
@@ -183,6 +188,7 @@ function CreditDestinationRequest() {
       currentStep={currentStep}
       formReferences={formReferences}
       loadingSend={loadingSend}
+      blocker={blocker}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
