@@ -7,7 +7,7 @@ interface ISystemValidationsEntry {
   productName: string;
   destinationId: string;
   destinationName: string;
-  paymentMethodCode: string;
+  paymentMethod: string;
   paymentMethodName: string;
   amount: number;
   periodicity: string;
