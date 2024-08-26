@@ -112,7 +112,6 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         state={getFieldState(formik, "birthDate")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        validMessage="La fecha de nacimiento es válida"
         isRequired={isRequired("birthDate")}
         readOnly={readonly}
         isFullWidth

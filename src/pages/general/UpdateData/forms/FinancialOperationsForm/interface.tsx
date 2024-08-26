@@ -5,8 +5,8 @@ import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
@@ -143,7 +143,6 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   size={isTablet ? "compact" : "wide"}
                   isFullWidth
                   errorMessage={formik.errors.bankEntity}
-                  validMessage="La entidad bancaria es válida"
                   isDisabled={loading}
                   onChange={formik.handleChange}
                   isRequired={isRequired("bankEntity")}
@@ -160,7 +159,6 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   size={isTablet ? "compact" : "wide"}
                   isFullWidth
                   errorMessage={formik.errors.currency}
-                  validMessage="La moneda es válida"
                   max={3}
                   maxLength={3}
                   isDisabled={loading}
@@ -181,7 +179,6 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   size={isTablet ? "compact" : "wide"}
                   isFullWidth
                   onChange={formik.handleChange}
-                  validMessage="El numero de cuenta es válido"
                   state={getFieldState(formik, "accountNumber")}
                   isRequired={isRequired("accountNumber")}
                   onBlur={formik.handleBlur}

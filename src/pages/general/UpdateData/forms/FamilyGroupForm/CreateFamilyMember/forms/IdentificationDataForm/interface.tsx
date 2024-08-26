@@ -25,7 +25,6 @@ function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
         id="identificationNumber"
         type="number"
         size="compact"
-        validMessage="El documento es válido"
         value={formik.values.identificationNumber || ""}
         errorMessage={formik.errors.identificationNumber}
         onBlur={formik.handleBlur}

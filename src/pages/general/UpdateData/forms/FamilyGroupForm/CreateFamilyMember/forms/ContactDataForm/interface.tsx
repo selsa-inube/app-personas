@@ -21,7 +21,6 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         id="cellPhone"
         type="number"
         size="compact"
-        validMessage="El numero de celular es válido"
         value={formik.values.cellPhone || ""}
         errorMessage={formik.errors.cellPhone}
         onBlur={formik.handleBlur}

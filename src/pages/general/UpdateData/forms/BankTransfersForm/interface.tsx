@@ -1,10 +1,10 @@
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
@@ -73,7 +73,6 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
             state={getFieldState(formik, "accountNumber")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="El numero de cuenta es válido"
           />
         </Grid>
 

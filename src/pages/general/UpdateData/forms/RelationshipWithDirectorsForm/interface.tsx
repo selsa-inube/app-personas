@@ -81,7 +81,6 @@ function RelationshipWithDirectorsFormUI(
                   state={getFieldState(formik, "directorName")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  validMessage="El nombre del directivo es valido"
                   isRequired={isRequired("directorName")}
                   onIconClick={() => handleToggleModal()}
                 />

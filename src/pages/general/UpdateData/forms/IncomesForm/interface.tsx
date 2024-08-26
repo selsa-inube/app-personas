@@ -51,7 +51,6 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             state={getFieldState(formik, "basicSalary")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor del sueldo básico es válido"
           />
           <TextField
             label="Bonos"
@@ -67,7 +66,6 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             state={getFieldState(formik, "bonds")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor de los bonos es válido"
           />
           <TextField
             label="Comisiones"
@@ -83,7 +81,6 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             state={getFieldState(formik, "commissions")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor de las comisiones es válido"
           />
           <TextField
             label="Horas extras"
@@ -99,7 +96,6 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             state={getFieldState(formik, "overtime")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor de las horas extras es válido"
           />
           <TextField
             label="Auxilio de transporte"
@@ -115,7 +111,6 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             state={getFieldState(formik, "transportationAssistance")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor del auxilio de transporte es válido"
           />
           <TextField
             label="Auxilio de alimentación"
@@ -131,7 +126,6 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             state={getFieldState(formik, "foodAssistance")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor del auxilio de alimentación es válido"
           />
           <TextField
             label="Otros ingresos"
@@ -147,7 +141,6 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             state={getFieldState(formik, "others")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor de otros ingresos es válido"
           />
         </Grid>
         <Stack
