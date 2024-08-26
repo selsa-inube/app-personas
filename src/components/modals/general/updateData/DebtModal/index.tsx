@@ -1,11 +1,18 @@
 import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
+import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Divider } from "@inubekit/divider";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { FormikValues } from "formik";
+import { IPersonalDebtEntries } from "@pages/general/UpdateData/forms/PersonalDebtsForm/types";
+import { FormikProps } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -15,11 +22,6 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 
 const liabilityTypeDM = getDomainById("liabilityType");
 
@@ -28,7 +30,7 @@ interface DebtModalProps {
   description: string;
   confirmButtonText: string;
   portalId: string;
-  formik: FormikValues;
+  formik: FormikProps<IPersonalDebtEntries>;
   withCustomDirty?: boolean;
   onCloseModal: () => void;
   onConfirm: () => void;
@@ -124,21 +126,18 @@ function DebtModal(props: DebtModalProps) {
             validMessage="El nombre del pasivo es válido"
             isRequired
           />
-          <TextField
+          <DateField
             label="Fecha de terminación"
             name="terminationDate"
             id="terminationDate"
-            placeholder="Ejemplo: 01/Ene/1990"
-            value={formik.values.terminationDate || ""}
-            type="text"
+            value={formik.values.terminationDate}
             errorMessage={formik.errors.terminationDate}
-            size="compact"
-            isFullWidth
             state={getFieldState(formik, "terminationDate")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="La fecha de terminación es válida"
             isRequired
+            isFullWidth
           />
           <TextField
             label="Saldo de la deuda"

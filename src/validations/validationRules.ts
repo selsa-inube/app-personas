@@ -45,39 +45,25 @@ const validationRules = {
     .min(11, validationMessages.minCharacters(11))
     .max(11, validationMessages.maxCharacters(11)),
 
-  notPastDate: Yup.string()
-    .matches(regex.date, validationMessages.date)
-    .min(11, validationMessages.minCharacters(11))
-    .max(11, validationMessages.maxCharacters(11))
-    .test("is-not-past-date", validationMessages.notPastDate, (value) => {
+  notPastDate: Yup.string().test(
+    "is-not-past-date",
+    validationMessages.notPastDate,
+    (value) => {
       if (!value) return true;
 
-      const months: { [key: string]: number } = {
-        Ene: 0,
-        Feb: 1,
-        Mar: 2,
-        Abr: 3,
-        May: 4,
-        Jun: 5,
-        Jul: 6,
-        Ago: 7,
-        Sep: 8,
-        Oct: 9,
-        Nov: 10,
-        Dic: 11,
-      };
-
-      const dateDivider = value.split("/");
-      const monthAbbrev = dateDivider[1];
-      const monthNumber = months[monthAbbrev];
-      const year = parseInt(dateDivider[2]);
-      const day = parseInt(dateDivider[0]);
+      const dateDivider = value.split("-");
+      const year = parseInt(dateDivider[0]);
+      const monthNumber = parseInt(dateDivider[1]) - 1;
+      const day = parseInt(dateDivider[2]);
 
       const date = new Date(year, monthNumber, day);
       const today = new Date();
 
+      today.setHours(0, 0, 0, 0);
+
       return date >= today;
-    }),
+    },
+  ),
 
   money: Yup.number()
     .min(1, validationMessages.minCurrencyNumbers(1))
