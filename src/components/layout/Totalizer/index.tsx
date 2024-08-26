@@ -1,8 +1,8 @@
-import { Text } from "@design/data/Text";
 import { MdOpenInNew } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledTagValue, StyledTotalPayment } from "./styles";
 import { Icon } from "@inubekit/icon";
+import { Text } from "@inubekit/text";
 
 interface TotalizerProps {
   isMobile: boolean;

@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
@@ -9,6 +8,7 @@ import { createPortal } from "react-dom";
 import { MdOutlineAdd, MdOutlineClose, MdOutlineRemove } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledModal } from "./styles";
+import { Text } from "@inubekit/text";
 
 const renderSpecification = (
   label: string,

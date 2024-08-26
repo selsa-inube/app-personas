@@ -1,7 +1,7 @@
 import { Stack } from "@inubekit/stack";
-import { Text } from "../Text";
 import { StyledUser } from "./styles";
 import { Avatar } from "@inubekit/avatar";
+import { Text } from "@inubekit/text";
 
 interface UserProps {
   username: string;

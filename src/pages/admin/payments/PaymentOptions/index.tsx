@@ -1,7 +1,6 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RequestCard } from "@components/cards/RequestCard";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -11,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { crumbsPaymentOptions } from "./config/navigation";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 function PaymentOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");

@@ -2,7 +2,6 @@ import { RefObject } from "react";
 import { MdExpandMore, MdOutlineWarning } from "react-icons/md";
 
 import { SelectProps } from ".";
-import { Text } from "../../data/Text";
 import { DropdownMenu } from "../DropdownMenu";
 import { ISelectMessage } from "./types";
 
@@ -15,6 +14,7 @@ import {
   StyledInputContainer,
 } from "./styles";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { Label } from "@inubekit/label";
 
 function Invalid(props: ISelectMessage) {

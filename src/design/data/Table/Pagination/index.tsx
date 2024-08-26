@@ -5,9 +5,9 @@ import {
   MdNavigateNext,
 } from "react-icons/md";
 
-import { Text } from "@design/data/Text";
 import { StyledButton } from "./styles";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface PaginationProps {

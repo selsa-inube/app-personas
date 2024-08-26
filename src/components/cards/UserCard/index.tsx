@@ -1,8 +1,8 @@
-import { Text } from "@design/data/Text";
 import { StyledCardContainer } from "./styles";
 import { Button } from "@design/input/Button";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface UserCardProps {

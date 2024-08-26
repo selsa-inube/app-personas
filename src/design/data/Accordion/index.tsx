@@ -1,10 +1,10 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { Text } from "../Text";
 import { StyledContainer, StyledHead } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Icon } from "@inubekit/icon";
+import { Text } from "@inubekit/text";
 
 interface AccordionProps {
   title: string;

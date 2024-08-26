@@ -1,8 +1,8 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useNavigate } from "react-router-dom";
-import { Text } from "../Text";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface TitleProps {

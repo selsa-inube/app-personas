@@ -3,7 +3,6 @@ import { Icon } from "@inubekit/icon";
 import { Spinner } from "@inubekit/spinner";
 import { Stack } from "@inubekit/stack";
 import { useState } from "react";
-import { Text } from "../../data/Text";
 import {
   StyledButton,
   StyledButtonContent,
@@ -16,6 +15,7 @@ import {
   ButtonTypesType,
   ButtonVariantType,
 } from "./types";
+import { Text } from "@inubekit/text";
 
 interface ButtonProps {
   children: React.ReactNode;

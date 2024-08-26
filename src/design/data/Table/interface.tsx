@@ -4,9 +4,8 @@ import { DisplayEntry } from "./DisplayEntry";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { SkeletonLine } from "@inubekit/skeleton";
-
+import { Text } from "@inubekit/text";
 import { TextAppearanceType } from "@ptypes/color.types";
-import { Text } from "../Text";
 import {
   StyledTable,
   StyledTbody,
@@ -224,7 +223,7 @@ const TableUI = (props: TableUIProps) => {
                   $isLastTr={index === entries.length - 1}
                 >
                   {titleColumns.map((title) => (
-                    <StyledTd key={`e-${title.id}`} $withActions={withActions}>
+                    <StyledTd key={`e-${title.id}`} $withActions={withActions}> 
                       <Text
                         type="body"
                         size="small"
