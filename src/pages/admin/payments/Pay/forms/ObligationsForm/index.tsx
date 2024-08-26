@@ -78,10 +78,11 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === payId) {
         const tags: ITag[] = payment.tags.filter(
-          (tag) => tag.label !== "payOption",
+          (tag) => tag.id !== "payOption",
         );
 
         tags.push({
+          id: "payOption",
           label: applyPayOption.label,
           appearance: "dark",
         });
@@ -127,7 +128,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === payId) {
         const tags: ITag[] = payment.tags.filter(
-          (tag) => tag.label !== "payOption",
+          (tag) => tag.id !== "payOption",
         );
 
         return {
@@ -229,7 +230,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
       });
 
       const tags: ITag[] = payment.tags.filter(
-        (tag) => tag.label !== "payOption",
+        (tag) => tag.id !== "payOption",
       );
 
       return {
@@ -260,7 +261,7 @@ const ObligationsForm = forwardRef(function ObligationsForm(
     const updatedPayments = formik.values.payments.map((payment) => {
       if (payment.id === paymentId) {
         const tags: ITag[] = payment.tags.filter(
-          (tag) => tag.label !== "payOption",
+          (tag) => tag.id !== "payOption",
         );
 
         return {
