@@ -132,15 +132,23 @@ const renderDocumentaryRequirementsVerification = (
   );
 };
 
-const renderDisbursementVerification = (values: IDisbursementEntry) => {
+const renderDisbursementVerification = (
+  values: IDisbursementEntry,
+  isTablet: boolean,
+) => {
   return (
-    <Stack width="100%" gap={inube.spacing.s100} direction="column">
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      width="100%"
+      gap={inube.spacing.s100}
+    >
       <BoxAttribute
         label="Desembolso:"
         value={reimbursementTypeDM.valueOf(values.disbursementMethod)?.value}
       />
       <BoxAttribute label="Cuenta:" value={values.accountDescription} />
-    </Stack>
+    </Grid>
   );
 };
 
@@ -179,7 +187,10 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "disbursement" &&
-        renderDisbursementVerification(aidRequest.disbursement.values)}
+        renderDisbursementVerification(
+          aidRequest.disbursement.values,
+          isTablet,
+        )}
     </>
   );
 }
