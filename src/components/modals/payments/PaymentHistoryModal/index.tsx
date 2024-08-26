@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import React from "react";
 import { createPortal } from "react-dom";
@@ -16,6 +15,7 @@ import { Divider } from "@inubekit/divider";
 import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 import { Tag } from "@inubekit/tag";
 

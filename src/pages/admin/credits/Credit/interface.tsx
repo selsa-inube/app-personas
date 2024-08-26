@@ -3,7 +3,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -38,6 +37,7 @@ import { CreditMovementModal } from "@components/modals/credit/CreditMovementMod
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 const renderMovements = (
   movements: IMovement[],

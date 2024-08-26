@@ -5,7 +5,6 @@ import { AttributesModal } from "@components/modals/general/AttributesModal";
 import { ReimbursementModal } from "@components/modals/saving/ReimbursementModal";
 import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
@@ -51,6 +50,7 @@ import { generateAttributes } from "./config/attributeRecord";
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&

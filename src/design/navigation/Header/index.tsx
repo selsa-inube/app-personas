@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { User } from "../../data/User";
 import { IHeaderLink } from "./types";
@@ -21,6 +20,7 @@ import {
 } from "./styles";
 import { getMenuSections } from "@config/header";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface HeaderProps {

@@ -1,8 +1,8 @@
 import { ValidationDetailsModal } from "@components/modals/general/ValidationDetailsModal";
-import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { IValidation } from "src/model/entity/service";
 import { OutlineCard } from "../OutlineCard";
@@ -66,7 +66,7 @@ function ValidationCard(props: IValidation) {
                   size="small"
                   appearance="danger"
                   cursorHover
-                  onClick={handleToggleModal}
+                  onClick={handleToggleModal} 
                 >
                   Ver detalles
                 </Text>

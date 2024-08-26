@@ -1,7 +1,6 @@
 import { FileCard } from "@components/cards/FileCard";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { InfoModal } from "@components/modals/general/InfoModal";
-import { Text } from "@design/data/Text";
 import { FileDrop } from "@design/input/FileDrop";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
@@ -10,6 +9,7 @@ import { IDocumentaryRequirementsEntry } from "./types";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 function renderRequirement(label: string, id: string) {

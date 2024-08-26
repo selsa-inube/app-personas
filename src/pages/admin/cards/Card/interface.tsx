@@ -7,7 +7,6 @@ import { SavingAccountsModal } from "@components/modals/cards/SavingAccountsModa
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
@@ -46,6 +45,7 @@ import {
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 interface CardUIProps {
   cardId?: string;

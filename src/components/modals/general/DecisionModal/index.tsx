@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { ButtonAppearanceType } from "@design/input/Button/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -8,6 +7,7 @@ import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
 import { Blanket } from "@inubekit/blanket";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface DecisionModalProps {

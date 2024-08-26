@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
@@ -19,6 +18,7 @@ import { Blanket } from "@inubekit/blanket";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface FamilyMemberViewModalProps {

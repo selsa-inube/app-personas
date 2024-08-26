@@ -1,5 +1,4 @@
 import { UserCard } from "@components/cards/UserCard";
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -12,6 +11,7 @@ import { getRecentUsers, saveRecentUser } from "./utils";
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 function SwitchUser() {

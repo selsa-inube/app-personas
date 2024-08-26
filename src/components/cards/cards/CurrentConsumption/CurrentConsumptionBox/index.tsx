@@ -1,8 +1,8 @@
-import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { MdOpenInNew } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { IAttribute } from "src/model/entity/product";

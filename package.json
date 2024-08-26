@@ -23,6 +23,7 @@
     "@inubekit/grid": "^2.3.0",
     "@inubekit/icon": "^2.0.1",
     "@inubekit/label": "^2.7.0",
+    "@inubekit/link": "^1.9.0",
     "@inubekit/skeleton": "^2.3.0",
     "@inubekit/spinner": "^2.3.0",
     "@inubekit/stack": "^2.4.0",

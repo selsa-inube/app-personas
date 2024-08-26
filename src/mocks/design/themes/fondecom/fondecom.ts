@@ -695,8 +695,8 @@ const fondecomTheme = {
   link: {
     content: {
       color: {
-        regular: "fondecom.palette.blue.b400",
-        hover: "fondecom.palette.blue.b300",
+        regular: palette.blue.b400,
+        hover: palette.blue.b300,
       },
     },
   },

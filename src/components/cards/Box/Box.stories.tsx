@@ -3,7 +3,7 @@ import { Box, BoxProps } from ".";
 
 import { MdAdd, MdOutlineSavings } from "react-icons/md";
 
-import { Text } from "@design/data/Text";
+import { Text } from "@inubekit/text";
 import { themes } from "@mocks/design/themes";
 import { props } from "./props";
 import { StoryFn } from "@storybook/react";

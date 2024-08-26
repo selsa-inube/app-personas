@@ -1,5 +1,4 @@
 import { IAction, IEntry } from "@design/data/Table/types";
-import { Text } from "@design/data/Text";
 import { TextField } from "@design/input/TextField";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { createPortal } from "react-dom";
@@ -8,6 +7,7 @@ import { StyledModal } from "./styles";
 import { ILabel } from "./types";
 import { Blanket } from "@inubekit/blanket";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface InteractiveModalProps {

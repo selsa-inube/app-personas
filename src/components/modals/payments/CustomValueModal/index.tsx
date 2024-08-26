@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
 import { TextField } from "@design/input/TextField";
@@ -25,6 +24,7 @@ import {
 import { IApplyPayOption, getOptions } from "./utils";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface CustomValueModalProps {

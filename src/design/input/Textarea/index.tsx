@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useState } from "react";
@@ -12,6 +11,7 @@ import { Counter } from "./Counter";
 import { StyledContainer, StyledTextarea } from "./styles";
 import { CounterAppearence } from "./types";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { Label } from "@inubekit/label";
 
 function Invalid(props: ITextFieldMessage) {

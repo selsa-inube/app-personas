@@ -1,9 +1,9 @@
-import { Text } from "@design/data/Text";
 import { StyledMenuItemContainer } from "./styles";
 
 import { MenuItemSpacingType } from "./types";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 interface MenuItemProps {

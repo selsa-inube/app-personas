@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { getRecordDescriptionType } from "@pages/admin/cards/Card/config/product";
@@ -14,6 +13,7 @@ import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 import { ITag, Tag } from "@inubekit/tag";
 

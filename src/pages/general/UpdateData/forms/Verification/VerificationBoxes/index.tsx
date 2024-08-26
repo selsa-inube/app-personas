@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
@@ -48,6 +47,7 @@ import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
+import { Text } from "@inubekit/text";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
