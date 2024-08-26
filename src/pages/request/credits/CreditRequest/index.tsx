@@ -1,7 +1,6 @@
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { RequestCard } from "@components/cards/RequestCard";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -14,6 +13,7 @@ import { creditRequestCards } from "./config/cards";
 import { crumbsCreditRequest } from "./config/navigation";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 function CreditRequest() {
   const navigate = useNavigate();

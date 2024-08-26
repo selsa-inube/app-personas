@@ -1,5 +1,4 @@
 import { Table } from "@design/data/Table";
-import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
@@ -10,6 +9,7 @@ import { getFieldState } from "src/utils/forms/forms";
 import { goalRatesTableTitles } from "./config/table";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 interface GoalFormUIProps {
   formik: FormikValues;

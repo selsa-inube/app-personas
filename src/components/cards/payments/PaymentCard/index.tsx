@@ -1,7 +1,6 @@
 import { CustomValueModal } from "@components/modals/payments/CustomValueModal";
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
 import { Tag, TagProps } from "@design/data/Tag";
-import { Text } from "@design/data/Text";
 import { Button } from "@design/input/Button";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
@@ -16,6 +15,7 @@ import {
 } from "./styles";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 const renderOptions = (

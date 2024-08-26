@@ -1,5 +1,4 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { Text } from "@design/data/Text";
 import { INav } from "@design/layout/Page/types";
 import { IHeaderLink } from "@design/navigation/Header/types";
 import { NavLink } from "@design/navigation/NavLink";
@@ -14,6 +13,7 @@ import {
   StyledFullscreenNav,
   StyledSeparatorLine,
 } from "./styles";
+import { Text } from "@inubekit/text";
 
 const year = new Date().getFullYear();
 

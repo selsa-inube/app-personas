@@ -1,11 +1,11 @@
-import { Text } from "@design/data/Text";
 import { Switch } from "@design/input/Switch";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Link } from "@inubekit/link";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import {
-  StyledLinkPolicy,
   StyledTermsAndConditionsContainer,
   StyledTermsAndConditionsInfo,
 } from "./styles";
@@ -23,13 +23,15 @@ function CustomLabelPolicy() {
   return (
     <Text type="label" size="large">
       Acepto la{" "}
-      <StyledLinkPolicy
-        to="https://fondecom.coop/wp-content/uploads/2023/10/EGSI-RI-MN-005_Manual_De_Politicas_Y_Procedimientos_De_Proteccion_V4.pdf"
+      <Link
+        type="label"
+        size="large"
+        path="https://fondecom.coop/wp-content/uploads/2023/10/EGSI-RI-MN-005_Manual_De_Politicas_Y_Procedimientos_De_Proteccion_V4.pdf"
         target="_blank"
         rel="noreferrer"
       >
         Política de tratamiento de datos
-      </StyledLinkPolicy>
+      </Link>
     </Text>
   );
 }

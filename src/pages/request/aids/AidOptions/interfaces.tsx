@@ -1,7 +1,6 @@
 import { AidCard } from "@components/cards/AidCard";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
-import { Text } from "@design/data/Text";
 import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
@@ -11,6 +10,7 @@ import { IAid } from "src/model/entity/service";
 import { crumbsAids } from "./config/navigation";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 interface AidOptionsUIProps {
   aids: IAid[];

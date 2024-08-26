@@ -26,11 +26,6 @@ const text = {
     hover: palette.purple.P300,
     disabled: palette.neutral.N70,
   },
-  information: {
-    regular: palette.blue.B400,
-    hover: palette.blue.B300,
-    disabled: palette.neutral.N70,
-  },
   dark: {
     regular: palette.neutral.N900,
     hover: palette.neutral.N500,
@@ -44,11 +39,6 @@ const text = {
   light: {
     regular: palette.neutral.N10,
     hover: palette.neutral.N0,
-    disabled: palette.neutral.N70,
-  },
-  link: {
-    regular: palette.blue.B400,
-    hover: palette.blue.B300,
     disabled: palette.neutral.N70,
   },
 };

@@ -1,6 +1,6 @@
 import { FileCard } from "@components/cards/FileCard";
 import { InfoCard } from "@components/cards/InfoCard";
-import { Text } from "@design/data/Text";
+import { Text } from "@inubekit/text";
 import { Button } from "@design/input/Button";
 import { FileDrop } from "@design/input/FileDrop";
 import { inube } from "@design/tokens";

@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { ITextFieldMessage } from "./types";
 
@@ -16,6 +15,7 @@ import {
   StyledValidMessageContainer,
 } from "./styles";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { Label } from "@inubekit/label";
 
 function Invalid(props: ITextFieldMessage) {

@@ -2,8 +2,6 @@ import { MdArrowBack, MdOutlineAttachMoney } from "react-icons/md";
 
 import { useMediaQuery } from "@hooks/useMediaQuery";
 
-import { Text } from "@design/data/Text";
-
 import { Box } from "@components/cards/Box";
 import { Product } from "@components/cards/Product";
 import { QuickAccess } from "@components/cards/QuickAccess";
@@ -23,6 +21,7 @@ import {
 } from "../../home/config/products";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 interface MyCreditsUIProps {
   loading: boolean;

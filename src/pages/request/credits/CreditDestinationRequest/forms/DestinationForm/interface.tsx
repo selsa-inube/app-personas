@@ -1,5 +1,4 @@
 import { DestinationCard } from "@components/cards/credits/DestinationCard";
-import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -9,6 +8,7 @@ import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { loadingProductsData } from "./config/loading";
 import { IDestinationEntry, IDestinationProduct } from "./types";
+import { Text } from "@inubekit/text";
 
 interface DestinationFormUIProps {
   formik: FormikProps<IDestinationEntry>;

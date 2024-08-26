@@ -1,5 +1,4 @@
 import { Tag, TagProps } from "@design/data/Tag";
-import { Text } from "@design/data/Text";
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
@@ -10,6 +9,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 
 interface ProductProps {
   title?: string;

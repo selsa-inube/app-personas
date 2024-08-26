@@ -1,4 +1,3 @@
-import { Text } from "@design/data/Text";
 import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
 import { Spinner } from "@inubekit/spinner";
@@ -6,6 +5,8 @@ import { Stack } from "@inubekit/stack";
 import { MdDeleteOutline, MdOutlineDescription } from "react-icons/md";
 import { truncateFileName } from "src/utils/texts";
 import { OutlineCard } from "../OutlineCard";
+
+import { Text } from "@inubekit/text";
 
 interface FileCardProps {
   id: string;

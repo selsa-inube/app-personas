@@ -1,5 +1,4 @@
 import { PaymentMethodCard } from "@components/cards/payments/PaymentMethodCard";
-import { Text } from "@design/data/Text";
 import { Select } from "@design/input/Select";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
@@ -10,6 +9,7 @@ import { IMoneySource, IPaymentMethodEntry } from "./types";
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 
 const renderMoneySources = (

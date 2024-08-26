@@ -1,6 +1,6 @@
-import { Text } from "@design/data/Text";
 import { Blanket } from "@inubekit/blanket";
 import { Spinner } from "@inubekit/spinner";
+import { Text } from "@inubekit/text";
 import { StyledLoadingCard } from "./styles";
 
 interface LoadingModalProps {
