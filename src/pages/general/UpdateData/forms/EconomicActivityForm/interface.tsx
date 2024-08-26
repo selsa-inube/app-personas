@@ -4,17 +4,17 @@ import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { companiesData } from "@mocks/domains/companies";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import {
   IEconomicActivity,
   economicActivitiesMock,
 } from "@mocks/users/economicActivities.mocks";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdSearch } from "react-icons/md";
 import { companyFormalityDM } from "src/model/domains/general/updateData/economicActivity/companyformalitydm";
 import { contractTypeDM } from "src/model/domains/general/updateData/economicActivity/contracttypedm";
@@ -23,9 +23,10 @@ import { severanceRegimeDM } from "src/model/domains/general/updateData/economic
 import { workdayDM } from "src/model/domains/general/updateData/economicActivity/workdaydm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { getFieldState } from "src/utils/forms/forms";
+import { IEconomicActivityEntry } from "./types";
 
 interface EconomicActivityFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IEconomicActivityEntry>;
   loading?: boolean;
   showMainActivityModal: boolean;
   showSecondaryActivityModal: boolean;
@@ -80,8 +81,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                 isRequired={isRequired("economicActivity")}
                 errorMessage={formik.errors.economicActivity}
                 onBlur={formik.handleBlur}
-                onClick={formik.handleClick}
-                onFocus={formik.handleFocus}
                 onChange={formik.handleChange}
                 isDisabled={loading}
                 isFullWidth
@@ -99,8 +98,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     isRequired={isRequired("profession")}
                     errorMessage={formik.errors.profession}
                     onBlur={formik.handleBlur}
-                    onClick={formik.handleClick}
-                    onFocus={formik.handleFocus}
                     onChange={formik.handleChange}
                     isDisabled={loading}
                     isFullWidth
@@ -170,8 +167,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     isRequired={isRequired("economicSector")}
                     errorMessage={formik.errors.economicSector}
                     onBlur={formik.handleBlur}
-                    onClick={formik.handleClick}
-                    onFocus={formik.handleFocus}
                     onChange={formik.handleChange}
                     isDisabled={loading}
                     isFullWidth
@@ -227,8 +222,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   isRequired={isRequired("contractType")}
                   errorMessage={formik.errors.contractType}
                   onBlur={formik.handleBlur}
-                  onClick={formik.handleClick}
-                  onFocus={formik.handleFocus}
                   onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
@@ -247,21 +240,25 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   isRequired={isRequired("admissionDate")}
                   isFullWidth
                 />
-                <DateField
-                  label="Vencimiento del contrato"
-                  name="contractExpiration"
-                  id="contractExpiration"
-                  value={formik.values.contractExpiration}
-                  errorMessage={formik.errors.contractExpiration}
-                  isDisabled={loading}
-                  size="compact"
-                  isFullWidth
-                  state={getFieldState(formik, "contractExpiration")}
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  validMessage="La fecha de vencimiento es válida"
-                  isRequired={isRequired("contractExpiration")}
-                />
+
+                {formik.values.contractType !== contractTypeDM.PERMANENT.id && (
+                  <DateField
+                    label="Vencimiento del contrato"
+                    name="contractExpiration"
+                    id="contractExpiration"
+                    value={formik.values.contractExpiration}
+                    errorMessage={formik.errors.contractExpiration}
+                    isDisabled={loading}
+                    size="compact"
+                    isFullWidth
+                    state={getFieldState(formik, "contractExpiration")}
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    validMessage="La fecha de vencimiento es válida"
+                    isRequired={isRequired("contractExpiration")}
+                  />
+                )}
+
                 <Select
                   label="Régimen de cesantías"
                   name="severanceRegime"
@@ -273,8 +270,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   isRequired={isRequired("severanceRegime")}
                   errorMessage={formik.errors.severanceRegime}
                   onBlur={formik.handleBlur}
-                  onClick={formik.handleClick}
-                  onFocus={formik.handleFocus}
                   onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
@@ -290,8 +285,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   isRequired={isRequired("workday")}
                   errorMessage={formik.errors.workday}
                   onBlur={formik.handleBlur}
-                  onClick={formik.handleClick}
-                  onFocus={formik.handleFocus}
                   onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
@@ -309,7 +302,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   errorMessage={formik.errors.position}
                   validMessage="El cargo es válido"
                   onBlur={formik.handleBlur}
-                  onFocus={formik.handleFocus}
                   onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
@@ -327,7 +319,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   errorMessage={formik.errors.dependence}
                   validMessage="La dependencia es válida"
                   onBlur={formik.handleBlur}
-                  onFocus={formik.handleFocus}
                   onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
@@ -364,8 +355,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         isRequired={isRequired("companyFormality")}
                         errorMessage={formik.errors.companyFormality}
                         onBlur={formik.handleBlur}
-                        onClick={formik.handleClick}
-                        onFocus={formik.handleFocus}
                         onChange={formik.handleChange}
                         isDisabled={loading}
                         isFullWidth
@@ -381,8 +370,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         isRequired={isRequired("companyCountry")}
                         errorMessage={formik.errors.companyCountry}
                         onBlur={formik.handleBlur}
-                        onClick={formik.handleClick}
-                        onFocus={formik.handleFocus}
                         onChange={formik.handleChange}
                         isDisabled={loading}
                         isFullWidth
