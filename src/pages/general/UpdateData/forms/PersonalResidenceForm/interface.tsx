@@ -72,7 +72,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "bankEntity")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="La entidad bancaria es válida"
               />
               <DateField
                 label="Fecha de vencimiento"
@@ -85,7 +84,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "dueDate")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="La fecha de vencimiento es válida"
                 isFullWidth
               />
             </>
@@ -105,7 +103,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "tenant")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="El nombre del arrendador es válido"
               />
               <TextField
                 label="Celular del arrendador"
@@ -120,7 +117,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "tenantCellPhone")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="El celular del arrendador es válido"
               />
             </>
           )}
@@ -139,7 +135,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "ownerName")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="El nombre del titular es válido"
               />
               <Select
                 label="Parentesco"
@@ -167,7 +162,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "ownerCellPhone")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="El celular del titular es válido"
               />
             </>
           )}

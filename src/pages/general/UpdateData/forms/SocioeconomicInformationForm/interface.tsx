@@ -87,7 +87,6 @@ function SocioeconomicInformationFormUI(
             size="compact"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="El número ingresado es correcto"
             isFullWidth
           />
           <Select

@@ -58,7 +58,6 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         id="firstName"
         type="text"
         size="compact"
-        validMessage="El primer nombre es válido"
         value={formik.values.firstName || ""}
         errorMessage={formik.errors.firstName}
         onBlur={formik.handleBlur}
@@ -75,7 +74,6 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         id="secondName"
         type="text"
         size="compact"
-        validMessage="El segundo nombre es válido"
         value={formik.values.secondName || ""}
         errorMessage={formik.errors.secondName}
         onBlur={formik.handleBlur}
@@ -92,7 +90,6 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         id="firstLastName"
         type="text"
         size="compact"
-        validMessage="El primer apellido es válido"
         value={formik.values.firstLastName || ""}
         errorMessage={formik.errors.firstLastName}
         onBlur={formik.handleBlur}
@@ -109,7 +106,6 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         id="secondLastName"
         type="text"
         size="compact"
-        validMessage="El segundo apellido es válido"
         value={formik.values.secondLastName || ""}
         errorMessage={formik.errors.secondLastName}
         onBlur={formik.handleBlur}
