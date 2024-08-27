@@ -77,7 +77,7 @@ function MyRequests() {
           setRequests([...requests, ...newRequests]);
         })
         .catch((error) => {
-          setRequests(requestsMock);
+          setRequests(requestsMock); // TEMP
           /* setNoMoreRequests(true); */
           console.info(error.message);
         })

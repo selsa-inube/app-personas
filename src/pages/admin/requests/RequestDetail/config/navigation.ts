@@ -1,6 +1,6 @@
 import { IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
 
-const crumbsMyRequests: IBreadcrumbItem[] = [
+const crumbsRequest = (request_id?: string): IBreadcrumbItem[] => [
   {
     id: "home",
     path: "/",
@@ -10,8 +10,13 @@ const crumbsMyRequests: IBreadcrumbItem[] = [
     id: "myRequests",
     path: "/my-requests",
     label: "Mis solicitudes",
+  },
+  {
+    id: "request",
+    path: `/my-requests/${request_id}`,
+    label: "Detalles de solicitud",
     isActive: true,
   },
 ];
 
-export { crumbsMyRequests };
+export { crumbsRequest };

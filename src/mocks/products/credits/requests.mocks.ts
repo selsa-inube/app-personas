@@ -1,5 +1,6 @@
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 import { IRequest } from "src/model/entity/request";
+import { documentaryRequirementsMock } from "./request.mocks";
 
 const requestsMock: IRequest[] = [
   {
@@ -59,19 +60,10 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+    })),
   },
   {
     id: "55812345789-2",
@@ -130,19 +122,10 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+    })),
   },
   {
     id: "55812345789-3",
@@ -201,19 +184,10 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+    })),
   },
   {
     id: "55812345789-4",
@@ -272,19 +246,10 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+    })),
   },
   {
     id: "55812345789-5",
@@ -343,19 +308,10 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+    })),
   },
   {
     id: "55812345789-6",
@@ -414,19 +370,10 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+    })),
   },
 ];
 
