@@ -1,6 +1,5 @@
 import { FileCard } from "@components/cards/FileCard";
 import { InfoCard } from "@components/cards/InfoCard";
-import { Text } from "@inubekit/text";
 import { Button } from "@design/input/Button";
 import { FileDrop } from "@design/input/FileDrop";
 import { inube } from "@design/tokens";
@@ -11,6 +10,7 @@ import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { IMessage } from "@ptypes/messages.types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -33,7 +33,7 @@ interface ITempFile {
 interface AttachDocumentModalProps {
   portalId: string;
   maxFileSize: number;
-  requirementId: string;
+  documentType: string;
   onSelectDocuments: (files: FileList) => void;
   onCloseModal: () => void;
 }
@@ -42,7 +42,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
   const {
     portalId,
     maxFileSize,
-    requirementId,
+    documentType,
     onSelectDocuments,
     onCloseModal,
   } = props;
@@ -70,7 +70,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
       setTempFiles([...tempfiles, { id: file.name, file, loading: true }]);
 
       const documentRequest: ISaveDocumentRequest = {
-        documentType: requirementId,
+        documentType,
         file,
       };
 

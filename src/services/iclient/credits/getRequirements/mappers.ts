@@ -45,6 +45,9 @@ const mapRequirementApiToEntity = (
       correctSpecialCharacters(String(requirement.errorDescription)),
     ),
     value: resultValues[String(requirement.responseCode)] || "pending",
+    documentType: requirement.documentTypeCode
+      ? String(requirement.documentTypeCode)
+      : undefined,
   };
 };
 
