@@ -11,6 +11,7 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { statusDM } from "src/model/domains/general/statusdm";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
@@ -93,6 +94,23 @@ const DisbursementForm = forwardRef(function DisbursementForm(
         });
     }
   }, [user, accessToken]);
+
+  useEffect(() => {
+    if (!formik.values.accountStatus) return;
+
+    if (formik.values.accountStatus === statusDM.REGISTERED.id) {
+      formik.setFieldValue("entity", initialValues.transferBankEntity);
+      formik.setFieldValue("accountType", initialValues.transferAccountType);
+      formik.setFieldValue(
+        "writeAccountNumber",
+        initialValues.transferAccountNumber,
+      );
+    } else {
+      formik.setFieldValue("entity", "");
+      formik.setFieldValue("accountType", "");
+      formik.setFieldValue("writeAccountNumber", "");
+    }
+  }, [formik.values.accountStatus]);
 
   const customHandleChange = (
     event: React.ChangeEvent<

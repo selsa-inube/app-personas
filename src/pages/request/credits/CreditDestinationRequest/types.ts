@@ -13,12 +13,12 @@ interface IFormsCreditDestinationRequest {
   destination: { isValid: boolean; values: IDestinationEntry };
   creditConditions: { isValid: boolean; values: ICreditConditionsEntry };
   paymentMethod: { isValid: boolean; values: IPaymentMethodEntry };
+  disbursement: { isValid: boolean; values: IDisbursementEntry };
   systemValidations: { isValid: boolean; values: ISystemValidationsEntry };
   documentaryRequirements: {
     isValid: boolean;
     values: IDocumentaryRequirementsEntry;
   };
-  disbursement: { isValid: boolean; values: IDisbursementEntry };
   comments: { isValid: boolean; values: ICommentsEntry };
   termsAndConditions: { isValid: boolean; values: ITermsAndConditionsEntry };
   contactChannels: {
@@ -31,11 +31,11 @@ interface IFormsCreditDestinationRequestRefs {
   destination: React.RefObject<FormikProps<IDestinationEntry>>;
   creditConditions: React.RefObject<FormikProps<ICreditConditionsEntry>>;
   paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
+  disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
   systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
   documentaryRequirements: React.RefObject<
     FormikProps<IDocumentaryRequirementsEntry>
   >;
-  disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
   comments: React.RefObject<FormikProps<ICommentsEntry>>;
   termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
   contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;

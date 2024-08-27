@@ -75,38 +75,51 @@ const getValuesForSimulate = async (
   accessToken: string,
   userIdentification: string,
 ) => {
-  if (accessToken) {
-    const userData = await getCustomer(userIdentification, accessToken);
+  if (!accessToken) return;
 
-    const newPaymentMethods: ISelectOption[] = [];
+  const userData = await getCustomer(userIdentification, accessToken);
+
+  const newPaymentMethods: ISelectOption[] = [];
+
+  if (userData) {
     if (
-      userData &&
       userData.financialOperations &&
       userData.financialOperations.paymentMethod
     ) {
       newPaymentMethods.push(userData.financialOperations.paymentMethod);
-    } else {
-      const paymentMethods = await getPaymentMethodsForProduct(
-        userIdentification,
-        accessToken,
-        formik.values.product.id,
-      );
-      newPaymentMethods.push(...paymentMethods);
     }
+    formik.setFieldValue(
+      "transferBankEntity",
+      userData.bankTransfersAccount.bankEntity,
+    );
+    formik.setFieldValue(
+      "transferAccountType",
+      userData.bankTransfersAccount.accountType,
+    );
+    formik.setFieldValue(
+      "transferAccountNumber",
+      userData.bankTransfersAccount.accountNumber,
+    );
+  } else {
+    const paymentMethods = await getPaymentMethodsForProduct(
+      userIdentification,
+      accessToken,
+      formik.values.product.id,
+    );
+    newPaymentMethods.push(...paymentMethods);
+  }
 
-    formik.setFieldValue("paymentMethods", newPaymentMethods);
+  formik.setFieldValue("paymentMethods", newPaymentMethods);
 
-    if (newPaymentMethods.length === 1) {
-      formik.setFieldValue("paymentMethod", newPaymentMethods[0]);
-    }
+  if (newPaymentMethods.length === 1) {
+    formik.setFieldValue("paymentMethod", newPaymentMethods[0]);
+  }
 
-    const paymentMethod =
-      userData?.financialOperations.paymentMethod ||
-      formik.values.paymentMethod;
+  const paymentMethod =
+    userData?.financialOperations.paymentMethod || formik.values.paymentMethod;
 
-    if (paymentMethod) {
-      await getPeriodicities(formik, accessToken, paymentMethod.id);
-    }
+  if (paymentMethod) {
+    await getPeriodicities(formik, accessToken, paymentMethod.id);
   }
 };
 

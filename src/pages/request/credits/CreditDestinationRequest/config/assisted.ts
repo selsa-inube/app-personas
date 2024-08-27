@@ -14,22 +14,22 @@ const creditDestinationRequestSteps = {
     name: "Forma de pago",
     description: "Completa los detalles de la forma de pago.",
   },
-  systemValidations: {
+  disbursement: {
     id: 4,
+    name: "Forma de desembolso",
+    description: "Selecciona la forma de desembolso.",
+  },
+  systemValidations: {
+    id: 5,
     name: "Validaciones del sistema",
     description:
       "Revisas cuales son los requisitos necesarios para realizar la solicitud de crédito.",
   },
   documentaryRequirements: {
-    id: 5,
+    id: 6,
     name: "Requisitos documentales",
     description:
       "Adjunta la documentación para cumplir con los requisitos y continuar con tu solicitud.",
-  },
-  disbursement: {
-    id: 6,
-    name: "Desembolso",
-    description: "Selecciona la forma de desembolso.",
   },
   comments: {
     id: 7,

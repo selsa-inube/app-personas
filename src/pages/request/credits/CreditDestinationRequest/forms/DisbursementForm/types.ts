@@ -3,6 +3,7 @@ import { ISelectOption } from "@design/input/Select/types";
 interface IDisbursementEntry {
   disbursements: ISelectOption[];
   disbursementType: string;
+  accountStatus?: string;
   accountNumber?: string;
   writeAccountNumber?: string;
   observations?: string;
@@ -18,6 +19,9 @@ interface IDisbursementEntry {
   others?: string;
   entity?: string;
   accountType?: string;
+  transferBankEntity?: string;
+  transferAccountType?: string;
+  transferAccountNumber?: string;
 }
 
 export type { IDisbursementEntry };

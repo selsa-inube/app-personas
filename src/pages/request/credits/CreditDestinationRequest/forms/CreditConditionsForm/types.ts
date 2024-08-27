@@ -34,6 +34,9 @@ interface ICreditConditionsEntry {
   periodicities: IPeriodicity[];
   periodicityInMonths: number;
   charges: number;
+  transferBankEntity?: string;
+  transferAccountType?: string;
+  transferAccountNumber?: string;
 }
 
 export type { ICreditConditionsEntry, IDisbursementModalState };
