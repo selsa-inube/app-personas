@@ -70,7 +70,6 @@ const mapDocumentaryRequirements = (
   return {
     requiredDocuments,
     selectedDocuments: [],
-    withDocumentaryRequirements: true,
   };
 };
 
