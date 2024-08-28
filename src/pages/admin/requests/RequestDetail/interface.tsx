@@ -3,7 +3,6 @@ import { ValidationCard } from "@components/cards/ValidationCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -11,7 +10,7 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
-import { MdArrowBack, MdOutlineAdd } from "react-icons/md";
+import { MdArrowBack } from "react-icons/md";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
@@ -54,7 +53,6 @@ function RequestDetailUI(props: RequestUIProps) {
     attachModal,
     maxFileSize,
     selectedDocuments,
-    onOpenAttachModal,
     onCloseAttachModal,
     onSelectDocument,
   } = props;
@@ -190,13 +188,13 @@ function RequestDetailUI(props: RequestUIProps) {
                 </Grid>
               </Stack>
 
-              <Button
+              {/*  <Button
                 iconBefore={<MdOutlineAdd />}
                 variant="none"
                 onClick={() => onOpenAttachModal("")}
               >
                 Adjuntar documento
-              </Button>
+              </Button> */}
             </Stack>
           </Accordion>
         </Stack>
@@ -206,7 +204,7 @@ function RequestDetailUI(props: RequestUIProps) {
         <AttachDocumentModal
           portalId="modals"
           maxFileSize={maxFileSize}
-          requirementId={attachModal.id}
+          documentType={attachModal.id}
           onSelectDocuments={(files) =>
             onSelectDocument(files[0], attachModal.id)
           }
