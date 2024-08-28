@@ -7,6 +7,7 @@ interface IValidation {
   value?: ValidationValueType;
   isRequired?: boolean;
   pending?: boolean;
+  documentType?: string;
 }
 
 interface IValidations {

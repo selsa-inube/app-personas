@@ -33,7 +33,7 @@ interface ITempFile {
 interface AttachDocumentModalProps {
   portalId: string;
   maxFileSize: number;
-  requirementId: string;
+  documentType: string;
   onSelectDocuments: (files: FileList) => void;
   onCloseModal: () => void;
 }
@@ -42,7 +42,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
   const {
     portalId,
     maxFileSize,
-    requirementId,
+    documentType,
     onSelectDocuments,
     onCloseModal,
   } = props;
@@ -70,7 +70,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
       setTempFiles([...tempfiles, { id: file.name, file, loading: true }]);
 
       const documentRequest: ISaveDocumentRequest = {
-        documentType: requirementId,
+        documentType,
         file,
       };
 
