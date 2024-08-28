@@ -7,6 +7,7 @@ interface IValidation {
   value?: ValidationValueType;
   isRequired?: boolean;
   pending?: boolean;
+  documentType?: string;
 }
 
 interface IValidations {
@@ -26,4 +27,4 @@ interface IAid {
   validations: IValidations;
 }
 
-export type { IAid, IValidation, ValidationValueType, ISelectedDocument };
+export type { IAid, ISelectedDocument, IValidation, ValidationValueType };
