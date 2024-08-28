@@ -12,7 +12,7 @@ const mapRequirementEntityToApi = (
     destinationName: requirement.destinationName,
     customerCode: requirement.customerCode,
     customerName: requirement.customerName,
-    paymentMethodCode: requirement.paymentMethod,
+    paymentMethod: requirement.paymentMethod,
     paymentMethodName: requirement.paymentMethodName,
     requestAmount: requirement.amount,
     creditAmount: requirement.amount,

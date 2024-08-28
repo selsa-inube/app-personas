@@ -13,7 +13,7 @@ import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import {
   MdDeleteOutline,
-  MdHelpOutline,
+  MdInfoOutline,
   MdOutlineDescription,
   MdQuestionMark,
 } from "react-icons/md";
@@ -134,14 +134,14 @@ function DocumentaryRequirementsFormUI(
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
-  if (!formik.values.withDocumentaryRequirements) {
+  if (formik.values.requiredDocuments.length === 0) {
     return (
       <Stack>
         <InfoCard
           title="Requisitos documentales"
           description="Actualmente, te encuentras utilizando un software externo para cargar los requisitos documentales. Luego de crear la solicitud, podrás adjuntar tus documentos."
           appearance="help"
-          icon={<MdHelpOutline />}
+          icon={<MdInfoOutline />}
         />
       </Stack>
     );
