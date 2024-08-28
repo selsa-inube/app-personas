@@ -67,7 +67,6 @@ const systemValidations: ISystemValidationsEntry = {
 const documentaryRequirements: IDocumentaryRequirementsEntry = {
   requiredDocuments: [],
   selectedDocuments: [],
-  withDocumentaryRequirements: true,
 };
 
 const disbursement: IDisbursementEntry = {

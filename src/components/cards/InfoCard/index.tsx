@@ -1,9 +1,9 @@
 import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { StyledCardContainer } from "./styles";
 import { InfoCardAppearanceType } from "./types";
-import { Text } from "@inubekit/text";
 
 interface InfoCardProps {
   title: string;
@@ -17,19 +17,23 @@ function InfoCard(props: InfoCardProps) {
 
   return (
     <StyledCardContainer $appearance={appearance}>
-      <Icon icon={icon} appearance={appearance} size="24px" spacing="narrow" />
-
-      <Stack direction="column" width="100%" gap={inube.spacing.s075}>
+      <Stack gap={inube.spacing.s100} alignItems="center">
+        <Icon
+          icon={icon}
+          appearance={appearance}
+          size="20px"
+          spacing="narrow"
+        />
         <Text type="label" size="large">
           {title}
         </Text>
-
-        {description && (
-          <Text type="body" size="medium">
-            {description}
-          </Text>
-        )}
       </Stack>
+
+      {description && (
+        <Text type="body" size="medium" appearance="gray">
+          {description}
+        </Text>
+      )}
     </StyledCardContainer>
   );
 }
