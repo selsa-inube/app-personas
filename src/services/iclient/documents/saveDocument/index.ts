@@ -62,7 +62,9 @@ const saveDocument = async (
       Math.round(performance.now() - startTime),
     );
 
-    throw new Error("No se pudo guardar el documento");
+    console.info(error);
+
+    throw error;
   }
 };
 
