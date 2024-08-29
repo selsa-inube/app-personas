@@ -3,7 +3,7 @@ import { IRequest } from "src/model/entity/request";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapRequestsApiToEntities } from "./mappers";
 
-const getRequests = async (
+const getRequestsForUser = async (
   userIdentification: string,
   accessToken: string,
   page: number,
@@ -13,7 +13,7 @@ const getRequests = async (
   const startTime = performance.now();
 
   const queryParams = new URLSearchParams({
-    /* clientCode: userIdentification, */
+    clientCode: userIdentification,
     page: String(page),
     per_page: String(limit),
     sort: "desc.requestDate",
@@ -28,7 +28,7 @@ const getRequests = async (
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchAllProductRequests",
-        "X-Business-Unit": "devfdcom" /* enviroment.BUSINESS_UNIT */,
+        "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
     };
@@ -74,4 +74,4 @@ const getRequests = async (
   }
 };
 
-export { getRequests };
+export { getRequestsForUser };

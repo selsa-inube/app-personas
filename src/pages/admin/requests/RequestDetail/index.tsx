@@ -1,16 +1,16 @@
 import { useAuth } from "@inube/auth";
-import { requestsMock } from "@mocks/products/credits/requests.mocks";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
+import { RequestsContext } from "src/context/requests";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
-import { getRequestDetail } from "src/services/iclient/requests/getRequestDetail";
 import { RequestDetailUI } from "./interface";
+import { validateRequest } from "./utils";
 
 const MAX_SIZE_PER_FILE = 2.5;
 
 function RequestDetail() {
-  const [requestData, setRequestData] = useState<IRequest>();
   const { accessToken } = useAuth();
   const { request_id } = useParams();
   const [attachModal, setAttachModal] = useState({
@@ -20,27 +20,28 @@ function RequestDetail() {
   const [selectedDocuments, setSelectedDocuments] = useState<
     ISelectedDocument[]
   >([]);
+  const [selectedRequest, setSelectedRequest] = useState<IRequest>();
+  const { requests, setRequests } = useContext(RequestsContext);
+  const { user } = useContext(AppContext);
 
-  const handleGetRequestDetail = () => {
-    if (!accessToken || !request_id) return;
+  const handleSortRequest = async () => {
+    if (!request_id || !user || !accessToken) return;
 
-    getRequestDetail(request_id, accessToken)
-      .then((newRequest) => {
-        setRequestData(newRequest);
+    const { selectedRequest, newRequests } = await validateRequest(
+      requests,
+      request_id,
+      user.identification,
+      accessToken,
+    );
 
-        if (!newRequest) return;
-        setSelectedDocuments(newRequest.documentaryRequirements);
-      })
-      .catch((error) => {
-        setRequestData(requestsMock[0]); // TEMP
-        setSelectedDocuments(requestsMock[0].documentaryRequirements);
+    setRequests(newRequests);
 
-        console.info(error.message);
-      });
+    if (!selectedRequest) return;
+
+    setSelectedRequest(selectedRequest);
   };
-
   useEffect(() => {
-    handleGetRequestDetail();
+    handleSortRequest();
   }, []);
 
   const handleOpenAttachModal = (id: string) => {
@@ -67,11 +68,11 @@ function RequestDetail() {
     ]);
   };
 
-  if (!requestData) return null;
+  if (!selectedRequest) return null;
 
   return (
     <RequestDetailUI
-      requestData={requestData}
+      selectedRequest={selectedRequest}
       requestId={request_id}
       attachModal={attachModal}
       maxFileSize={MAX_SIZE_PER_FILE}

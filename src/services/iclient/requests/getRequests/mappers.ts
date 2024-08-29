@@ -1,6 +1,7 @@
 import { ITag } from "@inubekit/tag";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
+import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { IRequest } from "src/model/entity/request";
 import { IValidation, ValidationValueType } from "src/model/entity/service";
 import { capitalizeText, correctSpecialCharacters } from "src/utils/texts";
@@ -17,6 +18,10 @@ const requestStatusAppearance: Record<string, ITag["appearance"]> = {
 
 const requestTitles: Record<string, string> = {
   credit: "Credito",
+};
+
+const requestDescriptions: Record<string, string> = {
+  credit: "Solicitud de credito",
 };
 
 const mapRequirementApiToEntity = (
@@ -77,20 +82,23 @@ const mapRequestApiToEntity = (
 
   return {
     id: String(request.productRequestId),
-    title: requestTitles[String(request.requestType)] || "Credito",
+    title: requestTitles[String(request.requestType)] || "",
     product: capitalizeText(String(Object(request).details.productDetail)),
     destination: capitalizeText(
       String(Object(request).details.destinationDetail),
     ),
     trackingCode: String(request.cus),
     requestDate: new Date(String(request.requestDate)),
-    description: "String(request.description)",
+    description: requestDescriptions[String(request.requestType)] || "",
     status:
       requestStatusDM.valueOf(Object(request.status).code)?.id ||
       requestStatusDM.IN_STUDY.id,
     value: Number(Object(request).details.conditions.requestedAmount),
     quotaValue: Number(Object(request).details.conditions.quotaValue),
-    periodicity: "String(request.periodicity)",
+    periodicity:
+      periodicityDM.valueOf(
+        Object(request).details.conditions.capitalPeriodicity,
+      )?.value || "",
     deadline: String(Object(request).details.conditions.quotas),
     interestRate: Number(
       Object(request).details.conditions.remunerativeInterestRate,
