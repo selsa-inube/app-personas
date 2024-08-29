@@ -14,11 +14,13 @@ const aidsRequestMock: IAid[] = [
           label: "Factura original",
           value: "pending",
           isRequired: true,
+          documentType: "113",
         },
         {
           id: "medical_prescription_copy",
           label: "Fotocopia de la fórmula médica",
           value: "pending",
+          documentType: "113",
         },
       ],
       regulations: [
