@@ -133,7 +133,7 @@ function DocumentaryRequirementsFormUI(
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
-
+  console.log(formik.values.requiredDocuments);
   if (formik.values.requiredDocuments.length === 0) {
     return (
       <Stack>
@@ -172,17 +172,15 @@ function DocumentaryRequirementsFormUI(
             autoRows="auto"
             gap={inube.spacing.s200}
           >
-            {formik.values.requiredDocuments.map(
-              (document) =>
-                document.documentType &&
-                renderRequirement(
-                  document.label,
-                  document.id,
-                  document.documentType,
-                  formik.values.selectedDocuments,
-                  onOpenAttachModal,
-                  onRemoveDocument,
-                ),
+            {formik.values.requiredDocuments.map((document) =>
+              renderRequirement(
+                document.label,
+                document.id,
+                document.documentType || "113",
+                formik.values.selectedDocuments,
+                onOpenAttachModal,
+                onRemoveDocument,
+              ),
             )}
           </Grid>
         </Stack>
