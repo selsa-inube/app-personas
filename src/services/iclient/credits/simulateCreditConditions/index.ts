@@ -3,10 +3,7 @@ import {
   mapSimulationEntityToApi,
   mapSimulationEntityToEntity,
 } from "./mappers";
-import {
-  ISimulateCreditRequest,
-  ISimulateCreditResponse,
-} from "./types";
+import { ISimulateCreditRequest, ISimulateCreditResponse } from "./types";
 
 const simulateCreditConditions = async (
   simulationValues: ISimulateCreditRequest,
@@ -29,13 +26,14 @@ const simulateCreditConditions = async (
       `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-request`,
       options,
     );
-
+    console.log(res);
     if (res.status === 204) {
       return;
     }
 
+    const data = await res.json();
+
     if (!res.ok) {
-      const data = await res.json();
       throw {
         message: "Error al realizar la simulación",
         status: res.status,
@@ -43,7 +41,6 @@ const simulateCreditConditions = async (
       };
     }
 
-    const data = await res.json();
     return mapSimulationEntityToEntity(data);
   } catch (error) {
     console.info("Error en la simulación:", error);
