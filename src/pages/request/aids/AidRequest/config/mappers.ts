@@ -35,7 +35,7 @@ const mapRegulationValidations = (
 ): IRegulationValidationsEntry => {
   const selectedAid = aidsRequestMock.find((aid) => aid.id === aidType?.id);
   const validations: IValidation[] = [];
-
+  console.log(selectedAid);
   if (selectedAid) {
     selectedAid.validations.regulations.forEach((regulation) => {
       validations.push({
@@ -43,6 +43,7 @@ const mapRegulationValidations = (
         label: regulation.label,
         value: "pending",
         isRequired: regulation.isRequired,
+        documentType: regulation.documentType,
       });
     });
   }
