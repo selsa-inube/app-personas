@@ -133,7 +133,7 @@ function DocumentaryRequirementsFormUI(
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
-  console.log(formik.values.requiredDocuments);
+
   if (formik.values.requiredDocuments.length === 0) {
     return (
       <Stack>

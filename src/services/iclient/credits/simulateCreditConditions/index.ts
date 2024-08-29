@@ -26,7 +26,7 @@ const simulateCreditConditions = async (
       `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-request`,
       options,
     );
-    console.log(res);
+
     if (res.status === 204) {
       return;
     }
