@@ -32,8 +32,8 @@ const renderDestinationVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    <BoxAttribute label="Destino:" value={values.creditDestination?.value} />
-    <BoxAttribute label="Producto:" value={values.selectedProduct?.title} />
+    <BoxAttribute label="Destino:" value={values.destination?.value} />
+    <BoxAttribute label="Producto:" value={values.product?.title} />
   </Grid>
 );
 
@@ -205,9 +205,7 @@ const renderDisbursementVerification = (values: IDisbursementEntry) => (
   <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <BoxAttribute
       label="Forma de desembolso:"
-      value={
-        getValueOfDomain(values.disbursementType, "disbursementType")?.value
-      }
+      value={getValueOfDomain(values.disbursement || "", "disbursement")?.value}
     />
     {values.accountType && (
       <BoxAttribute

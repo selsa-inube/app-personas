@@ -14,7 +14,7 @@ const mapConditionsEntityToApi = (
   };
 };
 
-const mapConditionsEntityToEntity = (
+const mapConditionsApiToEntity = (
   conditionOption: Record<string, string | object>,
 ): ICalculatedConditionsResponse => {
   return {
@@ -28,4 +28,4 @@ const mapConditionsEntityToEntity = (
   };
 };
 
-export { mapConditionsEntityToApi, mapConditionsEntityToEntity };
+export { mapConditionsEntityToApi, mapConditionsApiToEntity };

@@ -16,7 +16,7 @@ interface IDisbursementModalState {
 }
 
 interface ICreditConditionsEntry {
-  creditDestination?: ISelectOption;
+  destination?: ISelectOption;
   product: IDestinationProduct;
   simulationWithQuota: boolean;
   amount?: number;

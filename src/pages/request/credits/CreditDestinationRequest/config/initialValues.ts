@@ -71,7 +71,6 @@ const documentaryRequirements: IDocumentaryRequirementsEntry = {
 
 const disbursement: IDisbursementEntry = {
   disbursements: [],
-  disbursementType: "",
   accountNumber: "",
   writeAccountNumber: "",
   observations: "",
@@ -96,6 +95,7 @@ const comments: ICommentsEntry = {
 const termsAndConditions: ITermsAndConditionsEntry = {
   productId: "",
   termsConditions: [],
+  ids: [],
   accept: false,
   acceptDataPolicy: false,
 };

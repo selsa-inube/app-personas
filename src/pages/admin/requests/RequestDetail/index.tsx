@@ -1,21 +1,21 @@
 import { useAuth } from "@inube/auth";
-import { requestsMock } from "@mocks/products/credits/requests.mocks";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
-import { getRequestDetail } from "src/services/iclient/requests/getRequestDetail";
+/* import { getRequestDetail } from "src/services/iclient/requests/getRequestDetail"; */
 import { RequestDetailUI } from "./interface";
 
 const MAX_SIZE_PER_FILE = 2.5;
 
 function RequestDetail() {
-  const [requestData, setRequestData] = useState<IRequest>();
+  const [requestData] = useState<IRequest>();
   const { accessToken } = useAuth();
   const { request_id } = useParams();
   const [attachModal, setAttachModal] = useState({
     show: false,
-    id: "",
+    requirementId: "",
+    documentType: "",
   });
   const [selectedDocuments, setSelectedDocuments] = useState<
     ISelectedDocument[]
@@ -24,7 +24,7 @@ function RequestDetail() {
   const handleGetRequestDetail = () => {
     if (!accessToken || !request_id) return;
 
-    getRequestDetail(request_id, accessToken)
+    /* getRequestDetail(request_id, accessToken)
       .then((newRequest) => {
         setRequestData(newRequest);
 
@@ -36,35 +36,34 @@ function RequestDetail() {
         setSelectedDocuments(requestsMock[0].documentaryRequirements);
 
         console.info(error.message);
-      });
+      }); */
   };
 
   useEffect(() => {
     handleGetRequestDetail();
   }, []);
 
-  const handleOpenAttachModal = (id: string) => {
+  const handleOpenAttachModal = (
+    requirementId: string,
+    documentType: string,
+  ) => {
     setAttachModal({
       show: true,
-      id,
+      requirementId,
+      documentType,
     });
   };
 
   const handleCloseAttachModal = () => {
     setAttachModal({
       show: false,
-      id: "",
+      requirementId: "",
+      documentType: "",
     });
   };
 
-  const handleSelectDocument = async (file: File, id: string) => {
-    setSelectedDocuments([
-      ...selectedDocuments,
-      {
-        file,
-        id,
-      },
-    ]);
+  const handleSelectDocument = async (document: ISelectedDocument) => {
+    setSelectedDocuments([...selectedDocuments, document]);
   };
 
   if (!requestData) return null;

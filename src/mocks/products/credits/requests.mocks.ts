@@ -63,6 +63,8 @@ const requestsMock: IRequest[] = [
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
       file: new File([""], document.label, { type: "application/pdf" }),
       id: document.id,
+      requirementId: document.id,
+      documentType: "113",
     })),
   },
   {
@@ -125,6 +127,8 @@ const requestsMock: IRequest[] = [
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
       file: new File([""], document.label, { type: "application/pdf" }),
       id: document.id,
+      requirementId: document.id,
+      documentType: "113",
     })),
   },
   {
@@ -187,6 +191,8 @@ const requestsMock: IRequest[] = [
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
       file: new File([""], document.label, { type: "application/pdf" }),
       id: document.id,
+      requirementId: document.id,
+      documentType: "113",
     })),
   },
   {
@@ -249,6 +255,8 @@ const requestsMock: IRequest[] = [
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
       file: new File([""], document.label, { type: "application/pdf" }),
       id: document.id,
+      requirementId: document.id,
+      documentType: "113",
     })),
   },
   {
@@ -311,6 +319,8 @@ const requestsMock: IRequest[] = [
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
       file: new File([""], document.label, { type: "application/pdf" }),
       id: document.id,
+      requirementId: document.id,
+      documentType: "113",
     })),
   },
   {
@@ -373,6 +383,8 @@ const requestsMock: IRequest[] = [
     documentaryRequirements: documentaryRequirementsMock.map((document) => ({
       file: new File([""], document.label, { type: "application/pdf" }),
       id: document.id,
+      requirementId: document.id,
+      documentType: "113",
     })),
   },
 ];

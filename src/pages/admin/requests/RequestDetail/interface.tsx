@@ -37,13 +37,14 @@ interface RequestUIProps {
   requestId?: string;
   attachModal: {
     show: boolean;
-    id: string;
+    requirementId: string;
+    documentType: string;
   };
   maxFileSize: number;
   selectedDocuments: ISelectedDocument[];
-  onOpenAttachModal: (id: string) => void;
+  onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;
-  onSelectDocument: (file: File, id: string) => void;
+  onSelectDocument: (document: ISelectedDocument) => void;
 }
 
 function RequestDetailUI(props: RequestUIProps) {
@@ -204,10 +205,9 @@ function RequestDetailUI(props: RequestUIProps) {
         <AttachDocumentModal
           portalId="modals"
           maxFileSize={maxFileSize}
-          documentType={attachModal.id}
-          onSelectDocuments={(files) =>
-            onSelectDocument(files[0], attachModal.id)
-          }
+          documentType={attachModal.documentType}
+          requirementId={attachModal.requirementId}
+          onSelectDocuments={(files) => onSelectDocument(files[0])}
           onCloseModal={onCloseAttachModal}
         />
       )}

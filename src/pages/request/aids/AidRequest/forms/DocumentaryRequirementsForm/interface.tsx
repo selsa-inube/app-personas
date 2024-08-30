@@ -107,13 +107,13 @@ interface DocumentaryRequirementsFormUIProps {
   maxFileSize: number;
   attachModal: {
     show: boolean;
-    id: string;
+    requirementId: string;
     documentType: string;
   };
-  onSelectDocument: (file: File, id: string) => void;
+  onSelectDocument: (document: ISelectedDocument) => void;
   onRemoveDocument: (id: string) => void;
   onToggleInfoModal: () => void;
-  onOpenAttachModal: (id: string, documentType: string) => void;
+  onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;
 }
 
@@ -203,9 +203,8 @@ function DocumentaryRequirementsFormUI(
           portalId="modals"
           maxFileSize={maxFileSize}
           documentType={attachModal.documentType}
-          onSelectDocuments={(files) =>
-            onSelectDocument(files[0], attachModal.id)
-          }
+          requirementId={attachModal.requirementId}
+          onSelectDocuments={(files) => onSelectDocument(files[0])}
           onCloseModal={onCloseAttachModal}
         />
       )}

@@ -19,14 +19,13 @@ import {
   MdOutlineClose,
   MdOutlineSentimentNeutral,
 } from "react-icons/md";
+import { ISelectedDocument } from "src/model/entity/service";
 import { saveDocument } from "src/services/iclient/documents/saveDocument";
 import { ISaveDocumentRequest } from "src/services/iclient/documents/saveDocument/types";
 import { initialMessageState } from "src/utils/messages";
 import { StyledModal } from "./styles";
 
-interface ITempFile {
-  id: string;
-  file: File;
+interface ITempFile extends ISelectedDocument {
   loading?: boolean;
 }
 
@@ -34,7 +33,8 @@ interface AttachDocumentModalProps {
   portalId: string;
   maxFileSize: number;
   documentType: string;
-  onSelectDocuments: (files: FileList) => void;
+  requirementId: string;
+  onSelectDocuments: (files: ISelectedDocument[]) => void;
   onCloseModal: () => void;
 }
 
@@ -43,6 +43,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
     portalId,
     maxFileSize,
     documentType,
+    requirementId,
     onSelectDocuments,
     onCloseModal,
   } = props;
@@ -53,9 +54,10 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
   const [message, setMessage] = useState<IMessage>(initialMessageState);
   const [tempfiles, setTempFiles] = useState<ITempFile[]>([]);
 
-  const handleSelectDocuments = async (files: FileList) => {
-    for (const file of [...files]) {
-      if (file.size > maxFileSize * 1024 * 1024) {
+  const handleSelectDocuments = async (fileList: FileList) => {
+    const files = [...fileList];
+    for (let ix = 0; ix < files.length; ix++) {
+      if (files[ix].size > maxFileSize * 1024 * 1024) {
         setMessage({
           show: true,
           title: `El documento excede el límite de ${maxFileSize}MB por archivo.`,
@@ -67,22 +69,39 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
         return;
       }
 
-      setTempFiles([...tempfiles, { id: file.name, file, loading: true }]);
+      const id = `${requirementId}-${ix + 1}`;
+      setTempFiles([
+        ...tempfiles,
+        {
+          id,
+          file: files[ix],
+          requirementId,
+          loading: true,
+        },
+      ]);
 
       const documentRequest: ISaveDocumentRequest = {
         documentType,
-        file,
+        file: files[ix],
       };
 
       if (!accessToken) return;
 
       try {
-        await saveDocument(documentRequest, accessToken);
+        const documentResponse = await saveDocument(
+          documentRequest,
+          accessToken,
+        );
 
         setTempFiles((prev) =>
           prev.map((tempfile) => {
-            if (tempfile.id === file.name) {
-              return { ...tempfile, loading: false };
+            if (tempfile.id === id) {
+              return {
+                ...tempfile,
+                documentType: documentResponse?.documentType,
+                sequence: documentResponse?.sequence,
+                loading: false,
+              };
             }
 
             return tempfile;
@@ -93,7 +112,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
       } catch (error) {
         setMessage({
           show: true,
-          title: `Ocurrió un error al subir el documento ${file.name}.`,
+          title: `Ocurrió un error al subir el documento ${files[ix].name}.`,
           description: "",
           icon: <MdOutlineSentimentNeutral />,
           appearance: "danger",
@@ -107,9 +126,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
   };
 
   const handleAttachDocuments = () => {
-    const dataTransfer = new DataTransfer();
-    tempfiles.forEach((file) => dataTransfer.items.add(file.file));
-    onSelectDocuments(dataTransfer.files);
+    onSelectDocuments(tempfiles);
     onCloseModal();
   };
 

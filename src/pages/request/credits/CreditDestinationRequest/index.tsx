@@ -1,12 +1,15 @@
 import { useAuth } from "@inube/auth";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate, useBlocker } from "react-router-dom";
+import { MdSentimentNeutral } from "react-icons/md";
+import { Navigate, useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { getDestinationsForUser } from "src/services/iclient/credits/getDestinations";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
+import { initialMessageState } from "src/utils/messages";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
 import { mapDestination } from "./config/mappers";
@@ -22,7 +25,7 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
-import { creditDestinationStepsRules } from "./utils";
+import { creditDestinationStepsRules, sendCreditRequest } from "./utils";
 
 function CreditDestinationRequest() {
   const { accessToken } = useAuth();
@@ -33,9 +36,10 @@ function CreditDestinationRequest() {
     creditDestinationRequestSteps.destination.id,
   );
   const steps = Object.values(creditDestinationRequestSteps);
-
+  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
   const { getFlag } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const [creditDestinationRequest, setCreditDestinationRequest] =
     useState<IFormsCreditDestinationRequest>({
@@ -161,7 +165,26 @@ function CreditDestinationRequest() {
   };
 
   const handleFinishAssisted = () => {
+    if (!accessToken || !user) return;
+
     setLoadingSend(true);
+
+    sendCreditRequest(
+      user,
+      creditDestinationRequest,
+      accessToken,
+      navigate,
+    ).catch(() => {
+      setMessage({
+        show: true,
+        title: "El pago no pudo ser procesado",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        icon: <MdSentimentNeutral />,
+        appearance: "danger",
+      });
+      setLoadingSend(false);
+    });
   };
 
   const handleNextStep = () => {
@@ -176,6 +199,10 @@ function CreditDestinationRequest() {
     handleStepChange(currentStep - 1);
   };
 
+  const handleCloseMessage = () => {
+    setMessage(initialMessageState);
+  };
+
   if (!getFlag("admin.credits.credits.request-credit").value) {
     return <Navigate to="/" />;
   }
@@ -188,12 +215,14 @@ function CreditDestinationRequest() {
       currentStep={currentStep}
       formReferences={formReferences}
       loadingSend={loadingSend}
+      message={message}
       blocker={blocker}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
+      onCloseMessage={handleCloseMessage}
     />
   );
 }

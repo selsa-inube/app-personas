@@ -48,6 +48,9 @@ const mapRequirementApiToEntity = (
     documentType: requirement.documentTypeCode
       ? String(requirement.documentTypeCode)
       : undefined,
+    profile: requirement.profile ? String(requirement.profile) : undefined,
+    responseCode: String(requirement.responseCode) || "",
+    evaluationDescription: "",
   };
 };
 
