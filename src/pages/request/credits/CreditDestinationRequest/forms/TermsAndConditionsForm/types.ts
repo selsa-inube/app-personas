@@ -1,7 +1,7 @@
 interface ITermsAndConditionsEntry {
   productId: string;
   termsConditions: string[];
-  ids: string[];
+  ids: string;
   accept: boolean;
   acceptDataPolicy: boolean;
 }

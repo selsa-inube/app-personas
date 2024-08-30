@@ -123,13 +123,18 @@ const creditDestinationStepsRules = (
         values,
       };
 
-      newCreditDestinationRequest.documentaryRequirements = {
-        isValid: true,
-        values: {
-          ...initalValuesCreditDestination.documentaryRequirements,
-          requiredDocuments: values.documents,
-        },
-      };
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentCreditDestinationRequest.systemValidations.values)
+      ) {
+        newCreditDestinationRequest.documentaryRequirements = {
+          isValid: true,
+          values: {
+            ...initalValuesCreditDestination.documentaryRequirements,
+            requiredDocuments: values.documents,
+          },
+        };
+      }
 
       return newCreditDestinationRequest;
     }
@@ -158,7 +163,6 @@ const sendCreditRequest = async (
   navigate: NavigateFunction,
 ) => {
   const comments = `${creditRequest.comments.values.comments}
-  \n\n
     Datos de contacto:
     Celular: ${creditRequest.contactChannels.values.cellPhone}
     Correo: ${creditRequest.contactChannels.values.email}
@@ -185,7 +189,9 @@ const sendCreditRequest = async (
         creditRequest.creditConditions.values.paymentMethod?.id || "",
       paymentMethodName:
         creditRequest.creditConditions.values.paymentMethod?.value || "",
-      periodicity: creditRequest.creditConditions.values.periodicity.id,
+      periodicityInMonths:
+        creditRequest.creditConditions.values.periodicity?.periodicityInMonths?.toString() ||
+        "",
       quota: creditRequest.creditConditions.values.quota || 0,
       disbursement: {
         anticipatedInterest:
@@ -198,8 +204,11 @@ const sendCreditRequest = async (
     disbursmentMethod: {
       id: creditRequest.disbursement.values.disbursement || "",
       name: creditRequest.disbursement.values.disbursementName || "",
-      accountNumber: creditRequest.disbursement.values.transferAccountNumber,
-      accountType: creditRequest.disbursement.values.transferAccountType,
+      accountNumber: creditRequest.disbursement.values.accountNumber,
+      transferAccountNumber:
+        creditRequest.disbursement.values.transferAccountNumber,
+      transferAccountType:
+        creditRequest.disbursement.values.transferAccountType,
       transferBankEntity: creditRequest.disbursement.values.transferBankEntity,
     },
     documentaryRequirements:
@@ -211,8 +220,7 @@ const sendCreditRequest = async (
 
   try {
     await createCreditRequest(creditRequestData, accessToken);
-
-    navigate("/my-requests");
+    navigate("/my-requests?success_request=true");
   } catch (error) {
     confirmationType = "failed";
 

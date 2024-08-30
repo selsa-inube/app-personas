@@ -1,5 +1,10 @@
-import { SkeletonLine } from "@inubekit/skeleton";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Icon } from "@inubekit/icon";
+import { SkeletonLine } from "@inubekit/skeleton";
+import { Stack } from "@inubekit/stack";
+import { ITag, Tag } from "@inubekit/tag";
+import { Text } from "@inubekit/text";
 import { getRecordDescriptionType } from "@pages/admin/cards/Card/config/product";
 import {
   MdArrowBack,
@@ -11,11 +16,6 @@ import {
 import { EMovementType } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { ITag, Tag } from "@inubekit/tag";
 
 const getIconForRecordType = (type: EMovementType) => {
   return (
@@ -162,26 +162,26 @@ function RecordCard(props: RecordCardProps) {
             <SkeletonLine animated width="150px" />
           </>
         ) : (
-          attributes.map((attribute, index) => (
-            <Stack key={attribute.id} justifyContent="space-between">
-              <Stack gap={inube.spacing.s075}>
-                <Text type="label" size="medium" appearance="gray">
-                  {attribute.label}:
-                </Text>
-                <Text type="body" size="small">
-                  {attribute.value instanceof Date
-                    ? formatPrimaryDate(attribute.value)
-                    : attribute.value}
-                </Text>
-              </Stack>
-              {index === 0 && tag && isMobile && (
-                <Tag
-                  label={tag.label}
-                  appearance={tag.appearance}
-                />
-              )}
-            </Stack>
-          ))
+          attributes.map(
+            (attribute, index) =>
+              attribute.value && (
+                <Stack key={attribute.id} justifyContent="space-between">
+                  <Stack gap={inube.spacing.s075}>
+                    <Text type="label" size="medium" appearance="gray">
+                      {attribute.label}:
+                    </Text>
+                    <Text type="body" size="small">
+                      {attribute.value instanceof Date
+                        ? formatPrimaryDate(attribute.value)
+                        : attribute.value}
+                    </Text>
+                  </Stack>
+                  {index === 0 && tag && isMobile && (
+                    <Tag label={tag.label} appearance={tag.appearance} />
+                  )}
+                </Stack>
+              ),
+          )
         )}
       </Stack>
       {isMobile && (

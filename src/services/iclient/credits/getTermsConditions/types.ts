@@ -1,5 +1,5 @@
 interface ITermsConditionsResponse {
-  codes: string[];
+  codes: string;
   termsConditions: string[];
 }
 

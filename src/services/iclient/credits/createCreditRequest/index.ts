@@ -23,7 +23,7 @@ const createCreditRequest = async (
     };
 
     const res = await fetch(
-      `${enviroment.ICLIENT_API_URL_PERSISTENCE}/productRequests`,
+      `${enviroment.ICLIENT_API_URL_PERSISTENCE}/product-requests`,
       options,
     );
 

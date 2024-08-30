@@ -16,7 +16,7 @@ const mapRequestCreditEntityToApi = (
         quotas: creditRequest.conditions.deadline,
         capitalPaymentMethod: creditRequest.conditions.paymentMethod,
         capitalPaymentMethodDetail: creditRequest.conditions.paymentMethodName,
-        capitalPeriodicity: creditRequest.conditions.periodicity,
+        capitalPeriodicity: creditRequest.conditions.periodicityInMonths,
         remunerativeInterestRate: creditRequest.conditions.rate,
         disbursementDetails: {
           charges: creditRequest.conditions.disbursement.charges,
@@ -31,7 +31,7 @@ const mapRequestCreditEntityToApi = (
         disbursementMethodDetail: creditRequest.disbursmentMethod.name,
         savingsAccountNumber: creditRequest.disbursmentMethod.accountNumber,
         accountNumber: creditRequest.disbursmentMethod.transferAccountNumber,
-        accountTypeCode: creditRequest.disbursmentMethod.accountType,
+        accountTypeCode: creditRequest.disbursmentMethod.transferAccountType,
         accountTypeDetail: creditRequest.disbursmentMethod.transferBankEntity,
         bankCode: creditRequest.disbursmentMethod.transferBankEntity,
         bankDetail: creditRequest.disbursmentMethod.transferBankEntity,
@@ -55,7 +55,7 @@ const mapRequestCreditEntityToApi = (
       documentRequirements: creditRequest.documentaryRequirements.map(
         (document) => ({
           documentTypeCode: document.documentType,
-          sequence: document.sequence,
+          sequence: document.sequence?.toString(),
           fileName: document.file.name,
         }),
       ),

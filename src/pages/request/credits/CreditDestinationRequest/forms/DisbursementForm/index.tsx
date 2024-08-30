@@ -16,7 +16,6 @@ import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
-import { initalValuesCreditDestination } from "../../config/initialValues";
 import { structureDisbursementForm } from "./config/form";
 import { DisbursementFormUI } from "./interface";
 import { IDisbursementEntry } from "./types";
@@ -60,11 +59,9 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty) {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
-    }
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
   }, [formik.values]);
 
   useEffect(() => {
@@ -131,19 +128,14 @@ const DisbursementForm = forwardRef(function DisbursementForm(
 
       if (!disbursement) return;
 
-      formik.setValues({
-        ...initalValuesCreditDestination.disbursement,
-        disbursements: formik.values.disbursements,
-        disbursement: disbursement.id,
-        disbursementName: disbursement.value,
-      });
-
       updatedFormikValues = {
-        ...initalValuesCreditDestination.disbursement,
+        ...initialValues,
         disbursements: formik.values.disbursements,
         disbursement: disbursement.id,
         disbursementName: disbursement.value,
       };
+
+      formik.setValues(updatedFormikValues);
     } else {
       formik.setFieldValue(name, value);
     }

@@ -4,7 +4,9 @@ const mapTermsConditionsApiToEntity = (
   termCondition: Record<string, string | number | object>,
 ): ITermsConditionsResponse => {
   return {
-    codes: Array.isArray(termCondition.codes) ? termCondition.codes : [],
+    codes: Array.isArray(termCondition.productCode)
+      ? termCondition.productCode.join(",")
+      : "",
     termsConditions: String(termCondition.description)
       .split("\n")
       .map((paragraph) => paragraph),

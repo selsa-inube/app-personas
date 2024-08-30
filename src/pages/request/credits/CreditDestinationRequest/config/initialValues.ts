@@ -37,7 +37,6 @@ const creditConditions: ICreditConditionsEntry = {
     periodicityInDays: 0,
   },
   periodicities: [],
-  periodicityInMonths: 0,
   charges: 0,
 };
 
@@ -95,7 +94,7 @@ const comments: ICommentsEntry = {
 const termsAndConditions: ITermsAndConditionsEntry = {
   productId: "",
   termsConditions: [],
-  ids: [],
+  ids: "",
   accept: false,
   acceptDataPolicy: false,
 };

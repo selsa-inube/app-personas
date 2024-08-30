@@ -27,7 +27,7 @@ function MyRequests() {
         clearInterval(refreshInterval);
       }
     };
-  }, []);
+  }, [user, accessToken]);
 
   const handleRefreshHistory = () => {
     if (refreshInterval) {

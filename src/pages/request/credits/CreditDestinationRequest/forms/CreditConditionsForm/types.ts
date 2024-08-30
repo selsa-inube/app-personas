@@ -32,7 +32,6 @@ interface ICreditConditionsEntry {
   paymentMethods: ISelectOption[];
   periodicity: IPeriodicity;
   periodicities: IPeriodicity[];
-  periodicityInMonths: number;
   charges: number;
   transferBankEntity?: string;
   transferAccountType?: string;

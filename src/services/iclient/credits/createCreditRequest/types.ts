@@ -3,14 +3,14 @@ import { ISelectedDocument, IValidation } from "src/model/entity/service";
 interface IRequestCreditRequest {
   customerCode: string;
   termsConditions: {
-    ids: string[];
+    ids: string;
     description: string;
   };
   comments: string;
   conditions: {
     paymentMethod: string;
     paymentMethodName: string;
-    periodicity: string;
+    periodicityInMonths: string;
     disbursement: {
       charges: number;
       discounts: number;
@@ -28,7 +28,7 @@ interface IRequestCreditRequest {
     id: string;
     name: string;
     accountNumber?: string;
-    accountType?: string;
+    transferAccountType?: string;
     transferBankEntity?: string;
     transferAccountNumber?: string;
     businessName?: string;

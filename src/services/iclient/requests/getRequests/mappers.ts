@@ -8,12 +8,14 @@ import { capitalizeText, correctSpecialCharacters } from "src/utils/texts";
 import { IRequirementResponse } from "../../credits/getRequirements/types";
 
 const requestStatusAppearance: Record<string, ITag["appearance"]> = {
-  Created: "warning",
+  Pending: "warning",
+  Sent: "warning",
   InStudy: "warning",
-  InProgress: "warning",
+  Approved: "success",
+  Rejected: "danger",
   InDisbursement: "warning",
   Completed: "success",
-  Rejected: "danger",
+  Cancelled: "danger",
 };
 
 const requestTitles: Record<string, string> = {
@@ -82,17 +84,17 @@ const mapRequestApiToEntity = (
 
   return {
     id: String(request.productRequestId),
-    title: requestTitles[String(request.requestType)] || "",
+    title: requestTitles[Object(request.requestType).code] || "",
     product: capitalizeText(String(Object(request).details.productDetail)),
     destination: capitalizeText(
       String(Object(request).details.destinationDetail),
     ),
-    trackingCode: String(request.cus),
+    trackingCode: request.requestNumber ? String(request.requestNumber) : "",
     requestDate: new Date(String(request.requestDate)),
-    description: requestDescriptions[String(request.requestType)] || "",
+    description: requestDescriptions[Object(request.requestType).code] || "",
     status:
       requestStatusDM.valueOf(Object(request.status).code)?.id ||
-      requestStatusDM.IN_STUDY.id,
+      requestStatusDM.SENT.id,
     value: Number(Object(request).details.conditions.requestedAmount),
     quotaValue: Number(Object(request).details.conditions.quotaValue),
     periodicity:
@@ -110,7 +112,7 @@ const mapRequestApiToEntity = (
     tag: {
       label:
         requestStatusDM.valueOf(Object(request.status).code)?.value ||
-        requestStatusDM.IN_STUDY.value,
+        requestStatusDM.SENT.value,
       appearance:
         requestStatusAppearance[Object(request.status).code] || "warning",
     },

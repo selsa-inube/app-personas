@@ -43,7 +43,7 @@ function RequestDetail() {
   };
   useEffect(() => {
     handleSortRequest();
-  }, []);
+  }, [accessToken, user, request_id]);
 
   const handleOpenAttachModal = (
     requirementId: string,

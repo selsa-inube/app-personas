@@ -22,6 +22,7 @@ import { truncateFileName } from "src/utils/texts";
 import { IDocumentaryRequirementsEntry } from "./types";
 
 function renderRequirement(
+  key: number,
   label: string,
   requirementId: string,
   documentType: string,
@@ -175,9 +176,10 @@ function DocumentaryRequirementsFormUI(
             gap={inube.spacing.s200}
           >
             {formik.values.requiredDocuments.map(
-              (document) =>
+              (document, index) =>
                 document.documentType &&
                 renderRequirement(
+                  index,
                   document.label,
                   document.id,
                   document.documentType,

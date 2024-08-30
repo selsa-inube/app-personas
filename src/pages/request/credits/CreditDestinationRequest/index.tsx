@@ -110,7 +110,12 @@ function CreditDestinationRequest() {
   };
 
   const validateDestinations = async () => {
-    if (!accessToken) return;
+    if (
+      !accessToken ||
+      (creditDestinationRequest.destination.values.destination &&
+        creditDestinationRequest.destination.values.product)
+    )
+      return;
 
     const destinations = await getDestinationsForUser(
       user.identification,
@@ -132,7 +137,8 @@ function CreditDestinationRequest() {
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      currentLocation.pathname !== nextLocation.pathname,
+      currentLocation.pathname !== nextLocation.pathname &&
+      !nextLocation.search.includes("?success_request=true"),
   );
 
   const handleStepChange = (stepId: number) => {
@@ -177,7 +183,7 @@ function CreditDestinationRequest() {
     ).catch(() => {
       setMessage({
         show: true,
-        title: "El pago no pudo ser procesado",
+        title: "La solicitud no pudo ser procesada",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
         icon: <MdSentimentNeutral />,
