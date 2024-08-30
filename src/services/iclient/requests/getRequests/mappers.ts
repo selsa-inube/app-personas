@@ -39,9 +39,11 @@ const mapRequirementApiToEntity = (
     label: capitalizeText(
       correctSpecialCharacters(String(requirement.requirementName)),
     ),
-    failDetails: capitalizeText(
-      correctSpecialCharacters(String(requirement.errorDescription)),
-    ),
+    failDetails: requirement.errorDescription
+      ? capitalizeText(
+          correctSpecialCharacters(String(requirement.errorDescription)),
+        )
+      : "",
     value: resultValues[String(requirement.responseCode)] || "pending",
     documentType: requirement.documentTypeCode
       ? String(requirement.documentTypeCode)

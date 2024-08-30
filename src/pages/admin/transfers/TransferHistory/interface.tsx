@@ -6,16 +6,16 @@ import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { ITransfer } from "src/model/entity/transfer";
 import { EmptyRecords } from "./EmptyRecords";
+import { generateAttributes } from "./config/attributeRecord";
 import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { generateAttributes } from "./config/attributeRecord";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];
@@ -101,6 +101,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
                       totalValue={transfer.value}
                       tag={transfer.tag.label !== "" ? transfer.tag : undefined}
                       attributes={generateAttributes(transfer)}
+                      datesWithTime
                     />
                     {index !== transferHistory.length - 1 && <Divider dashed />}
                   </Stack>

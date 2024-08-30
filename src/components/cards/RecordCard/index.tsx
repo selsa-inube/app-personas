@@ -71,6 +71,7 @@ interface RecordCardProps {
   tag?: ITag;
   loading?: boolean;
   attributes: { id: string; label: string; value: number | string | Date }[];
+  datesWithTime?: boolean;
   onClick?: (movementId: string) => void;
 }
 
@@ -83,8 +84,9 @@ function RecordCard(props: RecordCardProps) {
     attributes,
     withExpandingIcon = false,
     loading,
-    onClick,
     tag,
+    datesWithTime,
+    onClick,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
@@ -172,7 +174,7 @@ function RecordCard(props: RecordCardProps) {
                     </Text>
                     <Text type="body" size="small">
                       {attribute.value instanceof Date
-                        ? formatPrimaryDate(attribute.value)
+                        ? formatPrimaryDate(attribute.value, datesWithTime)
                         : attribute.value}
                     </Text>
                   </Stack>

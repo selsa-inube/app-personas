@@ -106,7 +106,10 @@ function RequestDetailUI(props: RequestUIProps) {
               )}
               {renderItem("Producto:", selectedRequest.product)}
               {renderItem("Destino:", selectedRequest.destination)}
-              {renderItem("Código de seguimiento:", selectedRequest.trackingCode)}
+              {renderItem(
+                "Código de seguimiento:",
+                selectedRequest.trackingCode,
+              )}
               {renderItem(
                 "Fecha de solicitud:",
                 formatPrimaryDate(selectedRequest.requestDate),
