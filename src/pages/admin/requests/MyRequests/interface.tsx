@@ -7,6 +7,9 @@ import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { IRequest } from "src/model/entity/request";
@@ -14,9 +17,6 @@ import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsMyRequests } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
 
 interface MyRequestsUIProps {
   requests: IRequest[];

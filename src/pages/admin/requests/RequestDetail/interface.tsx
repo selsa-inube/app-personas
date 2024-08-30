@@ -33,7 +33,7 @@ const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
 );
 
 interface RequestUIProps {
-  requestData: IRequest;
+  selectedRequest: IRequest;
   requestId?: string;
   attachModal: {
     show: boolean;
@@ -49,7 +49,7 @@ interface RequestUIProps {
 
 function RequestDetailUI(props: RequestUIProps) {
   const {
-    requestData,
+    selectedRequest,
     requestId,
     attachModal,
     maxFileSize,
@@ -88,7 +88,7 @@ function RequestDetailUI(props: RequestUIProps) {
             Características
           </Text>
 
-          <Accordion title={requestData.description}>
+          <Accordion title={selectedRequest.description}>
             <Grid
               autoRows="auto"
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
@@ -99,21 +99,21 @@ function RequestDetailUI(props: RequestUIProps) {
                 "Estado:",
                 undefined,
                 <Tag
-                  label={requestData.tag.label}
-                  appearance={requestData.tag.appearance}
+                  label={selectedRequest.tag.label}
+                  appearance={selectedRequest.tag.appearance}
                   weight="normal"
                 />,
               )}
-              {renderItem("Producto:", requestData.product)}
-              {renderItem("Destino:", requestData.destination)}
-              {renderItem("Código de seguimiento:", requestData.trackingCode)}
+              {renderItem("Producto:", selectedRequest.product)}
+              {renderItem("Destino:", selectedRequest.destination)}
+              {renderItem("Código de seguimiento:", selectedRequest.trackingCode)}
               {renderItem(
                 "Fecha de solicitud:",
-                formatPrimaryDate(requestData.requestDate),
+                formatPrimaryDate(selectedRequest.requestDate),
               )}
               {renderItem(
                 "Valor de la solicitud:",
-                currencyFormat(requestData.value),
+                currencyFormat(selectedRequest.value),
               )}
             </Grid>
           </Accordion>
@@ -127,16 +127,16 @@ function RequestDetailUI(props: RequestUIProps) {
             >
               {renderItem(
                 "Cuota:",
-                `${currencyFormat(requestData.quotaValue)} / ${requestData.periodicity}`,
+                `${currencyFormat(selectedRequest.quotaValue)} / ${selectedRequest.periodicity}`,
               )}
-              {renderItem("Plazo:", `${requestData.deadline} Meses`)}
+              {renderItem("Plazo:", `${selectedRequest.deadline} Meses`)}
               {renderItem(
                 "Tasa de interés:",
-                `${requestData.interestRate} % N.A.M.V`,
+                `${selectedRequest.interestRate} % N.A.M.V`,
               )}
               {renderItem(
                 "Desembolso aproximado:",
-                currencyFormat(requestData.netValue),
+                currencyFormat(selectedRequest.netValue),
               )}
             </Grid>
           </Accordion>
@@ -147,7 +147,7 @@ function RequestDetailUI(props: RequestUIProps) {
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
               gap={inube.spacing.s200}
             >
-              {requestData.validations.map((validation) => (
+              {selectedRequest.validations.map((validation) => (
                 <ValidationCard
                   key={validation.id}
                   id={validation.id}
