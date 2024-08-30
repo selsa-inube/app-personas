@@ -5,6 +5,7 @@ const cdatRequestBoxTitles: Record<string, string> = {
   investmentName: "Nombra tu inversión",
   contactChannels: "Canales de contacto",
   comments: "Comentarios",
+  termsAndConditions: "Términos y condiciones",
 };
 
 export { cdatRequestBoxTitles };
