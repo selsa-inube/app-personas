@@ -15,6 +15,9 @@ import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
+import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { bankDM } from "src/model/domains/general/bankDM";
+import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -147,7 +150,36 @@ const renderDisbursementVerification = (
         label="Desembolso:"
         value={reimbursementTypeDM.valueOf(values.disbursementMethod)?.value}
       />
-      <BoxAttribute label="Cuenta:" value={values.accountDescription} />
+      {values.account && !values.disbursedAccount && (
+        <BoxAttribute label="Cuenta:" value={values.account} />
+      )}
+      {values.disbursedAccount && (
+        <BoxAttribute
+          label="Cuenta:"
+          value={
+            getValueOfDomain(values.disbursedAccount, "accountOriginType")
+              ?.value
+          }
+        />
+      )}
+      {values.bankEntity && (
+        <BoxAttribute
+          label="Entidad bancaria:"
+          value={bankDM.valueOf(values.bankEntity)?.value}
+        />
+      )}
+      {values.accountType && (
+        <BoxAttribute
+          label="Tipo de cuenta:"
+          value={accountTypeDM.valueOf(values.accountType)?.value}
+        />
+      )}
+      {values.accountNumberTextField && (
+        <BoxAttribute
+          label="Número de cuenta:"
+          value={values.accountNumberTextField}
+        />
+      )}
     </Grid>
   );
 };
