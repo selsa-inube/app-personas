@@ -1,10 +1,9 @@
 import { useAuth } from "@inube/auth";
-import { requestsMock } from "@mocks/products/credits/requests.mocks";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { IRequest } from "src/model/entity/request";
-import { getRequests } from "src/services/iclient/requests/getRequests";
+import { RequestsContext } from "src/context/requests";
+import { getRequestsForUser } from "src/services/iclient/requests/getRequests";
 import { equalArraysByProperty } from "src/utils/arrays";
 import { MyRequestsUI } from "./interface";
 
@@ -14,7 +13,7 @@ let refreshInterval: ReturnType<typeof setTimeout> | null = null;
 
 function MyRequests() {
   const [loading, setLoading] = useState(false);
-  const [requests, setRequests] = useState<IRequest[]>([]);
+  const { requests, setRequests } = useContext(RequestsContext);
   const [noMoreRequests, setNoMoreRequests] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
@@ -47,7 +46,7 @@ function MyRequests() {
   const handleGetRequests = (page: number, limit: number, reset?: boolean) => {
     if (accessToken) {
       setLoading(true);
-      getRequests(user.identification, accessToken, page, limit)
+      getRequestsForUser(user.identification, accessToken, page, limit)
         .then((newRequests) => {
           if (newRequests.length === 0) {
             setNoMoreRequests(true);
@@ -77,8 +76,7 @@ function MyRequests() {
           setRequests([...requests, ...newRequests]);
         })
         .catch((error) => {
-          setRequests(requestsMock);
-          /* setNoMoreRequests(true); */
+          setNoMoreRequests(true);
           console.info(error.message);
         })
         .finally(() => {

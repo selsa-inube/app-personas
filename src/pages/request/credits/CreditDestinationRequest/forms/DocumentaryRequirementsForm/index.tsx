@@ -21,6 +21,7 @@ const DocumentaryRequirementsForm = forwardRef(
     const [attachModal, setAttachModal] = useState({
       show: false,
       id: "",
+      documentType: "",
     });
 
     const formik = useFormik({
@@ -54,10 +55,11 @@ const DocumentaryRequirementsForm = forwardRef(
       setShowInfoModal(!showInfoModal);
     };
 
-    const handleOpenAttachModal = (id: string) => {
+    const handleOpenAttachModal = (id: string, documentType: string) => {
       setAttachModal({
         show: true,
         id,
+        documentType,
       });
     };
 
@@ -65,6 +67,7 @@ const DocumentaryRequirementsForm = forwardRef(
       setAttachModal({
         show: false,
         id: "",
+        documentType: "",
       });
     };
 

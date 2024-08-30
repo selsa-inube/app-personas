@@ -1,5 +1,5 @@
 import { ITag } from "@inubekit/tag";
-import { IValidation } from "./service";
+import { ISelectedDocument, IValidation } from "./service";
 interface IRequest {
   id: string;
   title: string;
@@ -17,7 +17,7 @@ interface IRequest {
   netValue: number;
   tag: ITag;
   validations: IValidation[];
-  documentaryRequirements: IValidation[];
+  documentaryRequirements: ISelectedDocument[];
 }
 
 export type { IRequest };

@@ -29,6 +29,7 @@ import { CreditsProvider } from "./context/credits";
 import { PageNotFound } from "@components/layout/PageNotFound";
 import { SwitchUser } from "@pages/admin/switchUser";
 import { AppProvider } from "./context/app";
+import { RequestsProvider } from "./context/requests";
 import { SavingsProvider } from "./context/savings";
 import { AidRoutes } from "./routes/aid";
 import { MyCardsRoutes } from "./routes/myCards";
@@ -97,7 +98,9 @@ function App() {
           <SavingsProvider>
             <CreditsProvider>
               <CardsProvider>
-                <RouterProvider router={router} />
+                <RequestsProvider>
+                  <RouterProvider router={router} />
+                </RequestsProvider>
               </CardsProvider>
             </CreditsProvider>
           </SavingsProvider>

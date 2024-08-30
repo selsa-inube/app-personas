@@ -63,6 +63,7 @@ const mapDocumentaryRequirements = (
         id: document.id,
         label: document.label,
         isRequired: document.isRequired,
+        documentType: document.documentType,
       });
     });
   }
@@ -70,7 +71,6 @@ const mapDocumentaryRequirements = (
   return {
     requiredDocuments,
     selectedDocuments: [],
-    withDocumentaryRequirements: true,
   };
 };
 

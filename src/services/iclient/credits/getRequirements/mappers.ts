@@ -12,7 +12,7 @@ const mapRequirementEntityToApi = (
     destinationName: requirement.destinationName,
     customerCode: requirement.customerCode,
     customerName: requirement.customerName,
-    paymentMethodCode: requirement.paymentMethod,
+    paymentMethod: requirement.paymentMethod,
     paymentMethodName: requirement.paymentMethodName,
     requestAmount: requirement.amount,
     creditAmount: requirement.amount,
@@ -45,6 +45,9 @@ const mapRequirementApiToEntity = (
       correctSpecialCharacters(String(requirement.errorDescription)),
     ),
     value: resultValues[String(requirement.responseCode)] || "pending",
+    documentType: requirement.documentTypeCode
+      ? String(requirement.documentTypeCode)
+      : undefined,
   };
 };
 

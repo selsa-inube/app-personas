@@ -23,7 +23,7 @@ const mapPaymentRequestEntityToApi = (
     urlRedirect: paymentRequest.urlRedirect,
     wayToPay: paymentRequest.paymentMethod.map((moneySource) => ({
       paymentMethodName: moneySource.label,
-      paymentMethodCode: moneySource.type,
+      paymentMethod: moneySource.type,
       value: moneySource.value,
       savingProductNumber:
         moneySource.type === EMoneySourceType.SAVINGACCOUNT

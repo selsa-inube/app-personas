@@ -13,7 +13,7 @@ import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import {
   MdDeleteOutline,
-  MdHelpOutline,
+  MdInfoOutline,
   MdOutlineDescription,
   MdQuestionMark,
 } from "react-icons/md";
@@ -24,8 +24,9 @@ import { IDocumentaryRequirementsEntry } from "./types";
 function renderRequirement(
   label: string,
   id: string,
+  documentType: string,
   selectedDocuments: ISelectedDocument[],
-  onAttachDocument: (id: string) => void,
+  onAttachDocument: (id: string, documentType: string) => void,
   onRemove: (id: string) => void,
 ) {
   const selectedFile = selectedDocuments.find((doc) => doc.id === id);
@@ -49,7 +50,7 @@ function renderRequirement(
 
           <Button
             variant="none"
-            onClick={() => onAttachDocument(id)}
+            onClick={() => onAttachDocument(id, documentType)}
             disabled={!!selectedFile}
           >
             Adjuntar
@@ -107,11 +108,12 @@ interface DocumentaryRequirementsFormUIProps {
   attachModal: {
     show: boolean;
     id: string;
+    documentType: string;
   };
   onSelectDocument: (file: File, id: string) => void;
   onRemoveDocument: (id: string) => void;
   onToggleInfoModal: () => void;
-  onOpenAttachModal: (id: string) => void;
+  onOpenAttachModal: (id: string, documentType: string) => void;
   onCloseAttachModal: () => void;
 }
 
@@ -132,14 +134,14 @@ function DocumentaryRequirementsFormUI(
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
-  if (!formik.values.withDocumentaryRequirements) {
+  if (formik.values.requiredDocuments.length === 0) {
     return (
       <Stack>
         <InfoCard
           title="Requisitos documentales"
           description="Actualmente, te encuentras utilizando un software externo para cargar los requisitos documentales. Luego de crear la solicitud, podrás adjuntar tus documentos."
           appearance="help"
-          icon={<MdHelpOutline />}
+          icon={<MdInfoOutline />}
         />
       </Stack>
     );
@@ -170,14 +172,17 @@ function DocumentaryRequirementsFormUI(
             autoRows="auto"
             gap={inube.spacing.s200}
           >
-            {formik.values.requiredDocuments.map((document) =>
-              renderRequirement(
-                document.label,
-                document.id,
-                formik.values.selectedDocuments,
-                onOpenAttachModal,
-                onRemoveDocument,
-              ),
+            {formik.values.requiredDocuments.map(
+              (document) =>
+                document.documentType &&
+                renderRequirement(
+                  document.label,
+                  document.id,
+                  document.documentType,
+                  formik.values.selectedDocuments,
+                  onOpenAttachModal,
+                  onRemoveDocument,
+                ),
             )}
           </Grid>
         </Stack>
@@ -197,7 +202,7 @@ function DocumentaryRequirementsFormUI(
         <AttachDocumentModal
           portalId="modals"
           maxFileSize={maxFileSize}
-          requirementId={attachModal.id}
+          documentType={attachModal.documentType}
           onSelectDocuments={(files) =>
             onSelectDocument(files[0], attachModal.id)
           }

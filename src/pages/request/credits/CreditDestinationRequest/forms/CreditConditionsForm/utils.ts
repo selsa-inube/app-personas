@@ -1,7 +1,7 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { FormikProps } from "formik";
-import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethodsForProduct";
-import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicitiesForProduct";
+import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethods";
+import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicities";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
