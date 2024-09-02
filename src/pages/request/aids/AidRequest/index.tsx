@@ -2,7 +2,7 @@ import { useAuth } from "@inube/auth";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useBlocker, useParams } from "react-router-dom";
 import { aidRequestTypeDM } from "src/model/domains/services/aids/aidRequestTypeDM";
 import { initialMessageState } from "src/utils/messages";
 import { aidRequestSteps } from "./config/assisted";
@@ -85,6 +85,11 @@ function AidRequest() {
     disbursement: disbursementRef,
   };
 
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname,
+  );
+
   if (!aid_type || !aidRequestType) {
     return <Navigate to="/aids" />;
   }
@@ -148,6 +153,7 @@ function AidRequest() {
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
       message={message}
+      blocker={blocker}
       aidType={aidRequestType}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}

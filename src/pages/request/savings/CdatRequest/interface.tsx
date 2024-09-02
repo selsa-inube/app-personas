@@ -1,12 +1,17 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
+import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
+import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { cdatRequestSteps } from "./config/assisted";
@@ -109,11 +114,15 @@ interface CdatRequestUIProps {
   isCurrentFormValid: boolean;
   cdatRequest: IFormsCdatRequest;
   formReferences: IFormsCdatRequestRefs;
+  loadingSend: boolean;
+  message: IMessage;
+  blocker: Blocker;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
+  onCloseMessage: () => void;
 }
 
 function CdatRequestUI(props: CdatRequestUIProps) {
@@ -123,11 +132,15 @@ function CdatRequestUI(props: CdatRequestUIProps) {
     isCurrentFormValid,
     cdatRequest,
     formReferences,
+    loadingSend,
+    message,
+    blocker,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
+    onCloseMessage,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -187,6 +200,36 @@ function CdatRequestUI(props: CdatRequestUIProps) {
           </Stack>
         </Stack>
       </Stack>
+
+      {loadingSend && (
+        <LoadingModal
+          title="Procesando pago..."
+          message="Espera unos segundos, estamos generando la transacción."
+        />
+      )}
+
+      {message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          appearance={message.appearance}
+          icon={message.icon}
+          onClose={onCloseMessage}
+          duration={5000}
+        />
+      )}
+
+      {blocker.state === "blocked" && (
+        <DecisionModal
+          title="Abandonar solicitud"
+          description="¿Estás seguro? Se perderá la solicitud en proceso."
+          cancelText="Continuar"
+          actionText="Salir"
+          onCloseModal={() => blocker.reset()}
+          onClick={() => blocker.proceed()}
+          portalId="modals"
+        />
+      )}
     </>
   );
 }

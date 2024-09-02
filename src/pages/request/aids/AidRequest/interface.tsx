@@ -5,7 +5,9 @@ import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { IDomainType } from "@ptypes/domain.types";
 import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
@@ -19,8 +21,8 @@ import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm
 import { RegulationValidationsForm } from "./forms/RegulationValidationsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
+import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { Blocker } from "react-router-dom";
 
 const renderStepContent = (
   currentStep: number,
@@ -97,6 +99,7 @@ interface AidRequestUIProps {
   formReferences: IFormsAidRequestRefs;
   loadingSend: boolean;
   message: IMessage;
+  blocker: Blocker;
   aidType: IDomainType;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
@@ -115,6 +118,7 @@ function AidRequestUI(props: AidRequestUIProps) {
     formReferences,
     loadingSend,
     message,
+    blocker,
     aidType,
     setIsCurrentFormValid,
     handleStepChange,
@@ -204,6 +208,18 @@ function AidRequestUI(props: AidRequestUIProps) {
           icon={message.icon}
           onClose={handleCloseMessage}
           duration={5000}
+        />
+      )}
+
+      {blocker.state === "blocked" && (
+        <DecisionModal
+          title="Abandonar solicitud"
+          description="¿Estás seguro? Se perderá la solicitud en proceso."
+          cancelText="Continuar"
+          actionText="Salir"
+          onCloseModal={() => blocker.reset()}
+          onClick={() => blocker.proceed()}
+          portalId="modals"
         />
       )}
     </>
