@@ -6,6 +6,7 @@ import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
+import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 
 interface IFormsCdatRequest {
   investment: { isValid: boolean; values: IInvestmentEntry };
@@ -18,6 +19,7 @@ interface IFormsCdatRequest {
     values: IContactChannelsEntry;
   };
   comments: { isValid: boolean; values: ICommentsEntry };
+  termsAndConditions: { isValid: boolean; values: ITermsAndConditionsEntry };
 }
 
 interface IFormsCdatRequestRefs {
@@ -28,6 +30,7 @@ interface IFormsCdatRequestRefs {
   investmentName: React.RefObject<FormikProps<IInvestmentNameEntry>>;
   contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;
   comments: React.RefObject<FormikProps<ICommentsEntry>>;
+  termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
 }
 
 export type { IFormsCdatRequest, IFormsCdatRequestRefs };

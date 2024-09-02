@@ -45,15 +45,10 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
   useEffect(() => {
     if (!accessToken) return;
 
-    getTermsConditions(accessToken, formik.values.productId, "credit").then(
-      (termsConditions) => {
-        formik.setFieldValue(
-          "termsConditions",
-          termsConditions?.termsConditions,
-        );
-        formik.setFieldValue("ids", termsConditions?.codes);
-      },
-    );
+    getTermsConditions(accessToken, "17", "credit").then((termsConditions) => { // TEMP
+      formik.setFieldValue("termsConditions", termsConditions?.termsConditions);
+      formik.setFieldValue("ids", termsConditions?.codes);
+    });
   }, []);
 
   return <TermsAndConditionsFormUI loading={loading} formik={formik} />;

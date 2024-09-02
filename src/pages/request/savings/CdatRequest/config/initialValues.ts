@@ -3,6 +3,7 @@ import { IConditionsEntry } from "../forms/ConditionsForm/types";
 import { IInvestmentNameEntry } from "../forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 import { IRefundEntry } from "../forms/RefundForm/types";
+import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
 const conditions: IConditionsEntry = {
   interestPayment: "",
@@ -31,12 +32,21 @@ const comments: ICommentsEntry = {
   comments: "",
 };
 
+const termsAndConditions: ITermsAndConditionsEntry = {
+  productId: "",
+  termsConditions: [],
+  ids: "",
+  accept: false,
+  acceptDataPolicy: false,
+};
+
 const initalValuesCDAT = {
   conditions,
   paymentMethod,
   refund,
   investmentName,
   comments,
+  termsAndConditions,
 };
 
 export { initalValuesCDAT };

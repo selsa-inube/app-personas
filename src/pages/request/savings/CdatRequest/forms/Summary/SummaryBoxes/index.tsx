@@ -21,6 +21,7 @@ import {
 } from "../../PaymentMethodForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
 import { cdatRequestBoxTitles } from "../config/box";
+import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
@@ -151,6 +152,27 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
   </Stack>
 );
 
+const renderTermsAndConditionsVerification = (
+  values: ITermsAndConditionsEntry,
+  isTablet: boolean,
+) => (
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
+    <BoxAttribute
+      label="Acepta términos y condiciones:"
+      value={values.accept ? activeDM.Y.value : activeDM.N.value}
+    />
+    <BoxAttribute
+      label="Acepta política de tratamiento de datos:"
+      value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
+    />
+  </Grid>
+);
+
 interface SummaryBoxesProps {
   cdatRequest: IFormsCdatRequest;
   stepKey: keyof typeof cdatRequestBoxTitles;
@@ -180,6 +202,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
         renderContactChannelsSummary(cdatRequest.contactChannels.values)}
       {stepKey === "comments" &&
         renderCommentsVerification(cdatRequest.comments.values)}
+      {stepKey === "termsAndConditions" &&
+        renderTermsAndConditionsVerification(
+          cdatRequest.termsAndConditions.values,
+          isTablet,
+        )}
     </>
   );
 }
