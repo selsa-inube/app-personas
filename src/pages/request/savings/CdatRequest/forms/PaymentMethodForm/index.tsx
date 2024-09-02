@@ -94,7 +94,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     ) {
       moneySources[EMoneySourceType.PSE] = {
         id: EPaymentMethodType.PSE,
-        label: "Pago PSE",
+        label: "Pago por PSE",
         value:
           paymentMethod === EPaymentMethodType.PSE
             ? formik.values.valueToPay
