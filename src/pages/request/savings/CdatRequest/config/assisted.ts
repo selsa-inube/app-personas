@@ -48,10 +48,10 @@ const cdatRequestSteps = {
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
   },
-  summary: {
+  verification: {
     id: 10,
-    name: "Resumen",
-    description: "Confirma la información diligencias en pasos anteriores.",
+    name: "Verificación",
+    description: "Confirma la información diligenciada en pasos anteriores.",
   },
 };
 
