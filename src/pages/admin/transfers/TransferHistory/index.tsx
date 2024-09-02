@@ -31,7 +31,7 @@ function TransferHistory() {
         clearInterval(countdownInterval);
       }
     };
-  }, []);
+  }, [user, accessToken]);
 
   const startCountdown = () => {
     setRefreshTime(refreshSeconds);

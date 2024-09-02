@@ -47,14 +47,15 @@ const getRequestsForUser = async (
       return [];
     }
 
+    const data = await res.json();
+
     if (!res.ok) {
       throw {
         message: "Error al obtener el historial de solicitudes",
         status: res.status,
+        data,
       };
     }
-
-    const data = await res.json();
 
     const normalizedResponse = Array.isArray(data)
       ? mapRequestsApiToEntities(data)

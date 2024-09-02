@@ -37,7 +37,6 @@ const creditConditions: ICreditConditionsEntry = {
     periodicityInDays: 0,
   },
   periodicities: [],
-  periodicityInMonths: 0,
   charges: 0,
 };
 
@@ -71,7 +70,6 @@ const documentaryRequirements: IDocumentaryRequirementsEntry = {
 
 const disbursement: IDisbursementEntry = {
   disbursements: [],
-  disbursementType: "",
   accountNumber: "",
   writeAccountNumber: "",
   observations: "",
@@ -96,6 +94,7 @@ const comments: ICommentsEntry = {
 const termsAndConditions: ITermsAndConditionsEntry = {
   productId: "",
   termsConditions: [],
+  ids: "",
   accept: false,
   acceptDataPolicy: false,
 };

@@ -15,8 +15,8 @@ import { DestinationFormUI } from "./interface";
 import { IDestinationEntry, IDestinationProduct } from "./types";
 
 const validationSchema = Yup.object({
-  creditDestination: Yup.object().required(validationMessages.required),
-  selectedProduct: Yup.object(),
+  destination: Yup.object().required(validationMessages.required),
+  product: Yup.object(),
 });
 
 interface DestinationFormProps {
@@ -64,17 +64,17 @@ const DestinationForm = forwardRef(function DestinationForm(
       (destination) => destination.id === value,
     );
 
-    formik.setFieldValue("creditDestination", {
+    formik.setFieldValue("destination", {
       id: destination?.id,
       value: destination?.value,
     });
 
-    formik.setFieldValue("selectedProduct", undefined);
+    formik.setFieldValue("product", undefined);
 
     if (value === "other") {
       const newValidationSchema = dynamicValidationSchema.concat(
         Yup.object({
-          selectedProduct: Yup.object(),
+          product: Yup.object(),
         }),
       );
 
@@ -84,7 +84,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     } else {
       const newValidationSchema = dynamicValidationSchema.concat(
         Yup.object({
-          selectedProduct: Yup.object().required(validationMessages.required),
+          product: Yup.object().required(validationMessages.required),
         }),
       );
 
@@ -113,7 +113,7 @@ const DestinationForm = forwardRef(function DestinationForm(
   };
 
   const handleChangeProduct = (value: IDestinationProduct) => {
-    formik.setFieldValue("selectedProduct", value);
+    formik.setFieldValue("product", value);
   };
 
   return (

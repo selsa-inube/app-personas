@@ -1,3 +1,9 @@
+import { enviroment } from "@config/enviroment";
+import { IUser } from "@inube/auth/dist/types/user";
+import { NavigateFunction } from "react-router-dom";
+import { createCreditRequest } from "src/services/iclient/credits/createCreditRequest";
+import { IRequestCreditRequest } from "src/services/iclient/credits/createCreditRequest/types";
+import { sendTeamsMessage } from "src/services/teams/sendMessage";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
 import { loadingValidations } from "./forms/SystemValidationsForm/utils";
@@ -28,14 +34,14 @@ const creditDestinationStepsRules = (
       if (
         JSON.stringify(values) !==
           JSON.stringify(currentCreditDestinationRequest.destination.values) &&
-        values.selectedProduct
+        values.product
       ) {
         newCreditDestinationRequest.creditConditions = {
           isValid: false,
           values: {
             ...initalValuesCreditDestination.creditConditions,
-            creditDestination: values.creditDestination,
-            product: values.selectedProduct,
+            destination: values.destination,
+            product: values.product,
           },
         };
 
@@ -43,7 +49,7 @@ const creditDestinationStepsRules = (
           isValid: false,
           values: {
             ...initalValuesCreditDestination.termsAndConditions,
-            productId: values.selectedProduct.id,
+            productId: values.product.id,
           },
         };
       }
@@ -79,8 +85,8 @@ const creditDestinationStepsRules = (
           values: {
             ...initalValuesCreditDestination.systemValidations,
             validations: loadingValidations,
-            destinationId: values.creditDestination?.id || "",
-            destinationName: values.creditDestination?.value || "",
+            destinationId: values.destination?.id || "",
+            destinationName: values.destination?.value || "",
             productId: values.product.id,
             productName: values.product.title,
             paymentMethod: values.paymentMethod?.id || "",
@@ -117,13 +123,18 @@ const creditDestinationStepsRules = (
         values,
       };
 
-      newCreditDestinationRequest.documentaryRequirements = {
-        isValid: true,
-        values: {
-          ...initalValuesCreditDestination.documentaryRequirements,
-          requiredDocuments: values.documents,
-        },
-      };
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentCreditDestinationRequest.systemValidations.values)
+      ) {
+        newCreditDestinationRequest.documentaryRequirements = {
+          isValid: true,
+          values: {
+            ...initalValuesCreditDestination.documentaryRequirements,
+            requiredDocuments: values.documents,
+          },
+        };
+      }
 
       return newCreditDestinationRequest;
     }
@@ -145,4 +156,93 @@ const creditDestinationStepsRules = (
   });
 };
 
-export { creditDestinationStepsRules };
+const sendCreditRequest = async (
+  user: IUser,
+  creditRequest: IFormsCreditDestinationRequest,
+  accessToken: string,
+  navigate: NavigateFunction,
+) => {
+  const comments = `${creditRequest.comments.values.comments}
+    Datos de contacto:
+    Celular: ${creditRequest.contactChannels.values.cellPhone}
+    Correo: ${creditRequest.contactChannels.values.email}
+    Teléfono: ${creditRequest.contactChannels.values.landlinePhone}
+  `;
+
+  const creditRequestData: IRequestCreditRequest = {
+    comments,
+    customerCode: user.identification,
+    destination: creditRequest.destination.values.destination?.id || "",
+    destinationName: creditRequest.destination.values.destination?.value || "",
+    product: creditRequest.destination.values.product?.id || "",
+    productName: creditRequest.destination.values.product?.title || "",
+    termsConditions: {
+      ids: creditRequest.termsAndConditions.values.ids,
+      description:
+        creditRequest.termsAndConditions.values.termsConditions.join(" "),
+    },
+    conditions: {
+      amount: creditRequest.creditConditions.values.amount || 0,
+      deadline: creditRequest.creditConditions.values.deadline || 0,
+      rate: creditRequest.creditConditions.values.rate,
+      paymentMethod:
+        creditRequest.creditConditions.values.paymentMethod?.id || "",
+      paymentMethodName:
+        creditRequest.creditConditions.values.paymentMethod?.value || "",
+      periodicityInMonths:
+        creditRequest.creditConditions.values.periodicity?.periodicityInMonths?.toString() ||
+        "",
+      quota: creditRequest.creditConditions.values.quota || 0,
+      disbursement: {
+        anticipatedInterest:
+          creditRequest.creditConditions.values.anticipatedInterest,
+        charges: creditRequest.creditConditions.values.charges,
+        discounts: creditRequest.creditConditions.values.discounts,
+        netValue: creditRequest.creditConditions.values.netValue,
+      },
+    },
+    disbursmentMethod: {
+      id: creditRequest.disbursement.values.disbursement || "",
+      name: creditRequest.disbursement.values.disbursementName || "",
+      accountNumber: creditRequest.disbursement.values.accountNumber,
+      transferAccountNumber:
+        creditRequest.disbursement.values.transferAccountNumber,
+      transferAccountType:
+        creditRequest.disbursement.values.transferAccountType,
+      transferBankEntity: creditRequest.disbursement.values.transferBankEntity,
+    },
+    documentaryRequirements:
+      creditRequest.documentaryRequirements.values.selectedDocuments,
+    validations: creditRequest.systemValidations.values.validations,
+  };
+
+  let confirmationType = "succeed";
+
+  try {
+    await createCreditRequest(creditRequestData, accessToken);
+    navigate("/my-requests?success_request=true");
+  } catch (error) {
+    confirmationType = "failed";
+
+    throw error;
+  } finally {
+    if (enviroment.IS_PRODUCTION) {
+      const confirmationTime = new Date();
+      if (confirmationType === "failed") {
+        sendTeamsMessage({
+          type: "MessageCard",
+          summary: "Credit request failure",
+          title: "Failed credit request",
+          subtitle: "Details",
+          facts: [
+            { name: "User ID:", value: user.identification },
+            { name: "Date:", value: confirmationTime.toISOString() },
+            { name: "Amount:", value: creditRequestData.conditions.amount },
+          ],
+        });
+      }
+    }
+  }
+};
+
+export { creditDestinationStepsRules, sendCreditRequest };

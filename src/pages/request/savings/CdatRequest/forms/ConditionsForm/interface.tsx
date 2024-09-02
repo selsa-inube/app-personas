@@ -126,7 +126,6 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       state={getFieldState(formik, "deadlineDate")}
                       onBlur={formik.handleBlur}
                       onChange={customHandleChange}
-                      validMessage="La fecha de expedición es válida"
                     />
                   ) : (
                     <TextField
@@ -143,7 +142,6 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       state={getFieldState(formik, "deadlineDays")}
                       onBlur={formik.handleBlur}
                       onChange={customHandleChange}
-                      validMessage="El número de días es valido"
                     />
                   )}
                 </Grid>

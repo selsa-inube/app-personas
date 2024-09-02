@@ -1,5 +1,6 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { ISelectedDocument } from "src/model/entity/service";
 import { DocumentaryRequirementsFormUI } from "./interface";
 import { IDocumentaryRequirementsEntry } from "./types";
 
@@ -20,7 +21,7 @@ const DocumentaryRequirementsForm = forwardRef(
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [attachModal, setAttachModal] = useState({
       show: false,
-      id: "",
+      requirementId: "",
       documentType: "",
     });
 
@@ -32,13 +33,10 @@ const DocumentaryRequirementsForm = forwardRef(
 
     useImperativeHandle(ref, () => formik);
 
-    const handleSelectDocument = async (file: File, id: string) => {
+    const handleSelectDocument = async (document: ISelectedDocument) => {
       formik.setFieldValue("selectedDocuments", [
         ...formik.values.selectedDocuments,
-        {
-          file,
-          id,
-        },
+        document,
       ]);
     };
 
@@ -55,10 +53,13 @@ const DocumentaryRequirementsForm = forwardRef(
       setShowInfoModal(!showInfoModal);
     };
 
-    const handleOpenAttachModal = (id: string, documentType: string) => {
+    const handleOpenAttachModal = (
+      requirementId: string,
+      documentType: string,
+    ) => {
       setAttachModal({
         show: true,
-        id,
+        requirementId,
         documentType,
       });
     };
@@ -66,7 +67,7 @@ const DocumentaryRequirementsForm = forwardRef(
     const handleCloseAttachModal = () => {
       setAttachModal({
         show: false,
-        id: "",
+        requirementId: "",
         documentType: "",
       });
     };

@@ -47,7 +47,6 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               state={getFieldState(formik, "landlinePhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El teléfono es válido"
             />
             <TextField
               label="Celular"
@@ -62,7 +61,6 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               state={getFieldState(formik, "cellPhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El celular es válido"
               isRequired
             />
             <TextField
@@ -78,7 +76,6 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               state={getFieldState(formik, "email")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El correo electrónico es válido"
               isRequired
             />
           </Stack>

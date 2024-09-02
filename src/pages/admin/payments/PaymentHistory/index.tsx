@@ -35,7 +35,7 @@ function PaymentHistory() {
         clearInterval(countdownInterval);
       }
     };
-  }, []);
+  }, [user, accessToken]);
 
   const startCountdown = () => {
     setRefreshTime(refreshSeconds);
