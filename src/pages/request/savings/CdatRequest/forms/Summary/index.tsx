@@ -32,7 +32,7 @@ function CdatRequestSummary(props: SummaryProps) {
             <SummaryBoxes
               isTablet={isTablet}
               cdatRequest={cdatRequest}
-              stepKey={key}
+              stepKey={key as keyof typeof cdatRequestBoxTitles}
             />
 
             <Button

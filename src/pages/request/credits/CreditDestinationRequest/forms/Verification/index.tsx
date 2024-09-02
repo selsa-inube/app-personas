@@ -1,13 +1,13 @@
 import { Accordion } from "@design/data/Accordion";
 import { Button } from "@design/input/Button";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { creditDestinationRequestSteps } from "../../config/assisted";
 import { IFormsCreditDestinationRequest } from "../../types";
 import { VerificationBoxes } from "./VerificationBoxes";
 import { creditDestinationRequestBoxTitles } from "./config/box";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 
 interface VerificationProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
@@ -32,7 +32,7 @@ function CreditDestinationRequestVerification(props: VerificationProps) {
             <VerificationBoxes
               isTablet={isTablet}
               creditDestinationRequest={creditDestinationRequest}
-              stepKey={key}
+              stepKey={key as keyof typeof creditDestinationRequestBoxTitles}
             />
 
             <Button

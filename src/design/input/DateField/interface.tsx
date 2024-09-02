@@ -9,10 +9,10 @@ import {
   StyledValidMessageContainer,
 } from "./styles";
 
-import { DateFieldProps } from ".";
+import { Label } from "@inubekit/label";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { Label } from "@inubekit/label";
+import { DateFieldProps } from ".";
 
 function Invalid(props: IDateFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -141,6 +141,7 @@ function DateFieldUI(props: DateFieldUIProps) {
         />
       )}
       {state === "valid" &&
+        validMessage &&
         value &&
         value.toString().length > 0 &&
         value !== initialValue &&

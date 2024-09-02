@@ -1,5 +1,5 @@
 interface IInvestmentEntry {
-    valueInvestment: string;
-  }
-  
-  export type { IInvestmentEntry };
+  valueInvestment?: number;
+}
+
+export type { IInvestmentEntry };
