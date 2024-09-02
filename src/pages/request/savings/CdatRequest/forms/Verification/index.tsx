@@ -4,17 +4,17 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { cdatRequestSteps } from "../../config/assisted";
 import { IFormsCdatRequest } from "../../types";
-import { SummaryBoxes } from "./SummaryBoxes";
+import { VerificationBoxes } from "./VerificationBoxes";
 import { cdatRequestBoxTitles } from "./config/box";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 
-interface SummaryProps {
+interface VerificationProps {
   cdatRequest: IFormsCdatRequest;
   handleStepChange: (stepId: number) => void;
 }
 
-function CdatRequestSummary(props: SummaryProps) {
+function CdatRequestVerification(props: VerificationProps) {
   const { cdatRequest, handleStepChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1224px)");
@@ -29,7 +29,7 @@ function CdatRequestSummary(props: SummaryProps) {
             alignItems="flex-end"
             gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
           >
-            <SummaryBoxes
+            <VerificationBoxes
               isTablet={isTablet}
               cdatRequest={cdatRequest}
               stepKey={key as keyof typeof cdatRequestBoxTitles}
@@ -54,4 +54,4 @@ function CdatRequestSummary(props: SummaryProps) {
   );
 }
 
-export { CdatRequestSummary };
+export { CdatRequestVerification };

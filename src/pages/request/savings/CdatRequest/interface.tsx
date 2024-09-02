@@ -16,9 +16,9 @@ import { InvestmentForm } from "./forms/InvestmentForm";
 import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { RefundForm } from "./forms/RefundForm";
-import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
-import { CdatRequestSummary } from "./forms/Summary";
 import { SystemValidationsForm } from "./forms/SystemValidationsForm";
+import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
+import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 
 const renderStepContent = (
@@ -93,8 +93,8 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.summary.id && (
-        <CdatRequestSummary
+      {currentStep === cdatRequestSteps.verification.id && (
+        <CdatRequestVerification
           cdatRequest={cdatRequest}
           handleStepChange={handleStepChange}
         />

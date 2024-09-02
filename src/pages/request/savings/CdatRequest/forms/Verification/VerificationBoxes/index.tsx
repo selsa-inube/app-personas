@@ -25,7 +25,7 @@ import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { cdatRequestBoxTitles } from "../config/box";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 
-const renderInvestmentSummary = (
+const renderInvestmentVerification = (
   values: IInvestmentEntry,
   isTablet: boolean,
 ) => (
@@ -41,7 +41,7 @@ const renderInvestmentSummary = (
   </Stack>
 );
 
-const renderConditionsSummary = (values: IConditionsEntry) => (
+const renderConditionsVerification = (values: IConditionsEntry) => (
   <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <BoxAttribute
       label="Pago de intereses:"
@@ -105,7 +105,7 @@ const renderPaymentMethodVerification = (
   </Grid>
 );
 
-const renderRefundSummary = (values: IRefundEntry) => {
+const renderRefundVerification = (values: IRefundEntry) => {
   return (
     <Stack direction="column" gap={inube.spacing.s100} width="100%">
       <BoxAttribute
@@ -147,7 +147,7 @@ const renderSystemValidationsVerification = (
   );
 };
 
-const renderInvestmentNameSummary = (
+const renderInvestmentNameVerification = (
   values: IInvestmentNameEntry,
   isTablet: boolean,
 ) => (
@@ -160,7 +160,7 @@ const renderInvestmentNameSummary = (
   </Stack>
 );
 
-const renderContactChannelsSummary = (values: IContactChannelsEntry) => (
+const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
   <Stack width="100%" direction="column" gap={inube.spacing.s100}>
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
@@ -205,38 +205,38 @@ const renderTermsAndConditionsVerification = (
   </Grid>
 );
 
-interface SummaryBoxesProps {
+interface VerificationBoxesProps {
   cdatRequest: IFormsCdatRequest;
   stepKey: keyof typeof cdatRequestBoxTitles;
   isTablet: boolean;
 }
 
-function SummaryBoxes(props: SummaryBoxesProps) {
+function VerificationBoxes(props: VerificationBoxesProps) {
   const { cdatRequest, stepKey, isTablet } = props;
   return (
     <>
       {stepKey === "investment" &&
-        renderInvestmentSummary(cdatRequest.investment.values, isTablet)}
+        renderInvestmentVerification(cdatRequest.investment.values, isTablet)}
       {stepKey === "conditions" &&
-        renderConditionsSummary(cdatRequest.conditions.values)}
+        renderConditionsVerification(cdatRequest.conditions.values)}
       {stepKey === "paymentMethod" &&
         renderPaymentMethodVerification(
           cdatRequest.paymentMethod.values,
           isTablet,
         )}
-      {stepKey === "refund" && renderRefundSummary(cdatRequest.refund.values)}
+      {stepKey === "refund" && renderRefundVerification(cdatRequest.refund.values)}
       {stepKey === "systemValidations" &&
         renderSystemValidationsVerification(
           cdatRequest.systemValidations.values,
           isTablet,
         )}
       {stepKey === "investmentName" &&
-        renderInvestmentNameSummary(
+        renderInvestmentNameVerification(
           cdatRequest.investmentName.values,
           isTablet,
         )}
       {stepKey === "contactChannels" &&
-        renderContactChannelsSummary(cdatRequest.contactChannels.values)}
+        renderContactChannelsVerification(cdatRequest.contactChannels.values)}
       {stepKey === "comments" &&
         renderCommentsVerification(cdatRequest.comments.values)}
       {stepKey === "termsAndConditions" &&
@@ -248,4 +248,4 @@ function SummaryBoxes(props: SummaryBoxesProps) {
   );
 }
 
-export { SummaryBoxes };
+export { VerificationBoxes };
