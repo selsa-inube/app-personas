@@ -1,11 +1,12 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { Stack } from "@inubekit/stack";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
+import { IPlanNameEntry } from "./types";
 
 interface PlanNameFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IPlanNameEntry>;
   loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }

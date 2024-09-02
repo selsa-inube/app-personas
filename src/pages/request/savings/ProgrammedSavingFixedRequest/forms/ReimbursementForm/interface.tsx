@@ -1,15 +1,16 @@
 import { Select } from "@design/input/Select";
-import { FormikValues } from "formik";
+import { inube } from "@design/tokens";
+import { Stack } from "@inubekit/stack";
+import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
+import { IReimbursementEntry } from "./types";
 import {
   buildReimbursementAccount,
   filteredOptionsFormReimbursement,
 } from "./utils";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 
 interface ReimbursementFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IReimbursementEntry>;
   loading?: boolean;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,

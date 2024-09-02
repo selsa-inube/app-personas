@@ -1,20 +1,22 @@
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
-import { cdatRequestSteps, cdatStepsRules } from "./config/assisted";
+import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
 import { IConditionsEntry } from "./forms/ConditionsForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
+import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { Navigate } from "react-router-dom";
+import { cdatStepsRules } from "./utils";
 
 function CdatRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -28,11 +30,15 @@ function CdatRequest() {
   const [cdatRequest, setCdatRequest] = useState<IFormsCdatRequest>({
     investment: {
       isValid: false,
-      values: initalValuesCDAT.investment,
+      values: {},
     },
     conditions: {
       isValid: false,
       values: initalValuesCDAT.conditions,
+    },
+    paymentMethod: {
+      isValid: false,
+      values: initalValuesCDAT.paymentMethod,
     },
     refund: {
       isValid: false,
@@ -58,6 +64,7 @@ function CdatRequest() {
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
   const conditionsRef = useRef<FormikProps<IConditionsEntry>>(null);
+  const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const refundRef = useRef<FormikProps<IRefundEntry>>(null);
   const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
@@ -68,6 +75,7 @@ function CdatRequest() {
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
     conditions: conditionsRef,
+    paymentMethod: paymentMethodRef,
     refund: refundRef,
     investmentName: investmentNameRef,
     contactChannels: contactChannelsRef,

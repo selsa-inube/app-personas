@@ -2,10 +2,10 @@ import { RelationshipWithDirectorsModal } from "@components/modals/general/updat
 import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { directorsMock } from "@mocks/users/directors/directors.mocks";
 import { FormikValues } from "formik";
 import { MdSearch } from "react-icons/md";
@@ -59,8 +59,6 @@ function RelationshipWithDirectorsFormUI(
               isRequired={isRequired("hasRelationshipWithDirectors")}
               errorMessage={formik.errors.hasRelationshipWithDirectors}
               onBlur={formik.handleBlur}
-              onClick={formik.handleClick}
-              onFocus={formik.handleFocus}
               onChange={formik.handleChange}
               isDisabled={loading}
               isFullWidth
@@ -95,8 +93,6 @@ function RelationshipWithDirectorsFormUI(
                   isRequired={isRequired("directorRelationship")}
                   errorMessage={formik.errors.directorRelationship}
                   onBlur={formik.handleBlur}
-                  onClick={formik.handleClick}
-                  onFocus={formik.handleFocus}
                   onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth

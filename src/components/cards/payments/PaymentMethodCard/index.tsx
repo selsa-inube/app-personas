@@ -1,16 +1,16 @@
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
-import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
-import { EPaymentMethodType } from "@pages/admin/payments/Pay/types";
-import { useState } from "react";
-import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
-import { currencyFormat } from "src/utils/currency";
-import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
+import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 import { Tag } from "@inubekit/tag";
+import { Text } from "@inubekit/text";
+import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
+import { useState } from "react";
+import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
+import { EPaymentMethodType } from "src/model/entity/payment";
+import { currencyFormat } from "src/utils/currency";
+import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
 
 interface PaymentMethodCardProps {
   moneySource: {

@@ -6,15 +6,22 @@ import { IFormsCdatRequest } from "../../../types";
 import { IConditionsEntry } from "../../ConditionsForm/types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
 
+import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { EPaymentMethodType } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
+import { paymentMethods } from "../../PaymentMethodForm/config/payment";
+import {
+  EMoneySourceType,
+  IPaymentMethodEntry,
+} from "../../PaymentMethodForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
+import { cdatRequestBoxTitles } from "../config/box";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
-import { Grid } from "@inubekit/grid";
 
 const renderInvestmentSummary = (
   values: IInvestmentEntry,
@@ -40,6 +47,60 @@ const renderConditionsSummary = (values: IConditionsEntry) => (
     />
     <BoxAttribute label="Número de días:" value={values.deadlineDays} />
   </Stack>
+);
+
+const renderPaymentMethodVerification = (
+  values: IPaymentMethodEntry,
+  isTablet: boolean,
+) => (
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    gap={inube.spacing.s100}
+    autoRows="auto"
+    width="100%"
+  >
+    {values.paymentMethod === EPaymentMethodType.PSE ? (
+      <BoxAttribute
+        label="Forma de recaudo:"
+        value={
+          paymentMethods.find(
+            (paymentMethod) => paymentMethod.id === values.paymentMethod,
+          )?.value
+        }
+      />
+    ) : (
+      <>
+        <BoxAttribute
+          label="Forma de recaudo:"
+          value={
+            paymentMethods.find(
+              (paymentMethod) => paymentMethod.id === values.paymentMethod,
+            )?.value
+          }
+        />
+
+        <BoxAttribute
+          label="Valor pagado:"
+          value={currencyFormat(values.valueToPay)}
+        />
+
+        {Object.values(values.moneySources || {}).map(
+          (moneySource) =>
+            moneySource.value > 0 && (
+              <BoxAttribute
+                key={moneySource.id}
+                label={
+                  moneySource.type === EMoneySourceType.SAVINGACCOUNT
+                    ? `${moneySource.label} - ${moneySource.id}`
+                    : moneySource.label
+                }
+                value={currencyFormat(moneySource.value)}
+              />
+            ),
+        )}
+      </>
+    )}
+  </Grid>
 );
 
 const renderRefundSummary = (values: IRefundEntry) => {
@@ -114,7 +175,7 @@ const renderTermsAndConditionsVerification = (
 
 interface SummaryBoxesProps {
   cdatRequest: IFormsCdatRequest;
-  stepKey: string;
+  stepKey: keyof typeof cdatRequestBoxTitles;
   isTablet: boolean;
 }
 
@@ -126,6 +187,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
         renderInvestmentSummary(cdatRequest.investment.values, isTablet)}
       {stepKey === "conditions" &&
         renderConditionsSummary(cdatRequest.conditions.values)}
+      {stepKey === "paymentMethod" &&
+        renderPaymentMethodVerification(
+          cdatRequest.paymentMethod.values,
+          isTablet,
+        )}
       {stepKey === "refund" && renderRefundSummary(cdatRequest.refund.values)}
       {stepKey === "investmentName" &&
         renderInvestmentNameSummary(

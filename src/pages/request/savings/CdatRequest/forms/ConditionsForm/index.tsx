@@ -1,17 +1,17 @@
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
+import * as Yup from "yup";
 import { ConditionsFormUI } from "./interface";
 import { IConditionsEntry } from "./types";
-import * as Yup from "yup";
 import {
   effectiveAnnualRateRequest,
   getInitialCdatContidionValidations,
   totalInterestRequest,
   validationSchema,
 } from "./utils";
-import { validationRules } from "src/validations/validationRules";
-import { validationMessages } from "src/validations/validationMessages";
 
 interface ConditionsFormProps {
   initialValues: IConditionsEntry;
