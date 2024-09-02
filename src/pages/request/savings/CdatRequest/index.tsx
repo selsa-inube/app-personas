@@ -15,6 +15,7 @@ import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
 import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
+import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { cdatStepsRules } from "./utils";
@@ -61,6 +62,10 @@ function CdatRequest() {
       isValid: true,
       values: initalValuesCDAT.comments,
     },
+    termsAndConditions: {
+      isValid: false,
+      values: initalValuesCDAT.termsAndConditions,
+    },
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
@@ -72,6 +77,8 @@ function CdatRequest() {
   const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
+  const termsAndConditionsRef =
+    useRef<FormikProps<ITermsAndConditionsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
@@ -82,6 +89,7 @@ function CdatRequest() {
     investmentName: investmentNameRef,
     contactChannels: contactChannelsRef,
     comments: commentsRef,
+    termsAndConditions: termsAndConditionsRef,
   };
 
   const handleStepChange = (stepId: number) => {

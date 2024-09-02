@@ -6,11 +6,12 @@ import { ITermsConditionsResponse } from "./types";
 const getTermsConditions = async (
   accessToken: string,
   productId: string,
+  productType: string,
 ): Promise<ITermsConditionsResponse | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/term-and-condition/product/${productId}/type-request/credit`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/term-and-condition/product/${productId}/type-request/${productType}`;
 
   try {
     const options: RequestInit = {

@@ -16,6 +16,7 @@ import { InvestmentForm } from "./forms/InvestmentForm";
 import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { RefundForm } from "./forms/RefundForm";
+import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CdatRequestSummary } from "./forms/Summary";
 import { SystemValidationsForm } from "./forms/SystemValidationsForm";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
@@ -82,6 +83,13 @@ const renderStepContent = (
         <CommentsForm
           initialValues={cdatRequest.comments.values}
           ref={formReferences.comments}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.termsAndConditions.id && (
+        <TermsAndConditionsForm
+          initialValues={cdatRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}

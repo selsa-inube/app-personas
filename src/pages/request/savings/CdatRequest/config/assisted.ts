@@ -43,8 +43,13 @@ const cdatRequestSteps = {
     description:
       "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
   },
-  summary: {
+  termsAndConditions: {
     id: 9,
+    name: "Términos y condiciones",
+    description: "Aceptaciones y avisos de privacidad.",
+  },
+  summary: {
+    id: 10,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },
