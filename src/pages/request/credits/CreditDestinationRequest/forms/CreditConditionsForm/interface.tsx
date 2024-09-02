@@ -126,7 +126,22 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       gap={inube.spacing.s025}
                     >
                       <Text type="label" size="medium">
-                        Monto máximo:
+                        Monto máximo del producto:
+                      </Text>
+                      <Text type="body" size="medium" appearance="gray">
+                        {currencyFormat(formik.values.product.maxAmount)}
+                      </Text>
+                    </Stack>
+                  </OutlineCard>
+
+                  <OutlineCard>
+                    <Stack
+                      direction="column"
+                      padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
+                      gap={inube.spacing.s025}
+                    >
+                      <Text type="label" size="medium">
+                        Cupo personal:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
                         {currencyFormat(formik.values.product.maxAmount)}
