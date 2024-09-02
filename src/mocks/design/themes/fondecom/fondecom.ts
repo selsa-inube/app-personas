@@ -1237,16 +1237,6 @@ const fondecomTheme = {
       },
     },
   },
-  tabs: {
-    content: {
-      appearance: {
-        selected: {
-          Token: "primary",
-          Reference: "fondecom.tabs.content.appearance.selected",
-        },
-      },
-    },
-  },
   tag: {
     primary: {
       normal: {

@@ -37,7 +37,6 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
           onChange={(e) => {
             handleChangeWithCurrency(formik, e);
           }}
-          validMessage="El valor es válido"
           isRequired
         />
       </Stack>

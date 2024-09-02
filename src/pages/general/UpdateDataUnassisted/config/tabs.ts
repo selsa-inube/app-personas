@@ -1,6 +1,6 @@
-import { TabProps } from "@design/navigation/Tab";
+import { ITab } from "@inubekit/tabs";
 
-const updateDataTabs: Record<string, TabProps> = {
+const updateDataTabs: Record<string, ITab> = {
   personalInformation: {
     id: "personalInformation",
     label: "Información personal",

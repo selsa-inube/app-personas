@@ -116,7 +116,6 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                     state={getFieldState(formik, "deadlineDays")}
                     onBlur={formik.handleBlur}
                     onChange={customHandleChange}
-                    validMessage="El número de días es valido"
                   />
                 )}
               </Grid>
@@ -140,7 +139,6 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                     size="large"
                   />
                 </Stack>
-
                 <Stack width="100%" justifyContent="flex-end">
                   <Button
                     variant="outlined"

@@ -31,7 +31,6 @@ function InvestmentNameFormUI(props: InvestmentNameFormUIProps) {
           state={getFieldState(formik, "productName")}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
-          validMessage="El nombre es válido"
           maxLength={30}
           withCounter
         />

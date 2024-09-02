@@ -27,6 +27,7 @@
     "@inubekit/skeleton": "^2.3.0",
     "@inubekit/spinner": "^2.3.0",
     "@inubekit/stack": "^2.4.0",
+    "@inubekit/tabs": "^2.21.0",
     "@inubekit/tag": "^3.21.0",
     "@supabase/supabase-js": "^2.42.0",
     "formik": "^2.4.5",
