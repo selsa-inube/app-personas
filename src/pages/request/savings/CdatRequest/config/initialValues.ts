@@ -31,6 +31,9 @@ const comments: ICommentsEntry = {
 };
 
 const termsAndConditions: ITermsAndConditionsEntry = {
+  productId: "",
+  termsConditions: [],
+  ids: "",
   accept: false,
   acceptDataPolicy: false,
 };

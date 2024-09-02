@@ -1,5 +1,7 @@
+import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { getTermsConditions } from "src/services/iclient/termsAndConditions/getTermsConditions";
 import * as Yup from "yup";
 import { TermsAndConditionsFormUI } from "./interface";
 import { ITermsAndConditionsEntry } from "./types";
@@ -22,6 +24,8 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
+  const { accessToken } = useAuth();
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -37,6 +41,15 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
       });
     }
   }, [formik.values]);
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    getTermsConditions(accessToken, "17", "credit").then((termsConditions) => { // TEMP
+      formik.setFieldValue("termsConditions", termsConditions?.termsConditions);
+      formik.setFieldValue("ids", termsConditions?.codes);
+    });
+  }, []);
 
   return <TermsAndConditionsFormUI loading={loading} formik={formik} />;
 });
