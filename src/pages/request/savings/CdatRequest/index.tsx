@@ -8,11 +8,13 @@ import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
+import { mapSystemValidations } from "./config/mappers";
 import { IConditionsEntry } from "./forms/ConditionsForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { IRefundEntry } from "./forms/RefundForm/types";
+import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { cdatStepsRules } from "./utils";
@@ -43,6 +45,10 @@ function CdatRequest() {
       isValid: false,
       values: initalValuesCDAT.refund,
     },
+    systemValidations: {
+      isValid: false,
+      values: mapSystemValidations(),
+    },
     investmentName: {
       isValid: false,
       values: initalValuesCDAT.investmentName,
@@ -61,6 +67,8 @@ function CdatRequest() {
   const conditionsRef = useRef<FormikProps<IConditionsEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const refundRef = useRef<FormikProps<IRefundEntry>>(null);
+  const systemValidationsRef =
+    useRef<FormikProps<ISystemValidationsEntry>>(null);
   const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
@@ -70,6 +78,7 @@ function CdatRequest() {
     conditions: conditionsRef,
     paymentMethod: paymentMethodRef,
     refund: refundRef,
+    systemValidations: systemValidationsRef,
     investmentName: investmentNameRef,
     contactChannels: contactChannelsRef,
     comments: commentsRef,
@@ -113,6 +122,8 @@ function CdatRequest() {
   };
 
   const handlePreviousStep = () => {
+    console.log("aca");
+    console.log(currentStep);
     handleStepChange(currentStep - 1);
   };
 

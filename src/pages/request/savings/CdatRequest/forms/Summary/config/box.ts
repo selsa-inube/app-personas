@@ -3,6 +3,7 @@ const cdatRequestBoxTitles = {
   conditions: "Condiciones",
   paymentMethod: "Forma de pago",
   refund: "Reembolso",
+  systemValidations: "Validaciones del sistema",
   investmentName: "Nombra tu inversión",
   contactChannels: "Canales de contacto",
   comments: "Comentarios",

@@ -17,6 +17,7 @@ import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { RefundForm } from "./forms/RefundForm";
 import { CdatRequestSummary } from "./forms/Summary";
+import { SystemValidationsForm } from "./forms/SystemValidationsForm";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 
 const renderStepContent = (
@@ -53,6 +54,13 @@ const renderStepContent = (
         <RefundForm
           initialValues={cdatRequest.refund.values}
           ref={formReferences.refund}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.systemValidations.id && (
+        <SystemValidationsForm
+          initialValues={cdatRequest.systemValidations.values}
+          ref={formReferences.systemValidations}
           onFormValid={setIsCurrentFormValid}
         />
       )}

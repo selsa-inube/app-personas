@@ -2,6 +2,9 @@ import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { ITextFieldMessage } from "./types";
 
 import { inube } from "@design/tokens";
+import { Label } from "@inubekit/label";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { TextFieldProps } from ".";
 import { DropdownMenu } from "../DropdownMenu";
 import { Counter } from "../Textarea/Counter";
@@ -14,9 +17,6 @@ import {
   StyledInputContainer,
   StyledValidMessageContainer,
 } from "./styles";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Label } from "@inubekit/label";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -221,6 +221,7 @@ function TextFieldUI(props: TextFieldUIProps) {
         value &&
         value.toString().length > 0 &&
         value !== initialValue &&
+        validMessage &&
         isTouched && (
           <Success
             isDisabled={isDisabled}

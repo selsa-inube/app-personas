@@ -9,6 +9,7 @@ import { IInvestmentEntry } from "../../InvestmentForm/types";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { Tag } from "@inubekit/tag";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -20,6 +21,7 @@ import {
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
+import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { cdatRequestBoxTitles } from "../config/box";
 
 const renderInvestmentSummary = (
@@ -114,6 +116,36 @@ const renderRefundSummary = (values: IRefundEntry) => {
   );
 };
 
+const renderSystemValidationsVerification = (
+  values: ISystemValidationsEntry,
+  isTablet: boolean,
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {values.validations.map((validation) => (
+        <BoxAttribute
+          key={validation.id}
+          value={validation.label}
+          iconAfter={
+            validation.value === "success" ? (
+              <Tag label="Cumple" appearance="success" />
+            ) : validation.value === "fail" ? (
+              <Tag label="No cumple" appearance="danger" />
+            ) : (
+              <Tag label="Por evaluar" appearance="warning" />
+            )
+          }
+        />
+      ))}
+    </Grid>
+  );
+};
+
 const renderInvestmentNameSummary = (
   values: IInvestmentNameEntry,
   isTablet: boolean,
@@ -171,6 +203,11 @@ function SummaryBoxes(props: SummaryBoxesProps) {
           isTablet,
         )}
       {stepKey === "refund" && renderRefundSummary(cdatRequest.refund.values)}
+      {stepKey === "systemValidations" &&
+        renderSystemValidationsVerification(
+          cdatRequest.systemValidations.values,
+          isTablet,
+        )}
       {stepKey === "investmentName" &&
         renderInvestmentNameSummary(
           cdatRequest.investmentName.values,
