@@ -122,8 +122,6 @@ function CdatRequest() {
   };
 
   const handlePreviousStep = () => {
-    console.log("aca");
-    console.log(currentStep);
     handleStepChange(currentStep - 1);
   };
 
