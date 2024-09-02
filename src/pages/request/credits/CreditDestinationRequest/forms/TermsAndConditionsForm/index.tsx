@@ -47,7 +47,11 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
 
     getTermsConditions(accessToken, formik.values.productId).then(
       (termsConditions) => {
-        formik.setFieldValue("termsConditions", termsConditions);
+        formik.setFieldValue(
+          "termsConditions",
+          termsConditions?.termsConditions,
+        );
+        formik.setFieldValue("ids", termsConditions?.codes);
       },
     );
   }, []);

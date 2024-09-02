@@ -1,11 +1,12 @@
 import { enviroment } from "@config/enviroment";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapTermsConditionsApiToEntity } from "./mappers";
+import { ITermsConditionsResponse } from "./types";
 
 const getTermsConditions = async (
   accessToken: string,
   productId: string,
-): Promise<string[]> => {
+): Promise<ITermsConditionsResponse | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
@@ -34,7 +35,7 @@ const getTermsConditions = async (
     );
 
     if (res.status === 204) {
-      return [];
+      return;
     }
 
     const data = await res.json();

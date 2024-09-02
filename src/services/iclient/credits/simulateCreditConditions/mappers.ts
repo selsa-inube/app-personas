@@ -18,7 +18,7 @@ const mapSimulationEntityToApi = (
   };
 };
 
-const mapSimulationEntityToEntity = (
+const mapSimulationApiToEntity = (
   simulationOption: Record<string, string | object>,
 ): ISimulateCreditResponse => {
   return {
@@ -39,4 +39,4 @@ const mapSimulationEntityToEntity = (
     netValue: Number(simulationOption.amountToBeDrawn),
   };
 };
-export { mapSimulationEntityToApi, mapSimulationEntityToEntity };
+export { mapSimulationApiToEntity, mapSimulationEntityToApi };

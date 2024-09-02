@@ -2,7 +2,8 @@ import { ISelectOption } from "@design/input/Select/types";
 
 interface IDisbursementEntry {
   disbursements: ISelectOption[];
-  disbursementType: string;
+  disbursement?: string;
+  disbursementName?: string;
   accountStatus?: string;
   accountNumber?: string;
   writeAccountNumber?: string;

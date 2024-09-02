@@ -2,11 +2,11 @@ import { ValidationDetailsModal } from "@components/modals/general/ValidationDet
 import { inube } from "@design/tokens";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
+import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { IValidation } from "src/model/entity/service";
 import { OutlineCard } from "../OutlineCard";
-import { Tag } from "@inubekit/tag";
 
 function ValidationCard(props: IValidation) {
   const { label, failDetails, value, pending } = props;
@@ -66,7 +66,7 @@ function ValidationCard(props: IValidation) {
                   size="small"
                   appearance="danger"
                   cursorHover
-                  onClick={handleToggleModal} 
+                  onClick={handleToggleModal}
                 >
                   Ver detalles
                 </Text>

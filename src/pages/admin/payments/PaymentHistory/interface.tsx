@@ -7,16 +7,16 @@ import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { EMovementType } from "src/model/entity/product";
 import { EmptyRecords } from "./EmptyRecords";
+import { generateAttributes } from "./config/attributeRecord";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { generateAttributes } from "./config/attributeRecord";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
@@ -112,6 +112,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                       attributes={generateAttributes(payment)}
                       onClick={() => onTogglePaymentHistoryModal(payment)}
                       withExpandingIcon
+                      datesWithTime
                     />
                     {index !== paymentHistory.length - 1 && <Divider dashed />}
                   </Stack>

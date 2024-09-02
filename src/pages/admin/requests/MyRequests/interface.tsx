@@ -89,6 +89,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
                       attributes={generateAttributes(request)}
                       withExpandingIcon
                       onClick={() => goToRequest(request.id)}
+                      datesWithTime
                     />
                     {index !== requests.length - 1 && <Divider dashed />}
                   </Stack>

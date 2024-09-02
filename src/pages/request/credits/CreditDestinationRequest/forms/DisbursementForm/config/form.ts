@@ -1,6 +1,6 @@
 import { suppliersTypeData } from "@mocks/domains/suppliersType";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
 import { bankDM } from "src/model/domains/general/bankDM";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
@@ -11,6 +11,7 @@ import { IProduct } from "src/model/entity/product";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
+import { IDisbursementEntry } from "../types";
 
 const getCommonFields = (savingsAccounts: IProduct[]) => ({
   observations: {
@@ -188,13 +189,13 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
 });
 
 const structureDisbursementForm = (
-  formik: FormikValues,
+  formik: FormikProps<IDisbursementEntry>,
   savingsAccounts: IProduct[],
 ): IFormStructure => {
   const commonFields = getCommonFields(savingsAccounts);
 
   return {
-    disbursementType: {
+    disbursement: {
       [disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id]: [
         commonFields.accountNumber,
       ],
@@ -228,7 +229,7 @@ const structureDisbursementForm = (
     },
     identificationType: {
       [identificationTypeDM.NIT.id]:
-        formik.values.disbursementType ===
+        formik.values.disbursement ===
         disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id
           ? [
               commonFields.identification,
@@ -239,7 +240,7 @@ const structureDisbursementForm = (
             ]
           : [commonFields.identification, commonFields.socialReason],
       [identificationTypeDM.CC.id]:
-        formik.values.disbursementType ===
+        formik.values.disbursement ===
         disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id
           ? [
               commonFields.identification,
@@ -261,7 +262,7 @@ const structureDisbursementForm = (
               commonFields.gender,
             ],
       [identificationTypeDM.CE.id]:
-        formik.values.disbursementType ===
+        formik.values.disbursement ===
         disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id
           ? [
               commonFields.identification,
@@ -283,7 +284,7 @@ const structureDisbursementForm = (
               commonFields.gender,
             ],
       [identificationTypeDM.PA.id]:
-        formik.values.disbursementType ===
+        formik.values.disbursement ===
         disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id
           ? [
               commonFields.identification,

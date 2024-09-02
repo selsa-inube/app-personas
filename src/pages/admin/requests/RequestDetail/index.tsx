@@ -15,7 +15,8 @@ function RequestDetail() {
   const { request_id } = useParams();
   const [attachModal, setAttachModal] = useState({
     show: false,
-    id: "",
+    requirementId: "",
+    documentType: "",
   });
   const [selectedDocuments, setSelectedDocuments] = useState<
     ISelectedDocument[]
@@ -42,30 +43,29 @@ function RequestDetail() {
   };
   useEffect(() => {
     handleSortRequest();
-  }, []);
+  }, [accessToken, user, request_id]);
 
-  const handleOpenAttachModal = (id: string) => {
+  const handleOpenAttachModal = (
+    requirementId: string,
+    documentType: string,
+  ) => {
     setAttachModal({
       show: true,
-      id,
+      requirementId,
+      documentType,
     });
   };
 
   const handleCloseAttachModal = () => {
     setAttachModal({
       show: false,
-      id: "",
+      requirementId: "",
+      documentType: "",
     });
   };
 
-  const handleSelectDocument = async (file: File, id: string) => {
-    setSelectedDocuments([
-      ...selectedDocuments,
-      {
-        file,
-        id,
-      },
-    ]);
+  const handleSelectDocument = async (document: ISelectedDocument) => {
+    setSelectedDocuments([...selectedDocuments, document]);
   };
 
   if (!selectedRequest) return null;
