@@ -1,6 +1,7 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Table } from "@design/data/Table";
 import { Button } from "@design/input/Button";
+import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { Switch } from "@design/input/Switch";
@@ -12,14 +13,15 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles } from "./config/table";
+import { IConditionsEntry } from "./types";
 
 interface ConditionsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IConditionsEntry>;
   loading?: boolean;
   loadingSimulation?: boolean;
   simulateCDAT: () => void;
@@ -55,7 +57,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
             <Stack direction="column" gap={inube.spacing.s300}>
               <Grid
                 gap={inube.spacing.s300}
-                templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}
                 autoRows="auto"
               >
                 <TextField
@@ -85,6 +87,38 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                   onChange={customHandleChange}
                   isRequired
                 />
+
+                {formik.values.simulationWithDate ? (
+                  <DateField
+                    label="Fecha"
+                    name="deadlineDate"
+                    id="deadlineDate"
+                    value={formik.values.deadlineDate}
+                    errorMessage={formik.errors.deadlineDate}
+                    state={getFieldState(formik, "deadlineDate")}
+                    onBlur={formik.handleBlur}
+                    onChange={customHandleChange}
+                    isRequired
+                    isFullWidth
+                  />
+                ) : (
+                  <TextField
+                    label="Plazo en número de días"
+                    placeholder="Digite la cantidad de días"
+                    name="deadlineDays"
+                    id="deadlineDays"
+                    value={formik.values.deadlineDays}
+                    type="number"
+                    errorMessage={formik.errors.deadlineDays}
+                    isDisabled={loading}
+                    size="compact"
+                    isFullWidth
+                    state={getFieldState(formik, "deadlineDays")}
+                    onBlur={formik.handleBlur}
+                    onChange={customHandleChange}
+                    validMessage="El número de días es valido"
+                  />
+                )}
               </Grid>
 
               <Stack direction="column" gap={inube.spacing.s250}>
@@ -106,47 +140,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                     size="large"
                   />
                 </Stack>
-                <Grid
-                  gap={inube.spacing.s300}
-                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-                  autoRows="auto"
-                >
-                  {formik.values.simulationWithDate ? (
-                    <TextField
-                      label="Fecha"
-                      placeholder="Digita la fecha en formato D/M/A"
-                      name="deadlineDate"
-                      id="deadlineDate"
-                      value={formik.values.deadlineDate}
-                      type="text"
-                      errorMessage={formik.errors.deadlineDate}
-                      isDisabled={loading}
-                      size="compact"
-                      isFullWidth
-                      state={getFieldState(formik, "deadlineDate")}
-                      onBlur={formik.handleBlur}
-                      onChange={customHandleChange}
-                      validMessage="La fecha de expedición es válida"
-                    />
-                  ) : (
-                    <TextField
-                      label="Plazo en número de días"
-                      placeholder="Digite la cantidad de días"
-                      name="deadlineDays"
-                      id="deadlineDays"
-                      value={formik.values.deadlineDays}
-                      type="number"
-                      errorMessage={formik.errors.deadlineDays}
-                      isDisabled={loading}
-                      size="compact"
-                      isFullWidth
-                      state={getFieldState(formik, "deadlineDays")}
-                      onBlur={formik.handleBlur}
-                      onChange={customHandleChange}
-                      validMessage="El número de días es valido"
-                    />
-                  )}
-                </Grid>
+
                 <Stack width="100%" justifyContent="flex-end">
                   <Button
                     variant="outlined"
@@ -160,7 +154,8 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       (formik.errors.deadlineDays &&
                         !formik.values.deadlineDate) ||
                       (formik.errors.deadlineDate &&
-                        !formik.values.deadlineDays)
+                        !formik.values.deadlineDays) ||
+                      false
                     }
                   >
                     Simular
@@ -188,7 +183,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         <BoxAttribute
                           label="Intereses totales:"
                           value={`${currencyFormat(
-                            formik.values.totalInterest,
+                            formik.values.totalInterest || 0,
                           )}`}
                         />
                       </Stack>
@@ -201,7 +196,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                         <BoxAttribute
                           label="Retención en la fuente:"
                           value={`${currencyFormat(
-                            formik.values.withholdingTax,
+                            formik.values.withholdingTax || 0,
                           )}`}
                         />
                       </Stack>
@@ -223,7 +218,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
           </Text>
           <Text type="body" size={isMobile ? "small" : "medium"}>
             Los tasas mostradas aplican para una inversión por valor de:
-            {`  ${currencyFormat(formik.values.valueInvestment)}`}
+            {`  ${currencyFormat(formik.values.valueInvestment || 0)}`}
           </Text>
           <Table
             portalId="modals"

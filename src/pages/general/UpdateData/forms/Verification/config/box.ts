@@ -1,4 +1,4 @@
-const updateDataBoxTitles: Record<string, string> = {
+const updateDataBoxTitles = {
   personalInformation: "Información personal",
   contactData: "Datos de contacto",
   familyGroup: "Grupo familiar",

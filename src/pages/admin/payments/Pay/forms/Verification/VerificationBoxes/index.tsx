@@ -1,21 +1,22 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Totalizer } from "@components/layout/Totalizer";
+import { inube } from "@design/tokens";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { Fragment } from "react";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
-import { EPaymentMethodType, IFormsPay } from "../../../types";
 import { IObligationsEntry } from "../../ObligationsForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
 import {
   EMoneySourceType,
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
-import { StyledPayments } from "./styles";
 import { payBoxTitles } from "../config/box";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { inube } from "@design/tokens";
+import { StyledPayments } from "./styles";
+import { EPaymentMethodType } from "src/model/entity/payment";
+import { IFormsPay } from "../../../types";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -75,6 +76,7 @@ const renderObligationsVerification = (
     </Stack>
   );
 };
+
 const renderPaymentMethodVerification = (
   values: IPaymentMethodEntry,
   isTablet: boolean,

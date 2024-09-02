@@ -164,7 +164,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       state={getFieldState(formik, "amount")}
                       onBlur={formik.handleBlur}
                       onChange={handleChangeWithCurrency}
-                      validMessage="El valor es válido"
                       isRequired
                     />
                     <Select
@@ -213,7 +212,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                             state={getFieldState(formik, "quota")}
                             onBlur={formik.handleBlur}
                             onChange={handleChangeWithCurrency}
-                            validMessage="La cuota es válida"
                           />
                         ) : (
                           <TextField
@@ -230,7 +228,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                             state={getFieldState(formik, "deadline")}
                             onBlur={formik.handleBlur}
                             onChange={customHandleChange}
-                            validMessage="El plazo es válido"
                           />
                         )}
                       </>

@@ -44,12 +44,6 @@ enum EPaymentOptionType {
   REDUCEFUTUREQUOTA = "acf",
 }
 
-enum EPaymentMethodType {
-  PSE = "PSE",
-  DEBIT = "DEBITSAVINGACCOUNT",
-  MULTIPLE = "MULTIPLE",
-}
-
 enum ESupportDocumentType {
   FINANCIALPORTFOLIO = "OB",
   CONTRIBUTIONCOMMITMENT = "AP",
@@ -63,7 +57,6 @@ enum ESupportDocumentType {
 export {
   EPaymentGroupType,
   EPaymentMethodFilterType,
-  EPaymentMethodType,
   EPaymentOptionType,
   EPaymentStatusType,
   ESupportDocumentType,
