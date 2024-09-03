@@ -30,7 +30,7 @@ const savePaymentTracking = async (
 
     return data.id;
   } catch (error) {
-    console.error(error);
+    console.info(error);
   }
 };
 

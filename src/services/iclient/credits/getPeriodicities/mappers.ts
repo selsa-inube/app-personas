@@ -5,7 +5,7 @@ const mapPeriodicityApiToEntity = (
   periodicity: Record<string, string | number | object>,
 ): IPeriodicity => {
   return {
-    id: String(periodicity.code).toLowerCase(),
+    id: String(periodicity.code),
     description: capitalizeText(String(periodicity.description)),
     periodicityInMonths: Number(periodicity.periodicityInMonths),
     periodicityInDays: Number(periodicity.periodicityInDays),

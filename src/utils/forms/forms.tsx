@@ -16,7 +16,7 @@ const isRequired = (
 };
 
 const getFieldState = (formik: FormikValues, fieldName: string) => {
-  if (formik.errors[fieldName] && formik.touched[fieldName]) return "invalid";
+  if (formik.errors[fieldName]) return "invalid";
   return "valid";
 };
 

@@ -62,7 +62,7 @@ const getRequirementsForProduct = async (
       Math.round(performance.now() - startTime),
     );
 
-    console.error(error);
+    console.info(error);
 
     throw new Error(
       "No se pudieron obtener los requerimientos de crédito del producto.",
