@@ -42,7 +42,7 @@ const getFeatureFlagsByBunit = async (
       ? mapFeatureFlagsApiToEntities(flagsData)
       : [];
   } catch (error) {
-    console.error(error);
+    console.info(error);
     return [];
   }
 };
@@ -89,7 +89,7 @@ const getFeatureFlagsByCodes = async (
       ? mapFeatureFlagsApiToEntities(flagsData)
       : [];
   } catch (error) {
-    console.error(error);
+    console.info(error);
     return [];
   }
 };
