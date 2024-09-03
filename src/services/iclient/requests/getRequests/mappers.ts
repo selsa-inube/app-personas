@@ -96,7 +96,7 @@ const mapRequestApiToEntity = (
     description: requestDescriptions[Object(request.requestType).code] || "",
     status:
       requestStatusDM.valueOf(Object(request.status).code)?.id ||
-      requestStatusDM.SENT.id,
+      requestStatusDM.PENDING.id,
     value: Number(Object(request).details.conditions.requestedAmount),
     quotaValue: Number(Object(request).details.conditions.quotaValue),
     periodicity:
@@ -114,7 +114,7 @@ const mapRequestApiToEntity = (
     tag: {
       label:
         requestStatusDM.valueOf(Object(request.status).code)?.value ||
-        requestStatusDM.SENT.value,
+        requestStatusDM.PENDING.value,
       appearance:
         requestStatusAppearance[Object(request.status).code] || "warning",
     },

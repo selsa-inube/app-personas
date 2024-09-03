@@ -50,30 +50,38 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
       <Stack
         direction="column"
         alignItems="flex-start"
-        gap={isMobile ? inube.spacing.s100 : inube.spacing.s150}
+        gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
       >
         <StyledTermsAndConditionsContainer $isMobile={isMobile}>
           {getTermsAndConditionsParag(formik.values.termsConditions)}
         </StyledTermsAndConditionsContainer>
-        <Switch
-          id="accept"
-          name="accept"
-          label="Acepto los términos y condiciones"
-          size={isMobile ? "small" : "large"}
-          onChange={formik.handleChange}
-          checked={formik.values.accept}
-          disabled={loading}
-        />
-        <Switch
-          id="acceptDataPolicy"
-          name="acceptDataPolicy"
-          customLabel={<CustomLabelPolicy url={formik.values.dataPolicyUrl} />}
-          label="Acepto la Política de tratamiento de datos"
-          size={isMobile ? "small" : "large"}
-          onChange={formik.handleChange}
-          checked={formik.values.acceptDataPolicy}
-          disabled={loading}
-        />
+
+        <Stack
+          direction="column"
+          gap={isMobile ? inube.spacing.s100 : inube.spacing.s150}
+        >
+          <Switch
+            id="accept"
+            name="accept"
+            label="Acepto los términos y condiciones"
+            size={isMobile ? "small" : "large"}
+            onChange={formik.handleChange}
+            checked={formik.values.accept}
+            disabled={loading}
+          />
+          <Switch
+            id="acceptDataPolicy"
+            name="acceptDataPolicy"
+            customLabel={
+              <CustomLabelPolicy url={formik.values.dataPolicyUrl} />
+            }
+            label="Acepto la Política de tratamiento de datos"
+            size={isMobile ? "small" : "large"}
+            onChange={formik.handleChange}
+            checked={formik.values.acceptDataPolicy}
+            disabled={loading}
+          />
+        </Stack>
       </Stack>
     </form>
   );
