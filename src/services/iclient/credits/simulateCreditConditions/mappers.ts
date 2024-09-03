@@ -12,9 +12,7 @@ const mapSimulationEntityToApi = (
     quotaDeadlineInMonths: simulationValues.deadline,
     quotaValue: simulationValues.quota,
     rate: simulationValues.rate,
-    simulationParameter: simulationValues.deadline
-      ? "QuotaDeadline"
-      : "QuotaValue",
+    simulationParameter: simulationValues.simulationParameter,
   };
 };
 
