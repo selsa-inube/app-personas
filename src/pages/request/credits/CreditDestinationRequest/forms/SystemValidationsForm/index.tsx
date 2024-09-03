@@ -10,12 +10,14 @@ import {
 import { AppContext } from "src/context/app";
 import { getRequirementsForProduct } from "src/services/iclient/credits/getRequirements";
 import { IRequirementRequest } from "src/services/iclient/credits/getRequirements/types";
+import { IDisbursementEntry } from "../DisbursementForm/types";
 import { SystemValidationsFormUI } from "./interface";
 import { ISystemValidationsEntry } from "./types";
 import { loadingValidations } from "./utils";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
+  disbursementValues: IDisbursementEntry;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -23,7 +25,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   props: SystemValidationsFormProps,
   ref: React.Ref<FormikProps<ISystemValidationsEntry>>,
 ) {
-  const { initialValues, onFormValid } = props;
+  const { initialValues, disbursementValues, onFormValid } = props;
 
   const [loadingValids, setLoadingValids] = useState(false);
 
@@ -62,6 +64,20 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       quota: formik.values.quota,
       netValue: formik.values.netValue,
       requestDate,
+      disbursmentMethod: {
+        id: disbursementValues.disbursement || "",
+        name: disbursementValues.disbursementName || "",
+        accountNumber: disbursementValues.accountNumber,
+        transferAccountNumber: disbursementValues.writeAccountNumber,
+        transferAccountType: disbursementValues.accountType,
+        transferBankEntity: disbursementValues.entity,
+        firstName: disbursementValues.firstName,
+        lastName: disbursementValues.firstLastName,
+        gender: disbursementValues.gender,
+        genderName: disbursementValues.gender,
+        identificationType: disbursementValues.identificationType,
+        identification: disbursementValues.identification,
+      },
     };
 
     getRequirementsForProduct(requirementsRequest, accessToken).then(

@@ -1,4 +1,3 @@
-import { InfoCard } from "@components/cards/InfoCard";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
@@ -13,7 +12,6 @@ import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import {
   MdDeleteOutline,
-  MdInfoOutline,
   MdOutlineDescription,
   MdQuestionMark,
 } from "react-icons/md";
@@ -139,13 +137,11 @@ function DocumentaryRequirementsFormUI(
 
   if (formik.values.requiredDocuments.length === 0) {
     return (
-      <Stack>
-        <InfoCard
-          title="Requisitos documentales"
-          description="Actualmente, te encuentras utilizando un software externo para cargar los requisitos documentales. Luego de crear la solicitud, podrás adjuntar tus documentos."
-          appearance="help"
-          icon={<MdInfoOutline />}
-        />
+      <Stack width="100%">
+        <Text type="label" size="large" appearance="gray">
+          Actualmente no hay requisitos documentales por cumplir. Puede
+          continuar con el siguiente paso de navegación.
+        </Text>
       </Stack>
     );
   }

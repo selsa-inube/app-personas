@@ -5,10 +5,7 @@ import { Link } from "@inubekit/link";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
-import {
-  StyledTermsAndConditionsContainer,
-  StyledTermsAndConditionsInfo,
-} from "./styles";
+import { StyledTermsAndConditionsContainer } from "./styles";
 import { ITermsAndConditionsEntry } from "./types";
 
 const getTermsAndConditionsParag = (texts: string[]) => {
@@ -19,14 +16,16 @@ const getTermsAndConditionsParag = (texts: string[]) => {
   ));
 };
 
-function CustomLabelPolicy() {
+function CustomLabelPolicy(props: { url: string }) {
+  const { url } = props;
+
   return (
-    <Text type="label" size="large">
+    <Text type="label" size="large" weight="bold">
       Acepto la{" "}
       <Link
         type="label"
         size="large"
-        path="https://fondecom.coop/wp-content/uploads/2023/10/EGSI-RI-MN-005_Manual_De_Politicas_Y_Procedimientos_De_Proteccion_V4.pdf"
+        path={url}
         target="_blank"
         rel="noreferrer"
       >
@@ -51,12 +50,10 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
       <Stack
         direction="column"
         alignItems="flex-start"
-        gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+        gap={isMobile ? inube.spacing.s100 : inube.spacing.s150}
       >
         <StyledTermsAndConditionsContainer $isMobile={isMobile}>
-          <StyledTermsAndConditionsInfo $isMobile={isMobile}>
-            {getTermsAndConditionsParag(formik.values.termsConditions)}
-          </StyledTermsAndConditionsInfo>
+          {getTermsAndConditionsParag(formik.values.termsConditions)}
         </StyledTermsAndConditionsContainer>
         <Switch
           id="accept"
@@ -70,7 +67,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
         <Switch
           id="acceptDataPolicy"
           name="acceptDataPolicy"
-          customLabel={<CustomLabelPolicy />}
+          customLabel={<CustomLabelPolicy url={formik.values.dataPolicyUrl} />}
           label="Acepto la Política de tratamiento de datos"
           size={isMobile ? "small" : "large"}
           onChange={formik.handleChange}

@@ -40,9 +40,7 @@ const getInitialCreditContidionValidations = (
       amount: Yup.number()
         .min(1, validationMessages.minCurrencyNumbers(1))
         .max(
-          maxAmountForUser > 0 && maxAmountForUser < maxAmount
-            ? maxAmountForUser
-            : maxAmount,
+          maxAmountForUser < maxAmount ? maxAmountForUser : maxAmount,
           "Has superado el cupo máximo",
         )
         .required(validationMessages.required),

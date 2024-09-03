@@ -2,6 +2,7 @@ import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
 import { Spinner } from "@inubekit/spinner";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { useState } from "react";
 import {
   StyledButton,
@@ -15,7 +16,6 @@ import {
   ButtonTypesType,
   ButtonVariantType,
 } from "./types";
-import { Text } from "@inubekit/text";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -46,11 +46,7 @@ function renderButtonContent(
     return (
       <StyledSpinnerContainer $variant={variant}>
         <Stack justifyContent="center" alignItems="center" height="inherit">
-          <Spinner
-            appearance={getAppearance()}
-            size="small"
-            transparent={false}
-          />
+          <Spinner appearance={getAppearance()} size="small" transparent />
         </Stack>
       </StyledSpinnerContainer>
     );
