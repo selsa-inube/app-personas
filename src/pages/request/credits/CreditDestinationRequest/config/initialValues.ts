@@ -20,6 +20,7 @@ const creditConditions: ICreditConditionsEntry = {
     maxRate: 0,
     maxDeadline: 0,
     maxAmount: 0,
+    maxAmountForUser: 0,
     amortizationType: "",
   },
   simulationWithQuota: false,

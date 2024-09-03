@@ -144,7 +144,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         Cupo personal:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        {currencyFormat(formik.values.product.maxAmount)}
+                        {currencyFormat(formik.values.product.maxAmountForUser)}
                       </Text>
                     </Stack>
                   </OutlineCard>

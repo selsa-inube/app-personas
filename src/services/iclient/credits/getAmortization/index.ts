@@ -58,7 +58,7 @@ const getAmortizationForCredit = async (
       Math.round(performance.now() - startTime),
     );
 
-    console.error(error);
+    console.info(error);
     throw error;
   }
 };
