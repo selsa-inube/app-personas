@@ -30,13 +30,13 @@ function SavingRequest() {
   }
 
   const filteredCards = savingRequestCards.filter((card) => {
-    if (card.title === "Cuenta de ahorros") {
+    if (card.id === "savingsAccount") {
       return getFlag("request.savings.savings.request-savings-account").value;
     }
-    if (card.title === "CDAT") {
+    if (card.id === "CDAT") {
       return getFlag("request.savings.savings.request-cdat").value;
     }
-    if (card.title === "Ahorro programado a término fijo") {
+    if (card.id === "programmedSavings") {
       return getFlag("request.savings.savings.request-programmed-savings")
         .value;
     }
