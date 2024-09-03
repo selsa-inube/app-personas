@@ -95,6 +95,7 @@ const termsAndConditions: ITermsAndConditionsEntry = {
   productId: "",
   termsConditions: [],
   ids: "",
+  dataPolicyUrl: "",
   accept: false,
   acceptDataPolicy: false,
 };
