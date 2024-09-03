@@ -23,6 +23,24 @@ const mapRequirementEntityToApi = (
     quotaValue: requirement.quota,
     amountToTurn: requirement.netValue,
     requestDate: requirement.requestDate.toISOString(),
+    disbursementMethod: {
+      disbursementMethodCode: requirement.disbursmentMethod.id,
+      disbursementMethodDetail: requirement.disbursmentMethod.name,
+      savingsAccountNumber: requirement.disbursmentMethod.accountNumber,
+      accountNumber: requirement.disbursmentMethod.transferAccountNumber,
+      accountTypeCode: requirement.disbursmentMethod.transferAccountType,
+      accountTypeDetail: requirement.disbursmentMethod.transferBankEntity,
+      bankCode: requirement.disbursmentMethod.transferBankEntity,
+      bankDetail: requirement.disbursmentMethod.transferBankEntity,
+      businessName: requirement.disbursmentMethod.businessName,
+      firstName: requirement.disbursmentMethod.firstName,
+      genderCode: requirement.disbursmentMethod.gender,
+      genderDetail: requirement.disbursmentMethod.genderName,
+      identificationDetail: requirement.disbursmentMethod.identification,
+      identificationNumber: requirement.disbursmentMethod.identification,
+      identificationTypeCode: requirement.disbursmentMethod.identificationType,
+      lastName: requirement.disbursmentMethod.lastName,
+    },
   };
 };
 

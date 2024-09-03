@@ -69,6 +69,7 @@ const renderStepContent = (
       {currentStep === creditDestinationRequestSteps.systemValidations.id && (
         <SystemValidationsForm
           initialValues={creditDestinationRequest.systemValidations.values}
+          disbursementValues={creditDestinationRequest.disbursement.values}
           ref={formReferences.systemValidations}
           onFormValid={setIsCurrentFormValid}
         />
