@@ -19,11 +19,11 @@ const requestStatusAppearance: Record<string, ITag["appearance"]> = {
 };
 
 const requestTitles: Record<string, string> = {
-  credit: "Credito",
+  credit: "Crédito",
 };
 
 const requestDescriptions: Record<string, string> = {
-  credit: "Solicitud de credito",
+  credit: "Solicitud de crédito",
 };
 
 const mapRequirementApiToEntity = (
