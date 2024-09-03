@@ -19,14 +19,16 @@ const getTermsAndConditionsParag = (texts: string[]) => {
   ));
 };
 
-function CustomLabelPolicy() {
+function CustomLabelPolicy(props: { url: string }) {
+  const { url } = props;
+
   return (
     <Text type="label" size="large">
       Acepto la{" "}
       <Link
         type="label"
         size="large"
-        path="https://fondecom.coop/wp-content/uploads/2023/10/EGSI-RI-MN-005_Manual_De_Politicas_Y_Procedimientos_De_Proteccion_V4.pdf"
+        path={url}
         target="_blank"
         rel="noreferrer"
       >
@@ -70,7 +72,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
         <Switch
           id="acceptDataPolicy"
           name="acceptDataPolicy"
-          customLabel={<CustomLabelPolicy />}
+          customLabel={<CustomLabelPolicy url={formik.values.dataPolicyUrl} />}
           label="Acepto la Política de tratamiento de datos"
           size={isMobile ? "small" : "large"}
           onChange={formik.handleChange}
