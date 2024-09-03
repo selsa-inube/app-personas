@@ -123,18 +123,20 @@ function RecordCard(props: RecordCardProps) {
           </>
         ) : (
           <>
-            <Stack gap={inube.spacing.s150}>
+            <Stack gap={inube.spacing.s100}>
               {getIconForRecordType(type)}
-              <Text type="label" size="medium">
-                {`${getRecordDescriptionType(type, description)} ${description}`}
-              </Text>
-              {tag && !isMobile && (
-                <Tag
-                  label={tag.label}
-                  appearance={tag.appearance}
-                  weight="normal"
-                />
-              )}
+              <Stack gap={inube.spacing.s150}>
+                <Text type="label" size="medium" weight="bold">
+                  {`${getRecordDescriptionType(type, description)} ${description}`}
+                </Text>
+                {tag && !isMobile && (
+                  <Tag
+                    label={tag.label}
+                    appearance={tag.appearance}
+                    weight="normal"
+                  />
+                )}
+              </Stack>
             </Stack>
             <Stack gap={inube.spacing.s150}>
               {!isMobile && (

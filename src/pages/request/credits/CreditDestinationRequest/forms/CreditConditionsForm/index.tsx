@@ -174,7 +174,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         userIdentification: user.identification,
         amount,
         periodicityInMonths: formik.values.periodicity.periodicityInMonths,
-        deadline: formik.values.simulationWithQuota ? deadline || 0 : 0,
+        deadline: !formik.values.simulationWithQuota ? deadline || 0 : 0,
         quota: formik.values.simulationWithQuota ? quota || 0 : 0,
         rate,
         simulationParameter: formik.values.simulationWithQuota
@@ -189,7 +189,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
 
       if (simulationResponse) {
         formik.setFieldValue("quota", simulationResponse.quota);
-        formik.setFieldValue("maxRate", simulationResponse.rate);
+        formik.setFieldValue("rate", simulationResponse.rate / 12);
         formik.setFieldValue("deadline", simulationResponse.deadline);
         formik.setFieldValue("netValue", simulationResponse.netValue);
         formik.setFieldValue("hasResult", true);

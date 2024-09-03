@@ -59,6 +59,7 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
         <Stack
           direction="column"
           gap={isMobile ? inube.spacing.s100 : inube.spacing.s150}
+          alignItems="flex-start"
         >
           <Switch
             id="accept"
