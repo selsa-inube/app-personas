@@ -5,10 +5,7 @@ import { Link } from "@inubekit/link";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
-import {
-  StyledTermsAndConditionsContainer,
-  StyledTermsAndConditionsInfo,
-} from "./styles";
+import { StyledTermsAndConditionsContainer } from "./styles";
 import { ITermsAndConditionsEntry } from "./types";
 
 const getTermsAndConditionsParag = (texts: string[]) => {
@@ -21,7 +18,7 @@ const getTermsAndConditionsParag = (texts: string[]) => {
 
 function CustomLabelPolicy() {
   return (
-    <Text type="label" size="large">
+    <Text type="label" size="large" weight="bold">
       Acepto la{" "}
       <Link
         type="label"
@@ -51,12 +48,10 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
       <Stack
         direction="column"
         alignItems="flex-start"
-        gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
+        gap={isMobile ? inube.spacing.s100 : inube.spacing.s150}
       >
         <StyledTermsAndConditionsContainer $isMobile={isMobile}>
-          <StyledTermsAndConditionsInfo $isMobile={isMobile}>
-            {getTermsAndConditionsParag(formik.values.termsConditions)}
-          </StyledTermsAndConditionsInfo>
+          {getTermsAndConditionsParag(formik.values.termsConditions)}
         </StyledTermsAndConditionsContainer>
         <Switch
           id="accept"

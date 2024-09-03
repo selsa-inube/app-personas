@@ -6,8 +6,22 @@ interface IStyledTermsAndConditionsContainer {
 }
 
 const StyledTermsAndConditionsContainer = styled.div<IStyledTermsAndConditionsContainer>`
-  height: ${({ $isMobile }) => ($isMobile ? "311px" : "511px")};
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: ${inube.spacing.s100};
+  border-color: ${({ theme }) =>
+    theme.color?.stroke?.divider?.regular ||
+    inube.color.stroke.divider.regular};
+  padding: ${({ $isMobile }) =>
+    $isMobile ? inube.spacing.s150 : inube.spacing.s300};
+  gap: ${({ $isMobile }) =>
+    $isMobile ? inube.spacing.s150 : inube.spacing.s200};
+  max-height: ${({ $isMobile }) => ($isMobile ? "311px" : "511px")};
   overflow-y: auto;
+  box-sizing: border-box;
 
   ::-webkit-scrollbar {
     width: ${({ $isMobile }) =>
@@ -24,25 +38,4 @@ const StyledTermsAndConditionsContainer = styled.div<IStyledTermsAndConditionsCo
   }
 `;
 
-interface IStyledTermsAndConditionsInfo {
-  $isMobile: boolean;
-}
-
-const StyledTermsAndConditionsInfo = styled.div<IStyledTermsAndConditionsInfo>`
-  display: flex;
-  flex-direction: column;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: ${inube.spacing.s100};
-  border-color: ${({ theme }) =>
-    theme.color?.stroke?.divider?.regular ||
-    inube.color.stroke.divider.regular};
-  margin-right: ${({ $isMobile }) =>
-    $isMobile ? inube.spacing.s100 : inube.spacing.s200};
-  padding: ${({ $isMobile }) =>
-    $isMobile ? inube.spacing.s150 : inube.spacing.s300};
-  gap: ${({ $isMobile }) =>
-    $isMobile ? inube.spacing.s150 : inube.spacing.s200};
-`;
-
-export { StyledTermsAndConditionsContainer, StyledTermsAndConditionsInfo };
+export { StyledTermsAndConditionsContainer };

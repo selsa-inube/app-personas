@@ -206,10 +206,15 @@ const sendCreditRequest = async (
       name: creditRequest.disbursement.values.disbursementName || "",
       accountNumber: creditRequest.disbursement.values.accountNumber,
       transferAccountNumber:
-        creditRequest.disbursement.values.transferAccountNumber,
-      transferAccountType:
-        creditRequest.disbursement.values.transferAccountType,
-      transferBankEntity: creditRequest.disbursement.values.transferBankEntity,
+        creditRequest.disbursement.values.writeAccountNumber,
+      transferAccountType: creditRequest.disbursement.values.accountType,
+      transferBankEntity: creditRequest.disbursement.values.entity,
+      firstName: creditRequest.disbursement.values.firstName,
+      lastName: creditRequest.disbursement.values.firstLastName,
+      gender: creditRequest.disbursement.values.gender,
+      genderName: creditRequest.disbursement.values.gender,
+      identificationType: creditRequest.disbursement.values.identificationType,
+      identification: creditRequest.disbursement.values.identification,
     },
     documentaryRequirements:
       creditRequest.documentaryRequirements.values.selectedDocuments,
