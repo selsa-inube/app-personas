@@ -3,11 +3,11 @@ import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 const requestStatusDataDomain = {
   PENDING: {
     id: "Pending",
-    value: "Pendiente",
+    value: "Recibida",
   },
   SENT: {
     id: "Sent",
-    value: "Recibida",
+    value: "Radicada",
   },
   IN_STUDY: {
     id: "InStudy",
