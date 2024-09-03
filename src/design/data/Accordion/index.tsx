@@ -1,10 +1,10 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useState } from "react";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { StyledContainer, StyledHead } from "./styles";
 import { Divider } from "@inubekit/divider";
 import { Icon } from "@inubekit/icon";
 import { Text } from "@inubekit/text";
+import { useState } from "react";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { StyledContainer, StyledHead } from "./styles";
 
 interface AccordionProps {
   title: string;
@@ -23,7 +23,7 @@ function Accordion(props: AccordionProps) {
   return (
     <StyledContainer $isMobile={isMobile}>
       <StyledHead onClick={handleToggleOpen}>
-        <Text type="label" size={isMobile ? "medium" : "large"}>
+        <Text type="label" size={isMobile ? "medium" : "large"} weight="bold">
           {title}
         </Text>
 
