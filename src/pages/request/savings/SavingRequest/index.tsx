@@ -29,6 +29,20 @@ function SavingRequest() {
     return <Navigate to="/" />;
   }
 
+  const filteredCards = savingRequestCards.filter((card) => {
+    if (card.title === "Cuenta de ahorros") {
+      return getFlag("request.savings.savings.request-savings-account").value;
+    }
+    if (card.title === "CDAT") {
+      return getFlag("request.savings.savings.request-cdat").value;
+    }
+    if (card.title === "Ahorro programado a término fijo") {
+      return getFlag("request.savings.savings.request-programmed-savings")
+        .value;
+    }
+    return false;
+  });
+
   return (
     <>
       <Stack direction="column" gap={inube.spacing.s300}>
@@ -58,7 +72,7 @@ function SavingRequest() {
           </Text>
 
           <Stack direction="column" gap={inube.spacing.s300}>
-            {savingRequestCards.map((card, index) => (
+            {filteredCards.map((card, index) => (
               <RequestCard
                 key={index}
                 title={card.title}
