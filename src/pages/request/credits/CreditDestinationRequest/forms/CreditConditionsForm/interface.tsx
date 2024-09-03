@@ -314,7 +314,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       />
                       <BoxAttribute
                         label="Tasa de interés:"
-                        value={`${formik.values.product.maxRate} % N.A.M.V`}
+                        value={`${formik.values.rate} % N.A.M.V`}
                       />
                       <BoxAttribute
                         label="Desembolso aproximado:"
