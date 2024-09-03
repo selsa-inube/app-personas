@@ -20,27 +20,38 @@ const cdatRequestSteps = {
     description:
       "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
   },
-  investmentName: {
+  systemValidations: {
     id: 5,
+    name: "Validaciones del sistema",
+    description:
+      "Revisas cuales son los requisitos necesarios para realizar la solicitud de crédito.",
+  },
+  investmentName: {
+    id: 6,
     name: "Nombra tu inversión",
     description: "¿Cómo te gustaría que se llame tu producto?",
   },
   contactChannels: {
-    id: 6,
+    id: 7,
     name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
   comments: {
-    id: 7,
+    id: 8,
     name: "Comentarios",
     description:
       "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
   },
-  summary: {
-    id: 8,
-    name: "Resumen",
-    description: "Confirma la información diligencias en pasos anteriores.",
+  termsAndConditions: {
+    id: 9,
+    name: "Términos y condiciones",
+    description: "Aceptaciones y avisos de privacidad.",
+  },
+  verification: {
+    id: 10,
+    name: "Verificación",
+    description: "Confirma la información diligenciada en pasos anteriores.",
   },
 };
 

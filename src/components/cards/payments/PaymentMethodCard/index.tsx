@@ -79,7 +79,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           width="100%"
           wrap="wrap"
         >
-          <Text type="label" size="large">
+          <Text type="label" size="large" weight="bold">
             {moneySource.label}
           </Text>
 
@@ -114,59 +114,68 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         </Stack>
       )}
 
-      <TextField
-        id={moneySource.id}
-        name={moneySource.id}
-        placeholder=""
-        value={currencyFormat(moneySource.value, false)}
-        onChange={onChangeMoneySource}
-        isFullWidth
-        isDisabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
-        size="compact"
-        state={moneySource.value > moneySource.balance ? "invalid" : "pending"}
-        iconAfter={
-          <Icon
-            icon={<MdAttachMoney />}
-            appearance="dark"
-            size="18px"
-            spacing="narrow"
-          />
-        }
-      />
+      <Stack
+        direction="column"
+        justifyContent="flex-end"
+        gap={inube.spacing.s200}
+        height="100%"
+      >
+        <TextField
+          id={moneySource.id}
+          name={moneySource.id}
+          placeholder=""
+          value={currencyFormat(moneySource.value, false)}
+          onChange={onChangeMoneySource}
+          isFullWidth
+          isDisabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
+          size="compact"
+          state={
+            moneySource.value > moneySource.balance ? "invalid" : "pending"
+          }
+          iconAfter={
+            <Icon
+              icon={<MdAttachMoney />}
+              appearance="dark"
+              size="18px"
+              spacing="narrow"
+            />
+          }
+        />
 
-      {paymentMethod === EPaymentMethodType.MULTIPLE && (
-        <Stack
-          gap={inube.spacing.s150}
-          width="100%"
-          alignItems="center"
-          justifyContent="flex-end"
-        >
-          <Button
-            onClick={handleRemove}
-            variant="outlined"
-            disabled={moneySource.value === 0}
-            appearance="danger"
-            spacing="compact"
-            iconBefore={<MdOutlineDelete />}
+        {paymentMethod === EPaymentMethodType.MULTIPLE && (
+          <Stack
+            gap={inube.spacing.s150}
+            width="100%"
+            alignItems="center"
+            justifyContent="flex-end"
           >
-            Eliminar
-          </Button>
-          <Button
-            onClick={handleSave}
-            variant="outlined"
-            disabled={
-              isSaved ||
-              moneySource.value === 0 ||
-              moneySource.value > moneySource.balance
-            }
-            appearance="primary"
-            spacing="compact"
-            iconBefore={<MdOutlineSave />}
-          >
-            Guardar
-          </Button>
-        </Stack>
-      )}
+            <Button
+              onClick={handleRemove}
+              variant="outlined"
+              disabled={moneySource.value === 0}
+              appearance="danger"
+              spacing="compact"
+              iconBefore={<MdOutlineDelete />}
+            >
+              Eliminar
+            </Button>
+            <Button
+              onClick={handleSave}
+              variant="outlined"
+              disabled={
+                isSaved ||
+                moneySource.value === 0 ||
+                moneySource.value > moneySource.balance
+              }
+              appearance="primary"
+              spacing="compact"
+              iconBefore={<MdOutlineSave />}
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
+      </Stack>
     </StyledCardContainer>
   );
 }

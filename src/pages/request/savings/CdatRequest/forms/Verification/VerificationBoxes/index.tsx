@@ -9,6 +9,7 @@ import { IInvestmentEntry } from "../../InvestmentForm/types";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { Tag } from "@inubekit/tag";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -20,9 +21,11 @@ import {
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
+import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { cdatRequestBoxTitles } from "../config/box";
+import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 
-const renderInvestmentSummary = (
+const renderInvestmentVerification = (
   values: IInvestmentEntry,
   isTablet: boolean,
 ) => (
@@ -38,7 +41,7 @@ const renderInvestmentSummary = (
   </Stack>
 );
 
-const renderConditionsSummary = (values: IConditionsEntry) => (
+const renderConditionsVerification = (values: IConditionsEntry) => (
   <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <BoxAttribute
       label="Pago de intereses:"
@@ -102,7 +105,7 @@ const renderPaymentMethodVerification = (
   </Grid>
 );
 
-const renderRefundSummary = (values: IRefundEntry) => {
+const renderRefundVerification = (values: IRefundEntry) => {
   return (
     <Stack direction="column" gap={inube.spacing.s100} width="100%">
       <BoxAttribute
@@ -114,7 +117,37 @@ const renderRefundSummary = (values: IRefundEntry) => {
   );
 };
 
-const renderInvestmentNameSummary = (
+const renderSystemValidationsVerification = (
+  values: ISystemValidationsEntry,
+  isTablet: boolean,
+) => {
+  return (
+    <Grid
+      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+      autoRows="auto"
+      gap={inube.spacing.s100}
+      width="100%"
+    >
+      {values.validations.map((validation) => (
+        <BoxAttribute
+          key={validation.id}
+          value={validation.label}
+          iconAfter={
+            validation.value === "success" ? (
+              <Tag label="Cumple" appearance="success" />
+            ) : validation.value === "fail" ? (
+              <Tag label="No cumple" appearance="danger" />
+            ) : (
+              <Tag label="Por evaluar" appearance="warning" />
+            )
+          }
+        />
+      ))}
+    </Grid>
+  );
+};
+
+const renderInvestmentNameVerification = (
   values: IInvestmentNameEntry,
   isTablet: boolean,
 ) => (
@@ -127,7 +160,7 @@ const renderInvestmentNameSummary = (
   </Stack>
 );
 
-const renderContactChannelsSummary = (values: IContactChannelsEntry) => (
+const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
   <Stack width="100%" direction="column" gap={inube.spacing.s100}>
     <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
     <BoxAttribute label="Celular:" value={values.cellPhone} />
@@ -151,37 +184,68 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
   </Stack>
 );
 
-interface SummaryBoxesProps {
+const renderTermsAndConditionsVerification = (
+  values: ITermsAndConditionsEntry,
+  isTablet: boolean,
+) => (
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
+    <BoxAttribute
+      label="Acepta términos y condiciones:"
+      value={values.accept ? activeDM.Y.value : activeDM.N.value}
+    />
+    <BoxAttribute
+      label="Acepta política de tratamiento de datos:"
+      value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
+    />
+  </Grid>
+);
+
+interface VerificationBoxesProps {
   cdatRequest: IFormsCdatRequest;
   stepKey: keyof typeof cdatRequestBoxTitles;
   isTablet: boolean;
 }
 
-function SummaryBoxes(props: SummaryBoxesProps) {
+function VerificationBoxes(props: VerificationBoxesProps) {
   const { cdatRequest, stepKey, isTablet } = props;
   return (
     <>
       {stepKey === "investment" &&
-        renderInvestmentSummary(cdatRequest.investment.values, isTablet)}
+        renderInvestmentVerification(cdatRequest.investment.values, isTablet)}
       {stepKey === "conditions" &&
-        renderConditionsSummary(cdatRequest.conditions.values)}
+        renderConditionsVerification(cdatRequest.conditions.values)}
       {stepKey === "paymentMethod" &&
         renderPaymentMethodVerification(
           cdatRequest.paymentMethod.values,
           isTablet,
         )}
-      {stepKey === "refund" && renderRefundSummary(cdatRequest.refund.values)}
+      {stepKey === "refund" && renderRefundVerification(cdatRequest.refund.values)}
+      {stepKey === "systemValidations" &&
+        renderSystemValidationsVerification(
+          cdatRequest.systemValidations.values,
+          isTablet,
+        )}
       {stepKey === "investmentName" &&
-        renderInvestmentNameSummary(
+        renderInvestmentNameVerification(
           cdatRequest.investmentName.values,
           isTablet,
         )}
       {stepKey === "contactChannels" &&
-        renderContactChannelsSummary(cdatRequest.contactChannels.values)}
+        renderContactChannelsVerification(cdatRequest.contactChannels.values)}
       {stepKey === "comments" &&
         renderCommentsVerification(cdatRequest.comments.values)}
+      {stepKey === "termsAndConditions" &&
+        renderTermsAndConditionsVerification(
+          cdatRequest.termsAndConditions.values,
+          isTablet,
+        )}
     </>
   );
 }
 
-export { SummaryBoxes };
+export { VerificationBoxes };
