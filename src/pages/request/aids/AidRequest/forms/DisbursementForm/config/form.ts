@@ -5,8 +5,8 @@ import { validationRules } from "src/validations/validationRules";
 import { FormikValues } from "formik";
 import * as Yup from "yup";
 import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
-import { accountOriginTypeData } from "@mocks/domains/accountOriginType";
 import { bankDM } from "src/model/domains/general/bankDM";
+import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 
 const getCommonFields = {
   account: (options: ISelectOption[]): IFormField => ({
@@ -30,7 +30,7 @@ const getCommonFields = {
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
   }),
-  bankEntity: (options: ISelectOption[]): IFormField => ({
+  bankEntity: (options: ISelectOption[], readOnly?: boolean): IFormField => ({
     name: "bankEntity",
     type: "select",
     label: "Entidad bancaria",
@@ -40,8 +40,9 @@ const getCommonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
+    readOnly,
   }),
-  accountType: (options: ISelectOption[]): IFormField => ({
+  accountType: (options: ISelectOption[], readOnly?: boolean): IFormField => ({
     name: "accountType",
     type: "select",
     label: "Tipo de cuenta",
@@ -51,8 +52,9 @@ const getCommonFields = {
     isFullWidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
+    readOnly,
   }),
-  accountNumberTextField: (): IFormField => ({
+  accountNumberTextField: (readOnly?: boolean): IFormField => ({
     name: "accountNumberTextField",
     type: "text",
     label: "Numero de cuenta",
@@ -63,6 +65,7 @@ const getCommonFields = {
     validation: validationRules.accountNumber.required(
       validationMessages.required,
     ),
+    readOnly,
   }),
 };
 
@@ -74,13 +77,19 @@ const structureDisbursementForm = (
     disbursementMethod: {
       creditToInternalAccount: [getCommonFields.account(savingOptions)],
       transferToExternalAccount: [
-        getCommonFields.disbursedAccount(accountOriginTypeData),
+        getCommonFields.disbursedAccount(accountOriginTypeDM.options),
         ...(formik.values.disbursedAccount !== undefined
-          ? [
-              getCommonFields.bankEntity(bankDM.options),
-              getCommonFields.accountType(accountTypeDM.options),
-              getCommonFields.accountNumberTextField(),
-            ]
+          ? formik.values.disbursedAccount === accountOriginTypeDM.REGISTERED.id
+            ? [
+                getCommonFields.bankEntity(bankDM.options, true),
+                getCommonFields.accountType(accountTypeDM.options, true),
+                getCommonFields.accountNumberTextField(true),
+              ]
+            : [
+                getCommonFields.bankEntity(bankDM.options),
+                getCommonFields.accountType(accountTypeDM.options),
+                getCommonFields.accountNumberTextField(),
+              ]
           : []),
       ],
     },

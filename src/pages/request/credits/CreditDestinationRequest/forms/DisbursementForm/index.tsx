@@ -11,7 +11,7 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
-import { statusDM } from "src/model/domains/general/statusdm";
+import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
@@ -95,7 +95,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   useEffect(() => {
     if (!formik.values.accountStatus) return;
 
-    if (formik.values.accountStatus === statusDM.REGISTERED.id) {
+    if (formik.values.accountStatus === accountOriginTypeDM.REGISTERED.id) {
       formik.setFieldValue("entity", initialValues.transferBankEntity);
       formik.setFieldValue("accountType", initialValues.transferAccountType);
       formik.setFieldValue(

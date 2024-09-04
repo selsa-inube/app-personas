@@ -15,9 +15,9 @@ import { IDisbursementEntry } from "../../DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { bankDM } from "src/model/domains/general/bankDM";
 import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
+import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -156,10 +156,7 @@ const renderDisbursementVerification = (
       {values.disbursedAccount && (
         <BoxAttribute
           label="Cuenta:"
-          value={
-            getValueOfDomain(values.disbursedAccount, "accountOriginType")
-              ?.value
-          }
+          value={accountOriginTypeDM.valueOf(values.disbursedAccount)?.value}
         />
       )}
       {values.bankEntity && (

@@ -20,6 +20,7 @@ import { EProductType } from "src/model/entity/product";
 import { mapDisbursement } from "../../config/mappers";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { validationMessages } from "src/validations/validationMessages";
+import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 
 const initValidationSchema = Yup.object().shape({
   disbursementMethod: Yup.string().required("Campo requerido"),
@@ -152,7 +153,9 @@ const DisbursementForm = forwardRef(function DisbursementForm(
         if (userData) {
           const { bankTransfersAccount } = userData;
 
-          if (formik.values.disbursedAccount === "registred") {
+          if (
+            formik.values.disbursedAccount === accountOriginTypeDM.REGISTERED.id
+          ) {
             formik.setFieldValue("bankEntity", bankTransfersAccount.bankEntity);
             formik.setFieldValue(
               "accountType",
