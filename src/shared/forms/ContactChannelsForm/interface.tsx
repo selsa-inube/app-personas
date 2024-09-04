@@ -1,5 +1,4 @@
 import { Box } from "@components/cards/Box";
-import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -8,6 +7,7 @@ import { FormikProps } from "formik";
 import { MdOutlinePerson } from "react-icons/md";
 import { getFieldState } from "src/utils/forms/forms";
 import { IContactChannelsEntry } from "./types";
+import { Toggle } from "@inubekit/toggle";
 
 interface ContactChannelsFormUIProps {
   formik: FormikProps<IContactChannelsEntry>;
@@ -87,7 +87,7 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
           alignItems="flex-start"
           gap={inube.spacing.s150}
         >
-          <Switch
+          <Toggle
             id="acceptNotifications"
             name="acceptNotifications"
             label="Acepto recibir información mediante WhatsApp, llamadas, mensajes de texto y correo electrónico."
@@ -95,6 +95,8 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
             onChange={formik.handleChange}
             checked={formik.values.acceptNotifications}
             disabled={loading}
+            margin="0"
+            padding="0"
           />
         </Stack>
       </Stack>

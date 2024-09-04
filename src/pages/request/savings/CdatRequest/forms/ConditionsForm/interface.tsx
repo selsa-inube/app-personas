@@ -4,7 +4,6 @@ import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
-import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -19,6 +18,7 @@ import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles } from "./config/table";
 import { IConditionsEntry } from "./types";
+import { Toggle } from "@inubekit/toggle";
 
 interface ConditionsFormUIProps {
   formik: FormikProps<IConditionsEntry>;
@@ -128,7 +128,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       : `${inube.spacing.s050} ${inube.spacing.s200}`
                   }
                 >
-                  <Switch
+                  <Toggle
                     label="Prefiero ingresar la fecha"
                     id="simulationWithDate"
                     name="simulationWithDate"

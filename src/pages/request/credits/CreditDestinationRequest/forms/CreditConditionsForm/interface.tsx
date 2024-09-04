@@ -6,7 +6,6 @@ import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -24,6 +23,7 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
+import { Toggle } from "@inubekit/toggle";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -253,7 +253,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
                       gap={inube.spacing.s100}
                     >
-                      <Switch
+                      <Toggle
                         id="simulationWithQuota"
                         name="simulationWithQuota"
                         onChange={customHandleChange}

@@ -29,6 +29,7 @@
     "@inubekit/stack": "^2.4.0",
     "@inubekit/tabs": "^2.21.0",
     "@inubekit/tag": "^3.21.0",
+    "@inubekit/toggle": "^2.30.0",
     "@supabase/supabase-js": "^2.42.0",
     "formik": "^2.4.5",
     "jspdf": "^2.5.1",
