@@ -16,13 +16,12 @@ import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
-import { initalValuesCreditDestination } from "../../config/initialValues";
 import { structureDisbursementForm } from "./config/form";
 import { DisbursementFormUI } from "./interface";
 import { IDisbursementEntry } from "./types";
 
 const initValidationSchema = Yup.object({
-  disbursementType: Yup.string().required(validationMessages.required),
+  disbursement: Yup.string().required(validationMessages.required),
 });
 
 interface DisbursementFormProps {
@@ -60,16 +59,14 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (formik.dirty) {
-      formik.validateForm().then((errors) => {
-        onFormValid(Object.keys(errors).length === 0);
-      });
-    }
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
   }, [formik.values]);
 
   useEffect(() => {
     formik.setFieldValue("disbursements", disbursementTypeData);
-    if (formik.values.disbursementType) {
+    if (formik.values.disbursement) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
         structureDisbursementForm(formik, savings.savingsAccounts),
@@ -124,18 +121,21 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       [name]: value,
     };
 
-    if (name === "disbursementType") {
-      formik.setValues({
-        ...initalValuesCreditDestination.disbursement,
-        disbursements: formik.values.disbursements,
-        disbursementType: value,
-      });
+    if (name === "disbursement") {
+      const disbursement = formik.values.disbursements.find(
+        (disbursement) => disbursement.id === value,
+      );
+
+      if (!disbursement) return;
 
       updatedFormikValues = {
-        ...initalValuesCreditDestination.disbursement,
+        ...initialValues,
         disbursements: formik.values.disbursements,
-        disbursementType: value,
+        disbursement: disbursement.id,
+        disbursementName: disbursement.value,
       };
+
+      formik.setValues(updatedFormikValues);
     } else {
       formik.setFieldValue(name, value);
     }

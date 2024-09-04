@@ -1,15 +1,15 @@
 import { enviroment } from "@config/enviroment";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapTermsConditionsApiToEntity } from "./mappers";
+import { mapLinkApiToEntity } from "./mappers";
 
-const getTermsConditions = async (
+const getLink = async (
   accessToken: string,
-  productId: string,
-): Promise<string[]> => {
+  linkType: string,
+): Promise<string | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/term-and-condition/product/${productId}/type-request/credit`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/links/type-link/${linkType}`;
 
   try {
     const options: RequestInit = {
@@ -17,7 +17,7 @@ const getTermsConditions = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchTermAndConditionByProductCodeAndTypeRequest",
+        "X-Action": "SearchLinkByType",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -34,20 +34,20 @@ const getTermsConditions = async (
     );
 
     if (res.status === 204) {
-      return [];
+      return;
     }
 
     const data = await res.json();
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los terminos y condiciones del producto.",
+        message: "Error al obtener el link.",
         status: res.status,
         data,
       };
     }
 
-    return mapTermsConditionsApiToEntity(data);
+    return mapLinkApiToEntity(data);
   } catch (error) {
     saveNetworkTracking(
       requestTime,
@@ -57,10 +57,11 @@ const getTermsConditions = async (
       Math.round(performance.now() - startTime),
     );
 
+    console.info(error);
     throw new Error(
-      "No se pudieron obtener los terminos y condiciones del producto.",
+      "No se pudo obtener el link. Por favor, intenta nuevamente.",
     );
   }
 };
 
-export { getTermsConditions };
+export { getLink };

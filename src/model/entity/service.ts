@@ -8,6 +8,9 @@ interface IValidation {
   isRequired?: boolean;
   pending?: boolean;
   documentType?: string;
+  profile?: string;
+  evaluationDescription?: string;
+  responseCode?: string;
 }
 
 interface IValidations {
@@ -17,7 +20,10 @@ interface IValidations {
 
 interface ISelectedDocument {
   file: File;
+  requirementId: string;
   id: string;
+  sequence?: number;
+  documentType?: string;
 }
 
 interface IAid {

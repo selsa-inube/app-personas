@@ -39,12 +39,12 @@ function DestinationFormUI(props: DestinationFormUIProps) {
           <Select
             name="creditDestination"
             id="creditDestination"
-            value={formik.values.creditDestination?.id || ""}
+            value={formik.values.destination?.id || ""}
             size="compact"
             isFullWidth
             options={formik.values.destinations}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.creditDestination}
+            errorMessage={formik.errors.destination}
             isDisabled={loading}
             state={getFieldState(formik, "creditDestination")}
             onChange={onChangeDestination}
@@ -52,8 +52,8 @@ function DestinationFormUI(props: DestinationFormUIProps) {
           />
         </Stack>
         <Stack direction="column" gap={inube.spacing.s200}>
-          {formik.values.creditDestination &&
-            formik.values.creditDestination.id !== "other" && (
+          {formik.values.destination &&
+            formik.values.destination.id !== "other" && (
               <>
                 <Text type="title" size="small">
                   ¿Cuál es el producto que deseas?
@@ -85,7 +85,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                       id={product.id}
                       title={product.title}
                       description={product.description || ""}
-                      checked={formik.values.selectedProduct?.id === product.id}
+                      checked={formik.values.product?.id === product.id}
                       maxAmount={product.maxAmount}
                       maxRate={product.maxRate}
                       maxDeadline={product.maxDeadline}

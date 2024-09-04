@@ -37,13 +37,14 @@ interface RequestUIProps {
   requestId?: string;
   attachModal: {
     show: boolean;
-    id: string;
+    requirementId: string;
+    documentType: string;
   };
   maxFileSize: number;
   selectedDocuments: ISelectedDocument[];
-  onOpenAttachModal: (id: string) => void;
+  onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;
-  onSelectDocument: (file: File, id: string) => void;
+  onSelectDocument: (document: ISelectedDocument) => void;
 }
 
 function RequestDetailUI(props: RequestUIProps) {
@@ -105,10 +106,13 @@ function RequestDetailUI(props: RequestUIProps) {
               )}
               {renderItem("Producto:", selectedRequest.product)}
               {renderItem("Destino:", selectedRequest.destination)}
-              {renderItem("Código de seguimiento:", selectedRequest.trackingCode)}
+              {renderItem(
+                "Código de seguimiento:",
+                selectedRequest.trackingCode,
+              )}
               {renderItem(
                 "Fecha de solicitud:",
-                formatPrimaryDate(selectedRequest.requestDate),
+                formatPrimaryDate(selectedRequest.requestDate, true),
               )}
               {renderItem(
                 "Valor de la solicitud:",
@@ -204,10 +208,9 @@ function RequestDetailUI(props: RequestUIProps) {
         <AttachDocumentModal
           portalId="modals"
           maxFileSize={maxFileSize}
-          documentType={attachModal.id}
-          onSelectDocuments={(files) =>
-            onSelectDocument(files[0], attachModal.id)
-          }
+          documentType={attachModal.documentType}
+          requirementId={attachModal.requirementId}
+          onSelectDocuments={(files) => onSelectDocument(files[0])}
           onCloseModal={onCloseAttachModal}
         />
       )}

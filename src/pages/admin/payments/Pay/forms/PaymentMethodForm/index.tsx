@@ -3,9 +3,9 @@ import { FormikProps, useFormik } from "formik";
 import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { EPaymentMethodType } from "src/model/entity/payment";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { parseCurrencyString } from "src/utils/currency";
-import { EPaymentMethodType } from "../../types";
 import { PaymentMethodFormUI } from "./interface";
 import { EMoneySourceType, IMoneySource, IPaymentMethodEntry } from "./types";
 import { mapMoneySources } from "./utils";
@@ -94,7 +94,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     ) {
       moneySources[EMoneySourceType.PSE] = {
         id: EPaymentMethodType.PSE,
-        label: "Pago PSE",
+        label: "Pago por PSE",
         value:
           paymentMethod === EPaymentMethodType.PSE
             ? formik.values.valueToPay

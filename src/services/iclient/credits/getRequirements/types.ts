@@ -18,6 +18,21 @@ interface IRequirementRequest {
   quota: number;
   netValue: number;
   requestDate: Date;
+  disbursmentMethod: {
+    id: string;
+    name: string;
+    accountNumber?: string;
+    transferAccountType?: string;
+    transferBankEntity?: string;
+    transferAccountNumber?: string;
+    businessName?: string;
+    firstName?: string;
+    lastName?: string;
+    gender?: string;
+    genderName?: string;
+    identificationType?: string;
+    identification?: string;
+  };
 }
 
 interface IRequirementResponse {

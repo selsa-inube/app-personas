@@ -12,13 +12,11 @@ const mapSimulationEntityToApi = (
     quotaDeadlineInMonths: simulationValues.deadline,
     quotaValue: simulationValues.quota,
     rate: simulationValues.rate,
-    simulationParameter: simulationValues.deadline
-      ? "QuotaDeadline"
-      : "QuotaValue",
+    simulationParameter: simulationValues.simulationParameter,
   };
 };
 
-const mapSimulationEntityToEntity = (
+const mapSimulationApiToEntity = (
   simulationOption: Record<string, string | object>,
 ): ISimulateCreditResponse => {
   return {
@@ -39,4 +37,4 @@ const mapSimulationEntityToEntity = (
     netValue: Number(simulationOption.amountToBeDrawn),
   };
 };
-export { mapSimulationEntityToApi, mapSimulationEntityToEntity };
+export { mapSimulationApiToEntity, mapSimulationEntityToApi };

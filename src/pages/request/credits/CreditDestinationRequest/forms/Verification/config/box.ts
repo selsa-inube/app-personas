@@ -1,4 +1,4 @@
-const creditDestinationRequestBoxTitles: Record<string, string> = {
+const creditDestinationRequestBoxTitles = {
   destination: "Destino del dinero",
   creditConditions: "Condiciones del crédito",
   paymentMethod: "Forma de pago",

@@ -99,7 +99,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         Destinación:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        {formik.values.creditDestination?.value}
+                        {formik.values.destination?.value}
                       </Text>
                     </Stack>
                   </OutlineCard>
@@ -126,10 +126,25 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       gap={inube.spacing.s025}
                     >
                       <Text type="label" size="medium">
-                        Monto máximo:
+                        Monto máximo del producto:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
                         {currencyFormat(formik.values.product.maxAmount)}
+                      </Text>
+                    </Stack>
+                  </OutlineCard>
+
+                  <OutlineCard>
+                    <Stack
+                      direction="column"
+                      padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
+                      gap={inube.spacing.s025}
+                    >
+                      <Text type="label" size="medium">
+                        Cupo personal:
+                      </Text>
+                      <Text type="body" size="medium" appearance="gray">
+                        {currencyFormat(formik.values.product.maxAmountForUser)}
                       </Text>
                     </Stack>
                   </OutlineCard>
@@ -164,7 +179,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       state={getFieldState(formik, "amount")}
                       onBlur={formik.handleBlur}
                       onChange={handleChangeWithCurrency}
-                      validMessage="El valor es válido"
                       isRequired
                     />
                     <Select
@@ -213,7 +227,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                             state={getFieldState(formik, "quota")}
                             onBlur={formik.handleBlur}
                             onChange={handleChangeWithCurrency}
-                            validMessage="La cuota es válida"
                           />
                         ) : (
                           <TextField
@@ -230,7 +243,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                             state={getFieldState(formik, "deadline")}
                             onBlur={formik.handleBlur}
                             onChange={customHandleChange}
-                            validMessage="El plazo es válido"
                           />
                         )}
                       </>
@@ -302,7 +314,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       />
                       <BoxAttribute
                         label="Tasa de interés:"
-                        value={`${formik.values.product.maxRate} % N.A.M.V`}
+                        value={`${formik.values.rate} % N.A.M.V`}
                       />
                       <BoxAttribute
                         label="Desembolso aproximado:"

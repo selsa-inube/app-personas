@@ -1,8 +1,5 @@
 import { enviroment } from "@config/enviroment";
-import {
-  mapSimulationEntityToApi,
-  mapSimulationEntityToEntity,
-} from "./mappers";
+import { mapSimulationApiToEntity, mapSimulationEntityToApi } from "./mappers";
 import { ISimulateCreditRequest, ISimulateCreditResponse } from "./types";
 
 const simulateCreditConditions = async (
@@ -41,7 +38,7 @@ const simulateCreditConditions = async (
       };
     }
 
-    return mapSimulationEntityToEntity(data);
+    return mapSimulationApiToEntity(data);
   } catch (error) {
     console.info("Error en la simulación:", error);
     throw error;

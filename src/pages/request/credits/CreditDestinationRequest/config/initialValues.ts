@@ -20,6 +20,7 @@ const creditConditions: ICreditConditionsEntry = {
     maxRate: 0,
     maxDeadline: 0,
     maxAmount: 0,
+    maxAmountForUser: 0,
     amortizationType: "",
   },
   simulationWithQuota: false,
@@ -37,7 +38,6 @@ const creditConditions: ICreditConditionsEntry = {
     periodicityInDays: 0,
   },
   periodicities: [],
-  periodicityInMonths: 0,
   charges: 0,
 };
 
@@ -71,7 +71,6 @@ const documentaryRequirements: IDocumentaryRequirementsEntry = {
 
 const disbursement: IDisbursementEntry = {
   disbursements: [],
-  disbursementType: "",
   accountNumber: "",
   writeAccountNumber: "",
   observations: "",
@@ -96,6 +95,8 @@ const comments: ICommentsEntry = {
 const termsAndConditions: ITermsAndConditionsEntry = {
   productId: "",
   termsConditions: [],
+  ids: "",
+  dataPolicyUrl: "",
   accept: false,
   acceptDataPolicy: false,
 };

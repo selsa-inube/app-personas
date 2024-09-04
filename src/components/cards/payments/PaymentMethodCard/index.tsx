@@ -1,16 +1,16 @@
 import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
-import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
-import { EPaymentMethodType } from "@pages/admin/payments/Pay/types";
-import { useState } from "react";
-import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
-import { currencyFormat } from "src/utils/currency";
-import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
+import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 import { Tag } from "@inubekit/tag";
+import { Text } from "@inubekit/text";
+import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
+import { useState } from "react";
+import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
+import { EPaymentMethodType } from "src/model/entity/payment";
+import { currencyFormat } from "src/utils/currency";
+import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
 
 interface PaymentMethodCardProps {
   moneySource: {
@@ -79,7 +79,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           width="100%"
           wrap="wrap"
         >
-          <Text type="label" size="large">
+          <Text type="label" size="large" weight="bold">
             {moneySource.label}
           </Text>
 
@@ -114,59 +114,68 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
         </Stack>
       )}
 
-      <TextField
-        id={moneySource.id}
-        name={moneySource.id}
-        placeholder=""
-        value={currencyFormat(moneySource.value, false)}
-        onChange={onChangeMoneySource}
-        isFullWidth
-        isDisabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
-        size="compact"
-        state={moneySource.value > moneySource.balance ? "invalid" : "pending"}
-        iconAfter={
-          <Icon
-            icon={<MdAttachMoney />}
-            appearance="dark"
-            size="18px"
-            spacing="narrow"
-          />
-        }
-      />
+      <Stack
+        direction="column"
+        justifyContent="flex-end"
+        gap={inube.spacing.s200}
+        height="100%"
+      >
+        <TextField
+          id={moneySource.id}
+          name={moneySource.id}
+          placeholder=""
+          value={currencyFormat(moneySource.value, false)}
+          onChange={onChangeMoneySource}
+          isFullWidth
+          isDisabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
+          size="compact"
+          state={
+            moneySource.value > moneySource.balance ? "invalid" : "pending"
+          }
+          iconAfter={
+            <Icon
+              icon={<MdAttachMoney />}
+              appearance="dark"
+              size="18px"
+              spacing="narrow"
+            />
+          }
+        />
 
-      {paymentMethod === EPaymentMethodType.MULTIPLE && (
-        <Stack
-          gap={inube.spacing.s150}
-          width="100%"
-          alignItems="center"
-          justifyContent="flex-end"
-        >
-          <Button
-            onClick={handleRemove}
-            variant="outlined"
-            disabled={moneySource.value === 0}
-            appearance="danger"
-            spacing="compact"
-            iconBefore={<MdOutlineDelete />}
+        {paymentMethod === EPaymentMethodType.MULTIPLE && (
+          <Stack
+            gap={inube.spacing.s150}
+            width="100%"
+            alignItems="center"
+            justifyContent="flex-end"
           >
-            Eliminar
-          </Button>
-          <Button
-            onClick={handleSave}
-            variant="outlined"
-            disabled={
-              isSaved ||
-              moneySource.value === 0 ||
-              moneySource.value > moneySource.balance
-            }
-            appearance="primary"
-            spacing="compact"
-            iconBefore={<MdOutlineSave />}
-          >
-            Guardar
-          </Button>
-        </Stack>
-      )}
+            <Button
+              onClick={handleRemove}
+              variant="outlined"
+              disabled={moneySource.value === 0}
+              appearance="danger"
+              spacing="compact"
+              iconBefore={<MdOutlineDelete />}
+            >
+              Eliminar
+            </Button>
+            <Button
+              onClick={handleSave}
+              variant="outlined"
+              disabled={
+                isSaved ||
+                moneySource.value === 0 ||
+                moneySource.value > moneySource.balance
+              }
+              appearance="primary"
+              spacing="compact"
+              iconBefore={<MdOutlineSave />}
+            >
+              Guardar
+            </Button>
+          </Stack>
+        )}
+      </Stack>
     </StyledCardContainer>
   );
 }

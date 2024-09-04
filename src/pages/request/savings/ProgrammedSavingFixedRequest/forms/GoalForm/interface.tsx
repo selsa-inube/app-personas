@@ -3,16 +3,17 @@ import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { programmedSavingsRatesMocks } from "@mocks/products/savings/programmedSavingsRates.mocks";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { goalRatesTableTitles } from "./config/table";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
+import { IGoalEntry } from "./types";
 
 interface GoalFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IGoalEntry>;
   loading?: boolean;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,

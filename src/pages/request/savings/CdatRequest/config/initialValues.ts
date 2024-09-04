@@ -1,19 +1,22 @@
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IConditionsEntry } from "../forms/ConditionsForm/types";
-import { IInvestmentEntry } from "../forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "../forms/InvestmentNameForm/types";
+import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 import { IRefundEntry } from "../forms/RefundForm/types";
-
-const investment: IInvestmentEntry = {
-  valueInvestment: "",
-};
+import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
 const conditions: IConditionsEntry = {
-  valueInvestment: "",
   interestPayment: "",
   simulationWithDate: false,
   deadlineDate: "",
   deadlineDays: "",
+  hasResult: false,
+};
+
+const paymentMethod: IPaymentMethodEntry = {
+  paymentMethod: "",
+  valueToPay: 0,
+  pendingValue: 0,
 };
 
 const refund: IRefundEntry = {
@@ -29,12 +32,22 @@ const comments: ICommentsEntry = {
   comments: "",
 };
 
+const termsAndConditions: ITermsAndConditionsEntry = {
+  productId: "",
+  termsConditions: [],
+  ids: "",
+  dataPolicyUrl: "",
+  accept: false,
+  acceptDataPolicy: false,
+};
+
 const initalValuesCDAT = {
-  investment,
   conditions,
+  paymentMethod,
   refund,
   investmentName,
   comments,
+  termsAndConditions,
 };
 
 export { initalValuesCDAT };

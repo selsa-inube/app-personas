@@ -1,10 +1,10 @@
-const programmedSavingFixedRequestBoxTitles: Record<string, string> = {
+const programmedSavingFixedRequestBoxTitles = {
   quota: "Cuota",
   goal: "Meta",
-  reimbursement:"Reembolso",
+  reimbursement: "Reembolso",
   planName: "Nombra tu plan de ahorro",
   contactChannels: "Canales de contacto",
-  comments: "Comentarios"
+  comments: "Comentarios",
 };
 
 export { programmedSavingFixedRequestBoxTitles };

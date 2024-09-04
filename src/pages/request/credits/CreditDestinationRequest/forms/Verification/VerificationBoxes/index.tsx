@@ -1,11 +1,13 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
-import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Tag } from "@inubekit/tag";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
+import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
 import { activeDM } from "src/model/domains/general/activedm";
+import { bankDM } from "src/model/domains/general/bankDM";
+import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -32,8 +34,8 @@ const renderDestinationVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    <BoxAttribute label="Destino:" value={values.creditDestination?.value} />
-    <BoxAttribute label="Producto:" value={values.selectedProduct?.title} />
+    <BoxAttribute label="Destino:" value={values.destination?.value} />
+    <BoxAttribute label="Producto:" value={values.product?.title} />
   </Grid>
 );
 
@@ -63,7 +65,7 @@ const renderCreditConditionsVerification = (
         <BoxAttribute label="Numero de cuotas:" value={values.deadline} />
         <BoxAttribute
           label="Tasa de interés:"
-          value={`${values.product.maxRate} % N.A.M.V`}
+          value={`${values.rate} % N.A.M.V`}
         />
         <BoxAttribute
           label="Desembolso aproximado:"
@@ -125,13 +127,13 @@ const renderPaymentMethodVerification = (
       {values.accountType && (
         <BoxAttribute
           label="Tipo de cuenta:"
-          value={getValueOfDomain(values.accountType, "accountType")?.value}
+          value={accountTypeDM.valueOf(values.accountType)?.value}
         />
       )}
       {values.bankEntity && (
         <BoxAttribute
           label="Entidad:"
-          value={getValueOfDomain(values.bankEntity, "bank")?.value}
+          value={bankDM.valueOf(values.bankEntity)?.value}
         />
       )}
     </Grid>
@@ -155,19 +157,11 @@ const renderSystemValidationsVerification = (
           value={validation.label}
           iconAfter={
             validation.value === "success" ? (
-              <Icon
-                appearance="success"
-                icon={<MdOutlineCheckCircle />}
-                size="20px"
-                spacing="narrow"
-              />
+              <Tag label="Cumple" appearance="success" />
+            ) : validation.value === "fail" ? (
+              <Tag label="No cumple" appearance="danger" />
             ) : (
-              <Icon
-                appearance="danger"
-                icon={<MdOutlineHighlightOff />}
-                size="20px"
-                spacing="narrow"
-              />
+              <Tag label="Por evaluar" appearance="warning" />
             )
           }
         />
@@ -205,14 +199,12 @@ const renderDisbursementVerification = (values: IDisbursementEntry) => (
   <Stack direction="column" gap={inube.spacing.s100} width="100%">
     <BoxAttribute
       label="Forma de desembolso:"
-      value={
-        getValueOfDomain(values.disbursementType, "disbursementType")?.value
-      }
+      value={disbursementTypeDM.valueOf(values.disbursement || "")?.value}
     />
     {values.accountType && (
       <BoxAttribute
         label="Tipo de cuenta:"
-        value={getValueOfDomain(values.accountType, "accountType")?.value}
+        value={accountTypeDM.valueOf(values.accountType)?.value}
       />
     )}
     {values.accountNumber && (
@@ -274,7 +266,7 @@ const renderDisbursementVerification = (values: IDisbursementEntry) => (
     {values.entity && (
       <BoxAttribute
         label="Entidad:"
-        value={getValueOfDomain(values.entity, "bank")?.value}
+        value={bankDM.valueOf(values.entity)?.value}
       />
     )}
   </Stack>
@@ -313,7 +305,10 @@ const renderTermsAndConditionsVerification = (
 
 const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
   <Stack width="100%" direction="column" gap={inube.spacing.s100}>
-    <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
+    {values.landlinePhone && (
+      <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
+    )}
+
     <BoxAttribute label="Celular:" value={values.cellPhone} />
     <BoxAttribute label="Correo:" value={values.email} />
     <BoxAttribute

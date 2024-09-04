@@ -1,4 +1,4 @@
-const updateDataFieldsetTitles: Record<string, string> = {
+const updateDataFieldsetTitles = {
   personalData: "Identificación",
   contactData: "Contacto",
   informationData: "Información",

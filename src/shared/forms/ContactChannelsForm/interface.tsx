@@ -4,12 +4,13 @@ import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlinePerson } from "react-icons/md";
 import { getFieldState } from "src/utils/forms/forms";
+import { IContactChannelsEntry } from "./types";
 
 interface ContactChannelsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IContactChannelsEntry>;
   loading?: boolean;
 }
 
@@ -47,7 +48,6 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               state={getFieldState(formik, "landlinePhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El teléfono es válido"
             />
             <TextField
               label="Celular"
@@ -62,7 +62,6 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               state={getFieldState(formik, "cellPhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El celular es válido"
               isRequired
             />
             <TextField
@@ -78,7 +77,6 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               state={getFieldState(formik, "email")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El correo electrónico es válido"
               isRequired
             />
           </Stack>

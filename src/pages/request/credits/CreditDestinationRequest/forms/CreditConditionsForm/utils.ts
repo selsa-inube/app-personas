@@ -23,7 +23,9 @@ const validationSchema = Yup.object({
 const getInitialCreditContidionValidations = (
   formik: FormikProps<ICreditConditionsEntry>,
 ) => {
-  const maxDeadline = formik.values.product.maxAmount;
+  const maxDeadline = formik.values.product.maxDeadline;
+  const maxAmount = formik.values.product.maxAmount;
+  const maxAmountForUser = formik.values.product.maxAmountForUser;
   const withRecommendation =
     formik.values.product.id === "generateRecommendation";
 
@@ -32,12 +34,15 @@ const getInitialCreditContidionValidations = (
       deadlineTerm: Yup.number()
         .min(1, validationMessages.minNumbers(10))
         .max(
-          formik.values.product.maxDeadline || 0,
-          `El plazo máximo para este producto es de ${formik.values.product.maxDeadline} meses`,
+          maxDeadline || 0,
+          `El plazo máximo para este producto es de ${maxDeadline} meses`,
         ),
       amount: Yup.number()
         .min(1, validationMessages.minCurrencyNumbers(1))
-        .max(maxDeadline, "Has superado el cupo máximo")
+        .max(
+          maxAmountForUser < maxAmount ? maxAmountForUser : maxAmount,
+          "Has superado el cupo máximo",
+        )
         .required(validationMessages.required),
 
       netValue: withRecommendation

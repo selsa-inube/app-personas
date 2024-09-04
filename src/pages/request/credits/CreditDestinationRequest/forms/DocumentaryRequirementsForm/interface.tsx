@@ -1,4 +1,3 @@
-import { InfoCard } from "@components/cards/InfoCard";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
@@ -13,7 +12,6 @@ import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import {
   MdDeleteOutline,
-  MdInfoOutline,
   MdOutlineDescription,
   MdQuestionMark,
 } from "react-icons/md";
@@ -22,17 +20,20 @@ import { truncateFileName } from "src/utils/texts";
 import { IDocumentaryRequirementsEntry } from "./types";
 
 function renderRequirement(
+  key: number,
   label: string,
-  id: string,
+  requirementId: string,
   documentType: string,
   selectedDocuments: ISelectedDocument[],
-  onAttachDocument: (id: string, documentType: string) => void,
+  onAttachDocument: (requirementId: string, documentType: string) => void,
   onRemove: (id: string) => void,
 ) {
-  const selectedFile = selectedDocuments.find((doc) => doc.id === id);
+  const selectedFiles = selectedDocuments.filter(
+    (doc) => doc.requirementId === requirementId,
+  );
 
   return (
-    <OutlineCard key={id}>
+    <OutlineCard key={requirementId}>
       <Stack
         padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
         direction="column"
@@ -50,14 +51,14 @@ function renderRequirement(
 
           <Button
             variant="none"
-            onClick={() => onAttachDocument(id, documentType)}
-            disabled={!!selectedFile}
+            onClick={() => onAttachDocument(requirementId, documentType)}
+            disabled={selectedFiles.length > 0}
           >
             Adjuntar
           </Button>
         </Stack>
 
-        {selectedFile && (
+        {selectedFiles.map((document) => (
           <>
             <Divider dashed />
             <Stack gap={inube.spacing.s150} alignItems="center" width="100%">
@@ -76,11 +77,11 @@ function renderRequirement(
               >
                 <Stack direction="column" gap={inube.spacing.s050} width="100%">
                   <Text type="label" size="medium">
-                    {truncateFileName(selectedFile.file.name, 20)}
+                    {truncateFileName(document.file.name, 20)}
                   </Text>
 
                   <Text type="body" size="small" appearance="gray">
-                    {(selectedFile.file.size / 1024).toFixed(2)} KB
+                    {(document.file.size / 1024).toFixed(2)} KB
                   </Text>
                 </Stack>
 
@@ -90,12 +91,12 @@ function renderRequirement(
                   size="20px"
                   spacing="narrow"
                   cursorHover
-                  onClick={() => onRemove(id)}
+                  onClick={() => onRemove(document.id)}
                 />
               </Stack>
             </Stack>
           </>
-        )}
+        ))}
       </Stack>
     </OutlineCard>
   );
@@ -107,13 +108,13 @@ interface DocumentaryRequirementsFormUIProps {
   maxFileSize: number;
   attachModal: {
     show: boolean;
-    id: string;
+    requirementId: string;
     documentType: string;
   };
-  onSelectDocument: (file: File, id: string) => void;
+  onSelectDocument: (document: ISelectedDocument) => void;
   onRemoveDocument: (id: string) => void;
   onToggleInfoModal: () => void;
-  onOpenAttachModal: (id: string, documentType: string) => void;
+  onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;
 }
 
@@ -136,13 +137,11 @@ function DocumentaryRequirementsFormUI(
 
   if (formik.values.requiredDocuments.length === 0) {
     return (
-      <Stack>
-        <InfoCard
-          title="Requisitos documentales"
-          description="Actualmente, te encuentras utilizando un software externo para cargar los requisitos documentales. Luego de crear la solicitud, podrás adjuntar tus documentos."
-          appearance="help"
-          icon={<MdInfoOutline />}
-        />
+      <Stack width="100%">
+        <Text type="label" size="large" appearance="gray">
+          Actualmente no hay requisitos documentales por cumplir. Puede
+          continuar con el siguiente paso de navegación.
+        </Text>
       </Stack>
     );
   }
@@ -173,9 +172,10 @@ function DocumentaryRequirementsFormUI(
             gap={inube.spacing.s200}
           >
             {formik.values.requiredDocuments.map(
-              (document) =>
+              (document, index) =>
                 document.documentType &&
                 renderRequirement(
+                  index,
                   document.label,
                   document.id,
                   document.documentType,
@@ -203,9 +203,8 @@ function DocumentaryRequirementsFormUI(
           portalId="modals"
           maxFileSize={maxFileSize}
           documentType={attachModal.documentType}
-          onSelectDocuments={(files) =>
-            onSelectDocument(files[0], attachModal.id)
-          }
+          requirementId={attachModal.requirementId}
+          onSelectDocuments={(files) => onSelectDocument(files[0])}
           onCloseModal={onCloseAttachModal}
         />
       )}

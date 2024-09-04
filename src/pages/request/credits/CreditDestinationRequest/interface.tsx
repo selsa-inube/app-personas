@@ -3,11 +3,13 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
+import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
+import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
@@ -67,6 +69,7 @@ const renderStepContent = (
       {currentStep === creditDestinationRequestSteps.systemValidations.id && (
         <SystemValidationsForm
           initialValues={creditDestinationRequest.systemValidations.values}
+          disbursementValues={creditDestinationRequest.disbursement.values}
           ref={formReferences.systemValidations}
           onFormValid={setIsCurrentFormValid}
         />
@@ -119,12 +122,14 @@ interface CreditDestinationRequestUIProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
   formReferences: IFormsCreditDestinationRequestRefs;
   loadingSend: boolean;
+  message: IMessage;
   blocker: Blocker;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
+  onCloseMessage: () => void;
 }
 
 function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
@@ -135,12 +140,14 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
     creditDestinationRequest,
     formReferences,
     loadingSend,
+    message,
     blocker,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
+    onCloseMessage,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -212,6 +219,17 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
         <LoadingModal
           title="Generando solicitud..."
           message="Espera unos segundos, estamos generando la solicitud."
+        />
+      )}
+
+      {message.show && (
+        <SectionMessage
+          title={message.title}
+          description={message.description}
+          appearance={message.appearance}
+          icon={message.icon}
+          onClose={onCloseMessage}
+          duration={5000}
         />
       )}
 

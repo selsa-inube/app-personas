@@ -1,28 +1,36 @@
 import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const requestStatusDataDomain = {
-  CREATED: {
-    id: "Created",
+  PENDING: {
+    id: "Pending",
     value: "Recibida",
+  },
+  SENT: {
+    id: "Sent",
+    value: "Radicada",
   },
   IN_STUDY: {
     id: "InStudy",
     value: "En estudio",
   },
-  IN_PROGRESS: {
-    id: "InProgress",
-    value: "En proceso",
+  APPROVED: {
+    id: "Approved",
+    value: "Completado",
+  },
+  REJECTED: {
+    id: "Rejected",
+    value: "Rechazada",
   },
   IN_DISBURSEMENT: {
     id: "InDisbursement",
     value: "En desembolso",
   },
   COMPLETED: {
-    id: "Completed",
+    id: "Finished",
     value: "Completado",
   },
-  REJECTED: {
-    id: "Rejected",
+  CANCELLED: {
+    id: "Cancelled",
     value: "Cancelado",
   },
 };

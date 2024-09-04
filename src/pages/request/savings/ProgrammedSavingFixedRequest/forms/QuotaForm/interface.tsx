@@ -1,21 +1,22 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField } from "@ptypes/forms.types";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
 import { generateFormFields, getFieldState } from "src/utils/forms/forms";
+import { IQuotaEntry } from "./types";
 
 interface QuotaFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IQuotaEntry>;
   loading?: boolean;
   renderFields: IFormField[];
   customHandleChange: (

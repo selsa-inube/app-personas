@@ -1,8 +1,5 @@
 import { enviroment } from "@config/enviroment";
-import {
-  mapConditionsEntityToApi,
-  mapConditionsEntityToEntity,
-} from "./mappers";
+import { mapConditionsApiToEntity, mapConditionsEntityToApi } from "./mappers";
 import {
   ICalculatedConditionsRequest,
   ICalculatedConditionsResponse,
@@ -44,7 +41,7 @@ const getCalculatedConditionsForProduct = async (
       };
     }
 
-    return mapConditionsEntityToEntity(data);
+    return mapConditionsApiToEntity(data);
   } catch (error) {
     console.info(error);
 

@@ -1,14 +1,15 @@
 import { Select } from "@design/input/Select";
-import { FormikValues } from "formik";
-import { getFieldState } from "src/utils/forms/forms";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { ISelectOption } from "@design/input/Select/types";
-import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Stack } from "@inubekit/stack";
+import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { FormikProps } from "formik";
+import { getFieldState } from "src/utils/forms/forms";
+import { IRefundEntry } from "./types";
 
 interface RefundFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IRefundEntry>;
   loading?: boolean;
   accountOptions: ISelectOption[];
   savingOptions: ISelectOption[];
@@ -47,8 +48,6 @@ function RefundFormUI(props: RefundFormUIProps) {
           state={getFieldState(formik, "refundMethod")}
           errorMessage={formik.errors.refundMethod}
           onBlur={formik.handleBlur}
-          onClick={formik.handleClick}
-          onFocus={formik.handleFocus}
           onChange={customHandleRefundMethod}
           readOnly={savingOptions.length < 1}
           isDisabled={loading}
@@ -64,8 +63,6 @@ function RefundFormUI(props: RefundFormUIProps) {
           state={getFieldState(formik, "account")}
           errorMessage={formik.errors.account}
           onBlur={formik.handleBlur}
-          onClick={formik.handleClick}
-          onFocus={formik.handleFocus}
           onChange={customHandleAccount}
           readOnly={savingOptions.length === 1 || accountOptions.length === 1}
           isDisabled={loading}

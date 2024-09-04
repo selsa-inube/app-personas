@@ -16,7 +16,7 @@ interface IDisbursementModalState {
 }
 
 interface ICreditConditionsEntry {
-  creditDestination?: ISelectOption;
+  destination?: ISelectOption;
   product: IDestinationProduct;
   simulationWithQuota: boolean;
   amount?: number;
@@ -32,7 +32,6 @@ interface ICreditConditionsEntry {
   paymentMethods: ISelectOption[];
   periodicity: IPeriodicity;
   periodicities: IPeriodicity[];
-  periodicityInMonths: number;
   charges: number;
   transferBankEntity?: string;
   transferAccountType?: string;

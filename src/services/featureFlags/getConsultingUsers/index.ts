@@ -8,7 +8,7 @@ const getConsultingUsers = async (): Promise<IConsultingUser[]> => {
 
     return Array.isArray(data) ? mapConsultingUsersApiToEntities(data) : [];
   } catch (error) {
-    console.error(error);
+    console.info(error);
     return [];
   }
 };

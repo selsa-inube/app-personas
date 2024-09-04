@@ -5,6 +5,9 @@ import { SelectProps } from ".";
 import { DropdownMenu } from "../DropdownMenu";
 import { ISelectMessage } from "./types";
 
+import { Label } from "@inubekit/label";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import {
   StyledContainer,
   StyledContainerLabel,
@@ -13,9 +16,6 @@ import {
   StyledInput,
   StyledInputContainer,
 } from "./styles";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Label } from "@inubekit/label";
 
 function Invalid(props: ISelectMessage) {
   const { isDisabled, state, errorMessage } = props;
@@ -83,7 +83,7 @@ function SelectUI(props: SelectUIProps) {
             htmlFor={id}
             disabled={isDisabled}
             focused={isFocused}
-            invalid={state === "invalid"}
+            invalid={state === "invalid" && isTouched && !openOptions}
             size="medium"
           >
             {label}
