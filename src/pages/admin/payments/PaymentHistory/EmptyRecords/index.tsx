@@ -1,6 +1,6 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";

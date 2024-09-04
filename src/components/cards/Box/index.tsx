@@ -1,20 +1,17 @@
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 
-import { Button } from "@design/input/Button";
 import { Divider } from "@inubekit/divider";
 import { SkeletonLine } from "@inubekit/skeleton";
 
-import {
-  ButtonAppearanceType,
-  ButtonVariantType,
-} from "@design/input/Button/types";
+
 import { Icon } from "@inubekit/icon";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 import { ITag, Tag } from "@inubekit/tag";
+import { Button, IButtonAppearance, IButtonVariant } from "@inubekit/button";
+import { inube } from "@design/tokens";
 
 interface BoxProps {
   icon?: React.JSX.Element;
@@ -26,8 +23,8 @@ interface BoxProps {
     icon: React.JSX.Element;
     path?: string;
     onClick?: () => void;
-    appearance?: ButtonAppearanceType;
-    variant?: ButtonVariantType;
+    appearance?: IButtonAppearance;
+    variant?: IButtonVariant;
   };
   navigateTo?: string;
   collapsing: {

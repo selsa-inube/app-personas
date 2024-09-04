@@ -1,4 +1,3 @@
-import { buttonAppearance } from "@design/input/Button/types";
 import { MdSentimentNeutral, MdThumbUpOffAlt } from "react-icons/md";
 import { MessageAppearanceType } from "@design/feedback/SectionMessage/types";
 
@@ -6,7 +5,7 @@ const deleteAssetModal = {
   title: "Eliminar activo",
   description: (asset: string) => `¿Deseas eliminar ${asset} como activo?`,
   actionText: "Eliminar",
-  appearance: buttonAppearance[3],
+  appearance: "danger" as MessageAppearanceType,
   portalId: "modals",
 };
 

@@ -1,5 +1,4 @@
 import { UserCard } from "@components/cards/UserCard";
-import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useContext, useEffect, useState } from "react";
@@ -13,6 +12,7 @@ import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 function SwitchUser() {
   const urlParams = new URLSearchParams(window.location.search);

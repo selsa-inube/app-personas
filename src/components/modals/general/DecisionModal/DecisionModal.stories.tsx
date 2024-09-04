@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { themes } from "@mocks/design/themes";
 import { action } from "@storybook/addon-actions";
 import { StoryFn } from "@storybook/react";
@@ -6,6 +5,7 @@ import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { DecisionModal, DecisionModalProps } from "./index";
 import { parameters, props } from "./props";
+import { Button } from "@inubekit/button";
 
 const story = {
   title: "components/modals/DecisionModal",

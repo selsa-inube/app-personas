@@ -1,6 +1,5 @@
 import { FileCard } from "@components/cards/FileCard";
 import { InfoCard } from "@components/cards/InfoCard";
-import { Button } from "@design/input/Button";
 import { FileDrop } from "@design/input/FileDrop";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -24,6 +23,7 @@ import { saveDocument } from "src/services/iclient/documents/saveDocument";
 import { ISaveDocumentRequest } from "src/services/iclient/documents/saveDocument/types";
 import { initialMessageState } from "src/utils/messages";
 import { StyledModal } from "./styles";
+import { Button } from "@inubekit/button";
 
 interface ITempFile extends ISelectedDocument {
   loading?: boolean;

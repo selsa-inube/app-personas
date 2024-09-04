@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
@@ -9,6 +8,7 @@ import { FormikValues } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
+import { Button } from "@inubekit/button";
 
 interface IncomesFormUIProps {
   formik: FormikValues;
