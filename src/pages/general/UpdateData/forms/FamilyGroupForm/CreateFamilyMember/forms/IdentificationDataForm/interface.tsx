@@ -1,5 +1,5 @@
-import { Fieldset } from "@design/input/Fieldset";
 import { TextField } from "@design/input/TextField";
+import { Fieldset } from "@inubekit/fieldset";
 import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 
@@ -15,8 +15,10 @@ function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
 
   return (
     <Fieldset
-      title="Número de identificación"
+      legend="Número de identificación"
+      type="title"
       size={isMobile ? "small" : "medium"}
+      width="100%"
     >
       <TextField
         label="Documento"

@@ -1,4 +1,4 @@
-import { Fieldset } from "@design/input/Fieldset";
+import { Fieldset } from "@inubekit/fieldset";
 import { IFormsCreateFamilyMember } from "../../types";
 import { VerificationFieldsets } from "./VerificationFieldsets";
 import { updateDataFieldsetTitles } from "./config/fieldset";
@@ -15,8 +15,14 @@ function UpdateDataVerification(props: VerificationProps) {
   return (
     <>
       {Object.entries(updateDataFieldsetTitles).map(([key, title]) => (
-        <Fieldset key={key} title={title}>
-          <Stack direction="column" gap={inube.spacing.s150}>
+        <Fieldset
+          key={key}
+          legend={title}
+          type="title"
+          size="medium"
+          width="100%"
+        >
+          <Stack direction="column" gap={inube.spacing.s150} width="100%">
             <VerificationFieldsets updatedData={updatedData} stepKey={key} />
           </Stack>
         </Fieldset>

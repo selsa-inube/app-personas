@@ -2,7 +2,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Table } from "@design/data/Table";
 import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
-import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
@@ -19,6 +18,7 @@ import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles } from "./config/table";
 import { IConditionsEntry } from "./types";
+import { Fieldset } from "@inubekit/fieldset";
 
 interface ConditionsFormUIProps {
   formik: FormikProps<IConditionsEntry>;
@@ -50,11 +50,12 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
       >
         <Stack direction="column" gap={inube.spacing.s200}>
           <Fieldset
-            title="Simulador"
+            legend="Simulador"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
+            width="100%"
           >
-            <Stack direction="column" gap={inube.spacing.s300}>
+            <Stack direction="column" gap={inube.spacing.s300} width="100%">
               <Grid
                 gap={inube.spacing.s300}
                 templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}

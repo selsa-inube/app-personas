@@ -1,10 +1,10 @@
 import { Button } from "@design/input/Button";
-import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";
@@ -79,9 +79,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         {showForeignCurrencyTransactions && (
           <>
             <Fieldset
-              title="Operaciones"
+              legend="Operaciones"
               type={isMobile ? "label" : "title"}
               size="medium"
+              width="100%"
             >
               <Textarea
                 id="descriptionOperations"
@@ -106,9 +107,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         {showForeignCurrencyAccounts && (
           <>
             <Fieldset
-              title="Cuentas"
+              legend="Cuentas"
               type={isMobile ? "label" : "title"}
               size="medium"
+              width="100%"
             >
               <Grid
                 templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
@@ -118,6 +120,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                     ? inube.spacing.s150
                     : `${inube.spacing.s200} ${inube.spacing.s300}`
                 }
+                width="100%"
               >
                 <Select
                   label="País"
