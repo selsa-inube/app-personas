@@ -1,22 +1,27 @@
 import { Select } from "@design/input/Select";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
-import { ChangeEvent } from "react";
 import { IProduct } from "src/model/entity/product";
-import { getFieldState } from "src/utils/forms/forms";
+import { generateFormFields, getFieldState } from "src/utils/forms/forms";
 import { IDisbursementEntry } from "./types";
 import { getDisbursementMethodOptions } from "./utils";
 import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
+import { IFormField } from "@ptypes/forms.types";
 
 interface DisbursementFormUIProps {
   formik: FormikProps<IDisbursementEntry>;
   savingAccounts: IProduct[];
-  customHandleChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  renderFields: IFormField[];
+  customHandleChange: (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => void;
 }
 
 function DisbursementFormUI(props: DisbursementFormUIProps) {
-  const { formik, savingAccounts, customHandleChange } = props;
+  const { formik, savingAccounts, renderFields, customHandleChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
@@ -42,21 +47,12 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
           isRequired
         />
 
-        <Select
-          label="Número de cuenta"
-          name="account"
-          id="account"
-          size="compact"
-          isFullWidth
-          options={formik.values.accountOptions}
-          onBlur={formik.handleBlur}
-          errorMessage={formik.errors.account}
-          state={getFieldState(formik, "account")}
-          onChange={formik.handleChange}
-          value={formik.values.account}
-          isRequired
-          isDisabled={formik.values.accountOptions.length === 1}
-        />
+        {generateFormFields(
+          renderFields,
+          formik,
+          formik.handleBlur,
+          customHandleChange,
+        )}
       </Grid>
     </form>
   );
