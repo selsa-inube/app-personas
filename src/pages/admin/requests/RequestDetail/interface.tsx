@@ -112,7 +112,7 @@ function RequestDetailUI(props: RequestUIProps) {
               )}
               {renderItem(
                 "Fecha de solicitud:",
-                formatPrimaryDate(selectedRequest.requestDate),
+                formatPrimaryDate(selectedRequest.requestDate, true),
               )}
               {renderItem(
                 "Valor de la solicitud:",
