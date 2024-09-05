@@ -1,5 +1,4 @@
 import { EconomicActivityModal } from "@components/modals/general/updateData/EconomicActivityModal";
-import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
@@ -24,6 +23,7 @@ import { workdayDM } from "src/model/domains/general/updateData/economicActivity
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { getFieldState } from "src/utils/forms/forms";
 import { IEconomicActivityEntry } from "./types";
+import { Button } from "@inubekit/button";
 
 interface EconomicActivityFormUIProps {
   formik: FormikProps<IEconomicActivityEntry>;
@@ -433,7 +433,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
           {withSubmit && (
             <Stack gap={inube.spacing.s150} justifyContent="flex-end">
               <Button
-                onClick={formik.handleReset}
+                onClick={() => formik.handleReset()}
                 type="button"
                 disabled={loading || !formik.dirty}
                 spacing="compact"

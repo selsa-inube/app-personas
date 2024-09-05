@@ -1,5 +1,4 @@
 import { Accordion } from "@design/data/Accordion";
-import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
@@ -8,6 +7,7 @@ import { creditDestinationRequestSteps } from "../../config/assisted";
 import { IFormsCreditDestinationRequest } from "../../types";
 import { VerificationBoxes } from "./VerificationBoxes";
 import { creditDestinationRequestBoxTitles } from "./config/box";
+import { Button } from "@inubekit/button";
 
 interface VerificationProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;

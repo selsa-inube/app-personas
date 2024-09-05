@@ -2,7 +2,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
@@ -24,6 +23,7 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
+import { Button } from "@inubekit/button";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -272,7 +272,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         variant="outlined"
                         spacing="compact"
                         onClick={simulateCredit}
-                        load={loadingSimulation}
+                        loading={loadingSimulation}
                         disabled={
                           !formik.values.amount ||
                           !formik.values.paymentMethod?.id ||

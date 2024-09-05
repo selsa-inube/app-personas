@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
@@ -6,6 +5,7 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { createPortal } from "react-dom";
 import { StyledModal } from "./styles";
+import { Button } from "@inubekit/button";
 
 interface ValidationDetailsModalProps {
   label: string;

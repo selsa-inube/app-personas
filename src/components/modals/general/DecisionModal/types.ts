@@ -1,10 +1,10 @@
-import { ButtonAppearanceType } from "@design/input/Button/types";
+import { IButtonAppearance } from "@inubekit/button";
 
 interface IDecisionModalOptions {
   title: string;
   description: (value: string) => string;
   actionText: string;
-  appearance: ButtonAppearanceType;
+  appearance: IButtonAppearance;
   portalId: string;
 }
 

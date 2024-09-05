@@ -8,7 +8,6 @@ import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
@@ -46,6 +45,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
+import { Button } from "@inubekit/button";
 
 interface CardUIProps {
   cardId?: string;

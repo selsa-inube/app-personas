@@ -1,5 +1,4 @@
 import { Accordion } from "@design/data/Accordion";
-import { Button } from "@design/input/Button";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { cdatRequestSteps } from "../../config/assisted";
@@ -8,6 +7,7 @@ import { VerificationBoxes } from "./VerificationBoxes";
 import { cdatRequestBoxTitles } from "./config/box";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 interface VerificationProps {
   cdatRequest: IFormsCdatRequest;

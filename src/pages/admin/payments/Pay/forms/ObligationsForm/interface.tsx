@@ -10,7 +10,6 @@ import {
   PaymentHelpModal,
 } from "@components/modals/payments/PaymentHelpModal";
 import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
-import { Button } from "@design/input/Button";
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -29,6 +28,7 @@ import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
 import { Tag } from "@inubekit/tag";
+import { Button } from "@inubekit/button";
 
 const renderFilters = (
   filters: IPaymentFilters,

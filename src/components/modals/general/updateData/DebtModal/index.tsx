@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
@@ -22,6 +21,7 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
+import { Button } from "@inubekit/button";
 
 const liabilityTypeDM = getDomainById("liabilityType");
 

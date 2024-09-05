@@ -1,5 +1,4 @@
 import { Accordion } from "@design/data/Accordion";
-import { Button } from "@design/input/Button";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { programmedSavingFixedRequestSteps } from "../../config/assisted";
@@ -8,6 +7,7 @@ import { SummaryBoxes } from "./SummaryBoxes";
 import { programmedSavingFixedRequestBoxTitles } from "./config/box";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 interface SummaryProps {
   programmedSavingFixedRequest: IFormsProgrammedSavingFixedRequest;

@@ -1,6 +1,5 @@
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
-import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack } from "@inubekit/stack";
@@ -15,6 +14,7 @@ import {
   IFormsCreateFamilyMember,
   IFormsCreateFamilyMemberRefs,
 } from "./types";
+import { Button } from "@inubekit/button";
 
 const renderStepContent = (
   currentStep: number,
@@ -136,7 +136,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
           onClick={handleNextStep}
           spacing="compact"
           disabled={!isCurrentFormValid}
-          load={loading}
+          loading={loading}
         >
           {currentStep === steps.length ? "Adicionar" : "Siguiente"}
         </Button>
