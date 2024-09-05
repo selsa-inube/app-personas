@@ -1,5 +1,4 @@
 import { Table } from "@design/data/Table";
-import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -11,6 +10,7 @@ import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { goalRatesTableTitles } from "./config/table";
 import { IGoalEntry } from "./types";
+import { Toggle } from "@inubekit/toggle";
 
 interface GoalFormUIProps {
   formik: FormikProps<IGoalEntry>;
@@ -33,8 +33,7 @@ function GoalFormUI(props: GoalFormUIProps) {
           gap={inube.spacing.s200}
           alignItems="flex-start"
         >
-          <Switch
-            label="Prefiero ingresar la fecha"
+          <Toggle
             id="goalWithDate"
             name="goalWithDate"
             onChange={customHandleChange}
@@ -42,7 +41,9 @@ function GoalFormUI(props: GoalFormUIProps) {
             margin="0"
             padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
             size="large"
-          />
+          >
+            Prefiero ingresar la fecha
+          </Toggle>
 
           <Grid
             gap={inube.spacing.s300}

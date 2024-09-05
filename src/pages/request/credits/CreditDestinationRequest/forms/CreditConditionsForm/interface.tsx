@@ -5,7 +5,6 @@ import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -23,6 +22,7 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
+import { Toggle } from "@inubekit/toggle";
 import { Button } from "@inubekit/button";
 
 interface CreditConditionsFormUIProps {
@@ -253,16 +253,17 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
                       gap={inube.spacing.s100}
                     >
-                      <Switch
+                      <Toggle
                         id="simulationWithQuota"
                         name="simulationWithQuota"
                         onChange={customHandleChange}
                         checked={formik.values.simulationWithQuota}
-                        label="Simular con el valor de la cuota"
                         margin="0"
                         padding="0"
                         size="large"
-                      />
+                      >
+                        Simular con el valor de la cuota
+                      </Toggle>
                     </Stack>
                   )}
 
