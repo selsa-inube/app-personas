@@ -77,13 +77,6 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.contactChannels.id && (
-        <ContactChannelsForm
-          initialValues={cdatRequest.contactChannels.values}
-          ref={formReferences.contactChannels}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
       {currentStep === cdatRequestSteps.comments.id && (
         <CommentsForm
           initialValues={cdatRequest.comments.values}
@@ -95,6 +88,13 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={cdatRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.contactChannels.id && (
+        <ContactChannelsForm
+          initialValues={cdatRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -143,24 +143,31 @@ function CdatRequestUI(props: CdatRequestUIProps) {
     onCloseMessage,
   } = props;
 
+  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
 
   return (
     <>
-      <Stack direction="column" gap={inube.spacing.s300}>
-        <Breadcrumbs crumbs={crumbsCdatRequest} />
-        <Title
-          title="CDAT"
-          subtitle="Simula tu solicitud de CDAT"
-          icon={<MdArrowBack />}
-          navigatePage="/savings"
-        />
-      </Stack>
-
       <Stack
         direction="column"
-        gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
+        <Stack direction="column" gap={inube.spacing.s300}>
+          <Breadcrumbs crumbs={crumbsCdatRequest} />
+          <Title
+            title="CDAT"
+            subtitle="Simula tu solicitud de CDAT"
+            icon={<MdArrowBack />}
+            navigatePage="/savings"
+          />
+        </Stack>
+
         <Assisted
           steps={steps}
           currentStep={currentStep}
@@ -195,7 +202,7 @@ function CdatRequestUI(props: CdatRequestUIProps) {
               spacing="compact"
               disabled={!isCurrentFormValid}
             >
-              {currentStep === steps.length ? "Enviar" : "Siguiente"}
+              {currentStep === steps.length ? "Pagar" : "Siguiente"}
             </Button>
           </Stack>
         </Stack>
