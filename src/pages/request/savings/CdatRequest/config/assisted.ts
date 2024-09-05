@@ -14,7 +14,7 @@ const cdatRequestSteps = {
     name: "Forma de pago",
     description: "Selecciona la forma como deseas pagar.",
   },
-  refund: {
+  disbursement: {
     id: 4,
     name: "Reembolso",
     description:

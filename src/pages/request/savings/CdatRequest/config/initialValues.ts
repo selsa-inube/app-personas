@@ -1,8 +1,8 @@
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IConditionsEntry } from "../forms/ConditionsForm/types";
 import { IInvestmentNameEntry } from "../forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
-import { IRefundEntry } from "../forms/RefundForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
 const conditions: IConditionsEntry = {
@@ -19,9 +19,23 @@ const paymentMethod: IPaymentMethodEntry = {
   pendingValue: 0,
 };
 
-const refund: IRefundEntry = {
-  refundMethod: "",
-  account: "",
+const disbursement: IDisbursementEntry = {
+  disbursements: [],
+  accountNumber: "",
+  writeAccountNumber: "",
+  observations: "",
+  supplier: "",
+  identificationType: "",
+  identification: "",
+  socialReason: "",
+  firstName: "",
+  secondName: "",
+  firstLastName: "",
+  secondLastName: "",
+  gender: "",
+  others: "",
+  entity: "",
+  accountType: "",
 };
 
 const investmentName: IInvestmentNameEntry = {
@@ -44,7 +58,7 @@ const termsAndConditions: ITermsAndConditionsEntry = {
 const initalValuesCDAT = {
   conditions,
   paymentMethod,
-  refund,
+  disbursement,
   investmentName,
   comments,
   termsAndConditions,

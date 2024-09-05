@@ -20,9 +20,6 @@ interface IDisbursementEntry {
   others?: string;
   entity?: string;
   accountType?: string;
-  transferBankEntity?: string;
-  transferAccountType?: string;
-  transferAccountNumber?: string;
 }
 
 export type { IDisbursementEntry };

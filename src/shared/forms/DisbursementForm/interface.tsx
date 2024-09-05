@@ -27,25 +27,26 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
-        <Select
-          name="disbursement"
-          id="disbursement"
-          label="Forma de desembolso"
-          value={formik.values.disbursement || ""}
-          size="compact"
-          isDisabled={loading}
-          options={formik.values.disbursements}
-          onChange={customHandleChange}
-          onBlur={formik.handleBlur}
-          state={getFieldState(formik, "disbursement")}
-          errorMessage={formik.errors.disbursement}
-          isFullWidth
-        />
         <Grid
-          templateColumns="repeat(2, 1fr)"
+          templateColumns="repeat(3, 1fr)"
           autoRows="auto"
           gap={inube.spacing.s300}
         >
+          <Select
+            name="disbursement"
+            id="disbursement"
+            label="Forma de desembolso"
+            value={formik.values.disbursement || ""}
+            size="compact"
+            isDisabled={loading}
+            options={formik.values.disbursements}
+            onChange={customHandleChange}
+            onBlur={formik.handleBlur}
+            state={getFieldState(formik, "disbursement")}
+            errorMessage={formik.errors.disbursement}
+            isFullWidth
+          />
+
           {generateFormFields(
             renderFields,
             formik,

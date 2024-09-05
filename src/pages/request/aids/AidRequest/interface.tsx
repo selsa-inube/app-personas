@@ -1,3 +1,4 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
@@ -5,24 +6,23 @@ import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { DisbursementForm } from "@forms/DisbursementForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { IDomainType } from "@ptypes/domain.types";
 import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
+import { Blocker } from "react-router-dom";
 import { aidRequestSteps } from "./config/assisted";
 import { crumbsAidRequest } from "./config/navigation";
 import { AmountForm } from "./forms/AmountForm";
 import { BeneficiariesForm } from "./forms/BeneficiariesForm";
 import { DetailsSituationForm } from "./forms/DetailsSituationForm";
-import { DisbursementForm } from "./forms/DisbursementForm";
 import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
 import { RegulationValidationsForm } from "./forms/RegulationValidationsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
-import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { Blocker } from "react-router-dom";
-import { Button } from "@inubekit/button";
 
 const renderStepContent = (
   currentStep: number,

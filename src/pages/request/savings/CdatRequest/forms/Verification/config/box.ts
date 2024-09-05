@@ -2,7 +2,7 @@ const cdatRequestBoxTitles = {
   investment: "Inversión",
   conditions: "Condiciones",
   paymentMethod: "Forma de pago",
-  refund: "Reembolso",
+  disbursement: "Reembolso",
   systemValidations: "Validaciones del sistema",
   investmentName: "Nombra tu inversión",
   comments: "Comentarios",

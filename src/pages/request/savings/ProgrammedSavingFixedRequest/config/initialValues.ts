@@ -1,8 +1,8 @@
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { ICommentsEntry } from "../../../../../shared/forms/CommentsForm/types";
 import { IGoalEntry } from "../forms/GoalForm/types";
 import { IPlanNameEntry } from "../forms/PlanNameForm/types";
 import { IQuotaEntry } from "../forms/QuotaForm/types";
-import { IReimbursementEntry } from "../forms/ReimbursementForm/types";
 
 const quota: IQuotaEntry = {
   periodicValue: "",
@@ -18,9 +18,23 @@ const goal: IGoalEntry = {
   refundDate: "",
 };
 
-const reimbursement: IReimbursementEntry = {
-  reimbursementType: "",
-  accountReimbursement: "",
+const disbursement: IDisbursementEntry = {
+  disbursements: [],
+  accountNumber: "",
+  writeAccountNumber: "",
+  observations: "",
+  supplier: "",
+  identificationType: "",
+  identification: "",
+  socialReason: "",
+  firstName: "",
+  secondName: "",
+  firstLastName: "",
+  secondLastName: "",
+  gender: "",
+  others: "",
+  entity: "",
+  accountType: "",
 };
 
 const planName: IPlanNameEntry = {
@@ -34,7 +48,7 @@ const comments: ICommentsEntry = {
 const initalValuesProgrammedSavingFixed = {
   quota,
   goal,
-  reimbursement,
+  disbursement,
   planName,
   comments,
 };

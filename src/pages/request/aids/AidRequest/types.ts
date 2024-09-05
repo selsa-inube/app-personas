@@ -2,9 +2,9 @@ import { FormikProps } from "formik";
 import { IAmountEntry } from "./forms/AmountForm/types";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
-import { IDisbursementEntry } from "./forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "./forms/RegulationValidationsForm/types";
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 
 interface IFormsAidRequest {
   beneficiaries: { isValid: boolean; values: IBeneficiariesEntry };

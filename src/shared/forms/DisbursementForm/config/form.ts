@@ -95,6 +95,7 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
     validation: Yup.string()
       .min(5, validationMessages.minNumbers(5))
       .required(validationMessages.required),
+    readOnly: savingsAccounts.length === 1,
   } as IFormField,
   writeAccountNumber: (gridColumn: string, readOnly?: boolean): IFormField => ({
     name: "writeAccountNumber",
@@ -193,7 +194,6 @@ const structureDisbursementForm = (
   savingsAccounts: IProduct[],
 ): IFormStructure => {
   const commonFields = getCommonFields(savingsAccounts);
-
   return {
     disbursement: {
       [disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id]: [

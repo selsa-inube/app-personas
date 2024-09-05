@@ -1,3 +1,4 @@
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { aidsRequestMock } from "@mocks/services/aids/aidsRequest.mocks";
 import { beneficiariesMock } from "@mocks/users/users.mocks";
 import { IDomainType } from "@ptypes/domain.types";
@@ -5,7 +6,6 @@ import { IValidation } from "src/model/entity/service";
 import { IAmountEntry } from "../forms/AmountForm/types";
 import { IBeneficiariesEntry } from "../forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../forms/DetailsSituationForm/types";
-import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "../forms/RegulationValidationsForm/types";
 
@@ -76,9 +76,22 @@ const mapDocumentaryRequirements = (
 
 const mapDisbursement = (): IDisbursementEntry => {
   return {
-    accountOptions: [],
-    disbursementMethod: "",
-    accountDescription: "",
+    disbursements: [],
+    accountNumber: "",
+    writeAccountNumber: "",
+    observations: "",
+    supplier: "",
+    identificationType: "",
+    identification: "",
+    socialReason: "",
+    firstName: "",
+    secondName: "",
+    firstLastName: "",
+    secondLastName: "",
+    gender: "",
+    others: "",
+    entity: "",
+    accountType: "",
   };
 };
 
