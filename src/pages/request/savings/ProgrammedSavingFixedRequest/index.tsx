@@ -5,6 +5,8 @@ import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 
+import { mapComments } from "@forms/CommentsForm/mappers";
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -41,7 +43,7 @@ function ProgrammedSavingFixedRequest() {
       },
       disbursement: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.disbursement,
+        values: mapDisbursement(),
       },
       planName: {
         isValid: false,
@@ -53,7 +55,7 @@ function ProgrammedSavingFixedRequest() {
       },
       comments: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.comments,
+        values: mapComments(),
       },
     });
 

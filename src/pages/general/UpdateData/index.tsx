@@ -1,3 +1,4 @@
+import { mapComments } from "@forms/CommentsForm/mappers";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
@@ -7,7 +8,6 @@ import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { updateDataSteps } from "./config/assisted";
 import {
   mapBankTransfers,
-  mapComments,
   mapContactData,
   mapEconomicActivity,
   mapExpenses,

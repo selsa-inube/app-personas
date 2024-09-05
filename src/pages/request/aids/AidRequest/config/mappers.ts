@@ -1,4 +1,3 @@
-import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { aidsRequestMock } from "@mocks/services/aids/aidsRequest.mocks";
 import { beneficiariesMock } from "@mocks/users/users.mocks";
 import { IDomainType } from "@ptypes/domain.types";
@@ -74,32 +73,10 @@ const mapDocumentaryRequirements = (
   };
 };
 
-const mapDisbursement = (): IDisbursementEntry => {
-  return {
-    disbursements: [],
-    accountNumber: "",
-    writeAccountNumber: "",
-    observations: "",
-    supplier: "",
-    identificationType: "",
-    identification: "",
-    socialReason: "",
-    firstName: "",
-    secondName: "",
-    firstLastName: "",
-    secondLastName: "",
-    gender: "",
-    others: "",
-    entity: "",
-    accountType: "",
-  };
-};
-
 export {
   mapAmount,
   mapBeneficiaries,
   mapDetailsSituation,
-  mapDisbursement,
   mapDocumentaryRequirements,
   mapRegulationValidations,
 };

@@ -1,3 +1,5 @@
+import { mapComments } from "@forms/CommentsForm/mappers";
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { useAuth } from "@inube/auth";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
@@ -57,7 +59,7 @@ function CreditDestinationRequest() {
       },
       disbursement: {
         isValid: false,
-        values: initalValuesCreditDestination.disbursement,
+        values: mapDisbursement(),
       },
       systemValidations: {
         isValid: false,
@@ -69,7 +71,7 @@ function CreditDestinationRequest() {
       },
       comments: {
         isValid: true,
-        values: initalValuesCreditDestination.comments,
+        values: mapComments(),
       },
       termsAndConditions: {
         isValid: false,

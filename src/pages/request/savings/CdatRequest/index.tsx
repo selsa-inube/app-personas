@@ -1,3 +1,5 @@
+import { mapComments } from "@forms/CommentsForm/mappers";
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { usersMock } from "@mocks/users/users.mocks";
 import { IMessage } from "@ptypes/messages.types";
@@ -48,7 +50,7 @@ function CdatRequest() {
     },
     disbursement: {
       isValid: false,
-      values: initalValuesCDAT.disbursement,
+      values: mapDisbursement(),
     },
     systemValidations: {
       isValid: false,
@@ -60,7 +62,7 @@ function CdatRequest() {
     },
     comments: {
       isValid: true,
-      values: initalValuesCDAT.comments,
+      values: mapComments(),
     },
     termsAndConditions: {
       isValid: false,
