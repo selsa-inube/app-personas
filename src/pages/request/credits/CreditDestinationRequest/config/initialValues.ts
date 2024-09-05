@@ -1,7 +1,5 @@
-import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
-import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
 import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 import { ISystemValidationsEntry } from "../forms/SystemValidationsForm/types";
@@ -69,29 +67,6 @@ const documentaryRequirements: IDocumentaryRequirementsEntry = {
   selectedDocuments: [],
 };
 
-const disbursement: IDisbursementEntry = {
-  disbursements: [],
-  accountNumber: "",
-  writeAccountNumber: "",
-  observations: "",
-  supplier: "",
-  identificationType: "",
-  identification: "",
-  socialReason: "",
-  firstName: "",
-  secondName: "",
-  firstLastName: "",
-  secondLastName: "",
-  gender: "",
-  others: "",
-  entity: "",
-  accountType: "",
-};
-
-const comments: ICommentsEntry = {
-  comments: "",
-};
-
 const termsAndConditions: ITermsAndConditionsEntry = {
   productId: "",
   termsConditions: [],
@@ -107,8 +82,6 @@ const initalValuesCreditDestination = {
   paymentMethod,
   systemValidations,
   documentaryRequirements,
-  disbursement,
-  comments,
   termsAndConditions,
 };
 

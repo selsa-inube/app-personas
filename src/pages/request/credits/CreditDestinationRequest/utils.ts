@@ -70,16 +70,6 @@ const creditDestinationStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentCreditDestinationRequest.creditConditions.values)
       ) {
-        newCreditDestinationRequest.disbursement = {
-          isValid: false,
-          values: {
-            ...initalValuesCreditDestination.disbursement,
-            transferAccountNumber: values.transferAccountNumber,
-            transferAccountType: values.transferAccountType,
-            transferBankEntity: values.transferBankEntity,
-          },
-        };
-
         newCreditDestinationRequest.systemValidations = {
           isValid: false,
           values: {

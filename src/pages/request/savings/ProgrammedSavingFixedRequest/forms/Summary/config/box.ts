@@ -1,7 +1,7 @@
 const programmedSavingFixedRequestBoxTitles = {
   quota: "Cuota",
   goal: "Meta",
-  reimbursement: "Reembolso",
+  disbursement: "Reembolso",
   planName: "Nombra tu plan de ahorro",
   contactChannels: "Canales de contacto",
   comments: "Comentarios",

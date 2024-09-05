@@ -1,5 +1,5 @@
+import { mapComments } from "@forms/CommentsForm/mappers";
 import { useAuth } from "@inube/auth";
-import { mapComments } from "@pages/general/UpdateData/config/mappers";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";

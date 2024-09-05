@@ -6,7 +6,9 @@ import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { DisbursementForm } from "@forms/DisbursementForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
@@ -19,12 +21,10 @@ import { ConditionsForm } from "./forms/ConditionsForm";
 import { InvestmentForm } from "./forms/InvestmentForm";
 import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
-import { RefundForm } from "./forms/RefundForm";
 import { SystemValidationsForm } from "./forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { Button } from "@inubekit/button";
 
 const renderStepContent = (
   currentStep: number,
@@ -56,10 +56,10 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.refund.id && (
-        <RefundForm
-          initialValues={cdatRequest.refund.values}
-          ref={formReferences.refund}
+      {currentStep === cdatRequestSteps.disbursement.id && (
+        <DisbursementForm
+          initialValues={cdatRequest.disbursement.values}
+          ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
         />
       )}

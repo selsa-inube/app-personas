@@ -1,8 +1,6 @@
-import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IConditionsEntry } from "../forms/ConditionsForm/types";
 import { IInvestmentNameEntry } from "../forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
-import { IRefundEntry } from "../forms/RefundForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
 const conditions: IConditionsEntry = {
@@ -19,17 +17,8 @@ const paymentMethod: IPaymentMethodEntry = {
   pendingValue: 0,
 };
 
-const refund: IRefundEntry = {
-  refundMethod: "",
-  account: "",
-};
-
 const investmentName: IInvestmentNameEntry = {
   productName: "",
-};
-
-const comments: ICommentsEntry = {
-  comments: "",
 };
 
 const termsAndConditions: ITermsAndConditionsEntry = {
@@ -44,9 +33,7 @@ const termsAndConditions: ITermsAndConditionsEntry = {
 const initalValuesCDAT = {
   conditions,
   paymentMethod,
-  refund,
   investmentName,
-  comments,
   termsAndConditions,
 };
 

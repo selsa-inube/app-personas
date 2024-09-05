@@ -10,14 +10,15 @@ import {
   mapAmount,
   mapBeneficiaries,
   mapDetailsSituation,
-  mapDisbursement,
   mapDocumentaryRequirements,
   mapRegulationValidations,
 } from "./config/mappers";
 import { IAmountEntry } from "./forms/AmountForm/types";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
-import { IDisbursementEntry } from "./forms/DisbursementForm/types";
+
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "./forms/RegulationValidationsForm/types";
 import { AidRequestUI } from "./interface";

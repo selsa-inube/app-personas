@@ -1,3 +1,6 @@
+import { mapComments } from "@forms/CommentsForm/mappers";
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { usersMock } from "@mocks/users/users.mocks";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
@@ -15,7 +18,6 @@ import { IConditionsEntry } from "./forms/ConditionsForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
-import { IRefundEntry } from "./forms/RefundForm/types";
 import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CdatRequestUI } from "./interface";
@@ -46,9 +48,9 @@ function CdatRequest() {
       isValid: false,
       values: initalValuesCDAT.paymentMethod,
     },
-    refund: {
+    disbursement: {
       isValid: false,
-      values: initalValuesCDAT.refund,
+      values: mapDisbursement(),
     },
     systemValidations: {
       isValid: false,
@@ -60,7 +62,7 @@ function CdatRequest() {
     },
     comments: {
       isValid: true,
-      values: initalValuesCDAT.comments,
+      values: mapComments(),
     },
     termsAndConditions: {
       isValid: false,
@@ -75,7 +77,7 @@ function CdatRequest() {
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
   const conditionsRef = useRef<FormikProps<IConditionsEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
-  const refundRef = useRef<FormikProps<IRefundEntry>>(null);
+  const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
   const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
@@ -88,7 +90,7 @@ function CdatRequest() {
     investment: investmentRef,
     conditions: conditionsRef,
     paymentMethod: paymentMethodRef,
-    refund: refundRef,
+    disbursement: disbursementRef,
     systemValidations: systemValidationsRef,
     investmentName: investmentNameRef,
     comments: commentsRef,

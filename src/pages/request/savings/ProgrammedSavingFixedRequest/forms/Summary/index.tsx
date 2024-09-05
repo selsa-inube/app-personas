@@ -1,13 +1,13 @@
 import { Accordion } from "@design/data/Accordion";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { programmedSavingFixedRequestSteps } from "../../config/assisted";
 import { IFormsProgrammedSavingFixedRequest } from "../../types";
 import { SummaryBoxes } from "./SummaryBoxes";
 import { programmedSavingFixedRequestBoxTitles } from "./config/box";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
 
 interface SummaryProps {
   programmedSavingFixedRequest: IFormsProgrammedSavingFixedRequest;
@@ -33,7 +33,7 @@ function ProgrammedSavingFixedRequestSummary(props: SummaryProps) {
               <SummaryBoxes
                 isTablet={isTablet}
                 programmedSavingFixedRequest={programmedSavingFixedRequest}
-                stepKey={key}
+                stepKey={key as keyof IFormsProgrammedSavingFixedRequest}
               />
 
               <Button

@@ -5,7 +5,6 @@ import { IValidation } from "src/model/entity/service";
 import { IAmountEntry } from "../forms/AmountForm/types";
 import { IBeneficiariesEntry } from "../forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../forms/DetailsSituationForm/types";
-import { IDisbursementEntry } from "../forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
 import { IRegulationValidationsEntry } from "../forms/RegulationValidationsForm/types";
 
@@ -74,19 +73,10 @@ const mapDocumentaryRequirements = (
   };
 };
 
-const mapDisbursement = (): IDisbursementEntry => {
-  return {
-    accountOptions: [],
-    disbursementMethod: "",
-    accountDescription: "",
-  };
-};
-
 export {
   mapAmount,
   mapBeneficiaries,
   mapDetailsSituation,
-  mapDisbursement,
   mapDocumentaryRequirements,
   mapRegulationValidations,
 };
