@@ -140,7 +140,7 @@ function RechargeModal(props: RechargeModalProps) {
           </Button>
           <Button
             spacing="compact"
-            onClick={() => formik.handleSubmit}
+            onClick={() => formik.handleSubmit()}
             disabled={!formik.isValid || !formik.dirty}
           >
             Enviar

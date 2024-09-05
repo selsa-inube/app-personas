@@ -1,11 +1,12 @@
 import { MdSentimentNeutral, MdThumbUpOffAlt } from "react-icons/md";
 import { MessageAppearanceType } from "@design/feedback/SectionMessage/types";
+import { IButtonAppearance } from "@inubekit/button";
 
 const deleteDebtModal = {
   title: "Eliminar deuda",
   description: (debt: string) => `¿Deseas eliminar ${debt} como pasivo?`,
   actionText: "Eliminar",
-  appearance: "danger" as MessageAppearanceType,
+  appearance: "danger" as IButtonAppearance,
   portalId: "modals",
 };
 
