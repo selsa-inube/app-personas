@@ -22,8 +22,8 @@ import {
 } from "../../PaymentMethodForm/types";
 import { IRefundEntry } from "../../RefundForm/types";
 import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
-import { cdatRequestBoxTitles } from "../config/box";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
+import { cdatRequestBoxTitles } from "../config/box";
 
 const renderInvestmentVerification = (
   values: IInvestmentEntry,
@@ -224,7 +224,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.paymentMethod.values,
           isTablet,
         )}
-      {stepKey === "refund" && renderRefundVerification(cdatRequest.refund.values)}
+      {stepKey === "refund" &&
+        renderRefundVerification(cdatRequest.refund.values)}
       {stepKey === "systemValidations" &&
         renderSystemValidationsVerification(
           cdatRequest.systemValidations.values,
@@ -235,8 +236,6 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.investmentName.values,
           isTablet,
         )}
-      {stepKey === "contactChannels" &&
-        renderContactChannelsVerification(cdatRequest.contactChannels.values)}
       {stepKey === "comments" &&
         renderCommentsVerification(cdatRequest.comments.values)}
       {stepKey === "termsAndConditions" &&
@@ -244,6 +243,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.termsAndConditions.values,
           isTablet,
         )}
+      {stepKey === "contactChannels" &&
+        renderContactChannelsVerification(cdatRequest.contactChannels.values)}
     </>
   );
 }

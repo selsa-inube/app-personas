@@ -5,9 +5,9 @@ const cdatRequestBoxTitles = {
   refund: "Reembolso",
   systemValidations: "Validaciones del sistema",
   investmentName: "Nombra tu inversión",
-  contactChannels: "Canales de contacto",
   comments: "Comentarios",
   termsAndConditions: "Términos y condiciones",
+  contactChannels: "Canales de contacto",
 };
 
 export { cdatRequestBoxTitles };

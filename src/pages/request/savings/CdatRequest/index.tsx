@@ -58,10 +58,6 @@ function CdatRequest() {
       isValid: false,
       values: initalValuesCDAT.investmentName,
     },
-    contactChannels: {
-      isValid: false,
-      values: mapContactChannels(usersMock[0].contact[0]),
-    },
     comments: {
       isValid: true,
       values: initalValuesCDAT.comments,
@@ -69,6 +65,10 @@ function CdatRequest() {
     termsAndConditions: {
       isValid: false,
       values: initalValuesCDAT.termsAndConditions,
+    },
+    contactChannels: {
+      isValid: false,
+      values: mapContactChannels(usersMock[0].contact[0]),
     },
   });
 
@@ -79,10 +79,10 @@ function CdatRequest() {
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
   const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
-  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
+  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
@@ -91,9 +91,9 @@ function CdatRequest() {
     refund: refundRef,
     systemValidations: systemValidationsRef,
     investmentName: investmentNameRef,
-    contactChannels: contactChannelsRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
+    contactChannels: contactChannelsRef,
   };
 
   const blocker = useBlocker(
