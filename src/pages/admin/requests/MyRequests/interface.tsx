@@ -5,30 +5,39 @@ import { Title } from "@design/data/Title";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { MdAdd, MdArrowBack } from "react-icons/md";
+import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { IRequest } from "src/model/entity/request";
 import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsMyRequests } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { Button } from "@inubekit/button";
 
 interface MyRequestsUIProps {
   requests: IRequest[];
   loading: boolean;
   noMoreRequests: boolean;
+  refreshTime: number;
   onAddRequests: () => void;
   goToRequest: (id: string) => void;
+  onRefresh: () => void;
 }
 
 function MyRequestsUI(props: MyRequestsUIProps) {
-  const { requests, loading, noMoreRequests, onAddRequests, goToRequest } =
-    props;
+  const {
+    requests,
+    loading,
+    noMoreRequests,
+    refreshTime,
+    onAddRequests,
+    goToRequest,
+    onRefresh,
+  } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -64,10 +73,22 @@ function MyRequestsUI(props: MyRequestsUIProps) {
         }
       >
         <Stack direction="column" gap={inube.spacing.s300}>
-          <Stack direction="column">
+          <Stack justifyContent="space-between" alignItems="center">
             <Text type="title" size="medium">
               Tus solicitudes más recientes
             </Text>
+
+            <Button
+              appearance="primary"
+              variant="outlined"
+              spacing="compact"
+              iconBefore={<MdHistory />}
+              onClick={onRefresh}
+              loading={loading}
+              disabled={!loading && refreshTime !== 0}
+            >
+              {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
+            </Button>
           </Stack>
 
           {requests.length > 0 ? (
