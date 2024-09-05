@@ -1,10 +1,10 @@
 import { suppliersTypeData } from "@mocks/domains/suppliersType";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
 import { FormikProps } from "formik";
+import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
 import { bankDM } from "src/model/domains/general/bankDM";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
-import { statusDM } from "src/model/domains/general/statusdm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { IProduct } from "src/model/entity/product";
@@ -210,7 +210,7 @@ const structureDisbursementForm = (
           name: "accountStatus",
           type: "select",
           label: "Cuenta",
-          options: statusDM.options,
+          options: accountOriginTypeDM.options,
           size: "compact",
           isFullWidth: true,
           gridColumn: "span 1",
@@ -307,12 +307,12 @@ const structureDisbursementForm = (
             ],
     },
     accountStatus: {
-      [statusDM.NEW.id]: [
+      [accountOriginTypeDM.NEW.id]: [
         commonFields.entity("span 1"),
         commonFields.accountType("span 1"),
         commonFields.writeAccountNumber("span 1"),
       ],
-      [statusDM.REGISTERED.id]: [
+      [accountOriginTypeDM.REGISTERED.id]: [
         commonFields.entity("span 1", true),
         commonFields.accountType("span 1", true),
         commonFields.writeAccountNumber("span 1", true),

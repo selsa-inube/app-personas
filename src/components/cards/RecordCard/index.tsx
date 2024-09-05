@@ -140,7 +140,7 @@ function RecordCard(props: RecordCardProps) {
             </Stack>
             <Stack gap={inube.spacing.s150}>
               {!isMobile && (
-                <Text type="label" size="medium">
+                <Text type="label" size="medium" ellipsis>
                   {formattedValue}
                 </Text>
               )}

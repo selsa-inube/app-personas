@@ -16,12 +16,12 @@ interface IFormsCdatRequest {
   refund: { isValid: boolean; values: IRefundEntry };
   systemValidations: { isValid: boolean; values: ISystemValidationsEntry };
   investmentName: { isValid: boolean; values: IInvestmentNameEntry };
+  comments: { isValid: boolean; values: ICommentsEntry };
+  termsAndConditions: { isValid: boolean; values: ITermsAndConditionsEntry };
   contactChannels: {
     isValid: boolean;
     values: IContactChannelsEntry;
   };
-  comments: { isValid: boolean; values: ICommentsEntry };
-  termsAndConditions: { isValid: boolean; values: ITermsAndConditionsEntry };
 }
 
 interface IFormsCdatRequestRefs {
@@ -31,9 +31,9 @@ interface IFormsCdatRequestRefs {
   refund: React.RefObject<FormikProps<IRefundEntry>>;
   systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
   investmentName: React.RefObject<FormikProps<IInvestmentNameEntry>>;
-  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;
   comments: React.RefObject<FormikProps<ICommentsEntry>>;
   termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
+  contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;
 }
 
 export type { IFormsCdatRequest, IFormsCdatRequestRefs };
