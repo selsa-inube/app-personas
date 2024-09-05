@@ -23,7 +23,7 @@ function CustomLabelPolicy(props: { url: string }) {
   const { url } = props;
 
   return (
-    <Text type="label" size="large">
+    <Text type="label" size="large" weight="bold">
       Acepto la{" "}
       <Link
         type="label"
