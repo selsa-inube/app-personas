@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { Icon } from "@inubekit/icon";
@@ -11,6 +10,7 @@ import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
+import { Button } from "@inubekit/button";
 
 interface PaymentMethodCardProps {
   moneySource: {

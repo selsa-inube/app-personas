@@ -1,8 +1,8 @@
-import { Button } from "@design/input/Button";
 import { Fieldset } from "@design/input/Fieldset";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";

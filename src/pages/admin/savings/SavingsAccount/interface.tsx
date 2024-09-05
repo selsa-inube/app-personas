@@ -35,7 +35,6 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
 import { IMessage } from "@ptypes/messages.types";
 import {
   EMovementType,
@@ -51,6 +50,7 @@ import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
+import { Button } from "@inubekit/button";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&

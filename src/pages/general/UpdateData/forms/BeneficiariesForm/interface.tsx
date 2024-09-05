@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -8,6 +7,7 @@ import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import { MdPercent } from "react-icons/md";
 import { IBeneficiariesEntry } from "./types";
+import { Button } from "@inubekit/button";
 
 interface BeneficiariesFormUIProps {
   formik: FormikProps<IBeneficiariesEntry>;
@@ -66,7 +66,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

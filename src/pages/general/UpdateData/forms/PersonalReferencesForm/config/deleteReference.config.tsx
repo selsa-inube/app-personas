@@ -1,13 +1,13 @@
-import { buttonAppearance } from "@design/input/Button/types";
 import { MdSentimentNeutral, MdThumbUpOffAlt } from "react-icons/md";
 import { MessageAppearanceType } from "@design/feedback/SectionMessage/types";
+import { IButtonAppearance } from "@inubekit/button";
 
 const deleteReferenceModal = {
   title: "Eliminar referencia",
   description: (reference: string) =>
     `¿Deseas eliminar ${reference} como referencia?`,
   actionText: "Eliminar",
-  appearance: buttonAppearance[3],
+  appearance: "danger" as IButtonAppearance,
   portalId: "modals",
 };
 

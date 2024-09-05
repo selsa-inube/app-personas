@@ -4,7 +4,6 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { ExportModal } from "@components/modals/general/ExportModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
@@ -33,6 +32,7 @@ import {
   renderAmortizationTable,
 } from "./utilRenders";
 import { validateCreditsAndAmortization } from "./utils";
+import { Button } from "@inubekit/button";
 
 function CreditAmortization() {
   const { credit_id } = useParams();

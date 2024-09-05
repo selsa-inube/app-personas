@@ -18,6 +18,7 @@
     "@inube/design-system": "^5.15.0",
     "@inubekit/avatar": "^2.3.0",
     "@inubekit/blanket": "^2.5.0",
+    "@inubekit/button": "^4.34.0",
     "@inubekit/countdownbar": "^2.5.0",
     "@inubekit/divider": "^0.4.0",
     "@inubekit/grid": "^2.3.0",

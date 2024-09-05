@@ -2,7 +2,6 @@ import { AssetModal } from "@components/modals/general/updateData/AssetModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlineAddHome } from "react-icons/md";
@@ -13,6 +12,7 @@ import {
 } from "./config/table";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 interface PersonalAssetsFormUIProps {
   formik: FormikValues;

@@ -3,7 +3,6 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { PaymentHistoryModal } from "@components/modals/payments/PaymentHistoryModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -17,6 +16,7 @@ import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
+import { Button } from "@inubekit/button";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
@@ -86,7 +86,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               spacing="compact"
               iconBefore={<MdHistory />}
               onClick={onRefreshHistory}
-              load={loading}
+              loading={loading}
               disabled={!loading && refreshTime !== 0}
             >
               {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
@@ -123,7 +123,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                   appearance="primary"
                   variant="none"
                   iconBefore={<MdAdd />}
-                  load={loading}
+                  loading={loading}
                   onClick={onAddPayments}
                   disabled={noMorePayments}
                 >

@@ -3,7 +3,6 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -23,6 +22,7 @@ import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { Blocker } from "react-router-dom";
+import { Button } from "@inubekit/button";
 
 const renderStepContent = (
   currentStep: number,

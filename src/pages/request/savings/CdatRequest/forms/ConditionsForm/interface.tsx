@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Table } from "@design/data/Table";
-import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
 import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
@@ -19,6 +18,7 @@ import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles } from "./config/table";
 import { IConditionsEntry } from "./types";
 import { Toggle } from "@inubekit/toggle";
+import { Button } from "@inubekit/button";
 
 interface ConditionsFormUIProps {
   formik: FormikProps<IConditionsEntry>;
@@ -145,7 +145,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                     variant="outlined"
                     spacing="compact"
                     onClick={simulateCDAT}
-                    load={loadingSimulation}
+                    loading={loadingSimulation}
                     disabled={
                       !formik.values.interestPayment ||
                       (!formik.values.deadlineDays &&

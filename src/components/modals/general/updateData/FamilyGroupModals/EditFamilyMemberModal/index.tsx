@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikValues } from "formik";
@@ -15,6 +14,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 interface EditFamilyMemberModalProps {
   portalId: string;
