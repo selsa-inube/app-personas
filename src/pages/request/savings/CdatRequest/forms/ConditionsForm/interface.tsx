@@ -129,7 +129,6 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                   }
                 >
                   <Toggle
-                    label="Prefiero ingresar la fecha"
                     id="simulationWithDate"
                     name="simulationWithDate"
                     onChange={customHandleChange}
@@ -137,7 +136,9 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                     margin="0"
                     padding="0"
                     size="large"
-                  />
+                  >
+                    Prefiero ingresar la fecha
+                  </Toggle>
                 </Stack>
                 <Stack width="100%" justifyContent="flex-end">
                   <Button

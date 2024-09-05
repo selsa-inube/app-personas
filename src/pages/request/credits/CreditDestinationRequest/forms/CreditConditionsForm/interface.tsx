@@ -258,11 +258,12 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         name="simulationWithQuota"
                         onChange={customHandleChange}
                         checked={formik.values.simulationWithQuota}
-                        label="Simular con el valor de la cuota"
                         margin="0"
                         padding="0"
                         size="large"
-                      />
+                      >
+                        Simular con el valor de la cuota
+                      </Toggle>
                     </Stack>
                   )}
 

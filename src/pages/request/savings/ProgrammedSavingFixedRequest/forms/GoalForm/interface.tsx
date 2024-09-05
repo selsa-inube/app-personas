@@ -34,7 +34,6 @@ function GoalFormUI(props: GoalFormUIProps) {
           alignItems="flex-start"
         >
           <Toggle
-            label="Prefiero ingresar la fecha"
             id="goalWithDate"
             name="goalWithDate"
             onChange={customHandleChange}
@@ -42,7 +41,9 @@ function GoalFormUI(props: GoalFormUIProps) {
             margin="0"
             padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
             size="large"
-          />
+          >
+            Prefiero ingresar la fecha
+          </Toggle>
 
           <Grid
             gap={inube.spacing.s300}

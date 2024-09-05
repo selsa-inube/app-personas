@@ -90,14 +90,16 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
           <Toggle
             id="acceptNotifications"
             name="acceptNotifications"
-            label="Acepto recibir información mediante WhatsApp, llamadas, mensajes de texto y correo electrónico."
             size={isMobile ? "small" : "large"}
             onChange={formik.handleChange}
             checked={formik.values.acceptNotifications}
             disabled={loading}
             margin="0"
             padding="0"
-          />
+          >
+            Acepto recibir información mediante WhatsApp, llamadas, mensajes de
+            texto y correo electrónico.
+          </Toggle>
         </Stack>
       </Stack>
     </form>

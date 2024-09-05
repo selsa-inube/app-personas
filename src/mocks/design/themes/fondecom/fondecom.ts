@@ -1628,111 +1628,53 @@ const fondecomTheme = {
     on: {
       background: {
         color: {
-          regular: {
-            "fondecom.toggle.on.background.color.regular":
-              "fondecom.palette.green.g400",
-          },
-          disabled: {
-            "fondecom.toggle.on.background.color.disabled":
-              "fondecom.palette.neutral.n20",
-          },
-          hover: {
-            "fondecom.toggle.on.background.color.hover":
-              "fondecom.palette.green.g300",
-          },
+          regular: palette.green.g400,
+          disabled: palette.neutral.n20,
+          hover: palette.green.g300,
         },
       },
-      "toggle-background": {
+      toggleBackground: {
         color: {
-          regular: {
-            "fondecom.toggle.on.toggle-background.color.regular":
-              "fondecom.palette.neutral.n0",
-          },
-          disabled: {
-            "fondecom.toggle.on.toggle-background.color.disabled":
-              "fondecom.palette.neutral.n0",
-          },
-          hover: {
-            "fondecom.toggle.on.toggle-background.color.hover":
-              "fondecom.palette.neutral.n0",
-          },
+          regular: palette.neutral.n0,
+          disabled: palette.neutral.n0,
+          hover: palette.neutral.n0,
         },
       },
-      "toggle-border": {
+      toggleBorder: {
         color: {
-          regular: {
-            "fondecom.toggle.on.toggle-border.color.regular":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
-          disabled: {
-            "fondecom.toggle.on.toggle-border.color.disabled":
-              "fondecom.palette.neutral.n70",
-          },
-          hover: {
-            "fondecom.toggle.on.toggle-border.color.hover":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          regular: palette.neutralAlpha.n0a,
+          disabled: palette.neutral.n70,
+          hover: palette.neutralAlpha.n0a,
         },
       },
       icon: {
-        appearance: {
-          "fondecom.toggle.on.icon.appearance": "light",
-        },
+        appearance: "light",
       },
     },
     off: {
       background: {
         color: {
-          regular: {
-            "fondecom.toggle.off.background.color.regular":
-              "fondecom.palette.neutral.n20",
-          },
-          disabled: {
-            "fondecom.toggle.off.background.color.disabled":
-              "fondecom.palette.neutral.n20",
-          },
-          hover: {
-            "fondecom.toggle.off.background.color.hover":
-              "fondecom.palette.neutral.n10",
-          },
+          regular: palette.neutral.n20,
+          disabled: palette.neutral.n20,
+          hover: palette.neutral.n10,
         },
       },
-      "toggle-background": {
+      toggleBackground: {
         color: {
-          regular: {
-            "fondecom.toggle.off.toggle-background.color.regular":
-              "fondecom.palette.neutral.n0",
-          },
-          disabled: {
-            "fondecom.toggle.off.toggle-background.color.disabled":
-              "fondecom.palette.neutral.n0",
-          },
-          hover: {
-            "fondecom.toggle.off.toggle-background.color.hover":
-              "fondecom.palette.neutral.n0",
-          },
+          regular: palette.neutral.n0,
+          disabled: palette.neutral.n0,
+          hover: palette.neutral.n0,
         },
       },
-      "toggle-border": {
+      toggleBorder: {
         color: {
-          regular: {
-            "fondecom.toggle.off.toggle-border.color.regular":
-              "fondecom.palette.neutral.n70",
-          },
-          disabled: {
-            "fondecom.toggle.off.toggle-border.color.disabled":
-              "fondecom.palette.neutral.n70",
-          },
-          hover: {
-            "fondecom.toggle.off.toggle-border.color.hover":
-              "fondecom.palette.neutral.n70",
-          },
+          regular: palette.neutral.n70,
+          disabled: palette.neutral.n70,
+          hover: palette.neutral.n70,
         },
       },
       icon: {
-        appearance: {
-          "fondecom.toggle.off.icon.appearance": "gray",
-        },
+        appearance: "gray",
       },
     },
   },
