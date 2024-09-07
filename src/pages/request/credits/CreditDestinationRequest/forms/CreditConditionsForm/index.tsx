@@ -16,6 +16,7 @@ import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCa
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
 import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
 import { initialMessageState } from "src/utils/messages";
+import { simulatedTypeTabs } from "./config/tabs";
 import { CreditConditionsFormUI } from "./interface";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
 import {
@@ -57,6 +58,10 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         approximateValue: initialValues.netValue,
       },
     });
+
+  const [selectedTab, setSelectedTab] = useState(
+    simulatedTypeTabs.simulatedWithDeadline.id,
+  );
 
   const formik = useFormik({
     initialValues,
@@ -275,6 +280,10 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     setMessage(initialMessageState);
   };
 
+  const handleTabChange = (tabId: string) => {
+    setSelectedTab(tabId);
+  };
+
   const periodicityOptions = formik.values.periodicities.map((periodicity) => {
     const matchedDomain = periodicityDM.valueOf(periodicity.id);
     return matchedDomain
@@ -290,6 +299,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       disbursementModal={disbursementModal}
       periodicityOptions={periodicityOptions}
       message={message}
+      selectedTab={selectedTab}
       simulateCredit={simulateCredit}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}
@@ -297,6 +307,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       onChangePaymentMethod={handleChangePaymentMethod}
       onChangePeriodicity={handleChangePeriodicity}
       handleCloseMessage={handleCloseMessage}
+      onTabChange={handleTabChange}
     />
   );
 });
