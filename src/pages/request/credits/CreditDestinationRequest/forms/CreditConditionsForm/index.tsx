@@ -59,10 +59,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       },
     });
 
-  const [selectedTab, setSelectedTab] = useState(
-    simulatedTypeTabs.simulatedWithDeadline.id,
-  );
-
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicValidationSchema,
@@ -235,38 +231,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   ) => {
     formik.setFieldValue("hasResult", false);
     formik.handleChange(event);
-
-    if (event.target.name === "simulationWithQuota") {
-      const checked = "checked" in event.target && event.target.checked;
-
-      if (checked) {
-        formik.setFormikState((state) => {
-          return {
-            ...state,
-            touched: {
-              ...state.touched,
-              quota: false,
-            },
-          };
-        });
-      }
-
-      formik.setFieldValue("quota", "");
-      formik.setFieldValue("deadline", "");
-      formik.setFieldValue("rate", "");
-      formik.setFieldValue("netValue", "");
-      formik.setFieldValue("hasResult", false);
-
-      formik.setFormikState((state) => {
-        return {
-          ...state,
-          touched: {
-            ...state.touched,
-            deadline: false,
-          },
-        };
-      });
-    }
   };
 
   const handleToggleDisbursementModal = () => {
@@ -281,7 +245,38 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   };
 
   const handleTabChange = (tabId: string) => {
-    setSelectedTab(tabId);
+    formik.setFieldValue(
+      "simulationWithQuota",
+      tabId === simulatedTypeTabs.simulatedWithQuota.id,
+    );
+
+    if (tabId === "simulatedWithQuota") {
+      formik.setFormikState((state) => {
+        return {
+          ...state,
+          touched: {
+            ...state.touched,
+            quota: false,
+          },
+        };
+      });
+    }
+
+    formik.setFieldValue("quota", "");
+    formik.setFieldValue("deadline", "");
+    formik.setFieldValue("rate", "");
+    formik.setFieldValue("netValue", "");
+    formik.setFieldValue("hasResult", false);
+
+    formik.setFormikState((state) => {
+      return {
+        ...state,
+        touched: {
+          ...state.touched,
+          deadline: false,
+        },
+      };
+    });
   };
 
   const periodicityOptions = formik.values.periodicities.map((periodicity) => {
@@ -299,7 +294,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       disbursementModal={disbursementModal}
       periodicityOptions={periodicityOptions}
       message={message}
-      selectedTab={selectedTab}
       simulateCredit={simulateCredit}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}

@@ -14,7 +14,6 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Tabs } from "@inubekit/tabs";
 import { Text } from "@inubekit/text";
-import { Toggle } from "@inubekit/toggle";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
@@ -34,7 +33,6 @@ interface CreditConditionsFormUIProps {
   disbursementModal: IDisbursementModalState;
   periodicityOptions: ISelectOption[];
   message: IMessage;
-  selectedTab: string;
   simulateCredit: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -55,7 +53,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     disbursementModal,
     periodicityOptions,
     message,
-    selectedTab,
     simulateCredit,
     customHandleChange,
     onFormValid,
@@ -161,7 +158,11 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
 
               <Tabs
                 onChange={onTabChange}
-                selectedTab={selectedTab}
+                selectedTab={
+                  formik.values.simulationWithQuota
+                    ? simulatedTypeTabs.simulatedWithQuota.id
+                    : simulatedTypeTabs.simulatedWithDeadline.id
+                }
                 tabs={Object.values(simulatedTypeTabs)}
               />
 
@@ -260,24 +261,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       </>
                     )}
                   </Grid>
-                  {formik.values.product.id !== "generateRecommendation" && (
-                    <Stack
-                      padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
-                      gap={inube.spacing.s100}
-                    >
-                      <Toggle
-                        id="simulationWithQuota"
-                        name="simulationWithQuota"
-                        onChange={customHandleChange}
-                        checked={formik.values.simulationWithQuota}
-                        margin="0"
-                        padding="0"
-                        size="large"
-                      >
-                        Simular con el valor de la cuota
-                      </Toggle>
-                    </Stack>
-                  )}
 
                   {formik.values.product.id !== "generateRecommendation" && (
                     <Stack width="100%" justifyContent="flex-end">

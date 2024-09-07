@@ -5,8 +5,8 @@ const simulatedTypeTabs: Record<string, ITab> = {
     id: "simulatedWithDeadline",
     label: "Simular por plazo",
   },
-  simulatedWithtQuota: {
-    id: "simulatedWithtQuota",
+  simulatedWithQuota: {
+    id: "simulatedWithQuota",
     label: "Simular por cuota",
   },
 };
