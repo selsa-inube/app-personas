@@ -8,9 +8,11 @@ import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { Tabs } from "@inubekit/tabs";
 import { Text } from "@inubekit/text";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
@@ -21,9 +23,8 @@ import {
   validateCurrencyField,
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
+import { simulatedTypeTabs } from "./config/tabs";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
-import { Toggle } from "@inubekit/toggle";
-import { Button } from "@inubekit/button";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -41,6 +42,7 @@ interface CreditConditionsFormUIProps {
   onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleDisbursementModal: () => void;
   handleCloseMessage: () => void;
+  onTabChange: (tabId: string) => void;
 }
 
 function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
@@ -58,6 +60,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     onChangePeriodicity,
     onToggleDisbursementModal,
     handleCloseMessage,
+    onTabChange,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
@@ -152,6 +155,16 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
               </Stack>
 
               <Divider dashed />
+
+              <Tabs
+                onChange={onTabChange}
+                selectedTab={
+                  formik.values.simulationWithQuota
+                    ? simulatedTypeTabs.simulatedWithQuota.id
+                    : simulatedTypeTabs.simulatedWithDeadline.id
+                }
+                tabs={Object.values(simulatedTypeTabs)}
+              />
 
               <Stack direction="column" gap={inube.spacing.s200}>
                 <Text type="title" size="small" appearance="gray">
@@ -248,24 +261,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       </>
                     )}
                   </Grid>
-                  {formik.values.product.id !== "generateRecommendation" && (
-                    <Stack
-                      padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
-                      gap={inube.spacing.s100}
-                    >
-                      <Toggle
-                        id="simulationWithQuota"
-                        name="simulationWithQuota"
-                        onChange={customHandleChange}
-                        checked={formik.values.simulationWithQuota}
-                        margin="0"
-                        padding="0"
-                        size="large"
-                      >
-                        Simular con el valor de la cuota
-                      </Toggle>
-                    </Stack>
-                  )}
 
                   {formik.values.product.id !== "generateRecommendation" && (
                     <Stack width="100%" justifyContent="flex-end">
