@@ -35,7 +35,6 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
           legend="Dirección"
           type="title"
           size={isMobile ? "small" : "medium"}
-          width="100%"
         >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
@@ -166,7 +165,6 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
           legend="Teléfono"
           type="title"
           size={isMobile ? "small" : "medium"}
-          width="100%"
         >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
@@ -221,7 +219,6 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
           legend="Correo electrónico"
           type="title"
           size={isMobile ? "small" : "medium"}
-          width="100%"
         >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}

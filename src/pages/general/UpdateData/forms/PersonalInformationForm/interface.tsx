@@ -36,7 +36,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           legend="Nombres"
           type={isMobile ? "label" : "title"}
           size={isMobile ? "medium" : "small"}
-          width="100%"
         >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
@@ -94,7 +93,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           legend="Identificación"
           type={isMobile ? "label" : "title"}
           size={isMobile ? "medium" : "small"}
-          width="100%"
         >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
@@ -188,7 +186,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
           legend="Complementarios"
           type={isTablet ? "label" : "title"}
           size={isTablet ? "medium" : "small"}
-          width="100%"
         >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}

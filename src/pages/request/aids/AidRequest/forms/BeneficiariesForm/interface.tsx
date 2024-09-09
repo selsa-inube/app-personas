@@ -22,7 +22,6 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
       legend="Posibles beneficiarios"
       type="title"
       size="medium"
-      width="100%"
     >
       <Grid
         templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}

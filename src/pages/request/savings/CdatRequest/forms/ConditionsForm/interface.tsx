@@ -53,7 +53,6 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
             legend="Simulador"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
-            width="100%"
           >
             <Stack direction="column" gap={inube.spacing.s300} width="100%">
               <Grid

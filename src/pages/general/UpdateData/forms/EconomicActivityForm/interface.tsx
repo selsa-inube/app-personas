@@ -59,7 +59,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
             legend="Clasificación económica"
             size="medium"
             type={isMobile ? "label" : "title"}
-            width="100%"
           >
             <Grid
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
@@ -181,7 +180,6 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
               legend="Detalles laborales"
               size="medium"
               type={isMobile ? "label" : "title"}
-              width="100%"
             >
               <Grid
                 templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}

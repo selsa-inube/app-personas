@@ -20,7 +20,6 @@ function UpdateDataVerification(props: VerificationProps) {
           legend={title}
           type="title"
           size="medium"
-          width="100%"
         >
           <Stack direction="column" gap={inube.spacing.s150} width="100%">
             <VerificationFieldsets updatedData={updatedData} stepKey={key} />

@@ -18,7 +18,6 @@ function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
       legend="Número de identificación"
       type="title"
       size={isMobile ? "small" : "medium"}
-      width="100%"
     >
       <TextField
         label="Documento"

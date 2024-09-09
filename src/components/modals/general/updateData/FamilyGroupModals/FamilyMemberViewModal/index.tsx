@@ -70,7 +70,6 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             legend="Identificación"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
-            width="100%"
           >
             <Grid
               gap={inube.spacing.s200}
@@ -150,7 +149,6 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             legend="Contacto"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
-            width="100%"
           >
             <Grid
               gap={inube.spacing.s200}
@@ -186,7 +184,6 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             legend="Información"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
-            width="100%"
           >
             <Grid
               gap={inube.spacing.s200}

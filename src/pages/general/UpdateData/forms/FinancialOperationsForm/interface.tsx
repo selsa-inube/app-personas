@@ -82,7 +82,6 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               legend="Operaciones"
               type={isMobile ? "label" : "title"}
               size="medium"
-              width="100%"
             >
               <Textarea
                 id="descriptionOperations"
@@ -110,7 +109,6 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
               legend="Cuentas"
               type={isMobile ? "label" : "title"}
               size="medium"
-              width="100%"
             >
               <Grid
                 templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
