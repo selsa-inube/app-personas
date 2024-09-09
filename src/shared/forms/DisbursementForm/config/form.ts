@@ -23,7 +23,7 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
     size: "compact",
     validMessage: "Las observaciones ingresadas son válidas",
     isFullWidth: true,
-    gridColumn: "span 2",
+    gridColumn: "span 1",
     maxLength: 150,
     validation: Yup.string()
       .required(validationMessages.required)
@@ -91,7 +91,7 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
       id: product.id,
     })),
     isFullWidth: true,
-    gridColumn: "span 2",
+    gridColumn: "span 1",
     validation: Yup.string()
       .min(5, validationMessages.minNumbers(5))
       .required(validationMessages.required),
@@ -200,7 +200,7 @@ const structureDisbursementForm = (
         commonFields.accountNumber,
       ],
       multiplePaymentRecipients: [commonFields.observations],
-      supplierManagerCheck: [commonFields.supplier("span 2")],
+      supplierManagerCheck: [commonFields.supplier("span 1")],
       thirdPartManagerCheck: [commonFields.identificationType],
       supplierPayeeCheck: [commonFields.supplier("span 1")],
       thirdPartPayeeCheck: [commonFields.identificationType],
@@ -218,10 +218,10 @@ const structureDisbursementForm = (
         },
       ],
       supplierExternalTransfer: [
-        commonFields.supplier("span 2"),
-        commonFields.entity("span 2"),
-        commonFields.accountType("span 2"),
-        commonFields.writeAccountNumber("span 2"),
+        commonFields.supplier("span 1"),
+        commonFields.entity("span 1"),
+        commonFields.accountType("span 1"),
+        commonFields.writeAccountNumber("span 1"),
       ],
       [disbursementTypeDM.THIRD_PARTEXTERNAL_TRANSFER.id]: [
         commonFields.identificationType,

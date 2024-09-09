@@ -8,6 +8,7 @@ import { MdSentimentNeutral } from "react-icons/md";
 import { Navigate, useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { getDestinationsForUser } from "src/services/iclient/credits/getDestinations";
+import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
@@ -211,6 +212,23 @@ function CreditDestinationRequest() {
     setMessage(initialMessageState);
   };
 
+  const handleLeaveRequest = async () => {
+    for (const file of creditDestinationRequest.documentaryRequirements.values
+      .selectedDocuments) {
+      if (!accessToken || !file.documentType || !file.sequence) return;
+
+      await removeDocument(
+        {
+          documentType: file.documentType,
+          sequence: file.sequence,
+        },
+        accessToken,
+      );
+    }
+
+    blocker.state === "blocked" && blocker.proceed();
+  };
+
   if (!getFlag("admin.credits.credits.request-credit").value) {
     return <Navigate to="/" />;
   }
@@ -231,6 +249,7 @@ function CreditDestinationRequest() {
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
       onCloseMessage={handleCloseMessage}
+      onLeaveRequest={handleLeaveRequest}
     />
   );
 }
