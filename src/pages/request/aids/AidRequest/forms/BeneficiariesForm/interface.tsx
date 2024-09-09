@@ -1,10 +1,10 @@
-import { Fieldset } from "@design/input/Fieldset";
 import { RadioCard } from "@design/input/RadioCard";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { FormikProps } from "formik";
 import { IBeneficiariesEntry } from "./types";
 import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
+import { Fieldset } from "@inubekit/fieldset";
 
 interface BeneficiariesFormUIProps {
   formik: FormikProps<IBeneficiariesEntry>;
@@ -18,11 +18,16 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
-    <Fieldset title="Posibles beneficiarios">
+    <Fieldset
+      legend="Posibles beneficiarios"
+      type="title"
+      size="medium"
+    >
       <Grid
         templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
         autoRows="auto"
         gap={inube.spacing.s200}
+        width="100%"
       >
         {formik.values.beneficiaries.map((beneficiary) => (
           <RadioCard

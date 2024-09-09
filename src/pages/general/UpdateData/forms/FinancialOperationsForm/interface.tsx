@@ -1,9 +1,9 @@
-import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Fieldset } from "@inubekit/fieldset";
 import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
@@ -79,7 +79,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         {showForeignCurrencyTransactions && (
           <>
             <Fieldset
-              title="Operaciones"
+              legend="Operaciones"
               type={isMobile ? "label" : "title"}
               size="medium"
             >
@@ -106,7 +106,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         {showForeignCurrencyAccounts && (
           <>
             <Fieldset
-              title="Cuentas"
+              legend="Cuentas"
               type={isMobile ? "label" : "title"}
               size="medium"
             >
@@ -118,6 +118,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                     ? inube.spacing.s150
                     : `${inube.spacing.s200} ${inube.spacing.s300}`
                 }
+                width="100%"
               >
                 <Select
                   label="País"

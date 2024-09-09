@@ -1,7 +1,7 @@
-import { Fieldset } from "@design/input/Fieldset";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Fieldset } from "@inubekit/fieldset";
 import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
@@ -31,7 +31,11 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         direction="column"
         gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
       >
-        <Fieldset title="Dirección" size={isMobile ? "small" : "medium"}>
+        <Fieldset
+          legend="Dirección"
+          type="title"
+          size={isMobile ? "small" : "medium"}
+        >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
@@ -42,6 +46,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                   ? inube.spacing.s200
                   : inube.spacing.s300
             }
+            width="100%"
           >
             <TextField
               label="País"
@@ -156,7 +161,11 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
             />
           </Grid>
         </Fieldset>
-        <Fieldset title="Teléfono" size={isMobile ? "small" : "medium"}>
+        <Fieldset
+          legend="Teléfono"
+          type="title"
+          size={isMobile ? "small" : "medium"}
+        >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
@@ -167,6 +176,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                   ? inube.spacing.s200
                   : inube.spacing.s300
             }
+            width="100%"
           >
             <TextField
               label="Teléfono"
@@ -206,7 +216,8 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
           </Grid>
         </Fieldset>
         <Fieldset
-          title="Correo electrónico"
+          legend="Correo electrónico"
+          type="title"
           size={isMobile ? "small" : "medium"}
         >
           <Grid
@@ -219,6 +230,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                   ? inube.spacing.s200
                   : inube.spacing.s300
             }
+            width="100%"
           >
             <TextField
               label="Correo electronico"

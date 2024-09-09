@@ -31,7 +31,7 @@ const StyledScrollbar = styled.div<IStyledScrollbar>`
   display: flex;
   flex-direction: column;
   gap: ${({ $isMobile }) =>
-    $isMobile ? inube.spacing.s150 : inube.spacing.s100};
+    $isMobile ? inube.spacing.s150 : inube.spacing.s300};
   padding: ${({ $isMobile }) =>
     $isMobile ? inube.spacing.s050 : inube.spacing.s0};
 

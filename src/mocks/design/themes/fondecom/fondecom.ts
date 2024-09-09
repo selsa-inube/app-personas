@@ -346,14 +346,10 @@ const fondecomTheme = {
   },
   fieldset: {
     legend: {
-      color: {
-        "fondecom.fieldset.legend.color": "fondecom.palette.neutral.n200",
-      },
+      color: palette.neutral.n200
     },
     border: {
-      color: {
-        "fondecom.fieldset.border.color": "fondecom.palette.neutral.n40",
-      },
+      color: palette.neutral.n40
     },
   },
   fullscreenNav: {

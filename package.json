@@ -21,6 +21,7 @@
     "@inubekit/button": "^4.34.0",
     "@inubekit/countdownbar": "^2.5.0",
     "@inubekit/divider": "^0.4.0",
+    "@inubekit/fieldset": "^0.24.5",
     "@inubekit/grid": "^2.3.0",
     "@inubekit/icon": "^2.0.1",
     "@inubekit/label": "^2.7.0",

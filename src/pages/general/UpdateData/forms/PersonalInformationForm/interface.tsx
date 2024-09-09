@@ -1,9 +1,9 @@
 import { DateField } from "@design/input/DateField";
-import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Fieldset } from "@inubekit/fieldset";
 import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
@@ -33,7 +33,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
         <Fieldset
-          title="Nombres"
+          legend="Nombres"
           type={isMobile ? "label" : "title"}
           size={isMobile ? "medium" : "small"}
         >
@@ -41,6 +41,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            width="100%"
           >
             <TextField
               label="Primer nombre"
@@ -89,7 +90,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         </Fieldset>
 
         <Fieldset
-          title="Identificación"
+          legend="Identificación"
           type={isMobile ? "label" : "title"}
           size={isMobile ? "medium" : "small"}
         >
@@ -97,6 +98,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            width="100%"
           >
             <Select
               label="Tipo de identificación"
@@ -181,7 +183,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         </Fieldset>
 
         <Fieldset
-          title="Complementarios"
+          legend="Complementarios"
           type={isTablet ? "label" : "title"}
           size={isTablet ? "medium" : "small"}
         >
@@ -189,6 +191,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            width="100%"
           >
             <Select
               label="País de nacimiento"

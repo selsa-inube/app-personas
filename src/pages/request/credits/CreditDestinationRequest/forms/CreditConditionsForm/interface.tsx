@@ -2,7 +2,6 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
@@ -25,6 +24,7 @@ import {
 import { getFieldState } from "src/utils/forms/forms";
 import { simulatedTypeTabs } from "./config/tabs";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
+import { Fieldset } from "@inubekit/fieldset";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -77,11 +77,11 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
       <form>
         <Stack direction="column" gap={inube.spacing.s400}>
           <Fieldset
-            title="Simulador de crédito"
+            legend="Simulador de crédito"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
-            <Stack direction="column" gap={inube.spacing.s300}>
+            <Stack direction="column" gap={inube.spacing.s300} width="100%">
               <Stack direction="column" gap={inube.spacing.s200}>
                 <Text type="title" size="small" appearance="gray">
                   Información del crédito

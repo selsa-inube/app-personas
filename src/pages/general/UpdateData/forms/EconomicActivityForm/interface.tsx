@@ -1,6 +1,5 @@
 import { EconomicActivityModal } from "@components/modals/general/updateData/EconomicActivityModal";
 import { DateField } from "@design/input/DateField";
-import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
@@ -23,6 +22,7 @@ import { workdayDM } from "src/model/domains/general/updateData/economicActivity
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { getFieldState } from "src/utils/forms/forms";
 import { IEconomicActivityEntry } from "./types";
+import { Fieldset } from "@inubekit/fieldset";
 import { Button } from "@inubekit/button";
 
 interface EconomicActivityFormUIProps {
@@ -56,7 +56,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
       <form>
         <Stack direction="column" gap={inube.spacing.s300}>
           <Fieldset
-            title="Clasificación económica"
+            legend="Clasificación económica"
+            size="medium"
             type={isMobile ? "label" : "title"}
           >
             <Grid
@@ -69,6 +70,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     ? inube.spacing.s200
                     : inube.spacing.s300
               }
+              width="100%"
             >
               <Select
                 label="Actividad económica"
@@ -175,7 +177,8 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
           {formik.values.economicActivity ===
             economicActivityDM.EMPLOYEE.id && (
             <Fieldset
-              title="Detalles laborales"
+              legend="Detalles laborales"
+              size="medium"
               type={isMobile ? "label" : "title"}
             >
               <Grid
@@ -188,6 +191,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                       ? inube.spacing.s200
                       : inube.spacing.s300
                 }
+                width="100%"
               >
                 <TextField
                   label="Empresa"
