@@ -34,7 +34,7 @@ const getHeader = (
 
   const consultingUser = sessionStorage.getItem("consultingUser");
 
-  const businessUnit = consultingUser ? "Desarrollo" : "Fondecom";
+  const businessUnit = consultingUser ? "Desarrollo" : "";
 
   return {
     logoURL: logoUrl,
