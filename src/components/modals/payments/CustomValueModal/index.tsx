@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
 import { TextField } from "@design/input/TextField";
 import { InputState } from "@design/input/TextField/types";
@@ -26,6 +25,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 interface CustomValueModalProps {
   portalId: string;

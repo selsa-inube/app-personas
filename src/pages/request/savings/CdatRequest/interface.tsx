@@ -4,10 +4,11 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { DisbursementForm } from "@forms/DisbursementForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
@@ -20,7 +21,6 @@ import { ConditionsForm } from "./forms/ConditionsForm";
 import { InvestmentForm } from "./forms/InvestmentForm";
 import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
-import { RefundForm } from "./forms/RefundForm";
 import { SystemValidationsForm } from "./forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CdatRequestVerification } from "./forms/Verification";
@@ -56,10 +56,10 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.refund.id && (
-        <RefundForm
-          initialValues={cdatRequest.refund.values}
-          ref={formReferences.refund}
+      {currentStep === cdatRequestSteps.disbursement.id && (
+        <DisbursementForm
+          initialValues={cdatRequest.disbursement.values}
+          ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -77,13 +77,6 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.contactChannels.id && (
-        <ContactChannelsForm
-          initialValues={cdatRequest.contactChannels.values}
-          ref={formReferences.contactChannels}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
       {currentStep === cdatRequestSteps.comments.id && (
         <CommentsForm
           initialValues={cdatRequest.comments.values}
@@ -95,6 +88,13 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={cdatRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.contactChannels.id && (
+        <ContactChannelsForm
+          initialValues={cdatRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -143,24 +143,31 @@ function CdatRequestUI(props: CdatRequestUIProps) {
     onCloseMessage,
   } = props;
 
+  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
 
   return (
     <>
-      <Stack direction="column" gap={inube.spacing.s300}>
-        <Breadcrumbs crumbs={crumbsCdatRequest} />
-        <Title
-          title="CDAT"
-          subtitle="Simula tu solicitud de CDAT"
-          icon={<MdArrowBack />}
-          navigatePage="/savings"
-        />
-      </Stack>
-
       <Stack
         direction="column"
-        gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
+        gap={
+          isMobile
+            ? inube.spacing.s300
+            : isTablet
+              ? inube.spacing.s500
+              : inube.spacing.s600
+        }
       >
+        <Stack direction="column" gap={inube.spacing.s300}>
+          <Breadcrumbs crumbs={crumbsCdatRequest} />
+          <Title
+            title="CDAT"
+            subtitle="Simula tu solicitud de CDAT"
+            icon={<MdArrowBack />}
+            navigatePage="/savings"
+          />
+        </Stack>
+
         <Assisted
           steps={steps}
           currentStep={currentStep}
@@ -195,7 +202,7 @@ function CdatRequestUI(props: CdatRequestUIProps) {
               spacing="compact"
               disabled={!isCurrentFormValid}
             >
-              {currentStep === steps.length ? "Enviar" : "Siguiente"}
+              {currentStep === steps.length ? "Pagar" : "Siguiente"}
             </Button>
           </Stack>
         </Stack>

@@ -4,21 +4,21 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
+import { DisbursementForm } from "../../../../shared/forms/DisbursementForm";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
-import { DisbursementForm } from "./forms/DisbursementForm";
 import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { SystemValidationsForm } from "./forms/SystemValidationsForm";
@@ -62,6 +62,17 @@ const renderStepContent = (
       {currentStep === creditDestinationRequestSteps.disbursement.id && (
         <DisbursementForm
           initialValues={creditDestinationRequest.disbursement.values}
+          transferAccountValues={{
+            transferAccountNumber:
+              creditDestinationRequest.creditConditions.values
+                .transferAccountNumber,
+            transferAccountType:
+              creditDestinationRequest.creditConditions.values
+                .transferAccountType,
+            transferBankEntity:
+              creditDestinationRequest.creditConditions.values
+                .transferBankEntity,
+          }}
           ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
         />

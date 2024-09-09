@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -20,6 +19,7 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 interface FamilyMemberViewModalProps {
   portalId: string;

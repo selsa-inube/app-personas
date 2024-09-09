@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdOutlineStarBorder } from "react-icons/md";
 import { StyledCardContainer } from "./styles";
@@ -6,6 +5,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 interface RequestCardProps {
   title: string;

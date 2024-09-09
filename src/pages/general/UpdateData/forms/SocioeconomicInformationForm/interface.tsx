@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -11,6 +10,7 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { vulnerablePopulationTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/vulnerablePopulationdm";
 import { getFieldState } from "src/utils/forms/forms";
+import { Button } from "@inubekit/button";
 
 interface SocioeconomicInformationFormUIProps {
   formik: FormikValues;

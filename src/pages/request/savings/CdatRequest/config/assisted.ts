@@ -14,7 +14,7 @@ const cdatRequestSteps = {
     name: "Forma de pago",
     description: "Selecciona la forma como deseas pagar.",
   },
-  refund: {
+  disbursement: {
     id: 4,
     name: "Reembolso",
     description:
@@ -31,22 +31,22 @@ const cdatRequestSteps = {
     name: "Nombra tu inversión",
     description: "¿Cómo te gustaría que se llame tu producto?",
   },
-  contactChannels: {
-    id: 7,
-    name: "Canales de contacto",
-    description:
-      "Selecciona las opciones que nos permitan enviarte información.",
-  },
   comments: {
-    id: 8,
+    id: 7,
     name: "Comentarios",
     description:
       "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
   },
   termsAndConditions: {
-    id: 9,
+    id: 8,
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
+  },
+  contactChannels: {
+    id: 9,
+    name: "Canales de contacto",
+    description:
+      "Selecciona las opciones que nos permitan enviarte información.",
   },
   verification: {
     id: 10,

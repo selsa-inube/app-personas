@@ -1,4 +1,3 @@
-import { savingsMock } from "@mocks/products/savings/savings.mocks";
 import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
@@ -40,32 +39,6 @@ const cdatStepsRules = (
             ...initalValuesCDAT.paymentMethod,
             valueToPay: 500000,
             pendingValue: 500000,
-          },
-        };
-      }
-      return newCdatRequest;
-    }
-    case cdatRequestSteps.conditions.id: {
-      const values = formReferences.conditions.current?.values;
-
-      if (!values) return currentCdatRequest;
-
-      newCdatRequest.conditions = {
-        isValid: isCurrentFormValid,
-        values,
-      };
-
-      if (
-        JSON.stringify(values) !==
-        JSON.stringify(currentCdatRequest.conditions.values)
-      ) {
-        newCdatRequest.refund = {
-          isValid: false,
-          values: {
-            ...initalValuesCDAT.refund,
-            refundMethod: "creditToInternalAccount",
-            account: savingsMock[0].id,
-            accountDescription: savingsMock[0].description,
           },
         };
       }

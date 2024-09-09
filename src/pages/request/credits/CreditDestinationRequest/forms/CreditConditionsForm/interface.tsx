@@ -2,16 +2,16 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { Tabs } from "@inubekit/tabs";
 import { Text } from "@inubekit/text";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
@@ -22,6 +22,7 @@ import {
   validateCurrencyField,
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
+import { simulatedTypeTabs } from "./config/tabs";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
 import { Fieldset } from "@inubekit/fieldset";
 
@@ -41,6 +42,7 @@ interface CreditConditionsFormUIProps {
   onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleDisbursementModal: () => void;
   handleCloseMessage: () => void;
+  onTabChange: (tabId: string) => void;
 }
 
 function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
@@ -58,6 +60,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     onChangePeriodicity,
     onToggleDisbursementModal,
     handleCloseMessage,
+    onTabChange,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
@@ -152,6 +155,16 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
               </Stack>
 
               <Divider dashed />
+
+              <Tabs
+                onChange={onTabChange}
+                selectedTab={
+                  formik.values.simulationWithQuota
+                    ? simulatedTypeTabs.simulatedWithQuota.id
+                    : simulatedTypeTabs.simulatedWithDeadline.id
+                }
+                tabs={Object.values(simulatedTypeTabs)}
+              />
 
               <Stack direction="column" gap={inube.spacing.s200}>
                 <Text type="title" size="small" appearance="gray">
@@ -248,23 +261,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       </>
                     )}
                   </Grid>
-                  {formik.values.product.id !== "generateRecommendation" && (
-                    <Stack
-                      padding={`${inube.spacing.s050} ${inube.spacing.s200}`}
-                      gap={inube.spacing.s100}
-                    >
-                      <Switch
-                        id="simulationWithQuota"
-                        name="simulationWithQuota"
-                        onChange={customHandleChange}
-                        checked={formik.values.simulationWithQuota}
-                        label="Simular con el valor de la cuota"
-                        margin="0"
-                        padding="0"
-                        size="large"
-                      />
-                    </Stack>
-                  )}
 
                   {formik.values.product.id !== "generateRecommendation" && (
                     <Stack width="100%" justifyContent="flex-end">
@@ -272,7 +268,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         variant="outlined"
                         spacing="compact"
                         onClick={simulateCredit}
-                        load={loadingSimulation}
+                        loading={loadingSimulation}
                         disabled={
                           !formik.values.amount ||
                           !formik.values.paymentMethod?.id ||

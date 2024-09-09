@@ -1,3 +1,5 @@
+import { mapComments } from "@forms/CommentsForm/mappers";
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { useAuth } from "@inube/auth";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
@@ -10,12 +12,12 @@ import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { initialMessageState } from "src/utils/messages";
+import { IDisbursementEntry } from "../../../../shared/forms/DisbursementForm/types";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
 import { mapDestination } from "./config/mappers";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
-import { IDisbursementEntry } from "./forms/DisbursementForm/types";
 import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
@@ -57,7 +59,7 @@ function CreditDestinationRequest() {
       },
       disbursement: {
         isValid: false,
-        values: initalValuesCreditDestination.disbursement,
+        values: mapDisbursement(),
       },
       systemValidations: {
         isValid: false,
@@ -69,7 +71,7 @@ function CreditDestinationRequest() {
       },
       comments: {
         isValid: true,
-        values: initalValuesCreditDestination.comments,
+        values: mapComments(),
       },
       termsAndConditions: {
         isValid: false,

@@ -1,4 +1,13 @@
-import { buttonAppearance } from "@design/input/Button/types";
+const appearances = [
+  "primary",
+  "success",
+  "warning",
+  "danger",
+  "help",
+  "dark",
+  "gray",
+  "light",
+];
 
 const parameters = {
   docs: {
@@ -26,7 +35,7 @@ const props = {
   },
   appearance: {
     control: "select",
-    options: buttonAppearance,
+    options: appearances,
     description:
       "Corresponds to the appearance that the action execution button will take.",
   },

@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import {
   mapBankTransfers,
-  mapComments,
   mapContactData,
   mapEconomicActivity,
   mapExpenses,
@@ -19,6 +18,7 @@ import {
 import { IFormsUpdateData } from "../UpdateData/types";
 import { updateDataTabs } from "./config/tabs";
 import { UpdateDataUnassistedUI } from "./interface";
+import { mapComments } from "@forms/CommentsForm/mappers";
 
 function UpdateDataUnassisted() {
   const [selectedTab, setSelectedTab] = useState(

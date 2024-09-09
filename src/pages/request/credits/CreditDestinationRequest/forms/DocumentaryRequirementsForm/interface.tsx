@@ -1,7 +1,6 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { InfoModal } from "@components/modals/general/InfoModal";
-import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
@@ -18,6 +17,7 @@ import {
 import { ISelectedDocument } from "src/model/entity/service";
 import { truncateFileName } from "src/utils/texts";
 import { IDocumentaryRequirementsEntry } from "./types";
+import { Button } from "@inubekit/button";
 
 function renderRequirement(
   key: number,

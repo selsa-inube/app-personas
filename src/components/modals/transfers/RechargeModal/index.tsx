@@ -1,5 +1,4 @@
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
@@ -23,6 +22,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 const mapSavingAccounts = (savingAccounts: IProduct[]): ISelectOption[] => {
   return savingAccounts.map((savingAccount) => ({
@@ -140,7 +140,7 @@ function RechargeModal(props: RechargeModalProps) {
           </Button>
           <Button
             spacing="compact"
-            onClick={formik.handleSubmit}
+            onClick={() => formik.handleSubmit()}
             disabled={!formik.isValid || !formik.dirty}
           >
             Enviar

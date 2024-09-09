@@ -7,10 +7,16 @@ import { IConditionsEntry } from "../../ConditionsForm/types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
 
 import { inube } from "@design/tokens";
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Tag } from "@inubekit/tag";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
+import { bankDM } from "src/model/domains/general/bankDM";
+import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
+import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
+import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
@@ -20,10 +26,9 @@ import {
   EMoneySourceType,
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
-import { IRefundEntry } from "../../RefundForm/types";
 import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
-import { cdatRequestBoxTitles } from "../config/box";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
+import { cdatRequestBoxTitles } from "../config/box";
 
 const renderInvestmentVerification = (
   values: IInvestmentEntry,
@@ -105,17 +110,86 @@ const renderPaymentMethodVerification = (
   </Grid>
 );
 
-const renderRefundVerification = (values: IRefundEntry) => {
-  return (
-    <Stack direction="column" gap={inube.spacing.s100} width="100%">
-      <BoxAttribute
-        label="Forma de reembolso:"
-        value={getValueOfDomain(values.refundMethod, "refundMethod")?.value}
-      />
-      <BoxAttribute label="Cuenta:" value={values.accountDescription} />
-    </Stack>
-  );
+const getAccountDescription = (accountId: string) => {
+  return `Ahorros ${accountId}`;
 };
+
+const renderDisbursementVerification = (values: IDisbursementEntry) => (
+  <Stack direction="column" gap={inube.spacing.s100} width="100%">
+    <BoxAttribute
+      label="Forma de desembolso:"
+      value={disbursementTypeDM.valueOf(values.disbursement || "")?.value}
+    />
+    {values.accountType && (
+      <BoxAttribute
+        label="Tipo de cuenta:"
+        value={accountTypeDM.valueOf(values.accountType)?.value}
+      />
+    )}
+    {values.accountNumber && (
+      <BoxAttribute
+        label="Numero de cuenta:"
+        value={getAccountDescription(values.accountNumber)}
+      />
+    )}
+    {values.writeAccountNumber && (
+      <BoxAttribute
+        label="Numero de cuenta:"
+        value={values.writeAccountNumber}
+      />
+    )}
+    {values.observations && (
+      <BoxAttribute
+        label="Observaciones:"
+        value={values.observations}
+        direction="column"
+      />
+    )}
+    {values.supplier && (
+      <BoxAttribute
+        label="Proveedor:"
+        value={getValueOfDomain(values.supplier, "suppliersType")?.value}
+      />
+    )}
+    {values.identificationType && (
+      <BoxAttribute
+        label="Tipo de identificación:"
+        value={identificationTypeDM.valueOf(values.identificationType)?.value}
+      />
+    )}
+    {values.identification && (
+      <BoxAttribute label="Identificación:" value={values.identification} />
+    )}
+    {values.socialReason && (
+      <BoxAttribute label="Razón social:" value={values.socialReason} />
+    )}
+    {values.firstName && (
+      <BoxAttribute label="Primer nombre:" value={values.firstName} />
+    )}
+    {values.secondName && (
+      <BoxAttribute label="Segundo nombre:" value={values.secondName} />
+    )}
+    {values.firstLastName && (
+      <BoxAttribute label="Primer apellido:" value={values.firstLastName} />
+    )}
+    {values.secondLastName && (
+      <BoxAttribute label="Segundo apellido:" value={values.secondLastName} />
+    )}
+    {values.gender && (
+      <BoxAttribute
+        label="Género:"
+        value={genderDM.valueOf(values.gender)?.value}
+      />
+    )}
+    {values.others && <BoxAttribute label="Otros:" value={values.others} />}
+    {values.entity && (
+      <BoxAttribute
+        label="Entidad:"
+        value={bankDM.valueOf(values.entity)?.value}
+      />
+    )}
+  </Stack>
+);
 
 const renderSystemValidationsVerification = (
   values: ISystemValidationsEntry,
@@ -224,7 +298,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.paymentMethod.values,
           isTablet,
         )}
-      {stepKey === "refund" && renderRefundVerification(cdatRequest.refund.values)}
+      {stepKey === "disbursement" &&
+        renderDisbursementVerification(cdatRequest.disbursement.values)}
       {stepKey === "systemValidations" &&
         renderSystemValidationsVerification(
           cdatRequest.systemValidations.values,
@@ -235,8 +310,6 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.investmentName.values,
           isTablet,
         )}
-      {stepKey === "contactChannels" &&
-        renderContactChannelsVerification(cdatRequest.contactChannels.values)}
       {stepKey === "comments" &&
         renderCommentsVerification(cdatRequest.comments.values)}
       {stepKey === "termsAndConditions" &&
@@ -244,6 +317,8 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.termsAndConditions.values,
           isTablet,
         )}
+      {stepKey === "contactChannels" &&
+        renderContactChannelsVerification(cdatRequest.contactChannels.values)}
     </>
   );
 }

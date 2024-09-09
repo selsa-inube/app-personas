@@ -29,7 +29,7 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
   if (!loadingValids && formik.values.validations.length === 0) {
     return (
       <Stack width="100%">
-        <Text type="label" size="large" appearance="gray">
+        <Text type="label" size="large" appearance="gray" weight="bold">
           Actualmente no requieres de validaciones. Puede continuar con el
           siguiente paso de navegación.
         </Text>

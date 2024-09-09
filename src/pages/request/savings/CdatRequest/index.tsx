@@ -1,3 +1,6 @@
+import { mapComments } from "@forms/CommentsForm/mappers";
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { usersMock } from "@mocks/users/users.mocks";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
@@ -15,7 +18,6 @@ import { IConditionsEntry } from "./forms/ConditionsForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
-import { IRefundEntry } from "./forms/RefundForm/types";
 import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CdatRequestUI } from "./interface";
@@ -46,9 +48,9 @@ function CdatRequest() {
       isValid: false,
       values: initalValuesCDAT.paymentMethod,
     },
-    refund: {
+    disbursement: {
       isValid: false,
-      values: initalValuesCDAT.refund,
+      values: mapDisbursement(),
     },
     systemValidations: {
       isValid: false,
@@ -58,42 +60,42 @@ function CdatRequest() {
       isValid: false,
       values: initalValuesCDAT.investmentName,
     },
-    contactChannels: {
-      isValid: false,
-      values: mapContactChannels(usersMock[0].contact[0]),
-    },
     comments: {
       isValid: true,
-      values: initalValuesCDAT.comments,
+      values: mapComments(),
     },
     termsAndConditions: {
       isValid: false,
       values: initalValuesCDAT.termsAndConditions,
+    },
+    contactChannels: {
+      isValid: false,
+      values: mapContactChannels(usersMock[0].contact[0]),
     },
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
   const conditionsRef = useRef<FormikProps<IConditionsEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
-  const refundRef = useRef<FormikProps<IRefundEntry>>(null);
+  const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
   const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
-  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
+  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
     conditions: conditionsRef,
     paymentMethod: paymentMethodRef,
-    refund: refundRef,
+    disbursement: disbursementRef,
     systemValidations: systemValidationsRef,
     investmentName: investmentNameRef,
-    contactChannels: contactChannelsRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
+    contactChannels: contactChannelsRef,
   };
 
   const blocker = useBlocker(

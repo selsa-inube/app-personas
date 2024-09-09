@@ -1,9 +1,9 @@
 import { Icon } from "@inubekit/icon";
 import { useRef, useState } from "react";
 import { MdOutlineCloudUpload } from "react-icons/md";
-import { Button } from "../Button";
 import { StyledFileDrop } from "./styles";
 import { Text } from "@inubekit/text";
+import { Button } from "@inubekit/button";
 
 interface FileDropProps {
   multiple?: boolean;

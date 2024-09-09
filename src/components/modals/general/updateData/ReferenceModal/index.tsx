@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
@@ -18,6 +17,7 @@ import { departmentDM } from "src/model/domains/general/updateData/personalInfor
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
 import { Text } from "@inubekit/text";
+import { Button } from "@inubekit/button";
 
 const referenceTypeDM = getDomainById("referenceType");
 

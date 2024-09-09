@@ -2,7 +2,6 @@ import { DebtModal } from "@components/modals/general/updateData/DebtModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { Stack } from "@inubekit/stack";
 import { IMessage } from "@ptypes/messages.types";
@@ -14,6 +13,7 @@ import {
   personalDebtsTableTitles,
 } from "./config/table";
 import { IPersonalDebtEntries } from "./types";
+import { Button } from "@inubekit/button";
 
 interface PersonalDebtsFormUIProps {
   formik: FormikProps<IPersonalDebtEntries>;
@@ -67,7 +67,7 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

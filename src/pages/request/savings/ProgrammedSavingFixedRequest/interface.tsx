@@ -1,10 +1,11 @@
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
-import { Button } from "@design/input/Button";
 import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { DisbursementForm } from "@forms/DisbursementForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
@@ -14,7 +15,6 @@ import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
 import { GoalForm } from "./forms/GoalForm";
 import { PlanNameForm } from "./forms/PlanNameForm";
 import { QuotaForm } from "./forms/QuotaForm";
-import { ReimbursementForm } from "./forms/ReimbursementForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
 import {
   IFormsProgrammedSavingFixedRequest,
@@ -44,10 +44,10 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.reimbursement.id && (
-        <ReimbursementForm
-          initialValues={programmedSavingFixedRequest.reimbursement.values}
-          ref={formReferences.reimbursement}
+      {currentStep === programmedSavingFixedRequestSteps.disbursement.id && (
+        <DisbursementForm
+          initialValues={programmedSavingFixedRequest.disbursement.values}
+          ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
         />
       )}

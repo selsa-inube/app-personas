@@ -1,9 +1,9 @@
-import { Button } from "@design/input/Button";
 import { Textarea } from "@design/input/Textarea";
 import { FormikProps } from "formik";
 import { ICommentsEntry } from "./types";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 interface CommentsFormUIProps {
   formik: FormikProps<ICommentsEntry>;
@@ -34,7 +34,7 @@ function CommentsFormUI(props: CommentsFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

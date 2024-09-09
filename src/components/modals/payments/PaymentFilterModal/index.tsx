@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -12,6 +11,7 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 
 interface IPaymentFilters {
   group: string;

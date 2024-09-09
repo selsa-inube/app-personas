@@ -1,5 +1,4 @@
 import { useAuth } from "@inube/auth";
-import { disbursementTypeData } from "@mocks/domains/disbursementType";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikProps, useFormik } from "formik";
 import {
@@ -11,7 +10,9 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
-import { statusDM } from "src/model/domains/general/statusdm";
+import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
+import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
+import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
@@ -26,16 +27,27 @@ const initValidationSchema = Yup.object({
 
 interface DisbursementFormProps {
   initialValues: IDisbursementEntry;
+  transferAccountValues?: {
+    transferBankEntity?: string;
+    transferAccountType?: string;
+    transferAccountNumber?: string;
+  };
+  loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IDisbursementEntry) => void;
-  loading?: boolean;
 }
 
 const DisbursementForm = forwardRef(function DisbursementForm(
   props: DisbursementFormProps,
   ref: React.Ref<FormikProps<IDisbursementEntry>>,
 ) {
-  const { initialValues, onSubmit, onFormValid, loading } = props;
+  const {
+    initialValues,
+    transferAccountValues,
+    loading,
+    onSubmit,
+    onFormValid,
+  } = props;
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const { savings, setSavings } = useContext(SavingsContext);
@@ -65,7 +77,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   }, [formik.values]);
 
   useEffect(() => {
-    formik.setFieldValue("disbursements", disbursementTypeData);
+    formik.setFieldValue("disbursements", disbursementTypeDM.options);
     if (formik.values.disbursement) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
@@ -92,21 +104,37 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     }
   }, [user, accessToken]);
 
-  useEffect(() => {
-    if (!formik.values.accountStatus) return;
+  const changeAccountStatus = async () => {
+    if (!formik.values.accountStatus || !accessToken) return;
 
-    if (formik.values.accountStatus === statusDM.REGISTERED.id) {
-      formik.setFieldValue("entity", initialValues.transferBankEntity);
-      formik.setFieldValue("accountType", initialValues.transferAccountType);
-      formik.setFieldValue(
-        "writeAccountNumber",
-        initialValues.transferAccountNumber,
-      );
+    if (formik.values.accountStatus === accountOriginTypeDM.REGISTERED.id) {
+      let bankEntity = "";
+      let accountType = "";
+      let accountNumber = "";
+      if (transferAccountValues) {
+        bankEntity = transferAccountValues.transferBankEntity || "";
+        accountType = transferAccountValues.transferAccountType || "";
+        accountNumber = transferAccountValues.transferAccountNumber || "";
+      } else {
+        const userData = await getCustomer(user.identification, accessToken);
+        if (!userData) return;
+        bankEntity = userData.bankTransfersAccount.bankEntity;
+        accountType = userData.bankTransfersAccount.accountType;
+        accountNumber = userData.bankTransfersAccount.accountNumber;
+      }
+
+      formik.setFieldValue("entity", bankEntity);
+      formik.setFieldValue("accountType", accountType);
+      formik.setFieldValue("writeAccountNumber", accountNumber);
     } else {
       formik.setFieldValue("entity", "");
       formik.setFieldValue("accountType", "");
       formik.setFieldValue("writeAccountNumber", "");
     }
+  };
+
+  useEffect(() => {
+    changeAccountStatus();
   }, [formik.values.accountStatus]);
 
   const customHandleChange = (
@@ -135,17 +163,29 @@ const DisbursementForm = forwardRef(function DisbursementForm(
         disbursementName: disbursement.value,
       };
 
+      if (
+        disbursement.id === disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id &&
+        savings.savingsAccounts.length > 0
+      ) {
+        updatedFormikValues = {
+          ...updatedFormikValues,
+          accountNumber: savings.savingsAccounts[0].id,
+        };
+      }
+
       formik.setValues(updatedFormikValues);
     } else {
       formik.setFieldValue(name, value);
     }
 
+    const updatedFormik = {
+      ...formik,
+      values: updatedFormikValues,
+    };
+
     const { renderFields, validationSchema } = generateDynamicForm(
-      {
-        ...formik,
-        values: updatedFormikValues,
-      },
-      structureDisbursementForm(formik, savings.savingsAccounts),
+      updatedFormik,
+      structureDisbursementForm(updatedFormik, savings.savingsAccounts),
     );
 
     setDynamicForm({
@@ -158,8 +198,8 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     <DisbursementFormUI
       loading={loading}
       formik={formik}
-      customHandleChange={customHandleChange}
       renderFields={dynamicForm.renderFields}
+      customHandleChange={customHandleChange}
     />
   );
 });

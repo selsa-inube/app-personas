@@ -8,8 +8,10 @@ import { equalArraysByProperty } from "src/utils/arrays";
 import { MyRequestsUI } from "./interface";
 
 const limitRequests = 5;
+const refreshSeconds = 30;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
+let countdownInterval: ReturnType<typeof setInterval> | null = null;
 
 function MyRequests() {
   const [loading, setLoading] = useState(false);
@@ -17,6 +19,8 @@ function MyRequests() {
   const [noMoreRequests, setNoMoreRequests] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const [refreshTime, setRefreshTime] = useState(refreshSeconds);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,20 +30,44 @@ function MyRequests() {
       if (refreshInterval) {
         clearInterval(refreshInterval);
       }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
     };
   }, [user, accessToken]);
+
+  const startCountdown = () => {
+    setRefreshTime(refreshSeconds);
+
+    countdownInterval = setInterval(() => {
+      setRefreshTime((prevTime) => {
+        if (prevTime <= 1 && countdownInterval) {
+          clearInterval(countdownInterval);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+  };
 
   const handleRefreshHistory = () => {
     if (refreshInterval) {
       clearInterval(refreshInterval);
     }
 
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+    }
+
     const limit = requests.length > 0 ? requests.length : limitRequests;
 
     handleGetRequests(1, limit, true);
 
+    startCountdown();
+
     refreshInterval = setInterval(() => {
       handleGetRequests(1, limit, true);
+      startCountdown();
     }, 60000);
   };
 
@@ -99,8 +127,10 @@ function MyRequests() {
       requests={requests}
       loading={loading}
       noMoreRequests={noMoreRequests}
+      refreshTime={refreshTime}
       onAddRequests={handleAddRequests}
       goToRequest={goToRequest}
+      onRefresh={handleRefreshHistory}
     />
   );
 }

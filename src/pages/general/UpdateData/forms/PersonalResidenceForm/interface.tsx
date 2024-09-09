@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
@@ -11,6 +10,7 @@ import { relationshipDM } from "src/model/domains/general/updateData/personalRes
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
 import { getFieldState } from "src/utils/forms/forms";
+import { Button } from "@inubekit/button";
 
 interface PersonalResidenceFormUIProps {
   formik: FormikValues;

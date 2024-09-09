@@ -1,9 +1,7 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Table } from "@design/data/Table";
-import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
-import { Switch } from "@design/input/Switch";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -19,6 +17,8 @@ import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles } from "./config/table";
 import { IConditionsEntry } from "./types";
 import { Fieldset } from "@inubekit/fieldset";
+import { Toggle } from "@inubekit/toggle";
+import { Button } from "@inubekit/button";
 
 interface ConditionsFormUIProps {
   formik: FormikProps<IConditionsEntry>;
@@ -128,8 +128,7 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                       : `${inube.spacing.s050} ${inube.spacing.s200}`
                   }
                 >
-                  <Switch
-                    label="Prefiero ingresar la fecha"
+                  <Toggle
                     id="simulationWithDate"
                     name="simulationWithDate"
                     onChange={customHandleChange}
@@ -137,14 +136,16 @@ function ConditionsFormUI(props: ConditionsFormUIProps) {
                     margin="0"
                     padding="0"
                     size="large"
-                  />
+                  >
+                    Prefiero ingresar la fecha
+                  </Toggle>
                 </Stack>
                 <Stack width="100%" justifyContent="flex-end">
                   <Button
                     variant="outlined"
                     spacing="compact"
                     onClick={simulateCDAT}
-                    load={loadingSimulation}
+                    loading={loadingSimulation}
                     disabled={
                       !formik.values.interestPayment ||
                       (!formik.values.deadlineDays &&

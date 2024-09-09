@@ -1,4 +1,3 @@
-import { Button } from "@design/input/Button";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Icon } from "@inubekit/icon";
@@ -13,6 +12,7 @@ import {
 } from "./styles";
 import { IStep } from "./types";
 import { Text } from "@inubekit/text";
+import { Button } from "@inubekit/button";
 
 interface AssistedUIProps {
   steps: IStep[];

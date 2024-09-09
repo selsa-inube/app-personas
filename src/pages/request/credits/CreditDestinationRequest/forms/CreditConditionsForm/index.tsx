@@ -16,6 +16,7 @@ import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCa
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
 import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
 import { initialMessageState } from "src/utils/messages";
+import { simulatedTypeTabs } from "./config/tabs";
 import { CreditConditionsFormUI } from "./interface";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
 import {
@@ -230,38 +231,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   ) => {
     formik.setFieldValue("hasResult", false);
     formik.handleChange(event);
-
-    if (event.target.name === "simulationWithQuota") {
-      const checked = "checked" in event.target && event.target.checked;
-
-      if (checked) {
-        formik.setFormikState((state) => {
-          return {
-            ...state,
-            touched: {
-              ...state.touched,
-              quota: false,
-            },
-          };
-        });
-      }
-
-      formik.setFieldValue("quota", "");
-      formik.setFieldValue("deadline", "");
-      formik.setFieldValue("rate", "");
-      formik.setFieldValue("netValue", "");
-      formik.setFieldValue("hasResult", false);
-
-      formik.setFormikState((state) => {
-        return {
-          ...state,
-          touched: {
-            ...state.touched,
-            deadline: false,
-          },
-        };
-      });
-    }
   };
 
   const handleToggleDisbursementModal = () => {
@@ -273,6 +242,41 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
 
   const handleCloseMessage = () => {
     setMessage(initialMessageState);
+  };
+
+  const handleTabChange = (tabId: string) => {
+    formik.setFieldValue(
+      "simulationWithQuota",
+      tabId === simulatedTypeTabs.simulatedWithQuota.id,
+    );
+
+    if (tabId === "simulatedWithQuota") {
+      formik.setFormikState((state) => {
+        return {
+          ...state,
+          touched: {
+            ...state.touched,
+            quota: false,
+          },
+        };
+      });
+    }
+
+    formik.setFieldValue("quota", "");
+    formik.setFieldValue("deadline", "");
+    formik.setFieldValue("rate", "");
+    formik.setFieldValue("netValue", "");
+    formik.setFieldValue("hasResult", false);
+
+    formik.setFormikState((state) => {
+      return {
+        ...state,
+        touched: {
+          ...state.touched,
+          deadline: false,
+        },
+      };
+    });
   };
 
   const periodicityOptions = formik.values.periodicities.map((periodicity) => {
@@ -297,6 +301,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       onChangePaymentMethod={handleChangePaymentMethod}
       onChangePeriodicity={handleChangePeriodicity}
       handleCloseMessage={handleCloseMessage}
+      onTabChange={handleTabChange}
     />
   );
 });
