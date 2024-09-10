@@ -118,6 +118,8 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
           icon: <MdOutlineSentimentNeutral />,
           appearance: "danger",
         });
+
+        setTempFiles((prev) => prev.filter((tempfile) => tempfile.id !== id));
       }
     }
   };
