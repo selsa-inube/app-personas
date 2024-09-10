@@ -65,7 +65,7 @@ const renderCreditConditionsVerification = (
         <BoxAttribute label="Numero de cuotas:" value={values.deadline} />
         <BoxAttribute
           label="Tasa de interés:"
-          value={`${values.rate} % N.A.M.V`}
+          value={`${values.rate.toFixed(2)} % N.A.M.V`}
         />
         <BoxAttribute
           label="Desembolso aproximado:"
