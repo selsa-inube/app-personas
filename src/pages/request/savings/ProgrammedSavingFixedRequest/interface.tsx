@@ -1,7 +1,6 @@
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -20,6 +19,7 @@ import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderStepContent = (
   currentStep: number,
@@ -111,10 +111,20 @@ function ProgrammedSavingFixedRequestUI(
     handlePreviousStep,
   } = props;
 
+  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
 
   return (
-    <>
+    <Stack
+      direction="column"
+      gap={
+        isMobile
+          ? inube.spacing.s300
+          : isTablet
+            ? inube.spacing.s500
+            : inube.spacing.s600
+      }
+    >
       <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsProgrammedSavingFixedRequest} />
         <Title
@@ -168,7 +178,7 @@ function ProgrammedSavingFixedRequestUI(
           </Stack>
         </Stack>
       </Stack>
-    </>
+    </Stack>
   );
 }
 

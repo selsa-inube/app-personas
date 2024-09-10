@@ -1,6 +1,6 @@
-import { IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
+import { IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
 
-const crumbsPaymentOptions: IBreadcrumbItem[] = [
+const crumbsPaymentOptions: IBreadcrumbsRoute[] = [
   {
     id: "home",
     path: "/",

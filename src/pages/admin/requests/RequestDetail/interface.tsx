@@ -3,7 +3,6 @@ import { ValidationCard } from "@components/cards/ValidationCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Grid } from "@inubekit/grid";
@@ -16,6 +15,7 @@ import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { crumbsRequest } from "./config/navigation";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
   <Stack direction="column" gap={inube.spacing.s075}>

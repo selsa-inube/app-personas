@@ -9,7 +9,6 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 
 import { Title } from "@design/data/Title";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { IProduct } from "src/model/entity/product";
 import { myCredits } from "./config/boxes";
@@ -22,6 +21,7 @@ import {
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface MyCreditsUIProps {
   loading: boolean;

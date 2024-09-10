@@ -1,7 +1,7 @@
-import { IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
+import { IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
 import { IDomainType } from "@ptypes/domain.types";
 
-const crumbsAidRequest = (aidType: IDomainType): IBreadcrumbItem[] => [
+const crumbsAidRequest = (aidType: IDomainType): IBreadcrumbsRoute[] => [
   {
     id: "home",
     path: "/",

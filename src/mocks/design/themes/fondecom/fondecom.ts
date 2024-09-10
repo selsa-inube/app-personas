@@ -149,11 +149,6 @@ const fondecomTheme = {
       },
     },
   },
-  breadcrumbs: {
-    content: {
-      active: "fondecom.breadcrumbs.content.active",
-    },
-  },
   blanket: {
     background: {
       color: palette.neutralAlpha.n100a,
