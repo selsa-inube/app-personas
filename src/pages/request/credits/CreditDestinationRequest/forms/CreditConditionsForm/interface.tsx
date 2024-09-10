@@ -9,6 +9,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
+import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Tabs } from "@inubekit/tabs";
@@ -24,7 +25,6 @@ import {
 import { getFieldState } from "src/utils/forms/forms";
 import { simulatedTypeTabs } from "./config/tabs";
 import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
-import { Fieldset } from "@inubekit/fieldset";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
@@ -270,6 +270,9 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         onClick={simulateCredit}
                         loading={loadingSimulation}
                         disabled={
+                          !!formik.errors.amount ||
+                          !!formik.errors.paymentMethod ||
+                          !!formik.errors.periodicity ||
                           !formik.values.amount ||
                           !formik.values.paymentMethod?.id ||
                           formik.values.periodicity.id === "" ||
@@ -310,7 +313,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       />
                       <BoxAttribute
                         label="Tasa de interés:"
-                        value={`${formik.values.rate} % N.A.M.V`}
+                        value={`${formik.values.rate.toFixed(2)} % N.A.M.V`}
                       />
                       <BoxAttribute
                         label="Desembolso aproximado:"

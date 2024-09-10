@@ -13,8 +13,10 @@ const validationSchema = Yup.object({
   deadlineTerm: Yup.number()
     .min(1, validationMessages.minNumbers(10))
     .max(1000, validationMessages.maxNumbers(1000)),
+  paymentMethod: Yup.object().required(validationMessages.required),
+  periodicity: Yup.object().required(validationMessages.required),
   quota: validationRules.money,
-  interestRate: Yup.number(),
+  rate: Yup.number(),
   anticipatedInterest: Yup.number(),
   netValue: Yup.number(),
   hasResult: Yup.boolean(),
