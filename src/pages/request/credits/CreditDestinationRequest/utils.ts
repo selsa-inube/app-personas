@@ -152,12 +152,7 @@ const sendCreditRequest = async (
   accessToken: string,
   navigate: NavigateFunction,
 ) => {
-  const comments = `${creditRequest.comments.values.comments}
-    Datos de contacto:
-    Celular: ${creditRequest.contactChannels.values.cellPhone}
-    Correo: ${creditRequest.contactChannels.values.email}
-    Teléfono: ${creditRequest.contactChannels.values.landlinePhone}
-  `;
+  const comments = `${creditRequest.comments.values.comments} - Datos de contacto: Celular: ${creditRequest.contactChannels.values.cellPhone} Correo: ${creditRequest.contactChannels.values.email} Teléfono: ${creditRequest.contactChannels.values.landlinePhone}`;
 
   const creditRequestData: IRequestCreditRequest = {
     comments,
