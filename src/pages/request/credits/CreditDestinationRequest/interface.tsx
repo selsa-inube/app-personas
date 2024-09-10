@@ -141,6 +141,7 @@ interface CreditDestinationRequestUIProps {
   handleNextStep: () => void;
   handlePreviousStep: () => void;
   onCloseMessage: () => void;
+  onLeaveRequest: () => void;
 }
 
 function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
@@ -159,6 +160,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
     handleNextStep,
     handlePreviousStep,
     onCloseMessage,
+    onLeaveRequest,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -251,7 +253,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
           cancelText="Continuar"
           actionText="Salir"
           onCloseModal={() => blocker.reset()}
-          onClick={() => blocker.proceed()}
+          onClick={onLeaveRequest}
           portalId="modals"
         />
       )}

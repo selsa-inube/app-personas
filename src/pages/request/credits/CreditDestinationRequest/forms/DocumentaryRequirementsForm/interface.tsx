@@ -3,6 +3,7 @@ import { AttachDocumentModal } from "@components/modals/general/AttachDocumentMo
 import { InfoModal } from "@components/modals/general/InfoModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
@@ -17,7 +18,6 @@ import {
 import { ISelectedDocument } from "src/model/entity/service";
 import { truncateFileName } from "src/utils/texts";
 import { IDocumentaryRequirementsEntry } from "./types";
-import { Button } from "@inubekit/button";
 
 function renderRequirement(
   key: number,
@@ -26,7 +26,7 @@ function renderRequirement(
   documentType: string,
   selectedDocuments: ISelectedDocument[],
   onAttachDocument: (requirementId: string, documentType: string) => void,
-  onRemove: (id: string) => void,
+  onRemove: (id: string, documentType?: string, sequence?: number) => void,
 ) {
   const selectedFiles = selectedDocuments.filter(
     (doc) => doc.requirementId === requirementId,
@@ -91,7 +91,13 @@ function renderRequirement(
                   size="20px"
                   spacing="narrow"
                   cursorHover
-                  onClick={() => onRemove(document.id)}
+                  onClick={() =>
+                    onRemove(
+                      document.id,
+                      document.documentType,
+                      document.sequence,
+                    )
+                  }
                 />
               </Stack>
             </Stack>
@@ -112,7 +118,11 @@ interface DocumentaryRequirementsFormUIProps {
     documentType: string;
   };
   onSelectDocument: (document: ISelectedDocument) => void;
-  onRemoveDocument: (id: string) => void;
+  onRemoveDocument: (
+    id: string,
+    documentType?: string,
+    sequence?: number,
+  ) => void;
   onToggleInfoModal: () => void;
   onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;

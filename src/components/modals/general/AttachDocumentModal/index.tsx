@@ -5,6 +5,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { Blanket } from "@inubekit/blanket";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
@@ -19,11 +20,11 @@ import {
   MdOutlineSentimentNeutral,
 } from "react-icons/md";
 import { ISelectedDocument } from "src/model/entity/service";
+import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { saveDocument } from "src/services/iclient/documents/saveDocument";
 import { ISaveDocumentRequest } from "src/services/iclient/documents/saveDocument/types";
 import { initialMessageState } from "src/utils/messages";
 import { StyledModal } from "./styles";
-import { Button } from "@inubekit/button";
 
 interface ITempFile extends ISelectedDocument {
   loading?: boolean;
@@ -121,8 +122,18 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
     }
   };
 
-  const handleRemoveDocument = (id: string) => {
-    setTempFiles(tempfiles.filter((file) => file.id !== id));
+  const handleRemoveDocument = (delFile: ITempFile) => {
+    setTempFiles(tempfiles.filter((file) => file.id !== delFile.id));
+
+    if (!accessToken || !delFile.documentType || !delFile.sequence) return;
+
+    removeDocument(
+      {
+        documentType: delFile.documentType,
+        sequence: delFile.sequence,
+      },
+      accessToken,
+    );
   };
 
   const handleAttachDocuments = () => {
@@ -194,7 +205,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
                     name={file.file.name}
                     size={file.file.size}
                     loading={file.loading}
-                    onRemove={handleRemoveDocument}
+                    onRemove={() => handleRemoveDocument(file)}
                   />
                 ))}
               </Grid>

@@ -1,6 +1,8 @@
+import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { ISelectedDocument } from "src/model/entity/service";
+import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { DocumentaryRequirementsFormUI } from "./interface";
 import { IDocumentaryRequirementsEntry } from "./types";
 
@@ -24,6 +26,7 @@ const DocumentaryRequirementsForm = forwardRef(
       requirementId: "",
       documentType: "",
     });
+    const { accessToken } = useAuth();
 
     const formik = useFormik({
       initialValues,
@@ -40,12 +43,26 @@ const DocumentaryRequirementsForm = forwardRef(
       ]);
     };
 
-    const handleRemoveDocument = (id: string) => {
+    const handleRemoveDocument = (
+      id: string,
+      documentType?: string,
+      sequence?: number,
+    ) => {
       formik.setFieldValue(
         "selectedDocuments",
         formik.values.selectedDocuments.filter(
           (document) => document.id !== id,
         ),
+      );
+
+      if (!accessToken || !documentType || !sequence) return;
+
+      removeDocument(
+        {
+          documentType,
+          sequence,
+        },
+        accessToken,
       );
     };
 
