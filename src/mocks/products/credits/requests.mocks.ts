@@ -140,7 +140,7 @@ const requestsMock: IRequest[] = [
     requestDate: new Date("2024-06-20T01:33:00.000Z"),
     description:
       "Crédito por destinación 41-241000098 Emp: FONDO DE EMPLEADOS DE LA CAJA DE COMPENSACION FAMILIAR DEL VALLE DEL CAUCA",
-    status: requestStatusDM.PENDING.id,
+    status: requestStatusDM.RECEIVED.id,
     value: 5000000,
     quotaValue: 15000,
     periodicity: "Mensual",
@@ -148,7 +148,7 @@ const requestsMock: IRequest[] = [
     interestRate: 2.84,
     netValue: 4750000,
     tag: {
-      label: requestStatusDM.PENDING.value,
+      label: requestStatusDM.RECEIVED.value,
       appearance: "warning",
     },
     validations: [
