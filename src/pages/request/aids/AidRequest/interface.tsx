@@ -4,7 +4,6 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -23,6 +22,7 @@ import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm
 import { RegulationValidationsForm } from "./forms/RegulationValidationsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderStepContent = (
   currentStep: number,

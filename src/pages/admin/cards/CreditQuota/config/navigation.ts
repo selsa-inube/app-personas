@@ -1,9 +1,9 @@
-import { IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
+import { IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
 
 const crumbsCreditQuota = (
   card_id?: string,
   credit_quota_id?: string,
-): IBreadcrumbItem[] => [
+): IBreadcrumbsRoute[] => [
   {
     id: "home",
     path: "/",

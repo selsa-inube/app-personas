@@ -2,7 +2,6 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Divider } from "@inubekit/divider";
@@ -16,6 +15,7 @@ import { generateAttributes } from "./config/attributeRecord";
 import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
 import { Button } from "@inubekit/button";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];

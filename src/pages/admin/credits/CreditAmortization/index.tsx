@@ -6,7 +6,6 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
@@ -33,6 +32,7 @@ import {
 } from "./utilRenders";
 import { validateCreditsAndAmortization } from "./utils";
 import { Button } from "@inubekit/button";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 function CreditAmortization() {
   const { credit_id } = useParams();

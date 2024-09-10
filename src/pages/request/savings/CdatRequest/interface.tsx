@@ -4,7 +4,6 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -25,6 +24,7 @@ import { SystemValidationsForm } from "./forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderStepContent = (
   currentStep: number,

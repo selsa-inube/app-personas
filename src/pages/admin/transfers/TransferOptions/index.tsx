@@ -5,7 +5,6 @@ import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
@@ -22,6 +21,7 @@ import { sendTransferRequest } from "./utils";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 function TransferOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");

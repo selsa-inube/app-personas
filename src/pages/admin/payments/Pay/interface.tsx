@@ -4,7 +4,6 @@ import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
@@ -20,6 +19,7 @@ import { IFormsPay, IFormsPayRefs } from "./types";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderStepContent = (
   currentStep: number,
