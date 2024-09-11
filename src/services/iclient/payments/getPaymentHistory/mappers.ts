@@ -15,7 +15,8 @@ const paymentStatusAppearance: Record<string, ITag["appearance"]> = {
   RejectedPSE: "danger",
   InProgressLinix: "warning",
   Completed: "success",
-  RejectedLinix: "danger",
+  StuckInPSE: "warning",
+  BlockedInPSE: "warning",
 };
 
 const mapPaymentHistoryApiToEntity = (
