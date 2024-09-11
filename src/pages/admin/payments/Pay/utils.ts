@@ -101,7 +101,7 @@ const sendPaymentRequest = async (
     );
 
     if (!hasPSEMethod && hasSavingAccountMethod) {
-      navigate("/payments/history");
+      navigate("/payments/history?success_request=true");
       return;
     }
 

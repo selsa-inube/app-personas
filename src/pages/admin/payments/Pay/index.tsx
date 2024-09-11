@@ -143,7 +143,8 @@ function Pay() {
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      currentLocation.pathname !== nextLocation.pathname,
+      currentLocation.pathname !== nextLocation.pathname &&
+      !nextLocation.search.includes("?success_request=true"),
   );
 
   const handleStepChange = (stepId: number) => {
