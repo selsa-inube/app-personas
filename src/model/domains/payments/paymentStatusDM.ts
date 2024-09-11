@@ -17,9 +17,13 @@ const paymentStatusDataDomain = {
     id: "Completed",
     value: "Completado",
   },
-  REJECTED: {
-    id: "RejectedLinix",
-    value: "Rechazado",
+  STUCK_IN_PSE: {
+    id: "StuckInPSE",
+    value: "En progreso",
+  },
+  BLOCKED_IN_PSE: {
+    id: "BlockedInPSE",
+    value: "En progreso",
   },
 };
 
