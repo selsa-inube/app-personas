@@ -30,8 +30,8 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
     return (
       <Stack width="100%">
         <Text type="label" size="large" appearance="gray" weight="bold">
-          Actualmente no requieres de validaciones. Puede continuar con el
-          siguiente paso de navegación.
+          Actualmente no hay validaciones por realizar en el sistema. Puedes
+          continuar con el siguiente paso de navegación.
         </Text>
       </Stack>
     );

@@ -4,11 +4,11 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { IRequest } from "src/model/entity/request";
@@ -16,7 +16,6 @@ import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsMyRequests } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface MyRequestsUIProps {
   requests: IRequest[];
@@ -73,11 +72,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
         }
       >
         <Stack direction="column" gap={inube.spacing.s300}>
-          <Stack justifyContent="space-between" alignItems="center">
-            <Text type="title" size="medium">
-              Tus solicitudes más recientes
-            </Text>
-
+          <Stack justifyContent="flex-end" alignItems="center">
             <Button
               appearance="primary"
               variant="outlined"

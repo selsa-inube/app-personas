@@ -30,12 +30,13 @@ function RegulationValidationsFormUI(props: RegulationValidationsFormUIProps) {
     return (
       <Stack width="100%">
         <Text type="label" size="large" appearance="gray">
-          Actualmente no requieres de validaciones. Puede continuar con el
-          siguiente paso de navegación.
+          Actualmente no hay validaciones por realizar en el sistema. Puedes
+          continuar con el siguiente paso de navegación.
         </Text>
       </Stack>
     );
   }
+
 
   return (
     <Stack direction="column" gap={inube.spacing.s400}>
