@@ -5,6 +5,7 @@ import { AppContext } from "src/context/app";
 import { RequestsContext } from "src/context/requests";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
+import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { RequestDetailUI } from "./interface";
 import { validateRequest } from "./utils";
 
@@ -45,6 +46,30 @@ function RequestDetail() {
     handleSortRequest();
   }, [accessToken, user, request_id]);
 
+  const handleSelectDocument = async (document: ISelectedDocument) => {
+    setSelectedDocuments([...selectedDocuments, document]);
+  };
+
+  const handleRemoveDocument = (
+    id: string,
+    documentType?: string,
+    sequence?: number,
+  ) => {
+    setSelectedDocuments(
+      selectedDocuments.filter((document) => document.id !== id),
+    );
+
+    if (!accessToken || !documentType || !sequence) return;
+
+    removeDocument(
+      {
+        documentType,
+        sequence,
+      },
+      accessToken,
+    );
+  };
+
   const handleOpenAttachModal = (
     requirementId: string,
     documentType: string,
@@ -64,10 +89,6 @@ function RequestDetail() {
     });
   };
 
-  const handleSelectDocument = async (document: ISelectedDocument) => {
-    setSelectedDocuments([...selectedDocuments, document]);
-  };
-
   if (!selectedRequest) return null;
 
   return (
@@ -80,6 +101,7 @@ function RequestDetail() {
       onOpenAttachModal={handleOpenAttachModal}
       onCloseAttachModal={handleCloseAttachModal}
       onSelectDocument={handleSelectDocument}
+      onRemoveDocument={handleRemoveDocument}
     />
   );
 }

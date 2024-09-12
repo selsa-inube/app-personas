@@ -3,9 +3,12 @@ import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { IRequest } from "src/model/entity/request";
-import { IValidation, ValidationValueType } from "src/model/entity/service";
+import {
+  ISelectedDocument,
+  IValidation,
+  ValidationValueType,
+} from "src/model/entity/service";
 import { capitalizeText, correctSpecialCharacters } from "src/utils/texts";
-import { IRequirementResponse } from "../../credits/getRequirements/types";
 
 const requestStatusAppearance: Record<string, ITag["appearance"]> = {
   Received: "warning",
@@ -26,8 +29,8 @@ const requestDescriptions: Record<string, string> = {
   credit: "Solicitud de crédito",
 };
 
-const mapRequirementApiToEntity = (
-  requirement: Record<string, string | number | object>,
+const mapValidationApiToEntity = (
+  validation: Record<string, string | number | object>,
 ): IValidation => {
   const resultValues: Record<string, ValidationValueType> = {
     CUMPLE: "success",
@@ -35,25 +38,41 @@ const mapRequirementApiToEntity = (
   };
 
   return {
-    id: String(requirement.requirementCode),
+    id: String(validation.requirementCode),
     label: capitalizeText(
-      correctSpecialCharacters(String(requirement.requirementName)),
+      correctSpecialCharacters(String(validation.requirementName)),
     ),
-    failDetails: requirement.errorDescription
+    failDetails: validation.errorDescription
       ? capitalizeText(
-          correctSpecialCharacters(String(requirement.errorDescription)),
+          correctSpecialCharacters(String(validation.errorDescription)),
         )
       : "",
-    value: resultValues[String(requirement.responseCode)] || "pending",
-    documentType: requirement.documentTypeCode
-      ? String(requirement.documentTypeCode)
-      : undefined,
+    value: resultValues[String(validation.responseCode)] || "pending",
+  };
+};
+
+const mapDocumentApiToEntity = (
+  document: Record<string, string | number | object>,
+): ISelectedDocument => {
+  const fileType = String(document.documentType).split(".")[1];
+
+  return {
+    requirementId: String(document.documentTypeCode),
+    id: String(document.fileName),
+    file: new File([""], String(document.fileName), {
+      type: fileType,
+    }),
+    documentType: String(document.documentTypeCode),
+    sequence: Number(document.sequence),
   };
 };
 
 const mapRequirementsApiToEntities = (
   requirements: Record<string, string | number | object>[],
-): IRequirementResponse => {
+): {
+  validations: IValidation[];
+  documents: ISelectedDocument[];
+} => {
   const validations = Array.isArray(Object(requirements).validations)
     ? Object(requirements).validations
     : [];
@@ -65,11 +84,11 @@ const mapRequirementsApiToEntities = (
   return {
     validations: validations.map(
       (requirement: Record<string, string | number | object>) =>
-        mapRequirementApiToEntity(requirement),
+        mapValidationApiToEntity(requirement),
     ),
     documents: documents.map(
       (requirement: Record<string, string | number | object>) =>
-        mapRequirementApiToEntity(requirement),
+        mapDocumentApiToEntity(requirement),
     ),
   };
 };
@@ -119,7 +138,7 @@ const mapRequestApiToEntity = (
         requestStatusAppearance[Object(request.status).code] || "warning",
     },
     validations: requirements.validations,
-    documentaryRequirements: [],
+    documentaryRequirements: requirements.documents,
   };
 };
 

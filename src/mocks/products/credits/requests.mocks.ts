@@ -65,6 +65,7 @@ const requestsMock: IRequest[] = [
       id: document.id,
       requirementId: document.id,
       documentType: "113",
+      sequence: 1,
     })),
   },
   {

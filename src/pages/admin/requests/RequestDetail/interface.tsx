@@ -1,21 +1,29 @@
-import { FileCard } from "@components/cards/FileCard";
+import { OutlineCard } from "@components/cards/OutlineCard";
 import { ValidationCard } from "@components/cards/ValidationCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
-import { MdArrowBack } from "react-icons/md";
+import {
+  MdArrowBack,
+  MdDeleteOutline,
+  MdOutlineDescription,
+} from "react-icons/md";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
+import { truncateFileName } from "src/utils/texts";
 import { crumbsRequest } from "./config/navigation";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
   <Stack direction="column" gap={inube.spacing.s075}>
@@ -32,6 +40,95 @@ const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
   </Stack>
 );
 
+function renderDocument(
+  key: number,
+  label: string,
+  requirementId: string,
+  documentType: string,
+  selectedDocuments: ISelectedDocument[],
+  onAttachDocument: (requirementId: string, documentType: string) => void,
+  onRemove: (id: string, documentType?: string, sequence?: number) => void,
+) {
+  const selectedFiles = selectedDocuments.filter(
+    (doc) => doc.requirementId === requirementId,
+  );
+
+  return (
+    <OutlineCard key={requirementId}>
+      <Stack
+        padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
+        direction="column"
+        gap={inube.spacing.s150}
+        width="100%"
+      >
+        <Stack
+          justifyContent="space-between"
+          alignItems="center"
+          height="fit-content"
+        >
+          <Text type="label" size="large">
+            {label}
+          </Text>
+
+          <Button
+            variant="none"
+            onClick={() => onAttachDocument(requirementId, documentType)}
+            disabled
+          >
+            Adjuntar
+          </Button>
+        </Stack>
+
+        {selectedFiles.map((document) => (
+          <>
+            <Divider dashed />
+            <Stack gap={inube.spacing.s150} alignItems="center" width="100%">
+              <Icon
+                icon={<MdOutlineDescription />}
+                appearance="dark"
+                size="24px"
+                spacing="narrow"
+                cursorHover
+              />
+
+              <Stack
+                justifyContent="space-between"
+                width="100%"
+                alignItems="center"
+              >
+                <Stack direction="column" gap={inube.spacing.s050} width="100%">
+                  <Text type="label" size="medium">
+                    {truncateFileName(document.file.name, 20)}
+                  </Text>
+
+                  <Text type="body" size="small" appearance="gray">
+                    {(document.file.size / 1024).toFixed(2)} KB
+                  </Text>
+                </Stack>
+
+                <Icon
+                  icon={<MdDeleteOutline />}
+                  appearance="danger"
+                  size="20px"
+                  spacing="narrow"
+                  cursorHover
+                  onClick={() =>
+                    onRemove(
+                      document.id,
+                      document.documentType,
+                      document.sequence,
+                    )
+                  }
+                />
+              </Stack>
+            </Stack>
+          </>
+        ))}
+      </Stack>
+    </OutlineCard>
+  );
+}
+
 interface RequestUIProps {
   selectedRequest: IRequest;
   requestId?: string;
@@ -45,6 +142,11 @@ interface RequestUIProps {
   onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;
   onSelectDocument: (document: ISelectedDocument) => void;
+  onRemoveDocument: (
+    id: string,
+    documentType?: string,
+    sequence?: number,
+  ) => void;
 }
 
 function RequestDetailUI(props: RequestUIProps) {
@@ -54,8 +156,10 @@ function RequestDetailUI(props: RequestUIProps) {
     attachModal,
     maxFileSize,
     selectedDocuments,
+    onOpenAttachModal,
     onCloseAttachModal,
     onSelectDocument,
+    onRemoveDocument,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -149,6 +253,7 @@ function RequestDetailUI(props: RequestUIProps) {
               autoRows="auto"
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
               gap={inube.spacing.s200}
+              width="100%"
             >
               {selectedRequest.validations.map((validation) => (
                 <ValidationCard
@@ -171,34 +276,21 @@ function RequestDetailUI(props: RequestUIProps) {
               alignItems="flex-end"
               width="100%"
             >
-              <Stack direction="column" gap={inube.spacing.s150} width="100%">
-                <Text type="label" size="large" appearance="gray">
-                  Documentos adjuntos
-                </Text>
-
-                <Grid
-                  autoRows="auto"
-                  templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-                  gap={inube.spacing.s200}
-                >
-                  {selectedDocuments.map((document) => (
-                    <FileCard
-                      key={document.id}
-                      id={document.id}
-                      name={document.file.name}
-                      size={document.file.size}
-                    />
-                  ))}
-                </Grid>
+              <Stack gap={inube.spacing.s200} direction="column" width="100%">
+                {selectedRequest.documentaryRequirements.map(
+                  (document, index) =>
+                    document.documentType &&
+                    renderDocument(
+                      index,
+                      document.file.name,
+                      document.id,
+                      document.documentType,
+                      selectedDocuments,
+                      onOpenAttachModal,
+                      onRemoveDocument,
+                    ),
+                )}
               </Stack>
-
-              {/*  <Button
-                iconBefore={<MdOutlineAdd />}
-                variant="none"
-                onClick={() => onOpenAttachModal("")}
-              >
-                Adjuntar documento
-              </Button> */}
             </Stack>
           </Accordion>
         </Stack>
