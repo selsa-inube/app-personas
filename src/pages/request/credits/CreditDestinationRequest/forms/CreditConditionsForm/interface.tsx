@@ -24,13 +24,13 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { simulatedTypeTabs } from "./config/tabs";
-import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
+import { ICreditConditionsEntry } from "./types";
 
 interface CreditConditionsFormUIProps {
   formik: FormikProps<ICreditConditionsEntry>;
   loading?: boolean;
   loadingSimulation?: boolean;
-  disbursementModal: IDisbursementModalState;
+  showDisbursementModal: boolean;
   periodicityOptions: ISelectOption[];
   message: IMessage;
   simulateCredit: () => void;
@@ -50,7 +50,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     formik,
     loading,
     loadingSimulation,
-    disbursementModal,
+    showDisbursementModal,
     periodicityOptions,
     message,
     simulateCredit,
@@ -343,16 +343,15 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
         />
       )}
 
-      {disbursementModal.show && disbursementModal.data && (
+      {showDisbursementModal && (
         <CreditDisbursementModal
-          approximateValue={disbursementModal.data.approximateValue}
+          approximateValue={formik.values.netValue}
           portalId="modals"
           spec={{
-            amount: disbursementModal.data.spec.amount,
-            anticipatedInterest:
-              disbursementModal.data.spec.anticipatedInterest,
-            discounts: disbursementModal.data.spec.discounts,
-            charges: disbursementModal.data.spec.charges,
+            amount: formik.values.amount || 0,
+            anticipatedInterest: formik.values.anticipatedInterest,
+            discounts: formik.values.discounts,
+            charges: formik.values.charges,
           }}
           onCloseModal={onToggleDisbursementModal}
         />
