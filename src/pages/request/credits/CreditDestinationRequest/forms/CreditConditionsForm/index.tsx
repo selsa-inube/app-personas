@@ -18,7 +18,7 @@ import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCre
 import { initialMessageState } from "src/utils/messages";
 import { simulatedTypeTabs } from "./config/tabs";
 import { CreditConditionsFormUI } from "./interface";
-import { ICreditConditionsEntry, IDisbursementModalState } from "./types";
+import { ICreditConditionsEntry } from "./types";
 import {
   getInitialCreditContidionValidations,
   getPeriodicities,
@@ -45,19 +45,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   const { user } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
-  const [disbursementModal, setDisbursementModal] =
-    useState<IDisbursementModalState>({
-      show: false,
-      data: {
-        spec: {
-          amount: initialValues.amount || 0,
-          anticipatedInterest: initialValues.anticipatedInterest,
-          discounts: initialValues.discounts,
-          charges: initialValues.charges,
-        },
-        approximateValue: initialValues.netValue,
-      },
-    });
+  const [showDisbursementModal, setShowDisbursementModal] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -193,20 +181,13 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         formik.setFieldValue("rate", simulationResponse.rate / 12);
         formik.setFieldValue("deadline", simulationResponse.deadline);
         formik.setFieldValue("netValue", simulationResponse.netValue);
+        formik.setFieldValue(
+          "anticipatedInterest",
+          simulationResponse.anticipatedInterest,
+        );
+        formik.setFieldValue("discounts", simulationResponse.discountValue);
+        formik.setFieldValue("charges", simulationResponse.chargeValue);
         formik.setFieldValue("hasResult", true);
-
-        setDisbursementModal({
-          ...disbursementModal,
-          data: {
-            spec: {
-              amount: simulationResponse.amount,
-              anticipatedInterest: simulationResponse.anticipatedInterest,
-              discounts: simulationResponse.discountValue,
-              charges: simulationResponse.chargeValue,
-            },
-            approximateValue: simulationResponse.netValue,
-          },
-        });
       }
 
       onFormValid(true);
@@ -234,10 +215,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   };
 
   const handleToggleDisbursementModal = () => {
-    setDisbursementModal({
-      ...disbursementModal,
-      show: !disbursementModal.show,
-    });
+    setShowDisbursementModal(!showDisbursementModal);
   };
 
   const handleCloseMessage = () => {
@@ -291,7 +269,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       loading={loading}
       formik={formik}
       loadingSimulation={loadingSimulation}
-      disbursementModal={disbursementModal}
+      showDisbursementModal={showDisbursementModal}
       periodicityOptions={periodicityOptions}
       message={message}
       simulateCredit={simulateCredit}
