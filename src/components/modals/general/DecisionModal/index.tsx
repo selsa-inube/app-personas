@@ -1,13 +1,13 @@
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Button, IButtonAppearance } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
-import { Blanket } from "@inubekit/blanket";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { Button, IButtonAppearance } from "@inubekit/button";
 
 interface DecisionModalProps {
   title: string;
@@ -62,6 +62,7 @@ function DecisionModal(props: DecisionModalProps) {
           <Text
             type="title"
             appearance="dark"
+            weight="bold"
             size={isMobile ? "small" : "medium"}
           >
             {title}

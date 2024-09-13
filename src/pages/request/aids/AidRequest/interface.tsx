@@ -7,6 +7,7 @@ import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { IDomainType } from "@ptypes/domain.types";
@@ -22,7 +23,6 @@ import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm
 import { RegulationValidationsForm } from "./forms/RegulationValidationsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderStepContent = (
   currentStep: number,
@@ -213,8 +213,8 @@ function AidRequestUI(props: AidRequestUIProps) {
 
       {blocker.state === "blocked" && (
         <DecisionModal
-          title="Abandonar solicitud"
-          description="¿Estás seguro? Se perderá la solicitud en proceso."
+          title="Salir de la solicitud de auxilio"
+          description="¿Estás seguro? Se perderá todo el proceso de solicitud."
           cancelText="Continuar"
           actionText="Salir"
           onCloseModal={() => blocker.reset()}
