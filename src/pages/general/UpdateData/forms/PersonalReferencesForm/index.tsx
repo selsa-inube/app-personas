@@ -1,8 +1,7 @@
 import { IAction } from "@design/data/Table/types";
-import { EMessageType, IMessage } from "@ptypes/messages.types";
+import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { initialMessageState } from "src/utils/messages";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -11,6 +10,7 @@ import { EditReference } from "./EditReference";
 import { deleteReferenceMessages } from "./config/deleteReference.config";
 import { PersonalReferencesFormUI } from "./interface";
 import { IPersonalReferenceEntries } from "./types";
+import { useFlag } from "@inubekit/flag";
 
 const validationSchema = Yup.object({
   referenceType: Yup.string().required(validationMessages.required),
@@ -37,22 +37,7 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
   const { initialValues, loading, withSubmit, onSubmit } = props;
 
   const [showAddReferenceModal, setShowAddReferenceModal] = useState(false);
-  const [message, setMessage] = useState(initialMessageState);
-
-  const handleShowMessage = (message: IMessage) => {
-    const { title, description, icon, appearance } = message;
-    setMessage({
-      show: true,
-      title,
-      description,
-      icon,
-      appearance,
-    });
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
-  };
+  const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
@@ -134,14 +119,14 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
       formik.setFieldValue("entries", updatedReferences);
     }
 
-    const { icon, title, description, appearance } =
+    const { title, description, appearance } =
       deleteReferenceMessages[MessageType];
 
-    handleShowMessage({
+    addFlag({
       title,
       description: description(reference?.name),
-      icon,
       appearance,
+      duration: 3000,
     });
   };
 
@@ -174,8 +159,6 @@ const PersonalReferencesForm = forwardRef(function PersonalReferencesForm(
       personalReferencesTableActions={personalReferencesTableActions}
       loading={loading}
       withSubmit={withSubmit}
-      message={message}
-      onCloseMessage={handleCloseMessage}
       onToggleModal={handleToggleModal}
       onAddReference={handleAddReference}
     />

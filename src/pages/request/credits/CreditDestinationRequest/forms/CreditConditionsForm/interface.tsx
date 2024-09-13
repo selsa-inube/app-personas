@@ -1,7 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
@@ -14,7 +13,6 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Tabs } from "@inubekit/tabs";
 import { Text } from "@inubekit/text";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
 import {
@@ -32,7 +30,6 @@ interface CreditConditionsFormUIProps {
   loadingSimulation?: boolean;
   showDisbursementModal: boolean;
   periodicityOptions: ISelectOption[];
-  message: IMessage;
   simulateCredit: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -41,7 +38,6 @@ interface CreditConditionsFormUIProps {
   onChangePaymentMethod: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleDisbursementModal: () => void;
-  handleCloseMessage: () => void;
   onTabChange: (tabId: string) => void;
 }
 
@@ -52,14 +48,12 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     loadingSimulation,
     showDisbursementModal,
     periodicityOptions,
-    message,
     simulateCredit,
     customHandleChange,
     onFormValid,
     onChangePaymentMethod,
     onChangePeriodicity,
     onToggleDisbursementModal,
-    handleCloseMessage,
     onTabChange,
   } = props;
 
@@ -331,17 +325,6 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
           </Fieldset>
         </Stack>
       </form>
-
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={handleCloseMessage}
-          duration={5000}
-        />
-      )}
 
       {showDisbursementModal && (
         <CreditDisbursementModal

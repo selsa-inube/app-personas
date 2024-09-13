@@ -1,9 +1,7 @@
 import { FamilyMemberCreateModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberCreateModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { usersMock } from "@mocks/users/users.mocks";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
 import { mapFamilyGroups } from "../../config/mappers";
@@ -25,9 +23,7 @@ interface FamilyGroupFormUIProps {
   showAddMemberModal: boolean;
   loading?: boolean;
   withSubmit?: boolean;
-  message?: IMessage;
   familyGroupTableActions: IAction[];
-  onCloseMessage: () => void;
   onToggleModal: () => void;
   onAddMember: (
     identificationData: IIdentificationDataEntry,
@@ -44,10 +40,8 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
     familyGroupTableActions,
     loading,
     withSubmit,
-    message,
     onToggleModal,
     onAddMember,
-    onCloseMessage,
   } = props;
 
   const validateButtonActivation =
@@ -106,16 +100,6 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           portalId="modals"
           onCloseModal={onToggleModal}
           onAddMember={onAddMember}
-        />
-      )}
-      {message && message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          icon={message.icon}
-          appearance={message.appearance}
-          duration={3000}
-          onClose={onCloseMessage}
         />
       )}
     </>

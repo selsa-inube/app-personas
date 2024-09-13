@@ -1,6 +1,5 @@
 import { IDecisionModalOptions } from "@components/modals/general/DecisionModal/types";
 import { IMessageCases } from "@ptypes/messages.types";
-import { MdSentimentNeutral, MdThumbUpOffAlt } from "react-icons/md";
 
 const deleteFamilyMemberModal: IDecisionModalOptions = {
   title: "Eliminar familiar",
@@ -14,7 +13,6 @@ const deleteFamilyMemberModal: IDecisionModalOptions = {
 const deleteFamilyMemberMsgs: IMessageCases = {
   success: {
     id: 1,
-    icon: <MdThumbUpOffAlt size={18} />,
     title: "¡Familiar eliminado!",
     description: (member?: string) =>
       `Hemos eliminado el familiar "${member}" correctamente`,
@@ -22,7 +20,6 @@ const deleteFamilyMemberMsgs: IMessageCases = {
   },
   failed: {
     id: 2,
-    icon: <MdSentimentNeutral size={18} />,
     title: "¡Uy, algo salió mal!",
     description: (member?: string) =>
       `Hemos presentado problemas eliminando el familiar "${member}".`,

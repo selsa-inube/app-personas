@@ -1,6 +1,6 @@
 import { IAction } from "@design/data/Table/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { EMessageType, IMessage } from "@ptypes/messages.types";
+import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, FormikValues, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
@@ -17,6 +17,7 @@ import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
+import { useFlag } from "@inubekit/flag";
 
 const validationSchema = Yup.object().shape({
   firstName: familyGroupRequiredFields.firstName
@@ -100,8 +101,8 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
 ) {
   const { initialValues, loading, withSubmit, onSubmit } = props;
   const [dynamicSchema] = useState(validationSchema);
-  const [message, setMessage] = useState<IMessage>();
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
+  const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
@@ -111,21 +112,6 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   });
 
   useImperativeHandle(ref, () => formik);
-
-  const handleShowMessage = (message: IMessage) => {
-    const { title, description, icon, appearance } = message;
-    setMessage({
-      show: true,
-      title,
-      description,
-      icon,
-      appearance,
-    });
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(undefined);
-  };
 
   const handleDeleteMember = (memberId: string) => {
     let messageType = EMessageType.SUCCESS;
@@ -142,14 +128,14 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
       formik.setFieldValue("entries", updatedMembers);
     }
 
-    const { icon, title, description, appearance } =
+    const { title, description, appearance } =
       deleteFamilyMemberMsgs[messageType];
 
-    handleShowMessage({
+    addFlag({
       title,
       description: description(`${member?.firstName} ${member?.firstLastName}`),
-      icon,
       appearance,
+      duration: 13000,
     });
   };
 
@@ -292,12 +278,10 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   return (
     <FamilyGroupFormUI
       formik={formik}
-      message={message}
       familyGroupTableActions={familyGroupTableActions}
       showAddMemberModal={showAddMemberModal}
       loading={loading}
       withSubmit={withSubmit}
-      onCloseMessage={handleCloseMessage}
       onToggleModal={handleToggleModal}
       onAddMember={handleAddMember}
     />

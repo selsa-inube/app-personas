@@ -1,8 +1,6 @@
 import { ReferenceModal } from "@components/modals/general/updateData/ReferenceModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikValues } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
 import { mapPersonalReferences } from "../../config/mappers";
@@ -20,8 +18,6 @@ interface PersonalReferencesFormUIProps {
   personalReferencesTableActions: IAction[];
   loading?: boolean;
   withSubmit?: boolean;
-  message: IMessage;
-  onCloseMessage: () => void;
   onToggleModal: () => void;
   onAddReference: () => void;
 }
@@ -33,8 +29,6 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
     personalReferencesTableActions,
     loading,
     withSubmit,
-    message,
-    onCloseMessage,
     onToggleModal,
     onAddReference,
   } = props;
@@ -100,16 +94,6 @@ function PersonalReferencesFormUI(props: PersonalReferencesFormUIProps) {
           formik={formik}
           onCloseModal={onToggleModal}
           onConfirm={onAddReference}
-        />
-      )}
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          icon={message.icon}
-          appearance={message.appearance}
-          duration={3000}
-          onClose={onCloseMessage}
         />
       )}
     </>

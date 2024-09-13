@@ -1,9 +1,7 @@
 import { mapComments } from "@forms/CommentsForm/mappers";
 import { useAuth } from "@inube/auth";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { MdSentimentNeutral } from "react-icons/md";
 import { useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { IPayment } from "src/model/entity/payment";
@@ -11,7 +9,6 @@ import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
 import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
 import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
-import { initialMessageState } from "src/utils/messages";
 import { paySteps } from "./config/assisted";
 import { mapObligations, mapPaymentMethod } from "./config/mappers";
 import { IObligationsEntry } from "./forms/ObligationsForm/types";
@@ -19,6 +16,7 @@ import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { PayUI } from "./interface";
 import { IFormsPay, IFormsPayRefs } from "./types";
 import { payStepsRules, sendPaymentRequest } from "./utils";
+import { useFlag } from "@inubekit/flag";
 
 function Pay() {
   const [currentStep, setCurrentStep] = useState(paySteps.obligations.id);
@@ -27,9 +25,9 @@ function Pay() {
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [loadingSend, setLoadingSend] = useState(false);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const navigate = useNavigate();
   const { getFlag } = useContext(AppContext);
+  const { addFlag } = useFlag();
 
   const withNextValueOption = getFlag(
     "admin.payments.pay.next-value-payment",
@@ -181,13 +179,12 @@ function Pay() {
     setLoadingSend(true);
 
     sendPaymentRequest(user, pay, accessToken, navigate).catch(() => {
-      setMessage({
-        show: true,
+      addFlag({
         title: "El pago no pudo ser procesado",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        icon: <MdSentimentNeutral />,
         appearance: "danger",
+        duration: 5000,
       });
       setLoadingSend(false);
     });
@@ -205,10 +202,6 @@ function Pay() {
     handleStepChange(currentStep - 1);
   };
 
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
-  };
-
   return (
     <PayUI
       currentStep={currentStep}
@@ -217,14 +210,12 @@ function Pay() {
       steps={steps}
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
-      message={message}
       blocker={blocker}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
-      handleCloseMessage={handleCloseMessage}
     />
   );
 }

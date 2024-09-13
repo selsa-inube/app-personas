@@ -1,10 +1,8 @@
 import { DebtModal } from "@components/modals/general/updateData/DebtModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
 import { Stack } from "@inubekit/stack";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { MdOutlineAccountBalance } from "react-icons/md";
 import { mapPersonalDebts } from "../../config/mappers";
@@ -21,10 +19,8 @@ interface PersonalDebtsFormUIProps {
   personalDebtsTableActions: IAction[];
   loading?: boolean;
   withSubmit?: boolean;
-  message: IMessage;
   onAddDebt: () => void;
   onToggleModal: () => void;
-  onCloseMessage: () => void;
 }
 
 function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
@@ -34,8 +30,6 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
     personalDebtsTableActions,
     loading,
     withSubmit,
-    message,
-    onCloseMessage,
     onToggleModal,
     onAddDebt,
   } = props;
@@ -104,16 +98,6 @@ function PersonalDebtsFormUI(props: PersonalDebtsFormUIProps) {
           />
         )}
       </Stack>
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          icon={message.icon}
-          appearance={message.appearance}
-          duration={3000}
-          onClose={onCloseMessage}
-        />
-      )}
     </>
   );
 }

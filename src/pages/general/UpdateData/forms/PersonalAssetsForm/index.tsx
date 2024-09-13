@@ -1,8 +1,7 @@
 import { IAction } from "@design/data/Table/types";
-import { EMessageType, IMessage } from "@ptypes/messages.types";
+import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { initialMessageState } from "src/utils/messages";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -11,6 +10,7 @@ import { EditAsset } from "./EditAsset";
 import { deleteAssetMessages } from "./config/deleteAsset.config";
 import { PersonalAssetsFormUI } from "./interface";
 import { IPersonalAssetEntries } from "./types";
+import { useFlag } from "@inubekit/flag";
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),
@@ -35,22 +35,7 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
   const { initialValues, loading, withSubmit, onSubmit } = props;
 
   const [showAddAssetModal, setShowAddAssetModal] = useState(false);
-  const [message, setMessage] = useState(initialMessageState);
-
-  const handleShowMessage = (message: IMessage) => {
-    const { title, description, icon, appearance } = message;
-    setMessage({
-      show: true,
-      title,
-      description,
-      icon,
-      appearance,
-    });
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
-  };
+  const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
@@ -127,14 +112,13 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
       formik.setFieldValue("entries", updatedAssets);
     }
 
-    const { icon, title, description, appearance } =
-      deleteAssetMessages[MessageType];
+    const { title, description, appearance } = deleteAssetMessages[MessageType];
 
-    handleShowMessage({
+    addFlag({
       title,
       description: description(asset?.assetName),
-      icon,
       appearance,
+      duration: 3000,
     });
   };
 
@@ -165,10 +149,8 @@ const PersonalAssetsForm = forwardRef(function PersonalAssetsForm(
       personalAssetsTableActions={personalAssetsTableActions}
       loading={loading}
       withSubmit={withSubmit}
-      message={message}
       onToggleModal={handleToggleModal}
       onAddAsset={handleAddAsset}
-      onCloseMessage={handleCloseMessage}
     />
   );
 });
