@@ -1,12 +1,25 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Link } from "@inubekit/link";
+import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { Toggle } from "@inubekit/toggle";
 import { FormikProps } from "formik";
 import { StyledTermsAndConditionsContainer } from "./styles";
 import { ITermsAndConditionsEntry } from "./types";
-import { Toggle } from "@inubekit/toggle";
+
+function SkeletonText(props: { isMobile?: boolean }) {
+  const { isMobile } = props;
+  return (
+    <Stack direction="column" width="100%" gap={inube.spacing.s075}>
+      <SkeletonLine animated width="100%" />
+      <SkeletonLine animated width="100%" />
+      <SkeletonLine animated width="100%" />
+      <SkeletonLine animated width={isMobile ? "50%" : "15%"} />
+    </Stack>
+  );
+}
 
 const getTermsAndConditionsParag = (texts: string[]) => {
   return texts.map((text, index) => (
@@ -34,7 +47,16 @@ function TermsAndConditionsFormUI(props: TermsAndConditionsFormUIProps) {
         gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
       >
         <StyledTermsAndConditionsContainer $isMobile={isMobile}>
-          {getTermsAndConditionsParag(formik.values.termsConditions)}
+          {loading ? (
+            <Stack direction="column" gap={inube.spacing.s300}>
+              <SkeletonText isMobile={isMobile} />
+              <SkeletonText isMobile={isMobile} />
+              <SkeletonText isMobile={isMobile} />
+              <SkeletonText isMobile={isMobile} />
+            </Stack>
+          ) : (
+            getTermsAndConditionsParag(formik.values.termsConditions)
+          )}
         </StyledTermsAndConditionsContainer>
 
         <Stack
