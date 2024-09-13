@@ -6,6 +6,7 @@ const StyledCardContainer = styled.div`
   flex-direction: column;
   padding: ${inube.spacing.s250};
   gap: ${inube.spacing.s200};
+  justify-content: space-between;
   background-color: ${({ theme }) =>
     theme?.color?.surface?.light?.clear || inube.color.surface.light.clear};
   border-radius: ${inube.spacing.s100};
