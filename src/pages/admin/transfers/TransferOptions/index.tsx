@@ -8,6 +8,10 @@ import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { IMessage } from "@ptypes/messages.types";
 import { useContext, useEffect, useState } from "react";
 import { MdArrowBack, MdSentimentNeutral } from "react-icons/md";
@@ -18,10 +22,6 @@ import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { initialMessageState } from "src/utils/messages";
 import { crumbsTransferOptions } from "./config/navigation";
 import { sendTransferRequest } from "./utils";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 function TransferOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
