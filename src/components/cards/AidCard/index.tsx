@@ -34,7 +34,7 @@ function AidCard(props: AidCardProps) {
       </Stack>
 
       <Stack justifyContent="flex-end" width="100%">
-        <Button onClick={goToAid} variant="outlined" spacing="compact">
+        <Button onClick={goToAid} spacing="compact">
           Solicitar
         </Button>
       </Stack>
