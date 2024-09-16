@@ -22,15 +22,16 @@ interface DisbursementFormUIProps {
 function DisbursementFormUI(props: DisbursementFormUIProps) {
   const { formik, loading, customHandleChange, renderFields } = props;
 
-  const isTablet = useMediaQuery("(max-width: 900px)");
+  const isTablet = useMediaQuery("(max-width: 1100px)");
 
   return (
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
         <Grid
-          templateColumns="repeat(3, 1fr)"
+          templateColumns={`repeat(${isTablet ? 1 : 3}, 1fr)`}
           autoRows="auto"
           gap={inube.spacing.s300}
+          width="100%"
         >
           <Select
             name="disbursement"
