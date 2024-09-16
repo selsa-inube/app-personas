@@ -1,7 +1,7 @@
-import { FormikProps } from "formik";
-import { IDetailsSituationEntry } from "./types";
 import { Textarea } from "@design/input/Textarea";
+import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
+import { IDetailsSituationEntry } from "./types";
 
 interface DetailsSituationFormUIProps {
   formik: FormikProps<IDetailsSituationEntry>;
@@ -25,7 +25,6 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
         onChange={formik.handleChange}
         withCounter
         isFullWidth
-        isRequired
       />
     </form>
   );
