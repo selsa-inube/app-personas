@@ -1,5 +1,6 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Tag } from "@inubekit/tag";
@@ -10,7 +11,6 @@ import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { currencyFormat } from "src/utils/currency";
 import { StyledCardContainer, StyledInputRadio, StyledLabel } from "./styles";
-import { Button } from "@inubekit/button";
 
 interface PaymentMethodCardProps {
   moneySource: {
@@ -152,7 +152,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
             <Button
               onClick={handleRemove}
               variant="outlined"
-              disabled={moneySource.value === 0}
+              disabled={!isSaved}
               appearance="danger"
               spacing="compact"
               iconBefore={<MdOutlineDelete />}
