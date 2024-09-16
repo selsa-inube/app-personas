@@ -1,7 +1,11 @@
 import { inube } from "@design/tokens";
 import styled from "styled-components";
 
-const StyledLoadingCard = styled.div`
+interface IStyledLoadingCard {
+  $isMobile: boolean;
+}
+
+const StyledLoadingCard = styled.div<IStyledLoadingCard>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,9 +13,9 @@ const StyledLoadingCard = styled.div`
   background: ${({ theme }) =>
     theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
   border-radius: ${inube.spacing.s100};
-  gap: ${inube.spacing.s300};
+  gap: ${inube.spacing.s250};
   padding: ${inube.spacing.s300};
-  max-width: 450px;
+  max-width: ${({ $isMobile }) => ($isMobile ? "80%" : "450px")};
 `;
 
 export { StyledLoadingCard };
