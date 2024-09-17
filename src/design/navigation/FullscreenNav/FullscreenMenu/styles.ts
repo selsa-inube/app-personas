@@ -12,7 +12,6 @@ const StyledFullscreenNav = styled.nav`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 2;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: ${({ theme }) =>
