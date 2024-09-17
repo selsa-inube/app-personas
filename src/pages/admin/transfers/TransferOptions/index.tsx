@@ -7,6 +7,12 @@ import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
+import { useFlag } from "@inubekit/flag";
+import { IMessage } from "@ptypes/messages.types";
 import { useContext, useEffect, useState } from "react";
 import { MdArrowBack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -15,11 +21,6 @@ import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { crumbsTransferOptions } from "./config/navigation";
 import { sendTransferRequest } from "./utils";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { useFlag } from "@inubekit/flag";
 
 function TransferOptions() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");

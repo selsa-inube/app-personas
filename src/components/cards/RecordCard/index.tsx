@@ -1,5 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
@@ -123,28 +124,34 @@ function RecordCard(props: RecordCardProps) {
           </>
         ) : (
           <>
-            <Stack gap={inube.spacing.s100}>
-              {getIconForRecordType(type)}
-              <Stack gap={inube.spacing.s150}>
-                <Text type="label" size="medium" weight="bold">
-                  {`${getRecordDescriptionType(type, description)} ${description}`}
-                </Text>
-                {tag && !isMobile && (
-                  <Tag
-                    label={tag.label}
-                    appearance={tag.appearance}
-                    weight="normal"
-                  />
-                )}
+            <Stack wrap="wrap" gap={inube.spacing.s100}>
+              <Stack gap={inube.spacing.s100} alignItems="center">
+                {getIconForRecordType(type)}
+                <Stack gap={inube.spacing.s150}>
+                  <Text type="label" size="medium" weight="bold">
+                    {`${getRecordDescriptionType(type, description)} ${description}`}
+                  </Text>
+                  {tag && !isMobile && (
+                    <Tag
+                      label={tag.label}
+                      appearance={tag.appearance}
+                      weight="normal"
+                    />
+                  )}
+                </Stack>
               </Stack>
-            </Stack>
-            <Stack gap={inube.spacing.s150}>
-              {!isMobile && (
-                <Text type="label" size="medium" ellipsis>
-                  {formattedValue}
-                </Text>
+              {tag && isMobile && (
+                <Stack>
+                  <Tag label={tag.label} appearance={tag.appearance} />
+                </Stack>
               )}
-              {withExpandingIcon && (
+            </Stack>
+
+            <Stack gap={inube.spacing.s150}>
+              <Text type="label" size="medium" ellipsis weight="bold">
+                {formattedValue}
+              </Text>
+              {withExpandingIcon && !isMobile && (
                 <Icon
                   icon={<MdOpenInNew />}
                   appearance="primary"
@@ -167,7 +174,7 @@ function RecordCard(props: RecordCardProps) {
           </>
         ) : (
           attributes.map(
-            (attribute, index) =>
+            (attribute) =>
               attribute.value && (
                 <Stack key={attribute.id} justifyContent="space-between">
                   <Stack gap={inube.spacing.s075}>
@@ -180,22 +187,19 @@ function RecordCard(props: RecordCardProps) {
                         : attribute.value}
                     </Text>
                   </Stack>
-                  {index === 0 && tag && isMobile && (
-                    <Tag label={tag.label} appearance={tag.appearance} />
-                  )}
                 </Stack>
               ),
           )
         )}
       </Stack>
-      {isMobile && (
+      {isMobile && withExpandingIcon && (
         <Stack justifyContent="flex-end">
           {loading ? (
             <SkeletonLine animated width="80px" />
           ) : (
-            <Text type="label" size="medium">
-              {formattedValue}
-            </Text>
+            <Button variant="none" spacing="compact" onClick={handleClick}>
+              Ver detalles
+            </Button>
           )}
         </Stack>
       )}
