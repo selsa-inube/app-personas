@@ -12,7 +12,6 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useFlag } from "@inubekit/flag";
-import { IMessage } from "@ptypes/messages.types";
 import { useContext, useEffect, useState } from "react";
 import { MdArrowBack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
