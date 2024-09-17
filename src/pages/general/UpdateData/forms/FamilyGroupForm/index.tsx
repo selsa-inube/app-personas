@@ -135,7 +135,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
       title,
       description: description(`${member?.firstName} ${member?.firstLastName}`),
       appearance,
-      duration: 13000,
+      duration: 3000,
     });
   };
 
