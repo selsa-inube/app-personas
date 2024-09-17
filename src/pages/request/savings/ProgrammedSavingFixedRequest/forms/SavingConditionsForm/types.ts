@@ -1,20 +1,15 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { IDestinationProduct } from "@pages/request/credits/CreditDestinationRequest/forms/DestinationForm/types";
 import { IPeriodicity } from "src/model/entity/periodicity";
 
 interface ISavingConditionsEntry {
-  destination?: ISelectOption;
-  product: IDestinationProduct;
-  simulationWithQuota: boolean;
-  amount?: number;
   deadline?: number;
   quota?: number;
-  anticipatedInterest: number;
-  discounts: number;
-  charges: number;
-  minWarrantyRequired: string;
+  savingAmount: number;
+  yields: number;
+  withholdingTax: number;
+  gmf: number;
   netValue: number;
-  rate: number;
+  annualRate: number;
   hasResult: boolean;
   paymentMethod?: ISelectOption;
   paymentMethods: ISelectOption[];

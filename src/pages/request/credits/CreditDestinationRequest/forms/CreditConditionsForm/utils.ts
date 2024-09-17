@@ -10,7 +10,7 @@ import { ICreditConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
   amount: validationRules.money.required(validationMessages.required),
-  deadlineTerm: Yup.number()
+  deadline: Yup.number()
     .min(1, validationMessages.minNumbers(10))
     .max(1000, validationMessages.maxNumbers(1000)),
   paymentMethod: Yup.object().required(validationMessages.required),
@@ -33,7 +33,7 @@ const getInitialCreditConditionValidations = (
 
   return validationSchema.concat(
     Yup.object({
-      deadlineTerm: Yup.number()
+      deadline: Yup.number()
         .min(1, validationMessages.minNumbers(10))
         .max(
           maxDeadline || 0,
@@ -46,6 +46,9 @@ const getInitialCreditConditionValidations = (
           "Has superado el cupo máximo",
         )
         .required(validationMessages.required),
+
+      paymentMethod: Yup.object().required(validationMessages.required),
+      periodicity: Yup.object().required(validationMessages.required),
 
       netValue: withRecommendation
         ? Yup.number()

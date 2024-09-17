@@ -6,6 +6,7 @@ import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
+import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
@@ -20,7 +21,6 @@ import { AmountForm } from "./forms/AmountForm";
 import { BeneficiariesForm } from "./forms/BeneficiariesForm";
 import { DetailsSituationForm } from "./forms/DetailsSituationForm";
 import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
-import { RegulationValidationsForm } from "./forms/RegulationValidationsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 
@@ -57,10 +57,11 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.regulationValidations.id && (
-        <RegulationValidationsForm
-          initialValues={aidRequest.regulationValidations.values}
-          ref={formReferences.regulationValidations}
+      {currentStep === aidRequestSteps.systemValidations.id && (
+        <SystemValidationsForm
+          initialValues={aidRequest.systemValidations.values}
+          ref={formReferences.systemValidations}
+          disbursementValues={aidRequest.disbursement.values}
           onFormValid={setIsCurrentFormValid}
         />
       )}

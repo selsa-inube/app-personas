@@ -3,61 +3,53 @@ import { FormikProps } from "formik";
 import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethods";
 import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicities";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
+import { currencyFormat } from "src/utils/currency";
 import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { ISavingConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
-  amount: validationRules.money.required(validationMessages.required),
-  deadlineTerm: Yup.number()
+  quota: Yup.number().required(validationMessages.required),
+  deadline: Yup.number()
     .min(1, validationMessages.minNumbers(10))
     .max(1000, validationMessages.maxNumbers(1000)),
   paymentMethod: Yup.object().required(validationMessages.required),
   periodicity: Yup.object().required(validationMessages.required),
-  quota: validationRules.money,
   rate: Yup.number(),
   anticipatedInterest: Yup.number(),
   netValue: Yup.number(),
   hasResult: Yup.boolean(),
 });
 
-const getInitialSavingConditionsValidations = (
-  formik: FormikProps<ISavingConditionsEntry>,
-) => {
-  const maxDeadline = formik.values.product.maxDeadline;
-  const maxAmount = formik.values.product.maxAmount;
-  const maxAmountForUser = formik.values.product.maxAmountForUser;
-  const withRecommendation =
-    formik.values.product.id === "generateRecommendation";
+const getInitialSavingConditionsValidations = () =>
+  // formik: FormikProps<ISavingConditionsEntry>, // TEMP
+  {
+    return validationSchema.concat(
+      Yup.object({
+        quota: Yup.number()
+          .min(
+            35000,
+            `El valor mínimo de la cuota es de ${currencyFormat(35000)}`,
+          )
+          .max(
+            999999999,
+            `El valor máximo de la cuota es de ${currencyFormat(35000)}`,
+          )
+          .required(validationMessages.required),
+        deadline: Yup.number()
+          .min(6, `El plazo mínimo para este producto es de ${6} meses`)
+          .max(60, `El plazo máximo para este producto es de ${60} meses`)
+          .required(validationMessages.required),
 
-  return validationSchema.concat(
-    Yup.object({
-      deadlineTerm: Yup.number()
-        .min(1, validationMessages.minNumbers(10))
-        .max(
-          maxDeadline || 0,
-          `El plazo máximo para este producto es de ${maxDeadline} meses`,
-        ),
-      amount: Yup.number()
-        .min(1, validationMessages.minCurrencyNumbers(1))
-        .max(
-          maxAmountForUser < maxAmount ? maxAmountForUser : maxAmount,
-          "Has superado el cupo máximo",
-        )
-        .required(validationMessages.required),
-
-      netValue: withRecommendation
-        ? Yup.number()
-        : Yup.number().required(validationMessages.required),
-      hasResult: withRecommendation
-        ? Yup.boolean()
-        : Yup.boolean()
-            .required(validationMessages.required)
-            .test((value) => value === true),
-    }),
-  );
-};
+        paymentMethod: Yup.object().required(validationMessages.required),
+        periodicity: Yup.object().required(validationMessages.required),
+        netValue: Yup.number().required(validationMessages.required),
+        hasResult: Yup.boolean()
+          .required(validationMessages.required)
+          .test((value) => value === true),
+      }),
+    );
+  };
 
 const getPeriodicities = async (
   formik: FormikProps<ISavingConditionsEntry>,
@@ -66,7 +58,7 @@ const getPeriodicities = async (
 ) => {
   const periodicities = await getPeriodicitiesForProduct(
     accessToken,
-    formik.values.product.id,
+    "57", // TEMP
     paymentMethodId,
   );
 
@@ -111,7 +103,7 @@ const getValuesForSimulate = async (
     const paymentMethods = await getPaymentMethodsForProduct(
       userIdentification,
       accessToken,
-      formik.values.product.id,
+      "57", // TEMP
     );
     newPaymentMethods.push(...paymentMethods);
   }

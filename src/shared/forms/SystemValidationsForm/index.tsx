@@ -10,10 +10,10 @@ import {
 import { AppContext } from "src/context/app";
 import { getRequirementsForProduct } from "src/services/iclient/credits/getRequirements";
 import { IRequirementRequest } from "src/services/iclient/credits/getRequirements/types";
-import { IDisbursementEntry } from "../../../../../../shared/forms/DisbursementForm/types";
 import { SystemValidationsFormUI } from "./interface";
 import { ISystemValidationsEntry } from "./types";
 import { loadingValidations } from "./utils";
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;

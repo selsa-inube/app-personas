@@ -1,10 +1,12 @@
 const programmedSavingFixedRequestBoxTitles = {
   savingConditions: "Condiciones de ahorro",
   paymentMethod: "Forma de pago",
+  shareMaturity: "Acción al vencimiento",
   disbursement: "Reembolso",
   planName: "Nombra tu plan de ahorro",
-  contactChannels: "Canales de contacto",
   comments: "Comentarios",
+  termsAndConditions: "Términos y condiciones",
+  contactChannels: "Canales de contacto",
 };
 
 export { programmedSavingFixedRequestBoxTitles };

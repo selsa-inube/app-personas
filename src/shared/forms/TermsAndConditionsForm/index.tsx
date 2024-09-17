@@ -1,6 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { getLink } from "src/services/iclient/links/getLink";
 import { getTermsConditions } from "src/services/iclient/termsConditions/getTermsConditions";
 import * as Yup from "yup";
@@ -14,18 +14,22 @@ const validationSchema = Yup.object({
 
 interface TermsAndConditionsFormProps {
   initialValues: ITermsAndConditionsEntry;
+  productId: string;
+  productType: "credit";
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: ITermsAndConditionsEntry) => void;
-  loading?: boolean;
 }
 
 const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
   props: TermsAndConditionsFormProps,
   ref: React.Ref<FormikProps<ITermsAndConditionsEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, productId, productType, onFormValid, onSubmit } =
+    props;
 
   const { accessToken } = useAuth();
+
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -46,11 +50,18 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
   useEffect(() => {
     if (!accessToken) return;
 
-    getTermsConditions(accessToken, "17", "credit").then((termsConditions) => {
-      // TEMP
-      formik.setFieldValue("termsConditions", termsConditions?.termsConditions);
-      formik.setFieldValue("ids", termsConditions?.codes);
-    });
+    setLoading(true);
+    getTermsConditions(accessToken, productId, productType).then(
+      (termsConditions) => {
+        formik.setFieldValue(
+          "termsConditions",
+          termsConditions?.termsConditions,
+        );
+        formik.setFieldValue("ids", termsConditions?.codes);
+
+        setLoading(false);
+      },
+    );
 
     getLink(accessToken, "PersonalDataPolicy").then((dataPolicyUrl) => {
       formik.setFieldValue("dataPolicyUrl", dataPolicyUrl);

@@ -6,8 +6,8 @@ import { IConditionsEntry } from "./forms/ConditionsForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
-import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
-import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
+import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 
 interface IFormsCdatRequest {
   investment: { isValid: boolean; values: IInvestmentEntry };

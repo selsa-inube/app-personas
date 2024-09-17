@@ -1,5 +1,4 @@
 interface ITermsAndConditionsEntry {
-  productId: string;
   termsConditions: string[];
   ids: string;
   dataPolicyUrl: string;

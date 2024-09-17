@@ -6,7 +6,10 @@ import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
+import { SystemValidationsForm } from "@forms/SystemValidationsForm";
+import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { IMessage } from "@ptypes/messages.types";
@@ -20,11 +23,8 @@ import { ConditionsForm } from "./forms/ConditionsForm";
 import { InvestmentForm } from "./forms/InvestmentForm";
 import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
-import { SystemValidationsForm } from "./forms/SystemValidationsForm";
-import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderStepContent = (
   currentStep: number,
@@ -67,6 +67,7 @@ const renderStepContent = (
         <SystemValidationsForm
           initialValues={cdatRequest.systemValidations.values}
           ref={formReferences.systemValidations}
+          disbursementValues={cdatRequest.disbursement.values}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -88,6 +89,8 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={cdatRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
+          productId="57"
+          productType="credit"
           onFormValid={setIsCurrentFormValid}
         />
       )}

@@ -1,6 +1,10 @@
 import { mapComments } from "@forms/CommentsForm/mappers";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
+import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
+import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
@@ -22,8 +26,6 @@ import { mapDestination } from "./config/mappers";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
-import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
-import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CreditDestinationRequestUI } from "./interface";
 import {
   IFormsCreditDestinationRequest,
@@ -65,7 +67,7 @@ function CreditDestinationRequest() {
       },
       systemValidations: {
         isValid: false,
-        values: initalValuesCreditDestination.systemValidations,
+        values: mapSystemValidations(),
       },
       documentaryRequirements: {
         isValid: true,
@@ -77,7 +79,7 @@ function CreditDestinationRequest() {
       },
       termsAndConditions: {
         isValid: false,
-        values: initalValuesCreditDestination.termsAndConditions,
+        values: mapTermsAndConditions(),
       },
       contactChannels: {
         isValid: false,

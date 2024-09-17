@@ -1,24 +1,15 @@
 import { IPlanNameEntry } from "../forms/PlanNameForm/types";
 import { ISavingConditionsEntry } from "../forms/SavingConditionsForm/types";
+import { IShareMaturityEntry } from "../forms/ShareMaturityForm/types";
 
 const savingConditions: ISavingConditionsEntry = {
-  product: {
-    id: "",
-    title: "",
-    description: "",
-    maxRate: 0,
-    maxDeadline: 0,
-    maxAmount: 0,
-    maxAmountForUser: 0,
-    amortizationType: "",
-  },
-  simulationWithQuota: false,
   netValue: 0,
-  anticipatedInterest: 0,
-  discounts: 0,
-  rate: 0,
+  annualRate: 0,
   hasResult: false,
-  minWarrantyRequired: "",
+  gmf: 0,
+  savingAmount: 0,
+  withholdingTax: 0,
+  yields: 0,
   paymentMethods: [],
   periodicity: {
     id: "",
@@ -27,16 +18,18 @@ const savingConditions: ISavingConditionsEntry = {
     periodicityInDays: 0,
   },
   periodicities: [],
-  charges: 0,
 };
 
 const planName: IPlanNameEntry = {
   productName: "",
 };
 
+const shareMaturity: IShareMaturityEntry = {};
+
 const initalValuesProgrammedSavingFixed = {
   savingConditions,
   planName,
+  shareMaturity,
 };
 
 export { initalValuesProgrammedSavingFixed };

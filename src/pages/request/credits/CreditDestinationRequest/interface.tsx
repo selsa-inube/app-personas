@@ -5,6 +5,8 @@ import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
+import { SystemValidationsForm } from "@forms/SystemValidationsForm";
+import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
@@ -21,8 +23,6 @@ import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
-import { SystemValidationsForm } from "./forms/SystemValidationsForm";
-import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CreditDestinationRequestVerification } from "./forms/Verification";
 import {
   IFormsCreditDestinationRequest,
@@ -106,6 +106,10 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={creditDestinationRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
+          productId={
+            creditDestinationRequest.destination.values.product?.id || ""
+          }
+          productType="credit"
           onFormValid={setIsCurrentFormValid}
         />
       )}

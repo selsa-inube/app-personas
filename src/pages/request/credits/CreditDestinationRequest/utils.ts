@@ -1,4 +1,7 @@
 import { enviroment } from "@config/enviroment";
+import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
 import { NavigateFunction } from "react-router-dom";
 import { createCreditRequest } from "src/services/iclient/credits/createCreditRequest";
@@ -6,12 +9,10 @@ import { IRequestCreditRequest } from "src/services/iclient/credits/createCredit
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
-import { loadingValidations } from "./forms/SystemValidationsForm/utils";
 import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
-import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 
 const creditDestinationStepsRules = (
   currentStep: number,
@@ -45,14 +46,6 @@ const creditDestinationStepsRules = (
             product: values.product,
           },
         };
-
-        newCreditDestinationRequest.termsAndConditions = {
-          isValid: false,
-          values: {
-            ...initalValuesCreditDestination.termsAndConditions,
-            productId: values.product.id,
-          },
-        };
       }
 
       return newCreditDestinationRequest;
@@ -74,7 +67,7 @@ const creditDestinationStepsRules = (
         newCreditDestinationRequest.systemValidations = {
           isValid: false,
           values: {
-            ...initalValuesCreditDestination.systemValidations,
+            ...mapSystemValidations(),
             validations: loadingValidations,
             destinationId: values.destination?.id || "",
             destinationName: values.destination?.value || "",

@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { CreditDisbursementModal } from "@components/modals/credit/CreditDisbursementModal";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
@@ -12,18 +11,16 @@ import { Divider } from "@inubekit/divider";
 import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
-import { Tabs } from "@inubekit/tabs";
 import { Text } from "@inubekit/text";
 import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
-import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
+import { MdOpenInNew } from "react-icons/md";
 import {
   currencyFormat,
   parseCurrencyString,
   validateCurrencyField,
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
-import { simulatedTypeTabs } from "./config/tabs";
 import { ISavingConditionsEntry } from "./types";
 
 interface SavingConditionsFormUIProps {
@@ -33,7 +30,7 @@ interface SavingConditionsFormUIProps {
   showDisbursementModal: boolean;
   periodicityOptions: ISelectOption[];
   message: IMessage;
-  simulateCredit: () => void;
+  simulateSaving: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
@@ -42,7 +39,6 @@ interface SavingConditionsFormUIProps {
   onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleDisbursementModal: () => void;
   handleCloseMessage: () => void;
-  onTabChange: (tabId: string) => void;
 }
 
 function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
@@ -50,20 +46,19 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
     formik,
     loading,
     loadingSimulation,
-    showDisbursementModal,
     periodicityOptions,
     message,
-    simulateCredit,
+    simulateSaving,
     customHandleChange,
     onFormValid,
     onChangePaymentMethod,
     onChangePeriodicity,
     onToggleDisbursementModal,
     handleCloseMessage,
-    onTabChange,
   } = props;
 
-  const isMobile = useMediaQuery("(max-width: 750px)");
+  const isTablet = useMediaQuery("(max-width: 1200px)");
+  const isMobile = useMediaQuery("(max-width: 650px)");
 
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
     const parsedValue = parseCurrencyString(e.target.value);
@@ -72,23 +67,25 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
     onFormValid(false);
   };
 
+  const gridCols = isMobile ? 1 : isTablet ? 2 : 3;
+
   return (
     <>
       <form>
         <Stack direction="column" gap={inube.spacing.s400}>
           <Fieldset
-            legend="Simulador de crédito"
+            legend="Simulador de ahorro"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
             <Stack direction="column" gap={inube.spacing.s300} width="100%">
               <Stack direction="column" gap={inube.spacing.s200}>
-                <Text type="title" size="small" appearance="gray">
-                  Información del crédito
+                <Text type="title" size="small" appearance="gray" weight="bold">
+                  Información del ahorro
                 </Text>
 
                 <Grid
-                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                  templateColumns={`repeat(${gridCols}, 1fr)`}
                   autoRows="auto"
                   gap={inube.spacing.s200}
                 >
@@ -99,10 +96,10 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       gap={inube.spacing.s025}
                     >
                       <Text type="label" size="medium">
-                        Destinación:
+                        Cuota mínima:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        {formik.values.destination?.value}
+                        $ 35,000
                       </Text>
                     </Stack>
                   </OutlineCard>
@@ -114,10 +111,10 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       gap={inube.spacing.s025}
                     >
                       <Text type="label" size="medium">
-                        Producto:
+                        Plazo mínimo:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        {formik.values.product.title}
+                        6 meses
                       </Text>
                     </Stack>
                   </OutlineCard>
@@ -129,25 +126,10 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       gap={inube.spacing.s025}
                     >
                       <Text type="label" size="medium">
-                        Monto máximo del producto:
+                        Plazo máximo:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        {currencyFormat(formik.values.product.maxAmount)}
-                      </Text>
-                    </Stack>
-                  </OutlineCard>
-
-                  <OutlineCard>
-                    <Stack
-                      direction="column"
-                      padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
-                      gap={inube.spacing.s025}
-                    >
-                      <Text type="label" size="medium">
-                        Cupo personal:
-                      </Text>
-                      <Text type="body" size="medium" appearance="gray">
-                        {currencyFormat(formik.values.product.maxAmountForUser)}
+                        60 meses
                       </Text>
                     </Stack>
                   </OutlineCard>
@@ -156,43 +138,31 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
 
               <Divider dashed />
 
-              <Tabs
-                onChange={onTabChange}
-                selectedTab={
-                  formik.values.simulationWithQuota
-                    ? simulatedTypeTabs.simulatedWithQuota.id
-                    : simulatedTypeTabs.simulatedWithDeadline.id
-                }
-                tabs={Object.values(simulatedTypeTabs)}
-              />
-
               <Stack direction="column" gap={inube.spacing.s200}>
-                <Text type="title" size="small" appearance="gray">
+                <Text type="title" size="small" appearance="gray" weight="bold">
                   Valores de la simulación
                 </Text>
 
                 <Stack direction="column" gap={inube.spacing.s200}>
                   <Grid
-                    templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                    templateColumns={`repeat(${gridCols}, 1fr)`}
                     autoRows="auto"
                     gap={inube.spacing.s200}
                   >
                     <TextField
-                      label="Monto"
-                      placeholder="Ingresa el valor del crédito"
-                      name="amount"
-                      id="amount"
-                      iconAfter={<MdAttachMoney size={18} />}
-                      value={validateCurrencyField("amount", formik) || ""}
+                      label="Cuota"
+                      placeholder="Ingresa el valor de la cuota"
+                      name="quota"
+                      id="quota"
+                      value={validateCurrencyField("quota", formik) || ""}
                       type="text"
-                      errorMessage={formik.errors.amount}
+                      errorMessage={formik.errors.quota}
                       isDisabled={loading}
                       size="compact"
                       isFullWidth
-                      state={getFieldState(formik, "amount")}
+                      state={getFieldState(formik, "quota")}
                       onBlur={formik.handleBlur}
                       onChange={handleChangeWithCurrency}
-                      isRequired
                     />
                     <Select
                       id="paymentMethod"
@@ -223,69 +193,42 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       onChange={onChangePeriodicity}
                       readOnly={periodicityOptions.length === 1}
                     />
-                    {formik.values.product.id !== "generateRecommendation" && (
-                      <>
-                        {formik.values.simulationWithQuota ? (
-                          <TextField
-                            label="Cuota"
-                            placeholder="Ingresa el valor de la cuota"
-                            name="quota"
-                            id="quota"
-                            value={validateCurrencyField("quota", formik) || ""}
-                            type="text"
-                            errorMessage={formik.errors.quota}
-                            isDisabled={loading}
-                            size="compact"
-                            isFullWidth
-                            state={getFieldState(formik, "quota")}
-                            onBlur={formik.handleBlur}
-                            onChange={handleChangeWithCurrency}
-                          />
-                        ) : (
-                          <TextField
-                            label="¿Cuántas cuotas?"
-                            placeholder="Ingresa la cantidad de cuotas"
-                            name="deadline"
-                            id="deadline"
-                            value={formik.values.deadline || ""}
-                            type="number"
-                            errorMessage={formik.errors.deadline}
-                            isDisabled={loading}
-                            size="compact"
-                            isFullWidth
-                            state={getFieldState(formik, "deadline")}
-                            onBlur={formik.handleBlur}
-                            onChange={customHandleChange}
-                          />
-                        )}
-                      </>
-                    )}
+
+                    <TextField
+                      label="¿Cuántas cuotas?"
+                      placeholder="Ingresa la cantidad de cuotas"
+                      name="deadline"
+                      id="deadline"
+                      value={formik.values.deadline || ""}
+                      type="number"
+                      errorMessage={formik.errors.deadline}
+                      isDisabled={loading}
+                      size="compact"
+                      isFullWidth
+                      state={getFieldState(formik, "deadline")}
+                      onBlur={formik.handleBlur}
+                      onChange={customHandleChange}
+                    />
                   </Grid>
 
-                  {formik.values.product.id !== "generateRecommendation" && (
-                    <Stack width="100%" justifyContent="flex-end">
-                      <Button
-                        variant="outlined"
-                        spacing="compact"
-                        onClick={simulateCredit}
-                        loading={loadingSimulation}
-                        disabled={
-                          !!formik.errors.amount ||
-                          !!formik.errors.paymentMethod ||
-                          !!formik.errors.periodicity ||
-                          !formik.values.amount ||
-                          !formik.values.paymentMethod?.id ||
-                          formik.values.periodicity.id === "" ||
-                          (formik.values.simulationWithQuota &&
-                            !formik.values.quota) ||
-                          (!formik.values.simulationWithQuota &&
-                            !formik.values.deadline)
-                        }
-                      >
-                        Simular
-                      </Button>
-                    </Stack>
-                  )}
+                  <Stack width="100%" justifyContent="flex-end">
+                    <Button
+                      variant="outlined"
+                      spacing="compact"
+                      onClick={simulateSaving}
+                      loading={loadingSimulation}
+                      disabled={
+                        !!formik.errors.quota ||
+                        !!formik.errors.deadline ||
+                        !!formik.errors.paymentMethod ||
+                        !!formik.errors.periodicity ||
+                        !formik.values.paymentMethod?.id ||
+                        formik.values.periodicity.id === ""
+                      }
+                    >
+                      Simular
+                    </Button>
+                  </Stack>
                 </Stack>
               </Stack>
 
@@ -294,26 +237,47 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                   <Divider dashed />
 
                   <Stack direction="column" gap={inube.spacing.s200}>
-                    <Text type="title" size="small" appearance="gray">
-                      Resultados de la simulación
-                    </Text>
+                    <Stack direction="column" gap={inube.spacing.s050}>
+                      <Text
+                        type="title"
+                        size="small"
+                        appearance="gray"
+                        weight="bold"
+                      >
+                        Resultados de la simulación
+                      </Text>
+                      <Text type="body" size="medium" appearance="gray">
+                        Los resultados de la simulación son aproximados y pueden
+                        variar dependiendo de condiciones particulares.
+                      </Text>
+                    </Stack>
 
                     <Grid
-                      templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                      templateColumns={`repeat(${gridCols}, 1fr)`}
                       autoRows="auto"
                       gap={inube.spacing.s100}
                     >
                       <BoxAttribute
-                        label="Cuota:"
-                        value={`${currencyFormat(formik.values.quota || 0)} / Mensual`}
+                        label="Saldo del ahorro:"
+                        value={currencyFormat(formik.values.savingAmount || 0)}
                       />
                       <BoxAttribute
-                        label="Numero de cuotas:"
-                        value={`${formik.values.deadline} Meses`}
+                        label="Tasa efectiva anual:"
+                        value={`${formik.values.annualRate.toFixed(2)} %`}
                       />
                       <BoxAttribute
-                        label="Tasa de interés:"
-                        value={`${formik.values.rate.toFixed(2)} % N.A.M.V`}
+                        label="Valor de los rendimientos:"
+                        value={currencyFormat(formik.values.yields || 0)}
+                      />
+                      <BoxAttribute
+                        label="Retención en la fuente:"
+                        value={currencyFormat(
+                          formik.values.withholdingTax || 0,
+                        )}
+                      />
+                      <BoxAttribute
+                        label="GMF"
+                        value={currencyFormat(formik.values.gmf || 0)}
                       />
                       <BoxAttribute
                         label="Desembolso aproximado:"
@@ -340,20 +304,6 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
           icon={message.icon}
           onClose={handleCloseMessage}
           duration={5000}
-        />
-      )}
-
-      {showDisbursementModal && (
-        <CreditDisbursementModal
-          approximateValue={formik.values.netValue}
-          portalId="modals"
-          spec={{
-            amount: formik.values.amount || 0,
-            anticipatedInterest: formik.values.anticipatedInterest,
-            discounts: formik.values.discounts,
-            charges: formik.values.charges,
-          }}
-          onCloseModal={onToggleDisbursementModal}
         />
       )}
     </>

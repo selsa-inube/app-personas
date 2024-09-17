@@ -6,15 +6,15 @@ import { Stack } from "@inubekit/stack";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { programmedSavingFixedRequestSteps } from "../../config/assisted";
 import { IFormsProgrammedSavingFixedRequest } from "../../types";
-import { SummaryBoxes } from "./SummaryBoxes";
+import { VerificationBoxes } from "./VerificationBoxes";
 import { programmedSavingFixedRequestBoxTitles } from "./config/box";
 
-interface SummaryProps {
+interface VerificationProps {
   programmedSavingFixedRequest: IFormsProgrammedSavingFixedRequest;
   handleStepChange: (stepId: number) => void;
 }
 
-function ProgrammedSavingFixedRequestSummary(props: SummaryProps) {
+function ProgrammedSavingFixedRequestVerification(props: VerificationProps) {
   const { programmedSavingFixedRequest, handleStepChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1224px)");
@@ -30,7 +30,7 @@ function ProgrammedSavingFixedRequestSummary(props: SummaryProps) {
               alignItems="flex-end"
               gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
             >
-              <SummaryBoxes
+              <VerificationBoxes
                 isTablet={isTablet}
                 programmedSavingFixedRequest={programmedSavingFixedRequest}
                 stepKey={key as keyof IFormsProgrammedSavingFixedRequest}
@@ -58,4 +58,4 @@ function ProgrammedSavingFixedRequestSummary(props: SummaryProps) {
   );
 }
 
-export { ProgrammedSavingFixedRequestSummary };
+export { ProgrammedSavingFixedRequestVerification };

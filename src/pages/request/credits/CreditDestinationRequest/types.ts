@@ -6,8 +6,8 @@ import { IPaymentMethodEntry } from "../../../../shared/forms/PaymentMethodForm/
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
-import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
-import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
+import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 
 interface IFormsCreditDestinationRequest {
   destination: { isValid: boolean; values: IDestinationEntry };
