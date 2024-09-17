@@ -1,5 +1,6 @@
+import { useAuth } from "@inube/auth";
+import { IFormField } from "@ptypes/forms.types";
 import { FormikProps, useFormik } from "formik";
-import { IPaymentMethodEntry } from "./types";
 import {
   forwardRef,
   useContext,
@@ -7,17 +8,16 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
-import * as Yup from "yup";
-import { PaymentMethodFormUI } from "./interface";
-import { structurePaymentMethodForm } from "./config/form";
-import { useAuth } from "@inube/auth";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
-import { IFormField } from "@ptypes/forms.types";
-import { generateDynamicForm } from "src/utils/forms/forms";
-import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { EProductType } from "src/model/entity/product";
-import { initalValuesCreditDestination } from "../../config/initialValues";
+import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
+import { generateDynamicForm } from "src/utils/forms/forms";
+import * as Yup from "yup";
+import { structurePaymentMethodForm } from "./config/form";
+import { PaymentMethodFormUI } from "./interface";
+import { mapPaymentMethod } from "./mappers";
+import { IPaymentMethodEntry } from "./types";
 
 const initValidationSchema = Yup.object({
   paymentMethod: Yup.string(),
@@ -62,7 +62,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         onFormValid(Object.keys(errors).length === 0);
       });
     }
-  
+
     const paymentMethodTypes = ["7", "8", "25", "30", "61", "62", "CO"];
     if (paymentMethodTypes.includes(formik.values.paymentMethodType)) {
       onFormValid(true);
@@ -115,12 +115,12 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
     if (name === "accountDebitType") {
       formik.setValues({
-        ...initalValuesCreditDestination.paymentMethod,
+        ...mapPaymentMethod(),
         accountToDebit: value,
       });
 
       updatedFormikValues = {
-        ...initalValuesCreditDestination.paymentMethod,
+        ...mapPaymentMethod(),
         accountToDebit: value,
       };
     } else {

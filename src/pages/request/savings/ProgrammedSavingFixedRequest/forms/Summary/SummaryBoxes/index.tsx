@@ -7,84 +7,13 @@ import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
 import { activeDM } from "src/model/domains/general/activedm";
 import { bankDM } from "src/model/domains/general/bankDM";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
-import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
-import { currencyFormat } from "src/utils/currency";
 import { ICommentsEntry } from "../../../../../../../shared/forms/CommentsForm/types";
 import { IFormsProgrammedSavingFixedRequest } from "../../../types";
-import { IGoalEntry } from "../../GoalForm/types";
 import { IPlanNameEntry } from "../../PlanNameForm/types";
-import { IQuotaEntry } from "../../QuotaForm/types";
 import { programmedSavingFixedRequestBoxTitles } from "../config/box";
-
-const renderQuotaVerification = (values: IQuotaEntry) => (
-  <Stack direction="column" gap={inube.spacing.s100} width="100%">
-    <BoxAttribute
-      label="Valor periódico del ahorro:"
-      value={currencyFormat(Number(values.periodicValue))}
-    />
-    <BoxAttribute
-      label="Medio de pago:"
-      value={getValueOfDomain(values.paymentMethod, "paymentMethod")?.value}
-    />
-    <BoxAttribute
-      label="Periodicidad:"
-      value={periodicityDM.valueOf(values.periodicity)?.value}
-    />
-    {values.paymentMethod === "automaticDebit" && values.accountToDebit && (
-      <>
-        <BoxAttribute
-          label="Cuenta a debitar:"
-          value={
-            getValueOfDomain(values.accountToDebit, "accountDebitType")?.value
-          }
-        />
-        <BoxAttribute
-          label="Numero de cuenta:"
-          value={
-            values.accountToDebit === "internalOwnAccountDebit"
-              ? values.accountDescription
-              : values.accountNumber
-          }
-        />
-
-        {values.accountToDebit === "externalOwnAccountDebit" &&
-          values.accountType &&
-          values.bankEntity && (
-            <>
-              <BoxAttribute
-                label="Tipo de cuenta:"
-                value={
-                  getValueOfDomain(values.accountType, "accountType")?.value
-                }
-              />
-              <BoxAttribute
-                label="Entidad bancaria:"
-                value={getValueOfDomain(values.bankEntity, "bank")?.value}
-              />
-            </>
-          )}
-      </>
-    )}
-  </Stack>
-);
-
-const renderGoalVerification = (values: IGoalEntry) => (
-  <Stack direction="column" gap={inube.spacing.s100} width="100%">
-    {values.daysNumber !== "" && (
-      <BoxAttribute
-        label="Reembolso en número de días:"
-        value={values.daysNumber}
-      />
-    )}
-
-    {values.refundDate !== "" && (
-      <BoxAttribute label="Reembolso en fecha:" value={values.refundDate} />
-    )}
-  </Stack>
-);
 
 const getAccountDescription = (accountId: string) => {
   return `Ahorros ${accountId}`;
@@ -214,12 +143,6 @@ function SummaryBoxes(props: SummaryBoxesProps) {
   const { programmedSavingFixedRequest, stepKey, isTablet } = props;
   return (
     <>
-      {stepKey === "quota" &&
-        renderQuotaVerification(programmedSavingFixedRequest.quota.values)}
-
-      {stepKey === "goal" &&
-        renderGoalVerification(programmedSavingFixedRequest.goal.values)}
-
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
           programmedSavingFixedRequest.disbursement.values,

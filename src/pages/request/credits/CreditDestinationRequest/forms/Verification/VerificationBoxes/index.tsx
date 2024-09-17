@@ -15,11 +15,11 @@ import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/type
 import { currencyFormat } from "src/utils/currency";
 import { truncateFileName } from "src/utils/texts";
 import { IDisbursementEntry } from "../../../../../../../shared/forms/DisbursementForm/types";
+import { IPaymentMethodEntry } from "../../../../../../../shared/forms/PaymentMethodForm/types";
 import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
-import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
 import { creditDestinationRequestBoxTitles } from "../config/box";

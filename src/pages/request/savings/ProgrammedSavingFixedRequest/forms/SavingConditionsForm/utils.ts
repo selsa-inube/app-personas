@@ -6,7 +6,7 @@ import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { ICreditConditionsEntry } from "./types";
+import { ISavingConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
   amount: validationRules.money.required(validationMessages.required),
@@ -22,8 +22,8 @@ const validationSchema = Yup.object({
   hasResult: Yup.boolean(),
 });
 
-const getInitialCreditConditionValidations = (
-  formik: FormikProps<ICreditConditionsEntry>,
+const getInitialSavingConditionsValidations = (
+  formik: FormikProps<ISavingConditionsEntry>,
 ) => {
   const maxDeadline = formik.values.product.maxDeadline;
   const maxAmount = formik.values.product.maxAmount;
@@ -60,7 +60,7 @@ const getInitialCreditConditionValidations = (
 };
 
 const getPeriodicities = async (
-  formik: FormikProps<ICreditConditionsEntry>,
+  formik: FormikProps<ISavingConditionsEntry>,
   accessToken: string,
   paymentMethodId: string,
 ) => {
@@ -78,7 +78,7 @@ const getPeriodicities = async (
 };
 
 const getValuesForSimulate = async (
-  formik: FormikProps<ICreditConditionsEntry>,
+  formik: FormikProps<ISavingConditionsEntry>,
   accessToken: string,
   userIdentification: string,
 ) => {
@@ -131,7 +131,7 @@ const getValuesForSimulate = async (
 };
 
 export {
-  getInitialCreditConditionValidations,
+  getInitialSavingConditionsValidations,
   getPeriodicities,
   getValuesForSimulate,
   validationSchema,

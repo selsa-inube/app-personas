@@ -1,7 +1,6 @@
 import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
-import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 import { ISystemValidationsEntry } from "../forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "../forms/TermsAndConditionsForm/types";
 
@@ -39,11 +38,6 @@ const creditConditions: ICreditConditionsEntry = {
   charges: 0,
 };
 
-const paymentMethod: IPaymentMethodEntry = {
-  paymentMethods: [],
-  paymentMethodType: "",
-};
-
 const systemValidations: ISystemValidationsEntry = {
   validations: [],
   documents: [],
@@ -79,7 +73,6 @@ const termsAndConditions: ITermsAndConditionsEntry = {
 const initalValuesCreditDestination = {
   destination,
   creditConditions,
-  paymentMethod,
   systemValidations,
   documentaryRequirements,
   termsAndConditions,

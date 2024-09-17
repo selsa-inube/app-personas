@@ -3,7 +3,9 @@ import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
+import { PaymentMethodForm } from "@forms/PaymentMethodForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
@@ -11,15 +13,13 @@ import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { CommentsForm } from "../../../../shared/forms/CommentsForm";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
-import { GoalForm } from "./forms/GoalForm";
 import { PlanNameForm } from "./forms/PlanNameForm";
-import { QuotaForm } from "./forms/QuotaForm";
+import { SavingConditionsForm } from "./forms/SavingConditionsForm";
 import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
 import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderStepContent = (
   currentStep: number,
@@ -30,17 +30,18 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === programmedSavingFixedRequestSteps.quota.id && (
-        <QuotaForm
-          initialValues={programmedSavingFixedRequest.quota.values}
-          ref={formReferences.quota}
+      {currentStep ===
+        programmedSavingFixedRequestSteps.savingConditions.id && (
+        <SavingConditionsForm
+          initialValues={programmedSavingFixedRequest.savingConditions.values}
+          ref={formReferences.savingConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.goal.id && (
-        <GoalForm
-          initialValues={programmedSavingFixedRequest.goal.values}
-          ref={formReferences.goal}
+      {currentStep === programmedSavingFixedRequestSteps.paymentMethod.id && (
+        <PaymentMethodForm
+          initialValues={programmedSavingFixedRequest.paymentMethod.values}
+          ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}

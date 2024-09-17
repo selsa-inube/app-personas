@@ -11,6 +11,7 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
+import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 
 const creditDestinationStepsRules = (
   currentStep: number,
@@ -94,7 +95,7 @@ const creditDestinationStepsRules = (
         newCreditDestinationRequest.paymentMethod = {
           isValid: false,
           values: {
-            ...initalValuesCreditDestination.paymentMethod,
+            ...mapPaymentMethod(),
             paymentMethodType: values.paymentMethod?.id || "",
             paymentMethods: values.paymentMethods,
           },

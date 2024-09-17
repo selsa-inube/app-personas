@@ -1,13 +1,13 @@
 const programmedSavingFixedRequestSteps = {
-  quota: {
+  savingConditions: {
     id: 1,
-    name: "Cuota",
+    name: "Condiciones del ahorro",
     description: "¿Cuál es la cantidad que deseas ahorrar?",
   },
-  goal: {
+  paymentMethod: {
     id: 2,
-    name: "Meta",
-    description: "Fecha en al que recibirás devuelta tu dinero.",
+    name: "Forma de pago",
+    description: "Completa los detalles de la forma de pago.",
   },
   disbursement: {
     id: 3,

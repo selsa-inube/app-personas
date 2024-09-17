@@ -1,14 +1,14 @@
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { IPaymentMethodEntry } from "@forms/PaymentMethodForm/types";
 import { FormikProps } from "formik";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { ICommentsEntry } from "../../../../shared/forms/CommentsForm/types";
-import { IGoalEntry } from "./forms/GoalForm/types";
 import { IPlanNameEntry } from "./forms/PlanNameForm/types";
-import { IQuotaEntry } from "./forms/QuotaForm/types";
+import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
 
 interface IFormsProgrammedSavingFixedRequest {
-  quota: { isValid: boolean; values: IQuotaEntry };
-  goal: { isValid: boolean; values: IGoalEntry };
+  savingConditions: { isValid: boolean; values: ISavingConditionsEntry };
+  paymentMethod: { isValid: boolean; values: IPaymentMethodEntry };
   disbursement: { isValid: boolean; values: IDisbursementEntry };
   planName: { isValid: boolean; values: IPlanNameEntry };
   contactChannels: { isValid: boolean; values: IContactChannelsEntry };
@@ -16,8 +16,8 @@ interface IFormsProgrammedSavingFixedRequest {
 }
 
 interface IFormsProgrammedSavingFixedRequestRefs {
-  quota: React.RefObject<FormikProps<IQuotaEntry>>;
-  goal: React.RefObject<FormikProps<IGoalEntry>>;
+  savingConditions: React.RefObject<FormikProps<ISavingConditionsEntry>>;
+  paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
   disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
   planName: React.RefObject<FormikProps<IPlanNameEntry>>;
   contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;

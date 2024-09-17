@@ -8,13 +8,14 @@ import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { mapComments } from "@forms/CommentsForm/mappers";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
+import { IPaymentMethodEntry } from "@forms/PaymentMethodForm/types";
 import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "../../../../shared/forms/CommentsForm/types";
 import { initalValuesProgrammedSavingFixed } from "./config/initialValues";
-import { IGoalEntry } from "./forms/GoalForm/types";
 import { IPlanNameEntry } from "./forms/PlanNameForm/types";
-import { IQuotaEntry } from "./forms/QuotaForm/types";
+import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
 import { ProgrammedSavingFixedRequestUI } from "./interface";
 import {
   IFormsProgrammedSavingFixedRequest,
@@ -24,7 +25,7 @@ import { programmedSavingFixedStepsRules } from "./utils";
 
 function ProgrammedSavingFixedRequest() {
   const [currentStep, setCurrentStep] = useState(
-    programmedSavingFixedRequestSteps.quota.id,
+    programmedSavingFixedRequestSteps.savingConditions.id,
   );
   const steps = Object.values(programmedSavingFixedRequestSteps);
 
@@ -33,13 +34,13 @@ function ProgrammedSavingFixedRequest() {
 
   const [programmedSavingFixedRequest, setProgrammedSavingFixedRequest] =
     useState<IFormsProgrammedSavingFixedRequest>({
-      quota: {
+      savingConditions: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.quota,
+        values: initalValuesProgrammedSavingFixed.savingConditions,
       },
-      goal: {
+      paymentMethod: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.goal,
+        values: mapPaymentMethod(),
       },
       disbursement: {
         isValid: false,
@@ -59,16 +60,16 @@ function ProgrammedSavingFixedRequest() {
       },
     });
 
-  const quotaRef = useRef<FormikProps<IQuotaEntry>>(null);
-  const goalRef = useRef<FormikProps<IGoalEntry>>(null);
+  const savingConditionsRef = useRef<FormikProps<ISavingConditionsEntry>>(null);
+  const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const planNameRef = useRef<FormikProps<IPlanNameEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
 
   const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
-    quota: quotaRef,
-    goal: goalRef,
+    savingConditions: savingConditionsRef,
+    paymentMethod: paymentMethodRef,
     disbursement: disbursementRef,
     planName: planNameRef,
     contactChannels: contactChannelsRef,

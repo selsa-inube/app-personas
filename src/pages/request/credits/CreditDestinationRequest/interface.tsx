@@ -6,6 +6,7 @@ import { IStep } from "@design/feedback/Assisted/types";
 import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { IMessage } from "@ptypes/messages.types";
@@ -14,12 +15,12 @@ import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { DisbursementForm } from "../../../../shared/forms/DisbursementForm";
+import { PaymentMethodForm } from "../../../../shared/forms/PaymentMethodForm";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
 import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
-import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { SystemValidationsForm } from "./forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "./forms/TermsAndConditionsForm";
 import { CreditDestinationRequestVerification } from "./forms/Verification";
@@ -27,7 +28,6 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderStepContent = (
   currentStep: number,
