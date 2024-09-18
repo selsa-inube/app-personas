@@ -1,4 +1,6 @@
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { useAuth } from "@inube/auth";
+import { systemValidationsMock } from "@mocks/products/credits/request.mocks";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -13,11 +15,11 @@ import { IRequirementRequest } from "src/services/iclient/credits/getRequirement
 import { SystemValidationsFormUI } from "./interface";
 import { ISystemValidationsEntry } from "./types";
 import { loadingValidations } from "./utils";
-import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
   disbursementValues: IDisbursementEntry;
+  test?: boolean;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -25,7 +27,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   props: SystemValidationsFormProps,
   ref: React.Ref<FormikProps<ISystemValidationsEntry>>,
 ) {
-  const { initialValues, disbursementValues, onFormValid } = props;
+  const { initialValues, disbursementValues, test, onFormValid } = props;
 
   const [loadingValids, setLoadingValids] = useState(false);
 
@@ -80,8 +82,8 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       },
     };
 
-    getRequirementsForProduct(requirementsRequest, accessToken).then(
-      (requirements) => {
+    getRequirementsForProduct(requirementsRequest, accessToken)
+      .then((requirements) => {
         if (!requirements) return;
 
         formik.setFieldValue("validations", requirements.validations);
@@ -89,8 +91,13 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
         formik.setFieldValue("documents", requirements.documents);
 
         setLoadingValids(false);
-      },
-    );
+      })
+      .catch(() => {
+        if (!test) return;
+
+        formik.setFieldValue("validations", systemValidationsMock);
+        setLoadingValids(false);
+      });
   };
 
   useEffect(() => {

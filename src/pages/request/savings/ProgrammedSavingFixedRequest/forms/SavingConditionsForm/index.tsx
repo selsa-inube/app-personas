@@ -134,9 +134,11 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
       formik.setFieldValue("withholdingTax", 0);
       formik.setFieldValue("gmf", 0);
       formik.setFieldValue("netValue", 1254223);
-      formik.setFieldValue("hasResult", true);
-
-      onFormValid(true);
+      setTimeout(() => {
+        formik.setFieldValue("hasResult", true);
+        setLoadingSimulation(false);
+        onFormValid(true);
+      }, 1000);
     } catch (error) {
       setMessage({
         show: true,
@@ -149,7 +151,8 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
 
       onFormValid(false);
     } finally {
-      setLoadingSimulation(false);
+      /* setLoadingSimulation(false); */
+      // TEMP
     }
   };
 

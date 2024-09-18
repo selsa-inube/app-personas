@@ -4,6 +4,7 @@ import { renderCommentsVerification } from "@forms/CommentsForm/verification";
 import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
 import { renderPaymentMethodVerification } from "@forms/PaymentMethodForm/verification";
+import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
@@ -92,7 +93,11 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         renderDisbursementVerification(
           programmedSavingFixedRequest.disbursement.values,
         )}
-
+      {stepKey === "systemValidations" &&
+        renderSystemValidationsVerification(
+          programmedSavingFixedRequest.systemValidations.values,
+          isTablet,
+        )}
       {stepKey === "planName" &&
         renderPlanNameVerification(
           programmedSavingFixedRequest.planName.values,

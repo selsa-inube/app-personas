@@ -4,6 +4,7 @@ import { IStep } from "@design/feedback/Assisted/types";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { PaymentMethodForm } from "@forms/PaymentMethodForm";
+import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
@@ -58,6 +59,16 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={programmedSavingFixedRequest.disbursement.values}
           ref={formReferences.disbursement}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep ===
+        programmedSavingFixedRequestSteps.systemValidations.id && (
+        <SystemValidationsForm
+          initialValues={programmedSavingFixedRequest.systemValidations.values}
+          ref={formReferences.systemValidations}
+          disbursementValues={programmedSavingFixedRequest.disbursement.values}
+          test
           onFormValid={setIsCurrentFormValid}
         />
       )}
