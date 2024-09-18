@@ -13,6 +13,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   MdArrowBack,
   MdOpenInNew,
+  MdOutlineAdd,
   MdOutlineAssignmentTurnedIn,
   MdOutlineAttachMoney,
 } from "react-icons/md";
@@ -32,23 +33,24 @@ import {
 
 import { RecordCard } from "@components/cards/RecordCard";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { ActionsModal } from "@components/modals/saving/ActionsModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import {
   EMovementType,
   EProductType,
   IMovement,
 } from "src/model/entity/product";
+import { generateAttributes } from "./config/attributeRecord";
 import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
-import { generateAttributes } from "./config/attributeRecord";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Button } from "@inubekit/button";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -76,12 +78,17 @@ interface SavingsAccountUIProps {
   productId?: string;
   commitmentsModal: ICommitmentsModalState;
   withTransfers: boolean;
+  showActionsModal: boolean;
   onToggleBeneficiariesModal: () => void;
   onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleCommitmentsModal: () => void;
   onToggleReimbursementModal: () => void;
   onToggleRechargeModal: () => void;
   onSubmitRecharge: (savingAccount: string, amount: number) => void;
+  onToggleActionsModal: () => void;
+  onChangeQuota: () => void;
+  onModifyAction: () => void;
+  onCancelSaving: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -96,12 +103,17 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     productId,
     commitmentsModal,
     withTransfers,
+    showActionsModal,
     onToggleBeneficiariesModal,
     onChangeProduct,
     onToggleCommitmentsModal,
     onToggleReimbursementModal,
     onToggleRechargeModal,
     onSubmitRecharge,
+    onToggleActionsModal,
+    onChangeQuota,
+    onModifyAction,
+    onCancelSaving,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -232,6 +244,18 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   )}
               </Grid>
             </Stack>
+            <Stack justifyContent="flex-end" width="100%">
+              {selectedProduct.saving.type ===
+                EProductType.PROGRAMMEDSAVINGS && (
+                <Button
+                  iconBefore={<MdOutlineAdd />}
+                  spacing="compact"
+                  onClick={onToggleActionsModal}
+                >
+                  Acciones
+                </Button>
+              )}
+            </Stack>
           </Box>
           {showMovements && (
             <Stack
@@ -318,6 +342,14 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           onCloseModal={onToggleRechargeModal}
           savingAccounts={[selectedProduct.saving]}
           onSubmit={onSubmitRecharge}
+        />
+      )}
+      {showActionsModal && (
+        <ActionsModal
+          onCloseModal={onToggleActionsModal}
+          onChangeQuota={onChangeQuota}
+          onModifyAction={onModifyAction}
+          onCancelSaving={onCancelSaving}
         />
       )}
 

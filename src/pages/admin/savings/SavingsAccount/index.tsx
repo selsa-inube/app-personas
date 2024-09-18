@@ -1,6 +1,7 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/flag";
 import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,7 +15,6 @@ import {
   ISelectedProductState,
 } from "./types";
 import { validateSaving } from "./utils";
-import { useFlag } from "@inubekit/flag";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -40,8 +40,9 @@ function SavingsAccount() {
       show: false,
       data: [],
     });
-
   const [showRechargeModal, setShowRechargeModal] = useState(false);
+  const [showActionsModal, setShowActionsModal] = useState(false);
+
   const [loadingSend, setLoadingSend] = useState(false);
   const { getFlag } = useContext(AppContext);
   const { addFlag } = useFlag();
@@ -185,6 +186,22 @@ function SavingsAccount() {
     setShowRechargeModal(!showRechargeModal);
   };
 
+  const handleToggleActionsModal = () => {
+    setShowActionsModal(!showActionsModal);
+  };
+
+  const handleChangeQuota = () => {
+    return true;
+  };
+
+  const handleModifyAction = () => {
+    return true;
+  };
+
+  const handleCancelSaving = () => {
+    return true;
+  };
+
   if (!selectedProduct) return null;
 
   const withTransfers = getFlag(
@@ -203,12 +220,17 @@ function SavingsAccount() {
       showRechargeModal={showRechargeModal}
       loadingSend={loadingSend}
       withTransfers={withTransfers}
+      showActionsModal={showActionsModal}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}
       onToggleReimbursementModal={handleToggleReimbursementModal}
       onToggleRechargeModal={handleToggleRechargeModal}
       onSubmitRecharge={handleSubmitRecharge}
+      onToggleActionsModal={handleToggleActionsModal}
+      onChangeQuota={handleChangeQuota}
+      onModifyAction={handleModifyAction}
+      onCancelSaving={handleCancelSaving}
     />
   );
 }
