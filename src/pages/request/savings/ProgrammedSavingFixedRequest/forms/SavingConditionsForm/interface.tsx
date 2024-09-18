@@ -1,6 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
@@ -12,7 +11,6 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { MdOpenInNew } from "react-icons/md";
 import {
@@ -29,7 +27,6 @@ interface SavingConditionsFormUIProps {
   loadingSimulation?: boolean;
   showDisbursementModal: boolean;
   periodicityOptions: ISelectOption[];
-  message: IMessage;
   simulateSaving: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -38,7 +35,6 @@ interface SavingConditionsFormUIProps {
   onChangePaymentMethod: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleDisbursementModal: () => void;
-  handleCloseMessage: () => void;
 }
 
 function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
@@ -47,14 +43,12 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
     loading,
     loadingSimulation,
     periodicityOptions,
-    message,
     simulateSaving,
     customHandleChange,
     onFormValid,
     onChangePaymentMethod,
     onChangePeriodicity,
     onToggleDisbursementModal,
-    handleCloseMessage,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -295,17 +289,6 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
           </Fieldset>
         </Stack>
       </form>
-
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={handleCloseMessage}
-          duration={5000}
-        />
-      )}
     </>
   );
 }
