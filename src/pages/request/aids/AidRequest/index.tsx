@@ -11,7 +11,6 @@ import {
   mapBeneficiaries,
   mapDetailsSituation,
   mapDocumentaryRequirements,
-  mapRegulationValidations,
 } from "./config/mappers";
 import { IAmountEntry } from "./forms/AmountForm/types";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
@@ -19,8 +18,9 @@ import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
-import { IRegulationValidationsEntry } from "./forms/RegulationValidationsForm/types";
 import { AidRequestUI } from "./interface";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 import { aidRequestStepsRules } from "./utils";
@@ -54,9 +54,9 @@ function AidRequest() {
       isValid: true,
       values: mapDetailsSituation(),
     },
-    regulationValidations: {
+    systemValidations: {
       isValid: true,
-      values: mapRegulationValidations(aidRequestType),
+      values: mapSystemValidations(),
     },
     documentaryRequirements: {
       isValid: true,
@@ -71,8 +71,8 @@ function AidRequest() {
   const beneficiariesRef = useRef<FormikProps<IBeneficiariesEntry>>(null);
   const amountRef = useRef<FormikProps<IAmountEntry>>(null);
   const detailsSituationRef = useRef<FormikProps<IDetailsSituationEntry>>(null);
-  const regulationValidationsRef =
-    useRef<FormikProps<IRegulationValidationsEntry>>(null);
+  const systemValidationsRef =
+    useRef<FormikProps<ISystemValidationsEntry>>(null);
   const documentaryRequirementsRef =
     useRef<FormikProps<IDocumentaryRequirementsEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
@@ -81,7 +81,7 @@ function AidRequest() {
     beneficiaries: beneficiariesRef,
     amount: amountRef,
     detailsSituation: detailsSituationRef,
-    regulationValidations: regulationValidationsRef,
+    systemValidations: systemValidationsRef,
     documentaryRequirements: documentaryRequirementsRef,
     disbursement: disbursementRef,
   };

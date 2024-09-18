@@ -6,7 +6,6 @@ import { IAmountEntry } from "../forms/AmountForm/types";
 import { IBeneficiariesEntry } from "../forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../forms/DetailsSituationForm/types";
 import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
-import { IRegulationValidationsEntry } from "../forms/RegulationValidationsForm/types";
 
 const mapBeneficiaries = (): IBeneficiariesEntry => {
   return {
@@ -26,27 +25,6 @@ const mapAmount = (): IAmountEntry => {
 const mapDetailsSituation = (): IDetailsSituationEntry => {
   return {
     message: "",
-  };
-};
-
-const mapRegulationValidations = (
-  aidType?: IDomainType,
-): IRegulationValidationsEntry => {
-  const selectedAid = aidsRequestMock.find((aid) => aid.id === aidType?.id);
-  const validations: IValidation[] = [];
-
-  if (selectedAid) {
-    selectedAid.validations.regulations.forEach((regulation) => {
-      validations.push({
-        id: regulation.id,
-        label: regulation.label,
-        value: "pending",
-        isRequired: regulation.isRequired,
-      });
-    });
-  }
-  return {
-    validations,
   };
 };
 
@@ -78,5 +56,4 @@ export {
   mapBeneficiaries,
   mapDetailsSituation,
   mapDocumentaryRequirements,
-  mapRegulationValidations,
 };

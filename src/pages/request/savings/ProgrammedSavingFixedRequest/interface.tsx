@@ -3,7 +3,10 @@ import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
+import { PaymentMethodForm } from "@forms/PaymentMethodForm";
+import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
@@ -11,15 +14,14 @@ import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { CommentsForm } from "../../../../shared/forms/CommentsForm";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
-import { GoalForm } from "./forms/GoalForm";
 import { PlanNameForm } from "./forms/PlanNameForm";
-import { QuotaForm } from "./forms/QuotaForm";
-import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
+import { SavingConditionsForm } from "./forms/SavingConditionsForm";
+import { ShareMaturityForm } from "./forms/ShareMaturityForm";
+import { ProgrammedSavingFixedRequestVerification } from "./forms/Verification";
 import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderStepContent = (
   currentStep: number,
@@ -30,17 +32,25 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === programmedSavingFixedRequestSteps.quota.id && (
-        <QuotaForm
-          initialValues={programmedSavingFixedRequest.quota.values}
-          ref={formReferences.quota}
+      {currentStep ===
+        programmedSavingFixedRequestSteps.savingConditions.id && (
+        <SavingConditionsForm
+          initialValues={programmedSavingFixedRequest.savingConditions.values}
+          ref={formReferences.savingConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.goal.id && (
-        <GoalForm
-          initialValues={programmedSavingFixedRequest.goal.values}
-          ref={formReferences.goal}
+      {currentStep === programmedSavingFixedRequestSteps.paymentMethod.id && (
+        <PaymentMethodForm
+          initialValues={programmedSavingFixedRequest.paymentMethod.values}
+          ref={formReferences.paymentMethod}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.shareMaturity.id && (
+        <ShareMaturityForm
+          initialValues={programmedSavingFixedRequest.shareMaturity.values}
+          ref={formReferences.shareMaturity}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -58,13 +68,6 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.contactChannels.id && (
-        <ContactChannelsForm
-          initialValues={programmedSavingFixedRequest.contactChannels.values}
-          ref={formReferences.contactChannels}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
       {currentStep === programmedSavingFixedRequestSteps.comments.id && (
         <CommentsForm
           initialValues={programmedSavingFixedRequest.comments.values}
@@ -72,8 +75,25 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.summary.id && (
-        <ProgrammedSavingFixedRequestSummary
+      {currentStep ===
+        programmedSavingFixedRequestSteps.termsAndConditions.id && (
+        <TermsAndConditionsForm
+          initialValues={programmedSavingFixedRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
+          productId="57"
+          productType="credit"
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.contactChannels.id && (
+        <ContactChannelsForm
+          initialValues={programmedSavingFixedRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.verification.id && (
+        <ProgrammedSavingFixedRequestVerification
           programmedSavingFixedRequest={programmedSavingFixedRequest}
           handleStepChange={handleStepChange}
         />
