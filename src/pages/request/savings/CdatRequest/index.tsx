@@ -1,6 +1,10 @@
 import { mapComments } from "@forms/CommentsForm/mappers";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
+import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
+import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
@@ -11,13 +15,10 @@ import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
-import { mapSystemValidations } from "./config/mappers";
 import { IConditionsEntry } from "./forms/ConditionsForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
-import { ISystemValidationsEntry } from "./forms/SystemValidationsForm/types";
-import { ITermsAndConditionsEntry } from "./forms/TermsAndConditionsForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { cdatStepsRules } from "./utils";
@@ -63,7 +64,7 @@ function CdatRequest() {
     },
     termsAndConditions: {
       isValid: false,
-      values: initalValuesCDAT.termsAndConditions,
+      values: mapTermsAndConditions(),
     },
     contactChannels: {
       isValid: false,

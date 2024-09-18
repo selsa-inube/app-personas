@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import { IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -7,43 +8,39 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
+import { MdErrorOutline } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
-import { getCalculatedConditionsForProduct } from "src/services/iclient/credits/getCalculatedConditions";
-import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCalculatedConditions/types";
-import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
-import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
-import { simulatedTypeTabs } from "./config/tabs";
-import { CreditConditionsFormUI } from "./interface";
-import { ICreditConditionsEntry } from "./types";
+import { initialMessageState } from "src/utils/messages";
+import { SavingConditionsFormUI } from "./interface";
+import { ISavingConditionsEntry } from "./types";
 import {
-  getInitialCreditConditionValidations,
+  getInitialSavingConditionsValidations,
   getPeriodicities,
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
-import { useFlag } from "@inubekit/flag";
 
-interface CreditConditionsFormProps {
-  initialValues: ICreditConditionsEntry;
+interface SavingConditionsFormProps {
+  initialValues: ISavingConditionsEntry;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: ICreditConditionsEntry) => void;
+  onSubmit?: (values: ISavingConditionsEntry) => void;
   loading?: boolean;
 }
 
-const CreditConditionsForm = forwardRef(function CreditConditionsForm(
-  props: CreditConditionsFormProps,
-  ref: React.Ref<FormikProps<ICreditConditionsEntry>>,
+const SavingConditionsForm = forwardRef(function SavingConditionsForm(
+  props: SavingConditionsFormProps,
+  ref: React.Ref<FormikProps<ISavingConditionsEntry>>,
 ) {
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const [loadingSimulation, setLoadingSimulation] = useState(false);
+  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
   const [showDisbursementModal, setShowDisbursementModal] = useState(false);
-  const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
@@ -57,24 +54,20 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   useEffect(() => {
     if (formik.dirty) {
       formik.validateForm().then((errors) => {
-        onFormValid(
-          errors.amount
-            ? Object.keys(errors).length === 1
-            : Object.keys(errors).length === 0,
-        );
+        onFormValid(Object.keys(errors).length === 0);
       });
     }
   }, [formik.values]);
 
   useEffect(() => {
-    setDynamicValidationSchema(getInitialCreditConditionValidations(formik));
+    setDynamicValidationSchema(getInitialSavingConditionsValidations());
   }, []);
 
   useEffect(() => {
     if (accessToken && user?.identification) {
       getValuesForSimulate(formik, accessToken, user.identification);
     }
-  }, [accessToken, user.identification, formik.values.product.id]);
+  }, [accessToken, user.identification]);
 
   const handleChangePaymentMethod = async (
     event: React.ChangeEvent<HTMLSelectElement>,
@@ -118,84 +111,40 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     }
   };
 
-  const simulateCredit = async () => {
+  const simulateSaving = async () => {
     setLoadingSimulation(true);
     try {
-      const productId = formik.values.product?.id;
       const paymentMethodId = formik.values.paymentMethod?.id;
-      const amount = formik.values.amount;
       const deadline = formik.values.deadline;
       const quota = formik.values.quota;
 
       if (
-        !productId ||
         !paymentMethodId ||
         !accessToken ||
-        !amount ||
+        !deadline ||
+        !quota ||
         !formik.values.periodicity.periodicityInMonths
       ) {
         throw new Error("No se pudo obtener la información necesaria");
       }
 
-      const calculateConditionsRequestData: ICalculatedConditionsRequest = {
-        productId,
-        paymentMethodId,
-        userIdentification: user.identification,
-        amount,
-      };
-
-      const calculationResponse = await getCalculatedConditionsForProduct(
-        calculateConditionsRequestData,
-        accessToken,
-      );
-
-      if (calculationResponse) {
-        formik.setFieldValue("rate", calculationResponse.rate);
-      }
-
-      const rate = calculationResponse?.rate ?? 0;
-
-      const simulationRequestData: ISimulateCreditRequest = {
-        productId,
-        paymentMethodId,
-        userIdentification: user.identification,
-        amount,
-        periodicityInMonths: formik.values.periodicity.periodicityInMonths,
-        deadline: !formik.values.simulationWithQuota ? deadline || 0 : 0,
-        quota: formik.values.simulationWithQuota ? quota || 0 : 0,
-        rate,
-        simulationParameter: formik.values.simulationWithQuota
-          ? "QuotaValue"
-          : "QuotaDeadline",
-      };
-
-      const simulationResponse = await simulateCreditConditions(
-        simulationRequestData,
-        accessToken,
-      );
-
-      if (simulationResponse) {
-        formik.setFieldValue("quota", simulationResponse.quota);
-        formik.setFieldValue("rate", simulationResponse.rate / 12);
-        formik.setFieldValue("deadline", simulationResponse.deadline);
-        formik.setFieldValue("netValue", simulationResponse.netValue);
-        formik.setFieldValue(
-          "anticipatedInterest",
-          simulationResponse.anticipatedInterest,
-        );
-        formik.setFieldValue("discounts", simulationResponse.discountValue);
-        formik.setFieldValue("charges", simulationResponse.chargeValue);
-        formik.setFieldValue("hasResult", true);
-      }
+      formik.setFieldValue("savingAmount", 1200000);
+      formik.setFieldValue("annualRate", 9.72);
+      formik.setFieldValue("yields", 54223);
+      formik.setFieldValue("withholdingTax", 0);
+      formik.setFieldValue("gmf", 0);
+      formik.setFieldValue("netValue", 1254223);
+      formik.setFieldValue("hasResult", true);
 
       onFormValid(true);
     } catch (error) {
-      addFlag({
+      setMessage({
+        show: true,
         title: "La simulación no pudo ser procesada",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        icon: <MdErrorOutline />,
         appearance: "danger",
-        duration: 5000,
       });
 
       onFormValid(false);
@@ -215,39 +164,8 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
     setShowDisbursementModal(!showDisbursementModal);
   };
 
-  const handleTabChange = (tabId: string) => {
-    formik.setFieldValue(
-      "simulationWithQuota",
-      tabId === simulatedTypeTabs.simulatedWithQuota.id,
-    );
-
-    if (tabId === "simulatedWithQuota") {
-      formik.setFormikState((state) => {
-        return {
-          ...state,
-          touched: {
-            ...state.touched,
-            quota: false,
-          },
-        };
-      });
-    }
-
-    formik.setFieldValue("quota", "");
-    formik.setFieldValue("deadline", "");
-    formik.setFieldValue("rate", "");
-    formik.setFieldValue("netValue", "");
-    formik.setFieldValue("hasResult", false);
-
-    formik.setFormikState((state) => {
-      return {
-        ...state,
-        touched: {
-          ...state.touched,
-          deadline: false,
-        },
-      };
-    });
+  const handleCloseMessage = () => {
+    setMessage(initialMessageState);
   };
 
   const periodicityOptions = formik.values.periodicities.map((periodicity) => {
@@ -258,22 +176,23 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   });
 
   return (
-    <CreditConditionsFormUI
+    <SavingConditionsFormUI
       loading={loading}
       formik={formik}
       loadingSimulation={loadingSimulation}
       showDisbursementModal={showDisbursementModal}
       periodicityOptions={periodicityOptions}
-      simulateCredit={simulateCredit}
+      message={message}
+      simulateSaving={simulateSaving}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}
       onToggleDisbursementModal={handleToggleDisbursementModal}
       onChangePaymentMethod={handleChangePaymentMethod}
       onChangePeriodicity={handleChangePeriodicity}
-      onTabChange={handleTabChange}
+      handleCloseMessage={handleCloseMessage}
     />
   );
 });
 
-export { CreditConditionsForm };
-export type { CreditConditionsFormProps };
+export { SavingConditionsForm };
+export type { SavingConditionsFormProps };

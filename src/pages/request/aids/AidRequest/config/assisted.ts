@@ -16,7 +16,7 @@ const aidRequestSteps = {
     description:
       "Describe brevemente los detalles para la solicitud de auxilio.",
   },
-  regulationValidations: {
+  systemValidations: {
     id: 4,
     name: "Validaciones del reglamento",
     description:
