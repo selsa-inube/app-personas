@@ -3,7 +3,6 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
@@ -11,7 +10,6 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
-import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
@@ -137,14 +135,12 @@ interface CreditDestinationRequestUIProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
   formReferences: IFormsCreditDestinationRequestRefs;
   loadingSend: boolean;
-  message: IMessage;
   blocker: Blocker;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
-  onCloseMessage: () => void;
   onLeaveRequest: () => void;
 }
 
@@ -156,14 +152,12 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
     creditDestinationRequest,
     formReferences,
     loadingSend,
-    message,
     blocker,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
-    onCloseMessage,
     onLeaveRequest,
   } = props;
 
@@ -236,17 +230,6 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
         <LoadingModal
           title="Generando solicitud..."
           message="Espera unos segundos, estamos generando la solicitud."
-        />
-      )}
-
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={onCloseMessage}
-          duration={5000}
         />
       )}
 

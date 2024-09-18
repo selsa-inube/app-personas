@@ -33,8 +33,6 @@ import {
 import { RecordCard } from "@components/cards/RecordCard";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
-import { SectionMessage } from "@design/feedback/SectionMessage";
-import { IMessage } from "@ptypes/messages.types";
 import {
   EMovementType,
   EProductType,
@@ -75,7 +73,6 @@ interface SavingsAccountUIProps {
   reimbursementModal: IReimbursementModalState;
   showRechargeModal: boolean;
   loadingSend: boolean;
-  message: IMessage;
   productId?: string;
   commitmentsModal: ICommitmentsModalState;
   withTransfers: boolean;
@@ -85,7 +82,6 @@ interface SavingsAccountUIProps {
   onToggleReimbursementModal: () => void;
   onToggleRechargeModal: () => void;
   onSubmitRecharge: (savingAccount: string, amount: number) => void;
-  onCloseMessage: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -97,7 +93,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     reimbursementModal,
     showRechargeModal,
     loadingSend,
-    message,
     productId,
     commitmentsModal,
     withTransfers,
@@ -107,7 +102,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onToggleReimbursementModal,
     onToggleRechargeModal,
     onSubmitRecharge,
-    onCloseMessage,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -331,17 +325,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
         <LoadingModal
           title="Procesando depósito..."
           message="Espera unos segundos, estamos procesando la transacción."
-        />
-      )}
-
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={onCloseMessage}
-          duration={5000}
         />
       )}
     </>

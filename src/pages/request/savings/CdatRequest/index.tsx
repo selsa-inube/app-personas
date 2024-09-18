@@ -6,7 +6,6 @@ import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { usersMock } from "@mocks/users/users.mocks";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
 import { Navigate, useBlocker } from "react-router-dom";
@@ -14,7 +13,6 @@ import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
-import { initialMessageState } from "src/utils/messages";
 import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
 import { IConditionsEntry } from "./forms/ConditionsForm/types";
@@ -32,7 +30,6 @@ function CdatRequest() {
     cdatRequestSteps.investment.id,
   );
   const steps = Object.values(cdatRequestSteps);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
   const { getFlag } = useContext(AppContext);
 
@@ -147,10 +144,6 @@ function CdatRequest() {
     handleStepChange(currentStep - 1);
   };
 
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
-  };
-
   if (!getFlag("admin.savings.savings.request-saving").value) {
     return <Navigate to="/" />;
   }
@@ -163,14 +156,12 @@ function CdatRequest() {
       cdatRequest={cdatRequest}
       formReferences={formReferences}
       loadingSend={loadingSend}
-      message={message}
       blocker={blocker}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
-      onCloseMessage={handleCloseMessage}
     />
   );
 }

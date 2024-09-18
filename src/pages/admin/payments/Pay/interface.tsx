@@ -3,9 +3,7 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
@@ -65,14 +63,12 @@ interface PayUIProps {
   pay: IFormsPay;
   formReferences: IFormsPayRefs;
   loadingSend: boolean;
-  message: IMessage;
   blocker: Blocker;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
-  handleCloseMessage: () => void;
 }
 
 function PayUI(props: PayUIProps) {
@@ -83,14 +79,12 @@ function PayUI(props: PayUIProps) {
     pay,
     formReferences,
     loadingSend,
-    message,
     blocker,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
-    handleCloseMessage,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -169,17 +163,6 @@ function PayUI(props: PayUIProps) {
         <LoadingModal
           title="Procesando pago..."
           message="Espera unos segundos, estamos procesando la transacción."
-        />
-      )}
-
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={handleCloseMessage}
-          duration={5000}
         />
       )}
 

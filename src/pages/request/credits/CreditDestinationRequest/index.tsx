@@ -6,10 +6,8 @@ import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { MdSentimentNeutral } from "react-icons/md";
 import { Navigate, useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { getDestinationsForUser } from "src/services/iclient/credits/getDestinations";
@@ -17,7 +15,6 @@ import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
-import { initialMessageState } from "src/utils/messages";
 import { IDisbursementEntry } from "../../../../shared/forms/DisbursementForm/types";
 import { IPaymentMethodEntry } from "../../../../shared/forms/PaymentMethodForm/types";
 import { creditDestinationRequestSteps } from "./config/assisted";
@@ -32,6 +29,7 @@ import {
   IFormsCreditDestinationRequestRefs,
 } from "./types";
 import { creditDestinationStepsRules, sendCreditRequest } from "./utils";
+import { useFlag } from "@inubekit/flag";
 
 function CreditDestinationRequest() {
   const { accessToken } = useAuth();
@@ -42,10 +40,10 @@ function CreditDestinationRequest() {
     creditDestinationRequestSteps.destination.id,
   );
   const steps = Object.values(creditDestinationRequestSteps);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
   const { getFlag } = useContext(AppContext);
   const navigate = useNavigate();
+  const { addFlag } = useFlag();
 
   const [creditDestinationRequest, setCreditDestinationRequest] =
     useState<IFormsCreditDestinationRequest>({
@@ -187,14 +185,14 @@ function CreditDestinationRequest() {
       accessToken,
       navigate,
     ).catch(() => {
-      setMessage({
-        show: true,
+      addFlag({
         title: "La solicitud no pudo ser procesada",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        icon: <MdSentimentNeutral />,
         appearance: "danger",
+        duration: 5000,
       });
+
       setLoadingSend(false);
     });
   };
@@ -209,10 +207,6 @@ function CreditDestinationRequest() {
 
   const handlePreviousStep = () => {
     handleStepChange(currentStep - 1);
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
   };
 
   const handleLeaveRequest = async () => {
@@ -244,14 +238,12 @@ function CreditDestinationRequest() {
       currentStep={currentStep}
       formReferences={formReferences}
       loadingSend={loadingSend}
-      message={message}
       blocker={blocker}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
-      onCloseMessage={handleCloseMessage}
       onLeaveRequest={handleLeaveRequest}
     />
   );

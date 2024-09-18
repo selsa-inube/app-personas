@@ -1,5 +1,4 @@
 import { useAuth } from "@inube/auth";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -8,10 +7,8 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
-import { MdErrorOutline } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
-import { initialMessageState } from "src/utils/messages";
 import { SavingConditionsFormUI } from "./interface";
 import { ISavingConditionsEntry } from "./types";
 import {
@@ -20,6 +17,7 @@ import {
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
+import { useFlag } from "@inubekit/flag";
 
 interface SavingConditionsFormProps {
   initialValues: ISavingConditionsEntry;
@@ -35,12 +33,12 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const [loadingSimulation, setLoadingSimulation] = useState(false);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
   const [showDisbursementModal, setShowDisbursementModal] = useState(false);
+  const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
@@ -138,13 +136,12 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
 
       onFormValid(true);
     } catch (error) {
-      setMessage({
-        show: true,
+      addFlag({
         title: "La simulación no pudo ser procesada",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        icon: <MdErrorOutline />,
         appearance: "danger",
+        duration: 5000,
       });
 
       onFormValid(false);
@@ -164,10 +161,6 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
     setShowDisbursementModal(!showDisbursementModal);
   };
 
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
-  };
-
   const periodicityOptions = formik.values.periodicities.map((periodicity) => {
     const matchedDomain = periodicityDM.valueOf(periodicity.id);
     return matchedDomain
@@ -182,14 +175,12 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
       loadingSimulation={loadingSimulation}
       showDisbursementModal={showDisbursementModal}
       periodicityOptions={periodicityOptions}
-      message={message}
       simulateSaving={simulateSaving}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}
       onToggleDisbursementModal={handleToggleDisbursementModal}
       onChangePaymentMethod={handleChangePaymentMethod}
       onChangePeriodicity={handleChangePeriodicity}
-      handleCloseMessage={handleCloseMessage}
     />
   );
 });

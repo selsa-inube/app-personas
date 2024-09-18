@@ -3,7 +3,6 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { Assisted } from "@design/feedback/Assisted";
 import { IStep } from "@design/feedback/Assisted/types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
@@ -12,7 +11,6 @@ import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { IDomainType } from "@ptypes/domain.types";
-import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
 import { aidRequestSteps } from "./config/assisted";
@@ -99,7 +97,6 @@ interface AidRequestUIProps {
   aidRequest: IFormsAidRequest;
   formReferences: IFormsAidRequestRefs;
   loadingSend: boolean;
-  message: IMessage;
   blocker: Blocker;
   aidType: IDomainType;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
@@ -107,7 +104,6 @@ interface AidRequestUIProps {
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
-  handleCloseMessage: () => void;
 }
 
 function AidRequestUI(props: AidRequestUIProps) {
@@ -118,7 +114,6 @@ function AidRequestUI(props: AidRequestUIProps) {
     aidRequest,
     formReferences,
     loadingSend,
-    message,
     blocker,
     aidType,
     setIsCurrentFormValid,
@@ -126,7 +121,6 @@ function AidRequestUI(props: AidRequestUIProps) {
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
-    handleCloseMessage,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -198,17 +192,6 @@ function AidRequestUI(props: AidRequestUIProps) {
         <LoadingModal
           title="Solicitando auxilio..."
           message="Espera unos segundos, estamos procesando la transacción."
-        />
-      )}
-
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={handleCloseMessage}
-          duration={5000}
         />
       )}
 

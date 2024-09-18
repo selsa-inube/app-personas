@@ -1,10 +1,8 @@
 import { useAuth } from "@inube/auth";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
 import { useRef, useState } from "react";
 import { Navigate, useBlocker, useParams } from "react-router-dom";
 import { aidRequestTypeDM } from "src/model/domains/services/aids/aidRequestTypeDM";
-import { initialMessageState } from "src/utils/messages";
 import { aidRequestSteps } from "./config/assisted";
 import {
   mapAmount,
@@ -35,7 +33,6 @@ function AidRequest() {
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { user, accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
 
   const aidRequestType = aid_type
     ? aidRequestTypeDM.valueOf(aid_type)
@@ -141,10 +138,6 @@ function AidRequest() {
     handleStepChange(currentStep - 1);
   };
 
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
-  };
-
   return (
     <AidRequestUI
       currentStep={currentStep}
@@ -153,7 +146,6 @@ function AidRequest() {
       steps={steps}
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
-      message={message}
       blocker={blocker}
       aidType={aidRequestType}
       handleNextStep={handleNextStep}
@@ -161,7 +153,6 @@ function AidRequest() {
       handleFinishAssisted={handleFinishAssisted}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
-      handleCloseMessage={handleCloseMessage}
     />
   );
 }

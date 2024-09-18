@@ -1,4 +1,4 @@
-import { MessageAppearanceType } from "@design/feedback/SectionMessage/types";
+import { IFlagAppearance } from "@inubekit/flag";
 
 enum EMessageType {
   SUCCESS = "success",
@@ -14,15 +14,15 @@ interface IMessage {
   title: string;
   description: string;
   icon: React.JSX.Element;
-  appearance: MessageAppearanceType;
+  appearance: IFlagAppearance ;
 }
 
 interface IMessageCase {
   id: number;
-  icon: React.JSX.Element;
+  icon?: React.JSX.Element;
   title: string;
   description: (value: string) => string;
-  appearance: MessageAppearanceType;
+  appearance: IFlagAppearance ;
 }
 
 interface IMessageCases {

@@ -23,7 +23,6 @@ import { ISelectedDocument } from "src/model/entity/service";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { saveDocument } from "src/services/iclient/documents/saveDocument";
 import { ISaveDocumentRequest } from "src/services/iclient/documents/saveDocument/types";
-import { initialMessageState } from "src/utils/messages";
 import { StyledModal } from "./styles";
 
 interface ITempFile extends ISelectedDocument {
@@ -52,7 +51,13 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
   const { accessToken } = useAuth();
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
+  const [message, setMessage] = useState<IMessage>({
+    show: false,
+    title: "",
+    description: "",
+    icon: <></>,
+    appearance: "primary",
+  });
   const [tempfiles, setTempFiles] = useState<ITempFile[]>([]);
 
   const handleSelectDocuments = async (fileList: FileList) => {
@@ -109,7 +114,14 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
           }),
         );
 
-        setMessage(initialMessageState);
+        setMessage({
+          show: false,
+          title: "",
+          description: "",
+          icon: <></>,
+          appearance: "primary",
+        });
+        
       } catch (error) {
         setMessage({
           show: true,

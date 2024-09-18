@@ -2,13 +2,10 @@ import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
-import { IMessage } from "@ptypes/messages.types";
 import { useContext, useEffect, useState } from "react";
-import { MdSentimentNeutral } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
-import { initialMessageState } from "src/utils/messages";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -17,6 +14,7 @@ import {
   ISelectedProductState,
 } from "./types";
 import { validateSaving } from "./utils";
+import { useFlag } from "@inubekit/flag";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -45,8 +43,8 @@ function SavingsAccount() {
 
   const [showRechargeModal, setShowRechargeModal] = useState(false);
   const [loadingSend, setLoadingSend] = useState(false);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const { getFlag } = useContext(AppContext);
+  const { addFlag } = useFlag();
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -171,13 +169,12 @@ function SavingsAccount() {
     setLoadingSend(true);
 
     sendTransferRequest(user, savingAccount, amount, accessToken).catch(() => {
-      setMessage({
-        show: true,
+      addFlag({
         title: "El depósito no pudo ser procesado",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        icon: <MdSentimentNeutral />,
         appearance: "danger",
+        duration: 5000,
       });
 
       setLoadingSend(false);
@@ -186,10 +183,6 @@ function SavingsAccount() {
 
   const handleToggleRechargeModal = () => {
     setShowRechargeModal(!showRechargeModal);
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
   };
 
   if (!selectedProduct) return null;
@@ -209,14 +202,12 @@ function SavingsAccount() {
       reimbursementModal={reimbursementModal}
       showRechargeModal={showRechargeModal}
       loadingSend={loadingSend}
-      message={message}
       withTransfers={withTransfers}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}
       onToggleReimbursementModal={handleToggleReimbursementModal}
       onToggleRechargeModal={handleToggleRechargeModal}
-      onCloseMessage={handleCloseMessage}
       onSubmitRecharge={handleSubmitRecharge}
     />
   );

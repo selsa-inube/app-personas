@@ -4,7 +4,6 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { SectionMessage } from "@design/feedback/SectionMessage";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
@@ -12,14 +11,13 @@ import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { IMessage } from "@ptypes/messages.types";
+import { useFlag } from "@inubekit/flag";
 import { useContext, useEffect, useState } from "react";
-import { MdArrowBack, MdSentimentNeutral } from "react-icons/md";
+import { MdArrowBack } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
-import { initialMessageState } from "src/utils/messages";
 import { crumbsTransferOptions } from "./config/navigation";
 import { sendTransferRequest } from "./utils";
 
@@ -32,7 +30,7 @@ function TransferOptions() {
 
   const [showRechargeModal, setShowRechargeModal] = useState(false);
   const [loadingSend, setLoadingSend] = useState(false);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
+  const { addFlag } = useFlag();
 
   const navigate = useNavigate();
 
@@ -60,13 +58,12 @@ function TransferOptions() {
     setLoadingSend(true);
 
     sendTransferRequest(user, savingAccount, amount, accessToken).catch(() => {
-      setMessage({
-        show: true,
+      addFlag({
         title: "El depósito no pudo ser procesado",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        icon: <MdSentimentNeutral />,
         appearance: "danger",
+        duration: 5000,
       });
 
       setLoadingSend(false);
@@ -75,10 +72,6 @@ function TransferOptions() {
 
   const handleToggleRechargeModal = () => {
     setShowRechargeModal(!showRechargeModal);
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
   };
 
   return (
@@ -140,17 +133,6 @@ function TransferOptions() {
         <LoadingModal
           title="Procesando depósito..."
           message="Espera unos segundos, estamos procesando la transacción."
-        />
-      )}
-
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={handleCloseMessage}
-          duration={5000}
         />
       )}
     </>

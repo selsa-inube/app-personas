@@ -1,5 +1,4 @@
 import { useAuth } from "@inube/auth";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -8,14 +7,12 @@ import {
   useImperativeHandle,
   useState,
 } from "react";
-import { MdErrorOutline } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { getCalculatedConditionsForProduct } from "src/services/iclient/credits/getCalculatedConditions";
 import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCalculatedConditions/types";
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
 import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
-import { initialMessageState } from "src/utils/messages";
 import { simulatedTypeTabs } from "./config/tabs";
 import { CreditConditionsFormUI } from "./interface";
 import { ICreditConditionsEntry } from "./types";
@@ -25,6 +22,7 @@ import {
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
+import { useFlag } from "@inubekit/flag";
 
 interface CreditConditionsFormProps {
   initialValues: ICreditConditionsEntry;
@@ -40,12 +38,12 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
   const { initialValues, onFormValid, onSubmit, loading } = props;
 
   const [loadingSimulation, setLoadingSimulation] = useState(false);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
   const [showDisbursementModal, setShowDisbursementModal] = useState(false);
+  const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
@@ -192,13 +190,12 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
 
       onFormValid(true);
     } catch (error) {
-      setMessage({
-        show: true,
+      addFlag({
         title: "La simulación no pudo ser procesada",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        icon: <MdErrorOutline />,
         appearance: "danger",
+        duration: 5000,
       });
 
       onFormValid(false);
@@ -216,10 +213,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
 
   const handleToggleDisbursementModal = () => {
     setShowDisbursementModal(!showDisbursementModal);
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
   };
 
   const handleTabChange = (tabId: string) => {
@@ -271,14 +264,12 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       loadingSimulation={loadingSimulation}
       showDisbursementModal={showDisbursementModal}
       periodicityOptions={periodicityOptions}
-      message={message}
       simulateCredit={simulateCredit}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}
       onToggleDisbursementModal={handleToggleDisbursementModal}
       onChangePaymentMethod={handleChangePaymentMethod}
       onChangePeriodicity={handleChangePeriodicity}
-      handleCloseMessage={handleCloseMessage}
       onTabChange={handleTabChange}
     />
   );

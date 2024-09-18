@@ -36,6 +36,7 @@ import { MyCardsRoutes } from "./routes/myCards";
 import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
 import { TransfersRoutes } from "./routes/transfers";
+import { FlagProvider } from "@inubekit/flag";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -94,17 +95,19 @@ function App() {
     <>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <AppProvider>
-          <SavingsProvider>
-            <CreditsProvider>
-              <CardsProvider>
-                <RequestsProvider>
-                  <RouterProvider router={router} />
-                </RequestsProvider>
-              </CardsProvider>
-            </CreditsProvider>
-          </SavingsProvider>
-        </AppProvider>
+        <FlagProvider>
+          <AppProvider>
+            <SavingsProvider>
+              <CreditsProvider>
+                <CardsProvider>
+                  <RequestsProvider>
+                    <RouterProvider router={router} />
+                  </RequestsProvider>
+                </CardsProvider>
+              </CreditsProvider>
+            </SavingsProvider>
+          </AppProvider>
+        </FlagProvider>
       </ThemeProvider>
     </>
   );
