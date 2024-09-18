@@ -10,6 +10,7 @@ import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { IPaymentMethodEntry } from "@forms/PaymentMethodForm/types";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { Navigate } from "react-router-dom";
@@ -25,6 +26,7 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { programmedSavingFixedStepsRules } from "./utils";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 
 function ProgrammedSavingFixedRequest() {
   const [currentStep, setCurrentStep] = useState(
@@ -53,6 +55,10 @@ function ProgrammedSavingFixedRequest() {
         isValid: false,
         values: mapDisbursement(),
       },
+      systemValidations: {
+        isValid: false,
+        values: mapSystemValidations(),
+      },
       planName: {
         isValid: false,
         values: initalValuesProgrammedSavingFixed.planName,
@@ -75,6 +81,7 @@ function ProgrammedSavingFixedRequest() {
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const shareMaturityRef = useRef<FormikProps<IShareMaturityEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
+  const systemValidationsRef = useRef<FormikProps<ISystemValidationsEntry>>(null);
   const planNameRef = useRef<FormikProps<IPlanNameEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
@@ -86,6 +93,7 @@ function ProgrammedSavingFixedRequest() {
     paymentMethod: paymentMethodRef,
     shareMaturity: shareMaturityRef,
     disbursement: disbursementRef,
+    systemValidations: systemValidationsRef,
     planName: planNameRef,
     comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,

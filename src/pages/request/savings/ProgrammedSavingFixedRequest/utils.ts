@@ -1,4 +1,6 @@
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import {
   IFormsProgrammedSavingFixedRequest,
@@ -32,6 +34,27 @@ const programmedSavingFixedStepsRules = (
           currentProgrammedSavingFixedRequest.savingConditions.values,
         )
       ) {
+        newProgrammedSavingFixedRequest.systemValidations = {
+          isValid: false,
+          values: {
+            ...mapSystemValidations(),
+            validations: loadingValidations,
+            destinationId: "",
+            destinationName: "",
+            productId: "57", // TEMP
+            productName: "",
+            paymentMethod: values.paymentMethod?.id || "",
+            paymentMethodName: values.paymentMethod?.value || "",
+            amount: values.savingAmount || 0,
+            deadline: values.deadline || 0,
+            rate: values.annualRate,
+            amortizationType: "",
+            periodicity: values.periodicity.id,
+            quota: values.quota || 0,
+            netValue: values.netValue,
+          },
+        };
+
         newProgrammedSavingFixedRequest.paymentMethod = {
           isValid: false,
           values: {

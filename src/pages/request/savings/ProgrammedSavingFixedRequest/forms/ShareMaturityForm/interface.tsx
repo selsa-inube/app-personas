@@ -1,6 +1,6 @@
 import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 import { FormikProps } from "formik";
 import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
 import { getFieldState } from "src/utils/forms/forms";
@@ -21,7 +21,7 @@ function ShareMaturityFormUI(props: ShareMaturityFormUIProps) {
 
   return (
     <form>
-      <Stack direction="column" gap={inube.spacing.s300}>
+      <Grid templateColumns="repeat(3, 1fr)" gap={inube.spacing.s300}>
         <Select
           name="action"
           id="action"
@@ -36,7 +36,7 @@ function ShareMaturityFormUI(props: ShareMaturityFormUIProps) {
           errorMessage={formik.errors.action}
           isFullWidth
         />
-      </Stack>
+      </Grid>
     </form>
   );
 }

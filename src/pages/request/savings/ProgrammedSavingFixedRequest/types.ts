@@ -1,5 +1,6 @@
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { IPaymentMethodEntry } from "@forms/PaymentMethodForm/types";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { FormikProps } from "formik";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
@@ -13,6 +14,7 @@ interface IFormsProgrammedSavingFixedRequest {
   paymentMethod: { isValid: boolean; values: IPaymentMethodEntry };
   shareMaturity: { isValid: boolean; values: IShareMaturityEntry };
   disbursement: { isValid: boolean; values: IDisbursementEntry };
+  systemValidations: { isValid: boolean; values: ISystemValidationsEntry };
   planName: { isValid: boolean; values: IPlanNameEntry };
   comments: { isValid: boolean; values: ICommentsEntry };
   termsAndConditions: { isValid: boolean; values: ITermsAndConditionsEntry };
@@ -24,6 +26,7 @@ interface IFormsProgrammedSavingFixedRequestRefs {
   paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
   shareMaturity: React.RefObject<FormikProps<IShareMaturityEntry>>;
   disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
+  systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
   planName: React.RefObject<FormikProps<IPlanNameEntry>>;
   comments: React.RefObject<FormikProps<ICommentsEntry>>;
   termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;

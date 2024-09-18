@@ -3,6 +3,7 @@ const programmedSavingFixedRequestBoxTitles = {
   paymentMethod: "Forma de pago",
   shareMaturity: "Acción al vencimiento",
   disbursement: "Reembolso",
+  systemValidations: "Validaciones del sistema",
   planName: "Nombra tu plan de ahorro",
   comments: "Comentarios",
   termsAndConditions: "Términos y condiciones",

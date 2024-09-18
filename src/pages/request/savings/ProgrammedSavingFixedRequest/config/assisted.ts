@@ -21,30 +21,36 @@ const programmedSavingFixedRequestSteps = {
     description:
       "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
   },
-  planName: {
+  systemValidations: {
     id: 5,
+    name: "Validaciones del sistema",
+    description:
+      "Revisa cuales son los requisitos necesarios para realizar la solicitud de ahorro.",
+  },
+  planName: {
+    id: 6,
     name: "Nombra tu plan de ahorro",
     description: "¿Cómo te gustaría que se llame tu producto?",
   },
   comments: {
-    id: 6,
+    id: 7,
     name: "Comentarios",
     description:
       "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
   },
   termsAndConditions: {
-    id: 7,
+    id: 8,
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
   },
   contactChannels: {
-    id: 8,
+    id: 9,
     name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
   verification: {
-    id: 9,
+    id: 10,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },
