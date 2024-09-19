@@ -125,6 +125,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
           creditDestinationRequest.disbursement.values,
+          isTablet,
         )}
 
       {stepKey === "documentaryRequirements" &&

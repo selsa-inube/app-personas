@@ -135,7 +135,10 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet,
         )}
       {stepKey === "disbursement" &&
-        renderDisbursementVerification(cdatRequest.disbursement.values)}
+        renderDisbursementVerification(
+          cdatRequest.disbursement.values,
+          isTablet,
+        )}
       {stepKey === "systemValidations" &&
         renderSystemValidationsVerification(
           cdatRequest.systemValidations.values,

@@ -42,6 +42,7 @@ function SavingsAccount() {
     });
   const [showRechargeModal, setShowRechargeModal] = useState(false);
   const [showActionsModal, setShowActionsModal] = useState(false);
+  const [showChangeQuotaModal, setShowChangeQuotaModal] = useState(false);
 
   const [loadingSend, setLoadingSend] = useState(false);
   const { getFlag } = useContext(AppContext);
@@ -190,6 +191,11 @@ function SavingsAccount() {
     setShowActionsModal(!showActionsModal);
   };
 
+  const handleToggleChangeQuotaModal = () => {
+    setShowActionsModal(false);
+    setShowChangeQuotaModal(!showChangeQuotaModal);
+  };
+
   const handleChangeQuota = () => {
     return true;
   };
@@ -221,6 +227,7 @@ function SavingsAccount() {
       loadingSend={loadingSend}
       withTransfers={withTransfers}
       showActionsModal={showActionsModal}
+      showChangeQuotaModal={showChangeQuotaModal}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}
@@ -231,6 +238,7 @@ function SavingsAccount() {
       onChangeQuota={handleChangeQuota}
       onModifyAction={handleModifyAction}
       onCancelSaving={handleCancelSaving}
+      onToggleChangeQuotaModal={handleToggleChangeQuotaModal}
     />
   );
 }
