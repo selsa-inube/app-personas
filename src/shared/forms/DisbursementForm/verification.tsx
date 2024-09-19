@@ -1,6 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
+import { Grid } from "@inubekit/grid";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
 import { bankDM } from "src/model/domains/general/bankDM";
@@ -13,8 +13,16 @@ const getAccountDescription = (accountId: string) => {
   return `Ahorros ${accountId}`;
 };
 
-const renderDisbursementVerification = (values: IDisbursementEntry) => (
-  <Stack direction="column" gap={inube.spacing.s100} width="100%">
+const renderDisbursementVerification = (
+  values: IDisbursementEntry,
+  isTablet: boolean,
+) => (
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
     <BoxAttribute
       label="Forma de desembolso:"
       value={disbursementTypeDM.valueOf(values.disbursement || "")?.value}
@@ -87,7 +95,7 @@ const renderDisbursementVerification = (values: IDisbursementEntry) => (
         value={bankDM.valueOf(values.entity)?.value}
       />
     )}
-  </Stack>
+  </Grid>
 );
 
 export { renderDisbursementVerification };

@@ -24,7 +24,7 @@ function InfoCard(props: InfoCardProps) {
           size="20px"
           spacing="narrow"
         />
-        <Text type="label" size="large">
+        <Text type="label" size="large" weight="bold">
           {title}
         </Text>
       </Stack>

@@ -126,7 +126,10 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "disbursement" &&
-        renderDisbursementVerification(aidRequest.disbursement.values)}
+        renderDisbursementVerification(
+          aidRequest.disbursement.values,
+          isTablet,
+        )}
     </>
   );
 }
