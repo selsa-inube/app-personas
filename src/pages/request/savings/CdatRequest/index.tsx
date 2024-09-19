@@ -5,7 +5,6 @@ import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
-import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
 import { Navigate, useBlocker } from "react-router-dom";
@@ -24,6 +23,7 @@ import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { cdatStepsRules } from "./utils";
 
 function CdatRequest() {
+  const { user } = useContext(AppContext);
   const [loadingSend, setLoadingSend] = useState(false);
 
   const [currentStep, setCurrentStep] = useState(
@@ -68,7 +68,10 @@ function CdatRequest() {
     },
     contactChannels: {
       isValid: false,
-      values: mapContactChannels(usersMock[0].contact[0]),
+      values: mapContactChannels({
+        cellPhone: parseInt(user.phone) || 0,
+        email: user.email || "",
+      }),
     },
   });
 

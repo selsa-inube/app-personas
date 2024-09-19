@@ -1,4 +1,3 @@
-import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
@@ -11,6 +10,7 @@ import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { IPaymentMethodEntry } from "@forms/PaymentMethodForm/types";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { Navigate } from "react-router-dom";
@@ -26,9 +26,9 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { programmedSavingFixedStepsRules } from "./utils";
-import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 
 function ProgrammedSavingFixedRequest() {
+  const { user } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
     programmedSavingFixedRequestSteps.savingConditions.id,
   );
@@ -73,7 +73,10 @@ function ProgrammedSavingFixedRequest() {
       },
       contactChannels: {
         isValid: false,
-        values: mapContactChannels(usersMock[0].contact[0]),
+        values: mapContactChannels({
+          cellPhone: parseInt(user.phone) || 0,
+          email: user.email || "",
+        }),
       },
     });
 
@@ -81,7 +84,8 @@ function ProgrammedSavingFixedRequest() {
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const shareMaturityRef = useRef<FormikProps<IShareMaturityEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
-  const systemValidationsRef = useRef<FormikProps<ISystemValidationsEntry>>(null);
+  const systemValidationsRef =
+    useRef<FormikProps<ISystemValidationsEntry>>(null);
   const planNameRef = useRef<FormikProps<IPlanNameEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
