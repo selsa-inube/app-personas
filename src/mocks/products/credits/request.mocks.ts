@@ -105,37 +105,37 @@ const systemValidationsMock: IValidation[] = [
   {
     id: "minimum_associate_seniority",
     label: "Antigüedad mínima como asociado",
-    value: "pending",
+    value: "success",
     isRequired: true,
   },
   {
     id: "up_to_date_obligations",
     label: "Estar al día con sus obligaciones Fondecom",
-    value: "pending",
+    value: "success",
     isRequired: true,
   },
   {
     id: "request_value_per_formula",
     label:
       "Valor de la solicitud igual o superior al 15% de 1 SMMLV por fórmula",
-    value: "pending",
+    value: "success",
   },
   {
     id: "have_savings_in_sight",
     label:
       "Poseer ahorro a la vista (Si no posee acérquese a la oficina fondecom)",
-    value: "pending",
+    value: "success",
   },
   {
     id: "available_assistance_quota",
     label: "Cupo disponible auxilios",
-    value: "pending",
+    value: "success",
     isRequired: true,
   },
   {
     id: "beneficiary_validity_by_age",
     label: "Valida beneficiario edad",
-    value: "pending",
+    value: "success",
   },
 ];
 
