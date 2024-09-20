@@ -79,7 +79,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         moneySources[moneySourcesList[0]].value = formik.values.valueToPay;
 
         const notFunds = Object.values(moneySources).some(
-          (source) => source.value > source.balance,
+          (source) => source.value && source.value > source.balance,
         );
 
         if (!notFunds) {
@@ -98,7 +98,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         value:
           paymentMethod === EPaymentMethodType.PSE
             ? formik.values.valueToPay
-            : 0,
+            : undefined,
         balance: Infinity,
         type: EMoneySourceType.PSE,
       };
@@ -130,7 +130,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const handleSaveMoneySource = () => {
     const paidValue = Object.values(formik.values.moneySources || {}).reduce(
-      (acc, source) => acc + source.value,
+      (acc, source) => acc + (source.value || 0),
       0,
     );
 
@@ -169,7 +169,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
     if (
       selectedMoneySource.balance &&
-      updatedMoneySources[moneySourceKey].value > selectedMoneySource.balance
+      (updatedMoneySources[moneySourceKey]?.value ?? 0) >
+        selectedMoneySource.balance
     ) {
       return;
     }

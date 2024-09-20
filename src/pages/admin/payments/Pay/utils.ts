@@ -72,7 +72,7 @@ const sendPaymentRequest = async (
 
   const filteredPaymentMethod = Object.values(
     pay.paymentMethod.values.moneySources || {},
-  ).filter((moneySource) => moneySource.value > 0);
+  ).filter((moneySource) => moneySource.value && moneySource.value > 0);
 
   const paymentRequestData: IPaymentRequest = {
     customerCode: user.identification,

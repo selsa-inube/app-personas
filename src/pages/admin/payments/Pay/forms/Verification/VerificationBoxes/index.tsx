@@ -5,8 +5,10 @@ import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Fragment } from "react";
+import { EPaymentMethodType } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
+import { IFormsPay } from "../../../types";
 import { IObligationsEntry } from "../../ObligationsForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
 import {
@@ -15,8 +17,6 @@ import {
 } from "../../PaymentMethodForm/types";
 import { payBoxTitles } from "../config/box";
 import { StyledPayments } from "./styles";
-import { EPaymentMethodType } from "src/model/entity/payment";
-import { IFormsPay } from "../../../types";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -114,6 +114,7 @@ const renderPaymentMethodVerification = (
 
         {Object.values(values.moneySources || {}).map(
           (moneySource) =>
+            moneySource.value &&
             moneySource.value > 0 && (
               <BoxAttribute
                 key={moneySource.id}

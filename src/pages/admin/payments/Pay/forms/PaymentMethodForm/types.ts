@@ -7,7 +7,7 @@ interface IMoneySource {
   [key: string]: {
     id: string;
     label: string;
-    value: number;
+    value?: number;
     balance: number;
     type: EMoneySourceType;
   };

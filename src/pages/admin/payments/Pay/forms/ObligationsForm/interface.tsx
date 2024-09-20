@@ -11,9 +11,15 @@ import {
 } from "@components/modals/payments/PaymentHelpModal";
 import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
 import { ISelectOption } from "@design/input/Select/types";
+import { inube } from "@design/tokens";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Tag } from "@inubekit/tag";
+import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import { useContext } from "react";
 import { MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
@@ -23,12 +29,6 @@ import { paymentCardsBreakpoints } from "./config/cards";
 import { getPaymentFilters, paymentInitialFilters } from "./config/filters";
 import { StyledFiltersContainer, StyledTotalPaymentContainer } from "./styles";
 import { IObligationsEntry } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { Tag } from "@inubekit/tag";
-import { Button } from "@inubekit/button";
 
 const renderFilters = (
   filters: IPaymentFilters,
@@ -174,7 +174,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
             </Stack>
 
             <StyledFiltersContainer>
-              <Text type="title" size="small">
+              <Text type="title" size="small" weight="bold">
                 Filtros:
               </Text>
               <Stack

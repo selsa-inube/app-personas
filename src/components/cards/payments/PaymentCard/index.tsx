@@ -1,6 +1,12 @@
 import { CustomValueModal } from "@components/modals/payments/CustomValueModal";
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { ITag, Tag } from "@inubekit/tag";
+import { Text } from "@inubekit/text";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
@@ -11,12 +17,6 @@ import {
   StyledInputContainer,
   StyledInputRadio,
 } from "./styles";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { ITag, Tag } from "@inubekit/tag";
-import { Button } from "@inubekit/button";
 
 const renderOptions = (
   options: IPaymentOption[],
@@ -47,7 +47,12 @@ const renderOptions = (
             disabled={valueIsZero}
           />
           <Stack direction="column" gap={inube.spacing.s0}>
-            <Text type="label" size="medium" disabled={valueIsZero}>
+            <Text
+              type="label"
+              size="medium"
+              disabled={valueIsZero}
+              weight="bold"
+            >
               {option.label}:
             </Text>
             {option.description && (
@@ -155,7 +160,7 @@ function PaymentCard(props: PaymentCardProps) {
     <>
       <StyledCardContainer>
         <Stack direction="column" gap={inube.spacing.s050}>
-          <Text type="label" size="large" ellipsis>
+          <Text type="label" size="large" ellipsis weight="bold">
             {title}
           </Text>
           <Text type="body" size="medium" appearance="gray">
