@@ -32,9 +32,11 @@ import {
 } from "./types";
 
 import { RecordCard } from "@components/cards/RecordCard";
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { ActionsModal } from "@components/modals/saving/ActionsModal";
 import { ChangeQuotaModal } from "@components/modals/saving/ChangeQuotaModal";
+import { ModifyActionModal } from "@components/modals/saving/ModifyActionModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
@@ -42,6 +44,7 @@ import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
 import {
   EMovementType,
   EProductType,
@@ -82,6 +85,8 @@ interface SavingsAccountUIProps {
   withTransfers: boolean;
   showActionsModal: boolean;
   showChangeQuotaModal: boolean;
+  showModifyActionModal: boolean;
+  showCancelSavingModal: boolean;
   onToggleBeneficiariesModal: () => void;
   onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleCommitmentsModal: () => void;
@@ -93,6 +98,8 @@ interface SavingsAccountUIProps {
   onModifyAction: () => void;
   onCancelSaving: () => void;
   onToggleChangeQuotaModal: () => void;
+  onToggleModifyActionModal: () => void;
+  onToggleCancelSavingModal: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -109,6 +116,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     withTransfers,
     showActionsModal,
     showChangeQuotaModal,
+    showModifyActionModal,
+    showCancelSavingModal,
     onToggleBeneficiariesModal,
     onChangeProduct,
     onToggleCommitmentsModal,
@@ -120,6 +129,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onModifyAction,
     onCancelSaving,
     onToggleChangeQuotaModal,
+    onToggleModifyActionModal,
+    onToggleCancelSavingModal,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -253,8 +264,9 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               </Grid>
             </Stack>
             <Stack justifyContent="flex-end" width="100%">
-              {selectedProduct.saving.type ===
-                EProductType.PROGRAMMEDSAVINGS && (
+              {[EProductType.PROGRAMMEDSAVINGS, EProductType.CDAT].includes(
+                selectedProduct.saving.type,
+              ) && (
                 <Button
                   iconBefore={<MdOutlineAdd />}
                   spacing="compact"
@@ -354,6 +366,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
       )}
       {showActionsModal && (
         <ActionsModal
+          productType={selectedProduct.saving.type}
           onCloseModal={onToggleActionsModal}
           onChangeQuota={onToggleChangeQuotaModal}
           onModifyAction={onModifyAction}
@@ -367,6 +380,26 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           paymentMethod="debit"
           paymentMethodName="Debito automático"
           onConfirm={onChangeQuota}
+        />
+      )}
+      {showModifyActionModal && (
+        <ModifyActionModal
+          portalId="modals"
+          shareMaturity={shareMaturityDM.PAYMENT.id}
+          onCloseModal={onToggleModifyActionModal}
+          onConfirm={onModifyAction}
+        />
+      )}
+      {showCancelSavingModal && (
+        <DecisionModal
+          portalId="modals"
+          title="Cancelar ahorro por anticipado"
+          description="¿Estas seguro? Analizaremos tu solicitud y determinaremos las condiciones para la cancelación."
+          actionText="Cancelar"
+          appearance="danger"
+          cancelText="Continuar"
+          onClick={onCancelSaving}
+          onCloseModal={onToggleCancelSavingModal}
         />
       )}
 

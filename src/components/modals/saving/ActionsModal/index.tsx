@@ -14,10 +14,12 @@ import {
   MdOutlineDelete,
   MdOutlineEdit,
 } from "react-icons/md";
+import { EProductType } from "src/model/entity/product";
 import { StyledModal } from "./styles";
 
 interface ActionsModalProps {
   portalId?: string;
+  productType: EProductType;
   onChangeQuota: () => void;
   onModifyAction: () => void;
   onCancelSaving: () => void;
@@ -27,6 +29,7 @@ interface ActionsModalProps {
 function ActionsModal(props: ActionsModalProps) {
   const {
     portalId = "modals",
+    productType,
     onChangeQuota,
     onModifyAction,
     onCancelSaving,
@@ -74,40 +77,42 @@ function ActionsModal(props: ActionsModalProps) {
         <Divider dashed />
 
         <Stack direction="column" gap={inube.spacing.s200}>
-          <OutlineCard>
-            <Stack
-              justifyContent="space-between"
-              padding={
-                isMobile
-                  ? `${inube.spacing.s200} ${inube.spacing.s150}`
-                  : inube.spacing.s200
-              }
-              alignItems={isMobile ? "flex-start" : "center"}
-              width="100%"
-              gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
-              direction={isMobile ? "column" : "row"}
-            >
-              <Stack direction="column" gap={inube.spacing.s050}>
-                <Text type="title" size="small" weight="bold">
-                  Cambiar cuota
-                </Text>
-
-                <Text type="body" size="small" appearance="gray">
-                  Cambia el valor de la cuota de tu ahorro programado.
-                </Text>
-              </Stack>
-
-              <Button
-                variant="outlined"
-                iconBefore={<MdOutlineCurrencyExchange />}
-                spacing="compact"
-                onClick={onChangeQuota}
-                fullwidth={isMobile}
+          {productType === EProductType.PROGRAMMEDSAVINGS && (
+            <OutlineCard>
+              <Stack
+                justifyContent="space-between"
+                padding={
+                  isMobile
+                    ? `${inube.spacing.s200} ${inube.spacing.s150}`
+                    : inube.spacing.s200
+                }
+                alignItems={isMobile ? "flex-start" : "center"}
+                width="100%"
+                gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+                direction={isMobile ? "column" : "row"}
               >
-                Cambiar
-              </Button>
-            </Stack>
-          </OutlineCard>
+                <Stack direction="column" gap={inube.spacing.s050}>
+                  <Text type="title" size="small" weight="bold">
+                    Cambiar cuota
+                  </Text>
+
+                  <Text type="body" size="small" appearance="gray">
+                    Cambia el valor de la cuota de tu ahorro programado.
+                  </Text>
+                </Stack>
+
+                <Button
+                  variant="outlined"
+                  iconBefore={<MdOutlineCurrencyExchange />}
+                  spacing="compact"
+                  onClick={onChangeQuota}
+                  fullwidth={isMobile}
+                >
+                  Cambiar
+                </Button>
+              </Stack>
+            </OutlineCard>
+          )}
 
           <OutlineCard>
             <Stack
