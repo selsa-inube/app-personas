@@ -38,7 +38,7 @@ function PayVerification(props: PayVerificationProps) {
             <Button
               iconBefore={<MdOutlineArrowBack />}
               onClick={() =>
-                handleStepChange(paySteps[key as keyof IFormsPay].id)
+                handleStepChange(paySteps[key as keyof IFormsPay].number)
               }
               variant="none"
               appearance="dark"

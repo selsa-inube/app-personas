@@ -27,7 +27,7 @@ function AidRequest() {
   const { aid_type } = useParams();
 
   const [currentStep, setCurrentStep] = useState(
-    aidRequestSteps.beneficiaries.id,
+    aidRequestSteps.beneficiaries.number,
   );
   const steps = Object.values(aidRequestSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
@@ -103,7 +103,7 @@ function AidRequest() {
     setAidRequest(newAidRequest);
 
     const changeStepKey = Object.entries(aidRequestSteps).find(
-      ([, config]) => config.id === stepId,
+      ([, config]) => config.number === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
@@ -127,7 +127,7 @@ function AidRequest() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
       return;
     }
@@ -135,7 +135,9 @@ function AidRequest() {
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   return (

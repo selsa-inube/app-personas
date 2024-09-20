@@ -10,7 +10,7 @@ const aidRequestStepsRules = (
   const newAidRequest = { ...currentAidRequest };
 
   const stepKey = Object.entries(aidRequestSteps).find(
-    ([, config]) => config.id === currentStep,
+    ([, config]) => config.number === currentStep,
   )?.[0];
 
   if (!stepKey) return currentAidRequest;

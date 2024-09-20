@@ -40,7 +40,7 @@ import { updateDataStepsRules } from "./utils";
 
 function UpdateData() {
   const [currentStep, setCurrentStep] = useState(
-    updateDataSteps.personalInformation.id,
+    updateDataSteps.personalInformation.number,
   );
   const steps = Object.values(updateDataSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
@@ -155,7 +155,7 @@ function UpdateData() {
     setUpdateData(newUpdateData);
 
     const changeStepKey = Object.entries(updateDataSteps).find(
-      ([, config]) => config.id === stepId,
+      ([, config]) => config.number === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
@@ -177,13 +177,15 @@ function UpdateData() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
     }
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   if (!getFlag("general.links.update-data.update-data-with-assisted").value) {

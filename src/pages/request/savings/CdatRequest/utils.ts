@@ -11,7 +11,7 @@ const cdatStepsRules = (
   let newCdatRequest = { ...currentCdatRequest };
 
   switch (currentStep) {
-    case cdatRequestSteps.investment.id: {
+    case cdatRequestSteps.investment.number: {
       const values = formReferences.investment.current?.values;
 
       if (!values) return currentCdatRequest;
@@ -47,7 +47,7 @@ const cdatStepsRules = (
   }
 
   const stepKey = Object.entries(cdatRequestSteps).find(
-    ([, config]) => config.id === currentStep,
+    ([, config]) => config.number === currentStep,
   )?.[0];
 
   if (!stepKey) return currentCdatRequest;

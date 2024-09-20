@@ -37,7 +37,7 @@ function CreditDestinationRequest() {
   const [loadingSend, setLoadingSend] = useState(false);
 
   const [currentStep, setCurrentStep] = useState(
-    creditDestinationRequestSteps.destination.id,
+    creditDestinationRequestSteps.destination.number,
   );
   const steps = Object.values(creditDestinationRequestSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
@@ -152,10 +152,11 @@ function CreditDestinationRequest() {
       formReferences,
       isCurrentFormValid,
     );
+
     setCreditDestinationRequest(newCreditDestinationRequest);
 
     const changeStepKey = Object.entries(creditDestinationRequestSteps).find(
-      ([, config]) => config.id === stepId,
+      ([, config]) => config.number === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
@@ -198,7 +199,7 @@ function CreditDestinationRequest() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
       return;
     }
@@ -206,7 +207,9 @@ function CreditDestinationRequest() {
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   const handleLeaveRequest = async () => {

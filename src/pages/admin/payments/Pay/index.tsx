@@ -19,7 +19,7 @@ import { payStepsRules, sendPaymentRequest } from "./utils";
 import { useFlag } from "@inubekit/flag";
 
 function Pay() {
-  const [currentStep, setCurrentStep] = useState(paySteps.obligations.id);
+  const [currentStep, setCurrentStep] = useState(paySteps.obligations.number);
   const steps = Object.values(paySteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { accessToken } = useAuth();
@@ -156,8 +156,7 @@ function Pay() {
     setPay(newPay);
 
     const changeStepKey = Object.entries(paySteps).find(
-      ([, config]) => config.id === stepId,
-    )?.[0];
+      ([, config]) => config.number === stepId)?.[0];
 
     if (!changeStepKey) return;
 
@@ -191,7 +190,7 @@ function Pay() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
       return;
     }
@@ -199,7 +198,9 @@ function Pay() {
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   return (

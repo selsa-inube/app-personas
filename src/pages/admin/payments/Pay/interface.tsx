@@ -1,8 +1,6 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
-import { Assisted } from "@design/feedback/Assisted";
-import { IStep } from "@design/feedback/Assisted/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
@@ -18,6 +16,7 @@ import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -28,28 +27,28 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === paySteps.obligations.id && (
+      {currentStep === paySteps.obligations.number && (
         <ObligationsForm
           initialValues={pay.obligations.values}
           ref={formReferences.obligations}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === paySteps.paymentMethod.id && (
+      {currentStep === paySteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={pay.paymentMethod.values}
           ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === paySteps.comments.id && (
+      {currentStep === paySteps.comments.number && (
         <CommentsForm
           initialValues={pay.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === paySteps.verification.id && (
+      {currentStep === paySteps.verification.number && (
         <PayVerification pay={pay} handleStepChange={handleStepChange} />
       )}
     </>
@@ -58,7 +57,7 @@ const renderStepContent = (
 
 interface PayUIProps {
   currentStep: number;
-  steps: IStep[];
+  steps: IAssistedStep[];
   isCurrentFormValid: boolean;
   pay: IFormsPay;
   formReferences: IFormsPayRefs;
@@ -113,11 +112,18 @@ function PayUI(props: PayUIProps) {
         </Stack>
 
         <Assisted
-          steps={steps}
-          currentStep={currentStep}
-          disableNextStep={!isCurrentFormValid}
-          onFinishAssisted={handleFinishAssisted}
-          onStepChange={handleStepChange}
+          step={steps[currentStep - 1]}
+          totalSteps={steps.length}
+          onNextClick={handleNextStep}
+          onBackClick={handlePreviousStep}
+          onSubmitClick={handleFinishAssisted}
+          disableNext={!isCurrentFormValid}
+          size={isTablet ? "small" : "large"}
+          controls={{
+            goBackText: "Anterior",
+            goNextText: "Siguiente",
+            submitText: "Enviar",
+          }}
         />
 
         <Stack direction="column" gap={inube.spacing.s300}>
@@ -132,9 +138,10 @@ function PayUI(props: PayUIProps) {
           <StyledButtonsContainer
             $fixed={
               isMobile &&
-              [paySteps.obligations.id, paySteps.paymentMethod.id].includes(
-                currentStep,
-              )
+              [
+                paySteps.obligations.number,
+                paySteps.paymentMethod.number,
+              ].includes(currentStep)
             }
           >
             <Button

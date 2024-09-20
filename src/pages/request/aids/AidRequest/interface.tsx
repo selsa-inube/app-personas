@@ -1,8 +1,6 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
-import { Assisted } from "@design/feedback/Assisted";
-import { IStep } from "@design/feedback/Assisted/types";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
@@ -21,6 +19,7 @@ import { DetailsSituationForm } from "./forms/DetailsSituationForm";
 import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -31,7 +30,7 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === aidRequestSteps.beneficiaries.id && (
+      {currentStep === aidRequestSteps.beneficiaries.number && (
         <BeneficiariesForm
           initialValues={aidRequest.beneficiaries.values}
           ref={formReferences.beneficiaries}
@@ -39,7 +38,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.amount.id && (
+      {currentStep === aidRequestSteps.amount.number && (
         <AmountForm
           initialValues={aidRequest.amount.values}
           ref={formReferences.amount}
@@ -47,7 +46,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.detailsSituation.id && (
+      {currentStep === aidRequestSteps.detailsSituation.number && (
         <DetailsSituationForm
           initialValues={aidRequest.detailsSituation.values}
           ref={formReferences.detailsSituation}
@@ -55,7 +54,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.systemValidations.id && (
+      {currentStep === aidRequestSteps.systemValidations.number && (
         <SystemValidationsForm
           initialValues={aidRequest.systemValidations.values}
           ref={formReferences.systemValidations}
@@ -65,7 +64,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.documentaryRequirements.id && (
+      {currentStep === aidRequestSteps.documentaryRequirements.number && (
         <DocumentaryRequirementsForm
           initialValues={aidRequest.documentaryRequirements.values}
           ref={formReferences.documentaryRequirements}
@@ -73,7 +72,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.disbursement.id && (
+      {currentStep === aidRequestSteps.disbursement.number && (
         <DisbursementForm
           initialValues={aidRequest.disbursement.values}
           ref={formReferences.disbursement}
@@ -81,7 +80,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.verification.id && (
+      {currentStep === aidRequestSteps.verification.number && (
         <AidRequestVerification
           aidRequest={aidRequest}
           handleStepChange={handleStepChange}
@@ -93,7 +92,7 @@ const renderStepContent = (
 
 interface AidRequestUIProps {
   currentStep: number;
-  steps: IStep[];
+  steps: IAssistedStep[];
   isCurrentFormValid: boolean;
   aidRequest: IFormsAidRequest;
   formReferences: IFormsAidRequestRefs;
@@ -150,11 +149,18 @@ function AidRequestUI(props: AidRequestUIProps) {
         </Stack>
 
         <Assisted
-          steps={steps}
-          currentStep={currentStep}
-          disableNextStep={!isCurrentFormValid}
-          onFinishAssisted={handleFinishAssisted}
-          onStepChange={handleStepChange}
+          step={steps[currentStep - 1]}
+          totalSteps={steps.length}
+          onNextClick={handleNextStep}
+          onBackClick={handlePreviousStep}
+          onSubmitClick={handleFinishAssisted}
+          disableNext={!isCurrentFormValid}
+          size={isTablet ? "small" : "large"}
+          controls={{
+            goBackText: "Anterior",
+            goNextText: "Siguiente",
+            submitText: "Enviar",
+          }}
         />
 
         <Stack direction="column" gap={inube.spacing.s300}>

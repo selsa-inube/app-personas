@@ -1,8 +1,6 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
-import { Assisted } from "@design/feedback/Assisted";
-import { IStep } from "@design/feedback/Assisted/types";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
@@ -23,6 +21,7 @@ import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -33,35 +32,35 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === cdatRequestSteps.investment.id && (
+      {currentStep === cdatRequestSteps.investment.number && (
         <InvestmentForm
           initialValues={cdatRequest.investment.values}
           ref={formReferences.investment}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.conditions.id && (
+      {currentStep === cdatRequestSteps.conditions.number && (
         <ConditionsForm
           initialValues={cdatRequest.conditions.values}
           ref={formReferences.conditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.paymentMethod.id && (
+      {currentStep === cdatRequestSteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={cdatRequest.paymentMethod.values}
           ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.disbursement.id && (
+      {currentStep === cdatRequestSteps.disbursement.number && (
         <DisbursementForm
           initialValues={cdatRequest.disbursement.values}
           ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.systemValidations.id && (
+      {currentStep === cdatRequestSteps.systemValidations.number && (
         <SystemValidationsForm
           initialValues={cdatRequest.systemValidations.values}
           ref={formReferences.systemValidations}
@@ -70,21 +69,21 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.investmentName.id && (
+      {currentStep === cdatRequestSteps.investmentName.number && (
         <InvestmentNameForm
           initialValues={cdatRequest.investmentName.values}
           ref={formReferences.investmentName}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.comments.id && (
+      {currentStep === cdatRequestSteps.comments.number && (
         <CommentsForm
           initialValues={cdatRequest.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.termsAndConditions.id && (
+      {currentStep === cdatRequestSteps.termsAndConditions.number && (
         <TermsAndConditionsForm
           initialValues={cdatRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
@@ -93,14 +92,14 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.contactChannels.id && (
+      {currentStep === cdatRequestSteps.contactChannels.number && (
         <ContactChannelsForm
           initialValues={cdatRequest.contactChannels.values}
           ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.verification.id && (
+      {currentStep === cdatRequestSteps.verification.number && (
         <CdatRequestVerification
           cdatRequest={cdatRequest}
           handleStepChange={handleStepChange}
@@ -112,7 +111,7 @@ const renderStepContent = (
 
 interface CdatRequestUIProps {
   currentStep: number;
-  steps: IStep[];
+  steps: IAssistedStep[];
   isCurrentFormValid: boolean;
   cdatRequest: IFormsCdatRequest;
   formReferences: IFormsCdatRequestRefs;
@@ -167,11 +166,18 @@ function CdatRequestUI(props: CdatRequestUIProps) {
         </Stack>
 
         <Assisted
-          steps={steps}
-          currentStep={currentStep}
-          onFinishAssisted={handleFinishAssisted}
-          onStepChange={handleStepChange}
-          disableNextStep={!isCurrentFormValid}
+          step={steps[currentStep - 1]}
+          totalSteps={steps.length}
+          onNextClick={handleNextStep}
+          onBackClick={handlePreviousStep}
+          onSubmitClick={handleFinishAssisted}
+          disableNext={!isCurrentFormValid}
+          size={isTablet ? "small" : "large"}
+          controls={{
+            goBackText: "Anterior",
+            goNextText: "Siguiente",
+            submitText: "Enviar",
+          }}
         />
 
         <Stack direction="column" gap={inube.spacing.s300}>

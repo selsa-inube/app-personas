@@ -1,8 +1,6 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
-import { Assisted } from "@design/feedback/Assisted";
-import { IStep } from "@design/feedback/Assisted/types";
 import { inube } from "@design/tokens";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
@@ -26,6 +24,7 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -36,28 +35,29 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === creditDestinationRequestSteps.destination.id && (
+      {currentStep === creditDestinationRequestSteps.destination.number && (
         <DestinationForm
           initialValues={creditDestinationRequest.destination.values}
           ref={formReferences.destination}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.creditConditions.id && (
+      {currentStep ===
+        creditDestinationRequestSteps.creditConditions.number && (
         <CreditConditionsForm
           initialValues={creditDestinationRequest.creditConditions.values}
           ref={formReferences.creditConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.paymentMethod.id && (
+      {currentStep === creditDestinationRequestSteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={creditDestinationRequest.paymentMethod.values}
           ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.disbursement.id && (
+      {currentStep === creditDestinationRequestSteps.disbursement.number && (
         <DisbursementForm
           initialValues={creditDestinationRequest.disbursement.values}
           transferAccountValues={{
@@ -75,7 +75,8 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.systemValidations.id && (
+      {currentStep ===
+        creditDestinationRequestSteps.systemValidations.number && (
         <SystemValidationsForm
           initialValues={creditDestinationRequest.systemValidations.values}
           disbursementValues={creditDestinationRequest.disbursement.values}
@@ -84,7 +85,7 @@ const renderStepContent = (
         />
       )}
       {currentStep ===
-        creditDestinationRequestSteps.documentaryRequirements.id && (
+        creditDestinationRequestSteps.documentaryRequirements.number && (
         <DocumentaryRequirementsForm
           initialValues={
             creditDestinationRequest.documentaryRequirements.values
@@ -93,14 +94,15 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.comments.id && (
+      {currentStep === creditDestinationRequestSteps.comments.number && (
         <CommentsForm
           initialValues={creditDestinationRequest.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.termsAndConditions.id && (
+      {currentStep ===
+        creditDestinationRequestSteps.termsAndConditions.number && (
         <TermsAndConditionsForm
           initialValues={creditDestinationRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
@@ -111,14 +113,14 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.contactChannels.id && (
+      {currentStep === creditDestinationRequestSteps.contactChannels.number && (
         <ContactChannelsForm
           initialValues={creditDestinationRequest.contactChannels.values}
           ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === creditDestinationRequestSteps.verification.id && (
+      {currentStep === creditDestinationRequestSteps.verification.number && (
         <CreditDestinationRequestVerification
           creditDestinationRequest={creditDestinationRequest}
           handleStepChange={handleStepChange}
@@ -130,7 +132,7 @@ const renderStepContent = (
 
 interface CreditDestinationRequestUIProps {
   currentStep: number;
-  steps: IStep[];
+  steps: IAssistedStep[];
   isCurrentFormValid: boolean;
   creditDestinationRequest: IFormsCreditDestinationRequest;
   formReferences: IFormsCreditDestinationRequestRefs;
@@ -187,11 +189,18 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
         </Stack>
 
         <Assisted
-          steps={steps}
-          currentStep={currentStep}
-          onFinishAssisted={handleFinishAssisted}
-          onStepChange={handleStepChange}
-          disableNextStep={!isCurrentFormValid}
+          step={steps[currentStep - 1]}
+          totalSteps={steps.length}
+          onNextClick={handleNextStep}
+          onBackClick={handlePreviousStep}
+          onSubmitClick={handleFinishAssisted}
+          disableNext={!isCurrentFormValid}
+          size={isTablet ? "small" : "large"}
+          controls={{
+            goBackText: "Anterior",
+            goNextText: "Siguiente",
+            submitText: "Enviar",
+          }}
         />
 
         <Stack direction="column" gap={inube.spacing.s300}>
