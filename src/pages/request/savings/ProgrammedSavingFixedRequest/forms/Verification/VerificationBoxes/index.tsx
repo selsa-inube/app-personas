@@ -92,6 +92,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
           programmedSavingFixedRequest.disbursement.values,
+          isTablet,
         )}
       {stepKey === "systemValidations" &&
         renderSystemValidationsVerification(

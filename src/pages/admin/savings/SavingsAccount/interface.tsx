@@ -34,6 +34,7 @@ import {
 import { RecordCard } from "@components/cards/RecordCard";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { ActionsModal } from "@components/modals/saving/ActionsModal";
+import { ChangeQuotaModal } from "@components/modals/saving/ChangeQuotaModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
@@ -46,6 +47,7 @@ import {
   EProductType,
   IMovement,
 } from "src/model/entity/product";
+import { extractAttribute } from "src/utils/products";
 import { generateAttributes } from "./config/attributeRecord";
 import {
   extractSavingAttributes,
@@ -79,6 +81,7 @@ interface SavingsAccountUIProps {
   commitmentsModal: ICommitmentsModalState;
   withTransfers: boolean;
   showActionsModal: boolean;
+  showChangeQuotaModal: boolean;
   onToggleBeneficiariesModal: () => void;
   onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleCommitmentsModal: () => void;
@@ -89,6 +92,7 @@ interface SavingsAccountUIProps {
   onChangeQuota: () => void;
   onModifyAction: () => void;
   onCancelSaving: () => void;
+  onToggleChangeQuotaModal: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -104,6 +108,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     commitmentsModal,
     withTransfers,
     showActionsModal,
+    showChangeQuotaModal,
     onToggleBeneficiariesModal,
     onChangeProduct,
     onToggleCommitmentsModal,
@@ -114,6 +119,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onChangeQuota,
     onModifyAction,
     onCancelSaving,
+    onToggleChangeQuotaModal,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -124,6 +130,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
   const formatedAttributes =
     attributes &&
     formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type);
+
+  const netValue = extractAttribute(attributes, "net_value");
 
   const productsIcons = {
     ...savingCommitmentsIcons,
@@ -347,9 +355,18 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
       {showActionsModal && (
         <ActionsModal
           onCloseModal={onToggleActionsModal}
-          onChangeQuota={onChangeQuota}
+          onChangeQuota={onToggleChangeQuotaModal}
           onModifyAction={onModifyAction}
           onCancelSaving={onCancelSaving}
+        />
+      )}
+      {showChangeQuotaModal && (
+        <ChangeQuotaModal
+          onCloseModal={onToggleChangeQuotaModal}
+          totalBalance={Number(netValue?.value || 0)}
+          paymentMethod="debit"
+          paymentMethodName="Debito automático"
+          onConfirm={onChangeQuota}
         />
       )}
 

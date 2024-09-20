@@ -22,7 +22,7 @@ const aidRequestSteps = {
   systemValidations: {
     id: "systemValidations",
     number: 4,
-    name: "Validaciones del reglamento",
+    name: "Validaciones del sistema",
     description:
       "Revisas cuales son los requisitos necesarios para realizar la solicitud de auxilio.",
   },
