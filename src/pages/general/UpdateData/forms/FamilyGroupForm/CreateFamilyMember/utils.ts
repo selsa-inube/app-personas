@@ -22,8 +22,10 @@ const createFamilyMemberStepsRules = (
       ),
   );
 
-  switch (currentStep) {
-    case createFamilyMemberSteps.identificationData.id: {
+  const adjustedStep = currentStep + 1;
+
+  switch (adjustedStep) {
+    case createFamilyMemberSteps.identificationData.number: {
       const values = formReferences.identificationData.current?.values;
 
       if (!values) {
@@ -117,7 +119,7 @@ const createFamilyMemberStepsRules = (
   }
 
   const stepKey = Object.entries(createFamilyMemberSteps).find(
-    ([, config]) => config.id === currentStep,
+    ([, config]) => config.number === adjustedStep,
   )?.[0];
 
   if (!stepKey)

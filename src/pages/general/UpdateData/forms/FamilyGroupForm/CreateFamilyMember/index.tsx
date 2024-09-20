@@ -26,7 +26,7 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
   const { onAddMember } = props;
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const [currentStep, setCurrentStep] = useState(
-    createFamilyMemberSteps.identificationData.id,
+    createFamilyMemberSteps.identificationData.number - 1,
   );
 
   const steps = Object.values(createFamilyMemberSteps);
@@ -74,6 +74,7 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
         formReferences,
         isCurrentFormValid,
       );
+
     setFamilyMember(newCreateFamilyMember);
 
     if (selectedReferenceUser) {
@@ -81,12 +82,11 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
     }
 
     const changeStepKey = Object.entries(createFamilyMemberSteps).find(
-      ([, config]) => config.id === stepId,
-    )?.[0];
+      ([, config]) => config.number === stepId + 1)?.[0];
 
     if (!changeStepKey) return;
 
-    const changeIsVerification = stepId === steps.length;
+    const changeIsVerification = stepId + 1 === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
         newCreateFamilyMember[changeStepKey as keyof IFormsCreateFamilyMember]
@@ -109,7 +109,7 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
   };
 
   const handleNextStep = () => {
-    if (currentStep === 1) {
+    if (currentStep === 0) {
       setIsLoading(true);
       setTimeout(() => {
         handleStepChange(currentStep + 1);
@@ -118,7 +118,7 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
       return;
     }
 
-    if (currentStep === steps.length) {
+    if (currentStep + 1 === steps.length) {
       handleFinishAssisted();
     }
 
@@ -126,7 +126,9 @@ function CreateFamilyMember(props: CreateFamilyMemberProps) {
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   return (

@@ -100,53 +100,25 @@ const palette = {
 const fondecomTheme = {
   assisted: {
     title: {
-      appearance: {
-        Value: "",
-        Reference: "fondecom.assisted.title.appearance",
-        Token: "dark",
-      },
+      appearance: "dark",
     },
     description: {
-      appearance: {
-        Value: "",
-        Reference: "fondecom.assisted.description.appearance",
-        Token: "gray",
-      },
+      appearance: "gray",
     },
     track: {
-      color: {
-        Value: "",
-        Reference: "fondecom.assisted.track.color",
-        Token: "fondecom.palette.neutral.n30",
-      },
+      color: palette.neutral.n30,
     },
     bar: {
-      color: {
-        Value: "",
-        Reference: "fondecom.assisted.bar.color",
-        Token: "fondecom.palette.blue.b400",
-      },
+      color: palette.blue.b400,
     },
     background: {
-      color: {
-        Value: "",
-        Reference: "fondecom.assisted.background.color",
-        Token: "fondecom.palette.neutral.n10",
-      },
+      color: palette.neutral.n10,
     },
     button: {
-      appearance: {
-        Value: "",
-        Reference: "fondecom.assisted.button.appearance",
-        Token: "primary",
-      },
+      appearance: "primary",
     },
     step: {
-      color: {
-        Value: "",
-        Reference: "fondecom.assisted.step.color",
-        Token: "fondecom.palette.blue.b400",
-      },
+      color: palette.blue.b400,
     },
   },
   blanket: {
@@ -341,10 +313,10 @@ const fondecomTheme = {
   },
   fieldset: {
     legend: {
-      color: palette.neutral.n200
+      color: palette.neutral.n200,
     },
     border: {
-      color: palette.neutral.n40
+      color: palette.neutral.n40,
     },
   },
   fullscreenNav: {

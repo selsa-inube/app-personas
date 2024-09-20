@@ -39,7 +39,7 @@ function CdatRequestVerification(props: VerificationProps) {
               iconBefore={<MdOutlineArrowBack />}
               onClick={() =>
                 handleStepChange(
-                  cdatRequestSteps[key as keyof IFormsCdatRequest].id,
+                  cdatRequestSteps[key as keyof IFormsCdatRequest].number - 1,
                 )
               }
               variant="none"

@@ -1,6 +1,4 @@
 import { Title } from "@design/data/Title";
-import { Assisted } from "@design/feedback/Assisted";
-import { IStep } from "@design/feedback/Assisted/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
@@ -27,6 +25,7 @@ import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -37,115 +36,115 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === updateDataSteps.personalInformation.id && (
+      {currentStep + 1 === updateDataSteps.personalInformation.number && (
         <PersonalInformationForm
           initialValues={updateData.personalInformation.values}
           ref={formReferences.personalInformation}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.contactData.id && (
+      {currentStep + 1 === updateDataSteps.contactData.number && (
         <ContactDataForm
           initialValues={updateData.contactData.values}
           ref={formReferences.contactData}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.familyGroup.id && (
+      {currentStep + 1 === updateDataSteps.familyGroup.number && (
         <FamilyGroupForm
           initialValues={updateData.familyGroup.values}
           ref={formReferences.familyGroup}
         />
       )}
-      {currentStep === updateDataSteps.beneficiaries.id && (
+      {currentStep + 1 === updateDataSteps.beneficiaries.number && (
         <BeneficiariesForm
           initialValues={updateData.beneficiaries.values}
           ref={formReferences.beneficiaries}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.bankTransfers.id && (
+      {currentStep + 1 === updateDataSteps.bankTransfers.number && (
         <BankTransfersForm
           initialValues={updateData.bankTransfers.values}
           ref={formReferences.bankTransfers}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.personalAssets.id && (
+      {currentStep + 1 === updateDataSteps.personalAssets.number && (
         <PersonalAssetsForm
           initialValues={updateData.personalAssets.values}
           ref={formReferences.personalAssets}
         />
       )}
-      {currentStep === updateDataSteps.personalDebts.id && (
+      {currentStep + 1 === updateDataSteps.personalDebts.number && (
         <PersonalDebtsForm
           initialValues={updateData.personalDebts.values}
           ref={formReferences.personalDebts}
         />
       )}
-      {currentStep === updateDataSteps.personalReferences.id && (
+      {currentStep + 1 === updateDataSteps.personalReferences.number && (
         <PersonalReferencesForm
           initialValues={updateData.personalReferences.values}
           ref={formReferences.personalReferences}
         />
       )}
-      {currentStep === updateDataSteps.financialOperations.id && (
+      {currentStep + 1 === updateDataSteps.financialOperations.number && (
         <FinancialOperationsForm
           initialValues={updateData.financialOperations.values}
           ref={formReferences.financialOperations}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.personalResidence.id && (
+      {currentStep + 1 === updateDataSteps.personalResidence.number && (
         <PersonalResidenceForm
           initialValues={updateData.personalResidence.values}
           ref={formReferences.personalResidence}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.socioeconomicInformation.id && (
+      {currentStep + 1 === updateDataSteps.socioeconomicInformation.number && (
         <SocioeconomicInformationForm
           initialValues={updateData.socioeconomicInformation.values}
           ref={formReferences.socioeconomicInformation}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.economicActivity.id && (
+      {currentStep + 1 === updateDataSteps.economicActivity.number && (
         <EconomicActivityForm
           initialValues={updateData.economicActivity.values}
           ref={formReferences.economicActivity}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.income.id && (
+      {currentStep + 1 === updateDataSteps.income.number && (
         <IncomesForm
           initialValues={updateData.income.values}
           ref={formReferences.income}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.expenses.id && (
+      {currentStep + 1 === updateDataSteps.expenses.number && (
         <ExpensesForm
           initialValues={updateData.expenses.values}
           ref={formReferences.expenses}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.relationshipWithDirectors.id && (
+      {currentStep + 1 === updateDataSteps.relationshipWithDirectors.number && (
         <RelationshipWithDirectorsForm
           initialValues={updateData.relationshipWithDirectors.values}
           ref={formReferences.relationshipWithDirectors}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.comments.id && (
+      {currentStep + 1 === updateDataSteps.comments.number && (
         <CommentsForm
           initialValues={updateData.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === updateDataSteps.verification.id && (
+      {currentStep + 1 === updateDataSteps.verification.number && (
         <UpdateDataVerification
           updatedData={updateData}
           handleStepChange={handleStepChange}
@@ -157,7 +156,7 @@ const renderStepContent = (
 
 interface UpdateDataUIProps {
   currentStep: number;
-  steps: IStep[];
+  steps: IAssistedStep[];
   isCurrentFormValid: boolean;
   updateData: IFormsUpdateData;
   formReferences: IFormsUpdateDataRefs;
@@ -207,11 +206,18 @@ function UpdateDataUI(props: UpdateDataUIProps) {
       </Stack>
 
       <Assisted
-        steps={steps}
-        currentStep={currentStep}
-        onFinishAssisted={handleFinishAssisted}
-        onStepChange={handleStepChange}
-        disableNextStep={!isCurrentFormValid}
+        step={steps[currentStep]}
+        totalSteps={steps.length}
+        onNextClick={handleNextStep}
+        onBackClick={handlePreviousStep}
+        onSubmitClick={handleFinishAssisted}
+        disableNext={!isCurrentFormValid}
+        size={isTablet ? "small" : "large"}
+        controls={{
+          goBackText: "Anterior",
+          goNextText: "Siguiente",
+          submitText: "Enviar",
+        }}
       />
 
       <Stack direction="column" gap={inube.spacing.s300} margin={`0 0 320px 0`}>

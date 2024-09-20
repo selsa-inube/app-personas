@@ -30,7 +30,7 @@ import { programmedSavingFixedStepsRules } from "./utils";
 function ProgrammedSavingFixedRequest() {
   const { user } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
-    programmedSavingFixedRequestSteps.savingConditions.id,
+    programmedSavingFixedRequestSteps.savingConditions.number - 1
   );
   const steps = Object.values(programmedSavingFixedRequestSteps);
 
@@ -111,15 +111,16 @@ function ProgrammedSavingFixedRequest() {
       formReferences,
       isCurrentFormValid,
     );
+
     setProgrammedSavingFixedRequest(newProgrammedSavingFixedRequest);
 
     const changeStepKey = Object.entries(
       programmedSavingFixedRequestSteps,
-    ).find(([, config]) => config.id === stepId)?.[0];
+    ).find(([, config]) => config.number === stepId + 1)?.[0]; 
 
     if (!changeStepKey) return;
 
-    const changeIsVerification = stepId === steps.length;
+    const changeIsVerification = stepId + 1 === steps.length; 
     setIsCurrentFormValid(
       changeIsVerification ||
         newProgrammedSavingFixedRequest[
@@ -131,20 +132,22 @@ function ProgrammedSavingFixedRequest() {
     setCurrentStep(stepId);
 
     document.getElementsByTagName("main")[0].scrollTo(0, 0);
-  };
+};
 
   const handleFinishAssisted = () => {
     return true;
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep + 1 < steps.length) {
       handleStepChange(currentStep + 1);
     }
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   if (!getFlag("admin.savings.savings.request-saving").value) {

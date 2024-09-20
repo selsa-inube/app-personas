@@ -18,8 +18,10 @@ const payStepsRules = (
 ) => {
   let newPay = { ...currentPay };
 
-  switch (currentStep) {
-    case paySteps.obligations.id: {
+  const adjustedStep = currentStep + 1;
+
+  switch (adjustedStep) {
+    case paySteps.obligations.number: {
       const values = formReferences.obligations.current?.values;
 
       if (!values) return currentPay;
@@ -47,7 +49,7 @@ const payStepsRules = (
   }
 
   const stepKey = Object.entries(paySteps).find(
-    ([, config]) => config.id === currentStep,
+    ([, config]) => config.number === adjustedStep,
   )?.[0];
 
   if (!stepKey) return currentPay;

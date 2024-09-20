@@ -17,8 +17,10 @@ const programmedSavingFixedStepsRules = (
     ...currentProgrammedSavingFixedRequest,
   };
 
-  switch (currentStep) {
-    case programmedSavingFixedRequestSteps.savingConditions.id: {
+  const adjustedStep = currentStep + 1;
+
+  switch (adjustedStep) {
+    case programmedSavingFixedRequestSteps.savingConditions.number: {
       const values = formReferences.savingConditions.current?.values;
 
       if (!values) return currentProgrammedSavingFixedRequest;
@@ -70,7 +72,7 @@ const programmedSavingFixedStepsRules = (
   }
 
   const stepKey = Object.entries(programmedSavingFixedRequestSteps).find(
-    ([, config]) => config.id === currentStep,
+    ([, config]) => config.number === adjustedStep,
   )?.[0];
 
   if (!stepKey) return currentProgrammedSavingFixedRequest;

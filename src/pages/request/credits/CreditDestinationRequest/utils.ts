@@ -22,8 +22,10 @@ const creditDestinationStepsRules = (
 ) => {
   let newCreditDestinationRequest = { ...currentCreditDestinationRequest };
 
-  switch (currentStep) {
-    case creditDestinationRequestSteps.destination.id: {
+  const adjustedStep = currentStep + 1;
+
+  switch (adjustedStep) {
+    case creditDestinationRequestSteps.destination.number: {
       const values = formReferences.destination.current?.values;
 
       if (!values) return currentCreditDestinationRequest;
@@ -50,7 +52,7 @@ const creditDestinationStepsRules = (
 
       return newCreditDestinationRequest;
     }
-    case creditDestinationRequestSteps.creditConditions.id: {
+    case creditDestinationRequestSteps.creditConditions.number: {
       const values = formReferences.creditConditions.current?.values;
 
       if (!values) return currentCreditDestinationRequest;
@@ -97,7 +99,7 @@ const creditDestinationStepsRules = (
 
       return newCreditDestinationRequest;
     }
-    case creditDestinationRequestSteps.systemValidations.id: {
+    case creditDestinationRequestSteps.systemValidations.number: {
       const values = formReferences.systemValidations.current?.values;
 
       if (!values) return currentCreditDestinationRequest;
@@ -125,7 +127,7 @@ const creditDestinationStepsRules = (
   }
 
   const stepKey = Object.entries(creditDestinationRequestSteps).find(
-    ([, config]) => config.id === currentStep,
+    ([, config]) => config.number === adjustedStep,
   )?.[0];
 
   if (!stepKey) return currentCreditDestinationRequest;
