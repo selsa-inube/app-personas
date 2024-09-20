@@ -16,7 +16,7 @@ interface PaymentMethodCardProps {
   moneySource: {
     id: string;
     label: string;
-    value: number;
+    value?: number;
     balance: number;
     type: EMoneySourceType;
   };
@@ -83,7 +83,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
             {moneySource.label}
           </Text>
 
-          {moneySource.value > moneySource.balance && (
+          {(moneySource.value ?? 0) > moneySource.balance && (
             <Tag
               label="Fondos insuficientes"
               appearance="danger"
@@ -96,7 +96,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
       {moneySource.type === EMoneySourceType.SAVINGACCOUNT && (
         <Stack direction="column" gap={inube.spacing.s100}>
           <StyledLabel>
-            <Text type="label" size="medium" appearance="gray">
+            <Text type="label" size="medium" appearance="gray" weight="bold">
               Numero de cuenta:
             </Text>
             <Text type="body" size="medium">
@@ -104,7 +104,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
             </Text>
           </StyledLabel>
           <StyledLabel>
-            <Text type="label" size="medium" appearance="gray">
+            <Text type="label" size="medium" appearance="gray" weight="bold">
               Saldo de la cuenta:
             </Text>
             <Text type="body" size="medium">
@@ -124,13 +124,17 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
           id={moneySource.id}
           name={moneySource.id}
           placeholder=""
-          value={currencyFormat(moneySource.value, false)}
+          value={
+            moneySource.value ? currencyFormat(moneySource.value, false) : ""
+          }
           onChange={onChangeMoneySource}
           isFullWidth
           isDisabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
           size="compact"
           state={
-            moneySource.value > moneySource.balance ? "invalid" : "pending"
+            moneySource?.value && moneySource.value > moneySource.balance
+              ? "invalid"
+              : "pending"
           }
           iconAfter={
             <Icon
@@ -165,7 +169,7 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
               disabled={
                 isSaved ||
                 moneySource.value === 0 ||
-                moneySource.value > moneySource.balance
+                (moneySource.value ?? 0) > moneySource.balance
               }
               appearance="primary"
               spacing="compact"
