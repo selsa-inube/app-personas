@@ -70,7 +70,7 @@ const generateFormFields = (
       case "select":
         return (
           <StyledInputForm
-            $gridColumn={fullColumns ? "span 2" : field.gridColumn}
+            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
             key={field.name}
           >
             <Select
