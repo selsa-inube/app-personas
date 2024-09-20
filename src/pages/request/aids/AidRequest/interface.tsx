@@ -30,7 +30,7 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep + 1 === aidRequestSteps.beneficiaries.number && (
+      {currentStep === aidRequestSteps.beneficiaries.number && (
         <BeneficiariesForm
           initialValues={aidRequest.beneficiaries.values}
           ref={formReferences.beneficiaries}
@@ -38,7 +38,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep + 1 === aidRequestSteps.amount.number && (
+      {currentStep === aidRequestSteps.amount.number && (
         <AmountForm
           initialValues={aidRequest.amount.values}
           ref={formReferences.amount}
@@ -46,7 +46,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep + 1 === aidRequestSteps.detailsSituation.number && (
+      {currentStep === aidRequestSteps.detailsSituation.number && (
         <DetailsSituationForm
           initialValues={aidRequest.detailsSituation.values}
           ref={formReferences.detailsSituation}
@@ -54,7 +54,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep + 1 === aidRequestSteps.systemValidations.number && (
+      {currentStep === aidRequestSteps.systemValidations.number && (
         <SystemValidationsForm
           initialValues={aidRequest.systemValidations.values}
           ref={formReferences.systemValidations}
@@ -64,7 +64,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep + 1 === aidRequestSteps.documentaryRequirements.number && (
+      {currentStep === aidRequestSteps.documentaryRequirements.number && (
         <DocumentaryRequirementsForm
           initialValues={aidRequest.documentaryRequirements.values}
           ref={formReferences.documentaryRequirements}
@@ -72,7 +72,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep + 1 === aidRequestSteps.disbursement.number && (
+      {currentStep === aidRequestSteps.disbursement.number && (
         <DisbursementForm
           initialValues={aidRequest.disbursement.values}
           ref={formReferences.disbursement}
@@ -80,7 +80,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep + 1 === aidRequestSteps.verification.number && (
+      {currentStep === aidRequestSteps.verification.number && (
         <AidRequestVerification
           aidRequest={aidRequest}
           handleStepChange={handleStepChange}
@@ -149,7 +149,7 @@ function AidRequestUI(props: AidRequestUIProps) {
         </Stack>
 
         <Assisted
-          step={steps[currentStep]}
+          step={steps[currentStep - 1]}
           totalSteps={steps.length}
           onNextClick={handleNextStep}
           onBackClick={handlePreviousStep}

@@ -27,28 +27,28 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep + 1 === paySteps.obligations.number && (
+      {currentStep === paySteps.obligations.number && (
         <ObligationsForm
           initialValues={pay.obligations.values}
           ref={formReferences.obligations}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === paySteps.paymentMethod.number && (
+      {currentStep === paySteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={pay.paymentMethod.values}
           ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === paySteps.comments.number && (
+      {currentStep === paySteps.comments.number && (
         <CommentsForm
           initialValues={pay.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === paySteps.verification.number && (
+      {currentStep === paySteps.verification.number && (
         <PayVerification pay={pay} handleStepChange={handleStepChange} />
       )}
     </>
@@ -112,7 +112,7 @@ function PayUI(props: PayUIProps) {
         </Stack>
 
         <Assisted
-          step={steps[currentStep]}
+          step={steps[currentStep - 1]}
           totalSteps={steps.length}
           onNextClick={handleNextStep}
           onBackClick={handlePreviousStep}
@@ -138,9 +138,10 @@ function PayUI(props: PayUIProps) {
           <StyledButtonsContainer
             $fixed={
               isMobile &&
-              [paySteps.obligations.number, paySteps.paymentMethod.number].includes(
-                currentStep,
-              )
+              [
+                paySteps.obligations.number,
+                paySteps.paymentMethod.number,
+              ].includes(currentStep)
             }
           >
             <Button

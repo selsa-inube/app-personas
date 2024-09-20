@@ -27,7 +27,7 @@ function AidRequest() {
   const { aid_type } = useParams();
 
   const [currentStep, setCurrentStep] = useState(
-    aidRequestSteps.beneficiaries.number - 1
+    aidRequestSteps.beneficiaries.number,
   );
   const steps = Object.values(aidRequestSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
@@ -103,11 +103,12 @@ function AidRequest() {
     setAidRequest(newAidRequest);
 
     const changeStepKey = Object.entries(aidRequestSteps).find(
-      ([, config]) => config.number === stepId + 1)?.[0];
+      ([, config]) => config.number === stepId,
+    )?.[0];
 
     if (!changeStepKey) return;
 
-    const changeIsVerification = stepId + 1 === steps.length;
+    const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
         newAidRequest[changeStepKey as keyof IFormsAidRequest]?.isValid ||
@@ -126,7 +127,7 @@ function AidRequest() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 < steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
       return;
     }

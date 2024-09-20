@@ -22,9 +22,7 @@ const creditDestinationStepsRules = (
 ) => {
   let newCreditDestinationRequest = { ...currentCreditDestinationRequest };
 
-  const adjustedStep = currentStep + 1;
-
-  switch (adjustedStep) {
+  switch (currentStep) {
     case creditDestinationRequestSteps.destination.number: {
       const values = formReferences.destination.current?.values;
 
@@ -127,7 +125,7 @@ const creditDestinationStepsRules = (
   }
 
   const stepKey = Object.entries(creditDestinationRequestSteps).find(
-    ([, config]) => config.number === adjustedStep,
+    ([, config]) => config.number === currentStep,
   )?.[0];
 
   if (!stepKey) return currentCreditDestinationRequest;

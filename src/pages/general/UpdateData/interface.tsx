@@ -36,115 +36,115 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep + 1 === updateDataSteps.personalInformation.number && (
+      {currentStep === updateDataSteps.personalInformation.number && (
         <PersonalInformationForm
           initialValues={updateData.personalInformation.values}
           ref={formReferences.personalInformation}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.contactData.number && (
+      {currentStep === updateDataSteps.contactData.number && (
         <ContactDataForm
           initialValues={updateData.contactData.values}
           ref={formReferences.contactData}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.familyGroup.number && (
+      {currentStep === updateDataSteps.familyGroup.number && (
         <FamilyGroupForm
           initialValues={updateData.familyGroup.values}
           ref={formReferences.familyGroup}
         />
       )}
-      {currentStep + 1 === updateDataSteps.beneficiaries.number && (
+      {currentStep === updateDataSteps.beneficiaries.number && (
         <BeneficiariesForm
           initialValues={updateData.beneficiaries.values}
           ref={formReferences.beneficiaries}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.bankTransfers.number && (
+      {currentStep === updateDataSteps.bankTransfers.number && (
         <BankTransfersForm
           initialValues={updateData.bankTransfers.values}
           ref={formReferences.bankTransfers}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.personalAssets.number && (
+      {currentStep === updateDataSteps.personalAssets.number && (
         <PersonalAssetsForm
           initialValues={updateData.personalAssets.values}
           ref={formReferences.personalAssets}
         />
       )}
-      {currentStep + 1 === updateDataSteps.personalDebts.number && (
+      {currentStep === updateDataSteps.personalDebts.number && (
         <PersonalDebtsForm
           initialValues={updateData.personalDebts.values}
           ref={formReferences.personalDebts}
         />
       )}
-      {currentStep + 1 === updateDataSteps.personalReferences.number && (
+      {currentStep === updateDataSteps.personalReferences.number && (
         <PersonalReferencesForm
           initialValues={updateData.personalReferences.values}
           ref={formReferences.personalReferences}
         />
       )}
-      {currentStep + 1 === updateDataSteps.financialOperations.number && (
+      {currentStep === updateDataSteps.financialOperations.number && (
         <FinancialOperationsForm
           initialValues={updateData.financialOperations.values}
           ref={formReferences.financialOperations}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.personalResidence.number && (
+      {currentStep === updateDataSteps.personalResidence.number && (
         <PersonalResidenceForm
           initialValues={updateData.personalResidence.values}
           ref={formReferences.personalResidence}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.socioeconomicInformation.number && (
+      {currentStep === updateDataSteps.socioeconomicInformation.number && (
         <SocioeconomicInformationForm
           initialValues={updateData.socioeconomicInformation.values}
           ref={formReferences.socioeconomicInformation}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.economicActivity.number && (
+      {currentStep === updateDataSteps.economicActivity.number && (
         <EconomicActivityForm
           initialValues={updateData.economicActivity.values}
           ref={formReferences.economicActivity}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.income.number && (
+      {currentStep === updateDataSteps.income.number && (
         <IncomesForm
           initialValues={updateData.income.values}
           ref={formReferences.income}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.expenses.number && (
+      {currentStep === updateDataSteps.expenses.number && (
         <ExpensesForm
           initialValues={updateData.expenses.values}
           ref={formReferences.expenses}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.relationshipWithDirectors.number && (
+      {currentStep === updateDataSteps.relationshipWithDirectors.number && (
         <RelationshipWithDirectorsForm
           initialValues={updateData.relationshipWithDirectors.values}
           ref={formReferences.relationshipWithDirectors}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.comments.number && (
+      {currentStep === updateDataSteps.comments.number && (
         <CommentsForm
           initialValues={updateData.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === updateDataSteps.verification.number && (
+      {currentStep === updateDataSteps.verification.number && (
         <UpdateDataVerification
           updatedData={updateData}
           handleStepChange={handleStepChange}
@@ -206,7 +206,7 @@ function UpdateDataUI(props: UpdateDataUIProps) {
       </Stack>
 
       <Assisted
-        step={steps[currentStep]}
+        step={steps[currentStep - 1]}
         totalSteps={steps.length}
         onNextClick={handleNextStep}
         onBackClick={handlePreviousStep}

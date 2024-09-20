@@ -40,7 +40,7 @@ import { updateDataStepsRules } from "./utils";
 
 function UpdateData() {
   const [currentStep, setCurrentStep] = useState(
-    updateDataSteps.personalInformation.number - 1,
+    updateDataSteps.personalInformation.number,
   );
   const steps = Object.values(updateDataSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
@@ -155,11 +155,12 @@ function UpdateData() {
     setUpdateData(newUpdateData);
 
     const changeStepKey = Object.entries(updateDataSteps).find(
-      ([, config]) => config.number === stepId + 1)?.[0];
+      ([, config]) => config.number === stepId,
+    )?.[0];
 
     if (!changeStepKey) return;
 
-    const changeIsVerification = stepId + 1 === steps.length;
+    const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
         newUpdateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
@@ -176,7 +177,7 @@ function UpdateData() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 < steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
     }
   };

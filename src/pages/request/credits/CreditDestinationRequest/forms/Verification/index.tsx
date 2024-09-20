@@ -41,7 +41,7 @@ function CreditDestinationRequestVerification(props: VerificationProps) {
                 handleStepChange(
                   creditDestinationRequestSteps[
                     key as keyof IFormsCreditDestinationRequest
-                  ].number - 1,
+                  ].number,
                 )
               }
               variant="none"

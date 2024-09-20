@@ -25,7 +25,7 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep + 1 === createFamilyMemberSteps.identificationData.number && (
+      {currentStep === createFamilyMemberSteps.identificationData.number && (
         <IdentificationDataForm
           isMobile={isMobile}
           initialValues={createFamilyMember.identificationData.values}
@@ -33,7 +33,7 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === createFamilyMemberSteps.personalData.number && (
+      {currentStep === createFamilyMemberSteps.personalData.number && (
         <PersonalDataForm
           initialValues={createFamilyMember.personalData.values}
           ref={formReferences.personalData}
@@ -41,7 +41,7 @@ const renderStepContent = (
           readonly={readOnly}
         />
       )}
-      {currentStep + 1 === createFamilyMemberSteps.contactData.number && (
+      {currentStep === createFamilyMemberSteps.contactData.number && (
         <ContactDataForm
           initialValues={createFamilyMember.contactData.values}
           ref={formReferences.contactData}
@@ -49,7 +49,7 @@ const renderStepContent = (
           readonly={readOnly}
         />
       )}
-      {currentStep + 1 === createFamilyMemberSteps.informationData.number && (
+      {currentStep === createFamilyMemberSteps.informationData.number && (
         <InformationDataForm
           initialValues={createFamilyMember.informationData.values}
           ref={formReferences.informationData}
@@ -57,7 +57,7 @@ const renderStepContent = (
           readonly={readOnly}
         />
       )}
-      {currentStep + 1 === createFamilyMemberSteps.verification.number && (
+      {currentStep === createFamilyMemberSteps.verification.number && (
         <UpdateDataVerification updatedData={createFamilyMember} />
       )}
     </>
@@ -73,7 +73,6 @@ interface CreateFamilyMemberUIProps {
   readOnly: boolean;
   loading: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
@@ -89,7 +88,6 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
     readOnly,
     loading,
     setIsCurrentFormValid,
-    // handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
@@ -100,14 +98,14 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
   return (
     <Stack direction="column" width="100%" gap={inube.spacing.s300}>
       <Assisted
-          step={steps[currentStep]}
-          totalSteps={steps.length}
-          onNextClick={handleNextStep}
-          onBackClick={handlePreviousStep}
-          onSubmitClick={handleFinishAssisted}
-          disableNext={!isCurrentFormValid}
-          size="small"
-        />
+        step={steps[currentStep - 1]}
+        totalSteps={steps.length}
+        onNextClick={handleNextStep}
+        onBackClick={handlePreviousStep}
+        onSubmitClick={handleFinishAssisted}
+        disableNext={!isCurrentFormValid}
+        size="small"
+      />
 
       <StyledScroller $smallScreen={isMobile}>
         {renderStepContent(

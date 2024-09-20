@@ -30,7 +30,7 @@ import { programmedSavingFixedStepsRules } from "./utils";
 function ProgrammedSavingFixedRequest() {
   const { user } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
-    programmedSavingFixedRequestSteps.savingConditions.number - 1
+    programmedSavingFixedRequestSteps.savingConditions.number,
   );
   const steps = Object.values(programmedSavingFixedRequestSteps);
 
@@ -116,11 +116,11 @@ function ProgrammedSavingFixedRequest() {
 
     const changeStepKey = Object.entries(
       programmedSavingFixedRequestSteps,
-    ).find(([, config]) => config.number === stepId + 1)?.[0]; 
+    ).find(([, config]) => config.number === stepId)?.[0];
 
     if (!changeStepKey) return;
 
-    const changeIsVerification = stepId + 1 === steps.length; 
+    const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
         newProgrammedSavingFixedRequest[
@@ -132,14 +132,14 @@ function ProgrammedSavingFixedRequest() {
     setCurrentStep(stepId);
 
     document.getElementsByTagName("main")[0].scrollTo(0, 0);
-};
+  };
 
   const handleFinishAssisted = () => {
     return true;
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 < steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
     }
   };

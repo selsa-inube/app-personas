@@ -42,7 +42,7 @@ function ProgrammedSavingFixedRequestVerification(props: VerificationProps) {
                   handleStepChange(
                     programmedSavingFixedRequestSteps[
                       key as keyof IFormsProgrammedSavingFixedRequest
-                    ].number - 1
+                    ].number,
                   )
                 }
                 variant="none"

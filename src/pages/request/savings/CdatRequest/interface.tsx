@@ -32,35 +32,35 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep + 1 === cdatRequestSteps.investment.number && (
+      {currentStep === cdatRequestSteps.investment.number && (
         <InvestmentForm
           initialValues={cdatRequest.investment.values}
           ref={formReferences.investment}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === cdatRequestSteps.conditions.number && (
+      {currentStep === cdatRequestSteps.conditions.number && (
         <ConditionsForm
           initialValues={cdatRequest.conditions.values}
           ref={formReferences.conditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === cdatRequestSteps.paymentMethod.number && (
+      {currentStep === cdatRequestSteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={cdatRequest.paymentMethod.values}
           ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === cdatRequestSteps.disbursement.number && (
+      {currentStep === cdatRequestSteps.disbursement.number && (
         <DisbursementForm
           initialValues={cdatRequest.disbursement.values}
           ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === cdatRequestSteps.systemValidations.number && (
+      {currentStep === cdatRequestSteps.systemValidations.number && (
         <SystemValidationsForm
           initialValues={cdatRequest.systemValidations.values}
           ref={formReferences.systemValidations}
@@ -69,21 +69,21 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === cdatRequestSteps.investmentName.number && (
+      {currentStep === cdatRequestSteps.investmentName.number && (
         <InvestmentNameForm
           initialValues={cdatRequest.investmentName.values}
           ref={formReferences.investmentName}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === cdatRequestSteps.comments.number && (
+      {currentStep === cdatRequestSteps.comments.number && (
         <CommentsForm
           initialValues={cdatRequest.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === cdatRequestSteps.termsAndConditions.number && (
+      {currentStep === cdatRequestSteps.termsAndConditions.number && (
         <TermsAndConditionsForm
           initialValues={cdatRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
@@ -92,14 +92,14 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === cdatRequestSteps.contactChannels.number && (
+      {currentStep === cdatRequestSteps.contactChannels.number && (
         <ContactChannelsForm
           initialValues={cdatRequest.contactChannels.values}
           ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === cdatRequestSteps.verification.number && (
+      {currentStep === cdatRequestSteps.verification.number && (
         <CdatRequestVerification
           cdatRequest={cdatRequest}
           handleStepChange={handleStepChange}
@@ -166,7 +166,7 @@ function CdatRequestUI(props: CdatRequestUIProps) {
         </Stack>
 
         <Assisted
-          step={steps[currentStep]}
+          step={steps[currentStep - 1]}
           totalSteps={steps.length}
           onNextClick={handleNextStep}
           onBackClick={handlePreviousStep}
@@ -178,10 +178,6 @@ function CdatRequestUI(props: CdatRequestUIProps) {
             goNextText: "Siguiente",
             submitText: "Enviar",
           }}
-          // currentStep={currentStep}
-          // onFinishAssisted={handleFinishAssisted}
-          // onStepChange={handleStepChange}
-          // disableNextStep={!isCurrentFormValid}
         />
 
         <Stack direction="column" gap={inube.spacing.s300}>

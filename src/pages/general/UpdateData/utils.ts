@@ -9,9 +9,7 @@ const updateDataStepsRules = (
 ) => {
   let newUpdateData = { ...currentUpdateData };
 
-  const adjustedStep = currentStep + 1;
-
-  switch (adjustedStep) {
+  switch (currentStep) {
     case updateDataSteps.familyGroup.number: {
       const values = formReferences.familyGroup.current?.values;
 
@@ -51,7 +49,7 @@ const updateDataStepsRules = (
   }
 
   const stepKey = Object.entries(updateDataSteps).find(
-    ([, config]) => config.number === adjustedStep,
+    ([, config]) => config.number === currentStep,
   )?.[0];
 
   if (!stepKey) return currentUpdateData;

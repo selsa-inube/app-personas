@@ -32,7 +32,7 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep + 1 ===
+      {currentStep ===
         programmedSavingFixedRequestSteps.savingConditions.number && (
         <SavingConditionsForm
           initialValues={programmedSavingFixedRequest.savingConditions.values}
@@ -40,7 +40,7 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
+      {currentStep ===
         programmedSavingFixedRequestSteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={programmedSavingFixedRequest.paymentMethod.values}
@@ -48,7 +48,7 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
+      {currentStep ===
         programmedSavingFixedRequestSteps.shareMaturity.number && (
         <ShareMaturityForm
           initialValues={programmedSavingFixedRequest.shareMaturity.values}
@@ -56,7 +56,7 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
+      {currentStep ===
         programmedSavingFixedRequestSteps.disbursement.number && (
         <DisbursementForm
           initialValues={programmedSavingFixedRequest.disbursement.values}
@@ -64,7 +64,7 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
+      {currentStep ===
         programmedSavingFixedRequestSteps.systemValidations.number && (
         <SystemValidationsForm
           initialValues={programmedSavingFixedRequest.systemValidations.values}
@@ -74,23 +74,21 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
-        programmedSavingFixedRequestSteps.planName.number && (
+      {currentStep === programmedSavingFixedRequestSteps.planName.number && (
         <PlanNameForm
           initialValues={programmedSavingFixedRequest.planName.values}
           ref={formReferences.planName}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
-        programmedSavingFixedRequestSteps.comments.number && (
+      {currentStep === programmedSavingFixedRequestSteps.comments.number && (
         <CommentsForm
           initialValues={programmedSavingFixedRequest.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
+      {currentStep ===
         programmedSavingFixedRequestSteps.termsAndConditions.number && (
         <TermsAndConditionsForm
           initialValues={programmedSavingFixedRequest.termsAndConditions.values}
@@ -100,7 +98,7 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
+      {currentStep ===
         programmedSavingFixedRequestSteps.contactChannels.number && (
         <ContactChannelsForm
           initialValues={programmedSavingFixedRequest.contactChannels.values}
@@ -108,7 +106,7 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
+      {currentStep ===
         programmedSavingFixedRequestSteps.verification.number && (
         <ProgrammedSavingFixedRequestVerification
           programmedSavingFixedRequest={programmedSavingFixedRequest}
@@ -177,7 +175,7 @@ function ProgrammedSavingFixedRequestUI(
         gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
       >
         <Assisted
-          step={steps[currentStep]}
+          step={steps[currentStep - 1]}
           totalSteps={steps.length}
           onNextClick={handleNextStep}
           onBackClick={handlePreviousStep}

@@ -39,7 +39,7 @@ function AidRequestVerification(props: AidRequestVerificationProps) {
               iconBefore={<MdOutlineArrowBack />}
               onClick={() =>
                 handleStepChange(
-                  aidRequestSteps[key as keyof IFormsAidRequest].number - 1,
+                  aidRequestSteps[key as keyof IFormsAidRequest].number,
                 )
               }
               variant="none"

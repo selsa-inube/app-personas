@@ -35,28 +35,29 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep + 1 === creditDestinationRequestSteps.destination.number && (
+      {currentStep === creditDestinationRequestSteps.destination.number && (
         <DestinationForm
           initialValues={creditDestinationRequest.destination.values}
           ref={formReferences.destination}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === creditDestinationRequestSteps.creditConditions.number && (
+      {currentStep ===
+        creditDestinationRequestSteps.creditConditions.number && (
         <CreditConditionsForm
           initialValues={creditDestinationRequest.creditConditions.values}
           ref={formReferences.creditConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === creditDestinationRequestSteps.paymentMethod.number && (
+      {currentStep === creditDestinationRequestSteps.paymentMethod.number && (
         <PaymentMethodForm
           initialValues={creditDestinationRequest.paymentMethod.values}
           ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === creditDestinationRequestSteps.disbursement.number && (
+      {currentStep === creditDestinationRequestSteps.disbursement.number && (
         <DisbursementForm
           initialValues={creditDestinationRequest.disbursement.values}
           transferAccountValues={{
@@ -74,7 +75,8 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === creditDestinationRequestSteps.systemValidations.number && (
+      {currentStep ===
+        creditDestinationRequestSteps.systemValidations.number && (
         <SystemValidationsForm
           initialValues={creditDestinationRequest.systemValidations.values}
           disbursementValues={creditDestinationRequest.disbursement.values}
@@ -82,7 +84,7 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 ===
+      {currentStep ===
         creditDestinationRequestSteps.documentaryRequirements.number && (
         <DocumentaryRequirementsForm
           initialValues={
@@ -92,14 +94,15 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === creditDestinationRequestSteps.comments.number && (
+      {currentStep === creditDestinationRequestSteps.comments.number && (
         <CommentsForm
           initialValues={creditDestinationRequest.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === creditDestinationRequestSteps.termsAndConditions.number && (
+      {currentStep ===
+        creditDestinationRequestSteps.termsAndConditions.number && (
         <TermsAndConditionsForm
           initialValues={creditDestinationRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
@@ -110,14 +113,14 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === creditDestinationRequestSteps.contactChannels.number && (
+      {currentStep === creditDestinationRequestSteps.contactChannels.number && (
         <ContactChannelsForm
           initialValues={creditDestinationRequest.contactChannels.values}
           ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep + 1 === creditDestinationRequestSteps.verification.number && (
+      {currentStep === creditDestinationRequestSteps.verification.number && (
         <CreditDestinationRequestVerification
           creditDestinationRequest={creditDestinationRequest}
           handleStepChange={handleStepChange}
@@ -186,7 +189,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
         </Stack>
 
         <Assisted
-          step={steps[currentStep]}
+          step={steps[currentStep - 1]}
           totalSteps={steps.length}
           onNextClick={handleNextStep}
           onBackClick={handlePreviousStep}

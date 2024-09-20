@@ -27,7 +27,7 @@ function CdatRequest() {
   const [loadingSend, setLoadingSend] = useState(false);
 
   const [currentStep, setCurrentStep] = useState(
-    cdatRequestSteps.investment.number - 1
+    cdatRequestSteps.investment.number,
   );
   const steps = Object.values(cdatRequestSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
@@ -115,11 +115,12 @@ function CdatRequest() {
     setCdatRequest(newCdatRequest);
 
     const changeStepKey = Object.entries(cdatRequestSteps).find(
-      ([, config]) => config.number === stepId + 1)?.[0];
+      ([, config]) => config.number === stepId,
+    )?.[0];
 
     if (!changeStepKey) return;
 
-    const changeIsVerification = stepId + 1 === steps.length;
+    const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
         newCdatRequest[changeStepKey as keyof IFormsCdatRequest]?.isValid ||
@@ -136,7 +137,7 @@ function CdatRequest() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 < steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
       return;
     }
