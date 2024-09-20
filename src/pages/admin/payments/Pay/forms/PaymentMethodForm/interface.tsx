@@ -1,16 +1,18 @@
 import { PaymentMethodCard } from "@components/cards/payments/PaymentMethodCard";
 import { Select } from "@design/input/Select";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
+import { MdError } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { paymentMethods } from "./config/payment";
 import { StyledPendingValueContainer, StyledSummaryContainer } from "./styles";
 import { IMoneySource, IPaymentMethodEntry } from "./types";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 const renderMoneySources = (
   moneySources: IMoneySource,
@@ -106,24 +108,49 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
 
               <Stack
                 alignItems="center"
-                justifyContent={isMobile ? "center" : "flex-end"}
-                width="100%"
+                justifyContent={isMobile ? "flex-start" : "flex-end"}
               >
-                <StyledPendingValueContainer $isMobile={isMobile}>
-                  <Text type="title" size="medium" appearance="dark">
-                    Valor pendiente:
-                  </Text>
+                <Stack
+                  direction="column"
+                  gap={inube.spacing.s050}
+                  width={isMobile ? "100%" : "initial"}
+                >
+                  <StyledPendingValueContainer $isMobile={isMobile}>
+                    <Text type="title" size="medium" appearance="dark">
+                      Valor pendiente:
+                    </Text>
 
-                  <Text
-                    type="title"
-                    size="medium"
-                    appearance={
-                      formik.values.pendingValue < 0 ? "danger" : "gray"
-                    }
-                  >
-                    {currencyFormat(formik.values.pendingValue)}
-                  </Text>
-                </StyledPendingValueContainer>
+                    <Text
+                      type="title"
+                      size="medium"
+                      appearance={
+                        formik.values.pendingValue < 0 ? "danger" : "gray"
+                      }
+                      weight="bold"
+                    >
+                      {currencyFormat(formik.values.pendingValue)}
+                    </Text>
+                  </StyledPendingValueContainer>
+
+                  {formik.values.pendingValue < 0 && (
+                    <Stack gap={inube.spacing.s075}>
+                      <Icon
+                        appearance="danger"
+                        icon={<MdError />}
+                        size="16px"
+                      />
+
+                      <Text
+                        type="label"
+                        size="medium"
+                        appearance="danger"
+                        weight="bold"
+                      >
+                        Sobrepasaste el monto de tu pago
+                      </Text>
+                    </Stack>
+                  )}
+                </Stack>
               </Stack>
             </StyledSummaryContainer>
           </>

@@ -1,5 +1,6 @@
 import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Grid } from "@inubekit/grid";
 import { FormikProps } from "formik";
 import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
@@ -19,9 +20,15 @@ interface ShareMaturityFormUIProps {
 function ShareMaturityFormUI(props: ShareMaturityFormUIProps) {
   const { formik, loading, customHandleChange } = props;
 
+  const isMobile = useMediaQuery("(max-width: 700px)");
+  const isTablet = useMediaQuery("(max-width: 1200px)");
+
   return (
     <form>
-      <Grid templateColumns="repeat(3, 1fr)" gap={inube.spacing.s300}>
+      <Grid
+        templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+        gap={inube.spacing.s300}
+      >
         <Select
           name="action"
           id="action"

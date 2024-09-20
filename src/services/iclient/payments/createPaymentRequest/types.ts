@@ -9,7 +9,7 @@ interface IPaymentRequest {
   paymentMethod: {
     id: string;
     label: string;
-    value: number;
+    value?: number;
     balance: number;
     type: EMoneySourceType;
   }[];

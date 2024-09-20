@@ -38,7 +38,6 @@ const StyledPendingValueContainer = styled.div<IStyledPendingValueContainer>`
     ${({ theme }) =>
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
-  width: ${({ $isMobile }) => ($isMobile ? "100%" : "initial")};
   align-items: center;
   justify-content: center;
 `;
