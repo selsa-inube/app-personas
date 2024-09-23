@@ -1,6 +1,8 @@
 interface IDetailsSituationEntry {
-  quotaAvailable: number;
+  quotaAvailable?: number;
   applicationValue?: number;
+  daysAvailable?: number;
+  applicationDays?: number;
   message: string;
 }
 

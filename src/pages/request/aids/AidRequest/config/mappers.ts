@@ -19,6 +19,7 @@ const mapDetailsSituation = (): IDetailsSituationEntry => {
   return {
     message: "",
     quotaAvailable: 2500000,
+    daysAvailable: 30,
   };
 };
 

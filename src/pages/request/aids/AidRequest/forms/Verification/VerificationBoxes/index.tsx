@@ -5,11 +5,11 @@ import { renderSystemValidationsVerification } from "@forms/SystemValidationsFor
 import { Grid } from "@inubekit/grid";
 import { currencyFormat } from "src/utils/currency";
 import { truncateFileName } from "src/utils/texts";
+import { aidRequestSteps } from "../../../config/assisted";
 import { IFormsAidRequest } from "../../../types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
-import { aidRequestBoxTitles } from "../config/box";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -87,7 +87,7 @@ const renderDocumentaryRequirementsVerification = (
 
 interface VerificationBoxesProps {
   aidRequest: IFormsAidRequest;
-  stepKey: keyof typeof aidRequestBoxTitles;
+  stepKey: keyof typeof aidRequestSteps;
   isTablet: boolean;
 }
 

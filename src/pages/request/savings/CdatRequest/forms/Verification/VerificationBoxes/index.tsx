@@ -14,13 +14,13 @@ import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsF
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { EPaymentMethodType } from "src/model/entity/payment";
+import { cdatRequestSteps } from "../../../config/assisted";
 import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
 import {
   EMoneySourceType,
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
-import { cdatRequestBoxTitles } from "../config/box";
 
 const renderInvestmentVerification = (
   values: IInvestmentEntry,
@@ -117,7 +117,7 @@ const renderInvestmentNameVerification = (
 
 interface VerificationBoxesProps {
   cdatRequest: IFormsCdatRequest;
-  stepKey: keyof typeof cdatRequestBoxTitles;
+  stepKey: keyof typeof cdatRequestSteps;
   isTablet: boolean;
 }
 

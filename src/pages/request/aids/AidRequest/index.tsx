@@ -1,6 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps } from "formik";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Navigate, useBlocker, useParams } from "react-router-dom";
 import { aidRequestTypeDM } from "src/model/domains/services/aids/aidRequestTypeDM";
 import { aidRequestSteps } from "./config/assisted";
@@ -12,10 +12,15 @@ import {
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 
+import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
+import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
+import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
+import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
+import { AppContext } from "src/context/app";
 import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
 import { AidRequestUI } from "./interface";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
@@ -23,13 +28,13 @@ import { aidRequestStepsRules } from "./utils";
 
 function AidRequest() {
   const { aid_type } = useParams();
-
+  const { user } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
     aidRequestSteps.beneficiaries.number,
   );
   const steps = Object.values(aidRequestSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
 
   const aidRequestType = aid_type
@@ -54,8 +59,19 @@ function AidRequest() {
       values: mapDocumentaryRequirements(aidRequestType),
     },
     disbursement: {
-      isValid: true,
+      isValid: false,
       values: mapDisbursement(),
+    },
+    termsAndConditions: {
+      isValid: false,
+      values: mapTermsAndConditions(),
+    },
+    contactChannels: {
+      isValid: false,
+      values: mapContactChannels({
+        cellPhone: parseInt(user.phone) || 0,
+        email: user.email || "",
+      }),
     },
   });
 
@@ -66,6 +82,9 @@ function AidRequest() {
   const documentaryRequirementsRef =
     useRef<FormikProps<IDocumentaryRequirementsEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
+  const termsAndConditionsRef =
+    useRef<FormikProps<ITermsAndConditionsEntry>>(null);
+  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsAidRequestRefs = {
     beneficiaries: beneficiariesRef,
@@ -73,6 +92,8 @@ function AidRequest() {
     systemValidations: systemValidationsRef,
     documentaryRequirements: documentaryRequirementsRef,
     disbursement: disbursementRef,
+    termsAndConditions: termsAndConditionsRef,
+    contactChannels: contactChannelsRef,
   };
 
   const blocker = useBlocker(

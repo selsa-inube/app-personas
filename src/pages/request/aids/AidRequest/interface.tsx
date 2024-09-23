@@ -2,8 +2,10 @@ import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
+import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
+import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Assisted, IAssistedStep } from "@inubekit/assisted";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
@@ -67,6 +69,23 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={aidRequest.disbursement.values}
           ref={formReferences.disbursement}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+
+      {currentStep === aidRequestSteps.termsAndConditions.number && (
+        <TermsAndConditionsForm
+          initialValues={aidRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
+          productId="57"
+          productType="credit"
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === aidRequestSteps.contactChannels.number && (
+        <ContactChannelsForm
+          initialValues={aidRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
           onFormValid={setIsCurrentFormValid}
         />
       )}

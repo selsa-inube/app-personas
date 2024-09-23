@@ -33,9 +33,22 @@ const aidRequestSteps = {
     description:
       "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
   },
+  termsAndConditions: {
+    id: "termsAndConditions",
+    number: 6,
+    name: "Términos y condiciones",
+    description: "Aceptaciones y avisos de privacidad.",
+  },
+  contactChannels: {
+    id: "contactChannels",
+    number: 7,
+    name: "Canales de contacto",
+    description:
+      "Selecciona las opciones que nos permitan enviarte información.",
+  },
   verification: {
     id: "verification",
-    number: 6,
+    number: 8,
     name: "Verificación",
     description: "Confirma la información diligenciada en pasos anteriores.",
   },
