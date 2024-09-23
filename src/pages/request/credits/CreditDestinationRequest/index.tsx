@@ -1,5 +1,6 @@
 import { mapComments } from "@forms/CommentsForm/mappers";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
+import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/mappers";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
@@ -69,7 +70,7 @@ function CreditDestinationRequest() {
       },
       documentaryRequirements: {
         isValid: true,
-        values: initalValuesCreditDestination.documentaryRequirements,
+        values: mapDocumentaryRequirements(),
       },
       comments: {
         isValid: true,
