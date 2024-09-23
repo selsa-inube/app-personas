@@ -1,12 +1,15 @@
 import { IEntry } from "@design/data/Table/types";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { useState } from "react";
-import { IFamilyGroupEntry } from "../types";
+import { IFamilyGroupEntries, IFamilyGroupEntry } from "../types";
 import { FamilyMemberViewUI } from "./interface";
 
-const getFamilyMember = (member: IFamilyGroupEntry, formik: FormikValues) => {
-  const memberToView: IFamilyGroupEntry = formik.values.entries.find(
-    (entry: IFamilyGroupEntry) => entry.id === member.id
+const getFamilyMember = (
+  member: IFamilyGroupEntry,
+  formik: FormikProps<IFamilyGroupEntries>,
+) => {
+  const memberToView = formik.values.entries.find(
+    (entry: IFamilyGroupEntry) => entry.id === member.id,
   );
 
   if (memberToView) {
@@ -19,9 +22,9 @@ const getFamilyMember = (member: IFamilyGroupEntry, formik: FormikValues) => {
 
 interface FamilyMemberViewProps {
   member: IEntry;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   onDeleteMember: () => void;
-  onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
+  onEditMember: (member: IFamilyGroupEntry) => void;
   isRequired: (fieldName: string) => boolean;
 }
 
@@ -62,7 +65,7 @@ function FamilyMemberView(props: FamilyMemberViewProps) {
   };
 
   const handleConfirm = () => {
-    onEditMember(member, formik);
+    onEditMember(member);
     handleToggleEditModal();
   };
 

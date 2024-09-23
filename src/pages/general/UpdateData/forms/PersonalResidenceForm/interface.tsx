@@ -1,19 +1,20 @@
 import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
-import { FormikValues } from "formik";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { FormikProps } from "formik";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
 import { getFieldState } from "src/utils/forms/forms";
-import { Button } from "@inubekit/button";
+import { IPersonalResidenceEntry } from "./types";
 
 interface PersonalResidenceFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IPersonalResidenceEntry>;
   loading?: boolean;
   withSubmit?: boolean;
 }
@@ -169,7 +170,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

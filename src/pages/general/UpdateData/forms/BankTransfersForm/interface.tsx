@@ -6,12 +6,13 @@ import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { FormikValues } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { getFieldState } from "src/utils/forms/forms";
+import { IBankTransfersEntry } from "./types";
+import { FormikProps } from "formik";
 
 interface BankTransfersFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IBankTransfersEntry>;
   loading?: boolean;
   withSubmit?: boolean;
 }
@@ -79,7 +80,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

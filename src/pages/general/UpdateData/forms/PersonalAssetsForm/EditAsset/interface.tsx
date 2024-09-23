@@ -1,11 +1,12 @@
 import { AssetModal } from "@components/modals/general/updateData/AssetModal";
 import { Icon } from "@inubekit/icon";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { IPersonalAssetEntries } from "../types";
 
 interface EditAssetUIProps {
   showModal: boolean;
-  formik: FormikValues;
+  formik: FormikProps<IPersonalAssetEntries>;
   handleEditModal: () => void;
   handleEditAsset: () => void;
   closeModal: () => void;

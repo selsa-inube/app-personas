@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { EditFamilyMemberUI } from "./interface";
 import { IEntry } from "@design/data/Table/types";
-import { FormikValues } from "formik";
-import { IFamilyGroupEntry } from "../types";
+import { FormikProps } from "formik";
+import { useState } from "react";
+import { IFamilyGroupEntries, IFamilyGroupEntry } from "../types";
+import { EditFamilyMemberUI } from "./interface";
 
 const getEditFamilyMember = (
   member: IFamilyGroupEntry,
-  formik: FormikValues
+  formik: FormikProps<IFamilyGroupEntries>,
 ) => {
-  const memberToEdit: IFamilyGroupEntry = formik.values.entries.find(
-    (entry: IFamilyGroupEntry) => entry.id === member.id
+  const memberToEdit = formik.values.entries.find(
+    (entry: IFamilyGroupEntry) => entry.id === member.id,
   );
 
   if (memberToEdit) {
@@ -22,8 +22,8 @@ const getEditFamilyMember = (
 
 interface EditFamilyMemberProps {
   member: IEntry;
-  formik: FormikValues;
-  onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
+  formik: FormikProps<IFamilyGroupEntries>;
+  onEditMember: (member: IFamilyGroupEntry) => void;
   isRequired: (fieldName: string) => boolean;
 }
 
@@ -42,7 +42,7 @@ function EditFamilyMember(props: EditFamilyMemberProps) {
   };
 
   const handleConfirm = () => {
-    onEditMember(member, formik);
+    onEditMember(member);
     handleToggleModal();
   };
 

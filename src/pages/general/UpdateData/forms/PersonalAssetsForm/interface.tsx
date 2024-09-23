@@ -1,19 +1,20 @@
 import { AssetModal } from "@components/modals/general/updateData/AssetModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
-import { FormikValues } from "formik";
+import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
+import { FormikProps } from "formik";
 import { MdOutlineAddHome } from "react-icons/md";
 import { mapPersonalAssets } from "../../config/mappers";
 import {
   personalAssetsTableBreakpoints,
   personalAssetsTableTitles,
 } from "./config/table";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
+import { IPersonalAssetEntries } from "./types";
 
 interface PersonalAssetsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IPersonalAssetEntries>;
   showAddAssetModal: boolean;
   personalAssetsTableActions: IAction[];
   loading?: boolean;
@@ -61,7 +62,7 @@ function PersonalAssetsFormUI(props: PersonalAssetsFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

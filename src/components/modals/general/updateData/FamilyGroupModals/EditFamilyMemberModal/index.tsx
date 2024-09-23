@@ -1,6 +1,14 @@
 import { Select } from "@design/input/Select";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { FormikValues } from "formik";
+import { Blanket } from "@inubekit/blanket";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
+import { IFamilyGroupEntries } from "@pages/general/UpdateData/forms/FamilyGroupForm/types";
+import { FormikProps } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -8,17 +16,10 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
 
 interface EditFamilyMemberModalProps {
   portalId: string;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   withCustomDirty?: boolean;
   onCloseModal: () => void;
   onConfirm: () => void;

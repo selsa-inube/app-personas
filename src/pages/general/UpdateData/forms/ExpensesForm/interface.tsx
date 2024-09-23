@@ -5,13 +5,14 @@ import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
+import { IExpensesEntry } from "./types";
 
 interface ExpensesFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IExpensesEntry>;
   loading?: boolean;
   withSubmit?: boolean;
   customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -128,7 +129,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

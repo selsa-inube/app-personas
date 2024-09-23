@@ -1,17 +1,20 @@
-import { useState } from "react";
-import { EditAssetUI } from "./interface";
 import { IEntry } from "@design/data/Table/types";
-import { FormikValues } from "formik";
-import { IPersonalAssetEntry } from "../types";
+import { FormikProps } from "formik";
+import { useState } from "react";
+import { IPersonalAssetEntries, IPersonalAssetEntry } from "../types";
+import { EditAssetUI } from "./interface";
 
 interface EditAssetProps {
   asset: IEntry;
-  formik: FormikValues;
+  formik: FormikProps<IPersonalAssetEntries>;
 }
 
-const getEditAsset = (asset: IPersonalAssetEntry, formik: FormikValues) => {
-  const assetToEdit: IPersonalAssetEntry = formik.values.entries.find(
-    (entry: IPersonalAssetEntry) => entry.id === asset.id
+const getEditAsset = (
+  asset: IPersonalAssetEntry,
+  formik: FormikProps<IPersonalAssetEntries>,
+) => {
+  const assetToEdit = formik.values.entries.find(
+    (entry: IPersonalAssetEntry) => entry.id === asset.id,
   );
 
   if (assetToEdit) {
@@ -32,7 +35,7 @@ function EditAsset(props: EditAssetProps) {
 
     if (formik.isValid && formik.values.assetType) {
       setShowModal(false);
-      const updatedEntries: IPersonalAssetEntry = formik.values.entries.map(
+      const updatedEntries = formik.values.entries.map(
         (entry: IPersonalAssetEntry) => {
           if (entry.id === asset.id) {
             return {
@@ -47,7 +50,7 @@ function EditAsset(props: EditAssetProps) {
             };
           }
           return entry;
-        }
+        },
       );
 
       formik.setFieldValue("entries", updatedEntries);

@@ -1,10 +1,11 @@
 import { TextField } from "@design/input/TextField";
 import { Fieldset } from "@inubekit/fieldset";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
+import { IIdentificationDataEntry } from "./types";
 
 interface IdentificationDataFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IIdentificationDataEntry>;
   loading?: boolean;
   isMobile?: boolean;
   isRequired: (fieldName: string) => boolean;

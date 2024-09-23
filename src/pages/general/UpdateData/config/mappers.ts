@@ -292,7 +292,7 @@ const mapIncomes = (): IIncomesEntry => {
     transportationAssistance: "",
     foodAssistance: "",
     others: "",
-    totalIncomes: "",
+    totalIncomes: 0,
   };
 };
 
@@ -303,7 +303,7 @@ const mapExpenses = (): IExpensesEntry => {
     credits: "",
     creditCards: "",
     others: "",
-    totalExpenses: "",
+    totalExpenses: 0,
   };
 };
 

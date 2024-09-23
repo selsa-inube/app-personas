@@ -1,7 +1,8 @@
 import { IAction } from "@design/data/Table/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useFlag } from "@inubekit/flag";
 import { EMessageType } from "@ptypes/messages.types";
-import { FormikProps, FormikValues, useFormik } from "formik";
+import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
@@ -17,7 +18,6 @@ import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
-import { useFlag } from "@inubekit/flag";
 
 const validationSchema = Yup.object().shape({
   firstName: familyGroupRequiredFields.firstName
@@ -139,10 +139,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     });
   };
 
-  const handleEditMember = async (
-    member: IFamilyGroupEntry,
-    formik: FormikValues,
-  ) => {
+  const handleEditMember = async (member: IFamilyGroupEntry) => {
     await formik.validateForm();
 
     if (formik.isValid) {

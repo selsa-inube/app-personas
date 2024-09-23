@@ -1,11 +1,12 @@
 import { EditFamilyMemberModal } from "@components/modals/general/updateData/FamilyGroupModals/EditFamilyMemberModal";
 import { Icon } from "@inubekit/icon";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { IFamilyGroupEntries } from "../types";
 
 interface EditFamilyMemberUIProps {
   showModal: boolean;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   onEditModal: () => void;
   onCloseModal: () => void;
   onConfirm: () => void;

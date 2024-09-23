@@ -1,8 +1,18 @@
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Fieldset } from "@inubekit/fieldset";
+import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { FormikValues } from "formik";
+import { IFamilyGroupEntries } from "@pages/general/UpdateData/forms/FamilyGroupForm/types";
+import { FormikProps } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
@@ -11,19 +21,10 @@ import { identificationTypeDM } from "src/model/domains/general/updateData/perso
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { StyledModal, StyledScrollbar } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Fieldset } from "@inubekit/fieldset";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
 
 interface FamilyMemberViewModalProps {
   portalId: string;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   onCloseModal: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -85,7 +86,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 options={identificationTypeDM.options}
                 size="compact"
                 isFullWidth
-                value={formik.values.type.id}
+                value={formik.values.type?.id || ""}
                 readOnly
               />
               <TextField

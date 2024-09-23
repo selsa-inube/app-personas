@@ -7,15 +7,16 @@ import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { directorsMock } from "@mocks/users/directors/directors.mocks";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdSearch } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { IDirector } from "src/model/entity/user";
 import { getFieldState } from "src/utils/forms/forms";
+import { IRelationshipWithDirectorsEntry } from "./types";
 
 interface RelationshipWithDirectorsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IRelationshipWithDirectorsEntry>;
   loading?: boolean;
   withSubmit?: boolean;
   showDirectorsModal: boolean;
@@ -103,7 +104,7 @@ function RelationshipWithDirectorsFormUI(
           {withSubmit && (
             <Stack gap={inube.spacing.s150} justifyContent="flex-end">
               <Button
-                onClick={formik.handleReset}
+                onClick={() => formik.handleReset()}
                 type="button"
                 disabled={loading || !formik.dirty}
                 spacing="compact"
