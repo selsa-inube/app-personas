@@ -12,7 +12,8 @@ import { MdSearch } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { IDirector } from "src/model/entity/user";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
 import { IRelationshipWithDirectorsEntry } from "./types";
 
 interface RelationshipWithDirectorsFormUIProps {
@@ -20,7 +21,7 @@ interface RelationshipWithDirectorsFormUIProps {
   loading?: boolean;
   withSubmit?: boolean;
   showDirectorsModal: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   handleToggleModal: () => void;
   handleModalSelect: (field: string, selectedItem: IDirector) => void;
 }
@@ -33,7 +34,7 @@ function RelationshipWithDirectorsFormUI(
     loading,
     withSubmit,
     showDirectorsModal,
-    isRequired,
+    validationSchema,
     handleToggleModal,
     handleModalSelect,
   } = props;
@@ -57,7 +58,10 @@ function RelationshipWithDirectorsFormUI(
               size="compact"
               options={activeDM.options}
               state={getFieldState(formik, "hasRelationshipWithDirectors")}
-              isRequired={isRequired("hasRelationshipWithDirectors")}
+              isRequired={isRequired(
+                validationSchema,
+                "hasRelationshipWithDirectors",
+              )}
               errorMessage={formik.errors.hasRelationshipWithDirectors}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -80,7 +84,7 @@ function RelationshipWithDirectorsFormUI(
                   state={getFieldState(formik, "directorName")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("directorName")}
+                  isRequired={isRequired(validationSchema, "directorName")}
                   onIconClick={() => handleToggleModal()}
                 />
                 <Select
@@ -91,7 +95,10 @@ function RelationshipWithDirectorsFormUI(
                   size="compact"
                   options={relationshipDM.options}
                   state={getFieldState(formik, "directorRelationship")}
-                  isRequired={isRequired("directorRelationship")}
+                  isRequired={isRequired(
+                    validationSchema,
+                    "directorRelationship",
+                  )}
                   errorMessage={formik.errors.directorRelationship}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}

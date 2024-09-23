@@ -59,9 +59,9 @@ const getTermsConditions = async (
       Math.round(performance.now() - startTime),
     );
 
-    throw new Error(
-      "No se pudieron obtener los terminos y condiciones del producto.",
-    );
+    console.info(error);
+
+    throw error;
   }
 };
 

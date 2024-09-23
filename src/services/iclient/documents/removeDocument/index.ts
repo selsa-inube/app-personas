@@ -50,7 +50,9 @@ const removeDocument = async (
       Math.round(performance.now() - startTime),
     );
 
-    throw new Error("No se pudo eliminar el documento");
+    console.info(error);
+
+    throw error;
   }
 };
 

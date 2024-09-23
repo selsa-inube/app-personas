@@ -8,16 +8,12 @@ const getPeriodicitiesForProduct = async (
   productId: string,
   paymentId: string,
 ): Promise<IPeriodicity[]> => {
-  const fetchTimeout = 3000;
   const requestTime = new Date();
   const startTime = performance.now();
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/payment-method/product/${productId}}/payment/${paymentId}`;
 
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), fetchTimeout);
-
     const options: RequestInit = {
       method: "GET",
       headers: {
@@ -27,12 +23,9 @@ const getPeriodicitiesForProduct = async (
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      signal: controller.signal,
     };
 
     const res = await fetch(requestUrl, options);
-
-    clearTimeout(timeoutId);
 
     saveNetworkTracking(
       requestTime,
@@ -70,9 +63,9 @@ const getPeriodicitiesForProduct = async (
       Math.round(performance.now() - startTime),
     );
 
-    throw new Error(
-      "Todos los intentos fallaron. No se pudieron obtener las periodicidades del crédito del usuario.",
-    );
+    console.info(error);
+
+    throw error;
   }
 };
 

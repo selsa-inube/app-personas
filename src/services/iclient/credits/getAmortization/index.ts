@@ -59,6 +59,7 @@ const getAmortizationForCredit = async (
     );
 
     console.info(error);
+
     throw error;
   }
 };

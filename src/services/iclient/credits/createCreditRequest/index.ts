@@ -43,7 +43,8 @@ const createCreditRequest = async (
 
     return mapRequestCreditApiToEntity(data);
   } catch (error) {
-    console.info("Error en la simulación:", error);
+    console.info(error);
+
     throw error;
   }
 };

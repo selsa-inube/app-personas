@@ -71,7 +71,9 @@ const getRequestsForUser = async (
       Math.round(performance.now() - startTime),
     );
 
-    throw new Error("No se pudo obtener el historial de solicitudes.");
+    console.info(error);
+
+    throw error;
   }
 };
 

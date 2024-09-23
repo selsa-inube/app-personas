@@ -1,12 +1,12 @@
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { IDirector } from "src/model/entity/user";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { RelationshipWithDirectorsRequiredFields } from "./config/formConfig";
 import { RelationshipWithDirectorsFormUI } from "./interface";
 import { IRelationshipWithDirectorsEntry } from "./types";
-import { IDirector } from "src/model/entity/user";
 
 const validationSchema = Yup.object().shape({
   hasRelationshipWithDirectors:
@@ -37,12 +37,11 @@ const RelationshipWithDirectorsForm = forwardRef(
   ) {
     const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
 
-    const [dynamicSchema] = useState(validationSchema);
     const [showDirectorsModal, setShowDirectorsModal] = useState(false);
 
     const formik = useFormik({
       initialValues,
-      validationSchema: dynamicSchema,
+      validationSchema,
       validateOnBlur: false,
       onSubmit: onSubmit || (() => true),
     });
@@ -66,19 +65,13 @@ const RelationshipWithDirectorsForm = forwardRef(
       handleToggleModal();
     };
 
-    const isRequired = (fieldName: string): boolean => {
-      const fieldDescription = dynamicSchema.describe().fields[fieldName];
-      if (!("nullable" in fieldDescription)) return false;
-      return !fieldDescription.nullable && !fieldDescription.optional;
-    };
-
     return (
       <RelationshipWithDirectorsFormUI
         loading={loading}
         formik={formik}
         withSubmit={withSubmit}
         showDirectorsModal={showDirectorsModal}
-        isRequired={isRequired}
+        validationSchema={validationSchema}
         handleToggleModal={handleToggleModal}
         handleModalSelect={handleModalSelect}
       />

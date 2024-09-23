@@ -109,14 +109,13 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
 ) {
   const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
 
-  const [dynamicSchema] = useState(validationSchema);
   const [showMainActivityModal, setShowMainActivityModal] = useState(false);
   const [showSecondaryActivityModal, setShowSecondaryActivityModal] =
     useState(false);
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicSchema,
+    validationSchema,
     validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
@@ -145,12 +144,6 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
       : setShowSecondaryActivityModal(!showSecondaryActivityModal);
   };
 
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName];
-    if (!("nullable" in fieldDescription)) return false;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
-
   return (
     <EconomicActivityFormUI
       loading={loading}
@@ -158,7 +151,7 @@ const EconomicActivityForm = forwardRef(function EconomicActivityForm(
       showMainActivityModal={showMainActivityModal}
       showSecondaryActivityModal={showSecondaryActivityModal}
       withSubmit={withSubmit}
-      isRequired={isRequired}
+      validationSchema={validationSchema}
       handleToggleModal={handleToggleModal}
       handleModalSelect={handleModalSelect}
     />

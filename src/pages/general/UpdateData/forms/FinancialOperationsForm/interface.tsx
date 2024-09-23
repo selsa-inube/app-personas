@@ -10,18 +10,19 @@ import { Stack } from "@inubekit/stack";
 import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
 import { IFinancialOperationsEntry } from "./types";
 
 interface FinancialOperationsFormUIProps {
   formik: FormikProps<IFinancialOperationsEntry>;
   loading?: boolean;
   withSubmit?: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
-  const { formik, loading, withSubmit, isRequired } = props;
+  const { formik, loading, withSubmit, validationSchema } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
   const isMobile = useMediaQuery("(max-width: 610px)");
@@ -57,7 +58,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             isDisabled={loading}
             onChange={formik.handleChange}
             state={getFieldState(formik, "hasForeignCurrencyTransactions")}
-            isRequired={isRequired("hasForeignCurrencyTransactions")}
+            isRequired={isRequired(
+              validationSchema,
+              "hasForeignCurrencyTransactions",
+            )}
             onBlur={formik.handleBlur}
           />
 
@@ -73,7 +77,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             isDisabled={loading}
             onChange={formik.handleChange}
             state={getFieldState(formik, "hasForeignCurrencyAccounts")}
-            isRequired={isRequired("hasForeignCurrencyAccounts")}
+            isRequired={isRequired(
+              validationSchema,
+              "hasForeignCurrencyAccounts",
+            )}
             onBlur={formik.handleBlur}
           />
         </Grid>
@@ -96,7 +103,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 onChange={formik.handleChange}
                 lengthThreshold={20}
                 isFullWidth
-                isRequired={isRequired("descriptionOperations")}
+                isRequired={isRequired(
+                  validationSchema,
+                  "descriptionOperations",
+                )}
                 onBlur={formik.handleBlur}
               />
             </Fieldset>
@@ -131,7 +141,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   errorMessage={formik.errors.country}
                   isDisabled={loading}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("country")}
+                  isRequired={isRequired(validationSchema, "country")}
                   onBlur={formik.handleBlur}
                 />
                 <TextField
@@ -146,7 +156,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   errorMessage={formik.errors.bankEntity}
                   isDisabled={loading}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("bankEntity")}
+                  isRequired={isRequired(validationSchema, "bankEntity")}
                   onBlur={formik.handleBlur}
                   state={getFieldState(formik, "bankEntity")}
                 />
@@ -164,7 +174,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   maxLength={3}
                   isDisabled={loading}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("currency")}
+                  isRequired={isRequired(validationSchema, "currency")}
                   onBlur={formik.handleBlur}
                   state={getFieldState(formik, "currency")}
                 />
@@ -181,7 +191,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   isFullWidth
                   onChange={formik.handleChange}
                   state={getFieldState(formik, "accountNumber")}
-                  isRequired={isRequired("accountNumber")}
+                  isRequired={isRequired(validationSchema, "accountNumber")}
                   onBlur={formik.handleBlur}
                 />
               </Grid>
