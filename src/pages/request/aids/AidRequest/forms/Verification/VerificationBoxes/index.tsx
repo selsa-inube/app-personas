@@ -4,12 +4,11 @@ import { renderDisbursementVerification } from "@forms/DisbursementForm/verifica
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { currencyFormat } from "src/utils/currency";
-import { truncateFileName } from "src/utils/texts";
 import { IFormsAidRequest } from "../../../types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
-import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 import { aidRequestBoxTitles } from "../config/box";
+import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -60,27 +59,6 @@ const renderDetailsSituationVerification = (
           direction="column"
         />
       )}
-    </Grid>
-  );
-};
-
-const renderDocumentaryRequirementsVerification = (
-  values: IDocumentaryRequirementsEntry,
-  isTablet: boolean,
-) => {
-  return (
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      width="100%"
-      gap={inube.spacing.s100}
-    >
-      {values.selectedDocuments.map((document) => (
-        <BoxAttribute
-          key={document.file.name}
-          label={truncateFileName(document.file.name, 55)}
-        />
-      ))}
     </Grid>
   );
 };

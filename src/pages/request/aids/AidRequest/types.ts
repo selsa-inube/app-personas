@@ -3,7 +3,7 @@ import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { FormikProps } from "formik";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
-import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
+import { IDocumentaryRequirementsEntry } from "@forms/DocumentaryRequirementsForm/types";
 
 interface IFormsAidRequest {
   beneficiaries: { isValid: boolean; values: IBeneficiariesEntry };
