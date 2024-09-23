@@ -15,13 +15,11 @@
   },
   "dependencies": {
     "@inube/auth": "^1.0.17",
-    "@inube/design-system": "^5.15.0",
     "@inubekit/assisted": "^7.0.0",
     "@inubekit/avatar": "^2.3.0",
     "@inubekit/blanket": "^2.5.0",
     "@inubekit/breadcrumbs": "^2.30.0",
     "@inubekit/button": "^4.34.1",
-    "@inubekit/countdownbar": "^2.5.0",
     "@inubekit/divider": "^0.4.0",
     "@inubekit/fieldset": "^0.24.5",
     "@inubekit/flag": "^7.1.0",
