@@ -1,11 +1,11 @@
-import * as Yup from "yup";
-import { familyGroupRequiredFields } from "../../../config/formConfig";
+import { FormikProps, useFormik } from "formik";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
-import { IContactDataEntry } from "./types";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { FormikProps, useFormik } from "formik";
+import * as Yup from "yup";
+import { familyGroupRequiredFields } from "../../../config/formConfig";
 import { ContactDataFormUI } from "./interface";
+import { IContactDataEntry } from "./types";
 
 const validationSchema = Yup.object({
   cellPhone: familyGroupRequiredFields.cellPhone
@@ -63,18 +63,12 @@ const ContactDataForm = forwardRef(function ContactDataForm(
     }
   }, [formik.values]);
 
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName];
-    if (!("nullable" in fieldDescription)) return false;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
-
   return (
     <ContactDataFormUI
       loading={loading}
       formik={formik}
       readonly={readonly}
-      isRequired={isRequired}
+      validationSchema={dynamicSchema}
     />
   );
 });

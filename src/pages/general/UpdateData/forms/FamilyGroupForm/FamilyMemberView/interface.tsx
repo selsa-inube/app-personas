@@ -2,17 +2,18 @@ import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { EditFamilyMemberModal } from "@components/modals/general/updateData/FamilyGroupModals/EditFamilyMemberModal";
 import { FamilyMemberViewModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberViewModal";
 import { IEntry } from "@design/data/Table/types";
+import { Icon } from "@inubekit/icon";
 import { FormikValues } from "formik";
 import { MdOpenInNew } from "react-icons/md";
 import { deleteFamilyMemberModal } from "../config/deleteMember";
-import { Icon } from "@inubekit/icon";
-
+import * as Yup from "yup";
 interface FamilyMemberViewUIProps {
   showModal: boolean;
   formik: FormikValues;
   member: IEntry;
   showDeleteModal: boolean;
   showEditModal: boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   onCloseModal: () => void;
   onShowModal: () => void;
   onDeleteModal: () => void;
@@ -21,7 +22,6 @@ interface FamilyMemberViewUIProps {
   onConfirm: () => void;
   onCloseDeleteModal: () => void;
   onCloseEditModal: () => void;
-  isRequired: (fieldName: string) => boolean;
 }
 
 function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
@@ -31,6 +31,7 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
     member,
     showDeleteModal,
     showEditModal,
+    validationSchema,
     onCloseModal,
     onShowModal,
     onDeleteModal,
@@ -39,7 +40,6 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
     onConfirm,
     onCloseDeleteModal,
     onCloseEditModal,
-    isRequired,
   } = props;
 
   const { title, description, actionText, appearance, portalId } =
@@ -70,9 +70,9 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
         <EditFamilyMemberModal
           portalId="modals"
           formik={formik}
+          validationSchema={validationSchema}
           onCloseModal={onCloseEditModal}
           onConfirm={onConfirm}
-          isRequired={isRequired}
         />
       )}
 

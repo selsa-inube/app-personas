@@ -1,15 +1,16 @@
-import { useState } from "react";
-import { EditFamilyMemberUI } from "./interface";
 import { IEntry } from "@design/data/Table/types";
 import { FormikValues } from "formik";
+import { useState } from "react";
+import * as Yup from "yup";
 import { IFamilyGroupEntry } from "../types";
+import { EditFamilyMemberUI } from "./interface";
 
 const getEditFamilyMember = (
   member: IFamilyGroupEntry,
-  formik: FormikValues
+  formik: FormikValues,
 ) => {
   const memberToEdit: IFamilyGroupEntry = formik.values.entries.find(
-    (entry: IFamilyGroupEntry) => entry.id === member.id
+    (entry: IFamilyGroupEntry) => entry.id === member.id,
   );
 
   if (memberToEdit) {
@@ -23,12 +24,12 @@ const getEditFamilyMember = (
 interface EditFamilyMemberProps {
   member: IEntry;
   formik: FormikValues;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
-  isRequired: (fieldName: string) => boolean;
 }
 
 function EditFamilyMember(props: EditFamilyMemberProps) {
-  const { member, formik, onEditMember, isRequired } = props;
+  const { member, formik, validationSchema, onEditMember } = props;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -50,10 +51,10 @@ function EditFamilyMember(props: EditFamilyMemberProps) {
     <EditFamilyMemberUI
       formik={formik}
       showModal={showModal}
+      validationSchema={validationSchema}
       onEditModal={handleEditModal}
       onConfirm={handleConfirm}
       onCloseModal={handleToggleModal}
-      isRequired={isRequired}
     />
   );
 }
