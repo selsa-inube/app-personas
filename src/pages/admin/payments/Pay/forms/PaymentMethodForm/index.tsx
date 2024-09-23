@@ -98,7 +98,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         value:
           paymentMethod === EPaymentMethodType.PSE
             ? formik.values.valueToPay
-            : undefined,
+            : 0,
         balance: Infinity,
         type: EMoneySourceType.PSE,
       };
