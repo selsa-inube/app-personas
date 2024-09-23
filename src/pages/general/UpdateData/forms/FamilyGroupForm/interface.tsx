@@ -1,8 +1,11 @@
 import { FamilyMemberCreateModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberCreateModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
+import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
 import { usersMock } from "@mocks/users/users.mocks";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
 import { mapFamilyGroups } from "../../config/mappers";
 import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
@@ -14,12 +17,10 @@ import {
   familyGroupTableBreakpoints,
   familyGroupTableTitles,
 } from "./config/table";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
+import { IFamilyGroupEntries } from "./types";
 
 interface FamilyGroupFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   showAddMemberModal: boolean;
   loading?: boolean;
   withSubmit?: boolean;
@@ -75,7 +76,7 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

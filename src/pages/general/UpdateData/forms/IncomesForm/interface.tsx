@@ -1,17 +1,18 @@
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
-import { FormikValues } from "formik";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
+import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
-import { Button } from "@inubekit/button";
+import { IIncomesEntry } from "./types";
 
 interface IncomesFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IIncomesEntry>;
   loading?: boolean;
   withSubmit?: boolean;
   customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -159,7 +160,7 @@ function IncomesFormUI(props: IncomesFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

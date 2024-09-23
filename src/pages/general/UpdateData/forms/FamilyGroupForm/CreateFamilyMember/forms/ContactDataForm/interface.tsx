@@ -1,10 +1,11 @@
 import { TextField } from "@design/input/TextField";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { getFieldState, isRequired } from "src/utils/forms/forms";
 import * as Yup from "yup";
+import { IContactDataEntry } from "./types";
 
 interface ContactDataFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IContactDataEntry>;
   loading?: boolean;
   readonly?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;

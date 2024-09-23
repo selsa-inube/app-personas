@@ -7,7 +7,8 @@ import { Divider } from "@inubekit/divider";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { FormikValues } from "formik";
+import { IFamilyGroupEntries } from "@pages/general/UpdateData/forms/FamilyGroupForm/types";
+import { FormikProps } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -19,7 +20,7 @@ import { StyledModal } from "./styles";
 
 interface EditFamilyMemberModalProps {
   portalId: string;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   withCustomDirty?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   onCloseModal: () => void;

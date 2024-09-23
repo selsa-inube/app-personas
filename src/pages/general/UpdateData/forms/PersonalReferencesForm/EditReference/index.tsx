@@ -1,19 +1,19 @@
-import { useState } from "react";
-import { EditReferenceUI } from "./interface";
 import { IEntry } from "@design/data/Table/types";
-import { FormikValues } from "formik";
-import { IPersonalReferenceEntry } from "../types";
+import { FormikProps } from "formik";
+import { useState } from "react";
+import { IPersonalReferenceEntries, IPersonalReferenceEntry } from "../types";
+import { EditReferenceUI } from "./interface";
 
 interface EditReferenceProps {
   reference: IEntry;
-  formik: FormikValues;
+  formik: FormikProps<IPersonalReferenceEntries>;
 }
 
 const getEditReference = (
   reference: IPersonalReferenceEntry,
-  formik: FormikValues,
+  formik: FormikProps<IPersonalReferenceEntries>,
 ) => {
-  const referenceToEdit: IPersonalReferenceEntry = formik.values.entries.find(
+  const referenceToEdit = formik.values.entries.find(
     (entry: IPersonalReferenceEntry) => entry.id === reference.id,
   );
 
@@ -35,7 +35,7 @@ function EditReference(props: EditReferenceProps) {
 
     if (formik.isValid && formik.values.referenceType) {
       setShowModal(false);
-      const updatedEntries: IPersonalReferenceEntry = formik.values.entries.map(
+      const updatedEntries = formik.values.entries.map(
         (entry: IPersonalReferenceEntry) => {
           if (entry.id === reference.id) {
             return {

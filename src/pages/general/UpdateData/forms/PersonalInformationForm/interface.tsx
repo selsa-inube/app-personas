@@ -3,11 +3,11 @@ import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Fieldset } from "@inubekit/fieldset";
 import { Button } from "@inubekit/button";
+import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { bloodTypeDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
@@ -16,9 +16,10 @@ import { genderDM } from "src/model/domains/general/updateData/personalInformati
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
 import { getFieldState } from "src/utils/forms/forms";
+import { IPersonalInformationEntry } from "./types";
 
 interface PersonalInformationFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IPersonalInformationEntry>;
   loading?: boolean;
   withSubmit?: boolean;
 }
@@ -271,7 +272,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

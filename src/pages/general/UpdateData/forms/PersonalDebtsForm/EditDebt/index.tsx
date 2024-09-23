@@ -1,5 +1,5 @@
 import { IEntry } from "@design/data/Table/types";
-import { FormikProps, FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { useState } from "react";
 import { IPersonalDebtEntries, IPersonalDebtEntry } from "../types";
 import { EditDebtUI } from "./interface";
@@ -9,8 +9,11 @@ interface EditDebtProps {
   formik: FormikProps<IPersonalDebtEntries>;
 }
 
-const getEditDebt = (debt: IPersonalDebtEntry, formik: FormikValues) => {
-  const debtToEdit: IPersonalDebtEntry = formik.values.entries.find(
+const getEditDebt = (
+  debt: IPersonalDebtEntry,
+  formik: FormikProps<IPersonalDebtEntries>,
+) => {
+  const debtToEdit = formik.values.entries.find(
     (entry: IPersonalDebtEntry) => entry.id === debt.id,
   );
 

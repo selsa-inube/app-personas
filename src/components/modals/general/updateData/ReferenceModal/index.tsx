@@ -3,11 +3,14 @@ import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { FormikValues } from "formik";
+import { IPersonalReferenceEntries } from "@pages/general/UpdateData/forms/PersonalReferencesForm/types";
+import { FormikProps } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose, MdOutlineModeEdit } from "react-icons/md";
@@ -16,8 +19,6 @@ import { cityDM } from "src/model/domains/general/updateData/personalInformation
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
-import { Text } from "@inubekit/text";
-import { Button } from "@inubekit/button";
 
 const referenceTypeDM = getDomainById("referenceType");
 
@@ -26,7 +27,7 @@ interface ReferenceModalProps {
   description: string;
   confirmButtonText: string;
   portalId: string;
-  formik: FormikValues;
+  formik: FormikProps<IPersonalReferenceEntries>;
   withCustomDirty?: boolean;
   onCloseModal: () => void;
   onConfirm: () => void;
@@ -183,7 +184,7 @@ function ReferenceModal(props: ReferenceModalProps) {
             type="text"
             size="compact"
             value={
-              countryDM.valueOf(formik.values.country)?.value ||
+              countryDM.valueOf(formik.values.country || "")?.value ||
               formik.values.country
             }
             iconAfter={<MdOutlineModeEdit size={18} />}
@@ -206,8 +207,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             type="text"
             size="compact"
             value={
-              departmentDM.valueOf(formik.values.stateOrDepartment)?.value ||
-              formik.values.stateOrDepartment
+              departmentDM.valueOf(formik.values.stateOrDepartment || "")
+                ?.value || formik.values.stateOrDepartment
             }
             isDisabled={
               !formik.values.country ||
@@ -233,7 +234,8 @@ function ReferenceModal(props: ReferenceModalProps) {
             type="text"
             size="compact"
             value={
-              cityDM.valueOf(formik.values.city)?.value || formik.values.city
+              cityDM.valueOf(formik.values.city || "")?.value ||
+              formik.values.city
             }
             isDisabled={
               !formik.values.stateOrDepartment ||

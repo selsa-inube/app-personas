@@ -7,14 +7,15 @@ import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { getFieldState, isRequired } from "src/utils/forms/forms";
 import * as Yup from "yup";
+import { IFinancialOperationsEntry } from "./types";
 
 interface FinancialOperationsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IFinancialOperationsEntry>;
   loading?: boolean;
   withSubmit?: boolean;
   validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
@@ -100,7 +101,6 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 isDisabled={loading}
                 value={formik.values.descriptionOperations}
                 onChange={formik.handleChange}
-                onFocus={formik.isFocused}
                 lengthThreshold={20}
                 isFullWidth
                 isRequired={isRequired(
@@ -202,7 +202,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

@@ -4,7 +4,7 @@ interface IExpensesEntry {
   credits: string;
   creditCards: string;
   others: string;
-  totalExpenses: string;
+  totalExpenses: number;
 }
 
 export type { IExpensesEntry };

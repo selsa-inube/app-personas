@@ -1,11 +1,12 @@
 import { ISelectOption } from "@design/input/Select/types";
+import { accountSelectionTypeData } from "@mocks/domains/accountSelectionType";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
+import { FormikProps } from "formik";
 import { validationMessages } from "src/validations/validationMessages";
-import { FormikValues } from "formik";
-import * as Yup from "yup";
 import { validationRules } from "src/validations/validationRules";
-import { accountSelectionTypeData } from "@mocks/domains/accountSelectionType";
+import * as Yup from "yup";
+import { IPaymentMethodEntry } from "../types";
 
 const getCommonFields = {
   accountToDebit: (options: ISelectOption[]): IFormField => ({
@@ -35,7 +36,7 @@ const getCommonFields = {
   }),
 
   accountNumberSelect: (
-    formik: FormikValues,
+    formik: FormikProps<IPaymentMethodEntry>,
     savingOptions: ISelectOption[],
     readOnly?: boolean,
   ): IFormField => ({
@@ -98,10 +99,9 @@ const getCommonFields = {
 };
 
 const structurePaymentMethodForm = (
-  formik: FormikValues,
+  formik: FormikProps<IPaymentMethodEntry>,
   savingOptions: ISelectOption[],
 ): IFormStructure => {
-
   const getCommonFieldsForAccountDebit = (isExternal: boolean) => {
     const commonFields = [
       getCommonFields.accountToDebit(getDomainById("accountDebitType")),

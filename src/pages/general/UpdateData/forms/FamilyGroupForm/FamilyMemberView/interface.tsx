@@ -3,13 +3,15 @@ import { EditFamilyMemberModal } from "@components/modals/general/updateData/Fam
 import { FamilyMemberViewModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberViewModal";
 import { IEntry } from "@design/data/Table/types";
 import { Icon } from "@inubekit/icon";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOpenInNew } from "react-icons/md";
-import { deleteFamilyMemberModal } from "../config/deleteMember";
 import * as Yup from "yup";
+import { deleteFamilyMemberModal } from "../config/deleteMember";
+import { IFamilyGroupEntries } from "../types";
+
 interface FamilyMemberViewUIProps {
   showModal: boolean;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   member: IEntry;
   showDeleteModal: boolean;
   showEditModal: boolean;

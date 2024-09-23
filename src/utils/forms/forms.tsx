@@ -84,7 +84,11 @@ const generateFormFields = (
               onChange={customHandleChange}
               onBlur={customHandleBlur}
               state={getFieldState(formik, field.name)}
-              errorMessage={formik.errors[field.name]}
+              errorMessage={
+                typeof formik.errors[field.name] === "string"
+                  ? formik.errors[field.name]
+                  : undefined
+              }
               isFullWidth={field.isFullWidth}
               readOnly={field.readOnly}
               isDisabled={disabled}
