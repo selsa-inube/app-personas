@@ -66,6 +66,7 @@ const createTransferRequest = async (
     );
 
     console.info(error);
+
     throw error;
   }
 };

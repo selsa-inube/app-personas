@@ -58,9 +58,8 @@ const getLink = async (
     );
 
     console.info(error);
-    throw new Error(
-      "No se pudo obtener el link. Por favor, intenta nuevamente.",
-    );
+
+    throw error;
   }
 };
 

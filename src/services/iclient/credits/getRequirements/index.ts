@@ -64,9 +64,7 @@ const getRequirementsForProduct = async (
 
     console.info(error);
 
-    throw new Error(
-      "No se pudieron obtener los requerimientos de crédito del producto.",
-    );
+    throw error;
   }
 };
 
