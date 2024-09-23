@@ -3,10 +3,11 @@ import { FormikValues } from "formik";
 import { useState } from "react";
 import { IFamilyGroupEntry } from "../types";
 import { FamilyMemberViewUI } from "./interface";
+import * as Yup from "yup";
 
 const getFamilyMember = (member: IFamilyGroupEntry, formik: FormikValues) => {
   const memberToView: IFamilyGroupEntry = formik.values.entries.find(
-    (entry: IFamilyGroupEntry) => entry.id === member.id
+    (entry: IFamilyGroupEntry) => entry.id === member.id,
   );
 
   if (memberToView) {
@@ -20,13 +21,13 @@ const getFamilyMember = (member: IFamilyGroupEntry, formik: FormikValues) => {
 interface FamilyMemberViewProps {
   member: IEntry;
   formik: FormikValues;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   onDeleteMember: () => void;
   onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
-  isRequired: (fieldName: string) => boolean;
 }
 
 function FamilyMemberView(props: FamilyMemberViewProps) {
-  const { member, formik, onDeleteMember, onEditMember, isRequired } = props;
+  const { member, formik, validationSchema, onDeleteMember, onEditMember } = props;
 
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -73,6 +74,7 @@ function FamilyMemberView(props: FamilyMemberViewProps) {
       member={member}
       showDeleteModal={showDeleteModal}
       showEditModal={showEditModal}
+      validationSchema={validationSchema}
       onCloseModal={handleToggleModal}
       onShowModal={handleModalView}
       onDeleteModal={handleDeleteModal}
@@ -81,7 +83,6 @@ function FamilyMemberView(props: FamilyMemberViewProps) {
       onConfirm={handleConfirm}
       onCloseDeleteModal={handleToggleDeleteModal}
       onCloseEditModal={handleToggleEditModal}
-      isRequired={isRequired}
     />
   );
 }

@@ -1,10 +1,10 @@
+import { FormikProps, useFormik } from "formik";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { familyGroupRequiredFields } from "../../../config/formConfig";
-import { validationMessages } from "src/validations/validationMessages";
-import { IInformationDataEntry } from "./types";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { FormikProps, useFormik } from "formik";
 import { InformationDataFormUI } from "./interface";
+import { IInformationDataEntry } from "./types";
 
 const validationSchema = Yup.object().shape({
   relationship: Yup.string(),
@@ -76,18 +76,12 @@ const InformationDataForm = forwardRef(function InformationDataForm(
     }
   }, [formik.values]);
 
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName];
-    if (!("nullable" in fieldDescription)) return false;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
-
   return (
     <InformationDataFormUI
       loading={loading}
       formik={formik}
       readonly={readonly}
-      isRequired={isRequired}
+      validationSchema={dynamicSchema}
     />
   );
 });

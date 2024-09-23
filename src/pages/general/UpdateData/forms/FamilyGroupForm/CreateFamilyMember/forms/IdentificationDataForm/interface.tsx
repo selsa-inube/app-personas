@@ -1,17 +1,18 @@
 import { TextField } from "@design/input/TextField";
 import { Fieldset } from "@inubekit/fieldset";
 import { FormikValues } from "formik";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
 
 interface IdentificationDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
   isMobile?: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
-  const { formik, loading, isMobile, isRequired } = props;
+  const { formik, loading, isMobile, validationSchema } = props;
 
   return (
     <Fieldset
@@ -32,7 +33,7 @@ function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
         onChange={formik.handleChange}
         state={getFieldState(formik, "identificationNumber")}
         isDisabled={loading}
-        isRequired={isRequired("identificationNumber")}
+        isRequired={isRequired(validationSchema, "identificationNumber")}
         isFullWidth
       />
     </Fieldset>

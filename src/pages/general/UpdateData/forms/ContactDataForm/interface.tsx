@@ -1,8 +1,8 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Fieldset } from "@inubekit/fieldset";
 import { Button } from "@inubekit/button";
+import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { FormikValues } from "formik";
@@ -10,17 +10,18 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
 
 interface ContactDataFormUIProps {
   formik: FormikValues;
   loading?: boolean;
-  isRequired: (fieldName: string) => boolean;
   withSubmit?: boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, isRequired, withSubmit } = props;
+  const { formik, loading, withSubmit, validationSchema } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -65,7 +66,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "country")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired("country")}
+              isRequired={isRequired(validationSchema, "country")}
               suggestions={countryDM.options}
               autocompleteChars={2}
               autocomplete
@@ -92,7 +93,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "stateOrDepartment")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired("stateOrDepartment")}
+              isRequired={isRequired(validationSchema,"stateOrDepartment")}
               suggestions={departmentDM.options}
               autocompleteChars={2}
               autocomplete
@@ -119,7 +120,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "city")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired("city")}
+              isRequired={isRequired(validationSchema,"city")}
               suggestions={cityDM.options}
               autocompleteChars={2}
               autocomplete
@@ -139,7 +140,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "address")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired("address")}
+              isRequired={isRequired(validationSchema,"address")}
             />
 
             <TextField
@@ -157,7 +158,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "zipCode")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired("zipCode")}
+              isRequired={isRequired(validationSchema,"zipCode")}
             />
           </Grid>
         </Fieldset>
@@ -193,7 +194,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "landlinePhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired("landlinePhone")}
+              isRequired={isRequired(validationSchema,"landlinePhone")}
             />
 
             <TextField
@@ -211,7 +212,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "cellPhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired("cellPhone")}
+              isRequired={isRequired(validationSchema,"cellPhone")}
             />
           </Grid>
         </Fieldset>
@@ -246,7 +247,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "email")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired("email")}
+              isRequired={isRequired(validationSchema,"email")}
             />
           </Grid>
         </Fieldset>

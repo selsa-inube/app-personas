@@ -1,5 +1,6 @@
 import { IAction } from "@design/data/Table/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useFlag } from "@inubekit/flag";
 import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, FormikValues, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
@@ -17,7 +18,6 @@ import { deleteFamilyMemberMsgs } from "./config/deleteMember";
 import { familyGroupRequiredFields } from "./config/formConfig";
 import { FamilyGroupFormUI } from "./interface";
 import { IFamilyGroupEntries, IFamilyGroupEntry } from "./types";
-import { useFlag } from "@inubekit/flag";
 
 const validationSchema = Yup.object().shape({
   firstName: familyGroupRequiredFields.firstName
@@ -100,14 +100,13 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   ref: React.Ref<FormikProps<IFamilyGroupEntries>>,
 ) {
   const { initialValues, loading, withSubmit, onSubmit } = props;
-  const [dynamicSchema] = useState(validationSchema);
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
   const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
     validateOnBlur: false,
-    validationSchema: dynamicSchema,
+    validationSchema,
     onSubmit: onSubmit || (() => true),
   });
 
@@ -217,12 +216,6 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     formik.setTouched({});
   };
 
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName];
-    if (!("nullable" in fieldDescription)) return false;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
-
   const handleToggleModal = () => {
     setShowAddMemberModal(!showAddMemberModal);
   };
@@ -239,7 +232,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
           formik={formik}
           onDeleteMember={() => handleDeleteMember(member.id)}
           onEditMember={handleEditMember}
-          isRequired={isRequired}
+          validationSchema={validationSchema}
         />
       ),
       mobilePriority: true,
@@ -256,7 +249,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
             formik={formik}
             member={member}
             onEditMember={handleEditMember}
-            isRequired={isRequired}
+            validationSchema={validationSchema}
           />
         ),
         mobilePriority: true,

@@ -66,18 +66,12 @@ const FinancialOperationsForm = forwardRef(function FinancialOperationsForm(
     }
   }, [formik.values]);
 
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = validationSchema.describe().fields[fieldName];
-    if (!("nullable" in fieldDescription)) return false;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
-
   return (
     <FinancialOperationsFormUI
       loading={loading}
       formik={formik}
       withSubmit={withSubmit}
-      isRequired={isRequired}
+      validationSchema={validationSchema}
     />
   );
 });

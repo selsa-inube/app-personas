@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -26,7 +26,6 @@ const IdentificationDataForm = forwardRef(function IdentificationDataForm(
   ref: React.Ref<FormikProps<IIdentificationDataEntry>>,
 ) {
   const { initialValues, loading, isMobile, onFormValid, onSubmit } = props;
-  const [dynamicSchema] = useState(validationSchema);
 
   const formik = useFormik({
     initialValues,
@@ -43,18 +42,12 @@ const IdentificationDataForm = forwardRef(function IdentificationDataForm(
     });
   }, [formik.values]);
 
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName];
-    if (!("nullable" in fieldDescription)) return false;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
-
   return (
     <IdentificationDataFormUI
       formik={formik}
       loading={loading}
       isMobile={isMobile}
-      isRequired={isRequired}
+      validationSchema={validationSchema}
     />
   );
 });

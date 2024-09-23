@@ -4,6 +4,8 @@ import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { companiesData } from "@mocks/domains/companies";
@@ -20,10 +22,9 @@ import { economicActivityDM } from "src/model/domains/general/updateData/economi
 import { severanceRegimeDM } from "src/model/domains/general/updateData/economicActivity/severanceregimedm";
 import { workdayDM } from "src/model/domains/general/updateData/economicActivity/workdaydm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
 import { IEconomicActivityEntry } from "./types";
-import { Fieldset } from "@inubekit/fieldset";
-import { Button } from "@inubekit/button";
 
 interface EconomicActivityFormUIProps {
   formik: FormikProps<IEconomicActivityEntry>;
@@ -31,7 +32,7 @@ interface EconomicActivityFormUIProps {
   showMainActivityModal: boolean;
   showSecondaryActivityModal: boolean;
   withSubmit?: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   handleToggleModal: (field: string) => void;
   handleModalSelect: (field: string, selectedItem: IEconomicActivity) => void;
 }
@@ -43,7 +44,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
     showMainActivityModal,
     showSecondaryActivityModal,
     withSubmit,
-    isRequired,
+    validationSchema,
     handleToggleModal,
     handleModalSelect,
   } = props;
@@ -80,7 +81,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                 size="compact"
                 options={economicActivityDM.options}
                 state={getFieldState(formik, "economicActivity")}
-                isRequired={isRequired("economicActivity")}
+                isRequired={isRequired(validationSchema, "economicActivity")}
                 errorMessage={formik.errors.economicActivity}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -97,7 +98,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     size="compact"
                     options={getDomainById("profession")}
                     state={getFieldState(formik, "profession")}
-                    isRequired={isRequired("profession")}
+                    isRequired={isRequired(validationSchema, "profession")}
                     errorMessage={formik.errors.profession}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
@@ -117,7 +118,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     state={getFieldState(formik, "job")}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    isRequired={isRequired("job")}
+                    isRequired={isRequired(validationSchema, "job")}
                   />
                   <TextField
                     label="Actividad CIIU principal"
@@ -133,7 +134,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     state={getFieldState(formik, "mainCiiuActivity")}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    isRequired={isRequired("mainCiiuActivity")}
+                    isRequired={isRequired(
+                      validationSchema,
+                      "mainCiiuActivity",
+                    )}
                     onIconClick={() => handleToggleModal("mainCiiuActivity")}
                   />
                   <TextField
@@ -150,7 +154,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     state={getFieldState(formik, "secondaryCiiuActivity")}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    isRequired={isRequired("secondaryCiiuActivity")}
+                    isRequired={isRequired(
+                      validationSchema,
+                      "secondaryCiiuActivity",
+                    )}
                     onIconClick={() =>
                       handleToggleModal("secondaryCiiuActivity")
                     }
@@ -163,7 +170,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     size="compact"
                     options={getDomainById("economicSector")}
                     state={getFieldState(formik, "economicSector")}
-                    isRequired={isRequired("economicSector")}
+                    isRequired={isRequired(validationSchema, "economicSector")}
                     errorMessage={formik.errors.economicSector}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
@@ -206,7 +213,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   state={getFieldState(formik, "company")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("company")}
+                  isRequired={isRequired(validationSchema, "company")}
                   suggestions={getDomainById("companies")}
                   autocompleteChars={1}
                   autocomplete
@@ -219,7 +226,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   size="compact"
                   options={contractTypeDM.options}
                   state={getFieldState(formik, "contractType")}
-                  isRequired={isRequired("contractType")}
+                  isRequired={isRequired(validationSchema, "contractType")}
                   errorMessage={formik.errors.contractType}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -236,7 +243,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   state={getFieldState(formik, "admissionDate")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("admissionDate")}
+                  isRequired={isRequired(validationSchema, "admissionDate")}
                   isFullWidth
                 />
 
@@ -253,7 +260,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                     state={getFieldState(formik, "contractExpiration")}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    isRequired={isRequired("contractExpiration")}
+                    isRequired={isRequired(
+                      validationSchema,
+                      "contractExpiration",
+                    )}
                   />
                 )}
 
@@ -265,7 +275,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   size="compact"
                   options={severanceRegimeDM.options}
                   state={getFieldState(formik, "severanceRegime")}
-                  isRequired={isRequired("severanceRegime")}
+                  isRequired={isRequired(validationSchema, "severanceRegime")}
                   errorMessage={formik.errors.severanceRegime}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -280,7 +290,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   size="compact"
                   options={workdayDM.options}
                   state={getFieldState(formik, "workday")}
-                  isRequired={isRequired("workday")}
+                  isRequired={isRequired(validationSchema, "workday")}
                   errorMessage={formik.errors.workday}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -296,7 +306,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   value={formik.values.position}
                   size="compact"
                   state={getFieldState(formik, "position")}
-                  isRequired={isRequired("position")}
+                  isRequired={isRequired(validationSchema, "position")}
                   errorMessage={formik.errors.position}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -312,7 +322,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   value={formik.values.dependence}
                   size="compact"
                   state={getFieldState(formik, "dependence")}
-                  isRequired={isRequired("dependence")}
+                  isRequired={isRequired(validationSchema, "dependence")}
                   errorMessage={formik.errors.dependence}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -332,7 +342,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                   state={getFieldState(formik, "employeeCode")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("employeeCode")}
+                  isRequired={isRequired(validationSchema, "employeeCode")}
                 />
                 {!formik.values.company ||
                   (!companiesData.some(
@@ -347,7 +357,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         size="compact"
                         options={companyFormalityDM.options}
                         state={getFieldState(formik, "companyFormality")}
-                        isRequired={isRequired("companyFormality")}
+                        isRequired={isRequired(
+                          validationSchema,
+                          "companyFormality",
+                        )}
                         errorMessage={formik.errors.companyFormality}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
@@ -362,7 +375,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         size="compact"
                         options={countryDM.options}
                         state={getFieldState(formik, "companyCountry")}
-                        isRequired={isRequired("companyCountry")}
+                        isRequired={isRequired(
+                          validationSchema,
+                          "companyCountry",
+                        )}
                         errorMessage={formik.errors.companyCountry}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
@@ -382,7 +398,7 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         state={getFieldState(formik, "companyCity")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
-                        isRequired={isRequired("companyCity")}
+                        isRequired={isRequired(validationSchema, "companyCity")}
                       />
                       <TextField
                         label="Teléfono de la empresa"
@@ -397,7 +413,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         state={getFieldState(formik, "companyPhone")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
-                        isRequired={isRequired("companyPhone")}
+                        isRequired={isRequired(
+                          validationSchema,
+                          "companyPhone",
+                        )}
                       />
                       <TextField
                         label="Dirección de la empresa"
@@ -412,7 +431,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         state={getFieldState(formik, "companyAddress")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
-                        isRequired={isRequired("companyAddress")}
+                        isRequired={isRequired(
+                          validationSchema,
+                          "companyAddress",
+                        )}
                       />
                       <TextField
                         label="Correo electrónico de la empresa"
@@ -427,7 +449,10 @@ function EconomicActivityFormUI(props: EconomicActivityFormUIProps) {
                         state={getFieldState(formik, "companyEmail")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
-                        isRequired={isRequired("companyEmail")}
+                        isRequired={isRequired(
+                          validationSchema,
+                          "companyEmail",
+                        )}
                       />
                     </>
                   ))}

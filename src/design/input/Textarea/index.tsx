@@ -1,5 +1,8 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Label } from "@inubekit/label";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import {
@@ -10,9 +13,6 @@ import { ITextFieldMessage, InputState, inputStates } from "../TextField/types";
 import { Counter } from "./Counter";
 import { StyledContainer, StyledTextarea } from "./styles";
 import { CounterAppearence } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { Label } from "@inubekit/label";
 
 function Invalid(props: ITextFieldMessage) {
   const { isDisabled, state, errorMessage } = props;
