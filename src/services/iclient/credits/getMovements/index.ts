@@ -59,6 +59,7 @@ const getMovementsForCredit = async (
     );
 
     console.info(error);
+
     throw error;
   }
 };

@@ -67,7 +67,9 @@ const getCustomer = async (
       Math.round(performance.now() - startTime),
     );
 
-    throw new Error("No se pudieron obtener los datos del usuario");
+    console.info(error);
+
+    throw error;
   }
 };
 

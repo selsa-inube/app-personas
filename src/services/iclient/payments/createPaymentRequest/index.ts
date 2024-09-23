@@ -63,6 +63,7 @@ const createPaymentRequest = async (
     );
 
     console.info(error);
+
     throw error;
   }
 };

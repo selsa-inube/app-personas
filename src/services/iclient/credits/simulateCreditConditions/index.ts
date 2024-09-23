@@ -40,7 +40,8 @@ const simulateCreditConditions = async (
 
     return mapSimulationApiToEntity(data);
   } catch (error) {
-    console.info("Error en la simulación:", error);
+    console.info(error);
+
     throw error;
   }
 };
