@@ -5,6 +5,7 @@ import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
@@ -13,13 +14,11 @@ import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
 import { aidRequestSteps } from "./config/assisted";
 import { crumbsAidRequest } from "./config/navigation";
-import { AmountForm } from "./forms/AmountForm";
 import { BeneficiariesForm } from "./forms/BeneficiariesForm";
 import { DetailsSituationForm } from "./forms/DetailsSituationForm";
 import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -34,14 +33,6 @@ const renderStepContent = (
         <BeneficiariesForm
           initialValues={aidRequest.beneficiaries.values}
           ref={formReferences.beneficiaries}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
-
-      {currentStep === aidRequestSteps.amount.number && (
-        <AmountForm
-          initialValues={aidRequest.amount.values}
-          ref={formReferences.amount}
           onFormValid={setIsCurrentFormValid}
         />
       )}

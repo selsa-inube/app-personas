@@ -2,7 +2,6 @@ import { aidsRequestMock } from "@mocks/services/aids/aidsRequest.mocks";
 import { beneficiariesMock } from "@mocks/users/users.mocks";
 import { IDomainType } from "@ptypes/domain.types";
 import { IValidation } from "src/model/entity/service";
-import { IAmountEntry } from "../forms/AmountForm/types";
 import { IBeneficiariesEntry } from "../forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../forms/DetailsSituationForm/types";
 import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
@@ -16,15 +15,10 @@ const mapBeneficiaries = (): IBeneficiariesEntry => {
   };
 };
 
-const mapAmount = (): IAmountEntry => {
-  return {
-    quotaAvailable: 2500000,
-  };
-};
-
 const mapDetailsSituation = (): IDetailsSituationEntry => {
   return {
     message: "",
+    quotaAvailable: 2500000,
   };
 };
 
@@ -51,9 +45,4 @@ const mapDocumentaryRequirements = (
   };
 };
 
-export {
-  mapAmount,
-  mapBeneficiaries,
-  mapDetailsSituation,
-  mapDocumentaryRequirements,
-};
+export { mapBeneficiaries, mapDetailsSituation, mapDocumentaryRequirements };
