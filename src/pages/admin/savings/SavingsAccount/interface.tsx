@@ -369,8 +369,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           productType={selectedProduct.saving.type}
           onCloseModal={onToggleActionsModal}
           onChangeQuota={onToggleChangeQuotaModal}
-          onModifyAction={onModifyAction}
-          onCancelSaving={onCancelSaving}
+          onModifyAction={onToggleModifyActionModal}
+          onCancelSaving={onToggleCancelSavingModal}
         />
       )}
       {showChangeQuotaModal && (
