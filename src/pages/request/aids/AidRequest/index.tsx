@@ -5,12 +5,10 @@ import { Navigate, useBlocker, useParams } from "react-router-dom";
 import { aidRequestTypeDM } from "src/model/domains/services/aids/aidRequestTypeDM";
 import { aidRequestSteps } from "./config/assisted";
 import {
-  mapAmount,
   mapBeneficiaries,
   mapDetailsSituation,
   mapDocumentaryRequirements,
 } from "./config/mappers";
-import { IAmountEntry } from "./forms/AmountForm/types";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 
@@ -43,10 +41,6 @@ function AidRequest() {
       isValid: true,
       values: mapBeneficiaries(),
     },
-    amount: {
-      isValid: true,
-      values: mapAmount(),
-    },
     detailsSituation: {
       isValid: true,
       values: mapDetailsSituation(),
@@ -66,7 +60,6 @@ function AidRequest() {
   });
 
   const beneficiariesRef = useRef<FormikProps<IBeneficiariesEntry>>(null);
-  const amountRef = useRef<FormikProps<IAmountEntry>>(null);
   const detailsSituationRef = useRef<FormikProps<IDetailsSituationEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
@@ -76,7 +69,6 @@ function AidRequest() {
 
   const formReferences: IFormsAidRequestRefs = {
     beneficiaries: beneficiariesRef,
-    amount: amountRef,
     detailsSituation: detailsSituationRef,
     systemValidations: systemValidationsRef,
     documentaryRequirements: documentaryRequirementsRef,

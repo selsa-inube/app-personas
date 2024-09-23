@@ -3,11 +3,9 @@ import { inube } from "@design/tokens";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
 import { currencyFormat } from "src/utils/currency";
 import { truncateFileName } from "src/utils/texts";
 import { IFormsAidRequest } from "../../../types";
-import { IAmountEntry } from "../../AmountForm/types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
 import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
@@ -40,7 +38,10 @@ const renderBeneficiariesVerification = (
   );
 };
 
-const renderAmountVerification = (values: IAmountEntry, isTablet: boolean) => {
+const renderDetailsSituationVerification = (
+  values: IDetailsSituationEntry,
+  isTablet: boolean,
+) => {
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
@@ -52,13 +53,6 @@ const renderAmountVerification = (values: IAmountEntry, isTablet: boolean) => {
         label="Valor de la solicitud:"
         value={currencyFormat(values.applicationValue || 0)}
       />
-    </Grid>
-  );
-};
-
-const renderDetailsSituationVerification = (values: IDetailsSituationEntry) => {
-  return (
-    <Stack width="100%" direction="column">
       {values.message !== "" && (
         <BoxAttribute
           label="Detalles adicionales:"
@@ -66,7 +60,7 @@ const renderDetailsSituationVerification = (values: IDetailsSituationEntry) => {
           direction="column"
         />
       )}
-    </Stack>
+    </Grid>
   );
 };
 
@@ -107,11 +101,11 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet,
         )}
 
-      {stepKey === "amount" &&
-        renderAmountVerification(aidRequest.amount.values, isTablet)}
-
       {stepKey === "detailsSituation" &&
-        renderDetailsSituationVerification(aidRequest.detailsSituation.values)}
+        renderDetailsSituationVerification(
+          aidRequest.detailsSituation.values,
+          isTablet,
+        )}
 
       {stepKey === "systemValidations" &&
         renderSystemValidationsVerification(

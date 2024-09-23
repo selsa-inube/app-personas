@@ -1,6 +1,5 @@
 const aidRequestBoxTitles = {
   beneficiaries: "Beneficiarios",
-  amount: "Monto",
   detailsSituation: "Detalles de la situación",
   systemValidations: "Validaciones del sistema",
   documentaryRequirements: "Requisitos documentales",

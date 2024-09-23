@@ -1,14 +1,12 @@
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { FormikProps } from "formik";
-import { IAmountEntry } from "./forms/AmountForm/types";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
 
 interface IFormsAidRequest {
   beneficiaries: { isValid: boolean; values: IBeneficiariesEntry };
-  amount: { isValid: boolean; values: IAmountEntry };
   detailsSituation: { isValid: boolean; values: IDetailsSituationEntry };
   systemValidations: {
     isValid: boolean;
@@ -23,7 +21,6 @@ interface IFormsAidRequest {
 
 interface IFormsAidRequestRefs {
   beneficiaries: React.RefObject<FormikProps<IBeneficiariesEntry>>;
-  amount: React.RefObject<FormikProps<IAmountEntry>>;
   detailsSituation: React.RefObject<FormikProps<IDetailsSituationEntry>>;
   systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
   documentaryRequirements: React.RefObject<
