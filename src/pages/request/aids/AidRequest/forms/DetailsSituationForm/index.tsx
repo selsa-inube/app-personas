@@ -71,7 +71,6 @@ const DetailsSituationForm = forwardRef(function DetailsSituationForm(
             .required(validationMessages.required),
         }),
       );
-      onFormValid && onFormValid(false);
     } else if (withDays) {
       newValidationSchema = validationSchema.concat(
         Yup.object({
@@ -84,19 +83,16 @@ const DetailsSituationForm = forwardRef(function DetailsSituationForm(
             .required(validationMessages.required),
         }),
       );
-      onFormValid && onFormValid(false);
     }
 
     setDynamicSchema(newValidationSchema);
   }, []);
 
   useEffect(() => {
-    if (formik.dirty) {
-      formik.validateForm().then((errors) => {
-        onFormValid && onFormValid(Object.keys(errors).length === 0);
-      });
-    }
-  }, [formik.values]);
+    formik.validateForm().then((errors) => {
+      onFormValid && onFormValid(Object.keys(errors).length === 0);
+    });
+  }, [formik.values, dynamicSchema]);
 
   return (
     <DetailsSituationFormUI
