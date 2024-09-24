@@ -5,6 +5,7 @@ import { inube } from "@design/tokens";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
@@ -13,18 +14,17 @@ import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { DisbursementForm } from "../../../../shared/forms/DisbursementForm";
+import { DocumentaryRequirementsForm } from "../../../../shared/forms/DocumentaryRequirementsForm";
 import { PaymentMethodForm } from "../../../../shared/forms/PaymentMethodForm";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { crumbsCreditDestinationRequest } from "./config/navigation";
 import { CreditConditionsForm } from "./forms/CreditConditionsForm";
 import { DestinationForm } from "./forms/DestinationForm";
-import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
 import { CreditDestinationRequestVerification } from "./forms/Verification";
 import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,

@@ -1,6 +1,5 @@
 import { ICreditConditionsEntry } from "../forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
-import { IDocumentaryRequirementsEntry } from "../forms/DocumentaryRequirementsForm/types";
 
 const destination: IDestinationEntry = {
   products: [],
@@ -36,15 +35,9 @@ const creditConditions: ICreditConditionsEntry = {
   charges: 0,
 };
 
-const documentaryRequirements: IDocumentaryRequirementsEntry = {
-  requiredDocuments: [],
-  selectedDocuments: [],
-};
-
 const initalValuesCreditDestination = {
   destination,
   creditConditions,
-  documentaryRequirements,
 };
 
 export { initalValuesCreditDestination };

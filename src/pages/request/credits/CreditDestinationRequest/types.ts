@@ -1,13 +1,13 @@
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
+import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { FormikProps } from "formik";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { IDisbursementEntry } from "../../../../shared/forms/DisbursementForm/types";
+import { IDocumentaryRequirementsEntry } from "../../../../shared/forms/DocumentaryRequirementsForm/types";
 import { IPaymentMethodEntry } from "../../../../shared/forms/PaymentMethodForm/types";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
-import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
-import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
-import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 
 interface IFormsCreditDestinationRequest {
   destination: { isValid: boolean; values: IDestinationEntry };

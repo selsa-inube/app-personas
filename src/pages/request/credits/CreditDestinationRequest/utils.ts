@@ -1,4 +1,5 @@
 import { enviroment } from "@config/enviroment";
+import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/mappers";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { loadingValidations } from "@forms/SystemValidationsForm/utils";
@@ -114,7 +115,7 @@ const creditDestinationStepsRules = (
         newCreditDestinationRequest.documentaryRequirements = {
           isValid: true,
           values: {
-            ...initalValuesCreditDestination.documentaryRequirements,
+            ...mapDocumentaryRequirements(),
             requiredDocuments: values.documents,
           },
         };

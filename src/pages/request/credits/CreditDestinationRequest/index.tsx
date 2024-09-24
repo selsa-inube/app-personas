@@ -1,11 +1,13 @@
 import { mapComments } from "@forms/CommentsForm/mappers";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
+import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/mappers";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/flag";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker, useNavigate } from "react-router-dom";
@@ -16,20 +18,19 @@ import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { IDisbursementEntry } from "../../../../shared/forms/DisbursementForm/types";
+import { IDocumentaryRequirementsEntry } from "../../../../shared/forms/DocumentaryRequirementsForm/types";
 import { IPaymentMethodEntry } from "../../../../shared/forms/PaymentMethodForm/types";
 import { creditDestinationRequestSteps } from "./config/assisted";
 import { initalValuesCreditDestination } from "./config/initialValues";
 import { mapDestination } from "./config/mappers";
 import { ICreditConditionsEntry } from "./forms/CreditConditionsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
-import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
 import { CreditDestinationRequestUI } from "./interface";
 import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
 import { creditDestinationStepsRules, sendCreditRequest } from "./utils";
-import { useFlag } from "@inubekit/flag";
 
 function CreditDestinationRequest() {
   const { accessToken } = useAuth();
@@ -69,7 +70,7 @@ function CreditDestinationRequest() {
       },
       documentaryRequirements: {
         isValid: true,
-        values: initalValuesCreditDestination.documentaryRequirements,
+        values: mapDocumentaryRequirements(),
       },
       comments: {
         isValid: true,
