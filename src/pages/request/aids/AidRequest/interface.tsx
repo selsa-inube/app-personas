@@ -18,9 +18,9 @@ import { aidRequestSteps } from "./config/assisted";
 import { crumbsAidRequest } from "./config/navigation";
 import { BeneficiariesForm } from "./forms/BeneficiariesForm";
 import { DetailsSituationForm } from "./forms/DetailsSituationForm";
-import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
+import { DocumentaryRequirementsForm } from "@forms/DocumentaryRequirementsForm";
 
 const renderStepContent = (
   currentStep: number,

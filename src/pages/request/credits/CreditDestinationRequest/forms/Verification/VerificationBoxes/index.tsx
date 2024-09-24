@@ -3,17 +3,16 @@ import { inube } from "@design/tokens";
 import { renderCommentsVerification } from "@forms/CommentsForm/verification";
 import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
+import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
 import { renderPaymentMethodVerification } from "@forms/PaymentMethodForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { currencyFormat } from "src/utils/currency";
-import { truncateFileName } from "src/utils/texts";
 import { creditDestinationRequestSteps } from "../../../config/assisted";
 import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
-import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -66,27 +65,6 @@ const renderCreditConditionsVerification = (
     )}
   </>
 );
-
-const renderDocumentaryRequirementsVerification = (
-  values: IDocumentaryRequirementsEntry,
-  isTablet: boolean,
-) => {
-  return (
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      gap={inube.spacing.s100}
-      width="100%"
-    >
-      {values.selectedDocuments.map((document) => (
-        <BoxAttribute
-          key={document.file.name}
-          label={truncateFileName(document.file.name, 55)}
-        />
-      ))}
-    </Grid>
-  );
-};
 
 interface VerificationBoxesProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;

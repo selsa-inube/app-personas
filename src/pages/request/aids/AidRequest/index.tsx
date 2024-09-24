@@ -4,11 +4,7 @@ import { useContext, useRef, useState } from "react";
 import { Navigate, useBlocker, useParams } from "react-router-dom";
 import { aidRequestTypeDM } from "src/model/domains/services/aids/aidRequestTypeDM";
 import { aidRequestSteps } from "./config/assisted";
-import {
-  mapBeneficiaries,
-  mapDetailsSituation,
-  mapDocumentaryRequirements,
-} from "./config/mappers";
+import { mapBeneficiaries, mapDetailsSituation } from "./config/mappers";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 
@@ -16,12 +12,13 @@ import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/mappers";
+import { IDocumentaryRequirementsEntry } from "@forms/DocumentaryRequirementsForm/types";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { AppContext } from "src/context/app";
-import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
 import { AidRequestUI } from "./interface";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 import { aidRequestStepsRules } from "./utils";
@@ -56,7 +53,7 @@ function AidRequest() {
     },
     documentaryRequirements: {
       isValid: true,
-      values: mapDocumentaryRequirements(aidRequestType),
+      values: mapDocumentaryRequirements(),
     },
     disbursement: {
       isValid: false,
