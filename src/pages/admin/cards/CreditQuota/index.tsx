@@ -4,7 +4,9 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
+import { extractAttribute } from "src/utils/products";
 import { CreditQuotaUI } from "./interface";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 import {
@@ -12,7 +14,6 @@ import {
   validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
-import { AppContext } from "src/context/app";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
@@ -49,6 +50,13 @@ function CreditQuota() {
       accessToken,
     );
 
+    const selectedCard = cards.find((card) => card.id === card_id);
+    if (!selectedCard) return;
+
+    const cardNumber = extractAttribute(selectedCard.attributes, "card_number");
+
+    if (!cardNumber) return;
+
     const isCardQuotaValid = newCreditQuotas.every((creditQuota) =>
       cards.some(
         (card) =>
@@ -62,7 +70,7 @@ function CreditQuota() {
     if (!isCardQuotaValid) return;
 
     const { selectedCreditQuotaDetail } = await validateCreditQuotaDetail(
-      card_id,
+      cardNumber.value.toString(),
       credit_quota_id,
       accessToken,
       creditQuotaDetail,
