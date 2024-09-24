@@ -4,7 +4,6 @@ import { MdOutlineArrowBack } from "react-icons/md";
 import { cdatRequestSteps } from "../../config/assisted";
 import { IFormsCdatRequest } from "../../types";
 import { VerificationBoxes } from "./VerificationBoxes";
-import { cdatRequestBoxTitles } from "./config/box";
 import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
@@ -21,8 +20,8 @@ function CdatRequestVerification(props: VerificationProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      {Object.entries(cdatRequestBoxTitles).map(([key, title]) => (
-        <Accordion title={title} key={`${key}-box`}>
+      {Object.entries(cdatRequestSteps).map(([key, step]) => (
+        <Accordion title={step.name} key={`${key}-box`}>
           <Stack
             direction="column"
             width="100%"
@@ -32,7 +31,7 @@ function CdatRequestVerification(props: VerificationProps) {
             <VerificationBoxes
               isTablet={isTablet}
               cdatRequest={cdatRequest}
-              stepKey={key as keyof typeof cdatRequestBoxTitles}
+              stepKey={key as keyof typeof cdatRequestSteps}
             />
 
             <Button

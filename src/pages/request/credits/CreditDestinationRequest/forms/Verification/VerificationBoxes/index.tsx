@@ -3,16 +3,16 @@ import { inube } from "@design/tokens";
 import { renderCommentsVerification } from "@forms/CommentsForm/verification";
 import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
+import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
 import { renderPaymentMethodVerification } from "@forms/PaymentMethodForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { currencyFormat } from "src/utils/currency";
+import { creditDestinationRequestSteps } from "../../../config/assisted";
 import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
-import { creditDestinationRequestBoxTitles } from "../config/box";
-import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -68,7 +68,7 @@ const renderCreditConditionsVerification = (
 
 interface VerificationBoxesProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
-  stepKey: keyof typeof creditDestinationRequestBoxTitles;
+  stepKey: keyof typeof creditDestinationRequestSteps;
   isTablet: boolean;
 }
 

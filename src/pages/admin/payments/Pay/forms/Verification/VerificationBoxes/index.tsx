@@ -8,6 +8,7 @@ import { Fragment } from "react";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
+import { paySteps } from "../../../config/assisted";
 import { IFormsPay } from "../../../types";
 import { IObligationsEntry } from "../../ObligationsForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
@@ -15,7 +16,6 @@ import {
   EMoneySourceType,
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
-import { payBoxTitles } from "../config/box";
 import { StyledPayments } from "./styles";
 
 const renderObligationsVerification = (
@@ -146,7 +146,7 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
 
 interface VerificationBoxesProps {
   pay: IFormsPay;
-  stepKey: keyof typeof payBoxTitles;
+  stepKey: keyof typeof paySteps;
   isTablet: boolean;
 }
 

@@ -1,14 +1,14 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
+import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { currencyFormat } from "src/utils/currency";
+import { aidRequestSteps } from "../../../config/assisted";
 import { IFormsAidRequest } from "../../../types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
-import { aidRequestBoxTitles } from "../config/box";
-import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -65,7 +65,7 @@ const renderDetailsSituationVerification = (
 
 interface VerificationBoxesProps {
   aidRequest: IFormsAidRequest;
-  stepKey: keyof typeof aidRequestBoxTitles;
+  stepKey: keyof typeof aidRequestSteps;
   isTablet: boolean;
 }
 

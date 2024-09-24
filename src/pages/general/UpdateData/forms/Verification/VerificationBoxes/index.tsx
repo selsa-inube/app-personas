@@ -3,7 +3,9 @@ import { inube } from "@design/tokens";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
+import { updateDataSteps } from "@pages/general/UpdateData/config/assisted";
 import {
   mapPersonalAsset,
   mapPersonalDebt,
@@ -46,7 +48,6 @@ import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
-import { Text } from "@inubekit/text";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -835,7 +836,7 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
 
 interface VerificationBoxesProps {
   updatedData: IFormsUpdateData;
-  stepKey: string;
+  stepKey: keyof typeof updateDataSteps;
   isTablet: boolean;
 }
 

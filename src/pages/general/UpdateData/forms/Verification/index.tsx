@@ -1,13 +1,12 @@
 import { Accordion } from "@design/data/Accordion";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { updateDataSteps } from "../../config/assisted";
 import { IFormsUpdateData } from "../../types";
 import { VerificationBoxes } from "./VerificationBoxes";
-import { updateDataBoxTitles } from "./config/box";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
 
 interface VerificationProps {
   updatedData: IFormsUpdateData;
@@ -21,8 +20,8 @@ function UpdateDataVerification(props: VerificationProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      {Object.entries(updateDataBoxTitles).map(([key, title]) => (
-        <Accordion title={title} key={`${key}-box`}>
+      {Object.entries(updateDataSteps).map(([key, step]) => (
+        <Accordion title={step.name} key={`${key}-box`}>
           <Stack
             direction="column"
             width="100%"
@@ -32,7 +31,7 @@ function UpdateDataVerification(props: VerificationProps) {
             <VerificationBoxes
               isTablet={isTablet}
               updatedData={updatedData}
-              stepKey={key}
+              stepKey={key as keyof typeof updateDataSteps}
             />
 
             <Button

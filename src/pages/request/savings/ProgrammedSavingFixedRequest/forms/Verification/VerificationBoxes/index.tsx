@@ -10,11 +10,11 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { currencyFormat } from "src/utils/currency";
+import { programmedSavingFixedRequestSteps } from "../../../config/assisted";
 import { IFormsProgrammedSavingFixedRequest } from "../../../types";
 import { IPlanNameEntry } from "../../PlanNameForm/types";
 import { ISavingConditionsEntry } from "../../SavingConditionsForm/types";
 import { IShareMaturityEntry } from "../../ShareMaturityForm/types";
-import { programmedSavingFixedRequestBoxTitles } from "../config/box";
 
 const renderSavingConditionsVerification = (
   values: ISavingConditionsEntry,
@@ -65,7 +65,7 @@ const renderPlanNameVerification = (
 
 interface VerificationBoxesProps {
   programmedSavingFixedRequest: IFormsProgrammedSavingFixedRequest;
-  stepKey: keyof typeof programmedSavingFixedRequestBoxTitles;
+  stepKey: keyof typeof programmedSavingFixedRequestSteps;
   isTablet: boolean;
 }
 
