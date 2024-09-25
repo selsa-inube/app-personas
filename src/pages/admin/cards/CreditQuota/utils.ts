@@ -3,7 +3,7 @@ import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuo
 import { getCreditQuotasForCard } from "src/services/iclient/cards/getCreditQuotas";
 
 const validateCreditQuotaDetail = async (
-  cardId: string,
+  cardNumber: string,
   creditQuotaId: string,
   accessToken: string,
   creditQuotaDetail?: IProduct,
@@ -13,14 +13,13 @@ const validateCreditQuotaDetail = async (
 
   if (currentCreditQuotaDetail) {
     currentCreditQuotaDetail = await getDetailForCreditQuota(
-      cardId,
+      cardNumber,
       accessToken,
     );
   }
 
   const selectedCreditQuotaDetail =
-    currentCreditQuotaDetail?.id === creditQuotaId &&
-    currentCreditQuotaDetail;
+    currentCreditQuotaDetail?.id === creditQuotaId && currentCreditQuotaDetail;
 
   return {
     selectedCreditQuotaDetail,
@@ -43,7 +42,7 @@ const validateCreditQuotas = async (
   };
 };
 
-const getUsedQuotaData =(creditQuotaDetail: IProduct) => {
+const getUsedQuotaData = (creditQuotaDetail: IProduct) => {
   let currentConsumption;
   let accumulatedDebt;
   let transactionsProcess;
@@ -72,4 +71,4 @@ const getUsedQuotaData =(creditQuotaDetail: IProduct) => {
   };
 };
 
-export { getUsedQuotaData, validateCreditQuotas, validateCreditQuotaDetail };
+export { getUsedQuotaData, validateCreditQuotaDetail, validateCreditQuotas };

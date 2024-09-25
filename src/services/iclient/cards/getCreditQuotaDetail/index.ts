@@ -4,13 +4,13 @@ import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking"
 import { mapCreditQuotaDetailApiToEntity } from "./mappers";
 
 const getDetailForCreditQuota = async (
-  cardId: string,
+  cardNumber: string,
   accessToken: string,
 ): Promise<IProduct | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${cardId}/detail`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/credit-card-products/${cardNumber}/detail`;
 
   try {
     const options: RequestInit = {
