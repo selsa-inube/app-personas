@@ -4,9 +4,12 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { ITransfer } from "src/model/entity/transfer";
@@ -14,8 +17,6 @@ import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsTransferHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { Button } from "@inubekit/button";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface TransferHistoryUIProps {
   transferHistory: ITransfer[];
@@ -70,6 +71,17 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
         }
       >
         <Stack direction="column" gap={inube.spacing.s300}>
+          <Stack direction="column" gap={inube.spacing.s100}>
+            <Text type="title" size="small" weight="bold">
+              Movimientos en proceso
+            </Text>
+
+            <Text type="body" size="medium" appearance="gray">
+              Una vez procesado el pago, los movimientos dentro de los productos
+              relacionados pueden tardar unos minutos en aparecer.
+            </Text>
+          </Stack>
+
           <Stack direction="column" alignItems="flex-end">
             <Button
               appearance="primary"
