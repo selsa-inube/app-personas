@@ -9,6 +9,8 @@ import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import jsPDF from "jspdf";
@@ -22,7 +24,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
 import { formatSecondaryDate } from "src/utils/dates";
-import { convertJSXToHTML } from "src/utils/print";
+import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { extractCreditAmortizationAttrs } from "./config/product";
 import { StyledAmortizationContainer } from "./styles";
 import { ISelectedProductState } from "./types";
@@ -31,8 +33,6 @@ import {
   renderAmortizationTable,
 } from "./utilRenders";
 import { validateCreditsAndAmortization } from "./utils";
-import { Button } from "@inubekit/button";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -124,18 +124,13 @@ function CreditAmortization() {
       compress: true,
     });
 
-    doc.html(convertJSXToHTML(getAmortizationDocument(selectedProduct)), {
-      callback: (pdf) => {
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(getAmortizationDocument(selectedProduct)),
+      (pdf) => {
         pdf.save(`plan-de-pagos-${formatSecondaryDate(today, true)}.pdf`);
       },
-      html2canvas: {
-        scale: 0.5,
-      },
-      width: 397,
-      windowWidth: 816,
-      x: 0,
-      y: 0,
-    });
+    );
   };
 
   const handleShareDocument = () => {
@@ -150,8 +145,10 @@ function CreditAmortization() {
       compress: true,
     });
 
-    doc.html(convertJSXToHTML(getAmortizationDocument(selectedProduct)), {
-      callback: (pdf) => {
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(getAmortizationDocument(selectedProduct)),
+      (pdf) => {
         const pdfBlob = pdf.output("blob");
 
         if (navigator.share) {
@@ -172,14 +169,7 @@ function CreditAmortization() {
           console.warn("Web Share API is not supported in this browser");
         }
       },
-      html2canvas: {
-        scale: 0.5,
-      },
-      width: 397,
-      windowWidth: 816,
-      x: 0,
-      y: 0,
-    });
+    );
   };
 
   const handleToggleExportModal = () => {

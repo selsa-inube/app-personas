@@ -26,7 +26,7 @@ const mapSimulationApiToEntity = (
     amount: Number(simulationOption.amount),
     cutOffDate: String(simulationOption.cutOffDate),
     periodicityInMonths: Number(simulationOption.periodicityInMonthsCapital),
-    rate: Number(simulationOption.interestRate),
+    rate: Number(simulationOption.rate),
     quota: Number(simulationOption.calculatedQuotaValue),
     deadline: Number(simulationOption.calculatedQuotaDeadline),
     anticipatedInterest: Number(simulationOption.anticipatedInterest),
