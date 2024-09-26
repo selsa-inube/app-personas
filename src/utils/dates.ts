@@ -58,6 +58,26 @@ const formatTraceabilityDate = (date: Date) => {
   )} de ${year} ${time} ${ampm}`;
 };
 
+const formatLetterDate = (date: Date) => {
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+
+  const dateString = date
+    .toLocaleDateString("es-ES", options)
+    .replaceAll(",", "")
+    .replaceAll(".", "");
+
+  const [weekday, day, , month, , year] = dateString.split(" ");
+
+  return `${capitalizeText(weekday)}, ${day} de ${month} de ${year}`;
+};
+
 // Parse date string in format dd/mm/yyyy to Date object
 const parseSpanishDate = (spanishDate: string) => {
   const spanishMonths: { [key: string]: number } = {
@@ -101,6 +121,7 @@ const formatSecondaryDate = (date: Date, withTime?: boolean): string => {
 };
 
 export {
+  formatLetterDate,
   formatPrimaryDate,
   formatSecondaryDate,
   formatTraceabilityDate,

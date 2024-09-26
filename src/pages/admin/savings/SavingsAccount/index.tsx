@@ -3,10 +3,13 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/flag";
 import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
+import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { formatSecondaryDate } from "src/utils/dates";
+import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -14,6 +17,7 @@ import {
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
+import { getCdatCertificateDocument } from "./utilRenders";
 import { validateSaving } from "./utils";
 
 function SavingsAccount() {
@@ -220,6 +224,68 @@ function SavingsAccount() {
     return true;
   };
 
+  const handleDownloadCertificate = () => {
+    if (!selectedProduct?.saving) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
+      (pdf) => {
+        pdf.save(
+          `certificado-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
+        );
+      },
+    );
+  };
+
+  const handleShareCertificate = () => {
+    if (!selectedProduct?.saving) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
+      (pdf) => {
+        const pdfBlob = pdf.output("blob");
+
+        if (navigator.share) {
+          navigator.share({
+            title: "Certificado",
+            text: `${selectedProduct.saving.title}- ${formatSecondaryDate(today)}`,
+            files: [
+              new File(
+                [pdfBlob],
+                `certificado-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
+                {
+                  type: "application/pdf",
+                },
+              ),
+            ],
+          });
+        } else {
+          console.warn("Web Share API is not supported in this browser");
+        }
+      },
+    );
+  };
+
   if (!selectedProduct) return null;
 
   const withTransfers = getFlag(
@@ -255,6 +321,8 @@ function SavingsAccount() {
       onToggleChangeQuotaModal={handleToggleChangeQuotaModal}
       onToggleModifyActionModal={handleToggleModifyActionModal}
       onToggleCancelSavingModal={handleToggleCancelSavingModal}
+      onDownloadCertificate={handleDownloadCertificate}
+      onShareCertificate={handleShareCertificate}
     />
   );
 }
