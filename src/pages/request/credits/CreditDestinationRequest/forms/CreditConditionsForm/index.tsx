@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/flag";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -9,8 +10,6 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
-import { getCalculatedConditionsForProduct } from "src/services/iclient/credits/getCalculatedConditions";
-import { ICalculatedConditionsRequest } from "src/services/iclient/credits/getCalculatedConditions/types";
 import { simulateCreditConditions } from "src/services/iclient/credits/simulateCreditConditions";
 import { ISimulateCreditRequest } from "src/services/iclient/credits/simulateCreditConditions/types";
 import { simulatedTypeTabs } from "./config/tabs";
@@ -22,7 +21,6 @@ import {
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
-import { useFlag } from "@inubekit/flag";
 
 interface CreditConditionsFormProps {
   initialValues: ICreditConditionsEntry;
@@ -137,24 +135,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         throw new Error("No se pudo obtener la información necesaria");
       }
 
-      const calculateConditionsRequestData: ICalculatedConditionsRequest = {
-        productId,
-        paymentMethodId,
-        userIdentification: user.identification,
-        amount,
-      };
-
-      const calculationResponse = await getCalculatedConditionsForProduct(
-        calculateConditionsRequestData,
-        accessToken,
-      );
-
-      if (calculationResponse) {
-        formik.setFieldValue("rate", calculationResponse.rate);
-      }
-
-      const rate = calculationResponse?.rate ?? 0;
-
       const simulationRequestData: ISimulateCreditRequest = {
         productId,
         paymentMethodId,
@@ -163,7 +143,6 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
         periodicityInMonths: formik.values.periodicity.periodicityInMonths,
         deadline: !formik.values.simulationWithQuota ? deadline || 0 : 0,
         quota: formik.values.simulationWithQuota ? quota || 0 : 0,
-        rate,
         simulationParameter: formik.values.simulationWithQuota
           ? "QuotaValue"
           : "QuotaDeadline",
