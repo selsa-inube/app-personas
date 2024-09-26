@@ -25,20 +25,15 @@ function MySavings() {
         .then((savings) => {
           setSavings(savings);
         })
-        .catch((error) => {
-          console.info(error.message);
-        })
         .finally(() => {
           setLoading(false);
         });
 
-      getSavingsCommitmentsForUser(user.identification, accessToken)
-        .then((commitments) => {
+      getSavingsCommitmentsForUser(user.identification, accessToken).then(
+        (commitments) => {
           setCommitments(commitments);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        });
+        },
+      );
     }
   }, [user, accessToken]);
 

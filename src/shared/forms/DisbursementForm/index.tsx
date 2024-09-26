@@ -94,13 +94,9 @@ const DisbursementForm = forwardRef(function DisbursementForm(
   useEffect(() => {
     if (!accessToken) return;
     if (savings.savingsAccounts.length === 0) {
-      getSavingsForUser(user.identification, accessToken)
-        .then((savings) => {
-          setSavings(savings);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        });
+      getSavingsForUser(user.identification, accessToken).then((savings) => {
+        setSavings(savings);
+      });
     }
   }, [user, accessToken]);
 
