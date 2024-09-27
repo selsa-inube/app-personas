@@ -14,6 +14,7 @@ const paymentStatusAppearance: Record<string, ITag["appearance"]> = {
   InProgressPSE: "warning",
   RejectedPSE: "danger",
   InProgressLinix: "warning",
+  RejectedLinix: "danger",
   Completed: "success",
   StuckInPSE: "warning",
   BlockedInPSE: "warning",
