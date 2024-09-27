@@ -13,6 +13,10 @@ const paymentStatusDataDomain = {
     id: "InProgressLinix",
     value: "En progreso",
   },
+  REJECTED_LINIX: {
+    id: "RejectedLinix",
+    value: "Rechazado",
+  },
   COMPLETED: {
     id: "Completed",
     value: "Completado",
