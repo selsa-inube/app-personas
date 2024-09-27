@@ -2,6 +2,8 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: ${inube.spacing.s250};
   gap: ${inube.spacing.s250};
 
