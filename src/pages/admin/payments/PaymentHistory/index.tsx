@@ -109,9 +109,8 @@ function PaymentHistory() {
 
           setPaymentHistory([...paymentHistory, ...newPaymentHistory]);
         })
-        .catch((error) => {
+        .catch(() => {
           setNoMorePayments(true);
-          console.info(error.message);
         })
         .finally(() => {
           setLoading(false);

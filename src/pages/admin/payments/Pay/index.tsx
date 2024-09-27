@@ -1,5 +1,6 @@
 import { mapComments } from "@forms/CommentsForm/mappers";
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/flag";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useBlocker, useNavigate } from "react-router-dom";
@@ -16,7 +17,6 @@ import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { PayUI } from "./interface";
 import { IFormsPay, IFormsPayRefs } from "./types";
 import { payStepsRules, sendPaymentRequest } from "./utils";
-import { useFlag } from "@inubekit/flag";
 
 function Pay() {
   const [currentStep, setCurrentStep] = useState(paySteps.obligations.number);
@@ -75,49 +75,31 @@ function Pay() {
     let newCommitments: IPayment[] = [];
     let newCards: IPayment[] = [];
 
-    try {
-      newCredits = await getCreditPayments(
-        user.identification,
-        accessToken,
-        withNextValueOption,
-        withOtherValueOption,
-        withExpiredValueOption,
-        withTotalValueOption,
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        console.info(error.message);
-      }
-    }
+    newCredits = await getCreditPayments(
+      user.identification,
+      accessToken,
+      withNextValueOption,
+      withOtherValueOption,
+      withExpiredValueOption,
+      withTotalValueOption,
+    );
 
-    try {
-      newCommitments = await getCommitmentPayments(
-        user.identification,
-        accessToken,
-        withNextValueOption,
-        withOtherValueOption,
-        withExpiredValueOption,
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        console.info(error.message);
-      }
-    }
+    newCommitments = await getCommitmentPayments(
+      user.identification,
+      accessToken,
+      withNextValueOption,
+      withOtherValueOption,
+      withExpiredValueOption,
+    );
 
-    try {
-      newCards = await getCardPayments(
-        user.identification,
-        accessToken,
-        withNextValueOption,
-        withOtherValueOption,
-        withExpiredValueOption,
-        withTotalValueOption,
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        console.info(error.message);
-      }
-    }
+    newCards = await getCardPayments(
+      user.identification,
+      accessToken,
+      withNextValueOption,
+      withOtherValueOption,
+      withExpiredValueOption,
+      withTotalValueOption,
+    );
 
     setPay((prev) => ({
       ...prev,
@@ -156,7 +138,8 @@ function Pay() {
     setPay(newPay);
 
     const changeStepKey = Object.entries(paySteps).find(
-      ([, config]) => config.number === stepId)?.[0];
+      ([, config]) => config.number === stepId,
+    )?.[0];
 
     if (!changeStepKey) return;
 

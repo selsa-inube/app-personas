@@ -3,12 +3,12 @@ import { FormikProps, useFormik } from "formik";
 import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { EPaymentMethodType } from "src/model/entity/payment";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { parseCurrencyString } from "src/utils/currency";
 import { PaymentMethodFormUI } from "./interface";
 import { EMoneySourceType, IMoneySource, IPaymentMethodEntry } from "./types";
 import { mapMoneySources } from "./utils";
-import { EPaymentMethodType } from "src/model/entity/payment";
 
 interface PaymentMethodFormProps {
   initialValues: IPaymentMethodEntry;
@@ -42,13 +42,9 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   useEffect(() => {
     if (!accessToken) return;
     if (savings.savingsAccounts.length === 0) {
-      getSavingsForUser(user.identification, accessToken)
-        .then((savings) => {
-          setSavings(savings);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        });
+      getSavingsForUser(user.identification, accessToken).then((savings) => {
+        setSavings(savings);
+      });
     }
   }, [user, accessToken]);
 

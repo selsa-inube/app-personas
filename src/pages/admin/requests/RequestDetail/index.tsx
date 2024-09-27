@@ -6,6 +6,7 @@ import { RequestsContext } from "src/context/requests";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
+import { requestTabs } from "./config/tabs";
 import { RequestDetailUI } from "./interface";
 import { validateRequest } from "./utils";
 
@@ -25,6 +26,8 @@ function RequestDetail() {
   const [selectedRequest, setSelectedRequest] = useState<IRequest>();
   const { requests, setRequests } = useContext(RequestsContext);
   const { user } = useContext(AppContext);
+
+  const [selectedTab, setSelectedTab] = useState(requestTabs.features.id);
 
   const handleSortRequest = async () => {
     if (!request_id || !user || !accessToken) return;
@@ -89,6 +92,10 @@ function RequestDetail() {
     });
   };
 
+  const handleTabChange = (tabId: string) => {
+    setSelectedTab(tabId);
+  };
+
   if (!selectedRequest) return null;
 
   return (
@@ -98,10 +105,12 @@ function RequestDetail() {
       attachModal={attachModal}
       maxFileSize={MAX_SIZE_PER_FILE}
       selectedDocuments={selectedDocuments}
+      selectedTab={selectedTab}
       onOpenAttachModal={handleOpenAttachModal}
       onCloseAttachModal={handleCloseAttachModal}
       onSelectDocument={handleSelectDocument}
       onRemoveDocument={handleRemoveDocument}
+      onTabChange={handleTabChange}
     />
   );
 }
