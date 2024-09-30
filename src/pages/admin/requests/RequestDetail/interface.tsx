@@ -1,5 +1,6 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { RequestNews } from "@components/cards/RequestNews";
+import { INew } from "@components/cards/RequestNews/types";
 import { ValidationCard } from "@components/cards/ValidationCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { Accordion } from "@design/data/Accordion";
@@ -143,6 +144,7 @@ interface RequestUIProps {
   maxFileSize: number;
   selectedDocuments: ISelectedDocument[];
   selectedTab: string;
+  news: INew[];
   onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;
   onSelectDocument: (document: ISelectedDocument) => void;
@@ -162,6 +164,7 @@ function RequestDetailUI(props: RequestUIProps) {
     maxFileSize,
     selectedDocuments,
     selectedTab,
+    news,
     onOpenAttachModal,
     onCloseAttachModal,
     onSelectDocument,
@@ -314,12 +317,12 @@ function RequestDetailUI(props: RequestUIProps) {
               </Accordion>
             </Stack>
 
-            {isDesktop && <RequestNews news={[]} />}
+            {isDesktop && <RequestNews news={news} />}
           </Grid>
         )}
 
         {!isDesktop && selectedTab === requestTabs.news.id && (
-          <RequestNews news={[]} />
+          <RequestNews news={news} />
         )}
       </Stack>
 
