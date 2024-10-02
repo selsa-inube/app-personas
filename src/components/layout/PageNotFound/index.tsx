@@ -40,6 +40,7 @@ function PageNotFound() {
   ).value;
   const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
+  const withMyPQRS = getFlag("admin.pqrs.pqrs.pqrs-option").value;
 
   const nav = getNav(
     withSavingRequest,
@@ -50,11 +51,13 @@ function PageNotFound() {
     withTransfers,
     withPayments,
     withMyRequests,
+    withMyPQRS
   );
 
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
     getFlag("general.links.update-data.update-data-without-assisted").value,
+    getFlag("general.links.pqrs.create-pqrs").value,
     nav,
   );
 

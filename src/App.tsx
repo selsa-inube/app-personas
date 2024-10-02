@@ -37,6 +37,7 @@ import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
 import { TransfersRoutes } from "./routes/transfers";
 import { FlagProvider } from "@inubekit/flag";
+import { MyPQRSRoutes } from "./routes/myPQRS";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -65,6 +66,8 @@ const router = createBrowserRouter(
         <Route path="savings/*" element={<SavingRoutes />} />
 
         <Route path="aids/*" element={<AidRoutes />} />
+
+        <Route path="my-pqrs/*" element={<MyPQRSRoutes />} />
 
         <Route path="/update-data-assisted" element={<UpdateData />} />
         <Route
