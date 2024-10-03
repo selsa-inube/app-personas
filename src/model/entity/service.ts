@@ -7,11 +7,23 @@ interface IValidation {
   value?: ValidationValueType;
   isRequired?: boolean;
   pending?: boolean;
+  documentType?: string;
+  profile?: string;
+  evaluationDescription?: string;
+  responseCode?: string;
 }
 
 interface IValidations {
   requiredDocuments: IValidation[];
   regulations: IValidation[];
+}
+
+interface ISelectedDocument {
+  file: File;
+  requirementId: string;
+  id: string;
+  sequence?: number;
+  documentType?: string;
 }
 
 interface IAid {
@@ -21,4 +33,4 @@ interface IAid {
   validations: IValidations;
 }
 
-export type { IAid, IValidation, ValidationValueType };
+export type { IAid, ISelectedDocument, IValidation, ValidationValueType };

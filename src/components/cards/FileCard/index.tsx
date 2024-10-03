@@ -13,7 +13,7 @@ interface FileCardProps {
   name: string;
   size: number;
   loading?: boolean;
-  onRemove: (id: string) => void;
+  onRemove?: (id: string) => void;
 }
 
 function FileCard(props: FileCardProps) {
@@ -51,14 +51,16 @@ function FileCard(props: FileCardProps) {
           {loading ? (
             <Spinner size="small" appearance="primary" transparent />
           ) : (
-            <Icon
-              icon={<MdDeleteOutline />}
-              appearance="danger"
-              size="20px"
-              spacing="narrow"
-              cursorHover
-              onClick={() => onRemove(id)}
-            />
+            onRemove && (
+              <Icon
+                icon={<MdDeleteOutline />}
+                appearance="danger"
+                size="20px"
+                spacing="narrow"
+                cursorHover
+                onClick={() => onRemove(id)}
+              />
+            )
           )}
         </Stack>
       </Stack>

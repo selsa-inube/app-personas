@@ -36,8 +36,6 @@ Default.args = {
   tag: {
     label: "En progreso",
     appearance: "warning",
-    textAppearance: "warning",
-    modifier: "clear",
   },
   attributes: [
     { id: "paymentDate", label: "Fecha", value: "21/Jun/2024 5:46 pm" },

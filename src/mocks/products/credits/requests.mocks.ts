@@ -1,5 +1,6 @@
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 import { IRequest } from "src/model/entity/request";
+import { documentaryRequirementsMock } from "./request.mocks";
 
 const requestsMock: IRequest[] = [
   {
@@ -11,7 +12,7 @@ const requestsMock: IRequest[] = [
     requestDate: new Date("2024-06-20T01:33:00.000Z"),
     description:
       "Crédito por destinación 41-241000098 Emp: FONDO DE EMPLEADOS DE LA CAJA DE COMPENSACION FAMILIAR DEL VALLE DEL CAUCA",
-    status: requestStatusDM.CREATED.id,
+    status: requestStatusDM.APPROVED.id,
     value: 5000000,
     quotaValue: 15000,
     periodicity: "Mensual",
@@ -19,10 +20,8 @@ const requestsMock: IRequest[] = [
     interestRate: 2.84,
     netValue: 4750000,
     tag: {
-      label: requestStatusDM.CREATED.value,
+      label: requestStatusDM.APPROVED.value,
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
     validations: [
       {
@@ -61,19 +60,13 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+      requirementId: document.id,
+      documentType: "113",
+      sequence: 1,
+    })),
   },
   {
     id: "55812345789-2",
@@ -94,8 +87,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.IN_STUDY.value,
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
     validations: [
       {
@@ -134,19 +125,12 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+      requirementId: document.id,
+      documentType: "113",
+    })),
   },
   {
     id: "55812345789-3",
@@ -157,7 +141,7 @@ const requestsMock: IRequest[] = [
     requestDate: new Date("2024-06-20T01:33:00.000Z"),
     description:
       "Crédito por destinación 41-241000098 Emp: FONDO DE EMPLEADOS DE LA CAJA DE COMPENSACION FAMILIAR DEL VALLE DEL CAUCA",
-    status: requestStatusDM.IN_PROGRESS.id,
+    status: requestStatusDM.RECEIVED.id,
     value: 5000000,
     quotaValue: 15000,
     periodicity: "Mensual",
@@ -165,10 +149,8 @@ const requestsMock: IRequest[] = [
     interestRate: 2.84,
     netValue: 4750000,
     tag: {
-      label: requestStatusDM.IN_PROGRESS.value,
+      label: requestStatusDM.RECEIVED.value,
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
     validations: [
       {
@@ -207,19 +189,12 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+      requirementId: document.id,
+      documentType: "113",
+    })),
   },
   {
     id: "55812345789-4",
@@ -240,8 +215,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.IN_DISBURSEMENT.value,
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
     validations: [
       {
@@ -280,19 +253,12 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+      requirementId: document.id,
+      documentType: "113",
+    })),
   },
   {
     id: "55812345789-5",
@@ -313,8 +279,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.COMPLETED.value,
       appearance: "success",
-      textAppearance: "success",
-      modifier: "clear",
     },
     validations: [
       {
@@ -353,19 +317,12 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+      requirementId: document.id,
+      documentType: "113",
+    })),
   },
   {
     id: "55812345789-6",
@@ -386,8 +343,6 @@ const requestsMock: IRequest[] = [
     tag: {
       label: requestStatusDM.REJECTED.value,
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
     validations: [
       {
@@ -426,19 +381,12 @@ const requestsMock: IRequest[] = [
         value: "pending",
       },
     ],
-    documentaryRequirements: [
-      {
-        id: "original_invoice",
-        label: "Factura original",
-        value: "pending",
-        isRequired: true,
-      },
-      {
-        id: "medical_prescription_copy",
-        label: "Fotocopia de la fórmula médica",
-        value: "pending",
-      },
-    ],
+    documentaryRequirements: documentaryRequirementsMock.map((document) => ({
+      file: new File([""], document.label, { type: "application/pdf" }),
+      id: document.id,
+      requirementId: document.id,
+      documentType: "113",
+    })),
   },
 ];
 

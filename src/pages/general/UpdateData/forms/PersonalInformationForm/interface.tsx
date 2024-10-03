@@ -1,13 +1,13 @@
-import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
-import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
-import { FormikValues } from "formik";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Fieldset } from "@inubekit/fieldset";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { FormikProps } from "formik";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { bloodTypeDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
@@ -16,9 +16,10 @@ import { genderDM } from "src/model/domains/general/updateData/personalInformati
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
 import { getFieldState } from "src/utils/forms/forms";
+import { IPersonalInformationEntry } from "./types";
 
 interface PersonalInformationFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IPersonalInformationEntry>;
   loading?: boolean;
   withSubmit?: boolean;
 }
@@ -33,7 +34,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
         <Fieldset
-          title="Nombres"
+          legend="Nombres"
           type={isMobile ? "label" : "title"}
           size={isMobile ? "medium" : "small"}
         >
@@ -41,6 +42,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            width="100%"
           >
             <TextField
               label="Primer nombre"
@@ -89,14 +91,15 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         </Fieldset>
 
         <Fieldset
-          title="Identificación"
+          legend="Identificación"
           type={isMobile ? "label" : "title"}
           size={isMobile ? "medium" : "small"}
         >
           <Grid
-             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-             autoRows="auto"
-             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            autoRows="auto"
+            gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            width="100%"
           >
             <Select
               label="Tipo de identificación"
@@ -138,7 +141,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
             />
 
             <Select
-              label="Estado / Departamento de expedición"
+              label="Estado de expedición"
               name="expeditionDepartment"
               id="expeditionDepartment"
               value={formik.values.expeditionDepartment}
@@ -181,14 +184,15 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         </Fieldset>
 
         <Fieldset
-          title="Complementarios"
+          legend="Complementarios"
           type={isTablet ? "label" : "title"}
           size={isTablet ? "medium" : "small"}
         >
           <Grid
-             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-             autoRows="auto"
-             gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            autoRows="auto"
+            gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
+            width="100%"
           >
             <Select
               label="País de nacimiento"
@@ -215,7 +219,6 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               state={getFieldState(formik, "birthDate")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="La fecha de nacimiento es válida"
               isFullWidth
             />
 
@@ -269,7 +272,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

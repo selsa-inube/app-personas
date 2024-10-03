@@ -4,18 +4,19 @@ import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
 import { IPersonalDataEntry } from "./types";
 
 interface PersonalDataFormUIProps {
   formik: FormikProps<IPersonalDataEntry>;
   loading?: boolean;
   readonly?: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function PersonalDataFormUI(props: PersonalDataFormUIProps) {
-  const { formik, readonly, isRequired } = props;
+  const { formik, readonly, validationSchema } = props;
 
   return (
     <>
@@ -31,7 +32,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "identificationNumber")}
-        isRequired={isRequired("identificationNumber")}
+        isRequired={isRequired(validationSchema, "identificationNumber")}
         isFullWidth
         readOnly
       />
@@ -47,7 +48,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         onChange={formik.handleChange}
         value={formik.values.type || ""}
         state={getFieldState(formik, "type")}
-        isRequired={isRequired("type")}
+        isRequired={isRequired(validationSchema, "type")}
         readOnly={readonly}
         isFullWidth
       />
@@ -58,13 +59,12 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         id="firstName"
         type="text"
         size="compact"
-        validMessage="El primer nombre es válido"
         value={formik.values.firstName || ""}
         errorMessage={formik.errors.firstName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "firstName")}
-        isRequired={isRequired("firstName")}
+        isRequired={isRequired(validationSchema, "firstName")}
         readOnly={readonly}
         isFullWidth
       />
@@ -75,13 +75,12 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         id="secondName"
         type="text"
         size="compact"
-        validMessage="El segundo nombre es válido"
         value={formik.values.secondName || ""}
         errorMessage={formik.errors.secondName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "secondName")}
-        isRequired={isRequired("secondName")}
+        isRequired={isRequired(validationSchema, "secondName")}
         readOnly={readonly}
         isFullWidth
       />
@@ -92,13 +91,12 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         id="firstLastName"
         type="text"
         size="compact"
-        validMessage="El primer apellido es válido"
         value={formik.values.firstLastName || ""}
         errorMessage={formik.errors.firstLastName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "firstLastName")}
-        isRequired={isRequired("firstLastName")}
+        isRequired={isRequired(validationSchema, "firstLastName")}
         readOnly={readonly}
         isFullWidth
       />
@@ -109,13 +107,12 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         id="secondLastName"
         type="text"
         size="compact"
-        validMessage="El segundo apellido es válido"
         value={formik.values.secondLastName || ""}
         errorMessage={formik.errors.secondLastName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "secondLastName")}
-        isRequired={isRequired("secondLastName")}
+        isRequired={isRequired(validationSchema, "secondLastName")}
         readOnly={readonly}
         isFullWidth
       />
@@ -133,7 +130,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
             onChange={formik.handleChange}
             value={formik.values.relationship || ""}
             state={getFieldState(formik, "relationship")}
-            isRequired={isRequired("relationship")}
+            isRequired={isRequired(validationSchema, "relationship")}
             isFullWidth
           />
           <Select
@@ -148,7 +145,7 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
             onChange={formik.handleChange}
             value={formik.values.isDependent || ""}
             state={getFieldState(formik, "isDependent")}
-            isRequired={isRequired("isDependent")}
+            isRequired={isRequired(validationSchema, "isDependent")}
             isFullWidth
           />
         </>

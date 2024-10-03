@@ -1,10 +1,17 @@
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { FormikValues } from "formik";
+import { IPersonalAssetEntries } from "@pages/general/UpdateData/forms/PersonalAssetsForm/types";
+import { FormikProps } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
@@ -14,12 +21,6 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 const assetTypeDM = getDomainById("assetType");
 
@@ -28,7 +29,7 @@ interface AssetModalProps {
   description: string;
   confirmButtonText: string;
   portalId: string;
-  formik: FormikValues;
+  formik: FormikProps<IPersonalAssetEntries>;
   withCustomDirty?: boolean;
   onCloseModal: () => void;
   onConfirm: () => void;

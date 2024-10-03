@@ -1,23 +1,26 @@
 import { useAuth } from "@inube/auth";
-import { requestsMock } from "@mocks/products/credits/requests.mocks";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { IRequest } from "src/model/entity/request";
-import { getRequests } from "src/services/iclient/requests/getRequests";
+import { RequestsContext } from "src/context/requests";
+import { getRequestsForUser } from "src/services/iclient/requests/getRequests";
 import { equalArraysByProperty } from "src/utils/arrays";
 import { MyRequestsUI } from "./interface";
 
 const limitRequests = 5;
+const refreshSeconds = 30;
 
 let refreshInterval: ReturnType<typeof setTimeout> | null = null;
+let countdownInterval: ReturnType<typeof setInterval> | null = null;
 
 function MyRequests() {
   const [loading, setLoading] = useState(false);
-  const [requests, setRequests] = useState<IRequest[]>([]);
+  const { requests, setRequests } = useContext(RequestsContext);
   const [noMoreRequests, setNoMoreRequests] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+  const [refreshTime, setRefreshTime] = useState(refreshSeconds);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,27 +30,51 @@ function MyRequests() {
       if (refreshInterval) {
         clearInterval(refreshInterval);
       }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
     };
-  }, []);
+  }, [user, accessToken]);
+
+  const startCountdown = () => {
+    setRefreshTime(refreshSeconds);
+
+    countdownInterval = setInterval(() => {
+      setRefreshTime((prevTime) => {
+        if (prevTime <= 1 && countdownInterval) {
+          clearInterval(countdownInterval);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+  };
 
   const handleRefreshHistory = () => {
     if (refreshInterval) {
       clearInterval(refreshInterval);
     }
 
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+    }
+
     const limit = requests.length > 0 ? requests.length : limitRequests;
 
     handleGetRequests(1, limit, true);
 
+    startCountdown();
+
     refreshInterval = setInterval(() => {
       handleGetRequests(1, limit, true);
+      startCountdown();
     }, 60000);
   };
 
   const handleGetRequests = (page: number, limit: number, reset?: boolean) => {
     if (accessToken) {
       setLoading(true);
-      getRequests(user.identification, accessToken, page, limit)
+      getRequestsForUser(user.identification, accessToken, page, limit)
         .then((newRequests) => {
           if (newRequests.length === 0) {
             setNoMoreRequests(true);
@@ -76,10 +103,8 @@ function MyRequests() {
 
           setRequests([...requests, ...newRequests]);
         })
-        .catch((error) => {
-          setRequests(requestsMock);
-          /* setNoMoreRequests(true); */
-          console.info(error.message);
+        .catch(() => {
+          setNoMoreRequests(true);
         })
         .finally(() => {
           setLoading(false);
@@ -101,8 +126,10 @@ function MyRequests() {
       requests={requests}
       loading={loading}
       noMoreRequests={noMoreRequests}
+      refreshTime={refreshTime}
       onAddRequests={handleAddRequests}
       goToRequest={goToRequest}
+      onRefresh={handleRefreshHistory}
     />
   );
 }

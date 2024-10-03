@@ -1,6 +1,7 @@
+import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
-import { initalValuesProgrammedSavingFixed } from "./config/initialValues";
-import { filteredOptionsFormReimbursement } from "./forms/ReimbursementForm/utils";
 import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
@@ -8,59 +9,78 @@ import {
 
 const programmedSavingFixedStepsRules = (
   currentStep: number,
-  currentprogrammedSavingFixedRequest: IFormsProgrammedSavingFixedRequest,
+  currentProgrammedSavingFixedRequest: IFormsProgrammedSavingFixedRequest,
   formReferences: IFormsProgrammedSavingFixedRequestRefs,
   isCurrentFormValid: boolean,
 ) => {
-  let newprogrammedSavingFixedRequest = {
-    ...currentprogrammedSavingFixedRequest,
+  let newProgrammedSavingFixedRequest = {
+    ...currentProgrammedSavingFixedRequest,
   };
 
   switch (currentStep) {
-    case programmedSavingFixedRequestSteps.goal.id: {
-      const values = formReferences.goal.current?.values;
-      let defaultValueReimbursementType = "";
+    case programmedSavingFixedRequestSteps.savingConditions.number: {
+      const values = formReferences.savingConditions.current?.values;
 
-      if (filteredOptionsFormReimbursement().length > 0) {
-        defaultValueReimbursementType =
-          filteredOptionsFormReimbursement()[0].id;
-      }
+      if (!values) return currentProgrammedSavingFixedRequest;
 
-      if (!values) return currentprogrammedSavingFixedRequest;
-
-      newprogrammedSavingFixedRequest.goal = {
+      newProgrammedSavingFixedRequest.savingConditions = {
         isValid: isCurrentFormValid,
         values,
       };
 
       if (
         JSON.stringify(values) !==
-        JSON.stringify(currentprogrammedSavingFixedRequest.goal.values)
+        JSON.stringify(
+          currentProgrammedSavingFixedRequest.savingConditions.values,
+        )
       ) {
-        newprogrammedSavingFixedRequest.reimbursement = {
+        newProgrammedSavingFixedRequest.systemValidations = {
           isValid: false,
           values: {
-            ...initalValuesProgrammedSavingFixed.reimbursement,
-            reimbursementType: defaultValueReimbursementType,
+            ...mapSystemValidations(),
+            validations: loadingValidations,
+            destinationId: "",
+            destinationName: "",
+            productId: "57", // TEMP
+            productName: "",
+            paymentMethod: values.paymentMethod?.id || "",
+            paymentMethodName: values.paymentMethod?.value || "",
+            amount: values.savingAmount || 0,
+            deadline: values.deadline || 0,
+            rate: values.annualRate,
+            amortizationType: "",
+            periodicity: values.periodicity.id,
+            quota: values.quota || 0,
+            netValue: values.netValue,
+          },
+        };
+
+        newProgrammedSavingFixedRequest.paymentMethod = {
+          isValid: false,
+          values: {
+            ...mapPaymentMethod(),
+            paymentMethodType: values.paymentMethod?.id || "",
+            paymentMethods: values.paymentMethods,
           },
         };
       }
-      return newprogrammedSavingFixedRequest;
+
+      return newProgrammedSavingFixedRequest;
     }
   }
 
   const stepKey = Object.entries(programmedSavingFixedRequestSteps).find(
-    ([, config]) => config.id === currentStep,
+    ([, config]) => config.number === currentStep,
   )?.[0];
 
-  if (!stepKey) return currentprogrammedSavingFixedRequest;
+  if (!stepKey) return currentProgrammedSavingFixedRequest;
 
   const values =
     formReferences[stepKey as keyof IFormsProgrammedSavingFixedRequest]?.current
       ?.values;
 
-  return (newprogrammedSavingFixedRequest = {
-    ...newprogrammedSavingFixedRequest,
+  return (newProgrammedSavingFixedRequest = {
+    ...newProgrammedSavingFixedRequest,
     [stepKey]: { isValid: isCurrentFormValid, values },
   });
 };

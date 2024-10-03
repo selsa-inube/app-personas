@@ -1,40 +1,38 @@
 import { useAuth } from "@inube/auth";
-import { IMessage } from "@ptypes/messages.types";
 import { FormikProps } from "formik";
-import { useRef, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useContext, useRef, useState } from "react";
+import { Navigate, useBlocker, useParams } from "react-router-dom";
 import { aidRequestTypeDM } from "src/model/domains/services/aids/aidRequestTypeDM";
-import { initialMessageState } from "src/utils/messages";
 import { aidRequestSteps } from "./config/assisted";
-import {
-  mapAmount,
-  mapBeneficiaries,
-  mapDetailsSituation,
-  mapDisbursement,
-  mapDocumentaryRequirements,
-  mapRegulationValidations,
-} from "./config/mappers";
-import { IAmountEntry } from "./forms/AmountForm/types";
+import { mapBeneficiaries, mapDetailsSituation } from "./config/mappers";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
-import { IDisbursementEntry } from "./forms/DisbursementForm/types";
-import { IDocumentaryRequirementsEntry } from "./forms/DocumentaryRequirementsForm/types";
-import { IRegulationValidationsEntry } from "./forms/RegulationValidationsForm/types";
+
+import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
+import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/mappers";
+import { IDocumentaryRequirementsEntry } from "@forms/DocumentaryRequirementsForm/types";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
+import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
+import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
+import { AppContext } from "src/context/app";
 import { AidRequestUI } from "./interface";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 import { aidRequestStepsRules } from "./utils";
 
 function AidRequest() {
   const { aid_type } = useParams();
-
+  const { user } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
-    aidRequestSteps.beneficiaries.id,
+    aidRequestSteps.beneficiaries.number,
   );
   const steps = Object.values(aidRequestSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
-  const { user, accessToken } = useAuth();
+  const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
 
   const aidRequestType = aid_type
     ? aidRequestTypeDM.valueOf(aid_type)
@@ -45,45 +43,60 @@ function AidRequest() {
       isValid: true,
       values: mapBeneficiaries(),
     },
-    amount: {
-      isValid: true,
-      values: mapAmount(),
-    },
     detailsSituation: {
       isValid: true,
       values: mapDetailsSituation(),
     },
-    regulationValidations: {
+    systemValidations: {
       isValid: true,
-      values: mapRegulationValidations(aidRequestType),
+      values: mapSystemValidations(),
     },
     documentaryRequirements: {
       isValid: true,
-      values: mapDocumentaryRequirements(aidRequestType),
+      values: mapDocumentaryRequirements(),
     },
     disbursement: {
-      isValid: true,
+      isValid: false,
       values: mapDisbursement(),
+    },
+    termsAndConditions: {
+      isValid: false,
+      values: mapTermsAndConditions(),
+    },
+    contactChannels: {
+      isValid: false,
+      values: mapContactChannels({
+        cellPhone: parseInt(user.phone) || 0,
+        email: user.email || "",
+      }),
     },
   });
 
   const beneficiariesRef = useRef<FormikProps<IBeneficiariesEntry>>(null);
-  const amountRef = useRef<FormikProps<IAmountEntry>>(null);
   const detailsSituationRef = useRef<FormikProps<IDetailsSituationEntry>>(null);
-  const regulationValidationsRef =
-    useRef<FormikProps<IRegulationValidationsEntry>>(null);
+  const systemValidationsRef =
+    useRef<FormikProps<ISystemValidationsEntry>>(null);
   const documentaryRequirementsRef =
     useRef<FormikProps<IDocumentaryRequirementsEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
+  const termsAndConditionsRef =
+    useRef<FormikProps<ITermsAndConditionsEntry>>(null);
+  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsAidRequestRefs = {
     beneficiaries: beneficiariesRef,
-    amount: amountRef,
     detailsSituation: detailsSituationRef,
-    regulationValidations: regulationValidationsRef,
+    systemValidations: systemValidationsRef,
     documentaryRequirements: documentaryRequirementsRef,
     disbursement: disbursementRef,
+    termsAndConditions: termsAndConditionsRef,
+    contactChannels: contactChannelsRef,
   };
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname,
+  );
 
   if (!aid_type || !aidRequestType) {
     return <Navigate to="/aids" />;
@@ -100,7 +113,7 @@ function AidRequest() {
     setAidRequest(newAidRequest);
 
     const changeStepKey = Object.entries(aidRequestSteps).find(
-      ([, config]) => config.id === stepId,
+      ([, config]) => config.number === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
@@ -124,7 +137,7 @@ function AidRequest() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
       return;
     }
@@ -132,11 +145,9 @@ function AidRequest() {
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   return (
@@ -147,14 +158,13 @@ function AidRequest() {
       steps={steps}
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
-      message={message}
+      blocker={blocker}
       aidType={aidRequestType}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
-      handleCloseMessage={handleCloseMessage}
     />
   );
 }

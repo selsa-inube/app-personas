@@ -1,13 +1,12 @@
 import { Accordion } from "@design/data/Accordion";
-import { Button } from "@design/input/Button";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { creditDestinationRequestSteps } from "../../config/assisted";
 import { IFormsCreditDestinationRequest } from "../../types";
 import { VerificationBoxes } from "./VerificationBoxes";
-import { creditDestinationRequestBoxTitles } from "./config/box";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 
 interface VerificationProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
@@ -21,8 +20,8 @@ function CreditDestinationRequestVerification(props: VerificationProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      {Object.entries(creditDestinationRequestBoxTitles).map(([key, title]) => (
-        <Accordion title={title} key={`${key}-box`}>
+      {Object.entries(creditDestinationRequestSteps).map(([key, step]) => (
+        <Accordion title={step.name} key={`${key}-box`}>
           <Stack
             direction="column"
             width="100%"
@@ -32,7 +31,7 @@ function CreditDestinationRequestVerification(props: VerificationProps) {
             <VerificationBoxes
               isTablet={isTablet}
               creditDestinationRequest={creditDestinationRequest}
-              stepKey={key}
+              stepKey={key as keyof typeof creditDestinationRequestSteps}
             />
 
             <Button
@@ -41,7 +40,7 @@ function CreditDestinationRequestVerification(props: VerificationProps) {
                 handleStepChange(
                   creditDestinationRequestSteps[
                     key as keyof IFormsCreditDestinationRequest
-                  ].id,
+                  ].number,
                 )
               }
               variant="none"

@@ -29,12 +29,15 @@ import { CreditsProvider } from "./context/credits";
 import { PageNotFound } from "@components/layout/PageNotFound";
 import { SwitchUser } from "@pages/admin/switchUser";
 import { AppProvider } from "./context/app";
+import { RequestsProvider } from "./context/requests";
 import { SavingsProvider } from "./context/savings";
 import { AidRoutes } from "./routes/aid";
 import { MyCardsRoutes } from "./routes/myCards";
 import { MyRequestsRoutes } from "./routes/myRequests";
 import { PaymentsRoutes } from "./routes/payments";
 import { TransfersRoutes } from "./routes/transfers";
+import { FlagProvider } from "@inubekit/flag";
+import { MyPQRSRoutes } from "./routes/myPQRS";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -63,6 +66,8 @@ const router = createBrowserRouter(
         <Route path="savings/*" element={<SavingRoutes />} />
 
         <Route path="aids/*" element={<AidRoutes />} />
+
+        <Route path="my-pqrs/*" element={<MyPQRSRoutes />} />
 
         <Route path="/update-data-assisted" element={<UpdateData />} />
         <Route
@@ -93,15 +98,19 @@ function App() {
     <>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
-        <AppProvider>
-          <SavingsProvider>
-            <CreditsProvider>
-              <CardsProvider>
-                <RouterProvider router={router} />
-              </CardsProvider>
-            </CreditsProvider>
-          </SavingsProvider>
-        </AppProvider>
+        <FlagProvider>
+          <AppProvider>
+            <SavingsProvider>
+              <CreditsProvider>
+                <CardsProvider>
+                  <RequestsProvider>
+                    <RouterProvider router={router} />
+                  </RequestsProvider>
+                </CardsProvider>
+              </CreditsProvider>
+            </SavingsProvider>
+          </AppProvider>
+        </FlagProvider>
       </ThemeProvider>
     </>
   );

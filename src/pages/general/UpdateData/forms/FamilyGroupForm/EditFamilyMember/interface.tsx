@@ -1,25 +1,27 @@
 import { EditFamilyMemberModal } from "@components/modals/general/updateData/FamilyGroupModals/EditFamilyMemberModal";
 import { Icon } from "@inubekit/icon";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
+import * as Yup from "yup";
+import { IFamilyGroupEntries } from "../types";
 
 interface EditFamilyMemberUIProps {
   showModal: boolean;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   onEditModal: () => void;
   onCloseModal: () => void;
   onConfirm: () => void;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function EditFamilyMemberUI(props: EditFamilyMemberUIProps) {
   const {
     showModal,
     formik,
+    validationSchema,
     onEditModal,
     onCloseModal,
     onConfirm,
-    isRequired,
   } = props;
 
   return (
@@ -39,7 +41,7 @@ function EditFamilyMemberUI(props: EditFamilyMemberUIProps) {
           formik={formik}
           onCloseModal={onCloseModal}
           onConfirm={onConfirm}
-          isRequired={isRequired}
+          validationSchema={validationSchema}
         />
       )}
     </>

@@ -1,19 +1,20 @@
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
-import { FormikValues } from "formik";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { vulnerablePopulationTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/vulnerablePopulationdm";
 import { getFieldState } from "src/utils/forms/forms";
+import { ISocioeconomicInformationEntry } from "./types";
 
 interface SocioeconomicInformationFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<ISocioeconomicInformationEntry>;
   loading?: boolean;
   withSubmit?: boolean;
 }
@@ -30,8 +31,8 @@ function SocioeconomicInformationFormUI(
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
         <Grid
-         templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-         autoRows="auto"
+          templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+          autoRows="auto"
           gap={
             isMobile
               ? inube.spacing.s150
@@ -87,7 +88,6 @@ function SocioeconomicInformationFormUI(
             size="compact"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            validMessage="El número ingresado es correcto"
             isFullWidth
           />
           <Select
@@ -138,7 +138,7 @@ function SocioeconomicInformationFormUI(
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

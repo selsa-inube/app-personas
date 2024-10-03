@@ -1,12 +1,6 @@
 import { enviroment } from "@config/enviroment";
-import {
-  mapSimulationEntityToApi,
-  mapSimulationEntityToEntity,
-} from "./mappers";
-import {
-  ISimulateCreditRequest,
-  ISimulateCreditResponse,
-} from "./types";
+import { mapSimulationApiToEntity, mapSimulationEntityToApi } from "./mappers";
+import { ISimulateCreditRequest, ISimulateCreditResponse } from "./types";
 
 const simulateCreditConditions = async (
   simulationValues: ISimulateCreditRequest,
@@ -34,8 +28,9 @@ const simulateCreditConditions = async (
       return;
     }
 
+    const data = await res.json();
+
     if (!res.ok) {
-      const data = await res.json();
       throw {
         message: "Error al realizar la simulación",
         status: res.status,
@@ -43,10 +38,10 @@ const simulateCreditConditions = async (
       };
     }
 
-    const data = await res.json();
-    return mapSimulationEntityToEntity(data);
+    return mapSimulationApiToEntity(data);
   } catch (error) {
-    console.info("Error en la simulación:", error);
+    console.info(error);
+
     throw error;
   }
 };

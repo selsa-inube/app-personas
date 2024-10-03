@@ -1,5 +1,4 @@
 import { IPayment } from "src/model/entity/payment";
-import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { IObligationsEntry } from "../forms/ObligationsForm/types";
 import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 import { EPaymentOptionType } from "../types";
@@ -50,10 +49,4 @@ const mapPaymentMethod = (): IPaymentMethodEntry => {
   };
 };
 
-const mapComments = (): ICommentsEntry => {
-  return {
-    comments: "",
-  };
-};
-
-export { mapComments, mapObligations, mapPaymentMethod, paymentOptionValues };
+export { mapObligations, mapPaymentMethod, paymentOptionValues };

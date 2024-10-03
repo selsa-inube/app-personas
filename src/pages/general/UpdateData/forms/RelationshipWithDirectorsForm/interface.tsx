@@ -1,25 +1,27 @@
 import { RelationshipWithDirectorsModal } from "@components/modals/general/updateData/RelationshipWithDirectorsModal";
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { directorsMock } from "@mocks/users/directors/directors.mocks";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdSearch } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { IDirector } from "src/model/entity/user";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
+import { IRelationshipWithDirectorsEntry } from "./types";
 
 interface RelationshipWithDirectorsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IRelationshipWithDirectorsEntry>;
   loading?: boolean;
   withSubmit?: boolean;
   showDirectorsModal: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   handleToggleModal: () => void;
   handleModalSelect: (field: string, selectedItem: IDirector) => void;
 }
@@ -32,7 +34,7 @@ function RelationshipWithDirectorsFormUI(
     loading,
     withSubmit,
     showDirectorsModal,
-    isRequired,
+    validationSchema,
     handleToggleModal,
     handleModalSelect,
   } = props;
@@ -56,11 +58,12 @@ function RelationshipWithDirectorsFormUI(
               size="compact"
               options={activeDM.options}
               state={getFieldState(formik, "hasRelationshipWithDirectors")}
-              isRequired={isRequired("hasRelationshipWithDirectors")}
+              isRequired={isRequired(
+                validationSchema,
+                "hasRelationshipWithDirectors",
+              )}
               errorMessage={formik.errors.hasRelationshipWithDirectors}
               onBlur={formik.handleBlur}
-              onClick={formik.handleClick}
-              onFocus={formik.handleFocus}
               onChange={formik.handleChange}
               isDisabled={loading}
               isFullWidth
@@ -81,8 +84,7 @@ function RelationshipWithDirectorsFormUI(
                   state={getFieldState(formik, "directorName")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  validMessage="El nombre del directivo es valido"
-                  isRequired={isRequired("directorName")}
+                  isRequired={isRequired(validationSchema, "directorName")}
                   onIconClick={() => handleToggleModal()}
                 />
                 <Select
@@ -93,11 +95,12 @@ function RelationshipWithDirectorsFormUI(
                   size="compact"
                   options={relationshipDM.options}
                   state={getFieldState(formik, "directorRelationship")}
-                  isRequired={isRequired("directorRelationship")}
+                  isRequired={isRequired(
+                    validationSchema,
+                    "directorRelationship",
+                  )}
                   errorMessage={formik.errors.directorRelationship}
                   onBlur={formik.handleBlur}
-                  onClick={formik.handleClick}
-                  onFocus={formik.handleFocus}
                   onChange={formik.handleChange}
                   isDisabled={loading}
                   isFullWidth
@@ -108,7 +111,7 @@ function RelationshipWithDirectorsFormUI(
           {withSubmit && (
             <Stack gap={inube.spacing.s150} justifyContent="flex-end">
               <Button
-                onClick={formik.handleReset}
+                onClick={() => formik.handleReset()}
                 type="button"
                 disabled={loading || !formik.dirty}
                 spacing="compact"

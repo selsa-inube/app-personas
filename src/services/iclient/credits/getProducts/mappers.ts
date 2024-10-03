@@ -6,9 +6,7 @@ const mapProductApiToEntity = (
 ): IDestinationProduct => {
   return {
     id: String(product.productId),
-    title: product.name
-      ? capitalizeText(String(product.name).toLowerCase())
-      : "",
+    title: String(product.name),
     description: product.description
       ? capitalizeText(String(product.description).toLowerCase())
       : "",
@@ -17,6 +15,7 @@ const mapProductApiToEntity = (
       : undefined,
     maxDeadline: product.maxDeadline ? Number(product.maxDeadline) : undefined,
     maxAmount: Number(product.maxAmount || 0),
+    maxAmountForUser: Number(product.maxAmountByUser || 0),
     amortizationType: "IntegralFixedQuota",
   };
 };

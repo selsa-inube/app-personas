@@ -1,11 +1,11 @@
 import { FamilyMemberCreateModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberCreateModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
+import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
 import { usersMock } from "@mocks/users/users.mocks";
-import { IMessage } from "@ptypes/messages.types";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
 import { mapFamilyGroups } from "../../config/mappers";
 import { IContactDataEntry } from "./CreateFamilyMember/forms/ContactDataForm/types";
@@ -17,17 +17,14 @@ import {
   familyGroupTableBreakpoints,
   familyGroupTableTitles,
 } from "./config/table";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
+import { IFamilyGroupEntries } from "./types";
 
 interface FamilyGroupFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   showAddMemberModal: boolean;
   loading?: boolean;
   withSubmit?: boolean;
-  message?: IMessage;
   familyGroupTableActions: IAction[];
-  onCloseMessage: () => void;
   onToggleModal: () => void;
   onAddMember: (
     identificationData: IIdentificationDataEntry,
@@ -44,10 +41,8 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
     familyGroupTableActions,
     loading,
     withSubmit,
-    message,
     onToggleModal,
     onAddMember,
-    onCloseMessage,
   } = props;
 
   const validateButtonActivation =
@@ -81,7 +76,7 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"
@@ -106,16 +101,6 @@ function FamilyGroupFormUI(props: FamilyGroupFormUIProps) {
           portalId="modals"
           onCloseModal={onToggleModal}
           onAddMember={onAddMember}
-        />
-      )}
-      {message && message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          icon={message.icon}
-          appearance={message.appearance}
-          duration={3000}
-          onClose={onCloseMessage}
         />
       )}
     </>

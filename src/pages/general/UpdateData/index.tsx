@@ -1,12 +1,13 @@
+import { mapComments } from "@forms/CommentsForm/mappers";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { updateDataSteps } from "./config/assisted";
 import {
   mapBankTransfers,
-  mapComments,
   mapContactData,
   mapEconomicActivity,
   mapExpenses,
@@ -35,11 +36,11 @@ import { IRelationshipWithDirectorsEntry } from "./forms/RelationshipWithDirecto
 import { ISocioeconomicInformationEntry } from "./forms/SocioeconomicInformationForm/types";
 import { UpdateDataUI } from "./interface";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
-import { Navigate } from "react-router-dom";
+import { updateDataStepsRules } from "./utils";
 
 function UpdateData() {
   const [currentStep, setCurrentStep] = useState(
-    updateDataSteps.personalInformation.id,
+    updateDataSteps.personalInformation.number,
   );
   const steps = Object.values(updateDataSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
@@ -58,7 +59,13 @@ function UpdateData() {
       isValid: true,
       values: { entries: mapFamilyGroups(usersMock[0].familyGroup || []) },
     },
-    beneficiaries: { isValid: true, values: {} },
+    beneficiaries: {
+      isValid: true,
+      values: {
+        beneficiaries: [],
+        totalPercentage: 0,
+      },
+    },
     bankTransfers: {
       isValid: true,
       values: mapBankTransfers(usersMock[0].bankTransfersAccount),
@@ -138,31 +145,25 @@ function UpdateData() {
   };
 
   const handleStepChange = (stepId: number) => {
-    const stepKey = Object.entries(updateDataSteps).find(
-      ([, config]) => config.id === currentStep,
-    )?.[0];
+    const newUpdateData = updateDataStepsRules(
+      currentStep,
+      updateData,
+      formReferences,
+      isCurrentFormValid,
+    );
 
-    if (stepKey) {
-      const values =
-        formReferences[stepKey as keyof IFormsUpdateDataRefs]?.current?.values;
-
-      setUpdateData((prevUpdateData) => ({
-        ...prevUpdateData,
-        [stepKey]: { isValid: isCurrentFormValid, values },
-      }));
-    }
+    setUpdateData(newUpdateData);
 
     const changeStepKey = Object.entries(updateDataSteps).find(
-      ([, config]) => config.id === stepId,
+      ([, config]) => config.number === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
 
     const changeIsVerification = stepId === steps.length;
-
     setIsCurrentFormValid(
       changeIsVerification ||
-        updateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
+        newUpdateData[changeStepKey as keyof IFormsUpdateData]?.isValid ||
         false,
     );
 
@@ -176,13 +177,15 @@ function UpdateData() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
     }
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   if (!getFlag("general.links.update-data.update-data-with-assisted").value) {

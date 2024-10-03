@@ -1,28 +1,27 @@
-import { QuickAccess } from "@components/cards/QuickAccess";
-import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Assisted } from "@design/feedback/Assisted";
-import { IStep } from "@design/feedback/Assisted/types";
-import { Button } from "@design/input/Button";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { DisbursementForm } from "@forms/DisbursementForm";
+import { PaymentMethodForm } from "@forms/PaymentMethodForm";
+import { SystemValidationsForm } from "@forms/SystemValidationsForm";
+import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { CommentsForm } from "../../../../shared/forms/CommentsForm";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
-import { GoalForm } from "./forms/GoalForm";
 import { PlanNameForm } from "./forms/PlanNameForm";
-import { QuotaForm } from "./forms/QuotaForm";
-import { ReimbursementForm } from "./forms/ReimbursementForm";
-import { ProgrammedSavingFixedRequestSummary } from "./forms/Summary";
+import { SavingConditionsForm } from "./forms/SavingConditionsForm";
+import { ShareMaturityForm } from "./forms/ShareMaturityForm";
+import { ProgrammedSavingFixedRequestVerification } from "./forms/Verification";
 import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -33,50 +32,83 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === programmedSavingFixedRequestSteps.quota.id && (
-        <QuotaForm
-          initialValues={programmedSavingFixedRequest.quota.values}
-          ref={formReferences.quota}
+      {currentStep ===
+        programmedSavingFixedRequestSteps.savingConditions.number && (
+        <SavingConditionsForm
+          initialValues={programmedSavingFixedRequest.savingConditions.values}
+          ref={formReferences.savingConditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.goal.id && (
-        <GoalForm
-          initialValues={programmedSavingFixedRequest.goal.values}
-          ref={formReferences.goal}
+      {currentStep ===
+        programmedSavingFixedRequestSteps.paymentMethod.number && (
+        <PaymentMethodForm
+          initialValues={programmedSavingFixedRequest.paymentMethod.values}
+          ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.reimbursement.id && (
-        <ReimbursementForm
-          initialValues={programmedSavingFixedRequest.reimbursement.values}
-          ref={formReferences.reimbursement}
+      {currentStep ===
+        programmedSavingFixedRequestSteps.shareMaturity.number && (
+        <ShareMaturityForm
+          initialValues={programmedSavingFixedRequest.shareMaturity.values}
+          ref={formReferences.shareMaturity}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.planName.id && (
+      {currentStep ===
+        programmedSavingFixedRequestSteps.disbursement.number && (
+        <DisbursementForm
+          initialValues={programmedSavingFixedRequest.disbursement.values}
+          ref={formReferences.disbursement}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep ===
+        programmedSavingFixedRequestSteps.systemValidations.number && (
+        <SystemValidationsForm
+          initialValues={programmedSavingFixedRequest.systemValidations.values}
+          ref={formReferences.systemValidations}
+          disbursementValues={programmedSavingFixedRequest.disbursement.values}
+          test
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === programmedSavingFixedRequestSteps.planName.number && (
         <PlanNameForm
           initialValues={programmedSavingFixedRequest.planName.values}
           ref={formReferences.planName}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.contactChannels.id && (
-        <ContactChannelsForm
-          initialValues={programmedSavingFixedRequest.contactChannels.values}
-          ref={formReferences.contactChannels}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
-      {currentStep === programmedSavingFixedRequestSteps.comments.id && (
+      {currentStep === programmedSavingFixedRequestSteps.comments.number && (
         <CommentsForm
           initialValues={programmedSavingFixedRequest.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingFixedRequestSteps.summary.id && (
-        <ProgrammedSavingFixedRequestSummary
+      {currentStep ===
+        programmedSavingFixedRequestSteps.termsAndConditions.number && (
+        <TermsAndConditionsForm
+          initialValues={programmedSavingFixedRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
+          productId="57"
+          productType="credit"
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep ===
+        programmedSavingFixedRequestSteps.contactChannels.number && (
+        <ContactChannelsForm
+          initialValues={programmedSavingFixedRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep ===
+        programmedSavingFixedRequestSteps.verification.number && (
+        <ProgrammedSavingFixedRequestVerification
           programmedSavingFixedRequest={programmedSavingFixedRequest}
           handleStepChange={handleStepChange}
         />
@@ -87,7 +119,7 @@ const renderStepContent = (
 
 interface ProgrammedSavingFixedRequestUIProps {
   currentStep: number;
-  steps: IStep[];
+  steps: IAssistedStep[];
   isCurrentFormValid: boolean;
   programmedSavingFixedRequest: IFormsProgrammedSavingFixedRequest;
   formReferences: IFormsProgrammedSavingFixedRequestRefs;
@@ -114,12 +146,20 @@ function ProgrammedSavingFixedRequestUI(
     handlePreviousStep,
   } = props;
 
-  const isDesktop = useMediaQuery("(min-width: 1400px)");
-  const isMobile = useMediaQuery("(max-width: 450px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
+  const isMobile = useMediaQuery("(max-width: 450px)");
 
   return (
-    <>
+    <Stack
+      direction="column"
+      gap={
+        isMobile
+          ? inube.spacing.s300
+          : isTablet
+            ? inube.spacing.s500
+            : inube.spacing.s600
+      }
+    >
       <Stack direction="column" gap={inube.spacing.s300}>
         <Breadcrumbs crumbs={crumbsProgrammedSavingFixedRequest} />
         <Title
@@ -130,65 +170,57 @@ function ProgrammedSavingFixedRequestUI(
         />
       </Stack>
 
-      <Grid
-        margin={
-          isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
-        }
-        gap={
-          isMobile
-            ? inube.spacing.s300
-            : isTablet
-              ? inube.spacing.s500
-              : inube.spacing.s600
-        }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
+      <Stack
+        direction="column"
+        gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
       >
-        <Stack
-          direction="column"
-          gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
-        >
-          <Assisted
-            steps={steps}
-            currentStep={currentStep}
-            onFinishAssisted={handleFinishAssisted}
-            onStepChange={handleStepChange}
-            disableNextStep={!isCurrentFormValid}
-          />
+        <Assisted
+          step={steps[currentStep - 1]}
+          totalSteps={steps.length}
+          onNextClick={handleNextStep}
+          onBackClick={handlePreviousStep}
+          onSubmitClick={handleFinishAssisted}
+          disableNext={!isCurrentFormValid}
+          size={isTablet ? "small" : "large"}
+          controls={{
+            goBackText: "Anterior",
+            goNextText: "Siguiente",
+            submitText: "Enviar",
+          }}
+        />
 
-          <Stack direction="column" gap={inube.spacing.s300}>
-            {renderStepContent(
-              currentStep,
-              formReferences,
-              programmedSavingFixedRequest,
-              setIsCurrentFormValid,
-              handleStepChange,
-            )}
+        <Stack direction="column" gap={inube.spacing.s300}>
+          {renderStepContent(
+            currentStep,
+            formReferences,
+            programmedSavingFixedRequest,
+            setIsCurrentFormValid,
+            handleStepChange,
+          )}
 
-            <Stack gap={inube.spacing.s150} justifyContent="flex-end">
-              <Button
-                onClick={handlePreviousStep}
-                type="button"
-                disabled={currentStep === steps[0].id}
-                spacing="compact"
-                variant="outlined"
-                appearance="gray"
-              >
-                Atrás
-              </Button>
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
+            <Button
+              onClick={handlePreviousStep}
+              type="button"
+              disabled={currentStep === steps[0].id}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Atrás
+            </Button>
 
-              <Button
-                onClick={handleNextStep}
-                spacing="compact"
-                disabled={!isCurrentFormValid}
-              >
-                {currentStep === steps.length ? "Enviar" : "Siguiente"}
-              </Button>
-            </Stack>
+            <Button
+              onClick={handleNextStep}
+              spacing="compact"
+              disabled={!isCurrentFormValid}
+            >
+              {currentStep === steps.length ? "Enviar" : "Siguiente"}
+            </Button>
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
-      </Grid>
-    </>
+      </Stack>
+    </Stack>
   );
 }
 

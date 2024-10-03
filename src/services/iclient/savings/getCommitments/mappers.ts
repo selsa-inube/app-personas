@@ -1,4 +1,4 @@
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 import {
   ECommitmentType,
   EMovementType,
@@ -76,29 +76,15 @@ const mapSavingsCommitmentsApiToEntity = (
       )
     : [];
 
-  const lastMovementTheSavingPlans = commitment.savingPaymentPlans;
-
-  const closeDateWithoutZone =
+  const nextPaymentDate =
     commitment.nextPaymentDate &&
-    String(commitment.nextPaymentDate).replace("Z", "");
+    new Date(String(commitment.nextPaymentDate).replace("Z", ""));
 
-  const lastSavingPlan =
-    Array.isArray(lastMovementTheSavingPlans) &&
-    lastMovementTheSavingPlans.reduce((acc, curr) =>
-      acc.quotaDate > curr.quotaDate ? acc : curr,
-    );
-
-  const lastDateWithoutZone = String(lastSavingPlan.quotaDate).replace("Z", "");
-
-  const nextPaymentDate = closeDateWithoutZone
-    ? new Date(closeDateWithoutZone)
-    : new Date(lastDateWithoutZone);
-
-  const nextPaymentValue = commitment.quotaValue;
+  const nextPaymentValue = commitment.nextPaymentValue;
 
   const expiredValue = commitment.expiredValue;
 
-  const inArrears = today > nextPaymentDate;
+  const inArrears = nextPaymentDate && today > nextPaymentDate;
 
   const attributes: IAttribute[] = [
     {
@@ -126,13 +112,21 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
-  if (nextPaymentDate && (nextPaymentValue || expiredValue)) {
+  if (nextPaymentValue || expiredValue) {
     attributes.push({
       id: "quota_value",
       label: "Próximo pago",
       value: Number(nextPaymentValue || 0) + Number(expiredValue || 0),
     });
 
+    attributes.push({
+      id: "next_payment_value",
+      label: "Próximo pago",
+      value: Number(nextPaymentValue),
+    });
+  }
+
+  if (nextPaymentDate) {
     attributes.push({
       id: "next_payment",
       label: "Fecha de pago",
@@ -146,18 +140,11 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
-  if (nextPaymentDate && nextPaymentValue) {
-    attributes.push({
-      id: "next_payment_value",
-      label: "Próximo pago",
-      value: Number(nextPaymentValue),
-    });
-  }
-
-  const tag: TagProps | undefined = inArrears
+  const tag: ITag | undefined = inArrears
     ? {
         label: "En mora",
         appearance: "danger",
+        weight: "strong",
       }
     : undefined;
 

@@ -23,6 +23,7 @@ const saveDocument = async (
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SaveDocumentManagement",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
+        Accept: "*/*",
       },
       body: mapSaveDocumentEntityToApi(saveDocumentRequest),
     };
@@ -61,7 +62,9 @@ const saveDocument = async (
       Math.round(performance.now() - startTime),
     );
 
-    throw new Error("No se pudo guardar el documento");
+    console.info(error);
+
+    throw error;
   }
 };
 

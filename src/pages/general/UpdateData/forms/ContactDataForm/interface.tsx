@@ -1,26 +1,28 @@
-import { Button } from "@design/input/Button";
-import { Fieldset } from "@design/input/Fieldset";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
-import { FormikValues } from "formik";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Fieldset } from "@inubekit/fieldset";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
+import { IContactDataEntry } from "./types";
 
 interface ContactDataFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IContactDataEntry>;
   loading?: boolean;
-  isRequired: (fieldName: string) => boolean;
   withSubmit?: boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, loading, isRequired, withSubmit } = props;
+  const { formik, loading, withSubmit, validationSchema } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -31,7 +33,11 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         direction="column"
         gap={isMobile ? inube.spacing.s300 : inube.spacing.s400}
       >
-        <Fieldset title="Dirección" size={isMobile ? "small" : "medium"}>
+        <Fieldset
+          legend="Dirección"
+          type="title"
+          size={isMobile ? "small" : "medium"}
+        >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
@@ -42,6 +48,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                   ? inube.spacing.s200
                   : inube.spacing.s300
             }
+            width="100%"
           >
             <TextField
               label="País"
@@ -60,8 +67,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "country")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El país es válido"
-              isRequired={isRequired("country")}
+              isRequired={isRequired(validationSchema, "country")}
               suggestions={countryDM.options}
               autocompleteChars={2}
               autocomplete
@@ -79,7 +85,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               iconAfter={<MdOutlineModeEdit size={18} />}
               errorMessage={formik.errors.stateOrDepartment}
               isDisabled={
-                formik.values.stateOrDepartment ||
+                !!formik.values.stateOrDepartment ||
                 !formik.values.country ||
                 loading
               }
@@ -88,8 +94,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "stateOrDepartment")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El estado / departamento es válido"
-              isRequired={isRequired("stateOrDepartment")}
+              isRequired={isRequired(validationSchema, "stateOrDepartment")}
               suggestions={departmentDM.options}
               autocompleteChars={2}
               autocomplete
@@ -106,7 +111,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               iconAfter={<MdOutlineModeEdit size={18} />}
               errorMessage={formik.errors.city}
               isDisabled={
-                formik.values.city ||
+                !!formik.values.city ||
                 !formik.values.country ||
                 !formik.values.stateOrDepartment ||
                 loading
@@ -116,8 +121,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "city")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="La ciudad es válida"
-              isRequired={isRequired("city")}
+              isRequired={isRequired(validationSchema, "city")}
               suggestions={cityDM.options}
               autocompleteChars={2}
               autocomplete
@@ -137,8 +141,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "address")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="La dirección es válida"
-              isRequired={isRequired("address")}
+              isRequired={isRequired(validationSchema, "address")}
             />
 
             <TextField
@@ -156,12 +159,15 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "zipCode")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El código postal es válido"
-              isRequired={isRequired("zipCode")}
+              isRequired={isRequired(validationSchema, "zipCode")}
             />
           </Grid>
         </Fieldset>
-        <Fieldset title="Teléfono" size={isMobile ? "small" : "medium"}>
+        <Fieldset
+          legend="Teléfono"
+          type="title"
+          size={isMobile ? "small" : "medium"}
+        >
           <Grid
             templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
             autoRows="auto"
@@ -172,6 +178,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                   ? inube.spacing.s200
                   : inube.spacing.s300
             }
+            width="100%"
           >
             <TextField
               label="Teléfono"
@@ -188,8 +195,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "landlinePhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El teléfono es válido"
-              isRequired={isRequired("landlinePhone")}
+              isRequired={isRequired(validationSchema, "landlinePhone")}
             />
 
             <TextField
@@ -207,13 +213,13 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "cellPhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El celular es válido"
-              isRequired={isRequired("cellPhone")}
+              isRequired={isRequired(validationSchema, "cellPhone")}
             />
           </Grid>
         </Fieldset>
         <Fieldset
-          title="Correo electrónico"
+          legend="Correo electrónico"
+          type="title"
           size={isMobile ? "small" : "medium"}
         >
           <Grid
@@ -226,6 +232,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                   ? inube.spacing.s200
                   : inube.spacing.s300
             }
+            width="100%"
           >
             <TextField
               label="Correo electronico"
@@ -241,8 +248,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               state={getFieldState(formik, "email")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              validMessage="El correo electronico es válido"
-              isRequired={isRequired("email")}
+              isRequired={isRequired(validationSchema, "email")}
             />
           </Grid>
         </Fieldset>
@@ -250,7 +256,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

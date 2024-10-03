@@ -13,7 +13,6 @@ import {
   IResidence,
   IThird,
 } from "src/model/entity/user";
-import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
 import { IBankTransfersEntry } from "../forms/BankTransfersForm/types";
 import { IContactDataEntry } from "../forms/ContactDataForm/types";
@@ -293,7 +292,7 @@ const mapIncomes = (): IIncomesEntry => {
     transportationAssistance: "",
     foodAssistance: "",
     others: "",
-    totalIncomes: "",
+    totalIncomes: 0,
   };
 };
 
@@ -304,7 +303,7 @@ const mapExpenses = (): IExpensesEntry => {
     credits: "",
     creditCards: "",
     others: "",
-    totalExpenses: "",
+    totalExpenses: 0,
   };
 };
 
@@ -320,15 +319,8 @@ const mapRelationshipWithDirectors = (
   };
 };
 
-const mapComments = (): ICommentsEntry => {
-  return {
-    comments: "",
-  };
-};
-
 export {
   mapBankTransfers,
-  mapComments,
   mapContactData,
   mapEconomicActivity,
   mapExpenses,

@@ -80,18 +80,12 @@ const PersonalDataForm = forwardRef(function IdentificationForm(
     }
   }, [formik.values]);
 
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName];
-    if (!("nullable" in fieldDescription)) return false;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
-
   return (
     <PersonalDataFormUI
       loading={loading}
       formik={formik}
       readonly={readonly}
-      isRequired={isRequired}
+      validationSchema={dynamicSchema}
     />
   );
 });

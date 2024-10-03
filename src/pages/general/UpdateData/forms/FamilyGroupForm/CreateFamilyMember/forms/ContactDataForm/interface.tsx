@@ -1,16 +1,18 @@
 import { TextField } from "@design/input/TextField";
-import { FormikValues } from "formik";
-import { getFieldState } from "src/utils/forms/forms";
+import { FormikProps } from "formik";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
+import { IContactDataEntry } from "./types";
 
 interface ContactDataFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IContactDataEntry>;
   loading?: boolean;
   readonly?: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function ContactDataFormUI(props: ContactDataFormUIProps) {
-  const { formik, readonly, isRequired } = props;
+  const { formik, readonly, validationSchema } = props;
 
   return (
     <>
@@ -21,13 +23,12 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         id="cellPhone"
         type="number"
         size="compact"
-        validMessage="El numero de celular es válido"
         value={formik.values.cellPhone || ""}
         errorMessage={formik.errors.cellPhone}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "cellPhone")}
-        isRequired={isRequired("cellPhone")}
+        isRequired={isRequired(validationSchema, "cellPhone")}
         readOnly={readonly}
         isFullWidth
       />
@@ -44,7 +45,7 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "email")}
-        isRequired={isRequired("email")}
+        isRequired={isRequired(validationSchema, "email")}
         readOnly={readonly}
         isFullWidth
       />

@@ -2,10 +2,8 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdAdd, MdArrowBack } from "react-icons/md";
@@ -17,6 +15,8 @@ import { generateAttributes } from "./config/attributeRecord";
 import { Divider } from "@inubekit/divider";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
+import { Button } from "@inubekit/button";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface CardMovementsUIProps {
   cardId?: string;
@@ -101,7 +101,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
                 variant="none"
                 iconBefore={<MdAdd />}
                 onClick={handleAddMovements}
-                load={loading}
+                loading={loading}
                 disabled={
                   selectedProduct.movements.length ===
                   selectedProduct.totalMovements

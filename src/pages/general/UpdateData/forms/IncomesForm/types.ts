@@ -6,7 +6,7 @@ interface IIncomesEntry {
   transportationAssistance: string;
   foodAssistance: string;
   others: string;
-  totalIncomes: string;
+  totalIncomes: number;
 }
 
 export type { IIncomesEntry };

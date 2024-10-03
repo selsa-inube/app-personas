@@ -1,11 +1,12 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { Stack } from "@inubekit/stack";
-import { FormikValues } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
+import { IInvestmentNameEntry } from "./types";
+import { FormikProps } from "formik";
 
 interface InvestmentNameFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IInvestmentNameEntry>;
   loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -30,7 +31,6 @@ function InvestmentNameFormUI(props: InvestmentNameFormUIProps) {
           state={getFieldState(formik, "productName")}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
-          validMessage="El nombre es válido"
           maxLength={30}
           withCounter
         />

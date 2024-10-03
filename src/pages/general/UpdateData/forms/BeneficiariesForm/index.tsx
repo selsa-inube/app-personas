@@ -1,5 +1,5 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useImperativeHandle } from "react";
 import { BeneficiariesFormUI } from "./interface";
 import { IBeneficiariesEntry } from "./types";
 
@@ -16,9 +16,6 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   ref: React.Ref<FormikProps<IBeneficiariesEntry>>,
 ) {
   const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
-  const [percentage, setPercentage] = useState(
-    Object.values(initialValues).reduce((acc, curr) => acc + Number(curr), 0),
-  );
 
   const formik = useFormik({
     initialValues,
@@ -29,18 +26,20 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   useImperativeHandle(ref, () => formik);
 
   const customHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    formik.handleChange(event);
+    const newBeneficiaries = formik.values.beneficiaries.map((beneficiary) => {
+      return beneficiary.id === event.target.name
+        ? { ...beneficiary, percentage: Number(event.target.value) }
+        : beneficiary;
+    });
 
-    const updatedValues = {
-      ...formik.values,
-      [event.target.name]: event.target.value,
-    };
+    formik.setFieldValue("beneficiaries", newBeneficiaries);
 
-    const total = Object.values(updatedValues).reduce(
-      (acc, curr) => acc + Number(curr),
+    const total = newBeneficiaries.reduce(
+      (acc, curr) => acc + Number(curr.percentage || 0),
       0,
     );
-    setPercentage(total);
+
+    formik.setFieldValue("totalPercentage", total);
 
     onFormValid && onFormValid(!(total > 100));
   };
@@ -49,7 +48,6 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
     <BeneficiariesFormUI
       loading={loading}
       formik={formik}
-      percentage={percentage}
       withSubmit={withSubmit}
       customHandleChange={customHandleChange}
     />

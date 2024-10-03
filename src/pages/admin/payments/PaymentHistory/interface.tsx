@@ -3,20 +3,21 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { PaymentHistoryModal } from "@components/modals/payments/PaymentHistoryModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { IPaymentHistory } from "src/model/entity/payment";
 import { EMovementType } from "src/model/entity/product";
 import { EmptyRecords } from "./EmptyRecords";
+import { generateAttributes } from "./config/attributeRecord";
 import { crumbsPaymentHistory } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { generateAttributes } from "./config/attributeRecord";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 
 interface PaymentHistoryUIProps {
   showPaymentHistoryModal: boolean;
@@ -79,6 +80,17 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
         }
       >
         <Stack direction="column" gap={inube.spacing.s300}>
+          <Stack direction="column" gap={inube.spacing.s100}>
+            <Text type="title" size="small" weight="bold">
+              Movimientos en proceso
+            </Text>
+
+            <Text type="body" size="medium" appearance="gray">
+              Una vez procesado el pago, los movimientos dentro de los productos
+              relacionados pueden tardar unos minutos en aparecer.
+            </Text>
+          </Stack>
+          
           <Stack direction="column" alignItems="flex-end">
             <Button
               appearance="primary"
@@ -86,7 +98,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               spacing="compact"
               iconBefore={<MdHistory />}
               onClick={onRefreshHistory}
-              load={loading}
+              loading={loading}
               disabled={!loading && refreshTime !== 0}
             >
               {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
@@ -108,10 +120,11 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                       type={EMovementType.RECORD}
                       description={payment.title}
                       totalValue={payment.value}
-                      tag={payment.tag}
+                      tag={payment.tag.label !== "" ? payment.tag : undefined}
                       attributes={generateAttributes(payment)}
                       onClick={() => onTogglePaymentHistoryModal(payment)}
                       withExpandingIcon
+                      datesWithTime
                     />
                     {index !== paymentHistory.length - 1 && <Divider dashed />}
                   </Stack>
@@ -122,7 +135,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                   appearance="primary"
                   variant="none"
                   iconBefore={<MdAdd />}
-                  load={loading}
+                  loading={loading}
                   onClick={onAddPayments}
                   disabled={noMorePayments}
                 >

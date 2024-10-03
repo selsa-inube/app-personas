@@ -1,21 +1,24 @@
-import { Fieldset } from "@design/input/Fieldset";
 import { TextField } from "@design/input/TextField";
-import { FormikValues } from "formik";
-import { getFieldState } from "src/utils/forms/forms";
+import { Fieldset } from "@inubekit/fieldset";
+import { FormikProps } from "formik";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
+import { IIdentificationDataEntry } from "./types";
 
 interface IdentificationDataFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IIdentificationDataEntry>;
   loading?: boolean;
   isMobile?: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
-  const { formik, loading, isMobile, isRequired } = props;
+  const { formik, loading, isMobile, validationSchema } = props;
 
   return (
     <Fieldset
-      title="Número de identificación"
+      legend="Número de identificación"
+      type="title"
       size={isMobile ? "small" : "medium"}
     >
       <TextField
@@ -25,14 +28,13 @@ function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
         id="identificationNumber"
         type="number"
         size="compact"
-        validMessage="El documento es válido"
         value={formik.values.identificationNumber || ""}
         errorMessage={formik.errors.identificationNumber}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "identificationNumber")}
         isDisabled={loading}
-        isRequired={isRequired("identificationNumber")}
+        isRequired={isRequired(validationSchema, "identificationNumber")}
         isFullWidth
       />
     </Fieldset>

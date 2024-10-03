@@ -1,19 +1,18 @@
-import { Button } from "@design/input/Button";
-import { ButtonAppearanceType } from "@design/input/Button/types";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Button, IButtonAppearance } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
-import { Blanket } from "@inubekit/blanket";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface DecisionModalProps {
   title: string;
   description: string;
-  appearance?: ButtonAppearanceType;
+  appearance?: IButtonAppearance;
   actionText: string;
   loading?: boolean;
   portalId: string;
@@ -63,6 +62,7 @@ function DecisionModal(props: DecisionModalProps) {
           <Text
             type="title"
             appearance="dark"
+            weight="bold"
             size={isMobile ? "small" : "medium"}
           >
             {title}
@@ -83,7 +83,7 @@ function DecisionModal(props: DecisionModalProps) {
           </Button>
           <Button
             appearance={appearance}
-            load={isLoading}
+            loading={isLoading}
             onClick={handleActionClick}
             spacing="compact"
           >

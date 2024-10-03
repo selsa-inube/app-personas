@@ -2,33 +2,41 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { RecordCard } from "@components/cards/RecordCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Button } from "@design/input/Button";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
-import { MdAdd, MdArrowBack } from "react-icons/md";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
 import { IRequest } from "src/model/entity/request";
 import { EmptyRecords } from "./EmptyRecords";
 import { generateAttributes } from "./config/attributeRecord";
 import { crumbsMyRequests } from "./config/navigation";
 import { StyledContainer } from "./styles";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
 
 interface MyRequestsUIProps {
   requests: IRequest[];
   loading: boolean;
   noMoreRequests: boolean;
+  refreshTime: number;
   onAddRequests: () => void;
   goToRequest: (id: string) => void;
+  onRefresh: () => void;
 }
 
 function MyRequestsUI(props: MyRequestsUIProps) {
-  const { requests, loading, noMoreRequests, onAddRequests, goToRequest } =
-    props;
+  const {
+    requests,
+    loading,
+    noMoreRequests,
+    refreshTime,
+    onAddRequests,
+    goToRequest,
+    onRefresh,
+  } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -64,10 +72,18 @@ function MyRequestsUI(props: MyRequestsUIProps) {
         }
       >
         <Stack direction="column" gap={inube.spacing.s300}>
-          <Stack direction="column">
-            <Text type="title" size="medium">
-              Tus solicitudes más recientes
-            </Text>
+          <Stack justifyContent="flex-end" alignItems="center">
+            <Button
+              appearance="primary"
+              variant="outlined"
+              spacing="compact"
+              iconBefore={<MdHistory />}
+              onClick={onRefresh}
+              loading={loading}
+              disabled={!loading && refreshTime !== 0}
+            >
+              {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
+            </Button>
           </Stack>
 
           {requests.length > 0 ? (
@@ -89,6 +105,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
                       attributes={generateAttributes(request)}
                       withExpandingIcon
                       onClick={() => goToRequest(request.id)}
+                      datesWithTime
                     />
                     {index !== requests.length - 1 && <Divider dashed />}
                   </Stack>
@@ -99,7 +116,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
                   appearance="primary"
                   variant="none"
                   iconBefore={<MdAdd />}
-                  load={loading}
+                  loading={loading}
                   onClick={onAddRequests}
                   disabled={noMoreRequests}
                 >

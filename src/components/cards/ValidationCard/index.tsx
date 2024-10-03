@@ -1,8 +1,8 @@
 import { ValidationDetailsModal } from "@components/modals/general/ValidationDetailsModal";
-import { Tag } from "@design/data/Tag";
 import { inube } from "@design/tokens";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
+import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { IValidation } from "src/model/entity/service";
@@ -53,26 +53,11 @@ function ValidationCard(props: IValidation) {
               gap={inube.spacing.s100}
             >
               {value === "success" ? (
-                <Tag
-                  label="Cumple"
-                  appearance="success"
-                  modifier="clear"
-                  textAppearance="success"
-                />
+                <Tag label="Cumple" appearance="success" />
               ) : value === "fail" ? (
-                <Tag
-                  label="No cumple"
-                  appearance="danger"
-                  modifier="clear"
-                  textAppearance="danger"
-                />
+                <Tag label="No cumple" appearance="danger" />
               ) : (
-                <Tag
-                  label="Por evaluar"
-                  appearance="warning"
-                  modifier="clear"
-                  textAppearance="warning"
-                />
+                <Tag label="Por evaluar" appearance="warning" />
               )}
 
               {value === "fail" && (
@@ -81,7 +66,7 @@ function ValidationCard(props: IValidation) {
                   size="small"
                   appearance="danger"
                   cursorHover
-                  onClick={handleToggleModal} 
+                  onClick={handleToggleModal}
                 >
                   Ver detalles
                 </Text>

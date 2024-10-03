@@ -1,28 +1,30 @@
-import { Button } from "@design/input/Button";
 import { Select } from "@design/input/Select";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { FormikValues } from "formik";
+import { Blanket } from "@inubekit/blanket";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
+import { IFamilyGroupEntries } from "@pages/general/UpdateData/forms/FamilyGroupForm/types";
+import { FormikProps } from "formik";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
 import { StyledModal } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface EditFamilyMemberModalProps {
   portalId: string;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   withCustomDirty?: boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   onCloseModal: () => void;
   onConfirm: () => void;
-  isRequired: (fieldName: string) => boolean;
 }
 
 function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
@@ -30,9 +32,9 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
     portalId,
     formik,
     withCustomDirty,
+    validationSchema,
     onCloseModal,
     onConfirm,
-    isRequired,
   } = props;
 
   const [customDirty] = useState(formik.values);
@@ -91,7 +93,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
               onChange={formik.handleChange}
               value={formik.values.relationship}
               state={getFieldState(formik, "relationship")}
-              isRequired={isRequired("relationship")}
+              isRequired={isRequired(validationSchema, "relationship")}
               isFullWidth
             />
             <Select
@@ -106,7 +108,7 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
               onChange={formik.handleChange}
               value={formik.values.isDependent}
               state={getFieldState(formik, "isDependent")}
-              isRequired={isRequired("isDependent")}
+              isRequired={isRequired(validationSchema, "isDependent")}
               isFullWidth
             />
           </>

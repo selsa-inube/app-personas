@@ -1,20 +1,14 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
-import { reimbursementTypeDM } from "src/model/domains/general/updateData/economicActivity/reimbursementTypeDM";
+import { inube } from "@design/tokens";
+import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
+import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
+import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
+import { Grid } from "@inubekit/grid";
 import { currencyFormat } from "src/utils/currency";
-import { truncateFileName } from "src/utils/texts";
+import { aidRequestSteps } from "../../../config/assisted";
 import { IFormsAidRequest } from "../../../types";
-import { IAmountEntry } from "../../AmountForm/types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "../../DetailsSituationForm/types";
-import { IDisbursementEntry } from "../../DisbursementForm/types";
-import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
-import { IRegulationValidationsEntry } from "../../RegulationValidationsForm/types";
-import { aidRequestBoxTitles } from "../config/box";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { inube } from "@design/tokens";
 
 const renderBeneficiariesVerification = (
   values: IBeneficiariesEntry,
@@ -43,7 +37,10 @@ const renderBeneficiariesVerification = (
   );
 };
 
-const renderAmountVerification = (values: IAmountEntry, isTablet: boolean) => {
+const renderDetailsSituationVerification = (
+  values: IDetailsSituationEntry,
+  isTablet: boolean,
+) => {
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
@@ -53,15 +50,8 @@ const renderAmountVerification = (values: IAmountEntry, isTablet: boolean) => {
     >
       <BoxAttribute
         label="Valor de la solicitud:"
-        value={currencyFormat(values.applicationValue)}
+        value={currencyFormat(values.applicationValue || 0)}
       />
-    </Grid>
-  );
-};
-
-const renderDetailsSituationVerification = (values: IDetailsSituationEntry) => {
-  return (
-    <Stack width="100%" direction="column">
       {values.message !== "" && (
         <BoxAttribute
           label="Detalles adicionales:"
@@ -69,84 +59,13 @@ const renderDetailsSituationVerification = (values: IDetailsSituationEntry) => {
           direction="column"
         />
       )}
-    </Stack>
-  );
-};
-
-const renderRegulationValidationsVerification = (
-  values: IRegulationValidationsEntry,
-  isTablet: boolean,
-) => {
-  return (
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      width="100%"
-      gap={inube.spacing.s100}
-    >
-      {values.validations.map((validation) => (
-        <BoxAttribute
-          key={validation.id}
-          value={validation.label}
-          iconAfter={
-            validation.value === "success" ? (
-              <Icon
-                appearance="success"
-                icon={<MdOutlineCheckCircle />}
-                size="20px"
-                spacing="narrow"
-              />
-            ) : (
-              <Icon
-                appearance="danger"
-                icon={<MdOutlineHighlightOff />}
-                size="20px"
-                spacing="narrow"
-              />
-            )
-          }
-        />
-      ))}
     </Grid>
-  );
-};
-
-const renderDocumentaryRequirementsVerification = (
-  values: IDocumentaryRequirementsEntry,
-  isTablet: boolean,
-) => {
-  return (
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      width="100%"
-      gap={inube.spacing.s100}
-    >
-      {values.selectedDocuments.map((document) => (
-        <BoxAttribute
-          key={document.name}
-          label={truncateFileName(document.name, 55)}
-        />
-      ))}
-    </Grid>
-  );
-};
-
-const renderDisbursementVerification = (values: IDisbursementEntry) => {
-  return (
-    <Stack width="100%" gap={inube.spacing.s100} direction="column">
-      <BoxAttribute
-        label="Desembolso:"
-        value={reimbursementTypeDM.valueOf(values.disbursementMethod)?.value}
-      />
-      <BoxAttribute label="Cuenta:" value={values.accountDescription} />
-    </Stack>
   );
 };
 
 interface VerificationBoxesProps {
   aidRequest: IFormsAidRequest;
-  stepKey: keyof typeof aidRequestBoxTitles;
+  stepKey: keyof typeof aidRequestSteps;
   isTablet: boolean;
 }
 
@@ -160,15 +79,15 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet,
         )}
 
-      {stepKey === "amount" &&
-        renderAmountVerification(aidRequest.amount.values, isTablet)}
-
       {stepKey === "detailsSituation" &&
-        renderDetailsSituationVerification(aidRequest.detailsSituation.values)}
+        renderDetailsSituationVerification(
+          aidRequest.detailsSituation.values,
+          isTablet,
+        )}
 
-      {stepKey === "regulationValidations" &&
-        renderRegulationValidationsVerification(
-          aidRequest.regulationValidations.values,
+      {stepKey === "systemValidations" &&
+        renderSystemValidationsVerification(
+          aidRequest.systemValidations.values,
           isTablet,
         )}
 
@@ -179,7 +98,10 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "disbursement" &&
-        renderDisbursementVerification(aidRequest.disbursement.values)}
+        renderDisbursementVerification(
+          aidRequest.disbursement.values,
+          isTablet,
+        )}
     </>
   );
 }

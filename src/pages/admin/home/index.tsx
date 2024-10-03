@@ -41,9 +41,6 @@ function Home() {
         .then((credits) => {
           setCredits(credits);
         })
-        .catch((error) => {
-          console.info(error.message);
-        })
         .finally(() => {
           setLoadingCredits(false);
         });
@@ -60,13 +57,11 @@ function Home() {
     );
 
     if (commitments.length === 0) {
-      getSavingsCommitmentsForUser(user.identification, accessToken)
-        .then((commitments) => {
+      getSavingsCommitmentsForUser(user.identification, accessToken).then(
+        (commitments) => {
           setCommitments(commitments);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        });
+        },
+      );
     }
 
     if (combinedSavings.length === 0) {
@@ -99,9 +94,6 @@ function Home() {
       getCardsForUser(user.identification, accessToken, savingAccountsResume)
         .then((credits) => {
           setCards(credits);
-        })
-        .catch((error) => {
-          console.info(error.message);
         })
         .finally(() => {
           setLoadingCards(false);

@@ -1,15 +1,16 @@
-import { useState } from "react";
-import { EditFamilyMemberUI } from "./interface";
 import { IEntry } from "@design/data/Table/types";
-import { FormikValues } from "formik";
-import { IFamilyGroupEntry } from "../types";
+import { FormikProps } from "formik";
+import { useState } from "react";
+import * as Yup from "yup";
+import { IFamilyGroupEntries, IFamilyGroupEntry } from "../types";
+import { EditFamilyMemberUI } from "./interface";
 
 const getEditFamilyMember = (
   member: IFamilyGroupEntry,
-  formik: FormikValues
+  formik: FormikProps<IFamilyGroupEntries>,
 ) => {
-  const memberToEdit: IFamilyGroupEntry = formik.values.entries.find(
-    (entry: IFamilyGroupEntry) => entry.id === member.id
+  const memberToEdit = formik.values.entries.find(
+    (entry: IFamilyGroupEntry) => entry.id === member.id,
   );
 
   if (memberToEdit) {
@@ -22,13 +23,13 @@ const getEditFamilyMember = (
 
 interface EditFamilyMemberProps {
   member: IEntry;
-  formik: FormikValues;
-  onEditMember: (member: IFamilyGroupEntry, formik: FormikValues) => void;
-  isRequired: (fieldName: string) => boolean;
+  formik: FormikProps<IFamilyGroupEntries>;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
+  onEditMember: (member: IFamilyGroupEntry) => void;
 }
 
 function EditFamilyMember(props: EditFamilyMemberProps) {
-  const { member, formik, onEditMember, isRequired } = props;
+  const { member, formik, validationSchema, onEditMember } = props;
 
   const [showModal, setShowModal] = useState(false);
 
@@ -42,7 +43,7 @@ function EditFamilyMember(props: EditFamilyMemberProps) {
   };
 
   const handleConfirm = () => {
-    onEditMember(member, formik);
+    onEditMember(member);
     handleToggleModal();
   };
 
@@ -50,10 +51,10 @@ function EditFamilyMember(props: EditFamilyMemberProps) {
     <EditFamilyMemberUI
       formik={formik}
       showModal={showModal}
+      validationSchema={validationSchema}
       onEditModal={handleEditModal}
       onConfirm={handleConfirm}
       onCloseModal={handleToggleModal}
-      isRequired={isRequired}
     />
   );
 }

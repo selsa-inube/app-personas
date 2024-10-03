@@ -1,6 +1,4 @@
 import { Title } from "@design/data/Title";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
-import { Tabs } from "@design/navigation/Tabs";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
@@ -23,7 +21,9 @@ import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { Stack } from "@inubekit/stack";
+import { Tabs } from "@inubekit/tabs";
 import { inube } from "@design/tokens";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderTabContent = (
   selectedTab: string,
@@ -158,6 +158,7 @@ function UpdateDataUnassistedUI(props: UpdateDataUnassistedUIProps) {
         onChange={onTabChange}
         selectedTab={selectedTab}
         tabs={Object.values(updateDataTabs)}
+        scroll
       />
       <Stack direction="column" gap={inube.spacing.s300}>
         {renderTabContent(selectedTab, updateData)}

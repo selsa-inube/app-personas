@@ -21,9 +21,6 @@ function MyCards() {
         .then((credits) => {
           setCards(credits);
         })
-        .catch((error) => {
-          console.info(error.message);
-        })
         .finally(() => {
           setLoading(false);
         });

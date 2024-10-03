@@ -6,7 +6,6 @@ import { Table } from "@design/data/Table";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
@@ -27,6 +26,7 @@ import { ISelectedProductState } from "./types";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface ConsumptionUIProps {
   isMobile?: boolean;

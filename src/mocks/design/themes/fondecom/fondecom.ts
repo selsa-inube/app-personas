@@ -100,58 +100,25 @@ const palette = {
 const fondecomTheme = {
   assisted: {
     title: {
-      appearance: {
-        Value: "",
-        Reference: "fondecom.assisted.title.appearance",
-        Token: "dark",
-      },
+      appearance: "dark",
     },
     description: {
-      appearance: {
-        Value: "",
-        Reference: "fondecom.assisted.description.appearance",
-        Token: "gray",
-      },
+      appearance: "gray",
     },
     track: {
-      color: {
-        Value: "",
-        Reference: "fondecom.assisted.track.color",
-        Token: "fondecom.palette.neutral.n30",
-      },
+      color: palette.neutral.n30,
     },
     bar: {
-      color: {
-        Value: "",
-        Reference: "fondecom.assisted.bar.color",
-        Token: "fondecom.palette.blue.b400",
-      },
+      color: palette.blue.b400,
     },
     background: {
-      color: {
-        Value: "",
-        Reference: "fondecom.assisted.background.color",
-        Token: "fondecom.palette.neutral.n10",
-      },
+      color: palette.neutral.n10,
     },
     button: {
-      appearance: {
-        Value: "",
-        Reference: "fondecom.assisted.button.appearance",
-        Token: "primary",
-      },
+      appearance: "primary",
     },
     step: {
-      color: {
-        Value: "",
-        Reference: "fondecom.assisted.step.color",
-        Token: "fondecom.palette.blue.b400",
-      },
-    },
-  },
-  breadcrumbs: {
-    content: {
-      active: "fondecom.breadcrumbs.content.active",
+      color: palette.blue.b400,
     },
   },
   blanket: {
@@ -163,16 +130,16 @@ const fondecomTheme = {
     primary: {
       content: {
         color: {
-          regular: "fondecom.palette.blue.b400",
-          disabled: "fondecom.palette.neutral.n20",
-          hover: "fondecom.palette.blue.b300",
+          regular: palette.blue.b400,
+          disabled: palette.neutral.n20,
+          hover: palette.blue.b300,
         },
       },
       border: {
         color: {
-          regular: "fondecom.palette.blue.b400",
-          disabled: "fondecom.palette.neutral.n70",
-          hover: "fondecom.palette.blue.b300",
+          regular: palette.blue.b400,
+          disabled: palette.neutral.n70,
+          hover: palette.blue.b300,
         },
       },
       contrast: {
@@ -182,16 +149,16 @@ const fondecomTheme = {
     success: {
       content: {
         color: {
-          regular: "fondecom.palette.green.g400",
-          disabled: "fondecom.palette.neutral.n20",
-          hover: "fondecom.palette.green.g300",
+          regular: palette.green.g400,
+          disabled: palette.neutral.n20,
+          hover: palette.green.g300,
         },
       },
       border: {
         color: {
-          regular: "fondecom.palette.green.g400",
-          disabled: "fondecom.palette.neutral.n70",
-          hover: "fondecom.palette.green.g300",
+          regular: palette.green.g400,
+          disabled: palette.neutral.n70,
+          hover: palette.green.g300,
         },
       },
       contrast: {
@@ -201,16 +168,16 @@ const fondecomTheme = {
     warning: {
       content: {
         color: {
-          regular: "fondecom.palette.yellow.y400",
-          disabled: "fondecom.palette.neutral.n20",
-          hover: "fondecom.palette.yellow.y300",
+          regular: palette.yellow.y400,
+          disabled: palette.neutral.n20,
+          hover: palette.yellow.y300,
         },
       },
       border: {
         color: {
-          regular: "fondecom.palette.yellow.y400",
-          disabled: "fondecom.palette.neutral.n70",
-          hover: "fondecom.palette.yellow.y300",
+          regular: palette.yellow.y400,
+          disabled: palette.neutral.n70,
+          hover: palette.yellow.y300,
         },
       },
       contrast: {
@@ -220,16 +187,16 @@ const fondecomTheme = {
     danger: {
       content: {
         color: {
-          regular: "fondecom.palette.red.r400",
-          disabled: "fondecom.palette.neutral.n20",
-          hover: "fondecom.palette.red.r300",
+          regular: palette.red.r400,
+          disabled: palette.neutral.n20,
+          hover: palette.red.r300,
         },
       },
       border: {
         color: {
-          regular: "fondecom.palette.red.r400",
-          disabled: "fondecom.palette.neutral.n70",
-          hover: "fondecom.palette.red.r300",
+          regular: palette.red.r400,
+          disabled: palette.neutral.n70,
+          hover: palette.red.r300,
         },
       },
       contrast: {
@@ -239,16 +206,16 @@ const fondecomTheme = {
     help: {
       content: {
         color: {
-          regular: "fondecom.palette.purple.p400",
-          disabled: "fondecom.palette.neutral.n20",
-          hover: "fondecom.palette.purple.p300",
+          regular: palette.purple.p400,
+          disabled: palette.neutral.n20,
+          hover: palette.purple.p300,
         },
       },
       border: {
         color: {
-          regular: "fondecom.palette.purple.p400",
-          disabled: "fondecom.palette.neutral.n70",
-          hover: "fondecom.palette.purple.p300",
+          regular: palette.purple.p400,
+          disabled: palette.neutral.n70,
+          hover: palette.purple.p300,
         },
       },
       contrast: {
@@ -258,16 +225,16 @@ const fondecomTheme = {
     dark: {
       content: {
         color: {
-          regular: "fondecom.palette.neutral.n900",
-          disabled: "fondecom.palette.neutral.n20",
-          hover: "fondecom.palette.neutral.n500",
+          regular: palette.neutral.n900,
+          disabled: palette.neutral.n20,
+          hover: palette.neutral.n500,
         },
       },
       border: {
         color: {
-          regular: "fondecom.palette.neutral.n900",
-          disabled: "fondecom.palette.neutral.n70",
-          hover: "fondecom.palette.neutral.n500",
+          regular: palette.neutral.n900,
+          disabled: palette.neutral.n70,
+          hover: palette.neutral.n500,
         },
       },
       contrast: {
@@ -277,16 +244,16 @@ const fondecomTheme = {
     gray: {
       content: {
         color: {
-          regular: "fondecom.palette.neutral.n20",
-          disabled: "fondecom.palette.neutral.n20",
-          hover: "fondecom.palette.neutral.n30",
+          regular: palette.neutral.n20,
+          disabled: palette.neutral.n20,
+          hover: palette.neutral.n30,
         },
       },
       border: {
         color: {
-          regular: "fondecom.palette.neutral.n200",
-          disabled: "fondecom.palette.neutral.n70",
-          hover: "fondecom.palette.neutral.n90",
+          regular: palette.neutral.n200,
+          disabled: palette.neutral.n70,
+          hover: palette.neutral.n90,
         },
       },
       contrast: {
@@ -296,16 +263,16 @@ const fondecomTheme = {
     light: {
       content: {
         color: {
-          regular: "fondecom.palette.neutral.n10",
-          disabled: "fondecom.palette.neutral.n20",
-          hover: "fondecom.palette.neutral.n0",
+          regular: palette.neutral.n10,
+          disabled: palette.neutral.n20,
+          hover: palette.neutral.n0,
         },
       },
       border: {
         color: {
-          regular: "fondecom.palette.neutral.n10",
-          disabled: "fondecom.palette.neutral.n70",
-          hover: "fondecom.palette.neutral.n0",
+          regular: palette.neutral.n10,
+          disabled: palette.neutral.n70,
+          hover: palette.neutral.n0,
         },
       },
       contrast: {
@@ -346,14 +313,10 @@ const fondecomTheme = {
   },
   fieldset: {
     legend: {
-      color: {
-        "fondecom.fieldset.legend.color": "fondecom.palette.neutral.n200",
-      },
+      color: palette.neutral.n200,
     },
     border: {
-      color: {
-        "fondecom.fieldset.border.color": "fondecom.palette.neutral.n40",
-      },
+      color: palette.neutral.n40,
     },
   },
   fullscreenNav: {
@@ -1237,21 +1200,11 @@ const fondecomTheme = {
       },
     },
   },
-  tabs: {
-    content: {
-      appearance: {
-        selected: {
-          Token: "primary",
-          Reference: "fondecom.tabs.content.appearance.selected",
-        },
-      },
-    },
-  },
   tag: {
     primary: {
       normal: {
         background: {
-          color: "fondecom.palette.blue.b50",
+          color: palette.blue.b50,
         },
         content: {
           appearance: "primary",
@@ -1259,7 +1212,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.blue.b400",
+          color: palette.blue.b400,
         },
         content: {
           appearance: "light",
@@ -1269,7 +1222,7 @@ const fondecomTheme = {
     success: {
       normal: {
         background: {
-          color: "fondecom.palette.green.g50",
+          color: palette.green.g50,
         },
         content: {
           appearance: "success",
@@ -1277,7 +1230,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.green.g400",
+          color: palette.green.g400,
         },
         content: {
           appearance: "light",
@@ -1287,7 +1240,7 @@ const fondecomTheme = {
     warning: {
       normal: {
         background: {
-          color: "fondecom.palette.yellow.y50",
+          color: palette.yellow.y50,
         },
         content: {
           appearance: "warning",
@@ -1295,7 +1248,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.yellow.y400",
+          color: palette.yellow.y400,
         },
         content: {
           appearance: "dark",
@@ -1305,7 +1258,7 @@ const fondecomTheme = {
     danger: {
       normal: {
         background: {
-          color: "fondecom.palette.red.r50",
+          color: palette.red.r50,
         },
         content: {
           appearance: "danger",
@@ -1313,7 +1266,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.red.r400",
+          color: palette.red.r400,
         },
         content: {
           appearance: "light",
@@ -1323,7 +1276,7 @@ const fondecomTheme = {
     help: {
       normal: {
         background: {
-          color: "fondecom.palette.purple.p50",
+          color: palette.purple.p50,
         },
         content: {
           appearance: "help",
@@ -1331,7 +1284,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.purple.p400",
+          color: palette.purple.p400,
         },
         content: {
           appearance: "light",
@@ -1341,7 +1294,7 @@ const fondecomTheme = {
     dark: {
       normal: {
         background: {
-          color: "fondecom.palette.neutral.n30",
+          color: palette.neutral.n30,
         },
         content: {
           appearance: "dark",
@@ -1349,7 +1302,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.neutral.n900",
+          color: palette.neutral.n900,
         },
         content: {
           appearance: "light",
@@ -1359,7 +1312,7 @@ const fondecomTheme = {
     gray: {
       normal: {
         background: {
-          color: "fondecom.palette.neutral.n10",
+          color: palette.neutral.n10,
         },
         content: {
           appearance: "gray",
@@ -1367,7 +1320,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.neutral.n30",
+          color: palette.neutral.n30,
         },
         content: {
           appearance: "gray",
@@ -1377,7 +1330,7 @@ const fondecomTheme = {
     light: {
       normal: {
         background: {
-          color: "fondecom.palette.neutral.n0",
+          color: palette.neutral.n0,
         },
         content: {
           appearance: "dark",
@@ -1385,7 +1338,7 @@ const fondecomTheme = {
       },
       strong: {
         background: {
-          color: "fondecom.palette.neutral.n10",
+          color: palette.neutral.n10,
         },
         content: {
           appearance: "dark",
@@ -1638,111 +1591,53 @@ const fondecomTheme = {
     on: {
       background: {
         color: {
-          regular: {
-            "fondecom.toggle.on.background.color.regular":
-              "fondecom.palette.green.g400",
-          },
-          disabled: {
-            "fondecom.toggle.on.background.color.disabled":
-              "fondecom.palette.neutral.n20",
-          },
-          hover: {
-            "fondecom.toggle.on.background.color.hover":
-              "fondecom.palette.green.g300",
-          },
+          regular: palette.green.g400,
+          disabled: palette.neutral.n20,
+          hover: palette.green.g300,
         },
       },
-      "toggle-background": {
+      toggleBackground: {
         color: {
-          regular: {
-            "fondecom.toggle.on.toggle-background.color.regular":
-              "fondecom.palette.neutral.n0",
-          },
-          disabled: {
-            "fondecom.toggle.on.toggle-background.color.disabled":
-              "fondecom.palette.neutral.n0",
-          },
-          hover: {
-            "fondecom.toggle.on.toggle-background.color.hover":
-              "fondecom.palette.neutral.n0",
-          },
+          regular: palette.neutral.n0,
+          disabled: palette.neutral.n0,
+          hover: palette.neutral.n0,
         },
       },
-      "toggle-border": {
+      toggleBorder: {
         color: {
-          regular: {
-            "fondecom.toggle.on.toggle-border.color.regular":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
-          disabled: {
-            "fondecom.toggle.on.toggle-border.color.disabled":
-              "fondecom.palette.neutral.n70",
-          },
-          hover: {
-            "fondecom.toggle.on.toggle-border.color.hover":
-              "fondecom.palette.neutralAlpha.n0a",
-          },
+          regular: palette.neutralAlpha.n0a,
+          disabled: palette.neutral.n70,
+          hover: palette.neutralAlpha.n0a,
         },
       },
       icon: {
-        appearance: {
-          "fondecom.toggle.on.icon.appearance": "light",
-        },
+        appearance: "light",
       },
     },
     off: {
       background: {
         color: {
-          regular: {
-            "fondecom.toggle.off.background.color.regular":
-              "fondecom.palette.neutral.n20",
-          },
-          disabled: {
-            "fondecom.toggle.off.background.color.disabled":
-              "fondecom.palette.neutral.n20",
-          },
-          hover: {
-            "fondecom.toggle.off.background.color.hover":
-              "fondecom.palette.neutral.n10",
-          },
+          regular: palette.neutral.n20,
+          disabled: palette.neutral.n20,
+          hover: palette.neutral.n10,
         },
       },
-      "toggle-background": {
+      toggleBackground: {
         color: {
-          regular: {
-            "fondecom.toggle.off.toggle-background.color.regular":
-              "fondecom.palette.neutral.n0",
-          },
-          disabled: {
-            "fondecom.toggle.off.toggle-background.color.disabled":
-              "fondecom.palette.neutral.n0",
-          },
-          hover: {
-            "fondecom.toggle.off.toggle-background.color.hover":
-              "fondecom.palette.neutral.n0",
-          },
+          regular: palette.neutral.n0,
+          disabled: palette.neutral.n0,
+          hover: palette.neutral.n0,
         },
       },
-      "toggle-border": {
+      toggleBorder: {
         color: {
-          regular: {
-            "fondecom.toggle.off.toggle-border.color.regular":
-              "fondecom.palette.neutral.n70",
-          },
-          disabled: {
-            "fondecom.toggle.off.toggle-border.color.disabled":
-              "fondecom.palette.neutral.n70",
-          },
-          hover: {
-            "fondecom.toggle.off.toggle-border.color.hover":
-              "fondecom.palette.neutral.n70",
-          },
+          regular: palette.neutral.n70,
+          disabled: palette.neutral.n70,
+          hover: palette.neutral.n70,
         },
       },
       icon: {
-        appearance: {
-          "fondecom.toggle.off.icon.appearance": "gray",
-        },
+        appearance: "gray",
       },
     },
   },

@@ -1,7 +1,8 @@
-import { StyledLoadingCard } from "./styles";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
 import { Spinner } from "@inubekit/spinner";
 import { Text } from "@inubekit/text";
+import { StyledLoadingCard } from "./styles";
 
 interface LoadingModalProps {
   title: string;
@@ -11,11 +12,13 @@ interface LoadingModalProps {
 function LoadingModal(props: LoadingModalProps) {
   const { title, message } = props;
 
+  const isMobile = useMediaQuery("(max-width: 550px)");
+
   return (
     <Blanket>
-      <StyledLoadingCard>
-        <Spinner appearance="primary" size="large" transparent />
-        <Text type="title" size="large">
+      <StyledLoadingCard $isMobile={isMobile}>
+        <Spinner appearance="primary" size="large" transparent={false} />
+        <Text type="title" size="large" weight="bold">
           {title}
         </Text>
         <Text type="body" size="large" appearance="gray" textAlign="center">

@@ -12,19 +12,35 @@ const mapRequirementEntityToApi = (
     destinationName: requirement.destinationName,
     customerCode: requirement.customerCode,
     customerName: requirement.customerName,
-    paymentMethodCode: requirement.paymentMethod,
+    paymentMethod: requirement.paymentMethod,
     paymentMethodName: requirement.paymentMethodName,
     requestAmount: requirement.amount,
     creditAmount: requirement.amount,
-    capitalPaymentPeriod: requirement.periodicity,
     numQuotas: requirement.deadline,
-    nominalRate: Number(requirement.rate.toFixed(2)),
+    nominalRate: requirement.rate,
     amortizationType: requirement.amortizationType,
-    interestPaymentPeriod: "",
     periodicity: requirement.periodicity,
     quotaValue: requirement.quota,
     amountToTurn: requirement.netValue,
     requestDate: requirement.requestDate.toISOString(),
+    disbursementMethod: {
+      disbursementMethodCode: requirement.disbursmentMethod.id,
+      disbursementMethodDetail: requirement.disbursmentMethod.name,
+      savingsAccountNumber: requirement.disbursmentMethod.accountNumber,
+      accountNumber: requirement.disbursmentMethod.transferAccountNumber,
+      accountTypeCode: requirement.disbursmentMethod.transferAccountType,
+      accountTypeDetail: requirement.disbursmentMethod.transferBankEntity,
+      bankCode: requirement.disbursmentMethod.transferBankEntity,
+      bankDetail: requirement.disbursmentMethod.transferBankEntity,
+      businessName: requirement.disbursmentMethod.businessName,
+      firstName: requirement.disbursmentMethod.firstName,
+      genderCode: requirement.disbursmentMethod.gender,
+      genderDetail: requirement.disbursmentMethod.genderName,
+      identificationDetail: requirement.disbursmentMethod.identification,
+      identificationNumber: requirement.disbursmentMethod.identification,
+      identificationTypeCode: requirement.disbursmentMethod.identificationType,
+      lastName: requirement.disbursmentMethod.lastName,
+    },
   };
 };
 
@@ -45,6 +61,13 @@ const mapRequirementApiToEntity = (
       correctSpecialCharacters(String(requirement.errorDescription)),
     ),
     value: resultValues[String(requirement.responseCode)] || "pending",
+    documentType: requirement.documentTypeCode
+      ? String(requirement.documentTypeCode)
+      : undefined,
+    profile: requirement.profile ? String(requirement.profile) : undefined,
+    responseCode: String(requirement.responseCode) || "",
+    evaluationDescription: "",
+    isRequired: !!requirement.isMandatory,
   };
 };
 

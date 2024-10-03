@@ -1,26 +1,18 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
+import { renderCommentsVerification } from "@forms/CommentsForm/verification";
+import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
+import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
+import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
+import { renderPaymentMethodVerification } from "@forms/PaymentMethodForm/verification";
+import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
+import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { MdOutlineCheckCircle, MdOutlineHighlightOff } from "react-icons/md";
-import { activeDM } from "src/model/domains/general/activedm";
-import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
-import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
-import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { currencyFormat } from "src/utils/currency";
-import { truncateFileName } from "src/utils/texts";
+import { creditDestinationRequestSteps } from "../../../config/assisted";
 import { IFormsCreditDestinationRequest } from "../../../types";
 import { ICreditConditionsEntry } from "../../CreditConditionsForm/types";
 import { IDestinationEntry } from "../../DestinationForm/types";
-import { IDisbursementEntry } from "../../DisbursementForm/types";
-import { IDocumentaryRequirementsEntry } from "../../DocumentaryRequirementsForm/types";
-import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
-import { ISystemValidationsEntry } from "../../SystemValidationsForm/types";
-import { ITermsAndConditionsEntry } from "../../TermsAndConditionsForm/types";
-import { creditDestinationRequestBoxTitles } from "../config/box";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -32,8 +24,8 @@ const renderDestinationVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    <BoxAttribute label="Destino:" value={values.creditDestination?.value} />
-    <BoxAttribute label="Producto:" value={values.selectedProduct?.title} />
+    <BoxAttribute label="Destino:" value={values.destination?.value} />
+    <BoxAttribute label="Producto:" value={values.product?.title} />
   </Grid>
 );
 
@@ -63,7 +55,7 @@ const renderCreditConditionsVerification = (
         <BoxAttribute label="Numero de cuotas:" value={values.deadline} />
         <BoxAttribute
           label="Tasa de interés:"
-          value={`${values.product.maxRate} % N.A.M.V`}
+          value={`${values.rate.toFixed(2)} % N.A.M.V`}
         />
         <BoxAttribute
           label="Desembolso aproximado:"
@@ -74,258 +66,9 @@ const renderCreditConditionsVerification = (
   </>
 );
 
-const renderPaymentMethodVerification = (
-  values: IPaymentMethodEntry,
-  isTablet: boolean,
-) => {
-  return (
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      gap={inube.spacing.s100}
-      width="100%"
-    >
-      <BoxAttribute
-        label="Medio de pago:"
-        value={
-          values.paymentMethods.find(
-            (method) => method.id === values.paymentMethodType,
-          )?.value
-        }
-      />
-      {values.accountToDebit && (
-        <BoxAttribute
-          label="Cuenta a debitar:"
-          value={
-            getValueOfDomain(values.accountToDebit, "accountDebitType")?.value
-          }
-        />
-      )}
-      {values.accountSelection && (
-        <BoxAttribute
-          label="Selección de cuenta:"
-          value={
-            getValueOfDomain(values.accountSelection, "accountSelectionType")
-              ?.value
-          }
-        />
-      )}
-      {values.accountNumberSelect && !values.accountSelection && (
-        <BoxAttribute
-          label="Número de cuenta:"
-          value={values.accountNumberSelect}
-        />
-      )}
-      {values.accountNumberTextField && values.accountSelection && (
-        <BoxAttribute
-          label="Número de cuenta:"
-          value={values.accountNumberTextField}
-        />
-      )}
-      {values.accountType && (
-        <BoxAttribute
-          label="Tipo de cuenta:"
-          value={getValueOfDomain(values.accountType, "accountType")?.value}
-        />
-      )}
-      {values.bankEntity && (
-        <BoxAttribute
-          label="Entidad:"
-          value={getValueOfDomain(values.bankEntity, "bank")?.value}
-        />
-      )}
-    </Grid>
-  );
-};
-
-const renderSystemValidationsVerification = (
-  values: ISystemValidationsEntry,
-  isTablet: boolean,
-) => {
-  return (
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      gap={inube.spacing.s100}
-      width="100%"
-    >
-      {values.validations.map((validation) => (
-        <BoxAttribute
-          key={validation.id}
-          value={validation.label}
-          iconAfter={
-            validation.value === "success" ? (
-              <Icon
-                appearance="success"
-                icon={<MdOutlineCheckCircle />}
-                size="20px"
-                spacing="narrow"
-              />
-            ) : (
-              <Icon
-                appearance="danger"
-                icon={<MdOutlineHighlightOff />}
-                size="20px"
-                spacing="narrow"
-              />
-            )
-          }
-        />
-      ))}
-    </Grid>
-  );
-};
-
-const renderDocumentaryRequirementsVerification = (
-  values: IDocumentaryRequirementsEntry,
-  isTablet: boolean,
-) => {
-  return (
-    <Grid
-      templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-      autoRows="auto"
-      gap={inube.spacing.s100}
-      width="100%"
-    >
-      {values.selectedDocuments.map((document) => (
-        <BoxAttribute
-          key={document.file.name}
-          label={truncateFileName(document.file.name, 55)}
-        />
-      ))}
-    </Grid>
-  );
-};
-
-const getAccountDescription = (accountId: string) => {
-  return `Ahorros ${accountId}`;
-};
-
-const renderDisbursementVerification = (values: IDisbursementEntry) => (
-  <Stack direction="column" gap={inube.spacing.s100} width="100%">
-    <BoxAttribute
-      label="Forma de desembolso:"
-      value={
-        getValueOfDomain(values.disbursementType, "disbursementType")?.value
-      }
-    />
-    {values.accountType && (
-      <BoxAttribute
-        label="Tipo de cuenta:"
-        value={getValueOfDomain(values.accountType, "accountType")?.value}
-      />
-    )}
-    {values.accountNumber && (
-      <BoxAttribute
-        label="Numero de cuenta:"
-        value={getAccountDescription(values.accountNumber)}
-      />
-    )}
-    {values.writeAccountNumber && (
-      <BoxAttribute
-        label="Numero de cuenta:"
-        value={values.writeAccountNumber}
-      />
-    )}
-    {values.observations && (
-      <BoxAttribute
-        label="Observaciones:"
-        value={values.observations}
-        direction="column"
-      />
-    )}
-    {values.supplier && (
-      <BoxAttribute
-        label="Proveedor:"
-        value={getValueOfDomain(values.supplier, "suppliersType")?.value}
-      />
-    )}
-    {values.identificationType && (
-      <BoxAttribute
-        label="Tipo de identificación:"
-        value={identificationTypeDM.valueOf(values.identificationType)?.value}
-      />
-    )}
-    {values.identification && (
-      <BoxAttribute label="Identificación:" value={values.identification} />
-    )}
-    {values.socialReason && (
-      <BoxAttribute label="Razón social:" value={values.socialReason} />
-    )}
-    {values.firstName && (
-      <BoxAttribute label="Primer nombre:" value={values.firstName} />
-    )}
-    {values.secondName && (
-      <BoxAttribute label="Segundo nombre:" value={values.secondName} />
-    )}
-    {values.firstLastName && (
-      <BoxAttribute label="Primer apellido:" value={values.firstLastName} />
-    )}
-    {values.secondLastName && (
-      <BoxAttribute label="Segundo apellido:" value={values.secondLastName} />
-    )}
-    {values.gender && (
-      <BoxAttribute
-        label="Género:"
-        value={genderDM.valueOf(values.gender)?.value}
-      />
-    )}
-    {values.others && <BoxAttribute label="Otros:" value={values.others} />}
-    {values.entity && (
-      <BoxAttribute
-        label="Entidad:"
-        value={getValueOfDomain(values.entity, "bank")?.value}
-      />
-    )}
-  </Stack>
-);
-
-const renderCommentsVerification = (values: ICommentsEntry) => (
-  <Stack width="100%" direction="column">
-    <BoxAttribute
-      label="Comentarios adicionales:"
-      value={values.comments}
-      direction="column"
-    />
-  </Stack>
-);
-
-const renderTermsAndConditionsVerification = (
-  values: ITermsAndConditionsEntry,
-  isTablet: boolean,
-) => (
-  <Grid
-    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
-    autoRows="auto"
-    gap={inube.spacing.s100}
-    width="100%"
-  >
-    <BoxAttribute
-      label="Acepta términos y condiciones:"
-      value={values.accept ? activeDM.Y.value : activeDM.N.value}
-    />
-    <BoxAttribute
-      label="Acepta política de tratamiento de datos:"
-      value={values.acceptDataPolicy ? activeDM.Y.value : activeDM.N.value}
-    />
-  </Grid>
-);
-
-const renderContactChannelsVerification = (values: IContactChannelsEntry) => (
-  <Stack width="100%" direction="column" gap={inube.spacing.s100}>
-    <BoxAttribute label="Teléfono:" value={values.landlinePhone} />
-    <BoxAttribute label="Celular:" value={values.cellPhone} />
-    <BoxAttribute label="Correo:" value={values.email} />
-    <BoxAttribute
-      label="Autoriza recibir información:"
-      value={values.acceptNotifications ? activeDM.Y.value : activeDM.N.value}
-    />
-  </Stack>
-);
-
 interface VerificationBoxesProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
-  stepKey: keyof typeof creditDestinationRequestBoxTitles;
+  stepKey: keyof typeof creditDestinationRequestSteps;
   isTablet: boolean;
 }
 
@@ -360,6 +103,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
           creditDestinationRequest.disbursement.values,
+          isTablet,
         )}
 
       {stepKey === "documentaryRequirements" &&

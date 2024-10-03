@@ -16,7 +16,7 @@ const saveTrafficTracking = async (uid: string) => {
       throw new Error(error.message);
     }
   } catch (error) {
-    console.error(error);
+    console.info(error);
   }
 };
 

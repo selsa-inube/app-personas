@@ -1,41 +1,54 @@
 const aidRequestSteps = {
   beneficiaries: {
-    id: 1,
+    id: "beneficiaries",
+    number: 1,
     name: "Beneficiarios",
     description:
       "Selecciona uno de tus Posibles beneficiarios como beneficiario.",
   },
-  amount: {
-    id: 2,
-    name: "Monto",
+  detailsSituation: {
+    id: "detailsSituation",
+    number: 2,
+    name: "Detalles de la situación",
     description: "Ingresa los valores para conocer tu cupo disponible.",
   },
-  detailsSituation: {
-    id: 3,
-    name: "Detalles de la situación",
-    description:
-      "Describe brevemente los detalles para la solicitud de auxilio.",
-  },
-  regulationValidations: {
-    id: 4,
-    name: "Validaciones del reglamento",
+  systemValidations: {
+    id: "systemValidations",
+    number: 3,
+    name: "Validaciones del sistema",
     description:
       "Revisas cuales son los requisitos necesarios para realizar la solicitud de auxilio.",
   },
   documentaryRequirements: {
-    id: 5,
+    id: "documentaryRequirements",
+    number: 4,
     name: "Requisitos documentales",
     description:
       "Adjunta la documentación para cumplir con los requisitos y continuar con tu solicitud.",
   },
   disbursement: {
-    id: 6,
-    name: "Desembolso",
+    id: "disbursement",
+    number: 5,
+    name: "Forma de desembolso",
     description:
       "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
   },
+  termsAndConditions: {
+    id: "termsAndConditions",
+    number: 6,
+    name: "Términos y condiciones",
+    description: "Aceptaciones y avisos de privacidad.",
+  },
+  contactChannels: {
+    id: "contactChannels",
+    number: 7,
+    name: "Canales de contacto",
+    description:
+      "Selecciona las opciones que nos permitan enviarte información.",
+  },
   verification: {
-    id: 7,
+    id: "verification",
+    number: 8,
     name: "Verificación",
     description: "Confirma la información diligenciada en pasos anteriores.",
   },

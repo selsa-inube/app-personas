@@ -1,9 +1,9 @@
-import { MdChevronRight } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import { StyledCardContainer } from "./styles";
-import { Icon } from "@inubekit/icon";
+import { inube } from "@design/tokens";
+import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { useNavigate } from "react-router-dom";
+import { StyledCardContainer } from "./styles";
 
 interface AidCardProps {
   id: string;
@@ -22,22 +22,22 @@ function AidCard(props: AidCardProps) {
 
   return (
     <StyledCardContainer>
-      <Stack justifyContent="space-between" alignItems="center">
-        <Text type="title" size="medium">
-          {title}
+      <Stack direction="column" gap={inube.spacing.s200}>
+        <Stack justifyContent="space-between" alignItems="center">
+          <Text type="title" size="medium" weight="bold">
+            {title}
+          </Text>
+        </Stack>
+        <Text type="body" size="medium" appearance="gray">
+          {description}
         </Text>
-        <Icon
-          icon={<MdChevronRight />}
-          appearance="primary"
-          size="24px"
-          spacing="narrow"
-          cursorHover
-          onClick={goToAid}
-        />
       </Stack>
-      <Text type="body" size="medium" appearance="gray">
-        {description}
-      </Text>
+
+      <Stack justifyContent="flex-end" width="100%">
+        <Button onClick={goToAid} spacing="compact">
+          Solicitar
+        </Button>
+      </Stack>
     </StyledCardContainer>
   );
 }

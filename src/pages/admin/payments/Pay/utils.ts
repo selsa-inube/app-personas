@@ -19,7 +19,7 @@ const payStepsRules = (
   let newPay = { ...currentPay };
 
   switch (currentStep) {
-    case paySteps.obligations.id: {
+    case paySteps.obligations.number: {
       const values = formReferences.obligations.current?.values;
 
       if (!values) return currentPay;
@@ -47,7 +47,7 @@ const payStepsRules = (
   }
 
   const stepKey = Object.entries(paySteps).find(
-    ([, config]) => config.id === currentStep,
+    ([, config]) => config.number === currentStep,
   )?.[0];
 
   if (!stepKey) return currentPay;
@@ -72,7 +72,7 @@ const sendPaymentRequest = async (
 
   const filteredPaymentMethod = Object.values(
     pay.paymentMethod.values.moneySources || {},
-  ).filter((moneySource) => moneySource.value > 0);
+  ).filter((moneySource) => moneySource.value && moneySource.value > 0);
 
   const paymentRequestData: IPaymentRequest = {
     customerCode: user.identification,
@@ -101,7 +101,7 @@ const sendPaymentRequest = async (
     );
 
     if (!hasPSEMethod && hasSavingAccountMethod) {
-      navigate("/payments/history");
+      navigate("/payments/history?success_request=true");
       return;
     }
 

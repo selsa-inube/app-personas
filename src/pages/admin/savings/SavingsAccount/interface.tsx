@@ -8,12 +8,12 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   MdArrowBack,
   MdOpenInNew,
+  MdOutlineAdd,
   MdOutlineAssignmentTurnedIn,
   MdOutlineAttachMoney,
 } from "react-icons/md";
@@ -32,25 +32,30 @@ import {
 } from "./types";
 
 import { RecordCard } from "@components/cards/RecordCard";
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { ActionsModal } from "@components/modals/saving/ActionsModal";
+import { ChangeQuotaModal } from "@components/modals/saving/ChangeQuotaModal";
+import { ModifyActionModal } from "@components/modals/saving/ModifyActionModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
-import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
-import { IMessage } from "@ptypes/messages.types";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
+import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
 import {
   EMovementType,
   EProductType,
   IMovement,
 } from "src/model/entity/product";
+import { extractAttribute } from "src/utils/products";
+import { generateAttributes } from "./config/attributeRecord";
 import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
-import { generateAttributes } from "./config/attributeRecord";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -75,17 +80,28 @@ interface SavingsAccountUIProps {
   reimbursementModal: IReimbursementModalState;
   showRechargeModal: boolean;
   loadingSend: boolean;
-  message: IMessage;
   productId?: string;
   commitmentsModal: ICommitmentsModalState;
   withTransfers: boolean;
+  showActionsModal: boolean;
+  showChangeQuotaModal: boolean;
+  showModifyActionModal: boolean;
+  showCancelSavingModal: boolean;
   onToggleBeneficiariesModal: () => void;
   onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleCommitmentsModal: () => void;
   onToggleReimbursementModal: () => void;
   onToggleRechargeModal: () => void;
   onSubmitRecharge: (savingAccount: string, amount: number) => void;
-  onCloseMessage: () => void;
+  onToggleActionsModal: () => void;
+  onChangeQuota: () => void;
+  onModifyAction: () => void;
+  onCancelSaving: () => void;
+  onToggleChangeQuotaModal: () => void;
+  onToggleModifyActionModal: () => void;
+  onToggleCancelSavingModal: () => void;
+  onDownloadCertificate: () => void;
+  onShareCertificate: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -97,17 +113,28 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     reimbursementModal,
     showRechargeModal,
     loadingSend,
-    message,
     productId,
     commitmentsModal,
     withTransfers,
+    showActionsModal,
+    showChangeQuotaModal,
+    showModifyActionModal,
+    showCancelSavingModal,
     onToggleBeneficiariesModal,
     onChangeProduct,
     onToggleCommitmentsModal,
     onToggleReimbursementModal,
     onToggleRechargeModal,
     onSubmitRecharge,
-    onCloseMessage,
+    onToggleActionsModal,
+    onChangeQuota,
+    onModifyAction,
+    onCancelSaving,
+    onToggleChangeQuotaModal,
+    onToggleModifyActionModal,
+    onToggleCancelSavingModal,
+    onDownloadCertificate,
+    onShareCertificate,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -118,6 +145,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
   const formatedAttributes =
     attributes &&
     formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type);
+
+  const netValue = extractAttribute(attributes, "net_value");
 
   const productsIcons = {
     ...savingCommitmentsIcons,
@@ -238,6 +267,19 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   )}
               </Grid>
             </Stack>
+            <Stack justifyContent="flex-end" width="100%">
+              {[EProductType.PROGRAMMEDSAVINGS, EProductType.CDAT].includes(
+                selectedProduct.saving.type,
+              ) && (
+                <Button
+                  iconBefore={<MdOutlineAdd />}
+                  spacing="compact"
+                  onClick={onToggleActionsModal}
+                >
+                  Acciones
+                </Button>
+              )}
+            </Stack>
           </Box>
           {showMovements && (
             <Stack
@@ -326,22 +368,51 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           onSubmit={onSubmitRecharge}
         />
       )}
+      {showActionsModal && (
+        <ActionsModal
+          productType={selectedProduct.saving.type}
+          onCloseModal={onToggleActionsModal}
+          onChangeQuota={onToggleChangeQuotaModal}
+          onModifyAction={onToggleModifyActionModal}
+          onCancelSaving={onToggleCancelSavingModal}
+          onDownload={onDownloadCertificate}
+          onShare={onShareCertificate}
+        />
+      )}
+      {showChangeQuotaModal && (
+        <ChangeQuotaModal
+          onCloseModal={onToggleChangeQuotaModal}
+          totalBalance={Number(netValue?.value || 0)}
+          paymentMethod="debit"
+          paymentMethodName="Debito automático"
+          onConfirm={onChangeQuota}
+        />
+      )}
+      {showModifyActionModal && (
+        <ModifyActionModal
+          portalId="modals"
+          shareMaturity={shareMaturityDM.PAYMENT.id}
+          onCloseModal={onToggleModifyActionModal}
+          onConfirm={onModifyAction}
+        />
+      )}
+      {showCancelSavingModal && (
+        <DecisionModal
+          portalId="modals"
+          title="Cancelar ahorro por anticipado"
+          description="¿Estas seguro? Analizaremos tu solicitud y determinaremos las condiciones para la cancelación."
+          actionText="Cancelar"
+          appearance="danger"
+          cancelText="Continuar"
+          onClick={onCancelSaving}
+          onCloseModal={onToggleCancelSavingModal}
+        />
+      )}
 
       {loadingSend && (
         <LoadingModal
           title="Procesando depósito..."
           message="Espera unos segundos, estamos procesando la transacción."
-        />
-      )}
-
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={onCloseMessage}
-          duration={5000}
         />
       )}
     </>

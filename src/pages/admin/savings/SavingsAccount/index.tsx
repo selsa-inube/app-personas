@@ -1,14 +1,15 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/flag";
 import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
-import { IMessage } from "@ptypes/messages.types";
+import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
-import { MdSentimentNeutral } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
-import { initialMessageState } from "src/utils/messages";
+import { formatSecondaryDate } from "src/utils/dates";
+import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -16,6 +17,7 @@ import {
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
+import { getCdatCertificateDocument } from "./utilRenders";
 import { validateSaving } from "./utils";
 
 function SavingsAccount() {
@@ -42,11 +44,15 @@ function SavingsAccount() {
       show: false,
       data: [],
     });
-
   const [showRechargeModal, setShowRechargeModal] = useState(false);
+  const [showActionsModal, setShowActionsModal] = useState(false);
+  const [showChangeQuotaModal, setShowChangeQuotaModal] = useState(false);
+  const [showModifyActionModal, setShowModifyActionModal] = useState(false);
+  const [showCancelSavingModal, setShowCancelSavingModal] = useState(false);
+
   const [loadingSend, setLoadingSend] = useState(false);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const { getFlag } = useContext(AppContext);
+  const { addFlag } = useFlag();
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -171,13 +177,12 @@ function SavingsAccount() {
     setLoadingSend(true);
 
     sendTransferRequest(user, savingAccount, amount, accessToken).catch(() => {
-      setMessage({
-        show: true,
+      addFlag({
         title: "El depósito no pudo ser procesado",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        icon: <MdSentimentNeutral />,
         appearance: "danger",
+        duration: 5000,
       });
 
       setLoadingSend(false);
@@ -188,8 +193,97 @@ function SavingsAccount() {
     setShowRechargeModal(!showRechargeModal);
   };
 
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
+  const handleToggleActionsModal = () => {
+    setShowActionsModal(!showActionsModal);
+  };
+
+  const handleToggleChangeQuotaModal = () => {
+    setShowActionsModal(false);
+    setShowChangeQuotaModal(!showChangeQuotaModal);
+  };
+
+  const handleToggleModifyActionModal = () => {
+    setShowActionsModal(false);
+    setShowModifyActionModal(!showModifyActionModal);
+  };
+
+  const handleToggleCancelSavingModal = () => {
+    setShowActionsModal(false);
+    setShowCancelSavingModal(!showCancelSavingModal);
+  };
+
+  const handleChangeQuota = () => {
+    return true;
+  };
+
+  const handleModifyAction = () => {
+    return true;
+  };
+
+  const handleCancelSaving = () => {
+    return true;
+  };
+
+  const handleDownloadCertificate = () => {
+    if (!selectedProduct?.saving) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
+      (pdf) => {
+        pdf.save(
+          `certificado-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
+        );
+      },
+    );
+  };
+
+  const handleShareCertificate = () => {
+    if (!selectedProduct?.saving) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
+      (pdf) => {
+        const pdfBlob = pdf.output("blob");
+
+        if (navigator.share) {
+          navigator.share({
+            title: "Certificado",
+            text: `${selectedProduct.saving.title}- ${formatSecondaryDate(today)}`,
+            files: [
+              new File(
+                [pdfBlob],
+                `certificado-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
+                {
+                  type: "application/pdf",
+                },
+              ),
+            ],
+          });
+        } else {
+          console.warn("Web Share API is not supported in this browser");
+        }
+      },
+    );
   };
 
   if (!selectedProduct) return null;
@@ -209,15 +303,26 @@ function SavingsAccount() {
       reimbursementModal={reimbursementModal}
       showRechargeModal={showRechargeModal}
       loadingSend={loadingSend}
-      message={message}
       withTransfers={withTransfers}
+      showActionsModal={showActionsModal}
+      showChangeQuotaModal={showChangeQuotaModal}
+      showModifyActionModal={showModifyActionModal}
+      showCancelSavingModal={showCancelSavingModal}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}
       onToggleReimbursementModal={handleToggleReimbursementModal}
       onToggleRechargeModal={handleToggleRechargeModal}
-      onCloseMessage={handleCloseMessage}
       onSubmitRecharge={handleSubmitRecharge}
+      onToggleActionsModal={handleToggleActionsModal}
+      onChangeQuota={handleChangeQuota}
+      onModifyAction={handleModifyAction}
+      onCancelSaving={handleCancelSaving}
+      onToggleChangeQuotaModal={handleToggleChangeQuotaModal}
+      onToggleModifyActionModal={handleToggleModifyActionModal}
+      onToggleCancelSavingModal={handleToggleCancelSavingModal}
+      onDownloadCertificate={handleDownloadCertificate}
+      onShareCertificate={handleShareCertificate}
     />
   );
 }

@@ -3,8 +3,9 @@ import { inube } from "@design/tokens";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
-import { usersMock } from "@mocks/users/users.mocks";
+import { updateDataSteps } from "@pages/general/UpdateData/config/assisted";
 import {
   mapPersonalAsset,
   mapPersonalDebt,
@@ -47,7 +48,6 @@ import { IPersonalReferenceEntries } from "../../PersonalReferencesForm/types";
 import { IPersonalResidenceEntry } from "../../PersonalResidenceForm/types";
 import { IRelationshipWithDirectorsEntry } from "../../RelationshipWithDirectorsForm/types";
 import { ISocioeconomicInformationEntry } from "../../SocioeconomicInformationForm/types";
-import { Text } from "@inubekit/text";
 
 const renderPersonalInfoVerification = (
   values: IPersonalInformationEntry,
@@ -181,20 +181,14 @@ const renderBeneficiariesVerification = (
       gap={inube.spacing.s250}
       width="100%"
     >
-      {usersMock.length > 0 &&
-        usersMock[0].familyGroup?.map((familyMember) =>
-          Object.entries(values).map(
-            ([key, value]) =>
-              key ===
-                familyMember.identification.identificationNumber.toString() && (
-                <BoxAttribute
-                  key={familyMember.identification.identificationNumber}
-                  label={`${familyMember.identification.firstName} ${familyMember.identification.secondName || ""} ${familyMember.identification.firstLastName} ${familyMember.identification.secondLastName || ""}`}
-                  value={`${value} %`}
-                />
-              ),
-          ),
-        )}
+      {values.beneficiaries.length > 0 &&
+        values.beneficiaries.map((beneficiary) => (
+          <BoxAttribute
+            key={beneficiary.id}
+            label={beneficiary.name}
+            value={`${beneficiary.percentage || 0} %`}
+          />
+        ))}
     </Grid>
   );
 };
@@ -842,7 +836,7 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
 
 interface VerificationBoxesProps {
   updatedData: IFormsUpdateData;
-  stepKey: string;
+  stepKey: keyof typeof updateDataSteps;
   isTablet: boolean;
 }
 

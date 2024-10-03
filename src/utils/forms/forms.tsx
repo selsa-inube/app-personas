@@ -16,7 +16,7 @@ const isRequired = (
 };
 
 const getFieldState = (formik: FormikValues, fieldName: string) => {
-  if (formik.errors[fieldName] && formik.touched[fieldName]) return "invalid";
+  if (formik.errors[fieldName]) return "invalid";
   return "valid";
 };
 
@@ -70,7 +70,7 @@ const generateFormFields = (
       case "select":
         return (
           <StyledInputForm
-            $gridColumn={fullColumns ? "span 2" : field.gridColumn}
+            $gridColumn={fullColumns ? "1 / -1" : field.gridColumn}
             key={field.name}
           >
             <Select
@@ -78,13 +78,17 @@ const generateFormFields = (
               id={field.name}
               label={field.label}
               placeholder={field.placeholder}
-              value={field.value || formik.values[field.name]}
+              value={field.value || formik.values[field.name] || ""}
               size={field.size}
               options={field.options}
               onChange={customHandleChange}
               onBlur={customHandleBlur}
               state={getFieldState(formik, field.name)}
-              errorMessage={formik.errors[field.name]}
+              errorMessage={
+                typeof formik.errors[field.name] === "string"
+                  ? formik.errors[field.name]
+                  : undefined
+              }
               isFullWidth={field.isFullWidth}
               readOnly={field.readOnly}
               isDisabled={disabled}
@@ -106,7 +110,7 @@ const generateFormFields = (
               placeholder={field.placeholder || ""}
               size={field.size}
               type={field.type}
-              value={field.value || formik.values[field.name]}
+              value={field.value || formik.values[field.name] || ""}
               onBlur={customHandleBlur}
               state={getFieldState(formik, field.name)}
               onChange={formik.handleChange}
@@ -132,7 +136,7 @@ const generateFormFields = (
               id={field.name}
               label={field.label}
               placeholder={field.placeholder}
-              value={field.value || formik.values[field.name]}
+              value={field.value || formik.values[field.name] || ""}
               onBlur={customHandleBlur}
               onChange={formik.handleChange}
               state={getFieldState(formik, field.name)}

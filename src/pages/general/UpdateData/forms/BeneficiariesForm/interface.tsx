@@ -1,24 +1,23 @@
-import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
-import { usersMock } from "@mocks/users/users.mocks";
-import { FormikValues } from "formik";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
+import { FormikProps } from "formik";
 import { MdPercent } from "react-icons/md";
+import { IBeneficiariesEntry } from "./types";
+import { Button } from "@inubekit/button";
 
 interface BeneficiariesFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IBeneficiariesEntry>;
   loading?: boolean;
-  percentage: number;
   withSubmit?: boolean;
   customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
-  const { formik, loading, percentage, withSubmit, customHandleChange } = props;
+  const { formik, loading, withSubmit, customHandleChange } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -32,26 +31,17 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
           gap={isMobile ? inube.spacing.s150 : inube.spacing.s300}
           width="100%"
         >
-          {usersMock.length > 0 &&
-            usersMock[0].familyGroup?.map((familyMember) => (
+          {formik.values.beneficiaries.length > 0 &&
+            formik.values.beneficiaries.map((beneficiary) => (
               <TextField
-                key={familyMember.identification.identificationNumber}
-                label={`${familyMember.identification.firstName} ${familyMember.identification.secondName || ""} ${familyMember.identification.firstLastName} ${familyMember.identification.secondLastName || ""}`}
+                key={beneficiary.id}
+                label={beneficiary.name}
                 placeholder="Digita el porcentaje de beneficio"
-                name={familyMember.identification.identificationNumber.toString()}
-                id={familyMember.identification.identificationNumber.toString()}
+                name={beneficiary.id}
+                id={beneficiary.id}
                 type="number"
-                value={
-                  formik.values[
-                    familyMember.identification.identificationNumber.toString()
-                  ] || ""
-                }
+                value={beneficiary.percentage || ""}
                 iconAfter={<MdPercent size={18} />}
-                errorMessage={
-                  formik.errors[
-                    familyMember.identification.identificationNumber.toString()
-                  ]
-                }
                 isDisabled={loading}
                 size="compact"
                 isFullWidth
@@ -67,16 +57,16 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
           <Text
             type="title"
             size="medium"
-            appearance={percentage > 100 ? "danger" : "dark"}
+            appearance={formik.values.totalPercentage > 100 ? "danger" : "dark"}
           >
-            {percentage} %
+            {formik.values.totalPercentage} %
           </Text>
         </Stack>
 
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

@@ -3,9 +3,9 @@ import { FormikProps, useFormik } from "formik";
 import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { EPaymentMethodType } from "src/model/entity/payment";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { parseCurrencyString } from "src/utils/currency";
-import { EPaymentMethodType } from "../../types";
 import { PaymentMethodFormUI } from "./interface";
 import { EMoneySourceType, IMoneySource, IPaymentMethodEntry } from "./types";
 import { mapMoneySources } from "./utils";
@@ -42,13 +42,9 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   useEffect(() => {
     if (!accessToken) return;
     if (savings.savingsAccounts.length === 0) {
-      getSavingsForUser(user.identification, accessToken)
-        .then((savings) => {
-          setSavings(savings);
-        })
-        .catch((error) => {
-          console.info(error.message);
-        });
+      getSavingsForUser(user.identification, accessToken).then((savings) => {
+        setSavings(savings);
+      });
     }
   }, [user, accessToken]);
 
@@ -79,7 +75,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         moneySources[moneySourcesList[0]].value = formik.values.valueToPay;
 
         const notFunds = Object.values(moneySources).some(
-          (source) => source.value > source.balance,
+          (source) => source.value && source.value > source.balance,
         );
 
         if (!notFunds) {
@@ -94,7 +90,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     ) {
       moneySources[EMoneySourceType.PSE] = {
         id: EPaymentMethodType.PSE,
-        label: "Pago PSE",
+        label: "Pago por PSE",
         value:
           paymentMethod === EPaymentMethodType.PSE
             ? formik.values.valueToPay
@@ -130,7 +126,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const handleSaveMoneySource = () => {
     const paidValue = Object.values(formik.values.moneySources || {}).reduce(
-      (acc, source) => acc + source.value,
+      (acc, source) => acc + (source.value || 0),
       0,
     );
 
@@ -169,7 +165,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
     if (
       selectedMoneySource.balance &&
-      updatedMoneySources[moneySourceKey].value > selectedMoneySource.balance
+      (updatedMoneySources[moneySourceKey]?.value ?? 0) >
+        selectedMoneySource.balance
     ) {
       return;
     }

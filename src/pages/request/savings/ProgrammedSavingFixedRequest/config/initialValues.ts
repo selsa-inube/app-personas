@@ -1,42 +1,35 @@
-import { ICommentsEntry } from "../../../../../shared/forms/CommentsForm/types";
-import { IGoalEntry } from "../forms/GoalForm/types";
 import { IPlanNameEntry } from "../forms/PlanNameForm/types";
-import { IQuotaEntry } from "../forms/QuotaForm/types";
-import { IReimbursementEntry } from "../forms/ReimbursementForm/types";
+import { ISavingConditionsEntry } from "../forms/SavingConditionsForm/types";
+import { IShareMaturityEntry } from "../forms/ShareMaturityForm/types";
 
-const quota: IQuotaEntry = {
-  periodicValue: "",
-  paymentMethod: "",
-  periodicity: "",
-  paydayTypeToSelect: "",
-  paydayByDate: "",
-};
-
-const goal: IGoalEntry = {
-  goalWithDate: false,
-  daysNumber: "",
-  refundDate: "",
-};
-
-const reimbursement: IReimbursementEntry = {
-  reimbursementType: "",
-  accountReimbursement: "",
+const savingConditions: ISavingConditionsEntry = {
+  netValue: 0,
+  annualRate: 0,
+  hasResult: false,
+  gmf: 0,
+  savingAmount: 0,
+  withholdingTax: 0,
+  yields: 0,
+  paymentMethods: [],
+  periodicity: {
+    id: "",
+    description: "",
+    periodicityInMonths: 0,
+    periodicityInDays: 0,
+  },
+  periodicities: [],
 };
 
 const planName: IPlanNameEntry = {
   productName: "",
 };
 
-const comments: ICommentsEntry = {
-  comments: "",
-};
+const shareMaturity: IShareMaturityEntry = {};
 
 const initalValuesProgrammedSavingFixed = {
-  quota,
-  goal,
-  reimbursement,
+  savingConditions,
   planName,
-  comments,
+  shareMaturity,
 };
 
 export { initalValuesProgrammedSavingFixed };

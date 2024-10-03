@@ -1,11 +1,12 @@
 import { DebtModal } from "@components/modals/general/updateData/DebtModal";
 import { Icon } from "@inubekit/icon";
-import { FormikValues } from "formik";
+import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { IPersonalDebtEntries } from "../types";
 
 interface EditDebtUIProps {
   showModal: boolean;
-  formik: FormikValues;
+  formik: FormikProps<IPersonalDebtEntries>;
   handleEditModal: () => void;
   handleEditDebt: () => void;
   closeModal: () => void;

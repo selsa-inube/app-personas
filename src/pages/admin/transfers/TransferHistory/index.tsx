@@ -31,7 +31,7 @@ function TransferHistory() {
         clearInterval(countdownInterval);
       }
     };
-  }, []);
+  }, [user, accessToken]);
 
   const startCountdown = () => {
     setRefreshTime(refreshSeconds);
@@ -105,9 +105,8 @@ function TransferHistory() {
 
           setTransferHistory([...transferHistory, ...newTransferHistory]);
         })
-        .catch((error) => {
+        .catch(() => {
           setNoMoreTransfers(true);
-          console.info(error.message);
         })
         .finally(() => {
           setLoading(false);

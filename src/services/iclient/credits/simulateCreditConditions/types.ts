@@ -6,7 +6,7 @@ interface ISimulateCreditRequest {
   periodicityInMonths: number;
   deadline: number;
   quota: number;
-  rate: number;
+  simulationParameter: string;
 }
 
 interface ISimulateCreditResponse {

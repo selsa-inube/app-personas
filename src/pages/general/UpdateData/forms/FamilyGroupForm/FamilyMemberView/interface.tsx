@@ -2,17 +2,20 @@ import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { EditFamilyMemberModal } from "@components/modals/general/updateData/FamilyGroupModals/EditFamilyMemberModal";
 import { FamilyMemberViewModal } from "@components/modals/general/updateData/FamilyGroupModals/FamilyMemberViewModal";
 import { IEntry } from "@design/data/Table/types";
-import { FormikValues } from "formik";
-import { MdOpenInNew } from "react-icons/md";
-import { deleteFamilyMemberModal } from "../config/deleteMember";
 import { Icon } from "@inubekit/icon";
+import { FormikProps } from "formik";
+import { MdOpenInNew } from "react-icons/md";
+import * as Yup from "yup";
+import { deleteFamilyMemberModal } from "../config/deleteMember";
+import { IFamilyGroupEntries } from "../types";
 
 interface FamilyMemberViewUIProps {
   showModal: boolean;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   member: IEntry;
   showDeleteModal: boolean;
   showEditModal: boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
   onCloseModal: () => void;
   onShowModal: () => void;
   onDeleteModal: () => void;
@@ -21,7 +24,6 @@ interface FamilyMemberViewUIProps {
   onConfirm: () => void;
   onCloseDeleteModal: () => void;
   onCloseEditModal: () => void;
-  isRequired: (fieldName: string) => boolean;
 }
 
 function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
@@ -31,6 +33,7 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
     member,
     showDeleteModal,
     showEditModal,
+    validationSchema,
     onCloseModal,
     onShowModal,
     onDeleteModal,
@@ -39,7 +42,6 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
     onConfirm,
     onCloseDeleteModal,
     onCloseEditModal,
-    isRequired,
   } = props;
 
   const { title, description, actionText, appearance, portalId } =
@@ -70,9 +72,9 @@ function FamilyMemberViewUI(props: FamilyMemberViewUIProps) {
         <EditFamilyMemberModal
           portalId="modals"
           formik={formik}
+          validationSchema={validationSchema}
           onCloseModal={onCloseEditModal}
           onConfirm={onConfirm}
-          isRequired={isRequired}
         />
       )}
 

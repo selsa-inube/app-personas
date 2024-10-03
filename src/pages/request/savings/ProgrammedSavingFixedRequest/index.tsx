@@ -1,28 +1,36 @@
-import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 
+import { mapComments } from "@forms/CommentsForm/mappers";
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
+import { IPaymentMethodEntry } from "@forms/PaymentMethodForm/types";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
+import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
+import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "../../../../shared/forms/CommentsForm/types";
 import { initalValuesProgrammedSavingFixed } from "./config/initialValues";
-import { IGoalEntry } from "./forms/GoalForm/types";
 import { IPlanNameEntry } from "./forms/PlanNameForm/types";
-import { IQuotaEntry } from "./forms/QuotaForm/types";
-import { IReimbursementEntry } from "./forms/ReimbursementForm/types";
+import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
+import { IShareMaturityEntry } from "./forms/ShareMaturityForm/types";
 import { ProgrammedSavingFixedRequestUI } from "./interface";
 import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { programmedSavingFixedStepsRules } from "./utils";
-import { Navigate } from "react-router-dom";
-import { AppContext } from "src/context/app";
 
 function ProgrammedSavingFixedRequest() {
+  const { user } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
-    programmedSavingFixedRequestSteps.quota.id,
+    programmedSavingFixedRequestSteps.savingConditions.number,
   );
   const steps = Object.values(programmedSavingFixedRequestSteps);
 
@@ -31,46 +39,69 @@ function ProgrammedSavingFixedRequest() {
 
   const [programmedSavingFixedRequest, setProgrammedSavingFixedRequest] =
     useState<IFormsProgrammedSavingFixedRequest>({
-      quota: {
+      savingConditions: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.quota,
+        values: initalValuesProgrammedSavingFixed.savingConditions,
       },
-      goal: {
+      paymentMethod: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.goal,
+        values: mapPaymentMethod(),
       },
-      reimbursement: {
+      shareMaturity: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.reimbursement,
+        values: initalValuesProgrammedSavingFixed.shareMaturity,
+      },
+      disbursement: {
+        isValid: false,
+        values: mapDisbursement(),
+      },
+      systemValidations: {
+        isValid: false,
+        values: mapSystemValidations(),
       },
       planName: {
         isValid: false,
         values: initalValuesProgrammedSavingFixed.planName,
       },
-      contactChannels: {
-        isValid: false,
-        values: mapContactChannels(usersMock[0].contact[0]),
-      },
       comments: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.comments,
+        values: mapComments(),
+      },
+      termsAndConditions: {
+        isValid: false,
+        values: mapTermsAndConditions(),
+      },
+      contactChannels: {
+        isValid: false,
+        values: mapContactChannels({
+          cellPhone: parseInt(user.phone) || 0,
+          email: user.email || "",
+        }),
       },
     });
 
-  const quotaRef = useRef<FormikProps<IQuotaEntry>>(null);
-  const goalRef = useRef<FormikProps<IGoalEntry>>(null);
-  const reimbursementRef = useRef<FormikProps<IReimbursementEntry>>(null);
+  const savingConditionsRef = useRef<FormikProps<ISavingConditionsEntry>>(null);
+  const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
+  const shareMaturityRef = useRef<FormikProps<IShareMaturityEntry>>(null);
+  const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
+  const systemValidationsRef =
+    useRef<FormikProps<ISystemValidationsEntry>>(null);
   const planNameRef = useRef<FormikProps<IPlanNameEntry>>(null);
-  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
+  const termsAndConditionsRef =
+    useRef<FormikProps<ITermsAndConditionsEntry>>(null);
+  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
-    quota: quotaRef,
-    goal: goalRef,
-    reimbursement: reimbursementRef,
+    savingConditions: savingConditionsRef,
+    paymentMethod: paymentMethodRef,
+    shareMaturity: shareMaturityRef,
+    disbursement: disbursementRef,
+    systemValidations: systemValidationsRef,
     planName: planNameRef,
-    contactChannels: contactChannelsRef,
     comments: commentsRef,
+    termsAndConditions: termsAndConditionsRef,
+    contactChannels: contactChannelsRef,
   };
 
   const handleStepChange = (stepId: number) => {
@@ -80,11 +111,12 @@ function ProgrammedSavingFixedRequest() {
       formReferences,
       isCurrentFormValid,
     );
+
     setProgrammedSavingFixedRequest(newProgrammedSavingFixedRequest);
 
     const changeStepKey = Object.entries(
       programmedSavingFixedRequestSteps,
-    ).find(([, config]) => config.id === stepId)?.[0];
+    ).find(([, config]) => config.number === stepId)?.[0];
 
     if (!changeStepKey) return;
 
@@ -107,13 +139,15 @@ function ProgrammedSavingFixedRequest() {
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
     }
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   if (!getFlag("admin.savings.savings.request-saving").value) {

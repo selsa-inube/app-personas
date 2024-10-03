@@ -1,4 +1,4 @@
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 import { creditQuotaTypeDM } from "src/model/domains/cards/creditQuotaTypeDM.ts";
 import { EProductType, IAttribute, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
@@ -249,8 +249,8 @@ const mapCreditQuotaDetailApiToEntity = (
     { id: "used_quota_value", label: "Pago total", value: usedQuota },
   ];
 
-  const tags: TagProps[] = inArrears
-    ? [{ label: "En mora", appearance: "danger" }]
+  const tags: ITag[] = inArrears
+    ? [{ label: "En mora", appearance: "danger", weight: "strong" }]
     : [];
 
   const consumptions = Array.isArray(creditQuota.listObligationProducts)

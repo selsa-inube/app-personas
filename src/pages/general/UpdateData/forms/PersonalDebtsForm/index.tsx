@@ -1,8 +1,7 @@
 import { IAction } from "@design/data/Table/types";
-import { EMessageType, IMessage } from "@ptypes/messages.types";
+import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
-import { initialMessageState } from "src/utils/messages";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -11,6 +10,7 @@ import { EditDebt } from "./EditDebt";
 import { deleteDebtMessages } from "./config/deleteDebt.config";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
+import { useFlag } from "@inubekit/flag";
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),
@@ -37,22 +37,7 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
   const { initialValues, loading, withSubmit, onSubmit } = props;
 
   const [showAddDebtModal, setShowAddDebtModal] = useState(false);
-  const [message, setMessage] = useState(initialMessageState);
-
-  const handleShowMessage = (message: IMessage) => {
-    const { title, description, icon, appearance } = message;
-    setMessage({
-      show: true,
-      title,
-      description,
-      icon,
-      appearance,
-    });
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
-  };
+  const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
@@ -129,14 +114,13 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
       formik.setFieldValue("entries", updatedDebts);
     }
 
-    const { icon, title, description, appearance } =
-      deleteDebtMessages[MessageType];
+    const { title, description, appearance } = deleteDebtMessages[MessageType];
 
-    handleShowMessage({
+    addFlag({
       title,
       description: description(debt?.debtName),
-      icon,
       appearance,
+      duration: 3000,
     });
   };
 
@@ -167,10 +151,8 @@ const PersonalDebtsForm = forwardRef(function PersonalDebtsForm(
       personalDebtsTableActions={personalDebtsTableActions}
       loading={loading}
       withSubmit={withSubmit}
-      message={message}
       onToggleModal={handleToggleModal}
       onAddDebt={handleAddDebt}
-      onCloseMessage={handleCloseMessage}
     />
   );
 });

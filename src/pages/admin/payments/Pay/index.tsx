@@ -1,9 +1,8 @@
+import { mapComments } from "@forms/CommentsForm/mappers";
 import { useAuth } from "@inube/auth";
-import { mapComments } from "@pages/general/UpdateData/config/mappers";
-import { IMessage } from "@ptypes/messages.types";
+import { useFlag } from "@inubekit/flag";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { MdSentimentNeutral } from "react-icons/md";
 import { useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { IPayment } from "src/model/entity/payment";
@@ -11,7 +10,6 @@ import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
 import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
 import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
-import { initialMessageState } from "src/utils/messages";
 import { paySteps } from "./config/assisted";
 import { mapObligations, mapPaymentMethod } from "./config/mappers";
 import { IObligationsEntry } from "./forms/ObligationsForm/types";
@@ -21,15 +19,15 @@ import { IFormsPay, IFormsPayRefs } from "./types";
 import { payStepsRules, sendPaymentRequest } from "./utils";
 
 function Pay() {
-  const [currentStep, setCurrentStep] = useState(paySteps.obligations.id);
+  const [currentStep, setCurrentStep] = useState(paySteps.obligations.number);
   const steps = Object.values(paySteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [loadingSend, setLoadingSend] = useState(false);
-  const [message, setMessage] = useState<IMessage>(initialMessageState);
   const navigate = useNavigate();
   const { getFlag } = useContext(AppContext);
+  const { addFlag } = useFlag();
 
   const withNextValueOption = getFlag(
     "admin.payments.pay.next-value-payment",
@@ -77,49 +75,31 @@ function Pay() {
     let newCommitments: IPayment[] = [];
     let newCards: IPayment[] = [];
 
-    try {
-      newCredits = await getCreditPayments(
-        user.identification,
-        accessToken,
-        withNextValueOption,
-        withOtherValueOption,
-        withExpiredValueOption,
-        withTotalValueOption,
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        console.info(error.message);
-      }
-    }
+    newCredits = await getCreditPayments(
+      user.identification,
+      accessToken,
+      withNextValueOption,
+      withOtherValueOption,
+      withExpiredValueOption,
+      withTotalValueOption,
+    );
 
-    try {
-      newCommitments = await getCommitmentPayments(
-        user.identification,
-        accessToken,
-        withNextValueOption,
-        withOtherValueOption,
-        withExpiredValueOption,
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        console.info(error.message);
-      }
-    }
+    newCommitments = await getCommitmentPayments(
+      user.identification,
+      accessToken,
+      withNextValueOption,
+      withOtherValueOption,
+      withExpiredValueOption,
+    );
 
-    try {
-      newCards = await getCardPayments(
-        user.identification,
-        accessToken,
-        withNextValueOption,
-        withOtherValueOption,
-        withExpiredValueOption,
-        withTotalValueOption,
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        console.info(error.message);
-      }
-    }
+    newCards = await getCardPayments(
+      user.identification,
+      accessToken,
+      withNextValueOption,
+      withOtherValueOption,
+      withExpiredValueOption,
+      withTotalValueOption,
+    );
 
     setPay((prev) => ({
       ...prev,
@@ -143,7 +123,8 @@ function Pay() {
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      currentLocation.pathname !== nextLocation.pathname,
+      currentLocation.pathname !== nextLocation.pathname &&
+      !nextLocation.search.includes("?success_request=true"),
   );
 
   const handleStepChange = (stepId: number) => {
@@ -157,7 +138,7 @@ function Pay() {
     setPay(newPay);
 
     const changeStepKey = Object.entries(paySteps).find(
-      ([, config]) => config.id === stepId,
+      ([, config]) => config.number === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
@@ -180,20 +161,19 @@ function Pay() {
     setLoadingSend(true);
 
     sendPaymentRequest(user, pay, accessToken, navigate).catch(() => {
-      setMessage({
-        show: true,
+      addFlag({
         title: "El pago no pudo ser procesado",
         description:
           "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        icon: <MdSentimentNeutral />,
         appearance: "danger",
+        duration: 5000,
       });
       setLoadingSend(false);
     });
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
       return;
     }
@@ -201,11 +181,9 @@ function Pay() {
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(initialMessageState);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   return (
@@ -216,14 +194,12 @@ function Pay() {
       steps={steps}
       isCurrentFormValid={isCurrentFormValid}
       loadingSend={loadingSend}
-      message={message}
       blocker={blocker}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleFinishAssisted={handleFinishAssisted}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
-      handleCloseMessage={handleCloseMessage}
     />
   );
 }

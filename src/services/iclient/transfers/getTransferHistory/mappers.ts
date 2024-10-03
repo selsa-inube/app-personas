@@ -1,15 +1,17 @@
-import { TagAppearanceType } from "@design/data/Tag/types";
+import { ITag } from "@inubekit/tag";
 import { paymentStatusDM } from "src/model/domains/payments/paymentStatusDM";
 import { transferSourceDM } from "src/model/domains/transfers/transferSourceDM";
 
 import { ITransfer } from "src/model/entity/transfer";
 
-const transferStatusAppearance: Record<string, TagAppearanceType> = {
+const transferStatusAppearance: Record<string, ITag["appearance"]> = {
   InProgressPSE: "warning",
   RejectedPSE: "danger",
   InProgressLinix: "warning",
-  Completed: "success",
   RejectedLinix: "danger",
+  Completed: "success",
+  StuckInPSE: "warning",
+  BlockedInPSE: "warning",
 };
 
 const mapTransferHistoryApiToEntity = (
@@ -30,8 +32,6 @@ const mapTransferHistoryApiToEntity = (
     tag: {
       label: paymentStatusDM.valueOf(String(transfer.status))?.value || "",
       appearance: transferStatusAppearance[String(transfer.status)],
-      textAppearance: transferStatusAppearance[String(transfer.status)],
-      modifier: "clear",
     },
   };
 };

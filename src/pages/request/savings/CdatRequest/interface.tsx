@@ -1,13 +1,16 @@
-import { QuickAccess } from "@components/cards/QuickAccess";
-import { quickLinks } from "@config/quickLinks";
+import { DecisionModal } from "@components/modals/general/DecisionModal";
+import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
-import { Assisted } from "@design/feedback/Assisted";
-import { IStep } from "@design/feedback/Assisted/types";
-import { Button } from "@design/input/Button";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
+import { DisbursementForm } from "@forms/DisbursementForm";
+import { SystemValidationsForm } from "@forms/SystemValidationsForm";
+import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
+import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { cdatRequestSteps } from "./config/assisted";
@@ -15,11 +18,10 @@ import { crumbsCdatRequest } from "./config/navigation";
 import { ConditionsForm } from "./forms/ConditionsForm";
 import { InvestmentForm } from "./forms/InvestmentForm";
 import { InvestmentNameForm } from "./forms/InvestmentNameForm";
-import { RefundForm } from "./forms/RefundForm";
-import { CdatRequestSummary } from "./forms/Summary";
+import { PaymentMethodForm } from "./forms/PaymentMethodForm";
+import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -30,50 +32,75 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === cdatRequestSteps.investment.id && (
+      {currentStep === cdatRequestSteps.investment.number && (
         <InvestmentForm
           initialValues={cdatRequest.investment.values}
           ref={formReferences.investment}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.conditions.id && (
+      {currentStep === cdatRequestSteps.conditions.number && (
         <ConditionsForm
           initialValues={cdatRequest.conditions.values}
           ref={formReferences.conditions}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.refund.id && (
-        <RefundForm
-          initialValues={cdatRequest.refund.values}
-          ref={formReferences.refund}
+      {currentStep === cdatRequestSteps.paymentMethod.number && (
+        <PaymentMethodForm
+          initialValues={cdatRequest.paymentMethod.values}
+          ref={formReferences.paymentMethod}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.investmentName.id && (
+      {currentStep === cdatRequestSteps.disbursement.number && (
+        <DisbursementForm
+          initialValues={cdatRequest.disbursement.values}
+          ref={formReferences.disbursement}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.systemValidations.number && (
+        <SystemValidationsForm
+          initialValues={cdatRequest.systemValidations.values}
+          ref={formReferences.systemValidations}
+          disbursementValues={cdatRequest.disbursement.values}
+          test
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.investmentName.number && (
         <InvestmentNameForm
           initialValues={cdatRequest.investmentName.values}
           ref={formReferences.investmentName}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.contactChannels.id && (
-        <ContactChannelsForm
-          initialValues={cdatRequest.contactChannels.values}
-          ref={formReferences.contactChannels}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
-      {currentStep === cdatRequestSteps.comments.id && (
+      {currentStep === cdatRequestSteps.comments.number && (
         <CommentsForm
           initialValues={cdatRequest.comments.values}
           ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.summary.id && (
-        <CdatRequestSummary
+      {currentStep === cdatRequestSteps.termsAndConditions.number && (
+        <TermsAndConditionsForm
+          initialValues={cdatRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
+          productId="57"
+          productType="credit"
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.contactChannels.number && (
+        <ContactChannelsForm
+          initialValues={cdatRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.verification.number && (
+        <CdatRequestVerification
           cdatRequest={cdatRequest}
           handleStepChange={handleStepChange}
         />
@@ -84,10 +111,12 @@ const renderStepContent = (
 
 interface CdatRequestUIProps {
   currentStep: number;
-  steps: IStep[];
+  steps: IAssistedStep[];
   isCurrentFormValid: boolean;
   cdatRequest: IFormsCdatRequest;
   formReferences: IFormsCdatRequestRefs;
+  loadingSend: boolean;
+  blocker: Blocker;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
@@ -102,6 +131,8 @@ function CdatRequestUI(props: CdatRequestUIProps) {
     isCurrentFormValid,
     cdatRequest,
     formReferences,
+    loadingSend,
+    blocker,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
@@ -109,26 +140,13 @@ function CdatRequestUI(props: CdatRequestUIProps) {
     handlePreviousStep,
   } = props;
 
-  const isDesktop = useMediaQuery("(min-width: 1400px)");
-  const isMobile = useMediaQuery("(max-width: 450px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
+  const isMobile = useMediaQuery("(max-width: 450px)");
 
   return (
     <>
-      <Stack direction="column" gap={inube.spacing.s300}>
-        <Breadcrumbs crumbs={crumbsCdatRequest} />
-        <Title
-          title="CDAT"
-          subtitle="Simula tu solicitud de CDAT"
-          icon={<MdArrowBack />}
-          navigatePage="/savings"
-        />
-      </Stack>
-
-      <Grid
-        margin={
-          isDesktop ? `${inube.spacing.s600} 0 0` : `${inube.spacing.s300} 0 0`
-        }
+      <Stack
+        direction="column"
         gap={
           isMobile
             ? inube.spacing.s300
@@ -136,53 +154,82 @@ function CdatRequestUI(props: CdatRequestUIProps) {
               ? inube.spacing.s500
               : inube.spacing.s600
         }
-        templateColumns={isDesktop ? "1fr 250px" : "1fr"}
       >
-        <Stack
-          direction="column"
-          gap={isMobile ? inube.spacing.s300 : inube.spacing.s500}
-        >
-          <Assisted
-            steps={steps}
-            currentStep={currentStep}
-            onFinishAssisted={handleFinishAssisted}
-            onStepChange={handleStepChange}
-            disableNextStep={!isCurrentFormValid}
+        <Stack direction="column" gap={inube.spacing.s300}>
+          <Breadcrumbs crumbs={crumbsCdatRequest} />
+          <Title
+            title="CDAT"
+            subtitle="Simula tu solicitud de CDAT"
+            icon={<MdArrowBack />}
+            navigatePage="/savings"
           />
+        </Stack>
 
-          <Stack direction="column" gap={inube.spacing.s300}>
-            {renderStepContent(
-              currentStep,
-              formReferences,
-              cdatRequest,
-              setIsCurrentFormValid,
-              handleStepChange,
-            )}
+        <Assisted
+          step={steps[currentStep - 1]}
+          totalSteps={steps.length}
+          onNextClick={handleNextStep}
+          onBackClick={handlePreviousStep}
+          onSubmitClick={handleFinishAssisted}
+          disableNext={!isCurrentFormValid}
+          size={isTablet ? "small" : "large"}
+          controls={{
+            goBackText: "Anterior",
+            goNextText: "Siguiente",
+            submitText: "Enviar",
+          }}
+        />
 
-            <Stack gap={inube.spacing.s150} justifyContent="flex-end">
-              <Button
-                onClick={handlePreviousStep}
-                type="button"
-                disabled={currentStep === steps[0].id}
-                spacing="compact"
-                variant="outlined"
-                appearance="gray"
-              >
-                Atrás
-              </Button>
+        <Stack direction="column" gap={inube.spacing.s300}>
+          {renderStepContent(
+            currentStep,
+            formReferences,
+            cdatRequest,
+            setIsCurrentFormValid,
+            handleStepChange,
+          )}
 
-              <Button
-                onClick={handleNextStep}
-                spacing="compact"
-                disabled={!isCurrentFormValid}
-              >
-                {currentStep === steps.length ? "Enviar" : "Siguiente"}
-              </Button>
-            </Stack>
+          <Stack gap={inube.spacing.s150} justifyContent="flex-end">
+            <Button
+              onClick={handlePreviousStep}
+              type="button"
+              disabled={currentStep === steps[0].id}
+              spacing="compact"
+              variant="outlined"
+              appearance="gray"
+            >
+              Atrás
+            </Button>
+
+            <Button
+              onClick={handleNextStep}
+              spacing="compact"
+              disabled={!isCurrentFormValid}
+            >
+              {currentStep === steps.length ? "Pagar" : "Siguiente"}
+            </Button>
           </Stack>
         </Stack>
-        {isDesktop && <QuickAccess links={quickLinks} />}
-      </Grid>
+      </Stack>
+
+      {loadingSend && (
+        <LoadingModal
+          title="Procesando pago..."
+          message="Espera unos segundos, estamos generando la transacción."
+        />
+      )}
+
+      {blocker.state === "blocked" && (
+        <DecisionModal
+          title="Abandonar solicitud"
+          description="¿Estás seguro? Se perderá la solicitud en proceso."
+          cancelText="Continuar"
+          actionText="Salir"
+          onCloseModal={() => blocker.reset()}
+          onClick={() => blocker.proceed()}
+          portalId="modals"
+        />
+      )}
     </>
   );
 }

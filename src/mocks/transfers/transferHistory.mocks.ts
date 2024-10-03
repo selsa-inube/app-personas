@@ -11,8 +11,6 @@ const transferHistoryMock: ITransfer[] = [
     tag: {
       label: "En progreso",
       appearance: "warning",
-      textAppearance: "warning",
-      modifier: "clear",
     },
   },
   {
@@ -25,8 +23,6 @@ const transferHistoryMock: ITransfer[] = [
     tag: {
       label: "Completado",
       appearance: "success",
-      textAppearance: "success",
-      modifier: "clear",
     },
   },
   {
@@ -39,8 +35,6 @@ const transferHistoryMock: ITransfer[] = [
     tag: {
       label: "Completado",
       appearance: "success",
-      textAppearance: "success",
-      modifier: "clear",
     },
   },
   {
@@ -53,8 +47,6 @@ const transferHistoryMock: ITransfer[] = [
     tag: {
       label: "Rechazado",
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
   },
   {
@@ -67,8 +59,6 @@ const transferHistoryMock: ITransfer[] = [
     tag: {
       label: "Rechazado",
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
   },
   {
@@ -81,8 +71,6 @@ const transferHistoryMock: ITransfer[] = [
     tag: {
       label: "Rechazado",
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
   },
   {
@@ -95,8 +83,6 @@ const transferHistoryMock: ITransfer[] = [
     tag: {
       label: "Rechazado",
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
   },
   {
@@ -109,8 +95,6 @@ const transferHistoryMock: ITransfer[] = [
     tag: {
       label: "Rechazado",
       appearance: "danger",
-      textAppearance: "danger",
-      modifier: "clear",
     },
   },
 ];

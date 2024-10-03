@@ -1,15 +1,12 @@
 import { enviroment } from "@config/enviroment";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import {
-  mapRemoveDocumentApiToEntity,
-  mapRemoveDocumentEntityToApi,
-} from "./mappers";
-import { IRemoveDocumentRequest, IRemoveDocumentResponse } from "./types";
+import { mapRemoveDocumentEntityToApi } from "./mappers";
+import { IRemoveDocumentRequest } from "./types";
 
 const removeDocument = async (
   removeDocumentRequest: IRemoveDocumentRequest,
   accessToken: string,
-): Promise<IRemoveDocumentResponse | undefined> => {
+) => {
   const requestTime = new Date();
   const startTime = performance.now();
 
@@ -17,7 +14,7 @@ const removeDocument = async (
 
   try {
     const options: RequestInit = {
-      method: "POST",
+      method: "DELETE",
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
@@ -25,43 +22,37 @@ const removeDocument = async (
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: mapRemoveDocumentEntityToApi(removeDocumentRequest),
+      body: JSON.stringify(mapRemoveDocumentEntityToApi(removeDocumentRequest)),
     };
 
     const res = await fetch(requestUrl, options);
 
     saveNetworkTracking(
       requestTime,
-      options.method || "POST",
+      options.method || "DELETE",
       requestUrl,
       res.status,
       Math.round(performance.now() - startTime),
     );
 
-    if (res.status === 204) {
-      return;
-    }
-
     if (!res.ok) {
       throw {
-        message: "Error al guardar el documento",
+        message: "Error al eliminar el documento",
         status: res.status,
       };
     }
-
-    const data = await res.json();
-
-    return mapRemoveDocumentApiToEntity(data);
   } catch (error) {
     saveNetworkTracking(
       requestTime,
-      "POST",
+      "DELETE",
       requestUrl,
       (error as { status?: number }).status || 500,
       Math.round(performance.now() - startTime),
     );
 
-    throw new Error("No se pudo guardar el documento");
+    console.info(error);
+
+    throw error;
   }
 };
 

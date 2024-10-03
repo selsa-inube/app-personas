@@ -1,6 +1,6 @@
-import { IBreadcrumbItem } from "@design/navigation/Breadcrumbs";
+import { IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
 
-const crumbsMyRequests: IBreadcrumbItem[] = [
+const crumbsMyRequests: IBreadcrumbsRoute[] = [
   {
     id: "home",
     path: "/",
@@ -10,6 +10,7 @@ const crumbsMyRequests: IBreadcrumbItem[] = [
     id: "myRequests",
     path: "/my-requests",
     label: "Mis solicitudes",
+    isActive: true,
   },
 ];
 

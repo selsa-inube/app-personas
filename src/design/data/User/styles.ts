@@ -1,9 +1,14 @@
-import styled from "styled-components";
 import { inube } from "@design/tokens";
+import styled from "styled-components";
 
-const StyledUser = styled.div`
+interface IStyledUser {
+  $onlyAvatar?: boolean;
+}
+
+const StyledUser = styled.div<IStyledUser>`
   display: grid;
-  grid-template-columns: 1fr 32px;
+  grid-template-columns: ${({ $onlyAvatar }) =>
+    $onlyAvatar ? "1fr" : "1fr 32px"};
   gap: ${inube.spacing.s200};
   cursor: pointer;
 

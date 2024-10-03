@@ -1,13 +1,12 @@
 import { Accordion } from "@design/data/Accordion";
-import { Button } from "@design/input/Button";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { paySteps } from "../../config/assisted";
 import { IFormsPay } from "../../types";
 import { VerificationBoxes } from "./VerificationBoxes";
-import { payBoxTitles } from "./config/box";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 
 interface PayVerificationProps {
   pay: IFormsPay;
@@ -21,8 +20,8 @@ function PayVerification(props: PayVerificationProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      {Object.entries(payBoxTitles).map(([key, title]) => (
-        <Accordion title={title} key={`${key}-box`}>
+      {Object.entries(paySteps).map(([key, step]) => (
+        <Accordion title={step.name} key={`${key}-box`}>
           <Stack
             direction="column"
             width="100%"
@@ -32,13 +31,13 @@ function PayVerification(props: PayVerificationProps) {
             <VerificationBoxes
               isTablet={isTablet}
               pay={pay}
-              stepKey={key as keyof typeof payBoxTitles}
+              stepKey={key as keyof typeof paySteps}
             />
 
             <Button
               iconBefore={<MdOutlineArrowBack />}
               onClick={() =>
-                handleStepChange(paySteps[key as keyof IFormsPay].id)
+                handleStepChange(paySteps[key as keyof IFormsPay].number)
               }
               variant="none"
               appearance="dark"

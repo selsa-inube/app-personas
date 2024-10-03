@@ -6,6 +6,7 @@ import {
   MdOutlineAssignment,
   MdOutlineAttachMoney,
   MdOutlineCompareArrows,
+  MdOutlineContactSupport,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlinePayments,
@@ -23,6 +24,7 @@ const getNav = (
   requestTransfersFlag: boolean,
   requestPaymentsFlag: boolean,
   myRequestsFlag: boolean,
+  myPQRSFlag: boolean,
 ): INav => {
   const sections = [
     {
@@ -72,6 +74,15 @@ const getNav = (
                 label: "Transferencias",
                 path: "/transfers",
                 icon: <MdOutlineCompareArrows />,
+              },
+            ]
+          : []),
+        ...(myPQRSFlag
+          ? [
+              {
+                label: "Mis PQRS",
+                path: "/my-pqrs",
+                icon: <MdOutlineContactSupport />,
               },
             ]
           : []),

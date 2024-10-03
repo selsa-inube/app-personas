@@ -1,19 +1,20 @@
-import { Button } from "@design/input/Button";
 import { DateField } from "@design/input/DateField";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
 import { inube } from "@design/tokens";
-import { FormikValues } from "formik";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { FormikProps } from "formik";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
 import { getFieldState } from "src/utils/forms/forms";
+import { IPersonalResidenceEntry } from "./types";
 
 interface PersonalResidenceFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IPersonalResidenceEntry>;
   loading?: boolean;
   withSubmit?: boolean;
 }
@@ -72,7 +73,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "bankEntity")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="La entidad bancaria es válida"
               />
               <DateField
                 label="Fecha de vencimiento"
@@ -85,7 +85,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "dueDate")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="La fecha de vencimiento es válida"
                 isFullWidth
               />
             </>
@@ -105,7 +104,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "tenant")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="El nombre del arrendador es válido"
               />
               <TextField
                 label="Celular del arrendador"
@@ -120,7 +118,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "tenantCellPhone")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="El celular del arrendador es válido"
               />
             </>
           )}
@@ -139,7 +136,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "ownerName")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="El nombre del titular es válido"
               />
               <Select
                 label="Parentesco"
@@ -167,7 +163,6 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 state={getFieldState(formik, "ownerCellPhone")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                validMessage="El celular del titular es válido"
               />
             </>
           )}
@@ -175,7 +170,7 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

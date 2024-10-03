@@ -1,9 +1,15 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { Totalizer } from "@components/layout/Totalizer";
+import { inube } from "@design/tokens";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { Fragment } from "react";
+import { EPaymentMethodType } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { currencyFormat } from "src/utils/currency";
-import { EPaymentMethodType, IFormsPay } from "../../../types";
+import { paySteps } from "../../../config/assisted";
+import { IFormsPay } from "../../../types";
 import { IObligationsEntry } from "../../ObligationsForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
 import {
@@ -11,11 +17,6 @@ import {
   IPaymentMethodEntry,
 } from "../../PaymentMethodForm/types";
 import { StyledPayments } from "./styles";
-import { payBoxTitles } from "../config/box";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { inube } from "@design/tokens";
 
 const renderObligationsVerification = (
   values: IObligationsEntry,
@@ -75,6 +76,7 @@ const renderObligationsVerification = (
     </Stack>
   );
 };
+
 const renderPaymentMethodVerification = (
   values: IPaymentMethodEntry,
   isTablet: boolean,
@@ -112,6 +114,7 @@ const renderPaymentMethodVerification = (
 
         {Object.values(values.moneySources || {}).map(
           (moneySource) =>
+            moneySource.value &&
             moneySource.value > 0 && (
               <BoxAttribute
                 key={moneySource.id}
@@ -143,7 +146,7 @@ const renderCommentsVerification = (values: ICommentsEntry) => (
 
 interface VerificationBoxesProps {
   pay: IFormsPay;
-  stepKey: keyof typeof payBoxTitles;
+  stepKey: keyof typeof paySteps;
   isTablet: boolean;
 }
 

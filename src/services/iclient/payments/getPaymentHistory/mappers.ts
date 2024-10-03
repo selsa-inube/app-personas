@@ -1,4 +1,4 @@
-import { TagAppearanceType } from "@design/data/Tag/types";
+import { ITag } from "@inubekit/tag";
 import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import { paymentStatusDM } from "src/model/domains/payments/paymentStatusDM";
 import { IPaymentHistory, IProductPayment } from "src/model/entity/payment";
@@ -10,12 +10,14 @@ const paymentTitleValues: Record<string, string> = {
   deposito_externo_ahorros: "Depósito externo a cuenta de ahorros",
 };
 
-const paymentStatusAppearance: Record<string, TagAppearanceType> = {
+const paymentStatusAppearance: Record<string, ITag["appearance"]> = {
   InProgressPSE: "warning",
   RejectedPSE: "danger",
   InProgressLinix: "warning",
-  Completed: "success",
   RejectedLinix: "danger",
+  Completed: "success",
+  StuckInPSE: "warning",
+  BlockedInPSE: "warning",
 };
 
 const mapPaymentHistoryApiToEntity = (
@@ -58,8 +60,6 @@ const mapPaymentHistoryApiToEntity = (
       label:
         paymentStatusDM.valueOf(String(payment.paymentStatus))?.value || "",
       appearance: paymentStatusAppearance[String(payment.paymentStatus)],
-      textAppearance: paymentStatusAppearance[String(payment.paymentStatus)],
-      modifier: "clear",
     },
     products,
   };

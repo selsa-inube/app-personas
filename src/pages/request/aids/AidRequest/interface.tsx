@@ -1,26 +1,26 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
-import { Assisted } from "@design/feedback/Assisted";
-import { IStep } from "@design/feedback/Assisted/types";
-import { SectionMessage } from "@design/feedback/SectionMessage";
-import { Button } from "@design/input/Button";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
+import { inube } from "@design/tokens";
+import { ContactChannelsForm } from "@forms/ContactChannelsForm";
+import { DisbursementForm } from "@forms/DisbursementForm";
+import { SystemValidationsForm } from "@forms/SystemValidationsForm";
+import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/stack";
 import { IDomainType } from "@ptypes/domain.types";
-import { IMessage } from "@ptypes/messages.types";
 import { MdArrowBack } from "react-icons/md";
+import { Blocker } from "react-router-dom";
 import { aidRequestSteps } from "./config/assisted";
 import { crumbsAidRequest } from "./config/navigation";
-import { AmountForm } from "./forms/AmountForm";
 import { BeneficiariesForm } from "./forms/BeneficiariesForm";
 import { DetailsSituationForm } from "./forms/DetailsSituationForm";
-import { DisbursementForm } from "./forms/DisbursementForm";
-import { DocumentaryRequirementsForm } from "./forms/DocumentaryRequirementsForm";
-import { RegulationValidationsForm } from "./forms/RegulationValidationsForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
+import { DocumentaryRequirementsForm } from "@forms/DocumentaryRequirementsForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -31,7 +31,7 @@ const renderStepContent = (
 ) => {
   return (
     <>
-      {currentStep === aidRequestSteps.beneficiaries.id && (
+      {currentStep === aidRequestSteps.beneficiaries.number && (
         <BeneficiariesForm
           initialValues={aidRequest.beneficiaries.values}
           ref={formReferences.beneficiaries}
@@ -39,15 +39,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.amount.id && (
-        <AmountForm
-          initialValues={aidRequest.amount.values}
-          ref={formReferences.amount}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
-
-      {currentStep === aidRequestSteps.detailsSituation.id && (
+      {currentStep === aidRequestSteps.detailsSituation.number && (
         <DetailsSituationForm
           initialValues={aidRequest.detailsSituation.values}
           ref={formReferences.detailsSituation}
@@ -55,15 +47,17 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.regulationValidations.id && (
-        <RegulationValidationsForm
-          initialValues={aidRequest.regulationValidations.values}
-          ref={formReferences.regulationValidations}
+      {currentStep === aidRequestSteps.systemValidations.number && (
+        <SystemValidationsForm
+          initialValues={aidRequest.systemValidations.values}
+          ref={formReferences.systemValidations}
+          disbursementValues={aidRequest.disbursement.values}
+          test
           onFormValid={setIsCurrentFormValid}
         />
       )}
 
-      {currentStep === aidRequestSteps.documentaryRequirements.id && (
+      {currentStep === aidRequestSteps.documentaryRequirements.number && (
         <DocumentaryRequirementsForm
           initialValues={aidRequest.documentaryRequirements.values}
           ref={formReferences.documentaryRequirements}
@@ -71,7 +65,7 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.disbursement.id && (
+      {currentStep === aidRequestSteps.disbursement.number && (
         <DisbursementForm
           initialValues={aidRequest.disbursement.values}
           ref={formReferences.disbursement}
@@ -79,7 +73,24 @@ const renderStepContent = (
         />
       )}
 
-      {currentStep === aidRequestSteps.verification.id && (
+      {currentStep === aidRequestSteps.termsAndConditions.number && (
+        <TermsAndConditionsForm
+          initialValues={aidRequest.termsAndConditions.values}
+          ref={formReferences.termsAndConditions}
+          productId="57"
+          productType="credit"
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === aidRequestSteps.contactChannels.number && (
+        <ContactChannelsForm
+          initialValues={aidRequest.contactChannels.values}
+          ref={formReferences.contactChannels}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+
+      {currentStep === aidRequestSteps.verification.number && (
         <AidRequestVerification
           aidRequest={aidRequest}
           handleStepChange={handleStepChange}
@@ -91,19 +102,18 @@ const renderStepContent = (
 
 interface AidRequestUIProps {
   currentStep: number;
-  steps: IStep[];
+  steps: IAssistedStep[];
   isCurrentFormValid: boolean;
   aidRequest: IFormsAidRequest;
   formReferences: IFormsAidRequestRefs;
   loadingSend: boolean;
-  message: IMessage;
+  blocker: Blocker;
   aidType: IDomainType;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
-  handleCloseMessage: () => void;
 }
 
 function AidRequestUI(props: AidRequestUIProps) {
@@ -114,14 +124,13 @@ function AidRequestUI(props: AidRequestUIProps) {
     aidRequest,
     formReferences,
     loadingSend,
-    message,
+    blocker,
     aidType,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
-    handleCloseMessage,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -150,11 +159,18 @@ function AidRequestUI(props: AidRequestUIProps) {
         </Stack>
 
         <Assisted
-          steps={steps}
-          currentStep={currentStep}
-          disableNextStep={!isCurrentFormValid}
-          onFinishAssisted={handleFinishAssisted}
-          onStepChange={handleStepChange}
+          step={steps[currentStep - 1]}
+          totalSteps={steps.length}
+          onNextClick={handleNextStep}
+          onBackClick={handlePreviousStep}
+          onSubmitClick={handleFinishAssisted}
+          disableNext={!isCurrentFormValid}
+          size={isTablet ? "small" : "large"}
+          controls={{
+            goBackText: "Anterior",
+            goNextText: "Siguiente",
+            submitText: "Enviar",
+          }}
         />
 
         <Stack direction="column" gap={inube.spacing.s300}>
@@ -196,14 +212,15 @@ function AidRequestUI(props: AidRequestUIProps) {
         />
       )}
 
-      {message.show && (
-        <SectionMessage
-          title={message.title}
-          description={message.description}
-          appearance={message.appearance}
-          icon={message.icon}
-          onClose={handleCloseMessage}
-          duration={5000}
+      {blocker.state === "blocked" && (
+        <DecisionModal
+          title="Salir de la solicitud de auxilio"
+          description="¿Estás seguro? Se perderá todo el proceso de solicitud."
+          cancelText="Continuar"
+          actionText="Salir"
+          onCloseModal={() => blocker.reset()}
+          onClick={() => blocker.proceed()}
+          portalId="modals"
         />
       )}
     </>

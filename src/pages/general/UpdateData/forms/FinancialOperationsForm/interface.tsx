@@ -1,26 +1,28 @@
-import { Button } from "@design/input/Button";
-import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
+import { Button } from "@inubekit/button";
+import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
-import { FormikValues } from "formik";
+import { Stack } from "@inubekit/stack";
+import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
+import { IFinancialOperationsEntry } from "./types";
 
 interface FinancialOperationsFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IFinancialOperationsEntry>;
   loading?: boolean;
   withSubmit?: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
-  const { formik, loading, withSubmit, isRequired } = props;
+  const { formik, loading, withSubmit, validationSchema } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
   const isMobile = useMediaQuery("(max-width: 610px)");
@@ -56,7 +58,10 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             isDisabled={loading}
             onChange={formik.handleChange}
             state={getFieldState(formik, "hasForeignCurrencyTransactions")}
-            isRequired={isRequired("hasForeignCurrencyTransactions")}
+            isRequired={isRequired(
+              validationSchema,
+              "hasForeignCurrencyTransactions",
+            )}
             onBlur={formik.handleBlur}
           />
 
@@ -72,14 +77,17 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
             isDisabled={loading}
             onChange={formik.handleChange}
             state={getFieldState(formik, "hasForeignCurrencyAccounts")}
-            isRequired={isRequired("hasForeignCurrencyAccounts")}
+            isRequired={isRequired(
+              validationSchema,
+              "hasForeignCurrencyAccounts",
+            )}
             onBlur={formik.handleBlur}
           />
         </Grid>
         {showForeignCurrencyTransactions && (
           <>
             <Fieldset
-              title="Operaciones"
+              legend="Operaciones"
               type={isMobile ? "label" : "title"}
               size="medium"
             >
@@ -93,10 +101,12 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                 isDisabled={loading}
                 value={formik.values.descriptionOperations}
                 onChange={formik.handleChange}
-                onFocus={formik.isFocused}
                 lengthThreshold={20}
                 isFullWidth
-                isRequired={isRequired("descriptionOperations")}
+                isRequired={isRequired(
+                  validationSchema,
+                  "descriptionOperations",
+                )}
                 onBlur={formik.handleBlur}
               />
             </Fieldset>
@@ -106,7 +116,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         {showForeignCurrencyAccounts && (
           <>
             <Fieldset
-              title="Cuentas"
+              legend="Cuentas"
               type={isMobile ? "label" : "title"}
               size="medium"
             >
@@ -118,6 +128,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                     ? inube.spacing.s150
                     : `${inube.spacing.s200} ${inube.spacing.s300}`
                 }
+                width="100%"
               >
                 <Select
                   label="País"
@@ -130,7 +141,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   errorMessage={formik.errors.country}
                   isDisabled={loading}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("country")}
+                  isRequired={isRequired(validationSchema, "country")}
                   onBlur={formik.handleBlur}
                 />
                 <TextField
@@ -143,10 +154,9 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   size={isTablet ? "compact" : "wide"}
                   isFullWidth
                   errorMessage={formik.errors.bankEntity}
-                  validMessage="La entidad bancaria es válida"
                   isDisabled={loading}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("bankEntity")}
+                  isRequired={isRequired(validationSchema, "bankEntity")}
                   onBlur={formik.handleBlur}
                   state={getFieldState(formik, "bankEntity")}
                 />
@@ -160,12 +170,11 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   size={isTablet ? "compact" : "wide"}
                   isFullWidth
                   errorMessage={formik.errors.currency}
-                  validMessage="La moneda es válida"
                   max={3}
                   maxLength={3}
                   isDisabled={loading}
                   onChange={formik.handleChange}
-                  isRequired={isRequired("currency")}
+                  isRequired={isRequired(validationSchema, "currency")}
                   onBlur={formik.handleBlur}
                   state={getFieldState(formik, "currency")}
                 />
@@ -181,9 +190,8 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
                   size={isTablet ? "compact" : "wide"}
                   isFullWidth
                   onChange={formik.handleChange}
-                  validMessage="El numero de cuenta es válido"
                   state={getFieldState(formik, "accountNumber")}
-                  isRequired={isRequired("accountNumber")}
+                  isRequired={isRequired(validationSchema, "accountNumber")}
                   onBlur={formik.handleBlur}
                 />
               </Grid>
@@ -194,7 +202,7 @@ function FinancialOperationsFormUI(props: FinancialOperationsFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

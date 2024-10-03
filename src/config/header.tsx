@@ -3,6 +3,7 @@ import { ISection } from "@design/navigation/Menu/MenuSection/types";
 import {
   MdLogout,
   MdOutlineBadge,
+  MdOutlineContactSupport,
   MdOutlineManageAccounts,
 } from "react-icons/md";
 
@@ -12,9 +13,18 @@ const logoUrl =
 const getHeader = (
   updateDataAssistedFlag: boolean,
   updateDataUnassistedFlag: boolean,
+  createPQRS: boolean,
   nav: INav,
 ) => {
   const links = [];
+
+  if (createPQRS) {
+    links.push({
+      label: "Crear PQRS",
+      path: "/my-pqrs/create",
+      icon: <MdOutlineContactSupport />,
+    });
+  }
 
   if (updateDataAssistedFlag) {
     links.push({
@@ -34,7 +44,7 @@ const getHeader = (
 
   const consultingUser = sessionStorage.getItem("consultingUser");
 
-  const businessUnit = consultingUser ? "Desarrollo" : "Fondecom";
+  const businessUnit = consultingUser ? "Desarrollo" : "";
 
   return {
     logoURL: logoUrl,

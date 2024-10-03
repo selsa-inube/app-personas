@@ -1,6 +1,5 @@
 import { getHeader } from "@config/header";
 import { getNav } from "@config/nav";
-import { Button } from "@design/input/Button";
 import { Header } from "@design/navigation/Header";
 import { Nav } from "@design/navigation/Nav";
 import { inube } from "@design/tokens";
@@ -15,6 +14,7 @@ import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledPage } from "./styles";
 import { Text } from "@inubekit/text";
+import { Button } from "@inubekit/button";
 
 function PageNotFound() {
   const { pathname: currentLocation } = useLocation();
@@ -40,6 +40,7 @@ function PageNotFound() {
   ).value;
   const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
+  const withMyPQRS = getFlag("admin.pqrs.pqrs.pqrs-option").value;
 
   const nav = getNav(
     withSavingRequest,
@@ -50,11 +51,13 @@ function PageNotFound() {
     withTransfers,
     withPayments,
     withMyRequests,
+    withMyPQRS
   );
 
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
     getFlag("general.links.update-data.update-data-without-assisted").value,
+    getFlag("general.links.pqrs.create-pqrs").value,
     nav,
   );
 

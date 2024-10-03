@@ -1,11 +1,11 @@
-import { Button } from "@design/input/Button";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { createPortal } from "react-dom";
-import { StyledModal } from "./styles";
 import { Blanket } from "@inubekit/blanket";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
+import { createPortal } from "react-dom";
+import { StyledModal } from "./styles";
+import { Button } from "@inubekit/button";
 
 interface ValidationDetailsModalProps {
   label: string;
@@ -33,9 +33,11 @@ function ValidationDetailsModal(props: ValidationDetailsModalProps) {
           {label}
         </Text>
 
-        <Text type="body" size="large" appearance="gray">
-          {description}
-        </Text>
+        {description && (
+          <Text type="body" size="large" appearance="gray">
+            {description}
+          </Text>
+        )}
 
         <Stack gap={inube.spacing.s200} justifyContent="flex-end" width="100%">
           <Button spacing="compact" onClick={onCloseModal} appearance="danger">

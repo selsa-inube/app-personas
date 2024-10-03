@@ -1,4 +1,4 @@
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 import { IDomainType } from "@ptypes/domain.types";
 
 interface ITransfer {
@@ -8,7 +8,7 @@ interface ITransfer {
   value: number;
   source: string;
   date: Date;
-  tag: TagProps;
+  tag: ITag;
 }
 
 interface ITransferRequest {

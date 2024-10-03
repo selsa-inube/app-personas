@@ -1,71 +1,108 @@
-import { usersMock } from "@mocks/users/users.mocks";
+import { mapComments } from "@forms/CommentsForm/mappers";
+import { mapDisbursement } from "@forms/DisbursementForm/mappers";
+import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
+import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
+import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
+import { Navigate, useBlocker } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
-import { cdatRequestSteps, cdatStepsRules } from "./config/assisted";
+import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
 import { IConditionsEntry } from "./forms/ConditionsForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
-import { IRefundEntry } from "./forms/RefundForm/types";
+import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { Navigate } from "react-router-dom";
+import { cdatStepsRules } from "./utils";
 
 function CdatRequest() {
+  const { user } = useContext(AppContext);
+  const [loadingSend, setLoadingSend] = useState(false);
+
   const [currentStep, setCurrentStep] = useState(
-    cdatRequestSteps.investment.id,
+    cdatRequestSteps.investment.number,
   );
   const steps = Object.values(cdatRequestSteps);
-
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
   const { getFlag } = useContext(AppContext);
 
   const [cdatRequest, setCdatRequest] = useState<IFormsCdatRequest>({
     investment: {
       isValid: false,
-      values: initalValuesCDAT.investment,
+      values: {},
     },
     conditions: {
       isValid: false,
       values: initalValuesCDAT.conditions,
     },
-    refund: {
+    paymentMethod: {
       isValid: false,
-      values: initalValuesCDAT.refund,
+      values: initalValuesCDAT.paymentMethod,
+    },
+    disbursement: {
+      isValid: false,
+      values: mapDisbursement(),
+    },
+    systemValidations: {
+      isValid: false,
+      values: mapSystemValidations(),
     },
     investmentName: {
       isValid: false,
       values: initalValuesCDAT.investmentName,
     },
-    contactChannels: {
-      isValid: false,
-      values: mapContactChannels(usersMock[0].contact[0]),
-    },
     comments: {
       isValid: true,
-      values: initalValuesCDAT.comments,
+      values: mapComments(),
+    },
+    termsAndConditions: {
+      isValid: false,
+      values: mapTermsAndConditions(),
+    },
+    contactChannels: {
+      isValid: false,
+      values: mapContactChannels({
+        cellPhone: parseInt(user.phone) || 0,
+        email: user.email || "",
+      }),
     },
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
   const conditionsRef = useRef<FormikProps<IConditionsEntry>>(null);
-  const refundRef = useRef<FormikProps<IRefundEntry>>(null);
+  const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
+  const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
+  const systemValidationsRef =
+    useRef<FormikProps<ISystemValidationsEntry>>(null);
   const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
-  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
   const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
+  const termsAndConditionsRef =
+    useRef<FormikProps<ITermsAndConditionsEntry>>(null);
+  const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
     conditions: conditionsRef,
-    refund: refundRef,
+    paymentMethod: paymentMethodRef,
+    disbursement: disbursementRef,
+    systemValidations: systemValidationsRef,
     investmentName: investmentNameRef,
-    contactChannels: contactChannelsRef,
     comments: commentsRef,
+    termsAndConditions: termsAndConditionsRef,
+    contactChannels: contactChannelsRef,
   };
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname,
+  );
 
   const handleStepChange = (stepId: number) => {
     const newCdatRequest = cdatStepsRules(
@@ -74,10 +111,11 @@ function CdatRequest() {
       formReferences,
       isCurrentFormValid,
     );
+
     setCdatRequest(newCdatRequest);
 
     const changeStepKey = Object.entries(cdatRequestSteps).find(
-      ([, config]) => config.id === stepId,
+      ([, config]) => config.number === stepId,
     )?.[0];
 
     if (!changeStepKey) return;
@@ -95,17 +133,21 @@ function CdatRequest() {
   };
 
   const handleFinishAssisted = () => {
-    return true;
+    setLoadingSend(true);
   };
 
   const handleNextStep = () => {
-    if (currentStep + 1 <= steps.length) {
+    if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
+      return;
     }
+    handleFinishAssisted();
   };
 
   const handlePreviousStep = () => {
-    handleStepChange(currentStep - 1);
+    if (currentStep > 0) {
+      handleStepChange(currentStep - 1);
+    }
   };
 
   if (!getFlag("admin.savings.savings.request-saving").value) {
@@ -119,6 +161,8 @@ function CdatRequest() {
       isCurrentFormValid={isCurrentFormValid}
       cdatRequest={cdatRequest}
       formReferences={formReferences}
+      loadingSend={loadingSend}
+      blocker={blocker}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}

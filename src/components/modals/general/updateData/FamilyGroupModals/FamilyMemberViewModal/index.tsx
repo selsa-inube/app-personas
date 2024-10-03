@@ -1,10 +1,18 @@
-import { Button } from "@design/input/Button";
-import { Fieldset } from "@design/input/Fieldset";
 import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Fieldset } from "@inubekit/fieldset";
+import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { FormikValues } from "formik";
+import { IFamilyGroupEntries } from "@pages/general/UpdateData/forms/FamilyGroupForm/types";
+import { FormikProps } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
@@ -13,17 +21,10 @@ import { identificationTypeDM } from "src/model/domains/general/updateData/perso
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { StyledModal, StyledScrollbar } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface FamilyMemberViewModalProps {
   portalId: string;
-  formik: FormikValues;
+  formik: FormikProps<IFamilyGroupEntries>;
   onCloseModal: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
@@ -67,7 +68,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
         <StyledScrollbar $isMobile={isMobile}>
           <Divider dashed />
           <Fieldset
-            title="Identificación"
+            legend="Identificación"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
@@ -75,6 +76,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               gap={inube.spacing.s200}
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
               autoRows="auto"
+              width="100%"
             >
               <Select
                 label="Tipo de documento"
@@ -84,7 +86,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 options={identificationTypeDM.options}
                 size="compact"
                 isFullWidth
-                value={formik.values.type.id}
+                value={formik.values.type?.id || ""}
                 readOnly
               />
               <TextField
@@ -145,7 +147,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             </Grid>
           </Fieldset>
           <Fieldset
-            title="Contacto"
+            legend="Contacto"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
@@ -153,6 +155,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               gap={inube.spacing.s200}
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
               autoRows="auto"
+              width="100%"
             >
               <TextField
                 label="Celular"
@@ -179,7 +182,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
             </Grid>
           </Fieldset>
           <Fieldset
-            title="Información"
+            legend="Información"
             type={isMobile ? "label" : "title"}
             size={isMobile ? "medium" : "small"}
           >
@@ -187,6 +190,7 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
               gap={inube.spacing.s200}
               templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
               autoRows="auto"
+              width="100%"
             >
               <Select
                 label="Parentesco"

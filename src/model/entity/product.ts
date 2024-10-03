@@ -1,4 +1,4 @@
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 
 interface IAttribute {
   id: string;
@@ -13,6 +13,7 @@ enum EMovementType {
   CREDIT = "CREDIT",
   DEBIT = "DEBIT",
   RECORD = "RECORD",
+  PQRS = "PQRS",
 }
 
 interface IMovement {
@@ -58,7 +59,7 @@ interface ICommitment {
   description?: string;
   attributes: IAttribute[];
   movements?: IMovement[];
-  tag?: TagProps;
+  tag?: ITag;
   products: string[];
 }
 
@@ -80,7 +81,7 @@ interface IProduct {
   attributes: IAttribute[];
   movements?: IMovement[];
   amortization?: IAmortization[];
-  tags?: TagProps[];
+  tags?: ITag[];
   commitments?: string[];
   quotaDetails?: string[];
   consumptions?: IProduct[];

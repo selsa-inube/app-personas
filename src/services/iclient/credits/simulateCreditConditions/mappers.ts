@@ -4,21 +4,18 @@ const mapSimulationEntityToApi = (
   simulationValues: ISimulateCreditRequest,
 ): Record<string, string | number> => {
   return {
-    productId: simulationValues.productId,
-    paymentMethodId: simulationValues.paymentMethodId,
-    customerCode: simulationValues.userIdentification,
     amount: simulationValues.amount,
+    customerCode: simulationValues.userIdentification,
+    paymentMethodId: simulationValues.paymentMethodId,
     periodicityInMonths: simulationValues.periodicityInMonths,
+    productId: simulationValues.productId,
     quotaDeadlineInMonths: simulationValues.deadline,
     quotaValue: simulationValues.quota,
-    rate: simulationValues.rate,
-    simulationParameter: simulationValues.deadline
-      ? "QuotaDeadline"
-      : "QuotaValue",
+    simulationParameter: simulationValues.simulationParameter,
   };
 };
 
-const mapSimulationEntityToEntity = (
+const mapSimulationApiToEntity = (
   simulationOption: Record<string, string | object>,
 ): ISimulateCreditResponse => {
   return {
@@ -28,7 +25,7 @@ const mapSimulationEntityToEntity = (
     amount: Number(simulationOption.amount),
     cutOffDate: String(simulationOption.cutOffDate),
     periodicityInMonths: Number(simulationOption.periodicityInMonthsCapital),
-    rate: Number(simulationOption.rate),
+    rate: Number(simulationOption.interestRate),
     quota: Number(simulationOption.calculatedQuotaValue),
     deadline: Number(simulationOption.calculatedQuotaDeadline),
     anticipatedInterest: Number(simulationOption.anticipatedInterest),
@@ -39,4 +36,4 @@ const mapSimulationEntityToEntity = (
     netValue: Number(simulationOption.amountToBeDrawn),
   };
 };
-export { mapSimulationEntityToApi, mapSimulationEntityToEntity };
+export { mapSimulationApiToEntity, mapSimulationEntityToApi };

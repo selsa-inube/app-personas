@@ -7,14 +7,15 @@ interface IDestinationProduct {
   maxRate?: number;
   maxDeadline?: number;
   maxAmount: number;
+  maxAmountForUser: number;
   amortizationType: string;
 }
 
 interface IDestinationEntry {
   destinations: ISelectOption[];
-  creditDestination?: ISelectOption;
+  destination?: ISelectOption;
   products: IDestinationProduct[];
-  selectedProduct?: IDestinationProduct;
+  product?: IDestinationProduct;
 }
 
 export type { IDestinationEntry, IDestinationProduct };

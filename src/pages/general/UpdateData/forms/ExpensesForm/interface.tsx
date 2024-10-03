@@ -1,17 +1,18 @@
-import { Button } from "@design/input/Button";
 import { TextField } from "@design/input/TextField";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
-import { FormikValues } from "formik";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
+import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
+import { IExpensesEntry } from "./types";
 
 interface ExpensesFormUIProps {
-  formik: FormikValues;
+  formik: FormikProps<IExpensesEntry>;
   loading?: boolean;
   withSubmit?: boolean;
   customHandleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -51,7 +52,6 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             state={getFieldState(formik, "personalExpenses")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor de los gastos personales es válido"
           />
           <TextField
             label="Gastos familiares"
@@ -67,7 +67,6 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             state={getFieldState(formik, "familyExpenses")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor de los gastos familiares es válido"
           />
           <TextField
             label="Créditos"
@@ -83,7 +82,6 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             state={getFieldState(formik, "credits")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor de los créditos es válido"
           />
           <TextField
             label="Tarjetas de crédito"
@@ -99,7 +97,6 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             state={getFieldState(formik, "creditCards")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor de las tarjetas de crédito es válido"
           />
           <TextField
             label="Otros gastos"
@@ -115,7 +112,6 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
             state={getFieldState(formik, "others")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
-            validMessage="El valor de otros gastos es válido"
           />
         </Grid>
         <Stack
@@ -133,7 +129,7 @@ function ExpensesFormUI(props: ExpensesFormUIProps) {
         {withSubmit && (
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={formik.handleReset}
+              onClick={() => formik.handleReset()}
               type="button"
               disabled={loading || !formik.dirty}
               spacing="compact"

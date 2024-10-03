@@ -6,18 +6,19 @@ import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
+import * as Yup from "yup";
 import { IInformationDataEntry } from "./types";
 
 interface InformationDataFormUIProps {
   formik: FormikProps<IInformationDataEntry>;
   loading?: boolean;
   readonly?: boolean;
-  isRequired: (fieldName: string) => boolean;
+  validationSchema: Yup.ObjectSchema<Yup.AnyObject>;
 }
 
 function InformationDataFormUI(props: InformationDataFormUIProps) {
-  const { formik, readonly, isRequired } = props;
+  const { formik, readonly, validationSchema } = props;
 
   return (
     <>
@@ -35,7 +36,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
             onChange={formik.handleChange}
             value={formik.values.relationship || ""}
             state={getFieldState(formik, "relationship")}
-            isRequired={isRequired("relationship")}
+            isRequired={isRequired(validationSchema, "relationship")}
             isFullWidth
           />
           <Select
@@ -50,7 +51,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
             onChange={formik.handleChange}
             value={formik.values.isDependent || ""}
             state={getFieldState(formik, "isDependent")}
-            isRequired={isRequired("isDependent")}
+            isRequired={isRequired(validationSchema, "isDependent")}
             isFullWidth
           />
         </>
@@ -67,7 +68,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         onChange={formik.handleChange}
         value={formik.values.educationLevel || ""}
         state={getFieldState(formik, "educationLevel")}
-        isRequired={isRequired("educationLevel")}
+        isRequired={isRequired(validationSchema, "educationLevel")}
         readOnly={readonly}
         isFullWidth
       />
@@ -83,7 +84,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         onChange={formik.handleChange}
         value={formik.values.profession || ""}
         state={getFieldState(formik, "profession")}
-        isRequired={isRequired("profession")}
+        isRequired={isRequired(validationSchema, "profession")}
         readOnly={readonly}
         isFullWidth
       />
@@ -99,7 +100,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         onChange={formik.handleChange}
         value={formik.values.gender || ""}
         state={getFieldState(formik, "gender")}
-        isRequired={isRequired("gender")}
+        isRequired={isRequired(validationSchema, "gender")}
         readOnly={readonly}
         isFullWidth
       />
@@ -112,8 +113,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         state={getFieldState(formik, "birthDate")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        validMessage="La fecha de nacimiento es válida"
-        isRequired={isRequired("birthDate")}
+        isRequired={isRequired(validationSchema, "birthDate")}
         readOnly={readonly}
         isFullWidth
       />
@@ -129,7 +129,7 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         onChange={formik.handleChange}
         value={formik.values.businessActivity || ""}
         state={getFieldState(formik, "businessActivity")}
-        isRequired={isRequired("businessActivity")}
+        isRequired={isRequired(validationSchema, "businessActivity")}
         readOnly={readonly}
         isFullWidth
       />

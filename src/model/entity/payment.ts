@@ -1,5 +1,5 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
-import { TagProps } from "@design/data/Tag";
+import { ITag } from "@inubekit/tag";
 import {
   EPaymentGroupType,
   EPaymentOptionType,
@@ -25,7 +25,7 @@ interface IPayment {
   paymentMethodName: string;
   status: EPaymentStatusType;
   options: IPaymentOption[];
-  tags: TagProps[];
+  tags: ITag[];
   supportDocumentType: ESupportDocumentType;
   valueToPay?: number;
   applyPayOption?: IApplyPayOption;
@@ -43,12 +43,20 @@ interface IProductPayment {
 interface IPaymentHistory {
   id: string;
   title: string;
-  tag: TagProps;
+  tag: ITag;
   value: number;
   paymentDate: Date;
   paymentMethod: string;
   cus: string;
   products?: IProductPayment[];
 }
+
+enum EPaymentMethodType {
+  PSE = "PSE",
+  DEBIT = "DEBITSAVINGACCOUNT",
+  MULTIPLE = "MULTIPLE",
+}
+
+export { EPaymentMethodType };
 
 export type { IPayment, IPaymentHistory, IPaymentOption, IProductPayment };

@@ -1,14 +1,14 @@
 const disbursementTypeData = [
   {
-    id: "localSavingsDeposit",
+    id: "ABOCTALOC",
     value: "Abono en cuenta de ahorros propia",
   },
   {
-    id: "ownAccountTransfer",
+    id: "TRAEXTPRO",
     value: "Transferencia externa a cuenta propia",
   },
   {
-    id: "thirdPartExternalTransfer",
+    id: "TRAEXTTER",
     value: "Transferencia externa a un tercero",
   },
 ];

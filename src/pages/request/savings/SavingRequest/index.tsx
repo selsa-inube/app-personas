@@ -2,7 +2,6 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { RequestCard } from "@components/cards/RequestCard";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Breadcrumbs } from "@design/navigation/Breadcrumbs";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
@@ -14,6 +13,7 @@ import { AppContext } from "src/context/app";
 import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 function SavingRequest() {
   const navigate = useNavigate();
@@ -28,6 +28,20 @@ function SavingRequest() {
   if (!getFlag("admin.savings.savings.request-saving").value) {
     return <Navigate to="/" />;
   }
+
+  const filteredCards = savingRequestCards.filter((card) => {
+    if (card.id === "savingsAccount") {
+      return getFlag("request.savings.savings.request-savings-account").value;
+    }
+    if (card.id === "CDAT") {
+      return getFlag("request.savings.savings.request-cdat").value;
+    }
+    if (card.id === "programmedSavings") {
+      return getFlag("request.savings.savings.request-programmed-savings")
+        .value;
+    }
+    return false;
+  });
 
   return (
     <>
@@ -58,7 +72,7 @@ function SavingRequest() {
           </Text>
 
           <Stack direction="column" gap={inube.spacing.s300}>
-            {savingRequestCards.map((card, index) => (
+            {filteredCards.map((card, index) => (
               <RequestCard
                 key={index}
                 title={card.title}

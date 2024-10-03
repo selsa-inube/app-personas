@@ -1,7 +1,8 @@
 import { IAction } from "@design/data/Table/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { EMessageType, IMessage } from "@ptypes/messages.types";
-import { FormikProps, FormikValues, useFormik } from "formik";
+import { useFlag } from "@inubekit/flag";
+import { EMessageType } from "@ptypes/messages.types";
+import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
@@ -99,33 +100,17 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   ref: React.Ref<FormikProps<IFamilyGroupEntries>>,
 ) {
   const { initialValues, loading, withSubmit, onSubmit } = props;
-  const [dynamicSchema] = useState(validationSchema);
-  const [message, setMessage] = useState<IMessage>();
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
+  const { addFlag } = useFlag();
 
   const formik = useFormik({
     initialValues,
     validateOnBlur: false,
-    validationSchema: dynamicSchema,
+    validationSchema,
     onSubmit: onSubmit || (() => true),
   });
 
   useImperativeHandle(ref, () => formik);
-
-  const handleShowMessage = (message: IMessage) => {
-    const { title, description, icon, appearance } = message;
-    setMessage({
-      show: true,
-      title,
-      description,
-      icon,
-      appearance,
-    });
-  };
-
-  const handleCloseMessage = () => {
-    setMessage(undefined);
-  };
 
   const handleDeleteMember = (memberId: string) => {
     let messageType = EMessageType.SUCCESS;
@@ -142,21 +127,18 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
       formik.setFieldValue("entries", updatedMembers);
     }
 
-    const { icon, title, description, appearance } =
+    const { title, description, appearance } =
       deleteFamilyMemberMsgs[messageType];
 
-    handleShowMessage({
+    addFlag({
       title,
       description: description(`${member?.firstName} ${member?.firstLastName}`),
-      icon,
       appearance,
+      duration: 3000,
     });
   };
 
-  const handleEditMember = async (
-    member: IFamilyGroupEntry,
-    formik: FormikValues,
-  ) => {
+  const handleEditMember = async (member: IFamilyGroupEntry) => {
     await formik.validateForm();
 
     if (formik.isValid) {
@@ -231,12 +213,6 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
     formik.setTouched({});
   };
 
-  const isRequired = (fieldName: string): boolean => {
-    const fieldDescription = dynamicSchema.describe().fields[fieldName];
-    if (!("nullable" in fieldDescription)) return false;
-    return !fieldDescription.nullable && !fieldDescription.optional;
-  };
-
   const handleToggleModal = () => {
     setShowAddMemberModal(!showAddMemberModal);
   };
@@ -253,7 +229,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
           formik={formik}
           onDeleteMember={() => handleDeleteMember(member.id)}
           onEditMember={handleEditMember}
-          isRequired={isRequired}
+          validationSchema={validationSchema}
         />
       ),
       mobilePriority: true,
@@ -270,7 +246,7 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
             formik={formik}
             member={member}
             onEditMember={handleEditMember}
-            isRequired={isRequired}
+            validationSchema={validationSchema}
           />
         ),
         mobilePriority: true,
@@ -292,12 +268,10 @@ const FamilyGroupForm = forwardRef(function FamilyGroupForm(
   return (
     <FamilyGroupFormUI
       formik={formik}
-      message={message}
       familyGroupTableActions={familyGroupTableActions}
       showAddMemberModal={showAddMemberModal}
       loading={loading}
       withSubmit={withSubmit}
-      onCloseMessage={handleCloseMessage}
       onToggleModal={handleToggleModal}
       onAddMember={handleAddMember}
     />
