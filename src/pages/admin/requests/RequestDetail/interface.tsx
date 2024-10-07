@@ -1,4 +1,6 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
+import { RequestNews } from "@components/cards/RequestNews";
+import { INew } from "@components/cards/RequestNews/types";
 import { ValidationCard } from "@components/cards/ValidationCard";
 import { AttachDocumentModal } from "@components/modals/general/AttachDocumentModal";
 import { Accordion } from "@design/data/Accordion";
@@ -11,6 +13,7 @@ import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
+import { Tabs } from "@inubekit/tabs";
 import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
 import {
@@ -24,6 +27,7 @@ import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { truncateFileName } from "src/utils/texts";
 import { crumbsRequest } from "./config/navigation";
+import { requestTabs } from "./config/tabs";
 
 const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
   <Stack direction="column" gap={inube.spacing.s075}>
@@ -139,6 +143,8 @@ interface RequestUIProps {
   };
   maxFileSize: number;
   selectedDocuments: ISelectedDocument[];
+  selectedTab: string;
+  news: INew[];
   onOpenAttachModal: (requirementId: string, documentType: string) => void;
   onCloseAttachModal: () => void;
   onSelectDocument: (document: ISelectedDocument) => void;
@@ -147,6 +153,7 @@ interface RequestUIProps {
     documentType?: string,
     sequence?: number,
   ) => void;
+  onTabChange: (tabId: string) => void;
 }
 
 function RequestDetailUI(props: RequestUIProps) {
@@ -156,27 +163,22 @@ function RequestDetailUI(props: RequestUIProps) {
     attachModal,
     maxFileSize,
     selectedDocuments,
+    selectedTab,
+    news,
     onOpenAttachModal,
     onCloseAttachModal,
     onSelectDocument,
     onRemoveDocument,
+    onTabChange,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
   const isTablet = useMediaQuery("(max-width: 1100px)");
+  const isDesktop = useMediaQuery("(min-width: 1200px)");
 
   return (
     <>
-      <Stack
-        direction="column"
-        gap={
-          isMobile
-            ? inube.spacing.s300
-            : isTablet
-              ? inube.spacing.s500
-              : inube.spacing.s600
-        }
-      >
+      <Stack direction="column" gap={inube.spacing.s300}>
         <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsRequest(requestId)} />
           <Title
@@ -186,114 +188,142 @@ function RequestDetailUI(props: RequestUIProps) {
             navigatePage="/my-requests"
           />
         </Stack>
+        {!isDesktop && (
+          <Tabs
+            onChange={onTabChange}
+            selectedTab={selectedTab}
+            tabs={Object.values(requestTabs)}
+          />
+        )}
 
-        <Stack direction="column" gap={inube.spacing.s300}>
-          <Text type="title" size="medium" appearance="gray">
-            Características
-          </Text>
+        {((!isDesktop && selectedTab === requestTabs.features.id) ||
+          isDesktop) && (
+          <Grid
+            gap={inube.spacing.s600}
+            templateColumns={isDesktop ? "1fr 250px" : "1fr"}
+            margin={isDesktop ? `${inube.spacing.s600} 0 0` : `0`}
+          >
+            <Stack direction="column" gap={inube.spacing.s300}>
+              {isDesktop && (
+                <Text type="title" size="medium" appearance="gray">
+                  Características
+                </Text>
+              )}
 
-          <Accordion title={selectedRequest.description}>
-            <Grid
-              autoRows="auto"
-              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-              gap={inube.spacing.s200}
-              width="100%"
-            >
-              {renderItem(
-                "Estado:",
-                undefined,
-                <Tag
-                  label={selectedRequest.tag.label}
-                  appearance={selectedRequest.tag.appearance}
-                  weight="normal"
-                />,
-              )}
-              {renderItem("Producto:", selectedRequest.product)}
-              {renderItem("Destino:", selectedRequest.destination)}
-              {renderItem(
-                "Código de seguimiento:",
-                selectedRequest.trackingCode,
-              )}
-              {renderItem(
-                "Fecha de solicitud:",
-                formatPrimaryDate(selectedRequest.requestDate, true),
-              )}
-              {renderItem(
-                "Valor de la solicitud:",
-                currencyFormat(selectedRequest.value),
-              )}
-            </Grid>
-          </Accordion>
+              <Accordion title={selectedRequest.description}>
+                <Grid
+                  autoRows="auto"
+                  templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+                  gap={inube.spacing.s200}
+                  width="100%"
+                >
+                  {renderItem(
+                    "Estado:",
+                    undefined,
+                    <Tag
+                      label={selectedRequest.tag.label}
+                      appearance={selectedRequest.tag.appearance}
+                      weight="normal"
+                    />,
+                  )}
+                  {renderItem("Producto:", selectedRequest.product)}
+                  {renderItem("Destino:", selectedRequest.destination)}
+                  {renderItem(
+                    "Código de seguimiento:",
+                    selectedRequest.trackingCode,
+                  )}
+                  {renderItem(
+                    "Fecha de solicitud:",
+                    formatPrimaryDate(selectedRequest.requestDate, true),
+                  )}
+                  {renderItem(
+                    "Valor de la solicitud:",
+                    currencyFormat(selectedRequest.value),
+                  )}
+                </Grid>
+              </Accordion>
 
-          <Accordion title="Condiciones del crédito">
-            <Grid
-              autoRows="auto"
-              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-              gap={inube.spacing.s200}
-              width="100%"
-            >
-              {renderItem(
-                "Cuota:",
-                `${currencyFormat(selectedRequest.quotaValue)} / ${selectedRequest.periodicity}`,
-              )}
-              {renderItem("Plazo:", `${selectedRequest.deadline} Meses`)}
-              {renderItem(
-                "Tasa de interés:",
-                `${selectedRequest.interestRate} % N.A.M.V`,
-              )}
-              {renderItem(
-                "Desembolso aproximado:",
-                currencyFormat(selectedRequest.netValue),
-              )}
-            </Grid>
-          </Accordion>
+              <Accordion title="Condiciones del crédito">
+                <Grid
+                  autoRows="auto"
+                  templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+                  gap={inube.spacing.s200}
+                  width="100%"
+                >
+                  {renderItem(
+                    "Cuota:",
+                    `${currencyFormat(selectedRequest.quotaValue)} / ${selectedRequest.periodicity}`,
+                  )}
+                  {renderItem("Plazo:", `${selectedRequest.deadline} Meses`)}
+                  {renderItem(
+                    "Tasa de interés:",
+                    `${selectedRequest.interestRate} % N.A.M.V`,
+                  )}
+                  {renderItem(
+                    "Desembolso aproximado:",
+                    currencyFormat(selectedRequest.netValue),
+                  )}
+                </Grid>
+              </Accordion>
 
-          <Accordion title="Validaciones del sistema">
-            <Grid
-              autoRows="auto"
-              templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-              gap={inube.spacing.s200}
-              width="100%"
-            >
-              {selectedRequest.validations.map((validation) => (
-                <ValidationCard
-                  key={validation.id}
-                  id={validation.id}
-                  label={validation.label}
-                  failDetails={validation.failDetails}
-                  isRequired={validation.isRequired}
-                  pending={validation.pending}
-                  value={validation.value}
-                />
-              ))}
-            </Grid>
-          </Accordion>
+              <Accordion title="Validaciones del sistema">
+                <Grid
+                  autoRows="auto"
+                  templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+                  gap={inube.spacing.s200}
+                  width="100%"
+                >
+                  {selectedRequest.validations.map((validation) => (
+                    <ValidationCard
+                      key={validation.id}
+                      id={validation.id}
+                      label={validation.label}
+                      failDetails={validation.failDetails}
+                      isRequired={validation.isRequired}
+                      pending={validation.pending}
+                      value={validation.value}
+                    />
+                  ))}
+                </Grid>
+              </Accordion>
 
-          <Accordion title="Requisitos documentales">
-            <Stack
-              direction="column"
-              gap={inube.spacing.s200}
-              alignItems="flex-end"
-              width="100%"
-            >
-              <Stack gap={inube.spacing.s200} direction="column" width="100%">
-                {selectedRequest.documentaryRequirements.map(
-                  (document, index) =>
-                    document.documentType &&
-                    renderDocument(
-                      index,
-                      document.file.name,
-                      document.id,
-                      document.documentType,
-                      selectedDocuments,
-                      onOpenAttachModal,
-                      onRemoveDocument,
-                    ),
-                )}
-              </Stack>
+              <Accordion title="Requisitos documentales">
+                <Stack
+                  direction="column"
+                  gap={inube.spacing.s200}
+                  alignItems="flex-end"
+                  width="100%"
+                >
+                  <Stack
+                    gap={inube.spacing.s200}
+                    direction="column"
+                    width="100%"
+                  >
+                    {selectedRequest.documentaryRequirements.map(
+                      (document, index) =>
+                        document.documentType &&
+                        renderDocument(
+                          index,
+                          document.file.name,
+                          document.id,
+                          document.documentType,
+                          selectedDocuments,
+                          onOpenAttachModal,
+                          onRemoveDocument,
+                        ),
+                    )}
+                  </Stack>
+                </Stack>
+              </Accordion>
             </Stack>
-          </Accordion>
-        </Stack>
+
+            {isDesktop && <RequestNews news={news} />}
+          </Grid>
+        )}
+
+        {!isDesktop && selectedTab === requestTabs.news.id && (
+          <RequestNews news={news} />
+        )}
       </Stack>
 
       {attachModal.show && (

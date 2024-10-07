@@ -103,9 +103,8 @@ function MyRequests() {
 
           setRequests([...requests, ...newRequests]);
         })
-        .catch((error) => {
+        .catch(() => {
           setNoMoreRequests(true);
-          console.info(error.message);
         })
         .finally(() => {
           setLoading(false);

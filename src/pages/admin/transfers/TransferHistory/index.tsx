@@ -105,9 +105,8 @@ function TransferHistory() {
 
           setTransferHistory([...transferHistory, ...newTransferHistory]);
         })
-        .catch((error) => {
+        .catch(() => {
           setNoMoreTransfers(true);
-          console.info(error.message);
         })
         .finally(() => {
           setLoading(false);

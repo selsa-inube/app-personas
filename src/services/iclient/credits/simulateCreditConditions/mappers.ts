@@ -4,14 +4,13 @@ const mapSimulationEntityToApi = (
   simulationValues: ISimulateCreditRequest,
 ): Record<string, string | number> => {
   return {
-    productId: simulationValues.productId,
-    paymentMethodId: simulationValues.paymentMethodId,
-    customerCode: simulationValues.userIdentification,
     amount: simulationValues.amount,
+    customerCode: simulationValues.userIdentification,
+    paymentMethodId: simulationValues.paymentMethodId,
     periodicityInMonths: simulationValues.periodicityInMonths,
+    productId: simulationValues.productId,
     quotaDeadlineInMonths: simulationValues.deadline,
     quotaValue: simulationValues.quota,
-    rate: simulationValues.rate,
     simulationParameter: simulationValues.simulationParameter,
   };
 };

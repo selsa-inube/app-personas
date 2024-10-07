@@ -1,3 +1,4 @@
+import { INew } from "@components/cards/RequestNews/types";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -6,6 +7,8 @@ import { RequestsContext } from "src/context/requests";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
+import { getNewsForRequest } from "src/services/iclient/requests/getNews";
+import { requestTabs } from "./config/tabs";
 import { RequestDetailUI } from "./interface";
 import { validateRequest } from "./utils";
 
@@ -26,6 +29,9 @@ function RequestDetail() {
   const { requests, setRequests } = useContext(RequestsContext);
   const { user } = useContext(AppContext);
 
+  const [selectedTab, setSelectedTab] = useState(requestTabs.features.id);
+  const [news, setNews] = useState<INew[]>([]);
+
   const handleSortRequest = async () => {
     if (!request_id || !user || !accessToken) return;
 
@@ -41,7 +47,12 @@ function RequestDetail() {
     if (!selectedRequest) return;
 
     setSelectedRequest(selectedRequest);
+
+    const news = await getNewsForRequest(selectedRequest.id, accessToken);
+
+    setNews(news);
   };
+
   useEffect(() => {
     handleSortRequest();
   }, [accessToken, user, request_id]);
@@ -89,6 +100,10 @@ function RequestDetail() {
     });
   };
 
+  const handleTabChange = (tabId: string) => {
+    setSelectedTab(tabId);
+  };
+
   if (!selectedRequest) return null;
 
   return (
@@ -98,10 +113,13 @@ function RequestDetail() {
       attachModal={attachModal}
       maxFileSize={MAX_SIZE_PER_FILE}
       selectedDocuments={selectedDocuments}
+      selectedTab={selectedTab}
+      news={news}
       onOpenAttachModal={handleOpenAttachModal}
       onCloseAttachModal={handleCloseAttachModal}
       onSelectDocument={handleSelectDocument}
       onRemoveDocument={handleRemoveDocument}
+      onTabChange={handleTabChange}
     />
   );
 }

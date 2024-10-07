@@ -100,6 +100,8 @@ interface SavingsAccountUIProps {
   onToggleChangeQuotaModal: () => void;
   onToggleModifyActionModal: () => void;
   onToggleCancelSavingModal: () => void;
+  onDownloadCertificate: () => void;
+  onShareCertificate: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -131,6 +133,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onToggleChangeQuotaModal,
     onToggleModifyActionModal,
     onToggleCancelSavingModal,
+    onDownloadCertificate,
+    onShareCertificate,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -371,6 +375,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           onChangeQuota={onToggleChangeQuotaModal}
           onModifyAction={onToggleModifyActionModal}
           onCancelSaving={onToggleCancelSavingModal}
+          onDownload={onDownloadCertificate}
+          onShare={onShareCertificate}
         />
       )}
       {showChangeQuotaModal && (
