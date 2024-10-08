@@ -56,6 +56,8 @@ import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
+import { useContext } from "react";
+import { AppContext } from "src/context/app";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -136,6 +138,31 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onDownloadCertificate,
     onShareCertificate,
   } = props;
+  const { getFlag } = useContext(AppContext);
+
+  const withChangeQuotaOption = getFlag(
+    "admin.savings.programmed-savings.modal-option-change-quota",
+  ).value;
+
+  const withModifyActionOption = getFlag(
+    "admin.savings.programmed-savings.modal-option-modify-action",
+  ).value;
+
+  const withCancelSavingOption = getFlag(
+    "admin.savings.programmed-savings.modal-option-cancel-saving",
+  ).value;
+
+  const withDownloadCertificateOption = getFlag(
+    "admin.savings.cdat.modal-option-download-certificate",
+  ).value;
+
+  const withShareCertificateOption = getFlag(
+    "admin.savings.cdat.modal-option-share-certificate",
+  ).value;
+
+  const withCancelInvestmentOption = getFlag(
+    "admin.savings.cdat.modal-option-cancel-investment",
+  ).value;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
@@ -268,9 +295,15 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               </Grid>
             </Stack>
             <Stack justifyContent="flex-end" width="100%">
-              {[EProductType.PROGRAMMEDSAVINGS, EProductType.CDAT].includes(
-                selectedProduct.saving.type,
-              ) && (
+              {(selectedProduct.saving.type ===
+                EProductType.PROGRAMMEDSAVINGS &&
+                (withChangeQuotaOption ||
+                  withModifyActionOption ||
+                  withCancelSavingOption)) ||
+              (selectedProduct.saving.type === EProductType.CDAT &&
+                (withDownloadCertificateOption ||
+                  withShareCertificateOption ||
+                  withCancelInvestmentOption)) ? (
                 <Button
                   iconBefore={<MdOutlineAdd />}
                   spacing="compact"
@@ -278,7 +311,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                 >
                   Acciones
                 </Button>
-              )}
+              ) : null}
             </Stack>
           </Box>
           {showMovements && (

@@ -126,6 +126,11 @@ const fondecomTheme = {
       color: palette.neutralAlpha.n100a,
     },
   },
+  breadcrumbs: {
+    content: {
+      active: "dark",
+    },
+  },
   button: {
     primary: {
       content: {
@@ -728,79 +733,37 @@ const fondecomTheme = {
   },
   nav: {
     background: {
-      color: {
-        Value: "",
-        Reference: "fondecom.nav.background.color",
-        Token: "fondecom.palette.neutral.n10",
-      },
+      color: palette.neutral.n10,
     },
     divider: {
-      color: {
-        Value: "",
-        Reference: "fondecom.nav.divider.color",
-        Token: "fondecom.palette.neutral.n40",
-      },
+      color: palette.neutral.n40,
     },
     title: {
       appearance: {
-        Value: "",
-        Reference: "fondecom.nav.title.appearance",
-        Token: "gray",
+        color: "gray",
       },
     },
     subtitle: {
       appearance: {
-        regular: {
-          Value: "",
-          Reference: "fondecom.nav.subtitle.appearance.regular",
-          Token: "gray",
-        },
-        expanded: {
-          Value: "",
-          Reference: "fondecom.nav.subtitle.appearance.expanded",
-          Token: "primary",
-        },
+        regular: "gray",
+        expanded: "primary",
       },
       background: {
-        expanded: {
-          Value: "",
-          Reference: "fondecom.nav.subtitle.background.expanded",
-          Token: "fondecom.palette.neutral.n30",
-        },
+        expanded: palette.neutral.n30,
       },
     },
     link: {
       appearance: {
-        regular: {
-          Value: "",
-          Reference: "fondecom.nav.link.appearance.regular",
-          Token: "dark",
-        },
-        selected: {
-          Value: "",
-          Reference: "fondecom.nav.link.appearance.selected",
-          Token: "primary",
-        },
+        regular: "dark",
+        selected: "primary",
       },
       background: {
-        selected: {
-          Value: "",
-          Reference: "fondecom.nav.link.background.selected",
-          Token: "fondecom.palette.neutral.n30",
-        },
-        hover: {
-          Value: "",
-          Reference: "fondecom.nav.link.background.hover",
-          Token: "fondecom.palette.neutral.n30",
-        },
+        selected: palette.neutral.n30,
+        hover: palette.neutral.n30,
       },
     },
     copyright: {
-      appearance: {
-        Value: "",
-        Reference: "fondecom.nav.copyright.appearance",
-        Token: "gray",
-      },
+      appearance: "dark",
     },
   },
   palette: palette,
