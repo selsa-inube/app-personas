@@ -26,6 +26,10 @@ function Page(props: PageProps) {
   const { logout } = useAuth();
 
   const isTablet = useMediaQuery("(min-width: 900px)");
+  const { logout } = useAuth();
+
+  const isTablet = useMediaQuery("(min-width: 900px)");
+  const year = new Date().getFullYear();
 
   const withSavingRequest = getFlag(
     "admin.savings.savings.request-saving",

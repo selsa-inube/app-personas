@@ -17,8 +17,6 @@ import { Nav } from "@inubekit/nav";
 import { useAuth } from "@inube/auth";
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 
-const year = new Date().getFullYear();
-
 function PageNotFound() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { user } = useContext(AppContext);
@@ -27,6 +25,7 @@ function PageNotFound() {
 
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
+  const year = new Date().getFullYear();
 
   const withSavingRequest = getFlag(
     "admin.savings.savings.request-saving",
