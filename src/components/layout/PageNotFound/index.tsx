@@ -1,28 +1,32 @@
 import { getHeader } from "@config/header";
-import { getNav } from "@config/nav";
+import { getActions, getMobileNav, getNav } from "@config/nav";
 import { Header } from "@design/navigation/Header";
-import { Nav } from "@design/navigation/Nav";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
-import { useLocation } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledPage } from "./styles";
 import { Text } from "@inubekit/text";
 import { Button } from "@inubekit/button";
+import { Nav } from "@inubekit/nav";
+import { useAuth } from "@inube/auth";
+import { DecisionModal } from "@components/modals/general/DecisionModal";
+
+const year = new Date().getFullYear();
 
 function PageNotFound() {
-  const { pathname: currentLocation } = useLocation();
-  const isTablet = useMediaQuery("(min-width: 900px)");
-  const isMobile = useMediaQuery("(max-width: 550px)");
-
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
+  const { logout } = useAuth();
+
+  const isTablet = useMediaQuery("(min-width: 900px)");
+  const isMobile = useMediaQuery("(max-width: 550px)");
 
   const withSavingRequest = getFlag(
     "admin.savings.savings.request-saving",
@@ -41,6 +45,17 @@ function PageNotFound() {
   const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
 
+  const mobileNav = getMobileNav(
+    withSavingRequest,
+    withCreditRequest,
+    withEventRequest,
+    withAidRequest,
+    withHolidaysRequest,
+    withTransfers,
+    withPayments,
+    withMyRequests,
+  );
+
   const nav = getNav(
     withSavingRequest,
     withCreditRequest,
@@ -55,7 +70,7 @@ function PageNotFound() {
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
     getFlag("general.links.update-data.update-data-without-assisted").value,
-    nav,
+    mobileNav,
   );
 
   const username = capitalizeEachWord(
@@ -67,6 +82,17 @@ function PageNotFound() {
       user.secondLastName || ""
     }`,
   );
+
+  const handleLogout = () => {
+    logout();
+    sessionStorage.clear();
+  };
+
+  const handleToggleLogoutModal = () => {
+    setShowLogoutModal(!showLogoutModal);
+  };
+
+  const actions = getActions(handleToggleLogoutModal);
 
   return (
     <StyledPage>
@@ -86,9 +112,9 @@ function PageNotFound() {
       >
         {isTablet && (
           <Nav
-            sections={nav.sections}
-            currentLocation={currentLocation}
-            logoutTitle="Cerrar sesión"
+            navigation={nav}
+            actions={actions}
+            footerLabel={`©${year} - Inube`}
           />
         )}
         <StyledMain>
@@ -137,6 +163,16 @@ function PageNotFound() {
           </Stack>
         </StyledMain>
       </Grid>
+      {showLogoutModal && (
+        <DecisionModal
+          title="Cerrar sesión"
+          description="¿Realmente quieres cerrar sesión?"
+          actionText="Cerrar sesión"
+          portalId="modals"
+          onCloseModal={handleToggleLogoutModal}
+          onClick={handleLogout}
+        />
+      )}
     </StyledPage>
   );
 }
