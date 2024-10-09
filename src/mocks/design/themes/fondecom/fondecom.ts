@@ -650,16 +650,6 @@ const fondecomTheme = {
       },
     },
   },
-  label: {
-    content: {
-      color: {
-        regular: palette.neutral.n900,
-        disabled: palette.neutral.n70,
-        focus: palette.blue.b300,
-        invalid: palette.red.r400,
-      },
-    },
-  },
   link: {
     content: {
       color: {
