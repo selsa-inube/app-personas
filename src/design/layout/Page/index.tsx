@@ -1,14 +1,18 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { getHeader } from "@config/header";
-import { getNav } from "@config/nav";
+import { getActions, getMobileNav, getNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useAuth } from "@inube/auth";
 import { Grid } from "@inubekit/grid";
-import { useContext } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Nav } from "@inubekit/nav";
+import { useContext, useState } from "react";
+import { Outlet } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { Header } from "../../navigation/Header";
-import { Nav } from "../../navigation/Nav";
 import { StyledMain, StyledPage } from "./styles";
+
+const year = new Date().getFullYear();
 
 interface PageProps {
   withNav?: boolean;
@@ -16,11 +20,12 @@ interface PageProps {
 
 function Page(props: PageProps) {
   const { withNav = true } = props;
-  const currentLocation = useLocation().pathname;
-  const isTablet = useMediaQuery("(min-width: 900px)");
-
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
+  const { logout } = useAuth();
+
+  const isTablet = useMediaQuery("(min-width: 900px)");
 
   const withSavingRequest = getFlag(
     "admin.savings.savings.request-saving",
@@ -40,6 +45,18 @@ function Page(props: PageProps) {
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
   const withMyPQRS = getFlag("admin.pqrs.pqrs.pqrs-option").value;
 
+  const mobileNav = getMobileNav(
+    withSavingRequest,
+    withCreditRequest,
+    withEventRequest,
+    withAidRequest,
+    withHolidaysRequest,
+    withTransfers,
+    withPayments,
+    withMyRequests,
+    withMyPQRS,
+  );
+
   const nav = getNav(
     withSavingRequest,
     withCreditRequest,
@@ -49,14 +66,14 @@ function Page(props: PageProps) {
     withTransfers,
     withPayments,
     withMyRequests,
-    withMyPQRS
+    withMyPQRS,
   );
 
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
     getFlag("general.links.update-data.update-data-without-assisted").value,
     getFlag("general.links.pqrs.create-pqrs").value,
-    nav,
+    mobileNav,
   );
 
   const username = capitalizeEachWord(
@@ -68,6 +85,17 @@ function Page(props: PageProps) {
       user.secondLastName || ""
     }`,
   );
+
+  const handleLogout = () => {
+    logout();
+    sessionStorage.clear();
+  };
+
+  const handleToggleLogoutModal = () => {
+    setShowLogoutModal(!showLogoutModal);
+  };
+
+  const actions = getActions(handleToggleLogoutModal);
 
   return (
     <StyledPage>
@@ -88,9 +116,9 @@ function Page(props: PageProps) {
         >
           {isTablet && (
             <Nav
-              sections={nav.sections}
-              currentLocation={currentLocation}
-              logoutTitle="Cerrar sesión"
+              navigation={nav}
+              actions={actions}
+              footerLabel={`©${year} - Inube`}
             />
           )}
           <StyledMain>
@@ -101,6 +129,16 @@ function Page(props: PageProps) {
         <StyledMain>
           <Outlet />
         </StyledMain>
+      )}
+      {showLogoutModal && (
+        <DecisionModal
+          title="Cerrar sesión"
+          description="¿Realmente quieres cerrar sesión?"
+          actionText="Cerrar sesión"
+          portalId="modals"
+          onCloseModal={handleToggleLogoutModal}
+          onClick={handleLogout}
+        />
       )}
     </StyledPage>
   );
