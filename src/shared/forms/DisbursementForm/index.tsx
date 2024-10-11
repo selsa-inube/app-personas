@@ -81,7 +81,11 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     if (formik.values.disbursement) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
-        structureDisbursementForm(formik, savings.savingsAccounts, serviceDomains),
+        structureDisbursementForm(
+          formik,
+          savings.savingsAccounts,
+          serviceDomains,
+        ),
       );
 
       setDynamicForm({
@@ -181,7 +185,11 @@ const DisbursementForm = forwardRef(function DisbursementForm(
 
     const { renderFields, validationSchema } = generateDynamicForm(
       updatedFormik,
-      structureDisbursementForm(updatedFormik, savings.savingsAccounts, serviceDomains),
+      structureDisbursementForm(
+        updatedFormik,
+        savings.savingsAccounts,
+        serviceDomains,
+      ),
     );
 
     setDynamicForm({

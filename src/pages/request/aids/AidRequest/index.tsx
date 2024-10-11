@@ -98,7 +98,7 @@ function AidRequest() {
       currentLocation.pathname !== nextLocation.pathname,
   );
 
-  useEffect(() => {
+  const validateEnums = async () => {
     if (!accessToken) return;
 
     if (
@@ -108,10 +108,10 @@ function AidRequest() {
       return;
 
     getServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+  };
 
-    return () => {
-      setLoadingSend(false);
-    };
+  useEffect(() => {
+    validateEnums();
   }, []);
 
   if (!aid_type || !aidRequestType) {

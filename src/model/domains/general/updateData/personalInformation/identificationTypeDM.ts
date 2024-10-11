@@ -2,31 +2,31 @@ import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const identificationTypeData = {
   CC: {
-    id: "cc",
+    id: "C",
     value: "Cédula de ciudadanía",
   },
   CE: {
-    id: "ce",
+    id: "E",
     value: "Cédula de extranjería",
   },
   PA: {
-    id: "pa",
+    id: "P",
     value: "Pasaporte",
   },
   RC: {
-    id: "rc",
+    id: "R",
     value: "Registro civil",
   },
   TI: {
-    id: "ti",
+    id: "T",
     value: "Tarjeta de identidad",
   },
   NIT: {
-    id: "nit",
+    id: "A",
     value: "NIT",
   },
   NUIP: {
-    id: "nuip",
+    id: "U",
     value: "NUIP",
   },
 };

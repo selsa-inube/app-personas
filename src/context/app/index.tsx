@@ -105,7 +105,6 @@ function AppProvider(props: AppProviderProps) {
     async (domainNames: string[], accessToken: string) => {
       const newDomains = await getDomains(domainNames, accessToken);
       if (!newDomains) return serviceDomains;
-
       setServiceDomains((prev) => ({
         ...prev,
         ...newDomains,
@@ -113,7 +112,7 @@ function AppProvider(props: AppProviderProps) {
 
       return newDomains;
     },
-    [featureFlags],
+    [],
   );
 
   const appContext = useMemo(
@@ -126,7 +125,14 @@ function AppProvider(props: AppProviderProps) {
       getFlag,
       getServiceDomains,
     }),
-    [user, setUser, setFeatureFlags, getFlag, getServiceDomains],
+    [
+      user,
+      serviceDomains,
+      setUser,
+      setFeatureFlags,
+      getFlag,
+      getServiceDomains,
+    ],
   );
 
   return (

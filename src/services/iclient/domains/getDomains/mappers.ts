@@ -1,5 +1,6 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { IServiceDomains } from "src/context/app/types";
+import { capitalizeText } from "src/utils/texts";
 import { mapCreditApiToEntity } from "../../credits/getCredits/mappers";
 
 const mapDomainApiToEntity = (
@@ -7,7 +8,7 @@ const mapDomainApiToEntity = (
 ): ISelectOption => {
   return {
     id: domain.code.toString(),
-    value: domain.value.toString(),
+    value: capitalizeText(domain.value.toString()),
   };
 };
 
