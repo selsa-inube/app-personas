@@ -13,11 +13,6 @@ interface IValidation {
   responseCode?: string;
 }
 
-interface IValidations {
-  requiredDocuments: IValidation[];
-  regulations: IValidation[];
-}
-
 interface ISelectedDocument {
   file: File;
   requirementId: string;
@@ -30,7 +25,6 @@ interface IAid {
   id: string;
   title: string;
   description: string;
-  validations: IValidations;
 }
 
 export type { IAid, ISelectedDocument, IValidation, ValidationValueType };

@@ -17,7 +17,9 @@ function AidCard(props: AidCardProps) {
   const navigate = useNavigate();
 
   const goToAid = () => {
-    navigate(`/aids/${id}`);
+    navigate(`/aids/${id}`, {
+      state: { id, title },
+    });
   };
 
   return (
