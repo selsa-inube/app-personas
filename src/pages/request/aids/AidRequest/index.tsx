@@ -1,13 +1,13 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps } from "formik";
 import { useContext, useRef, useState } from "react";
-import { Navigate, useBlocker, useParams } from "react-router-dom";
-import { aidRequestTypeDM } from "src/model/domains/services/aids/aidRequestTypeDM";
+import { Navigate, useBlocker, useLocation, useParams } from "react-router-dom";
 import { aidRequestSteps } from "./config/assisted";
 import { mapBeneficiaries, mapDetailsSituation } from "./config/mappers";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 
+import { ISelectOption } from "@design/input/Select/types";
 import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
@@ -33,10 +33,12 @@ function AidRequest() {
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
+  const location = useLocation();
 
-  const aidRequestType = aid_type
-    ? aidRequestTypeDM.valueOf(aid_type)
-    : undefined;
+  const aidRequestType: ISelectOption = {
+    id: location.state?.id || "",
+    value: location.state?.title || "",
+  };
 
   const [aidRequest, setAidRequest] = useState<IFormsAidRequest>({
     beneficiaries: {

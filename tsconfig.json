@@ -30,6 +30,6 @@
     "types": ["vite/client"]
   },
 
-  "include": ["src", "./manifest.ts", "vite-env.d.ts"],
+  "include": ["src", "./manifest.d.ts", "vite-env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
