@@ -1,11 +1,11 @@
-import { useState } from "react";
 import { useFormik } from "formik";
-import { createPQRS } from "./config/initialValues";
-import { ICreatePQRSEntry, ISelectedDocument } from "./types";
-import * as Yup from "yup";
-import { validationRules } from "src/validations/validationRules";
+import { useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
+import * as Yup from "yup";
+import { createPQRS } from "./config/initialValues";
 import { CreatePQRSUI } from "./interface";
+import { ISelectedDocument } from "./types";
 
 const MAX_SIZE_PER_FILE = 2.5;
 
@@ -30,9 +30,8 @@ function CreatePQRS() {
     initialValues: createPQRS,
     validationSchema: validationSchema,
     validateOnBlur: false,
-    onSubmit: (values: ICreatePQRSEntry) => {
+    onSubmit: () => {
       handleFinishAssisted();
-      console.log("Form submitted with values:", values);
       formik.resetForm({
         values: createPQRS,
       });
@@ -84,8 +83,8 @@ function CreatePQRS() {
   };
 
   const handleAttachButtonClick = () => {
-    handleOpenAttachModal(attachModalId.toString(), "113");    
-    setAttachModalId(prevId => prevId + 1);
+    handleOpenAttachModal(attachModalId.toString(), "113");
+    setAttachModalId((prevId) => prevId + 1);
   };
 
   return (
@@ -98,7 +97,7 @@ function CreatePQRS() {
       onCloseAttachModal={handleCloseAttachModal}
       onSelectDocument={handleSelectDocument}
       onRemoveDocument={handleRemoveDocument}
-      onAttachButtonClick = {handleAttachButtonClick}
+      onAttachButtonClick={handleAttachButtonClick}
     />
   );
 }

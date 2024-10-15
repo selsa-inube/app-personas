@@ -1,6 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps } from "formik";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker, useLocation, useParams } from "react-router-dom";
 import { aidRequestSteps } from "./config/assisted";
 import { mapBeneficiaries, mapDetailsSituation } from "./config/mappers";
@@ -25,7 +25,7 @@ import { aidRequestStepsRules } from "./utils";
 
 function AidRequest() {
   const { aid_type } = useParams();
-  const { user } = useContext(AppContext);
+  const { user, serviceDomains, getServiceDomains } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
     aidRequestSteps.beneficiaries.number,
   );
@@ -99,6 +99,22 @@ function AidRequest() {
     ({ currentLocation, nextLocation }) =>
       currentLocation.pathname !== nextLocation.pathname,
   );
+
+  const validateEnums = async () => {
+    if (!accessToken) return;
+
+    if (
+      serviceDomains.integratedbanks.length > 0 &&
+      serviceDomains.identificationtype.length > 0
+    )
+      return;
+
+    getServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+  };
+
+  useEffect(() => {
+    validateEnums();
+  }, []);
 
   if (!aid_type || !aidRequestType) {
     return <Navigate to="/aids" />;

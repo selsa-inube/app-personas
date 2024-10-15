@@ -10,8 +10,9 @@ import {
 } from "react";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { saveTrafficTracking } from "src/services/analytics/saveTrafficTracking";
-import { IAppContext } from "./types";
-import { getAppFeatureFlags } from "./utils";
+import { getDomains } from "src/services/iclient/domains/getDomains";
+import { IAppContext, IServiceDomains } from "./types";
+import { getAppFeatureFlags, initialServiceDomains } from "./utils";
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
 
@@ -23,6 +24,9 @@ function AppProvider(props: AppProviderProps) {
   const { children } = props;
 
   const [featureFlags, setFeatureFlags] = useState<IFeatureFlag[]>([]);
+  const [serviceDomains, setServiceDomains] = useState<IServiceDomains>(
+    initialServiceDomains,
+  );
 
   const { user: authUser } = useAuth();
 
@@ -97,15 +101,38 @@ function AppProvider(props: AppProviderProps) {
     [featureFlags],
   );
 
+  const getServiceDomains = useCallback(
+    async (domainNames: string[], accessToken: string) => {
+      const newDomains = await getDomains(domainNames, accessToken);
+      if (!newDomains) return serviceDomains;
+      setServiceDomains((prev) => ({
+        ...prev,
+        ...newDomains,
+      }));
+
+      return newDomains;
+    },
+    [],
+  );
+
   const appContext = useMemo(
     () => ({
       user,
+      serviceDomains,
 
       setUser,
       setFeatureFlags,
       getFlag,
+      getServiceDomains,
     }),
-    [user, setUser, setFeatureFlags, getFlag],
+    [
+      user,
+      serviceDomains,
+      setUser,
+      setFeatureFlags,
+      getFlag,
+      getServiceDomains,
+    ],
   );
 
   return (

@@ -49,7 +49,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     onFormValid,
   } = props;
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, serviceDomains } = useContext(AppContext);
   const { savings, setSavings } = useContext(SavingsContext);
 
   const [dynamicForm, setDynamicForm] = useState<{
@@ -81,7 +81,11 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     if (formik.values.disbursement) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
-        structureDisbursementForm(formik, savings.savingsAccounts),
+        structureDisbursementForm(
+          formik,
+          savings.savingsAccounts,
+          serviceDomains,
+        ),
       );
 
       setDynamicForm({
@@ -181,7 +185,11 @@ const DisbursementForm = forwardRef(function DisbursementForm(
 
     const { renderFields, validationSchema } = generateDynamicForm(
       updatedFormik,
-      structureDisbursementForm(updatedFormik, savings.savingsAccounts),
+      structureDisbursementForm(
+        updatedFormik,
+        savings.savingsAccounts,
+        serviceDomains,
+      ),
     );
 
     setDynamicForm({
