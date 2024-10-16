@@ -1153,6 +1153,13 @@ const fondecomTheme = {
       },
     },
   },
+  tabs: {
+    content: {
+      appearance: {
+        selected: "primary",
+      },
+    },
+  },
   tag: {
     primary: {
       normal: {
