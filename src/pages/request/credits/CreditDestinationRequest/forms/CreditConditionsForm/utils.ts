@@ -72,7 +72,6 @@ const getPeriodicities = async (
     formik.values.product.id,
     paymentMethodId,
   );
-
   formik.setFieldValue("periodicities", periodicities);
 
   if (periodicities.length === 1) {
