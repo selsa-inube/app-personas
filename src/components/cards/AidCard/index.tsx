@@ -1,4 +1,3 @@
-import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
@@ -8,11 +7,10 @@ import { StyledCardContainer } from "./styles";
 interface AidCardProps {
   id: string;
   title: string;
-  description: string;
 }
 
 function AidCard(props: AidCardProps) {
-  const { id, title, description } = props;
+  const { id, title } = props;
 
   const navigate = useNavigate();
 
@@ -24,16 +22,9 @@ function AidCard(props: AidCardProps) {
 
   return (
     <StyledCardContainer>
-      <Stack direction="column" gap={inube.spacing.s200}>
-        <Stack justifyContent="space-between" alignItems="center">
-          <Text type="title" size="medium" weight="bold">
-            {title}
-          </Text>
-        </Stack>
-        <Text type="body" size="medium" appearance="gray">
-          {description}
-        </Text>
-      </Stack>
+      <Text type="title" size="medium" weight="bold">
+        {title}
+      </Text>
 
       <Stack justifyContent="flex-end" width="100%">
         <Button onClick={goToAid} spacing="compact">
