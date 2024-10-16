@@ -72,7 +72,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
         accountNumber: disbursementValues.accountNumber,
         transferAccountNumber: disbursementValues.writeAccountNumber,
         transferAccountType: disbursementValues.accountType,
-        transferBankEntity: disbursementValues.entity,
+        transferBankEntity: disbursementValues.bankEntity,
         firstName: disbursementValues.firstName,
         lastName: disbursementValues.firstLastName,
         gender: disbursementValues.gender,

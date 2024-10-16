@@ -188,7 +188,7 @@ const sendCreditRequest = async (
       transferAccountNumber:
         creditRequest.disbursement.values.writeAccountNumber,
       transferAccountType: creditRequest.disbursement.values.accountType,
-      transferBankEntity: creditRequest.disbursement.values.entity,
+      transferBankEntity: creditRequest.disbursement.values.bankEntity,
       firstName: creditRequest.disbursement.values.firstName,
       lastName: creditRequest.disbursement.values.firstLastName,
       gender: creditRequest.disbursement.values.gender,

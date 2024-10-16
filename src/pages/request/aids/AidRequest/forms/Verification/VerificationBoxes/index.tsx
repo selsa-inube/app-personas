@@ -5,6 +5,7 @@ import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryReq
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { currencyFormat } from "src/utils/currency";
+import { capitalizeEachWord } from "src/utils/texts";
 import { aidRequestSteps } from "../../../config/assisted";
 import { IFormsAidRequest } from "../../../types";
 import { IBeneficiariesEntry } from "../../BeneficiariesForm/types";
@@ -17,6 +18,7 @@ const renderBeneficiariesVerification = (
   const selectedBeneficiary = values.beneficiaries.find(
     (beneficiary) => beneficiary.selected,
   );
+
   return (
     <Grid
       templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
@@ -24,14 +26,17 @@ const renderBeneficiariesVerification = (
       width="100%"
       gap={inube.spacing.s100}
     >
-      <BoxAttribute label="Nombre:" value={selectedBeneficiary?.name} />
+      <BoxAttribute
+        label="Nombre:"
+        value={capitalizeEachWord(selectedBeneficiary?.name || "")}
+      />
       <BoxAttribute
         label="Identificación:"
         value={`${selectedBeneficiary?.identificationType} ${selectedBeneficiary?.identificationNumber}`}
       />
       <BoxAttribute
         label="Tipo:"
-        value={selectedBeneficiary?.relationship.value}
+        value={selectedBeneficiary?.relationship?.value}
       />
     </Grid>
   );

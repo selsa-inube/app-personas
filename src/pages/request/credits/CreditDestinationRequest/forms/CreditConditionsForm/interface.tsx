@@ -200,7 +200,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       onChange={onChangePaymentMethod}
                       state={getFieldState(formik, "paymentMethod")}
                       isFullWidth
-                      readOnly={periodicityOptions.length === 1}
+                      readOnly={formik.values.paymentMethods.length === 1}
                     />
                     <Select
                       label="Periodicidad"
