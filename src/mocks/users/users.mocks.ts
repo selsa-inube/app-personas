@@ -115,7 +115,8 @@ const usersMock: IThird[] = [
       },
     ],
     bankTransfersAccount: {
-      bankEntity: "bancolombia",
+      bankEntityCode: "07",
+      bankEntityName: "bancolombia",
       accountType: "savingsAccount",
       accountNumber: "76454473406",
       description: "Bancolombia - Ahorros - **3406",

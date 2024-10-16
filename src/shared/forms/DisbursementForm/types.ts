@@ -18,7 +18,8 @@ interface IDisbursementEntry {
   secondLastName?: string;
   gender?: string;
   others?: string;
-  entity?: string;
+  bankEntity?: string;
+  bankEntityName?: string;
   accountType?: string;
 }
 

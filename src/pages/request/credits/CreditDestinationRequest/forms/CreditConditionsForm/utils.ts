@@ -98,8 +98,12 @@ const getValuesForSimulate = async (
       newPaymentMethods.push(userData.financialOperations.paymentMethod);
     }
     formik.setFieldValue(
-      "transferBankEntity",
-      userData.bankTransfersAccount.bankEntity,
+      "transferBankEntityCode",
+      userData.bankTransfersAccount.bankEntityCode,
+    );
+    formik.setFieldValue(
+      "transferBankEntityCode",
+      userData.bankTransfersAccount.bankEntityName,
     );
     formik.setFieldValue(
       "transferAccountType",

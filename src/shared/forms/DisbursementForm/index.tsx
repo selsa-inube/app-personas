@@ -28,7 +28,8 @@ const initValidationSchema = Yup.object({
 interface DisbursementFormProps {
   initialValues: IDisbursementEntry;
   transferAccountValues?: {
-    transferBankEntity?: string;
+    transferBankEntityCode?: string;
+    transferBankEntityName?: string;
     transferAccountType?: string;
     transferAccountNumber?: string;
   };
@@ -108,26 +109,32 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     if (!formik.values.accountStatus || !accessToken) return;
 
     if (formik.values.accountStatus === accountOriginTypeDM.REGISTERED.id) {
-      let bankEntity = "";
+      let bankEntityCode = "";
+      let bankEntityName = "";
       let accountType = "";
       let accountNumber = "";
       if (transferAccountValues) {
-        bankEntity = transferAccountValues.transferBankEntity || "";
+        bankEntityCode = transferAccountValues.transferBankEntityCode || "";
+        bankEntityName = transferAccountValues.transferBankEntityName || "";
         accountType = transferAccountValues.transferAccountType || "";
         accountNumber = transferAccountValues.transferAccountNumber || "";
       } else {
         const userData = await getCustomer(user.identification, accessToken);
         if (!userData) return;
-        bankEntity = userData.bankTransfersAccount.bankEntity;
+
+        bankEntityCode = userData.bankTransfersAccount.bankEntityCode;
+        bankEntityName = userData.bankTransfersAccount.bankEntityName;
         accountType = userData.bankTransfersAccount.accountType;
         accountNumber = userData.bankTransfersAccount.accountNumber;
       }
 
-      formik.setFieldValue("entity", bankEntity);
+      formik.setFieldValue("bankEntity", bankEntityCode);
+      formik.setFieldValue("bankEntityName", bankEntityName);
       formik.setFieldValue("accountType", accountType);
       formik.setFieldValue("writeAccountNumber", accountNumber);
     } else {
-      formik.setFieldValue("entity", "");
+      formik.setFieldValue("bankEntity", "");
+      formik.setFieldValue("bankEntityName", "");
       formik.setFieldValue("accountType", "");
       formik.setFieldValue("writeAccountNumber", "");
     }

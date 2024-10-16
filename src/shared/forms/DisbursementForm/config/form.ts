@@ -111,7 +111,7 @@ const getCommonFields = (
       .required(validationMessages.required),
   }),
   entity: (gridColumn: string, readOnly?: boolean): IFormField => ({
-    name: "entity",
+    name: "bankEntity",
     type: "select",
     label: "Entidad",
     size: "compact",
