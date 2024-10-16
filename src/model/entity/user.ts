@@ -142,7 +142,8 @@ interface IBeneficiary {
   name: string;
   identificationType: string;
   identificationNumber: string;
-  relationship: IDomainType;
+  relationship?: ISelectOption;
+  selected?: boolean;
 }
 
 interface IConsultingUser {

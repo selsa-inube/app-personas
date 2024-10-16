@@ -55,7 +55,7 @@ const TermsAndConditionsForm = forwardRef(function TermsAndConditionsForm(
       (termsConditions) => {
         formik.setFieldValue(
           "termsConditions",
-          termsConditions?.termsConditions,
+          termsConditions?.termsConditions || [],
         );
         formik.setFieldValue("ids", termsConditions?.codes);
 

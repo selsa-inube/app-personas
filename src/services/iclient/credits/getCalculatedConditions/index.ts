@@ -15,7 +15,7 @@ const getCalculatedConditionsForProduct = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "CalculateConditions",
+        "X-Action": "CalculateCreditConditions",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },

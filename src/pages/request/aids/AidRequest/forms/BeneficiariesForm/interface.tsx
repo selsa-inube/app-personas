@@ -1,10 +1,10 @@
 import { RadioCard } from "@design/input/RadioCard";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Fieldset } from "@inubekit/fieldset";
+import { Grid } from "@inubekit/grid";
 import { FormikProps } from "formik";
 import { IBeneficiariesEntry } from "./types";
-import { Grid } from "@inubekit/grid";
-import { inube } from "@design/tokens";
-import { Fieldset } from "@inubekit/fieldset";
 
 interface BeneficiariesFormUIProps {
   formik: FormikProps<IBeneficiariesEntry>;
@@ -18,11 +18,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   return (
-    <Fieldset
-      legend="Posibles beneficiarios"
-      type="title"
-      size="medium"
-    >
+    <Fieldset legend="Posibles beneficiarios" type="title" size="medium">
       <Grid
         templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
         autoRows="auto"
@@ -38,8 +34,8 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
             appearance="gray"
             title={beneficiary.name}
             description={`${beneficiary.identificationType} ${beneficiary.identificationNumber}`}
-            secondDescription={beneficiary.relationship.value}
-            checked={beneficiary.selected}
+            secondDescription={beneficiary.relationship?.value}
+            checked={beneficiary.selected || false}
             onClick={() =>
               onSelectBeneficiary(beneficiary.identificationNumber)
             }

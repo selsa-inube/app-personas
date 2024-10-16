@@ -1,5 +1,9 @@
+import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
+import { useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
+import { getBeneficiariesForAid } from "src/services/iclient/aids/getBeneficiaries";
 import { BeneficiariesFormUI } from "./interface";
 import { IBeneficiariesEntry } from "./types";
 
@@ -13,7 +17,9 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   ref: React.Ref<FormikProps<IBeneficiariesEntry>>,
 ) {
   const { initialValues, onFormValid } = props;
-
+  const { aid_type } = useParams();
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const formik = useFormik({
     initialValues,
     validateOnBlur: false,
@@ -29,6 +35,17 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
 
     onFormValid?.(isFormValid);
   }, [formik.values.beneficiaries]);
+
+  useEffect(() => {
+    if (!aid_type || !accessToken || formik.values.beneficiaries.length > 0)
+      return;
+
+    getBeneficiariesForAid(aid_type, user.identification, accessToken).then(
+      (beneficiaries) => {
+        formik.setFieldValue("beneficiaries", beneficiaries);
+      },
+    );
+  }, [aid_type, accessToken]);
 
   const handleSelectBeneficiary = (id: string) => {
     formik.setFieldValue(
