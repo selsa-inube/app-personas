@@ -7,7 +7,6 @@ const mapAidApiToEntity = (
   return {
     id: String(aid.id),
     title: capitalizeText(aid.name.toString()),
-    description: "",
   };
 };
 
