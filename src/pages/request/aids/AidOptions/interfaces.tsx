@@ -54,6 +54,7 @@ function AidOptionsUI(props: AidOptionsUIProps) {
                 key={aid.id}
                 id={aid.id}
                 title={aid.title}
+                type={aid.type}
               />
             ))}
           </Grid>

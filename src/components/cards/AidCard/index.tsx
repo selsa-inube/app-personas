@@ -1,22 +1,24 @@
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { IDomainType } from "@ptypes/domain.types";
 import { useNavigate } from "react-router-dom";
 import { StyledCardContainer } from "./styles";
 
 interface AidCardProps {
   id: string;
   title: string;
+  type?: IDomainType;
 }
 
 function AidCard(props: AidCardProps) {
-  const { id, title } = props;
+  const { id, title, type } = props;
 
   const navigate = useNavigate();
 
   const goToAid = () => {
     navigate(`/aids/${id}`, {
-      state: { id, title },
+      state: { id, title, type },
     });
   };
 

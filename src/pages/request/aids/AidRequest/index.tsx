@@ -24,7 +24,7 @@ import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 import { aidRequestStepsRules } from "./utils";
 
 function AidRequest() {
-  const { aid_type } = useParams();
+  const { aid_id } = useParams();
   const { user, serviceDomains, getServiceDomains } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
     aidRequestSteps.beneficiaries.number,
@@ -116,7 +116,7 @@ function AidRequest() {
     validateEnums();
   }, []);
 
-  if (!aid_type || !aidRequestType) {
+  if (!aid_id || !aidRequestType) {
     return <Navigate to="/aids" />;
   }
 

@@ -4,6 +4,7 @@ import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 import { DisbursementForm } from "@forms/DisbursementForm";
+import { DocumentaryRequirementsForm } from "@forms/DocumentaryRequirementsForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -20,7 +21,6 @@ import { BeneficiariesForm } from "./forms/BeneficiariesForm";
 import { DetailsSituationForm } from "./forms/DetailsSituationForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
-import { DocumentaryRequirementsForm } from "@forms/DocumentaryRequirementsForm";
 
 const renderStepContent = (
   currentStep: number,
@@ -43,6 +43,11 @@ const renderStepContent = (
         <DetailsSituationForm
           initialValues={aidRequest.detailsSituation.values}
           ref={formReferences.detailsSituation}
+          beneficiaryId={
+            aidRequest.beneficiaries.values.beneficiaries.find(
+              (beneficiary) => beneficiary.selected,
+            )?.identificationNumber || ""
+          }
           onFormValid={setIsCurrentFormValid}
         />
       )}
