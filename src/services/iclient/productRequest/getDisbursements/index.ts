@@ -14,6 +14,7 @@ const getDisbursementsForProduct = async (
   const queryParams = new URLSearchParams({
     requestType,
     productId,
+    allowed: true.toString(),
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/disbursement-method/?${queryParams.toString()}`;

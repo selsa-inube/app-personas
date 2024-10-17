@@ -13,7 +13,7 @@ import { SavingsContext } from "src/context/savings";
 import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
-import { getDisbursementsForProduct } from "src/services/iclient/productRequest";
+import { getDisbursementsForProduct } from "src/services/iclient/productRequest/getDisbursements";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
