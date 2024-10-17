@@ -102,7 +102,7 @@ const getValuesForSimulate = async (
       userData.bankTransfersAccount.bankEntityCode,
     );
     formik.setFieldValue(
-      "transferBankEntityCode",
+      "transferBankEntityName",
       userData.bankTransfersAccount.bankEntityName,
     );
     formik.setFieldValue(
