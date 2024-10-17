@@ -2,6 +2,7 @@ import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { aidRequestSteps } from "./config/assisted";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
+import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/mappers";
 
 const aidRequestStepsRules = (
   currentStep: number,
@@ -36,6 +37,31 @@ const aidRequestStepsRules = (
             amount: values.applicationValue
               ? values.applicationValue
               : values.applicationDays || 0,
+          },
+        };
+      }
+
+      return newAidRequest;
+    }
+    case aidRequestSteps.systemValidations.number: {
+      const values = formReferences.systemValidations.current?.values;
+
+      if (!values) return currentAidRequest;
+
+      newAidRequest.systemValidations = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentAidRequest.systemValidations.values)
+      ) {
+        newAidRequest.documentaryRequirements = {
+          isValid: true,
+          values: {
+            ...mapDocumentaryRequirements(),
+            requiredDocuments: values.documents,
           },
         };
       }

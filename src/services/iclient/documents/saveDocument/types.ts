@@ -1,5 +1,6 @@
 interface ISaveDocumentRequest {
   documentType: string;
+  identificationNumber: string;
   file: File;
 }
 
