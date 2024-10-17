@@ -20,4 +20,6 @@ interface IRequest {
   documentaryRequirements: ISelectedDocument[];
 }
 
-export type { IRequest };
+type RequestType = "credit" | "aid";
+
+export type { IRequest, RequestType };

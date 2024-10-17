@@ -12,6 +12,7 @@ import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
+import { RequestType } from "src/model/entity/request";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { getDisbursementsForProduct } from "src/services/iclient/productRequest/getDisbursements";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
@@ -34,7 +35,7 @@ interface DisbursementFormProps {
     transferAccountType?: string;
     transferAccountNumber?: string;
   };
-  requestType: string;
+  requestType: RequestType;
   productId: string;
   loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
