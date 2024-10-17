@@ -38,7 +38,7 @@ const valuesAndValidationsAid = async (
       }),
     );
   } else if (withDays) {
-    formik.setFieldValue("applicationDays", responseConditions?.aidLimit || 0);
+    formik.setFieldValue("daysAvailable", responseConditions?.aidLimit || 0);
     newValidationSchema = validationSchema.concat(
       Yup.object({
         applicationDays: Yup.number()
