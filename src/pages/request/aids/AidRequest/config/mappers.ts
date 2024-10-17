@@ -10,8 +10,8 @@ const mapBeneficiaries = (): IBeneficiariesEntry => {
 const mapDetailsSituation = (): IDetailsSituationEntry => {
   return {
     message: "",
-    quotaAvailable: 2500000,
-    daysAvailable: 30,
+    quotaAvailable: 0,
+    daysAvailable: 0,
   };
 };
 

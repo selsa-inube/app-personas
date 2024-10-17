@@ -6,7 +6,7 @@ function AidRoutes() {
   return (
     <Routes>
       <Route path="/" element={<AidOptions />} />
-      <Route path=":aid_type" element={<AidRequest />} />
+      <Route path=":aid_id" element={<AidRequest />} />
     </Routes>
   );
 }

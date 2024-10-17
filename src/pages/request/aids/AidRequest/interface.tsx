@@ -44,6 +44,11 @@ const renderStepContent = (
         <DetailsSituationForm
           initialValues={aidRequest.detailsSituation.values}
           ref={formReferences.detailsSituation}
+          beneficiaryId={
+            aidRequest.beneficiaries.values.beneficiaries.find(
+              (beneficiary) => beneficiary.selected,
+            )?.identificationNumber || ""
+          }
           onFormValid={setIsCurrentFormValid}
         />
       )}
