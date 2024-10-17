@@ -88,8 +88,8 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={aidRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
-          productId="57"
-          productType="credit"
+          productId={aidType.id}
+          productType="aid"
           onFormValid={setIsCurrentFormValid}
         />
       )}

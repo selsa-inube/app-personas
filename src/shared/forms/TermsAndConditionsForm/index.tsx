@@ -1,6 +1,7 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { RequestType } from "src/model/entity/request";
 import { getLink } from "src/services/iclient/links/getLink";
 import { getTermsConditions } from "src/services/iclient/termsConditions/getTermsConditions";
 import * as Yup from "yup";
@@ -15,7 +16,7 @@ const validationSchema = Yup.object({
 interface TermsAndConditionsFormProps {
   initialValues: ITermsAndConditionsEntry;
   productId: string;
-  productType: "credit";
+  productType: RequestType;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: ITermsAndConditionsEntry) => void;
 }
