@@ -1,5 +1,8 @@
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { aidRequestSteps } from "./config/assisted";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
+import { mapDocumentaryRequirements } from "@forms/DocumentaryRequirementsForm/mappers";
 
 const aidRequestStepsRules = (
   currentStep: number,
@@ -8,6 +11,64 @@ const aidRequestStepsRules = (
   isCurrentFormValid: boolean,
 ) => {
   const newAidRequest = { ...currentAidRequest };
+
+  switch (currentStep) {
+    case aidRequestSteps.detailsSituation.number: {
+      const values = formReferences.detailsSituation.current?.values;
+
+      if (!values) return currentAidRequest;
+
+      newAidRequest.detailsSituation = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentAidRequest.detailsSituation.values)
+      ) {
+        newAidRequest.systemValidations = {
+          isValid: false,
+          values: {
+            ...mapSystemValidations(),
+            validations: loadingValidations,
+            productId: values.aidId,
+            productName: values.aidName,
+            amount: values.applicationValue
+              ? values.applicationValue
+              : values.applicationDays || 0,
+          },
+        };
+      }
+
+      return newAidRequest;
+    }
+    case aidRequestSteps.systemValidations.number: {
+      const values = formReferences.systemValidations.current?.values;
+
+      if (!values) return currentAidRequest;
+
+      newAidRequest.systemValidations = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentAidRequest.systemValidations.values)
+      ) {
+        newAidRequest.documentaryRequirements = {
+          isValid: true,
+          values: {
+            ...mapDocumentaryRequirements(),
+            requiredDocuments: values.documents,
+          },
+        };
+      }
+
+      return newAidRequest;
+    }
+  }
 
   const stepKey = Object.entries(aidRequestSteps).find(
     ([, config]) => config.number === currentStep,

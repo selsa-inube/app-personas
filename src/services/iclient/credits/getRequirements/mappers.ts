@@ -4,42 +4,74 @@ import { IRequirementRequest, IRequirementResponse } from "./types";
 
 const mapRequirementEntityToApi = (
   requirement: IRequirementRequest,
-): Record<string, string | number | object> => {
+): Record<string, string | number | object | undefined> => {
+  if (requirement.requestType === "aid") {
+    return {
+      requestType: requirement.requestType,
+      customerCode: requirement.customerCode,
+      customerName: requirement.customerName,
+      requestDate: requirement.requestDate.toISOString(),
+      aidData: {
+        aidCode: requirement.requestData.productId,
+        aidName: requirement.requestData.productName,
+        requestAmount: requirement.requestData.amount,
+        aidBeneficiary: {
+          relationship: requirement.requestData.beneficiary?.relationship?.id,
+          customerCode:
+            requirement.requestData.beneficiary?.identificationNumber,
+          customerName: requirement.requestData.beneficiary?.name,
+        },
+      },
+    };
+  }
+
   return {
-    productId: requirement.productId,
-    productName: requirement.productName,
-    destinationId: requirement.destinationId,
-    destinationName: requirement.destinationName,
+    requestType: requirement.requestType,
     customerCode: requirement.customerCode,
     customerName: requirement.customerName,
-    paymentMethod: requirement.paymentMethod,
-    paymentMethodName: requirement.paymentMethodName,
-    requestAmount: requirement.amount,
-    creditAmount: requirement.amount,
-    numQuotas: requirement.deadline,
-    nominalRate: requirement.rate,
-    amortizationType: requirement.amortizationType,
-    periodicity: requirement.periodicity,
-    quotaValue: requirement.quota,
-    amountToTurn: requirement.netValue,
     requestDate: requirement.requestDate.toISOString(),
-    disbursementMethod: {
-      disbursementMethodCode: requirement.disbursmentMethod.id,
-      disbursementMethodDetail: requirement.disbursmentMethod.name,
-      savingsAccountNumber: requirement.disbursmentMethod.accountNumber,
-      accountNumber: requirement.disbursmentMethod.transferAccountNumber,
-      accountTypeCode: requirement.disbursmentMethod.transferAccountType,
-      accountTypeDetail: requirement.disbursmentMethod.transferBankEntity,
-      bankCode: requirement.disbursmentMethod.transferBankEntity,
-      bankDetail: requirement.disbursmentMethod.transferBankEntity,
-      businessName: requirement.disbursmentMethod.businessName,
-      firstName: requirement.disbursmentMethod.firstName,
-      genderCode: requirement.disbursmentMethod.gender,
-      genderDetail: requirement.disbursmentMethod.genderName,
-      identificationDetail: requirement.disbursmentMethod.identification,
-      identificationNumber: requirement.disbursmentMethod.identification,
-      identificationTypeCode: requirement.disbursmentMethod.identificationType,
-      lastName: requirement.disbursmentMethod.lastName,
+    creditData: {
+      productId: requirement.requestData.productId,
+      productName: requirement.requestData.productName,
+      destinationId: requirement.requestData.destinationId,
+      destinationName: requirement.requestData.destinationName,
+      paymentMethod: requirement.requestData.paymentMethod,
+      paymentMethodName: requirement.requestData.paymentMethodName,
+      requestAmount: requirement.requestData.amount,
+      creditAmount: requirement.requestData.amount,
+      numQuotas: requirement.requestData.deadline,
+      nominalRate: requirement.requestData.rate,
+      amortizationType: requirement.requestData.amortizationType,
+      periodicity: requirement.requestData.periodicity,
+      quotaValue: requirement.requestData.quota,
+      amountToTurn: requirement.requestData.netValue,
+      disbursementMethod: {
+        disbursementMethodCode: requirement.requestData.disbursmentMethod?.id,
+        disbursementMethodDetail:
+          requirement.requestData.disbursmentMethod?.name,
+        savingsAccountNumber:
+          requirement.requestData.disbursmentMethod?.accountNumber,
+        accountNumber:
+          requirement.requestData.disbursmentMethod?.transferAccountNumber,
+        accountTypeCode:
+          requirement.requestData.disbursmentMethod?.transferAccountType,
+        accountTypeDetail:
+          requirement.requestData.disbursmentMethod?.transferBankEntity,
+        bankCode: requirement.requestData.disbursmentMethod?.transferBankEntity,
+        bankDetail:
+          requirement.requestData.disbursmentMethod?.transferBankEntity,
+        businessName: requirement.requestData.disbursmentMethod?.businessName,
+        firstName: requirement.requestData.disbursmentMethod?.firstName,
+        genderCode: requirement.requestData.disbursmentMethod?.gender,
+        genderDetail: requirement.requestData.disbursmentMethod?.genderName,
+        identificationDetail:
+          requirement.requestData.disbursmentMethod?.identification,
+        identificationNumber:
+          requirement.requestData.disbursmentMethod?.identification,
+        identificationTypeCode:
+          requirement.requestData.disbursmentMethod?.identificationType,
+        lastName: requirement.requestData.disbursmentMethod?.lastName,
+      },
     },
   };
 };

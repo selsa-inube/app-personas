@@ -17,7 +17,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   ref: React.Ref<FormikProps<IBeneficiariesEntry>>,
 ) {
   const { initialValues, onFormValid } = props;
-  const { aid_type } = useParams();
+  const { aid_id } = useParams();
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const formik = useFormik({
@@ -37,15 +37,15 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   }, [formik.values.beneficiaries]);
 
   useEffect(() => {
-    if (!aid_type || !accessToken || formik.values.beneficiaries.length > 0)
+    if (!aid_id || !accessToken || formik.values.beneficiaries.length > 0)
       return;
 
-    getBeneficiariesForAid(aid_type, user.identification, accessToken).then(
+    getBeneficiariesForAid(aid_id, user.identification, accessToken).then(
       (beneficiaries) => {
         formik.setFieldValue("beneficiaries", beneficiaries);
       },
     );
-  }, [aid_type, accessToken]);
+  }, [aid_id, accessToken]);
 
   const handleSelectBeneficiary = (id: string) => {
     formik.setFieldValue(

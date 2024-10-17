@@ -44,6 +44,11 @@ const renderStepContent = (
         <DetailsSituationForm
           initialValues={aidRequest.detailsSituation.values}
           ref={formReferences.detailsSituation}
+          beneficiaryId={
+            aidRequest.beneficiaries.values.beneficiaries.find(
+              (beneficiary) => beneficiary.selected,
+            )?.identificationNumber || ""
+          }
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -53,7 +58,10 @@ const renderStepContent = (
           initialValues={aidRequest.systemValidations.values}
           ref={formReferences.systemValidations}
           disbursementValues={aidRequest.disbursement.values}
-          test
+          requestType="aid"
+          beneficiary={aidRequest.beneficiaries.values.beneficiaries.find(
+            (beneficiary) => beneficiary.selected,
+          )}
           onFormValid={setIsCurrentFormValid}
         />
       )}

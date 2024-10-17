@@ -5,17 +5,18 @@ interface ISystemValidationsEntry {
   documents: IValidation[];
   productId: string;
   productName: string;
-  destinationId: string;
-  destinationName: string;
-  paymentMethod: string;
-  paymentMethodName: string;
   amount: number;
-  periodicity: string;
-  deadline: number;
-  rate: number;
-  amortizationType: string;
-  quota: number;
-  netValue: number;
+
+  destinationId?: string;
+  destinationName?: string;
+  paymentMethod?: string;
+  paymentMethodName?: string;
+  periodicity?: string;
+  deadline?: number;
+  rate?: number;
+  amortizationType?: string;
+  quota?: number;
+  netValue?: number;
 }
 
 export type { ISystemValidationsEntry };
