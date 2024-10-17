@@ -23,10 +23,12 @@ const requestStatusAppearance: Record<string, ITag["appearance"]> = {
 
 const requestTitles: Record<string, string> = {
   credit: "Crédito",
+  aid: "Auxilio",
 };
 
 const requestDescriptions: Record<string, string> = {
   credit: "Solicitud de crédito",
+  aid: "Solicitud de auxilio",
 };
 
 const mapValidationApiToEntity = (
@@ -103,12 +105,24 @@ const mapRequestApiToEntity = (
 
   const requirements = mapRequirementsApiToEntities(Object(requirementsApi));
 
+  const requestedAmount = Object(request).details?.conditions?.requestedAmount;
+  const requestedValue = Object(request).details?.requestedValue;
+
   return {
     id: String(request.productRequestId),
+    requestType: Object(request.requestType).code,
     title: requestTitles[Object(request.requestType).code] || "",
-    product: capitalizeText(String(Object(request).details.productDetail)),
+    product: capitalizeText(
+      String(
+        Object(request).details.productDetail ||
+          Object(request).details.aidDescription,
+      ),
+    ),
     destination: capitalizeText(
-      String(Object(request).details.destinationDetail),
+      String(Object(request).details.destinationDetail || ""),
+    ),
+    beneficiary: capitalizeText(
+      String(Object(request).details.beneficiary.customerName || ""),
     ),
     trackingCode: request.requestNumber ? String(request.requestNumber) : "",
     requestDate: new Date(String(request.requestDate)),
@@ -116,19 +130,19 @@ const mapRequestApiToEntity = (
     status:
       requestStatusDM.valueOf(Object(request.status).code)?.id ||
       requestStatusDM.RECEIVED.id,
-    value: Number(Object(request).details.conditions.requestedAmount),
-    quotaValue: Number(Object(request).details.conditions.quotaValue),
+    value: Number(requestedAmount ? requestedAmount : requestedValue),
+    quotaValue: Number(Object(request).details?.conditions?.quotaValue || 0),
     periodicity:
       periodicityDM.valueOf(
-        Object(request).details.conditions.capitalPeriodicity,
+        Object(request).details?.conditions?.capitalPeriodicity || "",
       )?.value || "",
-    deadline: String(Object(request).details.conditions.quotas),
+    deadline: String(Object(request).details?.conditions?.quotas || ""),
     interestRate: Number(
-      Object(request).details.conditions.remunerativeInterestRate,
+      Object(request).details?.conditions?.remunerativeInterestRate || 0,
     ),
     netValue: Number(
-      Object(request).details.conditions.disbursementDetails
-        .netDisbursementApprox,
+      Object(request).details?.conditions?.disbursementDetails
+        ?.netDisbursementApprox || 0,
     ),
     tag: {
       label:
@@ -137,6 +151,7 @@ const mapRequestApiToEntity = (
       appearance:
         requestStatusAppearance[Object(request.status).code] || "warning",
     },
+    detailsSituation: String(Object(request).details?.comments || ""),
     validations: requirements.validations,
     documentaryRequirements: requirements.documents,
   };

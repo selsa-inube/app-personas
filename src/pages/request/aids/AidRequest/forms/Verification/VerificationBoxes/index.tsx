@@ -1,8 +1,10 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
+import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
 import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
+import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { currencyFormat } from "src/utils/currency";
 import { capitalizeEachWord } from "src/utils/texts";
@@ -107,6 +109,15 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           aidRequest.disbursement.values,
           isTablet,
         )}
+
+      {stepKey === "termsAndConditions" &&
+        renderTermsAndConditionsVerification(
+          aidRequest.termsAndConditions.values,
+          isTablet,
+        )}
+
+      {stepKey === "contactChannels" &&
+        renderContactChannelsVerification(aidRequest.contactChannels.values)}
     </>
   );
 }
