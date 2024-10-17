@@ -3,7 +3,6 @@ import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
-import { bankDM } from "src/model/domains/general/bankDM";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
@@ -89,11 +88,8 @@ const renderDisbursementVerification = (
       />
     )}
     {values.others && <BoxAttribute label="Otros:" value={values.others} />}
-    {values.entity && (
-      <BoxAttribute
-        label="Entidad:"
-        value={bankDM.valueOf(values.entity)?.value}
-      />
+    {values.bankEntityName && (
+      <BoxAttribute label="Entidad:" value={values.bankEntityName} />
     )}
   </Grid>
 );

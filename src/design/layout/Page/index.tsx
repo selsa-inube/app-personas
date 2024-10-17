@@ -1,15 +1,15 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { getHeader } from "@config/header";
 import { getActions, getMobileNav, getNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useAuth } from "@inube/auth";
 import { Grid } from "@inubekit/grid";
+import { Nav } from "@inubekit/nav";
 import { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { Header } from "../../navigation/Header";
-import { DecisionModal } from "@components/modals/general/DecisionModal";
-import { useAuth } from "@inube/auth";
-import { Nav } from "@inubekit/nav";
 import { StyledMain, StyledPage } from "./styles";
 
 const year = new Date().getFullYear();
@@ -43,6 +43,7 @@ function Page(props: PageProps) {
   ).value;
   const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
+  const withMyPQRS = getFlag("admin.pqrs.pqrs.pqrs-option").value;
 
   const mobileNav = getMobileNav(
     withSavingRequest,
@@ -53,6 +54,7 @@ function Page(props: PageProps) {
     withTransfers,
     withPayments,
     withMyRequests,
+    withMyPQRS,
   );
 
   const nav = getNav(
@@ -64,11 +66,13 @@ function Page(props: PageProps) {
     withTransfers,
     withPayments,
     withMyRequests,
+    withMyPQRS,
   );
 
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
     getFlag("general.links.update-data.update-data-without-assisted").value,
+    getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
   );
 

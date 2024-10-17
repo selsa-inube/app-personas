@@ -17,7 +17,8 @@ const mapDisbursement = (): IDisbursementEntry => {
     secondLastName: "",
     gender: "",
     others: "",
-    entity: "",
+    bankEntity: "",
+    bankEntityName: "",
     accountType: "",
   };
 };

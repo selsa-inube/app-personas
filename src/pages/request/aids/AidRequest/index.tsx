@@ -1,13 +1,13 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps } from "formik";
-import { useContext, useRef, useState } from "react";
-import { Navigate, useBlocker, useParams } from "react-router-dom";
-import { aidRequestTypeDM } from "src/model/domains/services/aids/aidRequestTypeDM";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Navigate, useBlocker, useLocation, useParams } from "react-router-dom";
 import { aidRequestSteps } from "./config/assisted";
 import { mapBeneficiaries, mapDetailsSituation } from "./config/mappers";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 
+import { ISelectOption } from "@design/input/Select/types";
 import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
@@ -24,8 +24,8 @@ import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
 import { aidRequestStepsRules } from "./utils";
 
 function AidRequest() {
-  const { aid_type } = useParams();
-  const { user } = useContext(AppContext);
+  const { aid_id } = useParams();
+  const { user, serviceDomains, getServiceDomains } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
     aidRequestSteps.beneficiaries.number,
   );
@@ -33,10 +33,12 @@ function AidRequest() {
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
+  const location = useLocation();
 
-  const aidRequestType = aid_type
-    ? aidRequestTypeDM.valueOf(aid_type)
-    : undefined;
+  const aidRequestType: ISelectOption = {
+    id: location.state?.id || "",
+    value: location.state?.title || "",
+  };
 
   const [aidRequest, setAidRequest] = useState<IFormsAidRequest>({
     beneficiaries: {
@@ -98,7 +100,23 @@ function AidRequest() {
       currentLocation.pathname !== nextLocation.pathname,
   );
 
-  if (!aid_type || !aidRequestType) {
+  const validateEnums = async () => {
+    if (!accessToken) return;
+
+    if (
+      serviceDomains.integratedbanks.length > 0 &&
+      serviceDomains.identificationtype.length > 0
+    )
+      return;
+
+    getServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+  };
+
+  useEffect(() => {
+    validateEnums();
+  }, []);
+
+  if (!aid_id || !aidRequestType) {
     return <Navigate to="/aids" />;
   }
 

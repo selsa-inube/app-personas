@@ -67,9 +67,13 @@ const renderStepContent = (
             transferAccountType:
               creditDestinationRequest.creditConditions.values
                 .transferAccountType,
-            transferBankEntity:
+            transferBankEntityCode:
               creditDestinationRequest.creditConditions.values
-                .transferBankEntity,
+                .transferBankEntityCode,
+
+            transferBankEntityName:
+              creditDestinationRequest.creditConditions.values
+                .transferBankEntityName,
           }}
           ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}

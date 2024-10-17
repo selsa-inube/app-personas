@@ -1,9 +1,9 @@
 import { suppliersTypeData } from "@mocks/domains/suppliersType";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
 import { FormikProps } from "formik";
+import { IServiceDomains } from "src/context/app/types";
 import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
-import { bankDM } from "src/model/domains/general/bankDM";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
@@ -13,7 +13,10 @@ import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { IDisbursementEntry } from "../types";
 
-const getCommonFields = (savingsAccounts: IProduct[]) => ({
+const getCommonFields = (
+  savingsAccounts: IProduct[],
+  serviceDomains: IServiceDomains,
+) => ({
   observations: {
     name: "observations",
     type: "textarea",
@@ -47,11 +50,7 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
     type: "select",
     label: "Tipo de identificación",
     size: "compact",
-    options: identificationTypeDM.options.filter(
-      (option) =>
-        option.id !== identificationTypeDM.RC.id &&
-        option.id !== identificationTypeDM.TI.id,
-    ),
+    options: serviceDomains.identificationtype,
     isFullWidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
@@ -112,11 +111,11 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
       .required(validationMessages.required),
   }),
   entity: (gridColumn: string, readOnly?: boolean): IFormField => ({
-    name: "entity",
+    name: "bankEntity",
     type: "select",
     label: "Entidad",
     size: "compact",
-    options: bankDM.options,
+    options: serviceDomains.integratedbanks,
     isFullWidth: true,
     gridColumn,
     readOnly,
@@ -192,8 +191,9 @@ const getCommonFields = (savingsAccounts: IProduct[]) => ({
 const structureDisbursementForm = (
   formik: FormikProps<IDisbursementEntry>,
   savingsAccounts: IProduct[],
+  serviceDomains: IServiceDomains,
 ): IFormStructure => {
-  const commonFields = getCommonFields(savingsAccounts);
+  const commonFields = getCommonFields(savingsAccounts, serviceDomains);
   return {
     disbursement: {
       [disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id]: [

@@ -8,6 +8,7 @@ import {
   MdOutlineAssignment,
   MdOutlineAttachMoney,
   MdOutlineCompareArrows,
+  MdOutlineContactSupport,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlinePayments,
@@ -25,6 +26,7 @@ const getMobileNav = (
   requestTransfersFlag: boolean,
   requestPaymentsFlag: boolean,
   myRequestsFlag: boolean,
+  myPQRSFlag: boolean,
 ): INav => {
   const sections = [
     {
@@ -74,6 +76,15 @@ const getMobileNav = (
                 label: "Transferencias",
                 path: "/transfers",
                 icon: <MdOutlineCompareArrows />,
+              },
+            ]
+          : []),
+        ...(myPQRSFlag
+          ? [
+              {
+                label: "Mis PQRS",
+                path: "/my-pqrs",
+                icon: <MdOutlineContactSupport />,
               },
             ]
           : []),
@@ -148,6 +159,7 @@ const getNav = (
   requestTransfersFlag: boolean,
   requestPaymentsFlag: boolean,
   myRequestsFlag: boolean,
+  myPQRSFlag: boolean,
 ): INavNavigation => {
   const sections: { [key: string]: INavSection } = {
     administrar: {
@@ -212,6 +224,15 @@ const getNav = (
       label: "Transferencias",
       path: "/transfers",
       icon: <MdOutlineCompareArrows />,
+    };
+  }
+
+  if (myPQRSFlag) {
+    sections.administrar.links["misPQRS"] = {
+      id: "misPQRS",
+      label: "Mis PQRS",
+      path: "/my-pqrs",
+      icon: <MdOutlineContactSupport />,
     };
   }
 
@@ -285,4 +306,4 @@ const getActions = (handleToggleLogoutModal: () => void): INavAction[] => {
   ];
 };
 
-export { getMobileNav, getNav, getActions };
+export { getActions, getMobileNav, getNav };

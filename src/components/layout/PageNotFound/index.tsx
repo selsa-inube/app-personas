@@ -1,21 +1,21 @@
+import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { getHeader } from "@config/header";
 import { getActions, getMobileNav, getNav } from "@config/nav";
 import { Header } from "@design/navigation/Header";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { useAuth } from "@inube/auth";
+import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
+import { Nav } from "@inubekit/nav";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { useContext, useState } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
 import { StyledMain, StyledPage } from "./styles";
-import { Text } from "@inubekit/text";
-import { Button } from "@inubekit/button";
-import { Nav } from "@inubekit/nav";
-import { useAuth } from "@inube/auth";
-import { DecisionModal } from "@components/modals/general/DecisionModal";
 
 const year = new Date().getFullYear();
 
@@ -44,6 +44,7 @@ function PageNotFound() {
   ).value;
   const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
+  const withMyPQRS = getFlag("admin.pqrs.pqrs.pqrs-option").value;
 
   const mobileNav = getMobileNav(
     withSavingRequest,
@@ -54,6 +55,7 @@ function PageNotFound() {
     withTransfers,
     withPayments,
     withMyRequests,
+    withMyPQRS,
   );
 
   const nav = getNav(
@@ -65,11 +67,13 @@ function PageNotFound() {
     withTransfers,
     withPayments,
     withMyRequests,
+    withMyPQRS,
   );
 
   const header = getHeader(
     getFlag("general.links.update-data.update-data-with-assisted").value,
     getFlag("general.links.update-data.update-data-without-assisted").value,
+    getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
   );
 

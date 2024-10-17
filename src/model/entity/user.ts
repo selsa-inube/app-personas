@@ -66,7 +66,8 @@ interface IFamilyThird {
 }
 
 interface IBankTransfersAccount {
-  bankEntity: string;
+  bankEntityCode: string;
+  bankEntityName: string;
   accountType: string;
   accountNumber: string;
   description: string;
@@ -142,7 +143,8 @@ interface IBeneficiary {
   name: string;
   identificationType: string;
   identificationNumber: string;
-  relationship: IDomainType;
+  relationship?: ISelectOption;
+  selected?: boolean;
 }
 
 interface IConsultingUser {

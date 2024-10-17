@@ -1,3 +1,5 @@
+import { IDomainType } from "@ptypes/domain.types";
+
 type ValidationValueType = "fail" | "success" | "pending";
 
 interface IValidation {
@@ -13,11 +15,6 @@ interface IValidation {
   responseCode?: string;
 }
 
-interface IValidations {
-  requiredDocuments: IValidation[];
-  regulations: IValidation[];
-}
-
 interface ISelectedDocument {
   file: File;
   requirementId: string;
@@ -29,8 +26,7 @@ interface ISelectedDocument {
 interface IAid {
   id: string;
   title: string;
-  description: string;
-  validations: IValidations;
+  type?: IDomainType;
 }
 
 export type { IAid, ISelectedDocument, IValidation, ValidationValueType };

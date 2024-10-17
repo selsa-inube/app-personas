@@ -13,6 +13,7 @@ enum EMovementType {
   CREDIT = "CREDIT",
   DEBIT = "DEBIT",
   RECORD = "RECORD",
+  PQRS = "PQRS",
 }
 
 interface IMovement {

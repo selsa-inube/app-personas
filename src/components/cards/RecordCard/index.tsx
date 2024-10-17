@@ -51,7 +51,7 @@ const getIconForRecordType = (type: EMovementType) => {
           shape="circle"
         />
       )}
-      {type === EMovementType.RECORD && (
+      {(type === EMovementType.RECORD || type === EMovementType.PQRS) && (
         <Icon
           icon={<MdOutlineAssignment />}
           appearance="gray"
@@ -67,7 +67,7 @@ interface RecordCardProps {
   id: string;
   type: EMovementType;
   description: string;
-  totalValue: number;
+  totalValue?: number;
   withExpandingIcon?: boolean;
   tag?: ITag;
   loading?: boolean;
@@ -93,11 +93,13 @@ function RecordCard(props: RecordCardProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   const formattedValue =
-    type === EMovementType.PURCHASE ||
-    type === EMovementType.CREDIT ||
-    type === EMovementType.RECORD
-      ? currencyFormat(totalValue)
-      : `-${currencyFormat(totalValue)}`;
+    totalValue !== undefined
+      ? type === EMovementType.PURCHASE ||
+        type === EMovementType.CREDIT ||
+        type === EMovementType.RECORD
+        ? currencyFormat(totalValue)
+        : `-${currencyFormat(totalValue)}`
+      : null;
 
   const handleClick = () => {
     if (onClick) {
@@ -124,14 +126,18 @@ function RecordCard(props: RecordCardProps) {
           </>
         ) : (
           <>
-            <Stack wrap="wrap" gap={inube.spacing.s100}>
+            <Stack
+              wrap="wrap"
+              gap={inube.spacing.s100}
+              direction={type === EMovementType.PQRS ? "column" : "row"}
+            >
               <Stack gap={inube.spacing.s100} alignItems="center">
                 {getIconForRecordType(type)}
                 <Stack gap={inube.spacing.s150}>
                   <Text type="label" size="medium" weight="bold">
                     {`${getRecordDescriptionType(type, description)} ${description}`}
                   </Text>
-                  {tag && !isMobile && (
+                  {tag && !isMobile && !EMovementType.PQRS && (
                     <Tag
                       label={tag.label}
                       appearance={tag.appearance}
@@ -140,7 +146,7 @@ function RecordCard(props: RecordCardProps) {
                   )}
                 </Stack>
               </Stack>
-              {tag && isMobile && (
+              {tag && EMovementType.PQRS && (
                 <Stack>
                   <Tag label={tag.label} appearance={tag.appearance} />
                 </Stack>
@@ -151,7 +157,7 @@ function RecordCard(props: RecordCardProps) {
               <Text type="label" size="medium" ellipsis weight="bold">
                 {formattedValue}
               </Text>
-              {withExpandingIcon && !isMobile && (
+              {withExpandingIcon && !isMobile && !EMovementType.PQRS && (
                 <Icon
                   icon={<MdOpenInNew />}
                   appearance="primary"
@@ -174,7 +180,7 @@ function RecordCard(props: RecordCardProps) {
           </>
         ) : (
           attributes.map(
-            (attribute) =>
+            (attribute, index) =>
               attribute.value && (
                 <Stack key={attribute.id} justifyContent="space-between">
                   <Stack gap={inube.spacing.s075}>
@@ -187,6 +193,24 @@ function RecordCard(props: RecordCardProps) {
                         : attribute.value}
                     </Text>
                   </Stack>
+                  {withExpandingIcon &&
+                    type === EMovementType.PQRS &&
+                    !isMobile &&
+                    index === attributes.length - 1 && (
+                      <Stack justifyContent="flex-end">
+                        {loading ? (
+                          <SkeletonLine animated width="80px" />
+                        ) : (
+                          <Button
+                            variant="none"
+                            spacing="compact"
+                            onClick={handleClick}
+                          >
+                            Ver detalles
+                          </Button>
+                        )}
+                      </Stack>
+                    )}
                 </Stack>
               ),
           )

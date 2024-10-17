@@ -20,7 +20,8 @@ interface ICreditConditionsEntry {
   paymentMethods: ISelectOption[];
   periodicity: IPeriodicity;
   periodicities: IPeriodicity[];
-  transferBankEntity?: string;
+  transferBankEntityCode?: string;
+  transferBankEntityName?: string;
   transferAccountType?: string;
   transferAccountNumber?: string;
 }
