@@ -194,7 +194,6 @@ function RecordCard(props: RecordCardProps) {
                     </Text>
                   </Stack>
                   {withExpandingIcon &&
-                    type === EMovementType.PQRS &&
                     !isMobile &&
                     index === attributes.length - 1 && (
                       <Stack justifyContent="flex-end">

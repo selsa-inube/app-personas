@@ -1,7 +1,13 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate, useBlocker, useLocation, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useBlocker,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { aidRequestSteps } from "./config/assisted";
 import { mapBeneficiaries, mapDetailsSituation } from "./config/mappers";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
@@ -18,10 +24,11 @@ import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
+import { useFlag } from "@inubekit/flag";
 import { AppContext } from "src/context/app";
 import { AidRequestUI } from "./interface";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
-import { aidRequestStepsRules } from "./utils";
+import { aidRequestStepsRules, sendAidRequest } from "./utils";
 
 function AidRequest() {
   const { aid_id } = useParams();
@@ -34,6 +41,8 @@ function AidRequest() {
   const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { addFlag } = useFlag();
 
   const aidRequestType: ISelectOption = {
     id: location.state?.id || "",
@@ -97,7 +106,8 @@ function AidRequest() {
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      currentLocation.pathname !== nextLocation.pathname,
+      currentLocation.pathname !== nextLocation.pathname &&
+      !nextLocation.search.includes("?success_request=true"),
   );
 
   const validateEnums = async () => {
@@ -152,6 +162,18 @@ function AidRequest() {
     if (!accessToken || !user) return;
 
     setLoadingSend(true);
+
+    sendAidRequest(user, aidRequest, accessToken, navigate).catch(() => {
+      addFlag({
+        title: "La solicitud no pudo ser procesada",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        appearance: "danger",
+        duration: 5000,
+      });
+
+      setLoadingSend(false);
+    });
   };
 
   const handleNextStep = () => {

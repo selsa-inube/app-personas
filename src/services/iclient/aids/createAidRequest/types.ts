@@ -1,29 +1,16 @@
 import { ISelectedDocument, IValidation } from "src/model/entity/service";
+import { IBeneficiary } from "src/model/entity/user";
 
-interface IRequestCreditRequest {
+interface IRequestAidRequest {
   customerCode: string;
+  customerName: string;
   termsConditions: {
     ids: string;
     description: string;
   };
   comments: string;
-  conditions: {
-    paymentMethod: string;
-    paymentMethodName: string;
-    periodicityInMonths: string;
-    disbursement: {
-      charges: number;
-      discounts: number;
-      anticipatedInterest: number;
-      netValue: number;
-    };
-    quota: number;
-    deadline: number;
-    rate: number;
-    amount: number;
-  };
-  destination: string;
-  destinationName: string;
+  amount: number;
+  beneficiary?: IBeneficiary;
   disbursmentMethod: {
     id: string;
     name: string;
@@ -47,7 +34,7 @@ interface IRequestCreditRequest {
   validations: IValidation[];
 }
 
-interface IRequestCreditResponse {
+interface IRequestAidResponse {
   cus: string;
   destination: string;
   productRequestId: string;
@@ -55,4 +42,4 @@ interface IRequestCreditResponse {
   status: string;
 }
 
-export type { IRequestCreditRequest, IRequestCreditResponse };
+export type { IRequestAidRequest, IRequestAidResponse };

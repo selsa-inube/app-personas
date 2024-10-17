@@ -4,20 +4,23 @@ interface IRequest {
   id: string;
   title: string;
   product: string;
-  destination: string;
+  destination?: string;
+  beneficiary?: string;
+  detailsSituation?: string;
   trackingCode: string;
   requestDate: Date;
   description: string;
   status: string;
   value: number;
-  quotaValue: number;
-  periodicity: string;
-  deadline: string;
-  interestRate: number;
-  netValue: number;
+  quotaValue?: number;
+  periodicity?: string;
+  deadline?: string;
+  interestRate?: number;
+  netValue?: number;
   tag: ITag;
   validations: IValidation[];
   documentaryRequirements: ISelectedDocument[];
+  requestType: RequestType;
 }
 
 type RequestType = "credit" | "aid";

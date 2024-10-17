@@ -20,35 +20,37 @@ function AidRequestVerification(props: AidRequestVerificationProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      {Object.entries(aidRequestSteps).map(([key, step]) => (
-        <Accordion title={step.name} key={`${key}-box`}>
-          <Stack
-            direction="column"
-            width="100%"
-            alignItems="flex-end"
-            gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
-          >
-            <VerificationBoxes
-              isTablet={isTablet}
-              aidRequest={aidRequest}
-              stepKey={key as keyof typeof aidRequestSteps}
-            />
-
-            <Button
-              iconBefore={<MdOutlineArrowBack />}
-              onClick={() =>
-                handleStepChange(
-                  aidRequestSteps[key as keyof IFormsAidRequest].number,
-                )
-              }
-              variant="none"
-              appearance="dark"
+      {Object.entries(aidRequestSteps)
+        .filter(([key]) => key !== "verification")
+        .map(([key, step]) => (
+          <Accordion title={step.name} key={`${key}-box`}>
+            <Stack
+              direction="column"
+              width="100%"
+              alignItems="flex-end"
+              gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
             >
-              Regresar a este paso
-            </Button>
-          </Stack>
-        </Accordion>
-      ))}
+              <VerificationBoxes
+                isTablet={isTablet}
+                aidRequest={aidRequest}
+                stepKey={key as keyof typeof aidRequestSteps}
+              />
+
+              <Button
+                iconBefore={<MdOutlineArrowBack />}
+                onClick={() =>
+                  handleStepChange(
+                    aidRequestSteps[key as keyof IFormsAidRequest].number,
+                  )
+                }
+                variant="none"
+                appearance="dark"
+              >
+                Regresar a este paso
+              </Button>
+            </Stack>
+          </Accordion>
+        ))}
     </Stack>
   );
 }

@@ -1,14 +1,11 @@
 import { enviroment } from "@config/enviroment";
-import {
-  mapRequestCreditApiToEntity,
-  mapRequestCreditEntityToApi,
-} from "./mappers";
-import { IRequestCreditRequest, IRequestCreditResponse } from "./types";
+import { mapRequestAidApiToEntity, mapRequestAidEntityToApi } from "./mappers";
+import { IRequestAidRequest, IRequestAidResponse } from "./types";
 
-const createCreditRequest = async (
-  creditRequest: IRequestCreditRequest,
+const createAidRequest = async (
+  aidRequest: IRequestAidRequest,
   accessToken: string,
-): Promise<IRequestCreditResponse | undefined> => {
+): Promise<IRequestAidResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",
@@ -19,7 +16,7 @@ const createCreditRequest = async (
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapRequestCreditEntityToApi(creditRequest)),
+      body: JSON.stringify(mapRequestAidEntityToApi(aidRequest)),
     };
 
     const res = await fetch(
@@ -35,13 +32,13 @@ const createCreditRequest = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al realizar la solicitud de crédito",
+        message: "Error al realizar la solicitud de auxilio",
         status: res.status,
         data,
       };
     }
 
-    return mapRequestCreditApiToEntity(data);
+    return mapRequestAidApiToEntity(data);
   } catch (error) {
     console.info(error);
 
@@ -49,4 +46,4 @@ const createCreditRequest = async (
   }
 };
 
-export { createCreditRequest };
+export { createAidRequest };

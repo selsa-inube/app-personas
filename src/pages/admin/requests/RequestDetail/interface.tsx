@@ -28,6 +28,7 @@ import { formatPrimaryDate } from "src/utils/dates";
 import { truncateFileName } from "src/utils/texts";
 import { crumbsRequest } from "./config/navigation";
 import { requestTabs } from "./config/tabs";
+import { StyledTextGrayContainer } from "./styles";
 
 const renderItem = (label: string, value?: string, tag?: React.ReactNode) => (
   <Stack direction="column" gap={inube.spacing.s075}>
@@ -227,7 +228,13 @@ function RequestDetailUI(props: RequestUIProps) {
                     />,
                   )}
                   {renderItem("Producto:", selectedRequest.product)}
-                  {renderItem("Destino:", selectedRequest.destination)}
+
+                  {selectedRequest.beneficiary &&
+                    renderItem("Beneficiario:", selectedRequest.beneficiary)}
+
+                  {selectedRequest.destination &&
+                    renderItem("Destino:", selectedRequest.destination)}
+
                   {renderItem(
                     "Código de seguimiento:",
                     selectedRequest.trackingCode,
@@ -242,29 +249,40 @@ function RequestDetailUI(props: RequestUIProps) {
                   )}
                 </Grid>
               </Accordion>
+              {selectedRequest.requestType === "credit" && (
+                <Accordion title="Condiciones del crédito">
+                  <Grid
+                    autoRows="auto"
+                    templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+                    gap={inube.spacing.s200}
+                    width="100%"
+                  >
+                    {renderItem(
+                      "Cuota:",
+                      `${currencyFormat(selectedRequest.quotaValue || 0)} / ${selectedRequest.periodicity}`,
+                    )}
+                    {renderItem("Plazo:", `${selectedRequest.deadline} Meses`)}
+                    {renderItem(
+                      "Tasa de interés:",
+                      `${selectedRequest.interestRate} % N.A.M.V`,
+                    )}
+                    {renderItem(
+                      "Desembolso aproximado:",
+                      currencyFormat(selectedRequest.netValue || 0),
+                    )}
+                  </Grid>
+                </Accordion>
+              )}
 
-              <Accordion title="Condiciones del crédito">
-                <Grid
-                  autoRows="auto"
-                  templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
-                  gap={inube.spacing.s200}
-                  width="100%"
-                >
-                  {renderItem(
-                    "Cuota:",
-                    `${currencyFormat(selectedRequest.quotaValue)} / ${selectedRequest.periodicity}`,
-                  )}
-                  {renderItem("Plazo:", `${selectedRequest.deadline} Meses`)}
-                  {renderItem(
-                    "Tasa de interés:",
-                    `${selectedRequest.interestRate} % N.A.M.V`,
-                  )}
-                  {renderItem(
-                    "Desembolso aproximado:",
-                    currencyFormat(selectedRequest.netValue),
-                  )}
-                </Grid>
-              </Accordion>
+              {selectedRequest.requestType === "aid" && (
+                <Accordion title="Condiciones del crédito">
+                  <StyledTextGrayContainer>
+                    <Text type="body" size="medium" appearance="gray">
+                      {selectedRequest.detailsSituation}
+                    </Text>
+                  </StyledTextGrayContainer>
+                </Accordion>
+              )}
 
               <Accordion title="Validaciones del sistema">
                 <Grid

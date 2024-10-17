@@ -20,33 +20,35 @@ function PayVerification(props: PayVerificationProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      {Object.entries(paySteps).map(([key, step]) => (
-        <Accordion title={step.name} key={`${key}-box`}>
-          <Stack
-            direction="column"
-            width="100%"
-            alignItems="flex-end"
-            gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
-          >
-            <VerificationBoxes
-              isTablet={isTablet}
-              pay={pay}
-              stepKey={key as keyof typeof paySteps}
-            />
-
-            <Button
-              iconBefore={<MdOutlineArrowBack />}
-              onClick={() =>
-                handleStepChange(paySteps[key as keyof IFormsPay].number)
-              }
-              variant="none"
-              appearance="dark"
+      {Object.entries(paySteps)
+        .filter(([key]) => key !== "verification")
+        .map(([key, step]) => (
+          <Accordion title={step.name} key={`${key}-box`}>
+            <Stack
+              direction="column"
+              width="100%"
+              alignItems="flex-end"
+              gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
             >
-              Regresar a este paso
-            </Button>
-          </Stack>
-        </Accordion>
-      ))}
+              <VerificationBoxes
+                isTablet={isTablet}
+                pay={pay}
+                stepKey={key as keyof typeof paySteps}
+              />
+
+              <Button
+                iconBefore={<MdOutlineArrowBack />}
+                onClick={() =>
+                  handleStepChange(paySteps[key as keyof IFormsPay].number)
+                }
+                variant="none"
+                appearance="dark"
+              >
+                Regresar a este paso
+              </Button>
+            </Stack>
+          </Accordion>
+        ))}
     </Stack>
   );
 }
