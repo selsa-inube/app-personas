@@ -4,6 +4,7 @@ import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { ContactChannelsForm } from "@forms/ContactChannelsForm";
 import { DisbursementForm } from "@forms/DisbursementForm";
+import { DocumentaryRequirementsForm } from "@forms/DocumentaryRequirementsForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -20,12 +21,12 @@ import { BeneficiariesForm } from "./forms/BeneficiariesForm";
 import { DetailsSituationForm } from "./forms/DetailsSituationForm";
 import { AidRequestVerification } from "./forms/Verification";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
-import { DocumentaryRequirementsForm } from "@forms/DocumentaryRequirementsForm";
 
 const renderStepContent = (
   currentStep: number,
   formReferences: IFormsAidRequestRefs,
   aidRequest: IFormsAidRequest,
+  aidType: IDomainType,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
   handleStepChange: (stepId: number) => void,
 ) => {
@@ -70,6 +71,8 @@ const renderStepContent = (
           initialValues={aidRequest.disbursement.values}
           ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
+          requestType="aid"
+          productId={aidType.id}
         />
       )}
 
@@ -178,6 +181,7 @@ function AidRequestUI(props: AidRequestUIProps) {
             currentStep,
             formReferences,
             aidRequest,
+            aidType,
             setIsCurrentFormValid,
             handleStepChange,
           )}

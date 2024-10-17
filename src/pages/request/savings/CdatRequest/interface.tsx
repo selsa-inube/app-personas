@@ -6,6 +6,7 @@ import { DisbursementForm } from "@forms/DisbursementForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
@@ -21,7 +22,6 @@ import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -57,6 +57,8 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={cdatRequest.disbursement.values}
           ref={formReferences.disbursement}
+          requestType="aid"
+          productId="S002"
           onFormValid={setIsCurrentFormValid}
         />
       )}

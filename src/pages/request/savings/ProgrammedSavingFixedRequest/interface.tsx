@@ -5,6 +5,7 @@ import { PaymentMethodForm } from "@forms/PaymentMethodForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
@@ -21,7 +22,6 @@ import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -61,6 +61,8 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={programmedSavingFixedRequest.disbursement.values}
           ref={formReferences.disbursement}
+          requestType="aid"
+          productId="S002"
           onFormValid={setIsCurrentFormValid}
         />
       )}

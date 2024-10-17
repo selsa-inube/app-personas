@@ -1,9 +1,8 @@
-import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
 import { IDisbursementEntry } from "./types";
 
 const mapDisbursement = (): IDisbursementEntry => {
   return {
-    disbursements: disbursementTypeDM.options,
+    disbursements: [],
     accountNumber: "",
     writeAccountNumber: "",
     observations: "",

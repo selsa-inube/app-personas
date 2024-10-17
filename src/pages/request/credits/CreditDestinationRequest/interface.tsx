@@ -76,6 +76,10 @@ const renderStepContent = (
                 .transferBankEntityName,
           }}
           ref={formReferences.disbursement}
+          requestType="credit"
+          productId={
+            creditDestinationRequest.destination.values.product?.id || ""
+          }
           onFormValid={setIsCurrentFormValid}
         />
       )}
