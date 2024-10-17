@@ -58,7 +58,10 @@ const renderStepContent = (
           initialValues={aidRequest.systemValidations.values}
           ref={formReferences.systemValidations}
           disbursementValues={aidRequest.disbursement.values}
-          requestType="aid"          
+          requestType="aid"
+          beneficiary={aidRequest.beneficiaries.values.beneficiaries.find(
+            (beneficiary) => beneficiary.selected,
+          )}
           onFormValid={setIsCurrentFormValid}
         />
       )}

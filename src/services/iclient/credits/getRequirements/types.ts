@@ -1,5 +1,6 @@
 import { RequestType } from "src/model/entity/request";
 import { IValidation } from "src/model/entity/service";
+import { IBeneficiary } from "src/model/entity/user";
 
 interface IRequirementRequest {
   requestType: RequestType;
@@ -26,7 +27,7 @@ interface IRequirementRequest {
     netValue?: number;
 
     // Credits, Aids
-    disbursmentMethod: {
+    disbursmentMethod?: {
       id: string;
       name: string;
       accountNumber?: string;
@@ -41,6 +42,9 @@ interface IRequirementRequest {
       identificationType?: string;
       identification?: string;
     };
+
+    // Aids
+    beneficiary?: IBeneficiary;
   };
 }
 

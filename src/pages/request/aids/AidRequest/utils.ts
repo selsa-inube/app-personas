@@ -31,9 +31,11 @@ const aidRequestStepsRules = (
           values: {
             ...mapSystemValidations(),
             validations: loadingValidations,
-            productId: "values.product.id ",
-            productName: "values.product.title",
-            amount: 0,
+            productId: values.aidId,
+            productName: values.aidName,
+            amount: values.applicationValue
+              ? values.applicationValue
+              : values.applicationDays || 0,
           },
         };
       }

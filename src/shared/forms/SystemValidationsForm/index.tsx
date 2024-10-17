@@ -10,18 +10,20 @@ import {
   useState,
 } from "react";
 import { AppContext } from "src/context/app";
+import { RequestType } from "src/model/entity/request";
+import { IBeneficiary } from "src/model/entity/user";
 import { getRequirementsForProduct } from "src/services/iclient/credits/getRequirements";
 import { IRequirementRequest } from "src/services/iclient/credits/getRequirements/types";
 import { SystemValidationsFormUI } from "./interface";
 import { ISystemValidationsEntry } from "./types";
 import { loadingValidations } from "./utils";
-import { RequestType } from "src/model/entity/request";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
   disbursementValues: IDisbursementEntry;
   test?: boolean;
   requestType: RequestType;
+  beneficiary?: IBeneficiary;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -29,8 +31,14 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   props: SystemValidationsFormProps,
   ref: React.Ref<FormikProps<ISystemValidationsEntry>>,
 ) {
-  const { initialValues, disbursementValues, test, requestType, onFormValid } =
-    props;
+  const {
+    initialValues,
+    disbursementValues,
+    test,
+    requestType,
+    beneficiary,
+    onFormValid,
+  } = props;
 
   const [loadingValids, setLoadingValids] = useState(false);
 
@@ -60,7 +68,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
         productId: formik.values.productId,
         productName: formik.values.productName,
         amount: formik.values.amount,
-        
+
         destinationId: formik.values.destinationId,
         destinationName: formik.values.destinationName,
         paymentMethod: formik.values.paymentMethod,
@@ -86,6 +94,8 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
           identificationType: disbursementValues.identificationType,
           identification: disbursementValues.identification,
         },
+
+        beneficiary,
       },
     };
 

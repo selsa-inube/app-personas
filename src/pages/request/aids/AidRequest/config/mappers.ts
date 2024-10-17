@@ -12,6 +12,12 @@ const mapDetailsSituation = (): IDetailsSituationEntry => {
     message: "",
     quotaAvailable: 0,
     daysAvailable: 0,
+    aidId: "",
+    aidName: "",
+    aidType: {
+      id: "",
+      value: "",
+    },
   };
 };
 
