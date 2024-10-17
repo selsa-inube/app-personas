@@ -27,7 +27,7 @@
     "@inubekit/icon": "^2.0.1",
     "@inubekit/label": "^3.1.1",
     "@inubekit/link": "^1.16.1",
-    "@inubekit/nav": "^5.3.0",
+    "@inubekit/nav": "^5.3.1",
     "@inubekit/skeleton": "^2.11.1",
     "@inubekit/spinner": "^2.12.1",
     "@inubekit/stack": "^3.8.1",
