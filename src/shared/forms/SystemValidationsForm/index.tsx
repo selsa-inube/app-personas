@@ -15,11 +15,13 @@ import { IRequirementRequest } from "src/services/iclient/credits/getRequirement
 import { SystemValidationsFormUI } from "./interface";
 import { ISystemValidationsEntry } from "./types";
 import { loadingValidations } from "./utils";
+import { RequestType } from "src/model/entity/request";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
   disbursementValues: IDisbursementEntry;
   test?: boolean;
+  requestType: RequestType;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -27,7 +29,8 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   props: SystemValidationsFormProps,
   ref: React.Ref<FormikProps<ISystemValidationsEntry>>,
 ) {
-  const { initialValues, disbursementValues, test, onFormValid } = props;
+  const { initialValues, disbursementValues, test, requestType, onFormValid } =
+    props;
 
   const [loadingValids, setLoadingValids] = useState(false);
 
@@ -49,36 +52,40 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
 
     setLoadingValids(true);
     const requirementsRequest: IRequirementRequest = {
-      productId: formik.values.productId,
-      productName: formik.values.productName,
-      destinationId: formik.values.destinationId,
-      destinationName: formik.values.destinationName,
+      requestType,
       customerCode: user.identification,
       customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
-      paymentMethod: formik.values.paymentMethod,
-      paymentMethodName: formik.values.paymentMethodName,
-      amount: formik.values.amount,
-      deadline: formik.values.deadline,
-      rate: formik.values.rate,
-      amortizationType: formik.values.amortizationType,
-      interestPaymentPeriod: formik.values.periodicity,
-      periodicity: formik.values.periodicity,
-      quota: formik.values.quota,
-      netValue: formik.values.netValue,
       requestDate,
-      disbursmentMethod: {
-        id: disbursementValues.disbursement || "",
-        name: disbursementValues.disbursementName || "",
-        accountNumber: disbursementValues.accountNumber,
-        transferAccountNumber: disbursementValues.writeAccountNumber,
-        transferAccountType: disbursementValues.accountType,
-        transferBankEntity: disbursementValues.bankEntity,
-        firstName: disbursementValues.firstName,
-        lastName: disbursementValues.firstLastName,
-        gender: disbursementValues.gender,
-        genderName: disbursementValues.gender,
-        identificationType: disbursementValues.identificationType,
-        identification: disbursementValues.identification,
+      requestData: {
+        productId: formik.values.productId,
+        productName: formik.values.productName,
+        amount: formik.values.amount,
+        
+        destinationId: formik.values.destinationId,
+        destinationName: formik.values.destinationName,
+        paymentMethod: formik.values.paymentMethod,
+        paymentMethodName: formik.values.paymentMethodName,
+        deadline: formik.values.deadline,
+        rate: formik.values.rate,
+        amortizationType: formik.values.amortizationType,
+        interestPaymentPeriod: formik.values.periodicity,
+        periodicity: formik.values.periodicity,
+        quota: formik.values.quota,
+        netValue: formik.values.netValue,
+        disbursmentMethod: {
+          id: disbursementValues.disbursement || "",
+          name: disbursementValues.disbursementName || "",
+          accountNumber: disbursementValues.accountNumber,
+          transferAccountNumber: disbursementValues.writeAccountNumber,
+          transferAccountType: disbursementValues.accountType,
+          transferBankEntity: disbursementValues.bankEntity,
+          firstName: disbursementValues.firstName,
+          lastName: disbursementValues.firstLastName,
+          gender: disbursementValues.gender,
+          genderName: disbursementValues.gender,
+          identificationType: disbursementValues.identificationType,
+          identification: disbursementValues.identification,
+        },
       },
     };
 

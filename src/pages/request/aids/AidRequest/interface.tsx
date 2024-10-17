@@ -53,7 +53,7 @@ const renderStepContent = (
           initialValues={aidRequest.systemValidations.values}
           ref={formReferences.systemValidations}
           disbursementValues={aidRequest.disbursement.values}
-          test
+          requestType="aid"          
           onFormValid={setIsCurrentFormValid}
         />
       )}

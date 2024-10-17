@@ -68,6 +68,7 @@ const renderStepContent = (
           ref={formReferences.systemValidations}
           disbursementValues={cdatRequest.disbursement.values}
           test
+          requestType="credit"
           onFormValid={setIsCurrentFormValid}
         />
       )}
