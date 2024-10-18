@@ -70,7 +70,6 @@ const renderStepContent = (
             transferBankEntityCode:
               creditDestinationRequest.creditConditions.values
                 .transferBankEntityCode,
-
             transferBankEntityName:
               creditDestinationRequest.creditConditions.values
                 .transferBankEntityName,

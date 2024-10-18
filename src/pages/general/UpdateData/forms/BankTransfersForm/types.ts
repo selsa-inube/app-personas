@@ -1,5 +1,6 @@
 interface IBankTransfersEntry {
-  bankEntity: string;
+  bankEntityCode: string;
+  bankEntityName: string;
   accountType: string;
   accountNumber: string;
 }

@@ -1,5 +1,5 @@
 import { FormikProps } from "formik";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
@@ -26,9 +26,11 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { programmedSavingFixedStepsRules } from "./utils";
+import { useAuth } from "@inube/auth";
 
 function ProgrammedSavingFixedRequest() {
-  const { user } = useContext(AppContext);
+  const { user, serviceDomains, getServiceDomains } = useContext(AppContext);
+  const { accessToken } = useAuth();
   const [currentStep, setCurrentStep] = useState(
     programmedSavingFixedRequestSteps.savingConditions.number,
   );
@@ -103,6 +105,22 @@ function ProgrammedSavingFixedRequest() {
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,
   };
+
+  const validateEnums = async () => {
+    if (!accessToken) return;
+
+    if (
+      serviceDomains.integratedbanks.length > 0 &&
+      serviceDomains.identificationtype.length > 0
+    )
+      return;
+
+    getServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+  };
+
+  useEffect(() => {
+    validateEnums();
+  }, []);
 
   const handleStepChange = (stepId: number) => {
     const newProgrammedSavingFixedRequest = programmedSavingFixedStepsRules(

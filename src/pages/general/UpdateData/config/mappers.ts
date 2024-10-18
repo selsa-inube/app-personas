@@ -119,7 +119,8 @@ const mapBankTransfers = (
   bankTransfersAccount: IBankTransfersAccount,
 ): IBankTransfersEntry => {
   return {
-    bankEntity: bankTransfersAccount.bankEntityCode,
+    bankEntityCode: bankTransfersAccount.bankEntityCode,
+    bankEntityName: bankTransfersAccount.bankEntityName,
     accountType: bankTransfersAccount.accountType,
     accountNumber: bankTransfersAccount.accountNumber,
   };
