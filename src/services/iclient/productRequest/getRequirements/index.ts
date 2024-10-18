@@ -46,7 +46,7 @@ const getRequirementsForProduct = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los requerimientos de crédito del producto.",
+        message: "Error al obtener los requerimientos del producto.",
         status: res.status,
         data,
       };

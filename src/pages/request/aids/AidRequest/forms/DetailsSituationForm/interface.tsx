@@ -52,7 +52,7 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               id="applicationValue"
               placeholder="Ingresa el valor del auxilio"
               value={validateCurrencyField("applicationValue", formik, false)}
-              type="text"
+              type="number"
               errorMessage={formik.errors.applicationValue}
               size="compact"
               isFullWidth
@@ -77,7 +77,7 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               id="daysAvailable"
               placeholder="Ingresa el valor del auxilio"
               value={formik.values.daysAvailable || ""}
-              type="text"
+              type="number"
               size="compact"
               isFullWidth
               readOnly
@@ -90,7 +90,7 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               id="applicationDays"
               placeholder="Digita el numero de días"
               value={formik.values.applicationDays || ""}
-              type="text"
+              type="number"
               errorMessage={formik.errors.applicationDays}
               size="compact"
               isFullWidth

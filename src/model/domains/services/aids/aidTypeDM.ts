@@ -3,11 +3,11 @@ import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 const aidTypeDataDomain = {
   REQUIRED_AMOUNT: {
     id: "InvoiceValue",
-    value: "Hospitalizacion y cirugia",
+    value: "Requiere monto",
   },
   REQUIRED_DAYS: {
     id: "DisabilityDays",
-    value: "Ayudas diagnosticas",
+    value: "Requiere días",
   },
 };
 
