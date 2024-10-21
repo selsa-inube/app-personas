@@ -78,6 +78,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                         description={product.description || ""}
                         checked={false}
                         maxAmount={product.maxAmount}
+                        minAmount={product.minAmount}
                         maxRate={product.maxRate}
                         maxDeadline={product.maxDeadline}
                         key={index}
@@ -95,6 +96,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                       maxAmount={product.maxAmount}
                       maxRate={product.maxRate}
                       maxDeadline={product.maxDeadline}
+                      minAmount={product.minAmount}
                       key={product.id}
                       onClick={() => onChangeProduct(product)}
                     />
