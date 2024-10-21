@@ -101,10 +101,11 @@ function AppProvider(props: AppProviderProps) {
     [featureFlags],
   );
 
-  const getServiceDomains = useCallback(
+  const loadServiceDomains = useCallback(
     async (domainNames: string[], accessToken: string) => {
       const newDomains = await getDomains(domainNames, accessToken);
       if (!newDomains) return serviceDomains;
+
       setServiceDomains((prev) => ({
         ...prev,
         ...newDomains,
@@ -123,7 +124,7 @@ function AppProvider(props: AppProviderProps) {
       setUser,
       setFeatureFlags,
       getFlag,
-      getServiceDomains,
+      loadServiceDomains,
     }),
     [
       user,
@@ -131,7 +132,7 @@ function AppProvider(props: AppProviderProps) {
       setUser,
       setFeatureFlags,
       getFlag,
-      getServiceDomains,
+      loadServiceDomains,
     ],
   );
 

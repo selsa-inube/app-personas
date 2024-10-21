@@ -8,12 +8,12 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { FormikProps } from "formik";
+import { IServiceDomains } from "src/context/app/types";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { bloodTypeDM } from "src/model/domains/general/updateData/personalInformation/bloodtypedm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
-import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
 import { getFieldState } from "src/utils/forms/forms";
 import { IPersonalInformationEntry } from "./types";
@@ -22,10 +22,11 @@ interface PersonalInformationFormUIProps {
   formik: FormikProps<IPersonalInformationEntry>;
   loading?: boolean;
   withSubmit?: boolean;
+  serviceDomains: IServiceDomains;
 }
 
 function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
-  const { formik, loading, withSubmit } = props;
+  const { formik, loading, withSubmit, serviceDomains } = props;
 
   const isTablet = useMediaQuery("(max-width: 850px)");
   const isMobile = useMediaQuery("(max-width: 610px)");
@@ -109,7 +110,7 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               size="compact"
               isFullWidth
               readOnly
-              options={identificationTypeDM.options}
+              options={serviceDomains.identificationtype}
             />
 
             <TextField
