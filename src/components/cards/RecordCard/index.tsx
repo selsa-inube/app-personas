@@ -2,6 +2,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
+import { Link } from "@inubekit/link";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
 import { ITag, Tag } from "@inubekit/tag";
@@ -73,6 +74,7 @@ interface RecordCardProps {
   loading?: boolean;
   attributes: { id: string; label: string; value: number | string | Date }[];
   datesWithTime?: boolean;
+  path?: string;
   onClick?: (movementId: string) => void;
 }
 
@@ -87,6 +89,7 @@ function RecordCard(props: RecordCardProps) {
     loading,
     tag,
     datesWithTime,
+    path,
     onClick,
   } = props;
 
@@ -199,6 +202,10 @@ function RecordCard(props: RecordCardProps) {
                       <Stack justifyContent="flex-end">
                         {loading ? (
                           <SkeletonLine animated width="80px" />
+                        ) : path ? (
+                          <Link size="small" path={path}>
+                            Ver detalles
+                          </Link>
                         ) : (
                           <Button
                             variant="none"
@@ -219,6 +226,10 @@ function RecordCard(props: RecordCardProps) {
         <Stack justifyContent="flex-end">
           {loading ? (
             <SkeletonLine animated width="80px" />
+          ) : path ? (
+            <Link size="small" path={path}>
+              Ver detalles
+            </Link>
           ) : (
             <Button variant="none" spacing="compact" onClick={handleClick}>
               Ver detalles
