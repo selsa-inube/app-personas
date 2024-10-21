@@ -126,27 +126,18 @@ function RecordCard(props: RecordCardProps) {
           </>
         ) : (
           <>
-            <Stack
-              wrap="wrap"
-              gap={inube.spacing.s100}
-              direction={type === EMovementType.PQRS ? "column" : "row"}
-            >
+            <Stack wrap="wrap" gap={inube.spacing.s100} direction="column">
               <Stack gap={inube.spacing.s100} alignItems="center">
                 {getIconForRecordType(type)}
+
                 <Stack gap={inube.spacing.s150}>
                   <Text type="label" size="medium" weight="bold">
                     {`${getRecordDescriptionType(type, description)} ${description}`}
                   </Text>
-                  {tag && !isMobile && !EMovementType.PQRS && (
-                    <Tag
-                      label={tag.label}
-                      appearance={tag.appearance}
-                      weight="normal"
-                    />
-                  )}
                 </Stack>
               </Stack>
-              {tag && EMovementType.PQRS && (
+
+              {tag && (
                 <Stack>
                   <Tag label={tag.label} appearance={tag.appearance} />
                 </Stack>
@@ -157,6 +148,7 @@ function RecordCard(props: RecordCardProps) {
               <Text type="label" size="medium" ellipsis weight="bold">
                 {formattedValue}
               </Text>
+
               {withExpandingIcon && !isMobile && !EMovementType.PQRS && (
                 <Icon
                   icon={<MdOpenInNew />}
@@ -193,6 +185,7 @@ function RecordCard(props: RecordCardProps) {
                         : attribute.value}
                     </Text>
                   </Stack>
+
                   {withExpandingIcon &&
                     !isMobile &&
                     index === attributes.length - 1 && (
