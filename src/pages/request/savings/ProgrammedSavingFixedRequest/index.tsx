@@ -13,6 +13,7 @@ import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
+import { useAuth } from "@inube/auth";
 import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "../../../../shared/forms/CommentsForm/types";
@@ -26,10 +27,9 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { programmedSavingFixedStepsRules } from "./utils";
-import { useAuth } from "@inube/auth";
 
 function ProgrammedSavingFixedRequest() {
-  const { user, serviceDomains, getServiceDomains } = useContext(AppContext);
+  const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
   const { accessToken } = useAuth();
   const [currentStep, setCurrentStep] = useState(
     programmedSavingFixedRequestSteps.savingConditions.number,
@@ -115,12 +115,12 @@ function ProgrammedSavingFixedRequest() {
     )
       return;
 
-    getServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+    loadServiceDomains(["integratedbanks", "identificationtype"], accessToken);
   };
 
   useEffect(() => {
     validateEnums();
-  }, []);
+  }, [accessToken]);
 
   const handleStepChange = (stepId: number) => {
     const newProgrammedSavingFixedRequest = programmedSavingFixedStepsRules(

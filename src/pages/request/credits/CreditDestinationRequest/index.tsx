@@ -34,7 +34,7 @@ import { creditDestinationStepsRules, sendCreditRequest } from "./utils";
 
 function CreditDestinationRequest() {
   const { accessToken } = useAuth();
-  const { user, serviceDomains, getServiceDomains } = useContext(AppContext);
+  const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
   const [loadingSend, setLoadingSend] = useState(false);
 
   const [currentStep, setCurrentStep] = useState(
@@ -155,12 +155,12 @@ function CreditDestinationRequest() {
     )
       return;
 
-    getServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+    loadServiceDomains(["integratedbanks", "identificationtype"], accessToken);
   };
 
   useEffect(() => {
     validateEnums();
-  }, []);
+  }, [accessToken]);
 
   const handleStepChange = (stepId: number) => {
     const newCreditDestinationRequest = creditDestinationStepsRules(

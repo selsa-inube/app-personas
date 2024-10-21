@@ -1,7 +1,8 @@
 import { mapComments } from "@forms/CommentsForm/mappers";
+import { useAuth } from "@inube/auth";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -45,6 +46,8 @@ function UpdateData() {
   const steps = Object.values(updateDataSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(true);
   const { getFlag } = useContext(AppContext);
+  const { serviceDomains, loadServiceDomains } = useContext(AppContext);
+  const { accessToken } = useAuth();
 
   const [updateData, setUpdateData] = useState<IFormsUpdateData>({
     personalInformation: {
@@ -143,6 +146,18 @@ function UpdateData() {
     relationshipWithDirectors: relationshipWithDirectorsRef,
     comments: commentsRef,
   };
+
+  const validateEnums = async () => {
+    if (!accessToken) return;
+
+    if (serviceDomains.integratedbanks.length > 0) return;
+
+    loadServiceDomains(["integratedbanks"], accessToken);
+  };
+
+  useEffect(() => {
+    validateEnums();
+  }, [accessToken]);
 
   const handleStepChange = (stepId: number) => {
     const newUpdateData = updateDataStepsRules(
