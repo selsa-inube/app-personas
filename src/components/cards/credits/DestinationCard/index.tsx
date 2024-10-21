@@ -2,9 +2,9 @@ import { inube } from "@design/tokens";
 import { Divider } from "@inubekit/divider";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { currencyFormat } from "src/utils/currency";
 import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
-import { Text } from "@inubekit/text";
 
 interface DestinationCardProps {
   id: string;
@@ -14,6 +14,7 @@ interface DestinationCardProps {
   maxRate?: number;
   maxDeadline?: number;
   maxAmount: number;
+  minAmount: number;
   loading?: boolean;
   onClick: () => void;
 }
@@ -27,6 +28,7 @@ function DestinationCard(props: DestinationCardProps) {
     maxRate,
     maxDeadline,
     maxAmount,
+    minAmount,
     loading,
     onClick,
   } = props;
@@ -156,6 +158,16 @@ function DestinationCard(props: DestinationCardProps) {
 
           <Text type="body" size="small">
             {currencyFormat(maxAmount)}
+          </Text>
+        </Stack>
+
+        <Stack alignItems="center" justifyContent="space-between" width="100%">
+          <Text type="label" size="small" appearance="gray">
+            Monto mínimo:
+          </Text>
+
+          <Text type="body" size="small">
+            {currencyFormat(minAmount)}
           </Text>
         </Stack>
       </StyledBody>
