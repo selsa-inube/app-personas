@@ -19,7 +19,7 @@ function ValidationCard(props: IValidation) {
 
   if (pending) {
     return (
-      <OutlineCard>
+      <OutlineCard height="auto">
         <Stack
           padding={`${inube.spacing.s200} ${inube.spacing.s250}`}
           gap={inube.spacing.s100}
@@ -35,7 +35,7 @@ function ValidationCard(props: IValidation) {
 
   return (
     <>
-      <OutlineCard>
+      <OutlineCard height="auto">
         <Stack
           padding={`${inube.spacing.s200} ${inube.spacing.s250}`}
           gap={inube.spacing.s200}
