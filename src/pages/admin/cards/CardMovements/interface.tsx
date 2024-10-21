@@ -6,17 +6,17 @@ import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { EMovementType } from "src/model/entity/product";
+import { generateAttributes } from "./config/attributeRecord";
 import { crumbsCardMovements } from "./config/navigation";
 import { StyledContainer, StyledItem } from "./styles";
 import { ISelectedProductState } from "./types";
-import { generateAttributes } from "./config/attributeRecord";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Button } from "@inubekit/button";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface CardMovementsUIProps {
   cardId?: string;
@@ -88,7 +88,7 @@ function CardMovementsUI(props: CardMovementsUIProps) {
                         id={movement.id}
                         type={movement.type as EMovementType}
                         description={movement.description}
-                        totalValue={movement.totalValue}
+                        value={movement.totalValue}
                         attributes={generateAttributes(movement)}
                       />
                     </StyledItem>

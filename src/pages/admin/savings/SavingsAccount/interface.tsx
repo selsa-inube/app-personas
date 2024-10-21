@@ -44,6 +44,8 @@ import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { useContext } from "react";
+import { AppContext } from "src/context/app";
 import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
 import {
   EMovementType,
@@ -56,8 +58,6 @@ import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
-import { useContext } from "react";
-import { AppContext } from "src/context/app";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -68,7 +68,7 @@ const renderMovements = (movements: IMovement[]) =>
         id={movement.id}
         type={movement.type || EMovementType.CREDIT}
         description={movement.description}
-        totalValue={movement.totalValue || 0}
+        value={movement.totalValue || 0}
         attributes={generateAttributes(movement)}
       />
     </Stack>

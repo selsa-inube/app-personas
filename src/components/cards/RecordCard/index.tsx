@@ -68,13 +68,15 @@ interface RecordCardProps {
   id: string;
   type: EMovementType;
   description: string;
-  totalValue?: number;
+  value?: number;
   withExpandingIcon?: boolean;
   tag?: ITag;
   loading?: boolean;
   attributes: { id: string; label: string; value: number | string | Date }[];
   datesWithTime?: boolean;
   path?: string;
+  valueIsCurrency?: boolean;
+  valueLabel?: string;
   onClick?: (movementId: string) => void;
 }
 
@@ -83,25 +85,27 @@ function RecordCard(props: RecordCardProps) {
     id,
     type,
     description,
-    totalValue,
+    value,
     attributes,
     withExpandingIcon = false,
     loading,
     tag,
     datesWithTime,
     path,
+    valueIsCurrency = true,
+    valueLabel,
     onClick,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   const formattedValue =
-    totalValue !== undefined
+    value !== undefined
       ? type === EMovementType.PURCHASE ||
         type === EMovementType.CREDIT ||
         type === EMovementType.RECORD
-        ? currencyFormat(totalValue)
-        : `-${currencyFormat(totalValue)}`
+        ? currencyFormat(value)
+        : `-${currencyFormat(value)}`
       : null;
 
   const handleClick = () => {
@@ -149,7 +153,7 @@ function RecordCard(props: RecordCardProps) {
 
             <Stack gap={inube.spacing.s150}>
               <Text type="label" size="medium" ellipsis weight="bold">
-                {formattedValue}
+                {valueIsCurrency ? formattedValue : value} {valueLabel}
               </Text>
 
               {withExpandingIcon && !isMobile && !EMovementType.PQRS && (

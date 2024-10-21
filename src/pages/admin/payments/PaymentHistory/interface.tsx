@@ -90,7 +90,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
               relacionados pueden tardar unos minutos en aparecer.
             </Text>
           </Stack>
-          
+
           <Stack direction="column" alignItems="flex-end">
             <Button
               appearance="primary"
@@ -119,7 +119,7 @@ function PaymentHistoryUI(props: PaymentHistoryUIProps) {
                       id={payment.id}
                       type={EMovementType.RECORD}
                       description={payment.title}
-                      totalValue={payment.value}
+                      value={payment.value}
                       tag={payment.tag.label !== "" ? payment.tag : undefined}
                       attributes={generateAttributes(payment)}
                       onClick={() => onTogglePaymentHistoryModal(payment)}
