@@ -67,23 +67,10 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
 
         {withDays && (
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={inube.spacing.s300}
           >
-            <TextField
-              label="Cantidad máxima de días"
-              name="daysAvailable"
-              id="daysAvailable"
-              placeholder="Ingresa el valor del auxilio"
-              value={formik.values.daysAvailable || ""}
-              type="number"
-              size="compact"
-              isFullWidth
-              readOnly
-              iconAfter={<MdOutlineTag size={18} />}
-            />
-
             <TextField
               label="Días de incapacidad"
               name="applicationDays"
