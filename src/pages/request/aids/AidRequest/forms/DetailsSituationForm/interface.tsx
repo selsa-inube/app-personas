@@ -52,7 +52,7 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               id="applicationValue"
               placeholder="Ingresa el valor del auxilio"
               value={validateCurrencyField("applicationValue", formik, false)}
-              type="number"
+              type="text"
               errorMessage={formik.errors.applicationValue}
               size="compact"
               isFullWidth
