@@ -29,7 +29,7 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
       <Stack direction="column" gap={inube.spacing.s300}>
         {withAmount && (
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={inube.spacing.s300}
           >
