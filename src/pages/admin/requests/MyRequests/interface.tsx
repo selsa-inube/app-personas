@@ -23,7 +23,6 @@ interface MyRequestsUIProps {
   noMoreRequests: boolean;
   refreshTime: number;
   onAddRequests: () => void;
-  goToRequest: (id: string) => void;
   onRefresh: () => void;
 }
 
@@ -34,7 +33,6 @@ function MyRequestsUI(props: MyRequestsUIProps) {
     noMoreRequests,
     refreshTime,
     onAddRequests,
-    goToRequest,
     onRefresh,
   } = props;
 
@@ -104,7 +102,7 @@ function MyRequestsUI(props: MyRequestsUIProps) {
                       tag={request.tag}
                       attributes={generateAttributes(request)}
                       withExpandingIcon
-                      onClick={() => goToRequest(request.id)}
+                      path={`/my-requests/${request.id}`}
                       datesWithTime
                     />
                     {index !== requests.length - 1 && <Divider dashed />}
