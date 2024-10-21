@@ -15,6 +15,7 @@ const mapProductApiToEntity = (
       : undefined,
     maxDeadline: product.maxDeadline ? Number(product.maxDeadline) : undefined,
     maxAmount: Number(product.maxAmount || 0),
+    minAmount: Number(product.minAmount || 0),
     maxAmountForUser: Number(product.maxAmountByUser || 0),
     amortizationType: "IntegralFixedQuota",
   };
