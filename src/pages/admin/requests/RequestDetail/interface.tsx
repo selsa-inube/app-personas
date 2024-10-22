@@ -21,6 +21,7 @@ import {
   MdDeleteOutline,
   MdOutlineDescription,
 } from "react-icons/md";
+import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
@@ -245,7 +246,9 @@ function RequestDetailUI(props: RequestUIProps) {
                   )}
                   {renderItem(
                     "Valor de la solicitud:",
-                    currencyFormat(selectedRequest.value),
+                    selectedRequest.aidType === aidTypeDM.REQUIRED_DAYS.id
+                      ? `${selectedRequest.value} Días`
+                      : currencyFormat(selectedRequest.value),
                   )}
                 </Grid>
               </Accordion>

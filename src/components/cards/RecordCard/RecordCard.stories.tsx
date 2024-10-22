@@ -32,7 +32,7 @@ Default.args = {
   description:
     "Pago Contab. Descuentos de nomina mes FEB/21 Cta.Cobro 41-241000098 Nomina: 30",
 
-  totalValue: 578000,
+  value: 578000,
   tag: {
     label: "En progreso",
     appearance: "warning",
@@ -47,7 +47,7 @@ Default.args = {
     { id: "cus", label: "CUS", value: "0000000115" },
   ],
   withExpandingIcon: true,
-  loading: false
+  loading: false,
 };
 
 const theme = {

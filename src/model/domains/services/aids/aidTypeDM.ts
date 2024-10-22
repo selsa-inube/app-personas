@@ -6,7 +6,7 @@ const aidTypeDataDomain = {
     value: "Requiere monto",
   },
   REQUIRED_DAYS: {
-    id: "DisabilityDays",
+    id: "Days",
     value: "Requiere días",
   },
 };
