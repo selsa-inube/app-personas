@@ -108,8 +108,8 @@ const mapRequestApiToEntity = (
   const requestedAmount = Object(request).details?.conditions?.requestedAmount;
   const requestedValue = Object(request).details?.requestedValue;
 
-  const aidType = Object(request).details?.aidType;
-
+  const aidType = Object(request).aidType.code;
+  
   return {
     id: String(request.productRequestId),
     requestType: Object(request.requestType).code,
