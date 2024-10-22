@@ -8,8 +8,10 @@ import { ICommentsEntry } from "../../../../shared/forms/CommentsForm/types";
 import { IPlanNameEntry } from "./forms/PlanNameForm/types";
 import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
 import { IShareMaturityEntry } from "./forms/ShareMaturityForm/types";
+import { IDestinationEntry } from "./forms/DestinationForm/types";
 
 interface IFormsProgrammedSavingFixedRequest {
+  destination: { isValid: boolean; values: IDestinationEntry };
   savingConditions: { isValid: boolean; values: ISavingConditionsEntry };
   paymentMethod: { isValid: boolean; values: IPaymentMethodEntry };
   shareMaturity: { isValid: boolean; values: IShareMaturityEntry };
@@ -22,6 +24,7 @@ interface IFormsProgrammedSavingFixedRequest {
 }
 
 interface IFormsProgrammedSavingFixedRequestRefs {
+  destination: React.RefObject<FormikProps<IDestinationEntry>>;
   savingConditions: React.RefObject<FormikProps<ISavingConditionsEntry>>;
   paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
   shareMaturity: React.RefObject<FormikProps<IShareMaturityEntry>>;

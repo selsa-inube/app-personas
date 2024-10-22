@@ -1,6 +1,6 @@
 import { ISelectOption } from "@design/input/Select/types";
 
-interface IDestinationProduct {
+interface ICreditDestinationProduct {
   id: string;
   title: string;
   description: string;
@@ -15,8 +15,8 @@ interface IDestinationProduct {
 interface IDestinationEntry {
   destinations: ISelectOption[];
   destination?: ISelectOption;
-  products: IDestinationProduct[];
-  product?: IDestinationProduct;
+  products: ICreditDestinationProduct[];
+  product?: ICreditDestinationProduct;
 }
 
-export type { IDestinationEntry, IDestinationProduct };
+export type { ICreditDestinationProduct, IDestinationEntry };

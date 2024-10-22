@@ -27,12 +27,13 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { programmedSavingFixedStepsRules } from "./utils";
+import { IDestinationEntry } from "./forms/DestinationForm/types";
 
 function ProgrammedSavingFixedRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
   const { accessToken } = useAuth();
   const [currentStep, setCurrentStep] = useState(
-    programmedSavingFixedRequestSteps.savingConditions.number,
+    programmedSavingFixedRequestSteps.destination.number,
   );
   const steps = Object.values(programmedSavingFixedRequestSteps);
 
@@ -41,6 +42,10 @@ function ProgrammedSavingFixedRequest() {
 
   const [programmedSavingFixedRequest, setProgrammedSavingFixedRequest] =
     useState<IFormsProgrammedSavingFixedRequest>({
+      destination: {
+        isValid: false,
+        values: initalValuesProgrammedSavingFixed.destination,
+      },
       savingConditions: {
         isValid: false,
         values: initalValuesProgrammedSavingFixed.savingConditions,
@@ -82,6 +87,7 @@ function ProgrammedSavingFixedRequest() {
       },
     });
 
+  const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const savingConditionsRef = useRef<FormikProps<ISavingConditionsEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const shareMaturityRef = useRef<FormikProps<IShareMaturityEntry>>(null);
@@ -95,6 +101,7 @@ function ProgrammedSavingFixedRequest() {
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
+    destination: destinationRef,
     savingConditions: savingConditionsRef,
     paymentMethod: paymentMethodRef,
     shareMaturity: shareMaturityRef,

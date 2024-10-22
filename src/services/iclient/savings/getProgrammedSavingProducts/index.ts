@@ -1,17 +1,16 @@
 import { enviroment } from "@config/enviroment";
-import { ICreditDestinationProduct } from "@pages/request/credits/CreditDestinationRequest/forms/DestinationForm/types";
+import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingFixedRequest/forms/DestinationForm/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapProductsApiToEntities } from "./mappers";
 
-const getProductsForDestination = async (
+const getProgrammedSavingProducts = async (
   userIdentification: string,
   accessToken: string,
-  destinationId: string,
-): Promise<ICreditDestinationProduct[]> => {
+): Promise<IProgrammedSavingProduct[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/product/destination/${destinationId}/customer/${userIdentification}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/product/customer/${userIdentification}`;
 
   try {
     const options: RequestInit = {
@@ -19,7 +18,7 @@ const getProductsForDestination = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchProductsByDestination",
+        "X-Action": "SearchProducts",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -43,7 +42,7 @@ const getProductsForDestination = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los destinos de crédito del usuario.",
+        message: "Error al obtener los productos de ahorro programado.",
         status: res.status,
         data,
       };
@@ -69,4 +68,4 @@ const getProductsForDestination = async (
   }
 };
 
-export { getProductsForDestination };
+export { getProgrammedSavingProducts };
