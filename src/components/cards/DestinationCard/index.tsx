@@ -3,7 +3,7 @@ import { Divider } from "@inubekit/divider";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { currencyFormat } from "src/utils/currency";
+import { IAttribute } from "src/model/entity/product";
 import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
 
 interface DestinationCardProps {
@@ -11,27 +11,14 @@ interface DestinationCardProps {
   title: string;
   description: string;
   checked: boolean;
-  maxRate?: number;
-  maxDeadline?: number;
-  maxAmount: number;
-  minAmount: number;
+  attributes: IAttribute[];
   loading?: boolean;
   onClick: () => void;
 }
 
 function DestinationCard(props: DestinationCardProps) {
-  const {
-    id,
-    title,
-    description,
-    checked,
-    maxRate,
-    maxDeadline,
-    maxAmount,
-    minAmount,
-    loading,
-    onClick,
-  } = props;
+  const { id, title, description, checked, attributes, loading, onClick } =
+    props;
 
   if (loading) {
     return (
@@ -119,57 +106,22 @@ function DestinationCard(props: DestinationCardProps) {
       <Divider dashed />
 
       <StyledBody>
-        {maxRate && (
+        {attributes.map((attribute, index) => (
           <Stack
             alignItems="center"
             justifyContent="space-between"
             width="100%"
+            key={index}
           >
             <Text type="label" size="small" appearance="gray">
-              Tasa máxima:
+              {attribute.label}:
             </Text>
 
             <Text type="body" size="small">
-              {maxRate}%
+              {attribute.value.toString()}
             </Text>
           </Stack>
-        )}
-
-        {maxDeadline && (
-          <Stack
-            alignItems="center"
-            justifyContent="space-between"
-            width="100%"
-          >
-            <Text type="label" size="small" appearance="gray">
-              Plazo máximo:
-            </Text>
-
-            <Text type="body" size="small">
-              {maxDeadline} meses
-            </Text>
-          </Stack>
-        )}
-
-        <Stack alignItems="center" justifyContent="space-between" width="100%">
-          <Text type="label" size="small" appearance="gray">
-            Monto máximo:
-          </Text>
-
-          <Text type="body" size="small">
-            {currencyFormat(maxAmount)}
-          </Text>
-        </Stack>
-
-        <Stack alignItems="center" justifyContent="space-between" width="100%">
-          <Text type="label" size="small" appearance="gray">
-            Monto mínimo:
-          </Text>
-
-          <Text type="body" size="small">
-            {currencyFormat(minAmount)}
-          </Text>
-        </Stack>
+        ))}
       </StyledBody>
     </StyledCardContainer>
   );

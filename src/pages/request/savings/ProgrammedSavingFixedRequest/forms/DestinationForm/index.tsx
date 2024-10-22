@@ -8,11 +8,11 @@ import React, {
   useState,
 } from "react";
 import { AppContext } from "src/context/app";
-import { getProductsForDestination } from "src/services/iclient/credits/getProducts";
+import { getProgrammedSavingProducts } from "src/services/iclient/savings/getProgrammedSavingProducts";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { DestinationFormUI } from "./interface";
-import { ICreditDestinationProduct, IDestinationEntry } from "./types";
+import { IDestinationEntry, IProgrammedSavingProduct } from "./types";
 
 const validationSchema = Yup.object({
   destination: Yup.object().required(validationMessages.required),
@@ -30,16 +30,14 @@ const DestinationForm = forwardRef(function DestinationForm(
   props: DestinationFormProps,
   ref: React.Ref<FormikProps<IDestinationEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
-  const [dynamicValidationSchema, setDynamicValidationSchema] =
-    useState(validationSchema);
+  const { initialValues, onFormValid, onSubmit } = props;
   const [loadingProducts, setLoadingProducts] = useState(false);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,
-    validationSchema: dynamicValidationSchema,
+    validationSchema,
     validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
     enableReinitialize: true,
@@ -55,50 +53,14 @@ const DestinationForm = forwardRef(function DestinationForm(
     }
   }, [formik.values]);
 
-  const handleChangeDestination = async (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    const { value } = event.target;
-
-    const destination = formik.values.destinations.find(
-      (destination) => destination.id === value,
-    );
-
-    formik.setFieldValue("destination", {
-      id: destination?.id,
-      value: destination?.value,
-    });
-
-    formik.setFieldValue("product", undefined);
-
-    if (value === "other") {
-      const newValidationSchema = dynamicValidationSchema.concat(
-        Yup.object({
-          product: Yup.object(),
-        }),
-      );
-
-      setDynamicValidationSchema(newValidationSchema);
-
-      return;
-    } else {
-      const newValidationSchema = dynamicValidationSchema.concat(
-        Yup.object({
-          product: Yup.object().required(validationMessages.required),
-        }),
-      );
-
-      setDynamicValidationSchema(newValidationSchema);
-    }
-
-    if (!destination?.id || !accessToken) return;
+  const getProducts = async () => {
+    if (!accessToken) return;
 
     setLoadingProducts(true);
 
-    const products = await getProductsForDestination(
+    const products = await getProgrammedSavingProducts(
       user.identification,
       accessToken,
-      destination.id,
     );
 
     if (products.length === 0) {
@@ -112,17 +74,19 @@ const DestinationForm = forwardRef(function DestinationForm(
     setLoadingProducts(false);
   };
 
-  const handleChangeProduct = (value: ICreditDestinationProduct) => {
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const handleChangeProduct = (value: IProgrammedSavingProduct) => {
     formik.setFieldValue("product", value);
   };
 
   return (
     <DestinationFormUI
-      loading={loading}
       formik={formik}
       loadingProducts={loadingProducts}
       onChangeProduct={handleChangeProduct}
-      onChangeDestination={handleChangeDestination}
     />
   );
 });

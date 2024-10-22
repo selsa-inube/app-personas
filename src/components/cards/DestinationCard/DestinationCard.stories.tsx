@@ -22,9 +22,23 @@ Default.args = {
   title: "Compra de vehículo o moto",
   description: "Compra de vehículo nuevo o usado",
   checked: true,
-  maxRate: 10,
-  maxAmount: 15000000,
-  maxDeadline: 24,
+  attributes: [
+    {
+      id: "maxRate",
+      label: "Tasa máxima",
+      value: "28%",
+    },
+    {
+      id: "maxDeadline",
+      label: "Plazo máximo",
+      value: "84 meses",
+    },
+    {
+      id: "maxAmount",
+      label: "Monto máximo",
+      value: "$100,000,000",
+    },
+  ],
 };
 
 const theme = {

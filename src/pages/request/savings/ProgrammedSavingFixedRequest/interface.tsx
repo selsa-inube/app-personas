@@ -14,6 +14,7 @@ import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { CommentsForm } from "../../../../shared/forms/CommentsForm";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
+import { DestinationForm } from "./forms/DestinationForm";
 import { PlanNameForm } from "./forms/PlanNameForm";
 import { SavingConditionsForm } from "./forms/SavingConditionsForm";
 import { ShareMaturityForm } from "./forms/ShareMaturityForm";
@@ -32,6 +33,13 @@ const renderStepContent = (
 ) => {
   return (
     <>
+      {currentStep === programmedSavingFixedRequestSteps.destination.number && (
+        <DestinationForm
+          initialValues={programmedSavingFixedRequest.destination.values}
+          ref={formReferences.destination}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep ===
         programmedSavingFixedRequestSteps.savingConditions.number && (
         <SavingConditionsForm

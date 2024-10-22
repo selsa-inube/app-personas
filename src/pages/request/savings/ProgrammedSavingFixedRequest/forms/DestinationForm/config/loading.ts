@@ -1,16 +1,15 @@
-import { ICreditDestinationProduct } from "../types";
+import { IProgrammedSavingProduct } from "../types";
 
-const loadingProductsData: ICreditDestinationProduct[] = [
+const loadingProductsData: IProgrammedSavingProduct[] = [
   {
     id: "Cargando",
     title: "Cargando",
     description: "Cargando",
     maxRate: 0,
     maxDeadline: 0,
-    maxAmount: 0,
-    minAmount: 0,
-    maxAmountForUser: 0,
-    amortizationType: "Cargando",
+    maxQuota: 0,
+    minQuota: 0,
+    minDeadline: 0,
   },
   {
     id: "Cargando",
@@ -18,10 +17,9 @@ const loadingProductsData: ICreditDestinationProduct[] = [
     description: "Cargando",
     maxRate: 0,
     maxDeadline: 0,
-    maxAmount: 0,
-    minAmount: 0,
-    maxAmountForUser: 0,
-    amortizationType: "Cargando",
+    maxQuota: 0,
+    minQuota: 0,
+    minDeadline: 0,
   },
   {
     id: "Cargando",
@@ -29,10 +27,9 @@ const loadingProductsData: ICreditDestinationProduct[] = [
     description: "Cargando",
     maxRate: 0,
     maxDeadline: 0,
-    maxAmount: 0,
-    minAmount: 0,
-    maxAmountForUser: 0,
-    amortizationType: "Cargando",
+    maxQuota: 0,
+    minQuota: 0,
+    minDeadline: 0,
   },
   {
     id: "Cargando",
@@ -40,10 +37,9 @@ const loadingProductsData: ICreditDestinationProduct[] = [
     description: "Cargando",
     maxRate: 0,
     maxDeadline: 0,
-    maxAmount: 0,
-    minAmount: 0,
-    maxAmountForUser: 0,
-    amortizationType: "Cargando",
+    maxQuota: 0,
+    minQuota: 0,
+    minDeadline: 0,
   },
 ];
 
