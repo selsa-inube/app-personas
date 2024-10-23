@@ -1308,169 +1308,57 @@ const fondecomTheme = {
   },
   table: {
     border: {
-      color: {
-        Value: "",
-        Reference: "fondecom.table.border.color",
-        Token: "fondecom.palette.neutral.n40",
-      },
+      color: palette.neutral.n40,
     },
     heading: {
-      background: {
-        regular: {
-          Value: "",
-          Reference: "fondecom.table.heading.background.regular",
-          Token: "fondecom.palette.neutral.n0",
-        },
-      },
-      color: {
-        regular: {
-          Value: "",
-          Reference: "fondecom.table.heading.color.regular",
-          Token: "fondecom.palette.neutral.n900",
-        },
-      },
+      background: palette.neutral.n0,
+      color: palette.neutral.n900,
     },
     action: {
       background: {
-        action: {
-          Value: "",
-          Reference: "fondecom.table.action.background.action",
-          Token: "fondecom.palette.neutral.n30",
-        },
+        action: palette.neutral.n30,
       },
       color: {
-        action: {
-          Value: "",
-          Reference: "fondecom.table.action.color.action",
-          Token: "fondecom.palette.neutral.n900",
-        },
+        action: palette.neutral.n900,
       },
     },
     row: {
       background: {
-        regular: {
-          Value: "",
-          Reference: "fondecom.table.row.background.regular",
-          Token: "fondecom.palette.neutral.n0",
-        },
-        zebra: {
-          Value: "",
-          Reference: "fondecom.table.row.background.zebra",
-          Token: "fondecom.palette.neutral.n30",
-        },
+        regular: palette.neutral.n0,
+        zebra: palette.neutral.n30,
       },
       color: {
-        regular: {
-          Value: "",
-          Reference: "fondecom.table.row.color.regular",
-          Token: "fondecom.palette.neutral.n900",
-        },
-        zebra: {
-          Value: "",
-          Reference: "fondecom.table.row.color.zebra",
-          Token: "fondecom.palette.neutral.n900",
-        },
+        regular: palette.neutral.n900,
+        zebra: palette.neutral.n900,
       },
     },
     cell: {
       color: {
-        primary: {
-          Value: "",
-          Reference: "fondecom.table.cell.color.primary",
-          Token: "fondecom.palette.blue.b400",
-        },
-        success: {
-          Value: "",
-          Reference: "fondecom.table.cell.color.success",
-          Token: "fondecom.palette.green.g400",
-        },
-        warning: {
-          Value: "",
-          Reference: "fondecom.table.cell.color.warning",
-          Token: "fondecom.palette.yellow.y400",
-        },
-        danger: {
-          Value: "",
-          Reference: "fondecom.table.cell.color.danger",
-          Token: "fondecom.palette.red.r400",
-        },
-        help: {
-          Value: "",
-          Reference: "fondecom.table.cell.color.help",
-          Token: "fondecom.palette.purple.p400",
-        },
-        dark: {
-          Value: "",
-          Reference: "fondecom.table.cell.color.dark",
-          Token: "fondecom.palette.neutral.n900",
-        },
-        gray: {
-          Value: "",
-          Reference: "fondecom.table.cell.color.gray",
-          Token: "fondecom.palette.neutral.n300",
-        },
-        light: {
-          Value: "",
-          Reference: "fondecom.table.cell.color.light",
-          Token: "fondecom.palette.neutral.n900",
-        },
+        primary: palette.blue.b400,
+        success: palette.green.g400,
+        warning: palette.yellow.y400,
+        danger: palette.red.r400,
+        help: palette.purple.p400,
+        dark: palette.neutral.n900,
+        gray: palette.neutral.n300,
+        light: palette.neutral.n900,
       },
       background: {
-        primary: {
-          Value: "",
-          Reference: "fondecom.table.cell.background.primary",
-          Token: "fondecom.palette.blue.b50",
-        },
-        success: {
-          Value: "",
-          Reference: "fondecom.table.cell.background.success",
-          Token: "fondecom.palette.green.g50",
-        },
-        warning: {
-          Value: "",
-          Reference: "fondecom.table.cell.background.warning",
-          Token: "fondecom.palette.yellow.y50",
-        },
-        danger: {
-          Value: "",
-          Reference: "fondecom.table.cell.background.danger",
-          Token: "fondecom.palette.red.r50",
-        },
-        help: {
-          Value: "",
-          Reference: "fondecom.table.cell.background.help",
-          Token: "fondecom.palette.purple.p50",
-        },
-        dark: {
-          Value: "",
-          Reference: "fondecom.table.cell.background.dark",
-          Token: "fondecom.palette.neutral.n30",
-        },
-        gray: {
-          Value: "",
-          Reference: "fondecom.table.cell.background.gray",
-          Token: "fondecom.palette.neutral.n20",
-        },
-        light: {
-          Value: "",
-          Reference: "fondecom.table.cell.background.light",
-          Token: "fondecom.palette.neutral.n0",
-        },
+        primary: palette.blue.b50,
+        success: palette.green.g50,
+        warning: palette.yellow.y50,
+        danger: palette.red.r50,
+        help: palette.purple.p50,
+        dark: palette.neutral.n30,
+        gray: palette.neutral.n20,
+        light: palette.neutral.n0,
       },
     },
     pagination: {
-      appearance: {
-        Value: "",
-        Reference: "fondecom.table.pagination.appearance",
-        Token: "gray",
-      },
+      appearance: "gray",
     },
     caption: {
-      appearance: {
-        Value: "",
-        Reference: "fondecom.table.caption.appearance",
-        Token: "gray",
-      },
+      appearance: "gray",
     },
   },
   text: {

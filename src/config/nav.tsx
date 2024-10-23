@@ -1,6 +1,7 @@
 import { INav } from "@design/layout/Page/types";
 import { INavAction, INavNavigation, INavSection } from "@inubekit/nav";
 import {
+  MdApproval,
   MdLogout,
   MdOutlineAccountBalance,
   MdOutlineAccountBalanceWallet,
@@ -143,6 +144,12 @@ const getMobileNav = (
         icon: <MdOutlineAirplaneTicket />,
       });
     }
+
+    sections[1].links.push({
+      label: "Certificaciones",
+      path: "/certifications",
+      icon: <MdApproval />,
+    });
   }
 
   return {
@@ -287,6 +294,13 @@ const getNav = (
         icon: <MdOutlineAirplaneTicket />,
       };
     }
+
+    sections.solicitar.links["certificaciones"] = {
+      id: "certificaciones",
+      label: "Certificaciones",
+      path: "/certifications",
+      icon: <MdApproval />,
+    };
   }
 
   return {
