@@ -1,62 +1,62 @@
 import { enviroment } from "@config/enviroment";
+import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingFixedRequest/forms/DestinationForm/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import {
-  mapRequirementEntityToApi,
-  mapRequirementsApiToEntities,
-} from "./mappers";
-import { IRequirementRequest, IRequirementResponse } from "./types";
+import { mapProductsApiToEntities } from "./mappers";
 
-const getRequirementsForProduct = async (
-  requirementRequest: IRequirementRequest,
+const getProgrammedSavingProducts = async (
+  userIdentification: string,
   accessToken: string,
-): Promise<IRequirementResponse | undefined> => {
+): Promise<IProgrammedSavingProduct[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-request`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/product/customer/${userIdentification}`;
 
   try {
     const options: RequestInit = {
-      method: "POST",
+      method: "GET",
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "RequirementList",
+        "X-Action": "SearchProducts",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapRequirementEntityToApi(requirementRequest)),
     };
 
     const res = await fetch(requestUrl, options);
 
     saveNetworkTracking(
       requestTime,
-      options.method || "POST",
+      options.method || "GET",
       requestUrl,
       res.status,
       Math.round(performance.now() - startTime),
     );
 
     if (res.status === 204) {
-      return;
+      return [];
     }
 
     const data = await res.json();
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los requerimientos de crédito del producto.",
+        message: "Error al obtener los productos de ahorro programado.",
         status: res.status,
         data,
       };
     }
 
-    return mapRequirementsApiToEntities(data);
+    const normalizedProducts = Array.isArray(data)
+      ? mapProductsApiToEntities(data)
+      : [];
+
+    return normalizedProducts;
   } catch (error) {
     saveNetworkTracking(
       requestTime,
-      "POST",
+      "GET",
       requestUrl,
       (error as { status?: number }).status || 500,
       Math.round(performance.now() - startTime),
@@ -68,4 +68,4 @@ const getRequirementsForProduct = async (
   }
 };
 
-export { getRequirementsForProduct };
+export { getProgrammedSavingProducts };

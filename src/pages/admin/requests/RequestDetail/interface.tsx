@@ -21,6 +21,7 @@ import {
   MdDeleteOutline,
   MdOutlineDescription,
 } from "react-icons/md";
+import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
@@ -179,7 +180,7 @@ function RequestDetailUI(props: RequestUIProps) {
 
   return (
     <>
-      <Stack direction="column" gap={inube.spacing.s300}>
+      <Stack direction="column" gap={inube.spacing.s600}>
         <Stack direction="column" gap={inube.spacing.s300}>
           <Breadcrumbs crumbs={crumbsRequest(requestId)} />
           <Title
@@ -189,6 +190,7 @@ function RequestDetailUI(props: RequestUIProps) {
             navigatePage="/my-requests"
           />
         </Stack>
+
         {!isDesktop && (
           <Tabs
             onChange={onTabChange}
@@ -202,7 +204,6 @@ function RequestDetailUI(props: RequestUIProps) {
           <Grid
             gap={inube.spacing.s600}
             templateColumns={isDesktop ? "1fr 250px" : "1fr"}
-            margin={isDesktop ? `${inube.spacing.s600} 0 0` : `0`}
           >
             <Stack direction="column" gap={inube.spacing.s300}>
               {isDesktop && (
@@ -245,10 +246,13 @@ function RequestDetailUI(props: RequestUIProps) {
                   )}
                   {renderItem(
                     "Valor de la solicitud:",
-                    currencyFormat(selectedRequest.value),
+                    selectedRequest.aidType === aidTypeDM.REQUIRED_DAYS.id
+                      ? `${selectedRequest.value} Días`
+                      : currencyFormat(selectedRequest.value),
                   )}
                 </Grid>
               </Accordion>
+
               {selectedRequest.requestType === "credit" && (
                 <Accordion title="Condiciones del crédito">
                   <Grid
@@ -287,7 +291,7 @@ function RequestDetailUI(props: RequestUIProps) {
               <Accordion title="Validaciones del sistema">
                 <Grid
                   autoRows="auto"
-                  templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
                   gap={inube.spacing.s200}
                   width="100%"
                 >

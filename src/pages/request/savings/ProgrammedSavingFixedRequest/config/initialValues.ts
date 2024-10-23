@@ -1,6 +1,11 @@
+import { IDestinationEntry } from "../forms/DestinationForm/types";
 import { IPlanNameEntry } from "../forms/PlanNameForm/types";
 import { ISavingConditionsEntry } from "../forms/SavingConditionsForm/types";
 import { IShareMaturityEntry } from "../forms/ShareMaturityForm/types";
+
+const destination: IDestinationEntry = {
+  products: [],
+};
 
 const savingConditions: ISavingConditionsEntry = {
   netValue: 0,
@@ -27,6 +32,7 @@ const planName: IPlanNameEntry = {
 const shareMaturity: IShareMaturityEntry = {};
 
 const initalValuesProgrammedSavingFixed = {
+  destination,
   savingConditions,
   planName,
   shareMaturity,

@@ -2,6 +2,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
+import { Link } from "@inubekit/link";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
 import { ITag, Tag } from "@inubekit/tag";
@@ -67,12 +68,15 @@ interface RecordCardProps {
   id: string;
   type: EMovementType;
   description: string;
-  totalValue?: number;
+  value?: number;
   withExpandingIcon?: boolean;
   tag?: ITag;
   loading?: boolean;
   attributes: { id: string; label: string; value: number | string | Date }[];
   datesWithTime?: boolean;
+  path?: string;
+  valueIsCurrency?: boolean;
+  valueLabel?: string;
   onClick?: (movementId: string) => void;
 }
 
@@ -81,24 +85,27 @@ function RecordCard(props: RecordCardProps) {
     id,
     type,
     description,
-    totalValue,
+    value,
     attributes,
     withExpandingIcon = false,
     loading,
     tag,
     datesWithTime,
+    path,
+    valueIsCurrency = true,
+    valueLabel,
     onClick,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   const formattedValue =
-    totalValue !== undefined
+    value !== undefined
       ? type === EMovementType.PURCHASE ||
         type === EMovementType.CREDIT ||
         type === EMovementType.RECORD
-        ? currencyFormat(totalValue)
-        : `-${currencyFormat(totalValue)}`
+        ? currencyFormat(value)
+        : `-${currencyFormat(value)}`
       : null;
 
   const handleClick = () => {
@@ -126,27 +133,18 @@ function RecordCard(props: RecordCardProps) {
           </>
         ) : (
           <>
-            <Stack
-              wrap="wrap"
-              gap={inube.spacing.s100}
-              direction={type === EMovementType.PQRS ? "column" : "row"}
-            >
+            <Stack wrap="wrap" gap={inube.spacing.s100} direction="column">
               <Stack gap={inube.spacing.s100} alignItems="center">
                 {getIconForRecordType(type)}
+
                 <Stack gap={inube.spacing.s150}>
                   <Text type="label" size="medium" weight="bold">
                     {`${getRecordDescriptionType(type, description)} ${description}`}
                   </Text>
-                  {tag && !isMobile && !EMovementType.PQRS && (
-                    <Tag
-                      label={tag.label}
-                      appearance={tag.appearance}
-                      weight="normal"
-                    />
-                  )}
                 </Stack>
               </Stack>
-              {tag && EMovementType.PQRS && (
+
+              {tag && (
                 <Stack>
                   <Tag label={tag.label} appearance={tag.appearance} />
                 </Stack>
@@ -155,8 +153,9 @@ function RecordCard(props: RecordCardProps) {
 
             <Stack gap={inube.spacing.s150}>
               <Text type="label" size="medium" ellipsis weight="bold">
-                {formattedValue}
+                {valueIsCurrency ? formattedValue : value} {valueLabel}
               </Text>
+
               {withExpandingIcon && !isMobile && !EMovementType.PQRS && (
                 <Icon
                   icon={<MdOpenInNew />}
@@ -193,12 +192,17 @@ function RecordCard(props: RecordCardProps) {
                         : attribute.value}
                     </Text>
                   </Stack>
+
                   {withExpandingIcon &&
                     !isMobile &&
                     index === attributes.length - 1 && (
                       <Stack justifyContent="flex-end">
                         {loading ? (
                           <SkeletonLine animated width="80px" />
+                        ) : path ? (
+                          <Link size="small" path={path}>
+                            Ver detalles
+                          </Link>
                         ) : (
                           <Button
                             variant="none"
@@ -219,6 +223,10 @@ function RecordCard(props: RecordCardProps) {
         <Stack justifyContent="flex-end">
           {loading ? (
             <SkeletonLine animated width="80px" />
+          ) : path ? (
+            <Link size="small" path={path}>
+              Ver detalles
+            </Link>
           ) : (
             <Button variant="none" spacing="compact" onClick={handleClick}>
               Ver detalles

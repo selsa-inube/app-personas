@@ -13,6 +13,12 @@ import { MdArrowBack, MdOpenInNew, MdSyncAlt } from "react-icons/md";
 import { EMovementType, IMovement, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
+import { RecordCard } from "@components/cards/RecordCard";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import {
   extractSavingsAttributes,
   formatSavingsCurrencyAttrs,
@@ -22,17 +28,11 @@ import {
   investmentIcons,
   savingsAccountIcons,
 } from "../SavingsAccount/config/saving";
+import { generateAttributes } from "./config/attributeRecord";
 import { extractSavingsCommitmentsAttributes } from "./config/commitments";
 import { crumbsSavingsCommitments } from "./config/navigation";
 import { StyledPaymentsContainer } from "./styles";
 import { INextPaymentModalState, ISelectedCommitmentState } from "./types";
-import { RecordCard } from "@components/cards/RecordCard";
-import { generateAttributes } from "./config/attributeRecord";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 function renderProducts(
   selectedCommitment: ISelectedCommitmentState["commitment"]["products"],
@@ -74,7 +74,7 @@ const renderMovements = (movements: IMovement[]) =>
         id={movement.id}
         type={movement.type || EMovementType.CREDIT}
         description={movement.description}
-        totalValue={movement.totalValue || 0}
+        value={movement.totalValue || 0}
         attributes={generateAttributes(movement)}
       />
     </Stack>
@@ -196,7 +196,11 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
           </Stack>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
-        <Stack direction="column" gap={inube.spacing.s200} alignItems="flex-start">
+        <Stack
+          direction="column"
+          gap={inube.spacing.s200}
+          alignItems="flex-start"
+        >
           <Text type="label" size="large">
             Pagos recientes
           </Text>

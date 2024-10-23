@@ -32,7 +32,7 @@ import { aidRequestStepsRules, sendAidRequest } from "./utils";
 
 function AidRequest() {
   const { aid_id } = useParams();
-  const { user, serviceDomains, getServiceDomains } = useContext(AppContext);
+  const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(
     aidRequestSteps.beneficiaries.number,
   );
@@ -119,12 +119,12 @@ function AidRequest() {
     )
       return;
 
-    getServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+    loadServiceDomains(["integratedbanks", "identificationtype"], accessToken);
   };
 
   useEffect(() => {
     validateEnums();
-  }, []);
+  }, [accessToken]);
 
   if (!aid_id || !aidRequestType) {
     return <Navigate to="/aids" />;

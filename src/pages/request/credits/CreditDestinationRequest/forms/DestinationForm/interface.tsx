@@ -1,4 +1,4 @@
-import { DestinationCard } from "@components/cards/credits/DestinationCard";
+import { DestinationCard } from "@components/cards/DestinationCard";
 import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -7,14 +7,15 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
+import { formatDestinationAttributes } from "./config/format";
 import { loadingProductsData } from "./config/loading";
-import { IDestinationEntry, IDestinationProduct } from "./types";
+import { ICreditDestinationProduct, IDestinationEntry } from "./types";
 
 interface DestinationFormUIProps {
   formik: FormikProps<IDestinationEntry>;
   loading?: boolean;
   loadingProducts: boolean;
-  onChangeProduct: (value: IDestinationProduct) => void;
+  onChangeProduct: (value: ICreditDestinationProduct) => void;
   onChangeDestination: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -66,7 +67,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                 )}
 
                 <Grid
-                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                  templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}
                   autoRows="auto"
                   gap={inube.spacing.s200}
                 >
@@ -77,9 +78,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                         title={product.title}
                         description={product.description || ""}
                         checked={false}
-                        maxAmount={product.maxAmount}
-                        maxRate={product.maxRate}
-                        maxDeadline={product.maxDeadline}
+                        attributes={formatDestinationAttributes(product)}
                         key={index}
                         onClick={() => true}
                         loading
@@ -92,9 +91,7 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                       title={product.title}
                       description={product.description || ""}
                       checked={formik.values.product?.id === product.id}
-                      maxAmount={product.maxAmount}
-                      maxRate={product.maxRate}
-                      maxDeadline={product.maxDeadline}
+                      attributes={formatDestinationAttributes(product)}
                       key={product.id}
                       onClick={() => onChangeProduct(product)}
                     />

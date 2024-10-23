@@ -10,6 +10,7 @@ import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
+import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { EMovementType } from "src/model/entity/product";
 import { IRequest } from "src/model/entity/request";
 import { EmptyRecords } from "./EmptyRecords";
@@ -23,7 +24,6 @@ interface MyRequestsUIProps {
   noMoreRequests: boolean;
   refreshTime: number;
   onAddRequests: () => void;
-  goToRequest: (id: string) => void;
   onRefresh: () => void;
 }
 
@@ -34,7 +34,6 @@ function MyRequestsUI(props: MyRequestsUIProps) {
     noMoreRequests,
     refreshTime,
     onAddRequests,
-    goToRequest,
     onRefresh,
   } = props;
 
@@ -100,12 +99,20 @@ function MyRequestsUI(props: MyRequestsUIProps) {
                       id={request.id}
                       type={EMovementType.RECORD}
                       description={request.title}
-                      totalValue={request.value}
+                      value={request.value}
                       tag={request.tag}
                       attributes={generateAttributes(request)}
                       withExpandingIcon
-                      onClick={() => goToRequest(request.id)}
+                      path={`/my-requests/${request.id}`}
                       datesWithTime
+                      valueIsCurrency={
+                        request.aidType !== aidTypeDM.REQUIRED_DAYS.id
+                      }
+                      valueLabel={
+                        request.aidType === aidTypeDM.REQUIRED_DAYS.id
+                          ? "Días"
+                          : undefined
+                      }
                     />
                     {index !== requests.length - 1 && <Divider dashed />}
                   </Stack>

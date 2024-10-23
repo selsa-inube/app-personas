@@ -110,7 +110,7 @@ function TransferHistoryUI(props: TransferHistoryUIProps) {
                       id={transfer.id}
                       type={EMovementType.RECORD}
                       description={transfer.title}
-                      totalValue={transfer.value}
+                      value={transfer.value}
                       tag={transfer.tag.label !== "" ? transfer.tag : undefined}
                       attributes={generateAttributes(transfer)}
                       datesWithTime

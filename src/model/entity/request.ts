@@ -21,6 +21,7 @@ interface IRequest {
   validations: IValidation[];
   documentaryRequirements: ISelectedDocument[];
   requestType: RequestType;
+  aidType?: string;
 }
 
 type RequestType = "credit" | "aid";

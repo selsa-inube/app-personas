@@ -1,63 +1,62 @@
 import { enviroment } from "@config/enviroment";
-import { ICreditDestinationProduct } from "@pages/request/credits/CreditDestinationRequest/forms/DestinationForm/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapProductsApiToEntities } from "./mappers";
+import {
+  mapRequirementEntityToApi,
+  mapRequirementsApiToEntities,
+} from "./mappers";
+import { IRequirementRequest, IRequirementResponse } from "./types";
 
-const getProductsForDestination = async (
-  userIdentification: string,
+const getRequirementsForProduct = async (
+  requirementRequest: IRequirementRequest,
   accessToken: string,
-  destinationId: string,
-): Promise<ICreditDestinationProduct[]> => {
+): Promise<IRequirementResponse | undefined> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/product/destination/${destinationId}/customer/${userIdentification}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-request`;
 
   try {
     const options: RequestInit = {
-      method: "GET",
+      method: "POST",
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchProductsByDestination",
+        "X-Action": "RequirementList",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
+      body: JSON.stringify(mapRequirementEntityToApi(requirementRequest)),
     };
 
     const res = await fetch(requestUrl, options);
 
     saveNetworkTracking(
       requestTime,
-      options.method || "GET",
+      options.method || "POST",
       requestUrl,
       res.status,
       Math.round(performance.now() - startTime),
     );
 
     if (res.status === 204) {
-      return [];
+      return;
     }
 
     const data = await res.json();
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los destinos de crédito del usuario.",
+        message: "Error al obtener los requerimientos del producto.",
         status: res.status,
         data,
       };
     }
 
-    const normalizedProducts = Array.isArray(data)
-      ? mapProductsApiToEntities(data)
-      : [];
-
-    return normalizedProducts;
+    return mapRequirementsApiToEntities(data);
   } catch (error) {
     saveNetworkTracking(
       requestTime,
-      "GET",
+      "POST",
       requestUrl,
       (error as { status?: number }).status || 500,
       Math.round(performance.now() - startTime),
@@ -69,4 +68,4 @@ const getProductsForDestination = async (
   }
 };
 
-export { getProductsForDestination };
+export { getRequirementsForProduct };

@@ -5,8 +5,9 @@ import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
+import { useAuth } from "@inube/auth";
 import { FormikProps } from "formik";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
@@ -23,7 +24,8 @@ import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { cdatStepsRules } from "./utils";
 
 function CdatRequest() {
-  const { user } = useContext(AppContext);
+  const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
+  const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
 
   const [currentStep, setCurrentStep] = useState(
@@ -103,6 +105,22 @@ function CdatRequest() {
     ({ currentLocation, nextLocation }) =>
       currentLocation.pathname !== nextLocation.pathname,
   );
+
+  const validateEnums = async () => {
+    if (!accessToken) return;
+
+    if (
+      serviceDomains.integratedbanks.length > 0 &&
+      serviceDomains.identificationtype.length > 0
+    )
+      return;
+
+    loadServiceDomains(["integratedbanks", "identificationtype"], accessToken);
+  };
+
+  useEffect(() => {
+    validateEnums();
+  }, [accessToken]);
 
   const handleStepChange = (stepId: number) => {
     const newCdatRequest = cdatStepsRules(

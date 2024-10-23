@@ -43,7 +43,13 @@ const BankTransfersForm = forwardRef(function BankTransfersForm(
     }
   }, [formik.values]);
 
-  return <BankTransfersFormUI loading={loading} formik={formik} withSubmit={withSubmit} />;
+  return (
+    <BankTransfersFormUI
+      loading={loading}
+      formik={formik}
+      withSubmit={withSubmit}
+    />
+  );
 });
 
 export { BankTransfersForm };

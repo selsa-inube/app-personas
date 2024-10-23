@@ -33,7 +33,7 @@
     "@inubekit/stack": "^3.8.1",
     "@inubekit/tabs": "^2.38.0",
     "@inubekit/tag": "^3.42.0",
-    "@inubekit/toggle": "^3.8.1",
+    "@inubekit/toggle": "^3.8.2",
     "@supabase/supabase-js": "^2.42.0",
     "formik": "^2.4.5",
     "jspdf": "^2.5.1",

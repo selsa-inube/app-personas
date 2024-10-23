@@ -1,6 +1,5 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { RequestsContext } from "src/context/requests";
 import { getRequestsForUser } from "src/services/iclient/requests/getRequests";
@@ -20,8 +19,6 @@ function MyRequests() {
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [refreshTime, setRefreshTime] = useState(refreshSeconds);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     handleRefreshHistory();
@@ -117,10 +114,6 @@ function MyRequests() {
     handleGetRequests(page, limitRequests);
   };
 
-  const goToRequest = (id: string) => {
-    navigate(`/my-requests/${id}`);
-  };
-
   return (
     <MyRequestsUI
       requests={requests}
@@ -128,7 +121,6 @@ function MyRequests() {
       noMoreRequests={noMoreRequests}
       refreshTime={refreshTime}
       onAddRequests={handleAddRequests}
-      goToRequest={goToRequest}
       onRefresh={handleRefreshHistory}
     />
   );

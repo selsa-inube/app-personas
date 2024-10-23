@@ -108,6 +108,8 @@ const mapRequestApiToEntity = (
   const requestedAmount = Object(request).details?.conditions?.requestedAmount;
   const requestedValue = Object(request).details?.requestedValue;
 
+  const aidType = Object(request).aidType.code;
+  
   return {
     id: String(request.productRequestId),
     requestType: Object(request.requestType).code,
@@ -154,6 +156,7 @@ const mapRequestApiToEntity = (
     detailsSituation: String(Object(request).details?.comments || ""),
     validations: requirements.validations,
     documentaryRequirements: requirements.documents,
+    aidType: aidType ? String(aidType) : undefined,
   };
 };
 

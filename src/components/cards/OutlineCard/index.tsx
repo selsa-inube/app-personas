@@ -1,13 +1,14 @@
 import { StyledContainerCard } from "./styles";
 
 interface OutlineCardProps {
+  height?: string;
   children: React.ReactNode;
 }
 
 function OutlineCard(props: OutlineCardProps) {
-  const { children } = props;
+  const { height = "fit-content", children } = props;
 
-  return <StyledContainerCard>{children}</StyledContainerCard>;
+  return <StyledContainerCard $height={height}>{children}</StyledContainerCard>;
 }
 
 export { OutlineCard };

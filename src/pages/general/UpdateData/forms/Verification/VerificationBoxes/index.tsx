@@ -205,7 +205,7 @@ const renderBankTransfersVerification = (
   >
     <BoxAttribute
       label="Entidad bancaria:"
-      value={getValueOfDomain(values.bankEntity, "bank")?.value}
+      value={getValueOfDomain(values.bankEntityName, "bank")?.value}
     />
     <BoxAttribute
       label="Tipo de cuenta:"

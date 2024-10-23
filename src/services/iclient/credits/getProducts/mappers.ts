@@ -1,9 +1,9 @@
-import { IDestinationProduct } from "@pages/request/credits/CreditDestinationRequest/forms/DestinationForm/types";
+import { ICreditDestinationProduct } from "@pages/request/credits/CreditDestinationRequest/forms/DestinationForm/types";
 import { capitalizeText } from "src/utils/texts";
 
 const mapProductApiToEntity = (
   product: Record<string, string | number | object>,
-): IDestinationProduct => {
+): ICreditDestinationProduct => {
   return {
     id: String(product.productId),
     title: String(product.name),
@@ -15,6 +15,7 @@ const mapProductApiToEntity = (
       : undefined,
     maxDeadline: product.maxDeadline ? Number(product.maxDeadline) : undefined,
     maxAmount: Number(product.maxAmount || 0),
+    minAmount: Number(product.minAmount || 0),
     maxAmountForUser: Number(product.maxAmountByUser || 0),
     amortizationType: "IntegralFixedQuota",
   };
@@ -22,7 +23,7 @@ const mapProductApiToEntity = (
 
 const mapProductsApiToEntities = (
   products: Record<string, string | number | object>[],
-): IDestinationProduct[] => {
+): ICreditDestinationProduct[] => {
   return products.map((product) => mapProductApiToEntity(product));
 };
 
