@@ -96,7 +96,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
           entries={savingsContributionsEntries}
         />
         <Text type="label" size="medium" weight="bold">
-          Ahorro programadocrojas
+          Ahorro programado
         </Text>
         <Table titles={savingsTableTitles} entries={programmedSavingsEntries} />
         <Text type="label" size="medium" weight="bold" appearance="gray">
