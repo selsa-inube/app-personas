@@ -46,7 +46,6 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                   <DestinationCard
                     id={product.id}
                     title={product.title}
-                    description={product.description || ""}
                     checked={false}
                     attributes={formatDestinationAttributes(product)}
                     key={index}
@@ -59,7 +58,6 @@ function DestinationFormUI(props: DestinationFormUIProps) {
                 <DestinationCard
                   id={product.id}
                   title={product.title}
-                  description={product.description || ""}
                   checked={formik.values.product?.id === product.id}
                   attributes={formatDestinationAttributes(product)}
                   key={product.id}
