@@ -1,6 +1,5 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { FormikProps } from "formik";
-import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethods";
 import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicities";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { currencyFormat } from "src/utils/currency";
@@ -115,13 +114,6 @@ const getValuesForSimulate = async (
       "transferAccountNumber",
       userData.bankTransfersAccount.accountNumber,
     );
-  } else {
-    const paymentMethods = await getPaymentMethodsForProduct(
-      userIdentification,
-      accessToken,
-      formik.values.product.id,
-    );
-    newPaymentMethods.push(...paymentMethods);
   }
 
   formik.setFieldValue("paymentMethods", newPaymentMethods);
