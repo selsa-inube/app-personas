@@ -1,7 +1,6 @@
 interface IProgrammedSavingProduct {
   id: string;
   title: string;
-  description: string;
   maxRate: number;
   minDeadline: number;
   maxDeadline: number;

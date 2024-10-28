@@ -9,7 +9,7 @@ import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
 interface DestinationCardProps {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   checked: boolean;
   attributes: IAttribute[];
   loading?: boolean;
@@ -37,7 +37,7 @@ function DestinationCard(props: DestinationCardProps) {
 
             <SkeletonLine animated width="86px" />
           </Stack>
-          <SkeletonLine animated width="108px" />
+          {description && <SkeletonLine animated width="108px" />}
         </Stack>
 
         <Divider dashed />
@@ -98,9 +98,11 @@ function DestinationCard(props: DestinationCardProps) {
             {title}
           </Text>
         </Stack>
-        <Text type="body" size="small" appearance="gray">
-          {description}
-        </Text>
+        {description && (
+          <Text type="body" size="small" appearance="gray">
+            {description}
+          </Text>
+        )}
       </Stack>
 
       <Divider dashed />
