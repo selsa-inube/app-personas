@@ -4,42 +4,44 @@ import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { formatLetterDate } from "src/utils/dates";
-import { savingsTableTitles } from "../config/tables";
+import { formatPrimaryDate } from "src/utils/dates";
+import { cardsTableTitles, commitmentsTableTitles, paymentSummaryTitles, savingsTableTitles } from "../config/tables";
 import { IEntry } from "@design/data/Table/types";
 
 const today = new Date();
 
 interface AccountStatementDocumentProps {
   userName: string;
+  paymentMethod: string;
   userIdentification: string;
   savingsAccountEntries: IEntry[];
   savingsContributionsEntries: IEntry[];
   programmedSavingsEntries: IEntry[];
+  commitmentsSavingsEntries: IEntry[];
+  creditCardsEntries?: IEntry[];
 }
 
 function AccountStatementDocument(props: AccountStatementDocumentProps) {
   const {
     userName,
+    paymentMethod,
     userIdentification,
     savingsAccountEntries,
     savingsContributionsEntries,
     programmedSavingsEntries,
+    commitmentsSavingsEntries,
+    creditCardsEntries,
   } = props;
   return (
     <Stack
       padding={`${inube.spacing.s400}`}
-      gap={inube.spacing.s250}
+      gap={inube.spacing.s200}
       width="225mm"
       direction="column"
     >
-      <Stack gap={inube.spacing.s200} direction="column" width="100%">
-        <Stack
-          height="30px"
-          justifyContent="space-between"
-          width="100%"
-          alignItems="center"
-        >
+      {/* Header */}
+      <Stack gap={inube.spacing.s200} direction="column">
+        <Stack height="30px" justifyContent="space-between" alignItems="center">
           <Text type="title" size="medium" weight="bold">
             Estado de cuenta
           </Text>
@@ -65,7 +67,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
               Medio de pago:
             </Text>
             <Text type="label" size="small">
-              30 - FONDECOM MENSUAL
+              {paymentMethod}
             </Text>
           </Stack>
           <Stack gap={inube.spacing.s050}>
@@ -73,21 +75,23 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
               Fecha de impresión:
             </Text>
             <Text type="label" size="small">
-              {formatLetterDate(today)}
+              {formatPrimaryDate(today, true)}
             </Text>
           </Stack>
         </Stack>
       </Stack>
-      <Stack gap={inube.spacing.s200} direction="column" width="100%">
+
+      {/* Lo que tengo */}
+      <Stack gap={inube.spacing.s200} direction="column">
         <Text type="label" size="medium" weight="bold" appearance="gray">
           Lo que tengo
         </Text>
+
         <Text type="label" size="medium" weight="bold">
           Cuenta de ahorros
         </Text>
-        <Text textAlign="start">
-          <Table titles={savingsTableTitles} entries={savingsAccountEntries} />
-        </Text>
+        <Table titles={savingsTableTitles} entries={savingsAccountEntries} />
+
         <Text type="label" size="medium" weight="bold">
           Aportes
         </Text>
@@ -95,32 +99,47 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
           titles={savingsTableTitles}
           entries={savingsContributionsEntries}
         />
+
         <Text type="label" size="medium" weight="bold">
           Ahorro programado
         </Text>
         <Table titles={savingsTableTitles} entries={programmedSavingsEntries} />
+      </Stack>
+
+      {/* Compromisos de ahorro */}
+      <Stack gap={inube.spacing.s200} direction="column">
         <Text type="label" size="medium" weight="bold" appearance="gray">
           Compromisos de ahorro
         </Text>
+        <Table titles={commitmentsTableTitles} entries={commitmentsSavingsEntries} />
       </Stack>
-      <Stack gap={inube.spacing.s200} direction="column" width="100%">
+
+      {/* Lo que debo */}
+      <Stack gap={inube.spacing.s200} direction="column">
         <Text type="label" size="medium" weight="bold" appearance="gray">
           Lo que debo
         </Text>
+
         <Text type="label" size="medium" weight="bold">
           Resumen
         </Text>
+        <Table titles={paymentSummaryTitles} entries={commitmentsSavingsEntries} />
+
         <Text type="label" size="medium" weight="bold">
           Detalles
         </Text>
       </Stack>
-      <Stack gap={inube.spacing.s200} direction="column" width="100%">
+
+      {/* Tarjetas */}
+      <Stack gap={inube.spacing.s200} direction="column">
         <Text type="label" size="medium" weight="bold" appearance="gray">
           Tarjetas
         </Text>
+        <Table titles={cardsTableTitles} entries={creditCardsEntries || []} />
       </Stack>
 
-      <Stack>
+      {/* footer message */}
+      <Stack justifyContent="center">
         <Text type="body" size="small" appearance="gray" textAlign="center">
           Cualquier inquietud, queja o reclamo con este estado de cuenta, podrá
           realizar la radicación de sus solicitudes en la plataforma, mediante
