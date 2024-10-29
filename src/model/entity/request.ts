@@ -24,6 +24,6 @@ interface IRequest {
   aidType?: string;
 }
 
-type RequestType = "credit" | "aid" | "programmedSaving";
+type RequestType = "credit" | "aid" | "programmedsaving";
 
 export type { IRequest, RequestType };
