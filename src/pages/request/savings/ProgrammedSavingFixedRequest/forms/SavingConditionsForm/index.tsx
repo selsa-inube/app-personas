@@ -1,4 +1,5 @@
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/flag";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
@@ -9,6 +10,7 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { IProgrammedSavingProduct } from "../DestinationForm/types";
 import { SavingConditionsFormUI } from "./interface";
 import { ISavingConditionsEntry } from "./types";
 import {
@@ -17,20 +19,20 @@ import {
   getValuesForSimulate,
   validationSchema,
 } from "./utils";
-import { useFlag } from "@inubekit/flag";
 
 interface SavingConditionsFormProps {
   initialValues: ISavingConditionsEntry;
+  product?: IProgrammedSavingProduct;
+  loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: ISavingConditionsEntry) => void;
-  loading?: boolean;
 }
 
 const SavingConditionsForm = forwardRef(function SavingConditionsForm(
   props: SavingConditionsFormProps,
   ref: React.Ref<FormikProps<ISavingConditionsEntry>>,
 ) {
-  const { initialValues, onFormValid, onSubmit, loading } = props;
+  const { initialValues, product, loading, onFormValid, onSubmit } = props;
 
   const [loadingSimulation, setLoadingSimulation] = useState(false);
   const { accessToken } = useAuth();
@@ -178,6 +180,7 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
       loadingSimulation={loadingSimulation}
       showDisbursementModal={showDisbursementModal}
       periodicityOptions={periodicityOptions}
+      product={product}
       simulateSaving={simulateSaving}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}

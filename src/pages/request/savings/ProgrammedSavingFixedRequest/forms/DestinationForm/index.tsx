@@ -15,8 +15,7 @@ import { DestinationFormUI } from "./interface";
 import { IDestinationEntry, IProgrammedSavingProduct } from "./types";
 
 const validationSchema = Yup.object({
-  destination: Yup.object().required(validationMessages.required),
-  product: Yup.object(),
+  product: Yup.object().required(validationMessages.required),
 });
 
 interface DestinationFormProps {

@@ -79,12 +79,7 @@ function DestinationCard(props: DestinationCardProps) {
 
   return (
     <StyledCardContainer onClick={onClick}>
-      <Stack
-        direction="column"
-        width="100%"
-        height="36px"
-        gap={inube.spacing.s050}
-      >
+      <Stack direction="column" width="100%" gap={inube.spacing.s050}>
         <Stack gap={inube.spacing.s100}>
           <StyledInputRadio
             id={id}
