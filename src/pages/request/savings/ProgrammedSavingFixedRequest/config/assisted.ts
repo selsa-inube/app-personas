@@ -38,35 +38,22 @@ const programmedSavingFixedRequestSteps = {
     description:
       "Revisa cuales son los requisitos necesarios para realizar la solicitud de ahorro.",
   },
-  planName: {
-    id: "planName",
-    number: 7,
-    name: "Nombra tu plan de ahorro",
-    description: "¿Cómo te gustaría que se llame tu producto?",
-  },
-  comments: {
-    id: "comments",
-    number: 8,
-    name: "Comentarios",
-    description:
-      "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
-  },
   termsAndConditions: {
     id: "termsAndConditions",
-    number: 9,
+    number: 7,
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
   },
   contactChannels: {
     id: "contactChannels",
-    number: 10,
+    number: 8,
     name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
   verification: {
     id: "verification",
-    number: 11,
+    number: 9,
     name: "Resumen",
     description: "Confirma la información diligencias en pasos anteriores.",
   },

@@ -15,11 +15,6 @@ const formatDestinationAttributes = (
       label: "Cuota mínima",
       value: `$${product.minQuota}`,
     },
-    {
-      id: "maxQuota",
-      label: "Cuota máxima",
-      value: `$${product.maxQuota}`,
-    },
   ];
 };
 
