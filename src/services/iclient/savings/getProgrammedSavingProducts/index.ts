@@ -10,7 +10,7 @@ const getProgrammedSavingProducts = async (
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/product/customer/${userIdentification}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/programmed-savings`;
 
   try {
     const options: RequestInit = {
@@ -18,7 +18,7 @@ const getProgrammedSavingProducts = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchProducts",
+        "X-Action": "SearchProgrammedSavings",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },

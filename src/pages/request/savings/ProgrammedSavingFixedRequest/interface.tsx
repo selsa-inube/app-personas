@@ -44,6 +44,7 @@ const renderStepContent = (
         programmedSavingFixedRequestSteps.savingConditions.number && (
         <SavingConditionsForm
           initialValues={programmedSavingFixedRequest.savingConditions.values}
+          product={programmedSavingFixedRequest.destination.values.product}
           ref={formReferences.savingConditions}
           onFormValid={setIsCurrentFormValid}
         />
