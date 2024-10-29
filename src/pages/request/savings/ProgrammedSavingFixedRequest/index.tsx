@@ -4,7 +4,6 @@ import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 
-import { mapComments } from "@forms/CommentsForm/mappers";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
@@ -16,9 +15,8 @@ import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
 import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { ICommentsEntry } from "../../../../shared/forms/CommentsForm/types";
 import { initalValuesProgrammedSavingFixed } from "./config/initialValues";
-import { IPlanNameEntry } from "./forms/PlanNameForm/types";
+import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
 import { IShareMaturityEntry } from "./forms/ShareMaturityForm/types";
 import { ProgrammedSavingFixedRequestUI } from "./interface";
@@ -27,7 +25,6 @@ import {
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
 import { programmedSavingFixedStepsRules } from "./utils";
-import { IDestinationEntry } from "./forms/DestinationForm/types";
 
 function ProgrammedSavingFixedRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
@@ -66,14 +63,6 @@ function ProgrammedSavingFixedRequest() {
         isValid: false,
         values: mapSystemValidations(),
       },
-      planName: {
-        isValid: false,
-        values: initalValuesProgrammedSavingFixed.planName,
-      },
-      comments: {
-        isValid: false,
-        values: mapComments(),
-      },
       termsAndConditions: {
         isValid: false,
         values: mapTermsAndConditions(),
@@ -94,8 +83,6 @@ function ProgrammedSavingFixedRequest() {
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
-  const planNameRef = useRef<FormikProps<IPlanNameEntry>>(null);
-  const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
@@ -107,8 +94,6 @@ function ProgrammedSavingFixedRequest() {
     shareMaturity: shareMaturityRef,
     disbursement: disbursementRef,
     systemValidations: systemValidationsRef,
-    planName: planNameRef,
-    comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,
   };

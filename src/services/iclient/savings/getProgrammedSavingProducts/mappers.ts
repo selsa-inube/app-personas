@@ -1,12 +1,11 @@
 import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingFixedRequest/forms/DestinationForm/types";
-import { capitalizeText } from "src/utils/texts";
 
 const mapProductApiToEntity = (
   product: Record<string, string | number | object>,
 ): IProgrammedSavingProduct => {
   return {
     id: String(product.savingCode),
-    title: capitalizeText(String(product.savingName)),
+    title: String(product.savingName),
     maxRate: Number(Number(product.maxRate || 0).toFixed(2)),
     minDeadline: Number(product.minimumQuotaTerm),
     maxDeadline: Number(product.maximumQuotaTerm),
