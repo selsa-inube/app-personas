@@ -10,6 +10,8 @@ import {
 } from "react";
 import { AppContext } from "src/context/app";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { getCalculatedProgramedSavingConditions } from "src/services/iclient/savings/getCalculatedProgramedSavingConditions";
+import { ICalculatedProgramedSavingConditionsRequest } from "src/services/iclient/savings/getCalculatedProgramedSavingConditions/types";
 import { IProgrammedSavingProduct } from "../DestinationForm/types";
 import { SavingConditionsFormUI } from "./interface";
 import { ISavingConditionsEntry } from "./types";
@@ -39,7 +41,6 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
   const { user } = useContext(AppContext);
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
-  const [showDisbursementModal, setShowDisbursementModal] = useState(false);
   const { addFlag } = useFlag();
 
   const formik = useFormik({
@@ -60,7 +61,9 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
   }, [formik.values]);
 
   useEffect(() => {
-    setDynamicValidationSchema(getInitialSavingConditionsValidations());
+    if (!product) return;
+
+    setDynamicValidationSchema(getInitialSavingConditionsValidations(product));
   }, []);
 
   useEffect(() => {
@@ -123,22 +126,42 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
         !accessToken ||
         !deadline ||
         !quota ||
-        !formik.values.periodicity.periodicityInMonths
+        !formik.values.periodicity.periodicityInMonths ||
+        !user?.identification ||
+        !product?.id
       ) {
         throw new Error("No se pudo obtener la información necesaria");
       }
 
-      formik.setFieldValue("savingAmount", 1200000);
-      formik.setFieldValue("annualRate", 9.72);
-      formik.setFieldValue("yields", 54223);
-      formik.setFieldValue("withholdingTax", 0);
-      formik.setFieldValue("gmf", 0);
-      formik.setFieldValue("netValue", 1254223);
-      setTimeout(() => {
+      const conditionsRequestData: ICalculatedProgramedSavingConditionsRequest =
+        {
+          deadline,
+          paymentMethod: paymentMethodId,
+          periodicity: formik.values.periodicity.periodicityInMonths.toString(),
+          productId: product.id,
+          quotaValue: quota,
+          userIdentification: user.identification,
+        };
+
+      const conditionsResponse = await getCalculatedProgramedSavingConditions(
+        conditionsRequestData,
+        accessToken,
+      );
+
+      if (conditionsResponse) {
+        formik.setFieldValue("savingAmount", conditionsResponse.netValue);
+        formik.setFieldValue("annualRate", conditionsResponse.rate);
+        formik.setFieldValue("yields", conditionsResponse.returns);
+        formik.setFieldValue(
+          "withholdingTax",
+          conditionsResponse.withholdingTax,
+        );
+        formik.setFieldValue("gmf", conditionsResponse.gmf);
+        formik.setFieldValue("netValue", conditionsResponse.disbursement);
         formik.setFieldValue("hasResult", true);
-        setLoadingSimulation(false);
-        onFormValid(true);
-      }, 1000);
+      }
+
+      onFormValid(true);
     } catch (error) {
       addFlag({
         title: "La simulación no pudo ser procesada",
@@ -150,8 +173,7 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
 
       onFormValid(false);
     } finally {
-      /* setLoadingSimulation(false); */
-      // TEMP
+      setLoadingSimulation(false);
     }
   };
 
@@ -160,10 +182,6 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
   ) => {
     formik.setFieldValue("hasResult", false);
     formik.handleChange(event);
-  };
-
-  const handleToggleDisbursementModal = () => {
-    setShowDisbursementModal(!showDisbursementModal);
   };
 
   const periodicityOptions = formik.values.periodicities.map((periodicity) => {
@@ -178,13 +196,11 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
       loading={loading}
       formik={formik}
       loadingSimulation={loadingSimulation}
-      showDisbursementModal={showDisbursementModal}
       periodicityOptions={periodicityOptions}
       product={product}
       simulateSaving={simulateSaving}
       customHandleChange={customHandleChange}
       onFormValid={onFormValid}
-      onToggleDisbursementModal={handleToggleDisbursementModal}
       onChangePaymentMethod={handleChangePaymentMethod}
       onChangePeriodicity={handleChangePeriodicity}
     />

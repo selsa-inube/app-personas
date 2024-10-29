@@ -12,7 +12,7 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
-import { MdAttachMoney, MdOpenInNew, MdTag } from "react-icons/md";
+import { MdAttachMoney, MdTag } from "react-icons/md";
 import {
   currencyFormat,
   parseCurrencyString,
@@ -26,7 +26,6 @@ interface SavingConditionsFormUIProps {
   formik: FormikProps<ISavingConditionsEntry>;
   loading?: boolean;
   loadingSimulation?: boolean;
-  showDisbursementModal: boolean;
   periodicityOptions: ISelectOption[];
   product?: IProgrammedSavingProduct;
   simulateSaving: () => void;
@@ -36,7 +35,6 @@ interface SavingConditionsFormUIProps {
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onChangePaymentMethod: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onToggleDisbursementModal: () => void;
 }
 
 function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
@@ -51,7 +49,6 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
     onFormValid,
     onChangePaymentMethod,
     onChangePeriodicity,
-    onToggleDisbursementModal,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -281,11 +278,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       />
                       <BoxAttribute
                         label="Desembolso aproximado:"
-                        buttonIcon={<MdOpenInNew />}
-                        buttonValue={currencyFormat(formik.values.netValue)}
-                        buttonDisabled={formik.values.netValue === 0}
-                        onClickButton={onToggleDisbursementModal}
-                        withButton
+                        value={currencyFormat(formik.values.netValue)}
                       />
                     </Grid>
                   </Stack>
