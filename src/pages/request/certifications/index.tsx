@@ -1,4 +1,3 @@
-import { IAid } from "src/model/entity/service";
 import { useContext, useEffect, useState } from "react";
 import { certificationsRequestMock } from "@mocks/certifications/certificationsRequest.mocks";
 import jsPDF from "jspdf";
@@ -10,13 +9,14 @@ import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { CardsContext } from "src/context/cards";
 import { useAuth } from "@inube/auth";
+import { IAccountStatement } from "./AccountStatementDocument/types";
 
 function CertificationRequest() {
   const { user } = useContext(AppContext);
   const { accessToken } = useAuth();
   const { savings, commitments } = useContext(SavingsContext);
   const { cards } = useContext(CardsContext);
-  const [certifications, setCertifications] = useState<IAid[]>([]);
+  const [certifications, setCertifications] = useState<IAccountStatement[]>([]);
 
   useEffect(() => {
     setCertifications(certificationsRequestMock);

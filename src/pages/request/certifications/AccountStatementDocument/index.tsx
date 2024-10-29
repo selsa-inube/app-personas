@@ -18,7 +18,8 @@ interface AccountStatementDocumentProps {
   savingsContributionsEntries: IEntry[];
   programmedSavingsEntries: IEntry[];
   commitmentsSavingsEntries: IEntry[];
-  creditCardsEntries?: IEntry[];
+  obligationsEntries: IEntry[];
+  creditCardsEntries: IEntry[];
 }
 
 function AccountStatementDocument(props: AccountStatementDocumentProps) {
@@ -30,6 +31,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
     savingsContributionsEntries,
     programmedSavingsEntries,
     commitmentsSavingsEntries,
+    obligationsEntries,
     creditCardsEntries,
   } = props;
   return (
@@ -39,7 +41,6 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
       width="225mm"
       direction="column"
     >
-      {/* Header */}
       <Stack gap={inube.spacing.s200} direction="column">
         <Stack height="30px" justifyContent="space-between" alignItems="center">
           <Text type="title" size="medium" weight="bold">
@@ -81,7 +82,6 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
         </Stack>
       </Stack>
 
-      {/* Lo que tengo */}
       <Stack gap={inube.spacing.s200} direction="column">
         <Text type="label" size="medium" weight="bold" appearance="gray">
           Lo que tengo
@@ -106,7 +106,6 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
         <Table titles={savingsTableTitles} entries={programmedSavingsEntries} />
       </Stack>
 
-      {/* Compromisos de ahorro */}
       <Stack gap={inube.spacing.s200} direction="column">
         <Text type="label" size="medium" weight="bold" appearance="gray">
           Compromisos de ahorro
@@ -114,7 +113,6 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
         <Table titles={commitmentsTableTitles} entries={commitmentsSavingsEntries} />
       </Stack>
 
-      {/* Lo que debo */}
       <Stack gap={inube.spacing.s200} direction="column">
         <Text type="label" size="medium" weight="bold" appearance="gray">
           Lo que debo
@@ -123,14 +121,13 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
         <Text type="label" size="medium" weight="bold">
           Resumen
         </Text>
-        <Table titles={paymentSummaryTitles} entries={commitmentsSavingsEntries} />
+        <Table titles={paymentSummaryTitles} entries={obligationsEntries} />
 
         <Text type="label" size="medium" weight="bold">
           Detalles
         </Text>
       </Stack>
 
-      {/* Tarjetas */}
       <Stack gap={inube.spacing.s200} direction="column">
         <Text type="label" size="medium" weight="bold" appearance="gray">
           Tarjetas
@@ -138,7 +135,6 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
         <Table titles={cardsTableTitles} entries={creditCardsEntries || []} />
       </Stack>
 
-      {/* footer message */}
       <Stack justifyContent="center">
         <Text type="body" size="small" appearance="gray" textAlign="center">
           Cualquier inquietud, queja o reclamo con este estado de cuenta, podrá
