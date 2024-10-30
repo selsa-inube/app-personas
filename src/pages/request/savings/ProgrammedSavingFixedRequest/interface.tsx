@@ -68,8 +68,10 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={programmedSavingFixedRequest.disbursement.values}
           ref={formReferences.disbursement}
-          requestType="aid"
-          productId="S002"
+          requestType="programmedsaving"
+          productId={
+            programmedSavingFixedRequest.destination.values.product?.id || ""
+          }
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -88,8 +90,10 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={programmedSavingFixedRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
-          productId="57"
-          productType="credit"
+          productId={
+            programmedSavingFixedRequest.destination.values.product?.id || ""
+          }
+          productType="programmedsaving"
           onFormValid={setIsCurrentFormValid}
         />
       )}
