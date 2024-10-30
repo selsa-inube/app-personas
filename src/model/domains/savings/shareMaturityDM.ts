@@ -3,11 +3,11 @@ import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 const shareMaturityDataDomain = {
   PAYMENT: {
     id: "payment",
-    value: "Pago",
+    value: "Sí",
   },
   RENEWAL: {
     id: "renewal",
-    value: "Renovación",
+    value: "No",
   },
 };
 
