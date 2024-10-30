@@ -5,75 +5,99 @@ import { IRequirementRequest, IRequirementResponse } from "./types";
 const mapRequirementEntityToApi = (
   requirement: IRequirementRequest,
 ): Record<string, string | number | object | undefined> => {
-  if (requirement.requestType === "aid") {
+  const disbursementMethod = {
+    disbursementMethodCode: requirement.disbursementMethod?.id,
+    disbursementMethodDetail: requirement.disbursementMethod?.name,
+    savingsAccountNumber: requirement.disbursementMethod?.accountNumber,
+    accountNumber: requirement.disbursementMethod?.transferAccountNumber,
+    accountTypeCode: requirement.disbursementMethod?.transferAccountType,
+    accountTypeDetail: requirement.disbursementMethod?.transferBankEntity,
+    bankCode: requirement.disbursementMethod?.transferBankEntity,
+    bankDetail: requirement.disbursementMethod?.transferBankEntity,
+    businessName: requirement.disbursementMethod?.businessName,
+    firstName: requirement.disbursementMethod?.firstName,
+    genderCode: requirement.disbursementMethod?.gender,
+    genderDetail: requirement.disbursementMethod?.genderName,
+    identificationDetail: requirement.disbursementMethod?.identification,
+    identificationNumber: requirement.disbursementMethod?.identification,
+    identificationTypeCode: requirement.disbursementMethod?.identificationType,
+    lastName: requirement.disbursementMethod?.lastName,
+  };
+
+  if (requirement.requestType === "aid" && requirement.aidData) {
     return {
       requestType: requirement.requestType,
       customerCode: requirement.customerCode,
       customerName: requirement.customerName,
       requestDate: requirement.requestDate.toISOString(),
       aidData: {
-        aidCode: requirement.requestData.productId,
-        aidName: requirement.requestData.productName,
-        requestAmount: requirement.requestData.amount,
+        aidCode: requirement.aidData.productId,
+        aidName: requirement.aidData.productName,
+        requestAmount: requirement.aidData.amount,
         aidBeneficiary: {
-          relationship: requirement.requestData.beneficiary?.relationship?.id,
-          customerCode:
-            requirement.requestData.beneficiary?.identificationNumber,
-          customerName: requirement.requestData.beneficiary?.name,
+          relationship: requirement.aidData.beneficiary?.relationship?.id,
+          customerCode: requirement.aidData.beneficiary?.identificationNumber,
+          customerName: requirement.aidData.beneficiary?.name,
         },
+        disbursementMethod,
       },
     };
   }
 
-  return {
-    requestType: requirement.requestType,
-    customerCode: requirement.customerCode,
-    customerName: requirement.customerName,
-    requestDate: requirement.requestDate.toISOString(),
-    creditData: {
-      productId: requirement.requestData.productId,
-      productName: requirement.requestData.productName,
-      destinationId: requirement.requestData.destinationId,
-      destinationName: requirement.requestData.destinationName,
-      paymentMethod: requirement.requestData.paymentMethod,
-      paymentMethodName: requirement.requestData.paymentMethodName,
-      requestAmount: requirement.requestData.amount,
-      creditAmount: requirement.requestData.amount,
-      numQuotas: requirement.requestData.deadline,
-      nominalRate: requirement.requestData.rate,
-      amortizationType: requirement.requestData.amortizationType,
-      periodicity: requirement.requestData.periodicity,
-      quotaValue: requirement.requestData.quota,
-      amountToTurn: requirement.requestData.netValue,
-      disbursementMethod: {
-        disbursementMethodCode: requirement.requestData.disbursmentMethod?.id,
-        disbursementMethodDetail:
-          requirement.requestData.disbursmentMethod?.name,
-        savingsAccountNumber:
-          requirement.requestData.disbursmentMethod?.accountNumber,
-        accountNumber:
-          requirement.requestData.disbursmentMethod?.transferAccountNumber,
-        accountTypeCode:
-          requirement.requestData.disbursmentMethod?.transferAccountType,
-        accountTypeDetail:
-          requirement.requestData.disbursmentMethod?.transferBankEntity,
-        bankCode: requirement.requestData.disbursmentMethod?.transferBankEntity,
-        bankDetail:
-          requirement.requestData.disbursmentMethod?.transferBankEntity,
-        businessName: requirement.requestData.disbursmentMethod?.businessName,
-        firstName: requirement.requestData.disbursmentMethod?.firstName,
-        genderCode: requirement.requestData.disbursmentMethod?.gender,
-        genderDetail: requirement.requestData.disbursmentMethod?.genderName,
-        identificationDetail:
-          requirement.requestData.disbursmentMethod?.identification,
-        identificationNumber:
-          requirement.requestData.disbursmentMethod?.identification,
-        identificationTypeCode:
-          requirement.requestData.disbursmentMethod?.identificationType,
-        lastName: requirement.requestData.disbursmentMethod?.lastName,
+  if (
+    requirement.requestType === "programmedsaving" &&
+    requirement.programmedSavingData
+  ) {
+    return {
+      requestType: requirement.requestType,
+      customerCode: requirement.customerCode,
+      customerName: requirement.customerName,
+      requestDate: requirement.requestDate.toISOString(),
+      programmedSavingData: {
+        conditions: {
+          actionAfterExpiration:
+            requirement.programmedSavingData.actionAfterExpiration,
+          wayToPay: requirement.programmedSavingData.wayToPay,
+          numQuotas: requirement.programmedSavingData.deadline,
+          paymentMethod: requirement.programmedSavingData.paymentMethod,
+          paymentMethodName: requirement.programmedSavingData.paymentMethodName,
+          periodicity: requirement.programmedSavingData.periodicity,
+          quotaValue: requirement.programmedSavingData.quota,
+        },
+        savingCode: requirement.programmedSavingData.productId,
+        savingName: requirement.programmedSavingData.productName,
+        disbursementMethod,
       },
-    },
-  };
+    };
+  }
+
+  if (requirement.requestType === "credit" && requirement.creditData) {
+    return {
+      requestType: requirement.requestType,
+      customerCode: requirement.customerCode,
+      customerName: requirement.customerName,
+      requestDate: requirement.requestDate.toISOString(),
+      creditData: {
+        productId: requirement.creditData.productId,
+        productName: requirement.creditData.productName,
+        destinationId: requirement.creditData.destinationId,
+        destinationName: requirement.creditData.destinationName,
+        paymentMethod: requirement.creditData.paymentMethod,
+        paymentMethodName: requirement.creditData.paymentMethodName,
+        requestAmount: requirement.creditData.amount,
+        creditAmount: requirement.creditData.amount,
+        numQuotas: requirement.creditData.deadline,
+        nominalRate: requirement.creditData.rate,
+        amortizationType: requirement.creditData.amortizationType,
+        periodicity: requirement.creditData.periodicity,
+        quotaValue: requirement.creditData.quota,
+        amountToTurn: requirement.creditData.netValue,
+        disbursementMethod,
+      },
+    };
+  }
+
+  return {};
 };
 
 const mapRequirementApiToEntity = (

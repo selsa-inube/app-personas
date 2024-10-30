@@ -79,8 +79,7 @@ const renderStepContent = (
           initialValues={programmedSavingFixedRequest.systemValidations.values}
           ref={formReferences.systemValidations}
           disbursementValues={programmedSavingFixedRequest.disbursement.values}
-          test
-          requestType="credit"
+          requestType="programmedsaving"
           onFormValid={setIsCurrentFormValid}
         />
       )}
