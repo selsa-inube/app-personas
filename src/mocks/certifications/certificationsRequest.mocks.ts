@@ -1,4 +1,4 @@
-import { IAccountStatement } from "@pages/request/certifications/AccountStatementDocument/types";
+import { IAccountStatement } from "@pages/request/certifications/types";
 
 const certificationsRequestMock: IAccountStatement[] = [
   {

@@ -1,17 +1,20 @@
 const savingsTableTitles = [
   {
     id: "reference",
-    titleName: "Referencia",
+    label: "Referencia",
+    action: true,
     priority: 0,
   },
   {
     id: "concept",
-    titleName: "Concepto",
+    label: "Concepto",
+    action: true,
     priority: 1,
   },
   {
     id: "totalBalance",
-    titleName: "Saldo total",
+    label: "Saldo total",
+    action: true,
     priority: 2,
   },
 ];
@@ -19,22 +22,26 @@ const savingsTableTitles = [
 const commitmentsTableTitles = [
   {
     id: "descriptionValue",
-    titleName: "Descripción",
+    label: "Descripción",
+    action: true,
     priority: 0,
   },
   {
     id: "commitmentValue",
-    titleName: "Compromiso",
+    label: "Compromiso",
+    action: true,
     priority: 1,
   },
   {
     id: "paymentDate",
-    titleName: "Fecha de pago",
+    label: "Fecha de pago",
+    action: true,
     priority: 2,
   },
   {
     id: "nextPayment",
-    titleName: "Próximo pago",
+    label: "Próximo pago",
+    action: true,
     priority: 3,
   },
 ];
@@ -42,17 +49,20 @@ const commitmentsTableTitles = [
 const paymentSummaryTitles = [
   {
     id: "concept",
-    titleName: "Concepto",
+    label: "Concepto",
+    action: true,
     priority: 0,
   },
   {
     id: "nextDueDate",
-    titleName: "Fecha próximo vencimiento",
+    label: "Fecha próximo vencimiento",
+    action: true,
     priority: 1,
   },
   {
     id: "nextDueValue",
-    titleName: "Valor próximo vencimiento",
+    label: "Valor próximo vencimiento",
+    action: true,
     priority: 2,
   },
 ];
@@ -60,22 +70,26 @@ const paymentSummaryTitles = [
 const cardsTableTitles = [
   {
     id: "cardNumber",
-    titleName: "Número de tarjeta",
+    label: "Número de tarjeta",
+    action: true,
     priority: 0,
   },
   {
     id: "productName",
-    titleName: "Producto",
+    label: "Producto",
+    action: true,
     priority: 1,
   },
   {
     id: "assignedQuota",
-    titleName: "Cupo asignado",
+    label: "Cupo asignado",
+    action: true,
     priority: 2,
   },
   {
     id: "availableQuota",
-    titleName: "Cupo disponible",
+    label: "Cupo disponible",
+    action: true,
     priority: 2,
   },
 ];
