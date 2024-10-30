@@ -7,8 +7,8 @@ import { ShareMaturityFormUI } from "./interface";
 import { IShareMaturityEntry } from "./types";
 
 const validationSchema = Yup.object({
-  action: Yup.string().required(validationMessages.required),
-  actionName: Yup.string().required(validationMessages.required),
+  renewal: Yup.string().required(validationMessages.required),
+  renewalName: Yup.string().required(validationMessages.required),
 });
 
 interface ShareMaturityFormProps {
@@ -45,9 +45,9 @@ const ShareMaturityForm = forwardRef(function ShareMaturityForm(
     >,
   ) => {
     const { value } = event.target;
-    formik.setFieldValue("action", value);
+    formik.setFieldValue("renewal", value);
 
-    formik.setFieldValue("actionName", shareMaturityDM.valueOf(value)?.value);
+    formik.setFieldValue("renewalName", shareMaturityDM.valueOf(value)?.value);
   };
 
   return (
