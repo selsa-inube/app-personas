@@ -10,12 +10,14 @@ import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { getAccountStatementDocument } from "./AccountStatementDocument/utilRenders";
 import { CertificationRequestUI } from "./interface";
 import { IAccountStatement } from "./types";
+import { CreditsContext } from "src/context/credits";
 
 function CertificationRequest() {
   const { user } = useContext(AppContext);
   const { accessToken } = useAuth();
   const { savings, commitments } = useContext(SavingsContext);
   const { cards } = useContext(CardsContext);
+  const { credits } = useContext(CreditsContext);
   const [certifications, setCertifications] = useState<IAccountStatement[]>([]);
 
   useEffect(() => {
@@ -33,12 +35,20 @@ function CertificationRequest() {
       compress: true,
     });
 
+    doc.setProperties({
+      title: "Estado de Cuenta",
+      subject: "Estado de Cuenta PDF",
+      author: `${user.firstName} ${user.firstLastName}`,
+      creator: "Fondecom",
+    });
+
     try {
       const documentElement = await getAccountStatementDocument(
         user,
         savings,
         cards,
         commitments,
+        credits,
         accessToken,
       );
 

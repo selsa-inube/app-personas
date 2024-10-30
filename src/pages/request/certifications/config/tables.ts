@@ -21,8 +21,8 @@ const savingsTableTitles = [
 
 const commitmentsTableTitles = [
   {
-    id: "descriptionValue",
-    label: "Descripción",
+    id: "concept",
+    label: "Concepto",
     action: true,
     priority: 0,
   },

@@ -21,6 +21,10 @@ import {
   Thead,
   Tr,
 } from "@inubekit/table";
+import { IProduct } from "src/model/entity/product";
+import { Grid } from "@inubekit/grid";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { StyledCardContainer } from "./styles";
 
 const today = new Date();
 const NO_DATA_MESSAGE = "Actualmente no tienes productos para mostrar.";
@@ -35,6 +39,7 @@ interface AccountStatementDocumentProps {
   commitmentsSavingsEntries: IEntry[];
   obligationsEntries: IEntry[];
   creditCardsEntries: IEntry[];
+  credits: IProduct[];
 }
 
 interface TableSectionProps {
@@ -43,15 +48,19 @@ interface TableSectionProps {
   dataEntries: IEntry[];
   colSpan: number;
   grayText?: boolean;
+  colWidths: string[];
 }
 
-function TableSection({
-  title,
-  tableTitles,
-  dataEntries,
-  colSpan,
-  grayText = false,
-}: TableSectionProps) {
+function TableSection(props: TableSectionProps) {
+  const {
+    title,
+    tableTitles,
+    dataEntries,
+    colSpan,
+    grayText = false,
+    colWidths = [],
+  } = props;
+
   return (
     <Stack gap={inube.spacing.s200} direction="column">
       <Text
@@ -67,13 +76,13 @@ function TableSection({
           {Array(colSpan)
             .fill(null)
             .map((_, index) => (
-              <Col key={index} span={1} />
+              <Col key={index} span={1} style={{ width: colWidths[index] }} />
             ))}
         </Colgroup>
         <Thead>
           <Tr border="bottom">
             {tableTitles.map((option, index) => (
-              <Th key={index} action={option.action} align="center">
+              <Th key={index} action={option.action} align="left">
                 <Text type="label" size="small" weight="bold">
                   {option.label}
                 </Text>
@@ -109,17 +118,42 @@ function TableSection({
   );
 }
 
-function AccountStatementDocument({
-  userName,
-  paymentMethod,
-  userIdentification,
-  savingsAccountEntries,
-  savingsContributionsEntries,
-  programmedSavingsEntries,
-  commitmentsSavingsEntries,
-  obligationsEntries,
-  creditCardsEntries,
-}: AccountStatementDocumentProps) {
+function AccountStatementDocument(props: AccountStatementDocumentProps) {
+  const {
+    userName,
+    paymentMethod,
+    userIdentification,
+    savingsAccountEntries,
+    savingsContributionsEntries,
+    programmedSavingsEntries,
+    commitmentsSavingsEntries,
+    obligationsEntries,
+    creditCardsEntries,
+    credits,
+  } = props;
+
+  const creditAttributes = credits.map((item) => {
+    const attributes = item.attributes;
+    return {
+      id: item.id,
+      description: item.description,
+      loanDate: attributes.find((attr) => attr.id === "loan_date")?.value ?? "",
+      loanValue:
+        attributes.find((attr) => attr.id === "loan_value")?.value ?? "",
+      cancellationBalance:
+        attributes.find((attr) => attr.id === "cancellation_balance")?.value ??
+        "",
+      valueToBeCurrent:
+        attributes.find((attr) => attr.id === "expired_value")?.value ?? "",
+      outstandingDues:
+        attributes.find((attr) => attr.id === "outstanding_dues")?.value ?? "",
+      periodicity:
+        attributes.find((attr) => attr.id === "periodicity")?.value ?? "",
+      interestRate:
+        attributes.find((attr) => attr.id === "interest_rate")?.value ?? "",
+    };
+  });
+
   return (
     <Stack
       padding={inube.spacing.s400}
@@ -172,24 +206,28 @@ function AccountStatementDocument({
         tableTitles={savingsTableTitles}
         dataEntries={savingsAccountEntries}
         colSpan={3}
+        colWidths={["15%", "70%", "15%"]}
       />
       <TableSection
         title="Aportes"
         tableTitles={savingsTableTitles}
         dataEntries={savingsContributionsEntries}
         colSpan={3}
+        colWidths={["15%", "70%", "15%"]}
       />
       <TableSection
         title="Ahorro programado"
         tableTitles={savingsTableTitles}
         dataEntries={programmedSavingsEntries}
         colSpan={3}
+        colWidths={["15%", "70%", "15%"]}
       />
       <TableSection
         title="Compromisos de ahorro"
         tableTitles={commitmentsTableTitles}
         dataEntries={commitmentsSavingsEntries}
         colSpan={4}
+        colWidths={["50%", "20%", "15%", "15%"]}
         grayText
       />
       <Text type="label" size="medium" weight="bold" appearance="gray">
@@ -199,18 +237,71 @@ function AccountStatementDocument({
         title="Resumen"
         tableTitles={paymentSummaryTitles}
         dataEntries={obligationsEntries}
+        colWidths={["70%", "15%", "15%"]}
         colSpan={3}
       />
       {obligationsEntries.length > 0 && (
-        <Text type="label" size="medium" weight="bold">
-          Detalles
-        </Text>
+        <>
+          <Text type="label" size="medium" weight="bold">
+            Detalles
+          </Text>
+          {creditAttributes.map((credit) => (
+            <StyledCardContainer key={credit.id}>
+              <Text type="label" size="small" weight="bold" appearance="gray">
+                {credit.description}
+              </Text>
+              <Grid
+                templateColumns={`repeat(2, 1fr)`}
+                gap={inube.spacing.s100}
+                autoRows="auto"
+              >
+                <BoxAttribute
+                  key={credit.loanDate.toString()}
+                  label="Fecha de préstamo:"
+                  value={credit.loanDate}
+                />
+                <BoxAttribute
+                  key={credit.loanValue.toString()}
+                  label="Monto solicitado:"
+                  value={credit.loanValue}
+                />
+                <BoxAttribute
+                  key={credit.cancellationBalance.toString()}
+                  label="Saldo cancelación:"
+                  value={credit.cancellationBalance}
+                />
+                <BoxAttribute
+                  key={credit.valueToBeCurrent.toString()}
+                  label="Valor para colocarse al día:"
+                  value={credit.valueToBeCurrent}
+                />
+                <BoxAttribute
+                  key={credit.outstandingDues.toString()}
+                  label="Cuotas pendientes:"
+                  value={credit.outstandingDues}
+                />
+                <BoxAttribute
+                  key={credit.periodicity.toString()}
+                  label="Periodicidad:"
+                  value={credit.periodicity}
+                />
+                <BoxAttribute
+                  key={credit.interestRate.toString()}
+                  label="Tasa:"
+                  value={credit.interestRate}
+                />
+              </Grid>
+            </StyledCardContainer>
+          ))}
+        </>
       )}
+
       <TableSection
         title="Tarjetas"
         tableTitles={cardsTableTitles}
         dataEntries={creditCardsEntries}
         colSpan={4}
+        colWidths={["25%", "45%", "15%", "15%"]}
         grayText
       />
       <Stack justifyContent="center">

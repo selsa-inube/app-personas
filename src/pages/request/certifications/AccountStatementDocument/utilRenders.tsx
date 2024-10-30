@@ -7,9 +7,6 @@ import { ICommitment, IProduct } from "src/model/entity/product";
 import { formatPrimaryDate } from "src/utils/dates";
 import { obfuscateCardNumberDocument } from "src/utils/texts";
 import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
-import { getCreditPayments } from "src/services/iclient/payments/getCreditPayments";
-import { getCommitmentPayments } from "src/services/iclient/payments/getCommitmentPayments";
-import { getCardPayments } from "src/services/iclient/payments/getCardPayments";
 
 const savingsAccount = (savings: ISavingsState): IEntry[] => {
   return savings.savingsAccounts.map((item) => {
@@ -100,7 +97,7 @@ const commitmentsSavings = (commitments: ICommitment[]): IEntry[] => {
 
     return {
       id: item.id,
-      descriptionValue: item.title.toUpperCase(),
+      concept: item.title.toUpperCase(),
       commitmentValue: formattedCommitmentValue,
       paymentDate,
       nextPayment: nextPaymentDateValue,
@@ -108,38 +105,20 @@ const commitmentsSavings = (commitments: ICommitment[]): IEntry[] => {
   });
 };
 
-const obligations = async (
-  userIdentification: string,
-  accessToken: string,
-): Promise<IEntry[]> => {
-  const [newCredits, newCards, newCommitments] = await Promise.all([
-    getCreditPayments(userIdentification, accessToken, true, true, true, true),
-    getCardPayments(userIdentification, accessToken, true, true, true, true),
-    getCommitmentPayments(userIdentification, accessToken, true, true, true),
-  ]);
-
-  const allObligations = [...newCredits, ...newCommitments, ...newCards];
-
-  return allObligations.map((item) => {
-    const productName = item.title.toUpperCase();
-    const nextValueOption = item.options.find(
-      (option) => option.id === "NEXTVALUE",
-    );
+const obligations = (credits: IProduct[]): IEntry[] => {
+  return credits.map((item) => {
+    const attributes = item.attributes;
 
     const nextDueDate =
-      nextValueOption?.date && new Date(nextValueOption.date) < new Date()
-        ? "Inmediato"
-        : nextValueOption?.date
-          ? formatPrimaryDate(new Date(nextValueOption.date))
-          : null;
+      attributes.find((attr) => attr.id === "next_payment")?.value ?? null;
 
-    const nextDueValue = nextValueOption
-      ? currencyFormat(nextValueOption.value)
-      : 0;
+    const nextDueValue =
+      attributes.find((attr) => attr.id === "next_payment_value")?.value ??
+      null;
 
     return {
-      id: item.id || productName,
-      concept: `${item.id} ${productName}`,
+      id: item.id,
+      concept: item.description,
       nextDueDate,
       nextDueValue,
     };
@@ -193,6 +172,7 @@ const getAccountStatementDocument = async (
   savings: ISavingsState,
   cards: IProduct[],
   commitments: ICommitment[],
+  credits: IProduct[],
   accessToken: string,
 ): Promise<React.JSX.Element> => {
   const userName =
@@ -217,16 +197,15 @@ const getAccountStatementDocument = async (
         paymentMethod = value.toString().toUpperCase();
       }
     }
+  } else {
+    paymentMethod = "FONDECOM";
   }
 
   const savingsAccountEntries = savingsAccount(savings);
   const savingsContributionsEntries = contributions(savings);
   const programmedSavingsEntries = programmedSavings(savings);
   const commitmentsSavingsEntries = commitmentsSavings(commitments);
-  const obligationsEntries = await obligations(
-    user.identification,
-    accessToken,
-  );
+  const obligationsEntries = await obligations(credits);
   const creditCardsEntries = await creditCards(cards, accessToken);
 
   return (
@@ -240,6 +219,7 @@ const getAccountStatementDocument = async (
       commitmentsSavingsEntries={commitmentsSavingsEntries}
       obligationsEntries={obligationsEntries}
       creditCardsEntries={creditCardsEntries}
+      credits={credits}
     />
   );
 };

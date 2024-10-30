@@ -28,6 +28,7 @@ const getMobileNav = (
   requestPaymentsFlag: boolean,
   myRequestsFlag: boolean,
   myPQRSFlag: boolean,
+  requestCertificationsFlag: boolean,
 ): INav => {
   const sections = [
     {
@@ -98,7 +99,8 @@ const getMobileNav = (
     requestCreditFlag ||
     requestEventFlag ||
     requestAidFlag ||
-    requestHolidaysFlag
+    requestHolidaysFlag ||
+    requestCertificationsFlag
   ) {
     sections.push({
       title: "Solicitar",
@@ -145,11 +147,13 @@ const getMobileNav = (
       });
     }
 
-    sections[1].links.push({
-      label: "Certificaciones",
-      path: "/certifications",
-      icon: <MdApproval />,
-    });
+    if (requestCertificationsFlag) {
+      sections[1].links.push({
+        label: "Certificaciones",
+        path: "/certifications",
+        icon: <MdApproval />,
+      });
+    }
   }
 
   return {
@@ -167,6 +171,7 @@ const getNav = (
   requestPaymentsFlag: boolean,
   myRequestsFlag: boolean,
   myPQRSFlag: boolean,
+  requestCertificationsFlag: boolean,
 ): INavNavigation => {
   const sections: { [key: string]: INavSection } = {
     administrar: {
@@ -248,7 +253,8 @@ const getNav = (
     requestCreditFlag ||
     requestEventFlag ||
     requestAidFlag ||
-    requestHolidaysFlag
+    requestHolidaysFlag ||
+    requestCertificationsFlag
   ) {
     if (requestSavingFlag) {
       sections.solicitar.links["ahorros"] = {
@@ -295,12 +301,14 @@ const getNav = (
       };
     }
 
-    sections.solicitar.links["certificaciones"] = {
-      id: "certificaciones",
-      label: "Certificaciones",
-      path: "/certifications",
-      icon: <MdApproval />,
-    };
+    if (requestCertificationsFlag) {
+      sections.solicitar.links["certificaciones"] = {
+        id: "certificaciones",
+        label: "Certificaciones",
+        path: "/certifications",
+        icon: <MdApproval />,
+      };
+    }
   }
 
   return {
