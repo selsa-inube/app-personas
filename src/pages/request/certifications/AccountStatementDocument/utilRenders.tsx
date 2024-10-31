@@ -109,6 +109,8 @@ const obligations = (credits: IProduct[]): IEntry[] => {
   return credits.map((item) => {
     const attributes = item.attributes;
 
+    const descriptionValue = `${item.id} - ${item.title}`.toUpperCase();
+
     const nextDueDateString = attributes.find(
       (attr) => attr.id === "next_payment",
     )?.value;
@@ -126,7 +128,7 @@ const obligations = (credits: IProduct[]): IEntry[] => {
 
     return {
       id: item.id,
-      concept: item.description.toUpperCase(),
+      concept: descriptionValue,
       nextDueDate,
       nextDueValue,
     };

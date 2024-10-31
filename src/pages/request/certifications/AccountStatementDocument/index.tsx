@@ -135,32 +135,30 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
 
   const creditAttributes = credits.map((item) => {
     const attributes = item.attributes;
+  
+    const descriptionValue = `${item.id} - ${item.title}`.toUpperCase();
+  
     return {
       id: item.id,
-      description: item.description.toUpperCase(),
-      loanDate: attributes.find((attr) => attr.id === "loan_date")?.value ?? "",
+      description: descriptionValue,
+      loanDate: attributes.find(attr => attr.id === "loan_date")?.value ?? "",
       loanValue: currencyFormat(
-        Number(attributes.find((attr) => attr.id === "loan_value")?.value) || 0,
+        Number(attributes.find(attr => attr.id === "loan_value")?.value) || 0
       ),
       cancellationBalance: currencyFormat(
-        Number(
-          attributes.find((attr) => attr.id === "total_value")?.value,
-        ) ?? 0,
+        Number(attributes.find(attr => attr.id === "total_value")?.value) || 0
       ),
       valueToBeCurrent: currencyFormat(
-        Number(attributes.find((attr) => attr.id === "expired_value")?.value) ??
-          0,
+        Number(attributes.find(attr => attr.id === "expired_value")?.value) || 0
       ),
       outstandingDues: Number(
-        attributes.find((attr) => attr.id === "outstanding_dues")?.value ?? 0,
+        attributes.find(attr => attr.id === "outstanding_dues")?.value ?? 0
       ),
       duesPaid: Number(
-        attributes.find((attr) => attr.id === "dues_paid")?.value ?? 0,
+        attributes.find(attr => attr.id === "dues_paid")?.value ?? 0
       ),
-      periodicity:
-        attributes.find((attr) => attr.id === "periodicity")?.value ?? "",
-      interestRate:
-        attributes.find((attr) => attr.id === "interest_rate")?.value ?? "",
+      periodicity: attributes.find(attr => attr.id === "periodicity")?.value ?? "",
+      interestRate: attributes.find(attr => attr.id === "interest_rate")?.value ?? "",
     };
   });
 
