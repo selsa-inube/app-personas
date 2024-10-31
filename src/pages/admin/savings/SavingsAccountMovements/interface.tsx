@@ -6,18 +6,18 @@ import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { EMovementType, IMovement } from "src/model/entity/product";
+import { generateAttributes } from "./config/attributeRecord";
 import { crumbsSavingsAccountMovements } from "./config/navigation";
 import { StyledMovementsContainer } from "./styles";
 import { ISelectedProductState } from "./types";
-import { generateAttributes } from "./config/attributeRecord";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Button } from "@inubekit/button";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -28,7 +28,7 @@ const renderMovements = (movements: IMovement[]) =>
         id={movement.id}
         type={movement.type || EMovementType.CREDIT}
         description={movement.description}
-        totalValue={movement.totalValue || 0}
+        value={movement.totalValue || 0}
         attributes={generateAttributes(movement)}
       />
     </Stack>

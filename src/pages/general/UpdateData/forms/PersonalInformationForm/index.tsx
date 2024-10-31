@@ -1,9 +1,10 @@
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { PersonalInformationFormUI } from "./interface";
 import { IPersonalInformationEntry } from "./types";
+import { AppContext } from "src/context/app";
 
 const validationSchema = Yup.object({
   expeditionDate: Yup.string().required(validationMessages.required),
@@ -22,7 +23,8 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
   props: PersonalInformationFormProps,
   ref: React.Ref<FormikProps<IPersonalInformationEntry>>,
 ) {
-  const { initialValues, loading, withSubmit, onFormValid, onSubmit,  } = props;
+  const { initialValues, loading, withSubmit, onFormValid, onSubmit } = props;
+  const { serviceDomains } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,
@@ -46,6 +48,7 @@ const PersonalInformationForm = forwardRef(function PersonalInformationForm(
       loading={loading}
       formik={formik}
       withSubmit={withSubmit}
+      serviceDomains={serviceDomains}
     />
   );
 });

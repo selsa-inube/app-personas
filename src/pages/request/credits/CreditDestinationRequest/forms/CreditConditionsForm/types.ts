@@ -1,10 +1,10 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { IPeriodicity } from "src/model/entity/periodicity";
-import { IDestinationProduct } from "../DestinationForm/types";
+import { ICreditDestinationProduct } from "../DestinationForm/types";
 
 interface ICreditConditionsEntry {
   destination?: ISelectOption;
-  product: IDestinationProduct;
+  product: ICreditDestinationProduct;
   simulationWithQuota: boolean;
   amount?: number;
   deadline?: number;

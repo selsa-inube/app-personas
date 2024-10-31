@@ -1,4 +1,3 @@
-import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { IAid } from "src/model/entity/service";
 import { capitalizeText } from "src/utils/texts";
 
@@ -7,8 +6,11 @@ const mapAidApiToEntity = (
 ): IAid => {
   return {
     id: String(aid.id),
-    title: capitalizeText(aid.name.toString()),
-    type: aidTypeDM.valueOf(Object(aid.aidType).code),
+    title: capitalizeText(aid.alias.toString()),
+    type: {
+      id: Object(aid.aidType).code,
+      value: Object(aid.aidType).description,
+    },
   };
 };
 

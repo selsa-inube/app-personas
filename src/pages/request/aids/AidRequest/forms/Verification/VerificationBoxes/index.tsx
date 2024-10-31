@@ -1,9 +1,12 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
+import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
 import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryRequirementsForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
+import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
+import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { currencyFormat } from "src/utils/currency";
 import { capitalizeEachWord } from "src/utils/texts";
 import { aidRequestSteps } from "../../../config/assisted";
@@ -55,7 +58,11 @@ const renderDetailsSituationVerification = (
     >
       <BoxAttribute
         label="Valor de la solicitud:"
-        value={currencyFormat(values.applicationValue || 0)}
+        value={
+          values.aidType.id === aidTypeDM.REQUIRED_DAYS.id
+            ? `${values.applicationDays} Días`
+            : currencyFormat(values.applicationValue || 0)
+        }
       />
       {values.message !== "" && (
         <BoxAttribute
@@ -107,6 +114,15 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           aidRequest.disbursement.values,
           isTablet,
         )}
+
+      {stepKey === "termsAndConditions" &&
+        renderTermsAndConditionsVerification(
+          aidRequest.termsAndConditions.values,
+          isTablet,
+        )}
+
+      {stepKey === "contactChannels" &&
+        renderContactChannelsVerification(aidRequest.contactChannels.values)}
     </>
   );
 }

@@ -1,12 +1,13 @@
 import { ISelectOption } from "@design/input/Select/types";
 
-interface IDestinationProduct {
+interface ICreditDestinationProduct {
   id: string;
   title: string;
   description: string;
   maxRate?: number;
   maxDeadline?: number;
   maxAmount: number;
+  minAmount: number;
   maxAmountForUser: number;
   amortizationType: string;
 }
@@ -14,8 +15,8 @@ interface IDestinationProduct {
 interface IDestinationEntry {
   destinations: ISelectOption[];
   destination?: ISelectOption;
-  products: IDestinationProduct[];
-  product?: IDestinationProduct;
+  products: ICreditDestinationProduct[];
+  product?: ICreditDestinationProduct;
 }
 
-export type { IDestinationEntry, IDestinationProduct };
+export type { ICreditDestinationProduct, IDestinationEntry };

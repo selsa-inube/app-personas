@@ -20,35 +20,37 @@ function UpdateDataVerification(props: VerificationProps) {
 
   return (
     <Stack direction="column" gap={inube.spacing.s300}>
-      {Object.entries(updateDataSteps).map(([key, step]) => (
-        <Accordion title={step.name} key={`${key}-box`}>
-          <Stack
-            direction="column"
-            width="100%"
-            alignItems="flex-end"
-            gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
-          >
-            <VerificationBoxes
-              isTablet={isTablet}
-              updatedData={updatedData}
-              stepKey={key as keyof typeof updateDataSteps}
-            />
-
-            <Button
-              iconBefore={<MdOutlineArrowBack />}
-              onClick={() =>
-                handleStepChange(
-                  updateDataSteps[key as keyof IFormsUpdateData].number,
-                )
-              }
-              variant="none"
-              appearance="dark"
+      {Object.entries(updateDataSteps)
+        .filter(([key]) => key !== "verification")
+        .map(([key, step]) => (
+          <Accordion title={step.name} key={`${key}-box`}>
+            <Stack
+              direction="column"
+              width="100%"
+              alignItems="flex-end"
+              gap={isTablet ? inube.spacing.s150 : inube.spacing.s200}
             >
-              Regresar a este paso
-            </Button>
-          </Stack>
-        </Accordion>
-      ))}
+              <VerificationBoxes
+                isTablet={isTablet}
+                updatedData={updatedData}
+                stepKey={key as keyof typeof updateDataSteps}
+              />
+
+              <Button
+                iconBefore={<MdOutlineArrowBack />}
+                onClick={() =>
+                  handleStepChange(
+                    updateDataSteps[key as keyof IFormsUpdateData].number,
+                  )
+                }
+                variant="none"
+                appearance="dark"
+              >
+                Regresar a este paso
+              </Button>
+            </Stack>
+          </Accordion>
+        ))}
     </Stack>
   );
 }

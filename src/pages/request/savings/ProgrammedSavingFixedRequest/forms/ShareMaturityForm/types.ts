@@ -1,6 +1,6 @@
 interface IShareMaturityEntry {
-  action?: string;
-  actionName?: string;
+  renewal?: string;
+  renewalName?: string;
 }
 
 export type { IShareMaturityEntry };

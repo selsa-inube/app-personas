@@ -12,7 +12,9 @@ import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { accountOriginTypeDM } from "src/model/domains/general/accountOriginTypeDM";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
+import { RequestType } from "src/model/entity/request";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
+import { getDisbursementsForProduct } from "src/services/iclient/productRequest/getDisbursements";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
@@ -33,6 +35,8 @@ interface DisbursementFormProps {
     transferAccountType?: string;
     transferAccountNumber?: string;
   };
+  requestType: RequestType;
+  productId: string;
   loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IDisbursementEntry) => void;
@@ -46,6 +50,8 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     initialValues,
     transferAccountValues,
     loading,
+    requestType,
+    productId,
     onSubmit,
     onFormValid,
   } = props;
@@ -77,8 +83,20 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     });
   }, [formik.values]);
 
+  const getDisbursements = async () => {
+    if (!accessToken) return;
+    const disbursements = await getDisbursementsForProduct(
+      requestType,
+      productId,
+      accessToken,
+    );
+
+    formik.setFieldValue("disbursements", disbursements);
+  };
+
   useEffect(() => {
-    formik.setFieldValue("disbursements", disbursementTypeDM.options);
+    getDisbursements();
+
     if (formik.values.disbursement) {
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,

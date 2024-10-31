@@ -5,15 +5,15 @@ import { PaymentMethodForm } from "@forms/PaymentMethodForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
-import { CommentsForm } from "../../../../shared/forms/CommentsForm";
 import { programmedSavingFixedRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingFixedRequest } from "./config/navigation";
-import { PlanNameForm } from "./forms/PlanNameForm";
+import { DestinationForm } from "./forms/DestinationForm";
 import { SavingConditionsForm } from "./forms/SavingConditionsForm";
 import { ShareMaturityForm } from "./forms/ShareMaturityForm";
 import { ProgrammedSavingFixedRequestVerification } from "./forms/Verification";
@@ -21,7 +21,6 @@ import {
   IFormsProgrammedSavingFixedRequest,
   IFormsProgrammedSavingFixedRequestRefs,
 } from "./types";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
@@ -32,10 +31,18 @@ const renderStepContent = (
 ) => {
   return (
     <>
+      {currentStep === programmedSavingFixedRequestSteps.destination.number && (
+        <DestinationForm
+          initialValues={programmedSavingFixedRequest.destination.values}
+          ref={formReferences.destination}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
       {currentStep ===
         programmedSavingFixedRequestSteps.savingConditions.number && (
         <SavingConditionsForm
           initialValues={programmedSavingFixedRequest.savingConditions.values}
+          product={programmedSavingFixedRequest.destination.values.product}
           ref={formReferences.savingConditions}
           onFormValid={setIsCurrentFormValid}
         />
@@ -61,6 +68,10 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={programmedSavingFixedRequest.disbursement.values}
           ref={formReferences.disbursement}
+          requestType="programmedsaving"
+          productId={
+            programmedSavingFixedRequest.destination.values.product?.id || ""
+          }
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -70,21 +81,7 @@ const renderStepContent = (
           initialValues={programmedSavingFixedRequest.systemValidations.values}
           ref={formReferences.systemValidations}
           disbursementValues={programmedSavingFixedRequest.disbursement.values}
-          test
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
-      {currentStep === programmedSavingFixedRequestSteps.planName.number && (
-        <PlanNameForm
-          initialValues={programmedSavingFixedRequest.planName.values}
-          ref={formReferences.planName}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
-      {currentStep === programmedSavingFixedRequestSteps.comments.number && (
-        <CommentsForm
-          initialValues={programmedSavingFixedRequest.comments.values}
-          ref={formReferences.comments}
+          requestType="programmedsaving"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -93,8 +90,10 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={programmedSavingFixedRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
-          productId="57"
-          productType="credit"
+          productId={
+            programmedSavingFixedRequest.destination.values.product?.id || ""
+          }
+          productType="programmedsaving"
           onFormValid={setIsCurrentFormValid}
         />
       )}

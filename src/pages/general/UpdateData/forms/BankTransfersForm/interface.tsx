@@ -36,7 +36,7 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
             label="Entidad bancaria"
             name="bankEntity"
             id="bankEntity"
-            value={formik.values.bankEntity}
+            value={formik.values.bankEntityName}
             size="compact"
             isFullWidth
             options={getDomainById("bank")}

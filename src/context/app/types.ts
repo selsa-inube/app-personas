@@ -19,7 +19,7 @@ interface IAppContext {
     description: string;
     value: boolean;
   };
-  getServiceDomains: (
+  loadServiceDomains: (
     domainNames: string[],
     accessToken: string,
   ) => Promise<IServiceDomains>;

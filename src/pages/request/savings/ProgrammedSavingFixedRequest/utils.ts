@@ -18,6 +18,34 @@ const programmedSavingFixedStepsRules = (
   };
 
   switch (currentStep) {
+    case programmedSavingFixedRequestSteps.destination.number: {
+      const values = formReferences.destination.current?.values;
+
+      if (!values) return currentProgrammedSavingFixedRequest;
+
+      newProgrammedSavingFixedRequest.destination = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(
+          currentProgrammedSavingFixedRequest.savingConditions.values,
+        )
+      ) {
+        newProgrammedSavingFixedRequest.systemValidations = {
+          isValid: false,
+          values: {
+            ...mapSystemValidations(),
+            productId: values?.product?.id || "",
+            productName: values?.product?.title || "",
+          },
+        };
+      }
+
+      return newProgrammedSavingFixedRequest;
+    }
     case programmedSavingFixedRequestSteps.savingConditions.number: {
       const values = formReferences.savingConditions.current?.values;
 
@@ -39,19 +67,17 @@ const programmedSavingFixedStepsRules = (
           values: {
             ...mapSystemValidations(),
             validations: loadingValidations,
-            destinationId: "",
-            destinationName: "",
-            productId: "57", // TEMP
-            productName: "",
+            productId:
+              newProgrammedSavingFixedRequest.systemValidations.values
+                .productId,
+            productName:
+              newProgrammedSavingFixedRequest.systemValidations.values
+                .productName,
             paymentMethod: values.paymentMethod?.id || "",
             paymentMethodName: values.paymentMethod?.value || "",
-            amount: values.savingAmount || 0,
             deadline: values.deadline || 0,
-            rate: values.annualRate,
-            amortizationType: "",
             periodicity: values.periodicity.id,
             quota: values.quota || 0,
-            netValue: values.netValue,
           },
         };
 

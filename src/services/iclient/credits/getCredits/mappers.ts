@@ -9,8 +9,13 @@ import { capitalizeText } from "src/utils/texts";
 const mapCreditApiToEntity = (
   credit: Record<string, string | number | object>,
 ): IProduct => {
-  const nextDateWithoutZone = String(credit.nextPaymentDate).replace("Z", "");
-  const nextPaymentDate = new Date(nextDateWithoutZone);
+  const nextDateWithoutZone = credit.nextPaymentDate
+    ? String(credit.nextPaymentDate).replace("Z", "")
+    : "";
+
+  const nextPaymentDate = nextDateWithoutZone
+    ? new Date(nextDateWithoutZone)
+    : null;
 
   const today = new Date();
   today.setUTCHours(5, 0, 0, 0);
@@ -19,14 +24,17 @@ const mapCreditApiToEntity = (
 
   const outstandingDues = credit.pendingQuotas;
 
-  const inArrears = today > nextPaymentDate;
+  const inArrears = nextPaymentDate ? today > nextPaymentDate : true;
 
   const nextPayment = inArrears
     ? "Inmediato"
-    : formatPrimaryDate(nextPaymentDate);
+    : nextPaymentDate
+      ? formatPrimaryDate(nextPaymentDate)
+      : "Inmediato";
 
-  const differenceDays =
-    (today.getTime() - nextPaymentDate.getTime()) / (1000 * 60 * 60 * 24);
+  const differenceDays = nextPaymentDate
+    ? (today.getTime() - nextPaymentDate.getTime()) / (1000 * 60 * 60 * 24)
+    : 0;
 
   const nextCapital = Number(Object(credit.nextPaymentValue).capital || 0);
 
@@ -232,12 +240,15 @@ const mapCreditApiToEntity = (
       label: "Método de pago",
       value: String(credit.paymentMethod),
     },
-    {
+  ];
+
+  if (nextPaymentDate) {
+    attributes.push({
       id: "next_payment_date",
       label: "Fecha de pago",
       value: nextPaymentDate.toISOString(),
-    },
-  ];
+    });
+  }
 
   if (differenceDays > 0) {
     attributes.push({

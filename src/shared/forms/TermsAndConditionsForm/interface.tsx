@@ -22,6 +22,10 @@ function SkeletonText(props: { isMobile?: boolean }) {
 }
 
 const getTermsAndConditionsParag = (texts: string[]) => {
+  if (!texts || texts.length === 0) {
+    return null;
+  }
+
   return texts.map((text, index) => (
     <Text key={index} type="body" size="small">
       {text}

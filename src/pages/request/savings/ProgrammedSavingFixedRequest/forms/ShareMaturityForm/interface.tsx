@@ -30,17 +30,17 @@ function ShareMaturityFormUI(props: ShareMaturityFormUIProps) {
         gap={inube.spacing.s300}
       >
         <Select
-          name="action"
-          id="action"
-          label="Acción al vencimiento"
-          value={formik.values.action || ""}
+          name="renewal"
+          id="renewal"
+          label="Renovar producto al vencimiento"
+          value={formik.values.renewal || ""}
           size="compact"
           isDisabled={loading}
           options={shareMaturityDM.options}
           onChange={customHandleChange}
           onBlur={formik.handleBlur}
-          state={getFieldState(formik, "action")}
-          errorMessage={formik.errors.action}
+          state={getFieldState(formik, "renewal")}
+          errorMessage={formik.errors.renewal}
           isFullWidth
         />
       </Grid>

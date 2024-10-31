@@ -35,7 +35,7 @@ const createCreditRequest = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al realizar la simulación",
+        message: "Error al realizar la solicitud de crédito",
         status: res.status,
         data,
       };

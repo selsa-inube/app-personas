@@ -2,34 +2,23 @@ import { inube } from "@design/tokens";
 import { Divider } from "@inubekit/divider";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
-import { currencyFormat } from "src/utils/currency";
-import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
 import { Text } from "@inubekit/text";
+import { IAttribute } from "src/model/entity/product";
+import { StyledBody, StyledCardContainer, StyledInputRadio } from "./styles";
 
 interface DestinationCardProps {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   checked: boolean;
-  maxRate?: number;
-  maxDeadline?: number;
-  maxAmount: number;
+  attributes: IAttribute[];
   loading?: boolean;
   onClick: () => void;
 }
 
 function DestinationCard(props: DestinationCardProps) {
-  const {
-    id,
-    title,
-    description,
-    checked,
-    maxRate,
-    maxDeadline,
-    maxAmount,
-    loading,
-    onClick,
-  } = props;
+  const { id, title, description, checked, attributes, loading, onClick } =
+    props;
 
   if (loading) {
     return (
@@ -48,7 +37,7 @@ function DestinationCard(props: DestinationCardProps) {
 
             <SkeletonLine animated width="86px" />
           </Stack>
-          <SkeletonLine animated width="108px" />
+          {description && <SkeletonLine animated width="108px" />}
         </Stack>
 
         <Divider dashed />
@@ -90,12 +79,7 @@ function DestinationCard(props: DestinationCardProps) {
 
   return (
     <StyledCardContainer onClick={onClick}>
-      <Stack
-        direction="column"
-        width="100%"
-        height="36px"
-        gap={inube.spacing.s050}
-      >
+      <Stack direction="column" width="100%" gap={inube.spacing.s050}>
         <Stack gap={inube.spacing.s100}>
           <StyledInputRadio
             id={id}
@@ -109,55 +93,32 @@ function DestinationCard(props: DestinationCardProps) {
             {title}
           </Text>
         </Stack>
-        <Text type="body" size="small" appearance="gray">
-          {description}
-        </Text>
+        {description && (
+          <Text type="body" size="small" appearance="gray">
+            {description}
+          </Text>
+        )}
       </Stack>
 
       <Divider dashed />
 
       <StyledBody>
-        {maxRate && (
+        {attributes.map((attribute, index) => (
           <Stack
             alignItems="center"
             justifyContent="space-between"
             width="100%"
+            key={index}
           >
             <Text type="label" size="small" appearance="gray">
-              Tasa máxima:
+              {attribute.label}:
             </Text>
 
             <Text type="body" size="small">
-              {maxRate}%
+              {attribute.value.toString()}
             </Text>
           </Stack>
-        )}
-
-        {maxDeadline && (
-          <Stack
-            alignItems="center"
-            justifyContent="space-between"
-            width="100%"
-          >
-            <Text type="label" size="small" appearance="gray">
-              Plazo máximo:
-            </Text>
-
-            <Text type="body" size="small">
-              {maxDeadline} meses
-            </Text>
-          </Stack>
-        )}
-
-        <Stack alignItems="center" justifyContent="space-between" width="100%">
-          <Text type="label" size="small" appearance="gray">
-            Monto máximo:
-          </Text>
-
-          <Text type="body" size="small">
-            {currencyFormat(maxAmount)}
-          </Text>
-        </Stack>
+        ))}
       </StyledBody>
     </StyledCardContainer>
   );

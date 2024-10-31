@@ -57,6 +57,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
     onTabChange,
   } = props;
 
+  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isMobile = useMediaQuery("(max-width: 750px)");
 
   const handleChangeWithCurrency = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +83,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                 </Text>
 
                 <Grid
-                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                  templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
                   autoRows="auto"
                   gap={inube.spacing.s200}
                 >
@@ -112,6 +113,21 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
                         {formik.values.product.title}
+                      </Text>
+                    </Stack>
+                  </OutlineCard>
+
+                  <OutlineCard>
+                    <Stack
+                      direction="column"
+                      padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
+                      gap={inube.spacing.s025}
+                    >
+                      <Text type="label" size="medium">
+                        Monto minimo del producto:
+                      </Text>
+                      <Text type="body" size="medium" appearance="gray">
+                        {currencyFormat(formik.values.product.minAmount)}
                       </Text>
                     </Stack>
                   </OutlineCard>

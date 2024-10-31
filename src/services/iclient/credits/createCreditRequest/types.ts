@@ -33,7 +33,9 @@ interface IRequestCreditRequest {
     transferAccountNumber?: string;
     businessName?: string;
     firstName?: string;
-    lastName?: string;
+    secondName?: string;
+    firstLastName?: string;
+    secondLastName?: string;
     gender?: string;
     genderName?: string;
     identificationType?: string;

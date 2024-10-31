@@ -23,6 +23,7 @@ const requestsMock: IRequest[] = [
       label: requestStatusDM.APPROVED.value,
       appearance: "warning",
     },
+    requestType: "credit",
     validations: [
       {
         id: "minimum_associate_seniority",
@@ -74,6 +75,7 @@ const requestsMock: IRequest[] = [
     product: "Libre inversión",
     destination: "Compra moto",
     trackingCode: "SC20105005",
+    requestType: "credit",
     requestDate: new Date("2024-06-20T01:33:00.000Z"),
     description:
       "Crédito por destinación 41-241000098 Emp: FONDO DE EMPLEADOS DE LA CAJA DE COMPENSACION FAMILIAR DEL VALLE DEL CAUCA",
@@ -138,6 +140,7 @@ const requestsMock: IRequest[] = [
     product: "Libre inversión",
     destination: "Compra moto",
     trackingCode: "SC20105005",
+    requestType: "credit",
     requestDate: new Date("2024-06-20T01:33:00.000Z"),
     description:
       "Crédito por destinación 41-241000098 Emp: FONDO DE EMPLEADOS DE LA CAJA DE COMPENSACION FAMILIAR DEL VALLE DEL CAUCA",
@@ -202,6 +205,7 @@ const requestsMock: IRequest[] = [
     product: "Libre inversión",
     destination: "Compra moto",
     trackingCode: "SC20105005",
+    requestType: "credit",
     requestDate: new Date("2024-06-20T01:33:00.000Z"),
     description:
       "Crédito por destinación 41-241000098 Emp: FONDO DE EMPLEADOS DE LA CAJA DE COMPENSACION FAMILIAR DEL VALLE DEL CAUCA",
@@ -265,6 +269,7 @@ const requestsMock: IRequest[] = [
     title: "Crédito",
     product: "Libre inversión",
     destination: "Compra moto",
+    requestType: "credit",
     trackingCode: "SC20105005",
     requestDate: new Date("2024-06-20T01:33:00.000Z"),
     description:
@@ -328,6 +333,7 @@ const requestsMock: IRequest[] = [
     id: "55812345789-6",
     title: "Crédito",
     product: "Libre inversión",
+    requestType: "credit",
     destination: "Compra moto",
     trackingCode: "SC20105005",
     requestDate: new Date("2024-06-20T01:33:00.000Z"),

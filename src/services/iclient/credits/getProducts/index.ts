@@ -1,5 +1,5 @@
 import { enviroment } from "@config/enviroment";
-import { IDestinationProduct } from "@pages/request/credits/CreditDestinationRequest/forms/DestinationForm/types";
+import { ICreditDestinationProduct } from "@pages/request/credits/CreditDestinationRequest/forms/DestinationForm/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapProductsApiToEntities } from "./mappers";
 
@@ -7,7 +7,7 @@ const getProductsForDestination = async (
   userIdentification: string,
   accessToken: string,
   destinationId: string,
-): Promise<IDestinationProduct[]> => {
+): Promise<ICreditDestinationProduct[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 

@@ -12,7 +12,13 @@ import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import {
   MdArrowBack,
   MdOpenInNew,
@@ -40,12 +46,6 @@ import {
   ISavingAccountsModal,
   ISelectedProductState,
 } from "./types";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Button } from "@inubekit/button";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface CardUIProps {
   cardId?: string;
@@ -281,7 +281,7 @@ function CardUI(props: CardUIProps) {
                                       movement.type || EMovementType.PAYMENT
                                     }
                                     description={movement.description}
-                                    totalValue={movement.totalValue}
+                                    value={movement.totalValue}
                                     attributes={generateAttributes(movement)}
                                   />
                                 </Stack>

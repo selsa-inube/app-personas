@@ -1,11 +1,11 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { FormikProps } from "formik";
-import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethods";
 import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicities";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
 import { currencyFormat } from "src/utils/currency";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
+import { IProgrammedSavingProduct } from "../DestinationForm/types";
 import { ISavingConditionsEntry } from "./types";
 
 const validationSchema = Yup.object({
@@ -21,35 +21,37 @@ const validationSchema = Yup.object({
   hasResult: Yup.boolean(),
 });
 
-const getInitialSavingConditionsValidations = () =>
-  // formik: FormikProps<ISavingConditionsEntry>, // TEMP
-  {
-    return validationSchema.concat(
-      Yup.object({
-        quota: Yup.number()
-          .min(
-            35000,
-            `El valor mínimo de la cuota es de ${currencyFormat(35000)}`,
-          )
-          .max(
-            999999999,
-            `El valor máximo de la cuota es de ${currencyFormat(35000)}`,
-          )
-          .required(validationMessages.required),
-        deadline: Yup.number()
-          .min(6, `El plazo mínimo para este producto es de ${6} meses`)
-          .max(60, `El plazo máximo para este producto es de ${60} meses`)
-          .required(validationMessages.required),
+const getInitialSavingConditionsValidations = (
+  product: IProgrammedSavingProduct,
+) => {
+  return validationSchema.concat(
+    Yup.object({
+      quota: Yup.number()
+        .min(
+          product.minQuota,
+          `El valor mínimo de la cuota es de ${currencyFormat(product.minQuota)}`,
+        )
+        .required(validationMessages.required),
+      deadline: Yup.number()
+        .min(
+          product.minDeadline,
+          `El plazo mínimo para este producto es de ${product.minDeadline} meses`,
+        )
+        .max(
+          product.maxDeadline,
+          `El plazo máximo para este producto es de ${product.maxDeadline} meses`,
+        )
+        .required(validationMessages.required),
 
-        paymentMethod: Yup.object().required(validationMessages.required),
-        periodicity: Yup.object().required(validationMessages.required),
-        netValue: Yup.number().required(validationMessages.required),
-        hasResult: Yup.boolean()
-          .required(validationMessages.required)
-          .test((value) => value === true),
-      }),
-    );
-  };
+      paymentMethod: Yup.object().required(validationMessages.required),
+      periodicity: Yup.object().required(validationMessages.required),
+      netValue: Yup.number().required(validationMessages.required),
+      hasResult: Yup.boolean()
+        .required(validationMessages.required)
+        .test((value) => value === true),
+    }),
+  );
+};
 
 const getPeriodicities = async (
   formik: FormikProps<ISavingConditionsEntry>,
@@ -92,6 +94,10 @@ const getValuesForSimulate = async (
       userData.bankTransfersAccount.bankEntityCode,
     );
     formik.setFieldValue(
+      "transferBankEntityName",
+      userData.bankTransfersAccount.bankEntityName,
+    );
+    formik.setFieldValue(
       "transferAccountType",
       userData.bankTransfersAccount.accountType,
     );
@@ -99,13 +105,6 @@ const getValuesForSimulate = async (
       "transferAccountNumber",
       userData.bankTransfersAccount.accountNumber,
     );
-  } else {
-    const paymentMethods = await getPaymentMethodsForProduct(
-      userIdentification,
-      accessToken,
-      "57", // TEMP
-    );
-    newPaymentMethods.push(...paymentMethods);
   }
 
   formik.setFieldValue("paymentMethods", newPaymentMethods);

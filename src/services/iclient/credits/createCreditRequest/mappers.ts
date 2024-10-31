@@ -7,9 +7,9 @@ const mapRequestCreditEntityToApi = (
     clientCode: creditRequest.customerCode,
     details: {
       product: creditRequest.product,
-      productDetail: creditRequest.productName,
+      productDescription: creditRequest.productName,
       destination: creditRequest.destination,
-      destinationDetail: creditRequest.destinationName,
+      destinationDescription: creditRequest.destinationName,
       conditions: {
         requestedAmount: creditRequest.conditions.amount,
         quotaValue: creditRequest.conditions.quota,
@@ -37,13 +37,15 @@ const mapRequestCreditEntityToApi = (
         bankDetail: creditRequest.disbursmentMethod.transferBankEntity,
         businessName: creditRequest.disbursmentMethod.businessName,
         firstName: creditRequest.disbursmentMethod.firstName,
+        secondName: creditRequest.disbursmentMethod.secondName,
         genderCode: creditRequest.disbursmentMethod.gender,
         genderDetail: creditRequest.disbursmentMethod.genderName,
         identificationDetail: creditRequest.disbursmentMethod.identification,
         identificationNumber: creditRequest.disbursmentMethod.identification,
         identificationTypeCode:
           creditRequest.disbursmentMethod.identificationType,
-        lastName: creditRequest.disbursmentMethod.lastName,
+        firstLastName: creditRequest.disbursmentMethod.firstLastName,
+        secondLastName: creditRequest.disbursmentMethod.secondLastName,
       },
       systemRequirements: creditRequest.validations.map((validation) => ({
         evaluationDescription: validation.evaluationDescription,

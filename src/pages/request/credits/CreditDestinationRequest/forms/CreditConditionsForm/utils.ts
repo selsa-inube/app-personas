@@ -1,8 +1,8 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { FormikProps } from "formik";
-import { getPaymentMethodsForProduct } from "src/services/iclient/credits/getPaymentMethods";
 import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicities";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
+import { currencyFormat } from "src/utils/currency";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
@@ -27,6 +27,7 @@ const getInitialCreditConditionValidations = (
 ) => {
   const maxDeadline = formik.values.product.maxDeadline;
   const maxAmount = formik.values.product.maxAmount;
+  const minAmount = formik.values.product.minAmount;
   const maxAmountForUser = formik.values.product.maxAmountForUser;
   const withRecommendation =
     formik.values.product.id === "generateRecommendation";
@@ -40,7 +41,7 @@ const getInitialCreditConditionValidations = (
           `El plazo máximo para este producto es de ${maxDeadline} meses`,
         ),
       amount: Yup.number()
-        .min(1, validationMessages.minCurrencyNumbers(1))
+        .min(minAmount, `El monto mínimo es de ${currencyFormat(minAmount)}`)
         .max(
           maxAmountForUser < maxAmount ? maxAmountForUser : maxAmount,
           "Has superado el cupo máximo",
@@ -102,7 +103,7 @@ const getValuesForSimulate = async (
       userData.bankTransfersAccount.bankEntityCode,
     );
     formik.setFieldValue(
-      "transferBankEntityCode",
+      "transferBankEntityName",
       userData.bankTransfersAccount.bankEntityName,
     );
     formik.setFieldValue(
@@ -113,13 +114,6 @@ const getValuesForSimulate = async (
       "transferAccountNumber",
       userData.bankTransfersAccount.accountNumber,
     );
-  } else {
-    const paymentMethods = await getPaymentMethodsForProduct(
-      userIdentification,
-      accessToken,
-      formik.values.product.id,
-    );
-    newPaymentMethods.push(...paymentMethods);
   }
 
   formik.setFieldValue("paymentMethods", newPaymentMethods);

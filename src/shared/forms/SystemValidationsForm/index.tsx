@@ -10,16 +10,19 @@ import {
   useState,
 } from "react";
 import { AppContext } from "src/context/app";
-import { getRequirementsForProduct } from "src/services/iclient/credits/getRequirements";
-import { IRequirementRequest } from "src/services/iclient/credits/getRequirements/types";
+import { RequestType } from "src/model/entity/request";
+import { IBeneficiary } from "src/model/entity/user";
+import { getRequirementsForProduct } from "src/services/iclient/productRequest/getRequirements";
 import { SystemValidationsFormUI } from "./interface";
 import { ISystemValidationsEntry } from "./types";
-import { loadingValidations } from "./utils";
+import { buildRequestData, loadingValidations } from "./utils";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
   disbursementValues: IDisbursementEntry;
   test?: boolean;
+  requestType: RequestType;
+  beneficiary?: IBeneficiary;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -27,7 +30,14 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   props: SystemValidationsFormProps,
   ref: React.Ref<FormikProps<ISystemValidationsEntry>>,
 ) {
-  const { initialValues, disbursementValues, test, onFormValid } = props;
+  const {
+    initialValues,
+    disbursementValues,
+    test,
+    requestType,
+    beneficiary,
+    onFormValid,
+  } = props;
 
   const [loadingValids, setLoadingValids] = useState(false);
 
@@ -45,42 +55,15 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   const getRequirements = () => {
     if (!accessToken) return;
 
-    const requestDate = new Date();
-
     setLoadingValids(true);
-    const requirementsRequest: IRequirementRequest = {
-      productId: formik.values.productId,
-      productName: formik.values.productName,
-      destinationId: formik.values.destinationId,
-      destinationName: formik.values.destinationName,
-      customerCode: user.identification,
-      customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
-      paymentMethod: formik.values.paymentMethod,
-      paymentMethodName: formik.values.paymentMethodName,
-      amount: formik.values.amount,
-      deadline: formik.values.deadline,
-      rate: formik.values.rate,
-      amortizationType: formik.values.amortizationType,
-      interestPaymentPeriod: formik.values.periodicity,
-      periodicity: formik.values.periodicity,
-      quota: formik.values.quota,
-      netValue: formik.values.netValue,
-      requestDate,
-      disbursmentMethod: {
-        id: disbursementValues.disbursement || "",
-        name: disbursementValues.disbursementName || "",
-        accountNumber: disbursementValues.accountNumber,
-        transferAccountNumber: disbursementValues.writeAccountNumber,
-        transferAccountType: disbursementValues.accountType,
-        transferBankEntity: disbursementValues.bankEntity,
-        firstName: disbursementValues.firstName,
-        lastName: disbursementValues.firstLastName,
-        gender: disbursementValues.gender,
-        genderName: disbursementValues.gender,
-        identificationType: disbursementValues.identificationType,
-        identification: disbursementValues.identification,
-      },
-    };
+
+    const requirementsRequest = buildRequestData(
+      requestType,
+      user,
+      formik,
+      disbursementValues,
+      beneficiary,
+    );
 
     getRequirementsForProduct(requirementsRequest, accessToken)
       .then((requirements) => {
@@ -93,10 +76,11 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
         setLoadingValids(false);
       })
       .catch(() => {
-        if (!test) return;
-
-        formik.setFieldValue("validations", systemValidationsMock);
+        formik.setFieldValue("validations", []);
         setLoadingValids(false);
+
+        if (!test) return;
+        formik.setFieldValue("validations", systemValidationsMock);
       });
   };
 

@@ -3,6 +3,7 @@ import { IRequest } from "src/model/entity/request";
 const staticAttributes = [
   { id: "product", label: "Producto", value: "" },
   { id: "destination", label: "Destino", value: "" },
+  { id: "beneficiary", label: "Beneficiario", value: "" },
   { id: "trackingCode", label: "Código de seguimiento", value: "" },
   { id: "requestDate", label: "Fecha de solicitud", value: "" },
 ];

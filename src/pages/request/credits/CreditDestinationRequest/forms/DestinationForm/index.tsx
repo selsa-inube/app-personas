@@ -12,7 +12,7 @@ import { getProductsForDestination } from "src/services/iclient/credits/getProdu
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { DestinationFormUI } from "./interface";
-import { IDestinationEntry, IDestinationProduct } from "./types";
+import { ICreditDestinationProduct, IDestinationEntry } from "./types";
 
 const validationSchema = Yup.object({
   destination: Yup.object().required(validationMessages.required),
@@ -112,7 +112,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     setLoadingProducts(false);
   };
 
-  const handleChangeProduct = (value: IDestinationProduct) => {
+  const handleChangeProduct = (value: ICreditDestinationProduct) => {
     formik.setFieldValue("product", value);
   };
 

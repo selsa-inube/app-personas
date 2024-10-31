@@ -1,62 +1,69 @@
 import { enviroment } from "@config/enviroment";
+import { ISelectOption } from "@design/input/Select/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import {
-  mapRequirementEntityToApi,
-  mapRequirementsApiToEntities,
-} from "./mappers";
-import { IRequirementRequest, IRequirementResponse } from "./types";
+import { mapDisbursementsApiToEntities } from "./mappers";
 
-const getRequirementsForProduct = async (
-  requirementRequest: IRequirementRequest,
+const getDisbursementsForProduct = async (
+  requestType: string,
+  productId: string,
   accessToken: string,
-): Promise<IRequirementResponse | undefined> => {
+): Promise<ISelectOption[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_PERSISTENCE}/manage-product-request`;
+  const queryParams = new URLSearchParams({
+    requestType,
+    productId,
+    allowed: true.toString(),
+  });
+
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/disbursement-method/?${queryParams.toString()}`;
 
   try {
     const options: RequestInit = {
-      method: "POST",
+      method: "GET",
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "RequirementList",
+        "X-Action": "SearchAllowableMethodOfDisbursement",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(mapRequirementEntityToApi(requirementRequest)),
     };
 
     const res = await fetch(requestUrl, options);
 
     saveNetworkTracking(
       requestTime,
-      options.method || "POST",
+      options.method || "GET",
       requestUrl,
       res.status,
       Math.round(performance.now() - startTime),
     );
 
     if (res.status === 204) {
-      return;
+      return [];
     }
 
     const data = await res.json();
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los requerimientos de crédito del producto.",
+        message: "Error al obtener las formas de desembolso del producto",
         status: res.status,
         data,
       };
     }
 
-    return mapRequirementsApiToEntities(data);
+    const normalizedDisbursements = Array.isArray(data)
+      ? mapDisbursementsApiToEntities(data)
+      : [];
+
+    return normalizedDisbursements;
   } catch (error) {
     saveNetworkTracking(
       requestTime,
-      "POST",
+      "GET",
       requestUrl,
       (error as { status?: number }).status || 500,
       Math.round(performance.now() - startTime),
@@ -68,4 +75,4 @@ const getRequirementsForProduct = async (
   }
 };
 
-export { getRequirementsForProduct };
+export { getDisbursementsForProduct };

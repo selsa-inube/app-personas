@@ -70,12 +70,15 @@ const renderStepContent = (
             transferBankEntityCode:
               creditDestinationRequest.creditConditions.values
                 .transferBankEntityCode,
-
             transferBankEntityName:
               creditDestinationRequest.creditConditions.values
                 .transferBankEntityName,
           }}
           ref={formReferences.disbursement}
+          requestType="credit"
+          productId={
+            creditDestinationRequest.destination.values.product?.id || ""
+          }
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -85,6 +88,7 @@ const renderStepContent = (
           initialValues={creditDestinationRequest.systemValidations.values}
           disbursementValues={creditDestinationRequest.disbursement.values}
           ref={formReferences.systemValidations}
+          requestType="credit"
           onFormValid={setIsCurrentFormValid}
         />
       )}

@@ -51,6 +51,12 @@ const DetailsSituationForm = forwardRef(function DetailsSituationForm(
   const withDays = location.state?.type.id === aidTypeDM.REQUIRED_DAYS.id;
 
   useEffect(() => {
+    formik.setFieldValue("aidId", location.state?.id);
+    formik.setFieldValue("aidName", location.state?.title);
+    formik.setFieldValue("aidType", location.state?.type);
+  }, []);
+
+  useEffect(() => {
     if (!accessToken) return;
 
     valuesAndValidationsAid(

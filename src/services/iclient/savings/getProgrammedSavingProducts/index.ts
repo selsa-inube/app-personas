@@ -1,17 +1,16 @@
 import { enviroment } from "@config/enviroment";
-import { ISelectOption } from "@design/input/Select/types";
+import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingFixedRequest/forms/DestinationForm/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapPaymentMethodsApiToEntities } from "./mappers";
+import { mapProductsApiToEntities } from "./mappers";
 
-const getPaymentMethodsForProduct = async (
+const getProgrammedSavingProducts = async (
   userIdentification: string,
   accessToken: string,
-  productId: string,
-): Promise<ISelectOption[]> => {
+): Promise<IProgrammedSavingProduct[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/manage-product-request/payment-method/product/${productId}}/customer/${userIdentification}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/programmed-savings`;
 
   try {
     const options: RequestInit = {
@@ -19,7 +18,7 @@ const getPaymentMethodsForProduct = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchPaymentMethodsByProduct",
+        "X-Action": "SearchProgrammedSavings",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -43,17 +42,17 @@ const getPaymentMethodsForProduct = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los métodos de pago del usuario.",
+        message: "Error al obtener los productos de ahorro programado.",
         status: res.status,
         data,
       };
     }
 
-    const normalizedPaymentMethods = Array.isArray(data)
-      ? mapPaymentMethodsApiToEntities(data)
+    const normalizedProducts = Array.isArray(data)
+      ? mapProductsApiToEntities(data)
       : [];
 
-    return normalizedPaymentMethods;
+    return normalizedProducts;
   } catch (error) {
     saveNetworkTracking(
       requestTime,
@@ -69,4 +68,4 @@ const getPaymentMethodsForProduct = async (
   }
 };
 
-export { getPaymentMethodsForProduct };
+export { getProgrammedSavingProducts };

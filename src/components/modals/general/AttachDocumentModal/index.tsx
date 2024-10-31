@@ -12,13 +12,14 @@ import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { IMessage } from "@ptypes/messages.types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   MdErrorOutline,
   MdOutlineClose,
   MdOutlineSentimentNeutral,
 } from "react-icons/md";
+import { AppContext } from "src/context/app";
 import { ISelectedDocument } from "src/model/entity/service";
 import { removeDocument } from "src/services/iclient/documents/removeDocument";
 import { saveDocument } from "src/services/iclient/documents/saveDocument";
@@ -51,6 +52,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById(portalId);
   const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
   const [message, setMessage] = useState<IMessage>({
     show: false,
     title: "",
@@ -88,6 +90,7 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
 
       const documentRequest: ISaveDocumentRequest = {
         documentType,
+        identificationNumber: user.identification,
         file: files[ix],
       };
 
@@ -121,7 +124,6 @@ function AttachDocumentModal(props: AttachDocumentModalProps) {
           icon: <></>,
           appearance: "primary",
         });
-        
       } catch (error) {
         setMessage({
           show: true,

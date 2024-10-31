@@ -6,6 +6,7 @@ const mapSaveDocumentEntityToApi = (
   const fd = new FormData();
 
   fd.append("documentType", saveDocument.documentType);
+  fd.append("identification", saveDocument.identificationNumber);
   fd.append("file", saveDocument.file);
 
   return fd;

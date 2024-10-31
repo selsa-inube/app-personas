@@ -12,21 +12,22 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
-import { MdOpenInNew } from "react-icons/md";
+import { MdAttachMoney, MdTag } from "react-icons/md";
 import {
   currencyFormat,
   parseCurrencyString,
   validateCurrencyField,
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
+import { IProgrammedSavingProduct } from "../DestinationForm/types";
 import { ISavingConditionsEntry } from "./types";
 
 interface SavingConditionsFormUIProps {
   formik: FormikProps<ISavingConditionsEntry>;
   loading?: boolean;
   loadingSimulation?: boolean;
-  showDisbursementModal: boolean;
   periodicityOptions: ISelectOption[];
+  product?: IProgrammedSavingProduct;
   simulateSaving: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -34,7 +35,6 @@ interface SavingConditionsFormUIProps {
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onChangePaymentMethod: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onToggleDisbursementModal: () => void;
 }
 
 function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
@@ -43,12 +43,12 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
     loading,
     loadingSimulation,
     periodicityOptions,
+    product,
     simulateSaving,
     customHandleChange,
     onFormValid,
     onChangePaymentMethod,
     onChangePeriodicity,
-    onToggleDisbursementModal,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1200px)");
@@ -93,7 +93,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                         Cuota mínima:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        $ 35,000
+                        {currencyFormat(product?.minQuota || 0)}
                       </Text>
                     </Stack>
                   </OutlineCard>
@@ -108,7 +108,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                         Plazo mínimo:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        6 meses
+                        {product?.minDeadline} meses
                       </Text>
                     </Stack>
                   </OutlineCard>
@@ -123,7 +123,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                         Plazo máximo:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        60 meses
+                        {product?.maxDeadline} meses
                       </Text>
                     </Stack>
                   </OutlineCard>
@@ -157,7 +157,26 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       state={getFieldState(formik, "quota")}
                       onBlur={formik.handleBlur}
                       onChange={handleChangeWithCurrency}
+                      iconAfter={<MdAttachMoney />}
                     />
+
+                    <TextField
+                      label="¿Cuántas cuotas?"
+                      placeholder="Ingresa la cantidad de cuotas"
+                      name="deadline"
+                      id="deadline"
+                      value={formik.values.deadline || ""}
+                      type="number"
+                      errorMessage={formik.errors.deadline}
+                      isDisabled={!formik.values.quota || loading}
+                      size="compact"
+                      isFullWidth
+                      state={getFieldState(formik, "deadline")}
+                      onBlur={formik.handleBlur}
+                      onChange={customHandleChange}
+                      iconAfter={<MdTag />}
+                    />
+
                     <Select
                       id="paymentMethod"
                       name="paymentMethod"
@@ -170,7 +189,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       onChange={onChangePaymentMethod}
                       state={getFieldState(formik, "paymentMethod")}
                       isFullWidth
-                      readOnly={periodicityOptions.length === 1}
+                      readOnly={formik.values.paymentMethods.length === 1}
                     />
                     <Select
                       label="Periodicidad"
@@ -186,22 +205,6 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       state={getFieldState(formik, "periodicity")}
                       onChange={onChangePeriodicity}
                       readOnly={periodicityOptions.length === 1}
-                    />
-
-                    <TextField
-                      label="¿Cuántas cuotas?"
-                      placeholder="Ingresa la cantidad de cuotas"
-                      name="deadline"
-                      id="deadline"
-                      value={formik.values.deadline || ""}
-                      type="number"
-                      errorMessage={formik.errors.deadline}
-                      isDisabled={loading}
-                      size="compact"
-                      isFullWidth
-                      state={getFieldState(formik, "deadline")}
-                      onBlur={formik.handleBlur}
-                      onChange={customHandleChange}
                     />
                   </Grid>
 
@@ -275,11 +278,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       />
                       <BoxAttribute
                         label="Desembolso aproximado:"
-                        buttonIcon={<MdOpenInNew />}
-                        buttonValue={currencyFormat(formik.values.netValue)}
-                        buttonDisabled={formik.values.netValue === 0}
-                        onClickButton={onToggleDisbursementModal}
-                        withButton
+                        value={currencyFormat(formik.values.netValue)}
                       />
                     </Grid>
                   </Stack>

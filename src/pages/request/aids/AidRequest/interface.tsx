@@ -26,6 +26,7 @@ const renderStepContent = (
   currentStep: number,
   formReferences: IFormsAidRequestRefs,
   aidRequest: IFormsAidRequest,
+  aidType: IDomainType,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
   handleStepChange: (stepId: number) => void,
 ) => {
@@ -57,7 +58,10 @@ const renderStepContent = (
           initialValues={aidRequest.systemValidations.values}
           ref={formReferences.systemValidations}
           disbursementValues={aidRequest.disbursement.values}
-          test
+          requestType="aid"
+          beneficiary={aidRequest.beneficiaries.values.beneficiaries.find(
+            (beneficiary) => beneficiary.selected,
+          )}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -75,6 +79,8 @@ const renderStepContent = (
           initialValues={aidRequest.disbursement.values}
           ref={formReferences.disbursement}
           onFormValid={setIsCurrentFormValid}
+          requestType="aid"
+          productId={aidType.id}
         />
       )}
 
@@ -82,8 +88,8 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={aidRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
-          productId="57"
-          productType="credit"
+          productId={aidType.id}
+          productType="aid"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -183,6 +189,7 @@ function AidRequestUI(props: AidRequestUIProps) {
             currentStep,
             formReferences,
             aidRequest,
+            aidType,
             setIsCurrentFormValid,
             handleStepChange,
           )}
