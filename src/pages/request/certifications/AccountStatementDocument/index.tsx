@@ -137,7 +137,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
     const attributes = item.attributes;
     return {
       id: item.id,
-      description: item.description,
+      description: item.description.toUpperCase(),
       loanDate: attributes.find((attr) => attr.id === "loan_date")?.value ?? "",
       loanValue: currencyFormat(
         Number(attributes.find((attr) => attr.id === "loan_value")?.value) || 0,

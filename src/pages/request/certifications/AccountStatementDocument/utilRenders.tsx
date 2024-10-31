@@ -126,7 +126,7 @@ const obligations = (credits: IProduct[]): IEntry[] => {
 
     return {
       id: item.id,
-      concept: item.description,
+      concept: item.description.toUpperCase(),
       nextDueDate,
       nextDueValue,
     };
