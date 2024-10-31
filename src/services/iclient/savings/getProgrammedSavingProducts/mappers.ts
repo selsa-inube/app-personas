@@ -1,4 +1,4 @@
-import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingFixedRequest/forms/DestinationForm/types";
+import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingRequest/forms/DestinationForm/types";
 
 const mapProductApiToEntity = (
   product: Record<string, string | number | object>,
@@ -6,7 +6,7 @@ const mapProductApiToEntity = (
   return {
     id: String(product.savingCode),
     title: String(product.savingName),
-    maxRate: Number(Number(product.maxRate || 0).toFixed(2)),
+    maxRate: Number(Number(product.maximumRate || 0).toFixed(2)),
     minDeadline: Number(product.minimumQuotaTerm),
     maxDeadline: Number(product.maximumQuotaTerm),
     maxQuota: Number(product.maximumQuotaValue || 0),

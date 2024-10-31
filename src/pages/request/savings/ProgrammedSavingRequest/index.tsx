@@ -2,7 +2,7 @@ import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
-import { programmedSavingFixedRequestSteps } from "./config/assisted";
+import { programmedSavingRequestSteps } from "./config/assisted";
 
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
@@ -13,39 +13,46 @@ import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
-import { Navigate } from "react-router-dom";
+import { useFlag } from "@inubekit/flag";
+import { Navigate, useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { initalValuesProgrammedSavingFixed } from "./config/initialValues";
+import { initalValuesProgrammedSaving } from "./config/initialValues";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
 import { IShareMaturityEntry } from "./forms/ShareMaturityForm/types";
-import { ProgrammedSavingFixedRequestUI } from "./interface";
+import { ProgrammedSavingRequestUI } from "./interface";
 import {
-  IFormsProgrammedSavingFixedRequest,
-  IFormsProgrammedSavingFixedRequestRefs,
+  IFormsProgrammedSavingRequest,
+  IFormsProgrammedSavingRequestRefs,
 } from "./types";
-import { programmedSavingFixedStepsRules } from "./utils";
+import {
+  programmedSavingStepsRules,
+  sendProgrammedSavingRequest,
+} from "./utils";
 
-function ProgrammedSavingFixedRequest() {
+function ProgrammedSavingRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
   const { accessToken } = useAuth();
   const [currentStep, setCurrentStep] = useState(
-    programmedSavingFixedRequestSteps.destination.number,
+    programmedSavingRequestSteps.destination.number,
   );
-  const steps = Object.values(programmedSavingFixedRequestSteps);
+  const steps = Object.values(programmedSavingRequestSteps);
 
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
   const { getFlag } = useContext(AppContext);
+  const [loadingSend, setLoadingSend] = useState(false);
+  const navigate = useNavigate();
+  const { addFlag } = useFlag();
 
-  const [programmedSavingFixedRequest, setProgrammedSavingFixedRequest] =
-    useState<IFormsProgrammedSavingFixedRequest>({
+  const [programmedSavingRequest, setProgrammedSavingRequest] =
+    useState<IFormsProgrammedSavingRequest>({
       destination: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.destination,
+        values: initalValuesProgrammedSaving.destination,
       },
       savingConditions: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.savingConditions,
+        values: initalValuesProgrammedSaving.savingConditions,
       },
       paymentMethod: {
         isValid: false,
@@ -53,7 +60,7 @@ function ProgrammedSavingFixedRequest() {
       },
       shareMaturity: {
         isValid: false,
-        values: initalValuesProgrammedSavingFixed.shareMaturity,
+        values: initalValuesProgrammedSaving.shareMaturity,
       },
       disbursement: {
         isValid: false,
@@ -87,7 +94,7 @@ function ProgrammedSavingFixedRequest() {
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
-  const formReferences: IFormsProgrammedSavingFixedRequestRefs = {
+  const formReferences: IFormsProgrammedSavingRequestRefs = {
     destination: destinationRef,
     savingConditions: savingConditionsRef,
     paymentMethod: paymentMethodRef,
@@ -97,6 +104,12 @@ function ProgrammedSavingFixedRequest() {
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,
   };
+
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      currentLocation.pathname !== nextLocation.pathname &&
+      !nextLocation.search.includes("?success_request=true"),
+  );
 
   const validateEnums = async () => {
     if (!accessToken) return;
@@ -115,26 +128,26 @@ function ProgrammedSavingFixedRequest() {
   }, [accessToken]);
 
   const handleStepChange = (stepId: number) => {
-    const newProgrammedSavingFixedRequest = programmedSavingFixedStepsRules(
+    const newProgrammedSavingRequest = programmedSavingStepsRules(
       currentStep,
-      programmedSavingFixedRequest,
+      programmedSavingRequest,
       formReferences,
       isCurrentFormValid,
     );
 
-    setProgrammedSavingFixedRequest(newProgrammedSavingFixedRequest);
+    setProgrammedSavingRequest(newProgrammedSavingRequest);
 
-    const changeStepKey = Object.entries(
-      programmedSavingFixedRequestSteps,
-    ).find(([, config]) => config.number === stepId)?.[0];
+    const changeStepKey = Object.entries(programmedSavingRequestSteps).find(
+      ([, config]) => config.number === stepId,
+    )?.[0];
 
     if (!changeStepKey) return;
 
     const changeIsVerification = stepId === steps.length;
     setIsCurrentFormValid(
       changeIsVerification ||
-        newProgrammedSavingFixedRequest[
-          changeStepKey as keyof IFormsProgrammedSavingFixedRequest
+        newProgrammedSavingRequest[
+          changeStepKey as keyof IFormsProgrammedSavingRequest
         ]?.isValid ||
         false,
     );
@@ -145,13 +158,34 @@ function ProgrammedSavingFixedRequest() {
   };
 
   const handleFinishAssisted = () => {
-    return true;
+    if (!accessToken || !user) return;
+
+    setLoadingSend(true);
+
+    sendProgrammedSavingRequest(
+      user,
+      programmedSavingRequest,
+      accessToken,
+      navigate,
+    ).catch(() => {
+      addFlag({
+        title: "La solicitud no pudo ser procesada",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        appearance: "danger",
+        duration: 5000,
+      });
+
+      setLoadingSend(false);
+    });
   };
 
   const handleNextStep = () => {
     if (currentStep < steps.length) {
       handleStepChange(currentStep + 1);
+      return;
     }
+    handleFinishAssisted();
   };
 
   const handlePreviousStep = () => {
@@ -165,12 +199,14 @@ function ProgrammedSavingFixedRequest() {
   }
 
   return (
-    <ProgrammedSavingFixedRequestUI
+    <ProgrammedSavingRequestUI
       currentStep={currentStep}
       steps={steps}
       isCurrentFormValid={isCurrentFormValid}
-      programmedSavingFixedRequest={programmedSavingFixedRequest}
+      programmedSavingRequest={programmedSavingRequest}
       formReferences={formReferences}
+      loadingSend={loadingSend}
+      blocker={blocker}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
@@ -180,4 +216,4 @@ function ProgrammedSavingFixedRequest() {
   );
 }
 
-export { ProgrammedSavingFixedRequest };
+export { ProgrammedSavingRequest };

@@ -2,11 +2,11 @@ import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const shareMaturityDataDomain = {
   PAYMENT: {
-    id: "payment",
+    id: "AutomaticRenewalAtExpiration",
     value: "Sí",
   },
   RENEWAL: {
-    id: "renewal",
+    id: "DecideToRenewAtALaterDate",
     value: "No",
   },
 };

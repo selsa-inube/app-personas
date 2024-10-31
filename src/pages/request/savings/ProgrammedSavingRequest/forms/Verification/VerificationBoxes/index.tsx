@@ -8,10 +8,29 @@ import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsF
 import { Grid } from "@inubekit/grid";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { currencyFormat } from "src/utils/currency";
-import { programmedSavingFixedRequestSteps } from "../../../config/assisted";
-import { IFormsProgrammedSavingFixedRequest } from "../../../types";
+import { programmedSavingRequestSteps } from "../../../config/assisted";
+import { IFormsProgrammedSavingRequest } from "../../../types";
+import { IDestinationEntry } from "../../DestinationForm/types";
 import { ISavingConditionsEntry } from "../../SavingConditionsForm/types";
 import { IShareMaturityEntry } from "../../ShareMaturityForm/types";
+
+const renderDestinationVerification = (
+  values: IDestinationEntry,
+  isTablet: boolean,
+) => (
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    autoRows="auto"
+    gap={inube.spacing.s100}
+    width="100%"
+  >
+    <BoxAttribute
+      label="Producto:"
+      direction={isTablet ? "column" : "row"}
+      value={values.product?.title}
+    />
+  </Grid>
+);
 
 const renderSavingConditionsVerification = (
   values: ISavingConditionsEntry,
@@ -43,53 +62,61 @@ const renderShareMaturityVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    <BoxAttribute label="Acción al vencimiento:" value={values.renewalName} />
+    <BoxAttribute
+      label="Acción al vencimiento:"
+      value={values.shareMaturityName}
+    />
   </Grid>
 );
 interface VerificationBoxesProps {
-  programmedSavingFixedRequest: IFormsProgrammedSavingFixedRequest;
-  stepKey: keyof typeof programmedSavingFixedRequestSteps;
+  programmedSavingRequest: IFormsProgrammedSavingRequest;
+  stepKey: keyof typeof programmedSavingRequestSteps;
   isTablet: boolean;
 }
 
 function VerificationBoxes(props: VerificationBoxesProps) {
-  const { programmedSavingFixedRequest, stepKey, isTablet } = props;
+  const { programmedSavingRequest, stepKey, isTablet } = props;
   return (
     <>
+      {stepKey === "destination" &&
+        renderDestinationVerification(
+          programmedSavingRequest.destination.values,
+          isTablet,
+        )}
       {stepKey === "savingConditions" &&
         renderSavingConditionsVerification(
-          programmedSavingFixedRequest.savingConditions.values,
+          programmedSavingRequest.savingConditions.values,
           isTablet,
         )}
 
       {stepKey === "paymentMethod" &&
         renderPaymentMethodVerification(
-          programmedSavingFixedRequest.paymentMethod.values,
+          programmedSavingRequest.paymentMethod.values,
           isTablet,
         )}
       {stepKey === "shareMaturity" &&
         renderShareMaturityVerification(
-          programmedSavingFixedRequest.shareMaturity.values,
+          programmedSavingRequest.shareMaturity.values,
           isTablet,
         )}
       {stepKey === "disbursement" &&
         renderDisbursementVerification(
-          programmedSavingFixedRequest.disbursement.values,
+          programmedSavingRequest.disbursement.values,
           isTablet,
         )}
       {stepKey === "systemValidations" &&
         renderSystemValidationsVerification(
-          programmedSavingFixedRequest.systemValidations.values,
+          programmedSavingRequest.systemValidations.values,
           isTablet,
         )}
       {stepKey === "termsAndConditions" &&
         renderTermsAndConditionsVerification(
-          programmedSavingFixedRequest.termsAndConditions.values,
+          programmedSavingRequest.termsAndConditions.values,
           isTablet,
         )}
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(
-          programmedSavingFixedRequest.contactChannels.values,
+          programmedSavingRequest.contactChannels.values,
         )}
     </>
   );
