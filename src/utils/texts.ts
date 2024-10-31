@@ -30,6 +30,14 @@ const obfuscateText = (text: string, start: number, end: number) => {
   );
 };
 
+const obfuscateCardNumberDocument = (number: string | null): string | null => {
+  if (!number) return null;
+
+  const lastFourDigits = number.slice(-4);
+  const obfuscatedPart = number.slice(0, -4).replace(/\d/g, "X");
+  return `${obfuscatedPart.replace(/(.{4})/g, "$1 - ").trim()} ${lastFourDigits}`;
+};
+
 const correctSpecialCharacters = (text: string): string => {
   const substitutionMap: { [key: string]: string } = {
     "ã³": "ó",
@@ -60,6 +68,7 @@ export {
   capitalizeText,
   correctSpecialCharacters,
   obfuscateText,
+  obfuscateCardNumberDocument,
   removeLastCharacters,
   truncateFileName,
 };

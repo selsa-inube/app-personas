@@ -38,6 +38,7 @@ import { PaymentsRoutes } from "./routes/payments";
 import { TransfersRoutes } from "./routes/transfers";
 import { FlagProvider } from "@inubekit/flag";
 import { MyPQRSRoutes } from "./routes/myPQRS";
+import { CertificationRequest } from "@pages/request/certifications";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,6 +69,8 @@ const router = createBrowserRouter(
         <Route path="aids/*" element={<AidRoutes />} />
 
         <Route path="my-pqrs/*" element={<MyPQRSRoutes />} />
+
+        <Route path="certifications" element={<CertificationRequest />} />
 
         <Route path="/update-data-assisted" element={<UpdateData />} />
         <Route

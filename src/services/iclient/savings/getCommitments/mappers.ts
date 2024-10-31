@@ -102,6 +102,11 @@ const mapSavingsCommitmentsApiToEntity = (
       label: "En mora",
       value: String(inArrears),
     },
+    {
+      id: "quota_value_fixed",
+      label: "Compromiso",
+      value: String(commitment.quotaValue),
+    },
   ];
 
   if (commitment.contributionValue) {
