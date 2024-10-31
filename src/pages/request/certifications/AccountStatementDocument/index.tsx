@@ -4,13 +4,18 @@ import { inube } from "@design/tokens";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { formatPrimaryDate } from "src/utils/dates";
+import { IEntry } from "@design/data/Table/types";
+import { IProduct } from "src/model/entity/product";
+import { Grid } from "@inubekit/grid";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
+import { StyledCardContainer } from "./styles";
+import { currencyFormat } from "src/utils/currency";
 import {
   cardsTableTitles,
   commitmentsTableTitles,
   paymentSummaryTitles,
   savingsTableTitles,
 } from "../config/tables";
-import { IEntry } from "@design/data/Table/types";
 import {
   Col,
   Colgroup,
@@ -21,10 +26,6 @@ import {
   Thead,
   Tr,
 } from "@inubekit/table";
-import { IProduct } from "src/model/entity/product";
-import { Grid } from "@inubekit/grid";
-import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { StyledCardContainer } from "./styles";
 
 const today = new Date();
 const NO_DATA_MESSAGE = "Actualmente no tienes productos para mostrar.";
@@ -138,15 +139,24 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
       id: item.id,
       description: item.description,
       loanDate: attributes.find((attr) => attr.id === "loan_date")?.value ?? "",
-      loanValue:
-        attributes.find((attr) => attr.id === "loan_value")?.value ?? "",
-      cancellationBalance:
-        attributes.find((attr) => attr.id === "cancellation_balance")?.value ??
-        "",
-      valueToBeCurrent:
-        attributes.find((attr) => attr.id === "expired_value")?.value ?? "",
-      outstandingDues:
-        attributes.find((attr) => attr.id === "outstanding_dues")?.value ?? "",
+      loanValue: currencyFormat(
+        Number(attributes.find((attr) => attr.id === "loan_value")?.value) || 0,
+      ),
+      cancellationBalance: currencyFormat(
+        Number(
+          attributes.find((attr) => attr.id === "total_value")?.value,
+        ) ?? 0,
+      ),
+      valueToBeCurrent: currencyFormat(
+        Number(attributes.find((attr) => attr.id === "expired_value")?.value) ??
+          0,
+      ),
+      outstandingDues: Number(
+        attributes.find((attr) => attr.id === "outstanding_dues")?.value ?? 0,
+      ),
+      duesPaid: Number(
+        attributes.find((attr) => attr.id === "dues_paid")?.value ?? 0,
+      ),
       periodicity:
         attributes.find((attr) => attr.id === "periodicity")?.value ?? "",
       interestRate:
@@ -259,36 +269,43 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
                   key={credit.loanDate.toString()}
                   label="Fecha de préstamo:"
                   value={credit.loanDate}
+                  downloadable
                 />
                 <BoxAttribute
                   key={credit.loanValue.toString()}
                   label="Monto solicitado:"
                   value={credit.loanValue}
+                  downloadable
                 />
                 <BoxAttribute
                   key={credit.cancellationBalance.toString()}
                   label="Saldo cancelación:"
                   value={credit.cancellationBalance}
+                  downloadable
                 />
                 <BoxAttribute
                   key={credit.valueToBeCurrent.toString()}
                   label="Valor para colocarse al día:"
                   value={credit.valueToBeCurrent}
+                  downloadable
                 />
                 <BoxAttribute
                   key={credit.outstandingDues.toString()}
                   label="Cuotas pendientes:"
-                  value={credit.outstandingDues}
+                  value={`${credit.outstandingDues} / ${credit.duesPaid + credit.outstandingDues}`}
+                  downloadable
                 />
                 <BoxAttribute
                   key={credit.periodicity.toString()}
                   label="Periodicidad:"
                   value={credit.periodicity}
+                  downloadable
                 />
                 <BoxAttribute
                   key={credit.interestRate.toString()}
                   label="Tasa:"
                   value={credit.interestRate}
+                  downloadable
                 />
               </Grid>
             </StyledCardContainer>

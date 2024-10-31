@@ -109,12 +109,20 @@ const obligations = (credits: IProduct[]): IEntry[] => {
   return credits.map((item) => {
     const attributes = item.attributes;
 
-    const nextDueDate =
-      attributes.find((attr) => attr.id === "next_payment")?.value ?? null;
+    const nextDueDateString = attributes.find(
+      (attr) => attr.id === "next_payment",
+    )?.value;
+
+    const nextDueDate = nextDueDateString ?? "Por definir";
+
+    const nextPaymentValue = attributes.find(
+      (attr) => attr.id === "next_payment_value",
+    )?.value;
 
     const nextDueValue =
-      attributes.find((attr) => attr.id === "next_payment_value")?.value ??
-      null;
+      typeof nextPaymentValue === "number"
+        ? currencyFormat(nextPaymentValue)
+        : null;
 
     return {
       id: item.id,
