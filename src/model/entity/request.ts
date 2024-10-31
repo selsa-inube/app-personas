@@ -3,7 +3,7 @@ import { ISelectedDocument, IValidation } from "./service";
 interface IRequest {
   id: string;
   title: string;
-  product: string;
+  product?: string;
   destination?: string;
   beneficiary?: string;
   detailsSituation?: string;
@@ -22,6 +22,10 @@ interface IRequest {
   documentaryRequirements: ISelectedDocument[];
   requestType: RequestType;
   aidType?: string;
+  paymentMethodName?: string;
+  periodicityName?: string;
+  disbursementMethodName?: string;
+  disbursementAccount?: string;
 }
 
 type RequestType = "credit" | "aid" | "programmedsaving";

@@ -23,6 +23,7 @@ interface SystemValidationsFormProps {
   test?: boolean;
   requestType: RequestType;
   beneficiary?: IBeneficiary;
+  shareMaturity?: string;
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -36,6 +37,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
     test,
     requestType,
     beneficiary,
+    shareMaturity,
     onFormValid,
   } = props;
 
@@ -63,6 +65,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       formik,
       disbursementValues,
       beneficiary,
+      shareMaturity,
     );
 
     getRequirementsForProduct(requirementsRequest, accessToken)

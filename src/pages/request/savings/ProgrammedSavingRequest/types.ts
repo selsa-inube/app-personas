@@ -8,7 +8,7 @@ import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
 import { IShareMaturityEntry } from "./forms/ShareMaturityForm/types";
 
-interface IFormsProgrammedSavingFixedRequest {
+interface IFormsProgrammedSavingRequest {
   destination: { isValid: boolean; values: IDestinationEntry };
   savingConditions: { isValid: boolean; values: ISavingConditionsEntry };
   paymentMethod: { isValid: boolean; values: IPaymentMethodEntry };
@@ -19,7 +19,7 @@ interface IFormsProgrammedSavingFixedRequest {
   contactChannels: { isValid: boolean; values: IContactChannelsEntry };
 }
 
-interface IFormsProgrammedSavingFixedRequestRefs {
+interface IFormsProgrammedSavingRequestRefs {
   destination: React.RefObject<FormikProps<IDestinationEntry>>;
   savingConditions: React.RefObject<FormikProps<ISavingConditionsEntry>>;
   paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
@@ -31,6 +31,6 @@ interface IFormsProgrammedSavingFixedRequestRefs {
 }
 
 export type {
-  IFormsProgrammedSavingFixedRequest,
-  IFormsProgrammedSavingFixedRequestRefs,
+  IFormsProgrammedSavingRequest,
+  IFormsProgrammedSavingRequestRefs,
 };

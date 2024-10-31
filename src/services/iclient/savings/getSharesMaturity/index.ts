@@ -1,16 +1,17 @@
 import { enviroment } from "@config/enviroment";
-import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingRequest/forms/DestinationForm/types";
+import { ISelectOption } from "@design/input/Select/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapProductsApiToEntities } from "./mappers";
+import { mapSharesApiToEntities } from "./mappers";
 
-const getProgrammedSavingProducts = async (
+const getSharesMaturity = async (
   userIdentification: string,
+  productId: string,
   accessToken: string,
-): Promise<IProgrammedSavingProduct[]> => {
+): Promise<ISelectOption[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/programmed-savings`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/programmed-savings/${productId}/customer/${userIdentification}`;
 
   try {
     const options: RequestInit = {
@@ -18,7 +19,7 @@ const getProgrammedSavingProducts = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchProgrammedSavings",
+        "X-Action": "SearchActionAfterExpiration",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -42,17 +43,14 @@ const getProgrammedSavingProducts = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los productos de ahorro programado.",
+        message: "Error al obtener las acciones al vencimiento",
         status: res.status,
         data,
       };
     }
 
-    const normalizedProducts = Array.isArray(data)
-      ? mapProductsApiToEntities(data)
-      : [];
-
-    return normalizedProducts;
+    const normalizedShares = mapSharesApiToEntities(data);
+    return normalizedShares;
   } catch (error) {
     saveNetworkTracking(
       requestTime,
@@ -68,4 +66,4 @@ const getProgrammedSavingProducts = async (
   }
 };
 
-export { getProgrammedSavingProducts };
+export { getSharesMaturity };

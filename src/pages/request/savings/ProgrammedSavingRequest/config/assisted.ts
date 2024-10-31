@@ -1,4 +1,4 @@
-const programmedSavingFixedRequestSteps = {
+const programmedSavingRequestSteps = {
   destination: {
     id: "destination",
     number: 1,
@@ -17,19 +17,19 @@ const programmedSavingFixedRequestSteps = {
     name: "Forma de pago",
     description: "Completa los detalles de la forma de pago.",
   },
-  shareMaturity: {
-    id: "shareMaturity",
-    number: 4,
-    name: "Acción al vencimiento",
-    description:
-      "Selecciona la decisión que deseas tomar al final de tu producto.",
-  },
   disbursement: {
     id: "disbursement",
-    number: 5,
+    number: 4,
     name: "Reembolso",
     description:
       "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
+  },
+  shareMaturity: {
+    id: "shareMaturity",
+    number: 5,
+    name: "Acción al vencimiento",
+    description:
+      "Selecciona la decisión que deseas tomar al final de tu producto.",
   },
   systemValidations: {
     id: "systemValidations",
@@ -59,4 +59,4 @@ const programmedSavingFixedRequestSteps = {
   },
 };
 
-export { programmedSavingFixedRequestSteps };
+export { programmedSavingRequestSteps };

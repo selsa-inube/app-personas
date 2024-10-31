@@ -31,11 +31,11 @@ const planName: IPlanNameEntry = {
 
 const shareMaturity: IShareMaturityEntry = {};
 
-const initalValuesProgrammedSavingFixed = {
+const initalValuesProgrammedSaving = {
   destination,
   savingConditions,
   planName,
   shareMaturity,
 };
 
-export { initalValuesProgrammedSavingFixed };
+export { initalValuesProgrammedSaving };
