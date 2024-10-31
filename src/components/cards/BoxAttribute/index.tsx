@@ -14,6 +14,7 @@ interface BoxAttributeProps {
   buttonIcon?: React.JSX.Element;
   buttonValue?: string | number;
   buttonDisabled?: boolean;
+  downloadable?: boolean;
   direction?: "row" | "column";
   iconAfter?: React.JSX.Element;
   onClickButton?: () => void;
@@ -27,9 +28,9 @@ function BoxAttribute(props: BoxAttributeProps) {
     buttonIcon,
     buttonValue,
     buttonDisabled,
+    downloadable = false,
     direction,
     iconAfter,
-
     onClickButton,
   } = props;
 
@@ -48,7 +49,7 @@ function BoxAttribute(props: BoxAttributeProps) {
         {label && (
           <Text
             type="label"
-            size={isMobile ? "small" : "medium"}
+            size={isMobile || downloadable ? "small" : "medium"}
             appearance="dark"
           >
             {label}
@@ -73,7 +74,7 @@ function BoxAttribute(props: BoxAttributeProps) {
               value && (
                 <Text
                   type="body"
-                  size={isMobile ? "small" : "medium"}
+                  size={isMobile || downloadable ? "small" : "medium"}
                   appearance="gray"
                   textAlign={
                     direction === "column" || iconAfter ? "start" : "end"

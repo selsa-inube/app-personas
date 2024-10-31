@@ -44,6 +44,9 @@ function Page(props: PageProps) {
   const withPayments = getFlag("admin.payments.pay.payment-options").value;
   const withMyRequests = getFlag("admin.requests.requests.my-requests").value;
   const withMyPQRS = getFlag("admin.pqrs.pqrs.pqrs-option").value;
+  const withCertificationsRequests = getFlag(
+    "request.certifications.certifications.request-certifications",
+  ).value;
 
   const mobileNav = getMobileNav(
     withSavingRequest,
@@ -55,6 +58,7 @@ function Page(props: PageProps) {
     withPayments,
     withMyRequests,
     withMyPQRS,
+    withCertificationsRequests,
   );
 
   const nav = getNav(
@@ -67,6 +71,7 @@ function Page(props: PageProps) {
     withPayments,
     withMyRequests,
     withMyPQRS,
+    withCertificationsRequests,
   );
 
   const header = getHeader(
