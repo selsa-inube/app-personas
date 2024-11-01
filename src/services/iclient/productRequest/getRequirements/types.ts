@@ -44,7 +44,6 @@ interface IRequirementAidData {
 
 interface IRequirementProgrammedSavingData {
   actionAfterExpiration: string;
-  wayToPay: string;
   productId: string;
   productName: string;
   deadline: number;

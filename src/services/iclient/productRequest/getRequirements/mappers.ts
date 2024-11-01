@@ -57,7 +57,6 @@ const mapRequirementEntityToApi = (
         conditions: {
           actionAfterExpiration:
             requirement.programmedSavingData.actionAfterExpiration,
-          wayToPay: requirement.programmedSavingData.wayToPay,
           numQuotas: requirement.programmedSavingData.deadline,
           paymentMethod: requirement.programmedSavingData.paymentMethod,
           paymentMethodName: requirement.programmedSavingData.paymentMethodName,

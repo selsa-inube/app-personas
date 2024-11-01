@@ -130,7 +130,6 @@ const buildRequestData = (
   ) {
     requirementsRequest.programmedSavingData = {
       actionAfterExpiration: shareMaturity || "",
-      wayToPay: "Payroll",
       productId: formik.values.productId,
       productName: formik.values.productName,
       deadline: formik.values.deadline,
