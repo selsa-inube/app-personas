@@ -153,7 +153,6 @@ const sendProgrammedSavingRequest = async (
       quota: programmedSavingRequest.savingConditions.values.quota || 0,
       shareMaturity:
         programmedSavingRequest.shareMaturity.values.shareMaturity || "",
-      wayToPay: "Payroll",
     },
     disbursmentMethod: {
       id: programmedSavingRequest.disbursement.values.disbursement || "",

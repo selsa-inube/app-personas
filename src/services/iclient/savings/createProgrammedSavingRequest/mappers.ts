@@ -21,7 +21,6 @@ const mapRequestProgrammedSavingEntityToApi = (
         paymentMethodName: programmedSavingRequest.conditions.paymentMethodName,
         periodicity: programmedSavingRequest.conditions.periodicity,
         quotaValue: programmedSavingRequest.conditions.quota,
-        wayToPay: programmedSavingRequest.conditions.wayToPay,
       },
       customerCode: programmedSavingRequest.customerCode,
       cus: "",

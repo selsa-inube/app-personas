@@ -15,7 +15,6 @@ interface IRequestProgrammedSavingRequest {
     paymentMethodName: string;
     periodicity: string;
     quota: number;
-    wayToPay: string;
   };
   disbursmentMethod: {
     id: string;
