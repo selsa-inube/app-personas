@@ -23,6 +23,10 @@ interface IRequest {
   documentaryRequirements: ISelectedDocument[];
   requestType: RequestType;
   aidType?: string;
+  paymentMethodName?: string;
+  periodicityName?: string;
+  disbursementMethodName?: string;
+  disbursementAccount?: string;
 }
 
 type RequestType = "credit" | "aid" | "programmedsaving";

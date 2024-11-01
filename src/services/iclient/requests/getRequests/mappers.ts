@@ -23,14 +23,16 @@ const requestStatusAppearance: Record<string, ITag["appearance"]> = {
   Cancelled: "danger",
 };
 
-const requestTitles: Record<string, string> = {
+const requestTitles: Record<RequestType, string> = {
   credit: "Crédito",
   aid: "Auxilio",
+  programmedsaving: "Ahorro programado a término fijo",
 };
 
-const requestDescriptions: Record<string, string> = {
+const requestDescriptions: Record<RequestType, string> = {
   credit: "Solicitud de crédito",
   aid: "Solicitud de auxilio",
+  programmedsaving: "Solicitud de ahorro programado a término fijo",
 };
 
 const mapValidationApiToEntity = (
@@ -102,7 +104,7 @@ const mapRequestApiToEntity = (
 ): IRequest => {
   const details = Object(request).details || {};
   const conditions = Object(details).conditions || {};
-  /* const disbursementMethod = Object(details).disbursementMethod || {}; */
+  const disbursementMethod = Object(details).disbursementMethod || {};
   const requirementsApi = {
     validations: Object(details).systemRequirements,
     documents: Object(details).documentRequirements,
@@ -169,11 +171,11 @@ const mapRequestApiToEntity = (
       break;
 
     case "programmedsaving":
-      /*  requestData.periodicityName = String(
+      requestData.periodicityName = String(
         periodicityDM.valueOf(Object(conditions).periodicity || "")?.value ||
           "",
-      ); */
-      /*  requestData.paymentMethodName = String(
+      );
+      requestData.paymentMethodName = String(
         Object(conditions).paymentMethodName || "",
       );
       requestData.disbursementMethodName = String(
@@ -181,7 +183,8 @@ const mapRequestApiToEntity = (
       );
       requestData.disbursementAccount = String(
         Object(disbursementMethod).savingsAccountNumber || "",
-      ); */
+      );
+
       requestData.quotaValue = Number(Object(conditions).quotaValue || 0);
       requestData.deadline = String(
         Object(conditions).quotas || Object(conditions).numQuotas,

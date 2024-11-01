@@ -1,4 +1,4 @@
-import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingFixedRequest/forms/DestinationForm/types";
+import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingRequest/forms/DestinationForm/types";
 
 const mapProductApiToEntity = (
   product: Record<string, string | number | object>,

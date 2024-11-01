@@ -3,7 +3,6 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Grid } from "@inubekit/grid";
 import { FormikProps } from "formik";
-import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
 import { getFieldState } from "src/utils/forms/forms";
 import { IShareMaturityEntry } from "./types";
 
@@ -30,18 +29,19 @@ function ShareMaturityFormUI(props: ShareMaturityFormUIProps) {
         gap={inube.spacing.s300}
       >
         <Select
-          name="renewal"
-          id="renewal"
+          name="shareMaturity"
+          id="shareMaturity"
           label="Renovar producto al vencimiento"
-          value={formik.values.renewal || ""}
+          value={formik.values.shareMaturity || ""}
           size="compact"
           isDisabled={loading}
-          options={shareMaturityDM.options}
+          options={formik.values.sharesMaturity || []}
           onChange={customHandleChange}
           onBlur={formik.handleBlur}
-          state={getFieldState(formik, "renewal")}
-          errorMessage={formik.errors.renewal}
+          state={getFieldState(formik, "shareMaturity")}
+          errorMessage={formik.errors.shareMaturity}
           isFullWidth
+          readOnly={formik.values.sharesMaturity?.length === 1}
         />
       </Grid>
     </form>
