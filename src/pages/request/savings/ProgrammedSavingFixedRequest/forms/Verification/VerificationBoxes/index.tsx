@@ -43,7 +43,10 @@ const renderShareMaturityVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    <BoxAttribute label="Acción al vencimiento:" value={values.renewalName} />
+    <BoxAttribute
+      label="Acción al vencimiento:"
+      value={values.shareMaturityName}
+    />
   </Grid>
 );
 interface VerificationBoxesProps {

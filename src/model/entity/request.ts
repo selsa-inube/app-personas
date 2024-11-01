@@ -3,7 +3,7 @@ import { ISelectedDocument, IValidation } from "./service";
 interface IRequest {
   id: string;
   title: string;
-  product: string;
+  product?: string;
   destination?: string;
   beneficiary?: string;
   detailsSituation?: string;
@@ -11,7 +11,8 @@ interface IRequest {
   requestDate: Date;
   description: string;
   status: string;
-  value: number;
+  value?: number;
+  label?: string;
   quotaValue?: number;
   periodicity?: string;
   deadline?: string;

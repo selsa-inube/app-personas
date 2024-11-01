@@ -69,14 +69,13 @@ interface RecordCardProps {
   type: EMovementType;
   description: string;
   value?: number;
+  label?: string;
   withExpandingIcon?: boolean;
   tag?: ITag;
   loading?: boolean;
   attributes: { id: string; label: string; value: number | string | Date }[];
   datesWithTime?: boolean;
   path?: string;
-  valueIsCurrency?: boolean;
-  valueLabel?: string;
   onClick?: (movementId: string) => void;
 }
 
@@ -86,14 +85,13 @@ function RecordCard(props: RecordCardProps) {
     type,
     description,
     value,
+    label,
     attributes,
     withExpandingIcon = false,
     loading,
     tag,
     datesWithTime,
     path,
-    valueIsCurrency = true,
-    valueLabel,
     onClick,
   } = props;
 
@@ -153,7 +151,7 @@ function RecordCard(props: RecordCardProps) {
 
             <Stack gap={inube.spacing.s150}>
               <Text type="label" size="medium" ellipsis weight="bold">
-                {valueIsCurrency ? formattedValue : value} {valueLabel}
+                {formattedValue || label}
               </Text>
 
               {withExpandingIcon && !isMobile && !EMovementType.PQRS && (

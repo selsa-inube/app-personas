@@ -2,12 +2,14 @@ import { ITag } from "@inubekit/tag";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
-import { IRequest } from "src/model/entity/request";
+import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
+import { IRequest, RequestType } from "src/model/entity/request";
 import {
   ISelectedDocument,
   IValidation,
   ValidationValueType,
 } from "src/model/entity/service";
+import { currencyFormat } from "src/utils/currency";
 import { capitalizeText, correctSpecialCharacters } from "src/utils/texts";
 
 const requestStatusAppearance: Record<string, ITag["appearance"]> = {
@@ -70,7 +72,7 @@ const mapDocumentApiToEntity = (
 };
 
 const mapRequirementsApiToEntities = (
-  requirements: Record<string, string | number | object>[],
+  requirements: Record<string, string | number | object>,
 ): {
   validations: IValidation[];
   documents: ISelectedDocument[];
@@ -98,66 +100,111 @@ const mapRequirementsApiToEntities = (
 const mapRequestApiToEntity = (
   request: Record<string, string | number | object>,
 ): IRequest => {
+  const details = Object(request).details || {};
+  const conditions = Object(details).conditions || {};
+  /* const disbursementMethod = Object(details).disbursementMethod || {}; */
   const requirementsApi = {
-    validations: Object(request).details.systemRequirements,
-    documents: Object(request).details.documentRequirements,
+    validations: Object(details).systemRequirements,
+    documents: Object(details).documentRequirements,
   };
 
-  const requirements = mapRequirementsApiToEntities(Object(requirementsApi));
+  const requirements = mapRequirementsApiToEntities(requirementsApi);
+  const requestTypeCode = Object(request.requestType).code as RequestType;
+  const requestStatusCode = Object(request.status).code;
 
-  const requestedAmount = Object(request).details?.conditions?.requestedAmount;
-  const requestedValue = Object(request).details?.requestedValue;
-
-  const aidType = Object(request).aidType.code;
-  
-  return {
+  const requestData: IRequest = {
     id: String(request.productRequestId),
-    requestType: Object(request.requestType).code,
-    title: requestTitles[Object(request.requestType).code] || "",
-    product: capitalizeText(
-      String(
-        Object(request).details.productDetail ||
-          Object(request).details.aidDescription,
-      ),
-    ),
+    requestType: requestTypeCode,
+    title: requestTitles[requestTypeCode as RequestType] || "",
     destination: capitalizeText(
-      String(Object(request).details.destinationDetail || ""),
-    ),
-    beneficiary: capitalizeText(
-      String(Object(request).details.beneficiary.customerName || ""),
+      String(Object(details).destinationDetail || ""),
     ),
     trackingCode: request.requestNumber ? String(request.requestNumber) : "",
     requestDate: new Date(String(request.requestDate)),
-    description: requestDescriptions[Object(request.requestType).code] || "",
+    description: requestDescriptions[requestTypeCode as RequestType] || "",
     status:
-      requestStatusDM.valueOf(Object(request.status).code)?.id ||
+      requestStatusDM.valueOf(requestStatusCode)?.id ||
       requestStatusDM.RECEIVED.id,
-    value: Number(requestedAmount ? requestedAmount : requestedValue),
-    quotaValue: Number(Object(request).details?.conditions?.quotaValue || 0),
     periodicity:
-      periodicityDM.valueOf(
-        Object(request).details?.conditions?.capitalPeriodicity || "",
-      )?.value || "",
-    deadline: String(Object(request).details?.conditions?.quotas || ""),
-    interestRate: Number(
-      Object(request).details?.conditions?.remunerativeInterestRate || 0,
-    ),
+      periodicityDM.valueOf(Object(conditions).capitalPeriodicity || "")
+        ?.value || "",
+    interestRate: Number(Object(conditions).remunerativeInterestRate || 0),
     netValue: Number(
-      Object(request).details?.conditions?.disbursementDetails
-        ?.netDisbursementApprox || 0,
+      Object(conditions).disbursementDetails?.netDisbursementApprox || 0,
     ),
     tag: {
       label:
-        requestStatusDM.valueOf(Object(request.status).code)?.value ||
+        requestStatusDM.valueOf(requestStatusCode)?.value ||
         requestStatusDM.RECEIVED.value,
-      appearance:
-        requestStatusAppearance[Object(request.status).code] || "warning",
+      appearance: requestStatusAppearance[requestStatusCode] || "warning",
     },
-    detailsSituation: String(Object(request).details?.comments || ""),
+    detailsSituation: String(Object(details).comments || ""),
     validations: requirements.validations,
     documentaryRequirements: requirements.documents,
-    aidType: aidType ? String(aidType) : undefined,
   };
+
+  switch (requestTypeCode) {
+    case "aid":
+      if (Object(request).aidType?.code)
+        requestData.aidType = Object(request).aidType.code;
+      if (Object(details).beneficiary) {
+        requestData.beneficiary = capitalizeText(
+          String(Object(details).beneficiary.customerName || ""),
+        );
+      }
+      requestData.product = capitalizeText(
+        String(
+          Object(details).productDetail ||
+            Object(details).aidDescription ||
+            Object(details).savingName,
+        ),
+      );
+
+      if (Object(request).aidType.code === aidTypeDM.REQUIRED_DAYS.id) {
+        requestData.label = `${Object(details).requestedValue} Días`;
+      } else {
+        requestData.value = Number(Object(details).requestedValue || 0);
+      }
+
+      break;
+
+    case "programmedsaving":
+      /*  requestData.periodicityName = String(
+        periodicityDM.valueOf(Object(conditions).periodicity || "")?.value ||
+          "",
+      ); */
+      /*  requestData.paymentMethodName = String(
+        Object(conditions).paymentMethodName || "",
+      );
+      requestData.disbursementMethodName = String(
+        Object(disbursementMethod).disbursementMethodDetail || "",
+      );
+      requestData.disbursementAccount = String(
+        Object(disbursementMethod).savingsAccountNumber || "",
+      ); */
+      requestData.quotaValue = Number(Object(conditions).quotaValue || 0);
+      requestData.deadline = String(
+        Object(conditions).quotas || Object(conditions).numQuotas,
+      );
+
+      requestData.label = `${currencyFormat(Number(Object(conditions).quotaValue))} / ${periodicityDM.valueOf(Object(conditions).periodicity || "")?.value}`;
+
+      break;
+    case "credit":
+      requestData.quotaValue = Number(Object(conditions).quotaValue || 0);
+      requestData.deadline = String(
+        Object(conditions).quotas || Object(conditions).numQuotas,
+      );
+      requestData.product = capitalizeText(
+        String(Object(details).productDetail || ""),
+      );
+
+      requestData.value = Number(Object(conditions).requestedAmount || 0);
+
+      break;
+  }
+
+  return requestData;
 };
 
 const mapRequestsApiToEntities = (

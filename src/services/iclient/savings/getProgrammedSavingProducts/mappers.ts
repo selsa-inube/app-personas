@@ -5,8 +5,8 @@ const mapProductApiToEntity = (
 ): IProgrammedSavingProduct => {
   return {
     id: String(product.savingCode),
-    title: String(product.savingName),
-    maxRate: Number(Number(product.maxRate || 0).toFixed(2)),
+    title: String(product.alias || product.savingName),
+    maxRate: Number(Number(product.maximumRate || 0).toFixed(2)),
     minDeadline: Number(product.minimumQuotaTerm),
     maxDeadline: Number(product.maximumQuotaTerm),
     maxQuota: Number(product.maximumQuotaValue || 0),
