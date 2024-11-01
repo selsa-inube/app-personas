@@ -155,11 +155,7 @@ const mapRequestApiToEntity = (
         );
       }
       requestData.product = capitalizeText(
-        String(
-          Object(details).productDetail ||
-            Object(details).aidDescription ||
-            Object(details).savingName,
-        ),
+        String(Object(details).aidDescription || ""),
       );
 
       if (Object(request).aidType.code === aidTypeDM.REQUIRED_DAYS.id) {
@@ -171,6 +167,7 @@ const mapRequestApiToEntity = (
       break;
 
     case "programmedsaving":
+      requestData.product = capitalizeText(String(Object(details).savingName));
       requestData.periodicityName = String(
         periodicityDM.valueOf(Object(conditions).periodicity || "")?.value ||
           "",

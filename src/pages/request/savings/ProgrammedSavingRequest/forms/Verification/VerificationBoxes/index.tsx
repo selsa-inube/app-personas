@@ -63,7 +63,7 @@ const renderShareMaturityVerification = (
     width="100%"
   >
     <BoxAttribute
-      label="Acción al vencimiento:"
+      label="Renovar producto al vencimiento:"
       value={values.shareMaturityName}
     />
   </Grid>
