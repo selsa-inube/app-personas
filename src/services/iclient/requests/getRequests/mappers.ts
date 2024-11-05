@@ -20,6 +20,7 @@ const requestStatusAppearance: Record<string, ITag["appearance"]> = {
   Rejected: "danger",
   InDisbursement: "warning",
   Completed: "success",
+  Finished: "success",
   Cancelled: "danger",
 };
 
