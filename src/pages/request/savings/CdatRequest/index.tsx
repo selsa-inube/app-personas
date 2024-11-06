@@ -1,4 +1,3 @@
-import { mapComments } from "@forms/CommentsForm/mappers";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
@@ -10,14 +9,12 @@ import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
 import { IConditionsEntry } from "./forms/ConditionsForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
-import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
@@ -56,14 +53,6 @@ function CdatRequest() {
       isValid: false,
       values: mapSystemValidations(),
     },
-    investmentName: {
-      isValid: false,
-      values: initalValuesCDAT.investmentName,
-    },
-    comments: {
-      isValid: true,
-      values: mapComments(),
-    },
     termsAndConditions: {
       isValid: false,
       values: mapTermsAndConditions(),
@@ -83,8 +72,6 @@ function CdatRequest() {
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
-  const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
-  const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
@@ -95,8 +82,6 @@ function CdatRequest() {
     paymentMethod: paymentMethodRef,
     disbursement: disbursementRef,
     systemValidations: systemValidationsRef,
-    investmentName: investmentNameRef,
-    comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,
   };

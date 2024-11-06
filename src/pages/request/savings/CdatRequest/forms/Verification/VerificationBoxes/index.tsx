@@ -6,7 +6,6 @@ import { IConditionsEntry } from "../../ConditionsForm/types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
 
 import { inube } from "@design/tokens";
-import { renderCommentsVerification } from "@forms/CommentsForm/verification";
 import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
@@ -15,7 +14,6 @@ import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { cdatRequestSteps } from "../../../config/assisted";
-import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
 import {
   EMoneySourceType,
@@ -102,19 +100,6 @@ const renderPaymentMethodVerification = (
   </Grid>
 );
 
-const renderInvestmentNameVerification = (
-  values: IInvestmentNameEntry,
-  isTablet: boolean,
-) => (
-  <Stack
-    direction="column"
-    gap={isTablet ? inube.spacing.s200 : inube.spacing.s250}
-    width="100%"
-  >
-    <BoxAttribute label="Nombre del producto:" value={values.productName} />
-  </Stack>
-);
-
 interface VerificationBoxesProps {
   cdatRequest: IFormsCdatRequest;
   stepKey: keyof typeof cdatRequestSteps;
@@ -144,13 +129,6 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.systemValidations.values,
           isTablet,
         )}
-      {stepKey === "investmentName" &&
-        renderInvestmentNameVerification(
-          cdatRequest.investmentName.values,
-          isTablet,
-        )}
-      {stepKey === "comments" &&
-        renderCommentsVerification(cdatRequest.comments.values)}
       {stepKey === "termsAndConditions" &&
         renderTermsAndConditionsVerification(
           cdatRequest.termsAndConditions.values,
