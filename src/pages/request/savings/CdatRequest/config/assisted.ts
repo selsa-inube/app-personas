@@ -31,35 +31,22 @@ const cdatRequestSteps = {
     description:
       "Revisas cuales son los requisitos necesarios para realizar la solicitud de crédito.",
   },
-  investmentName: {
-    id: "investmentName",
-    number: 6,
-    name: "Nombra tu inversión",
-    description: "¿Cómo te gustaría que se llame tu producto?",
-  },
-  comments: {
-    id: "comments",
-    number: 7,
-    name: "Comentarios",
-    description:
-      "Envía los comentarios que nuestros analistas deberían tener en cuenta.",
-  },
   termsAndConditions: {
     id: "termsAndConditions",
-    number: 8,
+    number: 6,
     name: "Términos y condiciones",
     description: "Aceptaciones y avisos de privacidad.",
   },
   contactChannels: {
     id: "contactChannels",
-    number: 9,
+    number: 7,
     name: "Canales de contacto",
     description:
       "Selecciona las opciones que nos permitan enviarte información.",
   },
   verification: {
     id: "verification",
-    number: 10,
+    number: 8,
     name: "Verificación",
     description: "Confirma la información diligenciada en pasos anteriores.",
   },

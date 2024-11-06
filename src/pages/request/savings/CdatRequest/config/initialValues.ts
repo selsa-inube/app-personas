@@ -1,5 +1,4 @@
 import { IConditionsEntry } from "../forms/ConditionsForm/types";
-import { IInvestmentNameEntry } from "../forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "../forms/PaymentMethodForm/types";
 
 const conditions: IConditionsEntry = {
@@ -16,14 +15,9 @@ const paymentMethod: IPaymentMethodEntry = {
   pendingValue: 0,
 };
 
-const investmentName: IInvestmentNameEntry = {
-  productName: "",
-};
-
 const initalValuesCDAT = {
   conditions,
   paymentMethod,
-  investmentName,
 };
 
 export { initalValuesCDAT };
