@@ -28,12 +28,14 @@ const requestTitles: Record<RequestType, string> = {
   credit: "Crédito",
   aid: "Auxilio",
   programmedsaving: "Ahorro programado a término fijo",
+  cdat: "CDAT",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
   credit: "Solicitud de crédito",
   aid: "Solicitud de auxilio",
   programmedsaving: "Solicitud de ahorro programado a término fijo",
+  cdat: "Solicitud de CDAT",
 };
 
 const mapValidationApiToEntity = (

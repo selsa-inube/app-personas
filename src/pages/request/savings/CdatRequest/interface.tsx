@@ -55,7 +55,7 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={cdatRequest.disbursement.values}
           ref={formReferences.disbursement}
-          requestType="aid"
+          requestType="cdat"
           productId="S002"
           onFormValid={setIsCurrentFormValid}
         />
