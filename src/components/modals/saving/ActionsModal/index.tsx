@@ -14,6 +14,7 @@ import {
   MdOutlineDelete,
   MdOutlineDownload,
   MdOutlineEdit,
+  MdOutlinePayments,
   MdOutlineShare,
 } from "react-icons/md";
 import { EProductType } from "src/model/entity/product";
@@ -30,6 +31,8 @@ interface ActionsModalProps {
   onDownload?: () => void;
   onShare?: () => void;
   onCloseModal: () => void;
+  onDownloadExtract?: () => void;
+  onToggleRechargeModal?: () => void;
 }
 
 function ActionsModal(props: ActionsModalProps) {
@@ -42,6 +45,8 @@ function ActionsModal(props: ActionsModalProps) {
     onDownload,
     onShare,
     onCloseModal,
+    onDownloadExtract,
+    onToggleRechargeModal,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -102,9 +107,15 @@ function ActionsModal(props: ActionsModalProps) {
             />
           </Stack>
 
-          <Text type="body" size="medium" appearance="gray">
-            Explora las opciones adicionales de tu ahorro programado.
-          </Text>
+          {productType === EProductType.PROGRAMMEDSAVINGS ? (
+            <Text type="body" size="medium" appearance="gray">
+              Explora las opciones adicionales de tu ahorro programado.
+            </Text>
+          ) : (
+            <Text type="body" size="medium" appearance="gray">
+              Explora las opciones adicionales de tu producto de ahorro.
+            </Text>
+          )}
         </Stack>
 
         <Divider dashed />
@@ -319,6 +330,80 @@ function ActionsModal(props: ActionsModalProps) {
                   appearance="danger"
                 >
                   Cancelar
+                </Button>
+              </Stack>
+            </OutlineCard>
+          )}
+
+          {productType === EProductType.VIEWSAVINGS && (
+            <OutlineCard>
+              <Stack
+                justifyContent="space-between"
+                padding={
+                  isMobile
+                    ? `${inube.spacing.s200} ${inube.spacing.s150}`
+                    : inube.spacing.s200
+                }
+                alignItems={isMobile ? "flex-start" : "center"}
+                width="100%"
+                gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+                direction={isMobile ? "column" : "row"}
+              >
+                <Stack direction="column" gap={inube.spacing.s050}>
+                  <Text type="title" size="small" weight="bold">
+                    Depositar en tu cuenta ahorros
+                  </Text>
+
+                  <Text type="body" size="small" appearance="gray">
+                    Recarga tu cuenta de ahorros mediante transferencia
+                    electrónica.
+                  </Text>
+                </Stack>
+
+                <Button
+                  variant="outlined"
+                  iconBefore={<MdOutlinePayments />}
+                  spacing="compact"
+                  onClick={onToggleRechargeModal}
+                  fullwidth={isMobile}
+                >
+                  Depositar
+                </Button>
+              </Stack>
+            </OutlineCard>
+          )}
+          {productType === EProductType.VIEWSAVINGS && (
+            <OutlineCard>
+              <Stack
+                justifyContent="space-between"
+                padding={
+                  isMobile
+                    ? `${inube.spacing.s200} ${inube.spacing.s150}`
+                    : inube.spacing.s200
+                }
+                alignItems={isMobile ? "flex-start" : "center"}
+                width="100%"
+                gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+                direction={isMobile ? "column" : "row"}
+              >
+                <Stack direction="column" gap={inube.spacing.s050}>
+                  <Text type="title" size="small" weight="bold">
+                    Descargar certificado
+                  </Text>
+
+                  <Text type="body" size="small" appearance="gray">
+                    Descarga tu certificado de ahorro.
+                  </Text>
+                </Stack>
+
+                <Button
+                  variant="outlined"
+                  iconBefore={<MdOutlineDownload />}
+                  spacing="compact"
+                  onClick={onDownloadExtract}
+                  fullwidth={isMobile}
+                >
+                  Descargar
                 </Button>
               </Stack>
             </OutlineCard>
