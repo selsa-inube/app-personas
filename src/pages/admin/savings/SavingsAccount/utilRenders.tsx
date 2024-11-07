@@ -2,6 +2,7 @@ import { IUser } from "@inube/auth/dist/types/user";
 import { extractAttribute } from "src/utils/products";
 import { CdatCertificateDocument } from "./CdatCertificateDocument";
 import { ISelectedProductState } from "./types";
+import { SavingsAccountDocument } from "./SavingsAccountDocument";
 
 const getCdatCertificateDocument = (
   selectedProduct: ISelectedProductState,
@@ -41,4 +42,13 @@ const getCdatCertificateDocument = (
   );
 };
 
-export { getCdatCertificateDocument };
+const getSavingsAccountDocument = (user: IUser) => {
+  return (
+    <SavingsAccountDocument
+      username={`${user.firstLastName} ${user.secondLastName} ${user.firstName} ${user.secondName}`}
+      userIdentification={user.identification}
+    />
+  );
+};
+
+export { getCdatCertificateDocument, getSavingsAccountDocument };

@@ -190,27 +190,6 @@ const getAccountStatementDocument = async (
       .toUpperCase()
       .trim();
 
-  let paymentMethod = "";
-
-  if (commitments.length > 0) {
-    const firstCommitment = commitments[0];
-    const paymentMethodAttribute = firstCommitment.attributes.find(
-      (attr) => attr.id === "payment_method",
-    );
-
-    if (paymentMethodAttribute) {
-      const value = paymentMethodAttribute.value;
-
-      if (typeof value === "string") {
-        paymentMethod = value.toUpperCase();
-      } else if (typeof value === "number") {
-        paymentMethod = value.toString().toUpperCase();
-      }
-    }
-  } else {
-    paymentMethod = "FONDECOM";
-  }
-
   const savingsAccountEntries = savingsAccount(savings);
   const savingsContributionsEntries = contributions(savings);
   const programmedSavingsEntries = programmedSavings(savings);
@@ -222,7 +201,6 @@ const getAccountStatementDocument = async (
     <AccountStatementDocument
       userName={userName}
       userIdentification={user.identification}
-      paymentMethod={paymentMethod}
       savingsAccountEntries={savingsAccountEntries}
       savingsContributionsEntries={savingsContributionsEntries}
       programmedSavingsEntries={programmedSavingsEntries}

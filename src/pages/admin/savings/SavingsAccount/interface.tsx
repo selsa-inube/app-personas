@@ -15,7 +15,6 @@ import {
   MdOpenInNew,
   MdOutlineAdd,
   MdOutlineAssignmentTurnedIn,
-  MdOutlineAttachMoney,
 } from "react-icons/md";
 import { crumbsSaving } from "./config/navigation";
 import {
@@ -104,6 +103,7 @@ interface SavingsAccountUIProps {
   onToggleCancelSavingModal: () => void;
   onDownloadCertificate: () => void;
   onShareCertificate: () => void;
+  onDownloadExtract: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -137,6 +137,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onToggleCancelSavingModal,
     onDownloadCertificate,
     onShareCertificate,
+    onDownloadExtract,
   } = props;
   const { getFlag } = useContext(AppContext);
 
@@ -234,9 +235,9 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               withTransfers &&
               selectedProduct.saving.type === EProductType.VIEWSAVINGS
                 ? {
-                    label: "Depositar",
-                    icon: <MdOutlineAttachMoney />,
-                    onClick: onToggleRechargeModal,
+                    label: "Acciones",
+                    icon: <MdOutlineAdd />,
+                    onClick: onToggleActionsModal,
                     variant: "filled",
                     appearance: "primary",
                   }
@@ -410,6 +411,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           onCancelSaving={onToggleCancelSavingModal}
           onDownload={onDownloadCertificate}
           onShare={onShareCertificate}
+          onToggleRechargeModal={onToggleRechargeModal}
+          onDownloadExtract={onDownloadExtract}
         />
       )}
       {showChangeQuotaModal && (
