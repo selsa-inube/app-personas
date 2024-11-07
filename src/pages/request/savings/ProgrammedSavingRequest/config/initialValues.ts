@@ -1,8 +1,6 @@
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 import { IPlanNameEntry } from "../forms/PlanNameForm/types";
 import { ISavingConditionsEntry } from "../forms/SavingConditionsForm/types";
-import { IShareMaturityEntry } from "../forms/ShareMaturityForm/types";
-
 const destination: IDestinationEntry = {
   products: [],
 };
@@ -29,13 +27,12 @@ const planName: IPlanNameEntry = {
   productName: "",
 };
 
-const shareMaturity: IShareMaturityEntry = {};
+
 
 const initalValuesProgrammedSaving = {
   destination,
   savingConditions,
   planName,
-  shareMaturity,
 };
 
 export { initalValuesProgrammedSaving };

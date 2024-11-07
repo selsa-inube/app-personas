@@ -89,7 +89,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
                       gap={inube.spacing.s025}
                     >
-                      <Text type="label" size="medium">
+                      <Text type="label" size="medium" weight="bold">
                         Cuota mínima:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
@@ -104,7 +104,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
                       gap={inube.spacing.s025}
                     >
-                      <Text type="label" size="medium">
+                      <Text type="label" size="medium" weight="bold">
                         Plazo mínimo:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
@@ -119,7 +119,7 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       padding={`${inube.spacing.s150} ${inube.spacing.s200}`}
                       gap={inube.spacing.s025}
                     >
-                      <Text type="label" size="medium">
+                      <Text type="label" size="medium" weight="bold">
                         Plazo máximo:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">

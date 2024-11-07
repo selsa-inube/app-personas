@@ -6,7 +6,7 @@ import { FormikProps } from "formik";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
-import { IShareMaturityEntry } from "./forms/ShareMaturityForm/types";
+import { IShareMaturityEntry } from "@forms/ShareMaturityForm/types";
 
 interface IFormsProgrammedSavingRequest {
   destination: { isValid: boolean; values: IDestinationEntry };

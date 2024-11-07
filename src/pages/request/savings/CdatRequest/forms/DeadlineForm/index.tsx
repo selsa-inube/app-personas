@@ -1,28 +1,22 @@
-import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
-import { ConditionsFormUI } from "./interface";
-import { IConditionsEntry } from "./types";
-import {
-  effectiveAnnualRateRequest,
-  getInitialCdatContidionValidations,
-  totalInterestRequest,
-  validationSchema,
-} from "./utils";
+import { DeadlineFormUI } from "./interface";
+import { IDeadlineEntry } from "./types";
+import { getInitialCdatDeadlineValidations, validationSchema } from "./utils";
 
-interface ConditionsFormProps {
-  initialValues: IConditionsEntry;
+interface DeadlineFormProps {
+  initialValues: IDeadlineEntry;
   loading?: boolean;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: IConditionsEntry) => void;
+  onSubmit?: (values: IDeadlineEntry) => void;
 }
 
-const ConditionsForm = forwardRef(function ConditionsForm(
-  props: ConditionsFormProps,
-  ref: React.Ref<FormikProps<IConditionsEntry>>,
+const DeadlineForm = forwardRef(function DeadlineForm(
+  props: DeadlineFormProps,
+  ref: React.Ref<FormikProps<IDeadlineEntry>>,
 ) {
   const { initialValues, loading, onFormValid, onSubmit } = props;
 
@@ -48,7 +42,8 @@ const ConditionsForm = forwardRef(function ConditionsForm(
   }, [formik.values]);
 
   useEffect(() => {
-    setDynamicValidationSchema(getInitialCdatContidionValidations());
+    formik.setFieldValue("simulationWithDays", true);
+    setDynamicValidationSchema(getInitialCdatDeadlineValidations());
   }, []);
 
   const simulateCDAT = () => {
@@ -62,21 +57,10 @@ const ConditionsForm = forwardRef(function ConditionsForm(
         formik.setFieldValue("deadlineDays", deadlineDays);
       }
 
-      const effectiveAnnualRate = effectiveAnnualRateRequest(
-        investmentsRatesMocks,
-        deadlineDays,
-      );
-
-      const totalInterest = totalInterestRequest(
-        valueInvestment,
-        investmentsRatesMocks,
-        deadlineDays,
-      );
-
-      formik.setFieldValue("effectiveAnnualRate", effectiveAnnualRate);
-      formik.setFieldValue("totalInterest", totalInterest);
+      formik.setFieldValue("effectiveAnnualRate", 10);
+      formik.setFieldValue("totalInterest", 10000);
       formik.setFieldValue("withholdingTax", 0);
-      formik.setFieldValue("netValue", totalInterest);
+      formik.setFieldValue("netValue", valueInvestment);
       formik.setFieldValue("hasResult", true);
       setLoadingSimulation(false);
       onFormValid(true);
@@ -88,44 +72,67 @@ const ConditionsForm = forwardRef(function ConditionsForm(
   ) => {
     formik.handleChange(event);
 
-    if (event.target.name === "simulationWithDate") {
-      formik.setFieldValue("deadlineDate", "");
-      formik.setFieldValue("deadlineDays", "");
-      formik.setFieldValue("totalInterest", "");
-      formik.setFieldValue("withholdingTax", "");
-      formik.setFieldValue("netValue", "");
-      formik.setFieldValue("hasResult", "");
-      formik.setFormikState((state) => {
-        return {
-          ...state,
-          touched: {
-            ...state.touched,
-            deadlineDate: false,
-            deadlineDays: false,
-          },
-        };
-      });
+    if (
+      event.target.name === "simulationWithDate" ||
+      event.target.name === "simulationWithDays"
+    ) {
+      const fieldsToReset = [
+        "deadlineDate",
+        "deadlineDays",
+        "totalInterest",
+        "withholdingTax",
+        "netValue",
+        "hasResult",
+      ];
+
+      fieldsToReset.forEach((field) => formik.setFieldValue(field, ""));
+      formik.setFormikState((state) => ({
+        ...state,
+        touched: {
+          ...state.touched,
+          deadlineDate: false,
+          deadlineDays: false,
+        },
+      }));
 
       const checked = "checked" in event.target && event.target.checked;
-
       if (!checked) return;
 
-      const newValidationSchema = dynamicValidationSchema.concat(
-        Yup.object({
-          deadlineDate: validationRules.notPastDate.required(
-            validationMessages.required,
-          ),
-        }),
-      );
+      let newValidationSchema = dynamicValidationSchema;
+
+      if (event.target.name === "simulationWithDate") {
+        newValidationSchema = dynamicValidationSchema.concat(
+          Yup.object({
+            deadlineDate: validationRules.notPastDate.required(
+              validationMessages.required,
+            ),
+          }),
+        );
+      } else if (event.target.name === "simulationWithDays") {
+        newValidationSchema = dynamicValidationSchema.concat(
+          Yup.object({
+            deadlineDays: Yup.number()
+              .min(
+                90,
+                `El plazo minimo en días debe ser mayor o igual a:  ${90} días`,
+              )
+              .max(
+                90,
+                `El plazo máximo en días debe ser menor o igual a:  ${90} días`,
+              ),
+          }),
+        );
+      }
+
       setDynamicValidationSchema(newValidationSchema);
     }
-
+    
     formik.setFieldValue("hasResult", false);
     onFormValid(false);
   };
 
   return (
-    <ConditionsFormUI
+    <DeadlineFormUI
       loading={loading}
       formik={formik}
       loadingSimulation={loadingSimulation}
@@ -136,5 +143,5 @@ const ConditionsForm = forwardRef(function ConditionsForm(
   );
 });
 
-export { ConditionsForm };
-export type { ConditionsFormProps };
+export { DeadlineForm };
+export type { DeadlineFormProps };

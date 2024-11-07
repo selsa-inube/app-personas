@@ -1,7 +1,7 @@
-interface IConditionsEntry {
+interface IDeadlineEntry {
   valueInvestment?: number;
-  interestPayment: string;
   simulationWithDate: boolean;
+  simulationWithDays: boolean;
   deadlineDate: string;
   deadlineDays: string;
   hasResult: boolean;
@@ -10,4 +10,4 @@ interface IConditionsEntry {
   withholdingTax?: number;
 }
 
-export type { IConditionsEntry };
+export type { IDeadlineEntry };

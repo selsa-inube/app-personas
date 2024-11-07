@@ -8,6 +8,7 @@ import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { IPaymentMethodEntry } from "@forms/PaymentMethodForm/types";
+import { initialValuesShareMaturity } from "@forms/ShareMaturityForm/initialValues";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
@@ -19,7 +20,6 @@ import { AppContext } from "src/context/app";
 import { initalValuesProgrammedSaving } from "./config/initialValues";
 import { IDestinationEntry } from "./forms/DestinationForm/types";
 import { ISavingConditionsEntry } from "./forms/SavingConditionsForm/types";
-import { IShareMaturityEntry } from "./forms/ShareMaturityForm/types";
 import { ProgrammedSavingRequestUI } from "./interface";
 import {
   IFormsProgrammedSavingRequest,
@@ -29,6 +29,7 @@ import {
   programmedSavingStepsRules,
   sendProgrammedSavingRequest,
 } from "./utils";
+import { IShareMaturityEntry } from "@forms/ShareMaturityForm/types";
 
 function ProgrammedSavingRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
@@ -60,7 +61,7 @@ function ProgrammedSavingRequest() {
       },
       shareMaturity: {
         isValid: false,
-        values: initalValuesProgrammedSaving.shareMaturity,
+        values: initialValuesShareMaturity,
       },
       disbursement: {
         isValid: false,
