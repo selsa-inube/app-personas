@@ -18,12 +18,12 @@ import { programmedSavingRequestSteps } from "./config/assisted";
 import { crumbsProgrammedSavingRequest } from "./config/navigation";
 import { DestinationForm } from "./forms/DestinationForm";
 import { SavingConditionsForm } from "./forms/SavingConditionsForm";
-import { ShareMaturityForm } from "./forms/ShareMaturityForm";
 import { ProgrammedSavingRequestVerification } from "./forms/Verification";
 import {
   IFormsProgrammedSavingRequest,
   IFormsProgrammedSavingRequestRefs,
 } from "./types";
+import { ShareMaturityForm } from "@forms/ShareMaturityForm";
 
 const renderStepContent = (
   currentStep: number,

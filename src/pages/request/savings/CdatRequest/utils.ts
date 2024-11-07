@@ -25,10 +25,10 @@ const cdatStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentCdatRequest.investment.values)
       ) {
-        newCdatRequest.conditions = {
+        newCdatRequest.deadline = {
           isValid: false,
           values: {
-            ...initalValuesCDAT.conditions,
+            ...initalValuesCDAT.deadline,
             valueInvestment: values.valueInvestment,
           },
         };
