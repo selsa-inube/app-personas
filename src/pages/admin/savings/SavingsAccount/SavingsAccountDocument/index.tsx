@@ -19,9 +19,11 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
     <Stack gap={inube.spacing.s200} direction="column">
       <Stack height="30px" justifyContent="space-between" alignItems="center">
         <Text type="title" size="medium" weight="bold">
-          Estado de cuenta
+          Extracto cuenta de ahorros
         </Text>
-        <StyledLogo src={logoUrl} />
+        <Stack>
+          <StyledLogo src={logoUrl} />
+        </Stack>
       </Stack>
       <Stack gap={inube.spacing.s050} direction="column">
         <Stack gap={inube.spacing.s050}>
