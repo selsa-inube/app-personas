@@ -1,5 +1,7 @@
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { initialValuesShareMaturity } from "@forms/ShareMaturityForm/initialValues";
+import { IShareMaturityEntry } from "@forms/ShareMaturityForm/types";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
@@ -13,7 +15,9 @@ import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
-import { IConditionsEntry } from "./forms/ConditionsForm/types";
+import { IDeadlineEntry } from "./forms/DeadlineForm/types";
+import { initialValuesInterestPayment } from "./forms/InterestPaymentForm/initialValues";
+import { IInterestPaymentEntry } from "./forms/InterestPaymentForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { CdatRequestUI } from "./interface";
@@ -37,9 +41,13 @@ function CdatRequest() {
       isValid: false,
       values: {},
     },
-    conditions: {
+    deadline: {
       isValid: false,
-      values: initalValuesCDAT.conditions,
+      values: initalValuesCDAT.deadline,
+    },
+    interestPayment: {
+      isValid: false,
+      values: initialValuesInterestPayment,
     },
     paymentMethod: {
       isValid: false,
@@ -48,6 +56,10 @@ function CdatRequest() {
     disbursement: {
       isValid: false,
       values: mapDisbursement(),
+    },
+    shareMaturity: {
+      isValid: false,
+      values: initialValuesShareMaturity,
     },
     systemValidations: {
       isValid: false,
@@ -67,9 +79,11 @@ function CdatRequest() {
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
-  const conditionsRef = useRef<FormikProps<IConditionsEntry>>(null);
+  const deadlineRef = useRef<FormikProps<IDeadlineEntry>>(null);
+  const interestPaymentRef = useRef<FormikProps<IInterestPaymentEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
+  const shareMaturityRef = useRef<FormikProps<IShareMaturityEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
   const termsAndConditionsRef =
@@ -78,9 +92,11 @@ function CdatRequest() {
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
-    conditions: conditionsRef,
+    deadline: deadlineRef,
+    interestPayment: interestPaymentRef,
     paymentMethod: paymentMethodRef,
     disbursement: disbursementRef,
+    shareMaturity: shareMaturityRef,
     systemValidations: systemValidationsRef,
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,

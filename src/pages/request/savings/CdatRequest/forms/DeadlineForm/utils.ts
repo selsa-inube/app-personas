@@ -1,9 +1,8 @@
 import { IRate } from "src/model/entity/product";
 import { removeLastCharacters } from "src/utils/texts";
-import * as Yup from "yup";
-import { validationRules } from "src/validations/validationRules";
 import { validationMessages } from "src/validations/validationMessages";
-import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
+import { validationRules } from "src/validations/validationRules";
+import * as Yup from "yup";
 
 const validationSchema = Yup.object({
   deadlineDate: validationRules.notPastDate,
@@ -17,22 +16,18 @@ const validationSchema = Yup.object({
   hasResult: Yup.boolean(),
 });
 
-const getInitialCdatContidionValidations = () => {
+const getInitialCdatDeadlineValidations = () => {
   return validationSchema.concat(
     Yup.object({
       deadlineDate: validationRules.notPastDate,
       deadlineDays: Yup.number()
         .min(
-          minDeadlineDays(investmentsRatesMocks),
-          `El plazo minimo en días debe ser mayor o igual a:  ${minDeadlineDays(
-            investmentsRatesMocks,
-          )} días`,
+          90,
+          `El plazo minimo en días debe ser mayor o igual a:  ${90} días`,
         )
         .max(
-          maxDeadlineDays(investmentsRatesMocks),
-          `El plazo máximo en días debe ser menor o igual a:  ${maxDeadlineDays(
-            investmentsRatesMocks,
-          )} días`,
+          90,
+          `El plazo máximo en días debe ser menor o igual a:  ${90} días`,
         ),
       effectiveAnnualRate: Yup.number().required(validationMessages.required),
       totalInterest: Yup.number().required(validationMessages.required),
@@ -100,10 +95,10 @@ const totalInterestRequest = (
 };
 
 export {
-  validationSchema,
   effectiveAnnualRateRequest,
+  getInitialCdatDeadlineValidations,
   maxDeadlineDays,
   minDeadlineDays,
   totalInterestRequest,
-  getInitialCdatContidionValidations,
+  validationSchema,
 };
