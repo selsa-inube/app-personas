@@ -9,11 +9,11 @@ const validationSchema = Yup.object({
   deadlineDays: Yup.number()
     .min(1, validationMessages.minNumbers(10))
     .max(1000, validationMessages.maxNumbers(1000)),
-  effectiveAnnualRate: Yup.number(),
-  totalInterest: Yup.number(),
-  withholdingTax: Yup.number(),
-  netValue: Yup.number(),
-  hasResult: Yup.boolean(),
+  effectiveAnnualRate: Yup.number().required(validationMessages.required),
+  totalInterest: Yup.number().required(validationMessages.required),
+  withholdingTax: Yup.number().required(validationMessages.required),
+  netValue: Yup.number().required(validationMessages.required),
+  hasResult: Yup.boolean().required(validationMessages.required),
 });
 
 const getInitialCdatDeadlineValidations = () => {
@@ -29,11 +29,6 @@ const getInitialCdatDeadlineValidations = () => {
           90,
           `El plazo máximo en días debe ser menor o igual a:  ${90} días`,
         ),
-      effectiveAnnualRate: Yup.number().required(validationMessages.required),
-      totalInterest: Yup.number().required(validationMessages.required),
-      withholdingTax: Yup.number().required(validationMessages.required),
-      netValue: Yup.number().required(validationMessages.required),
-      hasResult: Yup.boolean().required(validationMessages.required),
     }),
   );
 };

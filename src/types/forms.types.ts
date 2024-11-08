@@ -20,6 +20,8 @@ interface IFormField {
   withCounter?: boolean;
   gridColumn: string;
   validation: Yup.StringSchema<string, Yup.AnyObject, undefined, "">;
+  iconAfter?: React.JSX.Element;
+  iconBefore?: React.JSX.Element;
 }
 
 interface IFormStructure {

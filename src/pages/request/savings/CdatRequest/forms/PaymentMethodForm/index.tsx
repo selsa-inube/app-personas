@@ -1,19 +1,36 @@
 import { useAuth } from "@inube/auth";
+import { IFormField } from "@ptypes/forms.types";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
-import { parseCurrencyString } from "src/utils/currency";
+import { currencyFormat } from "src/utils/currency";
+import { generateDynamicForm } from "src/utils/forms/forms";
+import { extractAttribute } from "src/utils/products";
+import { validationMessages } from "src/validations/validationMessages";
+import * as Yup from "yup";
+import { structureDisbursementForm } from "./config/form";
+import { paymentMethods } from "./config/payment";
 import { PaymentMethodFormUI } from "./interface";
-import { EMoneySourceType, IMoneySource, IPaymentMethodEntry } from "./types";
-import { mapMoneySources } from "./utils";
+import { IPaymentMethodEntry } from "./types";
 
 interface PaymentMethodFormProps {
   initialValues: IPaymentMethodEntry;
-  onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
+  onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+const initValidationSchema = Yup.object({
+  paymentMethod: Yup.string().required(validationMessages.required),
+});
 
 const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   props: PaymentMethodFormProps,
@@ -25,8 +42,17 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
 
+  const [dynamicForm, setDynamicForm] = useState<{
+    renderFields: IFormField[];
+    validationSchema: Yup.ObjectSchema<object, Yup.AnyObject, object, "">;
+  }>({
+    renderFields: [],
+    validationSchema: initValidationSchema,
+  });
+
   const formik = useFormik({
     initialValues,
+    validationSchema: dynamicForm.validationSchema,
     validateOnBlur: false,
     onSubmit: async () => true,
   });
@@ -34,10 +60,32 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   useImperativeHandle(ref, () => formik);
 
   useEffect(() => {
-    if (onFormValid) {
-      onFormValid(formik.values.pendingValue === 0);
+    formik.validateForm().then((errors) => {
+      onFormValid(Object.keys(errors).length === 0);
+    });
+  }, [formik.values]);
+
+  const getPaymentMethods = async () => {
+    if (!accessToken) return;
+
+    formik.setFieldValue("paymentMethods", paymentMethods);
+  };
+
+  useEffect(() => {
+    getPaymentMethods();
+
+    if (formik.values.paymentMethod) {
+      const { renderFields, validationSchema } = generateDynamicForm(
+        formik,
+        structureDisbursementForm(formik, savings.savingsAccounts),
+      );
+
+      setDynamicForm({
+        renderFields,
+        validationSchema: initValidationSchema.concat(validationSchema),
+      });
     }
-  }, [formik.values.pendingValue]);
+  }, []);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -48,139 +96,78 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
   }, [user, accessToken]);
 
-  const customHandleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    formik.handleChange(event);
-    formik.setFieldValue("pendingValue", formik.values.valueToPay);
+  const customHandleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    const { name, value } = event.target;
 
-    const moneySources: IMoneySource = {};
+    let updatedFormikValues = {
+      ...formik.values,
+      [name]: value,
+    };
 
-    const paymentMethod = event.target.value;
-
-    if (
-      paymentMethod === EPaymentMethodType.DEBIT ||
-      paymentMethod === EPaymentMethodType.MULTIPLE
-    ) {
-      Object.values(mapMoneySources(savings.savingsAccounts)).forEach(
-        (source) => {
-          moneySources[source.id] = { ...source };
-        },
+    if (name === "paymentMethod") {
+      const paymentMethod = formik.values.paymentMethods.find(
+        (paymentMethod) => paymentMethod.id === value,
       );
 
-      const moneySourcesList = Object.keys(moneySources);
+      if (!paymentMethod) return;
 
-      if (
-        paymentMethod === EPaymentMethodType.DEBIT &&
-        moneySourcesList.length === 1
-      ) {
-        moneySources[moneySourcesList[0]].value = formik.values.valueToPay;
-
-        const notFunds = Object.values(moneySources).some(
-          (source) => source.value > source.balance,
-        );
-
-        if (!notFunds) {
-          formik.setFieldValue("pendingValue", 0);
-        }
-      }
-    }
-
-    if (
-      paymentMethod === EPaymentMethodType.PSE ||
-      paymentMethod === EPaymentMethodType.MULTIPLE
-    ) {
-      moneySources[EMoneySourceType.PSE] = {
-        id: EPaymentMethodType.PSE,
-        label: "Pago por PSE",
-        value:
-          paymentMethod === EPaymentMethodType.PSE
-            ? formik.values.valueToPay
-            : 0,
-        balance: Infinity,
-        type: EMoneySourceType.PSE,
+      updatedFormikValues = {
+        ...initialValues,
+        paymentMethods: formik.values.paymentMethods,
+        paymentMethod: paymentMethod.id,
+        paymentMethodName: paymentMethod.value,
       };
 
-      if (paymentMethod === EPaymentMethodType.PSE) {
-        formik.setFieldValue("pendingValue", 0);
+      if (
+        paymentMethod.id === EPaymentMethodType.DEBIT &&
+        savings.savingsAccounts.length > 0
+      ) {
+        updatedFormikValues = {
+          ...updatedFormikValues,
+          accountToDebit: accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id,
+          accountNumber: savings.savingsAccounts[0].id,
+          availableBalance: currencyFormat(
+            Number(
+              extractAttribute(
+                savings.savingsAccounts[0].attributes,
+                "net_value",
+              )?.value || 0,
+            ),
+            false,
+          ),
+        };
       }
+
+      formik.setValues(updatedFormikValues);
+    } else {
+      formik.setFieldValue(name, value);
     }
 
-    formik.setFieldValue("moneySources", moneySources);
-  };
-
-  const handleChangeMoneySource = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const moneySourceKey = event.target.name;
-    const parsedValue = parseCurrencyString(event.target.value);
-
-    const updatedMoneySources = {
-      ...formik.values.moneySources,
-      [moneySourceKey]: {
-        ...formik.values.moneySources?.[moneySourceKey],
-        value: !isNaN(parsedValue) ? parsedValue : 0,
-      },
+    const updatedFormik = {
+      ...formik,
+      values: updatedFormikValues,
     };
 
-    formik.setFieldValue("moneySources", updatedMoneySources);
-  };
-
-  const handleSaveMoneySource = () => {
-    const paidValue = Object.values(formik.values.moneySources || {}).reduce(
-      (acc, source) => acc + source.value,
-      0,
+    const { renderFields, validationSchema } = generateDynamicForm(
+      updatedFormik,
+      structureDisbursementForm(updatedFormik, savings.savingsAccounts),
     );
 
-    formik.setFieldValue("pendingValue", formik.values.valueToPay - paidValue);
-  };
-
-  const handleRemoveValueMoneySource = (id: string) => {
-    const moneySources = { ...formik.values.moneySources };
-
-    moneySources[id].value = 0;
-
-    formik.setFieldValue("moneySources", moneySources);
-
-    handleSaveMoneySource();
-  };
-
-  const handleSelectMoneySource = (id: string) => {
-    const moneySourceKey = id;
-
-    const updatedMoneySources = {
-      ...formik.values.moneySources,
-      [moneySourceKey]: {
-        ...formik.values.moneySources?.[moneySourceKey],
-        value: formik.values.valueToPay,
-      },
-    };
-
-    Object.keys(updatedMoneySources).forEach((key) => {
-      if (key !== moneySourceKey) {
-        updatedMoneySources[key].value = 0;
-      }
+    setDynamicForm({
+      renderFields,
+      validationSchema: initValidationSchema.concat(validationSchema),
     });
-
-    formik.setFieldValue("moneySources", updatedMoneySources);
-    const selectedMoneySource = updatedMoneySources[moneySourceKey];
-
-    if (
-      selectedMoneySource.balance &&
-      updatedMoneySources[moneySourceKey].value > selectedMoneySource.balance
-    ) {
-      return;
-    }
-
-    formik.setFieldValue("pendingValue", 0);
   };
 
   return (
     <PaymentMethodFormUI
       formik={formik}
+      renderFields={dynamicForm.renderFields}
       customHandleChange={customHandleChange}
-      onChangeMoneySource={handleChangeMoneySource}
-      onSelectMoneySource={handleSelectMoneySource}
-      onSaveMoneySource={handleSaveMoneySource}
-      onRemoveValueMoneySource={handleRemoveValueMoneySource}
     />
   );
 });
