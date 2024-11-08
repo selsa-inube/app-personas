@@ -122,6 +122,8 @@ const generateFormFields = (
               maxLength={field.maxLength}
               withCounter={field.withCounter}
               isRequired={field.isRequired}
+              iconAfter={field.iconAfter}
+              iconBefore={field.iconBefore}
             />
           </StyledInputForm>
         );

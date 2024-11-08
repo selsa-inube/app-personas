@@ -10,9 +10,9 @@ const deadline: IDeadlineEntry = {
 };
 
 const paymentMethod: IPaymentMethodEntry = {
+  paymentMethods: [],
   paymentMethod: "",
-  valueToPay: 0,
-  pendingValue: 0,
+  paymentMethodName: "",
 };
 
 const initalValuesCDAT = {

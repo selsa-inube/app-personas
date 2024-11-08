@@ -16,10 +16,7 @@ import { EPaymentMethodType } from "src/model/entity/payment";
 import { cdatRequestSteps } from "../../../config/assisted";
 import { renderInterestPaymentVerification } from "../../InterestPaymentForm/verification";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
-import {
-  EMoneySourceType,
-  IPaymentMethodEntry,
-} from "../../PaymentMethodForm/types";
+import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 
 const renderInvestmentVerification = (
   values: IInvestmentEntry,
@@ -72,26 +69,6 @@ const renderPaymentMethodVerification = (
             )?.value
           }
         />
-
-        <BoxAttribute
-          label="Valor pagado:"
-          value={currencyFormat(values.valueToPay)}
-        />
-
-        {Object.values(values.moneySources || {}).map(
-          (moneySource) =>
-            moneySource.value > 0 && (
-              <BoxAttribute
-                key={moneySource.id}
-                label={
-                  moneySource.type === EMoneySourceType.SAVINGACCOUNT
-                    ? `${moneySource.label} - ${moneySource.id}`
-                    : moneySource.label
-                }
-                value={currencyFormat(moneySource.value)}
-              />
-            ),
-        )}
       </>
     )}
   </Grid>

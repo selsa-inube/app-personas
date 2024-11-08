@@ -126,7 +126,7 @@ const DeadlineForm = forwardRef(function DeadlineForm(
 
       setDynamicValidationSchema(newValidationSchema);
     }
-    
+
     formik.setFieldValue("hasResult", false);
     onFormValid(false);
   };
