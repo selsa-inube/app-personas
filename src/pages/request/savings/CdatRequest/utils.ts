@@ -32,15 +32,6 @@ const cdatStepsRules = (
             valueInvestment: values.valueInvestment,
           },
         };
-
-        newCdatRequest.paymentMethod = {
-          isValid: false,
-          values: {
-            ...initalValuesCDAT.paymentMethod,
-            valueToPay: 500000,
-            pendingValue: 500000,
-          },
-        };
       }
       return newCdatRequest;
     }

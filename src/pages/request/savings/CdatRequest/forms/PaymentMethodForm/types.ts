@@ -1,24 +1,12 @@
-enum EMoneySourceType {
-  SAVINGACCOUNT = "SAVINGACCOUNT",
-  PSE = "PSE",
-}
-
-interface IMoneySource {
-  [key: string]: {
-    id: string;
-    label: string;
-    value: number;
-    balance: number;
-    type: EMoneySourceType;
-  };
-}
+import { ISelectOption } from "@design/input/Select/types";
 
 interface IPaymentMethodEntry {
+  paymentMethods: ISelectOption[];
   paymentMethod: string;
-  moneySources?: IMoneySource;
-  valueToPay: number;
-  pendingValue: number;
+  paymentMethodName: string;
+  accountToDebit?: string;
+  accountNumber?: string;
+  availableBalance?: string;
 }
 
-export { EMoneySourceType };
-export type { IMoneySource, IPaymentMethodEntry };
+export type { IPaymentMethodEntry };
