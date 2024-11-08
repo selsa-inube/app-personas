@@ -304,7 +304,7 @@ function SavingsAccount() {
 
     convertHTMLToPDF(
       doc,
-      convertJSXToHTML(getSavingsAccountDocument(user)),
+      convertJSXToHTML(getSavingsAccountDocument(user, selectedProduct)),
       (pdf) => {
         pdf.save(
           `Extracto-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
