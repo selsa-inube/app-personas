@@ -81,6 +81,10 @@ function ActionsModal(props: ActionsModalProps) {
     "admin.transfers.deposit.deposit-accounts",
   ).value;
 
+  const withDownloadExtractOption = getFlag(
+    "admin.savings.savings-accounts.download-extract",
+  ).value;
+
   if (node === null) {
     throw new Error(
       "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
@@ -376,42 +380,43 @@ function ActionsModal(props: ActionsModalProps) {
               </Stack>
             </OutlineCard>
           )}
-          {productType === EProductType.VIEWSAVINGS && (
-            <OutlineCard>
-              <Stack
-                justifyContent="space-between"
-                padding={
-                  isMobile
-                    ? `${inube.spacing.s200} ${inube.spacing.s150}`
-                    : inube.spacing.s200
-                }
-                alignItems={isMobile ? "flex-start" : "center"}
-                width="100%"
-                gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
-                direction={isMobile ? "column" : "row"}
-              >
-                <Stack direction="column" gap={inube.spacing.s050}>
-                  <Text type="title" size="small" weight="bold">
-                    Descargar certificado
-                  </Text>
-
-                  <Text type="body" size="small" appearance="gray">
-                    Descarga tu certificado de ahorro.
-                  </Text>
-                </Stack>
-
-                <Button
-                  variant="outlined"
-                  iconBefore={<MdOutlineDownload />}
-                  spacing="compact"
-                  onClick={onDownloadExtract}
-                  fullwidth={isMobile}
+          {productType === EProductType.VIEWSAVINGS &&
+            withDownloadExtractOption && (
+              <OutlineCard>
+                <Stack
+                  justifyContent="space-between"
+                  padding={
+                    isMobile
+                      ? `${inube.spacing.s200} ${inube.spacing.s150}`
+                      : inube.spacing.s200
+                  }
+                  alignItems={isMobile ? "flex-start" : "center"}
+                  width="100%"
+                  gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+                  direction={isMobile ? "column" : "row"}
                 >
-                  Descargar
-                </Button>
-              </Stack>
-            </OutlineCard>
-          )}
+                  <Stack direction="column" gap={inube.spacing.s050}>
+                    <Text type="title" size="small" weight="bold">
+                      Descargar certificado
+                    </Text>
+
+                    <Text type="body" size="small" appearance="gray">
+                      Descarga tu certificado de ahorro.
+                    </Text>
+                  </Stack>
+
+                  <Button
+                    variant="outlined"
+                    iconBefore={<MdOutlineDownload />}
+                    spacing="compact"
+                    onClick={onDownloadExtract}
+                    fullwidth={isMobile}
+                  >
+                    Descargar
+                  </Button>
+                </Stack>
+              </OutlineCard>
+            )}
         </Stack>
       </StyledModal>
     </Blanket>,

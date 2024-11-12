@@ -83,7 +83,8 @@ const getSavingsAccountDocument = (
 
   const commitmentAccountArray = selectedProduct.saving.commitments || [];
   let commitmentId = "";
-  let commitmentValue = 0;
+  let commitmentValue = "";
+  let commitmentNextPaymentValue = 0;
   let commitmentNextPaymentDate = "";
 
   if (commitmentAccountArray.length > 0) {
@@ -96,13 +97,19 @@ const getSavingsAccountDocument = (
       const commitment = filteredCommitments[0];
       commitmentId = commitment.id;
 
-      commitmentValue = Number(
-        extractAttribute(documentAttributes, "quota_value")?.value || 0,
+      commitmentValue =
+        extractAttribute(
+          commitment.attributes,
+          "commitment_value",
+        )?.value?.toString() || "";
+
+      commitmentNextPaymentValue = Number(
+        extractAttribute(commitment.attributes, "expired_value")?.value || 0,
       );
 
       commitmentNextPaymentDate =
         extractAttribute(
-          documentAttributes,
+          commitment.attributes,
           "next_payment",
         )?.value?.toString() || "";
     }
@@ -136,7 +143,7 @@ const getSavingsAccountDocument = (
     <SavingsAccountDocument
       username={username}
       userIdentification={user.identification}
-      accountnumber={selectedProduct.option}
+      accountNumber={selectedProduct.option}
       lastDate={lastDate}
       netValue={netValue}
       minValue={minValue}
@@ -145,6 +152,7 @@ const getSavingsAccountDocument = (
       requestDate={requestDate}
       commitmentId={commitmentId}
       commitmentValue={commitmentValue}
+      commitmentNextPaymentValue={commitmentNextPaymentValue}
       commitmentDate={commitmentNextPaymentDate}
       movementsEntries={movementsEntries}
     />

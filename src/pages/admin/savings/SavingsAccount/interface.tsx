@@ -165,6 +165,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     "admin.savings.cdat.modal-option-cancel-investment",
   ).value;
 
+  const withDownloadExtractOption = getFlag(
+    "admin.savings.savings-accounts.download-extract",
+  ).value;
+
   const isDesktop = useMediaQuery("(min-width: 1400px)");
 
   const attributes =
@@ -294,7 +298,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                   withShareCertificateOption ||
                   withCancelInvestmentOption)) ||
               (selectedProduct.saving.type === EProductType.VIEWSAVINGS &&
-                withTransfers) ? (
+                (withTransfers || withDownloadExtractOption)) ? (
                 <Button
                   iconBefore={<MdOutlineAdd />}
                   spacing="compact"

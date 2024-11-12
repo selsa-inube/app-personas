@@ -302,6 +302,14 @@ function SavingsAccount() {
       compress: true,
     });
 
+    doc.setProperties({
+      title: `Extracto-${selectedProduct.saving.id}`,
+      subject: "Informe",
+      author: `${user.firstName} ${user.firstLastName}`,
+      creator: "Fondecom",
+      keywords: "PDF/A",
+    });
+
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(

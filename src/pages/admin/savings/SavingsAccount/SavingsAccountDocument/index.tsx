@@ -24,7 +24,7 @@ import { IEntry } from "@design/data/Table/types";
 interface SavingsAccountDocumentProps {
   username: string;
   userIdentification: string;
-  accountnumber: string;
+  accountNumber: string;
   lastDate: Date;
   netValue: number;
   minValue: number;
@@ -33,7 +33,8 @@ interface SavingsAccountDocumentProps {
   requestDate: string;
   movementsEntries: IEntry[];
   commitmentId: string;
-  commitmentValue: number;
+  commitmentValue: string;
+  commitmentNextPaymentValue: number;
   commitmentDate: string;
 }
 
@@ -43,7 +44,7 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
   const {
     username,
     userIdentification,
-    accountnumber,
+    accountNumber,
     lastDate,
     netValue,
     minValue,
@@ -53,6 +54,7 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
     movementsEntries,
     commitmentId,
     commitmentValue,
+    commitmentNextPaymentValue,
     commitmentDate,
   } = props;
 
@@ -100,6 +102,17 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
             </Stack>
           </Stack>
           <StyledHeaderCardContainer>
+            <Text type="label" size="small" weight="bold">
+              CUENTA DE AHORROS
+            </Text>
+            <Stack gap={inube.spacing.s050}>
+              <Text type="label" size="small" weight="bold">
+                Número de producto:
+              </Text>
+              <Text type="label" size="small" appearance="gray">
+                {accountNumber}
+              </Text>
+            </Stack>
             <Stack gap={inube.spacing.s100}>
               <Stack gap={inube.spacing.s050}>
                 <Text type="label" size="small" weight="bold">
@@ -117,17 +130,6 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
                   {formatPrimaryDate(today)}
                 </Text>
               </Stack>
-            </Stack>
-            <Text type="label" size="small" weight="bold">
-              {`CUENTA DE AHORROS - ${accountnumber}`}
-            </Text>
-            <Stack gap={inube.spacing.s050}>
-              <Text type="label" size="small" weight="bold">
-                Sucursal:
-              </Text>
-              <Text type="label" size="small" appearance="gray">
-                {""}
-              </Text>
             </Stack>
           </StyledHeaderCardContainer>
         </Stack>
@@ -171,10 +173,14 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
             gap={inube.spacing.s100}
             autoRows="auto"
           >
-            <BoxAttribute label="Número:" value={commitmentId} downloadable />
+            <BoxAttribute
+              label="Compromiso:"
+              value={commitmentValue}
+              downloadable
+            />
             <BoxAttribute
               label="Valor próximo pago:"
-              value={currencyFormat(commitmentValue)}
+              value={currencyFormat(commitmentNextPaymentValue)}
               downloadable
             />
             <BoxAttribute
