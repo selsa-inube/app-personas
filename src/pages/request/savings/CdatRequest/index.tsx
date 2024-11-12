@@ -9,7 +9,7 @@ import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate, useBlocker } from "react-router-dom";
+import { Navigate, useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
@@ -22,7 +22,8 @@ import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { cdatStepsRules } from "./utils";
+import { cdatStepsRules, sendCdatRequest } from "./utils";
+import { useFlag } from "@inubekit/flag";
 
 function CdatRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
@@ -35,6 +36,9 @@ function CdatRequest() {
   const steps = Object.values(cdatRequestSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
   const { getFlag } = useContext(AppContext);
+
+  const navigate = useNavigate();
+  const { addFlag } = useFlag();
 
   const [cdatRequest, setCdatRequest] = useState<IFormsCdatRequest>({
     investment: {
@@ -152,7 +156,21 @@ function CdatRequest() {
   };
 
   const handleFinishAssisted = () => {
+    if (!accessToken || !user) return;
+
     setLoadingSend(true);
+
+    sendCdatRequest(user, cdatRequest, accessToken, navigate).catch(() => {
+      addFlag({
+        title: "La solicitud no pudo ser procesada",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        appearance: "danger",
+        duration: 5000,
+      });
+
+      setLoadingSend(false);
+    });
   };
 
   const handleNextStep = () => {
