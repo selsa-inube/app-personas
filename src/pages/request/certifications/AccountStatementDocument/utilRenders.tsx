@@ -67,12 +67,7 @@ const commitmentsSavings = (commitments: ICommitment[]): IEntry[] => {
     const attributes = item.attributes;
 
     const commitmentValue =
-      attributes.find((attr) => attr.id === "commitment_value")?.value ??
-      attributes.find((attr) => attr.id === "quota_value_fixed")?.value ??
-      null;
-
-    const quotaValueFixed =
-      attributes.find((attr) => attr.id === "quota_value_fixed")?.value ?? null;
+      attributes.find((attr) => attr.id === "commitment_value")?.value ?? null;
 
     const nextPaymentDateValue =
       attributes.find((attr) => attr.id === "next_payment")?.value ??
@@ -90,15 +85,10 @@ const commitmentsSavings = (commitments: ICommitment[]): IEntry[] => {
           : formatPrimaryDate(new Date(paymentDateString))
         : "Por definir";
 
-    const formattedCommitmentValue =
-      commitmentValue === quotaValueFixed
-        ? currencyFormat(Number(commitmentValue))
-        : commitmentValue;
-
     return {
       id: item.id,
       concept: item.title.toUpperCase(),
-      commitmentValue: formattedCommitmentValue,
+      commitmentValue: commitmentValue,
       paymentDate,
       nextPayment: nextPaymentDateValue,
     };

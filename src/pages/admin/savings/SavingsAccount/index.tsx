@@ -302,9 +302,19 @@ function SavingsAccount() {
       compress: true,
     });
 
+    doc.setProperties({
+      title: `Extracto-${selectedProduct.saving.id}`,
+      subject: "Informe",
+      author: `${user.firstName} ${user.firstLastName}`,
+      creator: "Fondecom",
+      keywords: "PDF/A",
+    });
+
     convertHTMLToPDF(
       doc,
-      convertJSXToHTML(getSavingsAccountDocument(user)),
+      convertJSXToHTML(
+        getSavingsAccountDocument(user, selectedProduct, commitments),
+      ),
       (pdf) => {
         pdf.save(
           `Extracto-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
