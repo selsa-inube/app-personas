@@ -32,7 +32,9 @@ interface SavingsAccountDocumentProps {
   accountGmf: string;
   requestDate: string;
   movementsEntries: IEntry[];
-  commitmentAccount: string;
+  commitmentId: string;
+  commitmentValue: number;
+  commitmentDate: string;
 }
 
 const today = new Date();
@@ -49,7 +51,9 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
     accountGmf,
     requestDate,
     movementsEntries,
-    commitmentAccount,
+    commitmentId,
+    commitmentValue,
+    commitmentDate,
   } = props;
 
   return (
@@ -71,26 +75,26 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
         <Stack justifyContent="space-between" alignItems="center">
           <Stack gap={inube.spacing.s050} direction="column">
             <Stack gap={inube.spacing.s050}>
-              <Text type="label" size="small" weight="bold">
+              <Text type="label" size="small" weight="bold" appearance="gray">
                 Cliente:
               </Text>
-              <Text type="label" size="small">
+              <Text type="label" size="small" appearance="gray">
                 {username}
               </Text>
             </Stack>
             <Stack gap={inube.spacing.s050}>
-              <Text type="label" size="small" weight="bold">
+              <Text type="label" size="small" weight="bold" appearance="gray">
                 Identificación:
               </Text>
-              <Text type="label" size="small">
+              <Text type="label" size="small" appearance="gray">
                 {userIdentification}
               </Text>
             </Stack>
             <Stack gap={inube.spacing.s050}>
-              <Text type="label" size="small" weight="bold">
+              <Text type="label" size="small" weight="bold" appearance="gray">
                 Fecha de impresión:
               </Text>
-              <Text type="label" size="small">
+              <Text type="label" size="small" appearance="gray">
                 {formatPrimaryDate(today, true)}
               </Text>
             </Stack>
@@ -157,7 +161,7 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
           />
         </Grid>
       </StyledCardContainer>
-      {commitmentAccount !== "" && (
+      {commitmentId !== "" && (
         <StyledCardContainer>
           <Text type="label" size="small" weight="bold" appearance="gray">
             COMPROMISOS DE AHORRO
@@ -167,13 +171,17 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
             gap={inube.spacing.s100}
             autoRows="auto"
           >
+            <BoxAttribute label="Número:" value={commitmentId} downloadable />
             <BoxAttribute
-              label="Numero:"
-              value={commitmentAccount}
+              label="Valor próximo pago:"
+              value={currencyFormat(commitmentValue)}
               downloadable
             />
-            <BoxAttribute label="Valor próximo pago:" value={""} downloadable />
-            <BoxAttribute label="Fecha próximo pago:" value={""} downloadable />
+            <BoxAttribute
+              label="Fecha próximo pago:"
+              value={commitmentDate}
+              downloadable
+            />
           </Grid>
         </StyledCardContainer>
       )}
@@ -204,7 +212,15 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
           {movementsEntries.map((row, rowIndex) => (
             <Tr key={rowIndex} border="bottom">
               {savingsAccountDocumentTitles.map((header, colIndex) => (
-                <Td key={colIndex} type="text" align="left">
+                <Td
+                  key={colIndex}
+                  type="text"
+                  align={
+                    colIndex >= savingsAccountDocumentTitles.length - 2
+                      ? "right"
+                      : "left"
+                  }
+                >
                   <Text type="label" size="small">
                     {row[header.id]}
                   </Text>

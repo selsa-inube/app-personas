@@ -77,6 +77,10 @@ function ActionsModal(props: ActionsModalProps) {
     "admin.savings.cdat.modal-option-cancel-investment",
   ).value;
 
+  const withTransfers = getFlag(
+    "admin.transfers.deposit.deposit-accounts",
+  ).value;
+
   if (node === null) {
     throw new Error(
       "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
@@ -335,7 +339,7 @@ function ActionsModal(props: ActionsModalProps) {
             </OutlineCard>
           )}
 
-          {productType === EProductType.VIEWSAVINGS && (
+          {productType === EProductType.VIEWSAVINGS && withTransfers && (
             <OutlineCard>
               <Stack
                 justifyContent="space-between"

@@ -231,18 +231,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             subtitle={selectedProduct.saving.id}
             tags={selectedProduct.saving.tags}
             {...savingsAccountBox(selectedProduct.saving.type)}
-            button={
-              withTransfers &&
-              selectedProduct.saving.type === EProductType.VIEWSAVINGS
-                ? {
-                    label: "Acciones",
-                    icon: <MdOutlineAdd />,
-                    onClick: onToggleActionsModal,
-                    variant: "filled",
-                    appearance: "primary",
-                  }
-                : undefined
-            }
           >
             <Stack direction="column" gap={inube.spacing.s100}>
               <Grid
@@ -304,7 +292,9 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               (selectedProduct.saving.type === EProductType.CDAT &&
                 (withDownloadCertificateOption ||
                   withShareCertificateOption ||
-                  withCancelInvestmentOption)) ? (
+                  withCancelInvestmentOption)) ||
+              (selectedProduct.saving.type === EProductType.VIEWSAVINGS &&
+                withTransfers) ? (
                 <Button
                   iconBefore={<MdOutlineAdd />}
                   spacing="compact"

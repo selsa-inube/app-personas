@@ -3,7 +3,7 @@ import { extractAttribute } from "src/utils/products";
 import { CdatCertificateDocument } from "./CdatCertificateDocument";
 import { ISelectedProductState } from "./types";
 import { SavingsAccountDocument } from "./SavingsAccountDocument";
-import { IMovement } from "src/model/entity/product";
+import { ICommitment, IMovement } from "src/model/entity/product";
 import { IEntry } from "@design/data/Table/types";
 import { formatPrimaryDate } from "src/utils/dates";
 import { currencyFormat } from "src/utils/currency";
@@ -49,6 +49,7 @@ const getCdatCertificateDocument = (
 const getSavingsAccountDocument = (
   user: IUser,
   selectedProduct: ISelectedProductState,
+  commitments: ICommitment[],
 ) => {
   const documentAttributes = selectedProduct.saving.attributes;
   const username =
@@ -81,8 +82,31 @@ const getSavingsAccountDocument = (
     "";
 
   const commitmentAccountArray = selectedProduct.saving.commitments || [];
-  const commitmentAccount =
-    commitmentAccountArray.length > 0 ? commitmentAccountArray[0] : "";
+  let commitmentId = "";
+  let commitmentValue = 0;
+  let commitmentNextPaymentDate = "";
+
+  if (commitmentAccountArray.length > 0) {
+    const commitmentAccount = commitmentAccountArray[0];
+    const filteredCommitments = commitments.filter(
+      (commitment) => commitment.id === commitmentAccount,
+    );
+
+    if (filteredCommitments.length > 0) {
+      const commitment = filteredCommitments[0];
+      commitmentId = commitment.id;
+
+      commitmentValue = Number(
+        extractAttribute(documentAttributes, "quota_value")?.value || 0,
+      );
+
+      commitmentNextPaymentDate =
+        extractAttribute(
+          documentAttributes,
+          "next_payment",
+        )?.value?.toString() || "";
+    }
+  }
 
   const movementsValues = (movements: IMovement[]): IEntry[] => {
     return movements.map((item) => {
@@ -119,8 +143,10 @@ const getSavingsAccountDocument = (
       accountState={accountState}
       accountGmf={accountGmf}
       requestDate={requestDate}
+      commitmentId={commitmentId}
+      commitmentValue={commitmentValue}
+      commitmentDate={commitmentNextPaymentDate}
       movementsEntries={movementsEntries}
-      commitmentAccount={commitmentAccount}
     />
   );
 };
