@@ -21,7 +21,6 @@ import {
   MdDeleteOutline,
   MdOutlineDescription,
 } from "react-icons/md";
-import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { IRequest } from "src/model/entity/request";
 import { ISelectedDocument } from "src/model/entity/service";
 import { currencyFormat } from "src/utils/currency";
@@ -228,7 +227,20 @@ function RequestDetailUI(props: RequestUIProps) {
                       weight="normal"
                     />,
                   )}
-                  {renderItem("Producto:", selectedRequest.product)}
+
+                  {selectedRequest.product &&
+                    renderItem("Producto:", selectedRequest.product)}
+
+                  {selectedRequest.quotaValue &&
+                    selectedRequest.requestType === "programmedsaving" &&
+                    renderItem(
+                      "Valor de la cuota:",
+                      currencyFormat(selectedRequest.quotaValue),
+                    )}
+
+                  {selectedRequest.requestType === "programmedsaving" &&
+                    selectedRequest.deadline &&
+                    renderItem("Numero de cuotas:", selectedRequest.deadline)}
 
                   {selectedRequest.beneficiary &&
                     renderItem("Beneficiario:", selectedRequest.beneficiary)}
@@ -240,16 +252,14 @@ function RequestDetailUI(props: RequestUIProps) {
                     "Código de seguimiento:",
                     selectedRequest.trackingCode,
                   )}
+
                   {renderItem(
                     "Fecha de solicitud:",
                     formatPrimaryDate(selectedRequest.requestDate, true),
                   )}
-                  {renderItem(
-                    "Valor de la solicitud:",
-                    selectedRequest.aidType === aidTypeDM.REQUIRED_DAYS.id
-                      ? `${selectedRequest.value} Días`
-                      : currencyFormat(selectedRequest.value),
-                  )}
+
+                  {selectedRequest.requestType === "aid" &&
+                    renderItem("Valor de la solicitud:", selectedRequest.label)}
                 </Grid>
               </Accordion>
 
@@ -279,12 +289,46 @@ function RequestDetailUI(props: RequestUIProps) {
               )}
 
               {selectedRequest.requestType === "aid" && (
-                <Accordion title="Condiciones del crédito">
+                <Accordion title="Detalles de la situación">
                   <StyledTextGrayContainer>
                     <Text type="body" size="medium" appearance="gray">
                       {selectedRequest.detailsSituation}
                     </Text>
                   </StyledTextGrayContainer>
+                </Accordion>
+              )}
+
+              {selectedRequest.requestType === "programmedsaving" && (
+                <Accordion title="Forma de pago">
+                  <Grid
+                    autoRows="auto"
+                    templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+                    gap={inube.spacing.s200}
+                    width="100%"
+                  >
+                    {renderItem(
+                      "Medio de pago:",
+                      selectedRequest.paymentMethodName,
+                    )}
+                  </Grid>
+                </Accordion>
+              )}
+
+              {selectedRequest.requestType === "programmedsaving" && (
+                <Accordion title="Reembolso">
+                  <Grid
+                    autoRows="auto"
+                    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+                    gap={inube.spacing.s200}
+                    width="100%"
+                  >
+                    {renderItem(
+                      "Forma de reembolso:",
+                      selectedRequest.disbursementMethodName,
+                    )}
+
+                    {renderItem("Cuenta:", selectedRequest.disbursementAccount)}
+                  </Grid>
                 </Accordion>
               )}
 
@@ -309,34 +353,36 @@ function RequestDetailUI(props: RequestUIProps) {
                 </Grid>
               </Accordion>
 
-              <Accordion title="Requisitos documentales">
-                <Stack
-                  direction="column"
-                  gap={inube.spacing.s200}
-                  alignItems="flex-end"
-                  width="100%"
-                >
+              {selectedRequest.documentaryRequirements.length > 0 && (
+                <Accordion title="Requisitos documentales">
                   <Stack
-                    gap={inube.spacing.s200}
                     direction="column"
+                    gap={inube.spacing.s200}
+                    alignItems="flex-end"
                     width="100%"
                   >
-                    {selectedRequest.documentaryRequirements.map(
-                      (document, index) =>
-                        document.documentType &&
-                        renderDocument(
-                          index,
-                          document.file.name,
-                          document.id,
-                          document.documentType,
-                          selectedDocuments,
-                          onOpenAttachModal,
-                          onRemoveDocument,
-                        ),
-                    )}
+                    <Stack
+                      gap={inube.spacing.s200}
+                      direction="column"
+                      width="100%"
+                    >
+                      {selectedRequest.documentaryRequirements.map(
+                        (document, index) =>
+                          document.documentType &&
+                          renderDocument(
+                            index,
+                            document.file.name,
+                            document.id,
+                            document.documentType,
+                            selectedDocuments,
+                            onOpenAttachModal,
+                            onRemoveDocument,
+                          ),
+                      )}
+                    </Stack>
                   </Stack>
-                </Stack>
-              </Accordion>
+                </Accordion>
+              )}
             </Stack>
 
             {isDesktop && <RequestNews news={news} />}

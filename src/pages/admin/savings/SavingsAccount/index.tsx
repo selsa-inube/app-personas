@@ -17,7 +17,10 @@ import {
   IReimbursementModalState,
   ISelectedProductState,
 } from "./types";
-import { getCdatCertificateDocument } from "./utilRenders";
+import {
+  getCdatCertificateDocument,
+  getSavingsAccountDocument,
+} from "./utilRenders";
 import { validateSaving } from "./utils";
 
 function SavingsAccount() {
@@ -190,6 +193,7 @@ function SavingsAccount() {
   };
 
   const handleToggleRechargeModal = () => {
+    setShowActionsModal(false);
     setShowRechargeModal(!showRechargeModal);
   };
 
@@ -286,6 +290,39 @@ function SavingsAccount() {
     );
   };
 
+  const handleDownloadExtract = () => {
+    if (!selectedProduct?.saving) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    doc.setProperties({
+      title: `Extracto-${selectedProduct.saving.id}`,
+      subject: "Informe",
+      author: `${user.firstName} ${user.firstLastName}`,
+      creator: "Fondecom",
+      keywords: "PDF/A",
+    });
+
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(
+        getSavingsAccountDocument(user, selectedProduct, commitments),
+      ),
+      (pdf) => {
+        pdf.save(
+          `Extracto-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
+        );
+      },
+    );
+  };
+
   if (!selectedProduct) return null;
 
   const withTransfers = getFlag(
@@ -323,6 +360,7 @@ function SavingsAccount() {
       onToggleCancelSavingModal={handleToggleCancelSavingModal}
       onDownloadCertificate={handleDownloadCertificate}
       onShareCertificate={handleShareCertificate}
+      onDownloadExtract={handleDownloadExtract}
     />
   );
 }

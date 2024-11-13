@@ -32,7 +32,7 @@ const StyledThead = styled.thead`
       theme.color?.stroke?.divider?.regular ||
       inube.color.stroke.divider.regular};
   background-color: ${({ theme }) =>
-    theme.color?.surface?.light?.clear || inube.color.surface.light.clear};
+    theme.color?.surface?.gray?.regular || inube.color.surface.gray.regular};
 `;
 
 const StyledTbody = styled.tbody`
@@ -100,7 +100,7 @@ export {
   StyledTbody,
   StyledTd,
   StyledThAction,
-  StyledThTitle,
   StyledThead,
+  StyledThTitle,
   StyledTr,
 };

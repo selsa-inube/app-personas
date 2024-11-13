@@ -6,6 +6,7 @@ const mapRequestCreditEntityToApi = (
   return {
     clientCode: creditRequest.customerCode,
     details: {
+      cus: "",
       product: creditRequest.product,
       productDescription: creditRequest.productName,
       destination: creditRequest.destination,

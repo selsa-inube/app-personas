@@ -6,6 +6,7 @@ import {
   ICommitment,
   IMovement,
 } from "src/model/entity/product";
+import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { capitalizeEachWord, capitalizeText } from "src/utils/texts";
 
@@ -102,18 +103,15 @@ const mapSavingsCommitmentsApiToEntity = (
       label: "En mora",
       value: String(inArrears),
     },
-    {
-      id: "quota_value_fixed",
-      label: "Compromiso",
-      value: String(commitment.quotaValue),
-    },
   ];
 
-  if (commitment.contributionValue) {
+  if (commitment.contributionValue || commitment.quotaValue) {
     attributes.push({
       id: "commitment_value",
       label: "Compromiso",
-      value: String(commitment.contributionValue),
+      value: commitment.contributionValue
+        ? String(commitment.contributionValue)
+        : currencyFormat(Number(commitment.quotaValue)),
     });
   }
 

@@ -3,6 +3,7 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
+import { ShareMaturityForm } from "@forms/ShareMaturityForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -12,13 +13,12 @@ import { Button } from "@inubekit/button";
 import { Stack } from "@inubekit/stack";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
-import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";
 import { cdatRequestSteps } from "./config/assisted";
 import { crumbsCdatRequest } from "./config/navigation";
-import { ConditionsForm } from "./forms/ConditionsForm";
+import { DeadlineForm } from "./forms/DeadlineForm";
+import { InterestPaymentForm } from "./forms/InterestPaymentForm";
 import { InvestmentForm } from "./forms/InvestmentForm";
-import { InvestmentNameForm } from "./forms/InvestmentNameForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
@@ -39,10 +39,17 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.conditions.number && (
-        <ConditionsForm
-          initialValues={cdatRequest.conditions.values}
-          ref={formReferences.conditions}
+      {currentStep === cdatRequestSteps.deadline.number && (
+        <DeadlineForm
+          initialValues={cdatRequest.deadline.values}
+          ref={formReferences.deadline}
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.interestPayment.number && (
+        <InterestPaymentForm
+          initialValues={cdatRequest.interestPayment.values}
+          ref={formReferences.interestPayment}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -53,12 +60,21 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
+
       {currentStep === cdatRequestSteps.disbursement.number && (
         <DisbursementForm
           initialValues={cdatRequest.disbursement.values}
           ref={formReferences.disbursement}
-          requestType="aid"
+          requestType="cdat"
           productId="S002"
+          onFormValid={setIsCurrentFormValid}
+        />
+      )}
+      {currentStep === cdatRequestSteps.shareMaturity.number && (
+        <ShareMaturityForm
+          initialValues={cdatRequest.shareMaturity.values}
+          productId="S002"
+          ref={formReferences.shareMaturity}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -69,20 +85,6 @@ const renderStepContent = (
           disbursementValues={cdatRequest.disbursement.values}
           test
           requestType="credit"
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
-      {currentStep === cdatRequestSteps.investmentName.number && (
-        <InvestmentNameForm
-          initialValues={cdatRequest.investmentName.values}
-          ref={formReferences.investmentName}
-          onFormValid={setIsCurrentFormValid}
-        />
-      )}
-      {currentStep === cdatRequestSteps.comments.number && (
-        <CommentsForm
-          initialValues={cdatRequest.comments.values}
-          ref={formReferences.comments}
           onFormValid={setIsCurrentFormValid}
         />
       )}

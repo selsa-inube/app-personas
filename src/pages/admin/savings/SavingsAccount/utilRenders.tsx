@@ -2,6 +2,11 @@ import { IUser } from "@inube/auth/dist/types/user";
 import { extractAttribute } from "src/utils/products";
 import { CdatCertificateDocument } from "./CdatCertificateDocument";
 import { ISelectedProductState } from "./types";
+import { SavingsAccountDocument } from "./SavingsAccountDocument";
+import { ICommitment, IMovement } from "src/model/entity/product";
+import { IEntry } from "@design/data/Table/types";
+import { formatPrimaryDate } from "src/utils/dates";
+import { currencyFormat } from "src/utils/currency";
 
 const getCdatCertificateDocument = (
   selectedProduct: ISelectedProductState,
@@ -41,4 +46,117 @@ const getCdatCertificateDocument = (
   );
 };
 
-export { getCdatCertificateDocument };
+const getSavingsAccountDocument = (
+  user: IUser,
+  selectedProduct: ISelectedProductState,
+  commitments: ICommitment[],
+) => {
+  const documentAttributes = selectedProduct.saving.attributes;
+  const username =
+    `${user.firstLastName} ${user.firstName} ${user.secondName}`.toUpperCase();
+  const movements = selectedProduct.saving.movements || [];
+
+  const sortedMovements = movements.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
+
+  const lastDate =
+    sortedMovements.length > 0
+      ? new Date(sortedMovements[sortedMovements.length - 1].date)
+      : new Date();
+
+  const netValue = Number(
+    extractAttribute(documentAttributes, "net_value")?.value || 0,
+  );
+  const minValue = Number(
+    extractAttribute(documentAttributes, "min_value")?.value || 0,
+  );
+  const accountState =
+    extractAttribute(documentAttributes, "account_state")?.value?.toString() ||
+    "";
+  const accountGmf =
+    extractAttribute(documentAttributes, "account_gmf")?.value?.toString() ||
+    "";
+  const requestDate =
+    extractAttribute(documentAttributes, "request_date")?.value?.toString() ||
+    "";
+
+  const commitmentAccountArray = selectedProduct.saving.commitments || [];
+  let commitmentId = "";
+  let commitmentValue = "";
+  let commitmentNextPaymentValue = 0;
+  let commitmentNextPaymentDate = "";
+
+  if (commitmentAccountArray.length > 0) {
+    const commitmentAccount = commitmentAccountArray[0];
+    const filteredCommitments = commitments.filter(
+      (commitment) => commitment.id === commitmentAccount,
+    );
+
+    if (filteredCommitments.length > 0) {
+      const commitment = filteredCommitments[0];
+      commitmentId = commitment.id;
+
+      commitmentValue =
+        extractAttribute(
+          commitment.attributes,
+          "commitment_value",
+        )?.value?.toString() || "";
+
+      commitmentNextPaymentValue = Number(
+        extractAttribute(commitment.attributes, "expired_value")?.value || 0,
+      );
+
+      commitmentNextPaymentDate =
+        extractAttribute(
+          commitment.attributes,
+          "next_payment",
+        )?.value?.toString() || "";
+    }
+  }
+
+  const movementsValues = (movements: IMovement[]): IEntry[] => {
+    return movements.map((item) => {
+      let charges = currencyFormat(0);
+      let deposits = currencyFormat(0);
+
+      if (item.type === "CREDIT") {
+        deposits = currencyFormat(item.totalValue);
+      }
+      if (item.type === "DEBIT") {
+        charges = currencyFormat(item.totalValue);
+      }
+
+      return {
+        id: item.id,
+        date: formatPrimaryDate(item.date),
+        description: item.description,
+        charges: charges,
+        deposits: deposits,
+      };
+    });
+  };
+
+  const movementsEntries = movementsValues(movements);
+
+  return (
+    <SavingsAccountDocument
+      username={username}
+      userIdentification={user.identification}
+      accountNumber={selectedProduct.option}
+      lastDate={lastDate}
+      netValue={netValue}
+      minValue={minValue}
+      accountState={accountState}
+      accountGmf={accountGmf}
+      requestDate={requestDate}
+      commitmentId={commitmentId}
+      commitmentValue={commitmentValue}
+      commitmentNextPaymentValue={commitmentNextPaymentValue}
+      commitmentDate={commitmentNextPaymentDate}
+      movementsEntries={movementsEntries}
+    />
+  );
+};
+
+export { getCdatCertificateDocument, getSavingsAccountDocument };

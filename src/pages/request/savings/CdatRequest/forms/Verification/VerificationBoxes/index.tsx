@@ -1,26 +1,22 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { periodicityDM } from "src/model/domains/general/periodicityDM";
 import { currencyFormat } from "src/utils/currency";
 import { IFormsCdatRequest } from "../../../types";
-import { IConditionsEntry } from "../../ConditionsForm/types";
+import { IDeadlineEntry } from "../../DeadlineForm/types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
 
 import { inube } from "@design/tokens";
-import { renderCommentsVerification } from "@forms/CommentsForm/verification";
 import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
+import { renderShareMaturityVerification } from "@forms/ShareMaturityForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { cdatRequestSteps } from "../../../config/assisted";
-import { IInvestmentNameEntry } from "../../InvestmentNameForm/types";
+import { renderInterestPaymentVerification } from "../../InterestPaymentForm/verification";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
-import {
-  EMoneySourceType,
-  IPaymentMethodEntry,
-} from "../../PaymentMethodForm/types";
+import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 
 const renderInvestmentVerification = (
   values: IInvestmentEntry,
@@ -38,12 +34,8 @@ const renderInvestmentVerification = (
   </Stack>
 );
 
-const renderConditionsVerification = (values: IConditionsEntry) => (
+const renderDeadlineVerification = (values: IDeadlineEntry) => (
   <Stack direction="column" gap={inube.spacing.s100} width="100%">
-    <BoxAttribute
-      label="Pago de intereses:"
-      value={periodicityDM.valueOf(values.interestPayment)?.value}
-    />
     <BoxAttribute label="Número de días:" value={values.deadlineDays} />
   </Stack>
 );
@@ -77,42 +69,9 @@ const renderPaymentMethodVerification = (
             )?.value
           }
         />
-
-        <BoxAttribute
-          label="Valor pagado:"
-          value={currencyFormat(values.valueToPay)}
-        />
-
-        {Object.values(values.moneySources || {}).map(
-          (moneySource) =>
-            moneySource.value > 0 && (
-              <BoxAttribute
-                key={moneySource.id}
-                label={
-                  moneySource.type === EMoneySourceType.SAVINGACCOUNT
-                    ? `${moneySource.label} - ${moneySource.id}`
-                    : moneySource.label
-                }
-                value={currencyFormat(moneySource.value)}
-              />
-            ),
-        )}
       </>
     )}
   </Grid>
-);
-
-const renderInvestmentNameVerification = (
-  values: IInvestmentNameEntry,
-  isTablet: boolean,
-) => (
-  <Stack
-    direction="column"
-    gap={isTablet ? inube.spacing.s200 : inube.spacing.s250}
-    width="100%"
-  >
-    <BoxAttribute label="Nombre del producto:" value={values.productName} />
-  </Stack>
 );
 
 interface VerificationBoxesProps {
@@ -127,8 +86,13 @@ function VerificationBoxes(props: VerificationBoxesProps) {
     <>
       {stepKey === "investment" &&
         renderInvestmentVerification(cdatRequest.investment.values, isTablet)}
-      {stepKey === "conditions" &&
-        renderConditionsVerification(cdatRequest.conditions.values)}
+      {stepKey === "deadline" &&
+        renderDeadlineVerification(cdatRequest.deadline.values)}
+      {stepKey === "interestPayment" &&
+        renderInterestPaymentVerification(
+          cdatRequest.interestPayment.values,
+          isTablet,
+        )}
       {stepKey === "paymentMethod" &&
         renderPaymentMethodVerification(
           cdatRequest.paymentMethod.values,
@@ -139,18 +103,16 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.disbursement.values,
           isTablet,
         )}
+      {stepKey === "shareMaturity" &&
+        renderShareMaturityVerification(
+          cdatRequest.shareMaturity.values,
+          isTablet,
+        )}
       {stepKey === "systemValidations" &&
         renderSystemValidationsVerification(
           cdatRequest.systemValidations.values,
           isTablet,
         )}
-      {stepKey === "investmentName" &&
-        renderInvestmentNameVerification(
-          cdatRequest.investmentName.values,
-          isTablet,
-        )}
-      {stepKey === "comments" &&
-        renderCommentsVerification(cdatRequest.comments.values)}
       {stepKey === "termsAndConditions" &&
         renderTermsAndConditionsVerification(
           cdatRequest.termsAndConditions.values,

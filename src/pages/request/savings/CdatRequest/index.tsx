@@ -1,6 +1,7 @@
-import { mapComments } from "@forms/CommentsForm/mappers";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
+import { initialValuesShareMaturity } from "@forms/ShareMaturityForm/initialValues";
+import { IShareMaturityEntry } from "@forms/ShareMaturityForm/types";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
@@ -8,20 +9,21 @@ import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Navigate, useBlocker } from "react-router-dom";
+import { Navigate, useBlocker, useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";
 import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
-import { IConditionsEntry } from "./forms/ConditionsForm/types";
+import { IDeadlineEntry } from "./forms/DeadlineForm/types";
+import { initialValuesInterestPayment } from "./forms/InterestPaymentForm/initialValues";
+import { IInterestPaymentEntry } from "./forms/InterestPaymentForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
-import { IInvestmentNameEntry } from "./forms/InvestmentNameForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { cdatStepsRules } from "./utils";
+import { cdatStepsRules, sendCdatRequest } from "./utils";
+import { useFlag } from "@inubekit/flag";
 
 function CdatRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
@@ -35,14 +37,21 @@ function CdatRequest() {
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
   const { getFlag } = useContext(AppContext);
 
+  const navigate = useNavigate();
+  const { addFlag } = useFlag();
+
   const [cdatRequest, setCdatRequest] = useState<IFormsCdatRequest>({
     investment: {
       isValid: false,
       values: {},
     },
-    conditions: {
+    deadline: {
       isValid: false,
-      values: initalValuesCDAT.conditions,
+      values: initalValuesCDAT.deadline,
+    },
+    interestPayment: {
+      isValid: false,
+      values: initialValuesInterestPayment,
     },
     paymentMethod: {
       isValid: false,
@@ -52,17 +61,13 @@ function CdatRequest() {
       isValid: false,
       values: mapDisbursement(),
     },
+    shareMaturity: {
+      isValid: false,
+      values: initialValuesShareMaturity,
+    },
     systemValidations: {
       isValid: false,
       values: mapSystemValidations(),
-    },
-    investmentName: {
-      isValid: false,
-      values: initalValuesCDAT.investmentName,
-    },
-    comments: {
-      isValid: true,
-      values: mapComments(),
     },
     termsAndConditions: {
       isValid: false,
@@ -78,25 +83,25 @@ function CdatRequest() {
   });
 
   const investmentRef = useRef<FormikProps<IInvestmentEntry>>(null);
-  const conditionsRef = useRef<FormikProps<IConditionsEntry>>(null);
+  const deadlineRef = useRef<FormikProps<IDeadlineEntry>>(null);
+  const interestPaymentRef = useRef<FormikProps<IInterestPaymentEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
+  const shareMaturityRef = useRef<FormikProps<IShareMaturityEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
-  const investmentNameRef = useRef<FormikProps<IInvestmentNameEntry>>(null);
-  const commentsRef = useRef<FormikProps<ICommentsEntry>>(null);
   const termsAndConditionsRef =
     useRef<FormikProps<ITermsAndConditionsEntry>>(null);
   const contactChannelsRef = useRef<FormikProps<IContactChannelsEntry>>(null);
 
   const formReferences: IFormsCdatRequestRefs = {
     investment: investmentRef,
-    conditions: conditionsRef,
+    deadline: deadlineRef,
+    interestPayment: interestPaymentRef,
     paymentMethod: paymentMethodRef,
     disbursement: disbursementRef,
+    shareMaturity: shareMaturityRef,
     systemValidations: systemValidationsRef,
-    investmentName: investmentNameRef,
-    comments: commentsRef,
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,
   };
@@ -151,7 +156,21 @@ function CdatRequest() {
   };
 
   const handleFinishAssisted = () => {
+    if (!accessToken || !user) return;
+
     setLoadingSend(true);
+
+    sendCdatRequest(user, cdatRequest, accessToken, navigate).catch(() => {
+      addFlag({
+        title: "La solicitud no pudo ser procesada",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        appearance: "danger",
+        duration: 5000,
+      });
+
+      setLoadingSend(false);
+    });
   };
 
   const handleNextStep = () => {

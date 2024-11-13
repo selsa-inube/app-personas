@@ -15,7 +15,6 @@ import {
   MdOpenInNew,
   MdOutlineAdd,
   MdOutlineAssignmentTurnedIn,
-  MdOutlineAttachMoney,
 } from "react-icons/md";
 import { crumbsSaving } from "./config/navigation";
 import {
@@ -104,6 +103,7 @@ interface SavingsAccountUIProps {
   onToggleCancelSavingModal: () => void;
   onDownloadCertificate: () => void;
   onShareCertificate: () => void;
+  onDownloadExtract: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -137,6 +137,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onToggleCancelSavingModal,
     onDownloadCertificate,
     onShareCertificate,
+    onDownloadExtract,
   } = props;
   const { getFlag } = useContext(AppContext);
 
@@ -162,6 +163,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
 
   const withCancelInvestmentOption = getFlag(
     "admin.savings.cdat.modal-option-cancel-investment",
+  ).value;
+
+  const withDownloadExtractOption = getFlag(
+    "admin.savings.savings-accounts.download-extract",
   ).value;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -230,18 +235,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
             subtitle={selectedProduct.saving.id}
             tags={selectedProduct.saving.tags}
             {...savingsAccountBox(selectedProduct.saving.type)}
-            button={
-              withTransfers &&
-              selectedProduct.saving.type === EProductType.VIEWSAVINGS
-                ? {
-                    label: "Depositar",
-                    icon: <MdOutlineAttachMoney />,
-                    onClick: onToggleRechargeModal,
-                    variant: "filled",
-                    appearance: "primary",
-                  }
-                : undefined
-            }
           >
             <Stack direction="column" gap={inube.spacing.s100}>
               <Grid
@@ -303,7 +296,9 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
               (selectedProduct.saving.type === EProductType.CDAT &&
                 (withDownloadCertificateOption ||
                   withShareCertificateOption ||
-                  withCancelInvestmentOption)) ? (
+                  withCancelInvestmentOption)) ||
+              (selectedProduct.saving.type === EProductType.VIEWSAVINGS &&
+                (withTransfers || withDownloadExtractOption)) ? (
                 <Button
                   iconBefore={<MdOutlineAdd />}
                   spacing="compact"
@@ -410,6 +405,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           onCancelSaving={onToggleCancelSavingModal}
           onDownload={onDownloadCertificate}
           onShare={onShareCertificate}
+          onToggleRechargeModal={onToggleRechargeModal}
+          onDownloadExtract={onDownloadExtract}
         />
       )}
       {showChangeQuotaModal && (

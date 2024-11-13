@@ -196,7 +196,7 @@ const TableUI = (props: TableUIProps) => {
               $colsSameWidth={colsSameWidth}
               $withActions={withActions}
             >
-              <Text type="label" size="medium" appearance="dark">
+              <Text type="label" size="medium" appearance="dark" weight="bold">
                 {title.titleName}
               </Text>
             </StyledThTitle>
@@ -223,7 +223,7 @@ const TableUI = (props: TableUIProps) => {
                   $isLastTr={index === entries.length - 1}
                 >
                   {titleColumns.map((title) => (
-                    <StyledTd key={`e-${title.id}`} $withActions={withActions}> 
+                    <StyledTd key={`e-${title.id}`} $withActions={withActions}>
                       <Text
                         type="body"
                         size="small"

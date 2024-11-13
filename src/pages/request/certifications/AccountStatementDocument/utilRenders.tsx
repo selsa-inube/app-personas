@@ -67,12 +67,7 @@ const commitmentsSavings = (commitments: ICommitment[]): IEntry[] => {
     const attributes = item.attributes;
 
     const commitmentValue =
-      attributes.find((attr) => attr.id === "commitment_value")?.value ??
-      attributes.find((attr) => attr.id === "quota_value_fixed")?.value ??
-      null;
-
-    const quotaValueFixed =
-      attributes.find((attr) => attr.id === "quota_value_fixed")?.value ?? null;
+      attributes.find((attr) => attr.id === "commitment_value")?.value ?? null;
 
     const nextPaymentDateValue =
       attributes.find((attr) => attr.id === "next_payment")?.value ??
@@ -90,15 +85,10 @@ const commitmentsSavings = (commitments: ICommitment[]): IEntry[] => {
           : formatPrimaryDate(new Date(paymentDateString))
         : "Por definir";
 
-    const formattedCommitmentValue =
-      commitmentValue === quotaValueFixed
-        ? currencyFormat(Number(commitmentValue))
-        : commitmentValue;
-
     return {
       id: item.id,
       concept: item.title.toUpperCase(),
-      commitmentValue: formattedCommitmentValue,
+      commitmentValue: commitmentValue,
       paymentDate,
       nextPayment: nextPaymentDateValue,
     };
@@ -190,27 +180,6 @@ const getAccountStatementDocument = async (
       .toUpperCase()
       .trim();
 
-  let paymentMethod = "";
-
-  if (commitments.length > 0) {
-    const firstCommitment = commitments[0];
-    const paymentMethodAttribute = firstCommitment.attributes.find(
-      (attr) => attr.id === "payment_method",
-    );
-
-    if (paymentMethodAttribute) {
-      const value = paymentMethodAttribute.value;
-
-      if (typeof value === "string") {
-        paymentMethod = value.toUpperCase();
-      } else if (typeof value === "number") {
-        paymentMethod = value.toString().toUpperCase();
-      }
-    }
-  } else {
-    paymentMethod = "FONDECOM";
-  }
-
   const savingsAccountEntries = savingsAccount(savings);
   const savingsContributionsEntries = contributions(savings);
   const programmedSavingsEntries = programmedSavings(savings);
@@ -222,7 +191,6 @@ const getAccountStatementDocument = async (
     <AccountStatementDocument
       userName={userName}
       userIdentification={user.identification}
-      paymentMethod={paymentMethod}
       savingsAccountEntries={savingsAccountEntries}
       savingsContributionsEntries={savingsContributionsEntries}
       programmedSavingsEntries={programmedSavingsEntries}

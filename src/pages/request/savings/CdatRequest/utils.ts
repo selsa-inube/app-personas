@@ -1,5 +1,14 @@
+import { enviroment } from "@config/enviroment";
+import { IUser } from "@inube/auth/dist/types/user";
+import { NavigateFunction } from "react-router-dom";
+import { EPaymentMethodType } from "src/model/entity/payment";
+import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
+import { createCdatRequest } from "src/services/iclient/savings/createCdatRequest";
+import { IRequestCdatRequest } from "src/services/iclient/savings/createCdatRequest/types";
+import { sendTeamsMessage } from "src/services/teams/sendMessage";
 import { cdatRequestSteps } from "./config/assisted";
 import { initalValuesCDAT } from "./config/initialValues";
+import { paymentMethods } from "./forms/PaymentMethodForm/config/payment";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 
 const cdatStepsRules = (
@@ -25,20 +34,11 @@ const cdatStepsRules = (
         JSON.stringify(values) !==
         JSON.stringify(currentCdatRequest.investment.values)
       ) {
-        newCdatRequest.conditions = {
+        newCdatRequest.deadline = {
           isValid: false,
           values: {
-            ...initalValuesCDAT.conditions,
+            ...initalValuesCDAT.deadline,
             valueInvestment: values.valueInvestment,
-          },
-        };
-
-        newCdatRequest.paymentMethod = {
-          isValid: false,
-          values: {
-            ...initalValuesCDAT.paymentMethod,
-            valueToPay: 500000,
-            pendingValue: 500000,
           },
         };
       }
@@ -61,4 +61,104 @@ const cdatStepsRules = (
   });
 };
 
-export { cdatStepsRules };
+const sendCdatRequest = async (
+  user: IUser,
+  cdatRequest: IFormsCdatRequest,
+  accessToken: string,
+  navigate: NavigateFunction,
+) => {
+  const paymentMethodPSE =
+    cdatRequest.paymentMethod.values.paymentMethod === EPaymentMethodType.PSE;
+  const paymentMethodSavingAccount =
+    cdatRequest.paymentMethod.values.paymentMethod === EPaymentMethodType.DEBIT;
+
+  const comments = `Datos de contacto: Celular: ${cdatRequest.contactChannels.values.cellPhone} Correo: ${cdatRequest.contactChannels.values.email} Teléfono: ${cdatRequest.contactChannels.values.landlinePhone}`;
+
+  const cdatRequestData: IRequestCdatRequest = {
+    comments,
+    customerCode: user.identification,
+    customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
+    product: "",
+    productName: "",
+    termsConditions: {
+      ids: cdatRequest.termsAndConditions.values.ids,
+      description:
+        cdatRequest.termsAndConditions.values.termsConditions.join(" "),
+    },
+    disbursmentMethod: {
+      id: cdatRequest.disbursement.values.disbursement || "",
+      name: cdatRequest.disbursement.values.disbursementName || "",
+      accountNumber: cdatRequest.disbursement.values.accountNumber,
+      transferAccountNumber: cdatRequest.disbursement.values.writeAccountNumber,
+      transferAccountType: cdatRequest.disbursement.values.accountType,
+      transferBankEntity: cdatRequest.disbursement.values.bankEntity,
+      firstName: cdatRequest.disbursement.values.firstName,
+      secondName: cdatRequest.disbursement.values.secondName,
+      firstLastName: cdatRequest.disbursement.values.firstLastName,
+      secondLastName: cdatRequest.disbursement.values.secondLastName,
+      gender: cdatRequest.disbursement.values.gender,
+      genderName: cdatRequest.disbursement.values.gender,
+      identificationType: cdatRequest.disbursement.values.identificationType,
+      identification: cdatRequest.disbursement.values.identification,
+    },
+    validations: cdatRequest.systemValidations.values.validations,
+  };
+
+  const creationTime = new Date();
+  let confirmationType = "succeed";
+
+  try {
+    const cdatRequestResponse = await createCdatRequest(
+      cdatRequestData,
+      accessToken,
+    );
+
+    if (!paymentMethodPSE && paymentMethodSavingAccount) {
+      navigate("/my-requests?success_request=true");
+      return;
+    }
+
+    if (cdatRequestResponse) {
+      window.open(cdatRequestResponse.url, "_self");
+    }
+  } catch (error) {
+    confirmationType = "failed";
+
+    throw error;
+  } finally {
+    const totalPayment = Number(
+      cdatRequest.investment.values.valueInvestment || 0,
+    );
+
+    if (enviroment.IS_PRODUCTION) {
+      const confirmationTime = new Date();
+      const trackId = await savePaymentTracking(
+        creationTime,
+        confirmationTime,
+        confirmationType,
+        totalPayment,
+        ["CDAT"],
+        [cdatRequest.paymentMethod.values.paymentMethodName],
+        user.identification,
+      );
+
+      if (confirmationType === "failed") {
+        sendTeamsMessage({
+          type: "MessageCard",
+          summary: "Payment failure",
+          title: "Failed payment",
+          subtitle: "Details",
+          facts: [
+            { name: "Track ID:", value: trackId },
+            { name: "User ID:", value: user.identification },
+            { name: "Date:", value: confirmationTime },
+            { name: "Amount:", value: totalPayment },
+            { name: "Payment methods:", value: paymentMethods.join(", ") },
+          ],
+        });
+      }
+    }
+  }
+};
+
+export { cdatStepsRules, sendCdatRequest };

@@ -28,11 +28,9 @@ import {
 } from "@inubekit/table";
 
 const today = new Date();
-const NO_DATA_MESSAGE = "Actualmente no tienes productos para mostrar.";
 
 interface AccountStatementDocumentProps {
   userName: string;
-  paymentMethod: string;
   userIdentification: string;
   savingsAccountEntries: IEntry[];
   savingsContributionsEntries: IEntry[];
@@ -92,7 +90,7 @@ function TableSection(props: TableSectionProps) {
           </Tr>
         </Thead>
         <Tbody>
-          {dataEntries.length > 0 ? (
+          {dataEntries.length > 0 &&
             dataEntries.map((row, rowIndex) => (
               <Tr key={rowIndex} border="bottom">
                 {tableTitles.map((header, colIndex) => (
@@ -103,16 +101,7 @@ function TableSection(props: TableSectionProps) {
                   </Td>
                 ))}
               </Tr>
-            ))
-          ) : (
-            <Tr border="bottom">
-              <Td colSpan={colSpan} align="left">
-                <Text type="label" size="small">
-                  {NO_DATA_MESSAGE}
-                </Text>
-              </Td>
-            </Tr>
-          )}
+            ))}
         </Tbody>
       </Table>
     </Stack>
@@ -122,7 +111,6 @@ function TableSection(props: TableSectionProps) {
 function AccountStatementDocument(props: AccountStatementDocumentProps) {
   const {
     userName,
-    paymentMethod,
     userIdentification,
     savingsAccountEntries,
     savingsContributionsEntries,
@@ -135,30 +123,34 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
 
   const creditAttributes = credits.map((item) => {
     const attributes = item.attributes;
-  
+
     const descriptionValue = `${item.id} - ${item.title}`.toUpperCase();
-  
+
     return {
       id: item.id,
       description: descriptionValue,
-      loanDate: attributes.find(attr => attr.id === "loan_date")?.value ?? "",
+      loanDate: attributes.find((attr) => attr.id === "loan_date")?.value ?? "",
       loanValue: currencyFormat(
-        Number(attributes.find(attr => attr.id === "loan_value")?.value) || 0
+        Number(attributes.find((attr) => attr.id === "loan_value")?.value) || 0,
       ),
       cancellationBalance: currencyFormat(
-        Number(attributes.find(attr => attr.id === "total_value")?.value) || 0
+        Number(attributes.find((attr) => attr.id === "total_value")?.value) ||
+          0,
       ),
       valueToBeCurrent: currencyFormat(
-        Number(attributes.find(attr => attr.id === "expired_value")?.value) || 0
+        Number(attributes.find((attr) => attr.id === "expired_value")?.value) ||
+          0,
       ),
       outstandingDues: Number(
-        attributes.find(attr => attr.id === "outstanding_dues")?.value ?? 0
+        attributes.find((attr) => attr.id === "outstanding_dues")?.value ?? 0,
       ),
       duesPaid: Number(
-        attributes.find(attr => attr.id === "dues_paid")?.value ?? 0
+        attributes.find((attr) => attr.id === "dues_paid")?.value ?? 0,
       ),
-      periodicity: attributes.find(attr => attr.id === "periodicity")?.value ?? "",
-      interestRate: attributes.find(attr => attr.id === "interest_rate")?.value ?? "",
+      periodicity:
+        attributes.find((attr) => attr.id === "periodicity")?.value ?? "",
+      interestRate:
+        attributes.find((attr) => attr.id === "interest_rate")?.value ?? "",
     };
   });
 
@@ -188,14 +180,6 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
           </Stack>
           <Stack gap={inube.spacing.s050}>
             <Text type="label" size="small" weight="bold">
-              Medio de pago:
-            </Text>
-            <Text type="label" size="small">
-              {paymentMethod}
-            </Text>
-          </Stack>
-          <Stack gap={inube.spacing.s050}>
-            <Text type="label" size="small" weight="bold">
               Fecha de impresión:
             </Text>
             <Text type="label" size="small">
@@ -205,51 +189,59 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
         </Stack>
       </Stack>
 
-      <Text type="label" size="medium" weight="bold" appearance="gray">
-        Lo que tengo
+      <Text type="label" size="medium" weight="bold" appearance="primary">
+        LO QUE TENGO
       </Text>
 
-      <TableSection
-        title="Cuenta de ahorros"
-        tableTitles={savingsTableTitles}
-        dataEntries={savingsAccountEntries}
-        colSpan={3}
-        colWidths={["15%", "70%", "15%"]}
-      />
-      <TableSection
-        title="Aportes"
-        tableTitles={savingsTableTitles}
-        dataEntries={savingsContributionsEntries}
-        colSpan={3}
-        colWidths={["15%", "70%", "15%"]}
-      />
-      <TableSection
-        title="Ahorro programado"
-        tableTitles={savingsTableTitles}
-        dataEntries={programmedSavingsEntries}
-        colSpan={3}
-        colWidths={["15%", "70%", "15%"]}
-      />
-      <TableSection
-        title="Compromisos de ahorro"
-        tableTitles={commitmentsTableTitles}
-        dataEntries={commitmentsSavingsEntries}
-        colSpan={4}
-        colWidths={["50%", "20%", "15%", "15%"]}
-        grayText
-      />
-      <Text type="label" size="medium" weight="bold" appearance="gray">
-        Lo que tengo
+      {savingsAccountEntries.length > 0 && (
+        <TableSection
+          title="Cuentas de ahorros"
+          tableTitles={savingsTableTitles}
+          dataEntries={savingsAccountEntries}
+          colSpan={3}
+          colWidths={["15%", "70%", "15%"]}
+        />
+      )}
+      {savingsContributionsEntries.length > 0 && (
+        <TableSection
+          title="Aportes"
+          tableTitles={savingsTableTitles}
+          dataEntries={savingsContributionsEntries}
+          colSpan={3}
+          colWidths={["15%", "70%", "15%"]}
+        />
+      )}
+      {programmedSavingsEntries.length > 0 && (
+        <TableSection
+          title="Ahorros programados"
+          tableTitles={savingsTableTitles}
+          dataEntries={programmedSavingsEntries}
+          colSpan={3}
+          colWidths={["15%", "70%", "15%"]}
+        />
+      )}
+      {commitmentsSavingsEntries.length > 0 && (
+        <TableSection
+          title="Compromisos de ahorro"
+          tableTitles={commitmentsTableTitles}
+          dataEntries={commitmentsSavingsEntries}
+          colSpan={4}
+          colWidths={["50%", "20%", "15%", "15%"]}
+          grayText
+        />
+      )}
+      <Text type="label" size="medium" weight="bold" appearance="primary">
+        LO QUE DEBO
       </Text>
-      <TableSection
-        title="Resumen"
-        tableTitles={paymentSummaryTitles}
-        dataEntries={obligationsEntries}
-        colWidths={["70%", "15%", "15%"]}
-        colSpan={3}
-      />
       {obligationsEntries.length > 0 && (
         <>
+          <TableSection
+            title="Resumen"
+            tableTitles={paymentSummaryTitles}
+            dataEntries={obligationsEntries}
+            colWidths={["70%", "15%", "15%"]}
+            colSpan={3}
+          />
           <Text type="label" size="medium" weight="bold">
             Detalles
           </Text>
@@ -310,15 +302,16 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
           ))}
         </>
       )}
-
-      <TableSection
-        title="Tarjetas"
-        tableTitles={cardsTableTitles}
-        dataEntries={creditCardsEntries}
-        colSpan={4}
-        colWidths={["25%", "45%", "15%", "15%"]}
-        grayText
-      />
+      {creditCardsEntries.length > 0 && (
+        <TableSection
+          title="Tarjetas"
+          tableTitles={cardsTableTitles}
+          dataEntries={creditCardsEntries}
+          colSpan={4}
+          colWidths={["25%", "45%", "15%", "15%"]}
+          grayText
+        />
+      )}
       <Stack justifyContent="center">
         <Text type="body" size="small" appearance="gray" textAlign="center">
           Cualquier inquietud, queja o reclamo con este estado de cuenta, podrá

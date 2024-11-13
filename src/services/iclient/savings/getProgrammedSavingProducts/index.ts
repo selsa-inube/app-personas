@@ -1,5 +1,5 @@
 import { enviroment } from "@config/enviroment";
-import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingFixedRequest/forms/DestinationForm/types";
+import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingRequest/forms/DestinationForm/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapProductsApiToEntities } from "./mappers";
 

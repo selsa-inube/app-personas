@@ -40,6 +40,7 @@ function CertificationRequest() {
       subject: "Estado de Cuenta PDF",
       author: `${user.firstName} ${user.firstLastName}`,
       creator: "Fondecom",
+      keywords: 'PDF/A',
     });
 
     try {
