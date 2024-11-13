@@ -104,7 +104,7 @@ const getSavingsAccountDocument = (
         )?.value?.toString() || "";
 
       commitmentNextPaymentValue = Number(
-        extractAttribute(commitment.attributes, "expired_value")?.value || 0,
+        extractAttribute(commitment.attributes, "quota_value")?.value || 0,
       );
 
       commitmentNextPaymentDate =

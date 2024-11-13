@@ -199,7 +199,7 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
               <Col
                 key={index}
                 span={1}
-                style={{ width: ["12%", "64%", "12%", "12%"][index] }}
+                style={{ width: ["14%", "62%", "12%", "12%"][index] }}
               />
             ))}
         </Colgroup>
