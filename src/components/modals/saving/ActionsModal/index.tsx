@@ -397,11 +397,11 @@ function ActionsModal(props: ActionsModalProps) {
                 >
                   <Stack direction="column" gap={inube.spacing.s050}>
                     <Text type="title" size="small" weight="bold">
-                      Descargar certificado
+                      Descargar extracto
                     </Text>
 
                     <Text type="body" size="small" appearance="gray">
-                      Descarga tu certificado de ahorro.
+                      Descarga tu extracto de ahorro.
                     </Text>
                   </Stack>
 
