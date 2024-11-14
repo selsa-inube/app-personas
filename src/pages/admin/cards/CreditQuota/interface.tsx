@@ -9,7 +9,12 @@ import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { MdArrowBack, MdOpenInNew, MdOutlineAttachMoney } from "react-icons/md";
+import {
+  MdArrowBack,
+  MdOpenInNew,
+  MdOutlineAdd,
+  MdOutlineAttachMoney,
+} from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { crumbsCreditQuota } from "./config/navigation";
 import {
@@ -26,6 +31,8 @@ import { Stack } from "@inubekit/stack";
 import { Grid } from "@inubekit/grid";
 import { Text } from "@inubekit/text";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { ActionsModal } from "@components/modals/saving/ActionsModal";
 
 interface CreditQuotaUIProps {
   cardId?: string;
@@ -34,8 +41,12 @@ interface CreditQuotaUIProps {
   selectedProduct: ISelectedProductState;
   selectedConsumption?: IProduct[];
   usedQuotaModal: IUsedQuotaModalState;
+  showActionsModal: boolean;
   handleToggleUsedQuotaModal: () => void;
   handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onToggleActionsModal: () => void;
+  onShareCertificate: () => void;
+  onDownloadExtract: () => void;
 }
 
 function CreditQuotaUI(props: CreditQuotaUIProps) {
@@ -46,8 +57,12 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
     selectedConsumption,
     productsOptions,
     usedQuotaModal,
+    showActionsModal,
     handleToggleUsedQuotaModal,
     handleChangeProduct,
+    onToggleActionsModal,
+    onShareCertificate,
+    onDownloadExtract,
   } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -141,6 +156,15 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
                   />
                 ))}
               </Grid>
+              <Stack justifyContent="flex-end" width="100%">
+                <Button
+                  iconBefore={<MdOutlineAdd />}
+                  spacing="compact"
+                  onClick={onToggleActionsModal}
+                >
+                  Acciones
+                </Button>
+              </Stack>
             </Box>
           </Stack>
 
@@ -200,6 +224,14 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
           portalId="modals"
           onCloseModal={handleToggleUsedQuotaModal}
           usedQuotaData={usedQuotaModal.data}
+        />
+      )}
+      {showActionsModal && (
+        <ActionsModal
+          productType={selectedProduct.creditQuotaDetail.type}
+          onCloseModal={onToggleActionsModal}
+          onShare={onShareCertificate}
+          onDownloadExtract={onDownloadExtract}
         />
       )}
     </>
