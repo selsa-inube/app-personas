@@ -8,7 +8,7 @@ import {
   IRequirementDisbursementRequest,
   IRequirementRequest,
 } from "src/services/iclient/productRequest/getRequirements/types";
-import { ISystemValidationsEntry } from "./types";
+import { IMoneySourceValid, ISystemValidationsEntry } from "./types";
 
 const loadingValidations: IValidation[] = [
   {
@@ -53,6 +53,7 @@ const buildRequestData = (
   disbursementValues: IDisbursementEntry,
   beneficiary?: IBeneficiary,
   shareMaturity?: string,
+  moneySources?: IMoneySourceValid[],
 ) => {
   const requestDate = new Date();
 
@@ -137,6 +138,22 @@ const buildRequestData = (
       paymentMethodName: formik.values.paymentMethodName,
       periodicity: formik.values.periodicity,
       quota: formik.values.quota,
+    };
+  }
+
+  if (
+    requestType === "cdat" &&
+    formik.values.rate &&
+    formik.values.deadline &&
+    moneySources
+  ) {
+    requirementsRequest.cdatData = {
+      amount: formik.values.amount,
+      deadline: formik.values.deadline,
+      productId: formik.values.productId,
+      productName: formik.values.productName,
+      rate: formik.values.rate,
+      moneySources: moneySources,
     };
   }
 

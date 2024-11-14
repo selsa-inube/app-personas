@@ -1,13 +1,15 @@
+import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { getCdatProducts } from "src/services/iclient/savings/getCdatProducts";
+import { currencyFormat } from "src/utils/currency";
 import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { InvestmentFormUI } from "./interface";
 import { IInvestmentEntry } from "./types";
 
 const validationSchema = Yup.object({
-  valueInvestment: validationRules.money.required(validationMessages.required),
+  investmentValue: Yup.number().required(validationMessages.required),
 });
 
 interface InvestmentFormProps {
@@ -23,9 +25,14 @@ const InvestmentForm = forwardRef(function InvestmentForm(
 ) {
   const { initialValues, loading, onFormValid, onSubmit } = props;
 
+  const [dynamicValidationSchema, setDynamicValidationSchema] =
+    useState(validationSchema);
+
+  const { accessToken } = useAuth();
+
   const formik = useFormik({
     initialValues,
-    validationSchema,
+    validationSchema: dynamicValidationSchema,
     validateOnBlur: false,
     onSubmit: onSubmit || (() => true),
   });
@@ -39,6 +46,38 @@ const InvestmentForm = forwardRef(function InvestmentForm(
       });
     }
   }, [formik.values]);
+
+  const getCdatProduct = async () => {
+    if (!accessToken) return;
+
+    getCdatProducts(accessToken).then((cdats) => {
+      if (cdats.length > 0) {
+        const product = cdats[0];
+        formik.setFieldValue("product", product);
+
+        const newValidationSchema = dynamicValidationSchema.concat(
+          Yup.object({
+            investmentValue: Yup.number()
+              .min(
+                product.minInvestment,
+                `El valor mínimo de la inversión es de ${currencyFormat(product.minInvestment)}`,
+              )
+              .max(
+                product.maxInvestment,
+                `El valor máximo de la inversión es de ${currencyFormat(product.maxInvestment)}`,
+              )
+              .required(validationMessages.required),
+          }),
+        );
+
+        setDynamicValidationSchema(newValidationSchema);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getCdatProduct();
+  }, [accessToken]);
 
   return (
     <InvestmentFormUI

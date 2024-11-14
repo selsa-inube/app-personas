@@ -1,3 +1,5 @@
+import { IRateTerm } from "../types";
+
 const currentIntRateTableTitles = [
   {
     id: "deadlineFrom",
@@ -16,5 +18,15 @@ const currentIntRateTableTitles = [
   },
 ];
 
+const mapRateTermsEntries = (rateTerms: IRateTerm[]) => {
+  return rateTerms.map((rateTerm, index) => {
+    return {
+      id: `rateTerm-${index}`,
+      deadlineFrom: `${rateTerm.deadlineFrom} días`,
+      deadlineTo: `${rateTerm.deadlineTo} días`,
+      rate: `${rateTerm.rate} %`,
+    };
+  });
+};
 
-export { currentIntRateTableTitles};
+export { currentIntRateTableTitles, mapRateTermsEntries };
