@@ -2,7 +2,6 @@ import { IFormStructure } from "@ptypes/forms.types";
 import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
-import { EPaymentMethodType } from "src/model/entity/payment";
 import { IProduct } from "src/model/entity/product";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
@@ -14,7 +13,7 @@ const structureDisbursementForm = (
 ): IFormStructure => {
   return {
     paymentMethod: {
-      [EPaymentMethodType.DEBIT]: [
+      DEBAHORINT: [
         {
           name: "accountToDebit",
           type: "select",
