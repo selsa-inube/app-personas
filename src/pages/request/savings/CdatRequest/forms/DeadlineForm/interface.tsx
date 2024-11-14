@@ -10,12 +10,11 @@ import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { investmentsRatesMocks } from "@mocks/products/investments/investmentsRates.mocks";
 import { FormikProps } from "formik";
 import { MdOutlineTag } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
-import { currentIntRateTableTitles } from "./config/table";
+import { currentIntRateTableTitles, mapRateTermsEntries } from "./config/table";
 import { StyledInputRadio } from "./styles";
 import { IDeadlineEntry } from "./types";
 
@@ -82,7 +81,7 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
                     label="Fecha"
                     name="deadlineDate"
                     id="deadlineDate"
-                    value={formik.values.deadlineDate}
+                    value={formik.values.deadlineDate || ""}
                     errorMessage={formik.errors.deadlineDate}
                     state={getFieldState(formik, "deadlineDate")}
                     onBlur={formik.handleBlur}
@@ -110,7 +109,7 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
                     placeholder="Digite la cantidad de días"
                     name="deadlineDays"
                     id="deadlineDays"
-                    value={formik.values.deadlineDays}
+                    value={formik.values.deadlineDays || ""}
                     type="number"
                     errorMessage={formik.errors.deadlineDays}
                     isDisabled={loading}
@@ -205,13 +204,13 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
               size={isMobile ? "small" : "medium"}
               weight="bold"
             >
-              {currencyFormat(formik.values.valueInvestment || 0)}
+              {currencyFormat(formik.values.investmentValue || 0)}
             </Text>
           </Stack>
           <Table
             portalId="modals"
             titles={currentIntRateTableTitles}
-            entries={investmentsRatesMocks}
+            entries={mapRateTermsEntries(formik.values.rateTerms)}
             hideMobileResume
           />
         </Stack>

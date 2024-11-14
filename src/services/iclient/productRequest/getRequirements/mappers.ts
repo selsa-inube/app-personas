@@ -96,6 +96,28 @@ const mapRequirementEntityToApi = (
     };
   }
 
+  if (requirement.requestType === "cdat" && requirement.cdatData) {
+    return {
+      requestType: requirement.requestType,
+      customerCode: requirement.customerCode,
+      customerName: requirement.customerName,
+      requestDate: requirement.requestDate.toISOString(),
+      cdatData: {
+        amount: requirement.cdatData.amount,
+        cdatType: requirement.cdatData.productId,
+        collectMethods: requirement.cdatData.moneySources.map((source) => ({
+          accountNumber: source.accountNumber,
+          code: source.type,
+          value: source.value,
+          detail: source.type,
+        })),
+        deadline: requirement.cdatData.deadline,
+        interestRate: requirement.cdatData.rate,
+        disbursementMethod,
+      },
+    };
+  }
+
   return {};
 };
 

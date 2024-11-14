@@ -6,32 +6,12 @@ import * as Yup from "yup";
 
 const validationSchema = Yup.object({
   deadlineDate: validationRules.notPastDate,
-  deadlineDays: Yup.number()
-    .min(1, validationMessages.minNumbers(10))
-    .max(1000, validationMessages.maxNumbers(1000)),
+  deadlineDays: Yup.number(),
   effectiveAnnualRate: Yup.number().required(validationMessages.required),
   totalInterest: Yup.number().required(validationMessages.required),
   withholdingTax: Yup.number().required(validationMessages.required),
-  netValue: Yup.number().required(validationMessages.required),
   hasResult: Yup.boolean().required(validationMessages.required),
 });
-
-const getInitialCdatDeadlineValidations = () => {
-  return validationSchema.concat(
-    Yup.object({
-      deadlineDate: validationRules.notPastDate,
-      deadlineDays: Yup.number()
-        .min(
-          90,
-          `El plazo minimo en días debe ser mayor o igual a:  ${90} días`,
-        )
-        .max(
-          90,
-          `El plazo máximo en días debe ser menor o igual a:  ${90} días`,
-        ),
-    }),
-  );
-};
 
 const maxDeadlineDays = (investmentsRates: IRate[]) => {
   return investmentsRates.reduce(
@@ -78,12 +58,12 @@ const effectiveAnnualRateRequest = (
 };
 
 const totalInterestRequest = (
-  valueInvestment: number,
+  investmentValue: number,
   investmentsRates: IRate[],
   deadlineDays: number,
 ) => {
   return Math.round(
-    valueInvestment *
+    investmentValue *
       (effectiveAnnualRateRequest(investmentsRates, deadlineDays) / 100) *
       (deadlineDays / 365),
   );
@@ -91,7 +71,6 @@ const totalInterestRequest = (
 
 export {
   effectiveAnnualRateRequest,
-  getInitialCdatDeadlineValidations,
   maxDeadlineDays,
   minDeadlineDays,
   totalInterestRequest,

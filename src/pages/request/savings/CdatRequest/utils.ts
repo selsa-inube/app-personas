@@ -1,4 +1,6 @@
 import { enviroment } from "@config/enviroment";
+import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
+import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
 import { NavigateFunction } from "react-router-dom";
 import { EPaymentMethodType } from "src/model/entity/payment";
@@ -38,7 +40,38 @@ const cdatStepsRules = (
           isValid: false,
           values: {
             ...initalValuesCDAT.deadline,
-            valueInvestment: values.valueInvestment,
+            productId: values.product?.id || "",
+            productName: values.product?.title || "",
+            investmentValue: values.investmentValue || 0,
+          },
+        };
+      }
+      return newCdatRequest;
+    }
+    case cdatRequestSteps.deadline.number: {
+      const values = formReferences.deadline.current?.values;
+
+      if (!values) return currentCdatRequest;
+
+      newCdatRequest.deadline = {
+        isValid: isCurrentFormValid,
+        values,
+      };
+
+      if (
+        JSON.stringify(values) !==
+        JSON.stringify(currentCdatRequest.deadline.values)
+      ) {
+        newCdatRequest.systemValidations = {
+          isValid: false,
+          values: {
+            ...mapSystemValidations(),
+            validations: loadingValidations,
+            productId: values.productId,
+            productName: values.productName,
+            amount: values.investmentValue,
+            deadline: values.deadlineDays,
+            rate: values.effectiveAnnualRate,
           },
         };
       }
@@ -127,7 +160,7 @@ const sendCdatRequest = async (
     throw error;
   } finally {
     const totalPayment = Number(
-      cdatRequest.investment.values.valueInvestment || 0,
+      cdatRequest.investment.values.investmentValue || 0,
     );
 
     if (enviroment.IS_PRODUCTION) {

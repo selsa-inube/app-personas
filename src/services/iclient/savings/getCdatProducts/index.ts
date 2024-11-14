@@ -1,15 +1,15 @@
 import { enviroment } from "@config/enviroment";
-import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingRequest/forms/DestinationForm/types";
+import { ICdatProduct } from "@pages/request/savings/CdatRequest/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapProductsApiToEntities } from "./mappers";
 
-const getProgrammedSavingProducts = async (
+const getCdatProducts = async (
   accessToken: string,
-): Promise<IProgrammedSavingProduct[]> => {
+): Promise<ICdatProduct[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/programmed-savings`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/cdats`;
 
   try {
     const options: RequestInit = {
@@ -17,7 +17,7 @@ const getProgrammedSavingProducts = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchProgrammedSavings",
+        "X-Action": "SearchCDATs",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -41,7 +41,7 @@ const getProgrammedSavingProducts = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los productos de ahorro programado.",
+        message: "Error al obtener los productos de CDAT",
         status: res.status,
         data,
       };
@@ -67,4 +67,4 @@ const getProgrammedSavingProducts = async (
   }
 };
 
-export { getProgrammedSavingProducts };
+export { getCdatProducts };

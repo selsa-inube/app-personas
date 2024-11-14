@@ -11,8 +11,9 @@ import { renderShareMaturityVerification } from "@forms/ShareMaturityForm/verifi
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
 import { EPaymentMethodType } from "src/model/entity/payment";
+import { formatPrimaryDate } from "src/utils/dates";
 import { cdatRequestSteps } from "../../../config/assisted";
 import { renderInterestPaymentVerification } from "../../InterestPaymentForm/verification";
 import { paymentMethods } from "../../PaymentMethodForm/config/payment";
@@ -22,23 +23,43 @@ const renderInvestmentVerification = (
   values: IInvestmentEntry,
   isTablet: boolean,
 ) => (
-  <Stack
-    direction="column"
-    gap={isTablet ? inube.spacing.s200 : inube.spacing.s250}
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    gap={inube.spacing.s100}
+    autoRows="auto"
     width="100%"
   >
     <BoxAttribute
       label="Valor de la inversión:"
-      value={currencyFormat(Number(values.valueInvestment))}
+      value={currencyFormat(Number(values.investmentValue))}
     />
-  </Stack>
+  </Grid>
 );
 
-const renderDeadlineVerification = (values: IDeadlineEntry) => (
-  <Stack direction="column" gap={inube.spacing.s100} width="100%">
-    <BoxAttribute label="Número de días:" value={values.deadlineDays} />
-  </Stack>
+const renderDeadlineVerification = (
+  values: IDeadlineEntry,
+  isTablet: boolean,
+) => (
+  <Grid
+    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+    gap={inube.spacing.s100}
+    autoRows="auto"
+    width="100%"
+  >
+    <BoxAttribute
+      label="Fecha:"
+      value={values.expirationDate && formatPrimaryDate(values.expirationDate)}
+    />
+    <BoxAttribute
+      label="Plazo en número de días:"
+      value={values.deadlineDays}
+    />
+  </Grid>
 );
+
+const getAccountDescription = (accountId: string) => {
+  return `Cuenta de ahorros ${accountId}`;
+};
 
 const renderPaymentMethodVerification = (
   values: IPaymentMethodEntry,
@@ -52,7 +73,7 @@ const renderPaymentMethodVerification = (
   >
     {values.paymentMethod === EPaymentMethodType.PSE ? (
       <BoxAttribute
-        label="Forma de recaudo:"
+        label="Medio de pago:"
         value={
           paymentMethods.find(
             (paymentMethod) => paymentMethod.id === values.paymentMethod,
@@ -62,12 +83,24 @@ const renderPaymentMethodVerification = (
     ) : (
       <>
         <BoxAttribute
-          label="Forma de recaudo:"
+          label="Medio de pago:"
           value={
             paymentMethods.find(
               (paymentMethod) => paymentMethod.id === values.paymentMethod,
             )?.value
           }
+        />
+        <BoxAttribute
+          label="Cuenta a debitar:"
+          value={accountDebitTypeDM.valueOf(values.accountToDebit || "")?.value}
+        />
+        <BoxAttribute
+          label="Numero de cuenta:"
+          value={getAccountDescription(values.accountNumber || "")}
+        />
+        <BoxAttribute
+          label="Saldo disponible:"
+          value={`$ ${values.availableBalance}`}
         />
       </>
     )}
@@ -87,7 +120,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "investment" &&
         renderInvestmentVerification(cdatRequest.investment.values, isTablet)}
       {stepKey === "deadline" &&
-        renderDeadlineVerification(cdatRequest.deadline.values)}
+        renderDeadlineVerification(cdatRequest.deadline.values, isTablet)}
       {stepKey === "interestPayment" &&
         renderInterestPaymentVerification(
           cdatRequest.interestPayment.values,
@@ -119,7 +152,10 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           isTablet,
         )}
       {stepKey === "contactChannels" &&
-        renderContactChannelsVerification(cdatRequest.contactChannels.values)}
+        renderContactChannelsVerification(
+          cdatRequest.contactChannels.values,
+          isTablet,
+        )}
     </>
   );
 }

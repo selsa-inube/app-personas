@@ -45,7 +45,7 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
                   Inversión mínima:
                 </Text>
                 <Text type="body" size="medium" appearance="gray">
-                  {currencyFormat(650000)}
+                  {currencyFormat(formik.values.product?.minInvestment || 0)}
                 </Text>
               </Stack>
             </OutlineCard>
@@ -60,32 +60,38 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
                   Inversión máxima:
                 </Text>
                 <Text type="body" size="medium" appearance="gray">
-                  {currencyFormat(12000000)}
+                  {currencyFormat(formik.values.product?.maxInvestment || 0)}
                 </Text>
               </Stack>
             </OutlineCard>
           </Grid>
         </Stack>
 
-        <TextField
-          label="Valor de la inversión"
-          placeholder="Ingresa el valor a invertir"
-          name="valueInvestment"
-          id="valueInvestment"
-          value={validateCurrencyField("valueInvestment", formik) || ""}
-          type="text"
-          errorMessage={formik.errors.valueInvestment}
-          isDisabled={loading}
-          size="compact"
-          isFullWidth
-          state={getFieldState(formik, "valueInvestment")}
-          onBlur={formik.handleBlur}
-          onChange={(e) => {
-            handleChangeWithCurrency(formik, e);
-          }}
-          iconAfter={<MdOutlineAttachMoney />}
-          isRequired
-        />
+        <Grid
+          templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+          autoRows="auto"
+          gap={inube.spacing.s200}
+        >
+          <TextField
+            label="Valor de la inversión"
+            placeholder="Ingresa el valor a invertir"
+            name="investmentValue"
+            id="investmentValue"
+            value={validateCurrencyField("investmentValue", formik) || ""}
+            type="text"
+            errorMessage={formik.errors.investmentValue}
+            isDisabled={loading}
+            size="compact"
+            isFullWidth
+            state={getFieldState(formik, "investmentValue")}
+            onBlur={formik.handleBlur}
+            onChange={(e) => {
+              handleChangeWithCurrency(formik, e);
+            }}
+            iconAfter={<MdOutlineAttachMoney />}
+            isRequired
+          />
+        </Grid>
       </Stack>
     </form>
   );
