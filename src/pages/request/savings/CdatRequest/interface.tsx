@@ -86,6 +86,7 @@ const renderStepContent = (
           moneySources={[
             {
               type: cdatRequest.paymentMethod.values.paymentMethod,
+              detail: cdatRequest.paymentMethod.values.paymentMethodName,
               accountNumber: cdatRequest.paymentMethod.values.accountNumber,
               value: cdatRequest.investment.values.investmentValue || 0,
             },
