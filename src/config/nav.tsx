@@ -178,11 +178,20 @@ const getNav = (
       name: "ADMINISTRAR",
       links: {},
     },
-    solicitar: {
+  };
+  if (
+    requestSavingFlag ||
+    requestCreditFlag ||
+    requestEventFlag ||
+    requestAidFlag ||
+    requestHolidaysFlag ||
+    requestCertificationsFlag
+  ) {
+    sections.solicitar = {
       name: "SOLICITAR",
       links: {},
-    },
-  };
+    };
+  }
 
   sections.administrar.links["resumen"] = {
     id: "resumen",

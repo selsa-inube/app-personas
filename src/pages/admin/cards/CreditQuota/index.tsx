@@ -1,6 +1,6 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
+import jsPDF from "jspdf";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,6 +14,8 @@ import {
   validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
+import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
+import { formatSecondaryDate } from "src/utils/dates";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
@@ -25,6 +27,7 @@ function CreditQuota() {
   const [usedQuotaModal, setUsedQuotaModal] = useState<IUsedQuotaModalState>({
     show: false,
   });
+  const [showActionsModal, setShowActionsModal] = useState(false);
   const navigate = useNavigate();
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
@@ -129,17 +132,97 @@ function CreditQuota() {
     }));
   };
 
+  const handleToggleActionsModal = () => {
+    setShowActionsModal(!showActionsModal);
+  };
+
+  const handleShareCertificate = () => {
+    if (!selectedProduct) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(<><h1>Documento</h1></>),
+      (pdf) => {
+        const pdfBlob = pdf.output("blob");
+
+        if (navigator.share) {
+          navigator.share({
+            title: "Extracto",
+            text: `${selectedProduct.creditQuotaDetail.id}- ${formatSecondaryDate(today)}`,
+            files: [
+              new File(
+                [pdfBlob],
+                `extracto-${selectedProduct.creditQuotaDetail.id}-${formatSecondaryDate(today)}.pdf`,
+                {
+                  type: "application/pdf",
+                },
+              ),
+            ],
+          });
+        } else {
+          console.warn("Web Share API is not supported in this browser");
+        }
+      },
+    );
+  };
+
+  const handleDownloadExtract = () => {
+    if (!selectedProduct) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    doc.setProperties({
+      title: `Extracto-${selectedProduct.creditQuotaDetail.id}`,
+      subject: "Informe",
+      author: `${user.firstName} ${user.firstLastName}`,
+      creator: "Fondecom",
+      keywords: "PDF/A",
+    });
+
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(
+        <><h1>Extracto</h1></>
+      ),
+      (pdf) => {
+        pdf.save(
+          `Extracto-${selectedProduct.creditQuotaDetail.id}-${formatSecondaryDate(today)}.pdf`,
+        );
+      },
+    );
+  };
+
   return (
     <>
       <CreditQuotaUI
         cardId={card_id}
         creditQuotaId={credit_quota_id}
         usedQuotaModal={usedQuotaModal}
-        handleToggleUsedQuotaModal={handleUsedQuotaModal}
-        handleChangeProduct={handleChangeProduct}
+        showActionsModal={showActionsModal}
         productsOptions={productsOptions}
         selectedProduct={selectedProduct}
         selectedConsumption={selectedProduct.creditQuotaDetail?.consumptions}
+        handleToggleUsedQuotaModal={handleUsedQuotaModal}
+        handleChangeProduct={handleChangeProduct}
+        onToggleActionsModal={handleToggleActionsModal}
+        onShareCertificate={handleShareCertificate}
+        onDownloadExtract={handleDownloadExtract}
       />
     </>
   );

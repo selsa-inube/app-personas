@@ -119,6 +119,10 @@ function ActionsModal(props: ActionsModalProps) {
             <Text type="body" size="medium" appearance="gray">
               Explora las opciones adicionales de tu ahorro programado.
             </Text>
+          ) : productType === EProductType.CREDITCARD ? (
+            <Text type="body" size="medium" appearance="gray">
+              Explora las opciones adicionales de tu producto de crédito.
+            </Text>
           ) : (
             <Text type="body" size="medium" appearance="gray">
               Explora las opciones adicionales de tu producto de ahorro.
@@ -417,6 +421,74 @@ function ActionsModal(props: ActionsModalProps) {
                 </Stack>
               </OutlineCard>
             )}
+          {productType === EProductType.CREDITCARD && (
+            <OutlineCard>
+              <Stack
+                justifyContent="space-between"
+                padding={
+                  isMobile
+                    ? `${inube.spacing.s200} ${inube.spacing.s150}`
+                    : inube.spacing.s200
+                }
+                alignItems={isMobile ? "flex-start" : "center"}
+                width="100%"
+                gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+                direction={isMobile ? "column" : "row"}
+              >
+                <Stack direction="column" gap={inube.spacing.s050}>
+                  <Text type="title" size="small" weight="bold">
+                    Descargar extracto
+                  </Text>
+
+                  <Text type="body" size="small" appearance="gray">
+                    Descarga tu extracto de ahorro.
+                  </Text>
+                </Stack>
+
+                <Button
+                  variant="outlined"
+                  iconBefore={<MdOutlineDownload />}
+                  spacing="compact"
+                  onClick={onDownloadExtract}
+                  fullwidth={isMobile}
+                >
+                  Descargar
+                </Button>
+              </Stack>
+            </OutlineCard>
+          )}
+          {productType === EProductType.CREDITCARD && (
+            <OutlineCard>
+              <Stack
+                justifyContent="space-between"
+                padding={inube.spacing.s200}
+                width="100%"
+                direction={isMobile ? "column" : "row"}
+                alignItems={isMobile ? "flex-start" : "center"}
+                gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+              >
+                <Stack direction="column" gap={inube.spacing.s050}>
+                  <Text type="title" size="small" weight="bold">
+                    Compartir extracto
+                  </Text>
+
+                  <Text type="body" size="small" appearance="gray">
+                    Comparte tu extracto en otra aplicaciones.
+                  </Text>
+                </Stack>
+
+                <Button
+                  variant="outlined"
+                  iconBefore={<MdOutlineShare />}
+                  spacing="compact"
+                  onClick={onShare}
+                  fullwidth={isMobile}
+                >
+                  Compartir
+                </Button>
+              </Stack>
+            </OutlineCard>
+          )}
         </Stack>
       </StyledModal>
     </Blanket>,
