@@ -3,7 +3,7 @@ import { IValidation } from "src/model/entity/service";
 interface IMoneySourceValid {
   accountNumber?: string;
   type: string;
-  detail?: string;
+  name?: string;
   value: number;
 }
 

@@ -105,11 +105,11 @@ const mapRequirementEntityToApi = (
       cdatData: {
         amount: requirement.cdatData.amount,
         cdatType: requirement.cdatData.productId,
-        collectMethods: requirement.cdatData.moneySources.map((source) => ({
+        paymentMethods: requirement.cdatData.moneySources.map((source) => ({
           accountNumber: source.accountNumber,
           code: source.type,
           value: source.value,
-          detail: source.detail,
+          name: source.name,
         })),
         deadline: requirement.cdatData.deadline,
         interestRate: requirement.cdatData.rate,
