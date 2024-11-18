@@ -3,6 +3,7 @@ import { ISection } from "@design/navigation/Menu/MenuSection/types";
 import {
   MdLogout,
   MdOutlineBadge,
+  MdOutlineContactSupport,
   MdOutlineManageAccounts,
 } from "react-icons/md";
 
@@ -16,6 +17,14 @@ const getHeader = (
   nav: INav,
 ) => {
   const links = [];
+
+  if (createPQRS) {
+    links.push({
+      label: "Crear PQRS",
+      path: "/my-pqrs/create",
+      icon: <MdOutlineContactSupport />,
+    });
+  }
 
   if (updateDataAssistedFlag) {
     links.push({
