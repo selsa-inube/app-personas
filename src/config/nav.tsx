@@ -8,6 +8,7 @@ import {
   MdOutlineAssignment,
   MdOutlineAttachMoney,
   MdOutlineCompareArrows,
+  MdOutlineContactSupport,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlinePayments,
@@ -75,6 +76,15 @@ const getMobileNav = (
                 label: "Transferencias",
                 path: "/transfers",
                 icon: <MdOutlineCompareArrows />,
+              },
+            ]
+          : []),
+        ...(myPQRSFlag
+          ? [
+              {
+                label: "Mis PQRS",
+                path: "/my-pqrs",
+                icon: <MdOutlineContactSupport />,
               },
             ]
           : []),
@@ -217,6 +227,15 @@ const getNav = (
       label: "Transferencias",
       path: "/transfers",
       icon: <MdOutlineCompareArrows />,
+    };
+  }
+
+  if (myPQRSFlag) {
+    sections.administrar.links["misPQRS"] = {
+      id: "misPQRS",
+      label: "Mis PQRS",
+      path: "/my-pqrs",
+      icon: <MdOutlineContactSupport />,
     };
   }
 
