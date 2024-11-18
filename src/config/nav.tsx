@@ -5,16 +5,16 @@ import {
   MdLogout,
   MdOutlineAccountBalance,
   MdOutlineAccountBalanceWallet,
-  MdOutlineAirplaneTicket,
+  // MdOutlineAirplaneTicket,
   MdOutlineAssignment,
   MdOutlineAttachMoney,
   MdOutlineCompareArrows,
-  MdOutlineContactSupport,
+  // MdOutlineContactSupport,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlinePayments,
   MdOutlineSavings,
-  MdOutlineStarBorder,
+  // MdOutlineStarBorder,
   MdOutlineSupport,
 } from "react-icons/md";
 
@@ -81,15 +81,15 @@ const getMobileNav = (
               },
             ]
           : []),
-        ...(myPQRSFlag
-          ? [
-              {
-                label: "Mis PQRS",
-                path: "/my-pqrs",
-                icon: <MdOutlineContactSupport />,
-              },
-            ]
-          : []),
+        // ...(myPQRSFlag
+        //   ? [
+        //       {
+        //         label: "Mis PQRS",
+        //         path: "/my-pqrs",
+        //         icon: <MdOutlineContactSupport />,
+        //       },
+        //     ]
+        //   : []),
       ],
     },
   ];
@@ -123,13 +123,13 @@ const getMobileNav = (
       });
     }
 
-    if (requestEventFlag) {
-      sections[1].links.push({
-        label: "Eventos",
-        path: "/events",
-        icon: <MdOutlineStarBorder />,
-      });
-    }
+    // if (requestEventFlag) {
+    //   sections[1].links.push({
+    //     label: "Eventos",
+    //     path: "/events",
+    //     icon: <MdOutlineStarBorder />,
+    //   });
+    // }
 
     if (requestAidFlag) {
       sections[1].links.push({
@@ -139,13 +139,13 @@ const getMobileNav = (
       });
     }
 
-    if (requestHolidaysFlag) {
-      sections[1].links.push({
-        label: "Vacaciones",
-        path: "/holidays",
-        icon: <MdOutlineAirplaneTicket />,
-      });
-    }
+    // if (requestHolidaysFlag) {
+    //   sections[1].links.push({
+    //     label: "Vacaciones",
+    //     path: "/holidays",
+    //     icon: <MdOutlineAirplaneTicket />,
+    //   });
+    // }
 
     if (requestCertificationsFlag) {
       sections[1].links.push({
@@ -248,14 +248,14 @@ const getNav = (
     };
   }
 
-  if (myPQRSFlag) {
-    sections.administrar.links["misPQRS"] = {
-      id: "misPQRS",
-      label: "Mis PQRS",
-      path: "/my-pqrs",
-      icon: <MdOutlineContactSupport />,
-    };
-  }
+  // if (myPQRSFlag) {
+  //   sections.administrar.links["misPQRS"] = {
+  //     id: "misPQRS",
+  //     label: "Mis PQRS",
+  //     path: "/my-pqrs",
+  //     icon: <MdOutlineContactSupport />,
+  //   };
+  // }
 
   if (
     requestSavingFlag ||
@@ -283,14 +283,14 @@ const getNav = (
       };
     }
 
-    if (requestEventFlag) {
-      sections.solicitar.links["eventos"] = {
-        id: "eventos",
-        label: "Eventos",
-        path: "/events",
-        icon: <MdOutlineStarBorder />,
-      };
-    }
+    // if (requestEventFlag) {
+    //   sections.solicitar.links["eventos"] = {
+    //     id: "eventos",
+    //     label: "Eventos",
+    //     path: "/events",
+    //     icon: <MdOutlineStarBorder />,
+    //   };
+    // }
 
     if (requestAidFlag) {
       sections.solicitar.links["auxilios"] = {
@@ -301,14 +301,14 @@ const getNav = (
       };
     }
 
-    if (requestHolidaysFlag) {
-      sections.solicitar.links["vacaciones"] = {
-        id: "vacaciones",
-        label: "Vacaciones",
-        path: "/holidays",
-        icon: <MdOutlineAirplaneTicket />,
-      };
-    }
+    // if (requestHolidaysFlag) {
+    //   sections.solicitar.links["vacaciones"] = {
+    //     id: "vacaciones",
+    //     label: "Vacaciones",
+    //     path: "/holidays",
+    //     icon: <MdOutlineAirplaneTicket />,
+    //   };
+    // }
 
     if (requestCertificationsFlag) {
       sections.solicitar.links["certificaciones"] = {
