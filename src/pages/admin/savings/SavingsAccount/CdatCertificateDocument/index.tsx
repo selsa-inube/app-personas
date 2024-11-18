@@ -69,7 +69,7 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
 
       <Stack direction="column" gap={inube.spacing.s300}>
         <Text type="body" size="small">
-          Fondecom S.A informa que a la fecha de expedición de está
+          Sistemas En Línea S.A informa que a la fecha de expedición de está
           certificación, el producto {productName} con el No {productNumber}, a
           nombre del señor {userName.toUpperCase()} identificado con cédula de
           ciudadanía N° {userIdentification}, se encuentra activo.

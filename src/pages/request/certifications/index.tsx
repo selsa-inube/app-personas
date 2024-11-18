@@ -39,7 +39,7 @@ function CertificationRequest() {
       title: "Estado de Cuenta",
       subject: "Estado de Cuenta PDF",
       author: `${user.firstName} ${user.firstLastName}`,
-      creator: "Fondecom",
+      creator: "Sistemas En Línea",
       keywords: 'PDF/A',
     });
 

@@ -306,7 +306,7 @@ function SavingsAccount() {
       title: `Extracto-${selectedProduct.saving.id}`,
       subject: "Informe",
       author: `${user.firstName} ${user.firstLastName}`,
-      creator: "Fondecom",
+      creator: "Sistemas En Línea",
       keywords: "PDF/A",
     });
 

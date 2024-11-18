@@ -41,7 +41,7 @@ function SavingRequest() {
               return {
                 ...card,
                 id: cdats[0].id,
-                title: cdats[0].title,
+                title: "CDAT",
               };
             }
             return card;
