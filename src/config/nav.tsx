@@ -5,16 +5,13 @@ import {
   MdLogout,
   MdOutlineAccountBalance,
   MdOutlineAccountBalanceWallet,
-  MdOutlineAirplaneTicket,
   MdOutlineAssignment,
   MdOutlineAttachMoney,
   MdOutlineCompareArrows,
-  MdOutlineContactSupport,
   MdOutlineCreditCard,
   MdOutlineHouse,
   MdOutlinePayments,
   MdOutlineSavings,
-  MdOutlineStarBorder,
   MdOutlineSupport,
 } from "react-icons/md";
 
@@ -81,15 +78,6 @@ const getMobileNav = (
               },
             ]
           : []),
-        ...(myPQRSFlag
-          ? [
-              {
-                label: "Mis PQRS",
-                path: "/my-pqrs",
-                icon: <MdOutlineContactSupport />,
-              },
-            ]
-          : []),
       ],
     },
   ];
@@ -123,27 +111,11 @@ const getMobileNav = (
       });
     }
 
-    if (requestEventFlag) {
-      sections[1].links.push({
-        label: "Eventos",
-        path: "/events",
-        icon: <MdOutlineStarBorder />,
-      });
-    }
-
     if (requestAidFlag) {
       sections[1].links.push({
         label: "Auxilios",
         path: "/aids",
         icon: <MdOutlineSupport />,
-      });
-    }
-
-    if (requestHolidaysFlag) {
-      sections[1].links.push({
-        label: "Vacaciones",
-        path: "/holidays",
-        icon: <MdOutlineAirplaneTicket />,
       });
     }
 
@@ -248,15 +220,6 @@ const getNav = (
     };
   }
 
-  if (myPQRSFlag) {
-    sections.administrar.links["misPQRS"] = {
-      id: "misPQRS",
-      label: "Mis PQRS",
-      path: "/my-pqrs",
-      icon: <MdOutlineContactSupport />,
-    };
-  }
-
   if (
     requestSavingFlag ||
     requestCreditFlag ||
@@ -283,30 +246,12 @@ const getNav = (
       };
     }
 
-    if (requestEventFlag) {
-      sections.solicitar.links["eventos"] = {
-        id: "eventos",
-        label: "Eventos",
-        path: "/events",
-        icon: <MdOutlineStarBorder />,
-      };
-    }
-
     if (requestAidFlag) {
       sections.solicitar.links["auxilios"] = {
         id: "auxilios",
         label: "Auxilios",
         path: "/aids",
         icon: <MdOutlineSupport />,
-      };
-    }
-
-    if (requestHolidaysFlag) {
-      sections.solicitar.links["vacaciones"] = {
-        id: "vacaciones",
-        label: "Vacaciones",
-        path: "/holidays",
-        icon: <MdOutlineAirplaneTicket />,
       };
     }
 

@@ -18,8 +18,8 @@ const manifestPWA: VitePWAOptions = {
   includeManifestIcons: true,
   disable: false,
   manifest: {
-    name: "Fondecom",
-    short_name: "Fondecom",
+    name: "Personas",
+    short_name: "Personas",
     description: "Portal de clientes",
     lang: "en-ES",
     theme_color: "#fff",
@@ -30,22 +30,22 @@ const manifestPWA: VitePWAOptions = {
     start_url: "/",
     icons: [
       {
-        src: "fondecom-16x16.png",
+        src: "favicon.png",
         sizes: "16x16",
         type: "image/png",
       },
       {
-        src: "fondecom-64x64.png",
+        src: "favicon.png",
         sizes: "64x64",
         type: "image/png",
       },
       {
-        src: "fondecom-192x192.png",
+        src: "favicon.png",
         sizes: "192x192",
         type: "image/png",
       },
       {
-        src: "fondecom-512x512.png",
+        src: "favicon.png",
         sizes: "512x512",
         type: "image/png",
         purpose: "maskable",
