@@ -16,6 +16,7 @@ import {
 } from "./utils";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { formatSecondaryDate } from "src/utils/dates";
+import { getCreditLimitDocument } from "./utilRenders";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
@@ -137,7 +138,7 @@ function CreditQuota() {
   };
 
   const handleShareCertificate = () => {
-    if (!selectedProduct) return;
+    if (!selectedProduct || !creditQuotas) return;
 
     const today = new Date();
 
@@ -148,35 +149,50 @@ function CreditQuota() {
       compress: true,
     });
 
-    convertHTMLToPDF(
-      doc,
-      convertJSXToHTML(<><h1>Documento</h1></>),
-      (pdf) => {
-        const pdfBlob = pdf.output("blob");
+    const creditLimitDocument = getCreditLimitDocument(
+      user,
+      selectedProduct,
+      creditQuotas,
+      cards,
+    );
 
-        if (navigator.share) {
-          navigator.share({
-            title: "Extracto",
-            text: `${selectedProduct.creditQuotaDetail.id}- ${formatSecondaryDate(today)}`,
+    if (!creditLimitDocument) {
+      return;
+    }
+
+    convertHTMLToPDF(doc, convertJSXToHTML(creditLimitDocument), (pdf) => {
+      const pdfBlob = pdf.output("blob");
+
+      if (navigator.share) {
+        navigator
+          .share({
+            title: `Extracto-cupo-crédito-${user.identification}`,
+            text: `${user.identification}- ${formatSecondaryDate(today)}`,
             files: [
               new File(
                 [pdfBlob],
-                `extracto-${selectedProduct.creditQuotaDetail.id}-${formatSecondaryDate(today)}.pdf`,
+                `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
                 {
                   type: "application/pdf",
                 },
               ),
             ],
+          })
+          .catch(() => {
+            console.error(
+              "No se pudo generar el documento de crédito. Verifique los datos.",
+            );
           });
-        } else {
-          console.warn("Web Share API is not supported in this browser");
-        }
-      },
-    );
+      } else {
+        console.warn(
+          "No se pudo generar el documento de crédito. Verifique los datos.",
+        );
+      }
+    });
   };
 
   const handleDownloadExtract = () => {
-    if (!selectedProduct) return;
+    if (!selectedProduct || !creditQuotas) return;
 
     const today = new Date();
 
@@ -188,24 +204,29 @@ function CreditQuota() {
     });
 
     doc.setProperties({
-      title: `Extracto-${selectedProduct.creditQuotaDetail.id}`,
+      title: `Extracto-cupo-crédito-${user.identification}`,
       subject: "Informe",
       author: `${user.firstName} ${user.firstLastName}`,
       creator: "Fondecom",
       keywords: "PDF/A",
     });
 
-    convertHTMLToPDF(
-      doc,
-      convertJSXToHTML(
-        <><h1>Extracto</h1></>
-      ),
-      (pdf) => {
-        pdf.save(
-          `Extracto-${selectedProduct.creditQuotaDetail.id}-${formatSecondaryDate(today)}.pdf`,
-        );
-      },
+    const creditLimitDocument = getCreditLimitDocument(
+      user,
+      selectedProduct,
+      creditQuotas,
+      cards,
     );
+
+    if (!creditLimitDocument) {
+      return;
+    }
+
+    convertHTMLToPDF(doc, convertJSXToHTML(creditLimitDocument), (pdf) => {
+      pdf.save(
+        `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
+      );
+    });
   };
 
   return (
