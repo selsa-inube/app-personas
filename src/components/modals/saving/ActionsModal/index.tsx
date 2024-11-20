@@ -85,6 +85,14 @@ function ActionsModal(props: ActionsModalProps) {
     "admin.savings.savings-accounts.download-extract",
   ).value;
 
+  const withDownloadExtractCardsOption = getFlag(
+    "admin.cards.cards-details.download-extract",
+  ).value;
+
+  const withShareExtractCardsOption = getFlag(
+    "admin.cards.cards-details.share-extract",
+  ).value;
+
   if (node === null) {
     throw new Error(
       "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
@@ -118,6 +126,10 @@ function ActionsModal(props: ActionsModalProps) {
           {productType === EProductType.PROGRAMMEDSAVINGS ? (
             <Text type="body" size="medium" appearance="gray">
               Explora las opciones adicionales de tu ahorro programado.
+            </Text>
+          ) : productType === EProductType.CREDITCARD ? (
+            <Text type="body" size="medium" appearance="gray">
+              Explora las opciones adicionales de tu producto de crédito.
             </Text>
           ) : (
             <Text type="body" size="medium" appearance="gray">
@@ -397,6 +409,43 @@ function ActionsModal(props: ActionsModalProps) {
                 >
                   <Stack direction="column" gap={inube.spacing.s050}>
                     <Text type="title" size="small" weight="bold">
+                      Descargar certificado
+                    </Text>
+
+                    <Text type="body" size="small" appearance="gray">
+                      Descarga tu certificado de ahorro.
+                    </Text>
+                  </Stack>
+
+                  <Button
+                    variant="outlined"
+                    iconBefore={<MdOutlineDownload />}
+                    spacing="compact"
+                    onClick={onDownloadExtract}
+                    fullwidth={isMobile}
+                  >
+                    Descargar
+                  </Button>
+                </Stack>
+              </OutlineCard>
+            )}
+          {productType === EProductType.CREDITCARD &&
+            withDownloadExtractCardsOption && (
+              <OutlineCard>
+                <Stack
+                  justifyContent="space-between"
+                  padding={
+                    isMobile
+                      ? `${inube.spacing.s200} ${inube.spacing.s150}`
+                      : inube.spacing.s200
+                  }
+                  alignItems={isMobile ? "flex-start" : "center"}
+                  width="100%"
+                  gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+                  direction={isMobile ? "column" : "row"}
+                >
+                  <Stack direction="column" gap={inube.spacing.s050}>
+                    <Text type="title" size="small" weight="bold">
                       Descargar extracto
                     </Text>
 
@@ -413,6 +462,39 @@ function ActionsModal(props: ActionsModalProps) {
                     fullwidth={isMobile}
                   >
                     Descargar
+                  </Button>
+                </Stack>
+              </OutlineCard>
+            )}
+          {productType === EProductType.CREDITCARD &&
+            withShareExtractCardsOption && (
+              <OutlineCard>
+                <Stack
+                  justifyContent="space-between"
+                  padding={inube.spacing.s200}
+                  width="100%"
+                  direction={isMobile ? "column" : "row"}
+                  alignItems={isMobile ? "flex-start" : "center"}
+                  gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+                >
+                  <Stack direction="column" gap={inube.spacing.s050}>
+                    <Text type="title" size="small" weight="bold">
+                      Compartir extracto
+                    </Text>
+
+                    <Text type="body" size="small" appearance="gray">
+                      Comparte tu extracto en otra aplicaciones.
+                    </Text>
+                  </Stack>
+
+                  <Button
+                    variant="outlined"
+                    iconBefore={<MdOutlineShare />}
+                    spacing="compact"
+                    onClick={onShare}
+                    fullwidth={isMobile}
+                  >
+                    Compartir
                   </Button>
                 </Stack>
               </OutlineCard>

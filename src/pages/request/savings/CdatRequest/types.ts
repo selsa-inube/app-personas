@@ -36,4 +36,11 @@ interface IFormsCdatRequestRefs {
   contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;
 }
 
-export type { IFormsCdatRequest, IFormsCdatRequestRefs };
+interface ICdatProduct {
+  id: string;
+  title: string;
+  minInvestment: number;
+  maxInvestment: number;
+}
+
+export type { IFormsCdatRequest, IFormsCdatRequestRefs, ICdatProduct };

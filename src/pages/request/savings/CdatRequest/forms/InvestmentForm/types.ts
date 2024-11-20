@@ -1,5 +1,8 @@
+import { ICdatProduct } from "../../types";
+
 interface IInvestmentEntry {
-  valueInvestment?: number;
+  product?: ICdatProduct;
+  investmentValue?: number;
 }
 
 export type { IInvestmentEntry };

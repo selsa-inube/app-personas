@@ -1,15 +1,15 @@
 import { enviroment } from "@config/enviroment";
-import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingRequest/forms/DestinationForm/types";
+import { ISelectOption } from "@design/input/Select/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapProductsApiToEntities } from "./mappers";
+import { mapPaymentMethodsApiToEntities } from "./mappers";
 
-const getProgrammedSavingProducts = async (
+const getCdatPaymentMethods = async (
   accessToken: string,
-): Promise<IProgrammedSavingProduct[]> => {
+): Promise<ISelectOption[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/programmed-savings`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/cdats?allowed=true`;
 
   try {
     const options: RequestInit = {
@@ -17,7 +17,7 @@ const getProgrammedSavingProducts = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchProgrammedSavings",
+        "X-Action": "SearchAllowedCollectMethod",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -41,17 +41,17 @@ const getProgrammedSavingProducts = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los productos de ahorro programado.",
+        message: "Error al obtener los metodos de pago de CDAT",
         status: res.status,
         data,
       };
     }
 
-    const normalizedProducts = Array.isArray(data)
-      ? mapProductsApiToEntities(data)
+    const normalizedPaymentMethods = Array.isArray(data)
+      ? mapPaymentMethodsApiToEntities(data)
       : [];
 
-    return normalizedProducts;
+    return normalizedPaymentMethods;
   } catch (error) {
     saveNetworkTracking(
       requestTime,
@@ -67,4 +67,4 @@ const getProgrammedSavingProducts = async (
   }
 };
 
-export { getProgrammedSavingProducts };
+export { getCdatPaymentMethods };

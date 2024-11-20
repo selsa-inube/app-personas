@@ -7,7 +7,6 @@ import { Stack } from "@inubekit/stack";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikProps } from "formik";
 import { generateFormFields } from "src/utils/forms/forms";
-import { paymentMethods } from "./config/payment";
 import { IPaymentMethodEntry } from "./types";
 
 interface PaymentMethodFormUIProps {
@@ -52,7 +51,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
               size="compact"
               isFullWidth
               placeholder="Seleccionar una opción"
-              options={paymentMethods}
+              options={formik.values.paymentMethods || []}
               onBlur={formik.handleBlur}
               onChange={customHandleChange}
               value={formik.values.paymentMethod || ""}

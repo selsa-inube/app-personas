@@ -124,6 +124,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(
           creditDestinationRequest.contactChannels.values,
+          isTablet,
         )}
     </>
   );

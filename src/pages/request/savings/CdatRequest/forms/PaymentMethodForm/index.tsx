@@ -11,7 +11,7 @@ import {
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
-import { EPaymentMethodType } from "src/model/entity/payment";
+import { getCdatPaymentMethods } from "src/services/iclient/savings/getCdatPaymentMethods";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { currencyFormat } from "src/utils/currency";
 import { generateDynamicForm } from "src/utils/forms/forms";
@@ -19,7 +19,6 @@ import { extractAttribute } from "src/utils/products";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { structureDisbursementForm } from "./config/form";
-import { paymentMethods } from "./config/payment";
 import { PaymentMethodFormUI } from "./interface";
 import { IPaymentMethodEntry } from "./types";
 
@@ -68,7 +67,9 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   const getPaymentMethods = async () => {
     if (!accessToken) return;
 
-    formik.setFieldValue("paymentMethods", paymentMethods);
+    getCdatPaymentMethods(accessToken).then((paymentMethods) => {
+      formik.setFieldValue("paymentMethods", paymentMethods);
+    });
   };
 
   useEffect(() => {
@@ -112,7 +113,6 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       const paymentMethod = formik.values.paymentMethods.find(
         (paymentMethod) => paymentMethod.id === value,
       );
-
       if (!paymentMethod) return;
 
       updatedFormikValues = {
@@ -123,7 +123,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       };
 
       if (
-        paymentMethod.id === EPaymentMethodType.DEBIT &&
+        paymentMethod.id === "DEBAHORINT" &&
         savings.savingsAccounts.length > 0
       ) {
         updatedFormikValues = {

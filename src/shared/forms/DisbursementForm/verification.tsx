@@ -9,7 +9,7 @@ import { identificationTypeDM } from "src/model/domains/general/updateData/perso
 import { IDisbursementEntry } from "./types";
 
 const getAccountDescription = (accountId: string) => {
-  return `Ahorros ${accountId}`;
+  return `Cuenta de ahorros ${accountId}`;
 };
 
 const renderDisbursementVerification = (
@@ -34,7 +34,7 @@ const renderDisbursementVerification = (
     )}
     {values.accountNumber && (
       <BoxAttribute
-        label="Numero de cuenta:"
+        label="Cuenta:"
         value={getAccountDescription(values.accountNumber)}
       />
     )}

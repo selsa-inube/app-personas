@@ -1,11 +1,23 @@
+import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/flag";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
+import { AppContext } from "src/context/app";
+import { getCalculatedCdatConditions } from "src/services/iclient/savings/getCalculatedCdatConditions";
+import { ICalculatedCdatConditionsRequest } from "src/services/iclient/savings/getCalculatedCdatConditions/types";
+import { getCdatRateTerms } from "src/services/iclient/savings/getCdatRatesTerms";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { DeadlineFormUI } from "./interface";
 import { IDeadlineEntry } from "./types";
-import { getInitialCdatDeadlineValidations, validationSchema } from "./utils";
+import { validationSchema } from "./utils";
 
 interface DeadlineFormProps {
   initialValues: IDeadlineEntry;
@@ -24,6 +36,11 @@ const DeadlineForm = forwardRef(function DeadlineForm(
   const [dynamicValidationSchema, setDynamicValidationSchema] =
     useState(validationSchema);
 
+  const { accessToken } = useAuth();
+  const { user } = useContext(AppContext);
+
+  const { addFlag } = useFlag();
+
   const formik = useFormik({
     initialValues,
     validationSchema: dynamicValidationSchema,
@@ -41,30 +58,96 @@ const DeadlineForm = forwardRef(function DeadlineForm(
     }
   }, [formik.values]);
 
+  const getRateTerms = () => {
+    if (!accessToken) return;
+
+    getCdatRateTerms(
+      accessToken,
+      formik.values.productId,
+      formik.values.investmentValue,
+    ).then((rateTerms) => {
+      formik.setFieldValue("rateTerms", rateTerms);
+    });
+  };
+
   useEffect(() => {
     formik.setFieldValue("simulationWithDays", true);
-    setDynamicValidationSchema(getInitialCdatDeadlineValidations());
-  }, []);
+    getRateTerms();
+  }, [accessToken]);
 
-  const simulateCDAT = () => {
+  const simulateCDAT = async () => {
+    let inRange = false;
+
+    for (const term of formik.values.rateTerms) {
+      if (
+        formik.values.deadlineDays &&
+        formik.values.deadlineDays >= term.deadlineFrom &&
+        formik.values.deadlineDays <= term.deadlineTo
+      ) {
+        inRange = true;
+        break;
+      }
+    }
+
+    if (!inRange) {
+      addFlag({
+        title: "La simulación no pudo ser procesada",
+        description:
+          "El plazo digitado no se encuentra dentro del rango de las tasas de interés vigentes.",
+        appearance: "danger",
+        duration: 5000,
+      });
+
+      return;
+    }
+
     setLoadingSimulation(true);
-    setTimeout(() => {
-      const valueInvestment = Number(formik.values.valueInvestment);
-      let deadlineDays = Number(formik.values.deadlineDays);
-
-      if (formik.values.simulationWithDate) {
-        deadlineDays = 360;
-        formik.setFieldValue("deadlineDays", deadlineDays);
+    try {
+      if (
+        !accessToken ||
+        !user?.identification ||
+        !formik.values.deadlineDays
+      ) {
+        throw new Error("No se pudo obtener la información necesaria");
       }
 
-      formik.setFieldValue("effectiveAnnualRate", 10);
-      formik.setFieldValue("totalInterest", 10000);
-      formik.setFieldValue("withholdingTax", 0);
-      formik.setFieldValue("netValue", valueInvestment);
+      const conditionsRequestData: ICalculatedCdatConditionsRequest = {
+        userIdentification: user.identification,
+        deadline: formik.values.deadlineDays,
+        investmentValue: formik.values.investmentValue,
+        productId: formik.values.productId,
+      };
+
+      const conditionsResponse = await getCalculatedCdatConditions(
+        conditionsRequestData,
+        accessToken,
+      );
+
+      formik.setFieldValue("effectiveAnnualRate", conditionsResponse?.rate);
+      formik.setFieldValue("totalInterest", conditionsResponse?.returns);
+      formik.setFieldValue(
+        "withholdingTax",
+        conditionsResponse?.withholdingTax,
+      );
+      formik.setFieldValue(
+        "expirationDate",
+        conditionsResponse?.expirationDate,
+      );
       formik.setFieldValue("hasResult", true);
-      setLoadingSimulation(false);
       onFormValid(true);
-    }, 1000);
+    } catch (error) {
+      addFlag({
+        title: "La simulación no pudo ser procesada",
+        description:
+          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+        appearance: "danger",
+        duration: 5000,
+      });
+
+      onFormValid(false);
+    } finally {
+      setLoadingSimulation(false);
+    }
   };
 
   const customHandleChange = (
@@ -81,7 +164,6 @@ const DeadlineForm = forwardRef(function DeadlineForm(
         "deadlineDays",
         "totalInterest",
         "withholdingTax",
-        "netValue",
         "hasResult",
       ];
 
@@ -111,15 +193,7 @@ const DeadlineForm = forwardRef(function DeadlineForm(
       } else if (event.target.name === "simulationWithDays") {
         newValidationSchema = dynamicValidationSchema.concat(
           Yup.object({
-            deadlineDays: Yup.number()
-              .min(
-                90,
-                `El plazo minimo en días debe ser mayor o igual a:  ${90} días`,
-              )
-              .max(
-                90,
-                `El plazo máximo en días debe ser menor o igual a:  ${90} días`,
-              ),
+            deadlineDays: Yup.number().required(validationMessages.required),
           }),
         );
       }

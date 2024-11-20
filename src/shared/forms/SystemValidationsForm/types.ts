@@ -1,5 +1,12 @@
 import { IValidation } from "src/model/entity/service";
 
+interface IMoneySourceValid {
+  accountNumber?: string;
+  type: string;
+  name?: string;
+  value: number;
+}
+
 interface ISystemValidationsEntry {
   validations: IValidation[];
   documents: IValidation[];
@@ -19,4 +26,4 @@ interface ISystemValidationsEntry {
   netValue?: number;
 }
 
-export type { ISystemValidationsEntry };
+export type { IMoneySourceValid, ISystemValidationsEntry };

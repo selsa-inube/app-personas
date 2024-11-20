@@ -9,7 +9,6 @@ interface IPaymentMethodEntry {
   accountType?: string;
   bankEntity?: string;
   accountNumberTextField?: string;
-
 }
 
 export type { IPaymentMethodEntry };

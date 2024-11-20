@@ -5,6 +5,7 @@ import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { InterestPaymentFormUI } from "./interface";
 import { IInterestPaymentEntry } from "./types";
+import { interestPaymentDM } from "src/model/domains/savings/interestPaymentDM";
 
 const validationSchema = Yup.object({
   interestPayment: Yup.string().required(validationMessages.required),
@@ -40,7 +41,7 @@ const InterestPaymentForm = forwardRef(function InterestPaymentForm(
   }, [formik.values]);
 
   const setInterestPayments = async () => {
-    const interestPayments = periodicityDM.options;
+    const interestPayments = interestPaymentDM.options;
 
     formik.setFieldValue("interestPayments", interestPayments);
 

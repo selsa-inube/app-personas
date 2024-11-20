@@ -1,6 +1,6 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-
+import jsPDF from "jspdf";
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,6 +14,9 @@ import {
   validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
+import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
+import { formatSecondaryDate } from "src/utils/dates";
+import { getCreditLimitDocument } from "./utilRenders";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
@@ -25,6 +28,7 @@ function CreditQuota() {
   const [usedQuotaModal, setUsedQuotaModal] = useState<IUsedQuotaModalState>({
     show: false,
   });
+  const [showActionsModal, setShowActionsModal] = useState(false);
   const navigate = useNavigate();
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
@@ -129,17 +133,117 @@ function CreditQuota() {
     }));
   };
 
+  const handleToggleActionsModal = () => {
+    setShowActionsModal(!showActionsModal);
+  };
+
+  const handleShareCertificate = () => {
+    if (!selectedProduct || !creditQuotas) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    const creditLimitDocument = getCreditLimitDocument(
+      user,
+      selectedProduct,
+      creditQuotas,
+      cards,
+    );
+
+    if (!creditLimitDocument) {
+      return;
+    }
+
+    convertHTMLToPDF(doc, convertJSXToHTML(creditLimitDocument), (pdf) => {
+      const pdfBlob = pdf.output("blob");
+
+      if (navigator.share) {
+        navigator
+          .share({
+            title: `Extracto-cupo-crédito-${user.identification}`,
+            text: `${user.identification}- ${formatSecondaryDate(today)}`,
+            files: [
+              new File(
+                [pdfBlob],
+                `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
+                {
+                  type: "application/pdf",
+                },
+              ),
+            ],
+          })
+          .catch(() => {
+            console.error(
+              "No se pudo generar el documento de crédito. Verifique los datos.",
+            );
+          });
+      } else {
+        console.warn(
+          "No se pudo generar el documento de crédito. Verifique los datos.",
+        );
+      }
+    });
+  };
+
+  const handleDownloadExtract = () => {
+    if (!selectedProduct || !creditQuotas) return;
+
+    const today = new Date();
+
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "letter",
+      compress: true,
+    });
+
+    doc.setProperties({
+      title: `Extracto-cupo-crédito-${user.identification}`,
+      subject: "Informe",
+      author: `${user.firstName} ${user.firstLastName}`,
+      creator: "Fondecom",
+      keywords: "PDF/A",
+    });
+
+    const creditLimitDocument = getCreditLimitDocument(
+      user,
+      selectedProduct,
+      creditQuotas,
+      cards,
+    );
+
+    if (!creditLimitDocument) {
+      return;
+    }
+
+    convertHTMLToPDF(doc, convertJSXToHTML(creditLimitDocument), (pdf) => {
+      pdf.save(
+        `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
+      );
+    });
+  };
+
   return (
     <>
       <CreditQuotaUI
         cardId={card_id}
         creditQuotaId={credit_quota_id}
         usedQuotaModal={usedQuotaModal}
-        handleToggleUsedQuotaModal={handleUsedQuotaModal}
-        handleChangeProduct={handleChangeProduct}
+        showActionsModal={showActionsModal}
         productsOptions={productsOptions}
         selectedProduct={selectedProduct}
         selectedConsumption={selectedProduct.creditQuotaDetail?.consumptions}
+        handleToggleUsedQuotaModal={handleUsedQuotaModal}
+        handleChangeProduct={handleChangeProduct}
+        onToggleActionsModal={handleToggleActionsModal}
+        onShareCertificate={handleShareCertificate}
+        onDownloadExtract={handleDownloadExtract}
       />
     </>
   );

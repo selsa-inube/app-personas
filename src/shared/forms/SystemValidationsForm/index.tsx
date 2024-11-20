@@ -14,7 +14,7 @@ import { RequestType } from "src/model/entity/request";
 import { IBeneficiary } from "src/model/entity/user";
 import { getRequirementsForProduct } from "src/services/iclient/productRequest/getRequirements";
 import { SystemValidationsFormUI } from "./interface";
-import { ISystemValidationsEntry } from "./types";
+import { IMoneySourceValid, ISystemValidationsEntry } from "./types";
 import { buildRequestData, loadingValidations } from "./utils";
 
 interface SystemValidationsFormProps {
@@ -24,6 +24,7 @@ interface SystemValidationsFormProps {
   requestType: RequestType;
   beneficiary?: IBeneficiary;
   shareMaturity?: string;
+  moneySources?: IMoneySourceValid[];
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -38,6 +39,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
     requestType,
     beneficiary,
     shareMaturity,
+    moneySources,
     onFormValid,
   } = props;
 
@@ -56,7 +58,6 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
 
   const getRequirements = () => {
     if (!accessToken) return;
-
     setLoadingValids(true);
 
     const requirementsRequest = buildRequestData(
@@ -66,6 +67,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       disbursementValues,
       beneficiary,
       shareMaturity,
+      moneySources,
     );
 
     getRequirementsForProduct(requirementsRequest, accessToken)

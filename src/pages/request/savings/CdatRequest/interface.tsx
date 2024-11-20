@@ -66,14 +66,14 @@ const renderStepContent = (
           initialValues={cdatRequest.disbursement.values}
           ref={formReferences.disbursement}
           requestType="cdat"
-          productId="S002"
+          productId={cdatRequest.investment.values.product?.id || ""}
           onFormValid={setIsCurrentFormValid}
         />
       )}
       {currentStep === cdatRequestSteps.shareMaturity.number && (
         <ShareMaturityForm
           initialValues={cdatRequest.shareMaturity.values}
-          productId="S002"
+          productId={cdatRequest.investment.values.product?.id || ""}
           ref={formReferences.shareMaturity}
           onFormValid={setIsCurrentFormValid}
         />
@@ -83,8 +83,15 @@ const renderStepContent = (
           initialValues={cdatRequest.systemValidations.values}
           ref={formReferences.systemValidations}
           disbursementValues={cdatRequest.disbursement.values}
-          test
-          requestType="credit"
+          moneySources={[
+            {
+              type: cdatRequest.paymentMethod.values.paymentMethod,
+              name: cdatRequest.paymentMethod.values.paymentMethodName,
+              accountNumber: cdatRequest.paymentMethod.values.accountNumber,
+              value: cdatRequest.investment.values.investmentValue || 0,
+            },
+          ]}
+          requestType="cdat"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -92,8 +99,8 @@ const renderStepContent = (
         <TermsAndConditionsForm
           initialValues={cdatRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
-          productId="57"
-          productType="credit"
+          productId={cdatRequest.investment.values.product?.id || ""}
+          productType="cdat"
           onFormValid={setIsCurrentFormValid}
         />
       )}

@@ -122,7 +122,10 @@ function VerificationBoxes(props: VerificationBoxesProps) {
         )}
 
       {stepKey === "contactChannels" &&
-        renderContactChannelsVerification(aidRequest.contactChannels.values)}
+        renderContactChannelsVerification(
+          aidRequest.contactChannels.values,
+          isTablet,
+        )}
     </>
   );
 }

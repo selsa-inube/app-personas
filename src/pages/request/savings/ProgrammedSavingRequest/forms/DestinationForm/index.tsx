@@ -2,12 +2,10 @@ import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
 import React, {
   forwardRef,
-  useContext,
   useEffect,
   useImperativeHandle,
   useState,
 } from "react";
-import { AppContext } from "src/context/app";
 import { getProgrammedSavingProducts } from "src/services/iclient/savings/getProgrammedSavingProducts";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
@@ -32,7 +30,6 @@ const DestinationForm = forwardRef(function DestinationForm(
   const { initialValues, onFormValid, onSubmit } = props;
   const [loadingProducts, setLoadingProducts] = useState(false);
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
 
   const formik = useFormik({
     initialValues,
@@ -57,10 +54,7 @@ const DestinationForm = forwardRef(function DestinationForm(
 
     setLoadingProducts(true);
 
-    const products = await getProgrammedSavingProducts(
-      user.identification,
-      accessToken,
-    );
+    const products = await getProgrammedSavingProducts(accessToken);
 
     if (products.length === 0) {
       formik.setFieldValue("products", []);

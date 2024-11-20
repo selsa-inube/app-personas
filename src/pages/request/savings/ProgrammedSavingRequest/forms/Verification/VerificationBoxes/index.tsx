@@ -101,6 +101,7 @@ function VerificationBoxes(props: VerificationBoxesProps) {
       {stepKey === "contactChannels" &&
         renderContactChannelsVerification(
           programmedSavingRequest.contactChannels.values,
+          isTablet,
         )}
     </>
   );

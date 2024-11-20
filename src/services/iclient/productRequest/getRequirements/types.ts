@@ -1,3 +1,4 @@
+import { IMoneySourceValid } from "@forms/SystemValidationsForm/types";
 import { RequestType } from "src/model/entity/request";
 import { IValidation } from "src/model/entity/service";
 import { IBeneficiary } from "src/model/entity/user";
@@ -53,6 +54,15 @@ interface IRequirementProgrammedSavingData {
   quota: number;
 }
 
+interface IRequirementCdatData {
+  productId: string;
+  productName: string;
+  amount: number;
+  deadline: number;
+  rate: number;
+  moneySources: IMoneySourceValid[];
+}
+
 interface IRequirementRequest {
   requestType: RequestType;
   customerCode: string;
@@ -61,6 +71,7 @@ interface IRequirementRequest {
   creditData?: IRequirementCreditData;
   aidData?: IRequirementAidData;
   programmedSavingData?: IRequirementProgrammedSavingData;
+  cdatData?: IRequirementCdatData;
   disbursementMethod: IRequirementDisbursementRequest;
 }
 

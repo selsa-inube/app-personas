@@ -1,15 +1,17 @@
 import { enviroment } from "@config/enviroment";
-import { IProgrammedSavingProduct } from "@pages/request/savings/ProgrammedSavingRequest/forms/DestinationForm/types";
+import { IRateTerm } from "@pages/request/savings/CdatRequest/forms/DeadlineForm/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapProductsApiToEntities } from "./mappers";
+import { mapRateTermsApiToEntities } from "./mappers";
 
-const getProgrammedSavingProducts = async (
+const getCdatRateTerms = async (
   accessToken: string,
-): Promise<IProgrammedSavingProduct[]> => {
+  productId: string,
+  investmentValue: number,
+): Promise<IRateTerm[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/programmed-savings`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/cdats/${productId}/${investmentValue}`;
 
   try {
     const options: RequestInit = {
@@ -17,7 +19,7 @@ const getProgrammedSavingProducts = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchProgrammedSavings",
+        "X-Action": "SearchRatesAndTerms",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -41,17 +43,17 @@ const getProgrammedSavingProducts = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al obtener los productos de ahorro programado.",
+        message: "Error al obtener las tasas y plazos del cdat",
         status: res.status,
         data,
       };
     }
 
-    const normalizedProducts = Array.isArray(data)
-      ? mapProductsApiToEntities(data)
+    const normalizedRatesTerms = Array.isArray(data)
+      ? mapRateTermsApiToEntities(data)
       : [];
 
-    return normalizedProducts;
+    return normalizedRatesTerms;
   } catch (error) {
     saveNetworkTracking(
       requestTime,
@@ -67,4 +69,4 @@ const getProgrammedSavingProducts = async (
   }
 };
 
-export { getProgrammedSavingProducts };
+export { getCdatRateTerms };
