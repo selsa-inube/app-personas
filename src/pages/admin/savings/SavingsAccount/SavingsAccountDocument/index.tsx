@@ -68,7 +68,7 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
         <Stack justifyContent="space-between" alignItems="center">
           <Stack direction="column" gap={inube.spacing.s200}>
             <Text type="title" size="medium" weight="bold">
-              Extracto cupo de crédito
+              Extracto cuenta de ahorros
             </Text>
             <Stack gap={inube.spacing.s050} direction="column">
               {[
