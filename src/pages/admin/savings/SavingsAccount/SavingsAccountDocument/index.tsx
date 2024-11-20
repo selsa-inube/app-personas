@@ -1,10 +1,9 @@
 import { logoUrl } from "@config/header";
-import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { formatPrimaryDate } from "src/utils/dates";
-import { StyledCardContainer, StyledHeaderCardContainer } from "./styles";
+import { StyledCardContainer, StyledLogo } from "./styles";
 import { Grid } from "@inubekit/grid";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { currencyFormat } from "src/utils/currency";
@@ -66,74 +65,68 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
       direction="column"
     >
       <Stack gap={inube.spacing.s200} direction="column">
-        <Stack height="30px" justifyContent="space-between" alignItems="center">
-          <Text type="title" size="medium" weight="bold">
-            Extracto cuenta de ahorros
-          </Text>
-          <Stack>
-            <StyledLogo src={logoUrl} />
-          </Stack>
-        </Stack>
         <Stack justifyContent="space-between" alignItems="center">
-          <Stack gap={inube.spacing.s050} direction="column">
-            <Stack gap={inube.spacing.s050}>
-              <Text type="label" size="small" weight="bold" appearance="gray">
-                Cliente:
-              </Text>
-              <Text type="label" size="small" appearance="gray">
-                {username}
-              </Text>
-            </Stack>
-            <Stack gap={inube.spacing.s050}>
-              <Text type="label" size="small" weight="bold" appearance="gray">
-                Identificación:
-              </Text>
-              <Text type="label" size="small" appearance="gray">
-                {userIdentification}
-              </Text>
-            </Stack>
-            <Stack gap={inube.spacing.s050}>
-              <Text type="label" size="small" weight="bold" appearance="gray">
-                Fecha de impresión:
-              </Text>
-              <Text type="label" size="small" appearance="gray">
-                {formatPrimaryDate(today, true)}
-              </Text>
+          <Stack direction="column" gap={inube.spacing.s200}>
+            <Text type="title" size="medium" weight="bold">
+              Extracto cuenta de ahorros
+            </Text>
+            <Stack gap={inube.spacing.s050} direction="column">
+              {[
+                {
+                  label: "Cliente",
+                  value: `${userIdentification} - ${username}`,
+                },
+                {
+                  label: "Fecha de impresión",
+                  value: formatPrimaryDate(today, true),
+                },
+              ].map(({ label, value }, index) => (
+                <Stack key={index} gap={inube.spacing.s050}>
+                  <Text
+                    type="label"
+                    size="small"
+                    weight="bold"
+                    appearance="gray"
+                  >
+                    {label}:
+                  </Text>
+                  <Text type="label" size="small" appearance="gray">
+                    {value}
+                  </Text>
+                </Stack>
+              ))}
             </Stack>
           </Stack>
-          <StyledHeaderCardContainer>
-            <Text type="label" size="small" weight="bold">
-              CUENTA DE AHORROS
-            </Text>
-            <Stack gap={inube.spacing.s050}>
-              <Text type="label" size="small" weight="bold">
-                Número de producto:
-              </Text>
-              <Text type="label" size="small" appearance="gray">
-                {accountNumber}
-              </Text>
-            </Stack>
-            <Stack gap={inube.spacing.s100}>
-              <Stack gap={inube.spacing.s050}>
-                <Text type="label" size="small" weight="bold">
-                  Desde:
-                </Text>
-                <Text type="label" size="small" appearance="gray">
-                  {formatPrimaryDate(lastDate)}
-                </Text>
-              </Stack>
-              <Stack gap={inube.spacing.s050}>
-                <Text type="label" size="small" weight="bold">
-                  Hasta:
-                </Text>
-                <Text type="label" size="small" appearance="gray">
-                  {formatPrimaryDate(today)}
-                </Text>
-              </Stack>
-            </Stack>
-          </StyledHeaderCardContainer>
+          <StyledLogo src={logoUrl} />
         </Stack>
       </Stack>
+
+      <StyledCardContainer>
+        <Text type="label" size="small" weight="bold" appearance="gray">
+          CUENTA DE AHORROS
+        </Text>
+        <Grid
+          templateColumns="repeat(3, 1fr)"
+          gap={inube.spacing.s100}
+          autoRows="auto"
+        >
+          <BoxAttribute
+            label="Número de producto:"
+            value={accountNumber}
+            downloadable
+          />
+          <BoxAttribute
+            label="Desde:"
+            value={formatPrimaryDate(lastDate)}
+            downloadable
+          />
+          <BoxAttribute
+            label="Hasta:"
+            value={formatPrimaryDate(today)}
+            downloadable
+          />
+        </Grid>
+      </StyledCardContainer>
 
       <StyledCardContainer>
         <Text type="label" size="small" weight="bold" appearance="gray">

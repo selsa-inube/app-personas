@@ -1,5 +1,4 @@
 import { logoUrl } from "@config/header";
-import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
@@ -8,7 +7,7 @@ import { IEntry } from "@design/data/Table/types";
 import { IProduct } from "src/model/entity/product";
 import { Grid } from "@inubekit/grid";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { StyledCardContainer } from "./styles";
+import { StyledCardContainer, StyledLogo } from "./styles";
 import { currencyFormat } from "src/utils/currency";
 import {
   cardsTableTitles,
@@ -162,30 +161,39 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
       direction="column"
     >
       <Stack gap={inube.spacing.s200} direction="column">
-        <Stack height="30px" justifyContent="space-between" alignItems="center">
-          <Text type="title" size="medium" weight="bold">
-            Estado de cuenta
-          </Text>
+        <Stack justifyContent="space-between" alignItems="center">
+          <Stack direction="column" gap={inube.spacing.s200}>
+            <Text type="title" size="medium" weight="bold">
+              Estado de cuenta
+            </Text>
+            <Stack gap={inube.spacing.s050} direction="column">
+              {[
+                {
+                  label: "Cliente",
+                  value: `${userIdentification} - ${userName}`,
+                },
+                {
+                  label: "Fecha de impresión",
+                  value: formatPrimaryDate(today, true),
+                },
+              ].map(({ label, value }, index) => (
+                <Stack key={index} gap={inube.spacing.s050}>
+                  <Text
+                    type="label"
+                    size="small"
+                    weight="bold"
+                    appearance="gray"
+                  >
+                    {label}:
+                  </Text>
+                  <Text type="label" size="small" appearance="gray">
+                    {value}
+                  </Text>
+                </Stack>
+              ))}
+            </Stack>
+          </Stack>
           <StyledLogo src={logoUrl} />
-        </Stack>
-        <Stack gap={inube.spacing.s050} direction="column">
-          <Stack gap={inube.spacing.s050}>
-            <Text type="label" size="small" weight="bold">
-              Cliente:
-            </Text>
-            <Text
-              type="label"
-              size="small"
-            >{`${userIdentification} - ${userName}`}</Text>
-          </Stack>
-          <Stack gap={inube.spacing.s050}>
-            <Text type="label" size="small" weight="bold">
-              Fecha de impresión:
-            </Text>
-            <Text type="label" size="small">
-              {formatPrimaryDate(today, true)}
-            </Text>
-          </Stack>
         </Stack>
       </Stack>
 
@@ -314,11 +322,11 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
       )}
       <Stack justifyContent="center">
         <Text type="body" size="small" appearance="gray" textAlign="center">
-          Cualquier inquietud, queja o reclamo con este estado de cuenta, podrá
-          realizar la radicación de sus solicitudes en la plataforma, mediante
-          la opción “Mis PQRS” que se encuentra en el menú lateral. En un
-          término de hasta 15 días hábiles, luego de su radicación, daremos
-          respuesta a su PQRS.
+          Si presenta inquietudes, quejas o reclamos con el presente estado de
+          cuenta, por favor realizar la radicación de sus solicitudes en la
+          Oficina Virtual mediante la opción &quot;Mis PQRS&quot; que se
+          encuentra en el menú. Estas solicitudes recibirán respuesta en un
+          plazo máximo de 15 días hábiles, posterior a su radicación.
         </Text>
       </Stack>
     </Stack>

@@ -1,6 +1,10 @@
 import { inube } from "@design/tokens";
 import styled from "styled-components";
 
+const StyledLogo = styled.img`
+  width: 228px;
+`;
+
 const StyledCardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,4 +19,4 @@ const StyledCardContainer = styled.div`
       inube.color.stroke.divider.regular};
 `;
 
-export { StyledCardContainer };
+export { StyledLogo, StyledCardContainer };

@@ -33,6 +33,8 @@ import { Text } from "@inubekit/text";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { ActionsModal } from "@components/modals/saving/ActionsModal";
+import { useContext } from "react";
+import { AppContext } from "src/context/app";
 
 interface CreditQuotaUIProps {
   cardId?: string;
@@ -65,6 +67,7 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
     onDownloadExtract,
   } = props;
 
+  const { getFlag } = useContext(AppContext);
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   const isTablet = useMediaQuery("(max-width: 1030px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -85,6 +88,14 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
   const creditQuotaType = selectedProduct.creditQuotaDetail.attributes.find(
     (attr) => attr.id === "type",
   )?.value;
+
+  const withDownloadExtractCardsOption = getFlag(
+    "admin.cards.cards-details.download-extract",
+  ).value;
+
+  const withShareExtractCardsOption = getFlag(
+    "admin.cards.cards-details.share-extract",
+  ).value;
 
   return (
     <>
@@ -156,15 +167,18 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
                   />
                 ))}
               </Grid>
-              <Stack justifyContent="flex-end" width="100%">
-                <Button
-                  iconBefore={<MdOutlineAdd />}
-                  spacing="compact"
-                  onClick={onToggleActionsModal}
-                >
-                  Acciones
-                </Button>
-              </Stack>
+              {(withDownloadExtractCardsOption ||
+                withShareExtractCardsOption) && (
+                <Stack justifyContent="flex-end" width="100%">
+                  <Button
+                    iconBefore={<MdOutlineAdd />}
+                    spacing="compact"
+                    onClick={onToggleActionsModal}
+                  >
+                    Acciones
+                  </Button>
+                </Stack>
+              )}
             </Box>
           </Stack>
 
