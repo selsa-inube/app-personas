@@ -38,6 +38,7 @@ const DeadlineForm = forwardRef(function DeadlineForm(
 
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
+
   const { addFlag } = useFlag();
 
   const formik = useFormik({
@@ -92,7 +93,7 @@ const DeadlineForm = forwardRef(function DeadlineForm(
       addFlag({
         title: "La simulación no pudo ser procesada",
         description:
-          "El plazo no está dentro del rango de tasas de interés vigentes.",
+          "El plazo digitado no se encuentra dentro del rango de las tasas de interés vigentes.",
         appearance: "danger",
         duration: 5000,
       });
@@ -128,8 +129,10 @@ const DeadlineForm = forwardRef(function DeadlineForm(
         "withholdingTax",
         conditionsResponse?.withholdingTax,
       );
-      formik.setFieldValue("expirationDate", conditionsResponse?.expirationDate);
-      formik.setFieldValue("deadlineDate", conditionsResponse?.expirationDate);
+      formik.setFieldValue(
+        "expirationDate",
+        conditionsResponse?.expirationDate,
+      );
       formik.setFieldValue("hasResult", true);
       onFormValid(true);
     } catch (error) {
