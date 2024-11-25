@@ -82,14 +82,7 @@ const renderPaymentMethodVerification = (
       />
     ) : (
       <>
-        <BoxAttribute
-          label="Medio de pago:"
-          value={
-            paymentMethods.find(
-              (paymentMethod) => paymentMethod.id === values.paymentMethod,
-            )?.value
-          }
-        />
+        <BoxAttribute label="Medio de pago:" value={values.paymentMethodName} />
         <BoxAttribute
           label="Cuenta a debitar:"
           value={accountDebitTypeDM.valueOf(values.accountToDebit || "")?.value}

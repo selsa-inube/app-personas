@@ -55,6 +55,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
               onBlur={formik.handleBlur}
               onChange={customHandleChange}
               value={formik.values.paymentMethod || ""}
+              readOnly={formik.values.paymentMethods.length === 1}
               isRequired
             />
 

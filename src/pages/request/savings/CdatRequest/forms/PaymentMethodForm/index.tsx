@@ -67,9 +67,25 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   const getPaymentMethods = async () => {
     if (!accessToken) return;
 
-    getCdatPaymentMethods(accessToken).then((paymentMethods) => {
-      formik.setFieldValue("paymentMethods", paymentMethods);
-    });
+    const paymentMethods = await getCdatPaymentMethods(accessToken);
+
+    formik.setFieldValue("paymentMethods", paymentMethods);
+
+    if (paymentMethods.length === 1) {
+      const paymentMethod = paymentMethods[0];
+      formik.setFieldValue("paymentMethod", paymentMethod.id);
+      formik.setFieldValue("paymentMethodName", paymentMethod.value);
+
+      const { renderFields, validationSchema } = generateDynamicForm(
+        formik,
+        structureDisbursementForm(formik, savings.savingsAccounts),
+      );
+
+      setDynamicForm({
+        renderFields,
+        validationSchema: initValidationSchema.concat(validationSchema),
+      });
+    }
   };
 
   useEffect(() => {
@@ -97,6 +113,48 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
   }, [user, accessToken]);
 
+  useEffect(() => {
+    const paymentMethods = formik.values.paymentMethods;
+  
+    if (paymentMethods && paymentMethods.length === 1) {
+      const paymentMethod = paymentMethods[0];
+  
+      const updatedValues = {
+        ...formik.values,
+        paymentMethod: paymentMethod.id,
+        paymentMethodName: paymentMethod.value,
+      };
+  
+      if (
+        paymentMethod.id === "DEBAHORINT" &&
+        savings.savingsAccounts.length > 0
+      ) {
+        updatedValues.accountToDebit =
+          accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id;
+        updatedValues.accountNumber = savings.savingsAccounts[0].id;
+        updatedValues.availableBalance = currencyFormat(
+          Number(
+            extractAttribute(savings.savingsAccounts[0].attributes, "net_value")
+              ?.value || 0,
+          ),
+          false,
+        );
+      }
+  
+      formik.setValues(updatedValues);
+  
+      const { renderFields, validationSchema } = generateDynamicForm(
+        { ...formik, values: updatedValues },
+        structureDisbursementForm({ ...formik, values: updatedValues }, savings.savingsAccounts),
+      );
+  
+      setDynamicForm({
+        renderFields,
+        validationSchema: initValidationSchema.concat(validationSchema),
+      });
+    }
+  }, [formik.values.paymentMethods, savings.savingsAccounts]);
+
   const customHandleChange = (
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -104,33 +162,26 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   ) => {
     const { name, value } = event.target;
 
-    let updatedFormikValues = {
-      ...formik.values,
-      [name]: value,
-    };
-
     if (name === "paymentMethod") {
       const paymentMethod = formik.values.paymentMethods.find(
-        (paymentMethod) => paymentMethod.id === value,
+        (method) => method.id === value,
       );
-      if (!paymentMethod) return;
 
-      updatedFormikValues = {
-        ...initialValues,
-        paymentMethods: formik.values.paymentMethods,
-        paymentMethod: paymentMethod.id,
-        paymentMethodName: paymentMethod.value,
-      };
+      if (paymentMethod) {
+        const updatedValues = {
+          ...formik.values,
+          paymentMethod: paymentMethod.id,
+          paymentMethodName: paymentMethod.value,
+        };
 
-      if (
-        paymentMethod.id === "DEBAHORINT" &&
-        savings.savingsAccounts.length > 0
-      ) {
-        updatedFormikValues = {
-          ...updatedFormikValues,
-          accountToDebit: accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id,
-          accountNumber: savings.savingsAccounts[0].id,
-          availableBalance: currencyFormat(
+        if (
+          paymentMethod.id === "DEBAHORINT" &&
+          savings.savingsAccounts.length > 0
+        ) {
+          updatedValues.accountToDebit =
+            accountDebitTypeDM.INTERNAL_OWN_ACCOUNT_DEBIT.id;
+          updatedValues.accountNumber = savings.savingsAccounts[0].id;
+          updatedValues.availableBalance = currencyFormat(
             Number(
               extractAttribute(
                 savings.savingsAccounts[0].attributes,
@@ -138,29 +189,46 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
               )?.value || 0,
             ),
             false,
+          );
+        }
+
+        formik.setValues(updatedValues);
+
+        const { renderFields, validationSchema } = generateDynamicForm(
+          { ...formik, values: updatedValues },
+          structureDisbursementForm(
+            { ...formik, values: updatedValues },
+            savings.savingsAccounts,
           ),
-        };
+        );
+
+        setDynamicForm({
+          renderFields,
+          validationSchema: initValidationSchema.concat(validationSchema),
+        });
+      }
+    } else if (name === "accountNumber") {
+      const selectedAccount = savings.savingsAccounts.find(
+        (account) => account.id === value,
+      );
+
+      if (selectedAccount) {
+        formik.setFieldValue(
+          "availableBalance",
+          currencyFormat(
+            Number(
+              extractAttribute(selectedAccount.attributes, "net_value")?.value ||
+                0,
+            ),
+            false,
+          ),
+        );
       }
 
-      formik.setValues(updatedFormikValues);
+      formik.setFieldValue(name, value);
     } else {
       formik.setFieldValue(name, value);
     }
-
-    const updatedFormik = {
-      ...formik,
-      values: updatedFormikValues,
-    };
-
-    const { renderFields, validationSchema } = generateDynamicForm(
-      updatedFormik,
-      structureDisbursementForm(updatedFormik, savings.savingsAccounts),
-    );
-
-    setDynamicForm({
-      renderFields,
-      validationSchema: initValidationSchema.concat(validationSchema),
-    });
   };
 
   return (
@@ -171,6 +239,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     />
   );
 });
+
 
 export { PaymentMethodForm };
 export type { PaymentMethodFormProps };

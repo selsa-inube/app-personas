@@ -92,6 +92,44 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     );
 
     formik.setFieldValue("disbursements", disbursements);
+
+    if (disbursements.length === 1) {
+      const disbursement = disbursements[0];
+      formik.setValues({
+        ...initialValues,
+        disbursement: disbursement.id,
+        disbursementName: disbursement.value,
+        disbursements,
+      });
+
+      if (
+        disbursement.id === disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id &&
+        savings.savingsAccounts.length > 0
+      ) {
+        formik.setFieldValue("accountNumber", savings.savingsAccounts[0].id);
+      }
+
+      const { renderFields, validationSchema } = generateDynamicForm(
+        {
+          ...formik,
+          values: {
+            ...initialValues,
+            disbursement: disbursement.id,
+            disbursementName: disbursement.value,
+          },
+        },
+        structureDisbursementForm(
+          formik,
+          savings.savingsAccounts,
+          serviceDomains,
+        ),
+      );
+
+      setDynamicForm({
+        renderFields,
+        validationSchema: initValidationSchema.concat(validationSchema),
+      });
+    }
   };
 
   useEffect(() => {

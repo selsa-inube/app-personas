@@ -17,6 +17,7 @@ import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles, mapRateTermsEntries } from "./config/table";
 import { StyledInputRadio } from "./styles";
 import { IDeadlineEntry } from "./types";
+import { parseSpanishDate } from "src/utils/dates";
 
 interface DeadlineFormUIProps {
   formik: FormikProps<IDeadlineEntry>;
@@ -81,7 +82,11 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
                     label="Fecha"
                     name="deadlineDate"
                     id="deadlineDate"
-                    value={formik.values.deadlineDate || ""}
+                    value={
+                      formik.values.deadlineDate
+                        ? String(parseSpanishDate(formik.values.deadlineDate))
+                        : ""
+                    }
                     errorMessage={formik.errors.deadlineDate}
                     state={getFieldState(formik, "deadlineDate")}
                     onBlur={formik.handleBlur}

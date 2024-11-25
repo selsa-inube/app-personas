@@ -45,6 +45,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
             onBlur={formik.handleBlur}
             state={getFieldState(formik, "disbursement")}
             errorMessage={formik.errors.disbursement}
+            readOnly={formik.values.disbursements.length === 1}
             isFullWidth
           />
 
