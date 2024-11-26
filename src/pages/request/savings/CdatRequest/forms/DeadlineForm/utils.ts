@@ -1,11 +1,10 @@
 import { IRate } from "src/model/entity/product";
 import { removeLastCharacters } from "src/utils/texts";
 import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({
-  deadlineDate: validationRules.notPastDate,
+  deadlineDate: Yup.string(),
   deadlineDays: Yup.number(),
   effectiveAnnualRate: Yup.number().required(validationMessages.required),
   totalInterest: Yup.number().required(validationMessages.required),

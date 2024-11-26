@@ -133,6 +133,7 @@ const DeadlineForm = forwardRef(function DeadlineForm(
         "expirationDate",
         conditionsResponse?.expirationDate,
       );
+      formik.setFieldValue("deadlineDate", conditionsResponse?.expirationDate);
       formik.setFieldValue("hasResult", true);
       onFormValid(true);
     } catch (error) {
