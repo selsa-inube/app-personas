@@ -29,6 +29,7 @@ function CdatRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
   const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
+  const [redirectModal, setRedirectModal] = useState(false);
 
   const [currentStep, setCurrentStep] = useState(
     cdatRequestSteps.investment.number,
@@ -157,20 +158,25 @@ function CdatRequest() {
 
   const handleFinishAssisted = () => {
     if (!accessToken || !user) return;
-
+  
     setLoadingSend(true);
-
-    sendCdatRequest(user, cdatRequest, accessToken, navigate).catch(() => {
-      addFlag({
-        title: "La solicitud no pudo ser procesada",
-        description:
-          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        appearance: "danger",
-        duration: 5000,
+  
+    sendCdatRequest(user, cdatRequest, accessToken, navigate)
+      .then(() => {
+        setLoadingSend(false); 
+        setRedirectModal(true);
+      })
+      .catch(() => {
+        addFlag({
+          title: "La solicitud no pudo ser procesada",
+          description:
+            "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+          appearance: "danger",
+          duration: 5000,
+        });
+  
+        setLoadingSend(false);
       });
-
-      setLoadingSend(false);
-    });
   };
 
   const handleNextStep = () => {
@@ -191,6 +197,14 @@ function CdatRequest() {
     return <Navigate to="/" />;
   }
 
+  const handleRedirectToHome = () => {
+    navigate("/");
+  }
+
+  const handleRedirectToRequests = () => {
+    navigate("/my-requests");
+  }
+
   return (
     <CdatRequestUI
       currentStep={currentStep}
@@ -200,11 +214,14 @@ function CdatRequest() {
       formReferences={formReferences}
       loadingSend={loadingSend}
       blocker={blocker}
+      redirectModal={redirectModal}
       handleFinishAssisted={handleFinishAssisted}
       handleNextStep={handleNextStep}
       handlePreviousStep={handlePreviousStep}
       handleStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
+      handleRedirectToHome={handleRedirectToHome}
+      handleRedirectToRequests={handleRedirectToRequests}
     />
   );
 }

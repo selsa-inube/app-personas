@@ -22,6 +22,7 @@ import { InvestmentForm } from "./forms/InvestmentForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
+import { CdatRequestModal } from "@components/modals/saving/CdatRequestModal";
 
 const renderStepContent = (
   currentStep: number,
@@ -129,11 +130,14 @@ interface CdatRequestUIProps {
   formReferences: IFormsCdatRequestRefs;
   loadingSend: boolean;
   blocker: Blocker;
+  redirectModal: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleStepChange: (stepId: number) => void;
   handleFinishAssisted: () => void;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
+  handleRedirectToHome: () => void;
+  handleRedirectToRequests: () => void;
 }
 
 function CdatRequestUI(props: CdatRequestUIProps) {
@@ -145,11 +149,14 @@ function CdatRequestUI(props: CdatRequestUIProps) {
     formReferences,
     loadingSend,
     blocker,
+    redirectModal,
     setIsCurrentFormValid,
     handleStepChange,
     handleFinishAssisted,
     handleNextStep,
     handlePreviousStep,
+    handleRedirectToHome,
+    handleRedirectToRequests,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -240,6 +247,14 @@ function CdatRequestUI(props: CdatRequestUIProps) {
           onCloseModal={() => blocker.reset()}
           onClick={() => blocker.proceed()}
           portalId="modals"
+        />
+      )}
+
+      {redirectModal && (
+        <CdatRequestModal
+          portalId="modals"
+          onRedirectToHome={handleRedirectToHome}
+          onRedirectToRequests={handleRedirectToRequests}
         />
       )}
     </>

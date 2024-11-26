@@ -107,12 +107,26 @@ const sendCdatRequest = async (
 
   const comments = `Datos de contacto: Celular: ${cdatRequest.contactChannels.values.cellPhone} Correo: ${cdatRequest.contactChannels.values.email} Teléfono: ${cdatRequest.contactChannels.values.landlinePhone}`;
 
+  const paymentMethodType =
+    cdatRequest.paymentMethod.values.paymentMethod === "DEBAHORINT"
+      ? "DebitInternalSavingsAccount"
+      : "";
+
+  const actionAfterExpirationValue =
+    cdatRequest.interestPayment.values.interestPayment === "AT_EXPIRATION"
+      ? "AutomaticRenewalAtExpiration"
+      : "";
+
   const cdatRequestData: IRequestCdatRequest = {
     comments,
     customerCode: user.identification,
     customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
-    product: "",
-    productName: "",
+    product: cdatRequest.deadline.values.productId,
+    productName: cdatRequest.deadline.values.productName,
+    requestedAmount: cdatRequest.deadline.values.investmentValue,
+    termInDays: cdatRequest.deadline.values.deadlineDays || 0,
+    interestRate: cdatRequest.deadline.values.effectiveAnnualRate || 0,
+    actionAfterExpiration: actionAfterExpirationValue,
     termsConditions: {
       ids: cdatRequest.termsAndConditions.values.ids,
       description:
@@ -133,6 +147,13 @@ const sendCdatRequest = async (
       genderName: cdatRequest.disbursement.values.gender,
       identificationType: cdatRequest.disbursement.values.identificationType,
       identification: cdatRequest.disbursement.values.identification,
+    },
+    paymentMethod: {
+      paymentType: paymentMethodType,
+      accountNumber: cdatRequest.paymentMethod.values.accountToDebit || "",
+      descriptionPayment: cdatRequest.paymentMethod.values.paymentMethodName,
+      value: cdatRequest.deadline.values.investmentValue,
+      urlRedirect: "",
     },
     validations: cdatRequest.systemValidations.values.validations,
   };
