@@ -1,10 +1,6 @@
 import { capitalizeText } from "./texts";
 
 const formatPrimaryDate = (date: Date, withTime?: boolean): string => {
-  const correctedDate = new Date(
-    date.getTime() + date.getTimezoneOffset() * 60000,
-  );
-
   const months = [
     "Ene",
     "Feb",
@@ -20,13 +16,13 @@ const formatPrimaryDate = (date: Date, withTime?: boolean): string => {
     "Dic",
   ];
 
-  const day = correctedDate.getDate().toString().padStart(2, "0");
-  const month = months[correctedDate.getMonth()];
-  const year = correctedDate.getFullYear();
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
 
   if (withTime) {
-    let hours = correctedDate.getHours();
-    const minutes = correctedDate.getMinutes().toString().padStart(2, "0");
+    let hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, "0");
     const ampm = hours >= 12 ? "pm" : "am";
     hours = hours % 12;
     hours = hours ? hours : 12;
