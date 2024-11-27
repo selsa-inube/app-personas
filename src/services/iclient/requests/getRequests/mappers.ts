@@ -22,7 +22,7 @@ const requestStatusAppearance: Record<string, ITag["appearance"]> = {
   Completed: "success",
   Finished: "success",
   Cancelled: "danger",
-  CollectPending: "danger",
+  CollectPending: "warning",
 };
 
 const requestTitles: Record<RequestType, string> = {

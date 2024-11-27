@@ -225,7 +225,7 @@ function CdatRequestUI(props: CdatRequestUIProps) {
               spacing="compact"
               disabled={!isCurrentFormValid}
             >
-              {currentStep === steps.length ? "Pagar" : "Siguiente"}
+              {currentStep === steps.length ? "Enviar" : "Siguiente"}
             </Button>
           </Stack>
         </Stack>

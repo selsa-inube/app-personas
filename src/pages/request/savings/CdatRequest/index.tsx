@@ -30,6 +30,7 @@ function CdatRequest() {
   const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
   const [redirectModal, setRedirectModal] = useState(false);
+  const [isBlockerActive, setIsBlockerActive] = useState(true);
 
   const [currentStep, setCurrentStep] = useState(
     cdatRequestSteps.investment.number,
@@ -109,7 +110,7 @@ function CdatRequest() {
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      currentLocation.pathname !== nextLocation.pathname,
+      isBlockerActive && currentLocation.pathname !== nextLocation.pathname,
   );
 
   const validateEnums = async () => {
@@ -158,13 +159,14 @@ function CdatRequest() {
 
   const handleFinishAssisted = () => {
     if (!accessToken || !user) return;
-  
+
     setLoadingSend(true);
-  
+
     sendCdatRequest(user, cdatRequest, accessToken, navigate)
       .then(() => {
-        setLoadingSend(false); 
+        setLoadingSend(false);
         setRedirectModal(true);
+        setIsBlockerActive(false);
       })
       .catch(() => {
         addFlag({
@@ -174,8 +176,9 @@ function CdatRequest() {
           appearance: "danger",
           duration: 5000,
         });
-  
+
         setLoadingSend(false);
+        setIsBlockerActive(true);
       });
   };
 
@@ -199,11 +202,11 @@ function CdatRequest() {
 
   const handleRedirectToHome = () => {
     navigate("/");
-  }
+  };
 
   const handleRedirectToRequests = () => {
     navigate("/my-requests");
-  }
+  };
 
   return (
     <CdatRequestUI
