@@ -33,6 +33,10 @@ const requestStatusDataDomain = {
     id: "Cancelled",
     value: "Cancelado",
   },
+  COLLECTPENDING: {
+    id: "CollectPending",
+    value: "Procesando pago",
+  },
 };
 
 const requestStatusDMValueOf = (id: string) =>

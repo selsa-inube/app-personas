@@ -70,7 +70,7 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={programmedSavingRequest.disbursement.values}
           ref={formReferences.disbursement}
-          requestType="programmedsaving"
+          requestType="newprogrammedsaving"
           productId={
             programmedSavingRequest.destination.values.product?.id || ""
           }
@@ -83,7 +83,7 @@ const renderStepContent = (
           initialValues={programmedSavingRequest.systemValidations.values}
           ref={formReferences.systemValidations}
           disbursementValues={programmedSavingRequest.disbursement.values}
-          requestType="programmedsaving"
+          requestType="newprogrammedsaving"
           shareMaturity={
             programmedSavingRequest.shareMaturity.values.shareMaturity
           }
@@ -98,7 +98,7 @@ const renderStepContent = (
           productId={
             programmedSavingRequest.destination.values.product?.id || ""
           }
-          productType="programmedsaving"
+          productType="newprogrammedsaving"
           onFormValid={setIsCurrentFormValid}
         />
       )}

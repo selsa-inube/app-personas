@@ -110,7 +110,9 @@ const sendCdatRequest = async (
   const paymentMethodType =
     cdatRequest.paymentMethod.values.paymentMethod === "DEBAHORINT"
       ? "DebitInternalSavingsAccount"
-      : "";
+      : cdatRequest.paymentMethod.values.paymentMethod === "PAGOPSE"
+        ? "PaymentByPSE"
+        : "";
 
   const actionAfterExpirationValue =
     cdatRequest.interestPayment.values.interestPayment === "AT_EXPIRATION"
@@ -150,10 +152,10 @@ const sendCdatRequest = async (
     },
     paymentMethod: {
       paymentType: paymentMethodType,
-      accountNumber: cdatRequest.paymentMethod.values.accountToDebit || "",
+      accountNumber: cdatRequest.paymentMethod.values.accountNumber || "",
       descriptionPayment: cdatRequest.paymentMethod.values.paymentMethodName,
       value: cdatRequest.deadline.values.investmentValue,
-      urlRedirect: "",
+      urlRedirect: `${window.location.origin}/my-requests`,
     },
     validations: cdatRequest.systemValidations.values.validations,
   };

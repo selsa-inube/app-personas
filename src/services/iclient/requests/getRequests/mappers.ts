@@ -22,20 +22,21 @@ const requestStatusAppearance: Record<string, ITag["appearance"]> = {
   Completed: "success",
   Finished: "success",
   Cancelled: "danger",
+  CollectPending: "danger",
 };
 
 const requestTitles: Record<RequestType, string> = {
   credit: "Crédito",
   aid: "Auxilio",
-  programmedsaving: "Ahorro programado a término fijo",
-  cdat: "CDAT",
+  newprogrammedsaving: "Ahorro programado a término fijo",
+  newcdat: "CDAT",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
   credit: "Solicitud de crédito",
   aid: "Solicitud de auxilio",
-  programmedsaving: "Solicitud de ahorro programado a término fijo",
-  cdat: "Solicitud de CDAT",
+  newprogrammedsaving: "Solicitud de ahorro programado a término fijo",
+  newcdat: "Solicitud de CDAT",
 };
 
 const mapValidationApiToEntity = (
@@ -169,7 +170,7 @@ const mapRequestApiToEntity = (
 
       break;
 
-    case "programmedsaving":
+    case "newprogrammedsaving":
       requestData.product = capitalizeText(String(Object(details).savingName));
       requestData.periodicityName = String(
         periodicityDM.valueOf(Object(conditions).periodicity || "")?.value ||

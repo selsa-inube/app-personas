@@ -232,13 +232,13 @@ function RequestDetailUI(props: RequestUIProps) {
                     renderItem("Producto:", selectedRequest.product)}
 
                   {selectedRequest.quotaValue &&
-                    selectedRequest.requestType === "programmedsaving" &&
+                    selectedRequest.requestType === "newprogrammedsaving" &&
                     renderItem(
                       "Valor de la cuota:",
                       currencyFormat(selectedRequest.quotaValue),
                     )}
 
-                  {selectedRequest.requestType === "programmedsaving" &&
+                  {selectedRequest.requestType === "newprogrammedsaving" &&
                     selectedRequest.deadline &&
                     renderItem("Numero de cuotas:", selectedRequest.deadline)}
 
@@ -298,7 +298,7 @@ function RequestDetailUI(props: RequestUIProps) {
                 </Accordion>
               )}
 
-              {selectedRequest.requestType === "programmedsaving" && (
+              {selectedRequest.requestType === "newprogrammedsaving" && (
                 <Accordion title="Forma de pago">
                   <Grid
                     autoRows="auto"
@@ -314,7 +314,7 @@ function RequestDetailUI(props: RequestUIProps) {
                 </Accordion>
               )}
 
-              {selectedRequest.requestType === "programmedsaving" && (
+              {selectedRequest.requestType === "newprogrammedsaving" && (
                 <Accordion title="Reembolso">
                   <Grid
                     autoRows="auto"

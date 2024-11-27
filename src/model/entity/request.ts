@@ -29,6 +29,6 @@ interface IRequest {
   disbursementAccount?: string;
 }
 
-type RequestType = "credit" | "aid" | "programmedsaving" | "cdat";
+type RequestType = "credit" | "aid" | "newprogrammedsaving" | "newcdat";
 
 export type { IRequest, RequestType };

@@ -12,11 +12,9 @@ import { renderSystemValidationsVerification } from "@forms/SystemValidationsFor
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
-import { EPaymentMethodType } from "src/model/entity/payment";
 import { formatPrimaryDate } from "src/utils/dates";
 import { cdatRequestSteps } from "../../../config/assisted";
 import { renderInterestPaymentVerification } from "../../InterestPaymentForm/verification";
-import { paymentMethods } from "../../PaymentMethodForm/config/payment";
 import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 
 const renderInvestmentVerification = (
@@ -71,14 +69,10 @@ const renderPaymentMethodVerification = (
     autoRows="auto"
     width="100%"
   >
-    {values.paymentMethod === EPaymentMethodType.PSE ? (
+    {values.paymentMethod === "PAGOPSE" ? (
       <BoxAttribute
         label="Medio de pago:"
-        value={
-          paymentMethods.find(
-            (paymentMethod) => paymentMethod.id === values.paymentMethod,
-          )?.value
-        }
+        value={values.paymentMethodName}
       />
     ) : (
       <>

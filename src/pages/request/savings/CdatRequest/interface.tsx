@@ -66,7 +66,7 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={cdatRequest.disbursement.values}
           ref={formReferences.disbursement}
-          requestType="cdat"
+          requestType="newcdat"
           productId={cdatRequest.investment.values.product?.id || ""}
           onFormValid={setIsCurrentFormValid}
         />
@@ -92,7 +92,7 @@ const renderStepContent = (
               value: cdatRequest.investment.values.investmentValue || 0,
             },
           ]}
-          requestType="cdat"
+          requestType="newcdat"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -101,7 +101,7 @@ const renderStepContent = (
           initialValues={cdatRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           productId={cdatRequest.investment.values.product?.id || ""}
-          productType="cdat"
+          productType="newcdat"
           onFormValid={setIsCurrentFormValid}
         />
       )}

@@ -45,7 +45,7 @@ const mapRequirementEntityToApi = (
   }
 
   if (
-    requirement.requestType === "programmedsaving" &&
+    requirement.requestType === "newprogrammedsaving" &&
     requirement.programmedSavingData
   ) {
     return {
@@ -96,7 +96,7 @@ const mapRequirementEntityToApi = (
     };
   }
 
-  if (requirement.requestType === "cdat" && requirement.cdatData) {
+  if (requirement.requestType === "newcdat" && requirement.cdatData) {
     return {
       requestType: requirement.requestType,
       customerCode: requirement.customerCode,

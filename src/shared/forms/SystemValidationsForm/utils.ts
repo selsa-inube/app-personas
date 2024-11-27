@@ -122,7 +122,7 @@ const buildRequestData = (
   }
 
   if (
-    requestType === "programmedsaving" &&
+    requestType === "newprogrammedsaving" &&
     formik.values.deadline &&
     formik.values.paymentMethod &&
     formik.values.paymentMethodName &&
@@ -142,7 +142,7 @@ const buildRequestData = (
   }
 
   if (
-    requestType === "cdat" &&
+    requestType === "newcdat" &&
     formik.values.rate &&
     formik.values.deadline &&
     moneySources

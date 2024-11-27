@@ -21,6 +21,11 @@ const staticProgrammedSavingAttributes = [
   { id: "requestDate", label: "Fecha de solicitud", value: "" },
 ];
 
+const staticCdatAttributes = [
+  { id: "trackingCode", label: "Código de seguimiento", value: "" },
+  { id: "requestDate", label: "Fecha de solicitud", value: "" },
+];
+
 const generateAttributes = (request: IRequest) => {
   if (request.requestType === "credit") {
     return staticCreditAttributes.map((attr) => ({
@@ -36,8 +41,15 @@ const generateAttributes = (request: IRequest) => {
     }));
   }
 
-  if (request.requestType === "programmedsaving") {
+  if (request.requestType === "newprogrammedsaving") {
     return staticProgrammedSavingAttributes.map((attr) => ({
+      ...attr,
+      value: request[attr.id as keyof IRequest] as string | number | Date,
+    }));
+  }
+
+  if (request.requestType === "newcdat") {
+    return staticCdatAttributes.map((attr) => ({
       ...attr,
       value: request[attr.id as keyof IRequest] as string | number | Date,
     }));
