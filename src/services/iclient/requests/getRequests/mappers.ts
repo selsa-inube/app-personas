@@ -2,6 +2,7 @@ import { ITag } from "@inubekit/tag";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { interestPaymentDM } from "src/model/domains/savings/interestPaymentDM";
 import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { IRequest, RequestType } from "src/model/entity/request";
 import {
@@ -205,6 +206,23 @@ const mapRequestApiToEntity = (
 
       requestData.value = Number(Object(conditions).requestedAmount || 0);
 
+      break;
+    case "newcdat":
+      requestData.deadline = `${String(Object(details).termInDays)} días`;
+      requestData.actionAfterExpiration = interestPaymentDM.valueOf(
+        String(Object(details).actionAfterExpiration) || "",
+      )?.value;
+      requestData.paymentMethodName = String(
+        Object(details).paymentMethod.descriptionPayment || "",
+      );
+      requestData.disbursementMethodName = String(
+        Object(disbursementMethod).disbursementMethodDetail || "",
+      );
+      requestData.disbursementAccount = String(
+        Object(disbursementMethod).savingsAccountNumber || "",
+      );
+
+      requestData.value = Number(Object(details).requestedAmount || 0);
       break;
   }
 

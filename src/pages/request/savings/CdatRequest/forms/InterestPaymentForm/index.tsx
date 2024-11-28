@@ -1,11 +1,11 @@
 import { FormikProps, useFormik } from "formik";
 import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { interestPaymentDM } from "src/model/domains/savings/interestPaymentDM";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { InterestPaymentFormUI } from "./interface";
 import { IInterestPaymentEntry } from "./types";
-import { interestPaymentDM } from "src/model/domains/savings/interestPaymentDM";
 
 const validationSchema = Yup.object({
   interestPayment: Yup.string().required(validationMessages.required),
@@ -45,10 +45,8 @@ const InterestPaymentForm = forwardRef(function InterestPaymentForm(
 
     formik.setFieldValue("interestPayments", interestPayments);
 
-    if (interestPayments.length === 1) {
-      formik.setFieldValue("interestPayment", interestPayments[0].id);
-      formik.setFieldValue("interestPaymentName", interestPayments[0].value);
-    }
+    formik.setFieldValue("interestPayment", interestPayments[0].id);
+    formik.setFieldValue("interestPaymentName", interestPayments[0].value);
   };
 
   useEffect(() => {
