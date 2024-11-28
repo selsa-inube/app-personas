@@ -54,6 +54,8 @@ const getProductAttributes = (
       ? Object(saving.accumulatedSavingProducts[0]).creditMovementPesos
       : 0;
 
+  const dateWithoutZone = String(saving.creationDate).replace("Z", "");
+
   const attributes: Record<string, IAttribute[]> = {
     [EProductType.PERMANENTSAVINGS]: [
       {
@@ -118,7 +120,7 @@ const getProductAttributes = (
       {
         id: "request_date",
         label: "Fecha de apertura",
-        value: formatPrimaryDate(new Date(String(saving.creationDate))),
+        value: formatPrimaryDate(new Date(dateWithoutZone)),
       },
     ],
     [EProductType.VIEWSAVINGS]: [
