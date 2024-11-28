@@ -30,7 +30,6 @@ function CdatRequest() {
   const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
   const [redirectModal, setRedirectModal] = useState(false);
-  const [isBlockerActive, setIsBlockerActive] = useState(true);
 
   const [currentStep, setCurrentStep] = useState(
     cdatRequestSteps.investment.number,
@@ -110,9 +109,10 @@ function CdatRequest() {
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      isBlockerActive && currentLocation.pathname !== nextLocation.pathname,
+      currentLocation.pathname !== nextLocation.pathname &&
+      !nextLocation.search.includes("?success_request=true") &&
+      nextLocation.pathname !== "/",
   );
-
   const validateEnums = async () => {
     if (!accessToken) return;
 
@@ -166,7 +166,6 @@ function CdatRequest() {
       .then(() => {
         setLoadingSend(false);
         setRedirectModal(true);
-        setIsBlockerActive(false);
       })
       .catch(() => {
         addFlag({
@@ -178,7 +177,6 @@ function CdatRequest() {
         });
 
         setLoadingSend(false);
-        setIsBlockerActive(true);
       });
   };
 
@@ -205,7 +203,7 @@ function CdatRequest() {
   };
 
   const handleRedirectToRequests = () => {
-    navigate("/my-requests");
+    navigate("/my-requests?success_request=true");
   };
 
   return (
