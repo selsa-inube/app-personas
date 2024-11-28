@@ -22,6 +22,8 @@ const staticProgrammedSavingAttributes = [
 ];
 
 const staticCdatAttributes = [
+  { id: "deadline", label: "Plazo", value: "" },
+  { id: "actionAfterExpiration", label: "Pago de intereses", value: "" },
   { id: "trackingCode", label: "Código de seguimiento", value: "" },
   { id: "requestDate", label: "Fecha de solicitud", value: "" },
 ];

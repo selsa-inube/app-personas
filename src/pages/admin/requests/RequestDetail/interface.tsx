@@ -228,6 +228,17 @@ function RequestDetailUI(props: RequestUIProps) {
                     />,
                   )}
 
+                  {selectedRequest.deadline &&
+                    selectedRequest.requestType === "newcdat" &&
+                    renderItem("Plazo:", selectedRequest.deadline)}
+
+                  {selectedRequest.actionAfterExpiration &&
+                    selectedRequest.requestType === "newcdat" &&
+                    renderItem(
+                      "Pago de intereses:",
+                      selectedRequest.actionAfterExpiration,
+                    )}
+
                   {selectedRequest.product &&
                     renderItem("Producto:", selectedRequest.product)}
 
@@ -260,6 +271,13 @@ function RequestDetailUI(props: RequestUIProps) {
 
                   {selectedRequest.requestType === "aid" &&
                     renderItem("Valor de la solicitud:", selectedRequest.label)}
+
+                  {selectedRequest.requestType === "newcdat" &&
+                    selectedRequest.value &&
+                    renderItem(
+                      "Valor de la inversión:",
+                      currencyFormat(selectedRequest.value),
+                    )}
                 </Grid>
               </Accordion>
 
@@ -298,7 +316,8 @@ function RequestDetailUI(props: RequestUIProps) {
                 </Accordion>
               )}
 
-              {selectedRequest.requestType === "newprogrammedsaving" && (
+              {(selectedRequest.requestType === "newprogrammedsaving" ||
+                selectedRequest.requestType === "newcdat") && (
                 <Accordion title="Forma de pago">
                   <Grid
                     autoRows="auto"
@@ -314,7 +333,8 @@ function RequestDetailUI(props: RequestUIProps) {
                 </Accordion>
               )}
 
-              {selectedRequest.requestType === "newprogrammedsaving" && (
+              {(selectedRequest.requestType === "newprogrammedsaving" ||
+                selectedRequest.requestType === "newcdat") && (
                 <Accordion title="Reembolso">
                   <Grid
                     autoRows="auto"
