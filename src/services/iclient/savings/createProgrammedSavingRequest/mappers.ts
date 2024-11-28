@@ -69,7 +69,7 @@ const mapRequestProgrammedSavingEntityToApi = (
       ),
     },
     issuer: "Personas",
-    requestType: "programmedsaving",
+    requestType: "newprogrammedsaving",
   };
 };
 
