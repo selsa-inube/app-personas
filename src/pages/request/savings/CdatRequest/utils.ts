@@ -115,7 +115,7 @@ const sendCdatRequest = async (
         : "";
 
   const actionAfterExpirationValue =
-    cdatRequest.interestPayment.values.interestPayment === "AT_EXPIRATION"
+    cdatRequest.interestPayment.values.interestPayment === "PayAtExpiration"
       ? "AutomaticRenewalAtExpiration"
       : "";
 
