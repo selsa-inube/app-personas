@@ -1,5 +1,6 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { DisbursementForm } from "@forms/DisbursementForm";
@@ -22,7 +23,6 @@ import { InvestmentForm } from "./forms/InvestmentForm";
 import { PaymentMethodForm } from "./forms/PaymentMethodForm";
 import { CdatRequestVerification } from "./forms/Verification";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
-import { CdatRequestModal } from "@components/modals/saving/CdatRequestModal";
 
 const renderStepContent = (
   currentStep: number,
@@ -251,7 +251,7 @@ function CdatRequestUI(props: CdatRequestUIProps) {
       )}
 
       {redirectModal && (
-        <CdatRequestModal
+        <RequestReceivedModal
           portalId="modals"
           onRedirectToHome={handleRedirectToHome}
           onRedirectToRequests={handleRedirectToRequests}
