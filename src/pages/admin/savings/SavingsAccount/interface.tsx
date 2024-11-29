@@ -57,6 +57,7 @@ import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -88,6 +89,7 @@ interface SavingsAccountUIProps {
   showChangeQuotaModal: boolean;
   showModifyActionModal: boolean;
   showCancelSavingModal: boolean;
+  redirectModal: boolean;
   onToggleBeneficiariesModal: () => void;
   onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleCommitmentsModal: () => void;
@@ -104,6 +106,8 @@ interface SavingsAccountUIProps {
   onDownloadCertificate: () => void;
   onShareCertificate: () => void;
   onDownloadExtract: () => void;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -122,6 +126,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     showChangeQuotaModal,
     showModifyActionModal,
     showCancelSavingModal,
+    redirectModal,
     onToggleBeneficiariesModal,
     onChangeProduct,
     onToggleCommitmentsModal,
@@ -138,6 +143,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onDownloadCertificate,
     onShareCertificate,
     onDownloadExtract,
+    onRedirectToHome,
+    onRedirectToRequests,
   } = props;
   const { getFlag } = useContext(AppContext);
 
@@ -443,6 +450,14 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
         <LoadingModal
           title="Procesando depósito..."
           message="Espera unos segundos, estamos procesando la transacción."
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
         />
       )}
     </>

@@ -1,21 +1,21 @@
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
-import { createPortal } from "react-dom";
-import { StyledModal } from "./styles";
-import { Text } from "@inubekit/text";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
+import { createPortal } from "react-dom";
 import { MdAssignment, MdCheckCircle, MdOutlineHouse } from "react-icons/md";
+import { StyledModal } from "./styles";
 
-interface CdatRequestModalProps {
+interface RequestReceivedModalProps {
   portalId: string;
   onRedirectToHome: () => void;
   onRedirectToRequests: () => void;
 }
 
-function CdatRequestModal(props: CdatRequestModalProps) {
+function RequestReceivedModal(props: RequestReceivedModalProps) {
   const { portalId, onRedirectToHome, onRedirectToRequests } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -67,4 +67,4 @@ function CdatRequestModal(props: CdatRequestModalProps) {
   );
 }
 
-export { CdatRequestModal };
+export { RequestReceivedModal };

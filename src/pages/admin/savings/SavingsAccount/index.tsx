@@ -52,6 +52,7 @@ function SavingsAccount() {
   const [showChangeQuotaModal, setShowChangeQuotaModal] = useState(false);
   const [showModifyActionModal, setShowModifyActionModal] = useState(false);
   const [showCancelSavingModal, setShowCancelSavingModal] = useState(false);
+  const [redirectModal, setRedirectModal] = useState(false);
 
   const [loadingSend, setLoadingSend] = useState(false);
   const { getFlag } = useContext(AppContext);
@@ -221,7 +222,7 @@ function SavingsAccount() {
   };
 
   const handleModifyAction = () => {
-    return true;
+    setRedirectModal(true);
   };
 
   const handleCancelSaving = () => {
@@ -323,6 +324,14 @@ function SavingsAccount() {
     );
   };
 
+  const handleRedirectToHome = () => {
+    navigate("/");
+  };
+
+  const handleRedirectToRequests = () => {
+    navigate("/my-requests?success_request=true");
+  };
+
   if (!selectedProduct) return null;
 
   const withTransfers = getFlag(
@@ -345,6 +354,7 @@ function SavingsAccount() {
       showChangeQuotaModal={showChangeQuotaModal}
       showModifyActionModal={showModifyActionModal}
       showCancelSavingModal={showCancelSavingModal}
+      redirectModal={redirectModal}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}
@@ -361,6 +371,8 @@ function SavingsAccount() {
       onDownloadCertificate={handleDownloadCertificate}
       onShareCertificate={handleShareCertificate}
       onDownloadExtract={handleDownloadExtract}
+      onRedirectToHome={handleRedirectToHome}
+      onRedirectToRequests={handleRedirectToRequests}
     />
   );
 }

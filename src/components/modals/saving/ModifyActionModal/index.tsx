@@ -24,6 +24,7 @@ function ModifyActionModal(props: ModifyActionModalProps) {
   const { portalId = "modals", shareMaturity, onCloseModal, onConfirm } = props;
 
   const [newShareMaturity, setNewShareMaturity] = useState(shareMaturity);
+  const [loadingModify, setLoadingModify] = useState(false);
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
@@ -33,8 +34,13 @@ function ModifyActionModal(props: ModifyActionModalProps) {
   };
 
   const handleConfirm = () => {
-    onConfirm(newShareMaturity);
-    onCloseModal();
+    setLoadingModify(true);
+
+    setTimeout(() => {
+      onConfirm(newShareMaturity);
+      onCloseModal();
+      setLoadingModify(false);
+    }, 2000);
   };
 
   if (node === null) {
@@ -78,7 +84,7 @@ function ModifyActionModal(props: ModifyActionModalProps) {
           <Select
             id="shareMaturity"
             name="shareMaturity"
-            label="Acción al vencimiento"
+            label="Renovar producto al vencimiento"
             value={newShareMaturity || ""}
             options={shareMaturityDM.options}
             isFullWidth
@@ -100,6 +106,7 @@ function ModifyActionModal(props: ModifyActionModalProps) {
             spacing="compact"
             onClick={handleConfirm}
             disabled={newShareMaturity === shareMaturity}
+            loading={loadingModify}
           >
             Modificar
           </Button>
