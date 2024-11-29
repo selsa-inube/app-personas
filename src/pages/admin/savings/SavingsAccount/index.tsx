@@ -226,7 +226,8 @@ function SavingsAccount() {
   };
 
   const handleCancelSaving = () => {
-    return true;
+    setShowCancelSavingModal(false);
+    setRedirectModal(true);
   };
 
   const handleDownloadCertificate = () => {
