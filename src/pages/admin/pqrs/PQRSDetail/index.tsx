@@ -2,7 +2,7 @@ import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Stack } from "@inubekit/stack";
-import { MdAdd, MdArrowBack } from "react-icons/md";
+import { MdArrowBack } from "react-icons/md";
 import { crumbsMyPQRSDetails } from "./config/navigation";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Grid } from "@inubekit/grid";
@@ -14,6 +14,8 @@ import { useParams } from "react-router-dom";
 import { pqrsHistoryMock } from "@mocks/pqrs/pqrsHistory.mocks";
 import { formatPrimaryDate } from "src/utils/dates";
 import { FileCard } from "@components/cards/FileCard";
+import { RequestNews } from "@components/cards/RequestNews";
+import { INew } from "@components/cards/RequestNews/types";
 
 function MyPQRSDetails() {
   const isDesktop = useMediaQuery("(min-width: 1400px)");
@@ -23,6 +25,8 @@ function MyPQRSDetails() {
   const pqrs_id = id.pqrs_id;
 
   const data = pqrsHistoryMock.find((item) => item.id === pqrs_id);
+
+  const news: INew[] = [];
 
   const renderDetail = (label: string, value: string) => (
     <Stack direction="column" gap={inube.spacing.s050}>
@@ -63,12 +67,6 @@ function MyPQRSDetails() {
               allow: false,
               start: false,
             }}
-            button={{
-              label: "Acciones",
-              icon: <MdAdd />,
-              appearance: "primary",
-              variant: "filled",
-            }}
           >
             <Grid
               templateColumns={isMobile ? "1fr" : "1fr 1fr"}
@@ -97,7 +95,7 @@ function MyPQRSDetails() {
             </Grid>
           </Box>
           <Box
-            title={"Detalles"}
+            title={"Descripción"}
             collapsing={{
               allow: true,
               start: false,
@@ -126,9 +124,7 @@ function MyPQRSDetails() {
           </Box>
         </Stack>
         <Stack direction="column" gap={inube.spacing.s300}>
-          {/* <Text type="title" size="medium" weight="bold" appearance="gray">
-            Novedades
-          </Text> // TEMP */} 
+          <RequestNews news={news} />
         </Stack>
       </Grid>
     </>
