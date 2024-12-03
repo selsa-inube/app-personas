@@ -1,12 +1,12 @@
 import { ISelectOption } from "@design/input/Select/types";
-import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
+import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 
 const mapShareApiToEntity = (
   share: Record<string, string | number | object>,
 ): ISelectOption => {
   return {
     id: String(share.code),
-    value: shareMaturityDM.valueOf(String(share.code))?.value || "",
+    value: actionExpirationDM.valueOf(String(share.code))?.value || "",
   };
 };
 

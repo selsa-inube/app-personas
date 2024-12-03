@@ -52,7 +52,7 @@ const buildRequestData = (
   formik: FormikProps<ISystemValidationsEntry>,
   disbursementValues: IDisbursementEntry,
   beneficiary?: IBeneficiary,
-  shareMaturity?: string,
+  actionExpiration?: string,
   moneySources?: IMoneySourceValid[],
 ) => {
   const requestDate = new Date();
@@ -130,7 +130,7 @@ const buildRequestData = (
     formik.values.quota
   ) {
     requirementsRequest.programmedSavingData = {
-      actionAfterExpiration: shareMaturity || "",
+      actionAfterExpiration: actionExpiration || "",
       productId: formik.values.productId,
       productName: formik.values.productName,
       deadline: formik.values.deadline,

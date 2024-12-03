@@ -135,7 +135,7 @@ const mapRequirementApiToEntity = (
       correctSpecialCharacters(String(requirement.requirementName)),
     ),
     failDetails: capitalizeText(
-      correctSpecialCharacters(String(requirement.errorDescription)),
+      correctSpecialCharacters(String(requirement.errorDescription || "")),
     ),
     value: resultValues[String(requirement.responseCode)] || "pending",
     documentType: requirement.documentTypeCode

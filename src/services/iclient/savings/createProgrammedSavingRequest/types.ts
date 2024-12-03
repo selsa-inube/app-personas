@@ -9,7 +9,7 @@ interface IRequestProgrammedSavingRequest {
   };
   comments: string;
   conditions: {
-    shareMaturity: string;
+    actionExpiration: string;
     deadline: number;
     paymentMethod: string;
     paymentMethodName: string;

@@ -10,11 +10,11 @@ import { VerificationBoxes } from "./VerificationBoxes";
 
 interface VerificationProps {
   creditDestinationRequest: IFormsCreditDestinationRequest;
-  handleStepChange: (stepId: number) => void;
+  onStepChange: (stepId: number) => void;
 }
 
 function CreditDestinationRequestVerification(props: VerificationProps) {
-  const { creditDestinationRequest, handleStepChange } = props;
+  const { creditDestinationRequest, onStepChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1224px)");
 
@@ -39,7 +39,7 @@ function CreditDestinationRequestVerification(props: VerificationProps) {
               <Button
                 iconBefore={<MdOutlineArrowBack />}
                 onClick={() =>
-                  handleStepChange(
+                  onStepChange(
                     creditDestinationRequestSteps[
                       key as keyof IFormsCreditDestinationRequest
                     ].number,

@@ -1,7 +1,9 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
+import { ActionExpirationForm } from "@forms/ActionExpirationForm";
 import { DisbursementForm } from "@forms/DisbursementForm";
 import { PaymentMethodForm } from "@forms/PaymentMethodForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
@@ -23,14 +25,13 @@ import {
   IFormsProgrammedSavingRequest,
   IFormsProgrammedSavingRequestRefs,
 } from "./types";
-import { ShareMaturityForm } from "@forms/ShareMaturityForm";
 
 const renderStepContent = (
   currentStep: number,
   formReferences: IFormsProgrammedSavingRequestRefs,
   programmedSavingRequest: IFormsProgrammedSavingRequest,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void,
+  onStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -56,13 +57,13 @@ const renderStepContent = (
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === programmedSavingRequestSteps.shareMaturity.number && (
-        <ShareMaturityForm
-          initialValues={programmedSavingRequest.shareMaturity.values}
+      {currentStep === programmedSavingRequestSteps.actionExpiration.number && (
+        <ActionExpirationForm
+          initialValues={programmedSavingRequest.actionExpiration.values}
           productId={
             programmedSavingRequest.destination.values.product?.id || ""
           }
-          ref={formReferences.shareMaturity}
+          ref={formReferences.actionExpiration}
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -84,8 +85,8 @@ const renderStepContent = (
           ref={formReferences.systemValidations}
           disbursementValues={programmedSavingRequest.disbursement.values}
           requestType="newprogrammedsaving"
-          shareMaturity={
-            programmedSavingRequest.shareMaturity.values.shareMaturity
+          actionExpiration={
+            programmedSavingRequest.actionExpiration.values.actionExpiration
           }
           onFormValid={setIsCurrentFormValid}
         />
@@ -112,7 +113,7 @@ const renderStepContent = (
       {currentStep === programmedSavingRequestSteps.verification.number && (
         <ProgrammedSavingRequestVerification
           programmedSavingRequest={programmedSavingRequest}
-          handleStepChange={handleStepChange}
+          onStepChange={onStepChange}
         />
       )}
     </>
@@ -127,11 +128,14 @@ interface ProgrammedSavingRequestUIProps {
   formReferences: IFormsProgrammedSavingRequestRefs;
   loadingSend: boolean;
   blocker: Blocker;
+  redirectModal: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleStepChange: (stepId: number) => void;
-  handleFinishAssisted: () => void;
-  handleNextStep: () => void;
-  handlePreviousStep: () => void;
+  onStepChange: (stepId: number) => void;
+  onFinishAssisted: () => void;
+  onNextStep: () => void;
+  onPreviousStep: () => void;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
 }
 
 function ProgrammedSavingRequestUI(props: ProgrammedSavingRequestUIProps) {
@@ -143,11 +147,14 @@ function ProgrammedSavingRequestUI(props: ProgrammedSavingRequestUIProps) {
     formReferences,
     loadingSend,
     blocker,
+    redirectModal,
     setIsCurrentFormValid,
-    handleStepChange,
-    handleFinishAssisted,
-    handleNextStep,
-    handlePreviousStep,
+    onStepChange,
+    onFinishAssisted,
+    onNextStep,
+    onPreviousStep,
+    onRedirectToHome,
+    onRedirectToRequests,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -182,9 +189,9 @@ function ProgrammedSavingRequestUI(props: ProgrammedSavingRequestUIProps) {
           <Assisted
             step={steps[currentStep - 1]}
             totalSteps={steps.length}
-            onNextClick={handleNextStep}
-            onBackClick={handlePreviousStep}
-            onSubmitClick={handleFinishAssisted}
+            onNextClick={onNextStep}
+            onBackClick={onPreviousStep}
+            onSubmitClick={onFinishAssisted}
             disableNext={!isCurrentFormValid}
             size={isTablet ? "small" : "large"}
             controls={{
@@ -200,12 +207,12 @@ function ProgrammedSavingRequestUI(props: ProgrammedSavingRequestUIProps) {
               formReferences,
               programmedSavingRequest,
               setIsCurrentFormValid,
-              handleStepChange,
+              onStepChange,
             )}
 
             <Stack gap={inube.spacing.s150} justifyContent="flex-end">
               <Button
-                onClick={handlePreviousStep}
+                onClick={onPreviousStep}
                 type="button"
                 disabled={currentStep === steps[0].id}
                 spacing="compact"
@@ -216,7 +223,7 @@ function ProgrammedSavingRequestUI(props: ProgrammedSavingRequestUIProps) {
               </Button>
 
               <Button
-                onClick={handleNextStep}
+                onClick={onNextStep}
                 spacing="compact"
                 disabled={!isCurrentFormValid}
               >
@@ -243,6 +250,14 @@ function ProgrammedSavingRequestUI(props: ProgrammedSavingRequestUIProps) {
           onCloseModal={() => blocker.reset()}
           onClick={() => blocker.proceed()}
           portalId="modals"
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
         />
       )}
     </>

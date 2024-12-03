@@ -1,12 +1,13 @@
+import { initialValuesActionExpiration } from "@forms/ActionExpirationForm/initialValues";
+import { IActionExpirationEntry } from "@forms/ActionExpirationForm/types";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
-import { initialValuesShareMaturity } from "@forms/ShareMaturityForm/initialValues";
-import { IShareMaturityEntry } from "@forms/ShareMaturityForm/types";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/flag";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker, useNavigate } from "react-router-dom";
@@ -23,7 +24,6 @@ import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { cdatStepsRules, sendCdatRequest } from "./utils";
-import { useFlag } from "@inubekit/flag";
 
 function CdatRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
@@ -62,9 +62,9 @@ function CdatRequest() {
       isValid: false,
       values: mapDisbursement(),
     },
-    shareMaturity: {
+    actionExpiration: {
       isValid: false,
-      values: initialValuesShareMaturity,
+      values: initialValuesActionExpiration,
     },
     systemValidations: {
       isValid: false,
@@ -88,7 +88,7 @@ function CdatRequest() {
   const interestPaymentRef = useRef<FormikProps<IInterestPaymentEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
-  const shareMaturityRef = useRef<FormikProps<IShareMaturityEntry>>(null);
+  const actionExpirationRef = useRef<FormikProps<IActionExpirationEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
   const termsAndConditionsRef =
@@ -101,7 +101,7 @@ function CdatRequest() {
     interestPayment: interestPaymentRef,
     paymentMethod: paymentMethodRef,
     disbursement: disbursementRef,
-    shareMaturity: shareMaturityRef,
+    actionExpiration: actionExpirationRef,
     systemValidations: systemValidationsRef,
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,
@@ -162,7 +162,7 @@ function CdatRequest() {
 
     setLoadingSend(true);
 
-    sendCdatRequest(user, cdatRequest, accessToken, navigate)
+    sendCdatRequest(user, cdatRequest, accessToken)
       .then(() => {
         setLoadingSend(false);
         setRedirectModal(true);
@@ -216,13 +216,13 @@ function CdatRequest() {
       loadingSend={loadingSend}
       blocker={blocker}
       redirectModal={redirectModal}
-      handleFinishAssisted={handleFinishAssisted}
-      handleNextStep={handleNextStep}
-      handlePreviousStep={handlePreviousStep}
-      handleStepChange={handleStepChange}
+      onFinishAssisted={handleFinishAssisted}
+      onNextStep={handleNextStep}
+      onPreviousStep={handlePreviousStep}
+      onStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
-      handleRedirectToHome={handleRedirectToHome}
-      handleRedirectToRequests={handleRedirectToRequests}
+      onRedirectToHome={handleRedirectToHome}
+      onRedirectToRequests={handleRedirectToRequests}
     />
   );
 }

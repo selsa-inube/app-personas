@@ -24,8 +24,8 @@ const programmedSavingRequestSteps = {
     description:
       "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
   },
-  shareMaturity: {
-    id: "shareMaturity",
+  actionExpiration: {
+    id: "actionExpiration",
     number: 5,
     name: "Acción al vencimiento",
     description:
