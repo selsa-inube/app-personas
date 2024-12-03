@@ -81,7 +81,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
             </Text>
           </StyledCard>
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={inube.spacing.s200}
           >
@@ -90,7 +90,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               name="type"
               label="Tipo"
               size="compact"
-              placeholder="Selecciona una  de las opciones"
+              placeholder="Selecciona una de las opciones"
               value={formik.values.type || ""}
               options={pqrsTypeDM.options}
               onChange={formik.handleChange}
@@ -103,7 +103,11 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               name="motive"
               label="Motivo"
               size="compact"
-              placeholder="Selecciona una  de las opciones"
+              placeholder={
+                formik.values.type === ""
+                  ? ""
+                  : "Selecciona una de las opciones"
+              }
               value={formik.values.motive || ""}
               options={pqrsMotiveDM.options}
               onChange={formik.handleChange}
@@ -117,7 +121,11 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               name="attentionPlace"
               label="Punto de atención"
               size="compact"
-              placeholder="Selecciona una  de las opciones"
+              placeholder={
+                formik.values.motive === ""
+                  ? ""
+                  : "Selecciona una de las opciones"
+              }
               value={formik.values.attentionPlace || ""}
               options={pqrsAttentionPlaceDM.options}
               onChange={formik.handleChange}
