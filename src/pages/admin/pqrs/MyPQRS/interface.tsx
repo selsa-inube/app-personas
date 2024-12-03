@@ -5,7 +5,7 @@ import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
 import { Stack } from "@inubekit/stack";
-import { MdAdd, MdArrowBack, MdHistory } from "react-icons/md";
+import { MdAdd, MdArrowBack } from "react-icons/md";
 import { crumbsMyPQRS } from "./config/navigation";
 import { IPQRS } from "src/model/entity/pqrs";
 import { generateAttributes } from "./config/attributeRecord";
@@ -15,18 +15,26 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { EMovementType } from "src/model/entity/product";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
+import { EmptyRecords } from "./EmptyRecords";
 
 interface MyPQRSUIProps {
-  pqrsHistory: IPQRS[];
+  pqrsRequests: IPQRS[];
   loading: boolean;
-  refreshTime: number;
-  goToPQRS: (id: string) => void;
-  onRefreshHistory: () => void;
+  totalRecords: number;
+  visibleRecordsCount: number;
+  onNavigateToDetails: (id: string) => void;
+  onLoadMore: () => void;
 }
 
 function MyPQRSUI(props: MyPQRSUIProps) {
-  const { pqrsHistory, loading, refreshTime, goToPQRS, onRefreshHistory } =
-    props;
+  const {
+    pqrsRequests,
+    loading,
+    totalRecords,
+    visibleRecordsCount,
+    onNavigateToDetails,
+    onLoadMore,
+  } = props;
   const isDesktop = useMediaQuery("(min-width: 1400px)");
   return (
     <>
@@ -54,17 +62,6 @@ function MyPQRSUI(props: MyPQRSUIProps) {
           >
             <Button
               appearance="primary"
-              variant="outlined"
-              spacing="compact"
-              iconBefore={<MdHistory />}
-              onClick={onRefreshHistory}
-              loading={loading}
-              disabled={!loading && refreshTime !== 0}
-            >
-              {refreshTime !== 0 ? `${refreshTime} Seg.` : "Refrescar"}
-            </Button>
-            <Button
-              appearance="primary"
               variant="filled"
               spacing="compact"
               iconBefore={<MdAdd />}
@@ -74,10 +71,10 @@ function MyPQRSUI(props: MyPQRSUIProps) {
               Crear PQRS
             </Button>
           </Stack>
-          {pqrsHistory.length > 0 && (
+          {pqrsRequests.length > 0 ? (
             <>
               <StyledContainer>
-                {pqrsHistory.map((pqrs, index) => (
+                {pqrsRequests.map((pqrs, index) => (
                   <Stack
                     direction="column"
                     width="100%"
@@ -91,10 +88,11 @@ function MyPQRSUI(props: MyPQRSUIProps) {
                       tag={pqrs.tag}
                       attributes={generateAttributes(pqrs)}
                       datesWithTime
-                      withExpandingIcon={pqrs.tag.label === "En revisión"}
-                      onClick={() => goToPQRS(pqrs.id)}
+                      withExpandingIcon
+                      onClick={() => onNavigateToDetails(pqrs.id)}
+                      loading={loading}
                     />
-                    {index !== pqrsHistory.length - 1 && <Divider dashed />}
+                    {index !== pqrsRequests.length - 1 && <Divider dashed />}
                   </Stack>
                 ))}
               </StyledContainer>
@@ -104,12 +102,15 @@ function MyPQRSUI(props: MyPQRSUIProps) {
                   variant="none"
                   iconBefore={<MdAdd />}
                   loading={loading}
-                  disabled={pqrsHistory.length <= 5}
+                  disabled={visibleRecordsCount >= totalRecords || loading}
+                  onClick={onLoadMore}
                 >
                   Ver más PQRS
                 </Button>
               </Stack>
             </>
+          ) : (
+            !loading && <EmptyRecords />
           )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}
