@@ -5,9 +5,9 @@ import { IDeadlineEntry } from "../../DeadlineForm/types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
 
 import { inube } from "@design/tokens";
+import { renderActionExpirationVerification } from "@forms/ActionExpirationForm/verification";
 import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
-import { renderShareMaturityVerification } from "@forms/ShareMaturityForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
@@ -70,10 +70,7 @@ const renderPaymentMethodVerification = (
     width="100%"
   >
     {values.paymentMethod === "PAGOPSE" ? (
-      <BoxAttribute
-        label="Medio de pago:"
-        value={values.paymentMethodName}
-      />
+      <BoxAttribute label="Medio de pago:" value={values.paymentMethodName} />
     ) : (
       <>
         <BoxAttribute label="Medio de pago:" value={values.paymentMethodName} />
@@ -123,9 +120,9 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.disbursement.values,
           isTablet,
         )}
-      {stepKey === "shareMaturity" &&
-        renderShareMaturityVerification(
-          cdatRequest.shareMaturity.values,
+      {stepKey === "actionExpiration" &&
+        renderActionExpirationVerification(
+          cdatRequest.actionExpiration.values,
           isTablet,
         )}
       {stepKey === "systemValidations" &&

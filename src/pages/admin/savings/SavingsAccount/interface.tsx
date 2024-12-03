@@ -36,6 +36,7 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { ActionsModal } from "@components/modals/saving/ActionsModal";
 import { ChangeQuotaModal } from "@components/modals/saving/ChangeQuotaModal";
 import { ModifyActionModal } from "@components/modals/saving/ModifyActionModal";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
@@ -45,7 +46,7 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useContext } from "react";
 import { AppContext } from "src/context/app";
-import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
+import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import {
   EMovementType,
   EProductType,
@@ -57,7 +58,6 @@ import {
   extractSavingAttributes,
   formatSavingCurrencyAttrs,
 } from "./config/product";
-import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 
 const renderMovements = (movements: IMovement[]) =>
   movements &&
@@ -428,7 +428,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
       {showModifyActionModal && (
         <ModifyActionModal
           portalId="modals"
-          shareMaturity={shareMaturityDM.PAYMENT.id}
+          actionExpiration={actionExpirationDM.PAYMENT.id}
           onCloseModal={onToggleModifyActionModal}
           onConfirm={onModifyAction}
         />

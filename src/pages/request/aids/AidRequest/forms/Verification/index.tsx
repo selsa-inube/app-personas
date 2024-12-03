@@ -10,11 +10,11 @@ import { VerificationBoxes } from "./VerificationBoxes";
 
 interface AidRequestVerificationProps {
   aidRequest: IFormsAidRequest;
-  handleStepChange: (stepId: number) => void;
+  onStepChange: (stepId: number) => void;
 }
 
 function AidRequestVerification(props: AidRequestVerificationProps) {
-  const { aidRequest, handleStepChange } = props;
+  const { aidRequest, onStepChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1224px)");
 
@@ -39,7 +39,7 @@ function AidRequestVerification(props: AidRequestVerificationProps) {
               <Button
                 iconBefore={<MdOutlineArrowBack />}
                 onClick={() =>
-                  handleStepChange(
+                  onStepChange(
                     aidRequestSteps[key as keyof IFormsAidRequest].number,
                   )
                 }

@@ -31,7 +31,7 @@ const renderStepContent = (
   formReferences: IFormsCreditDestinationRequestRefs,
   creditDestinationRequest: IFormsCreditDestinationRequest,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void,
+  onStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -131,7 +131,7 @@ const renderStepContent = (
       {currentStep === creditDestinationRequestSteps.verification.number && (
         <CreditDestinationRequestVerification
           creditDestinationRequest={creditDestinationRequest}
-          handleStepChange={handleStepChange}
+          onStepChange={onStepChange}
         />
       )}
     </>
@@ -147,10 +147,10 @@ interface CreditDestinationRequestUIProps {
   loadingSend: boolean;
   blocker: Blocker;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleStepChange: (stepId: number) => void;
-  handleFinishAssisted: () => void;
-  handleNextStep: () => void;
-  handlePreviousStep: () => void;
+  onStepChange: (stepId: number) => void;
+  onFinishAssisted: () => void;
+  onNextStep: () => void;
+  onPreviousStep: () => void;
   onLeaveRequest: () => void;
 }
 
@@ -164,10 +164,10 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
     loadingSend,
     blocker,
     setIsCurrentFormValid,
-    handleStepChange,
-    handleFinishAssisted,
-    handleNextStep,
-    handlePreviousStep,
+    onStepChange,
+    onFinishAssisted,
+    onNextStep,
+    onPreviousStep,
     onLeaveRequest,
   } = props;
 
@@ -199,9 +199,9 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
         <Assisted
           step={steps[currentStep - 1]}
           totalSteps={steps.length}
-          onNextClick={handleNextStep}
-          onBackClick={handlePreviousStep}
-          onSubmitClick={handleFinishAssisted}
+          onNextClick={onNextStep}
+          onBackClick={onPreviousStep}
+          onSubmitClick={onFinishAssisted}
           disableNext={!isCurrentFormValid}
           size={isTablet ? "small" : "large"}
           controls={{
@@ -217,12 +217,12 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
             formReferences,
             creditDestinationRequest,
             setIsCurrentFormValid,
-            handleStepChange,
+            onStepChange,
           )}
 
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={handlePreviousStep}
+              onClick={onPreviousStep}
               type="button"
               disabled={currentStep === steps[0].id}
               spacing="compact"
@@ -233,7 +233,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
             </Button>
 
             <Button
-              onClick={handleNextStep}
+              onClick={onNextStep}
               spacing="compact"
               disabled={!isCurrentFormValid}
             >

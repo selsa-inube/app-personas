@@ -259,10 +259,10 @@ function CreditDestinationRequest() {
       formReferences={formReferences}
       loadingSend={loadingSend}
       blocker={blocker}
-      handleFinishAssisted={handleFinishAssisted}
-      handleNextStep={handleNextStep}
-      handlePreviousStep={handlePreviousStep}
-      handleStepChange={handleStepChange}
+      onFinishAssisted={handleFinishAssisted}
+      onNextStep={handleNextStep}
+      onPreviousStep={handlePreviousStep}
+      onStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
       onLeaveRequest={handleLeaveRequest}
     />

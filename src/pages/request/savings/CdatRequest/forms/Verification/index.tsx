@@ -10,11 +10,11 @@ import { VerificationBoxes } from "./VerificationBoxes";
 
 interface VerificationProps {
   cdatRequest: IFormsCdatRequest;
-  handleStepChange: (stepId: number) => void;
+  onStepChange: (stepId: number) => void;
 }
 
 function CdatRequestVerification(props: VerificationProps) {
-  const { cdatRequest, handleStepChange } = props;
+  const { cdatRequest, onStepChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1224px)");
 
@@ -39,7 +39,7 @@ function CdatRequestVerification(props: VerificationProps) {
               <Button
                 iconBefore={<MdOutlineArrowBack />}
                 onClick={() =>
-                  handleStepChange(
+                  onStepChange(
                     cdatRequestSteps[key as keyof IFormsCdatRequest].number,
                   )
                 }

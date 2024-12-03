@@ -10,34 +10,40 @@ import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
-import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
+import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import { StyledModal } from "./styles";
 
 interface ModifyActionModalProps {
   portalId?: string;
-  shareMaturity: string;
+  actionExpiration: string;
   onCloseModal: () => void;
-  onConfirm: (newShareMaturity: string) => void;
+  onConfirm: (newActionExpiration: string) => void;
 }
 
 function ModifyActionModal(props: ModifyActionModalProps) {
-  const { portalId = "modals", shareMaturity, onCloseModal, onConfirm } = props;
+  const {
+    portalId = "modals",
+    actionExpiration,
+    onCloseModal,
+    onConfirm,
+  } = props;
 
-  const [newShareMaturity, setNewShareMaturity] = useState(shareMaturity);
+  const [newActionExpiration, setNewActionExpiration] =
+    useState(actionExpiration);
   const [loadingModify, setLoadingModify] = useState(false);
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setNewShareMaturity(e.target.value);
+    setNewActionExpiration(e.target.value);
   };
 
   const handleConfirm = () => {
     setLoadingModify(true);
 
     setTimeout(() => {
-      onConfirm(newShareMaturity);
+      onConfirm(newActionExpiration);
       onCloseModal();
       setLoadingModify(false);
     }, 2000);
@@ -82,11 +88,11 @@ function ModifyActionModal(props: ModifyActionModalProps) {
 
         <Stack direction="column" gap={inube.spacing.s200}>
           <Select
-            id="shareMaturity"
-            name="shareMaturity"
+            id="actionExpiration"
+            name="actionExpiration"
             label="Renovar producto al vencimiento"
-            value={newShareMaturity || ""}
-            options={shareMaturityDM.options}
+            value={newActionExpiration || ""}
+            options={actionExpirationDM.options}
             isFullWidth
             size="compact"
             onChange={handleChange}
@@ -105,7 +111,7 @@ function ModifyActionModal(props: ModifyActionModalProps) {
           <Button
             spacing="compact"
             onClick={handleConfirm}
-            disabled={newShareMaturity === shareMaturity}
+            disabled={newActionExpiration === actionExpiration}
             loading={loadingModify}
           >
             Modificar

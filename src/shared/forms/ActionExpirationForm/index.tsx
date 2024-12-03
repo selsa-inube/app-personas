@@ -7,29 +7,29 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { AppContext } from "src/context/app";
-import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
 import { getSharesMaturity } from "src/services/iclient/savings/getSharesMaturity";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
-import { ShareMaturityFormUI } from "./interface";
-import { IShareMaturityEntry } from "./types";
+import { ActionExpirationFormUI } from "./interface";
+import { IActionExpirationEntry } from "./types";
+import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 
 const validationSchema = Yup.object({
-  shareMaturity: Yup.string().required(validationMessages.required),
-  shareMaturityName: Yup.string().required(validationMessages.required),
+  actionExpiration: Yup.string().required(validationMessages.required),
+  actionExpirationName: Yup.string().required(validationMessages.required),
 });
 
-interface ShareMaturityFormProps {
-  initialValues: IShareMaturityEntry;
+interface ActionExpirationFormProps {
+  initialValues: IActionExpirationEntry;
   loading?: boolean;
   productId: string;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit?: (values: IShareMaturityEntry) => void;
+  onSubmit?: (values: IActionExpirationEntry) => void;
 }
 
-const ShareMaturityForm = forwardRef(function ShareMaturityForm(
-  props: ShareMaturityFormProps,
-  ref: React.Ref<FormikProps<IShareMaturityEntry>>,
+const ActionExpirationForm = forwardRef(function ActionExpirationForm(
+  props: ActionExpirationFormProps,
+  ref: React.Ref<FormikProps<IActionExpirationEntry>>,
 ) {
   const { initialValues, loading, productId, onFormValid, onSubmit } = props;
 
@@ -55,17 +55,17 @@ const ShareMaturityForm = forwardRef(function ShareMaturityForm(
   const setSharesMaturity = async () => {
     if (!accessToken) return;
 
-    const sharesMaturity = await getSharesMaturity(
+    const actionsExpiration = await getSharesMaturity(
       user.identification,
       productId,
       accessToken,
     );
 
-    formik.setFieldValue("sharesMaturity", sharesMaturity);
+    formik.setFieldValue("actionsExpiration", actionsExpiration);
 
-    if (sharesMaturity.length === 1) {
-      formik.setFieldValue("shareMaturity", sharesMaturity[0].id);
-      formik.setFieldValue("shareMaturityName", sharesMaturity[0].value);
+    if (actionsExpiration.length === 1) {
+      formik.setFieldValue("actionExpiration", actionsExpiration[0].id);
+      formik.setFieldValue("actionExpirationName", actionsExpiration[0].value);
     }
   };
 
@@ -79,16 +79,16 @@ const ShareMaturityForm = forwardRef(function ShareMaturityForm(
     >,
   ) => {
     const { value } = event.target;
-    formik.setFieldValue("shareMaturity", value);
+    formik.setFieldValue("actionExpiration", value);
 
     formik.setFieldValue(
-      "shareMaturityName",
-      shareMaturityDM.valueOf(value)?.value,
+      "actionExpirationName",
+      actionExpirationDM.valueOf(value)?.value,
     );
   };
 
   return (
-    <ShareMaturityFormUI
+    <ActionExpirationFormUI
       loading={loading}
       formik={formik}
       customHandleChange={customHandleChange}
@@ -96,5 +96,5 @@ const ShareMaturityForm = forwardRef(function ShareMaturityForm(
   );
 });
 
-export { ShareMaturityForm };
-export type { ShareMaturityFormProps };
+export { ActionExpirationForm };
+export type { ActionExpirationFormProps };

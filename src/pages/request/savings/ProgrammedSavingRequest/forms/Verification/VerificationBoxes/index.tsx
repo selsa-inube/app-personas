@@ -1,5 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
+import { renderActionExpirationVerification } from "@forms/ActionExpirationForm/verification";
 import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
 import { renderPaymentMethodVerification } from "@forms/PaymentMethodForm/verification";
@@ -12,7 +13,6 @@ import { programmedSavingRequestSteps } from "../../../config/assisted";
 import { IFormsProgrammedSavingRequest } from "../../../types";
 import { IDestinationEntry } from "../../DestinationForm/types";
 import { ISavingConditionsEntry } from "../../SavingConditionsForm/types";
-import { renderShareMaturityVerification } from "@forms/ShareMaturityForm/verification";
 
 const renderDestinationVerification = (
   values: IDestinationEntry,
@@ -78,9 +78,9 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           programmedSavingRequest.paymentMethod.values,
           isTablet,
         )}
-      {stepKey === "shareMaturity" &&
-        renderShareMaturityVerification(
-          programmedSavingRequest.shareMaturity.values,
+      {stepKey === "actionExpiration" &&
+        renderActionExpirationVerification(
+          programmedSavingRequest.actionExpiration.values,
           isTablet,
         )}
       {stepKey === "disbursement" &&

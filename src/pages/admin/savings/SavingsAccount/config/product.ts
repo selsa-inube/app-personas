@@ -7,6 +7,7 @@ const productsAttributes: Record<string, string[]> = {
     "interest_rate",
     "request_date",
     "expiration_date",
+    "action_at_expiration",
   ],
   [EProductType.PERMANENTSAVINGS]: [
     "net_value",
@@ -29,6 +30,7 @@ const productsAttributes: Record<string, string[]> = {
     "request_date",
     "deadline",
     "payment_interest",
+    "action_at_expiration",
   ],
 };
 
