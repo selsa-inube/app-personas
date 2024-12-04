@@ -17,17 +17,18 @@ import { AttachDocumentModal } from "@components/modals/general/AttachDocumentMo
 import { FileCard } from "@components/cards/FileCard";
 import { getFieldState } from "src/utils/forms/forms";
 import { FormikProps } from "formik";
-import { pqrsTypeDM } from "src/model/domains/pqrs/pqrsTypeDM";
-import { pqrsMotiveDM } from "src/model/domains/pqrs/pqrsMotiveDM";
-import { pqrsAttentionPlaceDM } from "src/model/domains/pqrs/pqrsAttentionPlaceDM";
 import { crumbsCreatePQRS } from "./config/navigation";
 import { ICreatePQRSEntry, ISelectedDocument } from "./types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { ISelectOption } from "@design/input/Select/types";
 
 interface CreatePQRSUIProps {
   formik: FormikProps<ICreatePQRSEntry>;
   maxFileSize: number;
   loadingSend: boolean;
+  typeOptions: ISelectOption[];
+  reasonOptions: ISelectOption[];
+  attentionPointsOptions: ISelectOption[];
   attachModal: {
     show: boolean;
     requirementId: string;
@@ -46,6 +47,9 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
     maxFileSize,
     loadingSend,
     attachModal,
+    typeOptions,
+    reasonOptions,
+    attentionPointsOptions,
     onSelectDocument,
     onCloseAttachModal,
     onRemoveDocument,
@@ -92,9 +96,8 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               size="compact"
               placeholder="Selecciona una de las opciones"
               value={formik.values.type || ""}
-              options={pqrsTypeDM.options}
+              options={typeOptions}
               onChange={formik.handleChange}
-              state={getFieldState(formik, "type")}
               isFullWidth
               isRequired
             />
@@ -109,9 +112,8 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
                   : "Selecciona una de las opciones"
               }
               value={formik.values.motive || ""}
-              options={pqrsMotiveDM.options}
+              options={reasonOptions}
               onChange={formik.handleChange}
-              state={getFieldState(formik, "motive")}
               isDisabled={formik.values.type === ""}
               isFullWidth
               isRequired
@@ -127,9 +129,8 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
                   : "Selecciona una de las opciones"
               }
               value={formik.values.attentionPlace || ""}
-              options={pqrsAttentionPlaceDM.options}
+              options={attentionPointsOptions}
               onChange={formik.handleChange}
-              state={getFieldState(formik, "attentionPlace")}
               isDisabled={formik.values.motive === ""}
               isFullWidth
               isRequired
