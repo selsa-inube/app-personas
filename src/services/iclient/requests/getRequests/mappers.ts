@@ -31,6 +31,7 @@ const requestTitles: Record<RequestType, string> = {
   aid: "Auxilio",
   newprogrammedsaving: "Ahorro programado a término fijo",
   newcdat: "CDAT",
+  cancelprogrammedsaving: "Cancelación anticipada de ahorro programado",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
@@ -38,6 +39,7 @@ const requestDescriptions: Record<RequestType, string> = {
   aid: "Solicitud de auxilio",
   newprogrammedsaving: "Solicitud de ahorro programado a término fijo",
   newcdat: "Solicitud de CDAT",
+  cancelprogrammedsaving: "CANCELACIÓN ANTICIPADA DE AHORRO PROGRAMADO",
 };
 
 const mapValidationApiToEntity = (
@@ -213,7 +215,7 @@ const mapRequestApiToEntity = (
         String(Object(details).actionAfterExpiration) || "",
       )?.value;
       requestData.paymentMethodName = String(
-        Object(details).paymentMethod.descriptionPayment || "",
+        Object(details).paymentMethod?.descriptionPayment || "",
       );
       requestData.disbursementMethodName = String(
         Object(disbursementMethod).disbursementMethodDetail || "",
@@ -223,6 +225,9 @@ const mapRequestApiToEntity = (
       );
 
       requestData.value = Number(Object(details).requestedAmount || 0);
+      break;
+    case "cancelprogrammedsaving":
+      requestData.product = String(Object(details).productNumber);
       break;
   }
 

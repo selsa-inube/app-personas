@@ -8,8 +8,12 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
+import { cancelProgrammedSaving } from "src/services/iclient/savings/cancelProgrammedSaving";
+import { ICancelProgrammedSavingRequest } from "src/services/iclient/savings/cancelProgrammedSaving/types";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
+import { extractAttribute } from "src/utils/products";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -227,7 +231,30 @@ function SavingsAccount() {
 
   const handleCancelSaving = () => {
     setShowCancelSavingModal(false);
-    setRedirectModal(true);
+
+    if (!accessToken || !selectedProduct) return;
+
+    const netValue = Number(
+      extractAttribute(selectedProduct.saving.attributes, "net_value")?.value ||
+        0,
+    );
+    const disbursement = savings.savingsAccounts[0];
+
+    const cancelRequestData: ICancelProgrammedSavingRequest = {
+      balanceSaving: netValue,
+      customerCode: user.identification,
+      savingName: selectedProduct.saving.title,
+      savingNumber: selectedProduct.saving.id,
+      disbursmentMethod: {
+        id: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id,
+        name: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value,
+        accountNumber: disbursement.id,
+      },
+    };
+
+    cancelProgrammedSaving(cancelRequestData, accessToken).then(() => {
+      setRedirectModal(true);
+    });
   };
 
   const handleDownloadCertificate = () => {
