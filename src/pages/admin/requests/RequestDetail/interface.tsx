@@ -174,7 +174,6 @@ function RequestDetailUI(props: RequestUIProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
-  const isTablet = useMediaQuery("(max-width: 1100px)");
   const isDesktop = useMediaQuery("(min-width: 1200px)");
 
   return (
@@ -214,7 +213,7 @@ function RequestDetailUI(props: RequestUIProps) {
               <Accordion title={selectedRequest.description}>
                 <Grid
                   autoRows="auto"
-                  templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
                   gap={inube.spacing.s200}
                   width="100%"
                 >
@@ -239,8 +238,15 @@ function RequestDetailUI(props: RequestUIProps) {
                       selectedRequest.actionAfterExpiration,
                     )}
 
-                  {selectedRequest.product &&
+                  {["credit", "aid", "newprogrammedsaving", "newcdat"].includes(
+                    selectedRequest.requestType,
+                  ) &&
+                    selectedRequest.product &&
                     renderItem("Producto:", selectedRequest.product)}
+
+                  {selectedRequest.requestType === "cancelprogrammedsaving" &&
+                    selectedRequest.product &&
+                    renderItem("Número de producto:", selectedRequest.product)}
 
                   {selectedRequest.quotaValue &&
                     selectedRequest.requestType === "newprogrammedsaving" &&
@@ -285,7 +291,7 @@ function RequestDetailUI(props: RequestUIProps) {
                 <Accordion title="Condiciones del crédito">
                   <Grid
                     autoRows="auto"
-                    templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+                    templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
                     gap={inube.spacing.s200}
                     width="100%"
                   >
@@ -321,7 +327,7 @@ function RequestDetailUI(props: RequestUIProps) {
                 <Accordion title="Forma de pago">
                   <Grid
                     autoRows="auto"
-                    templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+                    templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
                     gap={inube.spacing.s200}
                     width="100%"
                   >
@@ -338,7 +344,7 @@ function RequestDetailUI(props: RequestUIProps) {
                 <Accordion title="Reembolso">
                   <Grid
                     autoRows="auto"
-                    templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
+                    templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
                     gap={inube.spacing.s200}
                     width="100%"
                   >
@@ -352,26 +358,30 @@ function RequestDetailUI(props: RequestUIProps) {
                 </Accordion>
               )}
 
-              <Accordion title="Validaciones del sistema">
-                <Grid
-                  autoRows="auto"
-                  templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
-                  gap={inube.spacing.s200}
-                  width="100%"
-                >
-                  {selectedRequest.validations.map((validation) => (
-                    <ValidationCard
-                      key={validation.id}
-                      id={validation.id}
-                      label={validation.label}
-                      failDetails={validation.failDetails}
-                      isRequired={validation.isRequired}
-                      pending={validation.pending}
-                      value={validation.value}
-                    />
-                  ))}
-                </Grid>
-              </Accordion>
+              {["credit", "aid", "newprogrammedsaving", "newcdat"].includes(
+                selectedRequest.requestType,
+              ) && (
+                <Accordion title="Validaciones del sistema">
+                  <Grid
+                    autoRows="auto"
+                    templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
+                    gap={inube.spacing.s200}
+                    width="100%"
+                  >
+                    {selectedRequest.validations.map((validation) => (
+                      <ValidationCard
+                        key={validation.id}
+                        id={validation.id}
+                        label={validation.label}
+                        failDetails={validation.failDetails}
+                        isRequired={validation.isRequired}
+                        pending={validation.pending}
+                        value={validation.value}
+                      />
+                    ))}
+                  </Grid>
+                </Accordion>
+              )}
 
               {selectedRequest.documentaryRequirements.length > 0 && (
                 <Accordion title="Requisitos documentales">
