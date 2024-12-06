@@ -25,6 +25,7 @@ import {
   IFormsCreditDestinationRequest,
   IFormsCreditDestinationRequestRefs,
 } from "./types";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 
 const renderStepContent = (
   currentStep: number,
@@ -146,12 +147,15 @@ interface CreditDestinationRequestUIProps {
   formReferences: IFormsCreditDestinationRequestRefs;
   loadingSend: boolean;
   blocker: Blocker;
+  redirectModal: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onStepChange: (stepId: number) => void;
   onFinishAssisted: () => void;
   onNextStep: () => void;
   onPreviousStep: () => void;
   onLeaveRequest: () => void;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
 }
 
 function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
@@ -163,12 +167,15 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
     formReferences,
     loadingSend,
     blocker,
+    redirectModal,
     setIsCurrentFormValid,
     onStepChange,
     onFinishAssisted,
     onNextStep,
     onPreviousStep,
     onLeaveRequest,
+    onRedirectToHome,
+    onRedirectToRequests,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -259,6 +266,14 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
           onCloseModal={() => blocker.reset()}
           onClick={onLeaveRequest}
           portalId="modals"
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
         />
       )}
     </>

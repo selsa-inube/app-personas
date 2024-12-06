@@ -59,6 +59,8 @@ function SavingsAccount() {
   const [redirectModal, setRedirectModal] = useState(false);
 
   const [loadingSend, setLoadingSend] = useState(false);
+  const [loadingAction, setLoadingAction] = useState(false);
+
   const { getFlag } = useContext(AppContext);
   const { addFlag } = useFlag();
 
@@ -226,13 +228,19 @@ function SavingsAccount() {
   };
 
   const handleModifyAction = () => {
-    setRedirectModal(true);
+    setLoadingAction(true);
+
+    setTimeout(() => {
+      setShowModifyActionModal(false);
+      setLoadingAction(false);
+      setRedirectModal(true);
+    }, 2000);
   };
 
   const handleCancelSaving = () => {
-    setShowCancelSavingModal(false);
-
     if (!accessToken || !selectedProduct) return;
+
+    setLoadingAction(true);
 
     const netValue = Number(
       extractAttribute(selectedProduct.saving.attributes, "net_value")?.value ||
@@ -253,6 +261,8 @@ function SavingsAccount() {
     };
 
     cancelProgrammedSaving(cancelRequestData, accessToken).then(() => {
+      setShowCancelSavingModal(false);
+      setLoadingAction(false);
       setRedirectModal(true);
     });
   };
@@ -383,6 +393,8 @@ function SavingsAccount() {
       showModifyActionModal={showModifyActionModal}
       showCancelSavingModal={showCancelSavingModal}
       redirectModal={redirectModal}
+      disbursementAccount={savings.savingsAccounts[0].id}
+      loadingAction={loadingAction}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}

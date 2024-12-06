@@ -1,9 +1,9 @@
 import { enviroment } from "@config/enviroment";
 import { ISelectOption } from "@design/input/Select/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapSharesApiToEntities } from "./mappers";
+import { mapActionsApiToEntities } from "./mappers";
 
-const getSharesMaturity = async (
+const getActionsExpirationProgrammed = async (
   userIdentification: string,
   productId: string,
   accessToken: string,
@@ -49,8 +49,8 @@ const getSharesMaturity = async (
       };
     }
 
-    const normalizedShares = mapSharesApiToEntities(data);
-    return normalizedShares;
+    const normalizedActions = mapActionsApiToEntities(data);
+    return normalizedActions;
   } catch (error) {
     saveNetworkTracking(
       requestTime,
@@ -66,4 +66,4 @@ const getSharesMaturity = async (
   }
 };
 
-export { getSharesMaturity };
+export { getActionsExpirationProgrammed };

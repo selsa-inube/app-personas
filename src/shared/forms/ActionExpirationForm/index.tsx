@@ -7,12 +7,12 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { AppContext } from "src/context/app";
-import { getSharesMaturity } from "src/services/iclient/savings/getSharesMaturity";
+import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
+import { getActionsExpirationProgrammed } from "src/services/iclient/savings/getActionsExpirationProgrammed";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { ActionExpirationFormUI } from "./interface";
 import { IActionExpirationEntry } from "./types";
-import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 
 const validationSchema = Yup.object({
   actionExpiration: Yup.string().required(validationMessages.required),
@@ -52,10 +52,10 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
     });
   }, [formik.values]);
 
-  const setSharesMaturity = async () => {
+  const setActionsExpiration = async () => {
     if (!accessToken) return;
 
-    const actionsExpiration = await getSharesMaturity(
+    const actionsExpiration = await getActionsExpirationProgrammed(
       user.identification,
       productId,
       accessToken,
@@ -70,7 +70,7 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
   };
 
   useEffect(() => {
-    setSharesMaturity();
+    setActionsExpiration();
   }, [user, accessToken]);
 
   const customHandleChange = (

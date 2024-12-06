@@ -16,6 +16,7 @@ import { StyledModal } from "./styles";
 interface ModifyActionModalProps {
   portalId?: string;
   actionExpiration: string;
+  loading: boolean;
   onCloseModal: () => void;
   onConfirm: (newActionExpiration: string) => void;
 }
@@ -24,13 +25,13 @@ function ModifyActionModal(props: ModifyActionModalProps) {
   const {
     portalId = "modals",
     actionExpiration,
+    loading,
     onCloseModal,
     onConfirm,
   } = props;
 
   const [newActionExpiration, setNewActionExpiration] =
     useState(actionExpiration);
-  const [loadingModify, setLoadingModify] = useState(false);
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
@@ -40,13 +41,7 @@ function ModifyActionModal(props: ModifyActionModalProps) {
   };
 
   const handleConfirm = () => {
-    setLoadingModify(true);
-
-    setTimeout(() => {
-      onConfirm(newActionExpiration);
-      onCloseModal();
-      setLoadingModify(false);
-    }, 2000);
+    onConfirm(newActionExpiration);
   };
 
   if (node === null) {
@@ -112,7 +107,7 @@ function ModifyActionModal(props: ModifyActionModalProps) {
             spacing="compact"
             onClick={handleConfirm}
             disabled={newActionExpiration === actionExpiration}
-            loading={loadingModify}
+            loading={loading}
           >
             Modificar
           </Button>

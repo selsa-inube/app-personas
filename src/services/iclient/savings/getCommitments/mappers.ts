@@ -115,6 +115,14 @@ const mapSavingsCommitmentsApiToEntity = (
     });
   }
 
+  if (commitment.automaticRenewal) {
+    attributes.push({
+      id: "action_expiration",
+      label: "Acción al vencimiento",
+      value: Object(commitment.automaticRenewal).code,
+    });
+  }
+
   if (nextPaymentValue || expiredValue) {
     attributes.push({
       id: "quota_value",

@@ -1,12 +1,12 @@
 import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const actionExpirationDataDomain = {
-  PAYMENT: {
+  RENEWAL: {
     id: "AutomaticRenewalAtExpiration",
     value: "Sí",
   },
-  RENEWAL: {
-    id: "DecideToRenewAtALaterDate",
+  AT_EXPIRATION: {
+    id: "PayAtExpiration",
     value: "No",
   },
 };

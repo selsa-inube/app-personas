@@ -43,10 +43,10 @@ const InterestPaymentForm = forwardRef(function InterestPaymentForm(
   const setInterestPayments = async () => {
     const interestPayments = interestPaymentDM.options;
 
-    formik.setFieldValue("interestPayments", [interestPayments[1]]);
+    formik.setFieldValue("interestPayments", interestPayments);
 
-    formik.setFieldValue("interestPayment", interestPayments[1].id);
-    formik.setFieldValue("interestPaymentName", interestPayments[1].value);
+    formik.setFieldValue("interestPayment", interestPayments[0].id);
+    formik.setFieldValue("interestPaymentName", interestPayments[0].value);
   };
 
   useEffect(() => {
