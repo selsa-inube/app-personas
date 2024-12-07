@@ -13,14 +13,14 @@ const mapTypesAndReasonsApiToEntities = (
   }
 
   const typeOptions: ISelectOption[] = data.map((type) => ({
-    id: type.typeName,
+    id: type.typeCode,
     value: capitalizeText(type.typeName),
   }));
 
   const reasonsByType: Record<string, ISelectOption[]> = data.reduce(
     (acc, type) => {
-      acc[type.typeName] = (type.reasons || []).map((reason: IReasonPqrs) => ({
-        id: reason.reasonName,
+      acc[type.typeCode] = (type.reasons || []).map((reason: IReasonPqrs) => ({
+        id: reason.reasonCode,
         value: capitalizeText(reason.reasonName),
       }));
       return acc;

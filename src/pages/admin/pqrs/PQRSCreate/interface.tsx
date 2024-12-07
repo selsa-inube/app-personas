@@ -21,6 +21,7 @@ import { crumbsCreatePQRS } from "./config/navigation";
 import { ICreatePQRSEntry, ISelectedDocument } from "./types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { ISelectOption } from "@design/input/Select/types";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 
 interface CreatePQRSUIProps {
   formik: FormikProps<ICreatePQRSEntry>;
@@ -29,6 +30,7 @@ interface CreatePQRSUIProps {
   typeOptions: ISelectOption[];
   reasonOptions: ISelectOption[];
   attentionPointsOptions: ISelectOption[];
+  redirectModal: boolean;
   attachModal: {
     show: boolean;
     requirementId: string;
@@ -39,6 +41,8 @@ interface CreatePQRSUIProps {
   onCloseAttachModal: () => void;
   onRemoveDocument: (id: string) => void;
   onAttachButtonClick: () => void;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
 }
 
 function CreatePQRSUI(props: CreatePQRSUIProps) {
@@ -49,11 +53,14 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
     attachModal,
     typeOptions,
     reasonOptions,
+    redirectModal,
     attentionPointsOptions,
     onSelectDocument,
     onCloseAttachModal,
     onRemoveDocument,
     onAttachButtonClick,
+    onRedirectToHome,
+    onRedirectToRequests,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
@@ -219,6 +226,14 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
         <LoadingModal
           title="Creando PQRS..."
           message="Espera unos segundos, estamos procesando la PQRS."
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
         />
       )}
     </>
