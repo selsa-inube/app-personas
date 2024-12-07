@@ -1,11 +1,12 @@
 import { ISelectOption } from "@design/input/Select/types";
+import { capitalizeEachWord } from "src/utils/texts";
 
 const mapAttentionPointApiToEntity = (
   point: Record<string, string | number | object>,
 ): ISelectOption => {
   return {
-    id: String(point.placeName),
-    value: String(point.alias),
+    id: String(point.placeCode),
+    value: capitalizeEachWord(String(point.placeName)),
   };
 };
 
