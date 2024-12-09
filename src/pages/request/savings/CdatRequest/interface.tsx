@@ -76,6 +76,7 @@ const renderStepContent = (
           initialValues={cdatRequest.actionExpiration.values}
           productId={cdatRequest.investment.values.product?.id || ""}
           ref={formReferences.actionExpiration}
+          requestType="newcdat"
           onFormValid={setIsCurrentFormValid}
         />
       )}

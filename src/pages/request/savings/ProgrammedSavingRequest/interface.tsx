@@ -64,6 +64,7 @@ const renderStepContent = (
             programmedSavingRequest.destination.values.product?.id || ""
           }
           ref={formReferences.actionExpiration}
+          requestType="newprogrammedsaving"
           onFormValid={setIsCurrentFormValid}
         />
       )}

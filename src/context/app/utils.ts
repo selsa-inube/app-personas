@@ -5,6 +5,7 @@ import { IServiceDomains } from "./types";
 const initialServiceDomains: IServiceDomains = {
   integratedbanks: [],
   identificationtype: [],
+  actionafterexpiration: [],
 };
 
 const getAppFeatureFlags = async (): Promise<IFeatureFlag[]> => {

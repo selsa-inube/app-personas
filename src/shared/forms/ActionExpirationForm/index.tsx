@@ -8,11 +8,12 @@ import React, {
 } from "react";
 import { AppContext } from "src/context/app";
 import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
-import { getActionsExpirationProgrammed } from "src/services/iclient/savings/getActionsExpirationProgrammed";
+import { RequestType } from "src/model/entity/request";
 import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { ActionExpirationFormUI } from "./interface";
 import { IActionExpirationEntry } from "./types";
+import { getActionsExpiration } from "./utils";
 
 const validationSchema = Yup.object({
   actionExpiration: Yup.string().required(validationMessages.required),
@@ -23,6 +24,7 @@ interface ActionExpirationFormProps {
   initialValues: IActionExpirationEntry;
   loading?: boolean;
   productId: string;
+  requestType: RequestType;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit?: (values: IActionExpirationEntry) => void;
 }
@@ -31,7 +33,14 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
   props: ActionExpirationFormProps,
   ref: React.Ref<FormikProps<IActionExpirationEntry>>,
 ) {
-  const { initialValues, loading, productId, onFormValid, onSubmit } = props;
+  const {
+    initialValues,
+    loading,
+    productId,
+    requestType,
+    onFormValid,
+    onSubmit,
+  } = props;
 
   const { user } = useContext(AppContext);
 
@@ -55,10 +64,11 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
   const setActionsExpiration = async () => {
     if (!accessToken) return;
 
-    const actionsExpiration = await getActionsExpirationProgrammed(
-      user.identification,
-      productId,
+    const actionsExpiration = await getActionsExpiration(
+      requestType,
+      user?.identification || "",
       accessToken,
+      productId,
     );
 
     formik.setFieldValue("actionsExpiration", actionsExpiration);

@@ -5,6 +5,7 @@ import { IFeatureFlag } from "src/model/entity/featureFlag";
 interface IServiceDomains {
   integratedbanks: ISelectOption[];
   identificationtype: ISelectOption[];
+  actionafterexpiration: ISelectOption[];
 }
 
 interface IAppContext {
