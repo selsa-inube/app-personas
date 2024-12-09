@@ -101,7 +101,7 @@ interface SavingsAccountUIProps {
   onSubmitRecharge: (savingAccount: string, amount: number) => void;
   onToggleActionsModal: () => void;
   onChangeQuota: () => void;
-  onModifyAction: () => void;
+  onModifyAction: (newActionExpiration: string) => void;
   onCancelSaving: () => void;
   onToggleChangeQuotaModal: () => void;
   onToggleModifyActionModal: () => void;
