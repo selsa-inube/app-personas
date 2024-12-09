@@ -11,6 +11,8 @@ import { SavingsContext } from "src/context/savings";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
 import { cancelProgrammedSaving } from "src/services/iclient/savings/cancelProgrammedSaving";
 import { ICancelProgrammedSavingRequest } from "src/services/iclient/savings/cancelProgrammedSaving/types";
+import { modifyActionProgrammedSaving } from "src/services/iclient/savings/modifyActionProgrammedSaving";
+import { IModifyActionProgrammedSavingRequest } from "src/services/iclient/savings/modifyActionProgrammedSaving/types";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { extractAttribute } from "src/utils/products";
@@ -227,14 +229,24 @@ function SavingsAccount() {
     return true;
   };
 
-  const handleModifyAction = () => {
+  const handleModifyAction = (newActionExpiration: string) => {
+    if (!accessToken || !selectedProduct) return;
+
     setLoadingAction(true);
 
-    setTimeout(() => {
-      setShowModifyActionModal(false);
-      setLoadingAction(false);
-      setRedirectModal(true);
-    }, 2000);
+    const modifyActionRequestData: IModifyActionProgrammedSavingRequest = {
+      customerCode: user.identification,
+      savingNumber: selectedProduct.saving.id,
+      actionExpiration: newActionExpiration,
+    };
+
+    modifyActionProgrammedSaving(modifyActionRequestData, accessToken).then(
+      () => {
+        setShowModifyActionModal(false);
+        setLoadingAction(false);
+        setRedirectModal(true);
+      },
+    );
   };
 
   const handleCancelSaving = () => {

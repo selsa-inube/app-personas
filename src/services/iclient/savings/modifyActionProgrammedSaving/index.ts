@@ -1,17 +1,17 @@
 import { enviroment } from "@config/enviroment";
 import {
-  mapCancelProgrammedSavingApiToEntity,
-  mapCancelProgrammedSavingEntityToApi,
+  mapModifyActionProgrammedSavingApiToEntity,
+  mapModifyActionProgrammedSavingEntityToApi,
 } from "./mappers";
 import {
-  ICancelProgrammedSavingRequest,
-  ICancelProgrammedSavingResponse,
+  IModifyActionProgrammedSavingRequest,
+  IModifyActionProgrammedSavingResponse,
 } from "./types";
 
-const cancelProgrammedSaving = async (
-  cancelProgrammedSavingRequest: ICancelProgrammedSavingRequest,
+const modifyActionProgrammedSaving = async (
+  modifyActionProgrammedSavingRequest: IModifyActionProgrammedSavingRequest,
   accessToken: string,
-): Promise<ICancelProgrammedSavingResponse | undefined> => {
+): Promise<IModifyActionProgrammedSavingResponse | undefined> => {
   try {
     const options: RequestInit = {
       method: "POST",
@@ -23,7 +23,9 @@ const cancelProgrammedSaving = async (
         "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(
-        mapCancelProgrammedSavingEntityToApi(cancelProgrammedSavingRequest),
+        mapModifyActionProgrammedSavingEntityToApi(
+          modifyActionProgrammedSavingRequest,
+        ),
       ),
     };
 
@@ -40,13 +42,14 @@ const cancelProgrammedSaving = async (
 
     if (!res.ok) {
       throw {
-        message: "Error al realizar la cancelación de ahorro programado",
+        message:
+          "Error al realizar la modificación de la accion al vencimiento del ahorro programado",
         status: res.status,
         data,
       };
     }
 
-    return mapCancelProgrammedSavingApiToEntity(data);
+    return mapModifyActionProgrammedSavingApiToEntity(data);
   } catch (error) {
     console.info(error);
 
@@ -54,4 +57,4 @@ const cancelProgrammedSaving = async (
   }
 };
 
-export { cancelProgrammedSaving };
+export { modifyActionProgrammedSaving };
