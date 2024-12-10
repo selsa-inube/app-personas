@@ -18,7 +18,7 @@ import { quickLinks } from "@config/quickLinks";
 import { EmptyRecords } from "./EmptyRecords";
 
 interface MyPQRSUIProps {
-  pqrsRequests: IPQRS[];
+  pqrsRequests?: IPQRS[];
   loading: boolean;
   totalRecords: number;
   visibleRecordsCount: number;
@@ -36,6 +36,7 @@ function MyPQRSUI(props: MyPQRSUIProps) {
     onLoadMore,
   } = props;
   const isDesktop = useMediaQuery("(min-width: 1400px)");
+
   return (
     <>
       <Stack direction="column" gap={inube.spacing.s300}>
@@ -71,7 +72,27 @@ function MyPQRSUI(props: MyPQRSUIProps) {
               Crear PQRS
             </Button>
           </Stack>
-          {pqrsRequests.length > 0 ? (
+          {loading ? (
+            <StyledContainer>
+              {Array.from({ length: 4 }).map((_, index) => (
+                <Stack
+                  direction="column"
+                  width="100%"
+                  key={`loading-${index}`}
+                  gap={inube.spacing.s200}
+                >
+                  <RecordCard
+                    id={`loading-${index}`}
+                    type={EMovementType.PQRS}
+                    description=""
+                    attributes={[]}
+                    loading
+                  />
+                  {index !== 3 && <Divider dashed />}
+                </Stack>
+              ))}
+            </StyledContainer>
+          ) : pqrsRequests && pqrsRequests.length > 0 ? (
             <>
               <StyledContainer>
                 {pqrsRequests.map((pqrs, index) => (
@@ -85,12 +106,11 @@ function MyPQRSUI(props: MyPQRSUIProps) {
                       id={pqrs.id}
                       type={EMovementType.PQRS}
                       description={pqrs.title}
-                      tag={pqrs.tag}
+                      tag={pqrs.tag.label !== "" ? pqrs.tag : undefined}
                       attributes={generateAttributes(pqrs)}
                       datesWithTime
                       withExpandingIcon
                       onClick={() => onNavigateToDetails(pqrs.id)}
-                      loading={loading}
                     />
                     {index !== pqrsRequests.length - 1 && <Divider dashed />}
                   </Stack>
@@ -110,7 +130,7 @@ function MyPQRSUI(props: MyPQRSUIProps) {
               </Stack>
             </>
           ) : (
-            !loading && <EmptyRecords />
+            <EmptyRecords />
           )}
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}

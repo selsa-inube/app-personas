@@ -1,6 +1,6 @@
 import { ITag } from "@inubekit/tag";
 
-interface IFlie {
+interface IFile {
   id: string;
   name: string;
   size: number;
@@ -17,7 +17,7 @@ interface IPQRS {
   type: string;
   attentionPlace: string;
   details?: string;
-  file?: IFlie;
+  file?: IFile[];
 }
 
 export type { IPQRS };
