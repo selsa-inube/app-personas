@@ -17,6 +17,8 @@ const getActionsExpiration = async (
       productId,
       accessToken,
     );
+
+    actionsExpiration.push(actionExpirationDM.AT_EXPIRATION);
   } else if (requestType === "newcdat") {
     const domains = await getDomains(["actionafterexpiration"], accessToken);
 
