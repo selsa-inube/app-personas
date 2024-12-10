@@ -31,7 +31,6 @@ const mapPqrsHistoryApiToEntity = (
     type: String(pqrs.typeName),
     attentionPlace: String(pqrs.placeName),
     details: String(pqrs.description),
-    file: { id: "", name: "", size: 0 },
   };
 };
 

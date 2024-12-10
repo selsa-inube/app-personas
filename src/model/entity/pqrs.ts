@@ -17,7 +17,7 @@ interface IPQRS {
   type: string;
   attentionPlace: string;
   details?: string;
-  file?: IFile;
+  file?: IFile[];
 }
 
 export type { IPQRS };

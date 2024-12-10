@@ -17,11 +17,13 @@ const pqrsHistoryMock: IPQRS[] = [
       label: "En revisión",
       appearance: "warning",
     },
-    file: {
-      id: "001-1",
-      name: "Estado de cuenta.pdf",
-      size: 2045,
-    },
+    file: [
+      {
+        id: "001-1",
+        name: "Estado de cuenta.pdf",
+        size: 2045,
+      },
+    ],
   },
   {
     id: "PQ20105003",
@@ -39,11 +41,13 @@ const pqrsHistoryMock: IPQRS[] = [
       label: "En revisión",
       appearance: "warning",
     },
-    file: {
-      id: "001-2",
-      name: "Estado de cuenta.pdf",
-      size: 1470,
-    },
+    file: [
+      {
+        id: "001-2",
+        name: "Estado de cuenta.pdf",
+        size: 1470,
+      },
+    ],
   },
   {
     id: "PQ20105002",
@@ -61,11 +65,13 @@ const pqrsHistoryMock: IPQRS[] = [
       label: "Completado",
       appearance: "success",
     },
-    file: {
-      id: "001-3",
-      name: "Estado de cuenta.pdf",
-      size: 1210,
-    },
+    file: [
+      {
+        id: "001-3",
+        name: "Estado de cuenta.pdf",
+        size: 1210,
+      },
+    ],
   },
   {
     id: "PQ20105001",
@@ -83,11 +89,13 @@ const pqrsHistoryMock: IPQRS[] = [
       label: "Cancelado",
       appearance: "danger",
     },
-    file: {
-      id: "001-3",
-      name: "Estado de cuenta.pdf",
-      size: 1147,
-    },
+    file: [
+      {
+        id: "001-3",
+        name: "Estado de cuenta.pdf",
+        size: 1147,
+      },
+    ],
   },
 ];
 
