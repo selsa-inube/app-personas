@@ -35,7 +35,11 @@ function RequestNews(props: RequestNewsProps) {
               size="20px"
             />
 
-            <Stack direction="column" gap={inube.spacing.s050}>
+            <Stack
+              direction="column"
+              gap={inube.spacing.s050}
+              alignItems="flex-start"
+            >
               <Text type="body" size="small" appearance="gray">
                 {formatPrimaryDate(newItem.date, true)}
               </Text>

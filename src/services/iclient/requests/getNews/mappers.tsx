@@ -14,15 +14,18 @@ const requestStatusAppearance: Record<string, ITag["appearance"]> = {
   Cancelled: "danger",
 };
 
+const requestDescription: Record<string, string> = {
+  create: "Se ha creado la solicitud",
+  Status: "Se ha cambiado el estado de la solicitud a:",
+};
+
 const mapNewApiToEntity = (
   request: Record<string, string | number | object>,
 ): INew => {
-  const isChangeStatus = Object(request.details).target === "status";
+  const isChangeStatus = Object(request.details).target === "Status";
   return {
     date: new Date(String(request.creationDate)),
-    description: isChangeStatus
-      ? "Se ha cambiado el estado de la solicitud a:"
-      : "",
+    description: requestDescription[String(Object(request.details).target)],
     icon: <MdOutlineSupportAgent />,
     tag: isChangeStatus
       ? {

@@ -34,43 +34,48 @@ const staticCancelProgammedSavingAttributes = [
   { id: "requestDate", label: "Fecha de solicitud" },
 ];
 
+const staticModifyActionProgrammedSavingAttributes = [
+  { id: "product", label: "Número de producto" },
+  { id: "actionAfterExpiration", label: "Renovar producto al vencimiento" },
+  { id: "trackingCode", label: "Código de seguimiento" },
+  { id: "requestDate", label: "Fecha de solicitud" },
+];
+
 const generateAttributes = (request: IRequest) => {
-  if (request.requestType === "credit") {
-    return staticCreditAttributes.map((attr) => ({
-      ...attr,
-      value: request[attr.id as keyof IRequest] as string | number | Date,
-    }));
+  switch (request.requestType) {
+    case "credit":
+      return staticCreditAttributes.map((attr) => ({
+        ...attr,
+        value: request[attr.id as keyof IRequest] as string | number | Date,
+      }));
+    case "aid":
+      return staticAidAttributes.map((attr) => ({
+        ...attr,
+        value: request[attr.id as keyof IRequest] as string | number | Date,
+      }));
+    case "newprogrammedsaving":
+      return staticProgrammedSavingAttributes.map((attr) => ({
+        ...attr,
+        value: request[attr.id as keyof IRequest] as string | number | Date,
+      }));
+    case "newcdat":
+      return staticCdatAttributes.map((attr) => ({
+        ...attr,
+        value: request[attr.id as keyof IRequest] as string | number | Date,
+      }));
+    case "cancelprogrammedsaving":
+      return staticCancelProgammedSavingAttributes.map((attr) => ({
+        ...attr,
+        value: request[attr.id as keyof IRequest] as string | number | Date,
+      }));
+    case "modifydeadlineactionprogrammedsaving":
+      return staticModifyActionProgrammedSavingAttributes.map((attr) => ({
+        ...attr,
+        value: request[attr.id as keyof IRequest] as string | number | Date,
+      }));
+    default:
+      return [];
   }
-
-  if (request.requestType === "aid") {
-    return staticAidAttributes.map((attr) => ({
-      ...attr,
-      value: request[attr.id as keyof IRequest] as string | number | Date,
-    }));
-  }
-
-  if (request.requestType === "newprogrammedsaving") {
-    return staticProgrammedSavingAttributes.map((attr) => ({
-      ...attr,
-      value: request[attr.id as keyof IRequest] as string | number | Date,
-    }));
-  }
-
-  if (request.requestType === "newcdat") {
-    return staticCdatAttributes.map((attr) => ({
-      ...attr,
-      value: request[attr.id as keyof IRequest] as string | number | Date,
-    }));
-  }
-
-  if (request.requestType === "cancelprogrammedsaving") {
-    return staticCancelProgammedSavingAttributes.map((attr) => ({
-      ...attr,
-      value: request[attr.id as keyof IRequest] as string | number | Date,
-    }));
-  }
-
-  return [];
 };
 
 export { generateAttributes };

@@ -9,7 +9,7 @@ const mapModifyActionProgrammedSavingEntityToApi = (
   return {
     clientCode: programmedSavingRequest.customerCode,
     details: {
-      savingNumber: programmedSavingRequest.savingNumber,
+      productNumber: programmedSavingRequest.savingNumber,
       actionAfterExpiration: programmedSavingRequest.actionExpiration,
     },
     issuer: "Personas",
@@ -29,6 +29,6 @@ const mapModifyActionProgrammedSavingApiToEntity = (
   };
 };
 export {
-  mapModifyActionProgrammedSavingEntityToApi,
   mapModifyActionProgrammedSavingApiToEntity,
+  mapModifyActionProgrammedSavingEntityToApi,
 };

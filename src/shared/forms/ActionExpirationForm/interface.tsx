@@ -19,13 +19,12 @@ interface ActionExpirationFormUIProps {
 function ActionExpirationFormUI(props: ActionExpirationFormUIProps) {
   const { formik, loading, customHandleChange } = props;
 
-  const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
 
   return (
     <form>
       <Grid
-        templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
         gap={inube.spacing.s300}
       >
         <Select

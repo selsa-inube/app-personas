@@ -1,18 +1,18 @@
 import { UserCard } from "@components/cards/UserCard";
 import { TextField } from "@design/input/TextField";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Button } from "@inubekit/button";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
+import { Text } from "@inubekit/text";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { IConsultingUser } from "src/model/entity/user";
 import { getConsultingUsers } from "src/services/featureFlags/getConsultingUsers";
 import { StyledContainer, StyledResultContainer } from "./styles";
 import { getRecentUsers, saveRecentUser } from "./utils";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
 
 function SwitchUser() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -106,7 +106,7 @@ function SwitchUser() {
         </Stack>
       </Stack>
       <StyledResultContainer>
-        <Stack direction="column" gap={inube.spacing.s150} width="100%">
+        <Stack direction="column" gap={inube.spacing.s200} width="100%">
           <Text
             type="title"
             size={isMobile ? "small" : "medium"}
@@ -142,7 +142,7 @@ function SwitchUser() {
             </Text>
           )}
         </Stack>
-        <Stack direction="column" gap={inube.spacing.s150} width="100%">
+        <Stack direction="column" gap={inube.spacing.s200} width="100%">
           <Text
             type="title"
             size={isMobile ? "small" : "medium"}
@@ -157,6 +157,7 @@ function SwitchUser() {
               gap={inube.spacing.s300}
               autoRows="auto"
               width="100%"
+              padding={`0 0 ${inube.spacing.s300} 0`}
             >
               {recentUsers.map((user) => (
                 <UserCard

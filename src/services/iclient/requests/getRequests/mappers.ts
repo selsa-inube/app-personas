@@ -2,6 +2,7 @@ import { ITag } from "@inubekit/tag";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { IRequest, RequestType } from "src/model/entity/request";
 import {
@@ -31,7 +32,8 @@ const requestTitles: Record<RequestType, string> = {
   newprogrammedsaving: "Ahorro programado a término fijo",
   newcdat: "CDAT",
   cancelprogrammedsaving: "Cancelación anticipada de ahorro programado",
-  modifydeadlineactionprogrammedsaving: "Modificación de acción al vencimiento",
+  modifydeadlineactionprogrammedsaving:
+    "Modificar acción al vencimiento de ahorro programado",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
@@ -40,7 +42,8 @@ const requestDescriptions: Record<RequestType, string> = {
   newprogrammedsaving: "Solicitud de ahorro programado a término fijo",
   newcdat: "Solicitud de CDAT",
   cancelprogrammedsaving: "CANCELACIÓN ANTICIPADA DE AHORRO PROGRAMADO",
-  modifydeadlineactionprogrammedsaving: "Modificación de acción al vencimiento",
+  modifydeadlineactionprogrammedsaving:
+    "MODIFICAR ACCIÓN AL VENCIMIENTO DE AHORRO PROGRAMADO",
 };
 
 const actionExpirationLabel: Record<string, string> = {
@@ -236,6 +239,12 @@ const mapRequestApiToEntity = (
       break;
     case "cancelprogrammedsaving":
       requestData.product = String(Object(details).productNumber);
+      break;
+    case "modifydeadlineactionprogrammedsaving":
+      requestData.product = String(Object(details).productNumber);
+      requestData.actionAfterExpiration = actionExpirationDM.valueOf(
+        String(Object(details).actionAfterExpiration) || "",
+      )?.value;
       break;
   }
 
