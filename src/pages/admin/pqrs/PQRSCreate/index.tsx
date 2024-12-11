@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { validationMessages } from "src/validations/validationMessages";
+import { validationRules } from "src/validations/validationRules";
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/flag";
 import { getTypesAndReasonsOptions } from "src/services/iclient/pqrs/getTypesAndReasonsOptions";
@@ -22,6 +23,7 @@ const validationSchema = Yup.object().shape({
   type: Yup.string().required(validationMessages.required),
   motive: Yup.string().required(validationMessages.required),
   attentionPlace: Yup.string().required(validationMessages.required),
+  email: validationRules.email.required(validationMessages.required),
   description: Yup.string().required(validationMessages.required),
 });
 
@@ -32,7 +34,7 @@ function CreatePQRS() {
   const [loadingSend, setLoadingSend] = useState(false);
   const [attachModalId, setAttachModalId] = useState(1);
   const [redirectModal, setRedirectModal] = useState(false);
-  const [sectionMessage, setSectionMessage] = useState("");
+  const [sectionMessage, setSectionMessage] = useState<string>("");
 
   const [typeOptions, setTypeOptions] = useState<ISelectOption[]>([]);
   const [reasonOptions, setReasonOptions] = useState<ISelectOption[]>([]);
@@ -57,6 +59,7 @@ function CreatePQRS() {
     validateOnBlur: false,
     onSubmit: () => {
       handleFinishAssisted();
+      formik.resetForm({ values: createPQRS });
     },
   });
 
@@ -83,9 +86,6 @@ function CreatePQRS() {
         fileName: doc.file.name,
       })) || [],
   };
-
-  const pqrsTypeRequest =
-    typeOptions.find((option) => option.id === formik.values.type)?.value || "";
 
   useEffect(() => {
     const fetchDataAndSetOptions = async () => {
@@ -206,7 +206,6 @@ function CreatePQRS() {
       attentionPointsOptions={attentionPoints}
       redirectModal={redirectModal}
       sectionMessage={sectionMessage}
-      pqrsType={pqrsTypeRequest}
       onOpenAttachModal={handleOpenAttachModal}
       onCloseAttachModal={handleCloseAttachModal}
       onSelectDocument={handleSelectDocument}

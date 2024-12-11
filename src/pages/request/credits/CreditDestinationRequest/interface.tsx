@@ -272,7 +272,6 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
       {redirectModal && (
         <RequestReceivedModal
           portalId="modals"
-          typeRequest="solicitud"
           onRedirectToHome={onRedirectToHome}
           onRedirectToRequests={onRedirectToRequests}
         />

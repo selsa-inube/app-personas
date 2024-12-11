@@ -17,7 +17,7 @@ const mapPqrsDetailsApiToEntity = (pqrs: IPQRSDetails): IPQRS => {
 
   return {
     id: String(pqrs.eventId || ""),
-    title: String(`${pqrs.typeName} - ${pqrs.reasonName}` || ""),
+    title: "PQRS",
     motive: String(pqrs.reasonName || ""),
     code: String(pqrs.cus || ""),
     date: new Date(pqrs.requestDate || Date.now()),

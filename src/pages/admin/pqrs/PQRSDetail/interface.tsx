@@ -88,7 +88,7 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
                 "Punto de atención:",
                 pqrsDetails?.attentionPlace || "",
               )}
-              {renderDetail("Código de seguimiento:", pqrsDetails?.code || "")}
+              {renderDetail("Código de seguimiento:", pqrsDetails?.id || "")}
               {renderDetail(
                 "Fecha de solicitud:",
                 pqrsDetails?.date
@@ -117,9 +117,9 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
             Array.isArray(pqrsDetails?.file) &&
             pqrsDetails.file.length > 0 ? (
               <Grid
-                templateColumns={isMobile ? "1fr" : "1fr 1fr"}
-                gap={inube.spacing.s200}
-                autoRows="auto"
+                templateColumns={
+                  isDesktop ? "1fr 1fr 1fr" : isMobile ? "1fr" : "1fr 1fr"
+                }
               >
                 {pqrsDetails.file.map((file) => (
                   <FileCard
@@ -137,11 +137,9 @@ function MyPQRSDetailsUI(props: MyPQRSDetailsUIProps) {
             )}
           </Box>
         </Stack>
-        {isDesktop && (
-          <Stack direction="column" gap={inube.spacing.s300}>
-            <RequestNews news={news} />
-          </Stack>
-        )}
+        <Stack direction="column" gap={inube.spacing.s300}>
+          <RequestNews news={news} />
+        </Stack>
       </Grid>
     </>
   );
