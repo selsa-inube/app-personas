@@ -254,6 +254,7 @@ function CdatRequestUI(props: CdatRequestUIProps) {
       {redirectModal && (
         <RequestReceivedModal
           portalId="modals"
+          typeRequest="solicitud"
           onRedirectToHome={onRedirectToHome}
           onRedirectToRequests={onRedirectToRequests}
         />

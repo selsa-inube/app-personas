@@ -257,6 +257,7 @@ function ProgrammedSavingRequestUI(props: ProgrammedSavingRequestUIProps) {
       {redirectModal && (
         <RequestReceivedModal
           portalId="modals"
+          typeRequest="solicitud"
           onRedirectToHome={onRedirectToHome}
           onRedirectToRequests={onRedirectToRequests}
         />

@@ -1,7 +1,6 @@
 import { Title } from "@design/data/Title";
 import { Accordion } from "@design/data/Accordion";
 import { Select } from "@design/input/Select";
-import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { StyledCard } from "./styles";
@@ -32,6 +31,7 @@ interface CreatePQRSUIProps {
   attentionPointsOptions: ISelectOption[];
   redirectModal: boolean;
   sectionMessage: string;
+  pqrsType: string;
   attachModal: {
     show: boolean;
     requirementId: string;
@@ -56,6 +56,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
     reasonOptions,
     redirectModal,
     sectionMessage,
+    pqrsType,
     attentionPointsOptions,
     onSelectDocument,
     onCloseAttachModal,
@@ -66,6 +67,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
+
   return (
     <>
       <Stack direction="column" gap={inube.spacing.s600}>
@@ -140,22 +142,6 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               isFullWidth
               isRequired
             />
-            <TextField
-              label="Correo electrónico"
-              name="email"
-              id="email"
-              placeholder="Digita tu correo electrónico"
-              type="text"
-              size="compact"
-              value={formik.values.email || ""}
-              errorMessage={formik.errors.email}
-              state={getFieldState(formik, "email")}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              validMessage="El correo electrónico es válido"
-              isFullWidth
-              isRequired
-            />
           </Grid>
           <Textarea
             label="Descripción"
@@ -182,7 +168,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
           onClickButton={onAttachButtonClick}
         >
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             gap={inube.spacing.s200}
             width="100%"
           >
@@ -230,6 +216,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
       {redirectModal && (
         <RequestReceivedModal
           portalId="modals"
+          typeRequest={pqrsType}
           onRedirectToHome={onRedirectToHome}
           onRedirectToRequests={onRedirectToRequests}
         />
