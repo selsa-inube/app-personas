@@ -31,6 +31,7 @@ interface CreatePQRSUIProps {
   reasonOptions: ISelectOption[];
   attentionPointsOptions: ISelectOption[];
   redirectModal: boolean;
+  sectionMessage: string;
   attachModal: {
     show: boolean;
     requirementId: string;
@@ -54,6 +55,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
     typeOptions,
     reasonOptions,
     redirectModal,
+    sectionMessage,
     attentionPointsOptions,
     onSelectDocument,
     onCloseAttachModal,
@@ -84,11 +86,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               size={isMobile ? "medium" : "large"}
               weight="bold"
             >
-              Estimado usuario, para Fondecom es importante tu opinión, resolver
-              tus dudas, atender tus quejas y reconocimientos a través de este
-              espacio. Te informamos que de acuerdo con el estatuto de Fondecom
-              Articulo 99. Trámite de quejas y reclamos, un término de hasta 15
-              días hábiles te daremos respuesta a tus PQRS.
+              {sectionMessage}
             </Text>
           </StyledCard>
           <Grid
