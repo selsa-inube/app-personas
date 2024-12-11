@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { validationMessages } from "src/validations/validationMessages";
-import { validationRules } from "src/validations/validationRules";
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/flag";
 import { getTypesAndReasonsOptions } from "src/services/iclient/pqrs/getTypesAndReasonsOptions";
@@ -23,7 +22,6 @@ const validationSchema = Yup.object().shape({
   type: Yup.string().required(validationMessages.required),
   motive: Yup.string().required(validationMessages.required),
   attentionPlace: Yup.string().required(validationMessages.required),
-  email: validationRules.email.required(validationMessages.required),
   description: Yup.string().required(validationMessages.required),
 });
 
