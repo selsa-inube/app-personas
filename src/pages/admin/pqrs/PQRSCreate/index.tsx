@@ -32,7 +32,7 @@ function CreatePQRS() {
   const [loadingSend, setLoadingSend] = useState(false);
   const [attachModalId, setAttachModalId] = useState(1);
   const [redirectModal, setRedirectModal] = useState(false);
-  const [sectionMessage, setSectionMessage] = useState<string>("");
+  const [sectionMessage, setSectionMessage] = useState("");
 
   const [typeOptions, setTypeOptions] = useState<ISelectOption[]>([]);
   const [reasonOptions, setReasonOptions] = useState<ISelectOption[]>([]);
@@ -57,7 +57,6 @@ function CreatePQRS() {
     validateOnBlur: false,
     onSubmit: () => {
       handleFinishAssisted();
-      formik.resetForm({ values: createPQRS });
     },
   });
 
@@ -84,6 +83,9 @@ function CreatePQRS() {
         fileName: doc.file.name,
       })) || [],
   };
+
+  const pqrsTypeRequest =
+    typeOptions.find((option) => option.id === formik.values.type)?.value || "";
 
   useEffect(() => {
     const fetchDataAndSetOptions = async () => {
@@ -204,6 +206,7 @@ function CreatePQRS() {
       attentionPointsOptions={attentionPoints}
       redirectModal={redirectModal}
       sectionMessage={sectionMessage}
+      pqrsType={pqrsTypeRequest}
       onOpenAttachModal={handleOpenAttachModal}
       onCloseAttachModal={handleCloseAttachModal}
       onSelectDocument={handleSelectDocument}
