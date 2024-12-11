@@ -15,6 +15,7 @@ import { ISelectOption } from "@design/input/Select/types";
 import { IRequestPqrs } from "src/services/iclient/pqrs/createPqrsRequest/types";
 import { createPQRS } from "./config/initialValues";
 import { CreatePQRSUI } from "./interface";
+import { getSectionMessageByType } from "src/services/iclient/sectionMessage/getSectionMessageByType";
 
 const MAX_SIZE_PER_FILE = 2.5;
 
@@ -33,6 +34,7 @@ function CreatePQRS() {
   const [loadingSend, setLoadingSend] = useState(false);
   const [attachModalId, setAttachModalId] = useState(1);
   const [redirectModal, setRedirectModal] = useState(false);
+  const [sectionMessage, setSectionMessage] = useState<string>("");
 
   const [typeOptions, setTypeOptions] = useState<ISelectOption[]>([]);
   const [reasonOptions, setReasonOptions] = useState<ISelectOption[]>([]);
@@ -114,6 +116,18 @@ function CreatePQRS() {
     });
   }, []);
 
+  useEffect(() => {
+    if (accessToken) {
+      getSectionMessageByType("pqrs", accessToken)
+        .then((message) => {
+          setSectionMessage(message);
+        })
+        .catch((error) => {
+          console.error("Error al obtener el mensaje", error);
+        });
+    }
+  }, [accessToken]);
+
   const handleSelectDocument = async (document: ISelectedDocument) => {
     const currentDocuments = formik.values.documents || [];
     formik.setFieldValue("documents", [...currentDocuments, document]);
@@ -191,6 +205,7 @@ function CreatePQRS() {
       reasonOptions={reasonOptions}
       attentionPointsOptions={attentionPoints}
       redirectModal={redirectModal}
+      sectionMessage={sectionMessage}
       onOpenAttachModal={handleOpenAttachModal}
       onCloseAttachModal={handleCloseAttachModal}
       onSelectDocument={handleSelectDocument}
