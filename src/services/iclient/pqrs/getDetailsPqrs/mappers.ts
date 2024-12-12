@@ -16,19 +16,19 @@ const mapPqrsDetailsApiToEntity = (pqrs: IPQRSDetails): IPQRS => {
   const statusCode = String(pqrs.status?.code || "");
 
   return {
-    id: String(pqrs.eventId || ""),
-    title: String(`${pqrs.typeName} - ${pqrs.reasonName}` || ""),
-    motive: String(pqrs.reasonName || ""),
-    code: String(pqrs.cus || ""),
-    date: new Date(pqrs.requestDate || Date.now()),
+    id: String(pqrs.pqrsId),
+    title: String(`${pqrs.typeName} - ${pqrs.reasonName}`),
+    motive: String(pqrs.reasonName),
+    code: String(pqrs.requestNumber),
+    date: new Date(pqrs.requestDate),
     tag: {
       label: pqrsStatusDM.valueOf(statusCode)?.value || "",
       appearance: pqrsStatusAppearance[statusCode] || "primary",
     },
-    description: String(pqrs.description || ""),
-    type: String(pqrs.typeName || ""),
-    attentionPlace: String(pqrs.placeName || ""),
-    details: String(pqrs.description || ""),
+    description: String(pqrs.description),
+    type: String(pqrs.typeName),
+    attentionPlace: String(pqrs.placeName),
+    details: String(pqrs.description),
     file:
       pqrs.documentDetails?.map((doc) => ({
         id: doc.documentTypeCode,

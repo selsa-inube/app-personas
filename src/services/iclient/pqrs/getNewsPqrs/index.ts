@@ -1,22 +1,20 @@
+import { INew } from "@components/cards/RequestNews/types";
 import { enviroment } from "@config/enviroment";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapPqrsDetailsApiToEntity } from "./mappers";
-import { IPQRS } from "src/model/entity/pqrs";
+import { mapNewsPqrsApiToEntities } from "./mappers";
 
-const getDetailsPqrs = async (
-  userIdentification: string,
+const getNewsForPqrs = async (
+  PqrsId: string,
   accessToken: string,
-  pqrsId: string,
-): Promise<IPQRS | null> => {
+): Promise<INew[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
   const queryParams = new URLSearchParams({
-    clientCode: userIdentification,
-    PQRSId: pqrsId,
+    PQRSId: PqrsId,
   });
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/pqrs?${queryParams.toString()}`;
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/pqrs-logs?${queryParams.toString()}`;
 
   try {
     const options: RequestInit = {
@@ -24,13 +22,14 @@ const getDetailsPqrs = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchAllPQRS",
+        "X-Action": "SearchAllPQRSLog",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
     };
 
     const res = await fetch(requestUrl, options);
+
     saveNetworkTracking(
       requestTime,
       options.method || "GET",
@@ -40,16 +39,24 @@ const getDetailsPqrs = async (
     );
 
     if (res.status === 204) {
-      return null;
-    }
-
-    if (!res.ok) {
-      throw new Error("Error al obtener el historial de pqrs.");
+      return [];
     }
 
     const data = await res.json();
 
-    return mapPqrsDetailsApiToEntity(data[0]);
+    if (!res.ok) {
+      throw {
+        message: "Error al obtener las novedades de la pqrs",
+        status: res.status,
+        data,
+      };
+    }
+
+    const normalizedResponse = Array.isArray(data)
+      ? mapNewsPqrsApiToEntities(data)
+      : [];
+
+    return normalizedResponse;
   } catch (error) {
     saveNetworkTracking(
       requestTime,
@@ -59,9 +66,10 @@ const getDetailsPqrs = async (
       Math.round(performance.now() - startTime),
     );
 
-    console.error(error);
+    console.info(error);
+
     throw error;
   }
 };
 
-export { getDetailsPqrs };
+export { getNewsForPqrs };

@@ -6,36 +6,41 @@ import { getDetailsPqrs } from "src/services/iclient/pqrs/getDetailsPqrs";
 import { IPQRS } from "src/model/entity/pqrs";
 import { INew } from "@components/cards/RequestNews/types";
 import { MyPQRSDetailsUI } from "./interface";
+import { getNewsForPqrs } from "src/services/iclient/pqrs/getNewsPqrs";
 
 function MyPQRSDetails() {
   const [pqrsDetails, setPqrsDetails] = useState<IPQRS | null>(null);
+  const [newsPqrs, setNewsPqrs] = useState<INew[]>([]);
 
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const { pqrs_id: pqrsId } = useParams();
 
   useEffect(() => {
-    const fetchPqrsRequests = async () => {
-      if (accessToken && user?.identification && pqrsId) {
-        try {
-          const data = await getDetailsPqrs(
+    const fetchData = async () => {
+      if (!accessToken || !pqrsId) return;
+
+      try {
+        if (user?.identification) {
+          const details = await getDetailsPqrs(
             user.identification,
             accessToken,
             pqrsId,
           );
-          setPqrsDetails(data);
-        } catch (error) {
-          console.error("Error al obtener los detalles de la pqrs", error);
+          setPqrsDetails(details);
         }
+
+        const news = await getNewsForPqrs(pqrsId, accessToken);
+        setNewsPqrs(news);
+      } catch (error) {
+        console.error("Error al obtener datos de la PQRS", error);
       }
     };
 
-    fetchPqrsRequests();
+    fetchData();
   }, [accessToken, user?.identification, pqrsId]);
 
-  const news: INew[] = [];
-
-  return <MyPQRSDetailsUI pqrsDetails={pqrsDetails} news={news} />;
+  return <MyPQRSDetailsUI pqrsDetails={pqrsDetails} news={newsPqrs} />;
 }
 
 export { MyPQRSDetails };

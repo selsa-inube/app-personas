@@ -18,10 +18,10 @@ const mapPqrsHistoryApiToEntity = (
     (pqrs.status as Record<string, string>)?.code || "",
   );
   return {
-    id: String(pqrs.eventId),
+    id: String(pqrs.pqrsId),
     title: "PQRS",
     motive: String(pqrs.reasonName),
-    code: String(pqrs.cus),
+    code: String(pqrs.requestNumber),
     date: new Date(String(pqrs.requestDate)),
     tag: {
       label: pqrsStatusDM.valueOf(statusCode)?.value || "",
