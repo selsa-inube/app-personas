@@ -1,18 +1,22 @@
+import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
+import { SkeletonLine } from "@inubekit/skeleton";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { IDomainType } from "@ptypes/domain.types";
 import { useNavigate } from "react-router-dom";
+import { OutlineCard } from "../OutlineCard";
 import { StyledCardContainer } from "./styles";
 
 interface AidCardProps {
   id: string;
   title: string;
   type?: IDomainType;
+  loading?: boolean;
 }
 
 function AidCard(props: AidCardProps) {
-  const { id, title, type } = props;
+  const { id, title, type, loading } = props;
 
   const navigate = useNavigate();
 
@@ -21,6 +25,24 @@ function AidCard(props: AidCardProps) {
       state: { id, title, type },
     });
   };
+
+  if (loading) {
+    return (
+      <OutlineCard>
+        <Stack
+          direction="column"
+          gap={inube.spacing.s200}
+          padding={inube.spacing.s250}
+          width="100%"
+        >
+          <SkeletonLine width="100%" animated />
+          <Stack justifyContent="flex-end">
+            <SkeletonLine width="25%" animated />
+          </Stack>
+        </Stack>
+      </OutlineCard>
+    );
+  }
 
   return (
     <StyledCardContainer>

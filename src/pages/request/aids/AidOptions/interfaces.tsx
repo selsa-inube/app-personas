@@ -14,10 +14,11 @@ import { crumbsAids } from "./config/navigation";
 
 interface AidOptionsUIProps {
   aids: IAid[];
+  loading?: boolean;
 }
 
 function AidOptionsUI(props: AidOptionsUIProps) {
-  const { aids } = props;
+  const { aids, loading } = props;
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
 
@@ -55,6 +56,19 @@ function AidOptionsUI(props: AidOptionsUIProps) {
                 id={aid.id}
                 title={aid.title}
                 type={aid.type}
+              />
+            ))}
+
+            {loading && Array.from({ length: 6 }).map((_, index) => (
+              <AidCard
+                id=""
+                title=""
+                type={{
+                  id: "",
+                  value: "",
+                }}
+                key={index}
+                loading={loading}
               />
             ))}
           </Grid>

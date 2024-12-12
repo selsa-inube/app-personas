@@ -9,6 +9,7 @@ const convertJSXToHTML = (element: React.ReactElement) => {
 const convertHTMLToPDF = (
   doc: jsPDF,
   html: string,
+  margin = [0, 0, 0, 0],
   callback: ((doc: jsPDF) => void) | undefined,
 ) => {
   doc.html(html, {
@@ -20,6 +21,7 @@ const convertHTMLToPDF = (
     windowWidth: 816,
     x: 0,
     y: 0,
+    margin,
   });
 };
 
