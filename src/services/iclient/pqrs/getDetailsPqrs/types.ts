@@ -5,17 +5,19 @@ interface IDocumentDetails {
 }
 
 interface IPQRSDetails {
+  pqrsId: string;
   eventId?: string;
   status?: {
     code?: string;
   };
   reasonName?: string;
-  cus?: string;
-  requestDate?: Date;
-  description?: string;
-  typeName?: string;
-  placeName?: string;
-  documentDetails?: IDocumentDetails[];
+  requestNumber: string;
+  cus: string;
+  requestDate: Date;
+  description: string;
+  typeName: string;
+  placeName: string;
+  documentDetails: IDocumentDetails[];
 }
 
 export type { IPQRSDetails };
