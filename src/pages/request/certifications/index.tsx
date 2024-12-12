@@ -53,7 +53,7 @@ function CertificationRequest() {
         accessToken,
       );
 
-      convertHTMLToPDF(doc, convertJSXToHTML(documentElement), (pdf) => {
+      convertHTMLToPDF(doc, convertJSXToHTML(documentElement), undefined, (pdf) => {
         pdf.save(`estado-de-cuenta-${formatSecondaryDate(today)}.pdf`);
       });
     } catch (error) {

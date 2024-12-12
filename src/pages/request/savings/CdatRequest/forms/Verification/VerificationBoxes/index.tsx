@@ -49,8 +49,16 @@ const renderDeadlineVerification = (
       value={values.expirationDate && formatPrimaryDate(values.expirationDate)}
     />
     <BoxAttribute
+      label="Tasa efectiva anual:"
+      value={`${values.effectiveAnnualRate} %`}
+    />
+    <BoxAttribute
       label="Plazo en número de días:"
       value={values.deadlineDays}
+    />
+    <BoxAttribute
+      label="Intereses totales:"
+      value={values.totalInterest ? currencyFormat(values.totalInterest) : ""}
     />
   </Grid>
 );

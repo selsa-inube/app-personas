@@ -6,7 +6,7 @@ const mapAidApiToEntity = (
 ): IAid => {
   return {
     id: String(aid.id),
-    title: capitalizeText(aid.alias.toString()),
+    title: capitalizeText(String(aid.alias || aid.name)),
     type: {
       id: Object(aid.aidType).code,
       value: Object(aid.aidType).description,
