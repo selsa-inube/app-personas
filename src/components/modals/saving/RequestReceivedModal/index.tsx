@@ -34,15 +34,15 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
       <StyledModal $smallScreen={isMobile}>
         <Icon appearance="success" icon={<MdCheckCircle />} size="42px" />
         <Text type="title" size={isMobile ? "medium" : "large"} weight="bold">
-          {`¡${typeRequest} recibida!`}
+          ¡{typeRequest} recibida!
         </Text>
         <Text
           type="body"
           size={isMobile ? "medium" : "large"}
           textAlign="center"
         >
-          {`Si lo deseas, puedes consultar el estado de tu ${typeRequest.toLowerCase()} y sus
-          detalles.`}
+          Si lo deseas, puedes consultar el estado de tu{" "}
+          {typeRequest.toLowerCase()} y sus detalles.
         </Text>
         <Stack justifyContent="flex-end" gap={inube.spacing.s100}>
           <Button
@@ -60,7 +60,7 @@ function RequestReceivedModal(props: RequestReceivedModalProps) {
             spacing="compact"
             iconBefore={<MdAssignment />}
           >
-            {`Ver ${typeRequest.toLowerCase()}`}
+            Ver {typeRequest.toLowerCase()}
           </Button>
         </Stack>
       </StyledModal>

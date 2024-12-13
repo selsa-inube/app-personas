@@ -41,9 +41,9 @@ const requestDescriptions: Record<RequestType, string> = {
   aid: "Solicitud de auxilio",
   newprogrammedsaving: "Solicitud de ahorro programado a término fijo",
   newcdat: "Solicitud de CDAT",
-  cancelprogrammedsaving: "CANCELACIÓN ANTICIPADA DE AHORRO PROGRAMADO",
+  cancelprogrammedsaving: "Cancelación anticipada de ahorro programadO",
   modifydeadlineactionprogrammedsaving:
-    "MODIFICAR ACCIÓN AL VENCIMIENTO DE AHORRO PROGRAMADO",
+    "Modificar acción al vencimiento de ahorro programado",
 };
 
 const actionExpirationLabel: Record<string, string> = {

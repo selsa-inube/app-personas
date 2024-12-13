@@ -481,7 +481,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
       {redirectModal && (
         <RequestReceivedModal
           portalId="modals"
-          typeRequest="solicitud"
+          typeRequest="Solicitud"
           onRedirectToHome={onRedirectToHome}
           onRedirectToRequests={onRedirectToRequests}
         />
