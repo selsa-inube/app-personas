@@ -2,11 +2,11 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
-import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
 import { formatPrimaryDate } from "src/utils/dates";
 import { StyledContainer } from "./styles";
 import { INew } from "./types";
+import { Tag } from "@inubekit/tag";
 
 interface RequestNewsProps {
   news: INew[];
