@@ -62,6 +62,24 @@ const programmedSavings = (savings: ISavingsState): IEntry[] => {
   });
 };
 
+const cdatSavings = (savings: ISavingsState): IEntry[] => {
+  return savings.cdats.map((item) => {
+    const netValueAttribute = item.attributes.find(
+      (attr) => attr.id === "net_value",
+    );
+    const netValue = netValueAttribute ? netValueAttribute.value : null;
+
+    const conceptValue = item.description.split("-")[0].trim().toUpperCase();
+
+    return {
+      id: item.id,
+      reference: item.id,
+      concept: conceptValue,
+      totalBalance: currencyFormat(Number(netValue)),
+    };
+  });
+};
+
 const commitmentsSavings = (commitments: ICommitment[]): IEntry[] => {
   return commitments.map((item) => {
     const attributes = item.attributes;
@@ -186,6 +204,7 @@ const getAccountStatementDocument = async (
   const commitmentsSavingsEntries = commitmentsSavings(commitments);
   const obligationsEntries = await obligations(credits);
   const creditCardsEntries = await creditCards(cards, accessToken);
+  const cdatSavingsEntries = cdatSavings(savings);
 
   return (
     <AccountStatementDocument
@@ -194,6 +213,7 @@ const getAccountStatementDocument = async (
       savingsAccountEntries={savingsAccountEntries}
       savingsContributionsEntries={savingsContributionsEntries}
       programmedSavingsEntries={programmedSavingsEntries}
+      cdatSavingsEntries={cdatSavingsEntries}
       commitmentsSavingsEntries={commitmentsSavingsEntries}
       obligationsEntries={obligationsEntries}
       creditCardsEntries={creditCardsEntries}
