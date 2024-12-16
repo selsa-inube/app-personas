@@ -34,6 +34,7 @@ interface AccountStatementDocumentProps {
   savingsAccountEntries: IEntry[];
   savingsContributionsEntries: IEntry[];
   programmedSavingsEntries: IEntry[];
+  cdatSavingsEntries: IEntry[];
   commitmentsSavingsEntries: IEntry[];
   obligationsEntries: IEntry[];
   creditCardsEntries: IEntry[];
@@ -114,6 +115,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
     savingsAccountEntries,
     savingsContributionsEntries,
     programmedSavingsEntries,
+    cdatSavingsEntries,
     commitmentsSavingsEntries,
     obligationsEntries,
     creditCardsEntries,
@@ -224,6 +226,15 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
           title="Ahorros programados"
           tableTitles={savingsTableTitles}
           dataEntries={programmedSavingsEntries}
+          colSpan={3}
+          colWidths={["15%", "70%", "15%"]}
+        />
+      )}
+      {cdatSavingsEntries.length > 0 && (
+        <TableSection
+          title="CDATs"
+          tableTitles={savingsTableTitles}
+          dataEntries={cdatSavingsEntries}
           colSpan={3}
           colWidths={["15%", "70%", "15%"]}
         />
