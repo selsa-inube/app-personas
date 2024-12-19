@@ -15,10 +15,12 @@ const mapCustomerApiToEntity = (
     naturalAttrs.paymentMethod &&
     capitalizeText(naturalAttrs.paymentMethod.split("-")[1]);
 
-  const bankEntityCode = naturalAttrs.transferAccountBank.split("-")[0];
-  const bankEntityName = capitalizeText(
-    naturalAttrs.transferAccountBank.split("-")[1],
-  );
+  const bankEntityCode = naturalAttrs.transferAccountBank
+    ? naturalAttrs.transferAccountBank.split("-")[0]
+    : "";
+  const bankEntityName = naturalAttrs.transferAccountBank
+    ? capitalizeText(naturalAttrs.transferAccountBank.split("-")[1])
+    : "";
 
   return {
     personalData: {
