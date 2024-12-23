@@ -23,7 +23,7 @@ interface SystemValidationsFormProps {
   test?: boolean;
   requestType: RequestType;
   beneficiary?: IBeneficiary;
-  shareMaturity?: string;
+  actionExpiration?: string;
   moneySources?: IMoneySourceValid[];
   onFormValid?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -38,7 +38,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
     test,
     requestType,
     beneficiary,
-    shareMaturity,
+    actionExpiration,
     moneySources,
     onFormValid,
   } = props;
@@ -66,7 +66,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
       formik,
       disbursementValues,
       beneficiary,
-      shareMaturity,
+      actionExpiration,
       moneySources,
     );
 

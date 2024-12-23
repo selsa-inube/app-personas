@@ -1,7 +1,6 @@
 import { Title } from "@design/data/Title";
 import { Accordion } from "@design/data/Accordion";
 import { Select } from "@design/input/Select";
-import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { StyledCard } from "./styles";
@@ -17,17 +16,22 @@ import { AttachDocumentModal } from "@components/modals/general/AttachDocumentMo
 import { FileCard } from "@components/cards/FileCard";
 import { getFieldState } from "src/utils/forms/forms";
 import { FormikProps } from "formik";
-import { pqrsTypeDM } from "src/model/domains/pqrs/pqrsTypeDM";
-import { pqrsMotiveDM } from "src/model/domains/pqrs/pqrsMotiveDM";
-import { pqrsAttentionPlaceDM } from "src/model/domains/pqrs/pqrsAttentionPlaceDM";
 import { crumbsCreatePQRS } from "./config/navigation";
 import { ICreatePQRSEntry, ISelectedDocument } from "./types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { ISelectOption } from "@design/input/Select/types";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 
 interface CreatePQRSUIProps {
   formik: FormikProps<ICreatePQRSEntry>;
   maxFileSize: number;
   loadingSend: boolean;
+  typeOptions: ISelectOption[];
+  reasonOptions: ISelectOption[];
+  attentionPointsOptions: ISelectOption[];
+  redirectModal: boolean;
+  sectionMessage: string;
+  pqrsType: string;
   attachModal: {
     show: boolean;
     requirementId: string;
@@ -38,6 +42,8 @@ interface CreatePQRSUIProps {
   onCloseAttachModal: () => void;
   onRemoveDocument: (id: string) => void;
   onAttachButtonClick: () => void;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
 }
 
 function CreatePQRSUI(props: CreatePQRSUIProps) {
@@ -46,13 +52,22 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
     maxFileSize,
     loadingSend,
     attachModal,
+    typeOptions,
+    reasonOptions,
+    redirectModal,
+    sectionMessage,
+    pqrsType,
+    attentionPointsOptions,
     onSelectDocument,
     onCloseAttachModal,
     onRemoveDocument,
     onAttachButtonClick,
+    onRedirectToHome,
+    onRedirectToRequests,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 750px)");
+
   return (
     <>
       <Stack direction="column" gap={inube.spacing.s600}>
@@ -73,15 +88,11 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               size={isMobile ? "medium" : "large"}
               weight="bold"
             >
-              Estimado usuario, para Fondecom es importante tu opinión, resolver
-              tus dudas, atender tus quejas y reconocimientos a través de este
-              espacio. Te informamos que de acuerdo con el estatuto de Fondecom
-              Articulo 99. Trámite de quejas y reclamos, un término de hasta 15
-              días hábiles te daremos respuesta a tus PQRS.
+              {sectionMessage}
             </Text>
           </StyledCard>
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={inube.spacing.s200}
           >
@@ -90,11 +101,10 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               name="type"
               label="Tipo"
               size="compact"
-              placeholder="Selecciona una  de las opciones"
+              placeholder="Selecciona una de las opciones"
               value={formik.values.type || ""}
-              options={pqrsTypeDM.options}
+              options={typeOptions}
               onChange={formik.handleChange}
-              state={getFieldState(formik, "type")}
               isFullWidth
               isRequired
             />
@@ -103,11 +113,14 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               name="motive"
               label="Motivo"
               size="compact"
-              placeholder="Selecciona una  de las opciones"
+              placeholder={
+                formik.values.type === ""
+                  ? ""
+                  : "Selecciona una de las opciones"
+              }
               value={formik.values.motive || ""}
-              options={pqrsMotiveDM.options}
+              options={reasonOptions}
               onChange={formik.handleChange}
-              state={getFieldState(formik, "motive")}
               isDisabled={formik.values.type === ""}
               isFullWidth
               isRequired
@@ -117,28 +130,15 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               name="attentionPlace"
               label="Punto de atención"
               size="compact"
-              placeholder="Selecciona una  de las opciones"
+              placeholder={
+                formik.values.motive === ""
+                  ? ""
+                  : "Selecciona una de las opciones"
+              }
               value={formik.values.attentionPlace || ""}
-              options={pqrsAttentionPlaceDM.options}
+              options={attentionPointsOptions}
               onChange={formik.handleChange}
-              state={getFieldState(formik, "attentionPlace")}
               isDisabled={formik.values.motive === ""}
-              isFullWidth
-              isRequired
-            />
-            <TextField
-              label="Correo electrónico"
-              name="email"
-              id="email"
-              placeholder="Digita tu correo electrónico"
-              type="text"
-              size="compact"
-              value={formik.values.email || ""}
-              errorMessage={formik.errors.email}
-              state={getFieldState(formik, "email")}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              validMessage="El correo electrónico es válido"
               isFullWidth
               isRequired
             />
@@ -168,7 +168,7 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
           onClickButton={onAttachButtonClick}
         >
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : 3}, 1fr)`}
+            templateColumns={`repeat(${isMobile ? 1 : 2}, 1fr)`}
             gap={inube.spacing.s200}
             width="100%"
           >
@@ -210,6 +210,15 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
         <LoadingModal
           title="Creando PQRS..."
           message="Espera unos segundos, estamos procesando la PQRS."
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          typeRequest={pqrsType}
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
         />
       )}
     </>

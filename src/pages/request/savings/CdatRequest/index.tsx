@@ -1,12 +1,13 @@
+import { initialValuesActionExpiration } from "@forms/ActionExpirationForm/initialValues";
+import { IActionExpirationEntry } from "@forms/ActionExpirationForm/types";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
-import { initialValuesShareMaturity } from "@forms/ShareMaturityForm/initialValues";
-import { IShareMaturityEntry } from "@forms/ShareMaturityForm/types";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
 import { useAuth } from "@inube/auth";
+import { useFlag } from "@inubekit/flag";
 import { FormikProps } from "formik";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Navigate, useBlocker, useNavigate } from "react-router-dom";
@@ -23,12 +24,12 @@ import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
 import { CdatRequestUI } from "./interface";
 import { IFormsCdatRequest, IFormsCdatRequestRefs } from "./types";
 import { cdatStepsRules, sendCdatRequest } from "./utils";
-import { useFlag } from "@inubekit/flag";
 
 function CdatRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
   const { accessToken } = useAuth();
   const [loadingSend, setLoadingSend] = useState(false);
+  const [redirectModal, setRedirectModal] = useState(false);
 
   const [currentStep, setCurrentStep] = useState(
     cdatRequestSteps.investment.number,
@@ -61,9 +62,9 @@ function CdatRequest() {
       isValid: false,
       values: mapDisbursement(),
     },
-    shareMaturity: {
+    actionExpiration: {
       isValid: false,
-      values: initialValuesShareMaturity,
+      values: initialValuesActionExpiration,
     },
     systemValidations: {
       isValid: false,
@@ -87,7 +88,7 @@ function CdatRequest() {
   const interestPaymentRef = useRef<FormikProps<IInterestPaymentEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
-  const shareMaturityRef = useRef<FormikProps<IShareMaturityEntry>>(null);
+  const actionExpirationRef = useRef<FormikProps<IActionExpirationEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
   const termsAndConditionsRef =
@@ -100,7 +101,7 @@ function CdatRequest() {
     interestPayment: interestPaymentRef,
     paymentMethod: paymentMethodRef,
     disbursement: disbursementRef,
-    shareMaturity: shareMaturityRef,
+    actionExpiration: actionExpirationRef,
     systemValidations: systemValidationsRef,
     termsAndConditions: termsAndConditionsRef,
     contactChannels: contactChannelsRef,
@@ -108,9 +109,10 @@ function CdatRequest() {
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      currentLocation.pathname !== nextLocation.pathname,
+      currentLocation.pathname !== nextLocation.pathname &&
+      !nextLocation.search.includes("?success_request=true") &&
+      nextLocation.pathname !== "/",
   );
-
   const validateEnums = async () => {
     if (!accessToken) return;
 
@@ -160,17 +162,22 @@ function CdatRequest() {
 
     setLoadingSend(true);
 
-    sendCdatRequest(user, cdatRequest, accessToken, navigate).catch(() => {
-      addFlag({
-        title: "La solicitud no pudo ser procesada",
-        description:
-          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        appearance: "danger",
-        duration: 5000,
-      });
+    sendCdatRequest(user, cdatRequest, accessToken)
+      .then(() => {
+        setLoadingSend(false);
+        setRedirectModal(true);
+      })
+      .catch(() => {
+        addFlag({
+          title: "La solicitud no pudo ser procesada",
+          description:
+            "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+          appearance: "danger",
+          duration: 5000,
+        });
 
-      setLoadingSend(false);
-    });
+        setLoadingSend(false);
+      });
   };
 
   const handleNextStep = () => {
@@ -191,6 +198,14 @@ function CdatRequest() {
     return <Navigate to="/" />;
   }
 
+  const handleRedirectToHome = () => {
+    navigate("/");
+  };
+
+  const handleRedirectToRequests = () => {
+    navigate("/my-requests?success_request=true");
+  };
+
   return (
     <CdatRequestUI
       currentStep={currentStep}
@@ -200,11 +215,14 @@ function CdatRequest() {
       formReferences={formReferences}
       loadingSend={loadingSend}
       blocker={blocker}
-      handleFinishAssisted={handleFinishAssisted}
-      handleNextStep={handleNextStep}
-      handlePreviousStep={handlePreviousStep}
-      handleStepChange={handleStepChange}
+      redirectModal={redirectModal}
+      onFinishAssisted={handleFinishAssisted}
+      onNextStep={handleNextStep}
+      onPreviousStep={handlePreviousStep}
+      onStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
+      onRedirectToHome={handleRedirectToHome}
+      onRedirectToRequests={handleRedirectToRequests}
     />
   );
 }

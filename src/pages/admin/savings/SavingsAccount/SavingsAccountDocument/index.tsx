@@ -1,12 +1,9 @@
-import { logoUrl } from "@config/header";
-import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { formatPrimaryDate } from "src/utils/dates";
-import { StyledCardContainer, StyledLogo } from "./styles";
-import { Grid } from "@inubekit/grid";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { currencyFormat } from "src/utils/currency";
+import { logoUrl } from "@config/header";
+import { IEntry } from "@design/data/Table/types";
+import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/stack";
 import {
   Col,
   Colgroup,
@@ -17,8 +14,11 @@ import {
   Thead,
   Tr,
 } from "@inubekit/table";
+import { Text } from "@inubekit/text";
+import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
+import { StyledCardContainer, StyledLogo } from "./styles";
 import { savingsAccountDocumentTitles } from "./tables";
-import { IEntry } from "@design/data/Table/types";
 
 interface SavingsAccountDocumentProps {
   username: string;
@@ -59,7 +59,7 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
 
   return (
     <Stack
-      padding={inube.spacing.s400}
+      padding={`0 ${inube.spacing.s400}`}
       gap={inube.spacing.s200}
       width="225mm"
       direction="column"

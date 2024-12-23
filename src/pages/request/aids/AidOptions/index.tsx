@@ -9,16 +9,18 @@ function AidOptions() {
   const [aids, setAids] = useState<IAid[]>([]);
   const { user } = useContext(AppContext);
   const { accessToken } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (aids.length > 0 || !accessToken) return;
 
     getAidsForUser(user.identification, accessToken).then((aids) => {
       setAids(aids);
+      setLoading(false);
     });
   }, []);
 
-  return <AidOptionsUI aids={aids} />;
+  return <AidOptionsUI aids={aids} loading={loading} />;
 }
 
 export { AidOptions };

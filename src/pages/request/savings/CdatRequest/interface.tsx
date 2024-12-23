@@ -1,9 +1,10 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
+import { ActionExpirationForm } from "@forms/ActionExpirationForm";
 import { DisbursementForm } from "@forms/DisbursementForm";
-import { ShareMaturityForm } from "@forms/ShareMaturityForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -28,7 +29,7 @@ const renderStepContent = (
   formReferences: IFormsCdatRequestRefs,
   cdatRequest: IFormsCdatRequest,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void,
+  onStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -65,16 +66,17 @@ const renderStepContent = (
         <DisbursementForm
           initialValues={cdatRequest.disbursement.values}
           ref={formReferences.disbursement}
-          requestType="cdat"
+          requestType="newcdat"
           productId={cdatRequest.investment.values.product?.id || ""}
           onFormValid={setIsCurrentFormValid}
         />
       )}
-      {currentStep === cdatRequestSteps.shareMaturity.number && (
-        <ShareMaturityForm
-          initialValues={cdatRequest.shareMaturity.values}
+      {currentStep === cdatRequestSteps.actionExpiration.number && (
+        <ActionExpirationForm
+          initialValues={cdatRequest.actionExpiration.values}
           productId={cdatRequest.investment.values.product?.id || ""}
-          ref={formReferences.shareMaturity}
+          ref={formReferences.actionExpiration}
+          requestType="newcdat"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -91,7 +93,7 @@ const renderStepContent = (
               value: cdatRequest.investment.values.investmentValue || 0,
             },
           ]}
-          requestType="cdat"
+          requestType="newcdat"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -100,7 +102,7 @@ const renderStepContent = (
           initialValues={cdatRequest.termsAndConditions.values}
           ref={formReferences.termsAndConditions}
           productId={cdatRequest.investment.values.product?.id || ""}
-          productType="cdat"
+          productType="newcdat"
           onFormValid={setIsCurrentFormValid}
         />
       )}
@@ -114,7 +116,7 @@ const renderStepContent = (
       {currentStep === cdatRequestSteps.verification.number && (
         <CdatRequestVerification
           cdatRequest={cdatRequest}
-          handleStepChange={handleStepChange}
+          onStepChange={onStepChange}
         />
       )}
     </>
@@ -129,11 +131,14 @@ interface CdatRequestUIProps {
   formReferences: IFormsCdatRequestRefs;
   loadingSend: boolean;
   blocker: Blocker;
+  redirectModal: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleStepChange: (stepId: number) => void;
-  handleFinishAssisted: () => void;
-  handleNextStep: () => void;
-  handlePreviousStep: () => void;
+  onStepChange: (stepId: number) => void;
+  onFinishAssisted: () => void;
+  onNextStep: () => void;
+  onPreviousStep: () => void;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
 }
 
 function CdatRequestUI(props: CdatRequestUIProps) {
@@ -145,11 +150,14 @@ function CdatRequestUI(props: CdatRequestUIProps) {
     formReferences,
     loadingSend,
     blocker,
+    redirectModal,
     setIsCurrentFormValid,
-    handleStepChange,
-    handleFinishAssisted,
-    handleNextStep,
-    handlePreviousStep,
+    onStepChange,
+    onFinishAssisted,
+    onNextStep,
+    onPreviousStep,
+    onRedirectToHome,
+    onRedirectToRequests,
   } = props;
 
   const isTablet = useMediaQuery("(max-width: 1100px)");
@@ -180,9 +188,9 @@ function CdatRequestUI(props: CdatRequestUIProps) {
         <Assisted
           step={steps[currentStep - 1]}
           totalSteps={steps.length}
-          onNextClick={handleNextStep}
-          onBackClick={handlePreviousStep}
-          onSubmitClick={handleFinishAssisted}
+          onNextClick={onNextStep}
+          onBackClick={onPreviousStep}
+          onSubmitClick={onFinishAssisted}
           disableNext={!isCurrentFormValid}
           size={isTablet ? "small" : "large"}
           controls={{
@@ -198,12 +206,12 @@ function CdatRequestUI(props: CdatRequestUIProps) {
             formReferences,
             cdatRequest,
             setIsCurrentFormValid,
-            handleStepChange,
+            onStepChange,
           )}
 
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={handlePreviousStep}
+              onClick={onPreviousStep}
               type="button"
               disabled={currentStep === steps[0].id}
               spacing="compact"
@@ -214,11 +222,11 @@ function CdatRequestUI(props: CdatRequestUIProps) {
             </Button>
 
             <Button
-              onClick={handleNextStep}
+              onClick={onNextStep}
               spacing="compact"
               disabled={!isCurrentFormValid}
             >
-              {currentStep === steps.length ? "Pagar" : "Siguiente"}
+              {currentStep === steps.length ? "Enviar" : "Siguiente"}
             </Button>
           </Stack>
         </Stack>
@@ -240,6 +248,15 @@ function CdatRequestUI(props: CdatRequestUIProps) {
           onCloseModal={() => blocker.reset()}
           onClick={() => blocker.proceed()}
           portalId="modals"
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          typeRequest="Solicitud"
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
         />
       )}
     </>

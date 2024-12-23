@@ -4,10 +4,10 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Grid } from "@inubekit/grid";
 import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
-import { IShareMaturityEntry } from "./types";
+import { IActionExpirationEntry } from "./types";
 
-interface ShareMaturityFormUIProps {
-  formik: FormikProps<IShareMaturityEntry>;
+interface ActionExpirationFormUIProps {
+  formik: FormikProps<IActionExpirationEntry>;
   loading?: boolean;
   customHandleChange: (
     event: React.ChangeEvent<
@@ -16,36 +16,35 @@ interface ShareMaturityFormUIProps {
   ) => void;
 }
 
-function ShareMaturityFormUI(props: ShareMaturityFormUIProps) {
+function ActionExpirationFormUI(props: ActionExpirationFormUIProps) {
   const { formik, loading, customHandleChange } = props;
 
-  const isMobile = useMediaQuery("(max-width: 700px)");
   const isTablet = useMediaQuery("(max-width: 1200px)");
 
   return (
     <form>
       <Grid
-        templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+        templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
         gap={inube.spacing.s300}
       >
         <Select
-          name="shareMaturity"
-          id="shareMaturity"
+          name="actionExpiration"
+          id="actionExpiration"
           label="Renovar producto al vencimiento"
-          value={formik.values.shareMaturity || ""}
+          value={formik.values.actionExpiration || ""}
           size="compact"
           isDisabled={loading}
-          options={formik.values.sharesMaturity || []}
+          options={formik.values.actionsExpiration || []}
           onChange={customHandleChange}
           onBlur={formik.handleBlur}
-          state={getFieldState(formik, "shareMaturity")}
-          errorMessage={formik.errors.shareMaturity}
+          state={getFieldState(formik, "actionExpiration")}
+          errorMessage={formik.errors.actionExpiration}
           isFullWidth
-          readOnly={formik.values.sharesMaturity?.length === 1}
+          readOnly={formik.values.actionsExpiration?.length === 1}
         />
       </Grid>
     </form>
   );
 }
 
-export { ShareMaturityFormUI };
+export { ActionExpirationFormUI };

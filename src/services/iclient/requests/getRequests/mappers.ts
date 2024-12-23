@@ -2,6 +2,7 @@ import { ITag } from "@inubekit/tag";
 import { requestStatusDM } from "src/model/domains/credits/requestStatusDM";
 
 import { periodicityDM } from "src/model/domains/general/periodicityDM";
+import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import { aidTypeDM } from "src/model/domains/services/aids/aidTypeDM";
 import { IRequest, RequestType } from "src/model/entity/request";
 import {
@@ -22,20 +23,33 @@ const requestStatusAppearance: Record<string, ITag["appearance"]> = {
   Completed: "success",
   Finished: "success",
   Cancelled: "danger",
+  CollectPending: "warning",
 };
 
 const requestTitles: Record<RequestType, string> = {
   credit: "Crédito",
   aid: "Auxilio",
-  programmedsaving: "Ahorro programado a término fijo",
-  cdat: "CDAT",
+  newprogrammedsaving: "Ahorro programado a término fijo",
+  newcdat: "CDAT",
+  cancelprogrammedsaving: "Cancelación anticipada de ahorro programado",
+  modifydeadlineactionprogrammedsaving:
+    "Modificar acción al vencimiento de ahorro programado",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
   credit: "Solicitud de crédito",
   aid: "Solicitud de auxilio",
-  programmedsaving: "Solicitud de ahorro programado a término fijo",
-  cdat: "Solicitud de CDAT",
+  newprogrammedsaving: "Solicitud de ahorro programado a término fijo",
+  newcdat: "Solicitud de CDAT",
+  cancelprogrammedsaving: "Cancelación anticipada de ahorro programadO",
+  modifydeadlineactionprogrammedsaving:
+    "Modificar acción al vencimiento de ahorro programado",
+};
+
+const actionExpirationLabel: Record<string, string> = {
+  AutomaticRenewalAtExpiration: "Renovación automática al vencimiento",
+  PayAtExpiration: "Al vencimiento",
+  DecideToRenewAtALaterDate: "Renovar en una fecha posterior",
 };
 
 const mapValidationApiToEntity = (
@@ -169,7 +183,7 @@ const mapRequestApiToEntity = (
 
       break;
 
-    case "programmedsaving":
+    case "newprogrammedsaving":
       requestData.product = capitalizeText(String(Object(details).savingName));
       requestData.periodicityName = String(
         periodicityDM.valueOf(Object(conditions).periodicity || "")?.value ||
@@ -204,6 +218,33 @@ const mapRequestApiToEntity = (
 
       requestData.value = Number(Object(conditions).requestedAmount || 0);
 
+      break;
+    case "newcdat":
+      requestData.deadline = `${String(Object(details).termInDays)} días`;
+      requestData.actionAfterExpiration =
+        actionExpirationLabel[
+          String(Object(details).actionAfterExpiration) || ""
+        ];
+      requestData.paymentMethodName = String(
+        Object(details).paymentMethod?.descriptionPayment || "",
+      );
+      requestData.disbursementMethodName = String(
+        Object(disbursementMethod).disbursementMethodDetail || "",
+      );
+      requestData.disbursementAccount = String(
+        Object(disbursementMethod).savingsAccountNumber || "",
+      );
+
+      requestData.value = Number(Object(details).requestedAmount || 0);
+      break;
+    case "cancelprogrammedsaving":
+      requestData.product = String(Object(details).productNumber);
+      break;
+    case "modifydeadlineactionprogrammedsaving":
+      requestData.product = String(Object(details).productNumber);
+      requestData.actionAfterExpiration = actionExpirationDM.valueOf(
+        String(Object(details).actionAfterExpiration) || "",
+      )?.value;
       break;
   }
 

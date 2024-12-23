@@ -28,7 +28,7 @@ const renderStepContent = (
   aidRequest: IFormsAidRequest,
   aidType: IDomainType,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void,
+  onStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -104,7 +104,7 @@ const renderStepContent = (
       {currentStep === aidRequestSteps.verification.number && (
         <AidRequestVerification
           aidRequest={aidRequest}
-          handleStepChange={handleStepChange}
+          onStepChange={onStepChange}
         />
       )}
     </>
@@ -121,10 +121,10 @@ interface AidRequestUIProps {
   blocker: Blocker;
   aidType: IDomainType;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleStepChange: (stepId: number) => void;
-  handleFinishAssisted: () => void;
-  handleNextStep: () => void;
-  handlePreviousStep: () => void;
+  onStepChange: (stepId: number) => void;
+  onFinishAssisted: () => void;
+  onNextStep: () => void;
+  onPreviousStep: () => void;
 }
 
 function AidRequestUI(props: AidRequestUIProps) {
@@ -138,10 +138,10 @@ function AidRequestUI(props: AidRequestUIProps) {
     blocker,
     aidType,
     setIsCurrentFormValid,
-    handleStepChange,
-    handleFinishAssisted,
-    handleNextStep,
-    handlePreviousStep,
+    onStepChange,
+    onFinishAssisted,
+    onNextStep,
+    onPreviousStep,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -172,9 +172,9 @@ function AidRequestUI(props: AidRequestUIProps) {
         <Assisted
           step={steps[currentStep - 1]}
           totalSteps={steps.length}
-          onNextClick={handleNextStep}
-          onBackClick={handlePreviousStep}
-          onSubmitClick={handleFinishAssisted}
+          onNextClick={onNextStep}
+          onBackClick={onPreviousStep}
+          onSubmitClick={onFinishAssisted}
           disableNext={!isCurrentFormValid}
           size={isTablet ? "small" : "large"}
           controls={{
@@ -191,12 +191,12 @@ function AidRequestUI(props: AidRequestUIProps) {
             aidRequest,
             aidType,
             setIsCurrentFormValid,
-            handleStepChange,
+            onStepChange,
           )}
 
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={handlePreviousStep}
+              onClick={onPreviousStep}
               type="button"
               disabled={currentStep === steps[0].id}
               spacing="compact"
@@ -207,7 +207,7 @@ function AidRequestUI(props: AidRequestUIProps) {
             </Button>
 
             <Button
-              onClick={handleNextStep}
+              onClick={onNextStep}
               spacing="compact"
               disabled={!isCurrentFormValid}
             >

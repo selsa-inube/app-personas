@@ -4,50 +4,61 @@ const mapRequestCdatEntityToApi = (
   cdatRequest: IRequestCdatRequest,
 ): Record<string, string | number | object> => {
   return {
-    clientCode: cdatRequest.customerCode,
-    details: {
-      acceptances: {
-        codes: cdatRequest.termsConditions.ids,
-        description: cdatRequest.termsConditions.description,
+    customerCode: cdatRequest.customerCode,
+    customerName: cdatRequest.customerName,
+    comments: cdatRequest.comments,
+    productRequest: {
+      details: {
+        customerCode: cdatRequest.customerCode,
+        cdatTypeCode: cdatRequest.product,
+        requestedAmount: cdatRequest.requestedAmount,
+        termInDays: cdatRequest.termInDays,
+        interestRate: cdatRequest.interestRate,
+        actionAfterExpiration: cdatRequest.actionAfterExpiration,
+        disbursementMethod: {
+          disbursementMethodCode: cdatRequest.disbursmentMethod.id,
+          disbursementMethodDetail: cdatRequest.disbursmentMethod.name,
+          savingsAccountNumber: cdatRequest.disbursmentMethod.accountNumber,
+          bankCode: cdatRequest.disbursmentMethod.transferBankEntity,
+          bankDetail: cdatRequest.disbursmentMethod.transferBankEntity,
+          accountNumber: cdatRequest.disbursmentMethod.transferAccountNumber,
+          accountTypeCode: cdatRequest.disbursmentMethod.transferAccountType,
+          accountTypeDescription:
+            cdatRequest.disbursmentMethod.transferBankEntity,
+          identificationNumber: cdatRequest.disbursmentMethod.identification,
+          internalCode: cdatRequest.disbursmentMethod.id,
+          identificationTypeCode:
+            cdatRequest.disbursmentMethod.identificationType,
+          identificationDescription:
+            cdatRequest.disbursmentMethod.identification,
+          firstLastName: cdatRequest.disbursmentMethod.firstLastName,
+          secondLastName: cdatRequest.disbursmentMethod.secondLastName,
+          firstName: cdatRequest.disbursmentMethod.firstName,
+          secondName: cdatRequest.disbursmentMethod.secondName,
+          gender: cdatRequest.disbursmentMethod.gender,
+          genderDetail: cdatRequest.disbursmentMethod.genderName,
+        },
+        acceptances: {
+          codes: cdatRequest.termsConditions.ids,
+          description: cdatRequest.termsConditions.description,
+        },
+        systemRequirements: cdatRequest.validations.map((validation) => ({
+          evaluationDescription: validation.evaluationDescription,
+          profile: validation.profile,
+          requirementCode: validation.id,
+          requirementName: validation.label,
+          responseCode: validation.responseCode,
+        })),
       },
-      comment: cdatRequest.comments,
-      customerCode: cdatRequest.customerCode,
-      cus: "",
-      disbursementMethod: {
-        disbursementMethodCode: cdatRequest.disbursmentMethod.id,
-        disbursementMethodDetail: cdatRequest.disbursmentMethod.name,
-        savingsAccountNumber: cdatRequest.disbursmentMethod.accountNumber,
-        accountNumber: cdatRequest.disbursmentMethod.transferAccountNumber,
-        accountTypeCode: cdatRequest.disbursmentMethod.transferAccountType,
-        accountTypeDetail: cdatRequest.disbursmentMethod.transferBankEntity,
-        bankCode: cdatRequest.disbursmentMethod.transferBankEntity,
-        bankDetail: cdatRequest.disbursmentMethod.transferBankEntity,
-        businessName: cdatRequest.disbursmentMethod.businessName,
-        firstName: cdatRequest.disbursmentMethod.firstName,
-        secondName: cdatRequest.disbursmentMethod.secondName,
-        genderCode: cdatRequest.disbursmentMethod.gender,
-        genderDetail: cdatRequest.disbursmentMethod.genderName,
-        identificationDetail: cdatRequest.disbursmentMethod.identification,
-        identificationNumber: cdatRequest.disbursmentMethod.identification,
-        identificationTypeCode:
-          cdatRequest.disbursmentMethod.identificationType,
-        firstLastName: cdatRequest.disbursmentMethod.firstLastName,
-        secondLastName: cdatRequest.disbursmentMethod.secondLastName,
-      },
-      documentRequirements: [],
-      savingAlias: "",
-      savingCode: cdatRequest.product,
-      savingName: cdatRequest.productName,
-      systemRequirements: cdatRequest.validations.map((validation) => ({
-        evaluationDescription: validation.evaluationDescription,
-        profile: validation.profile,
-        requirementCode: validation.id,
-        requirementName: validation.label,
-        responseCode: validation.responseCode,
-      })),
+      issuer: "Personas",
     },
-    issuer: "Personas",
-    requestType: "programmedsaving",
+    paymentMethod: {
+      paymentType: cdatRequest.paymentMethod.paymentType,
+      accountNumber: cdatRequest.paymentMethod.accountNumber,
+      descriptionPayment: cdatRequest.paymentMethod.descriptionPayment,
+      value: cdatRequest.paymentMethod.value,
+      urlRedirect: cdatRequest.paymentMethod.urlRedirect,
+    },
   };
 };
 

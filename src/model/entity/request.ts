@@ -27,8 +27,9 @@ interface IRequest {
   periodicityName?: string;
   disbursementMethodName?: string;
   disbursementAccount?: string;
+  actionAfterExpiration?: string;
 }
 
-type RequestType = "credit" | "aid" | "programmedsaving" | "cdat";
+type RequestType = "credit" | "aid" | "newprogrammedsaving" | "newcdat" | "cancelprogrammedsaving" | "modifydeadlineactionprogrammedsaving";
 
 export type { IRequest, RequestType };

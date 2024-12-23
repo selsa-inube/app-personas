@@ -31,11 +31,12 @@ import {
 } from "./types";
 
 import { RecordCard } from "@components/cards/RecordCard";
-import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { ActionsModal } from "@components/modals/saving/ActionsModal";
+import { CancelModal } from "@components/modals/saving/CancelModal";
 import { ChangeQuotaModal } from "@components/modals/saving/ChangeQuotaModal";
 import { ModifyActionModal } from "@components/modals/saving/ModifyActionModal";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
@@ -45,7 +46,8 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { useContext } from "react";
 import { AppContext } from "src/context/app";
-import { shareMaturityDM } from "src/model/domains/savings/shareMaturityDM";
+import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
+import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import {
   EMovementType,
   EProductType,
@@ -88,6 +90,9 @@ interface SavingsAccountUIProps {
   showChangeQuotaModal: boolean;
   showModifyActionModal: boolean;
   showCancelSavingModal: boolean;
+  redirectModal: boolean;
+  disbursementAccount: string;
+  loadingAction: boolean;
   onToggleBeneficiariesModal: () => void;
   onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onToggleCommitmentsModal: () => void;
@@ -96,7 +101,7 @@ interface SavingsAccountUIProps {
   onSubmitRecharge: (savingAccount: string, amount: number) => void;
   onToggleActionsModal: () => void;
   onChangeQuota: () => void;
-  onModifyAction: () => void;
+  onModifyAction: (newActionExpiration: string) => void;
   onCancelSaving: () => void;
   onToggleChangeQuotaModal: () => void;
   onToggleModifyActionModal: () => void;
@@ -104,6 +109,8 @@ interface SavingsAccountUIProps {
   onDownloadCertificate: () => void;
   onShareCertificate: () => void;
   onDownloadExtract: () => void;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
 }
 
 function SavingsAccountUI(props: SavingsAccountUIProps) {
@@ -122,6 +129,9 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     showChangeQuotaModal,
     showModifyActionModal,
     showCancelSavingModal,
+    redirectModal,
+    disbursementAccount,
+    loadingAction,
     onToggleBeneficiariesModal,
     onChangeProduct,
     onToggleCommitmentsModal,
@@ -138,6 +148,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     onDownloadCertificate,
     onShareCertificate,
     onDownloadExtract,
+    onRedirectToHome,
+    onRedirectToRequests,
   } = props;
   const { getFlag } = useContext(AppContext);
 
@@ -179,6 +191,15 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type);
 
   const netValue = extractAttribute(attributes, "net_value");
+
+  const actionExpiration =
+    (commitmentsModal.data.length > 0 &&
+      commitmentsModal.data[0].attributes &&
+      extractAttribute(
+        commitmentsModal.data[0]?.attributes,
+        "action_expiration",
+      )?.value) ||
+    "";
 
   const productsIcons = {
     ...savingCommitmentsIcons,
@@ -283,6 +304,18 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       buttonValue={commitmentsModal.data.length}
                       onClickButton={onToggleCommitmentsModal}
                       withButton
+                    />
+                  )}
+                {selectedProduct.saving.type ==
+                  EProductType.PROGRAMMEDSAVINGS &&
+                  commitmentsModal.data.length > 0 && (
+                    <BoxAttribute
+                      label="Renovar producto al vencimiento:"
+                      value={
+                        actionExpirationDM.valueOf(
+                          String(actionExpiration || ""),
+                        )?.value
+                      }
                     />
                   )}
               </Grid>
@@ -421,19 +454,18 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
       {showModifyActionModal && (
         <ModifyActionModal
           portalId="modals"
-          shareMaturity={shareMaturityDM.PAYMENT.id}
+          actionExpiration={String(actionExpiration || "")}
+          loading={loadingAction}
           onCloseModal={onToggleModifyActionModal}
           onConfirm={onModifyAction}
         />
       )}
       {showCancelSavingModal && (
-        <DecisionModal
+        <CancelModal
+          disbursementMethod={disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value}
+          account={`Cuenta de ahorros ${disbursementAccount}`}
           portalId="modals"
-          title="Cancelar ahorro por anticipado"
-          description="¿Estas seguro? Analizaremos tu solicitud y determinaremos las condiciones para la cancelación."
-          actionText="Cancelar"
-          appearance="danger"
-          cancelText="Continuar"
+          loading={loadingAction}
           onClick={onCancelSaving}
           onCloseModal={onToggleCancelSavingModal}
         />
@@ -443,6 +475,15 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
         <LoadingModal
           title="Procesando depósito..."
           message="Espera unos segundos, estamos procesando la transacción."
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          typeRequest="Solicitud"
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
         />
       )}
     </>

@@ -7,6 +7,7 @@ import { Divider } from "@inubekit/divider";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
+import { useContext } from "react";
 import { createPortal } from "react-dom";
 import {
   MdClear,
@@ -17,10 +18,9 @@ import {
   MdOutlinePayments,
   MdOutlineShare,
 } from "react-icons/md";
+import { AppContext } from "src/context/app";
 import { EProductType } from "src/model/entity/product";
 import { StyledModal } from "./styles";
-import { useContext } from "react";
-import { AppContext } from "src/context/app";
 
 interface ActionsModalProps {
   portalId?: string;
@@ -409,11 +409,11 @@ function ActionsModal(props: ActionsModalProps) {
                 >
                   <Stack direction="column" gap={inube.spacing.s050}>
                     <Text type="title" size="small" weight="bold">
-                      Descargar certificado
+                      Descargar extracto
                     </Text>
 
                     <Text type="body" size="small" appearance="gray">
-                      Descarga tu certificado de ahorro.
+                      Descarga tu extracto de ahorro.
                     </Text>
                   </Stack>
 

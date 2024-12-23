@@ -3,7 +3,6 @@ import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
-import { NavigateFunction } from "react-router-dom";
 import { createProgrammedSavingRequest } from "src/services/iclient/savings/createProgrammedSavingRequest";
 import { IRequestProgrammedSavingRequest } from "src/services/iclient/savings/createProgrammedSavingRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
@@ -123,7 +122,6 @@ const sendProgrammedSavingRequest = async (
   user: IUser,
   programmedSavingRequest: IFormsProgrammedSavingRequest,
   accessToken: string,
-  navigate: NavigateFunction,
 ) => {
   const comments = `Datos de contacto: Celular: ${programmedSavingRequest.contactChannels.values.cellPhone} Correo: ${programmedSavingRequest.contactChannels.values.email} Teléfono: ${programmedSavingRequest.contactChannels.values.landlinePhone}`;
 
@@ -151,8 +149,8 @@ const sendProgrammedSavingRequest = async (
       periodicity:
         programmedSavingRequest.savingConditions.values.periodicity.id,
       quota: programmedSavingRequest.savingConditions.values.quota || 0,
-      shareMaturity:
-        programmedSavingRequest.shareMaturity.values.shareMaturity || "",
+      actionExpiration:
+        programmedSavingRequest.actionExpiration.values.actionExpiration || "",
     },
     disbursmentMethod: {
       id: programmedSavingRequest.disbursement.values.disbursement || "",
@@ -186,7 +184,6 @@ const sendProgrammedSavingRequest = async (
       programmedSavingRequestData,
       accessToken,
     );
-    navigate("/my-requests?success_request=true");
   } catch (error) {
     confirmationType = "failed";
 

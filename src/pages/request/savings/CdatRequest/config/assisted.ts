@@ -30,8 +30,8 @@ const cdatRequestSteps = {
     description:
       "Selecciona dónde deseas recibir tu dinero al finalizar el plazo.",
   },
-  shareMaturity: {
-    id: "shareMaturity",
+  actionExpiration: {
+    id: "actionExpiration",
     number: 6,
     name: "Acción al vencimiento",
     description:

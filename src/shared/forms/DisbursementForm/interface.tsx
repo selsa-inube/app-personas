@@ -28,7 +28,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
     <form>
       <Stack direction="column" gap={inube.spacing.s300}>
         <Grid
-          templateColumns={`repeat(${isTablet ? 1 : 3}, 1fr)`}
+          templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
           autoRows="auto"
           gap={inube.spacing.s300}
           width="100%"
@@ -45,6 +45,7 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
             onBlur={formik.handleBlur}
             state={getFieldState(formik, "disbursement")}
             errorMessage={formik.errors.disbursement}
+            readOnly={formik.values.disbursements.length === 1}
             isFullWidth
           />
 

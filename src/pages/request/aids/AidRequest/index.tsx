@@ -200,10 +200,10 @@ function AidRequest() {
       loadingSend={loadingSend}
       blocker={blocker}
       aidType={aidRequestType}
-      handleNextStep={handleNextStep}
-      handlePreviousStep={handlePreviousStep}
-      handleFinishAssisted={handleFinishAssisted}
-      handleStepChange={handleStepChange}
+      onNextStep={handleNextStep}
+      onPreviousStep={handlePreviousStep}
+      onFinishAssisted={handleFinishAssisted}
+      onStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
     />
   );

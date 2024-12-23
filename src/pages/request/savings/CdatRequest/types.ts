@@ -1,3 +1,4 @@
+import { IActionExpirationEntry } from "@forms/ActionExpirationForm/types";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
@@ -7,7 +8,6 @@ import { IDeadlineEntry } from "./forms/DeadlineForm/types";
 import { IInterestPaymentEntry } from "./forms/InterestPaymentForm/types";
 import { IInvestmentEntry } from "./forms/InvestmentForm/types";
 import { IPaymentMethodEntry } from "./forms/PaymentMethodForm/types";
-import { IShareMaturityEntry } from "@forms/ShareMaturityForm/types";
 
 interface IFormsCdatRequest {
   investment: { isValid: boolean; values: IInvestmentEntry };
@@ -15,7 +15,7 @@ interface IFormsCdatRequest {
   interestPayment: { isValid: boolean; values: IInterestPaymentEntry };
   paymentMethod: { isValid: boolean; values: IPaymentMethodEntry };
   disbursement: { isValid: boolean; values: IDisbursementEntry };
-  shareMaturity: { isValid: boolean; values: IShareMaturityEntry };
+  actionExpiration: { isValid: boolean; values: IActionExpirationEntry };
   systemValidations: { isValid: boolean; values: ISystemValidationsEntry };
   termsAndConditions: { isValid: boolean; values: ITermsAndConditionsEntry };
   contactChannels: {
@@ -30,7 +30,7 @@ interface IFormsCdatRequestRefs {
   interestPayment: React.RefObject<FormikProps<IInterestPaymentEntry>>;
   paymentMethod: React.RefObject<FormikProps<IPaymentMethodEntry>>;
   disbursement: React.RefObject<FormikProps<IDisbursementEntry>>;
-  shareMaturity: React.RefObject<FormikProps<IShareMaturityEntry>>;
+  actionExpiration: React.RefObject<FormikProps<IActionExpirationEntry>>;
   systemValidations: React.RefObject<FormikProps<ISystemValidationsEntry>>;
   termsAndConditions: React.RefObject<FormikProps<ITermsAndConditionsEntry>>;
   contactChannels: React.RefObject<FormikProps<IContactChannelsEntry>>;
@@ -43,4 +43,4 @@ interface ICdatProduct {
   maxInvestment: number;
 }
 
-export type { IFormsCdatRequest, IFormsCdatRequestRefs, ICdatProduct };
+export type { ICdatProduct, IFormsCdatRequest, IFormsCdatRequestRefs };

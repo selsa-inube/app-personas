@@ -39,7 +39,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
           size={isMobile ? "medium" : "small"}
         >
           <Grid
-            templateColumns={`repeat(${isMobile ? 1 : isTablet ? 2 : 3}, 1fr)`}
+            templateColumns={`repeat(${isTablet ? 1 : 2}, 1fr)`}
             autoRows="auto"
             gap={isMobile ? inube.spacing.s200 : inube.spacing.s300}
             width="100%"
@@ -55,6 +55,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
               onBlur={formik.handleBlur}
               onChange={customHandleChange}
               value={formik.values.paymentMethod || ""}
+              readOnly={formik.values.paymentMethods.length === 1}
               isRequired
             />
 

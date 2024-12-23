@@ -3,6 +3,10 @@ import { IValidation } from "src/model/entity/service";
 interface IRequestCdatRequest {
   customerCode: string;
   customerName: string;
+  requestedAmount: number;
+  termInDays: number;
+  interestRate: number;
+  actionAfterExpiration: string;
   termsConditions: {
     ids: string;
     description: string;
@@ -28,6 +32,13 @@ interface IRequestCdatRequest {
   product: string;
   productName: string;
   validations: IValidation[];
+  paymentMethod: {
+    paymentType: string;
+    accountNumber: string;
+    descriptionPayment: string;
+    value: number;
+    urlRedirect: string;
+  };
 }
 
 interface IRequestCdatResponse {

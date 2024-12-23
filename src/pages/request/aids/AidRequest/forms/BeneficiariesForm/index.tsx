@@ -1,6 +1,12 @@
 import { useAuth } from "@inube/auth";
 import { FormikProps, useFormik } from "formik";
-import { forwardRef, useContext, useEffect, useImperativeHandle } from "react";
+import {
+  forwardRef,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { getBeneficiariesForAid } from "src/services/iclient/aids/getBeneficiaries";
@@ -25,6 +31,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
     validateOnBlur: false,
     onSubmit: async () => true,
   });
+  const [loading, setLoading] = useState(true);
 
   useImperativeHandle(ref, () => formik);
 
@@ -43,6 +50,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
     getBeneficiariesForAid(aid_id, user.identification, accessToken).then(
       (beneficiaries) => {
         formik.setFieldValue("beneficiaries", beneficiaries);
+        setLoading(false);
       },
     );
   }, [aid_id, accessToken]);
@@ -60,6 +68,7 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   return (
     <BeneficiariesFormUI
       formik={formik}
+      loading={loading}
       onSelectBeneficiary={handleSelectBeneficiary}
     />
   );

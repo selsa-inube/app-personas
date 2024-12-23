@@ -4,11 +4,12 @@ import { mapContactChannels } from "src/shared/forms/ContactChannelsForm/mappers
 import { IContactChannelsEntry } from "src/shared/forms/ContactChannelsForm/types";
 import { programmedSavingRequestSteps } from "./config/assisted";
 
+import { initialValuesActionExpiration } from "@forms/ActionExpirationForm/initialValues";
+import { IActionExpirationEntry } from "@forms/ActionExpirationForm/types";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
 import { IDisbursementEntry } from "@forms/DisbursementForm/types";
 import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { IPaymentMethodEntry } from "@forms/PaymentMethodForm/types";
-import { initialValuesShareMaturity } from "@forms/ShareMaturityForm/initialValues";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
@@ -29,7 +30,6 @@ import {
   programmedSavingStepsRules,
   sendProgrammedSavingRequest,
 } from "./utils";
-import { IShareMaturityEntry } from "@forms/ShareMaturityForm/types";
 
 function ProgrammedSavingRequest() {
   const { user, serviceDomains, loadServiceDomains } = useContext(AppContext);
@@ -37,6 +37,7 @@ function ProgrammedSavingRequest() {
   const [currentStep, setCurrentStep] = useState(
     programmedSavingRequestSteps.destination.number,
   );
+  const [redirectModal, setRedirectModal] = useState(false);
   const steps = Object.values(programmedSavingRequestSteps);
 
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
@@ -59,9 +60,9 @@ function ProgrammedSavingRequest() {
         isValid: false,
         values: mapPaymentMethod(),
       },
-      shareMaturity: {
+      actionExpiration: {
         isValid: false,
-        values: initialValuesShareMaturity,
+        values: initialValuesActionExpiration,
       },
       disbursement: {
         isValid: false,
@@ -87,7 +88,7 @@ function ProgrammedSavingRequest() {
   const destinationRef = useRef<FormikProps<IDestinationEntry>>(null);
   const savingConditionsRef = useRef<FormikProps<ISavingConditionsEntry>>(null);
   const paymentMethodRef = useRef<FormikProps<IPaymentMethodEntry>>(null);
-  const shareMaturityRef = useRef<FormikProps<IShareMaturityEntry>>(null);
+  const actionExpirationRef = useRef<FormikProps<IActionExpirationEntry>>(null);
   const disbursementRef = useRef<FormikProps<IDisbursementEntry>>(null);
   const systemValidationsRef =
     useRef<FormikProps<ISystemValidationsEntry>>(null);
@@ -99,7 +100,7 @@ function ProgrammedSavingRequest() {
     destination: destinationRef,
     savingConditions: savingConditionsRef,
     paymentMethod: paymentMethodRef,
-    shareMaturity: shareMaturityRef,
+    actionExpiration: actionExpirationRef,
     disbursement: disbursementRef,
     systemValidations: systemValidationsRef,
     termsAndConditions: termsAndConditionsRef,
@@ -163,22 +164,21 @@ function ProgrammedSavingRequest() {
 
     setLoadingSend(true);
 
-    sendProgrammedSavingRequest(
-      user,
-      programmedSavingRequest,
-      accessToken,
-      navigate,
-    ).catch(() => {
-      addFlag({
-        title: "La solicitud no pudo ser procesada",
-        description:
-          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        appearance: "danger",
-        duration: 5000,
-      });
+    sendProgrammedSavingRequest(user, programmedSavingRequest, accessToken)
+      .then(() => {
+        setRedirectModal(true);
+      })
+      .catch(() => {
+        addFlag({
+          title: "La solicitud no pudo ser procesada",
+          description:
+            "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+          appearance: "danger",
+          duration: 5000,
+        });
 
-      setLoadingSend(false);
-    });
+        setLoadingSend(false);
+      });
   };
 
   const handleNextStep = () => {
@@ -195,6 +195,14 @@ function ProgrammedSavingRequest() {
     }
   };
 
+  const handleRedirectToHome = () => {
+    navigate("/");
+  };
+
+  const handleRedirectToRequests = () => {
+    navigate("/my-requests?success_request=true");
+  };
+
   if (!getFlag("admin.savings.savings.request-saving").value) {
     return <Navigate to="/" />;
   }
@@ -208,11 +216,14 @@ function ProgrammedSavingRequest() {
       formReferences={formReferences}
       loadingSend={loadingSend}
       blocker={blocker}
-      handleFinishAssisted={handleFinishAssisted}
-      handleNextStep={handleNextStep}
-      handlePreviousStep={handlePreviousStep}
-      handleStepChange={handleStepChange}
+      redirectModal={redirectModal}
+      onFinishAssisted={handleFinishAssisted}
+      onNextStep={handleNextStep}
+      onPreviousStep={handlePreviousStep}
+      onStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
+      onRedirectToHome={handleRedirectToHome}
+      onRedirectToRequests={handleRedirectToRequests}
     />
   );
 }

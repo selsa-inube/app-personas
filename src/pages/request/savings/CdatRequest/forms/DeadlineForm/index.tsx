@@ -93,7 +93,7 @@ const DeadlineForm = forwardRef(function DeadlineForm(
       addFlag({
         title: "La simulación no pudo ser procesada",
         description:
-          "El plazo digitado no se encuentra dentro del rango de las tasas de interés vigentes.",
+          "El plazo no está dentro del rango de tasas de interés vigentes.",
         appearance: "danger",
         duration: 5000,
       });
@@ -133,6 +133,7 @@ const DeadlineForm = forwardRef(function DeadlineForm(
         "expirationDate",
         conditionsResponse?.expirationDate,
       );
+      formik.setFieldValue("deadlineDate", conditionsResponse?.expirationDate);
       formik.setFieldValue("hasResult", true);
       onFormValid(true);
     } catch (error) {

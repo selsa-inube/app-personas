@@ -8,8 +8,14 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
+import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
+import { cancelProgrammedSaving } from "src/services/iclient/savings/cancelProgrammedSaving";
+import { ICancelProgrammedSavingRequest } from "src/services/iclient/savings/cancelProgrammedSaving/types";
+import { modifyActionProgrammedSaving } from "src/services/iclient/savings/modifyActionProgrammedSaving";
+import { IModifyActionProgrammedSavingRequest } from "src/services/iclient/savings/modifyActionProgrammedSaving/types";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
+import { extractAttribute } from "src/utils/products";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -52,8 +58,11 @@ function SavingsAccount() {
   const [showChangeQuotaModal, setShowChangeQuotaModal] = useState(false);
   const [showModifyActionModal, setShowModifyActionModal] = useState(false);
   const [showCancelSavingModal, setShowCancelSavingModal] = useState(false);
+  const [redirectModal, setRedirectModal] = useState(false);
 
   const [loadingSend, setLoadingSend] = useState(false);
+  const [loadingAction, setLoadingAction] = useState(false);
+
   const { getFlag } = useContext(AppContext);
   const { addFlag } = useFlag();
 
@@ -220,12 +229,54 @@ function SavingsAccount() {
     return true;
   };
 
-  const handleModifyAction = () => {
-    return true;
+  const handleModifyAction = (newActionExpiration: string) => {
+    if (!accessToken || !selectedProduct) return;
+
+    setLoadingAction(true);
+
+    const modifyActionRequestData: IModifyActionProgrammedSavingRequest = {
+      customerCode: user.identification,
+      savingNumber: selectedProduct.saving.id,
+      actionExpiration: newActionExpiration,
+    };
+
+    modifyActionProgrammedSaving(modifyActionRequestData, accessToken).then(
+      () => {
+        setShowModifyActionModal(false);
+        setLoadingAction(false);
+        setRedirectModal(true);
+      },
+    );
   };
 
   const handleCancelSaving = () => {
-    return true;
+    if (!accessToken || !selectedProduct) return;
+
+    setLoadingAction(true);
+
+    const netValue = Number(
+      extractAttribute(selectedProduct.saving.attributes, "net_value")?.value ||
+        0,
+    );
+    const disbursement = savings.savingsAccounts[0];
+
+    const cancelRequestData: ICancelProgrammedSavingRequest = {
+      balanceSaving: netValue,
+      customerCode: user.identification,
+      savingName: selectedProduct.saving.title,
+      savingNumber: selectedProduct.saving.id,
+      disbursmentMethod: {
+        id: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id,
+        name: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value,
+        accountNumber: disbursement.id,
+      },
+    };
+
+    cancelProgrammedSaving(cancelRequestData, accessToken).then(() => {
+      setShowCancelSavingModal(false);
+      setLoadingAction(false);
+      setRedirectModal(true);
+    });
   };
 
   const handleDownloadCertificate = () => {
@@ -243,6 +294,7 @@ function SavingsAccount() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
+      undefined,
       (pdf) => {
         pdf.save(
           `certificado-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
@@ -266,6 +318,7 @@ function SavingsAccount() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
+      undefined,
       (pdf) => {
         const pdfBlob = pdf.output("blob");
 
@@ -315,12 +368,21 @@ function SavingsAccount() {
       convertJSXToHTML(
         getSavingsAccountDocument(user, selectedProduct, commitments),
       ),
+      [16, 0, 16, 0],
       (pdf) => {
         pdf.save(
           `Extracto-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
         );
       },
     );
+  };
+
+  const handleRedirectToHome = () => {
+    navigate("/");
+  };
+
+  const handleRedirectToRequests = () => {
+    navigate("/my-requests?success_request=true");
   };
 
   if (!selectedProduct) return null;
@@ -345,6 +407,9 @@ function SavingsAccount() {
       showChangeQuotaModal={showChangeQuotaModal}
       showModifyActionModal={showModifyActionModal}
       showCancelSavingModal={showCancelSavingModal}
+      redirectModal={redirectModal}
+      disbursementAccount={savings.savingsAccounts[0].id}
+      loadingAction={loadingAction}
       onToggleBeneficiariesModal={handleToggleBeneficiariesModal}
       onChangeProduct={handleChangeProduct}
       onToggleCommitmentsModal={handleToggleCommitmentsModal}
@@ -361,6 +426,8 @@ function SavingsAccount() {
       onDownloadCertificate={handleDownloadCertificate}
       onShareCertificate={handleShareCertificate}
       onDownloadExtract={handleDownloadExtract}
+      onRedirectToHome={handleRedirectToHome}
+      onRedirectToRequests={handleRedirectToRequests}
     />
   );
 }

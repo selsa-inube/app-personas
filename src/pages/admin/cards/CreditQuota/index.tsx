@@ -1,22 +1,22 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import jsPDF from "jspdf";
 import { useAuth } from "@inube/auth";
+import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
+import { formatSecondaryDate } from "src/utils/dates";
+import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { extractAttribute } from "src/utils/products";
 import { CreditQuotaUI } from "./interface";
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
+import { getCreditLimitDocument } from "./utilRenders";
 import {
   getUsedQuotaData,
   validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
-import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
-import { formatSecondaryDate } from "src/utils/dates";
-import { getCreditLimitDocument } from "./utilRenders";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
@@ -160,35 +160,40 @@ function CreditQuota() {
       return;
     }
 
-    convertHTMLToPDF(doc, convertJSXToHTML(creditLimitDocument), (pdf) => {
-      const pdfBlob = pdf.output("blob");
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(creditLimitDocument),
+      undefined,
+      (pdf) => {
+        const pdfBlob = pdf.output("blob");
 
-      if (navigator.share) {
-        navigator
-          .share({
-            title: `Extracto-cupo-crédito-${user.identification}`,
-            text: `${user.identification}- ${formatSecondaryDate(today)}`,
-            files: [
-              new File(
-                [pdfBlob],
-                `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
-                {
-                  type: "application/pdf",
-                },
-              ),
-            ],
-          })
-          .catch(() => {
-            console.error(
-              "No se pudo generar el documento de crédito. Verifique los datos.",
-            );
-          });
-      } else {
-        console.warn(
-          "No se pudo generar el documento de crédito. Verifique los datos.",
-        );
-      }
-    });
+        if (navigator.share) {
+          navigator
+            .share({
+              title: `Extracto-cupo-crédito-${user.identification}`,
+              text: `${user.identification}- ${formatSecondaryDate(today)}`,
+              files: [
+                new File(
+                  [pdfBlob],
+                  `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
+                  {
+                    type: "application/pdf",
+                  },
+                ),
+              ],
+            })
+            .catch(() => {
+              console.error(
+                "No se pudo generar el documento de crédito. Verifique los datos.",
+              );
+            });
+        } else {
+          console.warn(
+            "No se pudo generar el documento de crédito. Verifique los datos.",
+          );
+        }
+      },
+    );
   };
 
   const handleDownloadExtract = () => {
@@ -222,7 +227,7 @@ function CreditQuota() {
       return;
     }
 
-    convertHTMLToPDF(doc, convertJSXToHTML(creditLimitDocument), (pdf) => {
+    convertHTMLToPDF(doc, convertJSXToHTML(creditLimitDocument), undefined, (pdf) => {
       pdf.save(
         `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
       );

@@ -5,18 +5,16 @@ import { IDeadlineEntry } from "../../DeadlineForm/types";
 import { IInvestmentEntry } from "../../InvestmentForm/types";
 
 import { inube } from "@design/tokens";
+import { renderActionExpirationVerification } from "@forms/ActionExpirationForm/verification";
 import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/verification";
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
-import { renderShareMaturityVerification } from "@forms/ShareMaturityForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
 import { Grid } from "@inubekit/grid";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
-import { EPaymentMethodType } from "src/model/entity/payment";
 import { formatPrimaryDate } from "src/utils/dates";
 import { cdatRequestSteps } from "../../../config/assisted";
 import { renderInterestPaymentVerification } from "../../InterestPaymentForm/verification";
-import { paymentMethods } from "../../PaymentMethodForm/config/payment";
 import { IPaymentMethodEntry } from "../../PaymentMethodForm/types";
 
 const renderInvestmentVerification = (
@@ -51,8 +49,16 @@ const renderDeadlineVerification = (
       value={values.expirationDate && formatPrimaryDate(values.expirationDate)}
     />
     <BoxAttribute
+      label="Tasa efectiva anual:"
+      value={`${values.effectiveAnnualRate} %`}
+    />
+    <BoxAttribute
       label="Plazo en número de días:"
       value={values.deadlineDays}
+    />
+    <BoxAttribute
+      label="Intereses totales:"
+      value={values.totalInterest ? currencyFormat(values.totalInterest) : ""}
     />
   </Grid>
 );
@@ -71,25 +77,11 @@ const renderPaymentMethodVerification = (
     autoRows="auto"
     width="100%"
   >
-    {values.paymentMethod === EPaymentMethodType.PSE ? (
-      <BoxAttribute
-        label="Medio de pago:"
-        value={
-          paymentMethods.find(
-            (paymentMethod) => paymentMethod.id === values.paymentMethod,
-          )?.value
-        }
-      />
+    {values.paymentMethod === "PAGOPSE" ? (
+      <BoxAttribute label="Medio de pago:" value={values.paymentMethodName} />
     ) : (
       <>
-        <BoxAttribute
-          label="Medio de pago:"
-          value={
-            paymentMethods.find(
-              (paymentMethod) => paymentMethod.id === values.paymentMethod,
-            )?.value
-          }
-        />
+        <BoxAttribute label="Medio de pago:" value={values.paymentMethodName} />
         <BoxAttribute
           label="Cuenta a debitar:"
           value={accountDebitTypeDM.valueOf(values.accountToDebit || "")?.value}
@@ -136,9 +128,9 @@ function VerificationBoxes(props: VerificationBoxesProps) {
           cdatRequest.disbursement.values,
           isTablet,
         )}
-      {stepKey === "shareMaturity" &&
-        renderShareMaturityVerification(
-          cdatRequest.shareMaturity.values,
+      {stepKey === "actionExpiration" &&
+        renderActionExpirationVerification(
+          cdatRequest.actionExpiration.values,
           isTablet,
         )}
       {stepKey === "systemValidations" &&

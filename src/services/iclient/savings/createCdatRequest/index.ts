@@ -18,7 +18,7 @@ const createCdatRequest = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "AddProductRequest",
+        "X-Action": "ProcessCDATRequest",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -28,7 +28,7 @@ const createCdatRequest = async (
     };
 
     const res = await fetch(
-      `${enviroment.ICLIENT_API_URL_PERSISTENCE}/product-requests`,
+      `${enviroment.ICLIENT_API_URL_PERSISTENCE}/cdats`,
       options,
     );
 

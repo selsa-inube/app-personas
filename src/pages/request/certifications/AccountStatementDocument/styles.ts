@@ -12,7 +12,6 @@ const StyledCardContainer = styled.div`
   gap: ${inube.spacing.s150};
   background-color: ${({ theme }) =>
     theme?.color?.surface?.light?.clear || inube.color.surface.light.clear};
-  border-radius: ${inube.spacing.s100};
   border: 1px solid
     ${({ theme }) =>
       theme?.color?.stroke?.divider?.regular ||

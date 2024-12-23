@@ -1,77 +1,60 @@
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "src/context/app";
-import { useAuth } from "@inube/auth";
-import { pqrsHistoryMock } from "@mocks/pqrs/pqrsHistory.mocks";
+import { useState, useEffect, useContext } from "react";
 import { MyPQRSUI } from "./interface";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "src/context/app";
+import { useAuth } from "@inube/auth";
+import { getPqrsHistory } from "src/services/iclient/pqrs/getPqrsHistory";
+import { IPQRS } from "src/model/entity/pqrs";
 
-const refreshSeconds = 30;
-let refreshInterval: ReturnType<typeof setTimeout> | null = null;
-let countdownInterval: ReturnType<typeof setInterval> | null = null;
+const RECORDS_INCREMENT = 4;
 
 function MyPQRS() {
-  const [refreshTime, setRefreshTime] = useState(refreshSeconds);
-  const [loading, setLoading] = useState(false);
-  const { user } = useContext(AppContext);
   const { accessToken } = useAuth();
-
+  const { user } = useContext(AppContext);
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(true);
+  const [pqrsRequests, setPqrsRequests] = useState<IPQRS[]>([]);
+  const [visibleRecordsCount, setVisibleRecordsCount] =
+    useState(RECORDS_INCREMENT);
+
   useEffect(() => {
-    handleRefreshHistory();
-    return () => {
-      if (refreshInterval) {
-        clearInterval(refreshInterval);
-      }
-      if (countdownInterval) {
-        clearInterval(countdownInterval);
+    const fetchPqrsRequests = async () => {
+      if (accessToken && user?.identification) {
+        setLoading(true);
+        try {
+          const data = await getPqrsHistory(user.identification, accessToken);
+          setPqrsRequests(data);
+        } catch (error) {
+          console.error("Error al obtener el historico de pqrs", error);
+        } finally {
+          setLoading(false);
+        }
       }
     };
-  }, [user, accessToken]);
 
-  const startCountdown = () => {
-    setLoading(true);
-    setRefreshTime(refreshSeconds);
+    fetchPqrsRequests();
+  }, [accessToken, user?.identification]);
 
-    countdownInterval = setInterval(() => {
-      setRefreshTime((prevTime) => {
-        if (prevTime <= 1 && countdownInterval) {
-          clearInterval(countdownInterval);
-          return 0;
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-    setLoading(false);
-  };
-
-  const handleRefreshHistory = () => {
-    if (refreshInterval) {
-      clearInterval(refreshInterval);
-    }
-
-    if (countdownInterval) {
-      clearInterval(countdownInterval);
-    }
-
-    startCountdown();
-
-    refreshInterval = setInterval(() => {
-      startCountdown();
-    }, 300000);
-  };
-
-  const goToPQRS = (id: string) => {
+  const handleNavigateToPqrsDetails = (id: string) => {
     navigate(`/my-pqrs/details/${id}`);
   };
 
+  const handleLoadMoreRecords = () => {
+    setVisibleRecordsCount((prevCount) => prevCount + RECORDS_INCREMENT);
+  };
+
+  const visibleRequests = pqrsRequests.slice(0, visibleRecordsCount);
+  const totalRecords = pqrsRequests.length;
+
   return (
     <MyPQRSUI
-      pqrsHistory={pqrsHistoryMock}
+      pqrsRequests={visibleRequests}
       loading={loading}
-      refreshTime={refreshTime}
-      onRefreshHistory={handleRefreshHistory}
-      goToPQRS={goToPQRS}
+      totalRecords={totalRecords}
+      visibleRecordsCount={visibleRecordsCount}
+      onNavigateToDetails={handleNavigateToPqrsDetails}
+      onLoadMore={handleLoadMoreRecords}
     />
   );
 }

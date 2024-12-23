@@ -45,7 +45,7 @@ const mapRequirementEntityToApi = (
   }
 
   if (
-    requirement.requestType === "programmedsaving" &&
+    requirement.requestType === "newprogrammedsaving" &&
     requirement.programmedSavingData
   ) {
     return {
@@ -96,7 +96,7 @@ const mapRequirementEntityToApi = (
     };
   }
 
-  if (requirement.requestType === "cdat" && requirement.cdatData) {
+  if (requirement.requestType === "newcdat" && requirement.cdatData) {
     return {
       requestType: requirement.requestType,
       customerCode: requirement.customerCode,
@@ -105,11 +105,11 @@ const mapRequirementEntityToApi = (
       cdatData: {
         amount: requirement.cdatData.amount,
         cdatType: requirement.cdatData.productId,
-        paymentMethods: requirement.cdatData.moneySources.map((source) => ({
+        collectMethods: requirement.cdatData.moneySources.map((source) => ({
           accountNumber: source.accountNumber,
           code: source.type,
           value: source.value,
-          name: source.name,
+          detail: source.name,
         })),
         deadline: requirement.cdatData.deadline,
         interestRate: requirement.cdatData.rate,
@@ -135,7 +135,7 @@ const mapRequirementApiToEntity = (
       correctSpecialCharacters(String(requirement.requirementName)),
     ),
     failDetails: capitalizeText(
-      correctSpecialCharacters(String(requirement.errorDescription)),
+      correctSpecialCharacters(String(requirement.errorDescription || "")),
     ),
     value: resultValues[String(requirement.responseCode)] || "pending",
     documentType: requirement.documentTypeCode

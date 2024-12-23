@@ -1,10 +1,10 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
-import { IShareMaturityEntry } from "./types";
+import { IActionExpirationEntry } from "./types";
 
-const renderShareMaturityVerification = (
-  values: IShareMaturityEntry,
+const renderActionExpirationVerification = (
+  values: IActionExpirationEntry,
   isTablet: boolean,
 ) => (
   <Grid
@@ -15,9 +15,9 @@ const renderShareMaturityVerification = (
   >
     <BoxAttribute
       label="Renovar producto al vencimiento:"
-      value={values.shareMaturityName}
+      value={values.actionExpirationName}
     />
   </Grid>
 );
 
-export { renderShareMaturityVerification };
+export { renderActionExpirationVerification };

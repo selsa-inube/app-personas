@@ -2,7 +2,7 @@ import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const interestPaymentDataDomain = {
   AT_EXPIRATION: {
-    id: "AT_EXPIRATION",
+    id: "PayAtExpiration",
     value: "Al vencimiento",
   },
 };

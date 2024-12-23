@@ -1,5 +1,6 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { LoadingModal } from "@components/modals/general/LoadingModal";
+import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
@@ -31,7 +32,7 @@ const renderStepContent = (
   formReferences: IFormsCreditDestinationRequestRefs,
   creditDestinationRequest: IFormsCreditDestinationRequest,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
-  handleStepChange: (stepId: number) => void,
+  onStepChange: (stepId: number) => void,
 ) => {
   return (
     <>
@@ -131,7 +132,7 @@ const renderStepContent = (
       {currentStep === creditDestinationRequestSteps.verification.number && (
         <CreditDestinationRequestVerification
           creditDestinationRequest={creditDestinationRequest}
-          handleStepChange={handleStepChange}
+          onStepChange={onStepChange}
         />
       )}
     </>
@@ -146,12 +147,15 @@ interface CreditDestinationRequestUIProps {
   formReferences: IFormsCreditDestinationRequestRefs;
   loadingSend: boolean;
   blocker: Blocker;
+  redirectModal: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  handleStepChange: (stepId: number) => void;
-  handleFinishAssisted: () => void;
-  handleNextStep: () => void;
-  handlePreviousStep: () => void;
+  onStepChange: (stepId: number) => void;
+  onFinishAssisted: () => void;
+  onNextStep: () => void;
+  onPreviousStep: () => void;
   onLeaveRequest: () => void;
+  onRedirectToHome: () => void;
+  onRedirectToRequests: () => void;
 }
 
 function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
@@ -163,12 +167,15 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
     formReferences,
     loadingSend,
     blocker,
+    redirectModal,
     setIsCurrentFormValid,
-    handleStepChange,
-    handleFinishAssisted,
-    handleNextStep,
-    handlePreviousStep,
+    onStepChange,
+    onFinishAssisted,
+    onNextStep,
+    onPreviousStep,
     onLeaveRequest,
+    onRedirectToHome,
+    onRedirectToRequests,
   } = props;
 
   const isMobile = useMediaQuery("(max-width: 450px)");
@@ -199,9 +206,9 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
         <Assisted
           step={steps[currentStep - 1]}
           totalSteps={steps.length}
-          onNextClick={handleNextStep}
-          onBackClick={handlePreviousStep}
-          onSubmitClick={handleFinishAssisted}
+          onNextClick={onNextStep}
+          onBackClick={onPreviousStep}
+          onSubmitClick={onFinishAssisted}
           disableNext={!isCurrentFormValid}
           size={isTablet ? "small" : "large"}
           controls={{
@@ -217,12 +224,12 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
             formReferences,
             creditDestinationRequest,
             setIsCurrentFormValid,
-            handleStepChange,
+            onStepChange,
           )}
 
           <Stack gap={inube.spacing.s150} justifyContent="flex-end">
             <Button
-              onClick={handlePreviousStep}
+              onClick={onPreviousStep}
               type="button"
               disabled={currentStep === steps[0].id}
               spacing="compact"
@@ -233,7 +240,7 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
             </Button>
 
             <Button
-              onClick={handleNextStep}
+              onClick={onNextStep}
               spacing="compact"
               disabled={!isCurrentFormValid}
             >
@@ -259,6 +266,15 @@ function CreditDestinationRequestUI(props: CreditDestinationRequestUIProps) {
           onCloseModal={() => blocker.reset()}
           onClick={onLeaveRequest}
           portalId="modals"
+        />
+      )}
+
+      {redirectModal && (
+        <RequestReceivedModal
+          portalId="modals"
+          typeRequest="Solicitud"
+          onRedirectToHome={onRedirectToHome}
+          onRedirectToRequests={onRedirectToRequests}
         />
       )}
     </>

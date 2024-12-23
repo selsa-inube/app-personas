@@ -4,13 +4,13 @@ import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
+import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { getAccountStatementDocument } from "./AccountStatementDocument/utilRenders";
 import { CertificationRequestUI } from "./interface";
 import { IAccountStatement } from "./types";
-import { CreditsContext } from "src/context/credits";
 
 function CertificationRequest() {
   const { user } = useContext(AppContext);
@@ -40,7 +40,7 @@ function CertificationRequest() {
       subject: "Estado de Cuenta PDF",
       author: `${user.firstName} ${user.firstLastName}`,
       creator: "Fondecom",
-      keywords: 'PDF/A',
+      keywords: "PDF/A",
     });
 
     try {
@@ -53,7 +53,7 @@ function CertificationRequest() {
         accessToken,
       );
 
-      convertHTMLToPDF(doc, convertJSXToHTML(documentElement), (pdf) => {
+      convertHTMLToPDF(doc, convertJSXToHTML(documentElement), undefined, (pdf) => {
         pdf.save(`estado-de-cuenta-${formatSecondaryDate(today)}.pdf`);
       });
     } catch (error) {
@@ -64,7 +64,7 @@ function CertificationRequest() {
   return (
     <CertificationRequestUI
       certifications={certifications}
-      handleDownloadCertificate={handleDownloadCertificate}
+      onDownloadCertificate={handleDownloadCertificate}
     />
   );
 }

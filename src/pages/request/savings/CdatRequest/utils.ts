@@ -2,7 +2,6 @@ import { enviroment } from "@config/enviroment";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
-import { NavigateFunction } from "react-router-dom";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { savePaymentTracking } from "src/services/analytics/savePaymentTracking";
 import { createCdatRequest } from "src/services/iclient/savings/createCdatRequest";
@@ -98,21 +97,30 @@ const sendCdatRequest = async (
   user: IUser,
   cdatRequest: IFormsCdatRequest,
   accessToken: string,
-  navigate: NavigateFunction,
 ) => {
   const paymentMethodPSE =
     cdatRequest.paymentMethod.values.paymentMethod === EPaymentMethodType.PSE;
-  const paymentMethodSavingAccount =
-    cdatRequest.paymentMethod.values.paymentMethod === EPaymentMethodType.DEBIT;
 
   const comments = `Datos de contacto: Celular: ${cdatRequest.contactChannels.values.cellPhone} Correo: ${cdatRequest.contactChannels.values.email} Teléfono: ${cdatRequest.contactChannels.values.landlinePhone}`;
+
+  const paymentMethodType =
+    cdatRequest.paymentMethod.values.paymentMethod === "DEBAHORINT"
+      ? "DebitInternalSavingsAccount"
+      : cdatRequest.paymentMethod.values.paymentMethod === "PAGOPSE"
+        ? "PaymentByPSE"
+        : "";
 
   const cdatRequestData: IRequestCdatRequest = {
     comments,
     customerCode: user.identification,
     customerName: `${user.firstName} ${user.secondName} ${user.firstLastName} ${user.secondLastName}`,
-    product: "",
-    productName: "",
+    product: cdatRequest.deadline.values.productId,
+    productName: cdatRequest.deadline.values.productName,
+    requestedAmount: cdatRequest.deadline.values.investmentValue,
+    termInDays: cdatRequest.deadline.values.deadlineDays || 0,
+    interestRate: cdatRequest.deadline.values.effectiveAnnualRate || 0,
+    actionAfterExpiration:
+      cdatRequest.actionExpiration.values.actionExpiration || "",
     termsConditions: {
       ids: cdatRequest.termsAndConditions.values.ids,
       description:
@@ -134,6 +142,13 @@ const sendCdatRequest = async (
       identificationType: cdatRequest.disbursement.values.identificationType,
       identification: cdatRequest.disbursement.values.identification,
     },
+    paymentMethod: {
+      paymentType: paymentMethodType,
+      accountNumber: cdatRequest.paymentMethod.values.accountNumber || "",
+      descriptionPayment: cdatRequest.paymentMethod.values.paymentMethodName,
+      value: cdatRequest.deadline.values.investmentValue,
+      urlRedirect: `${window.location.origin}/my-requests`,
+    },
     validations: cdatRequest.systemValidations.values.validations,
   };
 
@@ -146,12 +161,7 @@ const sendCdatRequest = async (
       accessToken,
     );
 
-    if (!paymentMethodPSE && paymentMethodSavingAccount) {
-      navigate("/my-requests?success_request=true");
-      return;
-    }
-
-    if (cdatRequestResponse) {
+    if (cdatRequestResponse && paymentMethodPSE) {
       window.open(cdatRequestResponse.url, "_self");
     }
   } catch (error) {

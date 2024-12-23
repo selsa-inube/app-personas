@@ -15,7 +15,8 @@ const mapRequestProgrammedSavingEntityToApi = (
       },
       comment: programmedSavingRequest.comments,
       conditions: {
-        actionAfterExpiration: programmedSavingRequest.conditions.shareMaturity,
+        actionAfterExpiration:
+          programmedSavingRequest.conditions.actionExpiration,
         numQuotas: programmedSavingRequest.conditions.deadline,
         paymentMethod: programmedSavingRequest.conditions.paymentMethod,
         paymentMethodName: programmedSavingRequest.conditions.paymentMethodName,
@@ -69,7 +70,7 @@ const mapRequestProgrammedSavingEntityToApi = (
       ),
     },
     issuer: "Personas",
-    requestType: "programmedsaving",
+    requestType: "newprogrammedsaving",
   };
 };
 

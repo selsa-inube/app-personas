@@ -4,7 +4,6 @@ import { mapPaymentMethod } from "@forms/PaymentMethodForm/mappers";
 import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { loadingValidations } from "@forms/SystemValidationsForm/utils";
 import { IUser } from "@inube/auth/dist/types/user";
-import { NavigateFunction } from "react-router-dom";
 import { createCreditRequest } from "src/services/iclient/credits/createCreditRequest";
 import { IRequestCreditRequest } from "src/services/iclient/credits/createCreditRequest/types";
 import { sendTeamsMessage } from "src/services/teams/sendMessage";
@@ -145,7 +144,6 @@ const sendCreditRequest = async (
   user: IUser,
   creditRequest: IFormsCreditDestinationRequest,
   accessToken: string,
-  navigate: NavigateFunction,
 ) => {
   const comments = `${creditRequest.comments.values.comments} - Datos de contacto: Celular: ${creditRequest.contactChannels.values.cellPhone} Correo: ${creditRequest.contactChannels.values.email} Teléfono: ${creditRequest.contactChannels.values.landlinePhone}`;
 
@@ -207,7 +205,6 @@ const sendCreditRequest = async (
 
   try {
     await createCreditRequest(creditRequestData, accessToken);
-    navigate("/my-requests?success_request=true");
   } catch (error) {
     confirmationType = "failed";
 

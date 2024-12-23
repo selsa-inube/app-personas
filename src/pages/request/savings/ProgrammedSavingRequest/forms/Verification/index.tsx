@@ -10,11 +10,11 @@ import { VerificationBoxes } from "./VerificationBoxes";
 
 interface VerificationProps {
   programmedSavingRequest: IFormsProgrammedSavingRequest;
-  handleStepChange: (stepId: number) => void;
+  onStepChange: (stepId: number) => void;
 }
 
 function ProgrammedSavingRequestVerification(props: VerificationProps) {
-  const { programmedSavingRequest, handleStepChange } = props;
+  const { programmedSavingRequest, onStepChange } = props;
 
   const isTablet = useMediaQuery("(max-width: 1224px)");
 
@@ -39,7 +39,7 @@ function ProgrammedSavingRequestVerification(props: VerificationProps) {
               <Button
                 iconBefore={<MdOutlineArrowBack />}
                 onClick={() =>
-                  handleStepChange(
+                  onStepChange(
                     programmedSavingRequestSteps[
                       key as keyof IFormsProgrammedSavingRequest
                     ].number,

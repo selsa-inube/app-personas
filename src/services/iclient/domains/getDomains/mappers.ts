@@ -8,7 +8,7 @@ const mapDomainApiToEntity = (
 ): ISelectOption => {
   return {
     id: domain.code.toString(),
-    value: capitalizeText(domain.value.toString()),
+    value: domain.value ? capitalizeText(domain.value.toString()) : "",
   };
 };
 

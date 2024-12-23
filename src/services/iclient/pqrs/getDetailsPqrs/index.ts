@@ -1,17 +1,22 @@
 import { enviroment } from "@config/enviroment";
-import { ISelectOption } from "@design/input/Select/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
-import { mapSharesApiToEntities } from "./mappers";
+import { mapPqrsDetailsApiToEntity } from "./mappers";
+import { IPQRS } from "src/model/entity/pqrs";
 
-const getSharesMaturity = async (
+const getDetailsPqrs = async (
   userIdentification: string,
-  productId: string,
   accessToken: string,
-): Promise<ISelectOption[]> => {
+  pqrsId: string,
+): Promise<IPQRS | null> => {
   const requestTime = new Date();
   const startTime = performance.now();
 
-  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/programmed-savings/${productId}/customer/${userIdentification}`;
+  const queryParams = new URLSearchParams({
+    clientCode: userIdentification,
+    PQRSId: pqrsId,
+  });
+
+  const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/pqrs?${queryParams.toString()}`;
 
   try {
     const options: RequestInit = {
@@ -19,14 +24,13 @@ const getSharesMaturity = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "SearchActionAfterExpiration",
+        "X-Action": "SearchAllPQRS",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
     };
 
     const res = await fetch(requestUrl, options);
-
     saveNetworkTracking(
       requestTime,
       options.method || "GET",
@@ -36,21 +40,16 @@ const getSharesMaturity = async (
     );
 
     if (res.status === 204) {
-      return [];
+      return null;
+    }
+
+    if (!res.ok) {
+      throw new Error("Error al obtener el historial de pqrs.");
     }
 
     const data = await res.json();
 
-    if (!res.ok) {
-      throw {
-        message: "Error al obtener las acciones al vencimiento",
-        status: res.status,
-        data,
-      };
-    }
-
-    const normalizedShares = mapSharesApiToEntities(data);
-    return normalizedShares;
+    return mapPqrsDetailsApiToEntity(data[0]);
   } catch (error) {
     saveNetworkTracking(
       requestTime,
@@ -60,10 +59,9 @@ const getSharesMaturity = async (
       Math.round(performance.now() - startTime),
     );
 
-    console.info(error);
-
+    console.error(error);
     throw error;
   }
 };
 
-export { getSharesMaturity };
+export { getDetailsPqrs };

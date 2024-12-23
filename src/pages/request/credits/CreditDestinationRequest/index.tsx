@@ -40,6 +40,7 @@ function CreditDestinationRequest() {
   const [currentStep, setCurrentStep] = useState(
     creditDestinationRequestSteps.destination.number,
   );
+  const [redirectModal, setRedirectModal] = useState(false);
   const steps = Object.values(creditDestinationRequestSteps);
   const [isCurrentFormValid, setIsCurrentFormValid] = useState(false);
   const { getFlag } = useContext(AppContext);
@@ -197,22 +198,21 @@ function CreditDestinationRequest() {
 
     setLoadingSend(true);
 
-    sendCreditRequest(
-      user,
-      creditDestinationRequest,
-      accessToken,
-      navigate,
-    ).catch(() => {
-      addFlag({
-        title: "La solicitud no pudo ser procesada",
-        description:
-          "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
-        appearance: "danger",
-        duration: 5000,
-      });
+    sendCreditRequest(user, creditDestinationRequest, accessToken)
+      .then(() => {
+        setRedirectModal(true);
+      })
+      .catch(() => {
+        addFlag({
+          title: "La solicitud no pudo ser procesada",
+          description:
+            "Ya fuimos notificados y estamos revisando. Intenta de nuevo más tarde.",
+          appearance: "danger",
+          duration: 5000,
+        });
 
-      setLoadingSend(false);
-    });
+        setLoadingSend(false);
+      });
   };
 
   const handleNextStep = () => {
@@ -246,6 +246,14 @@ function CreditDestinationRequest() {
     blocker.state === "blocked" && blocker.proceed();
   };
 
+  const handleRedirectToHome = () => {
+    navigate("/");
+  };
+
+  const handleRedirectToRequests = () => {
+    navigate("/my-requests?success_request=true");
+  };
+
   if (!getFlag("admin.credits.credits.request-credit").value) {
     return <Navigate to="/" />;
   }
@@ -259,12 +267,15 @@ function CreditDestinationRequest() {
       formReferences={formReferences}
       loadingSend={loadingSend}
       blocker={blocker}
-      handleFinishAssisted={handleFinishAssisted}
-      handleNextStep={handleNextStep}
-      handlePreviousStep={handlePreviousStep}
-      handleStepChange={handleStepChange}
+      redirectModal={redirectModal}
+      onFinishAssisted={handleFinishAssisted}
+      onNextStep={handleNextStep}
+      onPreviousStep={handlePreviousStep}
+      onStepChange={handleStepChange}
       setIsCurrentFormValid={setIsCurrentFormValid}
       onLeaveRequest={handleLeaveRequest}
+      onRedirectToHome={handleRedirectToHome}
+      onRedirectToRequests={handleRedirectToRequests}
     />
   );
 }

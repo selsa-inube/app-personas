@@ -13,11 +13,11 @@ import { quickLinks } from "@config/quickLinks";
 
 interface CertificationRequestUIProps {
   certifications: IAid[];
-  handleDownloadCertificate: () => void;
+  onDownloadCertificate: () => void;
 }
 
 function CertificationRequestUI(props: CertificationRequestUIProps) {
-  const { certifications, handleDownloadCertificate } = props;
+  const { certifications, onDownloadCertificate } = props;
 
   const isDesktop = useMediaQuery("(min-width: 1440px)");
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -50,7 +50,7 @@ function CertificationRequestUI(props: CertificationRequestUIProps) {
                 key={certification.id}
                 id={certification.id}
                 title={certification.title}
-                onclick={handleDownloadCertificate}
+                onclick={onDownloadCertificate}
               />
             ))}
           </Grid>
