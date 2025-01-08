@@ -6,13 +6,15 @@ import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
+import { EProductType } from "src/model/entity/product";
 import { StyledBody, StyledModal } from "./styles";
 
 interface CancelModalProps {
   portalId: string;
   loading?: boolean;
-  disbursementMethod: string;
-  account: string;
+  productType: EProductType;
+  disbursementMethod?: string;
+  account?: string;
   onCloseModal: () => void;
   onClick: () => void;
 }
@@ -21,6 +23,7 @@ function CancelModal(props: CancelModalProps) {
   const {
     portalId,
     loading = true,
+    productType,
     disbursementMethod,
     account,
     onCloseModal,
@@ -60,27 +63,31 @@ function CancelModal(props: CancelModalProps) {
             condiciones para la cancelación.
           </Text>
 
-          <StyledBody>
-            <Stack direction="column">
-              <Text type="label" size="large" weight="bold">
-                Forma de desembolso:
-              </Text>
+          {productType === EProductType.PROGRAMMEDSAVINGS &&
+            disbursementMethod &&
+            account && (
+              <StyledBody>
+                <Stack direction="column">
+                  <Text type="label" size="large" weight="bold">
+                    Forma de desembolso:
+                  </Text>
 
-              <Text type="label" size="large" appearance="gray">
-                {disbursementMethod}
-              </Text>
-            </Stack>
+                  <Text type="label" size="large" appearance="gray">
+                    {disbursementMethod}
+                  </Text>
+                </Stack>
 
-            <Stack direction="column">
-              <Text type="label" size="large" weight="bold">
-                Cuenta:
-              </Text>
+                <Stack direction="column">
+                  <Text type="label" size="large" weight="bold">
+                    Cuenta:
+                  </Text>
 
-              <Text type="label" size="large" appearance="gray">
-                {account}
-              </Text>
-            </Stack>
-          </StyledBody>
+                  <Text type="label" size="large" appearance="gray">
+                    {account}
+                  </Text>
+                </Stack>
+              </StyledBody>
+            )}
         </Stack>
         <Stack justifyContent="flex-end" gap={inube.spacing.s100}>
           <Button

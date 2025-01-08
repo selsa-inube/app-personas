@@ -100,7 +100,7 @@ interface SavingsAccountUIProps {
   onToggleRechargeModal: () => void;
   onSubmitRecharge: (savingAccount: string, amount: number) => void;
   onToggleActionsModal: () => void;
-  onChangeQuota: () => void;
+  onChangeQuota: (newQuota: number | "") => void;
   onModifyAction: (newActionExpiration: string) => void;
   onCancelSaving: () => void;
   onToggleChangeQuotaModal: () => void;
@@ -189,8 +189,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
   const formatedAttributes =
     attributes &&
     formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type);
-
-  const netValue = extractAttribute(attributes, "net_value");
 
   const actionExpiration =
     (commitmentsModal.data.length > 0 &&
@@ -444,10 +442,9 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
       )}
       {showChangeQuotaModal && (
         <ChangeQuotaModal
+          product={selectedProduct.saving}
+          loading={loadingAction}
           onCloseModal={onToggleChangeQuotaModal}
-          totalBalance={Number(netValue?.value || 0)}
-          paymentMethod="debit"
-          paymentMethodName="Debito automático"
           onConfirm={onChangeQuota}
         />
       )}
@@ -465,6 +462,7 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           disbursementMethod={disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value}
           account={`Cuenta de ahorros ${disbursementAccount}`}
           portalId="modals"
+          productType={selectedProduct.saving.type}
           loading={loadingAction}
           onClick={onCancelSaving}
           onCloseModal={onToggleCancelSavingModal}
