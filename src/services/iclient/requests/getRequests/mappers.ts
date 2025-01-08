@@ -34,6 +34,9 @@ const requestTitles: Record<RequestType, string> = {
   cancelprogrammedsaving: "Cancelación anticipada de ahorro programado",
   modifydeadlineactionprogrammedsaving:
     "Modificar acción al vencimiento de ahorro programado",
+  cancelcdat: "Cancelación anticipada de CDAT",
+  modifyquotavalueprogrammedsaving: "Modificar cuota de ahorro programado",
+  modifydeadlineactioncdat: "Modificar acción al vencimiento de CDAT",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
@@ -44,6 +47,9 @@ const requestDescriptions: Record<RequestType, string> = {
   cancelprogrammedsaving: "Cancelación anticipada de ahorro programadO",
   modifydeadlineactionprogrammedsaving:
     "Modificar acción al vencimiento de ahorro programado",
+  cancelcdat: "Cancelación anticipada de CDAT",
+  modifydeadlineactioncdat: "Modificar acción al vencimiento de CDAT",
+  modifyquotavalueprogrammedsaving: "Modificar cuota de ahorro programado",
 };
 
 const actionExpirationLabel: Record<string, string> = {

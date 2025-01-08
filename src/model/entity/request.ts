@@ -30,6 +30,15 @@ interface IRequest {
   actionAfterExpiration?: string;
 }
 
-type RequestType = "credit" | "aid" | "newprogrammedsaving" | "newcdat" | "cancelprogrammedsaving" | "modifydeadlineactionprogrammedsaving";
+type RequestType =
+  | "credit"
+  | "aid"
+  | "newprogrammedsaving"
+  | "newcdat"
+  | "cancelprogrammedsaving"
+  | "modifydeadlineactionprogrammedsaving"
+  | "cancelcdat"
+  | "modifyquotavalueprogrammedsaving"
+  | "modifydeadlineactioncdat"
 
 export type { IRequest, RequestType };

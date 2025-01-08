@@ -75,7 +75,7 @@ const mapSavingsApiToEntity = (
         saving.lastMovementTheSavingProducts,
       )
     : [];
-
+  console.log(saving);
   const attributes = getProductAttributes(productType, saving);
 
   const { title, description } = getProductDetails(

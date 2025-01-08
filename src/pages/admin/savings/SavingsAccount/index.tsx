@@ -9,10 +9,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
+import { EProductType } from "src/model/entity/product";
+import { cancelCdat } from "src/services/iclient/savings/cancelCdat";
+import { ICancelCdatRequest } from "src/services/iclient/savings/cancelCdat/types";
 import { cancelProgrammedSaving } from "src/services/iclient/savings/cancelProgrammedSaving";
 import { ICancelProgrammedSavingRequest } from "src/services/iclient/savings/cancelProgrammedSaving/types";
+import { modifyActionCdat } from "src/services/iclient/savings/modifyActionCdat";
 import { modifyActionProgrammedSaving } from "src/services/iclient/savings/modifyActionProgrammedSaving";
 import { IModifyActionProgrammedSavingRequest } from "src/services/iclient/savings/modifyActionProgrammedSaving/types";
+import { modifyQuotaProgrammedSaving } from "src/services/iclient/savings/modifyQuotaProgrammedSaving";
+import { IModifyQuotaProgrammedSavingRequest } from "src/services/iclient/savings/modifyQuotaProgrammedSaving/types";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { extractAttribute } from "src/utils/products";
@@ -225,8 +231,24 @@ function SavingsAccount() {
     setShowCancelSavingModal(!showCancelSavingModal);
   };
 
-  const handleChangeQuota = () => {
-    return true;
+  const handleChangeQuota = (newQuota: number | "") => {
+    if (!accessToken || !selectedProduct || newQuota === "") return;
+
+    setLoadingAction(true);
+
+    const modifyQuotaRequestData: IModifyQuotaProgrammedSavingRequest = {
+      customerCode: user.identification,
+      quotaValue: newQuota,
+      savingNumber: selectedProduct.saving.id,
+    };
+
+    modifyQuotaProgrammedSaving(modifyQuotaRequestData, accessToken).then(
+      () => {
+        setShowChangeQuotaModal(false);
+        setLoadingAction(false);
+        setRedirectModal(true);
+      },
+    );
   };
 
   const handleModifyAction = (newActionExpiration: string) => {
@@ -240,13 +262,21 @@ function SavingsAccount() {
       actionExpiration: newActionExpiration,
     };
 
-    modifyActionProgrammedSaving(modifyActionRequestData, accessToken).then(
-      () => {
+    if (selectedProduct.saving.type === EProductType.PROGRAMMEDSAVINGS) {
+      modifyActionProgrammedSaving(modifyActionRequestData, accessToken).then(
+        () => {
+          setShowModifyActionModal(false);
+          setLoadingAction(false);
+          setRedirectModal(true);
+        },
+      );
+    } else if (selectedProduct.saving.type === EProductType.CDAT) {
+      modifyActionCdat(modifyActionRequestData, accessToken).then(() => {
         setShowModifyActionModal(false);
         setLoadingAction(false);
         setRedirectModal(true);
-      },
-    );
+      });
+    }
   };
 
   const handleCancelSaving = () => {
@@ -260,23 +290,41 @@ function SavingsAccount() {
     );
     const disbursement = savings.savingsAccounts[0];
 
-    const cancelRequestData: ICancelProgrammedSavingRequest = {
-      balanceSaving: netValue,
-      customerCode: user.identification,
-      savingName: selectedProduct.saving.title,
-      savingNumber: selectedProduct.saving.id,
-      disbursmentMethod: {
-        id: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id,
-        name: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value,
-        accountNumber: disbursement.id,
-      },
-    };
+    if (selectedProduct.saving.type === EProductType.PROGRAMMEDSAVINGS) {
+      const cancelRequestData: ICancelProgrammedSavingRequest = {
+        balanceSaving: netValue,
+        customerCode: user.identification,
+        savingName: selectedProduct.saving.title,
+        savingNumber: selectedProduct.saving.id,
+        disbursmentMethod: {
+          id: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id,
+          name: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value,
+          accountNumber: disbursement.id,
+        },
+      };
 
-    cancelProgrammedSaving(cancelRequestData, accessToken).then(() => {
-      setShowCancelSavingModal(false);
-      setLoadingAction(false);
-      setRedirectModal(true);
-    });
+      cancelProgrammedSaving(cancelRequestData, accessToken).then(() => {
+        setShowCancelSavingModal(false);
+        setLoadingAction(false);
+        setRedirectModal(true);
+      });
+    } else if (selectedProduct.saving.type === EProductType.CDAT) {
+      const cancelRequestData: ICancelCdatRequest = {
+        customerCode: user.identification,
+        savingNumber: selectedProduct.saving.id,
+        disbursmentMethod: {
+          id: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id,
+          name: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value,
+          accountNumber: disbursement.id,
+        },
+      };
+
+      cancelCdat(cancelRequestData, accessToken).then(() => {
+        setShowCancelSavingModal(false);
+        setLoadingAction(false);
+        setRedirectModal(true);
+      });
+    }
   };
 
   const handleDownloadCertificate = () => {
