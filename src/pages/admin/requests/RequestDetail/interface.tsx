@@ -244,14 +244,20 @@ function RequestDetailUI(props: RequestUIProps) {
                     selectedRequest.product &&
                     renderItem("Producto:", selectedRequest.product)}
 
-                  {(selectedRequest.requestType === "cancelprogrammedsaving" ||
-                    selectedRequest.requestType ===
-                      "modifydeadlineactionprogrammedsaving") &&
+                  {[
+                    "cancelprogrammedsaving",
+                    "modifydeadlineactionprogrammedsaving",
+                    "cancelcdat",
+                    "modifydeadlineactioncdat",
+                    "modifyquotavalueprogrammedsaving",
+                  ].includes(selectedRequest.requestType) &&
                     selectedRequest.product &&
                     renderItem("Número de producto:", selectedRequest.product)}
 
-                  {selectedRequest.requestType ===
-                    "modifydeadlineactionprogrammedsaving" &&
+                  {(selectedRequest.requestType ===
+                    "modifydeadlineactionprogrammedsaving" ||
+                    selectedRequest.requestType ===
+                      "modifydeadlineactioncdat") &&
                     selectedRequest.product &&
                     renderItem(
                       "Renovar producto al vencimiento:",

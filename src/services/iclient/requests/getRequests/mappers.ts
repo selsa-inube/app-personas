@@ -244,13 +244,18 @@ const mapRequestApiToEntity = (
       requestData.value = Number(Object(details).requestedAmount || 0);
       break;
     case "cancelprogrammedsaving":
+    case "cancelcdat":
       requestData.product = String(Object(details).productNumber);
       break;
     case "modifydeadlineactionprogrammedsaving":
+    case "modifydeadlineactioncdat":
       requestData.product = String(Object(details).productNumber);
       requestData.actionAfterExpiration = actionExpirationDM.valueOf(
         String(Object(details).actionAfterExpiration) || "",
       )?.value;
+      break;
+    case "modifyquotavalueprogrammedsaving":
+      requestData.product = String(Object(details).productNumber);
       break;
   }
 
