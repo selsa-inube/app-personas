@@ -268,7 +268,7 @@ function RequestDetailUI(props: RequestUIProps) {
                     selectedRequest.requestType === "newprogrammedsaving" &&
                     renderItem(
                       "Valor de la cuota:",
-                      currencyFormat(selectedRequest.quotaValue),
+                      selectedRequest.quotaValue,
                     )}
 
                   {selectedRequest.requestType === "newprogrammedsaving" &&
@@ -313,7 +313,7 @@ function RequestDetailUI(props: RequestUIProps) {
                   >
                     {renderItem(
                       "Cuota:",
-                      `${currencyFormat(selectedRequest.quotaValue || 0)} / ${selectedRequest.periodicity}`,
+                      `${selectedRequest.quotaValue} / ${selectedRequest.periodicity}`,
                     )}
                     {renderItem("Plazo:", `${selectedRequest.deadline} Meses`)}
                     {renderItem(

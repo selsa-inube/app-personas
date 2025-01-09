@@ -205,7 +205,7 @@ const mapRequestApiToEntity = (
         Object(disbursementMethod).savingsAccountNumber || "",
       );
 
-      requestData.quotaValue = Number(Object(conditions).quotaValue || 0);
+      requestData.quotaValue = String(Object(conditions).quotaValue || 0);
       requestData.deadline = String(
         Object(conditions).quotas || Object(conditions).numQuotas,
       );
@@ -214,7 +214,7 @@ const mapRequestApiToEntity = (
 
       break;
     case "credit":
-      requestData.quotaValue = Number(Object(conditions).quotaValue || 0);
+      requestData.quotaValue = String(Object(conditions).quotaValue || 0);
       requestData.deadline = String(
         Object(conditions).quotas || Object(conditions).numQuotas,
       );
@@ -256,6 +256,7 @@ const mapRequestApiToEntity = (
       break;
     case "modifyquotavalueprogrammedsaving":
       requestData.product = String(Object(details).productNumber);
+      requestData.quotaValue = currencyFormat(Object(details).quotaValue || 0);
       break;
   }
 
