@@ -234,7 +234,7 @@ function RequestDetailUI(props: RequestUIProps) {
                   {selectedRequest.actionAfterExpiration &&
                     selectedRequest.requestType === "newcdat" &&
                     renderItem(
-                      "Pago de intereses:",
+                      "Renovar producto al vencimiento:",
                       selectedRequest.actionAfterExpiration,
                     )}
 

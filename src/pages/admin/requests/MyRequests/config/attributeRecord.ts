@@ -49,7 +49,7 @@ const staticCancelCdatAttributes = [
 
 const staticModifyActionCdatAttributes = [
   { id: "product", label: "Número de producto" },
-  { id: "actionAfterExpiration", label: "Pago de intereses" },
+  { id: "actionAfterExpiration", label: "Renovar producto al vencimiento" },
   { id: "trackingCode", label: "Código de seguimiento" },
   { id: "requestDate", label: "Fecha de solicitud" },
 ];
@@ -68,10 +68,12 @@ const generateAttributes = (request: IRequest) => {
     newprogrammedsaving: staticProgrammedSavingAttributes,
     newcdat: staticCdatAttributes,
     cancelprogrammedsaving: staticCancelProgammedSavingAttributes,
-    modifydeadlineactionprogrammedsaving: staticModifyActionProgrammedSavingAttributes,
+    modifydeadlineactionprogrammedsaving:
+      staticModifyActionProgrammedSavingAttributes,
     cancelcdat: staticCancelCdatAttributes,
     modifydeadlineactioncdat: staticModifyActionCdatAttributes,
-    modifyquotavalueprogrammedsaving: staticModifyQuotaValueProgrammedSavingAttributes,
+    modifyquotavalueprogrammedsaving:
+      staticModifyQuotaValueProgrammedSavingAttributes,
   };
 
   const attributes = attributeMap[request.requestType] || [];
