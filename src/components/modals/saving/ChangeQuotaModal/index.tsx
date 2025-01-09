@@ -11,14 +11,15 @@ import { Text } from "@inubekit/text";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { MdAttachMoney, MdClear } from "react-icons/md";
-import { IProduct } from "src/model/entity/product";
+import { ICommitment } from "src/model/entity/product";
 import { currencyFormat, parseCurrencyString } from "src/utils/currency";
+import { extractAttribute } from "src/utils/products";
 import { StyledModal } from "./styles";
 
 interface ChangeQuotaModalProps {
   portalId?: string;
-  product: IProduct;
   loading?: boolean;
+  commitments: ICommitment[];
   onCloseModal: () => void;
   onConfirm: (newQuota: number | "") => void;
 }
@@ -26,16 +27,15 @@ interface ChangeQuotaModalProps {
 function ChangeQuotaModal(props: ChangeQuotaModalProps) {
   const {
     portalId = "modals",
-    product,
     loading,
+    commitments,
     onCloseModal,
     onConfirm,
   } = props;
 
   const [newQuota, setNewQuota] = useState<number | "">("");
   const [quotas, setQuotas] = useState({
-    currentQuota: 0,
-    minQuota: 0,
+    currentQuota: "",
   });
 
   const isMobile = useMediaQuery("(max-width: 700px)");
@@ -52,26 +52,16 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
   };
 
   const getQuotaValues = () => {
-    if (!product || !product.movements || product.movements.length === 0)
-      return;
+    if (commitments.length === 0) return;
 
-    const frequencyMap = product.movements.reduce<Record<number, number>>(
-      (acc, item) => {
-        acc[item.totalValue] = (acc[item.totalValue] || 0) + 1;
-        return acc;
-      },
-      {},
-    );
-
-    const currentQuota = Object.entries(frequencyMap).reduce(
-      (mostFrequent, [value, frequency]) =>
-        frequency > mostFrequent[1] ? [Number(value), frequency] : mostFrequent,
-      [0, 0],
-    )[0];
+    const currentQuota =
+      extractAttribute(
+        commitments[0].attributes,
+        "commitment_value",
+      )?.value.toString() || "";
 
     setQuotas({
       currentQuota,
-      minQuota: 0,
     });
   };
 
@@ -123,12 +113,7 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
         <Stack direction="column" gap={inube.spacing.s200}>
           <BoxAttribute
             label="Valor actual de la cuota:"
-            value={currencyFormat(quotas.currentQuota)}
-          />
-
-          <BoxAttribute
-            label="Valor cuota mínima:"
-            value={currencyFormat(quotas.minQuota)}
+            value={quotas.currentQuota}
           />
 
           <TextField
@@ -148,14 +133,6 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
                 size="18px"
                 spacing="narrow"
               />
-            }
-            state={
-              newQuota && newQuota < quotas.minQuota ? "invalid" : undefined
-            }
-            errorMessage={
-              newQuota && newQuota < quotas.minQuota
-                ? "El valor es menor a la cuota mínima permitida"
-                : undefined
             }
           />
         </Stack>

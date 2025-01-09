@@ -437,8 +437,8 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
       )}
       {showChangeQuotaModal && (
         <ChangeQuotaModal
-          product={selectedProduct.saving}
           loading={loadingAction}
+          commitments={commitmentsModal.data}
           onCloseModal={onToggleChangeQuotaModal}
           onConfirm={onChangeQuota}
         />
@@ -457,7 +457,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
           disbursementMethod={disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value}
           account={`Cuenta de ahorros ${disbursementAccount}`}
           portalId="modals"
-          productType={selectedProduct.saving.type}
           loading={loadingAction}
           onClick={onCancelSaving}
           onCloseModal={onToggleCancelSavingModal}
