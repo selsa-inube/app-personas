@@ -13,7 +13,7 @@ interface IRequest {
   status: string;
   value?: number;
   label?: string;
-  quotaValue?: number;
+  quotaValue?: string;
   periodicity?: string;
   deadline?: string;
   interestRate?: number;
@@ -39,6 +39,6 @@ type RequestType =
   | "modifydeadlineactionprogrammedsaving"
   | "cancelcdat"
   | "modifyquotavalueprogrammedsaving"
-  | "modifydeadlineactioncdat"
+  | "modifydeadlineactioncdat";
 
 export type { IRequest, RequestType };

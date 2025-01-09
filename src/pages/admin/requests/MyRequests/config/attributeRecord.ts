@@ -41,41 +41,44 @@ const staticModifyActionProgrammedSavingAttributes = [
   { id: "requestDate", label: "Fecha de solicitud" },
 ];
 
+const staticCancelCdatAttributes = [
+  { id: "product", label: "Número de producto" },
+  { id: "trackingCode", label: "Código de seguimiento" },
+  { id: "requestDate", label: "Fecha de solicitud" },
+];
+
+const staticModifyActionCdatAttributes = [
+  { id: "product", label: "Número de producto" },
+  { id: "actionAfterExpiration", label: "Pago de intereses" },
+  { id: "trackingCode", label: "Código de seguimiento" },
+  { id: "requestDate", label: "Fecha de solicitud" },
+];
+
+const staticModifyQuotaValueProgrammedSavingAttributes = [
+  { id: "product", label: "Número de producto" },
+  { id: "quotaValue", label: "Valor de la cuota" },
+  { id: "trackingCode", label: "Código de seguimiento" },
+  { id: "requestDate", label: "Fecha de solicitud" },
+];
+
 const generateAttributes = (request: IRequest) => {
-  switch (request.requestType) {
-    case "credit":
-      return staticCreditAttributes.map((attr) => ({
-        ...attr,
-        value: request[attr.id as keyof IRequest] as string | number | Date,
-      }));
-    case "aid":
-      return staticAidAttributes.map((attr) => ({
-        ...attr,
-        value: request[attr.id as keyof IRequest] as string | number | Date,
-      }));
-    case "newprogrammedsaving":
-      return staticProgrammedSavingAttributes.map((attr) => ({
-        ...attr,
-        value: request[attr.id as keyof IRequest] as string | number | Date,
-      }));
-    case "newcdat":
-      return staticCdatAttributes.map((attr) => ({
-        ...attr,
-        value: request[attr.id as keyof IRequest] as string | number | Date,
-      }));
-    case "cancelprogrammedsaving":
-      return staticCancelProgammedSavingAttributes.map((attr) => ({
-        ...attr,
-        value: request[attr.id as keyof IRequest] as string | number | Date,
-      }));
-    case "modifydeadlineactionprogrammedsaving":
-      return staticModifyActionProgrammedSavingAttributes.map((attr) => ({
-        ...attr,
-        value: request[attr.id as keyof IRequest] as string | number | Date,
-      }));
-    default:
-      return [];
-  }
+  const attributeMap: { [key: string]: { id: string; label: string }[] } = {
+    credit: staticCreditAttributes,
+    aid: staticAidAttributes,
+    newprogrammedsaving: staticProgrammedSavingAttributes,
+    newcdat: staticCdatAttributes,
+    cancelprogrammedsaving: staticCancelProgammedSavingAttributes,
+    modifydeadlineactionprogrammedsaving: staticModifyActionProgrammedSavingAttributes,
+    cancelcdat: staticCancelCdatAttributes,
+    modifydeadlineactioncdat: staticModifyActionCdatAttributes,
+    modifyquotavalueprogrammedsaving: staticModifyQuotaValueProgrammedSavingAttributes,
+  };
+
+  const attributes = attributeMap[request.requestType] || [];
+  return attributes.map((attr) => ({
+    ...attr,
+    value: request[attr.id as keyof IRequest] as string | number | Date,
+  }));
 };
 
 export { generateAttributes };

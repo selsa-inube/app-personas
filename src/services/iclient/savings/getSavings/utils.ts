@@ -122,6 +122,11 @@ const getProductAttributes = (
         label: "Fecha de apertura",
         value: formatPrimaryDate(new Date(dateWithoutZone)),
       },
+      {
+        id: "action_expiration",
+        label: "Acción al vencimiento",
+        value: Object(saving.automaticRenewal).code,
+      },
     ],
     [EProductType.VIEWSAVINGS]: [
       {
@@ -218,6 +223,11 @@ const getProductAttributes = (
             },
           ]
         : []),
+      {
+        id: "action_expiration",
+        label: "Acción al vencimiento",
+        value: Object(saving.automaticRenewal).code,
+      },
     ],
   };
 

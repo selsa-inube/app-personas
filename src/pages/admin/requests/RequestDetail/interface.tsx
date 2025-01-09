@@ -244,14 +244,20 @@ function RequestDetailUI(props: RequestUIProps) {
                     selectedRequest.product &&
                     renderItem("Producto:", selectedRequest.product)}
 
-                  {(selectedRequest.requestType === "cancelprogrammedsaving" ||
-                    selectedRequest.requestType ===
-                      "modifydeadlineactionprogrammedsaving") &&
+                  {[
+                    "cancelprogrammedsaving",
+                    "modifydeadlineactionprogrammedsaving",
+                    "cancelcdat",
+                    "modifydeadlineactioncdat",
+                    "modifyquotavalueprogrammedsaving",
+                  ].includes(selectedRequest.requestType) &&
                     selectedRequest.product &&
                     renderItem("Número de producto:", selectedRequest.product)}
 
-                  {selectedRequest.requestType ===
-                    "modifydeadlineactionprogrammedsaving" &&
+                  {(selectedRequest.requestType ===
+                    "modifydeadlineactionprogrammedsaving" ||
+                    selectedRequest.requestType ===
+                      "modifydeadlineactioncdat") &&
                     selectedRequest.product &&
                     renderItem(
                       "Renovar producto al vencimiento:",
@@ -262,7 +268,7 @@ function RequestDetailUI(props: RequestUIProps) {
                     selectedRequest.requestType === "newprogrammedsaving" &&
                     renderItem(
                       "Valor de la cuota:",
-                      currencyFormat(selectedRequest.quotaValue),
+                      selectedRequest.quotaValue,
                     )}
 
                   {selectedRequest.requestType === "newprogrammedsaving" &&
@@ -307,7 +313,7 @@ function RequestDetailUI(props: RequestUIProps) {
                   >
                     {renderItem(
                       "Cuota:",
-                      `${currencyFormat(selectedRequest.quotaValue || 0)} / ${selectedRequest.periodicity}`,
+                      `${selectedRequest.quotaValue} / ${selectedRequest.periodicity}`,
                     )}
                     {renderItem("Plazo:", `${selectedRequest.deadline} Meses`)}
                     {renderItem(

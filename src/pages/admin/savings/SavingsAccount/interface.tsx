@@ -190,14 +190,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     attributes &&
     formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type);
 
-  const actionExpiration =
-    (commitmentsModal.data.length > 0 &&
-      commitmentsModal.data[0].attributes &&
-      extractAttribute(
-        commitmentsModal.data[0]?.attributes,
-        "action_expiration",
-      )?.value) ||
-    "";
+  const actionExpiration = extractAttribute(
+    selectedProduct.saving.attributes,
+    "action_expiration",
+  )?.value;
 
   const productsIcons = {
     ...savingCommitmentsIcons,
@@ -304,18 +300,17 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       withButton
                     />
                   )}
-                {selectedProduct.saving.type ==
-                  EProductType.PROGRAMMEDSAVINGS &&
-                  commitmentsModal.data.length > 0 && (
-                    <BoxAttribute
-                      label="Renovar producto al vencimiento:"
-                      value={
-                        actionExpirationDM.valueOf(
-                          String(actionExpiration || ""),
-                        )?.value
-                      }
-                    />
-                  )}
+                {(selectedProduct.saving.type ==
+                  EProductType.PROGRAMMEDSAVINGS ||
+                  selectedProduct.saving.type == EProductType.CDAT) && (
+                  <BoxAttribute
+                    label="Renovar producto al vencimiento:"
+                    value={
+                      actionExpirationDM.valueOf(String(actionExpiration || ""))
+                        ?.value
+                    }
+                  />
+                )}
               </Grid>
             </Stack>
             <Stack justifyContent="flex-end" width="100%">

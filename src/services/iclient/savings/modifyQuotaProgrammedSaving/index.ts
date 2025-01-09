@@ -18,7 +18,7 @@ const modifyQuotaProgrammedSaving = async (
       headers: {
         Realm: enviroment.REALM,
         Authorization: `Bearer ${accessToken}`,
-        "X-Action": "ModifyQuotaValueProgrammedSaving",
+        "X-Action": "AddProductRequest",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
