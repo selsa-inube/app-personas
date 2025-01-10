@@ -76,7 +76,7 @@ function AppProvider(props: AppProviderProps) {
     const location = window.location;
     if (location.href.includes("switch-user")) return;
 
-    if (superUsers.includes(user.identification)) {
+    if (superUsers.includes(authUser?.identification || "")) {
       location.replace(`/switch-user?redirect_to=${location.pathname}`);
     }
   }, []);
