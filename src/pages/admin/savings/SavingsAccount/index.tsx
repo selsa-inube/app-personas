@@ -14,6 +14,7 @@ import { cancelCdat } from "src/services/iclient/savings/cancelCdat";
 import { ICancelCdatRequest } from "src/services/iclient/savings/cancelCdat/types";
 import { cancelProgrammedSaving } from "src/services/iclient/savings/cancelProgrammedSaving";
 import { ICancelProgrammedSavingRequest } from "src/services/iclient/savings/cancelProgrammedSaving/types";
+import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
 import { modifyActionCdat } from "src/services/iclient/savings/modifyActionCdat";
 import { modifyActionProgrammedSaving } from "src/services/iclient/savings/modifyActionProgrammedSaving";
 import { IModifyActionProgrammedSavingRequest } from "src/services/iclient/savings/modifyActionProgrammedSaving/types";
@@ -43,7 +44,8 @@ function SavingsAccount() {
   const navigate = useNavigate();
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-  const { savings, commitments, setSavings } = useContext(SavingsContext);
+  const { savings, commitments, setSavings, setCommitments } =
+    useContext(SavingsContext);
   const [beneficiariesModal, setBeneficiariesModal] =
     useState<IBeneficiariesModalState>({
       show: false,
@@ -110,7 +112,21 @@ function SavingsAccount() {
   const getCommitments = async () => {
     if (!selectedProduct || !accessToken) return;
 
-    const foundCommitments = commitments.filter(
+    let selectedCommitments = commitments;
+
+    if (commitments.length === 0) {
+      const newCommitments = await getSavingsCommitmentsForUser(
+        user.identification,
+        accessToken,
+      );
+
+      if (newCommitments) {
+        selectedCommitments = newCommitments;
+        setCommitments(newCommitments);
+      }
+    }
+
+    const foundCommitments = selectedCommitments.filter(
       (commitment) =>
         commitment.id ===
         selectedProduct.saving.commitments?.find(
