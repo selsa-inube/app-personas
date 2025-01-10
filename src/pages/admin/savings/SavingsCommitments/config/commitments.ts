@@ -6,7 +6,11 @@ const savingsCommitmentsAttributes: Record<string, string[]> = {
     "commitment_value",
     "payment_method",
   ],
-  [ECommitmentType.SAVINGSPROGRAMMED]: ["next_payment", "payment_method"],
+  [ECommitmentType.SAVINGSPROGRAMMED]: [
+    "next_payment",
+    "commitment_value",
+    "payment_method",
+  ],
 };
 
 function extractSavingsCommitmentsAttributes(commitment: ICommitment) {
