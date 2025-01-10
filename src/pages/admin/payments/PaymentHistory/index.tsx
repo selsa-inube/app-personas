@@ -78,44 +78,44 @@ function PaymentHistory() {
     limit: number,
     reset?: boolean,
   ) => {
-    if (accessToken) {
-      setLoading(true);
-      getPaymentHistory(user.identification, accessToken, page, limit)
-        .then((newPaymentHistory) => {
-          if (newPaymentHistory.length === 0) {
-            setNoMorePayments(true);
-            return;
-          }
+    if (!accessToken || !user.identification) return;
 
-          if (newPaymentHistory.length < limitPayments) {
-            setNoMorePayments(true);
-          }
-
-          if (reset) {
-            const isEqualPayments = equalArraysByProperty(
-              paymentHistory,
-              newPaymentHistory,
-              "id",
-            );
-
-            if (!isEqualPayments) {
-              setPaymentHistory(newPaymentHistory.slice(0, limitPayments));
-              return;
-            }
-
-            setPaymentHistory(newPaymentHistory);
-            return;
-          }
-
-          setPaymentHistory([...paymentHistory, ...newPaymentHistory]);
-        })
-        .catch(() => {
+    setLoading(true);
+    getPaymentHistory(user.identification, accessToken, page, limit)
+      .then((newPaymentHistory) => {
+        if (newPaymentHistory.length === 0) {
           setNoMorePayments(true);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+          return;
+        }
+
+        if (newPaymentHistory.length < limitPayments) {
+          setNoMorePayments(true);
+        }
+
+        if (reset) {
+          const isEqualPayments = equalArraysByProperty(
+            paymentHistory,
+            newPaymentHistory,
+            "id",
+          );
+
+          if (!isEqualPayments) {
+            setPaymentHistory(newPaymentHistory.slice(0, limitPayments));
+            return;
+          }
+
+          setPaymentHistory(newPaymentHistory);
+          return;
+        }
+
+        setPaymentHistory([...paymentHistory, ...newPaymentHistory]);
+      })
+      .catch(() => {
+        setNoMorePayments(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleAddPayments = () => {

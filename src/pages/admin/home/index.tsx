@@ -26,7 +26,7 @@ function Home() {
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   const validateProducts = async () => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
 
     const combinedSavings = [
       ...savings.savingsAccounts,
@@ -68,6 +68,7 @@ function Home() {
         user.identification,
         accessToken,
       );
+
       setSavings(newSavings);
       savingAccountsResume = newSavings.savingsAccounts.map(
         (savingAccount) => ({

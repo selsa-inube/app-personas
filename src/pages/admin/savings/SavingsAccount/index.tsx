@@ -205,7 +205,7 @@ function SavingsAccount() {
   };
 
   const handleSubmitRecharge = (savingAccount: string, amount: number) => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
 
     setShowRechargeModal(false);
     setLoadingSend(true);

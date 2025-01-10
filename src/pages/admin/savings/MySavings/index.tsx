@@ -18,23 +18,22 @@ function MySavings() {
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   useEffect(() => {
-    if (accessToken) {
-      setLoading(true);
+    if (!accessToken || !user.identification) return;
+    setLoading(true);
 
-      getSavingsForUser(user.identification, accessToken)
-        .then((savings) => {
-          setSavings(savings);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+    getSavingsForUser(user.identification, accessToken)
+      .then((savings) => {
+        setSavings(savings);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
 
-      getSavingsCommitmentsForUser(user.identification, accessToken).then(
-        (commitments) => {
-          setCommitments(commitments);
-        },
-      );
-    }
+    getSavingsCommitmentsForUser(user.identification, accessToken).then(
+      (commitments) => {
+        setCommitments(commitments);
+      },
+    );
   }, [user, accessToken]);
 
   const withRequestSaving = getFlag(

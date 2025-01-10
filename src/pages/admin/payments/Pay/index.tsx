@@ -69,7 +69,7 @@ function Pay() {
   };
 
   const validateObligations = async () => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
 
     let newCredits: IPayment[] = [];
     let newCommitments: IPayment[] = [];

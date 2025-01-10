@@ -15,16 +15,15 @@ function MyCards() {
   const { getFlag } = useContext(AppContext);
 
   useEffect(() => {
-    if (accessToken) {
-      setLoading(true);
-      getCardsForUser(user.identification, accessToken, savings.savingsAccounts)
-        .then((credits) => {
-          setCards(credits);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+    if (!accessToken || !user.identification) return;
+    setLoading(true);
+    getCardsForUser(user.identification, accessToken, savings.savingsAccounts)
+      .then((credits) => {
+        setCards(credits);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [user, accessToken]);
 
   const withRequestCard = getFlag("admin.cards.cards.request-card").value;

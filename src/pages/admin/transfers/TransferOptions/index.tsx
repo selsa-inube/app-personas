@@ -35,7 +35,7 @@ function TransferOptions() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
     if (savings.savingsAccounts.length === 0) {
       getSavingsForUser(user.identification, accessToken).then((savings) => {
         setSavings(savings);
@@ -48,7 +48,7 @@ function TransferOptions() {
   };
 
   const handleSubmitRecharge = (savingAccount: string, amount: number) => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
 
     setShowRechargeModal(false);
     setLoadingSend(true);

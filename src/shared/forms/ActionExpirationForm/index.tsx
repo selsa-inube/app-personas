@@ -62,11 +62,11 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
   }, [formik.values]);
 
   const setActionsExpiration = async () => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
 
     const actionsExpiration = await getActionsExpiration(
       requestType,
-      user?.identification || "",
+      user.identification,
       accessToken,
       productId,
     );
