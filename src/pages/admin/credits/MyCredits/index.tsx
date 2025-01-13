@@ -14,16 +14,17 @@ function MyCredits() {
   const { getFlag } = useContext(AppContext);
 
   useEffect(() => {
-    if (accessToken) {
-      setLoading(true);
-      getCreditsForUser(user.identification, accessToken)
-        .then((credits) => {
-          setCredits(credits);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+    if (!accessToken || !user.identification) return;
+    
+    setLoading(true);
+
+    getCreditsForUser(user.identification, accessToken)
+      .then((credits) => {
+        setCredits(credits);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [user, accessToken]);
 
   const withRequestCredit = getFlag(

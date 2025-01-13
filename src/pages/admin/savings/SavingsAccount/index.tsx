@@ -9,10 +9,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { SavingsContext } from "src/context/savings";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";
+import { EProductType } from "src/model/entity/product";
+import { cancelCdat } from "src/services/iclient/savings/cancelCdat";
+import { ICancelCdatRequest } from "src/services/iclient/savings/cancelCdat/types";
 import { cancelProgrammedSaving } from "src/services/iclient/savings/cancelProgrammedSaving";
 import { ICancelProgrammedSavingRequest } from "src/services/iclient/savings/cancelProgrammedSaving/types";
+import { getSavingsCommitmentsForUser } from "src/services/iclient/savings/getCommitments";
+import { modifyActionCdat } from "src/services/iclient/savings/modifyActionCdat";
 import { modifyActionProgrammedSaving } from "src/services/iclient/savings/modifyActionProgrammedSaving";
 import { IModifyActionProgrammedSavingRequest } from "src/services/iclient/savings/modifyActionProgrammedSaving/types";
+import { modifyQuotaProgrammedSaving } from "src/services/iclient/savings/modifyQuotaProgrammedSaving";
+import { IModifyQuotaProgrammedSavingRequest } from "src/services/iclient/savings/modifyQuotaProgrammedSaving/types";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { extractAttribute } from "src/utils/products";
@@ -37,7 +44,8 @@ function SavingsAccount() {
   const navigate = useNavigate();
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
-  const { savings, commitments, setSavings } = useContext(SavingsContext);
+  const { savings, commitments, setSavings, setCommitments } =
+    useContext(SavingsContext);
   const [beneficiariesModal, setBeneficiariesModal] =
     useState<IBeneficiariesModalState>({
       show: false,
@@ -104,7 +112,21 @@ function SavingsAccount() {
   const getCommitments = async () => {
     if (!selectedProduct || !accessToken) return;
 
-    const foundCommitments = commitments.filter(
+    let selectedCommitments = commitments;
+
+    if (commitments.length === 0) {
+      const newCommitments = await getSavingsCommitmentsForUser(
+        user.identification,
+        accessToken,
+      );
+
+      if (newCommitments) {
+        selectedCommitments = newCommitments;
+        setCommitments(newCommitments);
+      }
+    }
+
+    const foundCommitments = selectedCommitments.filter(
       (commitment) =>
         commitment.id ===
         selectedProduct.saving.commitments?.find(
@@ -183,7 +205,7 @@ function SavingsAccount() {
   };
 
   const handleSubmitRecharge = (savingAccount: string, amount: number) => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
 
     setShowRechargeModal(false);
     setLoadingSend(true);
@@ -225,8 +247,24 @@ function SavingsAccount() {
     setShowCancelSavingModal(!showCancelSavingModal);
   };
 
-  const handleChangeQuota = () => {
-    return true;
+  const handleChangeQuota = (newQuota: number | "") => {
+    if (!accessToken || !selectedProduct || newQuota === "") return;
+
+    setLoadingAction(true);
+
+    const modifyQuotaRequestData: IModifyQuotaProgrammedSavingRequest = {
+      customerCode: user.identification,
+      quotaValue: newQuota,
+      savingNumber: selectedProduct.saving.id,
+    };
+
+    modifyQuotaProgrammedSaving(modifyQuotaRequestData, accessToken).then(
+      () => {
+        setShowChangeQuotaModal(false);
+        setLoadingAction(false);
+        setRedirectModal(true);
+      },
+    );
   };
 
   const handleModifyAction = (newActionExpiration: string) => {
@@ -240,13 +278,21 @@ function SavingsAccount() {
       actionExpiration: newActionExpiration,
     };
 
-    modifyActionProgrammedSaving(modifyActionRequestData, accessToken).then(
-      () => {
+    if (selectedProduct.saving.type === EProductType.PROGRAMMEDSAVINGS) {
+      modifyActionProgrammedSaving(modifyActionRequestData, accessToken).then(
+        () => {
+          setShowModifyActionModal(false);
+          setLoadingAction(false);
+          setRedirectModal(true);
+        },
+      );
+    } else if (selectedProduct.saving.type === EProductType.CDAT) {
+      modifyActionCdat(modifyActionRequestData, accessToken).then(() => {
         setShowModifyActionModal(false);
         setLoadingAction(false);
         setRedirectModal(true);
-      },
-    );
+      });
+    }
   };
 
   const handleCancelSaving = () => {
@@ -260,23 +306,41 @@ function SavingsAccount() {
     );
     const disbursement = savings.savingsAccounts[0];
 
-    const cancelRequestData: ICancelProgrammedSavingRequest = {
-      balanceSaving: netValue,
-      customerCode: user.identification,
-      savingName: selectedProduct.saving.title,
-      savingNumber: selectedProduct.saving.id,
-      disbursmentMethod: {
-        id: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id,
-        name: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value,
-        accountNumber: disbursement.id,
-      },
-    };
+    if (selectedProduct.saving.type === EProductType.PROGRAMMEDSAVINGS) {
+      const cancelRequestData: ICancelProgrammedSavingRequest = {
+        balanceSaving: netValue,
+        customerCode: user.identification,
+        savingName: selectedProduct.saving.title,
+        savingNumber: selectedProduct.saving.id,
+        disbursmentMethod: {
+          id: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id,
+          name: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value,
+          accountNumber: disbursement.id,
+        },
+      };
 
-    cancelProgrammedSaving(cancelRequestData, accessToken).then(() => {
-      setShowCancelSavingModal(false);
-      setLoadingAction(false);
-      setRedirectModal(true);
-    });
+      cancelProgrammedSaving(cancelRequestData, accessToken).then(() => {
+        setShowCancelSavingModal(false);
+        setLoadingAction(false);
+        setRedirectModal(true);
+      });
+    } else if (selectedProduct.saving.type === EProductType.CDAT) {
+      const cancelRequestData: ICancelCdatRequest = {
+        customerCode: user.identification,
+        savingNumber: selectedProduct.saving.id,
+        disbursmentMethod: {
+          id: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id,
+          name: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value,
+          accountNumber: disbursement.id,
+        },
+      };
+
+      cancelCdat(cancelRequestData, accessToken).then(() => {
+        setShowCancelSavingModal(false);
+        setLoadingAction(false);
+        setRedirectModal(true);
+      });
+    }
   };
 
   const handleDownloadCertificate = () => {

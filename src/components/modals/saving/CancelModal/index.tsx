@@ -11,8 +11,8 @@ import { StyledBody, StyledModal } from "./styles";
 interface CancelModalProps {
   portalId: string;
   loading?: boolean;
-  disbursementMethod: string;
-  account: string;
+  disbursementMethod?: string;
+  account?: string;
   onCloseModal: () => void;
   onClick: () => void;
 }

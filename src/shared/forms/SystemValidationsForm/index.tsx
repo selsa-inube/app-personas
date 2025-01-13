@@ -57,7 +57,7 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   useImperativeHandle(ref, () => formik);
 
   const getRequirements = () => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
     setLoadingValids(true);
 
     const requirementsRequest = buildRequestData(

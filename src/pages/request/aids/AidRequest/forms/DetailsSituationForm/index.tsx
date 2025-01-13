@@ -57,12 +57,12 @@ const DetailsSituationForm = forwardRef(function DetailsSituationForm(
   }, []);
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
 
     valuesAndValidationsAid(
       accessToken,
       beneficiaryId,
-      user?.identification || "",
+      user.identification,
       location.state?.id || "",
       dynamicSchema,
       withAmount,

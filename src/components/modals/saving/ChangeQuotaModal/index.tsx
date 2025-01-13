@@ -1,6 +1,4 @@
-import { InfoCard } from "@components/cards/InfoCard";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -10,17 +8,18 @@ import { Divider } from "@inubekit/divider";
 import { Icon } from "@inubekit/icon";
 import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { MdAttachMoney, MdClear, MdInfoOutline } from "react-icons/md";
+import { MdAttachMoney, MdClear } from "react-icons/md";
+import { ICommitment } from "src/model/entity/product";
 import { currencyFormat, parseCurrencyString } from "src/utils/currency";
+import { extractAttribute } from "src/utils/products";
 import { StyledModal } from "./styles";
 
 interface ChangeQuotaModalProps {
   portalId?: string;
-  totalBalance: number;
-  paymentMethod: string;
-  paymentMethodName: string;
+  loading?: boolean;
+  commitments: ICommitment[];
   onCloseModal: () => void;
   onConfirm: (newQuota: number | "") => void;
 }
@@ -28,14 +27,16 @@ interface ChangeQuotaModalProps {
 function ChangeQuotaModal(props: ChangeQuotaModalProps) {
   const {
     portalId = "modals",
-    totalBalance,
-    paymentMethod,
-    paymentMethodName,
+    loading,
+    commitments,
     onCloseModal,
     onConfirm,
   } = props;
 
-  const [newQuota, setNewQuota] = useState<number | "">();
+  const [newQuota, setNewQuota] = useState<number | "">("");
+  const [quotas, setQuotas] = useState({
+    currentQuota: "",
+  });
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
@@ -46,13 +47,31 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
   };
 
   const handleConfirm = () => {
-    newQuota && onConfirm(newQuota);
+    onConfirm(newQuota);
     onCloseModal();
   };
 
-  const paymentMethodOptions: ISelectOption[] = [
-    { id: paymentMethod, value: paymentMethodName },
-  ];
+  const getQuotaValues = () => {
+    if (commitments.length === 0) return;
+
+    const currentQuota =
+      extractAttribute(
+        commitments[0].attributes,
+        "commitment_value",
+      )?.value.toString() || "";
+
+    setQuotas({
+      currentQuota,
+    });
+  };
+
+  useEffect(() => {
+    getQuotaValues();
+  }, []);
+
+  const validateCurrencyField = (value: number | "") => {
+    return typeof value === "number" ? currencyFormat(value, false) : "";
+  };
 
   if (node === null) {
     throw new Error(
@@ -91,42 +110,10 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
 
         <Divider dashed />
 
-        <InfoCard
-          title="Recuerda que si el método de pago es un descuento de nómina, entonces el cambio podrá aplicarse en el siguiente período de nómina."
-          appearance="help"
-          icon={<MdInfoOutline />}
-        />
-
         <Stack direction="column" gap={inube.spacing.s200}>
-          <TextField
-            id="totalBalance"
-            name="totalBalance"
-            label="Saldo total"
-            placeholder=""
-            value={currencyFormat(totalBalance, false)}
-            isFullWidth
-            size="compact"
-            iconAfter={
-              <Icon
-                icon={<MdAttachMoney />}
-                appearance="dark"
-                size="18px"
-                spacing="narrow"
-              />
-            }
-            readOnly
-          />
-
-          <Select
-            id="paymentMethod"
-            name="paymentMethod"
-            label="Método de pago"
-            placeholder=""
-            options={paymentMethodOptions}
-            value={paymentMethod}
-            isFullWidth
-            size="compact"
-            readOnly
+          <BoxAttribute
+            label="Valor actual de la cuota:"
+            value={quotas.currentQuota}
           />
 
           <TextField
@@ -134,10 +121,10 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
             name="newQuota"
             placeholder="Ingresa el valor de la cuota"
             label="Nuevo valor de la cuota"
-            value={newQuota || ""}
+            value={validateCurrencyField(newQuota)}
             isFullWidth
             size="compact"
-            type="number"
+            type="text"
             onChange={handleChangeWithCurrency}
             iconAfter={
               <Icon
@@ -163,6 +150,7 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
             spacing="compact"
             onClick={handleConfirm}
             disabled={!newQuota}
+            loading={loading}
           >
             Cambiar
           </Button>

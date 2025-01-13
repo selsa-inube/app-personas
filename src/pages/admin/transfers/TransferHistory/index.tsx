@@ -74,44 +74,43 @@ function TransferHistory() {
     limit: number,
     reset?: boolean,
   ) => {
-    if (accessToken) {
-      setLoading(true);
-      getTransferHistory(user.identification, accessToken, page, limit)
-        .then((newTransferHistory) => {
-          if (newTransferHistory.length === 0) {
-            setNoMoreTransfers(true);
-            return;
-          }
-
-          if (newTransferHistory.length < limitTransfers) {
-            setNoMoreTransfers(true);
-          }
-
-          if (reset) {
-            const isEqualTransfers = equalArraysByProperty(
-              transferHistory,
-              newTransferHistory,
-              "id",
-            );
-
-            if (!isEqualTransfers) {
-              setTransferHistory(newTransferHistory.slice(0, limitTransfers));
-              return;
-            }
-
-            setTransferHistory(newTransferHistory);
-            return;
-          }
-
-          setTransferHistory([...transferHistory, ...newTransferHistory]);
-        })
-        .catch(() => {
+    if (!accessToken || !user.identification) return;
+    setLoading(true);
+    getTransferHistory(user.identification, accessToken, page, limit)
+      .then((newTransferHistory) => {
+        if (newTransferHistory.length === 0) {
           setNoMoreTransfers(true);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+          return;
+        }
+
+        if (newTransferHistory.length < limitTransfers) {
+          setNoMoreTransfers(true);
+        }
+
+        if (reset) {
+          const isEqualTransfers = equalArraysByProperty(
+            transferHistory,
+            newTransferHistory,
+            "id",
+          );
+
+          if (!isEqualTransfers) {
+            setTransferHistory(newTransferHistory.slice(0, limitTransfers));
+            return;
+          }
+
+          setTransferHistory(newTransferHistory);
+          return;
+        }
+
+        setTransferHistory([...transferHistory, ...newTransferHistory]);
+      })
+      .catch(() => {
+        setNoMoreTransfers(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleAddTransfers = () => {

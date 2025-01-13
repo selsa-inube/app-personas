@@ -13,7 +13,7 @@ interface IRequest {
   status: string;
   value?: number;
   label?: string;
-  quotaValue?: number;
+  quotaValue?: string;
   periodicity?: string;
   deadline?: string;
   interestRate?: number;
@@ -30,6 +30,15 @@ interface IRequest {
   actionAfterExpiration?: string;
 }
 
-type RequestType = "credit" | "aid" | "newprogrammedsaving" | "newcdat" | "cancelprogrammedsaving" | "modifydeadlineactionprogrammedsaving";
+type RequestType =
+  | "credit"
+  | "aid"
+  | "newprogrammedsaving"
+  | "newcdat"
+  | "cancelprogrammedsaving"
+  | "modifydeadlineactionprogrammedsaving"
+  | "cancelcdat"
+  | "modifyquotavalueprogrammedsaving"
+  | "modifydeadlineactioncdat";
 
 export type { IRequest, RequestType };

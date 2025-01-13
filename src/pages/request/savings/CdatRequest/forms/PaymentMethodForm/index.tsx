@@ -105,7 +105,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
   }, []);
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
     if (savings.savingsAccounts.length === 0) {
       getSavingsForUser(user.identification, accessToken).then((savings) => {
         setSavings(savings);
@@ -115,16 +115,16 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   useEffect(() => {
     const paymentMethods = formik.values.paymentMethods;
-  
+
     if (paymentMethods && paymentMethods.length === 1) {
       const paymentMethod = paymentMethods[0];
-  
+
       const updatedValues = {
         ...formik.values,
         paymentMethod: paymentMethod.id,
         paymentMethodName: paymentMethod.value,
       };
-  
+
       if (
         paymentMethod.id === "DEBAHORINT" &&
         savings.savingsAccounts.length > 0
@@ -140,14 +140,17 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
           false,
         );
       }
-  
+
       formik.setValues(updatedValues);
-  
+
       const { renderFields, validationSchema } = generateDynamicForm(
         { ...formik, values: updatedValues },
-        structureDisbursementForm({ ...formik, values: updatedValues }, savings.savingsAccounts),
+        structureDisbursementForm(
+          { ...formik, values: updatedValues },
+          savings.savingsAccounts,
+        ),
       );
-  
+
       setDynamicForm({
         renderFields,
         validationSchema: initValidationSchema.concat(validationSchema),
@@ -217,8 +220,8 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
           "availableBalance",
           currencyFormat(
             Number(
-              extractAttribute(selectedAccount.attributes, "net_value")?.value ||
-                0,
+              extractAttribute(selectedAccount.attributes, "net_value")
+                ?.value || 0,
             ),
             false,
           ),
@@ -239,7 +242,6 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     />
   );
 });
-
 
 export { PaymentMethodForm };
 export type { PaymentMethodFormProps };

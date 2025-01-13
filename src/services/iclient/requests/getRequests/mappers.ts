@@ -34,6 +34,9 @@ const requestTitles: Record<RequestType, string> = {
   cancelprogrammedsaving: "Cancelación anticipada de ahorro programado",
   modifydeadlineactionprogrammedsaving:
     "Modificar acción al vencimiento de ahorro programado",
+  cancelcdat: "Cancelación anticipada de CDAT",
+  modifyquotavalueprogrammedsaving: "Modificar cuota de ahorro programado",
+  modifydeadlineactioncdat: "Modificar acción al vencimiento de CDAT",
 };
 
 const requestDescriptions: Record<RequestType, string> = {
@@ -44,6 +47,9 @@ const requestDescriptions: Record<RequestType, string> = {
   cancelprogrammedsaving: "Cancelación anticipada de ahorro programadO",
   modifydeadlineactionprogrammedsaving:
     "Modificar acción al vencimiento de ahorro programado",
+  cancelcdat: "Cancelación anticipada de CDAT",
+  modifydeadlineactioncdat: "Modificar acción al vencimiento de CDAT",
+  modifyquotavalueprogrammedsaving: "Modificar cuota de ahorro programado",
 };
 
 const actionExpirationLabel: Record<string, string> = {
@@ -199,7 +205,7 @@ const mapRequestApiToEntity = (
         Object(disbursementMethod).savingsAccountNumber || "",
       );
 
-      requestData.quotaValue = Number(Object(conditions).quotaValue || 0);
+      requestData.quotaValue = String(Object(conditions).quotaValue || 0);
       requestData.deadline = String(
         Object(conditions).quotas || Object(conditions).numQuotas,
       );
@@ -208,7 +214,7 @@ const mapRequestApiToEntity = (
 
       break;
     case "credit":
-      requestData.quotaValue = Number(Object(conditions).quotaValue || 0);
+      requestData.quotaValue = String(Object(conditions).quotaValue || 0);
       requestData.deadline = String(
         Object(conditions).quotas || Object(conditions).numQuotas,
       );
@@ -238,13 +244,19 @@ const mapRequestApiToEntity = (
       requestData.value = Number(Object(details).requestedAmount || 0);
       break;
     case "cancelprogrammedsaving":
+    case "cancelcdat":
       requestData.product = String(Object(details).productNumber);
       break;
     case "modifydeadlineactionprogrammedsaving":
+    case "modifydeadlineactioncdat":
       requestData.product = String(Object(details).productNumber);
       requestData.actionAfterExpiration = actionExpirationDM.valueOf(
         String(Object(details).actionAfterExpiration) || "",
       )?.value;
+      break;
+    case "modifyquotavalueprogrammedsaving":
+      requestData.product = String(Object(details).productNumber);
+      requestData.quotaValue = currencyFormat(Object(details).quotaValue || 0);
       break;
   }
 

@@ -100,7 +100,7 @@ interface SavingsAccountUIProps {
   onToggleRechargeModal: () => void;
   onSubmitRecharge: (savingAccount: string, amount: number) => void;
   onToggleActionsModal: () => void;
-  onChangeQuota: () => void;
+  onChangeQuota: (newQuota: number | "") => void;
   onModifyAction: (newActionExpiration: string) => void;
   onCancelSaving: () => void;
   onToggleChangeQuotaModal: () => void;
@@ -190,16 +190,10 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     attributes &&
     formatSavingCurrencyAttrs(attributes, selectedProduct.saving.type);
 
-  const netValue = extractAttribute(attributes, "net_value");
-
-  const actionExpiration =
-    (commitmentsModal.data.length > 0 &&
-      commitmentsModal.data[0].attributes &&
-      extractAttribute(
-        commitmentsModal.data[0]?.attributes,
-        "action_expiration",
-      )?.value) ||
-    "";
+  const actionExpiration = extractAttribute(
+    selectedProduct.saving.attributes,
+    "action_expiration",
+  )?.value;
 
   const productsIcons = {
     ...savingCommitmentsIcons,
@@ -306,18 +300,17 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
                       withButton
                     />
                   )}
-                {selectedProduct.saving.type ==
-                  EProductType.PROGRAMMEDSAVINGS &&
-                  commitmentsModal.data.length > 0 && (
-                    <BoxAttribute
-                      label="Renovar producto al vencimiento:"
-                      value={
-                        actionExpirationDM.valueOf(
-                          String(actionExpiration || ""),
-                        )?.value
-                      }
-                    />
-                  )}
+                {(selectedProduct.saving.type ==
+                  EProductType.PROGRAMMEDSAVINGS ||
+                  selectedProduct.saving.type == EProductType.CDAT) && (
+                  <BoxAttribute
+                    label="Renovar producto al vencimiento:"
+                    value={
+                      actionExpirationDM.valueOf(String(actionExpiration || ""))
+                        ?.value
+                    }
+                  />
+                )}
               </Grid>
             </Stack>
             <Stack justifyContent="flex-end" width="100%">
@@ -444,10 +437,9 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
       )}
       {showChangeQuotaModal && (
         <ChangeQuotaModal
+          loading={loadingAction}
+          commitments={commitmentsModal.data}
           onCloseModal={onToggleChangeQuotaModal}
-          totalBalance={Number(netValue?.value || 0)}
-          paymentMethod="debit"
-          paymentMethodName="Debito automático"
           onConfirm={onChangeQuota}
         />
       )}

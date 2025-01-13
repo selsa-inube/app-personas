@@ -26,7 +26,7 @@ function Home() {
   const isTablet = useMediaQuery("(max-width: 1100px)");
 
   const validateProducts = async () => {
-    if (!accessToken) return;
+    if (!accessToken || !user.identification) return;
 
     const combinedSavings = [
       ...savings.savingsAccounts,
@@ -35,16 +35,15 @@ function Home() {
       ...savings.programmedSavings,
     ];
 
-    if (credits.length === 0) {
-      setLoadingCredits(true);
-      getCreditsForUser(user.identification, accessToken)
-        .then((credits) => {
-          setCredits(credits);
-        })
-        .finally(() => {
-          setLoadingCredits(false);
-        });
-    }
+    credits.length === 0 && setLoadingCredits(true);
+
+    getCreditsForUser(user.identification, accessToken)
+      .then((credits) => {
+        setCredits(credits);
+      })
+      .finally(() => {
+        setLoadingCredits(false);
+      });
 
     let savingAccountsResume: IProduct[] = savings.savingsAccounts.map(
       (savingAccount) => ({
@@ -56,51 +55,43 @@ function Home() {
       }),
     );
 
-    if (commitments.length === 0) {
-      getSavingsCommitmentsForUser(user.identification, accessToken).then(
-        (commitments) => {
-          setCommitments(commitments);
-        },
+    getSavingsCommitmentsForUser(user.identification, accessToken).then(
+      (commitments) => {
+        setCommitments(commitments);
+      },
+    );
+
+    combinedSavings.length === 0 && setLoadingSavings(true);
+    cards.length === 0 && setLoadingCards(true);
+    try {
+      const newSavings = await getSavingsForUser(
+        user.identification,
+        accessToken,
       );
+
+      setSavings(newSavings);
+      savingAccountsResume = newSavings.savingsAccounts.map(
+        (savingAccount) => ({
+          id: savingAccount.id,
+          title: savingAccount.title,
+          description: savingAccount.description,
+          type: savingAccount.type,
+          attributes: savingAccount.attributes,
+        }),
+      );
+    } catch (error) {
+      console.info(error);
+    } finally {
+      setLoadingSavings(false);
     }
 
-    if (combinedSavings.length === 0) {
-      setLoadingSavings(true);
-      setLoadingCards(true);
-      try {
-        const newSavings = await getSavingsForUser(
-          user.identification,
-          accessToken,
-        );
-        setSavings(newSavings);
-        savingAccountsResume = newSavings.savingsAccounts.map(
-          (savingAccount) => ({
-            id: savingAccount.id,
-            title: savingAccount.title,
-            description: savingAccount.description,
-            type: savingAccount.type,
-            attributes: savingAccount.attributes,
-          }),
-        );
-      } catch (error) {
-        console.info(error);
-      } finally {
-        setLoadingSavings(false);
-      }
-    }
-
-    if (cards.length === 0) {
-      setLoadingCards(true);
-      getCardsForUser(user.identification, accessToken, savingAccountsResume)
-        .then((credits) => {
-          setCards(credits);
-        })
-        .finally(() => {
-          setLoadingCards(false);
-        });
-    } else {
-      setLoadingCards(false);
-    }
+    getCardsForUser(user.identification, accessToken, savingAccountsResume)
+      .then((credits) => {
+        setCards(credits);
+      })
+      .finally(() => {
+        setLoadingCards(false);
+      });
   };
 
   useEffect(() => {

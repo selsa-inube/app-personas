@@ -57,7 +57,11 @@ function ActionsModal(props: ActionsModalProps) {
     "admin.savings.programmed-savings.modal-option-change-quota",
   ).value;
 
-  const withModifyActionOption = getFlag(
+  const withProgrammedSavingSModifyActionOption = getFlag(
+    "admin.savings.cdat.modal-option-modify-action",
+  ).value;
+
+  const withCDATModifyActionOption = getFlag(
     "admin.savings.programmed-savings.modal-option-modify-action",
   ).value;
 
@@ -180,7 +184,7 @@ function ActionsModal(props: ActionsModalProps) {
             )}
 
           {productType === EProductType.PROGRAMMEDSAVINGS &&
-            withModifyActionOption && (
+            withProgrammedSavingSModifyActionOption && (
               <OutlineCard>
                 <Stack
                   justifyContent="space-between"
@@ -213,6 +217,39 @@ function ActionsModal(props: ActionsModalProps) {
                 </Stack>
               </OutlineCard>
             )}
+
+          {productType === EProductType.CDAT && withCDATModifyActionOption && (
+            <OutlineCard>
+              <Stack
+                justifyContent="space-between"
+                padding={inube.spacing.s200}
+                width="100%"
+                direction={isMobile ? "column" : "row"}
+                alignItems={isMobile ? "flex-start" : "center"}
+                gap={isMobile ? inube.spacing.s100 : inube.spacing.s0}
+              >
+                <Stack direction="column" gap={inube.spacing.s050}>
+                  <Text type="title" size="small" weight="bold">
+                    Modificar la acción al vencimiento
+                  </Text>
+
+                  <Text type="body" size="small" appearance="gray">
+                    Modifica la decisión tomada cuando se vence tu CDAT.
+                  </Text>
+                </Stack>
+
+                <Button
+                  variant="outlined"
+                  iconBefore={<MdOutlineEdit />}
+                  spacing="compact"
+                  onClick={onModifyAction}
+                  fullwidth={isMobile}
+                >
+                  Modificar
+                </Button>
+              </Stack>
+            </OutlineCard>
+          )}
 
           {productType === EProductType.PROGRAMMEDSAVINGS &&
             withCancelSavingOption && (

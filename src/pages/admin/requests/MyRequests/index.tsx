@@ -69,44 +69,43 @@ function MyRequests() {
   };
 
   const handleGetRequests = (page: number, limit: number, reset?: boolean) => {
-    if (accessToken) {
-      setLoading(true);
-      getRequestsForUser(user.identification, accessToken, page, limit)
-        .then((newRequests) => {
-          if (newRequests.length === 0) {
-            setNoMoreRequests(true);
-            return;
-          }
-
-          if (newRequests.length < limitRequests) {
-            setNoMoreRequests(true);
-          }
-
-          if (reset) {
-            const isEqualRequests = equalArraysByProperty(
-              requests,
-              newRequests,
-              "id",
-            );
-
-            if (!isEqualRequests) {
-              setRequests(newRequests.slice(0, limitRequests));
-              return;
-            }
-
-            setRequests(newRequests);
-            return;
-          }
-
-          setRequests([...requests, ...newRequests]);
-        })
-        .catch(() => {
+    if (!accessToken || !user.identification) return;
+    setLoading(true);
+    getRequestsForUser(user.identification, accessToken, page, limit)
+      .then((newRequests) => {
+        if (newRequests.length === 0) {
           setNoMoreRequests(true);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+          return;
+        }
+
+        if (newRequests.length < limitRequests) {
+          setNoMoreRequests(true);
+        }
+
+        if (reset) {
+          const isEqualRequests = equalArraysByProperty(
+            requests,
+            newRequests,
+            "id",
+          );
+
+          if (!isEqualRequests) {
+            setRequests(newRequests.slice(0, limitRequests));
+            return;
+          }
+
+          setRequests(newRequests);
+          return;
+        }
+
+        setRequests([...requests, ...newRequests]);
+      })
+      .catch(() => {
+        setNoMoreRequests(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleAddRequests = () => {

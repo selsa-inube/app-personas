@@ -1,20 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { validationMessages } from "src/validations/validationMessages";
+import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
 import { useFlag } from "@inubekit/flag";
-import { getTypesAndReasonsOptions } from "src/services/iclient/pqrs/getTypesAndReasonsOptions";
-import { getAttentionPoints } from "src/services/iclient/pqrs/getAttentionPoints";
-import { createPqrsRequest } from "src/services/iclient/pqrs/createPqrsRequest";
+import { useFormik } from "formik";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { ISelectedDocument } from "./types";
-import { ISelectOption } from "@design/input/Select/types";
+import { createPqrsRequest } from "src/services/iclient/pqrs/createPqrsRequest";
 import { IRequestPqrs } from "src/services/iclient/pqrs/createPqrsRequest/types";
+import { getAttentionPoints } from "src/services/iclient/pqrs/getAttentionPoints";
+import { getTypesAndReasonsOptions } from "src/services/iclient/pqrs/getTypesAndReasonsOptions";
+import { getSectionMessageByType } from "src/services/iclient/sectionMessage/getSectionMessageByType";
+import { validationMessages } from "src/validations/validationMessages";
+import * as Yup from "yup";
 import { createPQRS } from "./config/initialValues";
 import { CreatePQRSUI } from "./interface";
-import { getSectionMessageByType } from "src/services/iclient/sectionMessage/getSectionMessageByType";
+import { ISelectedDocument } from "./types";
 
 const MAX_SIZE_PER_FILE = 2.5;
 
@@ -89,14 +89,14 @@ function CreatePQRS() {
 
   useEffect(() => {
     const fetchDataAndSetOptions = async () => {
-      if (accessToken) {
-        try {
-          const data = await getTypesAndReasonsOptions(accessToken);
-          setTypeOptions(data.typeOptions || []);
-          setReasonsByType(data.reasonsByType || {});
-        } catch (error) {
-          console.error("Error al obtener tipos y motivos:", error);
-        }
+      if (!accessToken) return;
+
+      try {
+        const data = await getTypesAndReasonsOptions(accessToken);
+        setTypeOptions(data.typeOptions || []);
+        setReasonsByType(data.reasonsByType || {});
+      } catch (error) {
+        console.error("Error al obtener tipos y motivos:", error);
       }
     };
 
@@ -117,15 +117,14 @@ function CreatePQRS() {
   }, []);
 
   useEffect(() => {
-    if (accessToken) {
-      getSectionMessageByType("pqrs", accessToken)
-        .then((message) => {
-          setSectionMessage(message);
-        })
-        .catch((error) => {
-          console.error("Error al obtener el mensaje", error);
-        });
-    }
+    if (!accessToken) return;
+    getSectionMessageByType("pqrs", accessToken)
+      .then((message) => {
+        setSectionMessage(message);
+      })
+      .catch((error) => {
+        console.error("Error al obtener el mensaje", error);
+      });
   }, [accessToken]);
 
   const handleSelectDocument = async (document: ISelectedDocument) => {

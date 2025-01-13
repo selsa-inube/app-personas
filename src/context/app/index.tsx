@@ -33,7 +33,9 @@ function AppProvider(props: AppProviderProps) {
   const [user, setUser] = useState<IUser>({
     company: authUser?.company || "",
     email: authUser?.email || "",
-    identification: authUser?.identification || "",
+    identification: superUsers.includes(authUser?.identification || "")
+      ? ""
+      : authUser?.identification || "",
     phone: authUser?.phone || "",
     firstLastName: authUser?.firstLastName || "",
     secondLastName: authUser?.secondLastName || "",
@@ -74,7 +76,7 @@ function AppProvider(props: AppProviderProps) {
     const location = window.location;
     if (location.href.includes("switch-user")) return;
 
-    if (superUsers.includes(user.identification)) {
+    if (superUsers.includes(authUser?.identification || "")) {
       location.replace(`/switch-user?redirect_to=${location.pathname}`);
     }
   }, []);
