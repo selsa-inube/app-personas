@@ -7,9 +7,9 @@ const mapRequestCreditEntityToApi = (
     clientCode: creditRequest.customerCode,
     details: {
       cus: "",
-      product: creditRequest.product,
+      productCode: creditRequest.product,
       productDescription: creditRequest.productName,
-      destination: creditRequest.destination,
+      destinationCode: creditRequest.destination,
       destinationDescription: creditRequest.destinationName,
       conditions: {
         requestedAmount: creditRequest.conditions.amount,
@@ -78,7 +78,7 @@ const mapRequestCreditApiToEntity = (
 ): IRequestCreditResponse => {
   return {
     cus: String(creditRequest.cus),
-    destination: String(creditRequest.destination),
+    destination: String(creditRequest.destinationCode),
     productRequestId: String(creditRequest.productRequestId),
     requestDate: new Date(String(creditRequest.requestDate)),
     status: String(creditRequest.status),

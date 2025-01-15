@@ -22,7 +22,7 @@ const mapModifyQuotaProgrammedSavingApiToEntity = (
 ): IModifyQuotaProgrammedSavingResponse => {
   return {
     cus: String(programmedSavingRequest.cus),
-    destination: String(programmedSavingRequest.destination),
+    destination: String(programmedSavingRequest.destinationCode),
     productRequestId: String(programmedSavingRequest.productRequestId),
     requestDate: new Date(String(programmedSavingRequest.requestDate)),
     status: String(programmedSavingRequest.status),

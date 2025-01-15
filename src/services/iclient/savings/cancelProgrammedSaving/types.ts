@@ -18,8 +18,8 @@ interface ICancelProgrammedSavingRequest {
     identificationType?: string;
     identification?: string;
   };
-  savingName: string;
-  savingNumber: string;
+  productName: string;
+  productNumber: string;
 }
 
 interface ICancelProgrammedSavingResponse {

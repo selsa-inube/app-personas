@@ -19,7 +19,7 @@ const mapModifyActionCdatApiToEntity = (
 ): IModifyActionCdatResponse => {
   return {
     cus: String(cdatRequest.cus),
-    destination: String(cdatRequest.destination),
+    destination: String(cdatRequest.destinationCode),
     productRequestId: String(cdatRequest.productRequestId),
     requestDate: new Date(String(cdatRequest.requestDate)),
     status: String(cdatRequest.status),

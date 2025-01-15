@@ -56,9 +56,9 @@ const mapRequestProgrammedSavingEntityToApi = (
           programmedSavingRequest.disbursmentMethod.secondLastName,
       },
       documentRequirements: [],
-      savingAlias: "",
-      savingCode: programmedSavingRequest.product,
-      savingName: programmedSavingRequest.productName,
+      productAlias: "",
+      productCode: programmedSavingRequest.product,
+      productName: programmedSavingRequest.productName,
       systemRequirements: programmedSavingRequest.validations.map(
         (validation) => ({
           evaluationDescription: validation.evaluationDescription,
@@ -79,7 +79,7 @@ const mapRequestProgrammedSavingApiToEntity = (
 ): IRequestProgrammedSavingResponse => {
   return {
     cus: String(programmedSavingRequest.cus),
-    destination: String(programmedSavingRequest.destination),
+    destination: String(programmedSavingRequest.destinationCode),
     productRequestId: String(programmedSavingRequest.productRequestId),
     requestDate: new Date(String(programmedSavingRequest.requestDate)),
     status: String(programmedSavingRequest.status),
