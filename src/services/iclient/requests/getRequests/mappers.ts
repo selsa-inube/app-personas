@@ -142,7 +142,7 @@ const mapRequestApiToEntity = (
     requestType: requestTypeCode,
     title: requestTitles[requestTypeCode as RequestType] || "",
     destination: capitalizeText(
-      String(Object(details).destinationDetail || ""),
+      String(Object(details).destinationDescription || ""),
     ),
     trackingCode: request.requestNumber ? String(request.requestNumber) : "",
     requestDate: new Date(String(request.requestDate)),
@@ -178,7 +178,7 @@ const mapRequestApiToEntity = (
         );
       }
       requestData.product = capitalizeText(
-        String(Object(details).aidDescription || ""),
+        String(Object(details).productDescription || ""),
       );
 
       if (Object(request).aidType.code === aidTypeDM.REQUIRED_DAYS.id) {
@@ -190,7 +190,7 @@ const mapRequestApiToEntity = (
       break;
 
     case "newprogrammedsaving":
-      requestData.product = capitalizeText(String(Object(details).savingName));
+      requestData.product = capitalizeText(String(Object(details).productName));
       requestData.periodicityName = String(
         periodicityDM.valueOf(Object(conditions).periodicity || "")?.value ||
           "",
@@ -219,7 +219,7 @@ const mapRequestApiToEntity = (
         Object(conditions).quotas || Object(conditions).numQuotas,
       );
       requestData.product = capitalizeText(
-        String(Object(details).productDetail || ""),
+        String(Object(details).productDescription || ""),
       );
 
       requestData.value = Number(Object(conditions).requestedAmount || 0);

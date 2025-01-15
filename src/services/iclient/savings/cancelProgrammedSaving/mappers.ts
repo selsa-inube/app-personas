@@ -9,8 +9,8 @@ const mapCancelProgrammedSavingEntityToApi = (
   return {
     clientCode: programmedSavingRequest.customerCode,
     details: {
-      productNumber: programmedSavingRequest.savingNumber,
-      productDescription: programmedSavingRequest.savingName,
+      productNumber: programmedSavingRequest.productNumber,
+      productDescription: programmedSavingRequest.productName,
       balanceSaving: programmedSavingRequest.balanceSaving,
       disbursementMethod: {
         disbursementMethodCode: programmedSavingRequest.disbursmentMethod.id,
@@ -53,7 +53,7 @@ const mapCancelProgrammedSavingApiToEntity = (
 ): ICancelProgrammedSavingResponse => {
   return {
     cus: String(programmedSavingRequest.cus),
-    destination: String(programmedSavingRequest.destination),
+    destination: String(programmedSavingRequest.destinationCode),
     productRequestId: String(programmedSavingRequest.productRequestId),
     requestDate: new Date(String(programmedSavingRequest.requestDate)),
     status: String(programmedSavingRequest.status),

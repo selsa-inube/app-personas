@@ -310,8 +310,8 @@ function SavingsAccount() {
       const cancelRequestData: ICancelProgrammedSavingRequest = {
         balanceSaving: netValue,
         customerCode: user.identification,
-        savingName: selectedProduct.saving.title,
-        savingNumber: selectedProduct.saving.id,
+        productName: selectedProduct.saving.title,
+        productNumber: selectedProduct.saving.id,
         disbursmentMethod: {
           id: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.id,
           name: disbursementTypeDM.LOCAL_SAVINGS_DEPOSIT.value,

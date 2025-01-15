@@ -7,8 +7,8 @@ const mapRequestAidEntityToApi = (
     clientCode: aidRequest.customerCode,
     details: {
       customerName: aidRequest.customerName,
-      aidCode: aidRequest.product,
-      aidDescription: aidRequest.productName,
+      productCode: aidRequest.product,
+      productDescription: aidRequest.productName,
       dateEvaluationConditions: new Date().toISOString(),
       requestedValue: aidRequest.amount,
       comments: aidRequest.comments,
@@ -66,7 +66,7 @@ const mapRequestAidApiToEntity = (
 ): IRequestAidResponse => {
   return {
     cus: String(aidRequest.cus),
-    destination: String(aidRequest.destination),
+    destination: String(aidRequest.destinationCode),
     productRequestId: String(aidRequest.productRequestId),
     requestDate: new Date(String(aidRequest.requestDate)),
     status: String(aidRequest.status),
