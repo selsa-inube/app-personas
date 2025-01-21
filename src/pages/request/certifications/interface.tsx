@@ -1,15 +1,15 @@
-import { inube } from "@design/tokens";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Stack } from "@inubekit/stack";
-import { crumbsCertificationsRequest } from "./config/navigation";
-import { Title } from "@design/data/Title";
-import { MdArrowBack } from "react-icons/md";
-import { Grid } from "@inubekit/grid";
-import { useMediaQuery } from "@hooks/useMediaQuery";
 import { DownloadCard } from "@components/cards/DownloadCard";
-import { IAid } from "src/model/entity/service";
 import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
+import { Title } from "@design/data/Title";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/inubekit";
+import { MdArrowBack } from "react-icons/md";
+import { IAid } from "src/model/entity/service";
+import { crumbsCertificationsRequest } from "./config/navigation";
 
 interface CertificationRequestUIProps {
   certifications: IAid[];

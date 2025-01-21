@@ -2,7 +2,8 @@ import { DebtModal } from "@components/modals/general/updateData/DebtModal";
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineAccountBalance } from "react-icons/md";
 import { mapPersonalDebts } from "../../config/mappers";
@@ -11,7 +12,6 @@ import {
   personalDebtsTableTitles,
 } from "./config/table";
 import { IPersonalDebtEntries } from "./types";
-import { Button } from "@inubekit/button";
 
 interface PersonalDebtsFormUIProps {
   formik: FormikProps<IPersonalDebtEntries>;

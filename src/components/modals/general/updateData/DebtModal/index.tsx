@@ -5,9 +5,10 @@ import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
+import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IPersonalDebtEntries } from "@pages/general/UpdateData/forms/PersonalDebtsForm/types";
@@ -21,7 +22,6 @@ import {
 } from "src/utils/currency";
 import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
-import { Button } from "@inubekit/button";
 
 const liabilityTypeDM = getDomainById("liabilityType");
 

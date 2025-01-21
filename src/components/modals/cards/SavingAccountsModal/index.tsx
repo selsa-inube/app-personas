@@ -1,15 +1,15 @@
 import { Product } from "@components/cards/Product";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Divider } from "@inubekit/divider";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/inubekit";
+import { Text } from "@inubekit/text";
 import { createPortal } from "react-dom";
 import { MdOutlineAccountBalanceWallet, MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { StyledModal } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface SavingAccountsModalProps {
   portalId: string;

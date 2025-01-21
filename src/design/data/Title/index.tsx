@@ -1,9 +1,9 @@
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useNavigate } from "react-router-dom";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/inubekit";
+import { Text } from "@inubekit/text";
+import { useNavigate } from "react-router-dom";
 
 interface TitleProps {
   title: string;
@@ -41,11 +41,7 @@ function Title(props: TitleProps) {
           {title}
         </Text>
       </Stack>
-      <Text
-        type="body"
-        size={isMobile ? "small" : "medium"}
-        appearance="gray"
-      >
+      <Text type="body" size={isMobile ? "small" : "medium"} appearance="gray">
         {subtitle}
       </Text>
     </Stack>

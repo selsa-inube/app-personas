@@ -3,7 +3,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
 import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { createPortal } from "react-dom";
 import { MdAssignment, MdCheckCircle, MdOutlineHouse } from "react-icons/md";

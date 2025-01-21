@@ -10,6 +10,10 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/inubekit";
+import { Text } from "@inubekit/text";
 import { consumptionBox } from "./config/consumption";
 import { crumbsConsumption } from "./config/navigation";
 import {
@@ -23,10 +27,6 @@ import {
   movementsTableTitles,
 } from "./config/table";
 import { ISelectedProductState } from "./types";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface ConsumptionUIProps {
   isMobile?: boolean;

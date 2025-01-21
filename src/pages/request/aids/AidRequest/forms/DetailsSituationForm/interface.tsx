@@ -3,7 +3,7 @@ import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOutlineTag } from "react-icons/md";
 import {

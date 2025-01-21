@@ -1,10 +1,16 @@
 import { Title } from "@design/data/Title";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Stack } from "@inubekit/inubekit";
+import { Tabs } from "@inubekit/tabs";
 import { MdArrowBack } from "react-icons/md";
+import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { BankTransfersForm } from "../UpdateData/forms/BankTransfersForm";
 import { BeneficiariesForm } from "../UpdateData/forms/BeneficiariesForm";
 import { ContactDataForm } from "../UpdateData/forms/ContactDataForm";
 import { EconomicActivityForm } from "../UpdateData/forms/EconomicActivityForm";
+import { ExpensesForm } from "../UpdateData/forms/ExpensesForm";
 import { FamilyGroupForm } from "../UpdateData/forms/FamilyGroupForm";
 import { FinancialOperationsForm } from "../UpdateData/forms/FinancialOperationsForm";
 import { IncomesForm } from "../UpdateData/forms/IncomesForm";
@@ -13,17 +19,11 @@ import { PersonalDebtsForm } from "../UpdateData/forms/PersonalDebtsForm";
 import { PersonalInformationForm } from "../UpdateData/forms/PersonalInformationForm";
 import { PersonalReferencesForm } from "../UpdateData/forms/PersonalReferencesForm";
 import { PersonalResidenceForm } from "../UpdateData/forms/PersonalResidenceForm";
-import { SocioeconomicInformationForm } from "../UpdateData/forms/SocioeconomicInformationForm";
-import { ExpensesForm } from "../UpdateData/forms/ExpensesForm";
 import { RelationshipWithDirectorsForm } from "../UpdateData/forms/RelationshipWithDirectorsForm";
+import { SocioeconomicInformationForm } from "../UpdateData/forms/SocioeconomicInformationForm";
 import { IFormsUpdateData } from "../UpdateData/types";
 import { crumbsUpdateData } from "./config/navigation";
 import { updateDataTabs } from "./config/tabs";
-import { CommentsForm } from "src/shared/forms/CommentsForm";
-import { Stack } from "@inubekit/stack";
-import { Tabs } from "@inubekit/tabs";
-import { inube } from "@design/tokens";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 const renderTabContent = (
   selectedTab: string,

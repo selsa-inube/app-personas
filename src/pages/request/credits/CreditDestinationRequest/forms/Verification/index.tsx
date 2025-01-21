@@ -2,7 +2,7 @@ import { Accordion } from "@design/data/Accordion";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { creditDestinationRequestSteps } from "../../config/assisted";
 import { IFormsCreditDestinationRequest } from "../../types";

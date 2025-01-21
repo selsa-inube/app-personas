@@ -11,7 +11,7 @@ import { Breadcrumbs, IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { EMovementType, IMovement } from "src/model/entity/product";

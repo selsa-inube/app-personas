@@ -9,7 +9,7 @@ import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
 import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdTag } from "react-icons/md";

@@ -26,15 +26,15 @@ import {
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
 import { CurrentConsumption } from "@components/cards/cards/CurrentConsumption";
-import { IProduct } from "src/model/entity/product";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
+import { ActionsModal } from "@components/modals/saving/ActionsModal";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
-import { ActionsModal } from "@components/modals/saving/ActionsModal";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/inubekit";
+import { Text } from "@inubekit/text";
 import { useContext } from "react";
 import { AppContext } from "src/context/app";
+import { IProduct } from "src/model/entity/product";
 
 interface CreditQuotaUIProps {
   cardId?: string;

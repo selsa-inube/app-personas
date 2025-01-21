@@ -2,12 +2,12 @@ import { Box } from "@components/cards/Box";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
+import { Toggle } from "@inubekit/toggle";
 import { FormikProps } from "formik";
 import { MdOutlinePerson } from "react-icons/md";
 import { getFieldState } from "src/utils/forms/forms";
 import { IContactChannelsEntry } from "./types";
-import { Toggle } from "@inubekit/toggle";
 
 interface ContactChannelsFormUIProps {
   formik: FormikProps<IContactChannelsEntry>;

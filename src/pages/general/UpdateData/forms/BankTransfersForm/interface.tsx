@@ -4,12 +4,12 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
+import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { getFieldState } from "src/utils/forms/forms";
 import { IBankTransfersEntry } from "./types";
-import { FormikProps } from "formik";
 
 interface BankTransfersFormUIProps {
   formik: FormikProps<IBankTransfersEntry>;

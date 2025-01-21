@@ -3,7 +3,7 @@ import { Totalizer } from "@components/layout/Totalizer";
 import { inube } from "@design/tokens";
 import { Divider } from "@inubekit/divider";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Fragment } from "react";
 import { EPaymentMethodType } from "src/model/entity/payment";
 import { ICommentsEntry } from "src/shared/forms/CommentsForm/types";

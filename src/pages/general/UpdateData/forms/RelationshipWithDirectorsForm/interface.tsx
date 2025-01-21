@@ -5,7 +5,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { directorsMock } from "@mocks/users/directors/directors.mocks";
 import { FormikProps } from "formik";
 import { MdSearch } from "react-icons/md";

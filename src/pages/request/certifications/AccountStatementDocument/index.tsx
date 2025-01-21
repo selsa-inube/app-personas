@@ -1,20 +1,9 @@
-import { logoUrl } from "@config/header";
-import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { formatPrimaryDate } from "src/utils/dates";
-import { IEntry } from "@design/data/Table/types";
-import { IProduct } from "src/model/entity/product";
-import { Grid } from "@inubekit/grid";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { StyledCardContainer, StyledLogo } from "./styles";
-import { currencyFormat } from "src/utils/currency";
-import {
-  cardsTableTitles,
-  commitmentsTableTitles,
-  paymentSummaryTitles,
-  savingsTableTitles,
-} from "../config/tables";
+import { logoUrl } from "@config/header";
+import { IEntry } from "@design/data/Table/types";
+import { inube } from "@design/tokens";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/inubekit";
 import {
   Col,
   Colgroup,
@@ -25,6 +14,17 @@ import {
   Thead,
   Tr,
 } from "@inubekit/table";
+import { Text } from "@inubekit/text";
+import { IProduct } from "src/model/entity/product";
+import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
+import {
+  cardsTableTitles,
+  commitmentsTableTitles,
+  paymentSummaryTitles,
+  savingsTableTitles,
+} from "../config/tables";
+import { StyledCardContainer, StyledLogo } from "./styles";
 
 const today = new Date();
 

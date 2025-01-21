@@ -7,7 +7,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { useContext, useEffect, useState } from "react";
 import { MdArrowBack } from "react-icons/md";

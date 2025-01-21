@@ -8,7 +8,7 @@ import { Divider } from "@inubekit/divider";
 import { Fieldset } from "@inubekit/fieldset";
 import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFamilyGroupEntries } from "@pages/general/UpdateData/forms/FamilyGroupForm/types";

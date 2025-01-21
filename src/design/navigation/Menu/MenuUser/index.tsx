@@ -1,5 +1,5 @@
 import { Avatar } from "@inubekit/avatar";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { StyledUser } from "./styles";
 

@@ -2,7 +2,7 @@ import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
 import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
