@@ -1,6 +1,5 @@
 import { inube } from "@design/tokens";
-import { Icon } from "@inubekit/icon";
-import { Grid, Stack } from "@inubekit/inubekit";
+import { Grid, Icon, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { MdOpenInNew } from "react-icons/md";
 import { useNavigate } from "react-router-dom";

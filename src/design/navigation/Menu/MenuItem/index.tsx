@@ -1,8 +1,7 @@
 import { StyledMenuItemContainer } from "./styles";
 
 import { inube } from "@design/tokens";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/inubekit";
+import { Icon, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { MenuItemSpacingType } from "./types";
 

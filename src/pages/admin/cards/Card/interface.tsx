@@ -15,8 +15,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
-import { Icon } from "@inubekit/icon";
-import { Grid, Stack } from "@inubekit/inubekit";
+import { Grid, Icon, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import {
   MdArrowBack,

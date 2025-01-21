@@ -1,8 +1,7 @@
 import { INav } from "@design/layout/Page/types";
 import { IHeaderLink } from "@design/navigation/Header/types";
 import { NavLink } from "@design/navigation/NavLink";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/inubekit";
+import { Icon, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
