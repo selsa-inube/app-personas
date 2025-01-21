@@ -1,5 +1,4 @@
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/inubekit";
+import { Divider, Stack } from "@inubekit/inubekit";
 import {
   extractConsumptionAttrs,
   formatCurrentConsumptionAttrs,

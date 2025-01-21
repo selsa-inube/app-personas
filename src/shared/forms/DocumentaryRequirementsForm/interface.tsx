@@ -4,8 +4,7 @@ import { InfoModal } from "@components/modals/general/InfoModal";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Grid, Icon, Stack } from "@inubekit/inubekit";
+import { Divider, Grid, Icon, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import {

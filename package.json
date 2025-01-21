@@ -20,7 +20,6 @@
     "@inubekit/blanket": "^2.25.0",
     "@inubekit/breadcrumbs": "^2.34.0",
     "@inubekit/button": "^4.44.1",
-    "@inubekit/divider": "^0.16.1",
     "@inubekit/fieldset": "^0.27.0",
     "@inubekit/flag": "^7.9.0",
     "@inubekit/inubekit": "^1.0.0",
