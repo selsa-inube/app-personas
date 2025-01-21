@@ -1,8 +1,7 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
-import { Divider } from "@inubekit/divider";
-import { Icon, Stack } from "@inubekit/inubekit";
+import { Divider, Icon, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { CreateFamilyMember } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember";
 import { IContactDataEntry } from "@pages/general/UpdateData/forms/FamilyGroupForm/CreateFamilyMember/forms/ContactDataForm/types";

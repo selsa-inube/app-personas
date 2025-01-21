@@ -2,8 +2,7 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { logoUrl } from "@config/header";
 import { IEntry } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
-import { Divider } from "@inubekit/divider";
-import { Grid, Stack } from "@inubekit/inubekit";
+import { Divider, Grid, Stack } from "@inubekit/inubekit";
 import {
   Col,
   Colgroup,

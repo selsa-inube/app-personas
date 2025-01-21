@@ -1,7 +1,6 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Icon } from "@inubekit/inubekit";
+import { Divider, Icon } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";

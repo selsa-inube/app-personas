@@ -2,8 +2,7 @@ import { PaymentMethodCard } from "@components/cards/payments/PaymentMethodCard"
 import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Divider } from "@inubekit/divider";
-import { Grid, Icon, Stack } from "@inubekit/inubekit";
+import { Divider, Grid, Icon, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import { MdError } from "react-icons/md";
