@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 
-import { Divider } from "@inubekit/inubekit";
-import { SkeletonLine } from "@inubekit/skeleton";
+import { Divider, SkeletonLine } from "@inubekit/inubekit";
 
 import { inube } from "@design/tokens";
 import { Button, IButtonAppearance, IButtonVariant } from "@inubekit/button";

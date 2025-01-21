@@ -1,4 +1,4 @@
-import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
+import { SkeletonIcon, SkeletonLine } from "@inubekit/inubekit";
 
 import { inube } from "@design/tokens";
 import { useMediaQueries } from "@hooks/useMediaQueries";
