@@ -1,6 +1,5 @@
 import { inube } from "@design/tokens";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/inubekit";
+import { Icon, Stack } from "@inubekit/inubekit";
 import { Spinner } from "@inubekit/spinner";
 import { MdDeleteOutline, MdOutlineDescription } from "react-icons/md";
 import { truncateFileName } from "src/utils/texts";

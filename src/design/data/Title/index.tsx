@@ -1,7 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/inubekit";
+import { Icon, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { useNavigate } from "react-router-dom";
 

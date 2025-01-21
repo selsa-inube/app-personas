@@ -1,6 +1,6 @@
-import { StyledContainer, StyledIcon } from "./styles";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
+import { StyledContainer, StyledIcon } from "./styles";
 
 interface ButtonAttributeProps {
   icon?: React.JSX.Element;
