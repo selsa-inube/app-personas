@@ -1,8 +1,7 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
-import { Icon, Stack } from "@inubekit/inubekit";
-import { Link } from "@inubekit/link";
+import { Icon, Link, Stack } from "@inubekit/inubekit";
 import { SkeletonLine } from "@inubekit/skeleton";
 import { ITag, Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
