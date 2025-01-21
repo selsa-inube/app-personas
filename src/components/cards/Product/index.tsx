@@ -1,15 +1,15 @@
 import { SkeletonIcon, SkeletonLine } from "@inubekit/skeleton";
 
+import { inube } from "@design/tokens";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { IAttribute } from "src/model/entity/product";
-import { StyledProduct, StyledSkeletonContainer } from "./styles";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
 import { Grid } from "@inubekit/grid";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/inubekit";
 import { ITag, Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
+import { IAttribute } from "src/model/entity/product";
+import { StyledProduct, StyledSkeletonContainer } from "./styles";
 
 interface ProductProps {
   title?: string;

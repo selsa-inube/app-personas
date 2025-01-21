@@ -4,7 +4,7 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { ITag, Tag } from "@inubekit/tag";
 import { Text } from "@inubekit/text";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";

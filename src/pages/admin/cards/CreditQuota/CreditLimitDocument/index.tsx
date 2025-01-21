@@ -1,9 +1,10 @@
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { logoUrl } from "@config/header";
-import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { formatPrimaryDate } from "src/utils/dates";
 import { IEntry } from "@design/data/Table/types";
+import { inube } from "@design/tokens";
+import { Divider } from "@inubekit/divider";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/inubekit";
 import {
   Col,
   Colgroup,
@@ -14,12 +15,11 @@ import {
   Thead,
   Tr,
 } from "@inubekit/table";
+import { Text } from "@inubekit/text";
+import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import { creditQuotaTitles } from "../config/tables";
 import { StyledCardContainer, StyledDetailsCard, StyledLogo } from "./styles";
-import { Grid } from "@inubekit/grid";
-import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Divider } from "@inubekit/divider";
-import { currencyFormat } from "src/utils/currency";
 
 interface CreditLimitDocumentProps {
   username: string;
@@ -102,7 +102,7 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
     totalPayment,
     movementEntries,
   } = props;
-  
+
   return (
     <Stack
       padding={inube.spacing.s400}

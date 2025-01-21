@@ -1,9 +1,9 @@
+import { inube } from "@design/tokens";
+import { Icon } from "@inubekit/icon";
+import { Stack } from "@inubekit/inubekit";
+import { Text } from "@inubekit/text";
 import { StyledContainer, StyledLink, StyledQuickAccess } from "./styles";
 import { ILink } from "./types";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface QuickAccessProps {
   links: ILink[];

@@ -3,7 +3,7 @@ import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { usersMock } from "@mocks/users/users.mocks";
 import { FormikProps } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";

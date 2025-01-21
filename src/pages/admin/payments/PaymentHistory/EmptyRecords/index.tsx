@@ -2,7 +2,7 @@ import { OutlineCard } from "@components/cards/OutlineCard";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
 import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { MdSearch } from "react-icons/md";
 import { useNavigate } from "react-router-dom";

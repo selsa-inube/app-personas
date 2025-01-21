@@ -5,8 +5,8 @@ import { SelectProps } from ".";
 import { DropdownMenu } from "../DropdownMenu";
 import { ISelectMessage } from "./types";
 
+import { Stack } from "@inubekit/inubekit";
 import { Label } from "@inubekit/label";
-import { Stack } from "@inubekit/stack";
 import { Text } from "@inubekit/text";
 import {
   StyledContainer,

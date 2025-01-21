@@ -11,7 +11,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Assisted, IAssistedStep } from "@inubekit/assisted";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { IDomainType } from "@ptypes/domain.types";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";

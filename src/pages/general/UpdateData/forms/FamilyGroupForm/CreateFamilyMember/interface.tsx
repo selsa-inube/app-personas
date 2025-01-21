@@ -1,6 +1,8 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/inubekit";
 import { createFamilyMemberSteps } from "./config/assisted";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { IdentificationDataForm } from "./forms/IdentificationDataForm";
@@ -12,8 +14,6 @@ import {
   IFormsCreateFamilyMember,
   IFormsCreateFamilyMemberRefs,
 } from "./types";
-import { Button } from "@inubekit/button";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,

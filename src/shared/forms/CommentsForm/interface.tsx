@@ -1,9 +1,9 @@
 import { Textarea } from "@design/input/Textarea";
-import { FormikProps } from "formik";
-import { ICommentsEntry } from "./types";
-import { Stack } from "@inubekit/stack";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/inubekit";
+import { FormikProps } from "formik";
+import { ICommentsEntry } from "./types";
 
 interface CommentsFormUIProps {
   formik: FormikProps<ICommentsEntry>;

@@ -1,6 +1,6 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { getFieldState } from "src/utils/forms/forms";
 import { IPlanNameEntry } from "./types";

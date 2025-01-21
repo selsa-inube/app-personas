@@ -1,5 +1,10 @@
 import { Title } from "@design/data/Title";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Assisted, IAssistedStep } from "@inubekit/assisted";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Button } from "@inubekit/button";
+import { Stack } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
 import { CommentsForm } from "src/shared/forms/CommentsForm";
 import { updateDataSteps } from "./config/assisted";
@@ -21,11 +26,6 @@ import { RelationshipWithDirectorsForm } from "./forms/RelationshipWithDirectors
 import { SocioeconomicInformationForm } from "./forms/SocioeconomicInformationForm";
 import { UpdateDataVerification } from "./forms/Verification";
 import { IFormsUpdateData, IFormsUpdateDataRefs } from "./types";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,

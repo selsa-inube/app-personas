@@ -1,14 +1,14 @@
 import { IAction, IEntry } from "@design/data/Table/types";
 import { TextField } from "@design/input/TextField";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket } from "@inubekit/blanket";
+import { Stack } from "@inubekit/inubekit";
+import { Text } from "@inubekit/text";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";
 import { StyledModal } from "./styles";
 import { ILabel } from "./types";
-import { Blanket } from "@inubekit/blanket";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface InteractiveModalProps {
   portalId: string;
@@ -43,7 +43,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
 
   if (node === null) {
     throw new Error(
-      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly."
+      "The portal node is not defined. This can occur when the specific node used to render the portal has not been defined correctly.",
     );
   }
 
@@ -79,7 +79,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
                         size="compact"
                         readOnly={true}
                       />
-                    )
+                    ),
                 )
               : Object.keys(infoData).map((key, id) => (
                   <TextField
@@ -113,7 +113,7 @@ const InteractiveModal = (props: InteractiveModalProps) => {
         </Stack>
       </StyledModal>
     </Blanket>,
-    node
+    node,
   );
 };
 

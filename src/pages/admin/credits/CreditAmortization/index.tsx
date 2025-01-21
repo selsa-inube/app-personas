@@ -12,7 +12,7 @@ import { useAuth } from "@inube/auth";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
 import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import {

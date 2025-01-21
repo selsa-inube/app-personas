@@ -10,18 +10,18 @@ import { quickLinks } from "@config/quickLinks";
 
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/inubekit";
+import { Text } from "@inubekit/text";
+import { creditAttributeBreakpoints } from "@pages/admin/home/config/products";
 import { IProduct } from "src/model/entity/product";
+import {
+  extractCreditAttributes,
+  formatCreditCurrencyAttrs,
+} from "../../home/config/products";
 import { myCredits } from "./config/boxes";
 import { crumbsMyCredits } from "./config/navigation";
-import { creditAttributeBreakpoints } from "@pages/admin/home/config/products";
-import {
-  formatCreditCurrencyAttrs,
-  extractCreditAttributes,
-} from "../../home/config/products";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface MyCreditsUIProps {
   loading: boolean;

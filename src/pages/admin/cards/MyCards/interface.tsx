@@ -17,15 +17,15 @@ import { inube } from "@design/tokens";
 import { myCards } from "./config/boxes";
 import { crumbsMyCards } from "./config/navigation";
 
+import { Breadcrumbs } from "@inubekit/breadcrumbs";
+import { Grid } from "@inubekit/grid";
+import { Stack } from "@inubekit/inubekit";
+import { Text } from "@inubekit/text";
 import {
   cardAttributeBreakpoints,
   extractCardAttributes,
 } from "@pages/admin/home/config/products";
 import { IProduct } from "src/model/entity/product";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 
 interface MyCardsUIProps {
   loading: boolean;

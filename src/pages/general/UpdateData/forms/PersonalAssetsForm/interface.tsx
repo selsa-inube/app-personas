@@ -3,7 +3,7 @@ import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineAddHome } from "react-icons/md";
 import { mapPersonalAssets } from "../../config/mappers";
