@@ -7,7 +7,7 @@ import { renderDocumentaryRequirementsVerification } from "@forms/DocumentaryReq
 import { renderPaymentMethodVerification } from "@forms/PaymentMethodForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
-import { Grid } from "@inubekit/grid";
+import { Grid } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
 import { creditDestinationRequestSteps } from "../../../config/assisted";
 import { IFormsCreditDestinationRequest } from "../../../types";

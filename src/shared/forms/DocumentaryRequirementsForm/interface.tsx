@@ -5,9 +5,8 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
 import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
 import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/inubekit";
+import { Grid, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import {

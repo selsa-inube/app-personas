@@ -1,6 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
-import { Grid } from "@inubekit/grid";
+import { Grid } from "@inubekit/inubekit";
 import { Tag } from "@inubekit/tag";
 import { ISystemValidationsEntry } from "./types";
 

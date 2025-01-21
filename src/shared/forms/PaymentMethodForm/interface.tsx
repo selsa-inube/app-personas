@@ -1,12 +1,12 @@
-import { FormikProps } from "formik";
-import { IPaymentMethodEntry } from "./types";
-import { Grid } from "@inubekit/grid";
-import { useMediaQuery } from "@hooks/useMediaQuery";
-import { inube } from "@design/tokens";
 import { Select } from "@design/input/Select";
-import { generateFormFields, getFieldState } from "src/utils/forms/forms";
-import { IFormField } from "@ptypes/forms.types";
+import { inube } from "@design/tokens";
+import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Fieldset } from "@inubekit/fieldset";
+import { Grid } from "@inubekit/inubekit";
+import { IFormField } from "@ptypes/forms.types";
+import { FormikProps } from "formik";
+import { generateFormFields, getFieldState } from "src/utils/forms/forms";
+import { IPaymentMethodEntry } from "./types";
 
 interface PaymentMethodFormUIProps {
   formik: FormikProps<IPaymentMethodEntry>;

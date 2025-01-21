@@ -3,7 +3,7 @@ import { getHeader } from "@config/header";
 import { getActions, getMobileNav, getNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { Grid } from "@inubekit/grid";
+import { Grid } from "@inubekit/inubekit";
 import { Nav } from "@inubekit/nav";
 import { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
