@@ -1,8 +1,7 @@
 import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/inubekit";
+import { Grid, Stack } from "@inubekit/inubekit";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikProps } from "formik";
 import { generateFormFields, getFieldState } from "src/utils/forms/forms";

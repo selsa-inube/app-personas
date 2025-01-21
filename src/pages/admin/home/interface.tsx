@@ -20,8 +20,7 @@ import {
 import { ICommitment, IProduct } from "src/model/entity/product";
 import { formatTraceabilityDate } from "src/utils/dates";
 
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/inubekit";
+import { Grid, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { AppContext } from "src/context/app";
 import {

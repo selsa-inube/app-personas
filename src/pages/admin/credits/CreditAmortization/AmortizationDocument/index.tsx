@@ -2,8 +2,7 @@ import { OutlineCard } from "@components/cards/OutlineCard";
 import { logoUrl } from "@config/header";
 import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/inubekit";
+import { Grid, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { currencyFormat } from "src/utils/currency";
 

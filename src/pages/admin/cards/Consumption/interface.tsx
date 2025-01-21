@@ -11,8 +11,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { MdArrowBack } from "react-icons/md";
 
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/inubekit";
+import { Grid, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { consumptionBox } from "./config/consumption";
 import { crumbsConsumption } from "./config/navigation";

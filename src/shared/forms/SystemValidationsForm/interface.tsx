@@ -1,8 +1,7 @@
 import { ValidationCard } from "@components/cards/ValidationCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/inubekit";
+import { Grid, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import { ISystemValidationsEntry } from "./types";
