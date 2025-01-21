@@ -3,7 +3,7 @@ import { DisplayEntry } from "./DisplayEntry";
 
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { SkeletonLine } from "@inubekit/skeleton";
+import { SkeletonLine } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { TextAppearanceType } from "@ptypes/color.types";
 import {

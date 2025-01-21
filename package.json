@@ -25,7 +25,6 @@
     "@inubekit/inubekit": "^1.0.0",
     "@inubekit/label": "^3.1.1",
     "@inubekit/nav": "^5.3.1",
-    "@inubekit/skeleton": "^2.11.1",
     "@inubekit/spinner": "^2.12.1",
     "@inubekit/table": "^5.38.0",
     "@inubekit/tabs": "^2.38.0",

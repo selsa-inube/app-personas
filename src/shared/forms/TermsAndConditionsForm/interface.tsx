@@ -1,7 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Link, Stack } from "@inubekit/inubekit";
-import { SkeletonLine } from "@inubekit/skeleton";
+import { Link, SkeletonLine, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { Toggle } from "@inubekit/toggle";
 import { FormikProps } from "formik";

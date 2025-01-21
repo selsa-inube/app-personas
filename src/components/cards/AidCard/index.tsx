@@ -1,7 +1,6 @@
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
-import { Stack } from "@inubekit/inubekit";
-import { SkeletonLine } from "@inubekit/skeleton";
+import { SkeletonLine, Stack } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { IDomainType } from "@ptypes/domain.types";
 import { useNavigate } from "react-router-dom";
