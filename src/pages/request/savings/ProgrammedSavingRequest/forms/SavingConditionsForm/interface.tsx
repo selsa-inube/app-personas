@@ -5,8 +5,14 @@ import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Fieldset } from "@inubekit/fieldset";
-import { Button, Divider, Grid, Stack, Text } from "@inubekit/inubekit";
+import {
+  Button,
+  Divider,
+  Fieldset,
+  Grid,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdTag } from "react-icons/md";
 import {

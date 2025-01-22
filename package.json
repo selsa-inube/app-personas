@@ -16,7 +16,6 @@
   "dependencies": {
     "@inube/auth": "^1.0.18",
     "@inubekit/assisted": "^7.10.0",
-    "@inubekit/fieldset": "^0.27.0",
     "@inubekit/flag": "^7.9.0",
     "@inubekit/inubekit": "^1.0.0",
     "@inubekit/label": "^3.1.1",
