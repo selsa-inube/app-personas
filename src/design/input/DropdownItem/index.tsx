@@ -1,6 +1,6 @@
+import { Text } from "@inubekit/inubekit";
 import { useRef, useState } from "react";
 import { StyledDropdownItem } from "./styles";
-import { Text } from "@inubekit/text";
 
 interface DropdownItemProps {
   id: string;

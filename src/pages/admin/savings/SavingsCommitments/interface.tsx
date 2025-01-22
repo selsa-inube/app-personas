@@ -15,8 +15,7 @@ import { currencyFormat } from "src/utils/currency";
 
 import { RecordCard } from "@components/cards/RecordCard";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Divider, Grid, Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import {
   extractSavingsAttributes,
   formatSavingsCurrencyAttrs,

@@ -2,8 +2,7 @@ import { OutlineCard } from "@components/cards/OutlineCard";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid, Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import {

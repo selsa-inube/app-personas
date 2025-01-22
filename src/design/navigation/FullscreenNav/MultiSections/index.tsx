@@ -1,8 +1,7 @@
 import { INav } from "@design/layout/Page/types";
 import { IHeaderLink } from "@design/navigation/Header/types";
 import { NavLink } from "@design/navigation/NavLink";
-import { Icon, Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 import { StyledCollapseIcon, StyledSectionContainer } from "./styles";

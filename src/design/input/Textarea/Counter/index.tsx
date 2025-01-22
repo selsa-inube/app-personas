@@ -1,5 +1,5 @@
+import { Text } from "@inubekit/inubekit";
 import { CounterAppearence } from "../types";
-import { Text } from "@inubekit/text";
 
 interface CounterProps {
   maxLength: number;

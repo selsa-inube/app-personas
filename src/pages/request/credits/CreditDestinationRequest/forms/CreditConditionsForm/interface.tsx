@@ -8,9 +8,8 @@ import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
-import { Divider, Grid, Stack } from "@inubekit/inubekit";
+import { Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import { Tabs } from "@inubekit/tabs";
-import { Text } from "@inubekit/text";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
 import {

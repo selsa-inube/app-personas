@@ -1,8 +1,7 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/inubekit";
+import { Stack, Text } from "@inubekit/inubekit";
 import { Label } from "@inubekit/label";
-import { Text } from "@inubekit/text";
 import { useState } from "react";
 import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import {

@@ -9,8 +9,7 @@ import { getMenuSections } from "@config/header";
 import { INav } from "@design/layout/Page/types";
 import { inube } from "@design/tokens";
 import { useAuth } from "@inube/auth";
-import { Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Stack, Text } from "@inubekit/inubekit";
 import { useEffect, useRef, useState } from "react";
 import { Menu } from "../Menu";
 import {

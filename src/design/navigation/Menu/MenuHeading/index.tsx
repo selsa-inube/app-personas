@@ -1,5 +1,5 @@
-import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Text } from "@inubekit/inubekit";
 
 interface MenuHeadingProps {
   title: string;

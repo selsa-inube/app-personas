@@ -3,11 +3,11 @@ import { Box, BoxProps } from ".";
 
 import { MdAdd, MdOutlineSavings } from "react-icons/md";
 
-import { Text } from "@inubekit/text";
+import { Text } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
-import { props } from "./props";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
+import { props } from "./props";
 
 const story = {
   title: "components/cards/Box",

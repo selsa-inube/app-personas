@@ -1,5 +1,4 @@
-import { Icon } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Icon, Text } from "@inubekit/inubekit";
 import { StyledContainer, StyledIcon } from "./styles";
 
 interface ButtonAttributeProps {

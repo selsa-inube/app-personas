@@ -18,8 +18,7 @@ import { myCards } from "./config/boxes";
 import { crumbsMyCards } from "./config/navigation";
 
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Grid, Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import {
   cardAttributeBreakpoints,
   extractCardAttributes,

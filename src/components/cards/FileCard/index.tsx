@@ -4,7 +4,7 @@ import { MdDeleteOutline, MdOutlineDescription } from "react-icons/md";
 import { truncateFileName } from "src/utils/texts";
 import { OutlineCard } from "../OutlineCard";
 
-import { Text } from "@inubekit/text";
+import { Text } from "@inubekit/inubekit";
 
 interface FileCardProps {
   id: string;

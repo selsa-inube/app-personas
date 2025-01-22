@@ -11,8 +11,7 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Grid, Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { creditAttributeBreakpoints } from "@pages/admin/home/config/products";
 import { IProduct } from "src/model/entity/product";
 import {

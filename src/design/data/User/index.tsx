@@ -1,6 +1,5 @@
 import { Avatar } from "@inubekit/avatar";
-import { Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Stack, Text } from "@inubekit/inubekit";
 import { StyledUser } from "./styles";
 
 interface UserProps {
