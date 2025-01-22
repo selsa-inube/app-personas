@@ -5,8 +5,7 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Grid, Stack, Text } from "@inubekit/inubekit";
+import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import { ProductsCommitments } from "@pages/admin/home/ProductsCommitments";
 import {
   extractInvestmentAttributes,
