@@ -1,7 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
-import { Grid } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
+import { Grid, Tag } from "@inubekit/inubekit";
 import { ISystemValidationsEntry } from "./types";
 
 const renderSystemValidationsVerification = (

@@ -1,4 +1,4 @@
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import {
   EPaymentGroupType,

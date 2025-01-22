@@ -1,5 +1,5 @@
 import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/utils";
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import {
   EPaymentGroupType,
   EPaymentOptionType,

@@ -1,7 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
+import { Blanket, Divider, Icon, Stack, Tag, Text } from "@inubekit/inubekit";
 import React from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";

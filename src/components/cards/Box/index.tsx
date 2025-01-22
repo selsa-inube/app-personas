@@ -2,16 +2,18 @@ import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 
 import { inube } from "@design/tokens";
-import { Divider, SkeletonLine } from "@inubekit/inubekit";
 import {
   Button,
+  Divider,
   IButtonAppearance,
   IButtonVariant,
   Icon,
+  ITag,
+  SkeletonLine,
   Stack,
+  Tag,
   Text,
 } from "@inubekit/inubekit";
-import { ITag, Tag } from "@inubekit/tag";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 
 interface BoxProps {
