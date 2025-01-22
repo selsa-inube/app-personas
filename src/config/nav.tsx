@@ -1,5 +1,5 @@
 import { INav } from "@design/layout/Page/types";
-import { INavAction, INavNavigation, INavSection } from "@inubekit/nav";
+import { INavAction, INavNavigation, INavSection } from "@inubekit/inubekit";
 import {
   MdApproval,
   MdLogout,
