@@ -12,9 +12,9 @@ import {
   Fieldset,
   Grid,
   Stack,
+  Tabs,
   Text,
 } from "@inubekit/inubekit";
-import { Tabs } from "@inubekit/tabs";
 import { FormikProps } from "formik";
 import { MdAttachMoney, MdOpenInNew } from "react-icons/md";
 import {
