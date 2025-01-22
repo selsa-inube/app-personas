@@ -27,9 +27,8 @@ import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
 import { CurrentConsumption } from "@components/cards/cards/CurrentConsumption";
 import { ActionsModal } from "@components/modals/saving/ActionsModal";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
-import { Grid, Stack, Text } from "@inubekit/inubekit";
+import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext } from "react";
 import { AppContext } from "src/context/app";
 import { IProduct } from "src/model/entity/product";

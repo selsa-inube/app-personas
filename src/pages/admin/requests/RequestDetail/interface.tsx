@@ -7,9 +7,15 @@ import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
-import { Divider, Grid, Icon, Stack, Text } from "@inubekit/inubekit";
+import {
+  Breadcrumbs,
+  Divider,
+  Grid,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { Tabs } from "@inubekit/tabs";
 import { Tag } from "@inubekit/tag";
 import {

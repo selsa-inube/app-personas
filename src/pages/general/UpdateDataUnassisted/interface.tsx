@@ -1,8 +1,7 @@
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Stack } from "@inubekit/inubekit";
+import { Breadcrumbs, Stack } from "@inubekit/inubekit";
 import { Tabs } from "@inubekit/tabs";
 import { MdArrowBack } from "react-icons/md";
 import { CommentsForm } from "src/shared/forms/CommentsForm";

@@ -14,8 +14,7 @@ import { EMovementType, IMovement, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 
 import { RecordCard } from "@components/cards/RecordCard";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Divider, Grid, Stack, Text } from "@inubekit/inubekit";
+import { Breadcrumbs, Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import {
   extractSavingsAttributes,
   formatSavingsCurrencyAttrs,
