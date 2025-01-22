@@ -3,8 +3,13 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
-import { Breadcrumbs, Button, Stack } from "@inubekit/inubekit";
+import {
+  Assisted,
+  Breadcrumbs,
+  Button,
+  IAssistedStep,
+  Stack,
+} from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
 import { CommentsForm } from "src/shared/forms/CommentsForm";

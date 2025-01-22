@@ -8,8 +8,13 @@ import { DocumentaryRequirementsForm } from "@forms/DocumentaryRequirementsForm"
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
-import { Breadcrumbs, Button, Stack } from "@inubekit/inubekit";
+import {
+  Assisted,
+  Breadcrumbs,
+  Button,
+  IAssistedStep,
+  Stack,
+} from "@inubekit/inubekit";
 import { IDomainType } from "@ptypes/domain.types";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
