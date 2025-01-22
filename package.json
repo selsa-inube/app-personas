@@ -18,7 +18,6 @@
     "@inubekit/assisted": "^7.10.0",
     "@inubekit/flag": "^7.9.0",
     "@inubekit/inubekit": "^1.0.0",
-    "@inubekit/label": "^3.1.1",
     "@inubekit/nav": "^5.3.1",
     "@inubekit/table": "^5.38.0",
     "@inubekit/tabs": "^2.38.0",

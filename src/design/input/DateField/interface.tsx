@@ -9,8 +9,7 @@ import {
   StyledValidMessageContainer,
 } from "./styles";
 
-import { Stack, Text } from "@inubekit/inubekit";
-import { Label } from "@inubekit/label";
+import { Label, Stack, Text } from "@inubekit/inubekit";
 import { DateFieldProps } from ".";
 
 function Invalid(props: IDateFieldMessage) {

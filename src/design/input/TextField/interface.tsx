@@ -2,8 +2,7 @@ import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { ITextFieldMessage } from "./types";
 
 import { inube } from "@design/tokens";
-import { Stack, Text } from "@inubekit/inubekit";
-import { Label } from "@inubekit/label";
+import { Label, Stack, Text } from "@inubekit/inubekit";
 import { TextFieldProps } from ".";
 import { DropdownMenu } from "../DropdownMenu";
 import { Counter } from "../Textarea/Counter";
