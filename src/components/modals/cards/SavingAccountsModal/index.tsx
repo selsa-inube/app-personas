@@ -1,8 +1,7 @@
 import { Product } from "@components/cards/Product";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Divider, Icon, Stack, Text } from "@inubekit/inubekit";
+import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
 import { createPortal } from "react-dom";
 import { MdOutlineAccountBalanceWallet, MdOutlineClose } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";

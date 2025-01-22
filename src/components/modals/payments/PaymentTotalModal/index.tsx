@@ -1,8 +1,7 @@
 import { PaymentInformationCard } from "@components/cards/payments/PaymentInformationCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Divider, Icon, Stack, Text } from "@inubekit/inubekit";
+import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { IPayment } from "src/model/entity/payment";

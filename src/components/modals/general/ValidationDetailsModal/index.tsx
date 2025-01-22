@@ -1,8 +1,7 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
 import { Button } from "@inubekit/button";
-import { Stack, Text } from "@inubekit/inubekit";
+import { Blanket, Stack, Text } from "@inubekit/inubekit";
 import { createPortal } from "react-dom";
 import { StyledModal } from "./styles";
 
