@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Blanket } from "@inubekit/blanket";
-import { Spinner } from "@inubekit/spinner";
+import { Spinner } from "@inubekit/inubekit";
 import { Text } from "@inubekit/text";
 import { StyledLoadingCard } from "./styles";
 
