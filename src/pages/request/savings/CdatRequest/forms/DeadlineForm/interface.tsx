@@ -4,8 +4,14 @@ import { DateField } from "@design/input/DateField";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Fieldset } from "@inubekit/fieldset";
-import { Button, Divider, Grid, Stack, Text } from "@inubekit/inubekit";
+import {
+  Button,
+  Divider,
+  Fieldset,
+  Grid,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineTag } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";

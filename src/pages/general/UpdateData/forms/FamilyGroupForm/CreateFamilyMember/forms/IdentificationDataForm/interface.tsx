@@ -1,5 +1,5 @@
 import { TextField } from "@design/input/TextField";
-import { Fieldset } from "@inubekit/fieldset";
+import { Fieldset } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { getFieldState, isRequired } from "src/utils/forms/forms";
 import * as Yup from "yup";

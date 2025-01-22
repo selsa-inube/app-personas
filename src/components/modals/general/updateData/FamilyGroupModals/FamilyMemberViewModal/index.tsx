@@ -2,11 +2,11 @@ import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Fieldset } from "@inubekit/fieldset";
 import {
   Blanket,
   Button,
   Divider,
+  Fieldset,
   Grid,
   Icon,
   Stack,
