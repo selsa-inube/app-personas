@@ -4,9 +4,8 @@ import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
 import { Fieldset } from "@inubekit/fieldset";
-import { Grid, Stack } from "@inubekit/inubekit";
+import { Button, Grid, Stack } from "@inubekit/inubekit";
 import { companiesData } from "@mocks/domains/companies";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import {

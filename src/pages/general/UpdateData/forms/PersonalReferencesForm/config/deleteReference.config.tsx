@@ -1,5 +1,5 @@
-import { IButtonAppearance } from "@inubekit/button";
 import { IFlagAppearance } from "@inubekit/flag";
+import { IButtonAppearance } from "@inubekit/inubekit";
 
 const deleteReferenceModal = {
   title: "Eliminar referencia",
@@ -27,4 +27,4 @@ const deleteReferenceMessages = {
   },
 };
 
-export { deleteReferenceModal, deleteReferenceMessages };
+export { deleteReferenceMessages, deleteReferenceModal };

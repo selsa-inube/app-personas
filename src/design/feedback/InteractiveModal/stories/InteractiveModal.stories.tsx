@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { IAction, IEntry } from "@design/data/Table/types";
+import { Button } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import {
@@ -11,7 +12,6 @@ import {
 import { ThemeProvider } from "styled-components";
 import { InteractiveModal, InteractiveModalProps } from "../index";
 import { props } from "../props";
-import { Button } from "@inubekit/button";
 
 const story = {
   title: "design/feedback/InteractiveModal",
@@ -104,7 +104,7 @@ const theme = {
 };
 
 export const Themed = Template.bind(
-  <ThemeProvider theme={theme}></ThemeProvider>
+  <ThemeProvider theme={theme}></ThemeProvider>,
 );
 
 Themed.args = {

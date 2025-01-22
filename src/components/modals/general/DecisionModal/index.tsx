@@ -1,7 +1,12 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, IButtonAppearance } from "@inubekit/button";
-import { Blanket, Stack, Text } from "@inubekit/inubekit";
+import {
+  Blanket,
+  Button,
+  IButtonAppearance,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdClear } from "react-icons/md";

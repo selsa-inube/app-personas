@@ -7,9 +7,9 @@ import { Select } from "@design/input/Select";
 import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
 import {
   Breadcrumbs,
+  Button,
   Divider,
   Grid,
   IBreadcrumbsRoute,

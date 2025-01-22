@@ -4,8 +4,14 @@ import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { useFormik } from "formik";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
