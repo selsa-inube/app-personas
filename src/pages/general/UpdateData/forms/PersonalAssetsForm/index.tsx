@@ -1,4 +1,5 @@
 import { IAction } from "@design/data/Table/types";
+import { useFlag } from "@inubekit/inubekit";
 import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
@@ -10,7 +11,6 @@ import { EditAsset } from "./EditAsset";
 import { deleteAssetMessages } from "./config/deleteAsset.config";
 import { PersonalAssetsFormUI } from "./interface";
 import { IPersonalAssetEntries } from "./types";
-import { useFlag } from "@inubekit/flag";
 
 const validationSchema = Yup.object({
   assetType: Yup.string().required(validationMessages.required),

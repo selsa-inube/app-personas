@@ -1,7 +1,7 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { useFlag } from "@inubekit/flag";
+import { useFlag } from "@inubekit/inubekit";
 import { sendTransferRequest } from "@pages/admin/transfers/TransferOptions/utils";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";

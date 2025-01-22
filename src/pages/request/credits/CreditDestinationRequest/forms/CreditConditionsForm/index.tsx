@@ -1,5 +1,5 @@
 import { useAuth } from "@inube/auth";
-import { useFlag } from "@inubekit/flag";
+import { useFlag } from "@inubekit/inubekit";
 import { FormikProps, useFormik } from "formik";
 import {
   forwardRef,
