@@ -9,8 +9,14 @@ import { ISelectOption } from "@design/input/Select/types";
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Breadcrumbs, Grid, Icon, Stack, Text } from "@inubekit/inubekit";
+import {
+  Breadcrumbs,
+  Button,
+  Grid,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdArrowBack, MdInfoOutline } from "react-icons/md";
 import { getFieldState } from "src/utils/forms/forms";

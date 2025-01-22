@@ -9,8 +9,7 @@ import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { Button } from "@inubekit/button";
-import { Breadcrumbs, Grid, Stack } from "@inubekit/inubekit";
+import { Breadcrumbs, Button, Grid, Stack } from "@inubekit/inubekit";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import {

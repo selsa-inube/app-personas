@@ -1,5 +1,5 @@
-import { IButtonAppearance } from "@inubekit/button";
 import { IFlagAppearance } from "@inubekit/flag";
+import { IButtonAppearance } from "@inubekit/inubekit";
 
 const deleteDebtModal = {
   title: "Eliminar deuda",
@@ -26,4 +26,4 @@ const deleteDebtMessages = {
   },
 };
 
-export { deleteDebtModal, deleteDebtMessages };
+export { deleteDebtMessages, deleteDebtModal };

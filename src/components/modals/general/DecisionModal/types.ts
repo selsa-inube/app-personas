@@ -1,4 +1,4 @@
-import { IButtonAppearance } from "@inubekit/button";
+import { IButtonAppearance } from "@inubekit/inubekit";
 
 interface IDecisionModalOptions {
   title: string;

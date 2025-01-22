@@ -1,8 +1,14 @@
 import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { IFamilyGroupEntries } from "@pages/general/UpdateData/forms/FamilyGroupForm/types";
 import { FormikProps } from "formik";
 import { useState } from "react";

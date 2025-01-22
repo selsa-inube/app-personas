@@ -1,7 +1,6 @@
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
-import { Stack } from "@inubekit/inubekit";
+import { Button, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { ICommentsEntry } from "./types";
 

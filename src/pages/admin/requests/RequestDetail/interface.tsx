@@ -7,9 +7,9 @@ import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
 import {
   Breadcrumbs,
+  Button,
   Divider,
   Grid,
   Icon,

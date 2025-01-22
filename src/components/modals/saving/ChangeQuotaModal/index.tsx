@@ -2,8 +2,14 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { MdAttachMoney, MdClear } from "react-icons/md";
