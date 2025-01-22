@@ -1,8 +1,7 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Divider, Icon, Stack, Text } from "@inubekit/inubekit";
+import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
 import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
 import { useState } from "react";
 import { createPortal } from "react-dom";
