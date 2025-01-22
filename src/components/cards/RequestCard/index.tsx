@@ -1,8 +1,7 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
-import { Icon, Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import { MdOutlineStarBorder } from "react-icons/md";
 import { StyledCardContainer } from "./styles";
 

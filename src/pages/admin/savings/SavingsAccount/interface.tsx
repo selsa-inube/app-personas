@@ -40,8 +40,7 @@ import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedM
 import { RechargeModal } from "@components/modals/transfers/RechargeModal";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
 import { Button } from "@inubekit/button";
-import { Divider, Grid, Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext } from "react";
 import { AppContext } from "src/context/app";
 import { disbursementTypeDM } from "src/model/domains/general/disbursementTypeDM";

@@ -1,9 +1,9 @@
 import { IAction, IEntry } from "@design/data/Table/types";
+import { Text } from "@inubekit/inubekit";
 import { IAmortization } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate, parseSpanishDate } from "src/utils/dates";
 import { ViewPayment } from "../../MyCredits/ViewPayment";
-import { Text } from "@inubekit/text";
 
 const mapCreditPayment = (payment: IEntry): IAmortization => {
   return {

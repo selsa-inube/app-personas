@@ -3,9 +3,8 @@ import { IApplyPayOption } from "@components/modals/payments/CustomValueModal/ut
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
-import { Icon, Stack } from "@inubekit/inubekit";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import { ITag, Tag } from "@inubekit/tag";
-import { Text } from "@inubekit/text";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { MdOutlineDelete, MdOutlineEdit } from "react-icons/md";

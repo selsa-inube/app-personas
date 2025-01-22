@@ -3,9 +3,8 @@ import { SkeletonIcon, SkeletonLine } from "@inubekit/inubekit";
 import { inube } from "@design/tokens";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid, Icon, Stack } from "@inubekit/inubekit";
+import { Grid, Icon, Stack, Text } from "@inubekit/inubekit";
 import { ITag, Tag } from "@inubekit/tag";
-import { Text } from "@inubekit/text";
 import { IAttribute } from "src/model/entity/product";
 import { StyledProduct, StyledSkeletonContainer } from "./styles";
 

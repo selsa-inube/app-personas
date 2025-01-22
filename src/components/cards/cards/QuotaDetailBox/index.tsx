@@ -1,6 +1,5 @@
 import { inube } from "@design/tokens";
-import { Divider, Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Divider, Stack, Text } from "@inubekit/inubekit";
 import { IAttribute } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { StyledQuotaDetailBox } from "./styles";

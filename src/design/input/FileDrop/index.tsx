@@ -1,6 +1,5 @@
 import { Button } from "@inubekit/button";
-import { Icon } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Icon, Text } from "@inubekit/inubekit";
 import { useRef, useState } from "react";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { StyledFileDrop } from "./styles";

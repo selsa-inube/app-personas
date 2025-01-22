@@ -1,5 +1,4 @@
-import { Icon } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Icon, Text } from "@inubekit/inubekit";
 import { MdOpenInNew } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
 import { StyledTagValue, StyledTotalPayment } from "./styles";

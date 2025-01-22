@@ -6,8 +6,7 @@ import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Grid, Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { ProductsCommitments } from "@pages/admin/home/ProductsCommitments";
 import {
   extractInvestmentAttributes,

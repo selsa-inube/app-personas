@@ -1,9 +1,8 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { Button } from "@inubekit/button";
-import { Icon, Stack } from "@inubekit/inubekit";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import { Tag } from "@inubekit/tag";
-import { Text } from "@inubekit/text";
 import { EMoneySourceType } from "@pages/admin/payments/Pay/forms/PaymentMethodForm/types";
 import { useState } from "react";
 import { MdAttachMoney, MdOutlineDelete, MdOutlineSave } from "react-icons/md";

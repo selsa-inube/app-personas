@@ -6,8 +6,7 @@ import {
 } from "react-icons/md";
 
 import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/inubekit";
-import { Text } from "@inubekit/text";
+import { Stack, Text } from "@inubekit/inubekit";
 import { StyledButton } from "./styles";
 
 interface PaginationProps {

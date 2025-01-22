@@ -1,9 +1,8 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Button } from "@inubekit/button";
-import { Icon, Link, SkeletonLine, Stack } from "@inubekit/inubekit";
+import { Icon, Link, SkeletonLine, Stack, Text } from "@inubekit/inubekit";
 import { ITag, Tag } from "@inubekit/tag";
-import { Text } from "@inubekit/text";
 import { getRecordDescriptionType } from "@pages/admin/cards/Card/config/product";
 import {
   MdArrowBack,

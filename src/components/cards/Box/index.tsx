@@ -5,9 +5,8 @@ import { Divider, SkeletonLine } from "@inubekit/inubekit";
 
 import { inube } from "@design/tokens";
 import { Button, IButtonAppearance, IButtonVariant } from "@inubekit/button";
-import { Icon, Stack } from "@inubekit/inubekit";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import { ITag, Tag } from "@inubekit/tag";
-import { Text } from "@inubekit/text";
 import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 
 interface BoxProps {

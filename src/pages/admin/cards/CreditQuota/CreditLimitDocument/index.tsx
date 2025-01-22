@@ -2,7 +2,7 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { logoUrl } from "@config/header";
 import { IEntry } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
-import { Divider, Grid, Stack } from "@inubekit/inubekit";
+import { Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import {
   Col,
   Colgroup,
@@ -13,7 +13,6 @@ import {
   Thead,
   Tr,
 } from "@inubekit/table";
-import { Text } from "@inubekit/text";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { creditQuotaTitles } from "../config/tables";
