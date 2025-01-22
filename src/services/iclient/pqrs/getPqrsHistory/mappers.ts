@@ -1,4 +1,4 @@
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import { pqrsStatusDM } from "src/model/domains/pqrs/pqrsStatusDM";
 import { IPQRS } from "src/model/entity/pqrs";
 
@@ -42,4 +42,4 @@ const mapPqrsHistoryApiToEntities = (
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 };
 
-export { mapPqrsHistoryApiToEntity, mapPqrsHistoryApiToEntities };
+export { mapPqrsHistoryApiToEntities, mapPqrsHistoryApiToEntity };

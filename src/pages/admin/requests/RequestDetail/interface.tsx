@@ -15,9 +15,9 @@ import {
   Icon,
   Stack,
   Tabs,
+  Tag,
   Text,
 } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
 import {
   MdArrowBack,
   MdDeleteOutline,

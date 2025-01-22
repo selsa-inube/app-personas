@@ -3,12 +3,13 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
   Button,
   Icon,
+  ITag,
   Link,
   SkeletonLine,
   Stack,
+  Tag,
   Text,
 } from "@inubekit/inubekit";
-import { ITag, Tag } from "@inubekit/tag";
 import { getRecordDescriptionType } from "@pages/admin/cards/Card/config/product";
 import {
   MdArrowBack,

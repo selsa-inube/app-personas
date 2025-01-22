@@ -1,4 +1,4 @@
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import { paymentOptionValues } from "@pages/admin/payments/Pay/config/mappers";
 import { paymentStatusDM } from "src/model/domains/payments/paymentStatusDM";
 import { IPaymentHistory, IProductPayment } from "src/model/entity/payment";

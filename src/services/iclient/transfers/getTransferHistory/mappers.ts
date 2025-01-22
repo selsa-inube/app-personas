@@ -1,4 +1,4 @@
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import { paymentStatusDM } from "src/model/domains/payments/paymentStatusDM";
 import { transferSourceDM } from "src/model/domains/transfers/transferSourceDM";
 

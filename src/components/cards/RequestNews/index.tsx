@@ -1,7 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Icon, Stack, Text } from "@inubekit/inubekit";
-import { Tag } from "@inubekit/tag";
+import { Icon, Stack, Tag, Text } from "@inubekit/inubekit";
 import { formatPrimaryDate } from "src/utils/dates";
 import { StyledContainer } from "./styles";
 import { INew } from "./types";

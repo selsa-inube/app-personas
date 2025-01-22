@@ -1,6 +1,5 @@
 import { inube } from "@design/tokens";
-import { Icon, Stack, Text } from "@inubekit/inubekit";
-import { ITag, Tag } from "@inubekit/tag";
+import { Icon, ITag, Stack, Tag, Text } from "@inubekit/inubekit";
 import { MdCalendarMonth } from "react-icons/md";
 import { IAttribute } from "src/model/entity/product";
 import { StyledCardContainer } from "./styles";

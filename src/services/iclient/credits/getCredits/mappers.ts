@@ -1,4 +1,4 @@
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import { creditAmortizationTypeDM } from "src/model/domains/credits/creditAmortizationTypeDM";
 import { creditPeriodicityDM } from "src/model/domains/credits/creditPeriodicityDM";
 
