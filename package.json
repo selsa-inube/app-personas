@@ -19,7 +19,6 @@
     "@inubekit/flag": "^7.9.0",
     "@inubekit/inubekit": "^1.0.0",
     "@inubekit/table": "^5.38.0",
-    "@inubekit/toggle": "^3.8.2",
     "@supabase/supabase-js": "^2.42.0",
     "formik": "^2.4.5",
     "jspdf": "^2.5.1",
