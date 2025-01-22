@@ -1,7 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
-import { Button, Stack } from "@inubekit/inubekit";
+import { Assisted, Button, IAssistedStep, Stack } from "@inubekit/inubekit";
 import { createFamilyMemberSteps } from "./config/assisted";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { IdentificationDataForm } from "./forms/IdentificationDataForm";
