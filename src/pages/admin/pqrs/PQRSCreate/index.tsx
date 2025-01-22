@@ -1,6 +1,6 @@
 import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
-import { useFlag } from "@inubekit/flag";
+import { useFlag } from "@inubekit/inubekit";
 import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

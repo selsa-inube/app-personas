@@ -1,5 +1,4 @@
-import { IFlagAppearance } from "@inubekit/flag";
-import { IButtonAppearance } from "@inubekit/inubekit";
+import { IButtonAppearance, IFlagAppearance } from "@inubekit/inubekit";
 
 const deleteAssetModal = {
   title: "Eliminar activo",
