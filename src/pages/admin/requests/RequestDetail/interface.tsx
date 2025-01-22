@@ -14,9 +14,9 @@ import {
   Grid,
   Icon,
   Stack,
+  Tabs,
   Text,
 } from "@inubekit/inubekit";
-import { Tabs } from "@inubekit/tabs";
 import { Tag } from "@inubekit/tag";
 import {
   MdArrowBack,

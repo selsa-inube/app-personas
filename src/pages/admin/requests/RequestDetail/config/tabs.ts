@@ -1,4 +1,4 @@
-import { ITab } from "@inubekit/tabs";
+import { ITab } from "@inubekit/inubekit";
 
 const requestTabs: Record<string, ITab> = {
   features: {
