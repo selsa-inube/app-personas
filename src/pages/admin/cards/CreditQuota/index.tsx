@@ -163,7 +163,7 @@ function CreditQuota() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(creditLimitDocument),
-      undefined,
+      [16, 0, 16, 0],
       (pdf) => {
         const pdfBlob = pdf.output("blob");
 
@@ -227,11 +227,16 @@ function CreditQuota() {
       return;
     }
 
-    convertHTMLToPDF(doc, convertJSXToHTML(creditLimitDocument), undefined, (pdf) => {
-      pdf.save(
-        `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
-      );
-    });
+    convertHTMLToPDF(
+      doc,
+      convertJSXToHTML(creditLimitDocument),
+      [16, 0, 16, 0],
+      (pdf) => {
+        pdf.save(
+          `Extracto-cupo-crédito-${user.identification}-${formatSecondaryDate(today)}.pdf`,
+        );
+      },
+    );
   };
 
   return (

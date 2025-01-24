@@ -32,7 +32,7 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
 
   return (
     <Stack
-      padding={`${inube.spacing.s600} ${inube.spacing.s800}`}
+      padding={`0 ${inube.spacing.s800}`}
       gap={inube.spacing.s250}
       width="21cm"
       direction="column"

@@ -358,7 +358,7 @@ function SavingsAccount() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
-      undefined,
+      [16, 0, 16, 0],
       (pdf) => {
         pdf.save(
           `certificado-${selectedProduct.saving.id}-${formatSecondaryDate(today)}.pdf`,
@@ -382,7 +382,7 @@ function SavingsAccount() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
-      undefined,
+      [16, 0, 16, 0],
       (pdf) => {
         const pdfBlob = pdf.output("blob");
 
