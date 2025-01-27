@@ -1,12 +1,12 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { logoUrl } from "@config/header";
-import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
 import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import { currencyFormat } from "src/utils/currency";
 import { formatLetterDate, formatPrimaryDate } from "src/utils/dates";
+import { StyledLogo } from "./styles";
 
 const today = new Date();
 
