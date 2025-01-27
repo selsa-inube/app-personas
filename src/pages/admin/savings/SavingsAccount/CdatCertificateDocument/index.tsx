@@ -1,11 +1,12 @@
+import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { logoUrl } from "@config/header";
 import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
 import { Grid, Stack, Text } from "@inubekit/inubekit";
+import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import { currencyFormat } from "src/utils/currency";
-import { formatLetterDate } from "src/utils/dates";
-import { capitalizeText } from "src/utils/texts";
+import { formatLetterDate, formatPrimaryDate } from "src/utils/dates";
 
 const today = new Date();
 
@@ -20,6 +21,7 @@ interface CdatCertificateDocumentProps {
   rate: string;
   periodicity: string;
   deadline: string;
+  actionExpiration: string;
 }
 
 function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
@@ -34,6 +36,7 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
     rate,
     periodicity,
     deadline,
+    actionExpiration,
   } = props;
 
   return (
@@ -43,13 +46,42 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
       width="21cm"
       direction="column"
     >
-      <Stack justifyContent="flex-start" width="100%">
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        width="21cm"
+      >
+        <Stack direction="column" gap={inube.spacing.s200}>
+          <Text type="title" size="medium" weight="bold">
+            Certificado - Depósito de ahorro a termino
+          </Text>
+
+          <Stack direction="column" gap={inube.spacing.s050}>
+            <Stack gap={inube.spacing.s050} alignItems="center">
+              <Text type="label" size="small" weight="bold">
+                Cliente:
+              </Text>
+
+              <Text type="label" size="small" appearance="gray">
+                {userIdentification} - {userName.toUpperCase()}
+              </Text>
+            </Stack>
+
+            <Stack gap={inube.spacing.s050} alignItems="center">
+              <Text type="label" size="small" weight="bold">
+                Fecha de impresión:
+              </Text>
+
+              <Text type="label" size="small" appearance="gray">
+                {formatPrimaryDate(today, true)}
+              </Text>
+            </Stack>
+          </Stack>
+        </Stack>
+
         <StyledLogo src={logoUrl} />
       </Stack>
-
-      <Text type="title" size="large" weight="bold">
-        Certificado - {capitalizeText(productName)}
-      </Text>
 
       <Text type="body" size="small">
         {formatLetterDate(today)}
@@ -75,81 +107,36 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
 
         <OutlineCard>
           <Grid
-            templateColumns="1fr 1fr"
+            templateColumns="repeat(3, 1fr)"
             autoRows="auto"
             gap={inube.spacing.s100}
             padding={inube.spacing.s150}
             width="100%"
           >
-            <Stack gap={inube.spacing.s050} alignItems="center">
-              <Text type="label" size="small" weight="bold">
-                Referencia:
-              </Text>
+            <BoxAttribute label="Referencia:" value={productNumber} />
 
-              <Text type="body" size="small" appearance="gray">
-                {productNumber}
-              </Text>
-            </Stack>
+            <BoxAttribute label="Valor:" value={currencyFormat(amount)} />
 
-            <Stack gap={inube.spacing.s050} alignItems="center">
-              <Text type="label" size="small" weight="bold">
-                Valor:
-              </Text>
+            <BoxAttribute
+              label="Fecha de vencimiento:"
+              value={expirationDate}
+            />
 
-              <Text type="body" size="small" appearance="gray">
-                {currencyFormat(amount)}
-              </Text>
-            </Stack>
+            <BoxAttribute label="Tasa de interés:" value={rate} />
 
-            <Stack gap={inube.spacing.s050} alignItems="center">
-              <Text type="label" size="small" weight="bold">
-                Fecha de apertura:
-              </Text>
+            <BoxAttribute label="Fecha de apertura:" value={creationDate} />
 
-              <Text type="body" size="small" appearance="gray">
-                {creationDate}
-              </Text>
-            </Stack>
+            <BoxAttribute label="Plazo:" value={deadline} />
 
-            <Stack gap={inube.spacing.s050} alignItems="center">
-              <Text type="label" size="small" weight="bold">
-                Fecha de vencimiento:
-              </Text>
+            <BoxAttribute label="Pago de intereses:" value={periodicity} />
 
-              <Text type="body" size="small" appearance="gray">
-                {expirationDate}
-              </Text>
-            </Stack>
-
-            <Stack gap={inube.spacing.s050} alignItems="center">
-              <Text type="label" size="small" weight="bold">
-                Tasa de interés:
-              </Text>
-
-              <Text type="body" size="small" appearance="gray">
-                {rate}
-              </Text>
-            </Stack>
-
-            <Stack gap={inube.spacing.s050} alignItems="center">
-              <Text type="label" size="small" weight="bold">
-                Pago de intereses:
-              </Text>
-
-              <Text type="body" size="small" appearance="gray">
-                {periodicity}
-              </Text>
-            </Stack>
-
-            <Stack gap={inube.spacing.s050} alignItems="center">
-              <Text type="label" size="small" weight="bold">
-                Plazo:
-              </Text>
-
-              <Text type="body" size="small" appearance="gray">
-                {deadline}
-              </Text>
-            </Stack>
+            <BoxAttribute
+              label="Renovar producto al vencimiento:"
+              value={
+                actionExpirationDM.valueOf(String(actionExpiration || ""))
+                  ?.value
+              }
+            />
           </Grid>
         </OutlineCard>
       </Stack>

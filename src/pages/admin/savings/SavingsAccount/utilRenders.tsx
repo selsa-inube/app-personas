@@ -29,6 +29,10 @@ const getCdatCertificateDocument = (
     documentAttributes,
     "payment_interest",
   )?.value;
+  const actionExpiration = extractAttribute(
+    selectedProduct.saving.attributes,
+    "action_expiration",
+  )?.value;
 
   return (
     <CdatCertificateDocument
@@ -42,6 +46,7 @@ const getCdatCertificateDocument = (
       rate={rate?.toString() || ""}
       deadline={deadline?.toString() || ""}
       periodicity={paymentInterest?.toString() || ""}
+      actionExpiration={actionExpiration?.toString() || ""}
     />
   );
 };

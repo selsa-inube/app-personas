@@ -30,7 +30,7 @@ const StyledLogoContainer = styled(Link)`
 `;
 
 const StyledLogo = styled.img`
-  width: 120px;
+  width: 228px;
 `;
 
 const StyledLink = styled(Link)`
