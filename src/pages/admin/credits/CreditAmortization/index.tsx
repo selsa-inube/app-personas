@@ -124,7 +124,7 @@ function CreditAmortization() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(getAmortizationDocument(selectedProduct)),
-      undefined,
+      [16, 0, 16, 0],
       (pdf) => {
         pdf.save(`plan-de-pagos-${formatSecondaryDate(today, true)}.pdf`);
       },
@@ -146,7 +146,7 @@ function CreditAmortization() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(getAmortizationDocument(selectedProduct)),
-      undefined,
+      [16, 0, 16, 0],
       (pdf) => {
         const pdfBlob = pdf.output("blob");
 

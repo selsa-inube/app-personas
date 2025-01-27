@@ -53,9 +53,14 @@ function CertificationRequest() {
         accessToken,
       );
 
-      convertHTMLToPDF(doc, convertJSXToHTML(documentElement), undefined, (pdf) => {
-        pdf.save(`estado-de-cuenta-${formatSecondaryDate(today)}.pdf`);
-      });
+      convertHTMLToPDF(
+        doc,
+        convertJSXToHTML(documentElement),
+        [16, 0, 16, 0],
+        (pdf) => {
+          pdf.save(`estado-de-cuenta-${formatSecondaryDate(today)}.pdf`);
+        },
+      );
     } catch (error) {
       console.error("Error generating the document:", error);
     }

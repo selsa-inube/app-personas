@@ -157,7 +157,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
 
   return (
     <Stack
-      padding={inube.spacing.s400}
+      padding={`0 ${inube.spacing.s400}`}
       gap={inube.spacing.s200}
       width="225mm"
       direction="column"
