@@ -22,7 +22,7 @@ const props = {
     description:
       "An optional JSX element that represents an icon to be displayed after the title of the menu item.",
   },
-  isDisabled: {
+  disabled: {
     description:
       "An optional boolean that indicates whether the menu item is currently disabled.",
   },

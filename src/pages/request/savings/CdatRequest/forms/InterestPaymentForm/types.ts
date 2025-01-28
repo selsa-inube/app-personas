@@ -1,7 +1,7 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 
 interface IInterestPaymentEntry {
-  interestPayments?: ISelectOption[];
+  interestPayments?: IOption[];
   interestPayment?: string;
   interestPaymentName?: string;
 }

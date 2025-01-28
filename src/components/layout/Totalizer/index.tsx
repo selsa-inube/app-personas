@@ -6,7 +6,7 @@ import { StyledTagValue, StyledTotalPayment } from "./styles";
 interface TotalizerProps {
   isMobile: boolean;
   isExpandable?: boolean;
-  isDisabled?: boolean;
+  disabled?: boolean;
   value: number;
   onClick?: () => void;
 }
@@ -15,7 +15,7 @@ function Totalizer(props: TotalizerProps) {
   const {
     isMobile,
     isExpandable = false,
-    isDisabled = false,
+    disabled = false,
     value,
     onClick,
   } = props;
@@ -33,7 +33,7 @@ function Totalizer(props: TotalizerProps) {
             size="16px"
             spacing="narrow"
             cursorHover
-            disabled={isDisabled}
+            disabled={disabled}
           />
         )}
         <Text type="title" size="medium" appearance="gray">

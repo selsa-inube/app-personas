@@ -4,8 +4,6 @@ import { LoadingModal } from "@components/modals/general/LoadingModal";
 import { RequestReceivedModal } from "@components/modals/saving/RequestReceivedModal";
 import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -14,12 +12,14 @@ import {
   Button,
   Grid,
   Icon,
+  IOption,
+  Select,
   Stack,
   Text,
 } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdArrowBack, MdInfoOutline } from "react-icons/md";
-import { getFieldState } from "src/utils/forms/forms";
+import { formikHandleChange, getFieldState } from "src/utils/forms/forms";
 import { crumbsCreatePQRS } from "./config/navigation";
 import { StyledCard } from "./styles";
 import { ICreatePQRSEntry, ISelectedDocument } from "./types";
@@ -28,9 +28,9 @@ interface CreatePQRSUIProps {
   formik: FormikProps<ICreatePQRSEntry>;
   maxFileSize: number;
   loadingSend: boolean;
-  typeOptions: ISelectOption[];
-  reasonOptions: ISelectOption[];
-  attentionPointsOptions: ISelectOption[];
+  typeOptions: IOption[];
+  reasonOptions: IOption[];
+  attentionPointsOptions: IOption[];
   redirectModal: boolean;
   sectionMessage: string;
   pqrsType: string;
@@ -106,9 +106,11 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               placeholder="Selecciona una de las opciones"
               value={formik.values.type || ""}
               options={typeOptions}
-              onChange={formik.handleChange}
-              isFullWidth
-              isRequired
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
+              fullwidth
+              required
             />
             <Select
               id="motive"
@@ -122,10 +124,12 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               }
               value={formik.values.motive || ""}
               options={reasonOptions}
-              onChange={formik.handleChange}
-              isDisabled={formik.values.type === ""}
-              isFullWidth
-              isRequired
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
+              disabled={formik.values.type === ""}
+              fullwidth
+              required
             />
             <Select
               id="attentionPlace"
@@ -139,10 +143,12 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
               }
               value={formik.values.attentionPlace || ""}
               options={attentionPointsOptions}
-              onChange={formik.handleChange}
-              isDisabled={formik.values.motive === ""}
-              isFullWidth
-              isRequired
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
+              disabled={formik.values.motive === ""}
+              fullwidth
+              required
             />
           </Grid>
           <Textarea
@@ -151,15 +157,15 @@ function CreatePQRSUI(props: CreatePQRSUIProps) {
             id="description"
             placeholder="Realiza una descripción de tu solicitud."
             value={formik.values.description || ""}
-            errorMessage={formik.errors.description}
-            isFullWidth
+            message={formik.errors.description}
+            fullwidth
             maxLength={150}
             withCounter
             state={getFieldState(formik, "description")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage=""
-            isRequired
+            required
           />
         </Stack>
         <Accordion

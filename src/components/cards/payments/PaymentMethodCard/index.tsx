@@ -124,8 +124,8 @@ function PaymentMethodCard(props: PaymentMethodCardProps) {
             moneySource.value ? currencyFormat(moneySource.value, false) : ""
           }
           onChange={onChangeMoneySource}
-          isFullWidth
-          isDisabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
+          fullwidth
+          disabled={isSaved || paymentMethod !== EPaymentMethodType.MULTIPLE}
           size="compact"
           state={
             moneySource?.value && moneySource.value > moneySource.balance

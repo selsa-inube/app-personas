@@ -6,10 +6,9 @@ import { ReimbursementModal } from "@components/modals/saving/ReimbursementModal
 import { SavingCommitmentsModal } from "@components/modals/saving/SavingCommitmentsModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { IOption, Select } from "@inubekit/inubekit";
 import {
   MdArrowBack,
   MdOpenInNew,
@@ -80,7 +79,7 @@ const renderMovements = (movements: IMovement[]) =>
 interface SavingsAccountUIProps {
   isMobile: boolean;
   selectedProduct: ISelectedProductState;
-  productsOptions: ISelectOption[];
+  productsOptions: IOption[];
   beneficiariesModal: IBeneficiariesModalState;
   reimbursementModal: IReimbursementModalState;
   showRechargeModal: boolean;
@@ -96,7 +95,7 @@ interface SavingsAccountUIProps {
   disbursementAccount: string;
   loadingAction: boolean;
   onToggleBeneficiariesModal: () => void;
-  onChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangeProduct: (name: string, value: string) => void;
   onToggleCommitmentsModal: () => void;
   onToggleReimbursementModal: () => void;
   onToggleRechargeModal: () => void;
@@ -240,12 +239,13 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
         <Stack direction="column" gap={inube.spacing.s300}>
           <Select
             id="savingProducts"
+            name="savingProducts"
             onChange={onChangeProduct}
             label="Selección de producto"
             options={productsOptions}
             value={selectedProduct.option}
-            isFullWidth
-            readOnly={productsOptions.length === 1}
+            fullwidth
+            disabled={productsOptions.length === 1}
           />
           <Box
             title={selectedProduct.saving.title}

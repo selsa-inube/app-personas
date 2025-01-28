@@ -1,10 +1,10 @@
 import { ThemeProvider } from "styled-components";
 
 import { fondecom } from "@mocks/design/themes/fondecom";
-import { props, parameters } from "../props";
-import { TextareaProps, Textarea } from "..";
-import { TextareaController } from "./TextareaController";
 import { StoryFn } from "@storybook/react";
+import { Textarea, TextareaProps } from "..";
+import { parameters, props } from "../props";
+import { TextareaController } from "./TextareaController";
 
 const story = {
   title: "design/input/Textarea",
@@ -22,9 +22,9 @@ Default.args = {
   name: "textarea",
   id: "textarea",
   placeholder: "Storybook Textarea",
-  isDisabled: false,
-  isFullWidth: false,
-  isRequired: true,
+  disabled: false,
+  fullwidth: false,
+  required: true,
   maxLength: 220,
   lengthThreshold: 50,
   withCounter: true,

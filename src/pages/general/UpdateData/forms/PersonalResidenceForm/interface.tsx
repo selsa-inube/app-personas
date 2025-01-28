@@ -1,14 +1,17 @@
 import { DateField } from "@design/input/DateField";
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Stack } from "@inubekit/inubekit";
+import { Button, Grid, Select, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { residenceTypeDM } from "src/model/domains/general/updateData/personalResidence/residencetypedm";
 import { stratumDM } from "src/model/domains/general/updateData/personalResidence/stratumdm";
-import { getFieldState } from "src/utils/forms/forms";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+} from "src/utils/forms/forms";
 import { IPersonalResidenceEntry } from "./types";
 
 interface PersonalResidenceFormUIProps {
@@ -35,26 +38,26 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
             name="type"
             id="type"
             value={formik.values.type}
-            isFullWidth
+            fullwidth
             size={isMobile ? "compact" : "wide"}
             options={residenceTypeDM.options}
             onBlur={formik.handleBlur}
-            isDisabled={loading}
-            state={getFieldState(formik, "type")}
-            onChange={formik.handleChange}
+            disabled={loading}
+            invalid={isInvalid(formik, "type")}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
           />
           <Select
             label="Estrato de la vivienda"
             name="stratum"
             id="stratum"
             value={formik.values.stratum}
-            isFullWidth
+            fullwidth
             size={isMobile ? "compact" : "wide"}
             options={stratumDM.options}
             onBlur={formik.handleBlur}
-            isDisabled={loading}
-            state={getFieldState(formik, "stratum")}
-            onChange={formik.handleChange}
+            disabled={loading}
+            invalid={isInvalid(formik, "stratum")}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
           />
           {formik.values.type === residenceTypeDM.OWN_WITH_MORTGAGE.id && (
             <>
@@ -64,9 +67,9 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 name="bankEntity"
                 id="bankEntity"
                 value={formik.values.bankEntity}
-                errorMessage={formik.errors.bankEntity}
-                isDisabled={loading}
-                isFullWidth
+                message={formik.errors.bankEntity}
+                disabled={loading}
+                fullwidth
                 size={isMobile ? "compact" : "wide"}
                 state={getFieldState(formik, "bankEntity")}
                 onBlur={formik.handleBlur}
@@ -77,13 +80,13 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 name="dueDate"
                 id="dueDate"
                 value={formik.values.dueDate}
-                errorMessage={formik.errors.dueDate}
-                isDisabled={loading}
+                message={formik.errors.dueDate}
+                disabled={loading}
                 size={isMobile ? "compact" : "wide"}
                 state={getFieldState(formik, "dueDate")}
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                isFullWidth
+                fullwidth
               />
             </>
           )}
@@ -95,9 +98,9 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 name="tenant"
                 id="tenant"
                 value={formik.values.tenant}
-                errorMessage={formik.errors.tenant}
-                isDisabled={loading}
-                isFullWidth
+                message={formik.errors.tenant}
+                disabled={loading}
+                fullwidth
                 size={isMobile ? "compact" : "wide"}
                 state={getFieldState(formik, "tenant")}
                 onBlur={formik.handleBlur}
@@ -109,9 +112,9 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 name="tenantCellPhone"
                 id="tenantCellPhone"
                 value={formik.values.tenantCellPhone}
-                errorMessage={formik.errors.tenantCellPhone}
-                isDisabled={loading}
-                isFullWidth
+                message={formik.errors.tenantCellPhone}
+                disabled={loading}
+                fullwidth
                 size={isMobile ? "compact" : "wide"}
                 state={getFieldState(formik, "tenantCellPhone")}
                 onBlur={formik.handleBlur}
@@ -127,9 +130,9 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 name="ownerName"
                 id="ownerName"
                 value={formik.values.ownerName}
-                errorMessage={formik.errors.ownerName}
-                isDisabled={loading}
-                isFullWidth
+                message={formik.errors.ownerName}
+                disabled={loading}
+                fullwidth
                 size={isMobile ? "compact" : "wide"}
                 state={getFieldState(formik, "ownerName")}
                 onBlur={formik.handleBlur}
@@ -140,13 +143,15 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 name="relationship"
                 id="relationship"
                 value={formik.values.relationship}
-                isFullWidth
+                fullwidth
                 size={isMobile ? "compact" : "wide"}
                 options={relationshipDM.options}
                 onBlur={formik.handleBlur}
-                isDisabled={loading}
-                state={getFieldState(formik, "relationship")}
-                onChange={formik.handleChange}
+                disabled={loading}
+                invalid={isInvalid(formik, "relationship")}
+                onChange={(name, value) =>
+                  formikHandleChange(name, value, formik)
+                }
               />
               <TextField
                 label="Celular del titular"
@@ -154,9 +159,9 @@ function PersonalResidenceFormUI(props: PersonalResidenceFormUIProps) {
                 name="ownerCellPhone"
                 id="ownerCellPhone"
                 value={formik.values.ownerCellPhone}
-                errorMessage={formik.errors.ownerCellPhone}
-                isDisabled={loading}
-                isFullWidth
+                message={formik.errors.ownerCellPhone}
+                disabled={loading}
+                fullwidth
                 size={isMobile ? "compact" : "wide"}
                 state={getFieldState(formik, "ownerCellPhone")}
                 onBlur={formik.handleBlur}

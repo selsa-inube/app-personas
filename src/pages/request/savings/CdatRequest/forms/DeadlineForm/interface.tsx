@@ -15,10 +15,10 @@ import {
 import { FormikProps } from "formik";
 import { MdOutlineTag } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles, mapRateTermsEntries } from "./config/table";
 import { StyledInputRadio } from "./styles";
 import { IDeadlineEntry } from "./types";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface DeadlineFormUIProps {
   formik: FormikProps<IDeadlineEntry>;
@@ -84,12 +84,12 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
                     name="deadlineDate"
                     id="deadlineDate"
                     value={formik.values.deadlineDate || ""}
-                    errorMessage={formik.errors.deadlineDate}
+                    message={formik.errors.deadlineDate}
                     state={getFieldState(formik, "deadlineDate")}
                     onBlur={formik.handleBlur}
                     onChange={customHandleChange}
-                    isFullWidth
-                    isDisabled
+                    fullwidth
+                    disabled
                   />
                 </Stack>
 
@@ -113,10 +113,10 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
                     id="deadlineDays"
                     value={formik.values.deadlineDays || ""}
                     type="number"
-                    errorMessage={formik.errors.deadlineDays}
-                    isDisabled={loading}
+                    message={formik.errors.deadlineDays}
+                    disabled={loading}
                     size="compact"
-                    isFullWidth
+                    fullwidth
                     state={getFieldState(formik, "deadlineDays")}
                     onBlur={formik.handleBlur}
                     onChange={customHandleChange}

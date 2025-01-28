@@ -1,19 +1,14 @@
-import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/inubekit";
+import { Grid, Select } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { getFieldState } from "src/utils/forms/forms";
+import { isInvalid } from "src/utils/forms/forms";
 import { IActionExpirationEntry } from "./types";
 
 interface ActionExpirationFormUIProps {
   formik: FormikProps<IActionExpirationEntry>;
   loading?: boolean;
-  customHandleChange: (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
+  customHandleChange: (name: string, value: string) => void;
 }
 
 function ActionExpirationFormUI(props: ActionExpirationFormUIProps) {
@@ -33,14 +28,13 @@ function ActionExpirationFormUI(props: ActionExpirationFormUIProps) {
           label="Renovar producto al vencimiento"
           value={formik.values.actionExpiration || ""}
           size="compact"
-          isDisabled={loading}
+          disabled={formik.values.actionsExpiration?.length === 1 || loading}
           options={formik.values.actionsExpiration || []}
           onChange={customHandleChange}
           onBlur={formik.handleBlur}
-          state={getFieldState(formik, "actionExpiration")}
-          errorMessage={formik.errors.actionExpiration}
-          isFullWidth
-          readOnly={formik.values.actionsExpiration?.length === 1}
+          invalid={isInvalid(formik, "actionExpiration")}
+          message={formik.errors.actionExpiration}
+          fullwidth
         />
       </Grid>
     </form>

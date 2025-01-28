@@ -92,7 +92,7 @@ const documentaryRequirementsMock: IValidation[] = [
     id: "113",
     label: "Factura original",
     value: "pending",
-    isRequired: true,
+    required: true,
   },
   {
     id: "114",
@@ -106,13 +106,13 @@ const systemValidationsMock: IValidation[] = [
     id: "minimum_associate_seniority",
     label: "Antigüedad mínima como asociado",
     value: "success",
-    isRequired: true,
+    required: true,
   },
   {
     id: "up_to_date_obligations",
     label: "Estar al día con sus obligaciones Fondecom",
     value: "success",
-    isRequired: true,
+    required: true,
   },
   {
     id: "request_value_per_formula",
@@ -130,7 +130,7 @@ const systemValidationsMock: IValidation[] = [
     id: "available_assistance_quota",
     label: "Cupo disponible auxilios",
     value: "success",
-    isRequired: true,
+    required: true,
   },
   {
     id: "beneficiary_validity_by_age",

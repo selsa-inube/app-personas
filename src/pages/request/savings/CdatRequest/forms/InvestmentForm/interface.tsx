@@ -10,8 +10,8 @@ import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
 import { IInvestmentEntry } from "./types";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface InvestmentFormUIProps {
   formik: FormikProps<IInvestmentEntry>;
@@ -77,17 +77,17 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
             id="investmentValue"
             value={validateCurrencyField("investmentValue", formik) || ""}
             type="text"
-            errorMessage={formik.errors.investmentValue}
-            isDisabled={loading}
+            message={formik.errors.investmentValue}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "investmentValue")}
             onBlur={formik.handleBlur}
             onChange={(e) => {
               handleChangeWithCurrency(formik, e);
             }}
             iconAfter={<MdOutlineAttachMoney />}
-            isRequired
+            required
           />
         </Grid>
       </Stack>

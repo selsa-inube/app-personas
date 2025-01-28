@@ -13,25 +13,25 @@ import { StyledContainer, StyledTextarea } from "./styles";
 import { CounterAppearence } from "./types";
 
 function Invalid(props: ITextFieldMessage) {
-  const { isDisabled, state, errorMessage } = props;
+  const { disabled, state, message } = props;
 
   return (
-    <StyledErrorMessageContainer $isDisabled={isDisabled} $state={state}>
+    <StyledErrorMessageContainer $disabled={disabled} $state={state}>
       <MdOutlineWarning />
-      <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
-        {errorMessage}
+      <Text type="body" size="small" appearance="danger" disabled={disabled}>
+        {message}
       </Text>
     </StyledErrorMessageContainer>
   );
 }
 
 function Success(props: ITextFieldMessage) {
-  const { isDisabled, state, validMessage } = props;
+  const { disabled, state, validMessage } = props;
 
   return (
-    <StyledValidMessageContainer $isDisabled={isDisabled} $state={state}>
+    <StyledValidMessageContainer $disabled={disabled} $state={state}>
       <MdCheckCircle />
-      <Text type="body" size="small" appearance="success" disabled={isDisabled}>
+      <Text type="body" size="small" appearance="success" disabled={disabled}>
         {validMessage}
       </Text>
     </StyledValidMessageContainer>
@@ -43,16 +43,16 @@ interface TextareaProps {
   name: string;
   id: string;
   placeholder?: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
   isFocused?: boolean;
   value?: string;
   maxLength?: number;
-  isRequired?: boolean;
-  isFullWidth?: boolean;
-  readOnly?: boolean;
+  required?: boolean;
+  fullwidth?: boolean;
+  readonly?: boolean;
   lengthThreshold?: number;
   state?: InputState;
-  errorMessage?: string;
+  message?: string;
   validMessage?: string;
   withCounter?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -66,15 +66,15 @@ const Textarea = (props: TextareaProps) => {
     name,
     id,
     placeholder,
-    isDisabled,
+    disabled,
     value = "",
     maxLength = Infinity,
-    isRequired,
-    isFullWidth,
-    readOnly,
+    required,
+    fullwidth,
+    readonly,
     lengthThreshold = 0,
     state = "pending",
-    errorMessage,
+    message,
     validMessage,
     withCounter,
     onChange,
@@ -98,7 +98,7 @@ const Textarea = (props: TextareaProps) => {
         : "gray";
 
   const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
-    if (!readOnly) {
+    if (!readonly) {
       setIsTouched(true);
       setIsFocused(true);
     }
@@ -114,9 +114,9 @@ const Textarea = (props: TextareaProps) => {
     (isFocused || isTouched) && inputStates.includes(state) ? state : "pending";
 
   return (
-    <StyledContainer $isFullwidth={isFullWidth} $isDisabled={isDisabled}>
+    <StyledContainer $isFullwidth={fullwidth} $disabled={disabled}>
       <Stack width="100%" margin={`0px 0px ${inube.spacing.s050} 0px`}>
-        {(label || isRequired) && (
+        {(label || required) && (
           <Stack
             width="100%"
             gap={inube.spacing.s050}
@@ -126,7 +126,7 @@ const Textarea = (props: TextareaProps) => {
             {label && (
               <Label
                 htmlFor={id}
-                disabled={isDisabled}
+                disabled={disabled}
                 focused={isFocused}
                 size={isMobile ? "medium" : "large"}
               >
@@ -134,19 +134,19 @@ const Textarea = (props: TextareaProps) => {
               </Label>
             )}
 
-            {isRequired && !isDisabled && (
+            {required && !disabled && (
               <Text type="body" size="small" appearance="dark">
                 (Requerido)
               </Text>
             )}
           </Stack>
         )}
-        {!isDisabled && withCounter && (
+        {!disabled && withCounter && (
           <Stack justifyContent="flex-end" alignItems="center">
             <Counter
               appearance={counterAppearence}
               maxLength={maxLength}
-              isDisabled={isDisabled}
+              disabled={disabled}
               valueLength={truncatedValue.length}
             />
           </Stack>
@@ -157,11 +157,11 @@ const Textarea = (props: TextareaProps) => {
         name={name}
         id={id}
         placeholder={placeholder}
-        $isDisabled={isDisabled}
-        $isRequired={isRequired}
-        $isFullwidth={isFullWidth}
+        $disabled={disabled}
+        $required={required}
+        $isFullwidth={fullwidth}
         $isFocused={isFocused}
-        readOnly={readOnly}
+        readOnly={readonly}
         value={truncatedValue}
         $isMobile={isMobile}
         onChange={onChange}
@@ -171,14 +171,14 @@ const Textarea = (props: TextareaProps) => {
 
       {transformedState === "invalid" && isTouched && (
         <Invalid
-          isDisabled={isDisabled}
+          disabled={disabled}
           state={transformedState}
-          errorMessage={errorMessage}
+          message={message}
         />
       )}
       {transformedState === "valid" && isTouched && validMessage && (
         <Success
-          isDisabled={isDisabled}
+          disabled={disabled}
           state={transformedState}
           validMessage={validMessage}
         />

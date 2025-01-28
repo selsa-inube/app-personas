@@ -1,8 +1,7 @@
 import { PaymentMethodCard } from "@components/cards/payments/PaymentMethodCard";
-import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Divider, Grid, Icon, Stack, Text } from "@inubekit/inubekit";
+import { Divider, Grid, Icon, Select, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdError } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
@@ -35,7 +34,7 @@ const renderMoneySources = (
 
 interface PaymentMethodFormUIProps {
   formik: FormikProps<IPaymentMethodEntry>;
-  customHandleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  customHandleChange: (name: string, value: string) => void;
   onChangeMoneySource: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSelectMoneySource: (id: string) => void;
   onSaveMoneySource: () => void;
@@ -72,7 +71,7 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
             name="paymentMethod"
             id="paymentMethod"
             size="compact"
-            isFullWidth
+            fullwidth
             placeholder="Seleccionar una opción"
             options={paymentMethods}
             onBlur={formik.handleBlur}

@@ -94,7 +94,7 @@ function SwitchUser() {
             id="searchUser"
             placeholder="Digita el documento de identidad o nombre del cliente"
             type="text"
-            isFullWidth
+            fullwidth
             value={search}
             onChange={handleChangeSearch}
           />

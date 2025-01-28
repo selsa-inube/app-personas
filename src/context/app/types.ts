@@ -1,11 +1,11 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { IUser } from "@inube/auth/dist/types/user";
+import { IOption } from "@inubekit/inubekit";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
 
 interface IServiceDomains {
-  integratedbanks: ISelectOption[];
-  identificationtype: ISelectOption[];
-  actionafterexpiration: ISelectOption[];
+  integratedbanks: IOption[];
+  identificationtype: IOption[];
+  actionafterexpiration: IOption[];
 }
 
 interface IAppContext {

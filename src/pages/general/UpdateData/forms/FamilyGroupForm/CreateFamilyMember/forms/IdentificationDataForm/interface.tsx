@@ -1,9 +1,9 @@
 import { TextField } from "@design/input/TextField";
 import { Fieldset } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { getFieldState, isRequired } from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IIdentificationDataEntry } from "./types";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
 
 interface IdentificationDataFormUIProps {
   formik: FormikProps<IIdentificationDataEntry>;
@@ -29,13 +29,13 @@ function IdentificationDataFormUI(props: IdentificationDataFormUIProps) {
         type="number"
         size="compact"
         value={formik.values.identificationNumber || ""}
-        errorMessage={formik.errors.identificationNumber}
+        message={formik.errors.identificationNumber}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "identificationNumber")}
-        isDisabled={loading}
-        isRequired={isRequired(validationSchema, "identificationNumber")}
-        isFullWidth
+        disabled={loading}
+        required={isRequired(validationSchema, "identificationNumber")}
+        fullwidth
       />
     </Fieldset>
   );

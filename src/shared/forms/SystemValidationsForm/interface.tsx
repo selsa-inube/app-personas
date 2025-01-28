@@ -17,11 +17,11 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   const requiredValidations = formik.values.validations.filter(
-    (validation) => validation.isRequired,
+    (validation) => validation.required,
   );
 
   const notRequiredValidations = formik.values.validations.filter(
-    (validation) => !validation.isRequired,
+    (validation) => !validation.required,
   );
 
   if (!loadingValids && formik.values.validations.length === 0) {

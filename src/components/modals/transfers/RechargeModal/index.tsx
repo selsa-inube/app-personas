@@ -1,6 +1,4 @@
 import { IHelpOption } from "@components/modals/payments/PaymentHelpModal";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -9,6 +7,8 @@ import {
   Button,
   Divider,
   Icon,
+  IOption,
+  Select,
   Stack,
   Text,
 } from "@inubekit/inubekit";
@@ -20,16 +20,21 @@ import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+} from "src/utils/forms/forms";
 import { validationMessages } from "src/validations/validationMessages";
 import { validationRules } from "src/validations/validationRules";
 import * as Yup from "yup";
 import { StyledModal } from "./styles";
 
-const mapSavingAccounts = (savingAccounts: IProduct[]): ISelectOption[] => {
+const mapSavingAccounts = (savingAccounts: IProduct[]): IOption[] => {
   return savingAccounts.map((savingAccount) => ({
     id: savingAccount.id,
-    value: `${savingAccount.title} - ${savingAccount.id}`,
+    value: savingAccount.id,
+    label: `${savingAccount.title} - ${savingAccount.id}`,
   }));
 };
 
@@ -103,15 +108,15 @@ function RechargeModal(props: RechargeModalProps) {
             name="savingAccount"
             id="savingAccount"
             size="compact"
-            isFullWidth
+            fullwidth
             options={mapSavingAccounts(savingAccounts)}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.savingAccount}
-            state={getFieldState(formik, "savingAccount")}
-            onChange={formik.handleChange}
+            message={formik.errors.savingAccount}
+            invalid={isInvalid(formik, "savingAccount")}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             value={formik.values.savingAccount || ""}
-            readOnly={options.length === 1}
-            isRequired={options.length !== 1}
+            disabled={options.length === 1}
+            required={options.length !== 1}
           />
           <TextField
             label="Valor del depósito"
@@ -120,14 +125,14 @@ function RechargeModal(props: RechargeModalProps) {
             placeholder="Digita el valor que vas a depositar"
             value={validateCurrencyField("amount", formik)}
             type="text"
-            errorMessage={formik.errors.amount}
+            message={formik.errors.amount}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "amount")}
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
             validMessage="El valor es válido"
-            isRequired
+            required
           />
         </Stack>
 

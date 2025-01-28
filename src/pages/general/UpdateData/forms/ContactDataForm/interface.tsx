@@ -7,9 +7,9 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
 import { cityDM } from "src/model/domains/general/updateData/personalInformation/citydm";
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
-import { getFieldState, isRequired } from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IContactDataEntry } from "./types";
+import { getFieldState, isRequired } from "src/utils/forms/forms";
 
 interface ContactDataFormUIProps {
   formik: FormikProps<IContactDataEntry>;
@@ -57,14 +57,14 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 formik.values.country
               }
               iconAfter={<MdOutlineModeEdit size={18} />}
-              errorMessage={formik.errors.country}
-              isDisabled={loading}
+              message={formik.errors.country}
+              disabled={loading}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "country")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired(validationSchema, "country")}
+              required={isRequired(validationSchema, "country")}
               suggestions={countryDM.options}
               autocompleteChars={2}
               autocomplete
@@ -80,18 +80,18 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 formik.values.stateOrDepartment
               }
               iconAfter={<MdOutlineModeEdit size={18} />}
-              errorMessage={formik.errors.stateOrDepartment}
-              isDisabled={
+              message={formik.errors.stateOrDepartment}
+              disabled={
                 !!formik.values.stateOrDepartment ||
                 !formik.values.country ||
                 loading
               }
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "stateOrDepartment")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired(validationSchema, "stateOrDepartment")}
+              required={isRequired(validationSchema, "stateOrDepartment")}
               suggestions={departmentDM.options}
               autocompleteChars={2}
               autocomplete
@@ -106,19 +106,19 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
                 cityDM.valueOf(formik.values.city)?.value || formik.values.city
               }
               iconAfter={<MdOutlineModeEdit size={18} />}
-              errorMessage={formik.errors.city}
-              isDisabled={
+              message={formik.errors.city}
+              disabled={
                 !!formik.values.city ||
                 !formik.values.country ||
                 !formik.values.stateOrDepartment ||
                 loading
               }
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "city")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired(validationSchema, "city")}
+              required={isRequired(validationSchema, "city")}
               suggestions={cityDM.options}
               autocompleteChars={2}
               autocomplete
@@ -131,14 +131,14 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               id="address"
               value={formik.values.address}
               iconAfter={<MdOutlineModeEdit size={18} />}
-              errorMessage={formik.errors.address}
-              isDisabled={loading}
+              message={formik.errors.address}
+              disabled={loading}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "address")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired(validationSchema, "address")}
+              required={isRequired(validationSchema, "address")}
             />
 
             <TextField
@@ -149,14 +149,14 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               type="number"
               value={formik.values.zipCode}
               iconAfter={<MdOutlineModeEdit size={18} />}
-              errorMessage={formik.errors.zipCode}
-              isDisabled={loading}
+              message={formik.errors.zipCode}
+              disabled={loading}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "zipCode")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired(validationSchema, "zipCode")}
+              required={isRequired(validationSchema, "zipCode")}
             />
           </Grid>
         </Fieldset>
@@ -185,14 +185,14 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               type="number"
               value={formik.values.landlinePhone}
               iconAfter={<MdOutlineModeEdit size={18} />}
-              errorMessage={formik.errors.landlinePhone}
-              isDisabled={loading}
+              message={formik.errors.landlinePhone}
+              disabled={loading}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "landlinePhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired(validationSchema, "landlinePhone")}
+              required={isRequired(validationSchema, "landlinePhone")}
             />
 
             <TextField
@@ -203,14 +203,14 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               type="number"
               value={formik.values.cellPhone}
               iconAfter={<MdOutlineModeEdit size={18} />}
-              errorMessage={formik.errors.cellPhone}
-              isDisabled={loading}
+              message={formik.errors.cellPhone}
+              disabled={loading}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "cellPhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired(validationSchema, "cellPhone")}
+              required={isRequired(validationSchema, "cellPhone")}
             />
           </Grid>
         </Fieldset>
@@ -238,14 +238,14 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
               id="email"
               value={formik.values.email}
               iconAfter={<MdOutlineModeEdit size={18} />}
-              errorMessage={formik.errors.email}
-              isDisabled={loading}
+              message={formik.errors.email}
+              disabled={loading}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "email")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired={isRequired(validationSchema, "email")}
+              required={isRequired(validationSchema, "email")}
             />
           </Grid>
         </Fieldset>

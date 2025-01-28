@@ -1,7 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -10,6 +8,8 @@ import {
   Divider,
   Fieldset,
   Grid,
+  IOption,
+  Select,
   Stack,
   Text,
 } from "@inubekit/inubekit";
@@ -20,7 +20,7 @@ import {
   parseCurrencyString,
   validateCurrencyField,
 } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
+import { getFieldState, isInvalid } from "src/utils/forms/forms";
 import { IProgrammedSavingProduct } from "../DestinationForm/types";
 import { ISavingConditionsEntry } from "./types";
 
@@ -28,15 +28,15 @@ interface SavingConditionsFormUIProps {
   formik: FormikProps<ISavingConditionsEntry>;
   loading?: boolean;
   loadingSimulation?: boolean;
-  periodicityOptions: ISelectOption[];
+  periodicityOptions: IOption[];
   product?: IProgrammedSavingProduct;
   simulateSaving: () => void;
   customHandleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
   onFormValid: React.Dispatch<React.SetStateAction<boolean>>;
-  onChangePaymentMethod: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onChangePeriodicity: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangePaymentMethod: (name: string, value: string) => void;
+  onChangePeriodicity: (name: string, value: string) => void;
 }
 
 function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
@@ -152,10 +152,10 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       id="quota"
                       value={validateCurrencyField("quota", formik) || ""}
                       type="text"
-                      errorMessage={formik.errors.quota}
-                      isDisabled={loading}
+                      message={formik.errors.quota}
+                      disabled={loading}
                       size="compact"
-                      isFullWidth
+                      fullwidth
                       state={getFieldState(formik, "quota")}
                       onBlur={formik.handleBlur}
                       onChange={handleChangeWithCurrency}
@@ -169,10 +169,10 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       id="deadline"
                       value={formik.values.deadline || ""}
                       type="number"
-                      errorMessage={formik.errors.deadline}
-                      isDisabled={!formik.values.quota || loading}
+                      message={formik.errors.deadline}
+                      disabled={!formik.values.quota || loading}
                       size="compact"
-                      isFullWidth
+                      fullwidth
                       state={getFieldState(formik, "deadline")}
                       onBlur={formik.handleBlur}
                       onChange={customHandleChange}
@@ -186,12 +186,12 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       size="compact"
                       value={formik.values.paymentMethod?.id || ""}
                       options={formik.values.paymentMethods || []}
-                      errorMessage={formik.errors.paymentMethod}
+                      message={formik.errors.paymentMethod}
                       onBlur={formik.handleBlur}
                       onChange={onChangePaymentMethod}
-                      state={getFieldState(formik, "paymentMethod")}
-                      isFullWidth
-                      readOnly={formik.values.paymentMethods.length === 1}
+                      invalid={isInvalid(formik, "paymentMethod")}
+                      fullwidth
+                      disabled={formik.values.paymentMethods.length === 1}
                     />
                     <Select
                       label="Periodicidad"
@@ -199,14 +199,16 @@ function SavingConditionsFormUI(props: SavingConditionsFormUIProps) {
                       id="periodicity"
                       value={formik.values.periodicity.id}
                       size="compact"
-                      isFullWidth
+                      fullwidth
                       options={periodicityOptions}
                       onBlur={formik.handleBlur}
-                      errorMessage={formik.errors.periodicity?.id}
-                      isDisabled={!formik.values.paymentMethod?.value}
-                      state={getFieldState(formik, "periodicity")}
+                      message={formik.errors.periodicity?.id}
+                      disabled={
+                        periodicityOptions.length === 1 ||
+                        !formik.values.paymentMethod?.value
+                      }
+                      invalid={isInvalid(formik, "periodicity")}
                       onChange={onChangePeriodicity}
-                      readOnly={periodicityOptions.length === 1}
                     />
                   </Grid>
 

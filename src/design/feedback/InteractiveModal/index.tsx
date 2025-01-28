@@ -72,10 +72,10 @@ const InteractiveModal = (props: InteractiveModalProps) => {
                         id={field.id}
                         placeholder={field.titleName}
                         value={infoData[field.id]}
-                        isFullWidth={true}
+                        fullwidth={true}
                         type="text"
                         size="compact"
-                        readOnly={true}
+                        disabled={true}
                       />
                     ),
                 )
@@ -87,10 +87,10 @@ const InteractiveModal = (props: InteractiveModalProps) => {
                     id={key}
                     placeholder={key}
                     value={infoData[key]}
-                    isFullWidth={true}
+                    fullwidth={true}
                     type="text"
                     size="compact"
-                    readOnly={true}
+                    disabled={true}
                   />
                 ))}
           </Stack>

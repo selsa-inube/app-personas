@@ -605,38 +605,38 @@ const fondecomTheme = {
   input: {
     border: {
       color: {
-        regular: "fondecom.palette.neutral.n40",
-        disabled: "fondecom.palette.neutral.n40",
-        focus: "fondecom.palette.blue.b300",
-        invalid: "fondecom.palette.red.r400",
+        regular: palette.neutral.n40,
+        disabled: palette.neutral.n40,
+        focus: palette.blue.b300,
+        invalid: palette.red.r400,
       },
     },
     background: {
       color: {
-        regular: "fondecom.palette.neutral.n0",
-        disabled: "fondecom.palette.neutral.n10",
+        regular: palette.neutral.n0,
+        disabled: palette.neutral.n10,
       },
     },
     content: {
       color: {
-        regular: "fondecom.palette.neutral.n900",
-        disabled: "fondecom.palette.neutral.n70",
+        regular: palette.neutral.n900,
+        disabled: palette.neutral.n70,
       },
     },
     placeholder: {
       color: {
-        regular: "fondecom.palette.neutral.n300",
+        regular: palette.neutral.n300,
       },
     },
     message: {
       color: {
-        regular: "fondecom.palette.red.r400",
+        regular: palette.red.r400,
       },
     },
     required: {
       color: {
-        regular: "fondecom.palette.red.r400",
-        disabled: "fondecom.palette.neutral.n70",
+        regular: palette.red.r400,
+        disabled: palette.neutral.n70,
       },
     },
     optionList: {
@@ -645,8 +645,8 @@ const fondecomTheme = {
         expanded: "primary",
       },
       background: {
-        expanded: "fondecom.palette.neutral.n0",
-        selected: "fondecom.palette.neutral.n30",
+        expanded: palette.neutral.n0,
+        selected: palette.neutral.n30,
       },
     },
   },

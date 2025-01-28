@@ -1,12 +1,17 @@
 import { DateField } from "@design/input/DateField";
-import { Select } from "@design/input/Select";
+import { Select } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
-import { getFieldState, isRequired } from "src/utils/forms/forms";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+  isRequired,
+} from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IInformationDataEntry } from "./types";
 
@@ -32,12 +37,12 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
             size="compact"
             options={relationshipDM.options}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.relationship}
-            onChange={formik.handleChange}
+            message={formik.errors.relationship}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             value={formik.values.relationship || ""}
-            state={getFieldState(formik, "relationship")}
-            isRequired={isRequired(validationSchema, "relationship")}
-            isFullWidth
+            invalid={isInvalid(formik, "relationship")}
+            required={isRequired(validationSchema, "relationship")}
+            fullwidth
           />
           <Select
             label="Depende económicamente"
@@ -47,12 +52,12 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
             size="compact"
             options={activeDM.options}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.isDependent}
-            onChange={formik.handleChange}
+            message={formik.errors.isDependent}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             value={formik.values.isDependent || ""}
-            state={getFieldState(formik, "isDependent")}
-            isRequired={isRequired(validationSchema, "isDependent")}
-            isFullWidth
+            invalid={isInvalid(formik, "isDependent")}
+            required={isRequired(validationSchema, "isDependent")}
+            fullwidth
           />
         </>
       )}
@@ -64,13 +69,13 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         size="compact"
         options={educationLevelTypeDM.options}
         onBlur={formik.handleBlur}
-        errorMessage={formik.errors.educationLevel}
-        onChange={formik.handleChange}
+        message={formik.errors.educationLevel}
+        onChange={(name, value) => formikHandleChange(name, value, formik)}
         value={formik.values.educationLevel || ""}
-        state={getFieldState(formik, "educationLevel")}
-        isRequired={isRequired(validationSchema, "educationLevel")}
-        readOnly={readonly}
-        isFullWidth
+        invalid={isInvalid(formik, "educationLevel")}
+        required={isRequired(validationSchema, "educationLevel")}
+        disabled={readonly}
+        fullwidth
       />
       <Select
         label="Profesión"
@@ -80,13 +85,13 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         size="compact"
         options={getDomainById("profession")}
         onBlur={formik.handleBlur}
-        errorMessage={formik.errors.profession}
-        onChange={formik.handleChange}
+        message={formik.errors.profession}
+        onChange={(name, value) => formikHandleChange(name, value, formik)}
         value={formik.values.profession || ""}
-        state={getFieldState(formik, "profession")}
-        isRequired={isRequired(validationSchema, "profession")}
-        readOnly={readonly}
-        isFullWidth
+        invalid={isInvalid(formik, "profession")}
+        required={isRequired(validationSchema, "profession")}
+        disabled={readonly}
+        fullwidth
       />
       <Select
         label="Genero"
@@ -96,26 +101,26 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         size="compact"
         options={genderDM.options}
         onBlur={formik.handleBlur}
-        errorMessage={formik.errors.gender}
-        onChange={formik.handleChange}
+        message={formik.errors.gender}
+        onChange={(name, value) => formikHandleChange(name, value, formik)}
         value={formik.values.gender || ""}
-        state={getFieldState(formik, "gender")}
-        isRequired={isRequired(validationSchema, "gender")}
-        readOnly={readonly}
-        isFullWidth
+        invalid={isInvalid(formik, "gender")}
+        required={isRequired(validationSchema, "gender")}
+        disabled={readonly}
+        fullwidth
       />
       <DateField
         label="Fecha de nacimiento"
         name="birthDate"
         id="birthDate"
         value={formik.values.birthDate}
-        errorMessage={formik.errors.birthDate}
+        message={formik.errors.birthDate}
         state={getFieldState(formik, "birthDate")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        isRequired={isRequired(validationSchema, "birthDate")}
-        readOnly={readonly}
-        isFullWidth
+        required={isRequired(validationSchema, "birthDate")}
+        disabled={readonly}
+        fullwidth
       />
       <Select
         label="Actividad económica"
@@ -125,13 +130,13 @@ function InformationDataFormUI(props: InformationDataFormUIProps) {
         size="compact"
         options={getDomainById("economicSector")}
         onBlur={formik.handleBlur}
-        errorMessage={formik.errors.businessActivity}
-        onChange={formik.handleChange}
+        message={formik.errors.businessActivity}
+        onChange={(name, value) => formikHandleChange(name, value, formik)}
         value={formik.values.businessActivity || ""}
-        state={getFieldState(formik, "businessActivity")}
-        isRequired={isRequired(validationSchema, "businessActivity")}
-        readOnly={readonly}
-        isFullWidth
+        invalid={isInvalid(formik, "businessActivity")}
+        required={isRequired(validationSchema, "businessActivity")}
+        disabled={readonly}
+        fullwidth
       />
     </>
   );

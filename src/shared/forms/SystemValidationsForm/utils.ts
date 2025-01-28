@@ -15,13 +15,13 @@ const loadingValidations: IValidation[] = [
     id: "load_1",
     label: "Loading",
     value: "pending",
-    isRequired: true,
+    required: true,
   },
   {
     id: "load_2",
     label: "Loading",
     value: "pending",
-    isRequired: true,
+    required: true,
   },
   {
     id: "load_3",
@@ -37,7 +37,7 @@ const loadingValidations: IValidation[] = [
     id: "load_5",
     label: "Loading",
     value: "pending",
-    isRequired: true,
+    required: true,
   },
   {
     id: "load_6",

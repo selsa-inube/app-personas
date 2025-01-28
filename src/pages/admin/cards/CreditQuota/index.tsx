@@ -1,6 +1,6 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,7 +24,7 @@ function CreditQuota() {
     useContext(CardsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>();
+  const [productsOptions, setProductsOptions] = useState<IOption[]>();
   const [usedQuotaModal, setUsedQuotaModal] = useState<IUsedQuotaModalState>({
     show: false,
   });
@@ -92,7 +92,8 @@ function CreditQuota() {
     setProductsOptions(
       newCreditQuotas.map((creditQuota) => ({
         id: creditQuota.id,
-        value: creditQuota.title,
+        value: creditQuota.id,
+        label: creditQuota.title,
       })),
     );
   };
@@ -119,9 +120,8 @@ function CreditQuota() {
     }
   };
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: id } = event.target;
-    navigate(`/my-cards/${card_id}/credit-quota/${id}`);
+  const handleChangeProduct = (name: string, value: string) => {
+    navigate(`/my-cards/${card_id}/credit-quota/${value}`);
   };
 
   if (!selectedProduct) return null;

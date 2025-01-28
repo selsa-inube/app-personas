@@ -7,8 +7,6 @@ import { ExpiredPaymentModal } from "@components/modals/general/ExpiredPaymentMo
 import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -16,6 +14,8 @@ import {
   Button,
   Divider,
   Grid,
+  IOption,
+  Select,
   Stack,
   Text,
 } from "@inubekit/inubekit";
@@ -67,7 +67,7 @@ interface CreditUIProps {
   isMobile: boolean;
   selectedProduct?: ISelectedProductState;
   loading: boolean;
-  productsOptions: ISelectOption[];
+  productsOptions: IOption[];
   credit_id?: string;
   nextPaymentModal: INextPaymentModalState;
   expiredPaymentModal: IExpiredPaymentModalState;
@@ -75,7 +75,7 @@ interface CreditUIProps {
   selectedMovement?: IMovement;
   handleToggleNextPaymentModal: () => void;
   handleToggleExpiredPaymentModal: () => void;
-  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeProduct: (name: string, value: string) => void;
   handleOpenModal: (movement: IMovement) => void;
   handleCloseModal: () => void;
 }
@@ -130,12 +130,13 @@ function CreditUI(props: CreditUIProps) {
             <>
               <Select
                 id="creditProducts"
+                name="creditProducts"
                 onChange={handleChangeProduct}
                 label="Selección de producto"
                 options={productsOptions}
                 value={selectedProduct.option}
-                isFullWidth
-                readOnly={productsOptions.length === 1}
+                fullwidth
+                disabled={productsOptions.length === 1}
               />
               <Box
                 title={selectedProduct.credit.title}

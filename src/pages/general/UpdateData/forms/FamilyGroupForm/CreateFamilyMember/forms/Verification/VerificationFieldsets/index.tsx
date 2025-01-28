@@ -1,5 +1,5 @@
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
+import { Select } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { activeDM } from "src/model/domains/general/activedm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
@@ -25,8 +25,8 @@ const renderIdentificationDataInfoVerification = (
         type="number"
         size="compact"
         value={values.identificationNumber}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
       />
     )}
     {values.type && (
@@ -38,8 +38,9 @@ const renderIdentificationDataInfoVerification = (
         size="compact"
         options={identificationTypeDM.options}
         value={values.type}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
+        onChange={() => true}
       />
     )}
     {values.firstName && (
@@ -51,8 +52,8 @@ const renderIdentificationDataInfoVerification = (
         type="text"
         size="compact"
         value={values.firstName}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
       />
     )}
     {values.secondName && (
@@ -64,8 +65,8 @@ const renderIdentificationDataInfoVerification = (
         type="text"
         size="compact"
         value={values.secondName}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
       />
     )}
     {values.firstLastName && (
@@ -77,8 +78,8 @@ const renderIdentificationDataInfoVerification = (
         type="text"
         size="compact"
         value={values.firstLastName}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
       />
     )}
     {values.secondLastName && (
@@ -90,8 +91,8 @@ const renderIdentificationDataInfoVerification = (
         type="text"
         size="compact"
         value={values.secondLastName}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
       />
     )}
   </>
@@ -108,8 +109,8 @@ const renderContactDataInfoVerification = (values: IContactDataEntry) => (
         type="number"
         size="compact"
         value={values.cellPhone}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
       />
     )}
     {values.email && (
@@ -121,8 +122,8 @@ const renderContactDataInfoVerification = (values: IContactDataEntry) => (
         type="text"
         size="compact"
         value={values.email}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
       />
     )}
   </>
@@ -141,9 +142,12 @@ const renderInformationDataInfoVerification = (
         id="relationship"
         size="compact"
         options={relationshipDM.options}
-        value={informationValues.relationship ?? personalValues.relationship}
-        isFullWidth
-        readOnly
+        value={
+          informationValues.relationship ?? personalValues.relationship ?? ""
+        }
+        fullwidth
+        readonly
+        onChange={() => true}
       />
     )}
     {(personalValues.isDependent || informationValues.isDependent) && (
@@ -154,9 +158,12 @@ const renderInformationDataInfoVerification = (
         id="isDependent"
         size="compact"
         options={activeDM.options}
-        value={informationValues.isDependent ?? personalValues.isDependent}
-        isFullWidth
-        readOnly
+        value={
+          informationValues.isDependent ?? personalValues.isDependent ?? ""
+        }
+        fullwidth
+        readonly
+        onChange={() => true}
       />
     )}
     {informationValues.educationLevel && (
@@ -168,8 +175,9 @@ const renderInformationDataInfoVerification = (
         size="compact"
         options={educationLevelTypeDM.options}
         value={informationValues.educationLevel}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
+        onChange={() => true}
       />
     )}
     {informationValues.profession && (
@@ -181,8 +189,9 @@ const renderInformationDataInfoVerification = (
         size="compact"
         options={getDomainById("profession")}
         value={informationValues.profession}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
+        onChange={() => true}
       />
     )}
     {informationValues.gender && (
@@ -194,8 +203,9 @@ const renderInformationDataInfoVerification = (
         size="compact"
         options={genderDM.options}
         value={informationValues.gender}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
+        onChange={() => true}
       />
     )}
     {informationValues.birthDate && (
@@ -207,8 +217,8 @@ const renderInformationDataInfoVerification = (
         type="text"
         size="compact"
         value={formatPrimaryDate(new Date(informationValues.birthDate))}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
       />
     )}
     {informationValues.businessActivity && (
@@ -220,8 +230,9 @@ const renderInformationDataInfoVerification = (
         size="compact"
         options={getDomainById("economicSector")}
         value={informationValues.businessActivity}
-        isFullWidth
-        readOnly
+        fullwidth
+        readonly
+        onChange={() => true}
       />
     )}
   </>

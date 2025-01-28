@@ -1,19 +1,14 @@
-import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/inubekit";
+import { Grid, Select } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { getFieldState } from "src/utils/forms/forms";
+import { isInvalid } from "src/utils/forms/forms";
 import { IInterestPaymentEntry } from "./types";
 
 interface InterestPaymentFormUIProps {
   formik: FormikProps<IInterestPaymentEntry>;
   loading?: boolean;
-  customHandleChange: (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
+  customHandleChange: (name: string, value: string) => void;
 }
 
 function InterestPaymentFormUI(props: InterestPaymentFormUIProps) {
@@ -33,15 +28,14 @@ function InterestPaymentFormUI(props: InterestPaymentFormUIProps) {
           id="interestPayment"
           value={formik.values.interestPayment || ""}
           size="compact"
-          isFullWidth
+          fullwidth
           options={formik.values.interestPayments || []}
           onBlur={formik.handleBlur}
-          errorMessage={formik.errors.interestPayment}
-          isDisabled={loading}
-          state={getFieldState(formik, "interestPayment")}
+          message={formik.errors.interestPayment}
+          disabled={formik.values.interestPayments?.length === 1 || loading}
+          invalid={isInvalid(formik, "interestPayment")}
           onChange={customHandleChange}
-          isRequired
-          readOnly={formik.values.interestPayments?.length === 1}
+          required
         />
       </Grid>
     </form>

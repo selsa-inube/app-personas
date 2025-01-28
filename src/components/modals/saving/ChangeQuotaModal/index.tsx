@@ -124,7 +124,7 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
             placeholder="Ingresa el valor de la cuota"
             label="Nuevo valor de la cuota"
             value={validateCurrencyField(newQuota)}
-            isFullWidth
+            fullwidth
             size="compact"
             type="text"
             onChange={handleChangeWithCurrency}

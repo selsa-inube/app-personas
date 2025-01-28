@@ -25,15 +25,15 @@ export const Default: StoryFn<TextFieldProps> = (args) => (
 );
 
 Default.args = {
-  isDisabled: false,
-  isFullWidth: false,
-  isRequired: false,
+  disabled: false,
+  fullwidth: false,
+  required: false,
   type: "text",
   size: "compact",
   state: "pending",
   label: "Username",
   placeholder: "Write your full name",
-  readOnly: false,
+  readonly: false,
   iconBefore: <MdOutlineAccountBalanceWallet />,
   iconAfter: <MdOutlineAttachMoney />,
 };
@@ -56,15 +56,15 @@ export const Autocomplete: StoryFn<TextFieldProps> = (args) => (
 );
 
 Autocomplete.args = {
-  isDisabled: false,
-  isFullWidth: false,
-  isRequired: false,
+  disabled: false,
+  fullwidth: false,
+  required: false,
   type: "text",
   size: "compact",
   state: "pending",
   label: "Option",
   placeholder: "Write an option",
-  readOnly: false,
+  readonly: false,
   autocomplete: true,
   suggestions: [
     { id: "Opción-A", value: "Opción-A" },

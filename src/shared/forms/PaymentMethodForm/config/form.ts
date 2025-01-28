@@ -1,4 +1,4 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { accountSelectionTypeData } from "@mocks/domains/accountSelectionType";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
@@ -9,36 +9,33 @@ import * as Yup from "yup";
 import { IPaymentMethodEntry } from "../types";
 
 const getCommonFields = {
-  accountToDebit: (options: ISelectOption[]): IFormField => ({
+  accountToDebit: (options: IOption[]): IFormField => ({
     name: "accountToDebit",
     type: "select",
     label: "Cuenta a debitar",
     size: "compact",
     options: options,
-    isFullWidth: true,
+    fullwidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
   }),
 
-  accountSelection: (
-    options: ISelectOption[],
-    readOnly: boolean,
-  ): IFormField => ({
+  accountSelection: (options: IOption[], readonly: boolean): IFormField => ({
     name: "accountSelection",
     type: "select",
     label: "Selección de cuenta",
     size: "compact",
     options: options,
-    isFullWidth: true,
+    fullwidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
-    readOnly,
+    readonly,
   }),
 
   accountNumberSelect: (
     formik: FormikProps<IPaymentMethodEntry>,
-    savingOptions: ISelectOption[],
-    readOnly?: boolean,
+    savingOptions: IOption[],
+    readonly?: boolean,
   ): IFormField => ({
     name: "accountNumberSelect",
     type: "select",
@@ -49,58 +46,58 @@ const getCommonFields = {
         : "Selecciona el número de cuenta",
     size: "compact",
     options: savingOptions,
-    isFullWidth: true,
+    fullwidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
-    isRequired: true,
-    readOnly,
+    required: true,
+    readonly,
   }),
 
-  accountType: (options: ISelectOption[], readOnly?: boolean): IFormField => ({
+  accountType: (options: IOption[], readonly?: boolean): IFormField => ({
     name: "accountType",
     type: "select",
     label: "Tipo de cuenta",
-    placeholder: readOnly ? "" : "Seleccione una opción",
+    placeholder: readonly ? "" : "Seleccione una opción",
     size: "compact",
     options: options,
-    isFullWidth: true,
+    fullwidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
-    readOnly,
+    readonly,
   }),
 
-  bankEntity: (options: ISelectOption[], readOnly?: boolean): IFormField => ({
+  bankEntity: (options: IOption[], readonly?: boolean): IFormField => ({
     name: "bankEntity",
     type: "select",
     label: "Entidad bancaria",
-    placeholder: readOnly ? "" : "Seleccione una opción",
+    placeholder: readonly ? "" : "Seleccione una opción",
     size: "compact",
     options: options,
-    isFullWidth: true,
+    fullwidth: true,
     gridColumn: "span 1",
     validation: Yup.string().required(validationMessages.required),
-    readOnly,
+    readonly,
   }),
 
-  accountNumberTextField: (readOnly?: boolean): IFormField => ({
+  accountNumberTextField: (readonly?: boolean): IFormField => ({
     name: "accountNumberTextField",
     type: "text",
     label: "Numero de cuenta",
-    placeholder: readOnly ? "" : "Digita el número de cuenta",
+    placeholder: readonly ? "" : "Digita el número de cuenta",
     size: "compact",
-    isFullWidth: true,
+    fullwidth: true,
     gridColumn: "span 1",
     validMessage: "El Numero de cuenta es válido",
     validation: validationRules.accountNumber.required(
       validationMessages.required,
     ),
-    readOnly,
+    readonly,
   }),
 };
 
 const structurePaymentMethodForm = (
   formik: FormikProps<IPaymentMethodEntry>,
-  savingOptions: ISelectOption[],
+  savingOptions: IOption[],
 ): IFormStructure => {
   const getCommonFieldsForAccountDebit = (isExternal: boolean) => {
     const commonFields = [
@@ -111,8 +108,9 @@ const structurePaymentMethodForm = (
       commonFields.push(
         getCommonFields.accountSelection(
           accountSelectionTypeData.map((accountType) => ({
-            value: accountType.value,
+            value: accountType.id,
             id: accountType.id,
+            label: accountType.value,
           })),
           formik.values.accountToDebit === undefined,
         ),

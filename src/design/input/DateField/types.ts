@@ -6,8 +6,8 @@ type InputState = (typeof inputStates)[number];
 
 interface IDateFieldMessage {
   state?: InputState;
-  isDisabled?: boolean;
-  errorMessage?: string;
+  disabled?: boolean;
+  message?: string;
   validMessage?: string;
 }
 
