@@ -1,13 +1,13 @@
 import { enviroment } from "@config/enviroment";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapTypesAndReasonsApiToEntities } from "./mappers";
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 
 const getTypesAndReasonsOptions = async (
   accessToken: string,
 ): Promise<{
-  typeOptions: ISelectOption[];
-  reasonsByType: Record<string, ISelectOption[]>;
+  typeOptions: IOption[];
+  reasonsByType: Record<string, IOption[]>;
 }> => {
   const requestTime = new Date();
   const startTime = performance.now();

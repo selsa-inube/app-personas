@@ -1,11 +1,11 @@
 import { enviroment } from "@config/enviroment";
-import { ISelectOption } from "@design/input/Select/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapPaymentMethodsApiToEntities } from "./mappers";
+import { IOption } from "@inubekit/inubekit";
 
 const getCdatPaymentMethods = async (
   accessToken: string,
-): Promise<ISelectOption[]> => {
+): Promise<IOption[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 

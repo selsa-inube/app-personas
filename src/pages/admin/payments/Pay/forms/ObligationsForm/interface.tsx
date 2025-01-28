@@ -10,11 +10,18 @@ import {
   PaymentHelpModal,
 } from "@components/modals/payments/PaymentHelpModal";
 import { PaymentTotalModal } from "@components/modals/payments/PaymentTotalModal";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQueries } from "@hooks/useMediaQueries";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Divider, Grid, Stack, Tag, Text } from "@inubekit/inubekit";
+import {
+  Button,
+  Divider,
+  Grid,
+  IOption,
+  Stack,
+  Tag,
+  Text,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { useContext } from "react";
 import { MdOutlineCheckBox, MdOutlineFilterAlt } from "react-icons/md";
@@ -28,9 +35,9 @@ import { IObligationsEntry } from "./types";
 const renderFilters = (
   filters: IPaymentFilters,
   allowedFilters: {
-    group: ISelectOption[];
-    paymentMethod: ISelectOption[];
-    status: ISelectOption[];
+    group: IOption[];
+    paymentMethod: IOption[];
+    status: IOption[];
   },
   onRemove: (filterName: string) => void,
 ) => {
@@ -218,7 +225,7 @@ function ObligationsFormUI(props: ObligationsFormUIProps) {
                 <Totalizer
                   isMobile={isMobile}
                   isExpandable={true}
-                  isDisabled={(formik.values.totalPayment || 0) === 0}
+                  disabled={(formik.values.totalPayment || 0) === 0}
                   onClick={onToggleTotalModal}
                   value={formik.values.totalPayment}
                 />

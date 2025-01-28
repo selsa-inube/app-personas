@@ -64,7 +64,8 @@ const mapCustomerApiToEntity = (
       paymentMethod: paymentMethod &&
         paymentMethodName && {
           id: paymentMethod,
-          value: paymentMethodName,
+          value: paymentMethod,
+          label: paymentMethodName,
         },
     },
   };

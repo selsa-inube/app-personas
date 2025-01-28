@@ -31,7 +31,7 @@ Default.args = {
     },
     {
       id: "CL002808",
-      isDisabled: true,
+      disabled: true,
       value: "Crédito libre inversión - CL002808",
     },
   ],

@@ -1,4 +1,3 @@
-import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -6,6 +5,7 @@ import {
   Button,
   Divider,
   Icon,
+  Select,
   Stack,
   Text,
 } from "@inubekit/inubekit";
@@ -38,8 +38,8 @@ function ModifyActionModal(props: ModifyActionModalProps) {
   const isMobile = useMediaQuery("(max-width: 700px)");
   const node = document.getElementById(portalId);
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setNewActionExpiration(e.target.value);
+  const handleChange = (name: string, value: string) => {
+    setNewActionExpiration(value);
   };
 
   const handleConfirm = () => {
@@ -90,7 +90,7 @@ function ModifyActionModal(props: ModifyActionModalProps) {
             label="Renovar producto al vencimiento"
             value={newActionExpiration || ""}
             options={actionExpirationDM.options}
-            isFullWidth
+            fullwidth
             size="compact"
             onChange={handleChange}
           />

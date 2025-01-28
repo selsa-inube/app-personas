@@ -18,7 +18,7 @@ export const Default: StoryFn<DropdownItemProps> = (args) => (
   <DropdownItem {...args} />
 );
 Default.args = {
-  isDisabled: false,
+  disabled: false,
   isFocused: false,
   id: "CL002807",
   value: "Crédito libre inversión CL002807",

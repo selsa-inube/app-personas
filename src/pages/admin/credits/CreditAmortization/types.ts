@@ -2,7 +2,7 @@ import { IProduct } from "src/model/entity/product";
 
 interface IOption {
   id: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
   value: string;
   title: string;
 }

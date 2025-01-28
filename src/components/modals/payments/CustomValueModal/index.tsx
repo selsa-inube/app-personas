@@ -61,10 +61,10 @@ function CustomValueModal(props: CustomValueModalProps) {
   const [showResponse, setShowResponse] = useState(false);
   const [inputValidation, setInputValidation] = useState<{
     state: InputState;
-    errorMessage: string;
+    message: string;
   }>({
     state: "pending",
-    errorMessage: "",
+    message: "",
   });
   const [selectedOption, setSelectedOption] = useState<IApplyPayOption>();
   const [customValue, setCustomValue] = useState(value);
@@ -80,13 +80,13 @@ function CustomValueModal(props: CustomValueModalProps) {
     if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
       setInputValidation({
         state: "invalid",
-        errorMessage: "(Valor superior al saldo total)",
+        message: "(Valor superior al saldo total)",
       });
 
       return;
     }
 
-    setInputValidation({ state: "pending", errorMessage: "" });
+    setInputValidation({ state: "pending", message: "" });
 
     const daysUntilNextExpiration = Math.ceil(
       ((nextPaymentDate?.getTime() ?? 0) - today.getTime()) /
@@ -171,11 +171,10 @@ function CustomValueModal(props: CustomValueModalProps) {
             placeholder=""
             value={customValue ? currencyFormat(customValue, false) : ""}
             onChange={handleChangeCustomValue}
-            isFullWidth
+            fullwidth
             state={inputValidation.state}
-            errorMessage={
-              (inputValidation.errorMessage !== "" &&
-                inputValidation.errorMessage) ||
+            message={
+              (inputValidation.message !== "" && inputValidation.message) ||
               undefined
             }
           />

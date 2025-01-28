@@ -3,24 +3,24 @@ import styled from "styled-components";
 import { InputSize } from "./types";
 
 interface IStyledContainer {
-  $isDisabled: boolean;
-  $isFullWidth: boolean;
+  $disabled: boolean;
+  $fullwidth: boolean;
   $label?: string;
-  $readOnly?: boolean;
+  $readonly?: boolean;
   $size: InputSize;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
-  cursor: ${({ $isDisabled }) => $isDisabled && "not-allowed"};
-  width: ${({ $isFullWidth }) => ($isFullWidth ? "100%" : "fit-content")};
+  cursor: ${({ $disabled }) => $disabled && "not-allowed"};
+  width: ${({ $fullwidth }) => ($fullwidth ? "100%" : "fit-content")};
   position: relative;
 `;
 
 interface IStyledInputContainer {
-  $isDisabled: boolean;
+  $disabled: boolean;
   $isFocused?: boolean;
   $state: string;
-  $readOnly?: boolean;
+  $readonly?: boolean;
 }
 
 const StyledInputContainer = styled.div<IStyledInputContainer>`
@@ -28,18 +28,18 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
   align-items: center;
   box-sizing: border-box;
   user-select: none;
-  cursor: ${({ $readOnly }) => $readOnly && "not-allowed"};
+  cursor: ${({ $readonly }) => $readonly && "not-allowed"};
   border-radius: ${inube.spacing.s100};
   padding: ${inube.spacing.s100} ${inube.spacing.s200};
   gap: ${inube.spacing.s100};
 
-  background-color: ${({ theme, $isDisabled, $readOnly }) =>
-    ($isDisabled || $readOnly) &&
+  background-color: ${({ theme, $disabled, $readonly }) =>
+    ($disabled || $readonly) &&
     (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
   border: 1px solid
-    ${({ theme, $isDisabled, $state, $isFocused }) => {
-      if ($isDisabled) {
+    ${({ theme, $disabled, $state, $isFocused }) => {
+      if ($disabled) {
         return (
           (theme.color?.text?.dark?.disabled ||
             inube.color.text.dark.disabled) +
@@ -63,15 +63,15 @@ const StyledInputContainer = styled.div<IStyledInputContainer>`
 `;
 
 interface IStyledInput {
-  $isDisabled: boolean;
-  $readOnly?: boolean;
-  $isFullWidth: boolean;
+  $disabled: boolean;
+  $readonly?: boolean;
+  $fullwidth: boolean;
   $size: InputSize;
 }
 
 const StyledInput = styled.input<IStyledInput>`
   outline: none;
-  cursor: ${({ $readOnly }) => $readOnly && "not-allowed"};
+  cursor: ${({ $readonly }) => $readonly && "not-allowed"};
   font-family: ${({ theme }) =>
     theme.typography?.body?.large?.font || inube.typography.body.large.font};
   font-size: ${({ theme }) =>
@@ -86,8 +86,8 @@ const StyledInput = styled.input<IStyledInput>`
     theme.typography?.body?.large?.lineHeight ||
     inube.typography.body.large.lineHeight};
 
-  color: ${({ theme, $isDisabled, readOnly }) => {
-    if ($isDisabled) {
+  color: ${({ theme, $disabled, readOnly }) => {
+    if ($disabled) {
       return (
         theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
       );
@@ -97,13 +97,13 @@ const StyledInput = styled.input<IStyledInput>`
     }
     return theme.color?.text?.dark?.regular || inube.color.text.dark.regular;
   }};
-  background: ${({ theme, $isDisabled, readOnly }) =>
-    ($isDisabled || readOnly) &&
+  background: ${({ theme, $disabled, readOnly }) =>
+    ($disabled || readOnly) &&
     (theme.color?.surface?.gray?.clear || inube.color.surface.gray.clear)};
 
   border: none;
 
-  width: ${({ $isFullWidth }) => ($isFullWidth ? "calc(100%)" : "252px")};
+  width: ${({ $fullwidth }) => ($fullwidth ? "calc(100%)" : "252px")};
   height: ${({ $size }) =>
     $size === "compact" ? `${inube.spacing.s300}` : `${inube.spacing.s400}`};
 
@@ -140,7 +140,7 @@ const StyledInput = styled.input<IStyledInput>`
 `;
 
 interface IStyledMessageContainer {
-  $isDisabled?: boolean;
+  $disabled?: boolean;
   $state?: string;
 }
 
@@ -149,8 +149,8 @@ const StyledErrorMessageContainer = styled.div<IStyledMessageContainer>`
   align-items: center;
   pointer-events: none;
   gap: ${inube.spacing.s050};
-  color: ${({ theme, $isDisabled, $state }) => {
-    if ($isDisabled) {
+  color: ${({ theme, $disabled, $state }) => {
+    if ($disabled) {
       return (
         theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
       );
@@ -181,8 +181,8 @@ const StyledValidMessageContainer = styled.div<IStyledMessageContainer>`
   align-items: center;
   pointer-events: none;
   gap: ${inube.spacing.s050};
-  color: ${({ theme, $isDisabled, $state }) => {
-    if ($isDisabled) {
+  color: ${({ theme, $disabled, $state }) => {
+    if ($disabled) {
       return (
         theme.color?.text?.dark?.disabled || inube.color.text.dark.disabled
       );

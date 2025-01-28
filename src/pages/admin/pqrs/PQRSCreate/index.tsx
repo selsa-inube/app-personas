@@ -1,6 +1,5 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
-import { useFlag } from "@inubekit/inubekit";
+import { IOption, useFlag } from "@inubekit/inubekit";
 import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -34,9 +33,9 @@ function CreatePQRS() {
   const [redirectModal, setRedirectModal] = useState(false);
   const [sectionMessage, setSectionMessage] = useState("");
 
-  const [typeOptions, setTypeOptions] = useState<ISelectOption[]>([]);
-  const [reasonOptions, setReasonOptions] = useState<ISelectOption[]>([]);
-  const [attentionPoints, setAttentionPoints] = useState<ISelectOption[]>([]);
+  const [typeOptions, setTypeOptions] = useState<IOption[]>([]);
+  const [reasonOptions, setReasonOptions] = useState<IOption[]>([]);
+  const [attentionPoints, setAttentionPoints] = useState<IOption[]>([]);
 
   const [attachModal, setAttachModal] = useState({
     show: false,
@@ -44,9 +43,9 @@ function CreatePQRS() {
     documentType: "",
   });
 
-  const [reasonsByType, setReasonsByType] = useState<
-    Record<string, ISelectOption[]>
-  >({});
+  const [reasonsByType, setReasonsByType] = useState<Record<string, IOption[]>>(
+    {},
+  );
 
   const { addFlag } = useFlag();
   const navigate = useNavigate();

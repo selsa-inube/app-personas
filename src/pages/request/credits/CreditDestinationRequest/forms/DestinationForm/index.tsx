@@ -55,11 +55,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     }
   }, [formik.values]);
 
-  const handleChangeDestination = async (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    const { value } = event.target;
-
+  const handleChangeDestination = async (name: string, value: string) => {
     const destination = formik.values.destinations.find(
       (destination) => destination.id === value,
     );

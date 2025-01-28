@@ -2,12 +2,12 @@ import { inube } from "@design/tokens";
 import styled from "styled-components";
 
 interface IStyledContainer {
-  $isDisabled?: boolean;
+  $disabled?: boolean;
   $isFullwidth?: boolean;
 }
 
 const StyledContainer = styled.div<IStyledContainer>`
-  cursor: ${({ $isDisabled }) => $isDisabled && "not-allowed"};
+  cursor: ${({ $disabled }) => $disabled && "not-allowed"};
   width: ${({ $isFullwidth }) => ($isFullwidth ? "100%" : "fit-content")};
 `;
 
@@ -15,24 +15,25 @@ interface IStyledTextarea {
   $isFullwidth?: boolean;
   $isFocused?: boolean;
   $isMobile?: boolean;
-  $isDisabled?: boolean;
-  $isRequired?: boolean;
+  $disabled?: boolean;
+  $required?: boolean;
 }
 
 const StyledTextarea = styled.textarea<IStyledTextarea>`
   border-radius: ${`${inube.spacing.s100}`};
   padding: ${() => `${inube.spacing.s100} ${inube.spacing.s150} ${inube.spacing.s100}
     ${inube.spacing.s200}`};
-  width: ${({ $isFullwidth }) => ($isFullwidth ? "calc(100% - 32px)" : "452px")};
+  width: ${({ $isFullwidth }) =>
+    $isFullwidth ? "calc(100% - 32px)" : "452px"};
   resize: ${({ $isFullwidth }) => ($isFullwidth ? "none" : "both")};
   height: ${({ $isMobile }) => ($isMobile ? "140px" : "76px")};
-  color: ${({ $isDisabled, theme }) =>
-    $isDisabled
+  color: ${({ $disabled, theme }) =>
+    $disabled
       ? theme?.color?.text?.gray?.disabled || inube.color.text.gray.disabled
       : theme?.color?.text?.dark?.regular || inube.color.text.dark.regular};
   border: 1px solid
-    ${({ $isDisabled, $isFocused, theme }) => {
-      if ($isDisabled) {
+    ${({ $disabled, $isFocused, theme }) => {
+      if ($disabled) {
         return (
           theme?.color?.stroke?.gray?.disabled ||
           inube.color.stroke.gray.disabled
@@ -50,7 +51,7 @@ const StyledTextarea = styled.textarea<IStyledTextarea>`
         inube.color.stroke.divider.regular
       );
     }};
-  ${({ $isDisabled }) => $isDisabled && "pointer-events: none; opacity: 0.5;"}
+  ${({ $disabled }) => $disabled && "pointer-events: none; opacity: 0.5;"}
 
   ::placeholder {
     color: ${({ theme }) =>

@@ -9,8 +9,8 @@ import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
 import { IDetailsSituationEntry } from "./types";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface DetailsSituationFormUIProps {
   formik: FormikProps<IDetailsSituationEntry>;
@@ -40,8 +40,8 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               value={validateCurrencyField("quotaAvailable", formik) || ""}
               type="text"
               size="compact"
-              isFullWidth
-              readOnly
+              fullwidth
+              readonly
               iconAfter={<MdAttachMoney size={18} />}
             />
 
@@ -52,13 +52,13 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               placeholder="Ingresa el valor del auxilio"
               value={validateCurrencyField("applicationValue", formik, false)}
               type="text"
-              errorMessage={formik.errors.applicationValue}
+              message={formik.errors.applicationValue}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "applicationValue")}
               onBlur={formik.handleBlur}
               onChange={(e) => handleChangeWithCurrency(formik, e)}
-              isRequired
+              required
               iconAfter={<MdAttachMoney size={18} />}
             />
           </Grid>
@@ -77,13 +77,13 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
               placeholder="Digita el numero de días"
               value={formik.values.applicationDays || ""}
               type="number"
-              errorMessage={formik.errors.applicationDays}
+              message={formik.errors.applicationDays}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "applicationDays")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired
+              required
               iconAfter={<MdOutlineTag size={18} />}
             />
           </Grid>
@@ -96,12 +96,12 @@ function DetailsSituationFormUI(props: DetailsSituationFormUIProps) {
           placeholder="Escribe los detalles que debemos tener en cuenta"
           maxLength={120}
           value={formik.values.message}
-          errorMessage={formik.errors.message}
+          message={formik.errors.message}
           state={getFieldState(formik, "message")}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
           withCounter
-          isFullWidth
+          fullwidth
         />
       </Stack>
     </form>

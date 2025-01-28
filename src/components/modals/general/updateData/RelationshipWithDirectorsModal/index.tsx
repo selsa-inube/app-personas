@@ -97,7 +97,7 @@ function RelationshipWithDirectorsModal(
             placeholder="Digita el nombre o apellido"
             onChange={(e) => setSearchTerm(e.target.value)}
             size="compact"
-            isFullWidth
+            fullwidth
           />
           {searchTerm !== "" && (
             <StyledBody>

@@ -1,18 +1,21 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { EPaymentMethodType } from "src/model/entity/payment";
 
-const paymentMethods: ISelectOption[] = [
+const paymentMethods: IOption[] = [
   {
     id: EPaymentMethodType.PSE,
-    value: "Pagar con PSE",
+    value: EPaymentMethodType.PSE,
+    label: "Pagar con PSE",
   },
   {
     id: EPaymentMethodType.DEBIT,
-    value: "Pagar con débito a una cuenta de ahorros",
+    value: EPaymentMethodType.DEBIT,
+    label: "Pagar con débito a una cuenta de ahorros",
   },
   {
     id: EPaymentMethodType.MULTIPLE,
-    value: "Pagar con múltiples fuentes de dinero",
+    value: EPaymentMethodType.MULTIPLE,
+    label: "Pagar con múltiples fuentes de dinero",
   },
 ];
 

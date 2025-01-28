@@ -53,12 +53,7 @@ const InterestPaymentForm = forwardRef(function InterestPaymentForm(
     setInterestPayments();
   }, []);
 
-  const customHandleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { value } = event.target;
+  const customHandleChange = (name: string, value: string) => {
     formik.setFieldValue("interestPayment", value);
 
     formik.setFieldValue(

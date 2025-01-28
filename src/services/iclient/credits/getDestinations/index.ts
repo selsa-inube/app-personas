@@ -1,12 +1,12 @@
 import { enviroment } from "@config/enviroment";
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapDestinationsApiToEntities } from "./mappers";
 
 const getDestinationsForUser = async (
   userIdentification: string,
   accessToken: string,
-): Promise<ISelectOption[]> => {
+): Promise<IOption[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 

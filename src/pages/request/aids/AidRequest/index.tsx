@@ -13,7 +13,6 @@ import { mapBeneficiaries, mapDetailsSituation } from "./config/mappers";
 import { IBeneficiariesEntry } from "./forms/BeneficiariesForm/types";
 import { IDetailsSituationEntry } from "./forms/DetailsSituationForm/types";
 
-import { ISelectOption } from "@design/input/Select/types";
 import { mapContactChannels } from "@forms/ContactChannelsForm/mappers";
 import { IContactChannelsEntry } from "@forms/ContactChannelsForm/types";
 import { mapDisbursement } from "@forms/DisbursementForm/mappers";
@@ -24,7 +23,7 @@ import { mapSystemValidations } from "@forms/SystemValidationsForm/mappers";
 import { ISystemValidationsEntry } from "@forms/SystemValidationsForm/types";
 import { mapTermsAndConditions } from "@forms/TermsAndConditionsForm/mappers";
 import { ITermsAndConditionsEntry } from "@forms/TermsAndConditionsForm/types";
-import { useFlag } from "@inubekit/inubekit";
+import { IOption, useFlag } from "@inubekit/inubekit";
 import { AppContext } from "src/context/app";
 import { AidRequestUI } from "./interface";
 import { IFormsAidRequest, IFormsAidRequestRefs } from "./types";
@@ -44,9 +43,10 @@ function AidRequest() {
   const navigate = useNavigate();
   const { addFlag } = useFlag();
 
-  const aidRequestType: ISelectOption = {
+  const aidRequestType: IOption = {
     id: location.state?.id || "",
-    value: location.state?.title || "",
+    value: location.state?.id || "",
+    label: location.state?.title || "",
   };
 
   const [aidRequest, setAidRequest] = useState<IFormsAidRequest>({

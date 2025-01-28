@@ -36,7 +36,7 @@ function MenuSection(props: MenuSectionProps) {
                 description={link.description}
                 iconBefore={link.iconBefore}
                 iconAfter={link.iconAfter}
-                isDisabled={link.isDisabled}
+                disabled={link.disabled}
                 path={link.path}
                 onClick={link.onClick}
                 spacing={spacing}

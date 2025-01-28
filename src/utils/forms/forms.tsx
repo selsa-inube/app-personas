@@ -1,10 +1,18 @@
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
+import { Select } from "@inubekit/inubekit";
 import { IFormField, IFormStructure } from "@ptypes/forms.types";
 import { FormikValues } from "formik";
 import * as Yup from "yup";
 import { StyledInputForm } from "./forms.styles";
+
+const formikHandleChange = (
+  name: string,
+  value: string,
+  formik: FormikValues,
+) => {
+  formik.setFieldValue(name, value);
+};
 
 const isRequired = (
   schema: Yup.ObjectSchema<Yup.AnyObject>,
@@ -18,6 +26,10 @@ const isRequired = (
 const getFieldState = (formik: FormikValues, fieldName: string) => {
   if (formik.errors[fieldName]) return "invalid";
   return "valid";
+};
+
+const isInvalid = (formik: FormikValues, fieldName: string) => {
+  return formik.errors[fieldName] && formik.touched[fieldName];
 };
 
 const generateBasicForm = (fields: IFormField[]) => {
@@ -57,11 +69,7 @@ const generateFormFields = (
   renderFields: IFormField[],
   formik: FormikValues,
   customHandleBlur?: (event: React.FocusEvent<HTMLElement, Element>) => void,
-  customHandleChange?: (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void,
+  customHandleChange?: (name: string, value: string) => void,
   fullColumns?: boolean,
   disabled?: boolean,
 ) => {
@@ -80,19 +88,20 @@ const generateFormFields = (
               placeholder={field.placeholder}
               value={field.value || formik.values[field.name] || ""}
               size={field.size}
-              options={field.options}
-              onChange={customHandleChange}
-              onBlur={customHandleBlur}
-              state={getFieldState(formik, field.name)}
-              errorMessage={
+              options={field.options || []}
+              onChange={(name, value) =>
+                (customHandleChange && customHandleChange(name, value)) ||
+                formikHandleChange(name, value, formik)
+              }
+              invalid={isInvalid(formik, field.name)}
+              message={
                 typeof formik.errors[field.name] === "string"
                   ? formik.errors[field.name]
                   : undefined
               }
-              isFullWidth={field.isFullWidth}
-              readOnly={field.readOnly}
-              isDisabled={disabled}
-              isRequired={field.isRequired}
+              fullwidth={field.fullwidth}
+              disabled={disabled || field.readonly}
+              required={field.required}
             />
           </StyledInputForm>
         );
@@ -115,13 +124,12 @@ const generateFormFields = (
               state={getFieldState(formik, field.name)}
               onChange={formik.handleChange}
               validMessage={field.validMessage}
-              errorMessage={formik.errors[field.name]}
-              isFullWidth={field.isFullWidth}
-              readOnly={field.readOnly}
-              isDisabled={disabled}
+              message={formik.errors[field.name]}
+              fullwidth={field.fullwidth}
+              disabled={disabled || field.readonly}
               maxLength={field.maxLength}
               withCounter={field.withCounter}
-              isRequired={field.isRequired}
+              required={field.required}
               iconAfter={field.iconAfter}
               iconBefore={field.iconBefore}
             />
@@ -143,13 +151,12 @@ const generateFormFields = (
               onChange={formik.handleChange}
               state={getFieldState(formik, field.name)}
               validMessage={field.validMessage}
-              errorMessage={formik.errors[field.name]}
-              isFullWidth={field.isFullWidth}
-              readOnly={field.readOnly}
+              message={formik.errors[field.name]}
+              fullwidth={field.fullwidth}
+              disabled={disabled || field.readonly}
               maxLength={field.maxLength}
               withCounter={field.withCounter}
-              isDisabled={disabled}
-              isRequired={field.isRequired}
+              required={field.required}
             />
           </StyledInputForm>
         );
@@ -158,9 +165,11 @@ const generateFormFields = (
 };
 
 export {
+  formikHandleChange,
   generateBasicForm,
   generateDynamicForm,
   generateFormFields,
   getFieldState,
+  isInvalid,
   isRequired,
 };

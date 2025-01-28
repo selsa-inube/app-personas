@@ -5,10 +5,9 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { NextPaymentModal } from "@components/modals/general/NextPaymentModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { IOption, Select } from "@inubekit/inubekit";
 import { MdArrowBack, MdOpenInNew, MdSyncAlt } from "react-icons/md";
 import { EMovementType, IMovement, IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
@@ -78,12 +77,12 @@ const renderMovements = (movements: IMovement[]) =>
 
 interface SavingsCommitmentsUIProps {
   commitmentId?: string;
-  commitmentsOptions: ISelectOption[];
+  commitmentsOptions: IOption[];
   nextPaymentModal: INextPaymentModalState;
   selectedCommitment: ISelectedCommitmentState;
   isMobile: boolean;
   savingProducts: IProduct[];
-  handleChangeCommitment: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeCommitment: (name: string, value: string) => void;
   handleToggleNextPaymentModal: () => void;
 }
 
@@ -125,11 +124,12 @@ function SavingsCommitmentsUI(props: SavingsCommitmentsUIProps) {
         >
           <Select
             id="savingCommitments"
+            name="savingCommitments"
             onChange={handleChangeCommitment}
             label="Selección del compromiso"
             options={commitmentsOptions}
             value={selectedCommitment.option}
-            isFullWidth
+            fullwidth
           />
           <Stack
             direction="column"

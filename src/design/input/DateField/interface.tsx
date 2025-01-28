@@ -13,25 +13,25 @@ import { Label, Stack, Text } from "@inubekit/inubekit";
 import { DateFieldProps } from ".";
 
 function Invalid(props: IDateFieldMessage) {
-  const { isDisabled, state, errorMessage } = props;
+  const { disabled, state, message } = props;
 
   return (
-    <StyledErrorMessageContainer $isDisabled={isDisabled} $state={state}>
+    <StyledErrorMessageContainer $disabled={disabled} $state={state}>
       <MdOutlineWarning />
-      <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
-        {errorMessage}
+      <Text type="body" size="small" appearance="danger" disabled={disabled}>
+        {message}
       </Text>
     </StyledErrorMessageContainer>
   );
 }
 
 function Success(props: IDateFieldMessage) {
-  const { isDisabled, state, validMessage } = props;
+  const { disabled, state, validMessage } = props;
 
   return (
-    <StyledValidMessageContainer $isDisabled={isDisabled} $state={state}>
+    <StyledValidMessageContainer $disabled={disabled} $state={state}>
       <MdCheckCircle />
-      <Text type="body" size="small" appearance="success" disabled={isDisabled}>
+      <Text type="body" size="small" appearance="success" disabled={disabled}>
         {validMessage}
       </Text>
     </StyledValidMessageContainer>
@@ -47,16 +47,16 @@ function DateFieldUI(props: DateFieldUIProps) {
     label,
     name,
     id,
-    isDisabled = false,
+    disabled = false,
     max,
     min,
     step,
     value,
-    readOnly,
-    isRequired,
-    errorMessage,
+    readonly,
+    required,
+    message,
     validMessage,
-    isFullWidth = false,
+    fullwidth = false,
     state = "pending",
     size = "compact",
     initialValue,
@@ -71,14 +71,14 @@ function DateFieldUI(props: DateFieldUIProps) {
 
   return (
     <StyledContainer
-      $isFullWidth={isFullWidth}
-      $isDisabled={isDisabled}
-      $readOnly={readOnly}
+      $fullwidth={fullwidth}
+      $disabled={disabled}
+      $readonly={readonly}
       $size={size}
     >
       <Stack direction="column" gap={inube.spacing.s050}>
         <Stack justifyContent="space-between" alignItems="center">
-          {(label || isRequired) && (
+          {(label || required) && (
             <Stack
               width="100%"
               gap={inube.spacing.s050}
@@ -88,7 +88,7 @@ function DateFieldUI(props: DateFieldUIProps) {
               {label && (
                 <Label
                   htmlFor={id}
-                  disabled={isDisabled}
+                  disabled={disabled}
                   focused={isFocused && state !== "invalid"}
                   invalid={state === "invalid"}
                   size="medium"
@@ -97,7 +97,7 @@ function DateFieldUI(props: DateFieldUIProps) {
                 </Label>
               )}
 
-              {isRequired && !isDisabled && (
+              {required && !disabled && (
                 <Text type="body" size="small" appearance="dark">
                   (Requerido)
                 </Text>
@@ -106,10 +106,10 @@ function DateFieldUI(props: DateFieldUIProps) {
           )}
         </Stack>
         <StyledInputContainer
-          $isDisabled={isDisabled}
+          $disabled={disabled}
           $isFocused={isFocused}
           $state={state}
-          $readOnly={readOnly}
+          $readonly={readonly}
         >
           <StyledInput
             id={id}
@@ -118,25 +118,21 @@ function DateFieldUI(props: DateFieldUIProps) {
             min={min}
             max={max}
             step={step}
-            $isDisabled={isDisabled}
+            $disabled={disabled}
             value={normalizedValue || ""}
-            required={isRequired}
+            required={required}
             onFocus={onFocus}
             onBlur={onBlur}
             onChange={onChange}
-            $isFullWidth={isFullWidth}
-            readOnly={readOnly}
+            $fullwidth={fullwidth}
+            readOnly={readonly}
             $size={size}
           />
         </StyledInputContainer>
       </Stack>
 
       {state === "invalid" && isTouched && (
-        <Invalid
-          isDisabled={isDisabled}
-          state={state}
-          errorMessage={errorMessage}
-        />
+        <Invalid disabled={disabled} state={state} message={message} />
       )}
       {state === "valid" &&
         validMessage &&
@@ -145,7 +141,7 @@ function DateFieldUI(props: DateFieldUIProps) {
         value !== initialValue &&
         isTouched && (
           <Success
-            isDisabled={isDisabled}
+            disabled={disabled}
             state={state}
             validMessage={validMessage}
           />

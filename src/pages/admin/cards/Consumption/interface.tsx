@@ -4,10 +4,9 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { quickLinks } from "@config/quickLinks";
 import { Table } from "@design/data/Table";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { IOption, Select } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
 
 import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
@@ -29,11 +28,11 @@ interface ConsumptionUIProps {
   isMobile?: boolean;
   selectedProduct?: ISelectedProductState;
   loading: boolean;
-  productsOptions: ISelectOption[];
+  productsOptions: IOption[];
   cardId?: string;
   creditQuotaId?: string;
   consumptionId?: string;
-  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeProduct: (name: string, value: string) => void;
 }
 
 function ConsumptionUI(props: ConsumptionUIProps) {
@@ -83,11 +82,12 @@ function ConsumptionUI(props: ConsumptionUIProps) {
             <>
               <Select
                 id="consumptionProducts"
+                name="consumptionProducts"
                 onChange={handleChangeProduct}
                 label="Selección de periodo"
                 options={productsOptions}
                 value={selectedProduct.option}
-                isFullWidth
+                fullwidth
               />
               <Box
                 title={selectedProduct.consumption.title}

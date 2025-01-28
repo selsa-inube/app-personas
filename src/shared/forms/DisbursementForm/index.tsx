@@ -200,13 +200,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
     changeAccountStatus();
   }, [formik.values.accountStatus]);
 
-  const customHandleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = event.target;
-
+  const customHandleChange = (name: string, value: string) => {
     let updatedFormikValues = {
       ...formik.values,
       [name]: value,

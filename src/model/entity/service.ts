@@ -7,7 +7,7 @@ interface IValidation {
   label: string;
   failDetails?: string;
   value?: ValidationValueType;
-  isRequired?: boolean;
+  required?: boolean;
   pending?: boolean;
   documentType?: string;
   profile?: string;

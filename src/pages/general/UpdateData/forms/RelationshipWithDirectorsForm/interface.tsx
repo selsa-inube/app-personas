@@ -1,16 +1,20 @@
 import { RelationshipWithDirectorsModal } from "@components/modals/general/updateData/RelationshipWithDirectorsModal";
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button, Grid, Stack } from "@inubekit/inubekit";
+import { Button, Grid, Select, Stack } from "@inubekit/inubekit";
 import { directorsMock } from "@mocks/users/directors/directors.mocks";
 import { FormikProps } from "formik";
 import { MdSearch } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
 import { IDirector } from "src/model/entity/user";
-import { getFieldState, isRequired } from "src/utils/forms/forms";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+  isRequired,
+} from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IRelationshipWithDirectorsEntry } from "./types";
 
@@ -55,16 +59,18 @@ function RelationshipWithDirectorsFormUI(
               value={formik.values.hasRelationshipWithDirectors}
               size="compact"
               options={activeDM.options}
-              state={getFieldState(formik, "hasRelationshipWithDirectors")}
-              isRequired={isRequired(
+              invalid={isInvalid(formik, "hasRelationshipWithDirectors")}
+              required={isRequired(
                 validationSchema,
                 "hasRelationshipWithDirectors",
               )}
-              errorMessage={formik.errors.hasRelationshipWithDirectors}
+              message={formik.errors.hasRelationshipWithDirectors}
               onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              isDisabled={loading}
-              isFullWidth
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
+              disabled={loading}
+              fullwidth
             />
             {formik.values.hasRelationshipWithDirectors === activeDM.Y.id && (
               <>
@@ -74,15 +80,15 @@ function RelationshipWithDirectorsFormUI(
                   name="directorName"
                   id="directorName"
                   value={formik.values.directorName}
-                  errorMessage={formik.errors.directorName}
-                  isDisabled={loading}
+                  message={formik.errors.directorName}
+                  disabled={loading}
                   iconAfter={<MdSearch size={18} cursor={"pointer"} />}
                   size="compact"
-                  isFullWidth
+                  fullwidth
                   state={getFieldState(formik, "directorName")}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  isRequired={isRequired(validationSchema, "directorName")}
+                  required={isRequired(validationSchema, "directorName")}
                   onIconClick={() => handleToggleModal()}
                 />
                 <Select
@@ -92,16 +98,18 @@ function RelationshipWithDirectorsFormUI(
                   value={formik.values.directorRelationship}
                   size="compact"
                   options={relationshipDM.options}
-                  state={getFieldState(formik, "directorRelationship")}
-                  isRequired={isRequired(
+                  invalid={isInvalid(formik, "directorRelationship")}
+                  required={isRequired(
                     validationSchema,
                     "directorRelationship",
                   )}
-                  errorMessage={formik.errors.directorRelationship}
+                  message={formik.errors.directorRelationship}
                   onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  isDisabled={loading}
-                  isFullWidth
+                  onChange={(name, value) =>
+                    formikHandleChange(name, value, formik)
+                  }
+                  disabled={loading}
+                  fullwidth
                 />
               </>
             )}

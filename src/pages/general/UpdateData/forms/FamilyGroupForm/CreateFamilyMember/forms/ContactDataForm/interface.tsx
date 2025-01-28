@@ -24,13 +24,13 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         type="number"
         size="compact"
         value={formik.values.cellPhone || ""}
-        errorMessage={formik.errors.cellPhone}
+        message={formik.errors.cellPhone}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "cellPhone")}
-        isRequired={isRequired(validationSchema, "cellPhone")}
-        readOnly={readonly}
-        isFullWidth
+        required={isRequired(validationSchema, "cellPhone")}
+        disabled={readonly}
+        fullwidth
       />
       <TextField
         label="Correo electrónico"
@@ -41,13 +41,13 @@ function ContactDataFormUI(props: ContactDataFormUIProps) {
         size="compact"
         validMessage="El correo electrónico es válido"
         value={formik.values.email || ""}
-        errorMessage={formik.errors.email}
+        message={formik.errors.email}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "email")}
-        isRequired={isRequired(validationSchema, "email")}
-        readOnly={readonly}
-        isFullWidth
+        required={isRequired(validationSchema, "email")}
+        disabled={readonly}
+        fullwidth
       />
     </>
   );

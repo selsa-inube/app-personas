@@ -116,7 +116,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
             placeholder="Digita la palabra clave"
             onChange={(e) => setSearchTerm(e.target.value)}
             size="compact"
-            isFullWidth
+            fullwidth
           />
           {searchTerm !== "" && (
             <StyledBody>

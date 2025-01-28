@@ -392,7 +392,7 @@ function RequestDetailUI(props: RequestUIProps) {
                         id={validation.id}
                         label={validation.label}
                         failDetails={validation.failDetails}
-                        isRequired={validation.isRequired}
+                        required={validation.required}
                         pending={validation.pending}
                         value={validation.value}
                       />

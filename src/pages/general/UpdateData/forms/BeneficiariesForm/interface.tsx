@@ -39,9 +39,9 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
                 type="number"
                 value={beneficiary.percentage || ""}
                 iconAfter={<MdPercent size={18} />}
-                isDisabled={loading}
+                disabled={loading}
                 size="compact"
-                isFullWidth
+                fullwidth
                 onBlur={formik.handleBlur}
                 onChange={customHandleChange}
               />

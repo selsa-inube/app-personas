@@ -1,4 +1,4 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { IPeriodicity } from "src/model/entity/periodicity";
 
 interface ISavingConditionsEntry {
@@ -11,8 +11,8 @@ interface ISavingConditionsEntry {
   netValue: number;
   annualRate: number;
   hasResult: boolean;
-  paymentMethod?: ISelectOption;
-  paymentMethods: ISelectOption[];
+  paymentMethod?: IOption;
+  paymentMethods: IOption[];
   periodicity: IPeriodicity;
   periodicities: IPeriodicity[];
   transferBankEntity?: string;

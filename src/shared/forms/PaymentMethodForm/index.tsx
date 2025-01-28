@@ -71,7 +71,11 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
 
   const savingOptions = savings.savingsAccounts
     .filter((saving) => saving.type === EProductType.VIEWSAVINGS)
-    .map((saving) => ({ id: saving.id, value: saving.description }));
+    .map((saving) => ({
+      id: saving.id,
+      value: saving.id,
+      label: saving.description,
+    }));
 
   useEffect(() => {
     formik.setFieldValue("paymentMethods", formik.values.paymentMethods);
@@ -97,13 +101,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
   }, [user, accessToken]);
 
-  const customHandleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = event.target;
-
+  const customHandleChange = (name: string, value: string) => {
     let updatedFormikValues = {
       ...formik.values,
       [name]: value,
@@ -136,6 +134,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       validationSchema: initValidationSchema.concat(validationSchema),
     });
   };
+
 
   return (
     <PaymentMethodFormUI

@@ -55,7 +55,7 @@ const props = {
       defaultValue: { summary: false },
     },
   },
-  readOnly: {
+  readonly: {
     descriptions: "option to make the field read only",
     table: {
       defaultValue: { summary: false },

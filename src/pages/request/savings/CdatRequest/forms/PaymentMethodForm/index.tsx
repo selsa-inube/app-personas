@@ -158,13 +158,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
   }, [formik.values.paymentMethods, savings.savingsAccounts]);
 
-  const customHandleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { name, value } = event.target;
-
+  const customHandleChange = (name: string, value: string) => {
     if (name === "paymentMethod") {
       const paymentMethod = formik.values.paymentMethods.find(
         (method) => method.id === value,

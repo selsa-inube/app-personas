@@ -5,8 +5,8 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { Stack, Toggle } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlinePerson } from "react-icons/md";
-import { getFieldState } from "src/utils/forms/forms";
 import { IContactChannelsEntry } from "./types";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface ContactChannelsFormUIProps {
   formik: FormikProps<IContactChannelsEntry>;
@@ -41,9 +41,9 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               placeholder="Digita el numero de teléfono"
               value={formik.values.landlinePhone}
               type="number"
-              errorMessage={formik.errors.landlinePhone}
+              message={formik.errors.landlinePhone}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "landlinePhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -55,13 +55,13 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               placeholder="Digita el numero de celular"
               value={formik.values.cellPhone}
               type="number"
-              errorMessage={formik.errors.cellPhone}
+              message={formik.errors.cellPhone}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "cellPhone")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired
+              required
             />
             <TextField
               label="Correo electrónico"
@@ -70,13 +70,13 @@ function ContactChannelsFormUI(props: ContactChannelsFormUIProps) {
               placeholder="Digita el correo electrónico"
               value={formik.values.email}
               type="text"
-              errorMessage={formik.errors.email}
+              message={formik.errors.email}
               size="compact"
-              isFullWidth
+              fullwidth
               state={getFieldState(formik, "email")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isRequired
+              required
             />
           </Stack>
         </Box>

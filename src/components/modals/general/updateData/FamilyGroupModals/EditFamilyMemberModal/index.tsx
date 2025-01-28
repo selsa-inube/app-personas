@@ -1,4 +1,3 @@
-import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import {
@@ -6,6 +5,7 @@ import {
   Button,
   Divider,
   Icon,
+  Select,
   Stack,
   Text,
 } from "@inubekit/inubekit";
@@ -16,7 +16,11 @@ import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
-import { getFieldState, isRequired } from "src/utils/forms/forms";
+import {
+  formikHandleChange,
+  isInvalid,
+  isRequired,
+} from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { StyledModal } from "./styles";
 
@@ -91,12 +95,14 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
               size="compact"
               options={relationshipDM.options}
               onBlur={formik.handleBlur}
-              errorMessage={formik.errors.relationship}
-              onChange={formik.handleChange}
-              value={formik.values.relationship}
-              state={getFieldState(formik, "relationship")}
-              isRequired={isRequired(validationSchema, "relationship")}
-              isFullWidth
+              message={formik.errors.relationship}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
+              value={formik.values.relationship || ""}
+              invalid={isInvalid(formik, "relationship")}
+              required={isRequired(validationSchema, "relationship")}
+              fullwidth
             />
             <Select
               label="Depende económicamente"
@@ -106,12 +112,14 @@ function EditFamilyMemberModal(props: EditFamilyMemberModalProps) {
               size="compact"
               options={activeDM.options}
               onBlur={formik.handleBlur}
-              errorMessage={formik.errors.isDependent}
-              onChange={formik.handleChange}
-              value={formik.values.isDependent}
-              state={getFieldState(formik, "isDependent")}
-              isRequired={isRequired(validationSchema, "isDependent")}
-              isFullWidth
+              message={formik.errors.isDependent}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
+              value={formik.values.isDependent || ""}
+              invalid={isInvalid(formik, "isDependent")}
+              required={isRequired(validationSchema, "isDependent")}
+              fullwidth
             />
           </>
         </Stack>

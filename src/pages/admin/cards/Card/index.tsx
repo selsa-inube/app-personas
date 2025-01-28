@@ -1,5 +1,5 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
@@ -34,7 +34,7 @@ function Card() {
   const [selectedProduct, setSelectedProduct] = useState<ISelectedProductState>(
     initialSelectedProductState,
   );
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
   const [savingAccountsModal, setSavingAccountsModal] =
     useState<ISavingAccountsModal>(() => ({
       show: false,
@@ -119,7 +119,8 @@ function Card() {
     setProductsOptions(
       newCards.map((card) => ({
         id: card.id,
-        value: card.description,
+        value: card.id,
+        label: card.description,
       })),
     );
     setLoadingCards(false);
@@ -172,9 +173,8 @@ function Card() {
     }
   };
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: id } = event.target;
-    navigate(`/my-cards/${id}`);
+  const handleChangeProduct = (name: string, value: string) => {
+    navigate(`/my-cards/${value}`);
   };
 
   const handleToggleSavingsAccountModal = () => {

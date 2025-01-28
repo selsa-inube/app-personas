@@ -83,12 +83,7 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
     setActionsExpiration();
   }, [user, accessToken]);
 
-  const customHandleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    const { value } = event.target;
+  const customHandleChange = (name: string, value: string) => {
     formik.setFieldValue("actionExpiration", value);
 
     formik.setFieldValue(

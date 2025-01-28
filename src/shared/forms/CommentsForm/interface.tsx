@@ -23,11 +23,11 @@ function CommentsFormUI(props: CommentsFormUIProps) {
           placeholder="Escribe tus comentarios"
           maxLength={150}
           withCounter
-          isDisabled={loading}
+          disabled={loading}
           value={formik.values.comments}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
-          isFullWidth
+          fullwidth
         />
 
         {withSubmit && (
