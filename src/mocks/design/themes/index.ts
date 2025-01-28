@@ -1,10 +1,11 @@
 import { cooservunal } from "@mocks/design/themes/cooservunal";
-import { fondecom } from "@mocks/design/themes/fondecom";
-import { presente } from "@mocks/design/themes/presente";
 import { corbanca } from "@mocks/design/themes/corbanca";
+import { presente } from "@mocks/design/themes/presente";
+import { resolveThemeColors } from "src/utils/themes";
+import fondecom from "./fondecom.json";
 
 const themes = {
-  fondecom,
+  fondecom: resolveThemeColors(fondecom),
   presente,
   cooservunal,
   corbanca,

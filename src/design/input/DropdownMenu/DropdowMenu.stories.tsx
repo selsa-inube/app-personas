@@ -2,8 +2,8 @@ import { StoryFn } from "@storybook/react";
 import { DropdownMenu, DropdownMenuProps } from ".";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
 import { ThemeProvider } from "styled-components";
+import { themes } from "@mocks/design/themes";
 
 const story = {
   title: "design/input/DropdownMenu",
@@ -38,7 +38,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes["fondecom"],
 };
 
 export const Themed: StoryFn<DropdownMenuProps> = (args) => (
