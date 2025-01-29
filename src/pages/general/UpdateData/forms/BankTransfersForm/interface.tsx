@@ -1,15 +1,16 @@
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Button, Grid, Select, Stack } from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
-import { MdOutlineModeEdit } from "react-icons/md";
-import { getFieldState } from "src/utils/forms/forms";
-import { IBankTransfersEntry } from "./types";
 import { FormikProps } from "formik";
+import { MdOutlineModeEdit } from "react-icons/md";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+} from "src/utils/forms/forms";
+import { IBankTransfersEntry } from "./types";
 
 interface BankTransfersFormUIProps {
   formik: FormikProps<IBankTransfersEntry>;
@@ -38,12 +39,12 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
             id="bankEntity"
             value={formik.values.bankEntityName}
             size="compact"
-            isFullWidth
+            fullwidth
             options={getDomainById("bank")}
             onBlur={formik.handleBlur}
-            isDisabled={loading}
-            state={getFieldState(formik, "bankEntity")}
-            onChange={formik.handleChange}
+            disabled={loading}
+            invalid={isInvalid(formik, "bankEntity")}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
           />
           <Select
             label="Tipo de cuenta"
@@ -51,12 +52,12 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
             id="accountType"
             value={formik.values.accountType}
             size="compact"
-            isFullWidth
+            fullwidth
             options={getDomainById("accountType")}
             onBlur={formik.handleBlur}
-            isDisabled={loading}
-            state={getFieldState(formik, "accountType")}
-            onChange={formik.handleChange}
+            disabled={loading}
+            invalid={isInvalid(formik, "accountType")}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
           />
 
           <TextField
@@ -67,10 +68,10 @@ function BankTransfersFormUI(props: BankTransfersFormUIProps) {
             type="number"
             value={formik.values.accountNumber}
             iconAfter={<MdOutlineModeEdit size={18} />}
-            errorMessage={formik.errors.accountNumber}
-            isDisabled={loading}
+            message={formik.errors.accountNumber}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "accountNumber")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}

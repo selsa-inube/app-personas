@@ -1,17 +1,19 @@
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  IOption,
+  Select,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledModal, StyledOptionsContainer } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
 
 interface IPaymentFilters {
   group: string;
@@ -22,9 +24,9 @@ interface IPaymentFilters {
 interface PaymentFilterModalProps {
   initialFilters: IPaymentFilters;
   allowedFilters: {
-    group: ISelectOption[];
-    paymentMethod: ISelectOption[];
-    status: ISelectOption[];
+    group: IOption[];
+    paymentMethod: IOption[];
+    status: IOption[];
   };
   onCloseModal: () => void;
   onApplyFilters: (selectedFilters: IPaymentFilters) => void;
@@ -39,9 +41,7 @@ function PaymentFilterModal(props: PaymentFilterModalProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
   const node = document.getElementById("modals");
 
-  const handleChangeFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = event.target;
-
+  const handleChangeFilter = (name: string, value: string) => {
     setSelectedFilters((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -90,7 +90,7 @@ function PaymentFilterModal(props: PaymentFilterModalProps) {
             name="group"
             id="group"
             size="compact"
-            isFullWidth
+            fullwidth
             options={allowedFilters.group}
             onChange={handleChangeFilter}
             value={selectedFilters.group}
@@ -101,7 +101,7 @@ function PaymentFilterModal(props: PaymentFilterModalProps) {
             name="paymentMethod"
             id="paymentMethod"
             size="compact"
-            isFullWidth
+            fullwidth
             options={allowedFilters.paymentMethod}
             onChange={handleChangeFilter}
             value={selectedFilters.paymentMethod}
@@ -112,7 +112,7 @@ function PaymentFilterModal(props: PaymentFilterModalProps) {
             name="status"
             id="status"
             size="compact"
-            isFullWidth
+            fullwidth
             options={allowedFilters.status}
             onChange={handleChangeFilter}
             value={selectedFilters.status}

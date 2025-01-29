@@ -1,6 +1,6 @@
 import { IAction } from "@design/data/Table/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { useFlag } from "@inubekit/flag";
+import { useFlag } from "@inubekit/inubekit";
 import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";

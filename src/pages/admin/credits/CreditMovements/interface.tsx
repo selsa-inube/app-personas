@@ -3,16 +3,19 @@ import { RecordCard } from "@components/cards/RecordCard";
 import { CreditMovementModal } from "@components/modals/credit/CreditMovementModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs, IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Breadcrumbs,
+  Button,
+  Divider,
+  Grid,
+  IBreadcrumbsRoute,
+  IOption,
+  Select,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { MdAdd, MdArrowBack } from "react-icons/md";
 import { EMovementType, IMovement } from "src/model/entity/product";
 import { generateAttributes } from "./config/attributeRecord";
@@ -43,12 +46,12 @@ const renderMovements = (
 interface CreditMovementsUIProps {
   crumbsMovements: IBreadcrumbsRoute[];
   selectedProduct?: ISelectedProductState;
-  productsOptions: ISelectOption[];
+  productsOptions: IOption[];
   loading: boolean;
   credit_id?: string;
   creditMovementModal: boolean;
   selectedMovement?: IMovement;
-  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeProduct: (name: string, value: string) => void;
   handleAddMovements: () => void;
   handleOpenModal: (movement: IMovement) => void;
   handleCloseModal: () => void;
@@ -94,12 +97,13 @@ function CreditMovementsUI(props: CreditMovementsUIProps) {
         <Stack direction="column" gap={inube.spacing.s300}>
           <Select
             id="creditProducts"
+            name="creditProducts"
             onChange={handleChangeProduct}
             label="Selección de producto"
             options={productsOptions}
-            value={selectedProduct?.option}
-            isFullWidth
-            readOnly={productsOptions.length === 1}
+            value={selectedProduct?.option || ""}
+            fullwidth
+            disabled={productsOptions.length === 1}
           />
           <StyledMovementsContainer $isMobile={isMobile}>
             <Stack direction="column" gap={inube.spacing.s200} width="100%">

@@ -1,12 +1,8 @@
 import { DateField } from "@design/input/DateField";
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Fieldset } from "@inubekit/fieldset";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Button, Fieldset, Grid, Select, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { IServiceDomains } from "src/context/app/types";
 import { countryDM } from "src/model/domains/general/updateData/financialOperations/countrydm";
@@ -15,7 +11,11 @@ import { cityDM } from "src/model/domains/general/updateData/personalInformation
 import { departmentDM } from "src/model/domains/general/updateData/personalInformation/departamentdm";
 import { genderDM } from "src/model/domains/general/updateData/personalInformation/genderdm";
 import { maritalStatusDM } from "src/model/domains/general/updateData/personalInformation/maritalstatusdm";
-import { getFieldState } from "src/utils/forms/forms";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+} from "src/utils/forms/forms";
 import { IPersonalInformationEntry } from "./types";
 
 interface PersonalInformationFormUIProps {
@@ -52,8 +52,8 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="firstName"
               value={formik.values.firstName}
               size="compact"
-              isFullWidth
-              readOnly
+              fullwidth
+              readonly
             />
 
             <TextField
@@ -63,8 +63,8 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="secondName"
               value={formik.values.secondName}
               size="compact"
-              isFullWidth
-              readOnly
+              fullwidth
+              readonly
             />
 
             <TextField
@@ -74,8 +74,8 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="firstLastName"
               value={formik.values.firstLastName}
               size="compact"
-              isFullWidth
-              readOnly
+              fullwidth
+              readonly
             />
 
             <TextField
@@ -85,8 +85,8 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="secondLastName"
               value={formik.values.secondLastName}
               size="compact"
-              isFullWidth
-              readOnly
+              fullwidth
+              readonly
             />
           </Grid>
         </Fieldset>
@@ -108,9 +108,10 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="identificationType"
               value={formik.values.identificationType.id}
               size="compact"
-              isFullWidth
-              readOnly
+              fullwidth
+              readonly
               options={serviceDomains.identificationtype}
+              onChange={() => true}
             />
 
             <TextField
@@ -121,8 +122,8 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               value={formik.values.identification}
               type="number"
               size="compact"
-              isFullWidth
-              readOnly
+              fullwidth
+              readonly
             />
 
             <Select
@@ -131,14 +132,16 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="expeditionCountry"
               value={formik.values.expeditionCountry}
               size="compact"
-              isFullWidth
+              fullwidth
               options={countryDM.options}
               onBlur={formik.handleBlur}
-              errorMessage={formik.errors.expeditionCountry}
-              isDisabled={loading}
-              state={getFieldState(formik, "expeditionCountry")}
-              onChange={formik.handleChange}
-              readOnly
+              message={formik.errors.expeditionCountry}
+              disabled={loading}
+              invalid={isInvalid(formik, "expeditionCountry")}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
+              readonly
             />
 
             <Select
@@ -147,14 +150,16 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="expeditionDepartment"
               value={formik.values.expeditionDepartment}
               size="compact"
-              isFullWidth
+              fullwidth
               options={departmentDM.options}
               onBlur={formik.handleBlur}
-              errorMessage={formik.errors.country}
-              isDisabled={loading}
-              state={getFieldState(formik, "expeditionDepartment")}
-              onChange={formik.handleChange}
-              readOnly
+              message={formik.errors.country}
+              disabled={loading}
+              invalid={isInvalid(formik, "expeditionDepartment")}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
+              readonly
             />
 
             <Select
@@ -163,14 +168,16 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="expeditionCity"
               value={formik.values.expeditionCity}
               size="compact"
-              isFullWidth
+              fullwidth
               options={cityDM.options}
               onBlur={formik.handleBlur}
-              errorMessage={formik.errors.country}
-              isDisabled={loading}
-              state={getFieldState(formik, "expeditionCity")}
-              onChange={formik.handleChange}
-              readOnly
+              message={formik.errors.country}
+              disabled={loading}
+              invalid={isInvalid(formik, "expeditionCity")}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
+              readonly
             />
 
             <DateField
@@ -178,8 +185,8 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               name="expeditionDate"
               id="expeditionDate"
               value={formik.values.expeditionDate}
-              isFullWidth
-              readOnly
+              fullwidth
+              readonly
             />
           </Grid>
         </Fieldset>
@@ -201,13 +208,15 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="country"
               value={formik.values.country}
               size="compact"
-              isFullWidth
+              fullwidth
               options={countryDM.options}
               onBlur={formik.handleBlur}
-              errorMessage={formik.errors.country}
-              isDisabled={loading}
-              state={getFieldState(formik, "country")}
-              onChange={formik.handleChange}
+              message={formik.errors.country}
+              disabled={loading}
+              invalid={isInvalid(formik, "country")}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
             />
 
             <DateField
@@ -215,12 +224,12 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               name="birthDate"
               id="birthDate"
               value={formik.values.birthDate}
-              errorMessage={formik.errors.birthDate}
-              isDisabled={loading}
+              message={formik.errors.birthDate}
+              disabled={loading}
               state={getFieldState(formik, "birthDate")}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              isFullWidth
+              fullwidth
             />
 
             <Select
@@ -229,13 +238,15 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="maritalStatus"
               value={formik.values.maritalStatus}
               size="compact"
-              isFullWidth
+              fullwidth
               options={maritalStatusDM.options}
               onBlur={formik.handleBlur}
-              errorMessage={formik.errors.maritalStatus}
-              isDisabled={loading}
-              state={getFieldState(formik, "maritalStatus")}
-              onChange={formik.handleChange}
+              message={formik.errors.maritalStatus}
+              disabled={loading}
+              invalid={isInvalid(formik, "maritalStatus")}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
             />
 
             <Select
@@ -244,13 +255,15 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="gender"
               value={formik.values.gender}
               size="compact"
-              isFullWidth
+              fullwidth
               options={genderDM.options}
               onBlur={formik.handleBlur}
-              errorMessage={formik.errors.gender}
-              isDisabled={loading}
-              state={getFieldState(formik, "gender")}
-              onChange={formik.handleChange}
+              message={formik.errors.gender}
+              disabled={loading}
+              invalid={isInvalid(formik, "gender")}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
             />
 
             <Select
@@ -259,13 +272,15 @@ function PersonalInformationFormUI(props: PersonalInformationFormUIProps) {
               id="bloodType"
               value={formik.values.bloodType}
               size="compact"
-              isFullWidth
+              fullwidth
               options={bloodTypeDM.options}
               onBlur={formik.handleBlur}
-              errorMessage={formik.errors.bloodType}
-              isDisabled={loading}
-              state={getFieldState(formik, "bloodType")}
-              onChange={formik.handleChange}
+              message={formik.errors.bloodType}
+              disabled={loading}
+              invalid={isInvalid(formik, "bloodType")}
+              onChange={(name, value) =>
+                formikHandleChange(name, value, formik)
+              }
             />
           </Grid>
         </Fieldset>

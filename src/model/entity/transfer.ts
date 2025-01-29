@@ -1,4 +1,4 @@
-import { ITag } from "@inubekit/tag";
+import { ITag } from "@inubekit/inubekit";
 import { IDomainType } from "@ptypes/domain.types";
 
 interface ITransfer {

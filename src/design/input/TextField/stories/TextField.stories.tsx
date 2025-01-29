@@ -5,10 +5,10 @@ import {
 import { TextField, TextFieldProps } from "..";
 import { parameters, props } from "../props";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
 import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import { AutocompleteController } from "./AutocompleteController";
+import { themes } from "@mocks/design/themes";
 
 const story = {
   title: "design/input/TextField",
@@ -25,21 +25,21 @@ export const Default: StoryFn<TextFieldProps> = (args) => (
 );
 
 Default.args = {
-  isDisabled: false,
-  isFullWidth: false,
-  isRequired: false,
+  disabled: false,
+  fullwidth: false,
+  required: false,
   type: "text",
   size: "compact",
   state: "pending",
   label: "Username",
   placeholder: "Write your full name",
-  readOnly: false,
+  readonly: false,
   iconBefore: <MdOutlineAccountBalanceWallet />,
   iconAfter: <MdOutlineAttachMoney />,
 };
 
 const theme = {
-  ...fondecom,
+  ...themes["fondecom"],
 };
 
 export const Themed: StoryFn<TextFieldProps> = (args) => (
@@ -56,15 +56,15 @@ export const Autocomplete: StoryFn<TextFieldProps> = (args) => (
 );
 
 Autocomplete.args = {
-  isDisabled: false,
-  isFullWidth: false,
-  isRequired: false,
+  disabled: false,
+  fullwidth: false,
+  required: false,
   type: "text",
   size: "compact",
   state: "pending",
   label: "Option",
   placeholder: "Write an option",
-  readOnly: false,
+  readonly: false,
   autocomplete: true,
   suggestions: [
     { id: "Opción-A", value: "Opción-A" },

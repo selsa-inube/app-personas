@@ -1,4 +1,4 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 
 interface ICreditDestinationProduct {
   id: string;
@@ -13,8 +13,8 @@ interface ICreditDestinationProduct {
 }
 
 interface IDestinationEntry {
-  destinations: ISelectOption[];
-  destination?: ISelectOption;
+  destinations: IOption[];
+  destination?: IOption;
   products: ICreditDestinationProduct[];
   product?: ICreditDestinationProduct;
 }

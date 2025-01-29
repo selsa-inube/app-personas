@@ -20,6 +20,7 @@ import {
 import { ICommitment, IProduct } from "src/model/entity/product";
 import { formatTraceabilityDate } from "src/utils/dates";
 
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { AppContext } from "src/context/app";
 import {
   investmentIcons,
@@ -41,9 +42,6 @@ import {
   savingAttributeBreakpoints,
   sumNetValue,
 } from "./config/products";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
 
 function renderHomeContent(
   savingsAccounts: IProduct[],

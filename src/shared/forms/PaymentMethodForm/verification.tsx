@@ -1,6 +1,6 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { inube } from "@design/tokens";
-import { Grid } from "@inubekit/grid";
+import { Grid } from "@inubekit/inubekit";
 import { getValueOfDomain } from "@mocks/domains/domainService.mocks";
 import { accountTypeDM } from "src/model/domains/general/accountTypeDM";
 import { bankDM } from "src/model/domains/general/bankDM";

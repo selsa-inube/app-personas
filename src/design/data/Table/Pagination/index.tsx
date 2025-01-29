@@ -5,10 +5,9 @@ import {
   MdNavigateNext,
 } from "react-icons/md";
 
-import { StyledButton } from "./styles";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Stack, Text } from "@inubekit/inubekit";
+import { StyledButton } from "./styles";
 
 interface PaginationProps {
   firstEntryInPage: number;

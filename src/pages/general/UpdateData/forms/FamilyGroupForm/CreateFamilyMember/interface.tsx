@@ -1,6 +1,6 @@
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Stack } from "@inubekit/stack";
+import { Assisted, Button, IAssistedStep, Stack } from "@inubekit/inubekit";
 import { createFamilyMemberSteps } from "./config/assisted";
 import { ContactDataForm } from "./forms/ContactDataForm";
 import { IdentificationDataForm } from "./forms/IdentificationDataForm";
@@ -12,15 +12,13 @@ import {
   IFormsCreateFamilyMember,
   IFormsCreateFamilyMemberRefs,
 } from "./types";
-import { Button } from "@inubekit/button";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
 
 const renderStepContent = (
   currentStep: number,
   formReferences: IFormsCreateFamilyMemberRefs,
   createFamilyMember: IFormsCreateFamilyMember,
   isMobile: boolean,
-  readOnly: boolean,
+  readonly: boolean,
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   return (
@@ -38,7 +36,7 @@ const renderStepContent = (
           initialValues={createFamilyMember.personalData.values}
           ref={formReferences.personalData}
           onFormValid={setIsCurrentFormValid}
-          readonly={readOnly}
+          readonly={readonly}
         />
       )}
       {currentStep === createFamilyMemberSteps.contactData.number && (
@@ -46,7 +44,7 @@ const renderStepContent = (
           initialValues={createFamilyMember.contactData.values}
           ref={formReferences.contactData}
           onFormValid={setIsCurrentFormValid}
-          readonly={readOnly}
+          readonly={readonly}
         />
       )}
       {currentStep === createFamilyMemberSteps.informationData.number && (
@@ -54,7 +52,7 @@ const renderStepContent = (
           initialValues={createFamilyMember.informationData.values}
           ref={formReferences.informationData}
           onFormValid={setIsCurrentFormValid}
-          readonly={readOnly}
+          readonly={readonly}
         />
       )}
       {currentStep === createFamilyMemberSteps.verification.number && (
@@ -70,7 +68,7 @@ interface CreateFamilyMemberUIProps {
   isCurrentFormValid: boolean;
   createFamilyMember: IFormsCreateFamilyMember;
   formReferences: IFormsCreateFamilyMemberRefs;
-  readOnly: boolean;
+  readonly: boolean;
   loading: boolean;
   setIsCurrentFormValid: React.Dispatch<React.SetStateAction<boolean>>;
   handleFinishAssisted: () => void;
@@ -85,7 +83,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
     isCurrentFormValid,
     createFamilyMember,
     formReferences,
-    readOnly,
+    readonly,
     loading,
     setIsCurrentFormValid,
     handleFinishAssisted,
@@ -113,7 +111,7 @@ function CreateFamilyMemberUI(props: CreateFamilyMemberUIProps) {
           formReferences,
           createFamilyMember,
           isMobile,
-          readOnly,
+          readonly,
           setIsCurrentFormValid,
         )}
       </StyledScroller>

@@ -1,9 +1,7 @@
 import { ValidationCard } from "@components/cards/ValidationCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { ISystemValidationsEntry } from "./types";
 
@@ -19,11 +17,11 @@ function SystemValidationsFormUI(props: SystemValidationsFormUIProps) {
   const isMobile = useMediaQuery("(max-width: 580px)");
 
   const requiredValidations = formik.values.validations.filter(
-    (validation) => validation.isRequired,
+    (validation) => validation.required,
   );
 
   const notRequiredValidations = formik.values.validations.filter(
-    (validation) => !validation.isRequired,
+    (validation) => !validation.required,
   );
 
   if (!loadingValids && formik.values.validations.length === 0) {

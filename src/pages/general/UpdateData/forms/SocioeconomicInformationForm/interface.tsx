@@ -1,16 +1,13 @@
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Button, Grid, Select, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { activeDM } from "src/model/domains/general/activedm";
 import { educationLevelTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/educationLeveldm";
 import { vulnerablePopulationTypeDM } from "src/model/domains/general/updateData/socioeconomicInformation/vulnerablePopulationdm";
-import { getFieldState } from "src/utils/forms/forms";
+import { formikHandleChange, getFieldState } from "src/utils/forms/forms";
 import { ISocioeconomicInformationEntry } from "./types";
 
 interface SocioeconomicInformationFormUIProps {
@@ -48,9 +45,9 @@ function SocioeconomicInformationFormUI(
             value={formik.values.educationLevel}
             size="compact"
             options={educationLevelTypeDM.options}
-            onChange={formik.handleChange}
-            isDisabled={loading}
-            isFullWidth
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            disabled={loading}
+            fullwidth
           />
           <Select
             label="Responsable del hogar"
@@ -59,9 +56,9 @@ function SocioeconomicInformationFormUI(
             value={formik.values.isResponsibleHome}
             size="compact"
             options={activeDM.options}
-            onChange={formik.handleChange}
-            isDisabled={loading}
-            isFullWidth
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            disabled={loading}
+            fullwidth
           />
           <Select
             label="Mujer cabeza de familia"
@@ -70,9 +67,9 @@ function SocioeconomicInformationFormUI(
             value={formik.values.isSingleMother}
             size="compact"
             options={activeDM.options}
-            onChange={formik.handleChange}
-            isDisabled={loading}
-            isFullWidth
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            disabled={loading}
+            fullwidth
           />
           <TextField
             label="Número de personas a cargo"
@@ -80,15 +77,15 @@ function SocioeconomicInformationFormUI(
             name="dependants"
             id="dependants"
             value={formik.values.dependants}
-            errorMessage={formik.errors.dependants}
+            message={formik.errors.dependants}
             type="number"
             iconAfter={<MdOutlineModeEdit size={18} />}
             state={getFieldState(formik, "dependants")}
-            isDisabled={loading}
+            disabled={loading}
             size="compact"
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            isFullWidth
+            fullwidth
           />
           <Select
             label="Población vulnerable"
@@ -97,9 +94,9 @@ function SocioeconomicInformationFormUI(
             value={formik.values.vulnerablePopulation}
             size="compact"
             options={vulnerablePopulationTypeDM.options}
-            onChange={formik.handleChange}
-            isDisabled={loading}
-            isFullWidth
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            disabled={loading}
+            fullwidth
           />
           <Select
             label="Públicamente expuesto"
@@ -108,9 +105,9 @@ function SocioeconomicInformationFormUI(
             value={formik.values.isPublicExposed}
             size="compact"
             options={activeDM.options}
-            onChange={formik.handleChange}
-            isDisabled={loading}
-            isFullWidth
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            disabled={loading}
+            fullwidth
           />
           <Select
             label="¿Declara renta?"
@@ -119,9 +116,9 @@ function SocioeconomicInformationFormUI(
             value={formik.values.isDeclaredIncomes}
             size="compact"
             options={activeDM.options}
-            onChange={formik.handleChange}
-            isDisabled={loading}
-            isFullWidth
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            disabled={loading}
+            fullwidth
           />
           <Select
             label="¿Administra recursos públicos?"
@@ -130,9 +127,9 @@ function SocioeconomicInformationFormUI(
             value={formik.values.isPublicOfficials}
             size="compact"
             options={activeDM.options}
-            onChange={formik.handleChange}
-            isDisabled={loading}
-            isFullWidth
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
+            disabled={loading}
+            fullwidth
           />
         </Grid>
         {withSubmit && (

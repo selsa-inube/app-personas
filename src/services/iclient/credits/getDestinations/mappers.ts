@@ -1,18 +1,19 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { capitalizeText } from "src/utils/texts";
 
 const mapDestinationApiToEntity = (
   destination: Record<string, string | number | object>,
-): ISelectOption => {
+): IOption => {
   return {
     id: String(destination.destinationId),
-    value: capitalizeText(String(destination.name).toLowerCase()),
+    value: String(destination.destinationId),
+    label: capitalizeText(String(destination.name).toLowerCase()),
   };
 };
 
 const mapDestinationsApiToEntities = (
   destinations: Record<string, string | number | object>[],
-): ISelectOption[] => {
+): IOption[] => {
   return destinations
     .filter((destination) => Boolean(destination.publishStatus) === true)
     .map((destination) => mapDestinationApiToEntity(destination));

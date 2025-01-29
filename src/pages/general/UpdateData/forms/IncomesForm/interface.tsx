@@ -1,15 +1,12 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Button, Grid, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { currencyFormat, validateCurrencyField } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
 import { IIncomesEntry } from "./types";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface IncomesFormUIProps {
   formik: FormikProps<IIncomesEntry>;
@@ -45,10 +42,10 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             id="basicSalary"
             value={validateCurrencyField("basicSalary", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
-            errorMessage={formik.errors.basicSalary}
-            isDisabled={loading}
+            message={formik.errors.basicSalary}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "basicSalary")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
@@ -60,10 +57,10 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             id="bonds"
             value={validateCurrencyField("bonds", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
-            errorMessage={formik.errors.bonds}
-            isDisabled={loading}
+            message={formik.errors.bonds}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "bonds")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
@@ -75,10 +72,10 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             id="commissions"
             value={validateCurrencyField("commissions", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
-            errorMessage={formik.errors.commissions}
-            isDisabled={loading}
+            message={formik.errors.commissions}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "commissions")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
@@ -90,10 +87,10 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             id="overtime"
             value={validateCurrencyField("overtime", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
-            errorMessage={formik.errors.overtime}
-            isDisabled={loading}
+            message={formik.errors.overtime}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "overtime")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
@@ -105,10 +102,10 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             id="transportationAssistance"
             value={validateCurrencyField("transportationAssistance", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
-            errorMessage={formik.errors.transportationAssistance}
-            isDisabled={loading}
+            message={formik.errors.transportationAssistance}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "transportationAssistance")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
@@ -120,10 +117,10 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             id="foodAssistance"
             value={validateCurrencyField("foodAssistance", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
-            errorMessage={formik.errors.foodAssistance}
-            isDisabled={loading}
+            message={formik.errors.foodAssistance}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "foodAssistance")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}
@@ -135,10 +132,10 @@ function IncomesFormUI(props: IncomesFormUIProps) {
             id="others"
             value={validateCurrencyField("others", formik)}
             iconAfter={<MdOutlineAttachMoney size={18} />}
-            errorMessage={formik.errors.others}
-            isDisabled={loading}
+            message={formik.errors.others}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "others")}
             onBlur={formik.handleBlur}
             onChange={customHandleChange}

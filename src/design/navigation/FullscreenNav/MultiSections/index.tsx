@@ -1,12 +1,10 @@
 import { INav } from "@design/layout/Page/types";
 import { IHeaderLink } from "@design/navigation/Header/types";
 import { NavLink } from "@design/navigation/NavLink";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 import { StyledCollapseIcon, StyledSectionContainer } from "./styles";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
 
 interface MultiSectionsProps {
   navigation: INav;

@@ -29,13 +29,13 @@ const requestsMock: IRequest[] = [
         id: "minimum_associate_seniority",
         label: "Antigüedad mínima como asociado",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones Fondecom",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "request_value_per_formula",
@@ -53,7 +53,7 @@ const requestsMock: IRequest[] = [
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "beneficiary_validity_by_age",
@@ -95,13 +95,13 @@ const requestsMock: IRequest[] = [
         id: "minimum_associate_seniority",
         label: "Antigüedad mínima como asociado",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones Fondecom",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "request_value_per_formula",
@@ -119,7 +119,7 @@ const requestsMock: IRequest[] = [
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "beneficiary_validity_by_age",
@@ -160,13 +160,13 @@ const requestsMock: IRequest[] = [
         id: "minimum_associate_seniority",
         label: "Antigüedad mínima como asociado",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones Fondecom",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "request_value_per_formula",
@@ -184,7 +184,7 @@ const requestsMock: IRequest[] = [
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "beneficiary_validity_by_age",
@@ -225,13 +225,13 @@ const requestsMock: IRequest[] = [
         id: "minimum_associate_seniority",
         label: "Antigüedad mínima como asociado",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones Fondecom",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "request_value_per_formula",
@@ -249,7 +249,7 @@ const requestsMock: IRequest[] = [
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "beneficiary_validity_by_age",
@@ -290,13 +290,13 @@ const requestsMock: IRequest[] = [
         id: "minimum_associate_seniority",
         label: "Antigüedad mínima como asociado",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones Fondecom",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "request_value_per_formula",
@@ -314,7 +314,7 @@ const requestsMock: IRequest[] = [
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "beneficiary_validity_by_age",
@@ -355,13 +355,13 @@ const requestsMock: IRequest[] = [
         id: "minimum_associate_seniority",
         label: "Antigüedad mínima como asociado",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "up_to_date_obligations",
         label: "Estar al día con sus obligaciones Fondecom",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "request_value_per_formula",
@@ -379,7 +379,7 @@ const requestsMock: IRequest[] = [
         id: "available_assistance_quota",
         label: "Cupo disponible auxilios",
         value: "pending",
-        isRequired: true,
+        required: true,
       },
       {
         id: "beneficiary_validity_by_age",

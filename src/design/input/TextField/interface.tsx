@@ -2,9 +2,7 @@ import { MdCheckCircle, MdOutlineWarning } from "react-icons/md";
 import { ITextFieldMessage } from "./types";
 
 import { inube } from "@design/tokens";
-import { Label } from "@inubekit/label";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Label, Stack, Text } from "@inubekit/inubekit";
 import { TextFieldProps } from ".";
 import { DropdownMenu } from "../DropdownMenu";
 import { Counter } from "../Textarea/Counter";
@@ -19,25 +17,25 @@ import {
 } from "./styles";
 
 function Invalid(props: ITextFieldMessage) {
-  const { isDisabled, state, errorMessage } = props;
+  const { disabled, state, message } = props;
 
   return (
-    <StyledErrorMessageContainer $isDisabled={isDisabled} $state={state}>
+    <StyledErrorMessageContainer $disabled={disabled} $state={state}>
       <MdOutlineWarning />
-      <Text type="body" size="small" appearance="danger" disabled={isDisabled}>
-        {errorMessage}
+      <Text type="body" size="small" appearance="danger" disabled={disabled}>
+        {message}
       </Text>
     </StyledErrorMessageContainer>
   );
 }
 
 function Success(props: ITextFieldMessage) {
-  const { isDisabled, state, validMessage } = props;
+  const { disabled, state, validMessage } = props;
 
   return (
-    <StyledValidMessageContainer $isDisabled={isDisabled} $state={state}>
+    <StyledValidMessageContainer $disabled={disabled} $state={state}>
       <MdCheckCircle />
-      <Text type="body" size="small" appearance="success" disabled={isDisabled}>
+      <Text type="body" size="small" appearance="success" disabled={disabled}>
         {validMessage}
       </Text>
     </StyledValidMessageContainer>
@@ -56,7 +54,7 @@ function TextFieldUI(props: TextFieldUIProps) {
     name,
     id,
     placeholder,
-    isDisabled = false,
+    disabled = false,
     type,
     value,
     iconBefore,
@@ -65,14 +63,14 @@ function TextFieldUI(props: TextFieldUIProps) {
     minLength,
     max,
     min,
-    isRequired,
+    required,
     state = "pending",
-    errorMessage,
+    message,
     validMessage,
     size = "compact",
-    isFullWidth = false,
+    fullwidth = false,
     isFocused = false,
-    readOnly,
+    readonly,
     suggestions,
     lengthThreshold = 0,
     withCounter,
@@ -98,11 +96,11 @@ function TextFieldUI(props: TextFieldUIProps) {
         : "gray";
 
   return (
-    <StyledContainer $isFullWidth={isFullWidth} $isDisabled={isDisabled}>
+    <StyledContainer $fullwidth={fullwidth} $disabled={disabled}>
       <Stack direction="column" gap={inube.spacing.s050}>
-        {(label || isRequired || (!isDisabled && maxLength && withCounter)) && (
+        {(label || required || (!disabled && maxLength && withCounter)) && (
           <Stack justifyContent="space-between" alignItems="center">
-            {(label || isRequired) && (
+            {(label || required) && (
               <Stack
                 width="100%"
                 gap={inube.spacing.s050}
@@ -112,7 +110,7 @@ function TextFieldUI(props: TextFieldUIProps) {
                 {label && (
                   <Label
                     htmlFor={id}
-                    disabled={isDisabled}
+                    disabled={disabled}
                     focused={isFocused && state !== "invalid"}
                     invalid={state === "invalid"}
                     size="medium"
@@ -121,7 +119,7 @@ function TextFieldUI(props: TextFieldUIProps) {
                   </Label>
                 )}
 
-                {isRequired && !isDisabled && (
+                {required && !disabled && (
                   <Text type="body" size="small" appearance="dark">
                     (Requerido)
                   </Text>
@@ -129,12 +127,12 @@ function TextFieldUI(props: TextFieldUIProps) {
               </Stack>
             )}
 
-            {!isDisabled && maxLength && withCounter && (
+            {!disabled && maxLength && withCounter && (
               <Stack justifyContent="flex-end" alignItems="center">
                 <Counter
                   appearance={counterAppearence}
                   maxLength={maxLength}
-                  isDisabled={isDisabled}
+                  disabled={disabled}
                   valueLength={truncatedValue.length}
                 />
               </Stack>
@@ -143,16 +141,16 @@ function TextFieldUI(props: TextFieldUIProps) {
         )}
 
         <StyledInputContainer
-          $isDisabled={isDisabled}
+          $disabled={disabled}
           $isFocused={isFocused}
           $state={state}
           $iconBefore={iconBefore}
           $iconAfter={iconAfter}
-          $readOnly={readOnly}
+          $readonly={readonly}
         >
           {iconBefore && (
             <StyledIcon
-              $isDisabled={isDisabled}
+              $disabled={disabled}
               $iconBefore={iconBefore}
               onClick={onIconClick}
             >
@@ -164,9 +162,9 @@ function TextFieldUI(props: TextFieldUIProps) {
             $label={label}
             name={name}
             id={id}
-            placeholder={isDisabled ? undefined : placeholder}
-            $isDisabled={isDisabled}
-            $isFullWidth={isFullWidth}
+            placeholder={disabled ? undefined : placeholder}
+            $disabled={disabled}
+            $fullwidth={fullwidth}
             type={type}
             value={value}
             maxLength={maxLength}
@@ -176,14 +174,14 @@ function TextFieldUI(props: TextFieldUIProps) {
             onChange={onChange}
             onFocus={onFocus}
             onBlur={onBlur}
-            readOnly={readOnly}
+            readOnly={readonly}
             $size={size}
           />
           {iconAfter && (
             <StyledIcon
               $iconAfter={iconAfter}
-              $isDisabled={isDisabled}
-              $readOnly={readOnly}
+              $disabled={disabled}
+              $readonly={readonly}
               onClick={onIconClick}
             >
               {iconAfter}
@@ -210,12 +208,8 @@ function TextFieldUI(props: TextFieldUIProps) {
           />
         )}
 
-      {state === "invalid" && isTouched && errorMessage && (
-        <Invalid
-          isDisabled={isDisabled}
-          state={state}
-          errorMessage={errorMessage}
-        />
+      {state === "invalid" && isTouched && message && (
+        <Invalid disabled={disabled} state={state} message={message} />
       )}
       {state === "valid" &&
         value &&
@@ -224,7 +218,7 @@ function TextFieldUI(props: TextFieldUIProps) {
         validMessage &&
         isTouched && (
           <Success
-            isDisabled={isDisabled}
+            disabled={disabled}
             state={state}
             validMessage={validMessage}
           />

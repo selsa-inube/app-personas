@@ -7,15 +7,17 @@ import { Accordion } from "@design/data/Accordion";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Tabs } from "@inubekit/tabs";
-import { Tag } from "@inubekit/tag";
-import { Text } from "@inubekit/text";
+import {
+  Breadcrumbs,
+  Button,
+  Divider,
+  Grid,
+  Icon,
+  Stack,
+  Tabs,
+  Tag,
+  Text,
+} from "@inubekit/inubekit";
 import {
   MdArrowBack,
   MdDeleteOutline,
@@ -390,7 +392,7 @@ function RequestDetailUI(props: RequestUIProps) {
                         id={validation.id}
                         label={validation.label}
                         failDetails={validation.failDetails}
-                        isRequired={validation.isRequired}
+                        required={validation.required}
                         pending={validation.pending}
                         value={validation.value}
                       />

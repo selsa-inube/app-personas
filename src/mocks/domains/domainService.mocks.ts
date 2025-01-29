@@ -1,5 +1,7 @@
+import { IOption } from "@inubekit/inubekit";
 import { IServerDomain } from "@ptypes/domain.types";
 import { accountDebitTypeData } from "./accountDebitType";
+import { accountSelectionTypeData } from "./accountSelectionType";
 import { accountTypeData } from "./accountType";
 import { assetTypeData } from "./assetType";
 import { bankData } from "./bank";
@@ -17,7 +19,6 @@ import { professionData } from "./profession";
 import { referenceTypeData } from "./referenceType";
 import { refundMethodData } from "./refundMethod";
 import { suppliersTypeData } from "./suppliersType";
-import { accountSelectionTypeData } from "./accountSelectionType";
 
 const domains: Record<string, IServerDomain[]> = {
   assetType: assetTypeData,
@@ -38,11 +39,19 @@ const domains: Record<string, IServerDomain[]> = {
   refundMethod: refundMethodData,
   paymentMethod: paymentMethodData,
   accountDebitType: accountDebitTypeData,
-  accountSelectionType: accountSelectionTypeData
+  accountSelectionType: accountSelectionTypeData,
+};
+
+const convertServerDomainToOption = (domain: IServerDomain): IOption => {
+  return {
+    id: domain.id,
+    value: domain.id,
+    label: domain.value,
+  };
 };
 
 function getDomainById(domainId: string) {
-  return domains[domainId];
+  return domains[domainId].map(convertServerDomainToOption);
 }
 
 function getDomainsByIds(domainIds: string[]) {

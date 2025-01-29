@@ -1,8 +1,8 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { IEntry } from "@design/data/Table/types";
+import { Icon } from "@inubekit/inubekit";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteDebtModal } from "../config/deleteDebt.config";
-import { Icon } from "@inubekit/icon";
 
 interface DeleteDebtUIProps {
   debt: IEntry;

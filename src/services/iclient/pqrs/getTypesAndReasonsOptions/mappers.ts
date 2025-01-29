@@ -1,31 +1,33 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { IReasonPqrs, ITypePqrs } from "@pages/admin/pqrs/PQRSCreate/types";
 import { capitalizeText } from "src/utils/texts";
 
 const mapTypesAndReasonsApiToEntities = (
   data: ITypePqrs[],
 ): {
-  typeOptions: ISelectOption[];
-  reasonsByType: Record<string, ISelectOption[]>;
+  typeOptions: IOption[];
+  reasonsByType: Record<string, IOption[]>;
 } => {
   if (!Array.isArray(data)) {
     return { typeOptions: [], reasonsByType: {} };
   }
 
-  const typeOptions: ISelectOption[] = data.map((type) => ({
+  const typeOptions: IOption[] = data.map((type) => ({
     id: type.typeCode,
-    value: capitalizeText(type.typeName),
+    value: type.typeCode,
+    label: capitalizeText(type.typeName),
   }));
 
-  const reasonsByType: Record<string, ISelectOption[]> = data.reduce(
+  const reasonsByType: Record<string, IOption[]> = data.reduce(
     (acc, type) => {
       acc[type.typeCode] = (type.reasons || []).map((reason: IReasonPqrs) => ({
         id: reason.reasonCode,
-        value: capitalizeText(reason.reasonName),
+        value: reason.reasonCode,
+        label: capitalizeText(reason.reasonName),
       }));
       return acc;
     },
-    {} as Record<string, ISelectOption[]>,
+    {} as Record<string, IOption[]>,
   );
 
   return { typeOptions, reasonsByType };

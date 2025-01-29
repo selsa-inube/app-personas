@@ -1,9 +1,8 @@
 import { Textarea } from "@design/input/Textarea";
+import { inube } from "@design/tokens";
+import { Button, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { ICommentsEntry } from "./types";
-import { Stack } from "@inubekit/stack";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
 
 interface CommentsFormUIProps {
   formik: FormikProps<ICommentsEntry>;
@@ -24,11 +23,11 @@ function CommentsFormUI(props: CommentsFormUIProps) {
           placeholder="Escribe tus comentarios"
           maxLength={150}
           withCounter
-          isDisabled={loading}
+          disabled={loading}
           value={formik.values.comments}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
-          isFullWidth
+          fullwidth
         />
 
         {withSubmit && (

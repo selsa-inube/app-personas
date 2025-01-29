@@ -1,16 +1,12 @@
 import { TextField } from "@design/input/TextField";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { Blanket, Divider, Icon, Stack, Text } from "@inubekit/inubekit";
 import { IEconomicActivity } from "@mocks/users/economicActivities.mocks";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineClose } from "react-icons/md";
 import { StyledBody, StyledItem, StyledModal } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
 
 interface ItemProps {
   id: string;
@@ -120,7 +116,7 @@ function EconomicActivityModal(props: EconomicActivityModalProps) {
             placeholder="Digita la palabra clave"
             onChange={(e) => setSearchTerm(e.target.value)}
             size="compact"
-            isFullWidth
+            fullwidth
           />
           {searchTerm !== "" && (
             <StyledBody>

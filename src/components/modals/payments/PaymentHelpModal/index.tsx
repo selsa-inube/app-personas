@@ -1,5 +1,14 @@
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -9,13 +18,6 @@ import {
   StyledModal,
   StyledOptionsContainer,
 } from "./styles";
-import { Divider } from "@inubekit/divider";
-import { Blanket } from "@inubekit/blanket";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
 
 interface IHelpOption {
   id: string;

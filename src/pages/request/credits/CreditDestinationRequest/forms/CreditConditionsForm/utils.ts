@@ -1,4 +1,4 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { getPeriodicitiesForProduct } from "src/services/iclient/credits/getPeriodicities";
 import { getCustomer } from "src/services/iclient/customers/getCustomer";
@@ -89,7 +89,7 @@ const getValuesForSimulate = async (
 
   const userData = await getCustomer(userIdentification, accessToken);
 
-  const newPaymentMethods: ISelectOption[] = [];
+  const newPaymentMethods: IOption[] = [];
 
   if (userData) {
     if (

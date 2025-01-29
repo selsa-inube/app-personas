@@ -1,4 +1,4 @@
-import { ITab } from "@inubekit/tabs";
+import { ITab } from "@inubekit/inubekit";
 
 const updateDataTabs: Record<string, ITab> = {
   personalInformation: {

@@ -1,8 +1,6 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { inube } from "@design/tokens";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
 import { MdSearch } from "react-icons/md";
 
 function EmptyRecords() {

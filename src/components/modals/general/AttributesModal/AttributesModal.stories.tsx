@@ -1,3 +1,4 @@
+import { Button } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { useState } from "react";
@@ -5,7 +6,6 @@ import { IAttribute } from "src/model/entity/product";
 import { ThemeProvider } from "styled-components";
 import { AttributesModal, AttributesModalProps } from ".";
 import { props } from "./props";
-import { Button } from "@inubekit/button";
 
 const attributes: IAttribute[] = [
   {

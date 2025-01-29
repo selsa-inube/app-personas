@@ -2,19 +2,19 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { logoUrl } from "@config/header";
 import { IEntry } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
 import {
   Col,
   Colgroup,
+  Grid,
+  Stack,
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
-} from "@inubekit/table";
-import { Text } from "@inubekit/text";
+} from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { StyledCardContainer, StyledLogo } from "./styles";

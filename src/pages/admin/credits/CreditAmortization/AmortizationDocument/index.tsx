@@ -2,9 +2,7 @@ import { OutlineCard } from "@components/cards/OutlineCard";
 import { logoUrl } from "@config/header";
 import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
 
 interface AmortizationDocumentProps {
@@ -34,7 +32,7 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
 
   return (
     <Stack
-      padding={`${inube.spacing.s600} ${inube.spacing.s800}`}
+      padding={`0 ${inube.spacing.s800}`}
       gap={inube.spacing.s250}
       width="21cm"
       direction="column"

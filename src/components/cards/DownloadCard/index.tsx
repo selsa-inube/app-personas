@@ -1,6 +1,4 @@
-import { Button } from "@inubekit/button";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Button, Stack, Text } from "@inubekit/inubekit";
 import { StyledCardContainer } from "./styles";
 
 interface DownloadCardProps {

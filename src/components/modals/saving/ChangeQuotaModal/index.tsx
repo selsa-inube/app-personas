@@ -2,12 +2,14 @@ import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { MdAttachMoney, MdClear } from "react-icons/md";
@@ -122,7 +124,7 @@ function ChangeQuotaModal(props: ChangeQuotaModalProps) {
             placeholder="Ingresa el valor de la cuota"
             label="Nuevo valor de la cuota"
             value={validateCurrencyField(newQuota)}
-            isFullWidth
+            fullwidth
             size="compact"
             type="text"
             onChange={handleChangeWithCurrency}

@@ -1,11 +1,8 @@
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Divider } from "@inubekit/divider";
-import { Icon } from "@inubekit/icon";
-import { Text } from "@inubekit/text";
+import { Button, Divider, Icon, Text } from "@inubekit/inubekit";
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { StyledContainer, StyledHead } from "./styles";
-import { Button } from "@inubekit/button";
 
 interface AccordionProps {
   title: string;

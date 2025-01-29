@@ -8,10 +8,13 @@ import { DisbursementForm } from "@forms/DisbursementForm";
 import { SystemValidationsForm } from "@forms/SystemValidationsForm";
 import { TermsAndConditionsForm } from "@forms/TermsAndConditionsForm";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Assisted, IAssistedStep } from "@inubekit/assisted";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Button } from "@inubekit/button";
-import { Stack } from "@inubekit/stack";
+import {
+  Assisted,
+  Breadcrumbs,
+  Button,
+  IAssistedStep,
+  Stack,
+} from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
 import { Blocker } from "react-router-dom";
 import { ContactChannelsForm } from "src/shared/forms/ContactChannelsForm";

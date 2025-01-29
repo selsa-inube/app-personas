@@ -1,4 +1,4 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { IDomainType } from "@ptypes/domain.types";
 
 interface IIdentification {
@@ -93,7 +93,7 @@ interface IFinancialOperations {
   bankEntity: string;
   currency: string;
   accountNumber: number;
-  paymentMethod?: ISelectOption;
+  paymentMethod?: IOption;
 }
 
 interface IEconomicActivity {
@@ -143,7 +143,7 @@ interface IBeneficiary {
   name: string;
   identificationType: string;
   identificationNumber: string;
-  relationship?: ISelectOption;
+  relationship?: IOption;
   selected?: boolean;
 }
 

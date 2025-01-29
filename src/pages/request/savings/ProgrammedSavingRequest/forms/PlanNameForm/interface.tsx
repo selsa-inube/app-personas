@@ -1,9 +1,9 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { getFieldState } from "src/utils/forms/forms";
 import { IPlanNameEntry } from "./types";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface PlanNameFormUIProps {
   formik: FormikProps<IPlanNameEntry>;
@@ -24,10 +24,10 @@ function PlanNameFormUI(props: PlanNameFormUIProps) {
           id="productName"
           value={formik.values.productName}
           type="text"
-          errorMessage={formik.errors.productName}
-          isDisabled={loading}
+          message={formik.errors.productName}
+          disabled={loading}
           size="compact"
-          isFullWidth
+          fullwidth
           state={getFieldState(formik, "productName")}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}

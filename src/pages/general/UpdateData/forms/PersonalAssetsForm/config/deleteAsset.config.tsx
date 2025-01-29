@@ -1,5 +1,4 @@
-import { IButtonAppearance } from "@inubekit/button";
-import { IFlagAppearance } from "@inubekit/flag";
+import { IButtonAppearance, IFlagAppearance } from "@inubekit/inubekit";
 
 const deleteAssetModal = {
   title: "Eliminar activo",
@@ -15,15 +14,15 @@ const deleteAssetMessages = {
     title: "Activo eliminado!",
     description: (code?: string) =>
       `Hemos eliminado el activo "${code}" correctamente`,
-    appearance: "success" as IFlagAppearance ,
+    appearance: "success" as IFlagAppearance,
   },
   failed: {
     id: 2,
     title: "¡Uy, algo salió mal!",
     description: (code?: string) =>
       `Hemos presentado problemas eliminando el activo "${code}".`,
-    appearance: "success" as IFlagAppearance ,
+    appearance: "success" as IFlagAppearance,
   },
 };
 
-export { deleteAssetModal, deleteAssetMessages };
+export { deleteAssetMessages, deleteAssetModal };

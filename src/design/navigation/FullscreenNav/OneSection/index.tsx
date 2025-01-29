@@ -1,7 +1,7 @@
 import { INav } from "@design/layout/Page/types";
 import { IHeaderLink } from "@design/navigation/Header/types";
 import { NavLink } from "@design/navigation/NavLink";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 
 interface OneSectionProps {
   navigation: INav;

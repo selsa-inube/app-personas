@@ -4,10 +4,7 @@ import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Breadcrumbs, Grid, Stack, Text } from "@inubekit/inubekit";
 import { MdArrowBack } from "react-icons/md";
 import { IAid } from "src/model/entity/service";
 import { crumbsAids } from "./config/navigation";
@@ -59,18 +56,19 @@ function AidOptionsUI(props: AidOptionsUIProps) {
               />
             ))}
 
-            {loading && Array.from({ length: 6 }).map((_, index) => (
-              <AidCard
-                id=""
-                title=""
-                type={{
-                  id: "",
-                  value: "",
-                }}
-                key={index}
-                loading={loading}
-              />
-            ))}
+            {loading &&
+              Array.from({ length: 6 }).map((_, index) => (
+                <AidCard
+                  id=""
+                  title=""
+                  type={{
+                    id: "",
+                    value: "",
+                  }}
+                  key={index}
+                  loading={loading}
+                />
+              ))}
           </Grid>
         </Stack>
         {isDesktop && <QuickAccess links={quickLinks} />}

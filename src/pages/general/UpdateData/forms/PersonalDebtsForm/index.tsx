@@ -1,4 +1,5 @@
 import { IAction } from "@design/data/Table/types";
+import { useFlag } from "@inubekit/inubekit";
 import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
@@ -10,7 +11,6 @@ import { EditDebt } from "./EditDebt";
 import { deleteDebtMessages } from "./config/deleteDebt.config";
 import { PersonalDebtsFormUI } from "./interface";
 import { IPersonalDebtEntries } from "./types";
-import { useFlag } from "@inubekit/flag";
 
 const validationSchema = Yup.object({
   liabilityType: Yup.string().required(validationMessages.required),

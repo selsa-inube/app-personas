@@ -1,7 +1,7 @@
-import { IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
+import { IBreadcrumbsRoute } from "@inubekit/inubekit";
 
 const crumbsSavingsCommitments = (
-  commitment_id?: string
+  commitment_id?: string,
 ): IBreadcrumbsRoute[] => [
   {
     id: "home",

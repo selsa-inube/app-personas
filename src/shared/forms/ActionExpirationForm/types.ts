@@ -1,7 +1,7 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 
 interface IActionExpirationEntry {
-  actionsExpiration?: ISelectOption[];
+  actionsExpiration?: IOption[];
   actionExpiration?: string;
   actionExpirationName?: string;
 }

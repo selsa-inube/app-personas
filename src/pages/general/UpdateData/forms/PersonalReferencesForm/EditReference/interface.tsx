@@ -1,8 +1,8 @@
 import { ReferenceModal } from "@components/modals/general/updateData/ReferenceModal";
-import { Icon } from "@inubekit/icon";
+import { Icon } from "@inubekit/inubekit";
+import { FormikProps } from "formik";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { IPersonalReferenceEntries } from "../types";
-import { FormikProps } from "formik";
 
 interface EditReferenceUIProps {
   showModal: boolean;

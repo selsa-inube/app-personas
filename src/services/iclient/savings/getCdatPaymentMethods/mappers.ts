@@ -1,4 +1,4 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 
 const paymentMethodDescription: Record<string, string> = {
   DEBAHORINT: "Débito automático",
@@ -8,16 +8,17 @@ const paymentMethodDescription: Record<string, string> = {
 
 const mapPaymentMethodApiToEntity = (
   paymentMethod: Record<string, string | number | object>,
-): ISelectOption => {
+): IOption => {
   return {
     id: String(paymentMethod.value),
-    value: paymentMethodDescription[String(paymentMethod.value)],
+    value: String(paymentMethod.value),
+    label: paymentMethodDescription[String(paymentMethod.value)],
   };
 };
 
 const mapPaymentMethodsApiToEntities = (
   paymentMethods: Record<string, string | number | object>[],
-): ISelectOption[] => {
+): IOption[] => {
   return paymentMethods.map((paymentMethod) =>
     mapPaymentMethodApiToEntity(paymentMethod),
   );

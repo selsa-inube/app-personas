@@ -1,9 +1,9 @@
 import { IAction, IEntry } from "@design/data/Table/types";
+import { Text } from "@inubekit/inubekit";
 import { IMovement } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { ViewMovement } from "../../MyCredits/ViewMovement";
-import { Text } from "@inubekit/text";
 
 const mapCreditMovement = (movement: IEntry): IMovement => {
   return {

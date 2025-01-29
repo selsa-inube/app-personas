@@ -1,30 +1,30 @@
-import { logoUrl } from "@config/header";
-import { inube } from "@design/tokens";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { formatPrimaryDate } from "src/utils/dates";
-import { IEntry } from "@design/data/Table/types";
-import { IProduct } from "src/model/entity/product";
-import { Grid } from "@inubekit/grid";
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { StyledCardContainer, StyledLogo } from "./styles";
+import { logoUrl } from "@config/header";
+import { IEntry } from "@design/data/Table/types";
+import { inube } from "@design/tokens";
+import {
+  Col,
+  Colgroup,
+  Grid,
+  Stack,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+} from "@inubekit/inubekit";
+import { IProduct } from "src/model/entity/product";
 import { currencyFormat } from "src/utils/currency";
+import { formatPrimaryDate } from "src/utils/dates";
 import {
   cardsTableTitles,
   commitmentsTableTitles,
   paymentSummaryTitles,
   savingsTableTitles,
 } from "../config/tables";
-import {
-  Col,
-  Colgroup,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@inubekit/table";
+import { StyledCardContainer, StyledLogo } from "./styles";
 
 const today = new Date();
 
@@ -157,7 +157,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
 
   return (
     <Stack
-      padding={inube.spacing.s400}
+      padding={`0 ${inube.spacing.s400}`}
       gap={inube.spacing.s200}
       width="225mm"
       direction="column"

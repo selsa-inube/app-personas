@@ -1,13 +1,13 @@
 import { enviroment } from "@config/enviroment";
-import { ISelectOption } from "@design/input/Select/types";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapActionsApiToEntities } from "./mappers";
+import { IOption } from "@inubekit/inubekit";
 
 const getActionsExpirationProgrammed = async (
   userIdentification: string,
   productId: string,
   accessToken: string,
-): Promise<ISelectOption[]> => {
+): Promise<IOption[]> => {
   const requestTime = new Date();
   const startTime = performance.now();
 

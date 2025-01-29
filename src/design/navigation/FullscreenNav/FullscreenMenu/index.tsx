@@ -3,6 +3,7 @@ import { INav } from "@design/layout/Page/types";
 import { IHeaderLink } from "@design/navigation/Header/types";
 import { NavLink } from "@design/navigation/NavLink";
 import { useAuth } from "@inube/auth";
+import { Text } from "@inubekit/inubekit";
 import { useState } from "react";
 import { MdClose, MdLogout } from "react-icons/md";
 import { MultiSections } from "../MultiSections";
@@ -13,7 +14,6 @@ import {
   StyledFullscreenNav,
   StyledSeparatorLine,
 } from "./styles";
-import { Text } from "@inubekit/text";
 
 const year = new Date().getFullYear();
 
@@ -38,7 +38,7 @@ function FullscreenMenu(props: FullscreenMenuProps) {
     sessionStorage.clear();
   };
 
- const totalSections = Object.keys(navigation.sections).length;
+  const totalSections = Object.keys(navigation.sections).length;
 
   return (
     <>
@@ -49,7 +49,7 @@ function FullscreenMenu(props: FullscreenMenuProps) {
           </Text>
           <MdClose onClick={onClose} />
         </StyledCloseMenu>
-        {(totalSections > 1) || (links && totalSections > 0) ? (
+        {totalSections > 1 || (links && totalSections > 0) ? (
           <MultiSections
             navigation={navigation}
             onClose={onClose}
@@ -57,7 +57,7 @@ function FullscreenMenu(props: FullscreenMenuProps) {
           />
         ) : (
           <OneSection navigation={navigation} onClose={onClose} links={links} />
-       )} 
+        )}
         <StyledSeparatorLine />
         <NavLink
           key="logout"

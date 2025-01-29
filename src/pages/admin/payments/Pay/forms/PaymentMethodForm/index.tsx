@@ -48,13 +48,13 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     }
   }, [user, accessToken]);
 
-  const customHandleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    formik.handleChange(event);
+  const customHandleChange = (name: string, value: string) => {
+    formik.setFieldValue(name, value);
     formik.setFieldValue("pendingValue", formik.values.valueToPay);
 
     const moneySources: IMoneySource = {};
 
-    const paymentMethod = event.target.value;
+    const paymentMethod = value;
 
     if (
       paymentMethod === EPaymentMethodType.DEBIT ||

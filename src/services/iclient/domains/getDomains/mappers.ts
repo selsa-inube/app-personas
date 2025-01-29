@@ -1,14 +1,15 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { IServiceDomains } from "src/context/app/types";
 import { capitalizeText } from "src/utils/texts";
 import { mapCreditApiToEntity } from "../../credits/getCredits/mappers";
 
 const mapDomainApiToEntity = (
   domain: Record<string, string | number>,
-): ISelectOption => {
+): IOption => {
   return {
     id: domain.code.toString(),
-    value: domain.value ? capitalizeText(domain.value.toString()) : "",
+    value: domain.code.toString(),
+    label: domain.value ? capitalizeText(domain.value.toString()) : "",
   };
 };
 

@@ -1,10 +1,8 @@
 import { StyledMenuItemContainer } from "./styles";
 
-import { MenuItemSpacingType } from "./types";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
+import { MenuItemSpacingType } from "./types";
 
 interface MenuItemProps {
   title: string;
@@ -12,7 +10,7 @@ interface MenuItemProps {
   spacing?: MenuItemSpacingType;
   iconBefore?: React.JSX.Element;
   iconAfter?: React.JSX.Element;
-  isDisabled?: boolean;
+  disabled?: boolean;
   path?: string;
   onClick?: () => void;
 }
@@ -24,7 +22,7 @@ function MenuItem(props: MenuItemProps) {
     spacing = "wide",
     iconBefore,
     iconAfter,
-    isDisabled = false,
+    disabled = false,
     path = "#",
     onClick,
   } = props;
@@ -32,7 +30,7 @@ function MenuItem(props: MenuItemProps) {
   return (
     <StyledMenuItemContainer
       $spacing={spacing}
-      $disabled={isDisabled}
+      $disabled={disabled}
       to={path}
       onClick={onClick}
     >
@@ -43,19 +41,14 @@ function MenuItem(props: MenuItemProps) {
             spacing="narrow"
             size="24px"
             appearance="dark"
-            disabled={isDisabled}
+            disabled={disabled}
           />
         )}
         <Stack direction="column" gap={inube.spacing.s050}>
-          <Text type="label" size="large" disabled={isDisabled}>
+          <Text type="label" size="large" disabled={disabled}>
             {title}
           </Text>
-          <Text
-            type="body"
-            size="small"
-            appearance="gray"
-            disabled={isDisabled}
-          >
+          <Text type="body" size="small" appearance="gray" disabled={disabled}>
             {description}
           </Text>
         </Stack>
@@ -66,7 +59,7 @@ function MenuItem(props: MenuItemProps) {
           spacing="narrow"
           size="24px"
           appearance="dark"
-          disabled={isDisabled}
+          disabled={disabled}
         />
       )}
     </StyledMenuItemContainer>

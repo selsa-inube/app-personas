@@ -1,10 +1,15 @@
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
+import { Select } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { activeDM } from "src/model/domains/general/activedm";
 import { identificationTypeDM } from "src/model/domains/general/updateData/personalInformation/identificationTypeDM";
 import { relationshipDM } from "src/model/domains/general/updateData/personalResidence/relationshipDM";
-import { getFieldState, isRequired } from "src/utils/forms/forms";
+import {
+  formikHandleChange,
+  getFieldState,
+  isInvalid,
+  isRequired,
+} from "src/utils/forms/forms";
 import * as Yup from "yup";
 import { IPersonalDataEntry } from "./types";
 
@@ -28,13 +33,13 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         type="number"
         size="compact"
         value={formik.values.identificationNumber || ""}
-        errorMessage={formik.errors.identificationNumber}
+        message={formik.errors.identificationNumber}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "identificationNumber")}
-        isRequired={isRequired(validationSchema, "identificationNumber")}
-        isFullWidth
-        readOnly
+        required={isRequired(validationSchema, "identificationNumber")}
+        fullwidth
+        readonly
       />
       <Select
         label="Tipo de documento"
@@ -44,13 +49,13 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         size="compact"
         options={identificationTypeDM.options}
         onBlur={formik.handleBlur}
-        errorMessage={formik.errors.type}
-        onChange={formik.handleChange}
+        message={formik.errors.type}
+        onChange={(name, value) => formikHandleChange(name, value, formik)}
         value={formik.values.type || ""}
-        state={getFieldState(formik, "type")}
-        isRequired={isRequired(validationSchema, "type")}
-        readOnly={readonly}
-        isFullWidth
+        invalid={isInvalid(formik, "type")}
+        required={isRequired(validationSchema, "type")}
+        disabled={readonly}
+        fullwidth
       />
       <TextField
         label="Primer nombre"
@@ -60,13 +65,13 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         type="text"
         size="compact"
         value={formik.values.firstName || ""}
-        errorMessage={formik.errors.firstName}
+        message={formik.errors.firstName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "firstName")}
-        isRequired={isRequired(validationSchema, "firstName")}
-        readOnly={readonly}
-        isFullWidth
+        required={isRequired(validationSchema, "firstName")}
+        disabled={readonly}
+        fullwidth
       />
       <TextField
         label="Segundo nombre"
@@ -76,13 +81,13 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         type="text"
         size="compact"
         value={formik.values.secondName || ""}
-        errorMessage={formik.errors.secondName}
+        message={formik.errors.secondName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "secondName")}
-        isRequired={isRequired(validationSchema, "secondName")}
-        readOnly={readonly}
-        isFullWidth
+        required={isRequired(validationSchema, "secondName")}
+        disabled={readonly}
+        fullwidth
       />
       <TextField
         label="Primer apellido"
@@ -92,13 +97,13 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         type="text"
         size="compact"
         value={formik.values.firstLastName || ""}
-        errorMessage={formik.errors.firstLastName}
+        message={formik.errors.firstLastName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "firstLastName")}
-        isRequired={isRequired(validationSchema, "firstLastName")}
-        readOnly={readonly}
-        isFullWidth
+        required={isRequired(validationSchema, "firstLastName")}
+        disabled={readonly}
+        fullwidth
       />
       <TextField
         label="Segundo apellido"
@@ -108,13 +113,13 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
         type="text"
         size="compact"
         value={formik.values.secondLastName || ""}
-        errorMessage={formik.errors.secondLastName}
+        message={formik.errors.secondLastName}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         state={getFieldState(formik, "secondLastName")}
-        isRequired={isRequired(validationSchema, "secondLastName")}
-        readOnly={readonly}
-        isFullWidth
+        required={isRequired(validationSchema, "secondLastName")}
+        disabled={readonly}
+        fullwidth
       />
       {readonly && (
         <>
@@ -126,12 +131,12 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
             size="compact"
             options={relationshipDM.options}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.relationship}
-            onChange={formik.handleChange}
+            message={formik.errors.relationship}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             value={formik.values.relationship || ""}
-            state={getFieldState(formik, "relationship")}
-            isRequired={isRequired(validationSchema, "relationship")}
-            isFullWidth
+            invalid={isInvalid(formik, "relationship")}
+            required={isRequired(validationSchema, "relationship")}
+            fullwidth
           />
           <Select
             label="Depende económicamente"
@@ -141,12 +146,12 @@ function PersonalDataFormUI(props: PersonalDataFormUIProps) {
             size="compact"
             options={activeDM.options}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.isDependent}
-            onChange={formik.handleChange}
+            message={formik.errors.isDependent}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             value={formik.values.isDependent || ""}
-            state={getFieldState(formik, "isDependent")}
-            isRequired={isRequired(validationSchema, "isDependent")}
-            isFullWidth
+            invalid={isInvalid(formik, "isDependent")}
+            required={isRequired(validationSchema, "isDependent")}
+            fullwidth
           />
         </>
       )}

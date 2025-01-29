@@ -1,20 +1,20 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { CreditsContext } from "src/context/credits";
+import { IMovement } from "src/model/entity/product";
 import { crumbsMovements } from "./config/navigation";
 import { CreditMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { addMovementsToCredit, validateCreditsAndMovements } from "./utils";
-import { AppContext } from "src/context/app";
-import { IMovement } from "src/model/entity/product";
 
 function CreditMovements() {
   const { credit_id } = useParams();
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
   const [creditMovementModal, setCreditMovementModal] = useState(false);
   const [selectedMovement, setSelectedMovement] = useState<IMovement>();
   const navigate = useNavigate();
@@ -46,7 +46,8 @@ function CreditMovements() {
     setProductsOptions(
       newCredits.map((credit) => ({
         id: credit.id,
-        value: credit.description,
+        value: credit.id,
+        label: credit.description,
       })),
     );
   };
@@ -55,9 +56,8 @@ function CreditMovements() {
     handleSortProduct();
   }, [credit_id, user, accessToken]);
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: id } = event.target;
-    navigate(`/my-credits/${id}/credit-movements`);
+  const handleChangeProduct = (name: string, value: string) => {
+    navigate(`/my-credits/${value}/credit-movements`);
   };
 
   const handleAddMovements = () => {

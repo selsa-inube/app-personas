@@ -1,7 +1,7 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 
 interface IDisbursementEntry {
-  disbursements: ISelectOption[];
+  disbursements: IOption[];
   disbursement?: string;
   disbursementName?: string;
   accountStatus?: string;

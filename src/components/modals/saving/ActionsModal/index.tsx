@@ -1,12 +1,14 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { useContext } from "react";
 import { createPortal } from "react-dom";
 import {

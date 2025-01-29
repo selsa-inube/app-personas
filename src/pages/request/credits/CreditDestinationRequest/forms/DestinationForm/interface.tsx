@@ -1,22 +1,19 @@
 import { DestinationCard } from "@components/cards/DestinationCard";
-import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Grid, Select, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
-import { getFieldState } from "src/utils/forms/forms";
 import { formatDestinationAttributes } from "./config/format";
 import { loadingProductsData } from "./config/loading";
 import { ICreditDestinationProduct, IDestinationEntry } from "./types";
+import { isInvalid } from "src/utils/forms/forms";
 
 interface DestinationFormUIProps {
   formik: FormikProps<IDestinationEntry>;
   loading?: boolean;
   loadingProducts: boolean;
   onChangeProduct: (value: ICreditDestinationProduct) => void;
-  onChangeDestination: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangeDestination: (name: string, value: string) => void;
 }
 
 function DestinationFormUI(props: DestinationFormUIProps) {
@@ -42,12 +39,12 @@ function DestinationFormUI(props: DestinationFormUIProps) {
             id="creditDestination"
             value={formik.values.destination?.id || ""}
             size="compact"
-            isFullWidth
+            fullwidth
             options={formik.values.destinations}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.destination}
-            isDisabled={loading}
-            state={getFieldState(formik, "creditDestination")}
+            message={formik.errors.destination}
+            disabled={loading}
+            invalid={isInvalid(formik, "creditDestination")}
             onChange={onChangeDestination}
             placeholder="Selecciona el destino del dinero"
           />

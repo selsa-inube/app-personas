@@ -29,7 +29,7 @@ Default.args = {
   iconBefore: <MdAndroid />,
   spacing: "wide",
 
-  isDisabled: false,
+  disabled: false,
 };
 
 export const IconAfter: StoryFn<MenuItemProps> = (args) => (
@@ -40,7 +40,7 @@ IconAfter.args = {
   description: "Description",
   iconAfter: <MdAndroid />,
   spacing: "wide",
-  isDisabled: false,
+  disabled: false,
 };
 
 export const Disabled: StoryFn<MenuItemProps> = (args) => (
@@ -48,7 +48,7 @@ export const Disabled: StoryFn<MenuItemProps> = (args) => (
 );
 Disabled.args = {
   ...Default.args,
-  isDisabled: true,
+  disabled: true,
 };
 
 const theme = {

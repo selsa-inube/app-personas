@@ -1,14 +1,16 @@
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { Textarea } from "@design/input/Textarea";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  Select,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IPersonalAssetEntries } from "@pages/general/UpdateData/forms/PersonalAssetsForm/types";
 import { FormikProps } from "formik";
@@ -19,8 +21,8 @@ import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
 import { StyledModal } from "./styles";
+import { isInvalid, getFieldState, formikHandleChange } from "src/utils/forms/forms";
 
 const assetTypeDM = getDomainById("assetType");
 
@@ -99,14 +101,14 @@ function AssetModal(props: AssetModalProps) {
             name="assetType"
             id="assetType"
             size="compact"
-            isFullWidth
+            fullwidth
             options={assetTypeDM}
             onBlur={formik.handleBlur}
-            errorMessage={formik.errors.assetType}
-            state={getFieldState(formik, "assetType")}
-            onChange={formik.handleChange}
+            message={formik.errors.assetType}
+            invalid={isInvalid(formik, "assetType")}
+            onChange={(name, value) => formikHandleChange(name, value, formik)}
             value={formik.values.assetType || ""}
-            isRequired
+            required
           />
           <TextField
             label="Nombre del activo"
@@ -115,14 +117,14 @@ function AssetModal(props: AssetModalProps) {
             placeholder="Digita el nombre del activo"
             value={formik.values.assetName || ""}
             type="text"
-            errorMessage={formik.errors.assetName}
+            message={formik.errors.assetName}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "assetName")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             validMessage="El nombre del activo es válido"
-            isRequired
+            required
           />
           <TextField
             label="Valor comercial"
@@ -131,14 +133,14 @@ function AssetModal(props: AssetModalProps) {
             placeholder="Digite el valor comercial estimado"
             value={validateCurrencyField("commercialValue", formik)}
             type="text"
-            errorMessage={formik.errors.commercialValue}
+            message={formik.errors.commercialValue}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "commercialValue")}
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
             validMessage="El valor comercial es válido"
-            isRequired
+            required
           />
           <TextField
             label="Saldo de la deuda"
@@ -147,9 +149,9 @@ function AssetModal(props: AssetModalProps) {
             placeholder="Digite el saldo total de la deuda"
             value={validateCurrencyField("debtBalance", formik)}
             type="text"
-            errorMessage={formik.errors.debtBalance}
+            message={formik.errors.debtBalance}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "debtBalance")}
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
@@ -162,9 +164,9 @@ function AssetModal(props: AssetModalProps) {
             placeholder="Digite el nombre de la entidad"
             value={formik.values.financialEntity || ""}
             type="text"
-            errorMessage={formik.errors.financialEntity}
+            message={formik.errors.financialEntity}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "financialEntity")}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -177,9 +179,9 @@ function AssetModal(props: AssetModalProps) {
             placeholder="Digite el valor de la cuota"
             value={validateCurrencyField("quota", formik)}
             type="text"
-            errorMessage={formik.errors.quota}
+            message={formik.errors.quota}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "quota")}
             onBlur={formik.handleBlur}
             onChange={(e) => handleChangeWithCurrency(formik, e)}
@@ -191,8 +193,8 @@ function AssetModal(props: AssetModalProps) {
             id="observations"
             placeholder="Digite las observaciones"
             value={formik.values.observations || ""}
-            errorMessage={formik.errors.observations}
-            isFullWidth
+            message={formik.errors.observations}
+            fullwidth
             maxLength={120}
             withCounter
             state={getFieldState(formik, "observations")}

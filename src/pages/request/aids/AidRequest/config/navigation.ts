@@ -1,4 +1,4 @@
-import { IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
+import { IBreadcrumbsRoute } from "@inubekit/inubekit";
 import { IDomainType } from "@ptypes/domain.types";
 
 const crumbsAidRequest = (aidType: IDomainType): IBreadcrumbsRoute[] => [

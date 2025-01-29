@@ -1,10 +1,8 @@
 import { MdChevronRight } from "react-icons/md";
 
-import { StyledLink, StyledNavLink } from "./styles";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
 import { inube } from "@design/tokens";
+import { Icon, Stack, Text } from "@inubekit/inubekit";
+import { StyledLink, StyledNavLink } from "./styles";
 
 interface NavLinkProps {
   icon: React.JSX.Element;

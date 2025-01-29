@@ -2,11 +2,7 @@ import { UserCard } from "@components/cards/UserCard";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Button, Divider, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "src/context/app";
 import { IConsultingUser } from "src/model/entity/user";
@@ -98,7 +94,7 @@ function SwitchUser() {
             id="searchUser"
             placeholder="Digita el documento de identidad o nombre del cliente"
             type="text"
-            isFullWidth
+            fullwidth
             value={search}
             onChange={handleChangeSearch}
           />

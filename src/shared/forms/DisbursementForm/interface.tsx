@@ -1,21 +1,15 @@
-import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Grid, Select, Stack } from "@inubekit/inubekit";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikProps } from "formik";
-import { generateFormFields, getFieldState } from "src/utils/forms/forms";
+import { generateFormFields, isInvalid } from "src/utils/forms/forms";
 import { IDisbursementEntry } from "./types";
 
 interface DisbursementFormUIProps {
   formik: FormikProps<IDisbursementEntry>;
   loading?: boolean;
-  customHandleChange: (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
+  customHandleChange: (name: string, value: string) => void;
   renderFields: IFormField[];
 }
 
@@ -39,14 +33,14 @@ function DisbursementFormUI(props: DisbursementFormUIProps) {
             label="Forma de desembolso"
             value={formik.values.disbursement || ""}
             size="compact"
-            isDisabled={loading}
+            disabled={formik.values.disbursements.length === 1 || loading}
             options={formik.values.disbursements}
             onChange={customHandleChange}
             onBlur={formik.handleBlur}
-            state={getFieldState(formik, "disbursement")}
-            errorMessage={formik.errors.disbursement}
-            readOnly={formik.values.disbursements.length === 1}
-            isFullWidth
+            invalid={isInvalid(formik, "disbursement")}
+            message={formik.errors.disbursement}
+            fullwidth
+            placeholder="Selecciona una forma de desembolso"
           />
 
           {generateFormFields(

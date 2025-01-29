@@ -23,7 +23,7 @@ const props = {
     description:
       "Corresponds to the text to display in the textfield whenever it is empty",
   },
-  isDisabled: {
+  disabled: {
     description: "Controls if the label should appear disabled",
   },
   type: {
@@ -78,16 +78,16 @@ const props = {
   isRequired: {
     description: "defines if the field is required or not",
   },
-  errorMessage: {
+  message: {
     description: "show when the field is validated and there is an error",
   },
   validMessage: {
     description: "show when the field is validated without errors",
   },
-  isFullWidth: {
+  fullwidth: {
     description: "option to fit field width to its parent width",
   },
-  readOnly: {
+  readonly: {
     description: "option to make the field read only",
   },
   children: {

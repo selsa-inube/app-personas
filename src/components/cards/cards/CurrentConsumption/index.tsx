@@ -1,12 +1,11 @@
-import { CurrentConsumptionBox } from "./CurrentConsumptionBox";
-import { IProduct } from "src/model/entity/product";
-import { StyledContainer } from "./styles";
+import { Divider, Stack } from "@inubekit/inubekit";
 import {
   extractConsumptionAttrs,
   formatCurrentConsumptionAttrs,
 } from "@pages/admin/cards/CreditQuota/config/product";
-import { Divider } from "@inubekit/divider";
-import { Stack } from "@inubekit/stack";
+import { IProduct } from "src/model/entity/product";
+import { CurrentConsumptionBox } from "./CurrentConsumptionBox";
+import { StyledContainer } from "./styles";
 
 interface CurrentConsumptionProps {
   isTablet: boolean;
@@ -37,5 +36,5 @@ function CurrentConsumption(props: CurrentConsumptionProps) {
     </StyledContainer>
   );
 }
-export type { CurrentConsumptionProps };
 export { CurrentConsumption };
+export type { CurrentConsumptionProps };

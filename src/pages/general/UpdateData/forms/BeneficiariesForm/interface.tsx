@@ -1,13 +1,10 @@
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Button, Grid, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdPercent } from "react-icons/md";
 import { IBeneficiariesEntry } from "./types";
-import { Button } from "@inubekit/button";
 
 interface BeneficiariesFormUIProps {
   formik: FormikProps<IBeneficiariesEntry>;
@@ -42,9 +39,9 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
                 type="number"
                 value={beneficiary.percentage || ""}
                 iconAfter={<MdPercent size={18} />}
-                isDisabled={loading}
+                disabled={loading}
                 size="compact"
-                isFullWidth
+                fullwidth
                 onBlur={formik.handleBlur}
                 onChange={customHandleChange}
               />

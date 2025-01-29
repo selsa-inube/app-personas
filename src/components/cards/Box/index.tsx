@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 
-import { Divider } from "@inubekit/divider";
-import { SkeletonLine } from "@inubekit/skeleton";
-
-
-import { Icon } from "@inubekit/icon";
-import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { ITag, Tag } from "@inubekit/tag";
-import { Button, IButtonAppearance, IButtonVariant } from "@inubekit/button";
 import { inube } from "@design/tokens";
+import {
+  Button,
+  Divider,
+  IButtonAppearance,
+  IButtonVariant,
+  Icon,
+  ITag,
+  SkeletonLine,
+  Stack,
+  Tag,
+  Text,
+} from "@inubekit/inubekit";
+import { StyledBox, StyledCollapseIcon, StyledLink } from "./styles";
 
 interface BoxProps {
   icon?: React.JSX.Element;

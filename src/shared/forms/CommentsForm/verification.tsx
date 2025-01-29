@@ -1,5 +1,5 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { Stack } from "@inubekit/stack";
+import { Stack } from "@inubekit/inubekit";
 import { ICommentsEntry } from "./types";
 
 const renderCommentsVerification = (values: ICommentsEntry) => (

@@ -1,4 +1,5 @@
 import { IAction } from "@design/data/Table/types";
+import { useFlag } from "@inubekit/inubekit";
 import { EMessageType } from "@ptypes/messages.types";
 import { FormikProps, useFormik } from "formik";
 import { forwardRef, useImperativeHandle, useState } from "react";
@@ -10,7 +11,6 @@ import { EditReference } from "./EditReference";
 import { deleteReferenceMessages } from "./config/deleteReference.config";
 import { PersonalReferencesFormUI } from "./interface";
 import { IPersonalReferenceEntries } from "./types";
-import { useFlag } from "@inubekit/flag";
 
 const validationSchema = Yup.object({
   referenceType: Yup.string().required(validationMessages.required),

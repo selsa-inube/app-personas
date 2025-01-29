@@ -4,15 +4,17 @@ import { QuickAccess } from "@components/cards/QuickAccess";
 import { ExportModal } from "@components/modals/general/ExportModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Button } from "@inubekit/button";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import {
+  Breadcrumbs,
+  Button,
+  Grid,
+  IOption,
+  Select,
+  Stack,
+} from "@inubekit/inubekit";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -42,7 +44,7 @@ function CreditAmortization() {
 
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
   const { credits, setCredits } = useContext(CreditsContext);
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
@@ -98,7 +100,8 @@ function CreditAmortization() {
     setProductsOptions(
       newCredits.map((credit) => ({
         id: credit.id,
-        value: credit.description,
+        value: credit.id,
+        label: credit.description,
       })),
     );
   };
@@ -107,9 +110,8 @@ function CreditAmortization() {
     handleSortProduct();
   }, [credit_id, user, accessToken]);
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: id } = event.target;
-    navigate(`/my-credits/${id}/credit-amortization`);
+  const handleChangeProduct = (name: string, value: string) => {
+    navigate(`/my-credits/${value}/credit-amortization`);
   };
 
   const handleDownloadDocument = () => {
@@ -127,7 +129,7 @@ function CreditAmortization() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(getAmortizationDocument(selectedProduct)),
-      undefined,
+      [16, 0, 16, 0],
       (pdf) => {
         pdf.save(`plan-de-pagos-${formatSecondaryDate(today, true)}.pdf`);
       },
@@ -149,7 +151,7 @@ function CreditAmortization() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(getAmortizationDocument(selectedProduct)),
-      undefined,
+      [16, 0, 16, 0],
       (pdf) => {
         const pdfBlob = pdf.output("blob");
 
@@ -206,12 +208,13 @@ function CreditAmortization() {
           <Stack direction="column" gap={inube.spacing.s300}>
             <Select
               id="creditProducts"
+              name="creditProducts"
               onChange={handleChangeProduct}
               label="Selección de producto"
               options={productsOptions}
               value={selectedProduct.option.id}
-              isFullWidth
-              readOnly={productsOptions.length === 1}
+              fullwidth
+              disabled={productsOptions.length === 1}
             />
             <Box
               title={selectedProduct.option.title}

@@ -5,10 +5,9 @@ import { QuotaDetailBox } from "@components/cards/cards/QuotaDetailBox";
 import { UsedQuotaModal } from "@components/modals/cards/UsedQuotaModal";
 import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
-import { Select } from "@design/input/Select";
-import { ISelectOption } from "@design/input/Select/types";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
+import { IOption, Select } from "@inubekit/inubekit";
 import {
   MdArrowBack,
   MdOpenInNew,
@@ -26,26 +25,22 @@ import {
 import { ISelectedProductState, IUsedQuotaModalState } from "./types";
 
 import { CurrentConsumption } from "@components/cards/cards/CurrentConsumption";
-import { IProduct } from "src/model/entity/product";
-import { Stack } from "@inubekit/stack";
-import { Grid } from "@inubekit/grid";
-import { Text } from "@inubekit/text";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Button } from "@inubekit/button";
 import { ActionsModal } from "@components/modals/saving/ActionsModal";
+import { Breadcrumbs, Button, Grid, Stack, Text } from "@inubekit/inubekit";
 import { useContext } from "react";
 import { AppContext } from "src/context/app";
+import { IProduct } from "src/model/entity/product";
 
 interface CreditQuotaUIProps {
   cardId?: string;
   creditQuotaId?: string;
-  productsOptions?: ISelectOption[];
+  productsOptions?: IOption[];
   selectedProduct: ISelectedProductState;
   selectedConsumption?: IProduct[];
   usedQuotaModal: IUsedQuotaModalState;
   showActionsModal: boolean;
   handleToggleUsedQuotaModal: () => void;
-  handleChangeProduct: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeProduct: (name: string, value: string) => void;
   onToggleActionsModal: () => void;
   onShareCertificate: () => void;
   onDownloadExtract: () => void;
@@ -120,12 +115,13 @@ function CreditQuotaUI(props: CreditQuotaUIProps) {
           <Stack direction="column" gap={inube.spacing.s300}>
             <Select
               id="quotas"
+              name="quotas"
               onChange={handleChangeProduct}
               label="Selección de producto"
-              options={productsOptions}
+              options={productsOptions || []}
               value={selectedProduct.creditQuotaDetail.id}
-              isFullWidth
-              readOnly={productsOptions && productsOptions.length === 1}
+              fullwidth
+              disabled={productsOptions && productsOptions.length === 1}
             />
 
             <Box

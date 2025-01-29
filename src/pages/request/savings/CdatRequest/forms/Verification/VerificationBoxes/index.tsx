@@ -10,7 +10,7 @@ import { renderContactChannelsVerification } from "@forms/ContactChannelsForm/ve
 import { renderDisbursementVerification } from "@forms/DisbursementForm/verification";
 import { renderSystemValidationsVerification } from "@forms/SystemValidationsForm/verification";
 import { renderTermsAndConditionsVerification } from "@forms/TermsAndConditionsForm/verification";
-import { Grid } from "@inubekit/grid";
+import { Grid } from "@inubekit/inubekit";
 import { accountDebitTypeDM } from "src/model/domains/requests/pqrsTypeDM";
 import { formatPrimaryDate } from "src/utils/dates";
 import { cdatRequestSteps } from "../../../config/assisted";

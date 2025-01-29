@@ -1,9 +1,6 @@
-import { Select } from "@design/input/Select";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Fieldset } from "@inubekit/fieldset";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Fieldset, Grid, Select, Stack } from "@inubekit/inubekit";
 import { IFormField } from "@ptypes/forms.types";
 import { FormikProps } from "formik";
 import { generateFormFields } from "src/utils/forms/forms";
@@ -13,11 +10,7 @@ interface PaymentMethodFormUIProps {
   formik: FormikProps<IPaymentMethodEntry>;
   loading?: boolean;
   renderFields: IFormField[];
-  customHandleChange: (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
+  customHandleChange: (name: string, value: string) => void;
 }
 
 function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
@@ -49,14 +42,14 @@ function PaymentMethodFormUI(props: PaymentMethodFormUIProps) {
               name="paymentMethod"
               id="paymentMethod"
               size="compact"
-              isFullWidth
+              fullwidth
               placeholder="Seleccionar una opción"
               options={formik.values.paymentMethods || []}
               onBlur={formik.handleBlur}
               onChange={customHandleChange}
               value={formik.values.paymentMethod || ""}
-              readOnly={formik.values.paymentMethods.length === 1}
-              isRequired
+              disabled={formik.values.paymentMethods.length === 1}
+              required
             />
 
             {generateFormFields(

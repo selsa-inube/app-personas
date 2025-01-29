@@ -1,7 +1,7 @@
-import { ISelectOption } from "@design/input/Select/types";
+import { IOption } from "@inubekit/inubekit";
 import { IDestinationEntry } from "../forms/DestinationForm/types";
 
-const mapDestination = (destinations: ISelectOption[]): IDestinationEntry => {
+const mapDestination = (destinations: IOption[]): IDestinationEntry => {
   return {
     destinations,
     products: [],

@@ -1,8 +1,8 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { IEntry } from "@design/data/Table/types";
+import { Icon } from "@inubekit/inubekit";
 import { MdDeleteOutline } from "react-icons/md";
 import { deleteFamilyMemberModal } from "../config/deleteMember";
-import { Icon } from "@inubekit/icon";
 
 interface DeleteFamilyMemberUIProps {
   member: IEntry;

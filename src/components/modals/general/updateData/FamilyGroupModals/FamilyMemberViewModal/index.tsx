@@ -1,15 +1,17 @@
-import { Select } from "@design/input/Select";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Fieldset } from "@inubekit/fieldset";
-import { Grid } from "@inubekit/grid";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Fieldset,
+  Grid,
+  Icon,
+  Select,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { getDomainById } from "@mocks/domains/domainService.mocks";
 import { IFamilyGroupEntries } from "@pages/general/UpdateData/forms/FamilyGroupForm/types";
 import { FormikProps } from "formik";
@@ -85,9 +87,10 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 id="type"
                 options={identificationTypeDM.options}
                 size="compact"
-                isFullWidth
+                fullwidth
                 value={formik.values.type?.id || ""}
-                readOnly
+                onChange={() => true}
+                readonly
               />
               <TextField
                 label="Identificación"
@@ -97,8 +100,8 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 value={formik.values.identificationNumber}
                 type="number"
                 size="compact"
-                isFullWidth
-                readOnly
+                fullwidth
+                readonly
               />
               <TextField
                 label="Primer nombre"
@@ -108,8 +111,8 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 value={formik.values.firstName}
                 type="text"
                 size="compact"
-                isFullWidth
-                readOnly
+                fullwidth
+                readonly
               />
               <TextField
                 label="Segundo nombre"
@@ -119,8 +122,8 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 value={formik.values.secondName || ""}
                 type="text"
                 size="compact"
-                isFullWidth
-                readOnly
+                fullwidth
+                readonly
               />
               <TextField
                 label="Primer apellido"
@@ -130,8 +133,8 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 value={formik.values.firstLastName}
                 type="text"
                 size="compact"
-                isFullWidth
-                readOnly
+                fullwidth
+                readonly
               />
               <TextField
                 label="Segundo apellido"
@@ -141,8 +144,8 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 value={formik.values.secondLastName || ""}
                 type="text"
                 size="compact"
-                isFullWidth
-                readOnly
+                fullwidth
+                readonly
               />
             </Grid>
           </Fieldset>
@@ -165,8 +168,8 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 value={formik.values.cellPhone}
                 type="text"
                 size="compact"
-                isFullWidth
-                readOnly
+                fullwidth
+                readonly
               />
               <TextField
                 label="Correo eléctronico"
@@ -176,8 +179,8 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 value={formik.values.email}
                 type="text"
                 size="compact"
-                isFullWidth
-                readOnly
+                fullwidth
+                readonly
               />
             </Grid>
           </Fieldset>
@@ -199,9 +202,10 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 id="relationship"
                 size="compact"
                 options={relationshipDM.options}
-                isFullWidth
-                value={formik.values.relationship}
-                readOnly
+                fullwidth
+                value={formik.values.relationship || ""}
+                onChange={() => true}
+                readonly
               />
               <Select
                 label="Depende económicamente"
@@ -210,9 +214,10 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 id="isDependent"
                 size="compact"
                 options={activeDM.options}
-                isFullWidth
-                value={formik.values.isDependent}
-                readOnly
+                fullwidth
+                value={formik.values.isDependent || ""}
+                onChange={() => true}
+                readonly
               />
               <Select
                 label="Nivel de escolaridad"
@@ -221,9 +226,10 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 id="educationLevel"
                 options={educationLevelTypeDM.options}
                 size="compact"
-                isFullWidth
-                value={formik.values.educationLevel}
-                readOnly
+                fullwidth
+                value={formik.values.educationLevel || ""}
+                onChange={() => true}
+                readonly
               />
               <Select
                 label="Profesión"
@@ -232,9 +238,10 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 id="profession"
                 size="compact"
                 options={getDomainById("profession")}
-                isFullWidth
+                onChange={() => true}
+                fullwidth
                 value={formik.values.profession || ""}
-                readOnly
+                readonly
               />
               <Select
                 label="Genero"
@@ -243,9 +250,10 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 id="gender"
                 size="compact"
                 options={genderDM.options}
-                isFullWidth
-                value={formik.values.gender}
-                readOnly
+                fullwidth
+                value={formik.values.gender || ""}
+                onChange={() => true}
+                disabled
               />
               <TextField
                 label="Fecha de nacimiento"
@@ -255,8 +263,8 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 value={formik.values.birthDate}
                 type="text"
                 size="compact"
-                isFullWidth
-                readOnly
+                fullwidth
+                readonly
               />
               <Select
                 label="Actividad económica"
@@ -265,9 +273,10 @@ function FamilyMemberViewModal(props: FamilyMemberViewModalProps) {
                 id="businessActivity"
                 options={getDomainById("economicSector")}
                 size="compact"
-                isFullWidth
+                fullwidth
                 value={formik.values.businessActivity || ""}
-                readOnly
+                onChange={() => true}
+                readonly
               />
             </Grid>
           </Fieldset>

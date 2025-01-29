@@ -4,19 +4,21 @@ import { DateField } from "@design/input/DateField";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Button } from "@inubekit/button";
-import { Divider } from "@inubekit/divider";
-import { Fieldset } from "@inubekit/fieldset";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import {
+  Button,
+  Divider,
+  Fieldset,
+  Grid,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineTag } from "react-icons/md";
 import { currencyFormat } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
 import { currentIntRateTableTitles, mapRateTermsEntries } from "./config/table";
 import { StyledInputRadio } from "./styles";
 import { IDeadlineEntry } from "./types";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface DeadlineFormUIProps {
   formik: FormikProps<IDeadlineEntry>;
@@ -82,12 +84,12 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
                     name="deadlineDate"
                     id="deadlineDate"
                     value={formik.values.deadlineDate || ""}
-                    errorMessage={formik.errors.deadlineDate}
+                    message={formik.errors.deadlineDate}
                     state={getFieldState(formik, "deadlineDate")}
                     onBlur={formik.handleBlur}
                     onChange={customHandleChange}
-                    isFullWidth
-                    isDisabled
+                    fullwidth
+                    disabled
                   />
                 </Stack>
 
@@ -111,10 +113,10 @@ function DeadlineFormUI(props: DeadlineFormUIProps) {
                     id="deadlineDays"
                     value={formik.values.deadlineDays || ""}
                     type="number"
-                    errorMessage={formik.errors.deadlineDays}
-                    isDisabled={loading}
+                    message={formik.errors.deadlineDays}
+                    disabled={loading}
                     size="compact"
-                    isFullWidth
+                    fullwidth
                     state={getFieldState(formik, "deadlineDays")}
                     onBlur={formik.handleBlur}
                     onChange={customHandleChange}

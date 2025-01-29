@@ -1,9 +1,16 @@
 import { StyledInputRadio } from "@design/input/RadioCard/styles";
 import { TextField } from "@design/input/TextField";
 import { InputState } from "@design/input/TextField/types";
+import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Blanket } from "@inubekit/blanket";
-import { Divider } from "@inubekit/divider";
+import {
+  Blanket,
+  Button,
+  Divider,
+  Icon,
+  Stack,
+  Text,
+} from "@inubekit/inubekit";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -21,11 +28,6 @@ import {
   StyledModal,
 } from "./styles";
 import { IApplyPayOption, getOptions } from "./utils";
-import { Icon } from "@inubekit/icon";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
-import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
 
 interface CustomValueModalProps {
   portalId: string;
@@ -59,10 +61,10 @@ function CustomValueModal(props: CustomValueModalProps) {
   const [showResponse, setShowResponse] = useState(false);
   const [inputValidation, setInputValidation] = useState<{
     state: InputState;
-    errorMessage: string;
+    message: string;
   }>({
     state: "pending",
-    errorMessage: "",
+    message: "",
   });
   const [selectedOption, setSelectedOption] = useState<IApplyPayOption>();
   const [customValue, setCustomValue] = useState(value);
@@ -78,13 +80,13 @@ function CustomValueModal(props: CustomValueModalProps) {
     if (totalPaymentValue !== 0 && customValue > totalPaymentValue) {
       setInputValidation({
         state: "invalid",
-        errorMessage: "(Valor superior al saldo total)",
+        message: "(Valor superior al saldo total)",
       });
 
       return;
     }
 
-    setInputValidation({ state: "pending", errorMessage: "" });
+    setInputValidation({ state: "pending", message: "" });
 
     const daysUntilNextExpiration = Math.ceil(
       ((nextPaymentDate?.getTime() ?? 0) - today.getTime()) /
@@ -169,11 +171,10 @@ function CustomValueModal(props: CustomValueModalProps) {
             placeholder=""
             value={customValue ? currencyFormat(customValue, false) : ""}
             onChange={handleChangeCustomValue}
-            isFullWidth
+            fullwidth
             state={inputValidation.state}
-            errorMessage={
-              (inputValidation.errorMessage !== "" &&
-                inputValidation.errorMessage) ||
+            message={
+              (inputValidation.message !== "" && inputValidation.message) ||
               undefined
             }
           />

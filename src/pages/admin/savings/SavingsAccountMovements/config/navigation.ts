@@ -1,7 +1,7 @@
-import { IBreadcrumbsRoute } from "@inubekit/breadcrumbs";
+import { IBreadcrumbsRoute } from "@inubekit/inubekit";
 
 const crumbsSavingsAccountMovements = (
-  productId?: string
+  productId?: string,
 ): IBreadcrumbsRoute[] => [
   {
     id: "home",

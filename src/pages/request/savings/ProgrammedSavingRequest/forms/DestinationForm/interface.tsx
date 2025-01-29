@@ -1,9 +1,7 @@
 import { DestinationCard } from "@components/cards/DestinationCard";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { formatDestinationAttributes } from "./config/format";
 import { loadingProductsData } from "./config/loading";

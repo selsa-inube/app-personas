@@ -1,21 +1,17 @@
+import { QuickAccess } from "@components/cards/QuickAccess";
+import { RecordCard } from "@components/cards/RecordCard";
+import { quickLinks } from "@config/quickLinks";
 import { Title } from "@design/data/Title";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Breadcrumbs } from "@inubekit/breadcrumbs";
-import { Button } from "@inubekit/button";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
+import { Breadcrumbs, Button, Divider, Grid, Stack } from "@inubekit/inubekit";
 import { MdAdd, MdArrowBack } from "react-icons/md";
-import { crumbsMyPQRS } from "./config/navigation";
 import { IPQRS } from "src/model/entity/pqrs";
-import { generateAttributes } from "./config/attributeRecord";
-import { Divider } from "@inubekit/divider";
-import { StyledContainer } from "./styles";
-import { RecordCard } from "@components/cards/RecordCard";
 import { EMovementType } from "src/model/entity/product";
-import { QuickAccess } from "@components/cards/QuickAccess";
-import { quickLinks } from "@config/quickLinks";
+import { generateAttributes } from "./config/attributeRecord";
+import { crumbsMyPQRS } from "./config/navigation";
 import { EmptyRecords } from "./EmptyRecords";
+import { StyledContainer } from "./styles";
 
 interface MyPQRSUIProps {
   pqrsRequests?: IPQRS[];

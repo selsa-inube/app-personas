@@ -2,8 +2,7 @@ import { ReferenceModal } from "@components/modals/general/updateData/ReferenceM
 import { Table } from "@design/data/Table";
 import { IAction } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
-import { Button } from "@inubekit/button";
-import { Stack } from "@inubekit/stack";
+import { Button, Stack } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlinePersonAddAlt } from "react-icons/md";
 import { mapPersonalReferences } from "../../config/mappers";

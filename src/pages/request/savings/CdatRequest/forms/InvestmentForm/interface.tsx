@@ -2,9 +2,7 @@ import { OutlineCard } from "@components/cards/OutlineCard";
 import { TextField } from "@design/input/TextField";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
-import { Grid } from "@inubekit/grid";
-import { Stack } from "@inubekit/stack";
-import { Text } from "@inubekit/text";
+import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { FormikProps } from "formik";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import {
@@ -12,8 +10,8 @@ import {
   handleChangeWithCurrency,
   validateCurrencyField,
 } from "src/utils/currency";
-import { getFieldState } from "src/utils/forms/forms";
 import { IInvestmentEntry } from "./types";
+import { getFieldState } from "src/utils/forms/forms";
 
 interface InvestmentFormUIProps {
   formik: FormikProps<IInvestmentEntry>;
@@ -79,17 +77,17 @@ function InvestmentFormUI(props: InvestmentFormUIProps) {
             id="investmentValue"
             value={validateCurrencyField("investmentValue", formik) || ""}
             type="text"
-            errorMessage={formik.errors.investmentValue}
-            isDisabled={loading}
+            message={formik.errors.investmentValue}
+            disabled={loading}
             size="compact"
-            isFullWidth
+            fullwidth
             state={getFieldState(formik, "investmentValue")}
             onBlur={formik.handleBlur}
             onChange={(e) => {
               handleChangeWithCurrency(formik, e);
             }}
             iconAfter={<MdOutlineAttachMoney />}
-            isRequired
+            required
           />
         </Grid>
       </Stack>

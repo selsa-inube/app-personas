@@ -1,20 +1,20 @@
-import { ISelectOption } from "@design/input/Select/types";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
+import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { CardMovementsUI } from "./interface";
 import { ISelectedProductState } from "./types";
 import { addMovementsToCard, validateCreditQuotas } from "./utils";
-import { AppContext } from "src/context/app";
 
 function CardMovements() {
   const { card_id, credit_quota_id } = useParams();
   const { creditQuotas, setCreditQuotas } = useContext(CardsContext);
   const [selectedProduct, setSelectedProduct] =
     useState<ISelectedProductState>();
-  const [productsOptions, setProductsOptions] = useState<ISelectOption[]>([]);
+  const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { accessToken } = useAuth();
@@ -49,14 +49,14 @@ function CardMovements() {
     setProductsOptions(
       newCreditQuotas.map((creditQuota) => ({
         id: creditQuota.id,
-        value: creditQuota.title,
+        value: creditQuota.id,
+        label: creditQuota.title,
       })),
     );
   };
 
-  const handleChangeProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value: id } = event.target;
-    navigate(`/my-cards/${card_id}/movements/${id}`);
+  const handleChangeProduct = (name: string, value: string) => {
+    navigate(`/my-cards/${card_id}/movements/${value}`);
   };
 
   if (!selectedProduct || !selectedProduct.movements) return null;

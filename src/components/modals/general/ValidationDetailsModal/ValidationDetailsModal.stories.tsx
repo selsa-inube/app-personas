@@ -1,10 +1,10 @@
+import { Button } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { ValidationDetailsModal, ValidationDetailsModalProps } from ".";
 import { props } from "./props";
-import { Button } from "@inubekit/button";
 
 const story = {
   title: "components/modals/general/ValidationDetailsModal",
