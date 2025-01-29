@@ -1,4 +1,13 @@
 {
+  "images": {
+    "icons": {
+      "16": "https://i.ibb.co/1Y0b7Yh2/fondecom-16x16.jpg",
+      "64": "https://i.ibb.co/mCm9ZD93/fondecom-64x64.jpg",
+      "192": "https://i.ibb.co/0p50pNwB/fondecom-192x192.jpg",
+      "512": "https://i.ibb.co/ZRFv2Nzy/fondecom-512x512.jpg"
+    },
+    "logo": "https://i.ibb.co/9Hqphmnj/images.png"
+  },
   "color": {
     "palette": {
       "neutral": {
