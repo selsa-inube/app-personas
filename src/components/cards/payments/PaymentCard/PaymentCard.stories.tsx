@@ -2,9 +2,9 @@ import { StoryFn } from "@storybook/react";
 import { PaymentCard, PaymentCardProps } from ".";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { ThemeProvider } from "styled-components";
+import { themes } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/PaymentCard",
@@ -51,7 +51,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes["fondecom"],
 };
 
 export const Themed: StoryFn<PaymentCardProps> = (args) => (

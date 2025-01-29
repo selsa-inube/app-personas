@@ -1,10 +1,10 @@
 import { ThemeProvider } from "styled-components";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
 import { StoryFn } from "@storybook/react";
 import { Textarea, TextareaProps } from "..";
 import { parameters, props } from "../props";
 import { TextareaController } from "./TextareaController";
+import { themes } from "@mocks/design/themes";
 
 const story = {
   title: "design/input/Textarea",
@@ -33,7 +33,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes["fondecom"],
 };
 
 const Themed: StoryFn<TextareaProps> = (args) => (

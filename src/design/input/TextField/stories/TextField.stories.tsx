@@ -5,10 +5,10 @@ import {
 import { TextField, TextFieldProps } from "..";
 import { parameters, props } from "../props";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
 import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import { AutocompleteController } from "./AutocompleteController";
+import { themes } from "@mocks/design/themes";
 
 const story = {
   title: "design/input/TextField",
@@ -39,7 +39,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes["fondecom"],
 };
 
 export const Themed: StoryFn<TextFieldProps> = (args) => (
