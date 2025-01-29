@@ -1,9 +1,10 @@
+import { enviroment } from "@config/enviroment";
+import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
 import { MdHouse } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
-import { NavLink, NavLinkProps } from ".";
-import { StoryFn } from "@storybook/react";
-import { themes } from "@mocks/design/themes";
 import { ThemeProvider } from "styled-components";
+import { NavLink, NavLinkProps } from ".";
 import { props } from "./props";
 
 const story = {
@@ -29,7 +30,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<NavLinkProps> = (args) => (

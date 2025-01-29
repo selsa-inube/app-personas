@@ -13,6 +13,7 @@ import { Helmet } from "react-helmet-async";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { saveTrafficTracking } from "src/services/analytics/saveTrafficTracking";
 import { getDomains } from "src/services/iclient/domains/getDomains";
+import { useTheme } from "styled-components";
 import { IAppContext, IServiceDomains } from "./types";
 import { getAppFeatureFlags, initialServiceDomains } from "./utils";
 
@@ -25,6 +26,7 @@ interface AppProviderProps {
 function AppProvider(props: AppProviderProps) {
   const { children } = props;
 
+  const theme = useTheme();
   const [featureFlags, setFeatureFlags] = useState<IFeatureFlag[]>([]);
   const [serviceDomains, setServiceDomains] = useState<IServiceDomains>(
     initialServiceDomains,
@@ -143,8 +145,8 @@ function AppProvider(props: AppProviderProps) {
   return (
     <AppContext.Provider value={appContext}>
       <Helmet>
-        <title>{enviroment.CLIENT} - Personas</title>
-        <link rel="icon" type="image/png" href="/fondecom-64x64.png" />
+        <title>{enviroment.CLIENT_NAME} - Personas</title>
+        <link rel="icon" type="image/png" href={theme?.images.icons["64"]} />
       </Helmet>
       {children}
     </AppContext.Provider>

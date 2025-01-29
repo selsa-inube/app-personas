@@ -1,6 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { parameters, props } from "./props";
 
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { action } from "@storybook/addon-actions";
 import { StoryFn } from "@storybook/react";
@@ -25,7 +26,7 @@ export const WhitTag: StoryFn<CommitmentCardProps> = (args) => (
 );
 
 export const Themed: StoryFn<CommitmentCardProps> = (args) => (
-  <ThemeProvider theme={themes["fondecom"]}>
+  <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
     <CommitmentCard {...args} />
   </ThemeProvider>
 );

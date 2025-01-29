@@ -1,9 +1,9 @@
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { logoUrl } from "@config/header";
 import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
 import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
+import { useTheme } from "styled-components";
 
 interface AmortizationDocumentProps {
   productName: string;
@@ -30,6 +30,8 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
     tableElement,
   } = props;
 
+  const theme = useTheme();
+
   return (
     <Stack
       padding={`0 ${inube.spacing.s800}`}
@@ -38,7 +40,7 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
       direction="column"
     >
       <Stack justifyContent="flex-start" width="100%">
-        <StyledLogo src={logoUrl} />
+        <StyledLogo src={theme.images.logo} />
       </Stack>
 
       <Stack

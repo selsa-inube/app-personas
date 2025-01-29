@@ -1,8 +1,9 @@
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import { User, UserProps } from ".";
 import { props } from "./props";
-import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/data/User",
@@ -16,11 +17,11 @@ const story = {
 export const Default: StoryFn<UserProps> = (args) => <User {...args} />;
 Default.args = {
   username: "Leonardo Garzón",
-  businessUnit: "Fondecom",
+  businessUnit: enviroment.CLIENT_NAME,
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<UserProps> = (args) => (

@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
+import { useTheme } from "styled-components";
 import { Header } from "../../navigation/Header";
 import { StyledMain, StyledPage } from "./styles";
 
@@ -23,6 +24,7 @@ function Page(props: PageProps) {
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
+  const theme = useTheme();
 
   const isTablet = useMediaQuery("(min-width: 900px)");
 
@@ -78,6 +80,7 @@ function Page(props: PageProps) {
     getFlag("general.links.update-data.update-data-without-assisted").value,
     getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
+    theme.images.logo,
   );
 
   const username = capitalizeEachWord(

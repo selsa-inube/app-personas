@@ -1,10 +1,11 @@
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
+import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import { Pagination } from ".";
 import { TableProps } from "..";
 import { parameters, props } from "../props";
 import { PaginationController } from "./PaginationController";
-import { StoryFn } from "@storybook/react";
 
 const story = {
   title: "design/data/Table/Pagination",
@@ -45,7 +46,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<TableProps> = (args) => (

@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { Button } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
@@ -43,7 +44,7 @@ const Template: StoryFn<AttributesModalProps & { theme?: boolean }> = (
       <Button onClick={handleModal}>Show AttributesModal</Button>
       {showModal &&
         (args.theme ? (
-          <ThemeProvider theme={themes["fondecom"]}>
+          <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
             <AttributesModal {...args} onCloseModal={handleModal} />
           </ThemeProvider>
         ) : (

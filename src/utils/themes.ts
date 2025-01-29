@@ -11,6 +11,10 @@ interface IColor {
 
 interface IThemeData {
   color: IColor;
+  images: {
+    icons: Record<string, string>;
+    logo: string;
+  };
   [key: string]: any;
 }
 
@@ -51,3 +55,4 @@ const resolveThemeColors = (jsonData: IThemeData): IThemeData => {
 };
 
 export { resolveThemeColors };
+export type { IThemeData };

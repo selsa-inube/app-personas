@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import {
@@ -29,7 +30,7 @@ const defaultArgs = {
   header: {
     logoURL: "http://www.sistemasenlinea.com.co/images/logos/selsalogo2.png",
     username: "Leonardo Garzón",
-    client: "Fondecom",
+    client: enviroment.CLIENT_NAME,
     portalId: "portal",
     logoutPath: "logoutPath",
     logoutTitle: "logoutTitle",
@@ -110,7 +111,7 @@ const themedArgs = {
   },
 };
 
-const theme = { ...themes["fondecom"] };
+const theme = { ...themes[enviroment.BUSINESS_UNIT] };
 
 export const Themed: StoryFn = (args) => (
   <ThemeProvider theme={theme}>

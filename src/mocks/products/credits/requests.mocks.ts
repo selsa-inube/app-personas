@@ -33,7 +33,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "up_to_date_obligations",
-        label: "Estar al día con sus obligaciones Fondecom",
+        label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
       },
@@ -46,7 +46,7 @@ const requestsMock: IRequest[] = [
       {
         id: "have_savings_in_sight",
         label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina fondecom)",
+          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -99,7 +99,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "up_to_date_obligations",
-        label: "Estar al día con sus obligaciones Fondecom",
+        label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
       },
@@ -112,7 +112,7 @@ const requestsMock: IRequest[] = [
       {
         id: "have_savings_in_sight",
         label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina fondecom)",
+          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -164,7 +164,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "up_to_date_obligations",
-        label: "Estar al día con sus obligaciones Fondecom",
+        label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
       },
@@ -177,7 +177,7 @@ const requestsMock: IRequest[] = [
       {
         id: "have_savings_in_sight",
         label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina fondecom)",
+          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -229,7 +229,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "up_to_date_obligations",
-        label: "Estar al día con sus obligaciones Fondecom",
+        label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
       },
@@ -242,7 +242,7 @@ const requestsMock: IRequest[] = [
       {
         id: "have_savings_in_sight",
         label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina fondecom)",
+          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -294,7 +294,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "up_to_date_obligations",
-        label: "Estar al día con sus obligaciones Fondecom",
+        label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
       },
@@ -307,7 +307,7 @@ const requestsMock: IRequest[] = [
       {
         id: "have_savings_in_sight",
         label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina fondecom)",
+          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {
@@ -359,7 +359,7 @@ const requestsMock: IRequest[] = [
       },
       {
         id: "up_to_date_obligations",
-        label: "Estar al día con sus obligaciones Fondecom",
+        label: "Estar al día con sus obligaciones",
         value: "pending",
         required: true,
       },
@@ -372,7 +372,7 @@ const requestsMock: IRequest[] = [
       {
         id: "have_savings_in_sight",
         label:
-          "Poseer ahorro a la vista (Si no posee acérquese a la oficina fondecom)",
+          "Poseer ahorro a la vista (Si no posee acérquese a la oficina)",
         value: "pending",
       },
       {

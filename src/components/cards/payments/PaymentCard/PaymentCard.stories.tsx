@@ -2,9 +2,10 @@ import { StoryFn } from "@storybook/react";
 import { PaymentCard, PaymentCardProps } from ".";
 import { props } from "./props";
 
+import { enviroment } from "@config/enviroment";
+import { themes } from "@mocks/design/themes";
 import { EPaymentOptionType } from "@pages/admin/payments/Pay/types";
 import { ThemeProvider } from "styled-components";
-import { themes } from "@mocks/design/themes";
 
 const story = {
   title: "components/cards/PaymentCard",
@@ -41,7 +42,7 @@ Default.args = {
   ],
   tags: [
     {
-      label: "Fondecom mensual",
+      label: "Mensual",
       appearance: "primary",
     },
   ],
@@ -51,7 +52,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<PaymentCardProps> = (args) => (

@@ -1,4 +1,4 @@
-function getClientSubdomain() {
+function getBusinessUnitSubdomain() {
   const hostname = window.location.hostname;
   const parts = hostname.split(".");
 
@@ -6,11 +6,7 @@ function getClientSubdomain() {
     return parts[0];
   }
 
-  if (!import.meta.env.PROD) {
-    return "Fondecom";
-  }
-
-  return;
+  return "fondecom";
 }
 
-export { getClientSubdomain };
+export { getBusinessUnitSubdomain };
