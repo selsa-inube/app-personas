@@ -1,9 +1,9 @@
 import { enviroment } from "@config/enviroment";
-import { IRequestPqrs, IRequestPqrsResponse } from "./types";
 import {
   mapRequestPqrsApiToEntity,
   mapRequestPqrsEntityToApi,
 } from "./mappers";
+import { IRequestPqrs, IRequestPqrsResponse } from "./types";
 
 const createPqrsRequest = async (
   pqrsRequest: IRequestPqrs,
@@ -13,7 +13,7 @@ const createPqrsRequest = async (
     const options: RequestInit = {
       method: "POST",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "AddPQRSRequest",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

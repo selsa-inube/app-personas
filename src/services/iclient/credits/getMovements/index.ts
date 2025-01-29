@@ -16,7 +16,7 @@ const getMovementsForCredit = async (
     const options = {
       method: "GET",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchLastMovementsByObligationNumber",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

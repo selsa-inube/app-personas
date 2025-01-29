@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
+import { IOption } from "@inubekit/inubekit";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapPaymentMethodsApiToEntities } from "./mappers";
-import { IOption } from "@inubekit/inubekit";
 
 const getCdatPaymentMethods = async (
   accessToken: string,
@@ -15,7 +15,7 @@ const getCdatPaymentMethods = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchAllowedCollectMethod",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

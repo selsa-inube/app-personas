@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
+import { IOption } from "@inubekit/inubekit";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapDisbursementsApiToEntities } from "./mappers";
-import { IOption } from "@inubekit/inubekit";
 
 const getDisbursementsForProduct = async (
   requestType: string,
@@ -23,7 +23,7 @@ const getDisbursementsForProduct = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchAllowableMethodOfDisbursement",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

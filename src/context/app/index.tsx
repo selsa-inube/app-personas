@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
 import { IUser } from "@inube/auth/dist/types/user";
 import { superUsers } from "@pages/admin/switchUser/config/users";
@@ -8,6 +9,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { Helmet } from "react-helmet-async";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { saveTrafficTracking } from "src/services/analytics/saveTrafficTracking";
 import { getDomains } from "src/services/iclient/domains/getDomains";
@@ -139,7 +141,13 @@ function AppProvider(props: AppProviderProps) {
   );
 
   return (
-    <AppContext.Provider value={appContext}>{children}</AppContext.Provider>
+    <AppContext.Provider value={appContext}>
+      <Helmet>
+        <title>{enviroment.CLIENT} - Personas</title>
+        <link rel="icon" type="image/png" href="/fondecom-64x64.png" />
+      </Helmet>
+      {children}
+    </AppContext.Provider>
   );
 }
 
