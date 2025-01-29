@@ -2,8 +2,8 @@ import { StoryFn } from "@storybook/react";
 import { RadioCard, RadioCardProps } from ".";
 import { props } from "./props";
 
-import { fondecom } from "@mocks/design/themes/fondecom";
 import { ThemeProvider } from "styled-components";
+import { themes } from "@mocks/design/themes";
 
 const story = {
   title: "design/input/RadioCard",
@@ -26,7 +26,7 @@ Default.args = {
 };
 
 const theme = {
-  ...fondecom,
+  ...themes["fondecom"],
 };
 
 export const Themed: StoryFn<RadioCardProps> = (args) => (
