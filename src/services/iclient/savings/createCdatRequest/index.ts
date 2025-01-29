@@ -3,10 +3,7 @@ import {
   mapRequestCdatApiToEntity,
   mapRequestCdatEntityToApi,
 } from "./mappers";
-import {
-  IRequestCdatRequest,
-  IRequestCdatResponse,
-} from "./types";
+import { IRequestCdatRequest, IRequestCdatResponse } from "./types";
 
 const createCdatRequest = async (
   cdatRequest: IRequestCdatRequest,
@@ -16,15 +13,13 @@ const createCdatRequest = async (
     const options: RequestInit = {
       method: "POST",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "ProcessCDATRequest",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,
         "Content-type": "application/json; charset=UTF-8",
       },
-      body: JSON.stringify(
-        mapRequestCdatEntityToApi(cdatRequest),
-      ),
+      body: JSON.stringify(mapRequestCdatEntityToApi(cdatRequest)),
     };
 
     const res = await fetch(

@@ -1,9 +1,10 @@
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
+import { MdLogout } from "react-icons/md";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { Menu, MenuProps } from ".";
-import { MdLogout } from "react-icons/md";
 import { props } from "./props";
 
 const story = {
@@ -42,7 +43,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<MenuProps> = (args) => (

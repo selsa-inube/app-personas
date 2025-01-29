@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { MdAndroid } from "react-icons/md";
@@ -26,7 +27,7 @@ export const Default: StoryFn<HeaderProps> = (args) => <Header {...args} />;
 Default.args = {
   logoURL: "http://www.sistemasenlinea.com.co/images/selsalogo-small-grey.png",
   username: "Leonardo Garzón",
-  businessUnit: "Fondecom",
+  businessUnit: enviroment.CLIENT_NAME,
   links: [
     {
       label: "Actualizar datos",
@@ -37,7 +38,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<HeaderProps> = (args) => (
@@ -46,8 +47,7 @@ export const Themed: StoryFn<HeaderProps> = (args) => (
   </ThemeProvider>
 );
 Themed.args = {
-  logoURL:
-    "https://fondecom.coop/wp-content/uploads/2022/07/LOGO-GRANDE-1024x305.png",
+  logoURL: theme.images.logo,
   username: "Leonardo Garzón",
   links: [
     {

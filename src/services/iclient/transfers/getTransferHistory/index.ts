@@ -25,7 +25,7 @@ const getTransferHistory = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchAllTransfer",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

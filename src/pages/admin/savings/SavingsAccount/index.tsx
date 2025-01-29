@@ -34,6 +34,7 @@ import {
   getSavingsAccountDocument,
 } from "./utilRenders";
 import { validateSaving } from "./utils";
+import { enviroment } from "@config/enviroment";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -422,7 +423,7 @@ function SavingsAccount() {
       title: `Extracto-${selectedProduct.saving.id}`,
       subject: "Informe",
       author: `${user.firstName} ${user.firstLastName}`,
-      creator: "Fondecom",
+      creator: enviroment.CLIENT_NAME,
       keywords: "PDF/A",
     });
 

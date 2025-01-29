@@ -1,9 +1,10 @@
+import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
 import { QuickAccess, QuickAccessProps } from ".";
-import { StoryFn } from "@storybook/react";
 
 import { themes } from "@mocks/design/themes";
 
+import { enviroment } from "@config/enviroment";
 import {
   MdAttachMoney,
   MdCurrencyExchange,
@@ -59,7 +60,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<QuickAccessProps> = (args) => (

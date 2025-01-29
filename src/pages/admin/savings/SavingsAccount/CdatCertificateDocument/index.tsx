@@ -1,12 +1,13 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
 import { OutlineCard } from "@components/cards/OutlineCard";
-import { logoUrl } from "@config/header";
+import { enviroment } from "@config/enviroment";
 import { inube } from "@design/tokens";
 import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM";
 import { currencyFormat } from "src/utils/currency";
 import { formatLetterDate, formatPrimaryDate } from "src/utils/dates";
 import { StyledLogo } from "./styles";
+import { useTheme } from "styled-components";
 
 const today = new Date();
 
@@ -38,6 +39,8 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
     deadline,
     actionExpiration,
   } = props;
+
+  const theme = useTheme();
 
   return (
     <Stack
@@ -80,7 +83,7 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
           </Stack>
         </Stack>
 
-        <StyledLogo src={logoUrl} />
+        <StyledLogo src={theme.images.logo} />
       </Stack>
 
       <Text type="body" size="small">
@@ -99,7 +102,7 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
 
       <Stack direction="column" gap={inube.spacing.s300}>
         <Text type="body" size="small">
-          Fondecom S.A informa que a la fecha de expedición de está
+          {enviroment.CLIENT_NAME} informa que a la fecha de expedición de está
           certificación, el producto {productName} con el No {productNumber}, a
           nombre del señor {userName.toUpperCase()} identificado con cédula de
           ciudadanía N° {userIdentification}, se encuentra activo.

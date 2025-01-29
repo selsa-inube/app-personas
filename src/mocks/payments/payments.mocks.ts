@@ -39,7 +39,7 @@ const paymentsMock: IPayment[] = [
     ],
     tags: [
       {
-        label: "Fondecom mensual",
+        label: "Mensual",
         appearance: "primary",
       },
     ],
@@ -157,7 +157,7 @@ const paymentsMock: IPayment[] = [
         appearance: "danger",
       },
       {
-        label: "Fondecom mensual",
+        label: "Mensual",
         appearance: "primary",
       },
     ],

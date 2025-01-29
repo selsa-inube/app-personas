@@ -50,8 +50,6 @@ const getFeatureFlagsByBunit = async (
 const getFeatureFlagsByCodes = async (
   flagCodes: string[],
 ): Promise<IFeatureFlag[]> => {
-  const TEMP_CLIENT = "fondecom";
-
   try {
     const { data: instanceData } = await featureFlagsDB
       .from("instances")
@@ -63,7 +61,7 @@ const getFeatureFlagsByCodes = async (
       )
       .eq("is_production", enviroment.IS_PRODUCTION)
       .eq("app.public_code", enviroment.APP_CODE)
-      .eq("business_unit.public_code", TEMP_CLIENT)
+      .eq("business_unit.public_code", enviroment.BUSINESS_UNIT)
       .single();
 
     if (!instanceData) {
@@ -94,4 +92,4 @@ const getFeatureFlagsByCodes = async (
   }
 };
 
-export { getFeatureFlagsByCodes, getFeatureFlagsByBunit };
+export { getFeatureFlagsByBunit, getFeatureFlagsByCodes };

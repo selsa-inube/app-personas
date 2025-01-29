@@ -11,6 +11,7 @@ import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { getAccountStatementDocument } from "./AccountStatementDocument/utilRenders";
 import { CertificationRequestUI } from "./interface";
 import { IAccountStatement } from "./types";
+import { enviroment } from "@config/enviroment";
 
 function CertificationRequest() {
   const { user } = useContext(AppContext);
@@ -39,7 +40,7 @@ function CertificationRequest() {
       title: "Estado de Cuenta",
       subject: "Estado de Cuenta PDF",
       author: `${user.firstName} ${user.firstLastName}`,
-      creator: "Fondecom",
+      creator: enviroment.CLIENT_NAME,
       keywords: "PDF/A",
     });
 

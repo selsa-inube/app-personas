@@ -1,9 +1,10 @@
+import { enviroment } from "@config/enviroment";
+import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 import { DateField, DateFieldProps } from "..";
 import { parameters, props } from "../props";
 import { DateFieldController } from "./DateFieldController";
-import { themes } from "@mocks/design/themes";
 
 const story = {
   title: "design/input/DateField",
@@ -32,7 +33,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 const Themed: StoryFn<DateFieldProps> = (args) => (

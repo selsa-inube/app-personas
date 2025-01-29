@@ -1,12 +1,16 @@
+import { capitalizeText } from "@utils/texts";
+import { getBusinessUnitSubdomain } from "src/utils/business";
+
 const enviroment = {
   IS_PRODUCTION: import.meta.env.PROD,
-  CLIENT_ID: import.meta.env.VITE_AUTH_CLIENT_ID,
-  CLIENT_SECRET: import.meta.env.VITE_AUTH_CLIENT_SECRET,
-  REALM: import.meta.env.VITE_AUTH_REALM,
-  PROVIDER: import.meta.env.VITE_AUTH_PROVIDER,
+  AUTH_CLIENT_ID: import.meta.env.VITE_AUTH_CLIENT_ID,
+  AUTH_CLIENT_SECRET: import.meta.env.VITE_AUTH_CLIENT_SECRET,
+  AUTH_REALM: import.meta.env.VITE_AUTH_REALM,
+  AUTH_PROVIDER: import.meta.env.VITE_AUTH_PROVIDER,
   ICLIENT_API_URL_QUERY: import.meta.env.VITE_ICLIENT_API_URL_QUERY,
   ICLIENT_API_URL_PERSISTENCE: import.meta.env.VITE_ICLIENT_API_URL_PERSISTENCE,
-  BUSINESS_UNIT: import.meta.env.PROD ? "fondecom" : "test",
+  BUSINESS_UNIT: getBusinessUnitSubdomain(),
+  CLIENT_NAME: capitalizeText(getBusinessUnitSubdomain()),
   APP_CODE: "personas",
   FEATURE_FLAGS_URL: import.meta.env.VITE_FEATURE_FLAGS_URL,
   FEATURE_FLAGS_KEY: import.meta.env.VITE_FEATURE_FLAGS_KEY,

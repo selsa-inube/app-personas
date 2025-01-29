@@ -3,6 +3,7 @@ import { Box, BoxProps } from ".";
 
 import { MdAdd, MdOutlineSavings } from "react-icons/md";
 
+import { enviroment } from "@config/enviroment";
 import { Text } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
@@ -54,7 +55,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<BoxProps> = (args) => (
