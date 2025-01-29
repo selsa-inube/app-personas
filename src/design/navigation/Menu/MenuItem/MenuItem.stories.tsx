@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { MdAndroid } from "react-icons/md";
@@ -52,7 +53,7 @@ Disabled.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<MenuItemProps> = (args) => (

@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { IOption } from "@inubekit/inubekit";
@@ -212,7 +213,7 @@ function CreditQuota() {
       title: `Extracto-cupo-crédito-${user.identification}`,
       subject: "Informe",
       author: `${user.firstName} ${user.firstLastName}`,
-      creator: "Fondecom",
+      creator: enviroment.CLIENT_NAME,
       keywords: "PDF/A",
     });
 

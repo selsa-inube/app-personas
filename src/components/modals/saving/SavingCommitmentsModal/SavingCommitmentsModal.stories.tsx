@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { Button } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
 import { savingsCommitmentsMock } from "@mocks/products/savings/savingsCommitments.mocks";
@@ -40,7 +41,7 @@ const Template: StoryFn<SavingCommitmentsModalProps & { theme?: boolean }> = (
       <Button onClick={handleModal}>SavingCommitmentsModal</Button>
       {showModal &&
         (args.theme ? (
-          <ThemeProvider theme={themes["fondecom"]}>
+          <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
             <SavingCommitmentsModal {...args} onCloseModal={handleModal} />
           </ThemeProvider>
         ) : (

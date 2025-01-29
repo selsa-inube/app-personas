@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { logoUrl } from "@config/header";
 import { IEntry } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
 import {
@@ -25,6 +24,7 @@ import {
   savingsTableTitles,
 } from "../config/tables";
 import { StyledCardContainer, StyledLogo } from "./styles";
+import { useTheme } from "styled-components";
 
 const today = new Date();
 
@@ -122,6 +122,8 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
     credits,
   } = props;
 
+  const theme = useTheme();
+
   const creditAttributes = credits.map((item) => {
     const attributes = item.attributes;
 
@@ -195,7 +197,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
               ))}
             </Stack>
           </Stack>
-          <StyledLogo src={logoUrl} />
+          <StyledLogo src={theme.images.logo} />
         </Stack>
       </Stack>
 

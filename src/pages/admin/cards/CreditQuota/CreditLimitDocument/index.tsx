@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { logoUrl } from "@config/header";
 import { IEntry } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
 import {
@@ -18,6 +17,7 @@ import {
 } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
+import { useTheme } from "styled-components";
 import { creditQuotaTitles } from "../config/tables";
 import { StyledCardContainer, StyledDetailsCard, StyledLogo } from "./styles";
 
@@ -103,6 +103,8 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
     movementEntries,
   } = props;
 
+  const theme = useTheme();
+
   return (
     <Stack
       padding={`0 ${inube.spacing.s400}`}
@@ -143,7 +145,7 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
               ))}
             </Stack>
           </Stack>
-          <StyledLogo src={logoUrl} />
+          <StyledLogo src={theme.images.logo} />
         </Stack>
       </Stack>
 

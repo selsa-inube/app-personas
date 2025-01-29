@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
 import { IUser } from "@inube/auth/dist/types/user";
 import { superUsers } from "@pages/admin/switchUser/config/users";
@@ -8,9 +9,11 @@ import {
   useMemo,
   useState,
 } from "react";
+import { Helmet } from "react-helmet-async";
 import { IFeatureFlag } from "src/model/entity/featureFlag";
 import { saveTrafficTracking } from "src/services/analytics/saveTrafficTracking";
 import { getDomains } from "src/services/iclient/domains/getDomains";
+import { useTheme } from "styled-components";
 import { IAppContext, IServiceDomains } from "./types";
 import { getAppFeatureFlags, initialServiceDomains } from "./utils";
 
@@ -23,6 +26,7 @@ interface AppProviderProps {
 function AppProvider(props: AppProviderProps) {
   const { children } = props;
 
+  const theme = useTheme();
   const [featureFlags, setFeatureFlags] = useState<IFeatureFlag[]>([]);
   const [serviceDomains, setServiceDomains] = useState<IServiceDomains>(
     initialServiceDomains,
@@ -139,7 +143,13 @@ function AppProvider(props: AppProviderProps) {
   );
 
   return (
-    <AppContext.Provider value={appContext}>{children}</AppContext.Provider>
+    <AppContext.Provider value={appContext}>
+      <Helmet>
+        <title>{enviroment.CLIENT_NAME} - Personas</title>
+        <link rel="icon" type="image/png" href={theme?.images.icons["64"]} />
+      </Helmet>
+      {children}
+    </AppContext.Provider>
   );
 }
 

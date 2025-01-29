@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
+import { IPQRS } from "src/model/entity/pqrs";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapPqrsDetailsApiToEntity } from "./mappers";
-import { IPQRS } from "src/model/entity/pqrs";
 
 const getDetailsPqrs = async (
   userIdentification: string,
@@ -22,7 +22,7 @@ const getDetailsPqrs = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchAllPQRS",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

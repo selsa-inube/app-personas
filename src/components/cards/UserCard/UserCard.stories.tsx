@@ -1,6 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { UserCard, UserCardProps } from ".";
 
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { action } from "@storybook/addon-actions";
 import { StoryFn } from "@storybook/react";
@@ -32,7 +33,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<UserCardProps> = (args) => (

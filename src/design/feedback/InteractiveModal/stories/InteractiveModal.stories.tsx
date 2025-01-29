@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { enviroment } from "@config/enviroment";
 import { IAction, IEntry } from "@design/data/Table/types";
 import { Button } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
@@ -100,7 +101,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed = Template.bind(

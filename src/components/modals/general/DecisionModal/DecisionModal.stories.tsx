@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { Button } from "@inubekit/inubekit";
 import { themes } from "@mocks/design/themes";
 import { action } from "@storybook/addon-actions";
@@ -29,7 +30,7 @@ const Template: StoryFn<DecisionModalProps & { theme?: boolean }> = (args) => {
       <Button onClick={handleModal}>Show Decisión Modal</Button>
       {showModal &&
         (args.theme ? (
-          <ThemeProvider theme={themes["fondecom"]}>
+          <ThemeProvider theme={themes[enviroment.BUSINESS_UNIT]}>
             <DecisionModal {...args} onCloseModal={handleModal} />
           </ThemeProvider>
         ) : (

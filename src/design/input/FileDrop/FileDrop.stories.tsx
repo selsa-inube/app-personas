@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { FileDrop, FileDropProps } from ".";
 
 import { themes } from "@mocks/design/themes";
@@ -26,7 +27,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<FileDropProps> = (args) => (

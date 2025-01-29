@@ -13,7 +13,7 @@ const getCalculatedConditionsForProduct = async (
     const options: RequestInit = {
       method: "POST",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "CalculateCreditConditions",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

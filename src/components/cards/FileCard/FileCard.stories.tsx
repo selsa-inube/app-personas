@@ -1,6 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { FileCard, FileCardProps } from ".";
 
+import { enviroment } from "@config/enviroment";
 import { themes } from "@mocks/design/themes";
 import { StoryFn } from "@storybook/react";
 import { BrowserRouter } from "react-router-dom";
@@ -30,7 +31,7 @@ Default.args = {
 };
 
 const theme = {
-  ...themes["fondecom"],
+  ...themes[enviroment.BUSINESS_UNIT],
 };
 
 export const Themed: StoryFn<FileCardProps> = (args) => (

@@ -10,6 +10,7 @@ import { useContext, useState } from "react";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { AppContext } from "src/context/app";
 import { capitalizeEachWord } from "src/utils/texts";
+import { useTheme } from "styled-components";
 import { StyledMain, StyledPage } from "./styles";
 
 const year = new Date().getFullYear();
@@ -19,6 +20,7 @@ function PageNotFound() {
   const { user } = useContext(AppContext);
   const { getFlag } = useContext(AppContext);
   const { logout } = useAuth();
+  const theme = useTheme();
 
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
@@ -75,6 +77,7 @@ function PageNotFound() {
     getFlag("general.links.update-data.update-data-without-assisted").value,
     getFlag("general.links.pqrs.create-pqrs").value,
     mobileNav,
+    theme.images.logo,
   );
 
   const username = capitalizeEachWord(

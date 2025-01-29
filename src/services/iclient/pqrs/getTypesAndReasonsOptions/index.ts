@@ -1,7 +1,7 @@
 import { enviroment } from "@config/enviroment";
+import { IOption } from "@inubekit/inubekit";
 import { saveNetworkTracking } from "src/services/analytics/saveNetworkTracking";
 import { mapTypesAndReasonsApiToEntities } from "./mappers";
-import { IOption } from "@inubekit/inubekit";
 
 const getTypesAndReasonsOptions = async (
   accessToken: string,
@@ -17,7 +17,7 @@ const getTypesAndReasonsOptions = async (
     const options: RequestInit = {
       method: "GET",
       headers: {
-        Realm: enviroment.REALM,
+        Realm: enviroment.AUTH_REALM,
         Authorization: `Bearer ${accessToken}`,
         "X-Action": "SearchPQRSTypes",
         "X-Business-Unit": enviroment.BUSINESS_UNIT,

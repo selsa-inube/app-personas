@@ -25,7 +25,8 @@
       "@hooks/*": ["./src/hooks/*"],
       "@mocks/*": ["./src/mocks/*"],
       "@ptypes/*": ["./src/types/*"],
-      "@forms/*": ["./src/shared/forms/*"]
+      "@forms/*": ["./src/shared/forms/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "types": ["vite/client"]
   },

@@ -1,5 +1,4 @@
 import { BoxAttribute } from "@components/cards/BoxAttribute";
-import { logoUrl } from "@config/header";
 import { IEntry } from "@design/data/Table/types";
 import { inube } from "@design/tokens";
 import {
@@ -19,6 +18,7 @@ import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { StyledCardContainer, StyledLogo } from "./styles";
 import { savingsAccountDocumentTitles } from "./tables";
+import { useTheme } from "styled-components";
 
 interface SavingsAccountDocumentProps {
   username: string;
@@ -56,6 +56,8 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
     commitmentNextPaymentValue,
     commitmentDate,
   } = props;
+
+  const theme = useTheme();
 
   return (
     <Stack
@@ -97,7 +99,7 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
               ))}
             </Stack>
           </Stack>
-          <StyledLogo src={logoUrl} />
+          <StyledLogo src={theme.images.logo} />
         </Stack>
       </Stack>
 

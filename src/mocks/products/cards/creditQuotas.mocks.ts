@@ -49,7 +49,7 @@ const creditQuotasMock: IProduct[] = [
       {
         id: "payment_method",
         label: "Medio de pago",
-        value: "Fondecom mensual",
+        value: "Mensual",
       },
       {
         id: "used_quota",
@@ -197,7 +197,7 @@ const creditQuotasMock: IProduct[] = [
       {
         id: "payment_method",
         label: "Medio de pago",
-        value: "Fondecom mensual",
+        value: "Mensual",
       },
       {
         id: "used_quota",
