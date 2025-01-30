@@ -8,7 +8,6 @@ const manifestPWA: VitePWAOptions = {
     skipWaiting: true,
     clientsClaim: true,
     cleanupOutdatedCaches: true,
-    globPatterns: [],
     navigateFallback: null,
   },
   injectManifest: {
