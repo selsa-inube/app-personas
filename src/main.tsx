@@ -1,9 +1,12 @@
 import { enviroment } from "@config/enviroment";
 import { AuthProvider } from "@inube/auth";
+import { updateManifest } from "@utils/manifest";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
+
+updateManifest();
 
 const rootElement = document.getElementById("root");
 
