@@ -1,11 +1,27 @@
 import { capitalizeText } from "@utils/texts";
 import { getBusinessUnitSubdomain } from "src/utils/business";
 
+const authCredentials: Record<
+  string,
+  { clientId: string; clientSecret: string; realm: string }
+> = {
+  fondecom: {
+    clientId: import.meta.env.VITE_AUTH_FONDECOM_CLIENT_ID,
+    clientSecret: import.meta.env.VITE_AUTH_FONDECOM_CLIENT_SECRET,
+    realm: import.meta.env.VITE_AUTH_FONDECOM_REALM,
+  },
+  feproteccion: {
+    clientId: import.meta.env.VITE_AUTH_FEPROTECCION_CLIENT_ID,
+    clientSecret: import.meta.env.VITE_AUTH_FEPROTECCION_CLIENT_SECRET,
+    realm: import.meta.env.VITE_AUTH_FEPROTECCION_REALM,
+  },
+};
+
 const enviroment = {
   IS_PRODUCTION: import.meta.env.PROD,
-  AUTH_CLIENT_ID: import.meta.env.VITE_AUTH_CLIENT_ID,
-  AUTH_CLIENT_SECRET: import.meta.env.VITE_AUTH_CLIENT_SECRET,
-  AUTH_REALM: import.meta.env.VITE_AUTH_REALM,
+  AUTH_CLIENT_ID: authCredentials[getBusinessUnitSubdomain()].clientId,
+  AUTH_CLIENT_SECRET: authCredentials[getBusinessUnitSubdomain()].clientSecret,
+  AUTH_REALM: authCredentials[getBusinessUnitSubdomain()].realm,
   AUTH_PROVIDER: import.meta.env.VITE_AUTH_PROVIDER,
   ICLIENT_API_URL_QUERY: import.meta.env.VITE_ICLIENT_API_URL_QUERY,
   ICLIENT_API_URL_PERSISTENCE: import.meta.env.VITE_ICLIENT_API_URL_PERSISTENCE,
