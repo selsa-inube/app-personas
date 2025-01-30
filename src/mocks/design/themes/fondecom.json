@@ -1,12 +1,12 @@
 {
   "images": {
     "icons": {
-      "16": "https://i.ibb.co/1Y0b7Yh2/fondecom-16x16.jpg",
-      "64": "https://i.ibb.co/mCm9ZD93/fondecom-64x64.jpg",
-      "192": "https://i.ibb.co/0p50pNwB/fondecom-192x192.jpg",
-      "512": "https://i.ibb.co/ZRFv2Nzy/fondecom-512x512.jpg"
+      "16": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738249247/fondecom-16x16_l6dzv8.jpg",
+      "64": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738249246/fondecom-64x64_c3enzt.jpg",
+      "192": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738249247/fondecom-192x192_y9vndu.jpg",
+      "512": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738249247/fondecom-512x512_dudgze.jpg"
     },
-    "logo": "https://i.ibb.co/9Hqphmnj/images.png"
+    "logo": "https://res.cloudinary.com/dqssv7qtd/image/upload/v1738249080/fondecom-logo.png"
   },
   "color": {
     "palette": {
@@ -476,28 +476,92 @@
   },
   "countdownBar": {
     "primary": {
-      "color": "palette.blue.b400"
+      "background": {
+        "color": "palette.blue.b400"
+      },
+      "border": {
+        "color": "palette.neutral.n40"
+      },
+      "track": {
+        "color": "palette.neutral.n10"
+      }
     },
     "success": {
-      "color": "palette.green.g400"
+      "background": {
+        "color": "palette.green.g400"
+      },
+      "border": {
+        "color": "palette.neutral.n40"
+      },
+      "track": {
+        "color": "palette.neutral.n10"
+      }
     },
     "warning": {
-      "color": "palette.yellow.y400"
+      "background": {
+        "color": "palette.yellow.y400"
+      },
+      "border": {
+        "color": "palette.neutral.n40"
+      },
+      "track": {
+        "color": "palette.neutral.n10"
+      }
     },
     "danger": {
-      "color": "palette.red.r400"
+      "background": {
+        "color": "palette.red.r400"
+      },
+      "border": {
+        "color": "palette.neutral.n40"
+      },
+      "track": {
+        "color": "palette.neutral.n10"
+      }
     },
     "help": {
-      "color": "palette.purple.p400"
+      "background": {
+        "color": "palette.purple.p400"
+      },
+      "border": {
+        "color": "palette.neutral.n40"
+      },
+      "track": {
+        "color": "palette.neutral.n10"
+      }
     },
     "dark": {
-      "color": "palette.neutral.n900"
+      "background": {
+        "color": "palette.neutral.n900"
+      },
+      "border": {
+        "color": "palette.neutral.n40"
+      },
+      "track": {
+        "color": "palette.neutral.n10"
+      }
     },
     "gray": {
-      "color": "palette.neutral.n20"
+      "background": {
+        "color": "palette.neutral.n200"
+      },
+      "border": {
+        "color": "palette.neutral.n40"
+      },
+      "track": {
+        "color": "palette.neutral.n10"
+      }
     },
     "light": {
-      "color": "palette.neutral.n10"
+      "background": {
+        "color": "palette.neutral.n10"
+      },
+      "border": {
+        "color": "palette.neutral.n40"
+      },
+      "track": {
+        "color": "palette.neutral.n50"
+      }
     }
   },
   "divider": {
@@ -515,86 +579,38 @@
   },
   "fullscreenNav": {
     "background": {
-      "color": {
-        "Value": "",
-        "Reference": "fullscreenNav.background.color",
-        "Token": "palette.neutral.n10"
-      }
+      "color": "palette.neutral.n10"
     },
     "divider": {
-      "color": {
-        "Value": "",
-        "Reference": "fullscreenNav.divider.color",
-        "Token": "palette.neutral.n40"
-      }
+      "color": "palette.neutral.n40"
     },
     "title": {
-      "appearance": {
-        "Value": "",
-        "Reference": "fullscreenNav.title.appearance",
-        "Token": "gray"
-      }
+      "appearance": "gray"
     },
     "subtitle": {
       "appearance": {
-        "regular": {
-          "Value": "",
-          "Reference": "fullscreenNav.subtitle.appearance.regular",
-          "Token": "gray"
-        },
-        "expanded": {
-          "Value": "",
-          "Reference": "fullscreenNav.subtitle.appearance.expanded",
-          "Token": "primary"
-        }
+        "regular": "gray",
+        "expanded": "primary"
       },
       "background": {
-        "expanded": {
-          "Value": "",
-          "Reference": "fullscreenNav.subtitle.background.expanded",
-          "Token": "palette.neutral.n30"
-        }
+        "expanded": "palette.neutral.n30"
       }
     },
     "link": {
       "appearance": {
-        "regular": {
-          "Value": "",
-          "Reference": "fullscreenNav.link.appearance.regular",
-          "Token": "dark"
-        },
-        "selected": {
-          "Value": "",
-          "Reference": "fullscreenNav.link.appearance.selected",
-          "Token": "primary"
-        }
+        "regular": "dark",
+        "selected": "primary"
       },
       "background": {
-        "selected": {
-          "Value": "",
-          "Reference": "fullscreenNav.link.background.selected",
-          "Token": "palette.neutral.n30"
-        },
-        "hover": {
-          "Value": "",
-          "Reference": "fullscreenNav.link.background.hover",
-          "Token": "palette.neutral.n30"
-        }
+        "selected": "palette.neutral.n30",
+        "hover": "palette.neutral.n30"
       }
     },
     "copyright": {
-      "appearance": {
-        "Value": "",
-        "Reference": "fullscreenNav.copyright.appearance",
-        "Token": "gray"
-      }
+      "appearance": "gray"
     },
     "burger": {
-      "appearance": {
-        "Value": "",
-        "Reference": "fullscreenNav.burger.appearance",
-        "Token": "dark"
-      }
+      "appearance": "dark"
     }
   },
   "header": {
@@ -849,65 +865,29 @@
   },
   "menu": {
     "avatar": {
-      "appearance": {
-        "Value": "",
-        "Reference": "menu.avatar.appearance",
-        "Token": "primary"
-      }
+      "appearance": "primary"
     },
     "username": {
-      "appearance": {
-        "Value": "",
-        "Reference": "menu.username.appearance",
-        "Token": "dark"
-      }
+      "appearance": "dark"
     },
     "client": {
-      "appearance": {
-        "Value": "",
-        "Reference": "menu.client.appearance",
-        "Token": "gray"
-      }
+      "appearance": "gray"
     },
     "heading": {
-      "appearance": {
-        "Value": "",
-        "Reference": "menu.heading.appearance",
-        "Token": "gray"
-      }
+      "appearance": "gray"
     },
     "item": {
-      "content": {
-        "Value": "",
-        "Reference": "menu.item.content",
-        "Token": "dark"
-      },
+      "content": "dark",
       "background": {
-        "hover": {
-          "Value": "",
-          "Reference": "menu.item.background.hover",
-          "Token": "palette.neutral.n20"
-        },
-        "disabled": {
-          "Value": "",
-          "Reference": "menu.item.background.disabled",
-          "Token": "palette.neutral.n20"
-        }
+        "hover": "palette.neutral.n20",
+        "disabled": "palette.neutral.n20"
       }
     },
     "background": {
-      "color": {
-        "Value": "",
-        "Reference": "menu.background.color",
-        "Token": "palette.neutral.n0"
-      }
+      "color": "palette.neutral.n0"
     },
     "divider": {
-      "color": {
-        "Value": "",
-        "Reference": "menu.divider.color",
-        "Token": "palette.neutral.n40"
-      }
+      "color": "palette.neutral.n40"
     }
   },
   "nav": {
@@ -948,242 +928,114 @@
   "flag": {
     "primary": {
       "background": {
-        "color": {
-          "Value": "",
-          "Reference": "flag.primary.background.color",
-          "Token": "palette.blue.b50"
-        }
+        "color": "palette.blue.b50"
       },
       "countdownBar": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.primary.countdownBar.appearance",
-          "Token": "primary"
-        }
+        "appearance": "primary"
       },
       "icon": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.primary.icon.appearance",
-          "Token": "primary"
-        }
+        "appearance": "primary"
       },
       "content": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.primary.content.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       }
     },
     "success": {
       "background": {
-        "color": {
-          "Value": "",
-          "Reference": "flag.success.background.color",
-          "Token": "palette.green.g50"
-        }
+        "color": "palette.green.g50"
       },
       "countdownBar": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.success.countdownBar.appearance",
-          "Token": "success"
-        }
+        "appearance": "success"
       },
       "icon": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.success.icon.appearance",
-          "Token": "success"
-        }
+        "appearance": "success"
       },
       "content": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.success.content.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       }
     },
     "warning": {
       "background": {
-        "color": {
-          "Value": "",
-          "Reference": "flag.warning.background.color",
-          "Token": "palette.yellow.y50"
-        }
+        "color": "palette.yellow.y50"
       },
       "countdownBar": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.warning.countdownBar.appearance",
-          "Token": "warning"
-        }
+        "appearance": "warning"
       },
       "icon": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.warning.icon.appearance",
-          "Token": "warning"
-        }
+        "appearance": "warning"
       },
       "content": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.warning.content.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       }
     },
     "danger": {
       "background": {
-        "color": {
-          "Value": "",
-          "Reference": "flag.danger.background.color",
-          "Token": "palette.red.r50"
-        }
+        "color": "palette.red.r50"
       },
       "countdownBar": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.danger.countdownBar.appearance",
-          "Token": "danger"
-        }
+        "appearance": "danger"
       },
       "icon": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.danger.icon.appearance",
-          "Token": "danger"
-        }
+        "appearance": "danger"
       },
       "content": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.danger.content.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       }
     },
     "help": {
       "background": {
-        "color": {
-          "Value": "",
-          "Reference": "flag.help.background.color",
-          "Token": "palette.purple.p50"
-        }
+        "color": "palette.purple.p50"
       },
       "countdownBar": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.help.countdownBar.appearance",
-          "Token": "help"
-        }
+        "appearance": "help"
       },
       "icon": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.help.icon.appearance",
-          "Token": "help"
-        }
+        "appearance": "help"
       },
       "content": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.help.content.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       }
     },
     "dark": {
       "background": {
-        "color": {
-          "Value": "",
-          "Reference": "flag.dark.background.color",
-          "Token": "palette.neutral.n30"
-        }
+        "color": "palette.neutral.n30"
       },
       "countdownBar": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.dark.countdownBar.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       },
       "icon": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.dark.icon.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       },
       "content": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.dark.content.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       }
     },
     "gray": {
       "background": {
-        "color": {
-          "Value": "",
-          "Reference": "flag.gray.background.color",
-          "Token": "palette.neutral.n10"
-        }
+        "color": "palette.neutral.n10"
       },
       "countdownBar": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.gray.countdownBar.appearance",
-          "Token": "gray"
-        }
+        "appearance": "gray"
       },
       "icon": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.gray.icon.appearance",
-          "Token": "gray"
-        }
+        "appearance": "gray"
       },
       "content": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.gray.content.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       }
     },
     "light": {
       "background": {
-        "color": {
-          "Value": "",
-          "Reference": "flag.light.background.color",
-          "Token": "palette.neutral.n0"
-        }
+        "color": "palette.neutral.n0"
       },
       "countdownBar": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.light.countdownBar.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       },
       "icon": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.light.icon.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       },
       "content": {
-        "appearance": {
-          "Value": "",
-          "Reference": "flag.light.content.appearance",
-          "Token": "dark"
-        }
+        "appearance": "dark"
       }
     }
   },
