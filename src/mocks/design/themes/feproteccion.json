@@ -1531,7 +1531,7 @@
     "fonts": [
       {
         "family": "Poppins",
-        "url": "(https://fonts.gstatic.com/s/poppins/v22/pxiEyp8kv8JHgFVrJJfecg.woff2",
+        "url": "https://fonts.gstatic.com/s/poppins/v22/pxiEyp8kv8JHgFVrJJfecg.woff2",
         "options": {
           "weight": "400",
           "style": "normal"
