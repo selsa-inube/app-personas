@@ -32,7 +32,7 @@ const getActionsExpiration = async (
       .map((action) => ({
         id: action.id,
         value: action.id,
-        label: actionExpirationDM.valueOf(action.id)?.label || "",
+        label: actionExpirationDM.valueOf(action.id)?.value || "",
       }));
   }
 

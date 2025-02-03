@@ -12,9 +12,7 @@ const savingInterestDataDomain = {
 };
 
 const savingInterestDMValueOf = (id: string) =>
-  convertDomainToOptions(savingInterestDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(savingInterestDataDomain).find((value) => value.id === id);
 
 const savingInterestDM = {
   ...savingInterestDataDomain,

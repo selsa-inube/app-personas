@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const severanceRegimeData = {
   RETROACTIVE_SYSTEM: {
@@ -24,9 +24,7 @@ const severanceRegimeData = {
 };
 
 const severanceRegimeDMValueOf = (id: string) =>
-  convertDomainToOptions(severanceRegimeData).find(
-    (severanceRegime) => severanceRegime.id === id,
-  );
+  Object.values(severanceRegimeData).find((item) => item.id === id);
 
 const severanceRegimeDM = {
   ...severanceRegimeData,

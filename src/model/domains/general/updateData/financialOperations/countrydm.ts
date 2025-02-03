@@ -52,7 +52,7 @@ const countryData = {
 };
 
 const countryDMValueOf = (id: string) =>
-  convertDomainToOptions(countryData).find((country) => country.id === id);
+  Object.values(countryData).find((item) => item.id === id);
 
 const countryDM = {
   ...countryData,

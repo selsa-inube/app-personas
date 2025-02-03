@@ -16,9 +16,7 @@ const companyFormalityData = {
 };
 
 const companyFormalityDMValueOf = (id: string) =>
-  convertDomainToOptions(companyFormalityData).find(
-    (companyFormality) => companyFormality.id === id,
-  );
+  Object.values(companyFormalityData).find((item) => item.id === id);
 
 const companyFormalityDM = {
   ...companyFormalityData,

@@ -36,9 +36,7 @@ const pqrsMotiveDataDomain = {
 };
 
 const motiveDMValueOf = (id: string) =>
-  convertDomainToOptions(pqrsMotiveDataDomain).find(
-    (motive) => motive.id === id,
-  );
+  Object.values(pqrsMotiveDataDomain).find((motive) => motive.id === id);
 
 const pqrsMotiveDM = {
   ...pqrsMotiveDataDomain,

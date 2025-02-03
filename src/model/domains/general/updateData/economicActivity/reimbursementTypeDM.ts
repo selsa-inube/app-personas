@@ -12,9 +12,7 @@ const reimbursementTypeData = {
 };
 
 const reimbursementTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(reimbursementTypeData).find(
-    (reimbursementType) => reimbursementType.id === id,
-  );
+  Object.values(reimbursementTypeData).find((item) => item.id === id);
 
 const reimbursementTypeDM = {
   ...reimbursementTypeData,

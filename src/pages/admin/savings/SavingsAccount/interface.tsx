@@ -196,7 +196,6 @@ function SavingsAccountUI(props: SavingsAccountUIProps) {
     "action_expiration",
   )?.value;
 
-  console.log(actionExpiration);
   const productsIcons = {
     ...savingCommitmentsIcons,
     ...investmentCommitmentsIcons,

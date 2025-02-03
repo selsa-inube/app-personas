@@ -12,9 +12,7 @@ const otherValueAvailableDataDomain = {
 };
 
 const otherValueAvailableDMValueOf = (id: string) =>
-  convertDomainToOptions(otherValueAvailableDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(otherValueAvailableDataDomain).find((value) => value.id === id);
 
 const otherValueAvailableDM = {
   ...otherValueAvailableDataDomain,

@@ -36,9 +36,7 @@ const economicActivityData = {
 };
 
 const economicActivityDMValueOf = (id: string) =>
-  convertDomainToOptions(economicActivityData).find(
-    (economicActivity) => economicActivity.id === id,
-  );
+  Object.values(economicActivityData).find((item) => item.id === id);
 
 const economicActivityDM = {
   ...economicActivityData,

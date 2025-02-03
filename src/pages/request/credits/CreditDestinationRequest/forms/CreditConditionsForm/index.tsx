@@ -227,7 +227,7 @@ const CreditConditionsForm = forwardRef(function CreditConditionsForm(
       ? {
           id: matchedDomain.id,
           value: matchedDomain.id,
-          label: matchedDomain.label,
+          label: matchedDomain.value,
         }
       : {
           id: periodicity.id,

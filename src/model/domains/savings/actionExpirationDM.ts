@@ -12,9 +12,7 @@ const actionExpirationDataDomain = {
 };
 
 const actionExpirationDMValueOf = (id: string) =>
-  convertDomainToOptions(actionExpirationDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(actionExpirationDataDomain).find((value) => value.id === id);
 
 const actionExpirationDM = {
   ...actionExpirationDataDomain,

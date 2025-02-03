@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const educationLevelData = {
   ILLITERACY: {
@@ -48,7 +48,7 @@ const educationLevelData = {
 };
 
 const educationLevelDMValueOf = (id: string) =>
-  convertDomainToOptions(educationLevelData).find((level) => level.id === id);
+  Object.values(educationLevelData).find((level) => level.id === id);
 
 const educationLevelTypeDM = {
   ...educationLevelData,

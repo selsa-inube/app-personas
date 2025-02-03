@@ -8,9 +8,7 @@ const creditQuotaTypeDataDomain = {
 };
 
 const creditQuotaTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(creditQuotaTypeDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(creditQuotaTypeDataDomain).find((item) => item.id === id);
 
 const creditQuotaTypeDM = {
   ...creditQuotaTypeDataDomain,

@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const workdayData = {
   DAYTIME: {
@@ -20,7 +20,7 @@ const workdayData = {
 };
 
 const workdayDMValueOf = (id: string) =>
-  convertDomainToOptions(workdayData).find((workday) => workday.id === id);
+  Object.values(workdayData).find((item) => item.id === id);
 
 const workdayDM = {
   ...workdayData,

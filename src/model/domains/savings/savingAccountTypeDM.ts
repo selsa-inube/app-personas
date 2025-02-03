@@ -12,9 +12,7 @@ const savingAccountTypeDataDomain = {
 };
 
 const savingAccountTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(savingAccountTypeDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(savingAccountTypeDataDomain).find((value) => value.id === id);
 
 const savingAccountTypeDM = {
   ...savingAccountTypeDataDomain,

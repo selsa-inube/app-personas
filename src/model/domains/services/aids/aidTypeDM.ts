@@ -12,7 +12,7 @@ const aidTypeDataDomain = {
 };
 
 const aidTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(aidTypeDataDomain).find((level) => level.id === id);
+  Object.values(aidTypeDataDomain).find((level) => level.id === id);
 
 const aidTypeDM = {
   ...aidTypeDataDomain,

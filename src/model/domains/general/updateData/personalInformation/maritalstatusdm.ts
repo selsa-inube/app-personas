@@ -24,7 +24,7 @@ const maritalStatusData = {
 };
 
 const maritalStatusDMValueOf = (id: string) =>
-  convertDomainToOptions(maritalStatusData).find((city) => city.id === id);
+  Object.values(maritalStatusData).find((item) => item.id === id);
 
 const maritalStatusDM = {
   ...maritalStatusData,

@@ -20,9 +20,7 @@ const creditPeriodicityDataDomain = {
 };
 
 const creditPeriodicityDMValueOf = (id: string) =>
-  convertDomainToOptions(creditPeriodicityDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(creditPeriodicityDataDomain).find((item) => item.id === id);
 
 const creditPeriodicityDM = {
   ...creditPeriodicityDataDomain,

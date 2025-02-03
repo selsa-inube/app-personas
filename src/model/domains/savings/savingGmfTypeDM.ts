@@ -20,9 +20,7 @@ const savingGmfTypeDataDomain = {
 };
 
 const savingGmfTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(savingGmfTypeDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(savingGmfTypeDataDomain).find((value) => value.id === id);
 
 const savingGmfTypeDM = {
   ...savingGmfTypeDataDomain,

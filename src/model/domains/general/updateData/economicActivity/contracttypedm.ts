@@ -24,9 +24,7 @@ const contractTypeData = {
 };
 
 const contractTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(contractTypeData).find(
-    (contractType) => contractType.id === id,
-  );
+  Object.values(contractTypeData).find((item) => item.id === id);
 
 const contractTypeDM = {
   ...contractTypeData,
