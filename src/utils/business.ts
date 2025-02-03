@@ -6,7 +6,7 @@ function getBusinessUnitSubdomain() {
     return parts[0];
   }
 
-  return "fondecom";
+  return "fondecom"; 
 }
 
 export { getBusinessUnitSubdomain };
