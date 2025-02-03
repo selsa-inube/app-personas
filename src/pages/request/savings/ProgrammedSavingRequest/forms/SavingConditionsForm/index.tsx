@@ -182,7 +182,7 @@ const SavingConditionsForm = forwardRef(function SavingConditionsForm(
       ? {
           id: matchedDomain.id,
           value: matchedDomain.id,
-          label: matchedDomain.label,
+          label: matchedDomain.value,
         }
       : { id: periodicity.id, value: periodicity.id, label: periodicity.id };
   });

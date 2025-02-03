@@ -12,9 +12,7 @@ const creditPaymentTypeDataDomain = {
 };
 
 const creditPaymentTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(creditPaymentTypeDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(creditPaymentTypeDataDomain).find((item) => item.id === id);
 
 const creditPaymentTypeDM = {
   ...creditPaymentTypeDataDomain,

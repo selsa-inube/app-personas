@@ -24,9 +24,7 @@ const pqrsRegionalDataDomain = {
 };
 
 const attentionPlaceDMValueOf = (id: string) =>
-  convertDomainToOptions(pqrsRegionalDataDomain).find(
-    (option) => option.id === id,
-  );
+  Object.values(pqrsRegionalDataDomain).find((option) => option.id === id);
 
 const pqrsAttentionPlaceDM = {
   ...pqrsRegionalDataDomain,

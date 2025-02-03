@@ -1,3 +1,4 @@
+import { IDomainType } from "@ptypes/domain.types";
 import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const relationshipData = {
@@ -131,10 +132,8 @@ const relationshipData = {
   },
 };
 
-const relationshipDMValueOf = (id: string) =>
-  convertDomainToOptions(relationshipData).find(
-    (relationship) => relationship.id === id,
-  );
+const relationshipDMValueOf = (id: string): IDomainType | undefined =>
+  Object.values(relationshipData).find((item) => item.id === id);
 
 const relationshipDM = {
   ...relationshipData,

@@ -12,9 +12,7 @@ const accountDebitTypeDataDomain = {
 };
 
 const accountDebitTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(accountDebitTypeDataDomain).find(
-    (type) => type.id === id,
-  );
+  Object.values(accountDebitTypeDataDomain).find((type) => type.id === id);
 
 const accountDebitTypeDM = {
   ...accountDebitTypeDataDomain,

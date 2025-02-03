@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const vulnerablePopulationData = {
   BLACK: {
@@ -60,9 +60,7 @@ const vulnerablePopulationData = {
 };
 
 const vulnerablePopulationDMValueOf = (id: string) =>
-  convertDomainToOptions(vulnerablePopulationData).find(
-    (type) => type.id === id,
-  );
+  Object.values(vulnerablePopulationData).find((type) => type.id === id);
 
 const vulnerablePopulationTypeDM = {
   ...vulnerablePopulationData,

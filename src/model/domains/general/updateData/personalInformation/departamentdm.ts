@@ -40,9 +40,7 @@ const departmentData = {
 };
 
 const departmentDMValueOf = (id: string) =>
-  convertDomainToOptions(departmentData).find(
-    (department) => department.id === id,
-  );
+  Object.values(departmentData).find((item) => item.id === id);
 
 const departmentDM = {
   ...departmentData,

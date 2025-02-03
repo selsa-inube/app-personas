@@ -16,9 +16,7 @@ const disbursementTypeDataDomain = {
 };
 
 const disbursementTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(disbursementTypeDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(disbursementTypeDataDomain).find((item) => item.id === id);
 
 const disbursementTypeDM = {
   ...disbursementTypeDataDomain,

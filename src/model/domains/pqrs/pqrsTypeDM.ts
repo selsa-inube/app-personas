@@ -24,7 +24,7 @@ const pqrsTypeDataDomain = {
 };
 
 const pqrsTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(pqrsTypeDataDomain).find((type) => type.id === id);
+  Object.values(pqrsTypeDataDomain).find((type) => type.id === id);
 
 const pqrsTypeDM = {
   ...pqrsTypeDataDomain,

@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const aidRequestTypeDataDomain = {
   HOSPITALIZATION_SURGERY: {
@@ -80,9 +80,7 @@ const aidRequestTypeDataDomain = {
 };
 
 const aidRequestTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(aidRequestTypeDataDomain).find(
-    (level) => level.id === id,
-  );
+  Object.values(aidRequestTypeDataDomain).find((level) => level.id === id);
 
 const aidRequestTypeDM = {
   ...aidRequestTypeDataDomain,

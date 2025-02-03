@@ -1,4 +1,4 @@
-import { convertDomainToOptions, convertDomainToList } from "src/utils/domains";
+import { convertDomainToList, convertDomainToOptions } from "src/utils/domains";
 
 const residenceTypeData = {
   OWN_WITHOUT_MORTGAGE: {
@@ -20,7 +20,7 @@ const residenceTypeData = {
 };
 
 const residenceTypeDMValueOf = (id: string) =>
-  convertDomainToOptions(residenceTypeData).find(
+  Object.values(residenceTypeData).find(
     (residenceType) => residenceType.id === id,
   );
 

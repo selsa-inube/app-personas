@@ -40,9 +40,7 @@ const requestStatusDataDomain = {
 };
 
 const requestStatusDMValueOf = (id: string) =>
-  convertDomainToOptions(requestStatusDataDomain).find(
-    (value) => value.id === id,
-  );
+  Object.values(requestStatusDataDomain).find((item) => item.id === id);
 
 const requestStatusDM = {
   ...requestStatusDataDomain,

@@ -12,7 +12,7 @@ const genderData = {
 };
 
 const genderDMValueOf = (id: string) =>
-  convertDomainToOptions(genderData).find((city) => city.id === id);
+  Object.values(genderData).find((item) => item.id === id);
 
 const genderDM = {
   ...genderData,

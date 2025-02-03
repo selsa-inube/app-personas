@@ -32,7 +32,7 @@ const periodicityDataDomain = {
 };
 
 const periodicityDMValueOf = (id: string) =>
-  convertDomainToOptions(periodicityDataDomain).find((city) => city.id === id);
+  Object.values(periodicityDataDomain).find((item) => item.id === id);
 
 const periodicityDM = {
   ...periodicityDataDomain,
