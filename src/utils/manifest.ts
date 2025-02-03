@@ -1,12 +1,11 @@
+import { enviroment } from "@config/enviroment";
 import { theme } from "@config/theme";
-import { getBusinessUnitSubdomain } from "./business";
-import { capitalizeText } from "./texts";
 
 function updateManifest() {
   fetch("/manifest.json")
     .then((response) => response.json())
     .then((manifest) => {
-      const businessUnit = capitalizeText(getBusinessUnitSubdomain());
+      const businessUnit = enviroment.BUSINESS_UNIT;
 
       manifest.name = businessUnit;
       manifest.short_name = businessUnit;

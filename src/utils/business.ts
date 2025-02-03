@@ -6,7 +6,10 @@ function getBusinessUnitSubdomain() {
     return parts[0];
   }
 
-  return "fondecom"; 
+  if (import.meta.env.DEV) {
+    return import.meta.env.VITE_DEV_BUNIT;
+  }
+  return "";
 }
 
 export { getBusinessUnitSubdomain };
