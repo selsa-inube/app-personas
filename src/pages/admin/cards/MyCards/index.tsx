@@ -1,5 +1,6 @@
 import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { SavingsContext } from "src/context/savings";
@@ -11,8 +12,7 @@ function MyCards() {
   const { savings } = useContext(SavingsContext);
   const [loading, setLoading] = useState(false);
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
-  const { getFlag } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
 
   useEffect(() => {
     if (!accessToken || !user.identification) return;
@@ -27,6 +27,10 @@ function MyCards() {
   }, [user, accessToken]);
 
   const withRequestCard = getFlag("admin.cards.cards.request-card").value;
+
+  if (!getFlag("admin.cards.cards.my-cards").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <MyCardsUI

@@ -19,6 +19,7 @@ import {
 } from "react-icons/md";
 
 const getMobileNav = (
+  myCardsFlag: boolean,
   requestSavingFlag: boolean,
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
@@ -49,11 +50,15 @@ const getMobileNav = (
           path: "/my-credits",
           icon: <MdOutlineAccountBalance />,
         },
-        {
-          label: "Mis tarjetas",
-          path: "/my-cards",
-          icon: <MdOutlineCreditCard />,
-        },
+        ...(myCardsFlag
+          ? [
+              {
+                label: "Mis tarjetas",
+                path: "/my-cards",
+                icon: <MdOutlineCreditCard />,
+              },
+            ]
+          : []),
         ...(myRequestsFlag
           ? [
               {
@@ -162,6 +167,7 @@ const getMobileNav = (
 };
 
 const getNav = (
+  myCardsFlag: boolean,
   requestSavingFlag: boolean,
   requestCreditFlag: boolean,
   requestEventFlag: boolean,
@@ -214,12 +220,14 @@ const getNav = (
     icon: <MdOutlineAccountBalance />,
   };
 
-  sections.administrar.links["misTarjetas"] = {
-    id: "misTarjetas",
-    label: "Mis tarjetas",
-    path: "/my-cards",
-    icon: <MdOutlineCreditCard />,
-  };
+  if (myCardsFlag) {
+    sections.administrar.links["misTarjetas"] = {
+      id: "misTarjetas",
+      label: "Mis tarjetas",
+      path: "/my-cards",
+      icon: <MdOutlineCreditCard />,
+    };
+  }
 
   if (myRequestsFlag) {
     sections.administrar.links["misSolicitudes"] = {

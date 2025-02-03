@@ -2,7 +2,7 @@ import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { CardMovementsUI } from "./interface";
@@ -18,7 +18,7 @@ function CardMovements() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -85,6 +85,10 @@ function CardMovements() {
       }
     }, 500);
   };
+
+  if (!getFlag("admin.cards.cards.my-cards").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <CardMovementsUI
