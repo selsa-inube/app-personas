@@ -1,18 +1,15 @@
-const DEFAULT_BUSINESS_UNIT = "fondecom";
-
 function getBusinessUnitSubdomain() {
   const hostname = window.location.hostname;
   const parts = hostname.split(".");
-  console.log(import.meta.env);
-  if (parts.length >= 3) {
-    if (parts[0].includes("-")) {
-      return DEFAULT_BUSINESS_UNIT;
-    }
 
+  if (parts.length >= 3) {
     return parts[0];
   }
 
-  return DEFAULT_BUSINESS_UNIT;
+  if (import.meta.env.DEV) {
+    return import.meta.env.VITE_DEV_BUNIT;
+  }
+  return "";
 }
 
 export { getBusinessUnitSubdomain };

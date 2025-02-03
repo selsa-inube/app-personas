@@ -10,13 +10,13 @@ import {
 const getHeader = (
   updateDataAssistedFlag: boolean,
   updateDataUnassistedFlag: boolean,
-  createPQRS: boolean,
+  withCreatePQRS: boolean,
   nav: INav,
   logoURL: string,
 ) => {
   const links = [];
 
-  if (createPQRS) {
+  if (withCreatePQRS) {
     links.push({
       label: "Crear PQRS",
       path: "/my-pqrs/create",
