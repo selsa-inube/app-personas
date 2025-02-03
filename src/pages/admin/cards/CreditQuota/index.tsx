@@ -4,7 +4,7 @@ import { useAuth } from "@inube/auth";
 import { IOption } from "@inubekit/inubekit";
 import jsPDF from "jspdf";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { formatSecondaryDate } from "src/utils/dates";
@@ -32,7 +32,7 @@ function CreditQuota() {
   const [showActionsModal, setShowActionsModal] = useState(false);
   const navigate = useNavigate();
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -239,6 +239,10 @@ function CreditQuota() {
       },
     );
   };
+
+  if (!getFlag("admin.cards.cards.my-cards").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <>

@@ -28,6 +28,7 @@ function Page(props: PageProps) {
 
   const isTablet = useMediaQuery("(min-width: 900px)");
 
+  const withMyCards = getFlag("admin.cards.cards.my-cards").value;
   const withSavingRequest = getFlag(
     "admin.savings.savings.request-saving",
   ).value;
@@ -50,6 +51,7 @@ function Page(props: PageProps) {
   ).value;
 
   const mobileNav = getMobileNav(
+    withMyCards,
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
@@ -63,6 +65,7 @@ function Page(props: PageProps) {
   );
 
   const nav = getNav(
+    withMyCards,
     withSavingRequest,
     withCreditRequest,
     withEventRequest,

@@ -1,7 +1,7 @@
 import { useAuth } from "@inube/auth";
 import { IOption } from "@inubekit/inubekit";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { SavingsContext } from "src/context/savings";
@@ -28,7 +28,7 @@ function Card() {
     useContext(CardsContext);
   const { savings } = useContext(SavingsContext);
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
   const navigate = useNavigate();
   const [loadingCards, setLoadingCards] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ISelectedProductState>(
@@ -204,6 +204,10 @@ function Card() {
       show: !prevState.show,
     }));
   };
+
+  if (!getFlag("admin.cards.cards.my-cards").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <CardUI

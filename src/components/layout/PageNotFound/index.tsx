@@ -25,6 +25,7 @@ function PageNotFound() {
   const isTablet = useMediaQuery("(min-width: 900px)");
   const isMobile = useMediaQuery("(max-width: 550px)");
 
+  const withMyCards = getFlag("admin.cards.cards.my-cards").value;
   const withSavingRequest = getFlag(
     "admin.savings.savings.request-saving",
   ).value;
@@ -47,6 +48,7 @@ function PageNotFound() {
   ).value;
 
   const mobileNav = getMobileNav(
+    withMyCards,
     withSavingRequest,
     withCreditRequest,
     withEventRequest,
@@ -60,6 +62,7 @@ function PageNotFound() {
   );
 
   const nav = getNav(
+    withMyCards,
     withSavingRequest,
     withCreditRequest,
     withEventRequest,

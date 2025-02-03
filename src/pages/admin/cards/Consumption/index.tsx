@@ -3,7 +3,7 @@ import { useAuth } from "@inube/auth";
 import { useContext, useEffect, useState } from "react";
 
 import { IOption } from "@inubekit/inubekit";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "src/context/app";
 import { CardsContext } from "src/context/cards";
 import { ConsumptionUI } from "./interface";
@@ -18,7 +18,7 @@ function Consumption() {
   const [productsOptions, setProductsOptions] = useState<IOption[]>([]);
   const { creditQuotaDetail, setCreditQuotaDetail } = useContext(CardsContext);
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -73,6 +73,10 @@ function Consumption() {
       `/my-cards/${card_id}/credit-quota/${credit_quota_id}/consumption/${value}`,
     );
   };
+
+  if (!getFlag("admin.cards.cards.my-cards").value) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <ConsumptionUI
