@@ -146,7 +146,7 @@ function AppProvider(props: AppProviderProps) {
     <AppContext.Provider value={appContext}>
       <Helmet>
         <title>{enviroment.CLIENT_NAME} - Personas</title>
-        <link rel="icon" type="image/png" href={theme?.images.icons["64"]} />
+        <link rel="icon" type="image/png" href={theme?.images.icons["16"]} />
       </Helmet>
       {children}
     </AppContext.Provider>
