@@ -18,6 +18,7 @@ interface MyPQRSUIProps {
   loading: boolean;
   totalRecords: number;
   visibleRecordsCount: number;
+  withCreatePQRS: boolean;
   onNavigateToDetails: (id: string) => void;
   onLoadMore: () => void;
 }
@@ -28,6 +29,7 @@ function MyPQRSUI(props: MyPQRSUIProps) {
     loading,
     totalRecords,
     visibleRecordsCount,
+    withCreatePQRS,
     onNavigateToDetails,
     onLoadMore,
   } = props;
@@ -52,22 +54,25 @@ function MyPQRSUI(props: MyPQRSUIProps) {
         }
       >
         <Stack direction="column" gap={inube.spacing.s300}>
-          <Stack
-            justifyContent="flex-end"
-            alignItems="flex-end"
-            gap={inube.spacing.s150}
-          >
-            <Button
-              appearance="primary"
-              variant="filled"
-              spacing="compact"
-              iconBefore={<MdAdd />}
-              type="link"
-              path="/my-pqrs/create"
+          {withCreatePQRS && (
+            <Stack
+              justifyContent="flex-end"
+              alignItems="flex-end"
+              gap={inube.spacing.s150}
             >
-              Crear PQRS
-            </Button>
-          </Stack>
+              <Button
+                appearance="primary"
+                variant="filled"
+                spacing="compact"
+                iconBefore={<MdAdd />}
+                type="link"
+                path="/my-pqrs/create"
+              >
+                Crear PQRS
+              </Button>
+            </Stack>
+          )}
+
           {loading ? (
             <StyledContainer>
               {Array.from({ length: 4 }).map((_, index) => (

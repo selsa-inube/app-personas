@@ -1,16 +1,16 @@
-import { useState, useEffect, useContext } from "react";
-import { MyPQRSUI } from "./interface";
+import { useAuth } from "@inube/auth";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "src/context/app";
-import { useAuth } from "@inube/auth";
-import { getPqrsHistory } from "src/services/iclient/pqrs/getPqrsHistory";
 import { IPQRS } from "src/model/entity/pqrs";
+import { getPqrsHistory } from "src/services/iclient/pqrs/getPqrsHistory";
+import { MyPQRSUI } from "./interface";
 
 const RECORDS_INCREMENT = 4;
 
 function MyPQRS() {
   const { accessToken } = useAuth();
-  const { user } = useContext(AppContext);
+  const { user, getFlag } = useContext(AppContext);
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
@@ -25,8 +25,6 @@ function MyPQRS() {
         try {
           const data = await getPqrsHistory(user.identification, accessToken);
           setPqrsRequests(data);
-        } catch (error) {
-          console.error("Error al obtener el historico de pqrs", error);
         } finally {
           setLoading(false);
         }
@@ -47,12 +45,15 @@ function MyPQRS() {
   const visibleRequests = pqrsRequests.slice(0, visibleRecordsCount);
   const totalRecords = pqrsRequests.length;
 
+  const withCreatePQRS = getFlag("general.links.pqrs.create-pqrs").value;
+
   return (
     <MyPQRSUI
       pqrsRequests={visibleRequests}
       loading={loading}
       totalRecords={totalRecords}
       visibleRecordsCount={visibleRecordsCount}
+      withCreatePQRS={withCreatePQRS}
       onNavigateToDetails={handleNavigateToPqrsDetails}
       onLoadMore={handleLoadMoreRecords}
     />
