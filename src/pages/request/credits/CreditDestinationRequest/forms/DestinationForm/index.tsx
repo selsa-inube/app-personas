@@ -66,6 +66,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     });
 
     formik.setFieldValue("product", undefined);
+    formik.setFieldValue("products", []);
 
     if (value === "other") {
       const newValidationSchema = dynamicValidationSchema.concat(

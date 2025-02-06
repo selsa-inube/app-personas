@@ -1,6 +1,6 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { getHeader } from "@config/header";
-import { getActions, getMobileNav, getNav } from "@config/nav";
+import { getActions, getMobileNav, useNav } from "@config/nav";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { Grid, Nav } from "@inubekit/inubekit";
@@ -64,7 +64,7 @@ function Page(props: PageProps) {
     withCertificationsRequests,
   );
 
-  const nav = getNav(
+  const nav = useNav(
     withMyCards,
     withSavingRequest,
     withCreditRequest,

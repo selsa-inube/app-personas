@@ -1,6 +1,6 @@
 import { DecisionModal } from "@components/modals/general/DecisionModal";
 import { getHeader } from "@config/header";
-import { getActions, getMobileNav, getNav } from "@config/nav";
+import { getActions, getMobileNav, useNav } from "@config/nav";
 import { Header } from "@design/navigation/Header";
 import { inube } from "@design/tokens";
 import { useMediaQuery } from "@hooks/useMediaQuery";
@@ -61,7 +61,7 @@ function PageNotFound() {
     withCertificationsRequests,
   );
 
-  const nav = getNav(
+  const nav = useNav(
     withMyCards,
     withSavingRequest,
     withCreditRequest,
