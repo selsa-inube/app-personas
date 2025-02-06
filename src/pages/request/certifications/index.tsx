@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { useAuth } from "@inube/auth";
 import { certificationsRequestMock } from "@mocks/certifications/certificationsRequest.mocks";
 import jsPDF from "jspdf";
@@ -8,10 +9,10 @@ import { CreditsContext } from "src/context/credits";
 import { SavingsContext } from "src/context/savings";
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
+import { useTheme } from "styled-components";
 import { getAccountStatementDocument } from "./AccountStatementDocument/utilRenders";
 import { CertificationRequestUI } from "./interface";
 import { IAccountStatement } from "./types";
-import { enviroment } from "@config/enviroment";
 
 function CertificationRequest() {
   const { user } = useContext(AppContext);
@@ -20,6 +21,8 @@ function CertificationRequest() {
   const { cards } = useContext(CardsContext);
   const { credits } = useContext(CreditsContext);
   const [certifications, setCertifications] = useState<IAccountStatement[]>([]);
+
+  const theme = useTheme();
 
   useEffect(() => {
     setCertifications(certificationsRequestMock);
@@ -52,6 +55,7 @@ function CertificationRequest() {
         commitments,
         credits,
         accessToken,
+        theme.images.logo,
       );
 
       convertHTMLToPDF(

@@ -3,7 +3,6 @@ import { StyledLogo } from "@design/navigation/Header/styles";
 import { inube } from "@design/tokens";
 import { Grid, Stack, Text } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
-import { useTheme } from "styled-components";
 
 interface AmortizationDocumentProps {
   productName: string;
@@ -15,6 +14,7 @@ interface AmortizationDocumentProps {
   periodicity: string;
   paymentMethod: string;
   tableElement?: React.JSX.Element;
+  logoUrl: string;
 }
 
 function AmortizationDocument(props: AmortizationDocumentProps) {
@@ -28,9 +28,8 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
     periodicity,
     paymentMethod,
     tableElement,
+    logoUrl,
   } = props;
-
-  const theme = useTheme();
 
   return (
     <Stack
@@ -40,7 +39,7 @@ function AmortizationDocument(props: AmortizationDocumentProps) {
       direction="column"
     >
       <Stack justifyContent="flex-start" width="100%">
-        <StyledLogo src={theme.images.logo} />
+        <StyledLogo src={logoUrl} />
       </Stack>
 
       <Stack

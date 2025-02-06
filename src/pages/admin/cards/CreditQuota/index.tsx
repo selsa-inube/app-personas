@@ -18,6 +18,7 @@ import {
   validateCreditQuotaDetail,
   validateCreditQuotas,
 } from "./utils";
+import { useTheme } from "styled-components";
 
 function CreditQuota() {
   const { card_id, credit_quota_id } = useParams();
@@ -33,6 +34,7 @@ function CreditQuota() {
   const navigate = useNavigate();
   const { accessToken } = useAuth();
   const { user, getFlag } = useContext(AppContext);
+  const theme = useTheme();
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -155,6 +157,7 @@ function CreditQuota() {
       selectedProduct,
       creditQuotas,
       cards,
+      theme.images.logo,
     );
 
     if (!creditLimitDocument) {
@@ -222,6 +225,7 @@ function CreditQuota() {
       selectedProduct,
       creditQuotas,
       cards,
+      theme.images.logo,
     );
 
     if (!creditLimitDocument) {

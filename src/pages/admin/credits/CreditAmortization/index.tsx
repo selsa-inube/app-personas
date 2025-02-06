@@ -35,6 +35,7 @@ import {
   renderAmortizationTable,
 } from "./utilRenders";
 import { validateCreditsAndAmortization } from "./utils";
+import { useTheme } from "styled-components";
 
 function CreditAmortization() {
   const { credit_id } = useParams();
@@ -49,6 +50,8 @@ function CreditAmortization() {
   const { accessToken } = useAuth();
   const { user } = useContext(AppContext);
   const [showExportModal, setShowExportModal] = useState(false);
+
+  const theme = useTheme();
 
   const crumbsAmortization = [
     {
@@ -128,7 +131,9 @@ function CreditAmortization() {
 
     convertHTMLToPDF(
       doc,
-      convertJSXToHTML(getAmortizationDocument(selectedProduct)),
+      convertJSXToHTML(
+        getAmortizationDocument(selectedProduct, theme.images.logo),
+      ),
       [16, 0, 16, 0],
       (pdf) => {
         pdf.save(`plan-de-pagos-${formatSecondaryDate(today, true)}.pdf`);
@@ -150,7 +155,9 @@ function CreditAmortization() {
 
     convertHTMLToPDF(
       doc,
-      convertJSXToHTML(getAmortizationDocument(selectedProduct)),
+      convertJSXToHTML(
+        getAmortizationDocument(selectedProduct, theme.images.logo),
+      ),
       [16, 0, 16, 0],
       (pdf) => {
         const pdfBlob = pdf.output("blob");

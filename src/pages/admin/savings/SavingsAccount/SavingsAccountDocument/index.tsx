@@ -18,7 +18,6 @@ import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { StyledCardContainer, StyledLogo } from "./styles";
 import { savingsAccountDocumentTitles } from "./tables";
-import { useTheme } from "styled-components";
 
 interface SavingsAccountDocumentProps {
   username: string;
@@ -35,6 +34,7 @@ interface SavingsAccountDocumentProps {
   commitmentValue: string;
   commitmentNextPaymentValue: number;
   commitmentDate: string;
+  logoUrl: string;
 }
 
 const today = new Date();
@@ -55,9 +55,8 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
     commitmentValue,
     commitmentNextPaymentValue,
     commitmentDate,
+    logoUrl,
   } = props;
-
-  const theme = useTheme();
 
   return (
     <Stack
@@ -99,7 +98,7 @@ function SavingsAccountDocument(props: SavingsAccountDocumentProps) {
               ))}
             </Stack>
           </Stack>
-          <StyledLogo src={theme.images.logo} />
+          <StyledLogo src={logoUrl} />
         </Stack>
       </Stack>
 

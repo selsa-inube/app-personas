@@ -40,7 +40,10 @@ const renderAmortizationTable = (
   );
 };
 
-const getAmortizationDocument = (selectedProduct: ISelectedProductState) => {
+const getAmortizationDocument = (
+  selectedProduct: ISelectedProductState,
+  logoUrl: string,
+) => {
   const amortizationTable = renderAmortizationTable(selectedProduct, true);
   const documentAttributes = selectedProduct.credit.attributes;
 
@@ -65,6 +68,7 @@ const getAmortizationDocument = (selectedProduct: ISelectedProductState) => {
       periodicity={periodicity?.value.toString() || ""}
       paymentMethod={paymentMethod?.value.toString() || ""}
       tableElement={amortizationTable}
+      logoUrl={logoUrl}
     />
   );
 };

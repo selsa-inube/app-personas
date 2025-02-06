@@ -1,3 +1,4 @@
+import { enviroment } from "@config/enviroment";
 import { useMediaQuery } from "@hooks/useMediaQuery";
 import { useAuth } from "@inube/auth";
 import { IOption, useFlag } from "@inubekit/inubekit";
@@ -22,6 +23,7 @@ import { IModifyQuotaProgrammedSavingRequest } from "src/services/iclient/saving
 import { formatSecondaryDate } from "src/utils/dates";
 import { convertHTMLToPDF, convertJSXToHTML } from "src/utils/print";
 import { extractAttribute } from "src/utils/products";
+import { useTheme } from "styled-components";
 import { SavingsAccountUI } from "./interface";
 import {
   IBeneficiariesModalState,
@@ -34,7 +36,6 @@ import {
   getSavingsAccountDocument,
 } from "./utilRenders";
 import { validateSaving } from "./utils";
-import { enviroment } from "@config/enviroment";
 
 function SavingsAccount() {
   const { product_id } = useParams();
@@ -73,6 +74,7 @@ function SavingsAccount() {
 
   const { getFlag } = useContext(AppContext);
   const { addFlag } = useFlag();
+  const theme = useTheme();
 
   const isMobile = useMediaQuery("(max-width: 750px)");
 
@@ -357,7 +359,9 @@ function SavingsAccount() {
 
     convertHTMLToPDF(
       doc,
-      convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
+      convertJSXToHTML(
+        getCdatCertificateDocument(selectedProduct, user, theme.images.logo),
+      ),
       [16, 0, 16, 0],
       (pdf) => {
         pdf.save(
@@ -381,7 +385,9 @@ function SavingsAccount() {
 
     convertHTMLToPDF(
       doc,
-      convertJSXToHTML(getCdatCertificateDocument(selectedProduct, user)),
+      convertJSXToHTML(
+        getCdatCertificateDocument(selectedProduct, user, theme.images.logo),
+      ),
       [16, 0, 16, 0],
       (pdf) => {
         const pdfBlob = pdf.output("blob");
@@ -430,7 +436,12 @@ function SavingsAccount() {
     convertHTMLToPDF(
       doc,
       convertJSXToHTML(
-        getSavingsAccountDocument(user, selectedProduct, commitments),
+        getSavingsAccountDocument(
+          user,
+          selectedProduct,
+          commitments,
+          theme.images.logo,
+        ),
       ),
       [16, 0, 16, 0],
       (pdf) => {

@@ -15,7 +15,7 @@ import { IBeneficiary } from "src/model/entity/user";
 import { getRequirementsForProduct } from "src/services/iclient/productRequest/getRequirements";
 import { SystemValidationsFormUI } from "./interface";
 import { IMoneySourceValid, ISystemValidationsEntry } from "./types";
-import { buildRequestData, loadingValidations } from "./utils";
+import { buildRequestData } from "./utils";
 
 interface SystemValidationsFormProps {
   initialValues: ISystemValidationsEntry;
@@ -90,12 +90,12 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
   };
 
   useEffect(() => {
-    if (
+    /* if (
       JSON.stringify(formik.values.validations) ===
       JSON.stringify(loadingValidations)
-    ) {
-      getRequirements();
-    }
+    ) { */
+    getRequirements();
+    /*  } */
   }, []);
 
   useEffect(() => {

@@ -1,12 +1,12 @@
-import { IUser } from "@inube/auth/dist/types/user";
-import { AccountStatementDocument } from ".";
-import { ISavingsState } from "src/context/savings/types";
 import { IEntry } from "@design/data/Table/types";
-import { currencyFormat } from "src/utils/currency";
+import { IUser } from "@inube/auth/dist/types/user";
+import { ISavingsState } from "src/context/savings/types";
 import { ICommitment, IProduct } from "src/model/entity/product";
+import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
+import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
 import { obfuscateCardNumberDocument } from "src/utils/texts";
-import { getDetailForCreditQuota } from "src/services/iclient/cards/getCreditQuotaDetail";
+import { AccountStatementDocument } from ".";
 
 const savingsAccount = (savings: ISavingsState): IEntry[] => {
   return savings.savingsAccounts.map((item) => {
@@ -192,6 +192,7 @@ const getAccountStatementDocument = async (
   commitments: ICommitment[],
   credits: IProduct[],
   accessToken: string,
+  logoUrl: string,
 ): Promise<React.JSX.Element> => {
   const userName =
     `${user.firstLastName} ${user.secondLastName} ${user.firstName} ${user.secondName}`
@@ -218,6 +219,7 @@ const getAccountStatementDocument = async (
       obligationsEntries={obligationsEntries}
       creditCardsEntries={creditCardsEntries}
       credits={credits}
+      logoUrl={logoUrl}
     />
   );
 };

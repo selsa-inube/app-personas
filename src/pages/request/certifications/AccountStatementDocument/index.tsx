@@ -24,7 +24,6 @@ import {
   savingsTableTitles,
 } from "../config/tables";
 import { StyledCardContainer, StyledLogo } from "./styles";
-import { useTheme } from "styled-components";
 
 const today = new Date();
 
@@ -39,6 +38,7 @@ interface AccountStatementDocumentProps {
   obligationsEntries: IEntry[];
   creditCardsEntries: IEntry[];
   credits: IProduct[];
+  logoUrl: string;
 }
 
 interface TableSectionProps {
@@ -120,9 +120,8 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
     obligationsEntries,
     creditCardsEntries,
     credits,
+    logoUrl,
   } = props;
-
-  const theme = useTheme();
 
   const creditAttributes = credits.map((item) => {
     const attributes = item.attributes;
@@ -197,7 +196,7 @@ function AccountStatementDocument(props: AccountStatementDocumentProps) {
               ))}
             </Stack>
           </Stack>
-          <StyledLogo src={theme.images.logo} />
+          <StyledLogo src={logoUrl} />
         </Stack>
       </Stack>
 

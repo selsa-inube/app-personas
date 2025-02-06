@@ -17,7 +17,6 @@ import {
 } from "@inubekit/inubekit";
 import { currencyFormat } from "src/utils/currency";
 import { formatPrimaryDate } from "src/utils/dates";
-import { useTheme } from "styled-components";
 import { creditQuotaTitles } from "../config/tables";
 import { StyledCardContainer, StyledDetailsCard, StyledLogo } from "./styles";
 
@@ -42,6 +41,7 @@ interface CreditLimitDocumentProps {
   minPayment: number;
   totalPayment: number;
   movementEntries: IEntry[];
+  logoUrl: string;
 }
 
 const today = new Date();
@@ -101,9 +101,8 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
     minPayment,
     totalPayment,
     movementEntries,
+    logoUrl,
   } = props;
-
-  const theme = useTheme();
 
   return (
     <Stack
@@ -145,7 +144,7 @@ function CreditLimitDocument(props: CreditLimitDocumentProps) {
               ))}
             </Stack>
           </Stack>
-          <StyledLogo src={theme.images.logo} />
+          <StyledLogo src={logoUrl} />
         </Stack>
       </Stack>
 

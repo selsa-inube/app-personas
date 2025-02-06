@@ -7,7 +7,6 @@ import { actionExpirationDM } from "src/model/domains/savings/actionExpirationDM
 import { currencyFormat } from "src/utils/currency";
 import { formatLetterDate, formatPrimaryDate } from "src/utils/dates";
 import { StyledLogo } from "./styles";
-import { useTheme } from "styled-components";
 
 const today = new Date();
 
@@ -23,6 +22,7 @@ interface CdatCertificateDocumentProps {
   periodicity: string;
   deadline: string;
   actionExpiration: string;
+  logoUrl: string;
 }
 
 function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
@@ -38,9 +38,8 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
     periodicity,
     deadline,
     actionExpiration,
+    logoUrl,
   } = props;
-
-  const theme = useTheme();
 
   return (
     <Stack
@@ -83,7 +82,7 @@ function CdatCertificateDocument(props: CdatCertificateDocumentProps) {
           </Stack>
         </Stack>
 
-        <StyledLogo src={theme.images.logo} />
+        <StyledLogo src={logoUrl} />
       </Stack>
 
       <Text type="body" size="small">

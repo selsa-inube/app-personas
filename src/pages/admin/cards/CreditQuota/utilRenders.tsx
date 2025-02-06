@@ -35,6 +35,7 @@ const getCreditLimitDocument = (
   selectedProduct: ISelectedProductState,
   creditQuotas: IProduct[],
   cards: IProduct[],
+  logoUrl: string,
 ) => {
   const fullName =
     `${user.firstLastName} ${user.secondLastName} ${user.firstName} ${user.secondName}`.toUpperCase();
@@ -122,6 +123,7 @@ const getCreditLimitDocument = (
       minPayment={minPayment}
       totalPayment={totalPayment}
       movementEntries={movementEntries}
+      logoUrl={logoUrl}
     />
   );
 };
