@@ -99,7 +99,7 @@ function CreditConditionsFormUI(props: CreditConditionsFormUIProps) {
                         Destinación:
                       </Text>
                       <Text type="body" size="medium" appearance="gray">
-                        {formik.values.destination?.value}
+                        {formik.values.destination?.label}
                       </Text>
                     </Stack>
                   </OutlineCard>

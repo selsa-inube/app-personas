@@ -63,6 +63,7 @@ const DestinationForm = forwardRef(function DestinationForm(
     formik.setFieldValue("destination", {
       id: destination?.id,
       value: destination?.value,
+      label: destination?.label,
     });
 
     formik.setFieldValue("product", undefined);
