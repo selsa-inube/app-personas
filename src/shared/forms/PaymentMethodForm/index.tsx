@@ -62,11 +62,6 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         onFormValid(Object.keys(errors).length === 0);
       });
     }
-
-    const paymentMethodTypes = ["7", "8", "25", "30", "61", "62", "CO"];
-    if (paymentMethodTypes.includes(formik.values.paymentMethodType)) {
-      onFormValid(true);
-    }
   }, [formik.values]);
 
   const savingOptions = savings.savingsAccounts
@@ -134,7 +129,6 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       validationSchema: initValidationSchema.concat(validationSchema),
     });
   };
-
 
   return (
     <PaymentMethodFormUI
