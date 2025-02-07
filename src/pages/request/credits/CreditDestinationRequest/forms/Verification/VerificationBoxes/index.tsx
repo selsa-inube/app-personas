@@ -24,7 +24,7 @@ const renderDestinationVerification = (
     gap={inube.spacing.s100}
     width="100%"
   >
-    <BoxAttribute label="Destino:" value={values.destination?.value} />
+    <BoxAttribute label="Destino:" value={values.destination?.label} />
     <BoxAttribute label="Producto:" value={values.product?.title} />
   </Grid>
 );

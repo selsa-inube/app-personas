@@ -39,7 +39,7 @@ const renderBeneficiariesVerification = (
       />
       <BoxAttribute
         label="Tipo:"
-        value={selectedBeneficiary?.relationship?.value}
+        value={selectedBeneficiary?.relationship?.label}
       />
     </Grid>
   );
