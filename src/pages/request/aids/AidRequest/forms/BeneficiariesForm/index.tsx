@@ -44,7 +44,12 @@ const BeneficiariesForm = forwardRef(function BeneficiariesForm(
   }, [formik.values.beneficiaries]);
 
   useEffect(() => {
-    if (!aid_id || !accessToken || formik.values.beneficiaries.length > 0)
+    if (
+      !aid_id ||
+      !accessToken ||
+      formik.values.beneficiaries.length > 0 ||
+      !user.identification
+    )
       return;
 
     getBeneficiariesForAid(aid_id, user.identification, accessToken).then(
