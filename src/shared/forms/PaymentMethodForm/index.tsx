@@ -13,6 +13,7 @@ import { SavingsContext } from "src/context/savings";
 import { EProductType } from "src/model/entity/product";
 import { getSavingsForUser } from "src/services/iclient/savings/getSavings";
 import { generateDynamicForm } from "src/utils/forms/forms";
+import { validationMessages } from "src/validations/validationMessages";
 import * as Yup from "yup";
 import { structurePaymentMethodForm } from "./config/form";
 import { PaymentMethodFormUI } from "./interface";
@@ -20,6 +21,7 @@ import { mapPaymentMethod } from "./mappers";
 import { IPaymentMethodEntry } from "./types";
 
 const initValidationSchema = Yup.object({
+  paymentMethodType: Yup.string().required(validationMessages.required),
   paymentMethod: Yup.string(),
 });
 
