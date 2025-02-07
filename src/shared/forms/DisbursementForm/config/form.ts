@@ -87,7 +87,8 @@ const getCommonFields = (
     label: "Numero de cuenta",
     size: "compact",
     options: savingsAccounts.map((product) => ({
-      value: product.description,
+      label: product.description,
+      value: product.id,
       id: product.id,
     })),
     fullwidth: true,
