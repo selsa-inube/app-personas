@@ -36,7 +36,7 @@ function BeneficiariesFormUI(props: BeneficiariesFormUIProps) {
             appearance="gray"
             title={beneficiary.name}
             description={`${beneficiary.identificationType} ${beneficiary.identificationNumber}`}
-            secondDescription={beneficiary.relationship?.value}
+            secondDescription={beneficiary.relationship?.label}
             checked={beneficiary.selected || false}
             onClick={() =>
               onSelectBeneficiary(beneficiary.identificationNumber)
