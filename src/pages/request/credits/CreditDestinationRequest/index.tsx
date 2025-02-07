@@ -119,7 +119,8 @@ function CreditDestinationRequest() {
     if (
       !accessToken ||
       (creditDestinationRequest.destination.values.destination &&
-        creditDestinationRequest.destination.values.product)
+        creditDestinationRequest.destination.values.product) ||
+      !user.identification
     )
       return;
 
