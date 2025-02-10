@@ -91,7 +91,7 @@ const renderPaymentMethodVerification = (
         value={
           paymentMethods.find(
             (paymentMethod) => paymentMethod.id === values.paymentMethod,
-          )?.value
+          )?.label
         }
       />
     ) : (
@@ -101,7 +101,7 @@ const renderPaymentMethodVerification = (
           value={
             paymentMethods.find(
               (paymentMethod) => paymentMethod.id === values.paymentMethod,
-            )?.value
+            )?.label
           }
         />
 
@@ -110,20 +110,18 @@ const renderPaymentMethodVerification = (
           value={currencyFormat(values.valueToPay)}
         />
 
-        {Object.values(values.moneySources || {}).map(
-          (moneySource) =>
-            moneySource.value &&
-            moneySource.value > 0 && (
-              <BoxAttribute
-                key={moneySource.id}
-                label={
-                  moneySource.type === EMoneySourceType.SAVINGACCOUNT
-                    ? `${moneySource.label} - ${moneySource.id}`
-                    : moneySource.label
-                }
-                value={currencyFormat(moneySource.value)}
-              />
-            ),
+        {Object.values(values.moneySources || {}).map((moneySource) =>
+          moneySource.value && moneySource.value > 0 ? (
+            <BoxAttribute
+              key={moneySource.id}
+              label={
+                moneySource.type === EMoneySourceType.SAVINGACCOUNT
+                  ? `${moneySource.label} - ${moneySource.id}`
+                  : moneySource.label
+              }
+              value={currencyFormat(moneySource.value)}
+            />
+          ) : undefined,
         )}
       </>
     )}
