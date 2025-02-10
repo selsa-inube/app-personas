@@ -16,7 +16,9 @@ const mapActionsApiToEntities = (
 ): IOption[] => {
   const actionList = Object(actions).actions;
   return Array.isArray(actionList)
-    ? actionList.map((action) => mapActionApiToEntity(action))
+    ? actionList
+        .map((action) => mapActionApiToEntity(action))
+        .filter((action) => !!action.label)
     : [];
 };
 
