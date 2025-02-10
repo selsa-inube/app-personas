@@ -72,20 +72,23 @@ const SystemValidationsForm = forwardRef(function SystemValidationsForm(
 
     getRequirementsForProduct(requirementsRequest, accessToken)
       .then((requirements) => {
-        if (!requirements) return;
+        if (!requirements) {
+          formik.setFieldValue("validations", []);
+          return;
+        }
 
         formik.setFieldValue("validations", requirements.validations);
 
         formik.setFieldValue("documents", requirements.documents);
-
-        setLoadingValids(false);
       })
       .catch(() => {
         formik.setFieldValue("validations", []);
-        setLoadingValids(false);
 
         if (!test) return;
         formik.setFieldValue("validations", systemValidationsMock);
+      })
+      .finally(() => {
+        setLoadingValids(false);
       });
   };
 
