@@ -13,7 +13,7 @@ const getDetailsPqrs = async (
 
   const queryParams = new URLSearchParams({
     clientCode: userIdentification,
-    PQRSId: pqrsId,
+    pqrsId: pqrsId,
   });
 
   const requestUrl = `${enviroment.ICLIENT_API_URL_QUERY}/pqrs?${queryParams.toString()}`;
