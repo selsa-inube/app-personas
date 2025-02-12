@@ -125,6 +125,7 @@ function PageNotFound() {
             navigation={nav}
             actions={actions}
             footerLabel={`©${year} - Inube`}
+            collapse
           />
         )}
         <StyledMain>

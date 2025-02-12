@@ -129,6 +129,7 @@ function Page(props: PageProps) {
               navigation={nav}
               actions={actions}
               footerLabel={`©${year} - Inube`}
+              collapse
             />
           )}
           <StyledMain>
