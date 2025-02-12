@@ -98,7 +98,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
       formik.setValues({
         ...initialValues,
         disbursement: disbursement.id,
-        disbursementName: disbursement.value,
+        disbursementName: disbursement.label,
         disbursements,
       });
 
@@ -115,7 +115,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
           values: {
             ...initialValues,
             disbursement: disbursement.id,
-            disbursementName: disbursement.value,
+            disbursementName: disbursement.label,
           },
         },
         structureDisbursementForm(
@@ -217,7 +217,7 @@ const DisbursementForm = forwardRef(function DisbursementForm(
         ...initialValues,
         disbursements: formik.values.disbursements,
         disbursement: disbursement.id,
-        disbursementName: disbursement.value,
+        disbursementName: disbursement.label,
       };
 
       if (

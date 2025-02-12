@@ -75,7 +75,7 @@ const ActionExpirationForm = forwardRef(function ActionExpirationForm(
 
     if (actionsExpiration.length === 1) {
       formik.setFieldValue("actionExpiration", actionsExpiration[0].id);
-      formik.setFieldValue("actionExpirationName", actionsExpiration[0].value);
+      formik.setFieldValue("actionExpirationName", actionsExpiration[0].label);
     }
   };
 

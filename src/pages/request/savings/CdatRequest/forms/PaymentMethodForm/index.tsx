@@ -74,7 +74,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
     if (paymentMethods.length === 1) {
       const paymentMethod = paymentMethods[0];
       formik.setFieldValue("paymentMethod", paymentMethod.id);
-      formik.setFieldValue("paymentMethodName", paymentMethod.value);
+      formik.setFieldValue("paymentMethodName", paymentMethod.label);
 
       const { renderFields, validationSchema } = generateDynamicForm(
         formik,
@@ -122,7 +122,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
       const updatedValues = {
         ...formik.values,
         paymentMethod: paymentMethod.id,
-        paymentMethodName: paymentMethod.value,
+        paymentMethodName: paymentMethod.label,
       };
 
       if (
@@ -168,7 +168,7 @@ const PaymentMethodForm = forwardRef(function PaymentMethodForm(
         const updatedValues = {
           ...formik.values,
           paymentMethod: paymentMethod.id,
-          paymentMethodName: paymentMethod.value,
+          paymentMethodName: paymentMethod.label,
         };
 
         if (

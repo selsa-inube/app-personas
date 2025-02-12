@@ -70,7 +70,7 @@ const creditDestinationStepsRules = (
             ...mapSystemValidations(),
             validations: loadingValidations,
             destinationId: values.destination?.id || "",
-            destinationName: values.destination?.value || "",
+            destinationName: values.destination?.label || "",
             productId: values.product.id,
             productName: values.product.title,
             paymentMethod: values.paymentMethod?.id || "",
